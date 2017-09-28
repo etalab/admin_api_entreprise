@@ -21,4 +21,24 @@ describe User, type: :model do
       expect(user.errors[:email].size).to eq 1
     end
   end
+
+  describe '#roles association' do
+    let(:user_with_roles) { create(:user_with_roles) }
+
+    it 'has many roles' do
+      expect(user_with_roles.roles.size).to be >= 1
+    end
+
+    it 'roles can be added' do
+      role = create :role
+      user_with_roles.roles << role
+      expect(user_with_roles.roles.size).to eq 4
+    end
+
+    it 'keeps associated roles on destroy' do
+      roles_id = user_with_roles.role_ids
+      user_with_roles.destroy
+      expect(Role.where id: roles_id).to be
+    end
+  end
 end
