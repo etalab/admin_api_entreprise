@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :user do
-    email "coucou@example.com"
+    email 'coucou@example.com'
+    token 'token'
 
     factory :user_with_roles do
 

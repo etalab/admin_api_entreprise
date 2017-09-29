@@ -35,10 +35,18 @@ describe User, type: :model do
       expect(user_with_roles.roles.size).to eq 4
     end
 
-    it 'keeps associated roles on destroy' do
+    it 'keeps older associated roles on destroy' do
       roles_id = user_with_roles.role_ids
       user_with_roles.destroy
       expect(Role.where id: roles_id).to be
+    end
+  end
+
+  describe '#token' do
+    it 'can\'t be nil' do
+      user.token = nil
+      user.valid?
+      expect(user.errors[:token].size).to eq 1
     end
   end
 end
