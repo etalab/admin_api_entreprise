@@ -45,8 +45,15 @@ describe User, type: :model do
   describe '#token' do
     it 'can\'t be nil' do
       user.token = nil
-      user.valid?
-      expect(user.errors[:token].size).to eq 1
+      expect(user.valid?).to be true
+    end
+
+    context 'token creation' do
+      it 'is compute on user save' do
+        user.token = nil
+        user.save
+        expect(user.token).to be_a String
+      end
     end
   end
 end
