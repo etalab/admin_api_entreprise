@@ -25,7 +25,16 @@ class UsersController < ApplicationController
   def update
     begin
       user = User.find(filtered_params[:id])
-      user.update!(filtered_params)
+
+      roles_id = filtered_params.delete :roles
+      if roles_id.present?
+        roles = Role.where id: roles_id
+        user.roles << roles
+        user.set_token
+      end
+
+      # TODO RSpec does not delete the :roles key from filtered_params
+      user.update!(updating_params)
       render json: user, status: 200
     rescue ActiveRecord::RecordNotFound
       render json: {}, status: 404
@@ -46,6 +55,10 @@ class UsersController < ApplicationController
   private
 
     def filtered_params
+      params.permit(:id, :email, { roles: [] })
+    end
+
+    def updating_params
       params.permit(:id, :email)
     end
 end

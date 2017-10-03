@@ -78,6 +78,20 @@ describe UsersController, type: :controller do
         expect(response.code).to eq "200"
         expect(body[:email]).to eq updated_email
       end
+
+      it 'cannot update the token' do
+        old_token = user.token
+        put :update, params: { id: user.id, token: 'new_token' }
+        expect(user.reload.token).to eq old_token
+      end
+
+      # Would have prefer it into model logic, but hard to implement and kind of a business rule
+      it 'updates the token when roles are updated' do
+        role = create :role
+        old_token = user.token
+        put :update, params: { id: user.id, roles: [role.id] }
+        expect(user.reload.token).not_to eq old_token
+      end
     end
   end
 

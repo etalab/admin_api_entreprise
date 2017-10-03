@@ -60,6 +60,9 @@ guard :rspec, cmd: "spring rspec" do
   rescue LoadError
   end
 
+  # lib folder files
+  watch(%r{^lib/(.+)\.rb$}) { |m| "spec/lib/#{m[1]}_spec.rb" }
+
   # Rails config changes
   watch(rails.spec_helper)     { rspec.spec_dir }
   watch(rails.routes)          { "#{rspec.spec_dir}/routing" }

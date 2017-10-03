@@ -43,17 +43,19 @@ describe User, type: :model do
   end
 
   describe '#token' do
-    it 'can\'t be nil' do
-      user.token = nil
-      expect(user.valid?).to be true
+    it 'is set before save' do
+      new_user = build :user, email: 'new@record.gg', token: nil
+      new_user.save
+      expect(new_user.token).to be_a String
     end
 
-    context 'token creation' do
-      it 'is compute on user save' do
-        user.token = nil
-        user.save
-        expect(user.token).to be_a String
-      end
+    it 'contains access authorization based on user roles' do
+      user = create :user # :user factory has no roles
+      user.roles << create(:role)
+      user.set_token
+      user.save
+      user_scope = AccessToken.get_scope user.token
+      expect(user_scope).to eq user.roles.map(&:name)
     end
   end
 end

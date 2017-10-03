@@ -8,11 +8,20 @@ class User < ApplicationRecord
 
   before_validation :ensure_token_has_value
 
+  def set_token
+    # See JWT claims documentation
+    iat = Time.now.to_i
+    payload = { scope: get_scope, iat: iat }
+    self.token = AccessToken.create payload
+  end
+
   private
 
     def ensure_token_has_value
-      unless self.token.present?
-        self.token = 'temporarytoken'
-      end
+      set_token unless self.token.present?
+    end
+
+    def get_scope
+      self.roles.map(&:name)
     end
 end
