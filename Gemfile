@@ -26,8 +26,10 @@ gem 'puma', '~> 3.7'
 # gem 'rack-cors'
 
 gem 'jwt', '~> 2.0'
+gem 'mina', '~> 1.2'
 
 group :development, :test do
+  gem 'colorize'
   gem 'pry'
   gem 'spring-commands-rspec'
   gem 'rspec-rails'
