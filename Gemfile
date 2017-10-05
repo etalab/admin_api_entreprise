@@ -26,7 +26,6 @@ gem 'puma', '~> 3.7'
 # gem 'rack-cors'
 
 gem 'jwt', '~> 2.0'
-gem 'mina', '~> 1.2'
 
 group :development, :test do
   gem 'colorize'
@@ -35,7 +34,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec'
   gem 'factory_girl_rails'
-  gem 'rb-fsevent' if `uname` =~ /Darwin/
 end
 
 group :development do
@@ -43,6 +41,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'mina', '~> 1.2'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
