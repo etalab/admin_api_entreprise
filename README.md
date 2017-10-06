@@ -1,24 +1,24 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Déploiements à l'aide de Mina
 
-Things you may want to cover:
+Il peut être nécessaire que mina exécute ses commandes dans un shell intéractif,
+cela peut notamment permettre de taper 'yes' si SSH demande l'ajout de l'hôte à
+la liste known_hosts.
+Pour cela, ajouter la config suivante dans le fichier `config/deploy.rb` :
 
-* Ruby version
+    set :execution_mode, 'system'
 
-* System dependencies
+Pour déployer le projet :
 
-* Configuration
+    bundle exec mina deploy to=sandbox|production
 
-* Database creation
+### Paramètres d'environnements
 
-* Database initialization
+Les fichiers suivants ne sont pas déployés par mina. Ils contiennent des
+variables d'environnements qui doivent être déployées au préalable par Ansible
+sur les machines de production.
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* `config/database.yml`
+* `config/secrets.yml`
+* `config/environments/rails_env.rb`
