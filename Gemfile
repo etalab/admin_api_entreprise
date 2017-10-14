@@ -22,9 +22,6 @@ gem 'puma', '~> 3.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
-
 gem 'jwt', '~> 2.0'
 
 group :development, :test do
@@ -42,6 +39,9 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'mina', '~> 1.2'
+
+  # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
+  gem 'rack-cors'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
