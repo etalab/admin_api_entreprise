@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :role do
-    name "Role test"
+    sequence(:name) { |n| "Role #{n}" }
+    sequence(:code, 0) { |n| "x#{n}x" }
   end
 end

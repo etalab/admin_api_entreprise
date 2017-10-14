@@ -23,6 +23,7 @@ gem 'puma', '~> 3.7'
 # gem 'capistrano-rails', group: :development
 
 gem 'jwt', '~> 2.0'
+gem 'active_model_serializers', '~> 0.10.0'
 
 group :development, :test do
   gem 'colorize'
