@@ -20,42 +20,61 @@ describe User, type: :model do
       user.valid?
       expect(user.errors[:email].size).to eq 1
     end
-  end
 
-  describe '#roles association' do
-    let(:user_with_roles) { create(:user_with_roles) }
-
-    it 'has many roles' do
-      expect(user_with_roles.roles.size).to be >= 1
-    end
-
-    it 'roles can be added' do
-      role = create :role
-      user_with_roles.roles << role
-      expect(user_with_roles.roles.size).to eq 4
-    end
-
-    it 'keeps older associated roles on destroy' do
-      roles_id = user_with_roles.role_ids
-      user_with_roles.destroy
-      expect(Role.where id: roles_id).to be
+    it 'is unique' do
+      another_user = build(:user, email: user.email)
+      another_user.valid?
+      expect(another_user.errors['email'].size).to eq 1
     end
   end
 
-  describe '#token' do
-    it 'is set before save' do
-      new_user = build :user, email: 'new@record.gg', token: nil
-      new_user.save
-      expect(new_user.token).to be_a String
+  describe '#user_type' do
+    it 'is required' do
+      user.user_type = nil
+      user.valid?
+      expect(user.errors[:user_type].size).to be >= 1
     end
 
-    it 'contains access authorization based on user roles' do
-      user = create :user # :user factory has no roles
-      user.roles << create(:role)
-      user.set_token
-      user.save
-      user_scope = AccessToken.get_scope user.token
-      expect(user_scope).to eq user.roles.map(&:name)
+    it 'accepts "client" as value' do
+      user.user_type = 'client'
+      expect(user.valid?).to be true
+    end
+
+    it 'accepts "provider" as value' do
+      user.user_type = 'provider'
+      expect(user.valid?).to be true
+    end
+
+    it 'does not accept another value' do
+      user.user_type = "another value"
+      user.valid?
+      expect(user.errors[:user_type].size).to eq 1
+    end
+  end
+
+  describe '#context' do
+    context 'when #user_type is provider' do
+      let(:user_provider) { create(:user, user_type: 'provider') }
+
+      it 'is not required' do
+        user_provider.context = ''
+        expect(user_provider.valid?).to be true
+      end
+
+      it 'can be filled' do
+        user_provider.context = "wow such context"
+        expect(user_provider.valid?).to be true
+      end
+    end
+
+    context 'when #user_type is client' do
+      let(:user_client) { build(:user, user_type: 'client') }
+
+      it 'is required' do
+        user_client.context = ''
+        user_client.valid?
+        expect(user_client.errors[:context].size).to eq 1
+      end
     end
   end
 end

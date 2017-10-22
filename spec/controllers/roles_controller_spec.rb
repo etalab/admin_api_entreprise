@@ -12,7 +12,7 @@ describe RolesController, type: :controller do
       body = JSON.parse(response.body, symbolize_names: true)
 
       expect(response.code).to eq "200"
-      expect(body.size).to eq nb_roles.size
+      expect(body.size).to eq nb_roles
     end
 
     it 'returns the right payload format' do
@@ -29,6 +29,7 @@ describe RolesController, type: :controller do
 
   describe '#create' do
     context 'when data are valid' do
+      # getting attributes from :role factory
       let(:role_params) { attributes_for :role }
 
       it 'creates a valid role' do
