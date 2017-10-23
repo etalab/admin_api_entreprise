@@ -2,7 +2,7 @@ class User < ApplicationRecord
 
   validates :email, presence: true,
     uniqueness: true,
-    format: { with: /\A[a-zA-Z0-9_.+\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-.]+$\z/ }
+    format: { with: /\A[a-zA-Z0-9_.+\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-.]+\z/ }
 
   validates :user_type, presence: true,
     inclusion: { in: %w(client provider) }

@@ -77,4 +77,9 @@ describe User, type: :model do
       end
     end
   end
+
+  describe '#contact' do
+    pending 'Email unique per contact types'
+    pending 'Admin and tech contacts are required when #user_type is provider'
+  end
 end

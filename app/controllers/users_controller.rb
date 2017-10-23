@@ -41,7 +41,7 @@ class UsersController < ApplicationController
       render json: {}, status: 404
 
     rescue ActiveRecord::RecordInvalid
-      render json: { errors: 'Invalid email' }, status: 422
+      render json: { errors: 'Invalid parameters' }, status: 422
 
     rescue ActionController::ParameterMissing
       render json: {}, status: 400
