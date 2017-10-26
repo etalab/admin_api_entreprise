@@ -28,6 +28,7 @@ gem 'active_model_serializers', '~> 0.10.0'
 group :development, :test do
   gem 'colorize'
   gem 'pry'
+  gem 'pry-rails'
   gem 'spring-commands-rspec'
   gem 'rspec-rails'
   gem 'guard-rspec'
