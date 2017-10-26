@@ -41,7 +41,6 @@ describe UsersController, type: :controller do
           post :create, params: incomplete_params
           expect(response.code).to eq "400"
         end
-
       end
     end
 
@@ -66,6 +65,29 @@ describe UsersController, type: :controller do
         expect(response.code).to eq "201"
       end
     end
+
+    context 'when submitting data for provider creation' do
+      let(:request_params) do
+        user_provider_params = attributes_for :user_provider
+        contacts_params = [attributes_for(:admin_contact), attributes_for(:tech_contact)]
+        user_provider_params.merge(contacts: contacts_params)
+      end
+
+      # TODO move this to the model layer ?
+      it 'requires admin and tech contacts data' do
+        request_params.delete :contacts
+        post :create, params: request_params
+        expect(response.code).to eq "400"
+      end
+
+      it 'saves the provider user' do
+        expect { post :create, params: request_params }.to change(User, :count).by 1
+      end
+
+      it 'saves the contacts' do
+        expect { post :create, params: request_params }.to change(Contact, :count).by 2
+      end
+    end
   end
 
   describe '#show' do
@@ -78,16 +100,28 @@ describe UsersController, type: :controller do
 
     context 'when user exists' do
       it 'returns the user data' do
-        user = create :user
+        user = create :user_with_contacts
         get :show, params: { id: user.id }
         body = JSON.parse(response.body, symbolize_names: true)
 
         expect(body).to be_an_instance_of Hash
-        expect(body.size).to eq 4
+        expect(body.size).to eq 5
         expect(body.has_key? :id).to be true
         expect(body.has_key? :email).to be true
         expect(body.has_key? :context).to be true
         expect(body.has_key? :user_type).to be true
+        expect(body.has_key? :contacts).to be true
+
+        expect(body[:contacts]).to be_an_instance_of Array
+        expect(body[:contacts].size).to eq 3
+
+        contact_raw = body[:contacts].first
+        expect(contact_raw).to be_an_instance_of Hash
+        expect(contact_raw.size).to eq 4
+        expect(contact_raw.has_key? :id).to be true
+        expect(contact_raw.has_key? :email).to be true
+        expect(contact_raw.has_key? :phone_number).to be true
+        expect(contact_raw.has_key? :contact_type).to be true
       end
     end
   end
@@ -167,9 +201,14 @@ describe UsersController, type: :controller do
         expect(response.code).to eq "204"
       end
 
-      it 'removes the user from the database' do
+      it 'deletes the user' do
         user = create :user
         expect { delete :destroy, params: { id: user.id } }.to change(User, :count).by(-1)
+      end
+
+      it 'deletes associated contacts' do
+        user = create :user_with_contacts
+        expect { delete :destroy, params: { id: user.id } }.to change(Contact, :count).by(-3)
       end
     end
   end

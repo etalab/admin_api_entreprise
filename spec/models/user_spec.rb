@@ -42,7 +42,8 @@ describe User, type: :model do
 
     it 'accepts "provider" as value' do
       user.user_type = 'provider'
-      expect(user.valid?).to be true
+      user.valid?
+      expect(user.errors[:user_type].size).to eq 0
     end
 
     it 'does not accept another value' do
@@ -54,7 +55,7 @@ describe User, type: :model do
 
   describe '#context' do
     context 'when #user_type is provider' do
-      let(:user_provider) { create(:user, user_type: 'provider') }
+      let(:user_provider) { create(:user_provider) }
 
       it 'is not required' do
         user_provider.context = ''
@@ -78,7 +79,7 @@ describe User, type: :model do
     end
   end
 
-  describe '#contact' do
+  describe '#contacts' do
     pending 'Email unique per contact types'
     pending 'Admin and tech contacts are required when #user_type is provider'
   end
