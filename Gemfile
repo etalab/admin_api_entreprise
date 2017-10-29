@@ -31,6 +31,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'spring-commands-rspec'
   gem 'rspec-rails'
+  gem 'unindent'
   gem 'guard-rspec'
   gem 'factory_girl_rails'
 end
