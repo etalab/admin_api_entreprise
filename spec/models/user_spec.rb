@@ -83,4 +83,8 @@ describe User, type: :model do
     pending 'Email unique per contact types'
     pending 'Admin and tech contacts are required when #user_type is provider'
   end
+
+  describe '#tokens' do
+    pending 'Did not find any relevant tests'
+  end
 end

@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :contacts, dependent: :destroy
+  has_many :tokens
 
   validates :email, presence: true,
     uniqueness: true,
