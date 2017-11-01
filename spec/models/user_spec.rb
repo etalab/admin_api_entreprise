@@ -87,4 +87,13 @@ describe User, type: :model do
   describe '#tokens' do
     pending 'Did not find any relevant tests'
   end
+
+  describe '.create_token' do
+    it 'creates a token for the user' do
+      payload = []
+      expect { user.create_token(payload) }.to change(user.tokens, :size).by(1)
+    end
+
+    pending 'the argument must be a JSON object'
+  end
 end

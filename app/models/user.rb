@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_many :contacts, dependent: :destroy
-  has_many :tokens
+  has_many :tokens, dependent: :nullify
 
   validates :email, presence: true,
     uniqueness: true,
@@ -11,4 +11,10 @@ class User < ApplicationRecord
 
   validates :context, presence: true,
     if: Proc.new { |u| u.user_type == 'client' }
+
+  def create_token(payload)
+    jwt_token = AccessToken.create payload
+    new_token = Token.new(value: jwt_token)
+    self.tokens << new_token
+  end
 end

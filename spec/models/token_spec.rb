@@ -23,4 +23,8 @@ describe Token, type: :model do
       expect(token.errors[:value].size).to eq 1
     end
   end
+
+  describe '.destroy' do
+    pending 'blacklists the token'
+  end
 end

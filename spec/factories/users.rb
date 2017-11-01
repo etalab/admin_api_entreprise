@@ -4,6 +4,10 @@ FactoryGirl.define do
     context 'VERY_DEVELOPMENT'
     user_type 'client'
 
+    after(:create) do |u|
+      create(:token, user: u)
+    end
+
     factory :user_provider do
       user_type 'provider'
 

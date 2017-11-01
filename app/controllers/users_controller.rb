@@ -9,11 +9,13 @@ class UsersController < ApplicationController
       raise ActionController::ParameterMissing, 'Arguments missing' unless all_params_for_create?
 
       contacts_params = create_params.delete :contacts
+      token_payload = create_params.delete :token_payload
       # Admin and tech contacts are needed for provider creation
       raise ActionController::ParameterMissing, 'Contacts missing' if contacts_params.nil? && create_params[:user_type] == 'provider'
 
       user = User.new(create_params)
       user.contacts.build contacts_params if !contacts_params.nil?
+      user.create_token(token_payload) if token_payload.present?
       user.save!
 
       render json: {}, status: 201
@@ -64,7 +66,7 @@ class UsersController < ApplicationController
   private
 
   def create_params
-    @create_params ||= params.permit(:email, :context, :user_type, contacts: [:email, :phone_number, :contact_type])
+    @create_params ||= params.permit(:email, :context, :user_type, contacts: [:email, :phone_number, :contact_type], token_payload: [])
   end
 
   def all_params_for_create?
