@@ -5,17 +5,14 @@ class RolesController < ApplicationController
   end
 
   def create
-    role = Role.create(filtered_params)
-    if role.persisted?
-      render json: role, status: 201
+    role_form = RoleForm.new(Role.new)
+
+    if role_form.validate(params)
+      role_form.save
+      render json: role_form.model, status: 201
+
     else
-      render json: { errors: 'Invalid role data' }, status: 422
+      render json: { errors: role_form.errors }, status: 422
     end
   end
-
-  private
-
-    def filtered_params
-      params.permit :name, :code
-    end
 end

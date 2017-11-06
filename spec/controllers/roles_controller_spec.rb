@@ -28,10 +28,9 @@ describe RolesController, type: :controller do
   end
 
   describe '#create' do
-    context 'when data are valid' do
-      # getting attributes from :role factory
-      let(:role_params) { attributes_for :role }
+    let(:role_params) { attributes_for :role }
 
+    context 'when data are valid' do
       it 'creates a valid role' do
         expect { post :create, params: role_params }.to change(Role, :count).by(1)
       end
@@ -43,9 +42,8 @@ describe RolesController, type: :controller do
     end
 
     context 'when data is invalid' do
-      let(:role_params) { attributes_for :role }
       before do
-        allow_any_instance_of(Role).to receive(:valid?).and_return(false)
+        allow_any_instance_of(RoleForm).to receive(:validate).and_return(false)
       end
 
       it 'does not save the role' do
