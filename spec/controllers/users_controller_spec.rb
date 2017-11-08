@@ -82,7 +82,21 @@ describe UsersController, type: :controller do
       end
 
       context 'when submitting list of roles for token creation' do
-        it 'creates a token for the new user'
+        let(:params_with_token_payload) do
+          user_params[:token_payload] = ['rol1', 'rol2', 'rol3']
+          user_params
+        end
+
+        it 'creates a token for the new user' do
+          expect { post :create, params: params_with_token_payload }.to change(Token, :count).by(1)
+        end
+
+        it 'attaches the token to the user' do
+          post :create, params: params_with_token_payload
+          created_user = User.last
+          created_token = Token.last
+          expect(created_token.user).to eq created_user
+        end
       end
     end
   end
