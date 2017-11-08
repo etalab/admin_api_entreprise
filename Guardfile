@@ -53,10 +53,11 @@ guard :rspec, cmd: "spring rspec" do
     ]
   end
 
-  # FactoryGirl files
+  # FactoryBot and Form files
   begin
     require 'active_support/inflector'
     watch(%r{^spec/factories/(.+)\.rb$}) { |m| ["app/models/#{m[1].singularize}.rb", "spec/models/#{m[1].singularize}_spec.rb"] }
+    watch(%r{^spec/forms/(.+)_spec\.rb$}) { |m| ["app/forms/#{m[1]}.rb"] }
   rescue LoadError
   end
 
