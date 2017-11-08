@@ -55,6 +55,6 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  # Include factory_girl methods into test suite
-  config.include FactoryGirl::Syntax::Methods
+  # Include factory_bot methods into test suite
+  config.include FactoryBot::Syntax::Methods
 end

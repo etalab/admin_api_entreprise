@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :contact do
     sequence(:email) { |n| "contact_#{n}@example.org" }
     phone_number '0256743256'
