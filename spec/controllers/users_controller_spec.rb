@@ -22,11 +22,10 @@ describe UsersController, type: :controller do
 
       user_raw = body.first
       expect(user_raw).to be_an_instance_of Hash
-      expect(user_raw.size).to eq 4
+      expect(user_raw.size).to eq 3
       expect(user_raw.has_key? :id).to be true
       expect(user_raw.has_key? :email).to be true
       expect(user_raw.has_key? :context).to be true
-      expect(user_raw.has_key? :user_type).to be true
     end
   end
 
@@ -34,24 +33,19 @@ describe UsersController, type: :controller do
     # getting attributes from :user Factory
     let(:user_params) { attributes_for :user }
 
-    context 'when required params are missing' do
-      it 'returns code 400' do
-        %i(email context user_type).each do |p|
-          incomplete_params = user_params.reject { |k,v| k == p }
-          post :create, params: incomplete_params
-          expect(response.code).to eq "400"
-        end
-      end
-    end
-
     context 'when data is not valid' do
       before do
-        allow_any_instance_of(User).to receive(:valid?).and_return(false)
+        allow_any_instance_of(UserForm::Create).to receive(:validate).and_return(false)
+        post :create, params: user_params
       end
 
       it 'returns code 422' do
-        post :create, params: user_params
         expect(response.code).to eq "422"
+      end
+
+      it 'returns errors' do
+        body = JSON.parse(response.body, symbolize_names: true)
+        expect(body[:errors]).to be_an_instance_of Hash
       end
     end
 
@@ -65,36 +59,30 @@ describe UsersController, type: :controller do
         expect(response.code).to eq "201"
       end
 
-      context 'when submitting data for provider creation' do
-        let(:request_params) do
-          user_provider_params = attributes_for :user_provider
-          contacts_params = [attributes_for(:admin_contact), attributes_for(:tech_contact)]
-          user_provider_params.merge(contacts: contacts_params)
+      context 'when submitting data for contacts creation' do
+        let(:params_with_contacts) do
+          user_params[:contacts] = []
+          user_params[:contacts]
+            .append(attributes_for :contact, contact_type: 'admin')
+            .append(attributes_for :contact, contact_type: 'tech')
+            .append(attributes_for :contact, contact_type: 'other')
+          user_params
         end
 
-        # TODO move this to the model layer ?
-        it 'requires admin and tech contacts data' do
-          request_params.delete :contacts
-          post :create, params: request_params
-          expect(response.code).to eq "400"
+        it 'creates the contacts' do
+          expect { post :create, params: params_with_contacts }.to change(Contact, :count).by(3)
         end
 
-        it 'saves the provider user' do
-          expect { post :create, params: request_params }.to change(User, :count).by 1
-        end
-
-        it 'saves the contacts' do
-          expect { post :create, params: request_params }.to change(Contact, :count).by 2
+        it 'associates the created contacts to the user' do
+          post :create, params: params_with_contacts
+          created_user = User.last
+          created_contacts = Contact.last(params_with_contacts[:contacts].size)
+          expect(created_user.contacts).to eq created_contacts
         end
       end
 
-      context 'when submitting liste of roles for token creation' do
-        # TODO use a real payload
-        let(:request_params) { user_params.merge token_payload: ['etfh', 'gyrf', 'okrb', 'hgyt'] }
-
-        it 'creates a token for the new user' do
-          expect { post :create, params: request_params }.to change(Token, :count).by(1)
-        end
+      context 'when submitting list of roles for token creation' do
+        it 'creates a token for the new user'
       end
     end
   end
@@ -114,11 +102,10 @@ describe UsersController, type: :controller do
         body = JSON.parse(response.body, symbolize_names: true)
 
         expect(body).to be_an_instance_of Hash
-        expect(body.size).to eq 6
+        expect(body.size).to eq 5
         expect(body.has_key? :id).to be true
         expect(body.has_key? :email).to be true
         expect(body.has_key? :context).to be true
-        expect(body.has_key? :user_type).to be true
         expect(body.has_key? :contacts).to be true
         expect(body.has_key? :tokens).to be true
 
@@ -162,12 +149,6 @@ describe UsersController, type: :controller do
         it 'returns code 400' do
           put :update, params: { id: user.id }
           expect(response.code).to eq "400"
-        end
-
-        it 'does not change user_type' do
-          new_type = 'provider' # user is a client
-          put :update, params: { id: user.id, user_type: new_type }
-          expect(user.reload.user_type).to_not eq new_type
         end
       end
 
