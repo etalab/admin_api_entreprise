@@ -25,7 +25,8 @@ gem 'puma', '~> 3.7'
 gem 'jwt', '~> 2.0'
 gem 'active_model_serializers', '~> 0.10.0'
 
-gem 'reform', '~> 2.2.4'
+gem 'trailblazer', '~> 2.0.7'
+gem 'trailblazer-rails'
 gem 'dry-validation', '~> 0.11.1'
 
 group :development, :test do
