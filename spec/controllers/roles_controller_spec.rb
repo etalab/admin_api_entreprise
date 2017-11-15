@@ -42,9 +42,7 @@ describe RolesController, type: :controller do
     end
 
     context 'when data is invalid' do
-      before do
-        allow_any_instance_of(RoleForm).to receive(:validate).and_return(false)
-      end
+      before { role_params[:name] = '' }
 
       it 'does not save the role' do
         expect { post :create, params: role_params }.to_not change(Role, :count)

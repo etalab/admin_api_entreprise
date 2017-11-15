@@ -5,14 +5,14 @@ class RolesController < ApplicationController
   end
 
   def create
-    role_form = RoleForm.new(Role.new)
+    result = Role::Create.(params)
 
-    if role_form.validate(params)
-      role_form.save
-      render json: role_form.model, status: 201
+    if result.success?
+      render json: result['model'], status: 201
 
     else
-      render json: { errors: role_form.errors }, status: 422
+      errors = result['result.contract.default'].errors.messages
+      render json: { errors: errors }, status: 422
     end
   end
 end
