@@ -8,6 +8,6 @@ class UserForm
       required(:context).maybe(:str?)
     end
 
-    collection :contacts, form: ContactForm, populate_if_empty: Contact
+    collection :contacts, form: Contact::Contract, populate_if_empty: Contact
   end
 end

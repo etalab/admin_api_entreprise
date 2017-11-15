@@ -1,6 +1,7 @@
 require 'rails_helper'
 
-describe ContactForm do
+# TODO Move those specs into future contact creation operation
+describe Contact::Contract do
   let(:contact_params) { attributes_for :contact }
 
   describe 'contact creation' do
