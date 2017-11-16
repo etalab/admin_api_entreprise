@@ -35,7 +35,7 @@ describe UsersController, type: :controller do
 
     context 'when data is not valid' do
       before do
-        allow_any_instance_of(UserForm::Create).to receive(:validate).and_return(false)
+        user_params[:email] = ''
         post :create, params: user_params
       end
 

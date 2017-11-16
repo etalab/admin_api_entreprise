@@ -1,4 +1,4 @@
-class UserForm
+module User::Contract
   class Create < Reform::Form
     property :email
     property :context

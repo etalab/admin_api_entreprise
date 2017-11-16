@@ -5,25 +5,20 @@ class UsersController < ApplicationController
   end
 
   def create
-    user_form = UserForm::Create.new(User.new)
+    result = User::Create.(params)
 
-    if user_form.validate(params)
-      user_form.save
+    if result.success?
+      json_response = result['model']
 
-      token_payload = params.delete :token_payload
-      token_validator = Dry::Validation.Schema do
-        required(:roles) { filled? { each { str? } } }
-      end
+      result_token = Token::Create.(params, user_id: result['model'].id)
+      json_response.merge(
+        { error: 'Token creation failed' }) unless result_token.success?
 
-      if token_validator.call(roles: token_payload).success?
-        new_token = AccessToken.create(token_payload)
-        user_form.model.tokens.create(value: new_token)
-      end
-
-      render json: user_form.model, status: 201
+      render json: json_response, status: 201
 
     else
-      render json: user_form.errors, status: 422
+      errors = result['result.contract.default'].errors.messages
+      render json: { errors: errors }, status: 422
     end
   end
 
