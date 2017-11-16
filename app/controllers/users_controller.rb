@@ -8,13 +8,7 @@ class UsersController < ApplicationController
     result = User::Create.(params)
 
     if result.success?
-      json_response = result['model']
-
-      result_token = Token::Create.(params, user_id: result['model'].id)
-      json_response.merge(
-        { error: 'Token creation failed' }) unless result_token.success?
-
-      render json: json_response, status: 201
+      render json: result['model'], status: 201
 
     else
       errors = result['result.contract.default'].errors.messages
