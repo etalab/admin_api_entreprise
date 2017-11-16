@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   scope 'api/admin' do
     resources :roles, only: [:index, :create]
-    resources :users, only: [:index, :create, :show, :update, :destroy]
+    resources :users, only: [:index, :create, :show, :update, :destroy] do
+      resources :tokens, only: [:create]
+    end
   end
 end
