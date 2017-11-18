@@ -3,7 +3,7 @@ class TokensController < ApplicationController
     result = Token::Create.(params)
 
     if result.success?
-      render json: result['model'], status: 201
+      render json: { new_token: result['created_token'].value }, status: 201
 
     else
       errors = (result['result.contract.params'].errors.empty? ?

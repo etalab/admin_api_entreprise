@@ -18,7 +18,7 @@ class Token
 
     def create_token(options, params:, user:, **)
       new_token = AccessToken.create(params[:token_payload])
-      options[:created_token] = user.tokens.create(value: new_token)
+      options['created_token'] = user.tokens.create(value: new_token)
     end
 
     def set_error_message(options)
