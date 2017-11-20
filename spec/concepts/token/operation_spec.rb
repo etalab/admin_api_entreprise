@@ -8,8 +8,8 @@ describe Token::Create do
   context 'when data is valid' do
     it 'persists valid' do
       expect(result).to be_success
-      expect(result[:created_token]).to be_persisted
-      expect(result[:created_token].user).to eq user
+      expect(result['created_token']).to be_persisted
+      expect(result['created_token'].user).to eq user
     end
   end
 
