@@ -25,25 +25,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def update
-    begin
-      raise ActionController::ParameterMissing, 'Arguments missing' unless has_updating_params?
-
-      user = User.find(params[:id])
-      user.update!(update_params)
-      render json: user, status: 200
-
-    rescue ActiveRecord::RecordNotFound
-      render json: {}, status: 404
-
-    rescue ActiveRecord::RecordInvalid
-      render json: { errors: 'Invalid parameters' }, status: 422
-
-    rescue ActionController::ParameterMissing
-      render json: {}, status: 400
-    end
-  end
-
   def destroy
     begin
       User.destroy(params[:id])

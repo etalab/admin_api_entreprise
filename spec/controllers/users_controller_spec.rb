@@ -141,56 +141,6 @@ describe UsersController, type: :controller do
     end
   end
 
-  describe '#update' do
-    context 'when user does not exist' do
-      it 'returns 404' do
-        put :update, params: { id: 0, email: 'much@email.wow' }
-        expect(response.code).to eq "404"
-      end
-    end
-
-    context 'when user exists' do
-      let!(:user) { create :user }
-
-      context 'when data is invalid' do
-        it 'return code 422' do
-          allow_any_instance_of(User).to receive(:valid?).and_return(false)
-          put :update, params: { id: user.id, email: 'dotnotcare' }
-          expect(response.code).to eq "422"
-        end
-      end
-
-      context 'when no updating fields are present' do
-        it 'returns code 400' do
-          put :update, params: { id: user.id }
-          expect(response.code).to eq "400"
-        end
-      end
-
-      context 'when params are valid' do
-        let(:user_params) { attributes_for :user }
-
-        it 'returns code 200' do
-          allow_any_instance_of(User).to receive(:valid?).and_return(true)
-          put :update, params: user_params.merge({ id: user.id })
-          expect(response.code).to eq "200"
-        end
-
-        it 'updates the email' do
-          new_email = 'new@mail.wow'
-          put :update, params: { id: user.id, email: new_email }
-          expect(user.reload.email).to eq new_email
-        end
-
-        it 'updates the context' do
-          new_context = 'new context'
-          put :update, params: { id: user.id, context: new_context }
-          expect(user.reload.context).to eq new_context
-        end
-      end
-    end
-  end
-
   describe '#destroy' do
     context 'when user does not exist' do
       it 'returns 404' do
