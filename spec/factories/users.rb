@@ -3,6 +3,11 @@ FactoryBot.define do
     sequence(:email) { |n| "user_#{n}@example.org" }
     context 'VERY_DEVELOPMENT'
 
+    # Do not send devise confirmation email on factory creation
+    after(:build) do |u|
+      u.skip_confirmation_notification!
+    end
+
     after(:create) do |u|
       create(:token, user: u)
     end

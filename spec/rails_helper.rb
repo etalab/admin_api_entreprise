@@ -57,4 +57,7 @@ RSpec.configure do |config|
 
   # Include factory_bot methods into test suite
   config.include FactoryBot::Syntax::Methods
+
+  # Include devise helpers into all controller tests
+  config.include Devise::Test::ControllerHelpers, type: :controller
 end
