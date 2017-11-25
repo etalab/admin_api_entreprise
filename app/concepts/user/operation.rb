@@ -8,6 +8,7 @@ class User
 
     # Don't let Devise automaticaly send confirmation email on user creation
     def skip_auto_confirmation_email(options, model:, **)
+      # model.skip_confirmation!
       model.skip_confirmation_notification!
     end
   end

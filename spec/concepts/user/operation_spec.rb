@@ -60,5 +60,29 @@ describe User::Create do
         expect(result).to be_success
       end
     end
+
+    describe 'account created state' do
+      # Methods and fields tested here are provided by devise
+      let(:created_user) { result['model'] }
+
+      it 'sets the password to an empty string' do
+        expect(created_user.encrypted_password).to eq ""
+      end
+
+      it 'sets a token for future email confirmation' do
+        expect(created_user.confirmation_token).to_not eq ""
+      end
+
+      it 'is an inactive account' do
+        # Haven't checked where this method is internally used by devise yet
+        expect(created_user).to_not be_active_for_authentication
+      end
+
+      it 'is not confirmed' do
+        expect(created_user).to_not be_confirmed
+      end
+
+      it 'sends a confirmation email to the user'
+    end
   end
 end
