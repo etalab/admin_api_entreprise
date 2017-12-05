@@ -4,9 +4,7 @@ FactoryBot.define do
     context 'VERY_DEVELOPMENT'
 
     # Do not send devise confirmation email on factory creation
-    after(:build) do |u|
-      u.skip_confirmation_notification!
-    end
+    after(:build, &:skip_confirmation_notification!)
 
     after(:create) do |u|
       create(:token, user: u)

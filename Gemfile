@@ -48,6 +48,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'mina', '~> 1.2'
+  gem 'rubocop', require: false
 
   # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
   gem 'rack-cors'

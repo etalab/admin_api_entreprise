@@ -11,7 +11,7 @@ describe RolesController, type: :controller do
     it 'returns all roles from the database' do
       body = JSON.parse(response.body, symbolize_names: true)
 
-      expect(response.code).to eq "200"
+      expect(response.code).to eq '200'
       expect(body.size).to eq nb_roles
     end
 
@@ -22,8 +22,8 @@ describe RolesController, type: :controller do
       role_raw = body.first
       expect(role_raw).to be_an_instance_of Hash
       expect(role_raw.size).to eq 2
-      expect(role_raw.has_key? :name).to be true
-      expect(role_raw.has_key? :code).to be true
+      expect(role_raw.key?(:name)).to be true
+      expect(role_raw.key?(:code)).to be true
     end
   end
 
@@ -32,12 +32,13 @@ describe RolesController, type: :controller do
 
     context 'when data are valid' do
       it 'creates a valid role' do
-        expect { post :create, params: role_params }.to change(Role, :count).by(1)
+        expect { post :create, params: role_params }
+          .to change(Role, :count).by(1)
       end
 
       it 'returns code 201' do
         post :create, params: role_params
-        expect(response.code).to eq "201"
+        expect(response.code).to eq '201'
       end
     end
 
@@ -50,7 +51,7 @@ describe RolesController, type: :controller do
 
       it 'returns code 422' do
         post :create, params: role_params
-        expect(response.code).to eq "422"
+        expect(response.code).to eq '422'
       end
     end
   end

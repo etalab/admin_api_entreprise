@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Role::Create do
   let(:role_params) { { name: 'Role test', code: 'rol1' } }
-  let(:result) { described_class.(role_params) }
+  let(:result) { described_class.call(role_params) }
 
   context 'when params are valid' do
     it 'creates a new role' do

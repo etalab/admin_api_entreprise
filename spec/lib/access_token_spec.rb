@@ -10,11 +10,12 @@ describe AccessToken do
     end
 
     it 'decodes a valid token' do
-      expect(described_class.decode token).to include payload
+      expect(described_class.decode(token)).to include payload
     end
 
     it 'raises error on invalid token' do
-      expect { described_class.decode(token + 'a') }.to raise_error JWT::VerificationError
+      expect { described_class.decode(token + 'a') }
+        .to raise_error JWT::VerificationError
     end
   end
 end

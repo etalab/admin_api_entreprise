@@ -7,7 +7,7 @@ class User
     step self::Contract::Persist()
 
     # Don't let Devise automaticaly send confirmation email on user creation
-    def skip_auto_confirmation_email(options, model:, **)
+    def skip_auto_confirmation_email(model:, **)
       # model.skip_confirmation!
       model.skip_confirmation_notification!
     end

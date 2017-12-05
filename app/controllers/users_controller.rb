@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    result = User::Create.(params)
+    result = User::Create.call(params)
 
     if result.success?
       render json: result['model'], status: 201
@@ -17,20 +17,16 @@ class UsersController < ApplicationController
   end
 
   def show
-    begin
-      user = User.find(params[:id])
-      render json: user, serializer: UserShowSerializer, status: 200
-    rescue ActiveRecord::RecordNotFound
-      render json: {}, status: 404
-    end
+    user = User.find(params[:id])
+    render json: user, serializer: UserShowSerializer, status: 200
+  rescue ActiveRecord::RecordNotFound
+    render json: {}, status: 404
   end
 
   def destroy
-    begin
-      User.destroy(params[:id])
-      render json: {}, status: 204
-    rescue ActiveRecord::RecordNotFound
-      render json: {}, status: 404
-    end
+    User.destroy(params[:id])
+    render json: {}, status: 204
+  rescue ActiveRecord::RecordNotFound
+    render json: {}, status: 404
   end
 end

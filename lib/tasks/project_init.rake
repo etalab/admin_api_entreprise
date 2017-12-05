@@ -14,7 +14,7 @@ namespace :dev do
   end
 
   def secrets
-    <<EOF
+    <<SECRETS
     defaults: &DEFAULTS
       jwt_hash_secret: 'wowmuchsecret'
       jwt_hash_algo: 'HS256'
@@ -25,6 +25,6 @@ namespace :dev do
     test:
       secret_key_base: b18f9271079e21fe1e109fa135b0d2de8d0495270eaff41c2ef1bb4416bfcb0b79c5bc4252b9049848a4eb49617ba1a64dd1c094c9be11442605933e0a7aad11
       <<: *DEFAULTS
-EOF
+SECRETS
   end
 end

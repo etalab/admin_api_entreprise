@@ -9,7 +9,7 @@ class Token
     step Contract::Validate(name: 'params')
     # TODO verify user with dry-validation schema
     step :verify_user
-    failure :set_error_message
+    failure :error_message
     step :create_token
 
     def verify_user(options, params:, **)
@@ -21,7 +21,7 @@ class Token
       options['created_token'] = user.tokens.create(value: new_token)
     end
 
-    def set_error_message(options)
+    def error_message(options)
       options['manual_errors'] = 'user must exists'
     end
   end

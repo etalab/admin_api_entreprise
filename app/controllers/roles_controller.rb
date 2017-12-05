@@ -5,7 +5,7 @@ class RolesController < ApplicationController
   end
 
   def create
-    result = Role::Create.(params)
+    result = Role::Create.call(params)
 
     if result.success?
       render json: result['model'], status: 201
