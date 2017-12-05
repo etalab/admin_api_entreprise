@@ -39,6 +39,7 @@ group :development, :test do
   gem 'unindent'
   gem 'guard-rspec'
   gem 'factory_bot_rails'
+  gem 'simplecov', require: false
 end
 
 group :development do
