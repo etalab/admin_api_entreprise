@@ -20,6 +20,9 @@ SimpleCov.start 'rails' do
   add_filter '/spec/'
 end
 
+# Require helpers files containing factories
+Dir[Rails.root.join("spec/helpers/**/*.rb")].each { |f| require f }
+
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
