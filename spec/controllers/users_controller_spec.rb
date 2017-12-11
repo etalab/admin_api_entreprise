@@ -180,4 +180,44 @@ describe UsersController, type: :controller do
       pending 'it deletes associated tokens'
     end
   end
+
+  describe '#confirm' do
+    let(:inactive_user) { UsersFactory.inactive_user }
+
+    context 'when params are valid' do
+      let(:confirmation_params) do
+        {
+          confirmation_token: inactive_user.confirmation_token,
+          password: 'validPWD12',
+          password_confirmation: 'validPWD12'
+        }
+      end
+      before { post :confirm, params: confirmation_params }
+
+      it 'returns 200' do
+        expect(response.code).to eq '200'
+      end
+
+      it 'confirms the user' do
+        user_token = confirmation_params[:confirmation_token]
+        confirmed_user = User.find_by(confirmation_token: user_token)
+        expect(confirmed_user).to be_confirmed
+      end
+    end
+
+    context 'when params are invalid' do
+      let(:confirmation_params) do
+        {
+          confirmation_token: 'oups',
+          password: 'validPWD12',
+          password_confirmation: 'validPWD12'
+        }
+      end
+      before { post :confirm, params: confirmation_params }
+
+      it 'returns 422' do
+        expect(response.code).to eq '422'
+      end
+    end
+  end
 end

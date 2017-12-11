@@ -29,4 +29,17 @@ class UsersController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     render json: {}, status: 404
   end
+
+  def confirm
+    result = User::Confirm.call(params)
+
+    if result.success?
+      render json: {}, status: 200
+
+    else
+      # TODO handle errors from a generic application way
+      errors = result['result.contract.params'].errors || result['errors']
+      render json: { errors: errors }, status: 422
+    end
+  end
 end
