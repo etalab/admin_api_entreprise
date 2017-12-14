@@ -57,7 +57,8 @@ guard :rspec, cmd: "spring rspec" do
   begin
     require 'active_support/inflector'
     watch(%r{^spec/factories/(.+)\.rb$}) { |m| ["app/models/#{m[1].singularize}.rb", "spec/models/#{m[1].singularize}_spec.rb"] }
-    watch(%r{^spec/concepts/(.+)/(.+)_spec\.rb$}) { |m| ["app/concepts/#{m[1]}forms/#{m[2]}.rb"] }
+    watch(%r{^spec/concepts/(.+)/(.+)_spec\.rb$}) { |m| ["app/concepts/#{m[1]}/#{m[2]}.rb"] }
+    watch(%r{^spec/concepts/(.+)/(.+)/(.+)_spec\.rb$}) { |m| ["app/concepts/#{m[1]}/#{m[2]}/#{m[3]}.rb"] }
   rescue LoadError
   end
 

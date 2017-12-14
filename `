@@ -1,0 +1,53 @@
+require 'rails_helper'
+
+describe User::Confirm do
+  let(:result) { described_class.call(confirmation_params) }
+  let(:inactive_user) { UsersFactory.inactive_user }
+  let(:confirmation_params) do
+    {
+      password: 'couCOU23',
+      password_confirmation: 'couCOU23',
+      confirmation_token: inactive_user.confirmation_token
+    }
+  end
+
+  context 'when params are valid' do
+    it 'confirms the account' do
+      expect(result).to be_success
+      expect(result['model']).to be_confirmed
+    end
+
+    it 'sets the user password' do
+      expect(result['model'].encrypted_password).to_not eq ''
+      expect(result['model'].valid_password?(confirmation_params[:password]))
+        .to be true
+    end
+  end
+
+  context 'when params are invalid' do
+    describe '#token' do
+      it 'is required' do
+        confirmation_params[:confirmation_token] = ''
+        contract_error = result['result.contract.params']
+          .errors[:confirmation_token]
+        expect(result).to be_failure
+        expect(contract_error).to include 'is missing'
+      end
+
+      it 'must be valid ie related to a created user' do
+        confirmation_params[:confirmation_token] = 'invalid token'
+        expect(result).to be_failure
+        expect(result['errors']).to include 'invalid token'
+      end
+    end
+
+    describe '#password' do
+      it 'must match confirmation' do
+        confirmation_params[:password_confirmation] = 'coucou23'
+        expect(result).to be_failure
+        expect(result['result.contract.params']
+          .errors[:password_confirmation]).to include 'not equal to password'
+      end
+    end
+  end
+end

@@ -181,7 +181,7 @@ describe UsersController, type: :controller do
     end
   end
 
-  describe '#confirm' do
+  skip '#confirm' do
     let(:inactive_user) { UsersFactory.inactive_user }
 
     context 'when params are valid' do
