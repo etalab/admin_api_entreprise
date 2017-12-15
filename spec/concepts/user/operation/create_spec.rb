@@ -47,6 +47,12 @@ describe User::Create do
       end
 
       it 'is unique'
+
+      it 'is saved lowercase' do
+        user_params[:email] = 'COUCOU@COUCOU.FR'
+        expect(result).to be_success
+        expect(result['model'].email).to eq 'coucou@coucou.fr'
+      end
     end
 
     describe '#context' do
@@ -76,11 +82,16 @@ describe User::Create do
     describe 'account created state' do
       let(:created_user) { result['model'] }
 
-      pending 'sets the password to an empty string'
+      it 'sets the password to an empty string' do
+        expect(created_user.password_digest).to eq ''
+      end
 
-      pending 'sets a token for future email confirmation'
+      it 'sets a token for future email confirmation' do
+        expect(created_user.confirmation_token)
+          .to match(/\A[0-9a-f]{20}\z/)
+      end
 
-      pending 'is not confirmed' do
+      it 'is not confirmed' do
         expect(created_user).to_not be_confirmed
       end
 
