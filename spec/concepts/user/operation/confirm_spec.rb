@@ -11,7 +11,7 @@ describe User::Confirm do
     }
   end
 
-  skip 'user confirmation logic' do
+  describe 'user confirmation logic' do
     context 'when user is not already confirmed' do
       it 'confirmation_token params must refer to an unconfirmed user' do
         confirmation_params[:confirmation_token] = 'invalid token'
@@ -25,10 +25,12 @@ describe User::Confirm do
       end
 
       it 'sets the user password' do
-        expect(result['model'].encrypted_password).to_not eq ''
-        expect(result['model'].valid_password?(confirmation_params[:password]))
+        expect(result['model'].password_digest).to_not eq ''
+        expect(!!result['model'].authenticate(confirmation_params[:password]))
           .to be true
       end
+
+      it 'sends a notification email to the user'
     end
 
     context 'when user is already confirmed' do
@@ -47,13 +49,13 @@ describe User::Confirm do
         confirmation_params[:password] =
           confirmation_params[:password_confirmation] = 'newPAssw0rd'
         expect(result).to be_failure
-        expect(result['model'].valid_password?(old_password))
+        expect(!!result['model'].authenticate(old_password))
           .to be true
       end
     end
   end
 
-  skip 'params validation contract' do
+  describe 'params validation contract' do
     describe '#confirmation_token' do
       it 'is required' do
         confirmation_params[:confirmation_token] = ''

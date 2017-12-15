@@ -95,7 +95,7 @@ describe User::Create do
         expect(created_user).to_not be_confirmed
       end
 
-      it 'sends a confirmation email to the user'
+      it 'sends a confirmation email to the user' # and set confirmation_sent_at
     end
   end
 end
