@@ -22,6 +22,7 @@ gem 'puma', '~> 3.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'doorkeeper', '~> 4.2.6'
 gem 'jwt', '~> 2.0'
 gem 'active_model_serializers', '~> 0.10.0'
 
