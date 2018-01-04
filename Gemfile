@@ -23,6 +23,7 @@ gem 'bcrypt', '~> 3.1.7'
 # gem 'capistrano-rails', group: :development
 
 gem 'doorkeeper', '~> 4.2.6'
+gem 'jwtf', git: 'https://github.com/brindu/jwtf.git', branch: 'develop'
 gem 'jwt', '~> 2.0'
 gem 'active_model_serializers', '~> 0.10.0'
 

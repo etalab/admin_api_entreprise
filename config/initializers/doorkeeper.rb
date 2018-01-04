@@ -11,7 +11,8 @@ Doorkeeper.configure do
   end
 
   resource_owner_from_credentials do |routes|
-    fail "Please configure resource_owner_from_credentials block into #{__FILE__}"
+    authentication = User::Login.call(params)
+    authentication['model'] unless authentication.failure?
   end
 
   # If you want to restrict access to the web interface for adding oauth authorized applications, you need to declare the block below.
@@ -35,7 +36,7 @@ Doorkeeper.configure do
 
   # Use a custom class for generating the access token.
   # https://github.com/doorkeeper-gem/doorkeeper#custom-access-token-generator
-  # access_token_generator '::Doorkeeper::JWT'
+  access_token_generator '::JWTF'
 
   # The controller Doorkeeper::ApplicationController inherits from.
   # Defaults to ActionController::Base.

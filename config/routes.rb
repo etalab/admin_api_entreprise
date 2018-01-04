@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  use_doorkeeper
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   scope 'api/admin' do
@@ -10,6 +9,7 @@ Rails.application.routes.draw do
       # User account related routes
       collection do
         post :confirm
+        post :login, to: 'doorkeeper/tokens#create'
       end
     end
   end
