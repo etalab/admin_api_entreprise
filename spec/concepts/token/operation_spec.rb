@@ -21,6 +21,7 @@ describe Token::Create do
 
       it 'is required' do
         token_params[:token_payload] = []
+
         expect(result).to be_failure
         expect(errors).to include 'must be filled'
       end

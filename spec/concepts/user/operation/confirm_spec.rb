@@ -15,6 +15,7 @@ describe User::Confirm do
     context 'when user is not already confirmed' do
       it 'confirmation_token params must refer to an unconfirmed user' do
         confirmation_params[:confirmation_token] = 'invalid token'
+
         expect(result).to be_failure
         expect(result['errors']).to include 'invalid token'
       end
@@ -48,6 +49,7 @@ describe User::Confirm do
         old_password = confirmation_params[:password]
         confirmation_params[:password] =
           confirmation_params[:password_confirmation] = 'newPAssw0rd'
+
         expect(result).to be_failure
         expect(!!result['model'].authenticate(old_password))
           .to be true
@@ -61,6 +63,7 @@ describe User::Confirm do
         confirmation_params[:confirmation_token] = ''
         contract_error = result['result.contract.params']
           .errors[:confirmation_token]
+
         expect(result).to be_failure
         expect(contract_error).to include 'must be filled'
       end
@@ -72,6 +75,7 @@ describe User::Confirm do
 
       it 'must match confirmation' do
         confirmation_params[:password_confirmation] = 'coucou23'
+
         expect(result).to be_failure
         expect(result['result.contract.params']
           .errors[:password_confirmation])
@@ -81,6 +85,7 @@ describe User::Confirm do
       it 'is min 8 characters long' do
         confirmation_params[:password] =
           confirmation_params['password_confirmation'] = 'a' * 7
+
         expect(contract_error).to include 'size cannot be less than 8'
       end
 

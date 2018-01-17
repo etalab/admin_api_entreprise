@@ -4,7 +4,9 @@ describe User::Login do
   let(:result) { described_class.call(login_params) }
 
   context 'when user email is unknown' do
-    let(:login_params) { { username: 'unknownem@il.bad', password: 'couCOU123' } }
+    let(:login_params) do
+      { username: 'unknownem@il.bad', password: 'couCOU123' }
+    end
 
     it 'fails authentication' do
       expect(result).to be_failure
@@ -12,7 +14,9 @@ describe User::Login do
   end
 
   context 'when user email is valid' do
-    let(:login_params) { { username: user.email, password: user.password } }
+    let(:login_params) do
+      { username: user.email, password: user.password }
+    end
 
     context 'when user is not confirmed' do
       let(:user) { UsersFactory.inactive_user }
@@ -21,6 +25,7 @@ describe User::Login do
         # much edge case where user is unconfirmed but has password set
         user.password = 'verypwd'
         user.save
+
         expect(result).to be_failure
       end
     end
@@ -31,6 +36,7 @@ describe User::Login do
       context 'when password is invalid' do
         it 'fails authentication' do
           login_params[:password] = 'invalid password'
+
           expect(result).to be_failure
         end
 

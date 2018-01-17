@@ -36,12 +36,14 @@ describe User::Create do
 
       it 'is required' do
         user_params[:email] = ''
+
         expect(result).to be_failure
         expect(errors).to include 'must be filled'
       end
 
       it 'has an email format' do
         user_params[:email] = 'verymail'
+
         expect(result).to be_failure
         expect(errors).to include 'is in invalid format'
       end
@@ -50,6 +52,7 @@ describe User::Create do
 
       it 'is saved lowercase' do
         user_params[:email] = 'COUCOU@COUCOU.FR'
+
         expect(result).to be_success
         expect(result['model'].email).to eq 'coucou@coucou.fr'
       end
@@ -62,6 +65,7 @@ describe User::Create do
 
       it 'can be blank' do
         user_params[:context] = ''
+
         expect(result).to be_success
         expect(errors).to be_nil
       end
@@ -70,11 +74,13 @@ describe User::Create do
     describe '#contacts' do
       it 'is not valid if contact\'s data is not valid' do
         user_params[:contacts].append(email: 'not an email')
+
         expect(result).to be_failure
       end
 
       it 'is optionnal' do
         user_params.delete :contacts
+
         expect(result).to be_success
       end
     end
