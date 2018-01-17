@@ -18,6 +18,13 @@ Cela supprimera entièrement les bases de données non conformes, le plus simple
 
 #### Configuration des BDD de développement
 
+Création de l'utilisateur:
+```
+sudo -u postgres -i
+cd /path/to/admin_apientreprise
+psql -f db/init.sql
+```
+
 L'application est configurée pour que les ID des modèles ne soient plus un entier
 incrémenté à chaque création en base mais des UUID. Depuis Rails 5, il suffit
 d'activer l'extension _pgcrypto_ dans Postgresql. Pour cela, créer tout d'abord
@@ -29,6 +36,18 @@ Puis exécuter la commande suivante dans la console de Postgresql (pour chacune
 des deux bases de données de développement et de tests) :
 
 `CREATE EXTENSION pgcrypto;`
+
+Soit en détail:
+
+```
+sudo -u postgres -i
+psql -d admin_apientreprise_development
+psql> CREATE EXTENSION pgcrypto;
+psql>\q
+psql -d admin_apientreprise_test
+psql> CREATE EXTENSION pgcrypto;
+psql>\q
+```
 
 La commande `rails db:migrate` devrait alors se dérouler sans encombre.
 

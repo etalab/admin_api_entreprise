@@ -1,0 +1,1 @@
+CREATE USER admin_apientreprise LOGIN PASSWORD 'wow*verysecret' CREATEDB;
