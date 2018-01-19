@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe TokensController, type: :controller do
+  before { set_authentication_token }
+
   describe '#create' do
     let(:user) do
       result = User::Create.call(email: 'user@test.gg', context: '')

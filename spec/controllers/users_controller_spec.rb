@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe UsersController, type: :controller do
+  before { set_authentication_token }
+
   describe '#index' do
     # TODO pagination handling
     let(:nb_users) { 10 }
