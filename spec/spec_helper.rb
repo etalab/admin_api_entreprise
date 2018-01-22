@@ -104,4 +104,5 @@ RSpec.configure do |config|
   # Kernel.srand config.seed
 
   config.include AuthenticationHelper, type: :controller
+  config.include JWTHelper, type: :jwt
 end

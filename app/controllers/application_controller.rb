@@ -3,6 +3,7 @@ class ApplicationController < ActionController::API
 
   private
 
+  # TODO move this into a Request::Authenticate operation ?
   def jwt_authenticate!
     payload = extract_payload_from_header
     return invalid_request unless payload

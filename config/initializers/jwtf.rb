@@ -5,4 +5,7 @@ JWTF.configure do |config|
   config.token_payload do |resource_owner_id:, **|
     { uid: resource_owner_id }
   end
+
+  config.use_iat_claim = true
+  config.exp_period = { hours: 4 }
 end

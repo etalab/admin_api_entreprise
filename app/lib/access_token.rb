@@ -1,3 +1,4 @@
+# TODO rename to APIEntrepriseAccessToken
 class AccessToken
   class << self
     HASH_SECRET = Rails.application.secrets.jwt_hash_secret
