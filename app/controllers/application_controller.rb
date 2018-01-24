@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+  include Pundit
   before_action :jwt_authenticate!
 
   private
@@ -7,6 +8,8 @@ class ApplicationController < ActionController::API
   def jwt_authenticate!
     payload = extract_payload_from_header
     return invalid_request unless payload
+
+    @pundit_user = JwtUser.new(payload[:uid])
   end
 
   def extract_payload_from_header
@@ -26,5 +29,11 @@ class ApplicationController < ActionController::API
   def extract_token_from(header)
     matchs = header.match(/\ABearer (.+)\z/)
     matchs[1] if matchs
+  end
+
+  # Method called by Pundit to get the current user of the request
+  # @pundit_user is the first argument passed to policies
+  def pundit_user
+    @pundit_user
   end
 end

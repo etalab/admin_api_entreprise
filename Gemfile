@@ -31,6 +31,8 @@ gem 'trailblazer', '~> 2.0.7'
 gem 'trailblazer-rails'
 gem 'dry-validation', '~> 0.11.1'
 
+gem 'pundit', '~> 1.1'
+
 group :development, :test do
   gem 'colorize'
   gem 'pry'
