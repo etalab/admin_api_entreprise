@@ -1,10 +1,12 @@
 class RolesController < ApplicationController
   def index
+    authorize :admin, :admin?
     roles = Role.all
     render json: roles, status: 200
   end
 
   def create
+    authorize :admin, :admin?
     result = Role::Create.call(params)
 
     if result.success?

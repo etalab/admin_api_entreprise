@@ -1,59 +1,84 @@
 require 'rails_helper'
 
 describe RolesController, type: :controller do
-  before { set_authentication_token }
-
   describe '#index' do
     let(:nb_roles) { 8 }
     before do
       create_list :role, nb_roles
-      get :index
     end
 
-    it 'returns all roles from the database' do
-      body = JSON.parse(response.body, symbolize_names: true)
+    context 'when requested from an admin' do
+      include_context 'admin request'
 
-      expect(response.code).to eq '200'
-      expect(body.size).to eq nb_roles
+      it 'returns all roles from the database' do
+        get :index
+        body = JSON.parse(response.body, symbolize_names: true)
+
+        expect(response.code).to eq '200'
+        expect(body.size).to eq nb_roles
+      end
+
+      it 'returns the right payload format' do
+        get :index
+        body = JSON.parse(response.body, symbolize_names: true)
+        expect(body).to be_an_instance_of Array
+
+        role_raw = body.first
+        expect(role_raw).to be_an_instance_of Hash
+        expect(role_raw.size).to eq 2
+        expect(role_raw.key?(:name)).to be true
+        expect(role_raw.key?(:code)).to be true
+      end
     end
 
-    it 'returns the right payload format' do
-      body = JSON.parse(response.body, symbolize_names: true)
-      expect(body).to be_an_instance_of Array
+    context 'when requested from a client user' do
+      include_context 'user request'
+      before { get :index }
 
-      role_raw = body.first
-      expect(role_raw).to be_an_instance_of Hash
-      expect(role_raw.size).to eq 2
-      expect(role_raw.key?(:name)).to be true
-      expect(role_raw.key?(:code)).to be true
+      it_behaves_like 'unauthorized'
     end
   end
 
   describe '#create' do
     let(:role_params) { attributes_for :role }
 
-    context 'when data are valid' do
-      it 'creates a valid role' do
-        expect { post :create, params: role_params }
-          .to change(Role, :count).by(1)
+    context 'when requested from an admin' do
+      include_context 'admin request'
+
+      context 'when data are valid' do
+        it 'creates a valid role' do
+          expect { post :create, params: role_params }
+            .to change(Role, :count).by(1)
+        end
+
+        it 'returns code 201' do
+          post :create, params: role_params
+          expect(response.code).to eq '201'
+        end
       end
 
-      it 'returns code 201' do
-        post :create, params: role_params
-        expect(response.code).to eq '201'
+      context 'when data is invalid' do
+        before { role_params[:name] = '' }
+
+        it 'does not save the role' do
+          expect { post :create, params: role_params }.to_not change(Role, :count)
+        end
+
+        it 'returns code 422' do
+          post :create, params: role_params
+          expect(response.code).to eq '422'
+        end
       end
     end
 
-    context 'when data is invalid' do
-      before { role_params[:name] = '' }
+    context 'when requested from a user' do
+      include_context 'user request'
+      before { post :create, params: role_params }
+
+      it_behaves_like 'unauthorized'
 
       it 'does not save the role' do
         expect { post :create, params: role_params }.to_not change(Role, :count)
-      end
-
-      it 'returns code 422' do
-        post :create, params: role_params
-        expect(response.code).to eq '422'
       end
     end
   end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe TokensController, type: :controller do
-  before { set_authentication_token }
+  include_context 'user request'
 
   describe '#create' do
     let(:user) do

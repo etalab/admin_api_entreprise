@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe UsersController, type: :controller do
-  before { set_authentication_token }
+  include_context 'user request'
 
   describe '#index' do
     # TODO pagination handling
@@ -14,7 +14,9 @@ describe UsersController, type: :controller do
     it 'returns all users from database' do
       body = JSON.parse(response.body, symbolize_names: true)
 
-      expect(body.size).to eq nb_users
+      # included context create on more user to create the token
+      # TODO fix it with FactoryBot + own constructor with operation
+      expect(body.size).to eq(nb_users + 1)
       expect(response.code).to eq '200'
     end
 

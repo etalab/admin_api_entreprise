@@ -2,6 +2,8 @@ class ApplicationController < ActionController::API
   include Pundit
   before_action :jwt_authenticate!
 
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   private
 
   # TODO move this into a Request::Authenticate operation ?
@@ -35,5 +37,9 @@ class ApplicationController < ActionController::API
   # @pundit_user is the first argument passed to policies
   def pundit_user
     @pundit_user
+  end
+
+  def user_not_authorized
+    render json: { errors: 'Not authorized' }, status: 401
   end
 end

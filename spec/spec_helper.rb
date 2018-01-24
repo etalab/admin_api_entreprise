@@ -22,6 +22,7 @@ end
 
 # Require helpers files containing factories
 Dir[Rails.root.join("spec/helpers/**/*.rb")].each { |f| require f }
+Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
