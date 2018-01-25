@@ -31,12 +31,7 @@ describe RolesController, type: :controller do
       end
     end
 
-    context 'when requested from a client user' do
-      include_context 'user request'
-      before { get :index }
-
-      it_behaves_like 'unauthorized'
-    end
+    it_behaves_like 'client user unauthorized', :get, :index
   end
 
   describe '#create' do
@@ -73,9 +68,7 @@ describe RolesController, type: :controller do
 
     context 'when requested from a user' do
       include_context 'user request'
-      before { post :create, params: role_params }
-
-      it_behaves_like 'unauthorized'
+      it_behaves_like 'client user unauthorized', :post, :create
 
       it 'does not save the role' do
         expect { post :create, params: role_params }.to_not change(Role, :count)
