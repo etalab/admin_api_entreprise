@@ -39,6 +39,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'spring-commands-rspec'
   gem 'rspec-rails'
+  gem 'rspec-its'
   gem 'unindent'
   gem 'guard-rspec'
   gem 'factory_bot_rails'

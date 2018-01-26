@@ -101,7 +101,14 @@ describe User::Create do
         expect(created_user).to_not be_confirmed
       end
 
-      it 'sends a confirmation email to the user' # and set confirmation_sent_at
+      it 'sends a confirmation email to the user' do
+        expect { described_class.call(user_params) }
+          .to change(ActionMailer::Base.deliveries, :count).by(1)
+      end
+
+      it 'sets the confirmation request timestamp' do
+        expect(result['model'].confirmation_sent_at.to_i).to be_within(2).of(Time.now.to_i)
+      end
     end
   end
 end

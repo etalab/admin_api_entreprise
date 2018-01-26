@@ -1,0 +1,9 @@
+Bonjour <%= @user.email %>,
+
+Un compte client à API Entreprise vous a été créé.
+Afin d'activer votre compte, merci de cliquer sur le lien ci-dessous. Il vous sera demandé de renseigner votre mot de passe, celui-ci vous permettra de vous connecter à votre espace client.
+
+https://entreprise.api.gouv.fr/account/confirm?confirmation_token=<%= @user.confirmation_token %>
+
+Cordialement,
+L'équipe API Entreprise
