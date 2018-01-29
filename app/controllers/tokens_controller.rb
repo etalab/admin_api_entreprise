@@ -1,5 +1,6 @@
 class TokensController < ApplicationController
   def create
+    authorize :admin, :admin?
     result = Token::Create.call(params)
 
     if result.success?
