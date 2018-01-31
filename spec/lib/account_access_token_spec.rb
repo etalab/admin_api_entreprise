@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+# TODO Replace "account" naming with "session"
 # JWT emited by doorkeeper on user login
 describe 'JWT for account data access', type: :jwt do
   let(:user) { UsersFactory.confirmed_user }
@@ -18,10 +19,11 @@ describe 'JWT for account data access', type: :jwt do
     creation_timestamp = token_payload[:iat]
 
     # giving the test 2 seconds lag security
+    # look gem time cop
     expect(creation_timestamp).to be_within(2).of(Time.now.to_i)
   end
 
-  it 'is valid 4 hours' do
+  it 'expires in 4 hours' do
     creation_timestamp = token_payload[:iat]
     expiration_timestamp = token_payload[:exp]
 

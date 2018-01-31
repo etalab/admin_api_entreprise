@@ -8,10 +8,10 @@ class ApplicationController < ActionController::API
 
   # TODO move this into a Request::Authenticate operation ?
   def jwt_authenticate!
-    payload = extract_payload_from_header
-    return invalid_request unless payload
+    extract_payload_from_header
+    return unauthorized unless @auth_payload
 
-    @pundit_user = JwtUser.new(payload[:uid])
+    @pundit_user = JwtUser.new(@auth_payload[:uid])
   end
 
   def extract_payload_from_header
@@ -19,12 +19,12 @@ class ApplicationController < ActionController::API
     return nil unless authorization_header
 
     token = extract_token_from(authorization_header)
-    AccessToken.decode(token)
+    @auth_payload = AccessToken.decode(token)
   rescue JWT::DecodeError
     nil
   end
 
-  def invalid_request
+  def unauthorized
     render json: { error: 'Unauthorized' }, status: 401
   end
 
@@ -40,6 +40,6 @@ class ApplicationController < ActionController::API
   end
 
   def user_not_authorized
-    render json: { errors: 'Not authorized' }, status: 401
+    render json: { errors: 'Forbidden' }, status: 403
   end
 end

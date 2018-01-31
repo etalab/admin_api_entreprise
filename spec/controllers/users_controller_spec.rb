@@ -164,7 +164,7 @@ describe UsersController, type: :controller do
 
     context 'when requested from a client user' do
       let(:user) { UsersFactory.confirmed_user }
-      before { set_user_token(user.id) }
+      before { fill_request_headers_with_user_jwt(user.id) }
 
       it 'returns requesting user\'s info' do
         get :show, params: { id: user.id }
@@ -176,7 +176,7 @@ describe UsersController, type: :controller do
         another_user = UsersFactory.confirmed_user
         get :show, params: { id: another_user.id }
 
-        expect(response.code).to eq '401'
+        expect(response.code).to eq '403'
       end
     end
 

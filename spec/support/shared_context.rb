@@ -1,12 +1,12 @@
 RSpec.shared_context 'admin request' do
   before do
-    set_admin_token
+    fill_request_headers_with_admin_jwt
   end
 end
 
 RSpec.shared_context 'user request' do
   before do
     user = UsersFactory.confirmed_user
-    set_user_token(user.id)
+    fill_request_headers_with_user_jwt(user.id)
   end
 end
