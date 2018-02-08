@@ -3,7 +3,10 @@ require 'rails_helper'
 describe Token::Create do
   let(:user) { create :user }
   let(:token_params) do
-    { token_payload: %w(rol1 rol2 rol3), user_id: user.id }
+    {
+      user_id: user.id,
+      roles: %w(rol1 rol2 rol3)
+    }
   end
   let(:result) { described_class.call(token_params) }
 
@@ -16,11 +19,11 @@ describe Token::Create do
   end
 
   context 'when data is invalid' do
-    describe 'token_payload' do
-      let(:errors) { result['result.contract.params'].errors[:token_payload] }
+    describe ':roles' do
+      let(:errors) { result['result.contract.params'].errors[:roles] }
 
       it 'is required' do
-        token_params[:token_payload] = []
+        token_params[:roles] = []
 
         expect(result).to be_failure
         expect(errors).to include 'must be filled'
@@ -28,5 +31,27 @@ describe Token::Create do
 
       pending 'roles into payload must exists in database'
     end
+
+    describe ':user_id' do
+      let(:errors) { result['result.contract.params'].errors[:user_id] }
+
+      it 'is required' do
+        token_params.delete(:user_id)
+
+        expect(result).to be_failure
+        expect(errors).to include('is missing')
+      end
+
+      it 'is an existing user id' do
+        token_params[:user_id] = 'not a user id'
+
+        expect(result).to be_failure
+        expect(result['errors']).to eq("user does not exist (UID : 'not a user id')")
+      end
+    end
+  end
+
+  describe 'issued token' do
+    # TODO spec for issued tokens format
   end
 end

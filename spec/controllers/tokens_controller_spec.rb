@@ -7,7 +7,7 @@ describe TokensController, type: :controller do
       result['model']
     end
     let(:token_params) do
-      { token_payload: %w(rol1 rol2 rol3), user_id: user.id }
+      { roles: %w(rol1 rol2 rol3), user_id: user.id }
     end
 
     context 'admin request' do
@@ -33,13 +33,13 @@ describe TokensController, type: :controller do
         end
 
         it 'does not create the token' do
-          token_params[:token_payload] = nil
+          token_params[:roles] = nil
           expect { post :create, params: token_params }
             .to_not change(Token, :count)
         end
 
         it 'returns code 422' do
-          token_params[:token_payload] = nil
+          token_params[:roles] = nil
           post :create, params: token_params
           expect(response.code).to eq '422'
         end
