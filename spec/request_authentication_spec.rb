@@ -68,5 +68,23 @@ describe 'Request authentication', type: :controller do
       expect(response.code).to eq '200'
       expect(response.body).to include 'access_token'
     end
+
+    context 'when admin logs in' do
+      let(:admin) { UsersFactory.admin }
+
+      it 'issues a JWT with admin role' do
+        login_params = {
+          username: admin.email,
+          password: Rails.application.secrets.fetch(:admin_password),
+          grant_type: 'password'
+        }
+        post '/api/admin/users/login', params: login_params
+        body = JSON.parse(response.body, symbolize_names: true)
+        jwt = body.fetch(:access_token)
+
+        expect(response.code).to eq '200'
+        expect(extract_payload_from(jwt).fetch(:admin)).to eq true
+      end
+    end
   end
 end

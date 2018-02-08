@@ -1,5 +1,5 @@
 module AuthenticationHelper
-  ADMIN_UID = 'bacb9bbc-f208-4b23-a176-67504d4920dd'
+  ADMIN_UID = Rails.application.secrets.fetch(:admin_uid)
 
   def fill_request_headers_with_user_jwt(user_id)
     user_token = JWTF.generate(resource_owner_id: user_id)

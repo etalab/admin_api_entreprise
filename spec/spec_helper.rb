@@ -106,4 +106,5 @@ RSpec.configure do |config|
 
   config.include AuthenticationHelper, type: :controller
   config.include JWTHelper, type: :jwt
+  config.include JWTHelper, type: :request
 end

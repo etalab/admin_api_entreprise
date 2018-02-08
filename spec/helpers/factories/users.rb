@@ -1,3 +1,5 @@
+require 'rake'
+
 module UsersFactory
   def self.inactive_user
     params = { email: 'in@ctive.user', context: 'testing confirmation' }
@@ -13,5 +15,11 @@ module UsersFactory
     }
     operation_result = User::Confirm.call(params)
     operation_result['model']
+  end
+
+  def self.admin
+    AdminApientreprise::Application.load_tasks
+    Rake::Task['create_admin'].invoke
+    User.last
   end
 end

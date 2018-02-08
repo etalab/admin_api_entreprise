@@ -6,6 +6,6 @@ class JwtUser
   end
 
   def admin?
-    id == 'bacb9bbc-f208-4b23-a176-67504d4920dd'
+    id == Rails.application.secrets.fetch(:admin_uid)
   end
 end
