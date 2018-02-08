@@ -8,7 +8,8 @@ class Role
 
       validation do
         required(:name).filled(:str?, max_size?: 50)
-        required(:code).filled(:str?, max_size?: 4)
+        # required(:code).filled(:str?, max_size?: 4)
+        required(:code).filled(:str?)
       end
     end
 
