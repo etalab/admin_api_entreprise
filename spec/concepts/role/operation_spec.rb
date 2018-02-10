@@ -19,7 +19,7 @@ describe Role::Create do
 
   context 'when params are invalid' do
     describe '#name' do
-      let(:errors) { result['result.contract.default'].errors.messages[:name] }
+      let(:errors) { result['result.contract.params'].errors[:name] }
 
       it 'is required' do
         role_params[:name] = ''
@@ -35,11 +35,18 @@ describe Role::Create do
         expect(errors).to include 'size cannot be greater than 50'
       end
 
-      it 'is unique'
+      it 'is unique' do
+        role = create :role
+        role_params[:name] = role.name
+
+        expect { result }.to_not change(Role, :count)
+        expect(result).to be_failure
+        expect(errors).to include 'value must be unique'
+      end
     end
 
-    describe '#role' do
-      let(:errors) { result['result.contract.default'].errors.messages[:code] }
+    describe '#code' do
+      let(:errors) { result['result.contract.params'].errors[:code] }
 
       it 'is required' do
         role_params[:code] = nil
@@ -56,7 +63,14 @@ describe Role::Create do
       #  expect(errors).to include 'size cannot be greater than 4'
       #end
 
-      it 'is unique'
+      it 'is unique' do
+        role = create :role
+        role_params[:code] = role.code
+
+        expect { result }.to_not change(Role, :count)
+        expect(result).to be_failure
+        expect(errors).to include 'value must be unique'
+      end
     end
   end
 end

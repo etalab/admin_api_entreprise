@@ -13,7 +13,7 @@ class RolesController < ApplicationController
       render json: result['model'], status: 201
 
     else
-      errors = result['result.contract.default'].errors.messages
+      errors = result['result.contract.params'].errors
       render json: { errors: errors }, status: 422
     end
   end
