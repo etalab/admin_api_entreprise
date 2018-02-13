@@ -23,7 +23,7 @@ describe 'Request authentication', type: :controller do
   end
 
   context 'when Authorization header is present' do
-    let(:valid_token) { 'eyJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiI0YzYzYzlkOS0xOGRjLTRhNjMtYTU1NS1kZTg3ZjY0M2YyYzAifQ.l42ieWm397uZCuI6GeD1r9uf7D-k8u3VoBDsP9RRip0' }
+    let(:valid_token) { 'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJ0cm9sbF9mYWNlIl0sInVpZCI6ImJhY2I5YmJjLWYyMDgtNGIyMy1hMTc2LTY3NTA0ZDQ5MjBkZCJ9.eOxiBtIBnEbh3lIeW5zamXkfdy5tsXyW5Q5L_odorPY' }
 
     it 'accepts valid tokens' do
       request.headers['Authorization'] = "Bearer #{valid_token}"

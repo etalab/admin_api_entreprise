@@ -20,7 +20,7 @@ class Token
     def create_token(options, params:, user:, **)
       apie_payload = Hash.new.tap do |p|
         p[:uid] = user.id
-        p[:roles] = params[:token_payload]
+        p[:roles] = params[:roles]
       end
       new_token = AccessToken.create(apie_payload)
       options['created_token'] = user.tokens.create(value: new_token)
