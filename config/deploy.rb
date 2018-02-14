@@ -22,7 +22,7 @@ set :deploy_to, "/var/www/admin_apientreprise_#{ENV['to']}"
 set :rails_env, ENV['to']
 set :repository, 'git@gitlab.incubateur.net:data.gouv.fr/admin_apientreprise.git'
 
-branch =
+branch = ENV['branch'] ||
   begin
     case ENV['to']
     when 'production'
