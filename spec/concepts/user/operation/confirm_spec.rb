@@ -31,6 +31,10 @@ describe User::Confirm do
           .to be true
       end
 
+      it 'returns a session JWT for user dashboard access' do
+        expect(result['access_token']).to be_truthy
+      end
+
       it 'sends a notification email to the user'
     end
 

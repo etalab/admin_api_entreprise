@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     result = User::Confirm.call(params)
 
     if result.success?
-      render json: {}, status: 200
+      render json: { access_token: result['access_token'] }, status: 200
 
     else
       # TODO handle errors from a generic application way

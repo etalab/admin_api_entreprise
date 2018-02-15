@@ -257,6 +257,11 @@ describe UsersController, type: :controller do
           expect(response.code).to eq '200'
         end
 
+        it 'returns a session JWT' do
+          body = JSON.parse(response.body, symbolize_names: true)
+          expect(body[:access_token]).to be_truthy
+        end
+
         it 'confirms the user' do
           user_token = confirmation_params[:confirmation_token]
           confirmed_user = User.find_by(confirmation_token: user_token)

@@ -10,6 +10,7 @@ class User
     step ->(model:, **) { model.confirm }
     failure :user_already_confirmed
     step :set_user_password
+    step :dispose_session_token
 
     def retrieve_user_from_token(options, params:, **)
       options['model'] = User.find_by(
@@ -19,6 +20,12 @@ class User
 
     def set_user_password(model:, params:, **)
       model.update_attribute :password, params[:password]
+    end
+
+    def dispose_session_token(options, model:, **)
+      # Call JWTF the way Doorkeeper does it
+      jwt = JWTF.generate(resource_owner_id: model.id)
+      options['access_token'] = jwt
     end
 
     # TODO Set errors field into higher level application operation
