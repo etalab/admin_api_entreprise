@@ -10,7 +10,7 @@ describe UserMailer, type: :mailer do
     its(:from) { is_expected.to eq ['no-reply@entreprise.api.gouv.fr'] }
 
     it 'contains the user confirmation URL' do
-      confirmation_url = "https://entreprise.api.gouv.fr/account/confirm?confirmation_token=#{user.confirmation_token}"
+      confirmation_url = "https://watchdoge.entreprise.api.gouv.fr/#/account/confirm?confirmation_token=#{user.confirmation_token}"
 
       expect(subject.body.encoded).to include(confirmation_url)
     end
