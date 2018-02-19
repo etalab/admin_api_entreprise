@@ -1,14 +1,14 @@
-class Token
+class JwtApiEntreprise
   class Create < Trailblazer::Operation
     extend Contract::DSL
 
     contract 'params', (Dry::Validation.Schema do
       required(:roles) { filled? { each { str? } } }
       required(:user_id).filled(:str?)
+      required(:user_id).maybe(:str?)
     end)
 
     step Contract::Validate(name: 'params')
-    # TODO verify user with dry-validation schema
     step :verify_user
     failure :error_message
     step :create_token
@@ -17,13 +17,15 @@ class Token
       options[:user] = User.find_by_id(params[:user_id])
     end
 
+    # TODO move this into a postgresql transaction
     def create_token(options, params:, user:, **)
-      apie_payload = Hash.new.tap do |p|
-        p[:uid] = user.id
-        p[:roles] = params[:roles]
-      end
-      new_token = AccessToken.create(apie_payload)
-      options['created_token'] = user.tokens.create(value: new_token)
+      new_token = JwtApiEntreprise.create({
+        subject: params[:subject],
+        iat: Time.now.to_i
+      })
+      new_token.roles << Role.where(code: params[:roles])
+      user.jwt_api_entreprise << new_token
+      options['created_token'] = new_token.reload
     end
 
     def error_message(options)

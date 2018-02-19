@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   scope 'api/admin' do
     resources :roles, only: [:index, :create]
     resources :users, only: [:index, :create, :show, :destroy] do
-      resources :tokens, only: [:create]
+      resources :jwt_api_entreprise, only: [:create]
 
       # User account related routes
       collection do

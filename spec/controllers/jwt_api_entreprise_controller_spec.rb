@@ -1,13 +1,14 @@
 require 'rails_helper'
 
-describe TokensController, type: :controller do
+describe JwtApiEntrepriseController, type: :controller do
   describe '#create' do
-    let(:user) do
-      result = User::Create.call(email: 'user@test.gg', context: '')
-      result['model']
+    let(:user) { UsersFactory.confirmed_user }
+    let(:jwt_roles) do
+      roles = create_list(:role, 4)
+      roles.pluck(:code)
     end
     let(:token_params) do
-      { roles: %w(rol1 rol2 rol3), user_id: user.id }
+      { roles: jwt_roles, user_id: user.id, subject: 'coucou' }
     end
 
     context 'admin request' do
@@ -16,12 +17,19 @@ describe TokensController, type: :controller do
       context 'when data is valid' do
         it 'creates a valid token' do
           expect { post :create, params: token_params }
-            .to change(Token, :count).by(1)
+            .to change(JwtApiEntreprise, :count).by(1)
         end
 
         it 'returns code 201' do
           post :create, params: token_params
           expect(response.code).to eq '201'
+        end
+
+        it 'returns the created JWT' do
+          post :create, params: token_params
+          body = JSON.parse(response.body, symbolize_names: true)
+
+          expect(body[:new_token]).to be_a(String)
         end
       end
 
@@ -35,7 +43,7 @@ describe TokensController, type: :controller do
         it 'does not create the token' do
           token_params[:roles] = nil
           expect { post :create, params: token_params }
-            .to_not change(Token, :count)
+            .to_not change(JwtApiEntreprise, :count)
         end
 
         it 'returns code 422' do

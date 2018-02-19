@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171215154625) do
+ActiveRecord::Schema.define(version: 20180219143242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,20 @@ ActiveRecord::Schema.define(version: 20171215154625) do
     t.datetime "updated_at", null: false
     t.uuid "user_id"
     t.index ["user_id"], name: "index_contacts_on_user_id"
+  end
+
+  create_table "jwt_api_entreprises", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "subject"
+    t.integer "iat"
+    t.uuid "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_jwt_api_entreprises_on_user_id"
+  end
+
+  create_table "jwt_api_entreprises_roles", id: false, force: :cascade do |t|
+    t.uuid "jwt_api_entreprise_id", null: false
+    t.uuid "role_id", null: false
   end
 
   create_table "oauth_access_grants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -71,14 +85,6 @@ ActiveRecord::Schema.define(version: 20171215154625) do
     t.string "code"
   end
 
-  create_table "tokens", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "value"
-    t.uuid "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_tokens_on_user_id"
-  end
-
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email"
     t.string "context"
@@ -92,9 +98,9 @@ ActiveRecord::Schema.define(version: 20171215154625) do
   end
 
   add_foreign_key "contacts", "users"
+  add_foreign_key "jwt_api_entreprises", "users"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_grants", "users", column: "resource_owner_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "users", column: "resource_owner_id"
-  add_foreign_key "tokens", "users"
 end

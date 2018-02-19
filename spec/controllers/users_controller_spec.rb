@@ -161,6 +161,7 @@ describe UsersController, type: :controller do
 
           expect(body[:tokens]).to be_an_instance_of Array
           expect(body[:tokens].size).to eq 1
+          expect(body[:tokens].first).to be_a(String)
         end
       end
 

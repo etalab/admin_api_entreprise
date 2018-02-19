@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_many :contacts, dependent: :destroy
-  has_many :tokens, dependent: :nullify
+  has_many :jwt_api_entreprise, dependent: :nullify
 
   # Passing validations: false as argument so password can be blank on creation
   has_secure_password(validations: false)
@@ -23,5 +23,9 @@ class User < ApplicationRecord
       break unless User.find_by(confirmation_token: token)
     end
     self.confirmation_token = token
+  end
+
+  def encoded_jwt
+    jwt_api_entreprise.map(&:rehash)
   end
 end

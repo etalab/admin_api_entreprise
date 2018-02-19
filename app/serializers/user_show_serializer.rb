@@ -5,6 +5,6 @@ class UserShowSerializer < ActiveModel::Serializer
   has_many :contacts
 
   def tokens
-    object.tokens.pluck :value
+    object.encoded_jwt
   end
 end
