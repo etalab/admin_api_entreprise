@@ -19,6 +19,9 @@ namespace :dev do
       jwt_hash_secret: 'wowmuchsecret'
       jwt_hash_algo: 'HS256'
 
+      admin_uid: 'bacb9bbc-f208-4b23-a176-67504d4920dd'
+      admin_password: 'admin'
+
     development:
       secret_key_base: 1921d3b684468dbc2f881d20baa64212a3ad44af8c8de09ed5a211bd3c0b1cbad91c4ed172b2b7046dc9b69b2c83ae272588b15497f54db924d615d8a50caeb2
       <<: *DEFAULTS
