@@ -52,4 +52,6 @@ Rails.application.configure do
       resource '*', :headers => :any, :methods => :any
     end
   end
+
+  config.account_confirmation_url = 'https://sandbox.dashboard.entreprise.api.gouv.fr/#/account/confirm'
 end
