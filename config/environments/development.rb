@@ -53,5 +53,5 @@ Rails.application.configure do
     end
   end
 
-  config.account_confirmation_url = 'https://sandbox.dashboard.entreprise.api.gouv.fr/#/account/confirm'
+  config.account_confirmation_url = 'https://sandbox.dashboard.entreprise.api.gouv.fr/account/confirm'
 end
