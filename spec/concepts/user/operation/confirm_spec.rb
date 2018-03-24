@@ -88,27 +88,33 @@ describe User::Confirm do
 
       it 'is min 8 characters long' do
         confirmation_params[:password] =
-          confirmation_params['password_confirmation'] = 'a' * 7
+          confirmation_params[:password_confirmation] = 'a' * 7
 
         expect(contract_error).to include 'size cannot be less than 8'
       end
 
       it 'contains a lowercase letter' do
         confirmation_params[:password] =
-          confirmation_params['password_confirmation'] = 'AAAAAAAAA3'
+          confirmation_params[:password_confirmation] = 'AAAAAAAAA3'
         expect(contract_error).to include format_error_message
       end
 
       it 'contains an uppercase letter' do
         confirmation_params[:password] =
-          confirmation_params['password_confirmation'] = 'aaaaaaaaa3'
+          confirmation_params[:password_confirmation] = 'aaaaaaaaa3'
         expect(contract_error).to include format_error_message
       end
 
       it 'contains a number' do
         confirmation_params[:password] =
-          confirmation_params['password_confirmation'] = 'AAAAAAAAAa'
+          confirmation_params[:password_confirmation] = 'AAAAAAAAAa'
         expect(contract_error).to include format_error_message
+      end
+
+      it 'accepts special characters' do
+        confirmation_params[:password] =
+          confirmation_params[:password_confirmation] = 'Cou-cou!123?'
+        expect(result).to be_success
       end
     end
   end

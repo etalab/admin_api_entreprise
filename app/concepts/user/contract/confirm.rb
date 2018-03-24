@@ -11,7 +11,7 @@ class User
         required(:confirmation_token).filled
         required(:password).filled(
           min_size?: 8,
-          format?: /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
+          format?: /(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}/
         ).confirmation
       end
     end
