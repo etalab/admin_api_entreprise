@@ -41,7 +41,7 @@ describe Role::Create do
 
         expect { result }.to_not change(Role, :count)
         expect(result).to be_failure
-        expect(errors).to include 'value must be unique'
+        expect(errors).to include 'value already exists'
       end
     end
 
@@ -69,7 +69,7 @@ describe Role::Create do
 
         expect { result }.to_not change(Role, :count)
         expect(result).to be_failure
-        expect(errors).to include 'value must be unique'
+        expect(errors).to include 'value already exists'
       end
     end
   end

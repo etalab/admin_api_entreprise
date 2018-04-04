@@ -3,6 +3,10 @@ FactoryBot.define do
     sequence(:email) { |n| "user_#{n}@example.org" }
     context 'VERY_DEVELOPMENT'
 
+    factory :confirmed_user do
+      confirmed_at Time.now.to_i
+    end
+
     factory :user_with_contacts do
       after(:create) do |u|
         create(:contact, contact_type: 'tech', user: u)

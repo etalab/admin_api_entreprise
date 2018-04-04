@@ -48,7 +48,13 @@ describe User::Create do
         expect(errors).to include 'is in invalid format'
       end
 
-      it 'is unique'
+      it 'is unique' do
+        user = create(:user)
+        user_params[:email] = user.email
+
+        expect(result).to be_failure
+        expect(errors).to include 'value already exists'
+      end
 
       it 'is saved lowercase' do
         user_params[:email] = 'COUCOU@COUCOU.FR'

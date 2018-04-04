@@ -189,7 +189,7 @@ describe UsersController, type: :controller do
         end
 
         it 'denies access to other users data' do
-          another_user = UsersFactory.confirmed_user
+          another_user = create(:user)
           get :show, params: { id: another_user.id }
 
           expect(response.code).to eq '403'
