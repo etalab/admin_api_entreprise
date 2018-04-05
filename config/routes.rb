@@ -6,6 +6,10 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :create, :show, :destroy] do
       resources :jwt_api_entreprise, only: [:create]
 
+      member do
+        post 'add_roles'
+      end
+
       # User account related routes
       collection do
         post :confirm
