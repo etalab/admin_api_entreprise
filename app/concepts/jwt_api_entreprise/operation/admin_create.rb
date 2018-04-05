@@ -5,7 +5,7 @@ class JwtApiEntreprise
     contract 'params', (Dry::Validation.Schema do
       required(:roles) { filled? { each { str? } } }
       required(:user_id).filled(:str?)
-      required(:user_id).maybe(:str?)
+      required(:subject).maybe(:str?)
     end)
 
     step Contract::Validate(name: 'params')

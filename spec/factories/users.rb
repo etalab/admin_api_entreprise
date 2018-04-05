@@ -21,5 +21,11 @@ FactoryBot.define do
         create_list(:jwt_api_entreprise, 3, user: u)
       end
     end
+
+    factory :user_with_roles do
+      after(:create) do |u|
+        create_list(:role, 4, users: [u])
+      end
+    end
   end
 end
