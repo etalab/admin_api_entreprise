@@ -6,6 +6,7 @@ describe User::Create do
     {
       email: 'new@record.gg',
       context: 'very development',
+      allow_token_creation: true,
       contacts: [
         {
           email: 'coucou@hello.fr',
@@ -88,6 +89,34 @@ describe User::Create do
         user_params.delete :contacts
 
         expect(result).to be_success
+      end
+    end
+
+    describe '#allow_token_creation' do
+      let(:errors) { result['result.contract.default'].errors.messages[:allow_token_creation] }
+
+      context 'when provided' do
+        it 'is a boolean value' do
+          user_params[:allow_token_creation] = 'truedat'
+
+          expect(result).to be_failure
+          expect(errors).to include('must be boolean')
+        end
+      end
+
+      context 'when not provided' do
+        it 'still works' do
+          user_params.delete(:allow_token_creation)
+
+          expect(result).to be_success
+        end
+
+        it 'is default to false' do
+          user_params.delete(:allow_token_creation)
+          created_user = result['model']
+
+          expect(created_user.allow_token_creation).to eq(false)
+        end
       end
     end
 

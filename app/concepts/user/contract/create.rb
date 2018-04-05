@@ -3,6 +3,7 @@ class User
     class Create < Reform::Form
       property :email
       property :context
+      property :allow_token_creation
 
       validation do
         configure do
@@ -20,6 +21,7 @@ class User
           &:unique?
         )
         required(:context).maybe(:str?)
+        required(:allow_token_creation).maybe(:bool?)
       end
 
       collection :contacts, form: Contact::Contract, populate_if_empty: Contact
