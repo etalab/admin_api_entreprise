@@ -1,5 +1,5 @@
 class JwtApiEntreprise
-  class Create < Trailblazer::Operation
+  class AdminCreate < Trailblazer::Operation
     extend Contract::DSL
 
     contract 'params', (Dry::Validation.Schema do
