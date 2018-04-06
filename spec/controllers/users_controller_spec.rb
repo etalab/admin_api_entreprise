@@ -15,7 +15,7 @@ describe UsersController, type: :controller do
         get :index
         body = JSON.parse(response.body, symbolize_names: true)
 
-        expect(body.size).to eq(nb_users)
+        expect(body.size).to eq(11) # admin user is created by admin context inclusion
         expect(response.code).to eq '200'
       end
 

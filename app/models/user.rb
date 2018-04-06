@@ -29,4 +29,8 @@ class User < ApplicationRecord
   def encoded_jwt
     jwt_api_entreprise.map(&:rehash)
   end
+
+  def manage_token?
+    self.allow_token_creation
+  end
 end

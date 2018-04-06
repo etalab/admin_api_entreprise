@@ -31,4 +31,26 @@ describe 'JWT for account data access', type: :jwt do
     expect(expiration_timestamp)
       .to be_within(2).of(creation_timestamp + (4*3600))
   end
+
+  it 'contains a list of grants' do
+    expect(token_payload.fetch(:grants)).to be_an(Array)
+  end
+
+  describe '#grants' do
+    let(:grants) { token_payload.fetch(:grants) }
+
+    context 'when a user has no particular grants' do
+      it 'is empty' do
+        expect(grants).to be_empty
+      end
+    end
+
+    context 'when a user is allowed to create tokens' do
+      let(:user) { create(:user_with_roles) }
+
+      it 'includes \'token\' grant' do
+        expect(grants).to include('token')
+      end
+    end
+  end
 end

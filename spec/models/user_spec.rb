@@ -15,4 +15,18 @@ describe User do
       pending 'is delegated to the Role#rehash method'
     end
   end
+
+  describe '#manage_token?' do
+    it 'returns false when user is not allowed to create tokens' do
+      user = create(:user)
+
+      expect(user.manage_token?).to eq(false)
+    end
+
+    it 'returns true when user is allowed to create tokens' do
+      user = create(:user_with_roles)
+
+      expect(user.manage_token?).to eq(true)
+    end
+  end
 end
