@@ -12,6 +12,21 @@ class JwtApiEntrepriseController < ApplicationController
     end
   end
 
+  def create
+    raise Pundit::NotAuthorizedError unless pundit_user.id == params[:user_id]
+    authorize JwtApiEntreprise
+
+    result = JwtApiEntreprise::UserCreate.call(params)
+
+    if result.success?
+      render json: { new_token: result['created_token'].rehash }, status: 201
+
+    else
+      errors = retrieve_errors(result)
+      render json: { errors: errors }, status: 422
+    end
+  end
+
   private
 
   def retrieve_errors(operation_result)
