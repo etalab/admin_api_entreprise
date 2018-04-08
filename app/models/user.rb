@@ -33,4 +33,19 @@ class User < ApplicationRecord
   def manage_token?
     self.allow_token_creation
   end
+
+  def allowed_roles
+    if self.manage_token?
+      self.roles.pluck(:code)
+    else
+      combine_roles_from_tokens
+    end
+  end
+
+  private
+
+  def combine_roles_from_tokens
+    roles = self.jwt_api_entreprise.reduce([]) { |result, jwt| result + jwt.access_roles }
+    roles.uniq
+  end
 end

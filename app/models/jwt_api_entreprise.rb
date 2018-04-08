@@ -6,6 +6,10 @@ class JwtApiEntreprise < ApplicationRecord
     AccessToken.create(token_payload)
   end
 
+  def access_roles
+    self.roles.pluck(:code)
+  end
+
   private
 
   def token_payload

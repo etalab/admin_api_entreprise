@@ -142,7 +142,7 @@ describe UsersController, type: :controller do
         body = JSON.parse(response.body, symbolize_names: true)
 
         expect(body).to be_an_instance_of Hash
-        expect(body.size).to eq 5
+        expect(body.size).to eq 6
         expect(body.key?(:id)).to be true
         expect(body.key?(:email)).to be true
         expect(body.key?(:context)).to be true
@@ -163,6 +163,10 @@ describe UsersController, type: :controller do
         expect(body[:tokens]).to be_an_instance_of Array
         expect(body[:tokens].size).to eq 1
         expect(body[:tokens].first).to be_a(String)
+
+        expect(body[:allowed_roles]).to be_an(Array)
+        expect(body[:allowed_roles].size).to eq(4)
+        expect(body[:allowed_roles].first).to be_a(String)
       end
     end
 
