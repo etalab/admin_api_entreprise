@@ -23,7 +23,8 @@ describe RolesController, type: :controller do
 
         role_raw = body.first
         expect(role_raw).to be_an_instance_of Hash
-        expect(role_raw.size).to eq 2
+        expect(role_raw.size).to eq 3
+        expect(role_raw.key?(:id)).to be true
         expect(role_raw.key?(:name)).to be true
         expect(role_raw.key?(:code)).to be true
       end
