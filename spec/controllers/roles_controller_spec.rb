@@ -7,9 +7,7 @@ describe RolesController, type: :controller do
       create_list :role, nb_roles
     end
 
-    context 'when requested from an admin' do
-      include_context 'admin request'
-
+    shared_examples 'list roles' do
       it 'returns all roles from the database' do
         get :index
         body = JSON.parse(response.body, symbolize_names: true)
@@ -31,7 +29,15 @@ describe RolesController, type: :controller do
       end
     end
 
-    it_behaves_like 'client user unauthorized', :get, :index
+    context 'when requested from an admin' do
+      include_context 'admin request'
+      it_behaves_like 'list roles'
+    end
+
+    context 'when requested from a client' do
+      include_context 'user request'
+      it_behaves_like 'list roles'
+    end
   end
 
   describe '#create' do
