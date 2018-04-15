@@ -7,7 +7,11 @@ describe JwtApiEntreprise::UserCreate do
     {
       user_id: user.id,
       roles: roles.pluck(:code),
-      subject: 'So testy'
+      subject: 'So testy',
+      contact: {
+        email: 'valid@email.com',
+        phone_number: '0123456789'
+      }
     }
   end
   subject { described_class.call(token_params) }
@@ -29,6 +33,20 @@ describe JwtApiEntreprise::UserCreate do
 
     it 'is associated to the provided roles' do
       expect(subject['created_token'].roles.to_a).to eql(roles.to_a)
+    end
+
+    it 'creates the contact' do
+      expect { subject }.to change(Contact, :count).by(1)
+    end
+
+    it 'sets the contact type to "token"' do
+      subject
+
+      expect(Contact.last.contact_type).to eq('token')
+    end
+
+    it 'is associated to the new contact' do
+      expect(subject['created_token'].contact).to eq(Contact.last)
     end
   end
 
@@ -95,6 +113,46 @@ describe JwtApiEntreprise::UserCreate do
 
         expect(subject).to be_failure
         expect(subject['result.contract.params'].errors[:subject]).to include('must be filled')
+      end
+    end
+
+    describe ':contact' do
+      it 'is required' do
+        token_params.delete(:contact)
+
+        expect(subject).to be_failure
+        expect(subject['result.contract.params'].errors[:contact]).to include('is missing')
+      end
+
+      describe 'contact#email' do
+        it 'is required' do
+          token_params[:contact][:email] = nil
+
+          expect(subject).to be_failure
+          expect(subject['result.contract.params'].errors[:contact][:email]).to include('must be filled')
+        end
+
+        it 'has an email format' do
+          token_params[:contact][:email] = 'b@dEmail'
+
+          expect(subject).to be_failure
+          expect(subject['result.contract.params'].errors[:contact][:email]).to include('is in invalid format')
+        end
+      end
+
+      describe 'contact#phone_number' do
+        it 'is optional' do
+          token_params[:contact].delete(:phone_number)
+
+          expect(subject).to be_success
+        end
+
+        it 'has a french number format' do
+          token_params[:contact][:phone_number] = '202-555-0110'
+
+          expect(subject).to be_failure
+          expect(subject['result.contract.params'].errors[:contact][:phone_number]).to include('is in invalid format')
+        end
       end
     end
   end

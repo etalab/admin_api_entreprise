@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180405160412) do
+ActiveRecord::Schema.define(version: 20180411133900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 20180405160412) do
     t.uuid "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "contact_id"
+    t.index ["contact_id"], name: "index_jwt_api_entreprises_on_contact_id"
     t.index ["user_id"], name: "index_jwt_api_entreprises_on_user_id"
   end
 
@@ -104,6 +106,7 @@ ActiveRecord::Schema.define(version: 20180405160412) do
   end
 
   add_foreign_key "contacts", "users"
+  add_foreign_key "jwt_api_entreprises", "contacts"
   add_foreign_key "jwt_api_entreprises", "users"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_grants", "users", column: "resource_owner_id"
