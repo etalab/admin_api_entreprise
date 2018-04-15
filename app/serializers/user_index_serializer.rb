@@ -1,3 +1,7 @@
 class UserIndexSerializer < ActiveModel::Serializer
-  attributes :id, :email, :context
+  attributes :id, :email, :context, :confirmed
+
+  def confirmed
+    object.confirmed?
+  end
 end
