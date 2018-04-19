@@ -1,6 +1,5 @@
 class RolesController < ApplicationController
   def index
-    authorize :admin, :admin?
     roles = Role.all
     render json: roles, status: 200
   end

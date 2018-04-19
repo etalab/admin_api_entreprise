@@ -15,7 +15,7 @@ describe UsersController, type: :controller do
         get :index
         body = JSON.parse(response.body, symbolize_names: true)
 
-        expect(body.size).to eq(nb_users)
+        expect(body.size).to eq(11) # admin user is created by admin context inclusion
         expect(response.code).to eq '200'
       end
 
@@ -132,158 +132,205 @@ describe UsersController, type: :controller do
 
       it_behaves_like 'client user unauthorized', :post, :create
     end
+  end
 
-    describe '#show' do
-      shared_examples 'show user' do
-        it 'returns the user data' do
+  describe '#show' do
+    shared_examples 'show user' do
+      it 'returns the user data' do
+        user = create :user_with_contacts
+        get :show, params: { id: user.id }
+        body = JSON.parse(response.body, symbolize_names: true)
+
+        expect(body).to be_an_instance_of Hash
+        expect(body.size).to eq 8
+        expect(body.key?(:id)).to be true
+        expect(body.key?(:email)).to be true
+        expect(body.key?(:context)).to be true
+        expect(body.key?(:confirmed)).to be true
+        expect(body.key?(:contacts)).to be true
+        expect(body.key?(:tokens)).to be true
+        expect(body.key?(:allowed_roles)).to be true
+        expect(body.key?(:allow_token_creation)).to be true
+
+        expect(body[:contacts]).to be_an_instance_of Array
+        expect(body[:contacts].size).to eq 3
+
+        contact_raw = body[:contacts].first
+        expect(contact_raw).to be_an_instance_of Hash
+        expect(contact_raw.size).to eq 4
+        expect(contact_raw.key?(:id)).to be true
+        expect(contact_raw.key?(:email)).to be true
+        expect(contact_raw.key?(:phone_number)).to be true
+        expect(contact_raw.key?(:contact_type)).to be true
+
+        expect(body[:tokens]).to be_an_instance_of Array
+        expect(body[:tokens].size).to eq 1
+        expect(body[:tokens].first).to be_a(String)
+
+        expect(body[:allowed_roles]).to be_an(Array)
+        expect(body[:allowed_roles].size).to eq(4)
+        expect(body[:allowed_roles].first).to be_a(String)
+      end
+    end
+
+    context 'when requested from an admin' do
+      include_context 'admin request'
+
+      context 'when user does not exist' do
+        it 'returns 404' do
+          get :show, params: { id: 0 }
+          expect(response.code).to eq '404'
+        end
+      end
+
+      it_behaves_like 'show user'
+    end
+
+    context 'when requested from a client user' do
+      let(:user) { UsersFactory.confirmed_user }
+      before { fill_request_headers_with_user_jwt(user.id) }
+
+      it 'returns requesting user\'s info' do
+        get :show, params: { id: user.id }
+
+        expect(response.code).to eq '200'
+      end
+
+      it 'denies access to other users data' do
+        another_user = create(:user)
+        get :show, params: { id: another_user.id }
+
+        expect(response.code).to eq '403'
+      end
+    end
+  end
+
+  describe '#destroy' do
+    context 'when requested from an admin' do
+      include_context 'admin request'
+
+      context 'when user does not exist' do
+        it 'returns 404' do
+          delete :destroy, params: { id: 0 }
+          expect(response.code).to eq '404'
+        end
+
+        it 'does not change the database' do
+          expect { delete :destroy, params: { id: 0 } }
+            .to_not change(User, :count)
+        end
+      end
+
+      context 'when user exists' do
+        it 'returns 204' do
+          user = create :user
+          delete :destroy, params: { id: user.id }
+          expect(response.code).to eq '204'
+        end
+
+        it 'deletes the user' do
+          user = create :user
+          expect { delete :destroy, params: { id: user.id } }
+            .to change(User, :count).by(-1)
+        end
+
+        # TODO move into user model's specs
+        it 'deletes associated contacts' do
           user = create :user_with_contacts
-          get :show, params: { id: user.id }
-          body = JSON.parse(response.body, symbolize_names: true)
-
-          expect(body).to be_an_instance_of Hash
-          expect(body.size).to eq 5
-          expect(body.key?(:id)).to be true
-          expect(body.key?(:email)).to be true
-          expect(body.key?(:context)).to be true
-          expect(body.key?(:contacts)).to be true
-          expect(body.key?(:tokens)).to be true
-
-          expect(body[:contacts]).to be_an_instance_of Array
-          expect(body[:contacts].size).to eq 3
-
-          contact_raw = body[:contacts].first
-          expect(contact_raw).to be_an_instance_of Hash
-          expect(contact_raw.size).to eq 4
-          expect(contact_raw.key?(:id)).to be true
-          expect(contact_raw.key?(:email)).to be true
-          expect(contact_raw.key?(:phone_number)).to be true
-          expect(contact_raw.key?(:contact_type)).to be true
-
-          expect(body[:tokens]).to be_an_instance_of Array
-          expect(body[:tokens].size).to eq 1
-          expect(body[:tokens].first).to be_a(String)
+          expect { delete :destroy, params: { id: user.id } }
+            .to change(Contact, :count).by(-3)
         end
+
+        pending 'it deletes associated tokens'
       end
-
-      context 'when requested from an admin' do
-        include_context 'admin request'
-
-        context 'when user does not exist' do
-          it 'returns 404' do
-            get :show, params: { id: 0 }
-            expect(response.code).to eq '404'
-          end
-        end
-
-        it_behaves_like 'show user'
-      end
-
-      context 'when requested from a client user' do
-        let(:user) { UsersFactory.confirmed_user }
-        before { fill_request_headers_with_user_jwt(user.id) }
-
-        it 'returns requesting user\'s info' do
-          get :show, params: { id: user.id }
-
-          expect(response.code).to eq '200'
-        end
-
-        it 'denies access to other users data' do
-          another_user = UsersFactory.confirmed_user
-          get :show, params: { id: another_user.id }
-
-          expect(response.code).to eq '403'
-        end
-      end
-
     end
 
-    describe '#destroy' do
-      context 'when requested from an admin' do
-        include_context 'admin request'
+    it_behaves_like 'client user unauthorized', :delete, :destroy, { id: 0 }
+  end
 
-        context 'when user does not exist' do
-          it 'returns 404' do
-            delete :destroy, params: { id: 0 }
-            expect(response.code).to eq '404'
-          end
+  describe '#confirm' do
+    let(:inactive_user) { UsersFactory.inactive_user }
 
-          it 'does not change the database' do
-            expect { delete :destroy, params: { id: 0 } }
-              .to_not change(User, :count)
-          end
-        end
+    context 'when params are valid' do
+      let(:confirmation_params) do
+        {
+          confirmation_token: inactive_user.confirmation_token,
+          password: 'validPWD12',
+          password_confirmation: 'validPWD12'
+        }
+      end
+      before { post :confirm, params: confirmation_params }
 
-        context 'when user exists' do
-          it 'returns 204' do
-            user = create :user
-            delete :destroy, params: { id: user.id }
-            expect(response.code).to eq '204'
-          end
-
-          it 'deletes the user' do
-            user = create :user
-            expect { delete :destroy, params: { id: user.id } }
-              .to change(User, :count).by(-1)
-          end
-
-          # TODO move into user model's specs
-          it 'deletes associated contacts' do
-            user = create :user_with_contacts
-            expect { delete :destroy, params: { id: user.id } }
-              .to change(Contact, :count).by(-3)
-          end
-
-          pending 'it deletes associated tokens'
-        end
+      it 'returns 200' do
+        expect(response.code).to eq '200'
       end
 
-      it_behaves_like 'client user unauthorized', :delete, :destroy, { id: 0 }
+      it 'returns a session JWT' do
+        body = JSON.parse(response.body, symbolize_names: true)
+        expect(body[:access_token]).to be_truthy
+      end
+
+      it 'confirms the user' do
+        user_token = confirmation_params[:confirmation_token]
+        confirmed_user = User.find_by(confirmation_token: user_token)
+        expect(confirmed_user).to be_confirmed
+      end
     end
 
-    describe '#confirm' do
-      let(:inactive_user) { UsersFactory.inactive_user }
+    context 'when params are invalid' do
+      let(:confirmation_params) do
+        {
+          confirmation_token: 'oups',
+          password: 'validPWD12',
+          password_confirmation: 'validPWD12'
+        }
+      end
+      before { post :confirm, params: confirmation_params }
 
-      context 'when params are valid' do
-        let(:confirmation_params) do
-          {
-            confirmation_token: inactive_user.confirmation_token,
-            password: 'validPWD12',
-            password_confirmation: 'validPWD12'
-          }
+      it 'returns 422' do
+        expect(response.code).to eq '422'
+      end
+    end
+  end
+
+  describe '#add_roles' do
+    let(:roles) { create_list(:role, 4) }
+    let(:op_params) do
+      user = create(:user)
+      {
+        id: user.id,
+        roles: roles.pluck(:id)
+      }
+    end
+
+    context 'admin request' do
+      include_context 'admin request'
+
+      context 'when data is valid' do
+        it 'links roles to the user' do
+          post :add_roles, params: op_params
+          user = User.find(op_params[:id])
+
+          expect(user.roles).to eq(roles)
         end
-        before { post :confirm, params: confirmation_params }
 
         it 'returns 200' do
-          expect(response.code).to eq '200'
-        end
+          post :add_roles, params: op_params
 
-        it 'returns a session JWT' do
-          body = JSON.parse(response.body, symbolize_names: true)
-          expect(body[:access_token]).to be_truthy
-        end
-
-        it 'confirms the user' do
-          user_token = confirmation_params[:confirmation_token]
-          confirmed_user = User.find_by(confirmation_token: user_token)
-          expect(confirmed_user).to be_confirmed
+          expect(response.code).to eq('200')
         end
       end
 
-      context 'when params are invalid' do
-        let(:confirmation_params) do
-          {
-            confirmation_token: 'oups',
-            password: 'validPWD12',
-            password_confirmation: 'validPWD12'
-          }
-        end
-        before { post :confirm, params: confirmation_params }
-
+      context 'when data is invalid' do
         it 'returns 422' do
-          expect(response.code).to eq '422'
+          op_params[:id] = 0
+          post :add_roles, params: op_params
+
+          expect(response.code).to eq('422')
         end
       end
     end
+
+    it_behaves_like 'client user unauthorized', :post, :add_roles, { id: 'much id', roles: ['rol1'] }
   end
 end

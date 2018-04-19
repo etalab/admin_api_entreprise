@@ -1,7 +1,19 @@
 require 'rails_helper'
 
 describe JwtApiEntrepriseController, type: :controller do
-  describe '#create' do
+  let(:token_params) do
+    {
+      roles: jwt_roles,
+      user_id: user.id,
+      subject: 'coucou',
+      contact: {
+        email: 'valid@email.com',
+        phone_number: '0123456789'
+      }
+    }
+  end
+
+  describe '#admin_create' do
     let(:user) { UsersFactory.confirmed_user }
     let(:jwt_roles) do
       roles = create_list(:role, 4)
@@ -16,17 +28,17 @@ describe JwtApiEntrepriseController, type: :controller do
 
       context 'when data is valid' do
         it 'creates a valid token' do
-          expect { post :create, params: token_params }
+          expect { post :admin_create, params: token_params }
             .to change(JwtApiEntreprise, :count).by(1)
         end
 
         it 'returns code 201' do
-          post :create, params: token_params
+          post :admin_create, params: token_params
           expect(response.code).to eq '201'
         end
 
         it 'returns the created JWT' do
-          post :create, params: token_params
+          post :admin_create, params: token_params
           body = JSON.parse(response.body, symbolize_names: true)
 
           expect(body[:new_token]).to be_a(String)
@@ -36,25 +48,80 @@ describe JwtApiEntrepriseController, type: :controller do
       context 'when data is invalid' do
         it 'must be a valid user' do
           token_params[:user_id] = 0
-          post :create, params: token_params
+          post :admin_create, params: token_params
           expect(response.code).to eq '422'
         end
 
         it 'does not create the token' do
           token_params[:roles] = nil
-          expect { post :create, params: token_params }
+          expect { post :admin_create, params: token_params }
             .to_not change(JwtApiEntreprise, :count)
         end
 
         it 'returns code 422' do
           token_params[:roles] = nil
-          post :create, params: token_params
+          post :admin_create, params: token_params
           expect(response.code).to eq '422'
         end
       end
     end
 
     # TODO find a way to pass arguments outside example groups ('let' variables not not accessible here)
-    it_behaves_like 'client user unauthorized', :post, :create, { user_id: 0 }
+    it_behaves_like 'client user unauthorized', :post, :admin_create, { user_id: 0 }
+  end
+
+  describe '#create' do
+    context 'when user is allowed to create tokens' do
+      let(:user) { create(:user_with_roles) }
+      let(:jwt_roles) { user.roles.pluck(:code) }
+      before { fill_request_headers_with_user_jwt(user.id) }
+
+      context 'when requested for himself' do
+        context 'when data is valid' do
+          it 'creates a valid token' do
+            expect { post :create, params: token_params }
+              .to change(JwtApiEntreprise, :count).by(1)
+          end
+
+          it 'returns code 201' do
+            post :create, params: token_params
+            expect(response.code).to eq '201'
+          end
+
+          it 'returns the created JWT' do
+            post :create, params: token_params
+            body = JSON.parse(response.body, symbolize_names: true)
+
+            expect(body[:new_token]).to be_a(String)
+          end
+        end
+
+        context 'when data is invalid' do
+          it 'returns 422' do
+            allow_any_instance_of(Trailblazer::Operation::Result).to receive(:success?).and_return(false)
+            post :create, params: token_params
+            expect(response.code).to eq('422')
+          end
+
+          # TODO setup a way to handle errors then use shared example
+          it 'returns an error message'
+        end
+      end
+
+      context 'when requested for another user' do
+        let(:another_user) { create(:user) }
+
+        it 'returns 403' do
+          token_params[:user_id] = another_user.id
+          post :create, params: token_params
+
+          expect(response.code).to eq('403')
+        end
+      end
+    end
+
+    context 'when user is not allowed to create tokens' do
+      it_behaves_like 'client user unauthorized', :post, :create, { user_id: 0 }
+    end
   end
 end

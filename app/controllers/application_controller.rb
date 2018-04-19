@@ -11,7 +11,7 @@ class ApplicationController < ActionController::API
     extract_payload_from_header
     return unauthorized unless @auth_payload
 
-    @pundit_user = JwtUser.new(@auth_payload[:uid])
+    @pundit_user = JwtUser.new(@auth_payload[:uid], @auth_payload[:grants])
   end
 
   def extract_payload_from_header
@@ -19,6 +19,7 @@ class ApplicationController < ActionController::API
     return nil unless authorization_header
 
     token = extract_token_from(authorization_header)
+    # TODO move AccessToken logic into JwtApiEntreprise model
     @auth_payload = AccessToken.decode(token)
   rescue JWT::DecodeError
     nil

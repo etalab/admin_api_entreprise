@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180219143242) do
+ActiveRecord::Schema.define(version: 20180411133900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 20180219143242) do
     t.uuid "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "contact_id"
+    t.index ["contact_id"], name: "index_jwt_api_entreprises_on_contact_id"
     t.index ["user_id"], name: "index_jwt_api_entreprises_on_user_id"
   end
 
@@ -85,6 +87,11 @@ ActiveRecord::Schema.define(version: 20180219143242) do
     t.string "code"
   end
 
+  create_table "roles_users", id: false, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "role_id", null: false
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email"
     t.string "context"
@@ -94,10 +101,12 @@ ActiveRecord::Schema.define(version: 20180219143242) do
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.boolean "allow_token_creation", default: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   end
 
   add_foreign_key "contacts", "users"
+  add_foreign_key "jwt_api_entreprises", "contacts"
   add_foreign_key "jwt_api_entreprises", "users"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_grants", "users", column: "resource_owner_id"

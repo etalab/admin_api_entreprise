@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :contacts, dependent: :destroy
+  has_and_belongs_to_many :roles
   has_many :jwt_api_entreprise, dependent: :nullify
 
   # Passing validations: false as argument so password can be blank on creation
@@ -27,5 +28,24 @@ class User < ApplicationRecord
 
   def encoded_jwt
     jwt_api_entreprise.map(&:rehash)
+  end
+
+  def manage_token?
+    self.allow_token_creation
+  end
+
+  def allowed_roles
+    if self.manage_token?
+      self.roles.pluck(:code)
+    else
+      combine_roles_from_tokens
+    end
+  end
+
+  private
+
+  def combine_roles_from_tokens
+    roles = self.jwt_api_entreprise.reduce([]) { |result, jwt| result + jwt.access_roles }
+    roles.uniq
   end
 end
