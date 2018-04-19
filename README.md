@@ -108,3 +108,4 @@ sur les machines de production.
 * `config/database.yml`
 * `config/secrets.yml`
 * `config/environments/rails_env.rb`
+* `config/initializers/cors.rb`
