@@ -1,4 +1,6 @@
 class RolesController < ApplicationController
+  skip_before_action :jwt_authenticate!, only: [:index]
+
   def index
     roles = Role.all
     render json: roles, status: 200
