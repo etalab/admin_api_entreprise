@@ -7,7 +7,8 @@ describe User::Confirm do
     {
       password: 'couCOU23',
       password_confirmation: 'couCOU23',
-      confirmation_token: inactive_user.confirmation_token
+      confirmation_token: inactive_user.confirmation_token,
+      cgu_checked: true
     }
   end
 
@@ -33,6 +34,10 @@ describe User::Confirm do
 
       it 'returns a session JWT for user dashboard access' do
         expect(result['access_token']).to be_truthy
+      end
+
+      it 'set the CGU agreements attribute to the current timestamp' do
+        expect(result['model'].cgu_agreement_date.to_i).to be_within(2).of(Time.now.to_i)
       end
 
       it 'sends a notification email to the user'
@@ -115,6 +120,31 @@ describe User::Confirm do
         confirmation_params[:password] =
           confirmation_params[:password_confirmation] = 'Cou-cou!123?'
         expect(result).to be_success
+      end
+    end
+
+    describe '#accepted_cgu_check' do
+      let(:cgu_error_message) { result['result.contract.params'].errors[:cgu_checked] }
+
+      it 'is required' do
+        confirmation_params.delete(:cgu_checked)
+
+        expect(result).to be_failure
+        expect(cgu_error_message).to include('CGU must be accepted')
+      end
+
+      it 'is a boolean' do
+        confirmation_params[:cgu_checked] = 'truthy value'
+
+        expect(result).to be_failure
+        expect(cgu_error_message).to include('CGU must be accepted')
+      end
+
+      it 'cannot be false' do
+        confirmation_params[:cgu_checked] = false
+
+        expect(result).to be_failure
+        expect(cgu_error_message).to include('CGU must be accepted')
       end
     end
   end

@@ -5,6 +5,7 @@ FactoryBot.define do
 
     factory :confirmed_user do
       confirmed_at Time.now.to_i
+      cgu_agreement_date Time.now.to_i
     end
 
     factory :admin do
