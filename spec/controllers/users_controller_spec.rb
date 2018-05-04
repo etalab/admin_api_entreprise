@@ -26,10 +26,11 @@ describe UsersController, type: :controller do
 
         user_raw = body.first
         expect(user_raw).to be_an_instance_of Hash
-        expect(user_raw.size).to eq 3
+        expect(user_raw.size).to eq 4
         expect(user_raw.key?(:id)).to be true
         expect(user_raw.key?(:email)).to be true
         expect(user_raw.key?(:context)).to be true
+        expect(user_raw.key?(:confirmed)).to be true
       end
     end
 
@@ -142,11 +143,10 @@ describe UsersController, type: :controller do
         body = JSON.parse(response.body, symbolize_names: true)
 
         expect(body).to be_an_instance_of Hash
-        expect(body.size).to eq 8
+        expect(body.size).to eq 7
         expect(body.key?(:id)).to be true
         expect(body.key?(:email)).to be true
         expect(body.key?(:context)).to be true
-        expect(body.key?(:confirmed)).to be true
         expect(body.key?(:contacts)).to be true
         expect(body.key?(:tokens)).to be true
         expect(body.key?(:allowed_roles)).to be true
@@ -255,11 +255,12 @@ describe UsersController, type: :controller do
       let(:confirmation_params) do
         {
           confirmation_token: inactive_user.confirmation_token,
+          cgu_checked: true,
           password: 'validPWD12',
           password_confirmation: 'validPWD12'
         }
       end
-      before { post :confirm, params: confirmation_params }
+      before { post :confirm, params: confirmation_params, as: :json }
 
       it 'returns 200' do
         expect(response.code).to eq '200'

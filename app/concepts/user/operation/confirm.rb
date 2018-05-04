@@ -7,6 +7,7 @@ class User
     step self::Contract::Validate(name: 'params')
     step :retrieve_user_from_token
     failure :invalid_token, fail_fast: true
+    step ->(model:, **) { model.cgu_agreement_date = Time.now }
     step ->(model:, **) { model.confirm }
     failure :user_already_confirmed
     step :set_user_password
