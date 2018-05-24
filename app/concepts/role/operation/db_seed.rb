@@ -18,8 +18,7 @@ class Role
       { name: 'Certificat Qualibat',    code: 'qualibat' },
       { name: 'Certificat PROBTP',      code: 'probtp' },
       { name: 'Cotisation MSA',         code: 'msa_cotisations' },
-      { name: 'Statistiques',           code: 'jwt_statistics' },
-      { name: 'Bilans Entreprises BDF', code: 'bilan_entreprise_bdf' }
+      { name: 'Bilans Entreprises BDF', code: 'bilans_entreprise_bdf' }
     ]
 
     step ->(options) { options[:log] = [] }
