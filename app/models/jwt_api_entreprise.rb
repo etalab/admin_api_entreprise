@@ -19,7 +19,8 @@ class JwtApiEntreprise < ApplicationRecord
       jti: self.id,
       roles: self.roles.pluck(:code),
       sub: self.subject,
-      iat: self.iat
+      iat: self.iat,
+      exp: self.exp
     }
   end
 end

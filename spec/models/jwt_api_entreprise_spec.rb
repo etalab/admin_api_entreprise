@@ -34,6 +34,10 @@ describe JwtApiEntreprise, type: :jwt do
 
         expect(payload.fetch(:roles)).to eq(jwt_roles)
       end
+
+      it 'contains its expiration date into the "exp" key' do
+        expect(payload.fetch(:exp)).to eq(jwt.exp)
+      end
     end
   end
 end
