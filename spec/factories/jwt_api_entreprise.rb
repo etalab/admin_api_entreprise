@@ -3,6 +3,7 @@ FactoryBot.define do
     subject 'Humm testy'
     iat Time.now.to_i
     exp 18.months.from_now.to_i
+    version '1.0'
     user
 
     after(:create) do |jwt|

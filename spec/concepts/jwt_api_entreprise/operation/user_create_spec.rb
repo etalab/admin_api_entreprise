@@ -31,6 +31,10 @@ describe JwtApiEntreprise::UserCreate do
       expect(created_token.exp).to be_within(2).of(18.months.from_now.to_i)
     end
 
+    it 'is saved with the payload version number' do
+      expect(created_token.version).to eq('1.0')
+    end
+
     it 'belongs to the correct user' do
       expect(created_token.user).to eq(user)
     end

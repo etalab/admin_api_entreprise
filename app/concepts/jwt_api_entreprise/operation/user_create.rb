@@ -36,6 +36,7 @@ class JwtApiEntreprise
       new_token = JwtApiEntreprise.create({
         subject: params[:subject],
         iat: Time.now.to_i,
+        version: '1.0',
         exp: 18.months.from_now.to_i
       })
       new_token.roles << authorized_roles
