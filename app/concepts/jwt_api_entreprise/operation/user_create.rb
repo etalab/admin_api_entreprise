@@ -1,4 +1,6 @@
 class JwtApiEntreprise
+  # TODO create an operation or activity for JWT creation to be called from admin or user request
+  # ie remove token creation duplication
   class UserCreate < Trailblazer::Operation
     extend Contract::DSL
 
@@ -33,7 +35,9 @@ class JwtApiEntreprise
     def create_token(options, token_contact:, authorized_roles:, user:, params:, **)
       new_token = JwtApiEntreprise.create({
         subject: params[:subject],
-        iat: Time.now.to_i
+        iat: Time.now.to_i,
+        version: '1.0',
+        exp: 18.months.from_now.to_i
       })
       new_token.roles << authorized_roles
       new_token.contact = token_contact

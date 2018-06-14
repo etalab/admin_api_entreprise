@@ -17,6 +17,8 @@ describe JwtApiEntreprise::UserCreate do
   subject { described_class.call(token_params) }
 
   context 'when input data is valid' do
+    let(:created_token) { subject['created_token'] }
+
     it 'is successful' do
       expect(subject).to be_success
     end
@@ -25,14 +27,20 @@ describe JwtApiEntreprise::UserCreate do
       expect { subject }.to change(JwtApiEntreprise, :count).by(1)
     end
 
-    it 'belongs to the correct user' do
-      created_token = subject['created_token']
+    it 'expires after 18 months' do
+      expect(created_token.exp).to be_within(2).of(18.months.from_now.to_i)
+    end
 
+    it 'is saved with the payload version number' do
+      expect(created_token.version).to eq('1.0')
+    end
+
+    it 'belongs to the correct user' do
       expect(created_token.user).to eq(user)
     end
 
     it 'is associated to the provided roles' do
-      expect(subject['created_token'].roles.to_a).to eql(roles.to_a)
+      expect(created_token.roles.to_a).to eql(roles.to_a)
     end
 
     it 'creates the contact' do
@@ -46,7 +54,7 @@ describe JwtApiEntreprise::UserCreate do
     end
 
     it 'is associated to the new contact' do
-      expect(subject['created_token'].contact).to eq(Contact.last)
+      expect(created_token.contact).to eq(Contact.last)
     end
   end
 
