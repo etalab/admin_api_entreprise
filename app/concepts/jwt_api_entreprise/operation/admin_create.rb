@@ -27,11 +27,11 @@ class JwtApiEntreprise
       })
       new_token.roles << Role.where(code: params[:roles])
       user.jwt_api_entreprise << new_token
-      options['created_token'] = new_token.reload
+      options[:created_token] = new_token.reload
     end
 
-    def error_message(options)
-      options['errors'] = "user does not exist (UID : '#{options['params'][:user_id]}')"
+    def error_message(options, **)
+      options[:errors] = "user does not exist (UID : '#{options[:params][:user_id]}')"
     end
   end
 end

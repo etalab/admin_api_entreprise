@@ -18,18 +18,18 @@ class JwtApiEntreprise
     end)
 
     step Contract::Validate(name: 'params')
-    step ->(options, params:, **) { options['user'] = User.find_by(id: params[:user_id]) }
-    failure ->(options, params:, **) { options['errors'] = "user does not exist (UID : '#{params[:user_id]}')" }, fail_fast: true
+    step ->(options, params:, **) { options[:user] = User.find_by(id: params[:user_id]) }
+    failure ->(options, params:, **) { options[:errors] = "user does not exist (UID : '#{params[:user_id]}')" }, fail_fast: true
 
     step :filter_authorized_roles
-    failure ->(options, params:, **) { options['errors'] = 'No authorized roles given' }
+    failure ->(options, params:, **) { options[:errors] = 'No authorized roles given' }
 
     step :create_contact
     step :create_token
 
     def filter_authorized_roles(options, user:, params:, **)
-      options['authorized_roles'] = user.roles.where(code: params[:roles])
-      !options['authorized_roles'].empty?
+      options[:authorized_roles] = user.roles.where(code: params[:roles])
+      !options[:authorized_roles].empty?
     end
 
     def create_token(options, token_contact:, authorized_roles:, user:, params:, **)
@@ -42,7 +42,7 @@ class JwtApiEntreprise
       new_token.roles << authorized_roles
       new_token.contact = token_contact
       user.jwt_api_entreprise << new_token
-      options['created_token'] = new_token.reload
+      options[:created_token] = new_token.reload
     end
 
     def create_contact(options, user:, params:, **)
@@ -52,7 +52,7 @@ class JwtApiEntreprise
         contact_type: 'token',
         user_id: user.id
       })
-      options['token_contact'] = token_contact
+      options[:token_contact] = token_contact
     end
   end
 end

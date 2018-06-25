@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe User::Create do
-  let(:result) { described_class.call(user_params) }
+  let(:result) { described_class.call(params: user_params) }
   let(:user_params) do
     {
       email: 'new@record.gg',
@@ -61,7 +61,7 @@ describe User::Create do
         user_params[:email] = 'COUCOU@COUCOU.FR'
 
         expect(result).to be_success
-        expect(result['model'].email).to eq 'coucou@coucou.fr'
+        expect(result[:model].email).to eq 'coucou@coucou.fr'
       end
     end
 
@@ -113,7 +113,7 @@ describe User::Create do
 
         it 'is default to false' do
           user_params.delete(:allow_token_creation)
-          created_user = result['model']
+          created_user = result[:model]
 
           expect(created_user.allow_token_creation).to eq(false)
         end
@@ -121,7 +121,7 @@ describe User::Create do
     end
 
     describe 'account created state' do
-      let(:created_user) { result['model'] }
+      let(:created_user) { result[:model] }
 
       it 'sets the password to an empty string' do
         expect(created_user.password_digest).to eq ''
@@ -137,12 +137,12 @@ describe User::Create do
       end
 
       it 'sends a confirmation email to the user' do
-        expect { described_class.call(user_params) }
+        expect { described_class.call(params: user_params) }
           .to change(ActionMailer::Base.deliveries, :count).by(1)
       end
 
       it 'sets the confirmation request timestamp' do
-        expect(result['model'].confirmation_sent_at.to_i).to be_within(2).of(Time.now.to_i)
+        expect(result[:model].confirmation_sent_at.to_i).to be_within(2).of(Time.now.to_i)
       end
     end
   end

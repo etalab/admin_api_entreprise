@@ -21,12 +21,12 @@ class Role
       { name: 'Bilans Entreprises BDF', code: 'bilans_entreprise_bdf' }
     ]
 
-    step ->(options) { options[:log] = [] }
+    step ->(options, **) { options[:log] = [] }
     success :seed!
 
     def seed!(options, log:, **)
       options[:roles_seed].each do |role|
-        result = Role::Create.call(role)
+        result = Role::Create.call(params: role)
         if result.success?
           log << "Role created : name \"#{role[:name]}\", code \"#{role[:code]}\""
         else

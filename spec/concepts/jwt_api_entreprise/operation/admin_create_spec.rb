@@ -10,10 +10,10 @@ describe JwtApiEntreprise::AdminCreate do
       subject: 'So testy'
     }
   end
-  subject { described_class.call(token_params) }
+  subject { described_class.call(params: token_params) }
 
   context 'when input data is valid' do
-    let(:created_token) { subject['created_token'] }
+    let(:created_token) { subject[:created_token] }
 
     it 'is successful' do
       expect(subject).to be_success
@@ -68,7 +68,7 @@ describe JwtApiEntreprise::AdminCreate do
         token_params[:user_id] = 'not a user id'
 
         expect(subject).to be_failure
-        expect(subject['errors']).to eq("user does not exist (UID : 'not a user id')")
+        expect(subject[:errors]).to eq("user does not exist (UID : 'not a user id')")
       end
     end
 

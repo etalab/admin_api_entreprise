@@ -3,8 +3,8 @@ require 'rake'
 module UsersFactory
   def self.inactive_user
     params = { email: 'in@ctive.user', context: 'testing confirmation' }
-    operation_result = User::Create.call(params)
-    operation_result['model']
+    operation_result = User::Create.call(params: params)
+    operation_result[:model]
   end
 
   def self.confirmed_user
@@ -14,8 +14,8 @@ module UsersFactory
                password: 'couCOU123',
                password_confirmation: 'couCOU123'
     }
-    operation_result = User::Confirm.call(params)
-    operation_result['model']
+    operation_result = User::Confirm.call(params: params)
+    operation_result[:model]
   end
 
   def self.admin

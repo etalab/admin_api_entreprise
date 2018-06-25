@@ -4,11 +4,11 @@ describe Role::Create do
   let(:role_params) do
     { name: 'Role test', code: 'rol1' }
   end
-  let(:result) { described_class.call(role_params) }
+  let(:result) { described_class.call(params: role_params) }
 
   context 'when params are valid' do
     it 'creates a new role' do
-      created_role = result['model']
+      created_role = result[:model]
 
       expect(result).to be_success
       expect(created_role).to be_persisted

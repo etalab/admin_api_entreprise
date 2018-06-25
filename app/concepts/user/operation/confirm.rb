@@ -7,19 +7,19 @@ class User
     step self::Contract::Validate(name: 'params')
     step :retrieve_user_from_token
     failure :invalid_token, fail_fast: true
-    step ->(model:, **) { model.cgu_agreement_date = Time.now }
-    step ->(model:, **) { model.confirm }
+    step ->(options, model:, **) { model.cgu_agreement_date = Time.now }
+    step ->(options, model:, **) { model.confirm }
     failure :user_already_confirmed
     step :set_user_password
     step :dispose_session_token
 
     def retrieve_user_from_token(options, params:, **)
-      options['model'] = User.find_by(
+      options[:model] = User.find_by(
         confirmation_token: params[:confirmation_token]
       )
     end
 
-    def set_user_password(model:, params:, **)
+    def set_user_password(options, model:, params:, **)
       model.update_attribute :password, params[:password]
     end
 

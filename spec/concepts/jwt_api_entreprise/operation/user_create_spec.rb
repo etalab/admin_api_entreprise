@@ -14,10 +14,10 @@ describe JwtApiEntreprise::UserCreate do
       }
     }
   end
-  subject { described_class.call(token_params) }
+  subject { described_class.call(params: token_params) }
 
   context 'when input data is valid' do
-    let(:created_token) { subject['created_token'] }
+    let(:created_token) { subject[:created_token] }
 
     it 'is successful' do
       expect(subject).to be_success
@@ -81,17 +81,17 @@ describe JwtApiEntreprise::UserCreate do
           token_params[:roles] = [unauthorized_role.code]
 
           expect(subject).to be_failure
-          expect(subject['errors']).to eq('No authorized roles given')
+          expect(subject[:errors]).to eq('No authorized roles given')
         end
       end
 
       context 'when both authorized and unauthorized roles are provided' do
         it 'does not care about unauthorized roles' do
           token_params[:roles].push(unauthorized_role.code)
-            associated_unauthorized_role = subject['created_token'].roles.where(code: unauthorized_role.code)
+            associated_unauthorized_role = subject[:created_token].roles.where(code: unauthorized_role.code)
 
           expect(subject).to be_success
-          expect(subject['created_token'].roles).to eq(roles)
+          expect(subject[:created_token].roles).to eq(roles)
           expect(associated_unauthorized_role).to be_empty
         end
       end
@@ -111,7 +111,7 @@ describe JwtApiEntreprise::UserCreate do
         token_params[:user_id] = 'not a user id'
 
         expect(subject).to be_failure
-        expect(subject['errors']).to eq("user does not exist (UID : 'not a user id')")
+        expect(subject[:errors]).to eq("user does not exist (UID : 'not a user id')")
       end
     end
 

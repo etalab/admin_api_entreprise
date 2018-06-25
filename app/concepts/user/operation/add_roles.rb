@@ -8,9 +8,9 @@ class User
     end)
 
     step self::Contract::Validate(name: 'params')
-    step ->(options, params:, **) { options['model'] = User.find_by(id: params[:id]) }
+    step ->(options, params:, **) { options[:model] = User.find_by(id: params[:id]) }
     failure ->(options, **) { options['errors'] = 'user does not exist' }
 
-    step ->(model:, params:, **) { model.roles << Role.where(id: params[:roles]) }
+    step ->(options, model:, params:, **) { model.roles << Role.where(id: params[:roles]) }
   end
 end

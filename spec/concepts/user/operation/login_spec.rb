@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe User::Login do
-  let(:result) { described_class.call(login_params) }
+  let(:result) { described_class.call(params: login_params) }
 
   context 'when user email is unknown' do
     let(:login_params) do
@@ -46,7 +46,7 @@ describe User::Login do
       context 'when incomming params are valid' do
         it 'returns the user' do
           expect(result).to be_success
-          expect(result['model']).to eq user
+          expect(result[:model]).to eq user
         end
 
         it 'resets counter before lock'
