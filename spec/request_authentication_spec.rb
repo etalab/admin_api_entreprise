@@ -23,7 +23,7 @@ describe 'Request authentication', type: :controller do
   end
 
   context 'when Authorization header is present' do
-    let(:valid_token) { 'eyJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiJiYWNiOWJiYy1mMjA4LTRiMjMtYTE3Ni02NzUwNGQ0OTIwZGQiLCJqdGkiOiJhMDBiOTdlZS1kM2U2LTQ0MmItOTNkMy1hNDI2MDhjOGFiYWEiLCJyb2xlcyI6WyJhdHRlc3RhdGlvbnNfYWdlZmlwaCIsImF0dGVzdGF0aW9uc19maXNjYWxlcyIsImF0dGVzdGF0aW9uc19zb2NpYWxlcyIsImNlcnRpZmljYXRfY25ldHAiLCJhc3NvY2lhdGlvbnMiLCJjZXJ0aWZpY2F0X29wcWliaSIsImRvY3VtZW50c19hc3NvY2lhdGlvbiIsImV0YWJsaXNzZW1lbnRzIiwiZW50cmVwcmlzZXMiLCJleHRyYWl0X2NvdXJ0X2lucGkiLCJleHRyYWl0c19yY3MiLCJleGVyY2ljZXMiLCJsaWFzc2VfZmlzY2FsZSIsImZudHBfY2FydGVfcHJvIiwicXVhbGliYXQiLCJwcm9idHAiLCJtc2FfY290aXNhdGlvbnMiXSwic3ViIjoiRml4IHNwZWMiLCJpYXQiOjE1MjE5MDcwMDR9.-Y1hR2PCNefp5CWlbJhd1H8er5YAhsQw0wEn_evziGw' }
+    let(:valid_token) { 'eyJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiJmYTkxZTg5NS1jYzY5LTQ5YTktYTRmNS1mYzY1YTZiMDI2YWUiLCJncmFudHMiOltdLCJpYXQiOjE1Mjk5MzQ1ODAsImV4cCI6MTUyOTk0ODk4MH0.MjFZDNELqij7uvQ0zR5k1mWzV26h5DeQo3X-JrNEkm0' }
 
     it 'accepts valid tokens' do
       request.headers['Authorization'] = "Bearer #{valid_token}"

@@ -2,7 +2,7 @@
 class JwtUser
   attr_reader :id, :grants
 
-  def initialize(uid, grants)
+  def initialize(uid:, grants:, **)
     @id = uid
     @grants = grants
   end

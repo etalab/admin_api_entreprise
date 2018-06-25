@@ -1,47 +1,39 @@
 require 'rails_helper'
 
 describe JwtUser, type: :jwt do
-  # TODO refactor this : initialize JwtUser instance by passing entire JWT payload
-  # Extract the payload from a generated session JWT (look below)
-  describe '#admin?' do
-    it 'returns true for an admin' do
-      jwt_user = JwtUser.new(AuthenticationHelper::ADMIN_UID, nil)
-      expect(jwt_user).to be_admin
+  let(:token_payload) do
+    # call JWTF the way Doorkeeper does
+    token = JWTF.generate(resource_owner_id: user_id)
+    token_payload = extract_payload_from(token)
+    token_payload
+  end
+  subject { described_class.new(token_payload) }
+
+  context 'when the user is an admin' do
+    let(:user_id) do
+      create(:user, id: AuthenticationHelper::ADMIN_UID)
+      AuthenticationHelper::ADMIN_UID
     end
 
-    it 'returns false for a client user' do
-      user = UsersFactory.confirmed_user
-      jwt_user = JwtUser.new(user.id, nil)
-      expect(jwt_user).to_not be_admin
-    end
+    its(:admin?) { is_expected.to eq(true) }
   end
 
-  describe '#manage_token?' do
-    let(:token_payload) do
-      # call JWTF the way Doorkeeper does
-      token = JWTF.generate(resource_owner_id: user.id)
-      token_payload = extract_payload_from(token)
-      token_payload
+  context 'when the user can manage roles' do
+    let(:user_id) do
+      user = create(:user_with_roles)
+      user.id
     end
 
-    context 'when user is allowed to manage tokens' do
-      let(:user) { create(:user_with_roles) }
+    its(:manage_token?) { is_expected.to eq(true) }
+  end
 
-      it 'returns true' do
-        jwt_user = JwtUser.new(token_payload[:uid], token_payload[:grants])
-
-        expect(jwt_user.manage_token?).to eq(true)
-      end
+  context 'when the user as no rights' do
+    let(:user_id) do
+      user = create(:confirmed_user)
+      user.id
     end
 
-    context 'when user is not allowed to manage tokens' do
-      let(:user) { create(:user) }
-
-      it 'returns true' do
-        jwt_user = JwtUser.new(token_payload[:uid], token_payload[:grants])
-
-        expect(jwt_user.manage_token?).to eq(false)
-      end
-    end
+    its(:admin?) { is_expected.to eq(false) }
+    its(:manage_token?) { is_expected.to eq(false) }
   end
 end
