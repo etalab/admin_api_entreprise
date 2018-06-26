@@ -11,7 +11,7 @@ class ApplicationController < ActionController::API
     extract_payload_from_header
     return unauthorized unless @auth_payload
 
-    @pundit_user = JwtUser.new(@auth_payload[:uid], @auth_payload[:grants])
+    @pundit_user = JwtUser.new(@auth_payload)
   end
 
   def extract_payload_from_header

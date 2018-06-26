@@ -1,14 +1,15 @@
 # TODO move it into app/models
 class JwtUser
-  attr_reader :id, :grants
+  attr_reader :id, :grants, :admin
 
-  def initialize(uid, grants)
+  def initialize(uid:, grants:, admin: false, **)
     @id = uid
     @grants = grants
+    @admin = admin
   end
 
   def admin?
-    id == Rails.application.secrets.fetch(:admin_uid)
+    admin
   end
 
   def manage_token?
