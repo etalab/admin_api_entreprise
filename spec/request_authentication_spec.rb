@@ -23,7 +23,8 @@ describe 'Request authentication', type: :controller do
   end
 
   context 'when Authorization header is present' do
-    let(:valid_token) { 'eyJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiJmYTkxZTg5NS1jYzY5LTQ5YTktYTRmNS1mYzY1YTZiMDI2YWUiLCJncmFudHMiOltdLCJpYXQiOjE1Mjk5MzQ1ODAsImV4cCI6MTUyOTk0ODk4MH0.MjFZDNELqij7uvQ0zR5k1mWzV26h5DeQo3X-JrNEkm0' }
+    # Session JWT generated without expiration date
+    let(:valid_token) { 'eyJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiJiYWNiOWJiYy1mMjA4LTRiMjMtYTE3Ni02NzUwNGQ0OTIwZGQiLCJncmFudHMiOltdLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNTMwMDE0Njc1fQ.jBC59fOa5aLVeaWoYKCIi2X-HUEVi6iSnLwnUm5kIyw' }
 
     it 'accepts valid tokens' do
       request.headers['Authorization'] = "Bearer #{valid_token}"
