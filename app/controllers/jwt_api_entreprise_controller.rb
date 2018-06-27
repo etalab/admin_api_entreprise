@@ -31,10 +31,10 @@ class JwtApiEntrepriseController < ApplicationController
   private
 
   def retrieve_errors(operation_result)
-    if operation_result['result.contract.params'].errors.empty?
+    if operation_result['result.contract.default'].errors.empty?
       operation_result['manual_errors']
     else
-      operation_result['result.contract.params'].errors
+      operation_result['result.contract.default'].errors
     end
   end
 end

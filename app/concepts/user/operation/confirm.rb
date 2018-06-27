@@ -1,10 +1,6 @@
 class User
   class Confirm < Trailblazer::Operation
-    extend self::Contract::DSL
-
-    contract 'params', User::Contract.confirm
-
-    step self::Contract::Validate(name: 'params')
+    step self::Contract::Validate(constant: User::Contract::Confirm)
     step :retrieve_user_from_token
     failure :invalid_token, fail_fast: true
     step ->(options, model:, **) { model.cgu_agreement_date = Time.now }

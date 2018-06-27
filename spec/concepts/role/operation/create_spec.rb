@@ -19,7 +19,7 @@ describe Role::Create do
 
   context 'when params are invalid' do
     describe '#name' do
-      let(:errors) { result['result.contract.params'].errors[:name] }
+      let(:errors) { result['result.contract.default'].errors[:name] }
 
       it 'is required' do
         role_params[:name] = ''
@@ -46,7 +46,7 @@ describe Role::Create do
     end
 
     describe '#code' do
-      let(:errors) { result['result.contract.params'].errors[:code] }
+      let(:errors) { result['result.contract.default'].errors[:code] }
 
       it 'is required' do
         role_params[:code] = nil

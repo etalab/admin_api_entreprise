@@ -45,7 +45,7 @@ class UsersController < ApplicationController
 
     else
       # TODO handle errors from a generic application way
-      errors = result['result.contract.params'].errors || result['errors']
+      errors = result['result.contract.default'].errors || result['errors']
       render json: { errors: errors }, status: 422
     end
   end
@@ -58,7 +58,7 @@ class UsersController < ApplicationController
       render json: {}, status: 200
 
     else
-      errors = result['result.contract.params'] || result['errors']
+      errors = result['result.contract.default'] || result['errors']
       render json: { errors: errors }, status: 422
     end
   end

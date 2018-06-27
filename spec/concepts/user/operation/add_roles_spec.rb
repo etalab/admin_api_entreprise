@@ -22,7 +22,7 @@ describe User::AddRoles do
 
   context 'when params are invalid' do
     describe ':id' do
-      let(:errors) { result['result.contract.params'].errors[:id] }
+      let(:errors) { result['result.contract.default'].errors[:id] }
 
       it 'is required' do
         op_params.delete(:id)
@@ -52,7 +52,7 @@ describe User::AddRoles do
       op_params[:roles] = []
 
       expect(result).to be_failure
-      expect(result['result.contract.params'].errors[:roles]).to include('must be filled')
+      expect(result['result.contract.default'].errors[:roles]).to include('must be filled')
     end
   end
   end

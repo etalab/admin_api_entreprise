@@ -70,7 +70,7 @@ describe User::Confirm do
     describe '#confirmation_token' do
       it 'is required' do
         confirmation_params[:confirmation_token] = ''
-        contract_error = result['result.contract.params']
+        contract_error = result['result.contract.default']
           .errors[:confirmation_token]
 
         expect(result).to be_failure
@@ -79,14 +79,14 @@ describe User::Confirm do
     end
 
     describe '#password' do
-      let(:contract_error) { result['result.contract.params'].errors[:password] }
+      let(:contract_error) { result['result.contract.default'].errors[:password] }
       let(:format_error_message) { 'minimum eight characters, at least one uppercase letter, one lowercase letter and one number' }
 
       it 'must match confirmation' do
         confirmation_params[:password_confirmation] = 'coucou23'
 
         expect(result).to be_failure
-        expect(result['result.contract.params']
+        expect(result['result.contract.default']
           .errors[:password_confirmation])
           .to include 'must be equal to password'
       end
@@ -124,7 +124,7 @@ describe User::Confirm do
     end
 
     describe '#accepted_cgu_check' do
-      let(:cgu_error_message) { result['result.contract.params'].errors[:cgu_checked] }
+      let(:cgu_error_message) { result['result.contract.default'].errors[:cgu_checked] }
 
       it 'is required' do
         confirmation_params.delete(:cgu_checked)

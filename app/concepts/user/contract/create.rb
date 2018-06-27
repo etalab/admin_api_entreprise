@@ -1,5 +1,5 @@
 class User
-  class Contract
+  module Contract
     class Create < Reform::Form
       property :email
       property :context

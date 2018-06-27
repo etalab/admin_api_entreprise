@@ -42,7 +42,7 @@ describe JwtApiEntreprise::AdminCreate do
 
   context 'when input data is invalid' do
     describe ':roles' do
-      let(:errors) { subject['result.contract.params'].errors[:roles] }
+      let(:errors) { subject['result.contract.default'].errors[:roles] }
 
       it 'is required' do
         token_params[:roles] = []
@@ -55,7 +55,7 @@ describe JwtApiEntreprise::AdminCreate do
     end
 
     describe ':user_id' do
-      let(:errors) { subject['result.contract.params'].errors[:user_id] }
+      let(:errors) { subject['result.contract.default'].errors[:user_id] }
 
       it 'is required' do
         token_params.delete(:user_id)

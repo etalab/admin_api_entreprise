@@ -1,13 +1,6 @@
 class User
   class AddRoles < Trailblazer::Operation
-    extend self::Contract::DSL
-
-    contract 'params', (Dry::Validation.Schema do
-      required(:id).filled(:str?)
-      required(:roles) { filled? { each { str? } } }
-    end)
-
-    step self::Contract::Validate(name: 'params')
+    step self::Contract::Validate(constant: User::Contract::AddRoles)
     step ->(options, params:, **) { options[:model] = User.find_by(id: params[:id]) }
     failure ->(options, **) { options['errors'] = 'user does not exist' }
 

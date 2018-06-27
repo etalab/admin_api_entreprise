@@ -2,22 +2,7 @@ class JwtApiEntreprise
   # TODO create an operation or activity for JWT creation to be called from admin or user request
   # ie remove token creation duplication
   class UserCreate < Trailblazer::Operation
-    extend Contract::DSL
-
-    contract 'params', (Dry::Validation.Schema do
-      required(:roles) { filled? { each { str? } } }
-      required(:user_id).filled(:str?)
-      required(:subject).filled(:str?)
-
-      required(:contact).schema do
-        required(:email).filled(
-          format?: /\A[a-zA-Z0-9_.+\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-.]+\z/
-        )
-        optional(:phone_number).filled(format?: /\A0\d(\d{2}){4}\z/)
-      end
-    end)
-
-    step Contract::Validate(name: 'params')
+    step self::Contract::Validate(constant: JwtApiEntreprise::Contract::UserCreate)
     step ->(options, params:, **) { options[:user] = User.find_by(id: params[:user_id]) }
     failure ->(options, params:, **) { options[:errors] = "user does not exist (UID : '#{params[:user_id]}')" }, fail_fast: true
 
