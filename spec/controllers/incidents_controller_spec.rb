@@ -19,7 +19,7 @@ describe IncidentsController, type: :controller do
 
       incident_raw = body.first
       expect(incident_raw).to be_an_instance_of(Hash)
-      expect(incident_raw.size).to eq(6)
+      expect(incident_raw.size).to eq(4)
       expect(incident_raw.key?(:id)).to eq(true)
       expect(incident_raw.key?(:title)).to eq(true)
       expect(incident_raw.key?(:subtitle)).to eq(true)

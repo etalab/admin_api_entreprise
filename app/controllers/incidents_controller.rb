@@ -3,7 +3,7 @@ class IncidentsController < ApplicationController
 
   def index
     incidents = Incident.all
-    render json: incidents, status: 200
+    render json: incidents, each_serializer: IncidentIndexSerializer, status: 200
   end
 
   def create
