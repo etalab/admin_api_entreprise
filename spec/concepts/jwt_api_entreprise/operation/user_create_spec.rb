@@ -14,10 +14,10 @@ describe JwtApiEntreprise::UserCreate do
       }
     }
   end
-  subject { described_class.call(token_params) }
+  subject { described_class.call(params: token_params) }
 
   context 'when input data is valid' do
-    let(:created_token) { subject['created_token'] }
+    let(:created_token) { subject[:created_token] }
 
     it 'is successful' do
       expect(subject).to be_success
@@ -60,7 +60,7 @@ describe JwtApiEntreprise::UserCreate do
 
   context 'when input data is invalid' do
     describe ':roles' do
-      let(:errors) { subject['result.contract.params'].errors[:roles] }
+      let(:errors) { subject['result.contract.default'].errors[:roles] }
       let(:unauthorized_role) { create(:role) }
 
       it 'is required' do
@@ -81,24 +81,24 @@ describe JwtApiEntreprise::UserCreate do
           token_params[:roles] = [unauthorized_role.code]
 
           expect(subject).to be_failure
-          expect(subject['errors']).to eq('No authorized roles given')
+          expect(subject[:errors]).to eq('No authorized roles given')
         end
       end
 
       context 'when both authorized and unauthorized roles are provided' do
         it 'does not care about unauthorized roles' do
           token_params[:roles].push(unauthorized_role.code)
-            associated_unauthorized_role = subject['created_token'].roles.where(code: unauthorized_role.code)
+            associated_unauthorized_role = subject[:created_token].roles.where(code: unauthorized_role.code)
 
           expect(subject).to be_success
-          expect(subject['created_token'].roles).to eq(roles)
+          expect(subject[:created_token].roles).to eq(roles)
           expect(associated_unauthorized_role).to be_empty
         end
       end
     end
 
     describe ':user_id' do
-      let(:errors) { subject['result.contract.params'].errors[:user_id] }
+      let(:errors) { subject['result.contract.default'].errors[:user_id] }
 
       it 'is required' do
         token_params.delete(:user_id)
@@ -111,7 +111,7 @@ describe JwtApiEntreprise::UserCreate do
         token_params[:user_id] = 'not a user id'
 
         expect(subject).to be_failure
-        expect(subject['errors']).to eq("user does not exist (UID : 'not a user id')")
+        expect(subject[:errors]).to eq("user does not exist (UID : 'not a user id')")
       end
     end
 
@@ -120,7 +120,7 @@ describe JwtApiEntreprise::UserCreate do
         token_params[:subject] = ''
 
         expect(subject).to be_failure
-        expect(subject['result.contract.params'].errors[:subject]).to include('must be filled')
+        expect(subject['result.contract.default'].errors[:subject]).to include('must be filled')
       end
     end
 
@@ -129,7 +129,7 @@ describe JwtApiEntreprise::UserCreate do
         token_params.delete(:contact)
 
         expect(subject).to be_failure
-        expect(subject['result.contract.params'].errors[:contact]).to include('is missing')
+        expect(subject['result.contract.default'].errors[:contact]).to include('is missing')
       end
 
       describe 'contact#email' do
@@ -137,14 +137,14 @@ describe JwtApiEntreprise::UserCreate do
           token_params[:contact][:email] = nil
 
           expect(subject).to be_failure
-          expect(subject['result.contract.params'].errors[:contact][:email]).to include('must be filled')
+          expect(subject['result.contract.default'].errors[:contact][:email]).to include('must be filled')
         end
 
         it 'has an email format' do
           token_params[:contact][:email] = 'b@dEmail'
 
           expect(subject).to be_failure
-          expect(subject['result.contract.params'].errors[:contact][:email]).to include('is in invalid format')
+          expect(subject['result.contract.default'].errors[:contact][:email]).to include('is in invalid format')
         end
       end
 
@@ -159,7 +159,7 @@ describe JwtApiEntreprise::UserCreate do
           token_params[:contact][:phone_number] = '202-555-0110'
 
           expect(subject).to be_failure
-          expect(subject['result.contract.params'].errors[:contact][:phone_number]).to include('is in invalid format')
+          expect(subject['result.contract.default'].errors[:contact][:phone_number]).to include('is in invalid format')
         end
       end
     end

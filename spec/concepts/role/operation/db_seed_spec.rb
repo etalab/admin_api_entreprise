@@ -7,7 +7,7 @@ describe Role::DBSeed do
       { name: 'Role 2', code: 'rol2' }
     ]
   end
-  let(:result) { described_class.call({}, roles_seed: roles_seed) }
+  let(:result) { described_class.call(params: {}, roles_seed: roles_seed) }
   let(:log) { result[:log] }
 
   context 'when roles do not exist' do
@@ -23,7 +23,7 @@ describe Role::DBSeed do
 
   context 'when roles already exist in database' do
     before do
-      described_class.call({}, roles_seed: roles_seed)
+      described_class.call(params: {}, roles_seed: roles_seed)
     end
 
     it 'does not saves the roles' do

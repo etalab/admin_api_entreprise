@@ -1,10 +1,10 @@
 class JwtApiEntrepriseController < ApplicationController
   def admin_create
     authorize :admin, :admin?
-    result = JwtApiEntreprise::AdminCreate.call(params)
+    result = JwtApiEntreprise::AdminCreate.call(params: params)
 
     if result.success?
-      render json: { new_token: result['created_token'].rehash }, status: 201
+      render json: { new_token: result[:created_token].rehash }, status: 201
 
     else
       errors = retrieve_errors(result)
@@ -17,10 +17,10 @@ class JwtApiEntrepriseController < ApplicationController
     authorize JwtApiEntreprise
 
     # permit!.to_h is needed here because dry-validation needs params[:contact] to be a hash
-    result = JwtApiEntreprise::UserCreate.call(params.permit!.to_h)
+    result = JwtApiEntreprise::UserCreate.call(params: params.permit!.to_h)
 
     if result.success?
-      render json: { new_token: result['created_token'].rehash }, status: 201
+      render json: { new_token: result[:created_token].rehash }, status: 201
 
     else
       errors = retrieve_errors(result)
@@ -31,10 +31,10 @@ class JwtApiEntrepriseController < ApplicationController
   private
 
   def retrieve_errors(operation_result)
-    if operation_result['result.contract.params'].errors.empty?
+    if operation_result['result.contract.default'].errors.empty?
       operation_result['manual_errors']
     else
-      operation_result['result.contract.params'].errors
+      operation_result['result.contract.default'].errors
     end
   end
 end

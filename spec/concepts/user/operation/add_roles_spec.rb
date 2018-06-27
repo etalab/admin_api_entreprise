@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe User::AddRoles do
-  let(:result) { described_class.call(op_params) }
+  let(:result) { described_class.call(params: op_params) }
   let(:user) { create(:user) }
   let(:roles) { create_list(:role, 3) }
   let(:op_params) do
@@ -13,7 +13,7 @@ describe User::AddRoles do
 
   context 'when params are valid' do
     it 'adds the roles to a user' do
-      user = User.find(result['params'][:id])
+      user = User.find(result[:params][:id])
 
       expect(user.roles).to eq(roles)
       expect(result).to be_success
@@ -22,7 +22,7 @@ describe User::AddRoles do
 
   context 'when params are invalid' do
     describe ':id' do
-      let(:errors) { result['result.contract.params'].errors[:id] }
+      let(:errors) { result['result.contract.default'].errors[:id] }
 
       it 'is required' do
         op_params.delete(:id)
@@ -42,7 +42,7 @@ describe User::AddRoles do
   describe ':roles' do
     it 'does not care about invalid role\'s id' do
       op_params[:roles].push('much_id')
-      user = User.find(result['params'][:id])
+      user = User.find(result[:params][:id])
 
       expect(result).to be_success
       expect(user.roles.where(id: 'much_id')).to be_empty
@@ -52,7 +52,7 @@ describe User::AddRoles do
       op_params[:roles] = []
 
       expect(result).to be_failure
-      expect(result['result.contract.params'].errors[:roles]).to include('must be filled')
+      expect(result['result.contract.default'].errors[:roles]).to include('must be filled')
     end
   end
   end

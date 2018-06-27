@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe User::Confirm do
-  let(:result) { described_class.call(confirmation_params) }
+  let(:result) { described_class.call(params: confirmation_params) }
   let(:inactive_user) { UsersFactory.inactive_user }
   let(:confirmation_params) do
     {
@@ -23,12 +23,12 @@ describe User::Confirm do
 
       it 'confirms the user' do
         expect(result).to be_success
-        expect(result['model']).to be_confirmed
+        expect(result[:model]).to be_confirmed
       end
 
       it 'sets the user password' do
-        expect(result['model'].password_digest).to_not eq ''
-        expect(!!result['model'].authenticate(confirmation_params[:password]))
+        expect(result[:model].password_digest).to_not eq ''
+        expect(!!result[:model].authenticate(confirmation_params[:password]))
           .to be true
       end
 
@@ -37,7 +37,7 @@ describe User::Confirm do
       end
 
       it 'set the CGU agreements attribute to the current timestamp' do
-        expect(result['model'].cgu_agreement_date.to_i).to be_within(2).of(Time.now.to_i)
+        expect(result[:model].cgu_agreement_date.to_i).to be_within(2).of(Time.now.to_i)
       end
 
       it 'sends a notification email to the user'
@@ -47,7 +47,7 @@ describe User::Confirm do
       # TODO mock this the right way
       # allow_any_instance_of(User).to receive(:confirmed?).and_return(true)
       # did not worked because .confirmation_token then return nil
-      before { described_class.call(confirmation_params) }
+      before { described_class.call(params: confirmation_params) }
 
       it 'fails with error message' do
         expect(result).to be_failure
@@ -60,7 +60,7 @@ describe User::Confirm do
           confirmation_params[:password_confirmation] = 'newPAssw0rd'
 
         expect(result).to be_failure
-        expect(!!result['model'].authenticate(old_password))
+        expect(!!result[:model].authenticate(old_password))
           .to be true
       end
     end
@@ -70,7 +70,7 @@ describe User::Confirm do
     describe '#confirmation_token' do
       it 'is required' do
         confirmation_params[:confirmation_token] = ''
-        contract_error = result['result.contract.params']
+        contract_error = result['result.contract.default']
           .errors[:confirmation_token]
 
         expect(result).to be_failure
@@ -79,14 +79,14 @@ describe User::Confirm do
     end
 
     describe '#password' do
-      let(:contract_error) { result['result.contract.params'].errors[:password] }
+      let(:contract_error) { result['result.contract.default'].errors[:password] }
       let(:format_error_message) { 'minimum eight characters, at least one uppercase letter, one lowercase letter and one number' }
 
       it 'must match confirmation' do
         confirmation_params[:password_confirmation] = 'coucou23'
 
         expect(result).to be_failure
-        expect(result['result.contract.params']
+        expect(result['result.contract.default']
           .errors[:password_confirmation])
           .to include 'must be equal to password'
       end
@@ -124,7 +124,7 @@ describe User::Confirm do
     end
 
     describe '#accepted_cgu_check' do
-      let(:cgu_error_message) { result['result.contract.params'].errors[:cgu_checked] }
+      let(:cgu_error_message) { result['result.contract.default'].errors[:cgu_checked] }
 
       it 'is required' do
         confirmation_params.delete(:cgu_checked)

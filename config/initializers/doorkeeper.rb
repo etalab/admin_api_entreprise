@@ -11,8 +11,8 @@ Doorkeeper.configure do
   end
 
   resource_owner_from_credentials do |routes|
-    authentication = User::Login.call(params)
-    authentication['model'] unless authentication.failure?
+    authentication = User::Login.call(params: params)
+    authentication[:model] unless authentication.failure?
   end
 
   # If you want to restrict access to the web interface for adding oauth authorized applications, you need to declare the block below.

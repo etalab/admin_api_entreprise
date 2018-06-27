@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
   def create
     authorize :admin, :admin?
-    result = User::Create.call(params)
+    result = User::Create.call(params: params)
 
     if result.success?
       render json: result['model'], status: 201
@@ -38,27 +38,27 @@ class UsersController < ApplicationController
   end
 
   def confirm
-    result = User::Confirm.call(params)
+    result = User::Confirm.call(params: params)
 
     if result.success?
       render json: { access_token: result['access_token'] }, status: 200
 
     else
       # TODO handle errors from a generic application way
-      errors = result['result.contract.params'].errors || result['errors']
+      errors = result['result.contract.default'].errors || result['errors']
       render json: { errors: errors }, status: 422
     end
   end
 
   def add_roles
     authorize :admin, :admin?
-    result = User::AddRoles.call(params)
+    result = User::AddRoles.call(params: params)
 
     if result.success?
       render json: {}, status: 200
 
     else
-      errors = result['result.contract.params'] || result['errors']
+      errors = result['result.contract.default'] || result['errors']
       render json: { errors: errors }, status: 422
     end
   end

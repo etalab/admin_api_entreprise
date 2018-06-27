@@ -8,13 +8,13 @@ class RolesController < ApplicationController
 
   def create
     authorize :admin, :admin?
-    result = Role::Create.call(params)
+    result = Role::Create.call(params: params)
 
     if result.success?
-      render json: result['model'], status: 201
+      render json: result[:model], status: 201
 
     else
-      errors = result['result.contract.params'].errors
+      errors = result['result.contract.default'].errors
       render json: { errors: errors }, status: 422
     end
   end
