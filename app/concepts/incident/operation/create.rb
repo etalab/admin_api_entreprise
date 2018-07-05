@@ -1,8 +1,7 @@
 class Incident
-  class Create < Trailblazer::Operation
-    step Model(Incident, :new)
-    step self::Contract::Build(constant: Incident::Contract::Create)
-    step self::Contract::Validate()
-    step self::Contract::Persist()
+  module Operation
+    class Create < Trailblazer::Operation
+      step Nested(Incident::Operation::Save)
+    end
   end
 end

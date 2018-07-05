@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Incident::Create do
+describe Incident::Operation::Create do
   let(:operation_params) do
     {
       title: 'Test incident',
@@ -9,67 +9,20 @@ describe Incident::Create do
     }
   end
   subject { described_class.call(params: operation_params) }
-  let(:errors) { subject['result.contract.default'].errors[field_name] }
 
-  context 'when params are valid' do
-    it { is_expected.to be_success }
+  # TODO not sure about how to text this
+  it 'delegates the call and validations to the Save operation'
 
-    it 'saves the new incident' do
-      new_incident = subject[:model]
-
-      expect(new_incident).to be_persisted
-      expect(new_incident.title).to eq(operation_params[:title])
-      expect(new_incident.subtitle).to eq(operation_params[:subtitle])
-      expect(new_incident.description).to eq(operation_params[:description])
-    end
+  it 'creates a new incident' do
+    expect { subject }.to change(Incident, :count).by(1)
   end
 
-  context 'when params are invalid' do
-    describe '#title' do
-      let(:field_name) { :title }
+  it 'references the new incident into the :model result field' do
+    new_incindent = subject[:model]
 
-      it 'is required' do
-        operation_params.delete(:title)
-
-        expect(subject).to be_failure
-        expect(errors).to include 'must be filled'
-      end
-
-      it 'is max 128 characters long' do
-        operation_params[:title] = 'a' * 129
-
-        expect(subject).to be_failure
-        expect(errors).to include 'size cannot be greater than 128'
-      end
-    end
-
-    describe '#subtitle' do
-      let(:field_name) { :subtitle }
-
-      it 'is required' do
-        operation_params.delete(:subtitle)
-
-        expect(subject).to be_failure
-        expect(errors).to include 'must be filled'
-      end
-
-      it 'is max 128 characters long' do
-        operation_params[:subtitle] = 'a' * 129
-
-        expect(subject).to be_failure
-        expect(errors).to include 'size cannot be greater than 128'
-      end
-    end
-
-    describe '#description' do
-      let(:field_name) { :description }
-
-      it 'is required' do
-        operation_params.delete(:description)
-
-        expect(subject).to be_failure
-        expect(errors).to include 'must be filled'
-      end
-    end
+    expect(new_incindent).to be_persisted
+    expect(new_incindent.title).to eq('Test incident')
+    expect(new_incindent.subtitle).to eq('From yesterday to tomorrow')
+    expect(new_incindent.description).to eq('I\'m the incident description.')
   end
 end

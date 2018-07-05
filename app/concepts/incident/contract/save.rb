@@ -1,6 +1,6 @@
 class Incident
   module Contract
-    class Create < Reform::Form
+    class Save < Reform::Form
       property :title
       property :subtitle
       property :description

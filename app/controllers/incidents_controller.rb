@@ -8,7 +8,7 @@ class IncidentsController < ApplicationController
 
   def create
     authorize :admin, :admin?
-    result = Incident::Create.call(params: params)
+    result = Incident::Operation::Create.call(params: params)
 
     if result.success?
       render json: result[:model], status: 201
