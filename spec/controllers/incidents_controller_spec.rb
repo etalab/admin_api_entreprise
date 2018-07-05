@@ -69,4 +69,65 @@ describe IncidentsController, type: :controller do
       end
     end
   end
+
+  describe '#update' do
+    let(:incident) { create(:incident) }
+    let(:incident_params) do
+      params_update = attributes_for(:incident)
+      params_update[:id] = incident.id
+      params_update
+    end
+    subject { post :update, params: incident_params }
+
+    context 'when requested from a user' do
+      include_context 'user request'
+      it_behaves_like 'client user unauthorized', :post, :create
+
+      it 'does not update the incident' do
+        incident_params[:title] = 'Test update'
+        subject
+        incident.reload
+
+        expect(incident.title).not_to eq('Test update')
+      end
+    end
+
+    context 'when requested from an admin' do
+      include_context 'admin request'
+
+      context 'when params are valid' do
+        it 'returns code 200' do
+          subject
+          expect(response.code).to eq('200')
+        end
+
+        it 'updates the incident' do
+          incident_params[:title] = 'Updated title'
+          subject
+          incident.reload
+
+          expect(incident.title).to eq('Updated title')
+        end
+      end
+
+      # TODO test this the generic way with mock and doubles, test generic operation
+      # interfaces for errors
+      context 'when params are not valid' do
+        before { incident_params[:title] = 'a' * 129 }
+
+        it 'does not update the incident' do
+          incident_params[:subtitle] = 'Updated subtitle'
+          subject
+          incident.reload
+
+          expect(incident.subtitle).not_to eq('Updated subtitle')
+        end
+
+        it 'returns 422' do
+          subject
+          expect(response.code).to eq('422')
+        end
+      end
+    end
+  end
 end

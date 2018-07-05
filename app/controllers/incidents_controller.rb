@@ -17,4 +17,16 @@ class IncidentsController < ApplicationController
       render json: { errors: errors }, status: 422
     end
   end
+
+  def update
+    authorize :admin, :admin?
+    result = Incident::Operation::Update.call(params: params)
+
+    if result.success?
+      render json: result[:model], status: 200
+
+    else
+      render json: { errors: result[:errors] }, status: 422
+    end
+  end
 end
