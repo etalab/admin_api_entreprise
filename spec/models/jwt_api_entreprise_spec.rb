@@ -35,8 +35,17 @@ describe JwtApiEntreprise, type: :jwt do
         expect(payload.fetch(:roles)).to eq(jwt_roles)
       end
 
-      it 'contains its expiration date into the "exp" key' do
-        expect(payload.fetch(:exp)).to eq(jwt.exp)
+      describe 'expiration date' do
+        it 'contains its expiration date into the "exp" key when not nil' do
+          expect(payload.fetch(:exp)).to eq(jwt.exp)
+        end
+
+        # ex: Watchdoge JWT for ping has no expiration date
+        it 'does not set exp field when expiration date is nil' do
+          jwt.exp = nil
+
+          expect(payload).to_not have_key(:exp)
+        end
       end
 
       it 'contains the payload version' do
