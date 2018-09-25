@@ -51,6 +51,13 @@ describe User::Login do
 
         it 'resets counter before lock'
       end
+
+      context 'with empty spaces around email' do
+        it 'strips spaces' do
+          user.email = '   ' + user.email + '    '
+          expect(result).to be_success
+        end
+      end
     end
 
     context 'when user is locked' do

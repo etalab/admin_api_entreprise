@@ -6,7 +6,8 @@ class User
 
     def retrieve_user_from_email(options, params:, **)
       # Oauth2 spec uses 'username' as key
-      options[:model] = User.find_by(email: params[:username])
+      strip_email = params[:username].strip
+      options[:model] = User.find_by(email: strip_email)
     end
 
     def authenticate_user(options, model:, params:, **)
