@@ -16,6 +16,7 @@ print "Deploy to #{ENV['to']}\n".green
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
+set :commit, ENV['commit']
 set :application_name, 'admin_apientreprise'
 set :domain, 'watchdoge.entreprise.api.gouv.fr'
 set :deploy_to, "/var/www/admin_apientreprise_#{ENV['to']}"
