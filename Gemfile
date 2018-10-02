@@ -37,6 +37,8 @@ gem 'pundit', '~> 1.1'
 
 gem 'pastel'
 
+gem 'logstasher'
+
 group :development, :test do
   gem 'colorize'
   gem 'pry'
