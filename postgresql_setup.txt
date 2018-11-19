@@ -1,0 +1,13 @@
+CREATE ROLE admin_apientreprise WITH LOGIN CREATEDB PASSWORD 'wow*verysecret';
+CREATE DATABASE admin_apientreprise_production WITH OWNER admin_apientreprise;
+CREATE DATABASE admin_apientreprise_development WITH OWNER admin_apientreprise;
+CREATE DATABASE admin_apientreprise_test WITH OWNER admin_apientreprise;
+
+\c admin_apientreprise_production;
+CREATE EXTENSION pgcrypto;
+
+\c admin_apientreprise_test;
+CREATE EXTENSION pgcrypto;
+
+\c admin_apientreprise_development;
+CREATE EXTENSION pgcrypto;
