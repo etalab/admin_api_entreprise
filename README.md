@@ -99,6 +99,15 @@ Pour déployer le projet :
 
     bundle exec mina deploy to=sandbox|production
 
+### Premier déploiement
+
+Après le premier déploiement sur une machine, la BDD est vide.
+L'utilisateur admin n'existe pas et les rôles non plus.
+Par exemple en staging :
+
+    RAILS_ENV=staging bundle exec rake create_admin
+    RAILS_ENV=staging bundle exec rake db_seed:roles
+
 ### Paramètres d'environnements
 
 Les fichiers suivants ne sont pas déployés par mina. Ils contiennent des

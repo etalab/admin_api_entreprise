@@ -1,6 +1,6 @@
 class Role
   class DBSeed < Trailblazer::Operation
-    self[:roles_seed] = [
+    ROLES_SEED = [
       { name: 'Attestation AGEFIPH',    code: 'attestations_agefiph' },
       { name: 'Attestation Fiscale',    code: 'attestations_fiscales' },
       { name: 'Attestation Sociale',    code: 'attestations_sociales' },
@@ -25,7 +25,7 @@ class Role
     success :seed!
 
     def seed!(options, log:, **)
-      options[:roles_seed].each do |role|
+      ROLES_SEED.each do |role|
         result = Role::Create.call(params: role)
         if result.success?
           log << "Role created : name \"#{role[:name]}\", code \"#{role[:code]}\""
