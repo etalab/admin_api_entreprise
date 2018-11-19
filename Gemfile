@@ -31,6 +31,7 @@ gem 'active_model_serializers', '~> 0.10.0'
 
 gem 'trailblazer', '~> 2.1.0.rc1'
 gem 'trailblazer-rails'
+gem 'reform-rails'
 gem 'dry-validation', '~> 0.11.1'
 
 gem 'pundit', '~> 1.1'
@@ -43,13 +44,8 @@ group :development, :test do
   gem 'colorize'
   gem 'pry'
   gem 'pry-rails'
-  gem 'spring-commands-rspec'
-  gem 'rspec-rails'
-  gem 'rspec-its'
   gem 'unindent'
   gem 'guard-rspec'
-  gem 'factory_bot_rails'
-  gem 'simplecov', require: false
 end
 
 group :development do
@@ -59,6 +55,14 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'mina', '~> 1.2'
   gem 'rubocop', require: false
+end
+
+group :test do
+  gem 'spring-commands-rspec'
+  gem 'rspec-rails'
+  gem 'rspec-its'
+  gem 'factory_bot_rails'
+  gem 'simplecov', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
