@@ -1,5 +1,5 @@
 class UserShowSerializer < ActiveModel::Serializer
-  attributes :id, :email, :context, :allow_token_creation
+  attributes :id, :email, :context, :note, :allow_token_creation
   attributes :tokens
   attributes :allowed_roles
 
