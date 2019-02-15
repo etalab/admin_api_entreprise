@@ -29,6 +29,18 @@ class UsersController < ApplicationController
     render json: {}, status: 404
   end
 
+  def update
+    authorize :admin, :admin?
+    result = User::Operation::Update.call(params: params)
+
+    if result.success?
+      render json: result[:model], status: 200
+
+    else
+      render json: { errors: result[:errors] }, status: 422
+    end
+  end
+
   def destroy
     authorize :admin, :admin?
     User.destroy(params[:id])
