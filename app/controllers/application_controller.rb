@@ -40,6 +40,10 @@ class ApplicationController < ActionController::API
     @pundit_user
   end
 
+  def current_user
+    @pundit_user
+  end
+
   def user_not_authorized
     render json: { errors: 'Forbidden' }, status: 403
   end

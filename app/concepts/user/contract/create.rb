@@ -3,6 +3,7 @@ class User
     class Create < Reform::Form
       property :email
       property :context
+      property :note
       property :allow_token_creation
 
       validation do
@@ -21,6 +22,7 @@ class User
           &:unique?
         )
         required(:context).maybe(:str?)
+        required(:note).maybe(:str?)
         required(:allow_token_creation).maybe(:bool?)
       end
 
