@@ -143,10 +143,11 @@ describe UsersController, type: :controller do
         body = JSON.parse(response.body, symbolize_names: true)
 
         expect(body).to be_an_instance_of Hash
-        expect(body.size).to eq 7
+        expect(body.size).to eq 8
         expect(body.key?(:id)).to be true
         expect(body.key?(:email)).to be true
         expect(body.key?(:context)).to be true
+        expect(body.key?(:note)).to be true
         expect(body.key?(:contacts)).to be true
         expect(body.key?(:tokens)).to be true
         expect(body.key?(:allowed_roles)).to be true
@@ -184,6 +185,14 @@ describe UsersController, type: :controller do
       end
 
       it_behaves_like 'show user'
+
+      it 'also returns the user note attribute' do
+        user = create :user_with_contacts
+        get :show, params: { id: user.id }
+        body = JSON.parse(response.body, symbolize_names: true)
+
+        expect(body).to have_key(:note)
+      end
     end
 
     context 'when requested from a client user' do
@@ -194,6 +203,13 @@ describe UsersController, type: :controller do
         get :show, params: { id: user.id }
 
         expect(response.code).to eq '200'
+      end
+
+      it 'does note return the user note attribute' do
+        get :show, params: { id: user.id }
+        body = JSON.parse(response.body, symbolize_names: true)
+
+        expect(body).to_not have_key(:note)
       end
 
       it 'denies access to other users data' do
@@ -333,5 +349,47 @@ describe UsersController, type: :controller do
     end
 
     it_behaves_like 'client user unauthorized', :post, :add_roles, { id: 'much id', roles: ['rol1'] }
+  end
+
+  describe '#update' do
+    let(:user) { create(:user) }
+    let(:user_params) do
+      {
+        id: user.id,
+        note: 'Test update'
+      }
+    end
+
+    subject { put :update, params: user_params }
+
+    context 'when requested from a user' do
+      include_context 'user request'
+      it_behaves_like 'client user unauthorized', :put, :update, { id: 'random' }
+
+      it 'does not update the user' do
+        subject
+        user.reload
+
+        expect(user.note).not_to eq('Test update')
+      end
+    end
+
+    context 'when requested from an admin' do
+      include_context 'admin request'
+
+      context 'when params are valid' do
+        it 'returns code 200' do
+          subject
+          expect(response.code).to eq('200')
+        end
+
+        it 'updates the user' do
+          subject
+          user.reload
+
+          expect(user.note).to eq('Test update')
+        end
+      end
+    end
   end
 end

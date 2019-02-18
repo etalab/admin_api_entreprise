@@ -6,6 +6,7 @@ describe User::Create do
     {
       email: 'new@record.gg',
       context: 'very development',
+      note: 'Much notes very commercial data',
       allow_token_creation: true,
       contacts: [
         {
@@ -26,6 +27,16 @@ describe User::Create do
     it 'creates the new user' do
       expect { result }.to change(User, :count).by(1)
       expect(result).to be_success
+      expect(result[:model]).to have_attributes(
+        email: 'new@record.gg',
+        context: 'very development',
+        note: 'Much notes very commercial data',
+        allow_token_creation: true,
+      )
+    end
+
+    it 'creates the associated contacts' do
+      expect { result }.to change(Contact, :count).by(2)
     end
   end
 
@@ -75,6 +86,14 @@ describe User::Create do
 
         expect(result).to be_success
         expect(errors).to be_nil
+      end
+    end
+
+    describe '#note' do
+      it 'is optional' do
+        user_params.delete(:note)
+
+        expect(result).to be_success
       end
     end
 
