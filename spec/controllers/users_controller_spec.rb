@@ -185,6 +185,14 @@ describe UsersController, type: :controller do
       end
 
       it_behaves_like 'show user'
+
+      it 'also returns the user note attribute' do
+        user = create :user_with_contacts
+        get :show, params: { id: user.id }
+        body = JSON.parse(response.body, symbolize_names: true)
+
+        expect(body).to have_key(:note)
+      end
     end
 
     context 'when requested from a client user' do
@@ -195,6 +203,13 @@ describe UsersController, type: :controller do
         get :show, params: { id: user.id }
 
         expect(response.code).to eq '200'
+      end
+
+      it 'does note return the user note attribute' do
+        get :show, params: { id: user.id }
+        body = JSON.parse(response.body, symbolize_names: true)
+
+        expect(body).to_not have_key(:note)
       end
 
       it 'denies access to other users data' do

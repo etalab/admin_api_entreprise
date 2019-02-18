@@ -1,5 +1,6 @@
 class UserShowSerializer < ActiveModel::Serializer
-  attributes :id, :email, :context, :note, :allow_token_creation
+  attributes :id, :email, :context, :allow_token_creation
+  attribute :note, if: :admin?
   attributes :tokens
   attributes :allowed_roles
 
@@ -7,5 +8,9 @@ class UserShowSerializer < ActiveModel::Serializer
 
   def tokens
     object.encoded_jwt
+  end
+
+  def admin?
+    current_user.admin?
   end
 end
