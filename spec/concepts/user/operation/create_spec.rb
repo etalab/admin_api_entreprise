@@ -2,9 +2,10 @@ require 'rails_helper'
 
 describe User::Create do
   let(:result) { described_class.call(params: user_params) }
+  let(:user_email) { 'new@record.gg' }
   let(:user_params) do
     {
-      email: 'new@record.gg',
+      email: user_email,
       context: 'very development',
       note: 'Much notes very commercial data',
       allow_token_creation: true,
@@ -28,7 +29,7 @@ describe User::Create do
       expect { result }.to change(User, :count).by(1)
       expect(result).to be_success
       expect(result[:model]).to have_attributes(
-        email: 'new@record.gg',
+        email: user_email,
         context: 'very development',
         note: 'Much notes very commercial data',
         allow_token_creation: true,
@@ -155,13 +156,31 @@ describe User::Create do
         expect(created_user).to_not be_confirmed
       end
 
-      it 'sends a confirmation email to the user' do
-        expect { described_class.call(params: user_params) }
-          .to change(ActionMailer::Base.deliveries, :count).by(1)
-      end
-
       it 'sets the confirmation request timestamp' do
         expect(result[:model].confirmation_sent_at.to_i).to be_within(2).of(Time.now.to_i)
+      end
+
+      describe 'mail notifications' do
+        before do
+          allow(UserMailer).to receive(:confirm_account_action).and_call_original
+          allow(UserMailer).to receive(:confirm_account_notice).and_call_original
+        end
+
+        it 'sends a confirm account action AND notice emails' do
+          expect { result }.to change(ActionMailer::Base.deliveries, :count).by(2)
+        end
+
+        it 'sends account confirmation email to contact principal' do
+          expect(UserMailer).to receive(:confirm_account_action)
+            .with(an_object_having_attributes(email: user_email, class: User))
+          result
+        end
+
+        it 'sends needed action notice email to each contacts' do
+          expect(UserMailer).to receive(:confirm_account_notice)
+            .with(an_object_having_attributes(email: user_email, class: User))
+          result
+        end
       end
     end
   end
