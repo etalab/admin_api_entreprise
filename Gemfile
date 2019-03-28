@@ -41,8 +41,10 @@ gem 'pastel'
 gem 'logstasher'
 
 group :development, :test do
+  gem 'awesome_print'
   gem 'colorize'
   gem 'pry'
+  gem 'pry-byebug'
   gem 'pry-rails'
   gem 'unindent'
   gem 'guard-rspec'
