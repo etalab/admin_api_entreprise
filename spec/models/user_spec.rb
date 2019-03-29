@@ -3,6 +3,24 @@ require 'rails_helper'
 describe User do
   let(:user) { create(:user_with_jwt) }
 
+  describe 'db_columns' do
+    it { is_expected.to have_db_column(:email).of_type(:string) }
+    it { is_expected.to have_db_column(:context).of_type(:string) }
+    it { is_expected.to have_db_column(:password_digest).of_type(:string) }
+    it { is_expected.to have_db_column(:confirmation_token).of_type(:string) }
+    it { is_expected.to have_db_column(:confirmed_at).of_type(:datetime) }
+    it { is_expected.to have_db_column(:confirmation_sent_at).of_type(:datetime) }
+    it { is_expected.to have_db_column(:allow_token_creation).of_type(:boolean) }
+    it { is_expected.to have_db_column(:cgu_agreement_date).of_type(:datetime) }
+    it { is_expected.to have_db_column(:note).of_type(:text) }
+  end
+
+  describe 'relationships' do
+    it { is_expected.to have_many(:contacts).dependent(:destroy) }
+    it { is_expected.to have_and_belong_to_many :roles }
+    it { is_expected.to have_many :jwt_api_entreprise }
+  end
+
   describe '#encoded_jwt' do
     it 'returns an array of all user\'s jwt' do
       expect(user.encoded_jwt.size).to eq(user.jwt_api_entreprise.size)
