@@ -34,7 +34,7 @@ describe UserMailer, type: :mailer do
       its(:from) { is_expected.to eq ['tech@entreprise.api.gouv.fr'] }
 
       it 'contains the confirm account notice' do
-        notice = "l'administrateur de votre compte (#{user.email}) a reçu un e-mail"
+        notice = "votre administrateur (#{user.email}) a reçu un e-mail"
         email = UserMailer.confirm_account_notice user
         expect(email.html_part.decoded).to include(notice)
         expect(email.text_part.decoded).to include(notice)
