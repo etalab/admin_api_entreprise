@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-  default from: 'no-reply@entreprise.api.gouv.fr'
+  default from: 'tech@entreprise.api.gouv.fr'
   layout 'mailer'
 
   def confirm_account_action(user)

@@ -8,7 +8,7 @@ describe UserMailer, type: :mailer do
 
     its(:subject) { is_expected.to eq 'API Entreprise - Activation de compte utilisateur' }
     its(:to) { is_expected.to eq [user.email] }
-    its(:from) { is_expected.to eq ['no-reply@entreprise.api.gouv.fr'] }
+    its(:from) { is_expected.to eq ['tech@entreprise.api.gouv.fr'] }
 
     it 'contains the user confirmation URL' do
       confirmation_url = "https://sandbox.dashboard.entreprise.api.gouv.fr/account/confirm?confirmation_token=very_confirm"
@@ -31,7 +31,7 @@ describe UserMailer, type: :mailer do
 
       its(:subject) { is_expected.to eq 'API Entreprise - Activation de compte utilisateur' }
       its(:to) { is_expected.to eq user.contacts.pluck(:email) }
-      its(:from) { is_expected.to eq ['no-reply@entreprise.api.gouv.fr'] }
+      its(:from) { is_expected.to eq ['tech@entreprise.api.gouv.fr'] }
 
       it 'contains the confirm account notice' do
         notice = "l'administrateur de votre compte (#{user.email}) a reçu un e-mail"
