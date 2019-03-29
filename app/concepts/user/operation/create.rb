@@ -8,6 +8,15 @@ class User
     step ->(options, model:, **) { model.generate_confirmation_token }
     step ->(options, model:, **) { model.confirmation_sent_at = Time.now }
     step ->(options, model:, **) { model.save }
-    step ->(options, model:, **) { UserMailer.confirmation_request(model).deliver_now }
+    step ->(options, model:, **) { UserMailer.confirm_account_action(model).deliver_now }
+    step :send_confirm_account_notice
+
+    def send_confirm_account_notice(ctx, model:, **)
+      if model.contacts.any?
+        UserMailer.confirm_account_notice(model).deliver_now
+      else
+        true
+      end
+    end
   end
 end

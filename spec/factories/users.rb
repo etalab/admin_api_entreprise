@@ -1,17 +1,17 @@
 FactoryBot.define do
   factory :user do
     sequence(:email) { |n| "user_#{n}@example.org" }
-    context 'VERY_DEVELOPMENT'
+    context { 'VERY_DEVELOPMENT' }
 
     # TODO make user factory confirmed by default
     # use an :inactive_user factory for this specific state
     factory :confirmed_user do
-      confirmed_at Time.now.to_i
-      cgu_agreement_date Time.now.to_i
+      confirmed_at { Time.now.to_i }
+      cgu_agreement_date { Time.now.to_i }
     end
 
     factory :admin do
-      id Rails.application.secrets.fetch(:admin_uid)
+      id { Rails.application.secrets.fetch(:admin_uid) }
     end
 
     factory :user_with_contacts do
@@ -30,7 +30,7 @@ FactoryBot.define do
     end
 
     factory :user_with_roles do
-      allow_token_creation true
+      allow_token_creation { true }
 
       after(:create) do |u|
         create_list(:role, 4, users: [u])
