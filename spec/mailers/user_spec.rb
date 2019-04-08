@@ -12,10 +12,9 @@ describe UserMailer, type: :mailer do
 
     it 'contains the user confirmation URL' do
       confirmation_url = "https://sandbox.dashboard.entreprise.api.gouv.fr/account/confirm?confirmation_token=very_confirm"
-      email = UserMailer.confirm_account_action(user)
 
-      expect(email.html_part.decoded).to include(confirmation_url)
-      expect(email.text_part.decoded).to include(confirmation_url)
+      expect(subject.html_part.decoded).to include(confirmation_url)
+      expect(subject.text_part.decoded).to include(confirmation_url)
     end
   end
 
@@ -35,9 +34,9 @@ describe UserMailer, type: :mailer do
 
       it 'contains the confirm account notice' do
         notice = "votre administrateur (#{user.email}) a reçu un e-mail"
-        email = UserMailer.confirm_account_notice user
-        expect(email.html_part.decoded).to include(notice)
-        expect(email.text_part.decoded).to include(notice)
+
+        expect(subject.html_part.decoded).to include(notice)
+        expect(subject.text_part.decoded).to include(notice)
       end
     end
 
