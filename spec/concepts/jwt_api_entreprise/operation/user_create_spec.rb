@@ -56,6 +56,22 @@ describe JwtApiEntreprise::UserCreate do
     it 'is associated to the new contact' do
       expect(created_token.contact).to eq(Contact.last)
     end
+
+    describe 'mail notification' do
+      before do
+        allow(UserMailer).to receive(:token_creation_notice).and_call_original
+      end
+
+      it 'notifies contacts techniques & contact principal of token creation' do
+        expect(UserMailer).to receive(:token_creation_notice)
+          .with(an_instance_of(JwtApiEntreprise))
+        subject
+      end
+
+      it 'changes mail delivery count' do
+        expect { subject }.to change(ActionMailer::Base.deliveries, :count).by 1
+      end
+    end
   end
 
   context 'when input data is invalid' do
@@ -88,7 +104,7 @@ describe JwtApiEntreprise::UserCreate do
       context 'when both authorized and unauthorized roles are provided' do
         it 'does not care about unauthorized roles' do
           token_params[:roles].push(unauthorized_role.code)
-            associated_unauthorized_role = subject[:created_token].roles.where(code: unauthorized_role.code)
+          associated_unauthorized_role = subject[:created_token].roles.where(code: unauthorized_role.code)
 
           expect(subject).to be_success
           expect(subject[:created_token].roles).to eq(roles)
@@ -112,6 +128,12 @@ describe JwtApiEntreprise::UserCreate do
 
         expect(subject).to be_failure
         expect(subject[:errors]).to eq("user does not exist (UID : 'not a user id')")
+      end
+
+      it 'does not send an email is invalid' do
+        token_params.delete(:user_id)
+        expect(UserMailer).not_to receive(:token_creation_notice)
+        subject
       end
     end
 
