@@ -46,4 +46,5 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.account_confirmation_url = 'https://sandbox.dashboard.entreprise.api.gouv.fr/account/confirm'
+  config.account_tokens_list_url  = 'https://sandbox.dashboard.entreprise.api.gouv.fr/admin/users/%s/tokens/'
 end

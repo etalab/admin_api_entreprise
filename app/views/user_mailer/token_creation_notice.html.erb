@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Bonjour,</p>
+
+    <p>Un nouveau token est disponible dans votre espace client.<p>
+
+    <p>Vous pouvez le récupérer en suivant ce lien : <%= @url_jwt  %></p>
+
+    <p>Ce token possède les droits suivants :</p>
+    <ul>
+      <% @jwt.roles.each do |role| %>
+        <li><%= role.name %></li>
+      <% end %>
+    </ul>
+
+    <p>Grâce à ce nouveau token vous pourrez consulter vos statistiques d'utilisations en temps réel. Voici les statistiques actuellement disponibles:</p>
+
+    <ul>
+      <li>la liste des 50 derniers appels</li>
+      <li>les pourcentages des différents code HTTP sur les dernières 30h/8j</li>
+      <li>le nombre d'appels par API sur les dernières 30h/8j</li>
+      <li>d'autres statistiques viendront s'ajouter à celle-ci</li>
+    </ul>
+
+    <p>Si vous avez besoin d'un nouveau token contactez-nous : tech@entreprise.api.gouv.fr</p>
+
+    <p>Cordialement,</p>
+    <p>L'équipe API Entreprise</p>
+  </body>
+</html>

@@ -51,4 +51,47 @@ describe UserMailer, type: :mailer do
       its(:to) { is_expected.to eq other_contacts.pluck(:email) }
     end
   end
+
+  describe 'token_creation_notice' do
+    subject { described_class.token_creation_notice new_token }
+
+    let(:user) { create :user, :with_contacts, :with_jwt }
+    let(:new_token) { user.jwt_api_entreprise.first }
+
+    context 'when contact principal is not métier or/and technique' do
+      let(:all_emails) { user.contacts.pluck(:email) << user.email }
+
+      its(:subject) { is_expected.to eq 'API Entreprise - Création d\'un nouveau token' }
+      its(:to) { is_expected.to eq all_emails }
+      its(:from) { is_expected.to eq ['tech@entreprise.api.gouv.fr'] }
+
+      it 'contains the token_creation_notice' do
+        notice = 'Un nouveau token est disponible dans votre espace client'
+
+        expect(subject.html_part.decoded).to include notice
+        expect(subject.text_part.decoded).to include notice
+      end
+
+      it 'contains the list of all roles' do
+        new_token.roles.each do |role|
+          expect(subject.html_part.decoded).to include role.name
+          expect(subject.text_part.decoded).to include role.name
+        end
+      end
+
+      it 'contains the link to the token' do
+        token_url = "https://sandbox.dashboard.entreprise.api.gouv.fr/admin/users/#{user.id}/tokens/"
+        expect(subject.html_part.decoded).to include token_url
+        expect(subject.text_part.decoded).to include token_url
+      end
+    end
+
+    context 'when contact principal is also métier or/and technique' do
+      before do
+        user.contacts.first.update email: user.email
+      end
+
+      its(:to) { is_expected.to eq user.contacts.pluck(:email).uniq }
+    end
+  end
 end
