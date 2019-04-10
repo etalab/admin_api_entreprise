@@ -143,7 +143,6 @@ describe UsersController, type: :controller do
         body = JSON.parse(response.body, symbolize_names: true)
 
         expect(body).to be_an_instance_of Hash
-        expect(body.size).to eq 8
         expect(body.key?(:id)).to be true
         expect(body.key?(:email)).to be true
         expect(body.key?(:context)).to be true
@@ -184,7 +183,24 @@ describe UsersController, type: :controller do
         end
       end
 
-      it_behaves_like 'show user'
+      context 'show another user' do
+        let(:user) { create :user, :with_contacts }
+
+        it_behaves_like 'show user'
+
+        it 'shows the note' do
+          get :show, params: { id: user.id }
+          expect(response_json).to include note: nil
+        end
+
+        it 'shows disabled jwt' do
+          jwt = user.jwt_api_entreprise.first
+          jwt.update(enabled: false)
+          get :show, params: { id: user.id }
+          expect(response_json)
+            .to include disabled_tokens: a_collection_containing_exactly(jwt.rehash)
+        end
+      end
 
       it 'also returns the user note attribute' do
         user = create :user, :with_contacts
@@ -199,17 +215,30 @@ describe UsersController, type: :controller do
       let(:user) { UsersFactory.confirmed_user }
       before { fill_request_headers_with_user_jwt(user.id) }
 
+      it_behaves_like 'show user'
+
       it 'returns requesting user\'s info' do
         get :show, params: { id: user.id }
 
         expect(response.code).to eq '200'
       end
 
-      it 'does note return the user note attribute' do
+      it 'does not return the user note attribute' do
         get :show, params: { id: user.id }
         body = JSON.parse(response.body, symbolize_names: true)
 
         expect(body).to_not have_key(:note)
+      end
+
+      it 'does not return the user disabled jwt' do
+        create :jwt_api_entreprise, user: user
+        jwt = user.jwt_api_entreprise.first
+        jwt.update(enabled: false)
+
+        expect(user.disabled_jwt.size).to eq 1
+        get :show, params: { id: user.id }
+
+        expect(response_json).not_to have_key :disabled_tokens
       end
 
       it 'denies access to other users data' do
