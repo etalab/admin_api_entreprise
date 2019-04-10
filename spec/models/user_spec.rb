@@ -27,6 +27,17 @@ describe User do
       expect(user.encoded_jwt.size).to eq(user.jwt_api_entreprise.size)
     end
 
+    it 'only returns enabled tokens' do
+      jwt = user.jwt_api_entreprise.first
+      jwt.update(enabled: false)
+      user.reload
+
+      expect(user.encoded_jwt.size).to eq(user.jwt_api_entreprise.size - 1)
+      expect(user.disabled_jwt.size).to eq 1
+      jwt_decoded = AccessToken.decode user.disabled_jwt.first
+      expect(jwt.id).to eq jwt_decoded[:jti]
+    end
+
     context 'JWT generation' do
       before { expect_any_instance_of(JwtApiEntreprise).to receive(:rehash).and_return('Much token') }
 
