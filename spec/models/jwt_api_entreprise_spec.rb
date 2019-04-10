@@ -1,7 +1,26 @@
 require 'rails_helper'
 
-describe JwtApiEntreprise, type: :jwt do
+describe JwtApiEntreprise, type: :model do
   let(:jwt) { create(:jwt_api_entreprise) }
+
+  describe 'db_columns' do
+    it { is_expected.to have_db_column(:id).of_type(:uuid) }
+    it { is_expected.to have_db_column(:subject).of_type(:string) }
+    it { is_expected.to have_db_column(:iat).of_type(:integer) }
+    it { is_expected.to have_db_column(:user_id).of_type(:uuid) }
+    it { is_expected.to have_db_column(:created_at).of_type(:datetime) }
+    it { is_expected.to have_db_column(:updated_at).of_type(:datetime) }
+    it { is_expected.to have_db_column(:contact_id).of_type(:uuid) }
+    it { is_expected.to have_db_column(:exp).of_type(:integer) }
+    it { is_expected.to have_db_column(:version).of_type(:string) }
+    it { is_expected.to have_db_column(:enabled).of_type(:boolean).with_options(default: true) }
+  end
+
+  describe 'relationships' do
+    it { is_expected.to belong_to :user }
+    it { is_expected.to belong_to(:contact).optional }
+    it { is_expected.to have_and_belong_to_many :roles }
+  end
 
   describe '#rehash' do
     let(:token) { jwt.rehash }

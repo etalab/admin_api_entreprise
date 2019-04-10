@@ -63,6 +63,7 @@ RSpec.configure do |config|
   # Include helpers / support accurately for each spec type
   config.include AuthenticationHelper, type: :controller
   config.include JWTHelper, type: :jwt
+  config.include JWTHelper, type: :model
   config.include JWTHelper, type: :request
 end
 
