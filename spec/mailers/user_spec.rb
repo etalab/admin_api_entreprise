@@ -84,6 +84,13 @@ describe UserMailer, type: :mailer do
         expect(subject.html_part.decoded).to include token_url
         expect(subject.text_part.decoded).to include token_url
       end
+
+      it 'contains info regarding the current account access' do
+        notice = "parmi les contacts pour le compte #{user.email}"
+
+        expect(subject.html_part.decoded).to include notice
+        expect(subject.text_part.decoded).to include notice
+      end
     end
 
     context 'when contact principal is also métier or/and technique' do

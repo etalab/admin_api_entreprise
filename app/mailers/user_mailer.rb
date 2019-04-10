@@ -21,15 +21,20 @@ class UserMailer < ApplicationMailer
   end
 
   def token_creation_notice(new_token)
-    user = new_token.user
-    @url_jwt = Rails.configuration.account_tokens_list_url.to_s % [user.id]
+    @user = new_token.user
+    @url_jwt = Rails.configuration.account_tokens_list_url.to_s % [@user.id]
     @jwt = new_token
 
     subject = 'API Entreprise - Création d\'un nouveau token'
 
-    recipients = user.contacts.pluck(:email)
-    recipients << user.email
+    mail(to: token_creation_notice_recipients, subject: subject)
+  end
 
-    mail(to: recipients.uniq, subject: subject)
+  private
+
+  def token_creation_notice_recipients
+    recipients = @user.contacts.pluck(:email)
+    recipients << @user.email
+    recipients.uniq
   end
 end
