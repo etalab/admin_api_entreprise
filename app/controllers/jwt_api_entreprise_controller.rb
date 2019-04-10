@@ -28,6 +28,18 @@ class JwtApiEntrepriseController < ApplicationController
     end
   end
 
+  def disable
+    authorize :admin, :admin?
+
+    jwt = JwtApiEntreprise.find params[:id]
+
+    if jwt.update(enabled: false)
+      render json: { message: 'Jwt disabled' }, status: :ok
+    else
+      render json: { error: 'Jwt still enabled' }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def retrieve_errors(operation_result)
