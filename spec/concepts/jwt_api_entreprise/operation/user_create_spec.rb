@@ -130,7 +130,7 @@ describe JwtApiEntreprise::UserCreate do
         expect(subject[:errors]).to eq("user does not exist (UID : 'not a user id')")
       end
 
-      it 'does not send an email is invalid' do
+      it 'does not send an email' do
         token_params.delete(:user_id)
         expect(UserMailer).not_to receive(:token_creation_notice)
         subject
