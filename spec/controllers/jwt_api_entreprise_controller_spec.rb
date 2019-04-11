@@ -132,7 +132,7 @@ describe JwtApiEntrepriseController, type: :controller do
       include_context 'admin request'
 
       it 'disable the jwt' do
-        get :disable, params: { id: jwt.to_param, user_id: jwt.user.id }
+        post :disable, params: { id: jwt.to_param, user_id: jwt.user.id }
         jwt.reload
         expect(jwt).to have_attributes enabled: false
         expect(response).to have_http_status :ok
@@ -145,7 +145,7 @@ describe JwtApiEntrepriseController, type: :controller do
       it_behaves_like 'client user unauthorized', :post, :disable, { id: 0, user_id: 0 }
 
       it 'does not disable the token' do
-        get :disable, params: { id: jwt.to_param, user_id: jwt.user.id }
+        post :disable, params: { id: jwt.to_param, user_id: jwt.user.id }
         jwt.reload
         expect(jwt).to have_attributes enabled: true
       end
