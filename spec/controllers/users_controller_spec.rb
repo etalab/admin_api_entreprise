@@ -143,6 +143,7 @@ describe UsersController, type: :controller do
         body = JSON.parse(response.body, symbolize_names: true)
 
         expect(body).to be_an_instance_of Hash
+        expect(body.size).to eq 9
         expect(body.key?(:id)).to be true
         expect(body.key?(:email)).to be true
         expect(body.key?(:context)).to be true
@@ -167,6 +168,9 @@ describe UsersController, type: :controller do
         expect(body[:tokens].size).to eq 1
         expect(body[:tokens].first).to be_a(String)
 
+        expect(body[:disabled_tokens]).to be_an_instance_of Array
+        expect(body[:disabled_tokens].size).to eq 0
+
         expect(body[:allowed_roles]).to be_an(Array)
         expect(body[:allowed_roles].size).to eq(4)
         expect(body[:allowed_roles].first).to be_a(String)
@@ -187,11 +191,6 @@ describe UsersController, type: :controller do
         let(:user) { create :user, :with_contacts }
 
         it_behaves_like 'show user'
-
-        it 'shows the note' do
-          get :show, params: { id: user.id }
-          expect(response_json).to include note: nil
-        end
 
         it 'shows disabled jwt' do
           jwt = user.jwt_api_entreprise.first
@@ -214,8 +213,6 @@ describe UsersController, type: :controller do
     context 'when requested from a client user' do
       let(:user) { UsersFactory.confirmed_user }
       before { fill_request_headers_with_user_jwt(user.id) }
-
-      it_behaves_like 'show user'
 
       it 'returns requesting user\'s info' do
         get :show, params: { id: user.id }

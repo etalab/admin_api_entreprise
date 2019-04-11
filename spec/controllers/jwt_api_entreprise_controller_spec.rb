@@ -148,7 +148,6 @@ describe JwtApiEntrepriseController, type: :controller do
         get :disable, params: { id: jwt.to_param, user_id: jwt.user.id }
         jwt.reload
         expect(jwt).to have_attributes enabled: true
-        expect(response).to have_http_status :forbidden
       end
     end
 
