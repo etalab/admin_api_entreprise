@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe User do
-  let(:user) { create(:user_with_jwt) }
+  let(:user) { create :user, :with_jwt }
 
   describe 'db_columns' do
     it { is_expected.to have_db_column(:email).of_type(:string) }

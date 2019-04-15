@@ -138,7 +138,7 @@ describe UsersController, type: :controller do
   describe '#show' do
     shared_examples 'show user' do
       it 'returns the user data' do
-        user = create :user_with_contacts
+        user = create :user, :with_contacts
         get :show, params: { id: user.id }
         body = JSON.parse(response.body, symbolize_names: true)
 
@@ -187,7 +187,7 @@ describe UsersController, type: :controller do
       it_behaves_like 'show user'
 
       it 'also returns the user note attribute' do
-        user = create :user_with_contacts
+        user = create :user, :with_contacts
         get :show, params: { id: user.id }
         body = JSON.parse(response.body, symbolize_names: true)
 
@@ -252,7 +252,7 @@ describe UsersController, type: :controller do
 
         # TODO move into user model's specs
         it 'deletes associated contacts' do
-          user = create :user_with_contacts
+          user = create :user, :with_contacts
           expect { delete :destroy, params: { id: user.id } }
             .to change(Contact, :count).by(-3)
         end
