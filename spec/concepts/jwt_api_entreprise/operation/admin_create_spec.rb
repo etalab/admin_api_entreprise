@@ -38,6 +38,28 @@ describe JwtApiEntreprise::AdminCreate do
     it 'is saved with the payload version number' do
       expect(created_token.version).to eq('1.0')
     end
+
+    describe 'mail notification' do
+      before do
+        allow(UserMailer).to receive(:token_creation_notice).and_call_original
+      end
+
+      it 'notifies contacts techniques & contact principal of token creation' do
+        expect(UserMailer).to receive(:token_creation_notice)
+          .with(an_instance_of(JwtApiEntreprise))
+        subject
+      end
+
+      it 'changes mail delivery count' do
+        expect { subject }.to change(ActionMailer::Base.deliveries, :count).by 1
+      end
+
+      it 'does not send an email when invalid' do
+        token_params.delete(:user_id)
+        expect(UserMailer).not_to receive(:token_creation_notice)
+        subject
+      end
+    end
   end
 
   context 'when input data is invalid' do
