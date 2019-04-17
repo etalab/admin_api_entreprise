@@ -1,0 +1,23 @@
+Bonjour,
+
+Un nouveau token est disponible dans votre espace client.
+
+Vous pouvez le récupérer en suivant ce lien : <%= @url_jwt  %>
+
+Ce token possède les droits d'accès suivants :
+<% @jwt.roles.each do |role| %>
+  - <%= role.name %>
+<% end %>
+
+N'oubliez pas, vous pouvez consulter les statistiques d'utilisations propre à ce jeton en temps réel. Voici les statistiques actuellement disponibles:
+
+  - la liste des 50 derniers appels
+  - les pourcentages des différents code HTTP sur les dernières 30h/8j
+  - le nombre d'appels par API sur les dernières 30h/8j
+
+Si vous avez besoin d'un nouveau token contactez-nous : tech@entreprise.api.gouv.fr
+
+Vous recevez cet email car vous êtes renseigné parmi les contacts pour le compte <%= @user.email %>. Les accès se font uniquement à partir de cette adresse email.
+
+Cordialement,
+L'équipe API Entreprise

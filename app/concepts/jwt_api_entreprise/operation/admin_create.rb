@@ -4,6 +4,7 @@ class JwtApiEntreprise
     step :verify_user
     failure :error_message
     step :create_token
+    step ->(options, created_token:, **) { UserMailer.token_creation_notice(created_token).deliver_now }
 
     def verify_user(options, params:, **)
       options[:user] = User.find_by_id(params[:user_id])

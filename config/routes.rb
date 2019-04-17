@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :jwt_api_entreprise, only: [:create] do
         collection do
           post :admin_create
+          post :disable, to: 'jwt_api_entreprise#disable'
         end
       end
 
