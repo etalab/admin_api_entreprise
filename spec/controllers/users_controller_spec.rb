@@ -143,7 +143,7 @@ describe UsersController, type: :controller do
         body = JSON.parse(response.body, symbolize_names: true)
 
         expect(body).to be_an_instance_of Hash
-        expect(body.size).to eq 8
+        expect(body.size).to eq 9
         expect(body.key?(:id)).to be true
         expect(body.key?(:email)).to be true
         expect(body.key?(:context)).to be true
@@ -168,6 +168,9 @@ describe UsersController, type: :controller do
         expect(body[:tokens].size).to eq 1
         expect(body[:tokens].first).to be_a(String)
 
+        expect(body[:disabled_tokens]).to be_an_instance_of Array
+        expect(body[:disabled_tokens].size).to eq 0
+
         expect(body[:allowed_roles]).to be_an(Array)
         expect(body[:allowed_roles].size).to eq(4)
         expect(body[:allowed_roles].first).to be_a(String)
@@ -184,7 +187,19 @@ describe UsersController, type: :controller do
         end
       end
 
-      it_behaves_like 'show user'
+      context 'show another user' do
+        let(:user) { create :user, :with_contacts }
+
+        it_behaves_like 'show user'
+
+        it 'shows disabled jwt' do
+          jwt = user.jwt_api_entreprise.first
+          jwt.update(enabled: false)
+          get :show, params: { id: user.id }
+          expect(response_json)
+            .to include disabled_tokens: a_collection_containing_exactly(jwt.rehash)
+        end
+      end
 
       it 'also returns the user note attribute' do
         user = create :user, :with_contacts
@@ -205,11 +220,22 @@ describe UsersController, type: :controller do
         expect(response.code).to eq '200'
       end
 
-      it 'does note return the user note attribute' do
+      it 'does not return the user note attribute' do
         get :show, params: { id: user.id }
         body = JSON.parse(response.body, symbolize_names: true)
 
         expect(body).to_not have_key(:note)
+      end
+
+      it 'does not return the user disabled jwt' do
+        create :jwt_api_entreprise, user: user
+        jwt = user.jwt_api_entreprise.first
+        jwt.update(enabled: false)
+
+        expect(user.disabled_jwt.size).to eq 1
+        get :show, params: { id: user.id }
+
+        expect(response_json).not_to have_key :disabled_tokens
       end
 
       it 'denies access to other users data' do

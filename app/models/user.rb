@@ -27,7 +27,11 @@ class User < ApplicationRecord
   end
 
   def encoded_jwt
-    jwt_api_entreprise.map(&:rehash)
+    jwt_api_entreprise.where(enabled: true).map(&:rehash)
+  end
+
+  def disabled_jwt
+    jwt_api_entreprise.where(enabled: false).map(&:rehash)
   end
 
   def manage_token?

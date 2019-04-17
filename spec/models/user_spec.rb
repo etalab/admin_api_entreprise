@@ -4,6 +4,7 @@ describe User do
   let(:user) { create :user, :with_jwt }
 
   describe 'db_columns' do
+    it { is_expected.to have_db_column(:id).of_type(:uuid) }
     it { is_expected.to have_db_column(:email).of_type(:string) }
     it { is_expected.to have_db_column(:context).of_type(:string) }
     it { is_expected.to have_db_column(:password_digest).of_type(:string) }
@@ -24,6 +25,24 @@ describe User do
   describe '#encoded_jwt' do
     it 'returns an array of all user\'s jwt' do
       expect(user.encoded_jwt.size).to eq(user.jwt_api_entreprise.size)
+    end
+
+    context 'when one token is disabled' do
+      let!(:disabled_jwt) do
+        user
+          .jwt_api_entreprise
+          .first
+          .tap { |jwt| jwt.update(enabled: false) }
+      end
+
+      it 'does not return disabled token with #encoded_jwt' do
+        expect(user.encoded_jwt).not_to include disabled_jwt.rehash
+        expect(user.encoded_jwt.size).to eq (user.jwt_api_entreprise.size - 1)
+      end
+
+      it 'returns one #disabed_jwt'  do
+        expect(user.disabled_jwt).to eq [disabled_jwt.rehash]
+      end
     end
 
     context 'JWT generation' do
