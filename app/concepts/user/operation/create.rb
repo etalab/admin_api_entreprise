@@ -12,11 +12,17 @@ class User
     step :send_confirm_account_notice
 
     def send_confirm_account_notice(ctx, model:, **)
-      if model.contacts.any?
+      if model.contacts.any? && a_contact_has_distinct_email?(model)
         UserMailer.confirm_account_notice(model).deliver_now
       else
         true
       end
+    end
+
+    private
+
+    def a_contact_has_distinct_email?(model)
+      model.contacts.pluck(:email).any? { |email| email != model.email }
     end
   end
 end
