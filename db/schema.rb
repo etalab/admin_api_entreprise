@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190409132714) do
+ActiveRecord::Schema.define(version: 2019_05_08_074223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20190409132714) do
     t.uuid "contact_id"
     t.integer "exp"
     t.string "version"
-    t.boolean "enabled", default: true
+    t.boolean "blacklisted", default: false
     t.index ["contact_id"], name: "index_jwt_api_entreprises_on_contact_id"
     t.index ["user_id"], name: "index_jwt_api_entreprises_on_user_id"
   end
