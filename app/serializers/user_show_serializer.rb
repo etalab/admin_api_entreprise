@@ -1,7 +1,7 @@
 class UserShowSerializer < ActiveModel::Serializer
   attributes :id, :email, :context, :allow_token_creation
   attribute :note, if: :admin?
-  attribute :disabled_tokens, if: :admin?
+  attribute :blacklisted_tokens, if: :admin?
   attributes :tokens
   attributes :allowed_roles
 
@@ -11,8 +11,8 @@ class UserShowSerializer < ActiveModel::Serializer
     object.encoded_jwt
   end
 
-  def disabled_tokens
-    object.disabled_jwt
+  def blacklisted_tokens
+    object.blacklisted_jwt
   end
 
   def admin?
