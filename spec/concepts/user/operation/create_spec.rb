@@ -181,6 +181,20 @@ describe User::Create do
             .with(an_object_having_attributes(email: user_email, class: User))
           result
         end
+
+        it 'do not send confirm account notice when there is no contact' do
+          user_params[:contacts].clear
+          expect(UserMailer).not_to receive(:confirm_account_notice)
+          result
+          expect(result).to be_success
+        end
+
+        it 'do not send confirm account notice when all contacts are the same' do
+          user_params[:contacts].each { |contact| contact[:email] = user_email }
+          expect(UserMailer).not_to receive(:confirm_account_notice)
+          result
+          expect(result).to be_success
+        end
       end
     end
   end

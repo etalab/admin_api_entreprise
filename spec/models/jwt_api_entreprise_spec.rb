@@ -13,7 +13,7 @@ describe JwtApiEntreprise, type: :model do
     it { is_expected.to have_db_column(:contact_id).of_type(:uuid) }
     it { is_expected.to have_db_column(:exp).of_type(:integer) }
     it { is_expected.to have_db_column(:version).of_type(:string) }
-    it { is_expected.to have_db_column(:enabled).of_type(:boolean).with_options(default: true) }
+    it { is_expected.to have_db_column(:blacklisted).of_type(:boolean).with_options(default: false) }
   end
 
   describe 'relationships' do

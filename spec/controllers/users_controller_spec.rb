@@ -168,8 +168,8 @@ describe UsersController, type: :controller do
         expect(body[:tokens].size).to eq 1
         expect(body[:tokens].first).to be_a(String)
 
-        expect(body[:disabled_tokens]).to be_an_instance_of Array
-        expect(body[:disabled_tokens].size).to eq 0
+        expect(body[:blacklisted_tokens]).to be_an_instance_of Array
+        expect(body[:blacklisted_tokens].size).to eq 0
 
         expect(body[:allowed_roles]).to be_an(Array)
         expect(body[:allowed_roles].size).to eq(4)
@@ -192,12 +192,12 @@ describe UsersController, type: :controller do
 
         it_behaves_like 'show user'
 
-        it 'shows disabled jwt' do
+        it 'shows blacklisted jwt' do
           jwt = user.jwt_api_entreprise.first
-          jwt.update(enabled: false)
+          jwt.update(blacklisted: true)
           get :show, params: { id: user.id }
           expect(response_json)
-            .to include disabled_tokens: a_collection_containing_exactly(jwt.rehash)
+            .to include blacklisted_tokens: a_collection_containing_exactly(jwt.rehash)
         end
       end
 
@@ -227,15 +227,15 @@ describe UsersController, type: :controller do
         expect(body).to_not have_key(:note)
       end
 
-      it 'does not return the user disabled jwt' do
+      it 'does not return the user blacklisted jwt' do
         create :jwt_api_entreprise, user: user
         jwt = user.jwt_api_entreprise.first
-        jwt.update(enabled: false)
+        jwt.update(blacklisted: true)
 
-        expect(user.disabled_jwt.size).to eq 1
+        expect(user.blacklisted_jwt.size).to eq 1
         get :show, params: { id: user.id }
 
-        expect(response_json).not_to have_key :disabled_tokens
+        expect(response_json).not_to have_key :blacklisted_tokens
       end
 
       it 'denies access to other users data' do

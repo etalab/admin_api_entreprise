@@ -27,21 +27,21 @@ describe User do
       expect(user.encoded_jwt.size).to eq(user.jwt_api_entreprise.size)
     end
 
-    context 'when one token is disabled' do
-      let!(:disabled_jwt) do
+    context 'when one token is blacklisted' do
+      let!(:blacklisted_jwt) do
         user
           .jwt_api_entreprise
           .first
-          .tap { |jwt| jwt.update(enabled: false) }
+          .tap { |jwt| jwt.update(blacklisted: true) }
       end
 
-      it 'does not return disabled token with #encoded_jwt' do
-        expect(user.encoded_jwt).not_to include disabled_jwt.rehash
+      it 'does not return blacklisted token with #encoded_jwt' do
+        expect(user.encoded_jwt).not_to include blacklisted_jwt.rehash
         expect(user.encoded_jwt.size).to eq (user.jwt_api_entreprise.size - 1)
       end
 
-      it 'returns one #disabed_jwt'  do
-        expect(user.disabled_jwt).to eq [disabled_jwt.rehash]
+      it 'returns one #blacklisted_jwt'  do
+        expect(user.blacklisted_jwt).to eq [blacklisted_jwt.rehash]
       end
     end
 

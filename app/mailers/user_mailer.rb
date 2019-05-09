@@ -14,10 +14,7 @@ class UserMailer < ApplicationMailer
     @user = user
     subject = 'API Entreprise - Activation de compte utilisateur'
 
-    recipients = user.contacts.pluck(:email).uniq
-    recipients.delete user.email
-
-    mail(to: recipients, subject: subject)
+    mail(to: confirm_account_notice_recipients, subject: subject)
   end
 
   def token_creation_notice(new_token)
@@ -31,6 +28,12 @@ class UserMailer < ApplicationMailer
   end
 
   private
+
+  def confirm_account_notice_recipients
+    recipients = @user.contacts.pluck(:email).uniq
+    recipients.delete(@user.email) if recipients.count > 1
+    recipients
+  end
 
   def token_creation_notice_recipients
     recipients = @user.contacts.pluck(:email)

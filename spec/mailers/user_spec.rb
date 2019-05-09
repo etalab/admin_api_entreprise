@@ -50,6 +50,16 @@ describe UserMailer, type: :mailer do
 
       its(:to) { is_expected.to eq other_contacts.pluck(:email) }
     end
+
+    context 'when all emails are the same (not a feature but it raised error if so)' do
+      let(:user) do
+        user = create :user
+        user.contacts << create(:contact, email: user.email)
+        user
+      end
+
+      its(:to) { is_expected.to eq [user.email] }
+    end
   end
 
   describe 'token_creation_notice' do
