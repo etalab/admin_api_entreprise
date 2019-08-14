@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe User::AddRoles do
+describe User::Operation::AddRoles do
   let(:result) { described_class.call(params: op_params) }
   let(:user) { create(:user) }
   let(:roles) { create_list(:role, 3) }

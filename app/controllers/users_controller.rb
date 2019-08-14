@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
   def create
     authorize :admin, :admin?
-    result = User::Create.call(params: params)
+    result = User::Operation::Create.call(params: params)
 
     if result.success?
       render json: result['model'], status: 201

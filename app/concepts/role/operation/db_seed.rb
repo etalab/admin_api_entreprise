@@ -1,4 +1,4 @@
-class Role
+module Role::Operation
   class DBSeed < Trailblazer::Operation
     extend ClassDependencies
 
@@ -28,7 +28,7 @@ class Role
 
     def seed!(options, roles_seed:, log:, **)
       roles_seed.each do |role|
-        result = Role::Create.call(params: role)
+        result = Role::Operation::Create.call(params: role)
         if result.success?
           log << "Role created : name \"#{role[:name]}\", code \"#{role[:code]}\""
         else

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe JwtApiEntreprise::UserCreate do
+describe JwtApiEntreprise::Operation::UserCreate do
   let(:user) { create(:user_with_roles) }
   let(:roles) { user.roles }
   let(:token_params) do

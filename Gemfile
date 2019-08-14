@@ -29,8 +29,8 @@ gem 'jwtf', '~> 0.1'
 gem 'jwt', '~> 2.0'
 gem 'active_model_serializers', '~> 0.10.0'
 
-gem 'trailblazer', '~> 2.1.0.rc1'
-gem 'trailblazer-rails'
+gem 'trailblazer', '~> 2.1.0.rc13'
+#gem 'trailblazer-rails'
 gem 'reform-rails'
 gem 'dry-validation', '~> 0.11.1'
 

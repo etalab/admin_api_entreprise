@@ -1,4 +1,4 @@
-class User
+module User::Operation
   class Login < Trailblazer::Operation
     step :retrieve_user_from_email
     step ->(options, model:, **) { model.confirmed? }

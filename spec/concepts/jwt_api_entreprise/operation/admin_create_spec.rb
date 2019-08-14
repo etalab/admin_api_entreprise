@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe JwtApiEntreprise::AdminCreate do
+describe JwtApiEntreprise::Operation::AdminCreate do
   let(:user) { create(:user) }
   let(:roles) { create_list(:role, 7) }
   let(:token_params) do
