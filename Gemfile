@@ -24,7 +24,7 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'doorkeeper', '~> 4.2.6'
+gem 'doorkeeper', '~> 4.4.0'
 gem 'jwtf', '~> 0.1'
 gem 'jwt', '~> 2.0'
 gem 'active_model_serializers', '~> 0.10.0'
