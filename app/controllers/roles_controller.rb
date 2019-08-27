@@ -8,7 +8,7 @@ class RolesController < ApplicationController
 
   def create
     authorize :admin, :admin?
-    result = Role::Create.call(params: params)
+    result = Role::Operation::Create.call(params: params)
 
     if result.success?
       render json: result[:model], status: 201
