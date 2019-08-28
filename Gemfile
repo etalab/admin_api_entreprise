@@ -47,6 +47,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'unindent'
   gem 'guard-rspec'
+  gem 'faker'
 end
 
 group :development do
