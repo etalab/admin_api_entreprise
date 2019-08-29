@@ -1,20 +1,22 @@
 require 'rails_helper'
 
 describe JwtApiEntreprise::Operation::NotifyExpiration do
-  describe 'delay: option (provide a number of days)' do
+  describe 'expire_in: option (provide a number of days)' do
     let(:user_1) { create(:user) }
     let(:user_2) { create(:user) }
     let(:user_3) { create(:user) }
 
     # Let's test with a 90 days (3 months) expiration notice
     # Two tokens on the three are targetted
+    let(:days) { 90 }
+
     before do
       create(:jwt_expiring_in_3_month, user: user_1)
       create(:jwt_expiring_in_3_month, user: user_2)
       create(:jwt_expiring_in_1_year, user: user_3)
     end
 
-    subject { described_class.call(delay: 90) }
+    subject { described_class.call(expire_in: days) }
 
     it { is_expected.to be_success }
 
@@ -34,22 +36,22 @@ describe JwtApiEntreprise::Operation::NotifyExpiration do
     end
 
     it 'does not send the same notification twice' do
-      described_class.call(delay: 90)
+      described_class.call(expire_in: days)
 
-      expect { described_class.call(delay: 90) }.not_to change(ActionMailer::Base.deliveries, :count)
+      expect { described_class.call(expire_in: days) }.not_to change(ActionMailer::Base.deliveries, :count)
     end
 
     it 'saves the notification has been sent' do
       subject
       expiring_jwt = user_1.jwt_api_entreprise.first
 
-      expect(expiring_jwt.days_left_notification_sent).to include(90)
+      expect(expiring_jwt.days_left_notification_sent).to include(days)
     end
   end
 
-  context 'when delay: is not specified' do
+  context 'when expire_in: is not specified' do
     it 'raises an error' do
-      expect { described_class.call }.to raise_error(ArgumentError, a_string_matching(/missing keyword: delay/))
+      expect { described_class.call }.to raise_error(ArgumentError, a_string_matching(/missing keyword: expire_in/))
     end
   end
 end
