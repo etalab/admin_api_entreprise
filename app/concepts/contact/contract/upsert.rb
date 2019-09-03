@@ -1,5 +1,5 @@
-class Contact
-  class Contract < Reform::Form
+module Contact::Contract
+  class Upsert < Reform::Form
     property :email
     property :phone_number
     property :contact_type
