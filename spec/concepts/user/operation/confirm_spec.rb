@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe User::Confirm do
+describe User::Operation::Confirm do
   let(:result) { described_class.call(params: confirmation_params) }
   let(:inactive_user) { UsersFactory.inactive_user }
   let(:confirmation_params) do

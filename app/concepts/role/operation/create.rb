@@ -1,4 +1,4 @@
-class Role
+module Role::Operation
   class Create < Trailblazer::Operation
     step Model(Role, :new)
     step self::Contract::Validate(constant: Role::Contract::Create)

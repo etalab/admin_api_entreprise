@@ -11,7 +11,7 @@ Doorkeeper.configure do
   end
 
   resource_owner_from_credentials do |routes|
-    authentication = User::Login.call(params: params)
+    authentication = User::Operation::Login.call(params: params)
     authentication[:model] unless authentication.failure?
   end
 
