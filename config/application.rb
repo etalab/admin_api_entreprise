@@ -43,5 +43,7 @@ module AdminApientreprise
 
     config.active_job.queue_adapter = :sidekiq
     config.active_job.queue_name_prefix = "admin_api_entreprise_#{Rails.env}"
+
+    config.action_mailer.deliver_later_queue_name = :default
   end
 end
