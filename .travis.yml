@@ -1,0 +1,14 @@
+language: ruby
+rbenv:
+  - 1.1.1
+cache: bundle
+service:
+  - postgresql
+addons:
+  postgresql: '9.6'
+before_script:
+  - bundle exec rake dev:init
+  - psql -U postgres -f postgresql_setup.txt
+  - RAILS_ENV=test bundle exec rails db:migrate
+script:
+  - bundle exec rspec

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Role::DBSeed do
+describe Role::Operation::DBSeed do
   describe 'with custom roles seed' do
     subject { described_class.call roles_seed: roles_seed }
 
@@ -44,7 +44,7 @@ describe Role::DBSeed do
     subject { described_class.call }
 
     it 'saves all roles in the database' do
-      expect { subject }.to change(Role, :count).by(18)
+      expect { subject }.to change(Role, :count).by(19)
     end
   end
 end

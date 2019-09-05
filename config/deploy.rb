@@ -21,7 +21,7 @@ set :application_name, 'admin_apientreprise'
 set :domain, 'watchdoge.entreprise.api.gouv.fr'
 set :deploy_to, "/var/www/admin_apientreprise_#{ENV['to']}"
 set :rails_env, ENV['to']
-set :repository, 'git@gitlab.incubateur.net:data.gouv.fr/admin_apientreprise.git'
+set :repository, 'git@github.com:etalab/admin_api_entreprise.git'
 
 branch = ENV['branch'] ||
   begin

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Role::Create do
+describe Role::Operation::Create do
   let(:role_params) do
     { name: 'Role test', code: 'rol1' }
   end

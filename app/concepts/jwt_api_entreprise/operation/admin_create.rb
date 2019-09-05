@@ -1,8 +1,8 @@
-class JwtApiEntreprise
+module JwtApiEntreprise::Operation
   class AdminCreate < Trailblazer::Operation
     step self::Contract::Validate(constant: JwtApiEntreprise::Contract::AdminCreate)
     step :verify_user
-    failure :error_message
+    fail :error_message
     step :create_token
     step ->(options, created_token:, **) { UserMailer.token_creation_notice(created_token).deliver_now }
 

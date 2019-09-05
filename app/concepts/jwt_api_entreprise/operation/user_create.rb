@@ -1,13 +1,13 @@
-class JwtApiEntreprise
+module JwtApiEntreprise::Operation
   # TODO create an operation or activity for JWT creation to be called from admin or user request
   # ie remove token creation duplication
   class UserCreate < Trailblazer::Operation
     step self::Contract::Validate(constant: JwtApiEntreprise::Contract::UserCreate)
     step ->(options, params:, **) { options[:user] = User.find_by(id: params[:user_id]) }
-    failure ->(options, params:, **) { options[:errors] = "user does not exist (UID : '#{params[:user_id]}')" }, fail_fast: true
+    fail ->(options, params:, **) { options[:errors] = "user does not exist (UID : '#{params[:user_id]}')" }, fail_fast: true
 
     step :filter_authorized_roles
-    failure ->(options, params:, **) { options[:errors] = 'No authorized roles given' }
+    fail ->(options, params:, **) { options[:errors] = 'No authorized roles given' }
 
     step :create_contact
     step :create_token

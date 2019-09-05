@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
   def create
     authorize :admin, :admin?
-    result = User::Create.call(params: params)
+    result = User::Operation::Create.call(params: params)
 
     if result.success?
       render json: result['model'], status: 201
@@ -50,7 +50,7 @@ class UsersController < ApplicationController
   end
 
   def confirm
-    result = User::Confirm.call(params: params)
+    result = User::Operation::Confirm.call(params: params)
 
     if result.success?
       render json: { access_token: result['access_token'] }, status: 200
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
 
   def add_roles
     authorize :admin, :admin?
-    result = User::AddRoles.call(params: params)
+    result = User::Operation::AddRoles.call(params: params)
 
     if result.success?
       render json: {}, status: 200

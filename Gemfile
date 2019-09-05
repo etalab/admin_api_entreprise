@@ -7,7 +7,7 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2'
+gem 'rails', '~> 6.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
 # Use Puma as the app server
@@ -29,8 +29,7 @@ gem 'jwtf', '~> 0.1'
 gem 'jwt', '~> 2.0'
 gem 'active_model_serializers', '~> 0.10.0'
 
-gem 'trailblazer', '~> 2.1.0.rc1'
-gem 'trailblazer-rails'
+gem 'trailblazer', '~> 2.1.0.rc13'
 gem 'reform-rails'
 gem 'dry-validation', '~> 0.11.1'
 
