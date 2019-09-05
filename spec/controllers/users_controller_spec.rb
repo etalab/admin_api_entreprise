@@ -66,9 +66,10 @@ describe UsersController, type: :controller do
             .to change(User, :count).by 1
         end
 
-        it 'sends a confirmation email' do
-          expect { post :create, params: user_params }
-            .to change(ActionMailer::Base.deliveries, :count).by(1)
+        it 'calls the mailer to send a confirmation email' do
+          expect(UserMailer).to receive(:confirm_account_action).and_call_original
+
+          post :create, params: user_params
         end
 
         context 'when submitting data for contacts creation' do

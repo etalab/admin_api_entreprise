@@ -62,14 +62,10 @@ describe JwtApiEntreprise::Operation::UserCreate do
         allow(UserMailer).to receive(:token_creation_notice).and_call_original
       end
 
-      it 'notifies contacts techniques & contact principal of token creation' do
+      it 'calls the user mailer for token creation notice' do
         expect(UserMailer).to receive(:token_creation_notice)
           .with(an_instance_of(JwtApiEntreprise))
         subject
-      end
-
-      it 'changes mail delivery count' do
-        expect { subject }.to change(ActionMailer::Base.deliveries, :count).by 1
       end
     end
   end

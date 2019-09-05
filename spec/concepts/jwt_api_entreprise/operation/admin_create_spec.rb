@@ -50,10 +50,6 @@ describe JwtApiEntreprise::Operation::AdminCreate do
         subject
       end
 
-      it 'changes mail delivery count' do
-        expect { subject }.to change(ActionMailer::Base.deliveries, :count).by 1
-      end
-
       it 'does not send an email when invalid' do
         token_params.delete(:user_id)
         expect(UserMailer).not_to receive(:token_creation_notice)

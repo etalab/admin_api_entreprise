@@ -166,10 +166,6 @@ describe User::Operation::Create do
           allow(UserMailer).to receive(:confirm_account_notice).and_call_original
         end
 
-        it 'sends a confirm account action AND notice emails' do
-          expect { result }.to change(ActionMailer::Base.deliveries, :count).by(2)
-        end
-
         it 'sends account confirmation email to contact principal' do
           expect(UserMailer).to receive(:confirm_account_action)
             .with(an_object_having_attributes(email: user_email, class: User))
