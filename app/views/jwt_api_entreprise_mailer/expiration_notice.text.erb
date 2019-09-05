@@ -1,1 +1,10 @@
-hello
+Bonjour,
+
+Ce message pour vous informer que l'un de vos jetons d'accès à API Entreprise arrive bientôt à expiration.
+
+En effet, le jeton utilisé dans le cadre "<%= @jwt.subject %>" (id : <%= @jwt.id %>) ne sera plus valide dans <%= @nb_days %> jours ! Passé ce délai les appels à API Entreprise seront rejetés.
+
+Merci de contacter le support à l'adresse <%= mail_to 'tech@entreprise.api.gouv.fr' %> afin de procéder au renouvellement.
+
+Cordialement,
+L'équipe API Entreprise

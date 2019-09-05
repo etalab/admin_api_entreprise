@@ -12,7 +12,7 @@ module JwtApiEntreprise::Operation
 
     def send_expiration_notices(ctx, expiring_tokens:, expire_in:, **)
       expiring_tokens.each do |jwt|
-        JwtApiEntrepriseMailer.expiration_notice(jwt).deliver_now
+        JwtApiEntrepriseMailer.expiration_notice(jwt, expire_in).deliver_later
         jwt.days_left_notification_sent << expire_in
         jwt.save
       end

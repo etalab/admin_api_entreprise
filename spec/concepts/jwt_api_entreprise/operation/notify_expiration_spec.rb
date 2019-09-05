@@ -10,42 +10,36 @@ describe JwtApiEntreprise::Operation::NotifyExpiration do
     # Two tokens on the three are targetted
     let(:days) { 90 }
 
-    before do
-      create(:jwt_expiring_in_3_month, user: user_1)
-      create(:jwt_expiring_in_3_month, user: user_2)
-      create(:jwt_expiring_in_1_year, user: user_3)
-    end
+    let!(:jwt_1) { create(:jwt_expiring_in_3_month, user: user_1) }
+    let!(:jwt_2) { create(:jwt_expiring_in_3_month, user: user_2) }
+    let!(:jwt_3) { create(:jwt_expiring_in_1_year, user: user_3) }
 
     subject { described_class.call(expire_in: days) }
 
     it { is_expected.to be_success }
 
-    it 'sends emails with JwtApiEntrepriseMailer' do
-      expect(JwtApiEntrepriseMailer).to receive(:expiration_notice).twice.and_call_original
+    it 'calls the mailer for the affected JWT only' do
+      expect(JwtApiEntrepriseMailer).to receive(:expiration_notice).with(jwt_1, days).and_call_original
+      expect(JwtApiEntrepriseMailer).to receive(:expiration_notice).with(jwt_2, days).and_call_original
+      expect(JwtApiEntrepriseMailer).to_not receive(:expiration_notice).with(jwt_3, days).and_call_original
 
       subject
-    end
-
-    it 'sends emails to the related tokens owners' do
-      subject
-
-      expect(ActionMailer::Base.deliveries).to include(
-        an_object_having_attributes(to: a_collection_including(user_1.email)),
-        an_object_having_attributes(to: a_collection_including(user_2.email)),
-      )
     end
 
     it 'does not send the same notification twice' do
       described_class.call(expire_in: days)
+      expect(JwtApiEntrepriseMailer).to_not receive(:expiration_notice).with(jwt_1, days)
+      expect(JwtApiEntrepriseMailer).to_not receive(:expiration_notice).with(jwt_2, days)
 
-      expect { described_class.call(expire_in: days) }.not_to change(ActionMailer::Base.deliveries, :count)
+      subject
     end
 
     it 'saves the notification has been sent' do
       subject
-      expiring_jwt = user_1.jwt_api_entreprise.first
+      jwt_1.reload
+      jwt_2.reload
 
-      expect(expiring_jwt.days_left_notification_sent).to include(days)
+      expect([jwt_1, jwt_2]).to all(have_attributes(days_left_notification_sent: a_collection_including(days)))
     end
   end
 
