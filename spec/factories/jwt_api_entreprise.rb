@@ -16,7 +16,7 @@ FactoryBot.define do
     user
   end
 
-  factory :jwt_expiring_in_3_month, class: JwtApiEntreprise do
+  factory :jwt_expiring_within_3_month, class: JwtApiEntreprise do
     exp { Faker::Time.forward(days: 90) }
   end
 

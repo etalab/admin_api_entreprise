@@ -10,8 +10,8 @@ describe JwtApiEntreprise::Operation::NotifyExpiration do
     # Two tokens on the three are targetted
     let(:days) { 90 }
 
-    let!(:jwt_1) { create(:jwt_expiring_in_3_month, user: user_1) }
-    let!(:jwt_2) { create(:jwt_expiring_in_3_month, user: user_2) }
+    let!(:jwt_1) { create(:jwt_expiring_within_3_month, user: user_1) }
+    let!(:jwt_2) { create(:jwt_expiring_within_3_month, user: user_2) }
     let!(:jwt_3) { create(:jwt_expiring_in_1_year, user: user_3) }
 
     subject { described_class.call(expire_in: days) }
