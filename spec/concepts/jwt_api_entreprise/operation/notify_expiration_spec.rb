@@ -34,7 +34,7 @@ describe JwtApiEntreprise::Operation::NotifyExpiration do
       subject
     end
 
-    it 'saves the notification has been sent' do
+    it 'saves that the notification has been sent' do
       subject
       jwt_1.reload
       jwt_2.reload
