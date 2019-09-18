@@ -8,12 +8,12 @@ module User::Operation
     step ->(options, model:, **) { model.generate_confirmation_token }
     step ->(options, model:, **) { model.confirmation_sent_at = Time.now }
     step ->(options, model:, **) { model.save }
-    step ->(options, model:, **) { UserMailer.confirm_account_action(model).deliver_now }
+    step ->(options, model:, **) { UserMailer.confirm_account_action(model).deliver_later }
     step :send_confirm_account_notice
 
     def send_confirm_account_notice(ctx, model:, **)
       if model.contacts.any? && a_contact_has_distinct_email?(model)
-        UserMailer.confirm_account_notice(model).deliver_now
+        UserMailer.confirm_account_notice(model).deliver_later
       else
         true
       end

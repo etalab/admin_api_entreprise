@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Bonjour,</p>
+
+    <p>Un de vos jetons d'accès à API Entreprise expire dans moins de <%= @nb_days %> jours.</p>
+
+    <p>En effet, le jeton utilisé dans le cadre "<%= @jwt.subject %>" (id : <%= @jwt.id %>) ne sera bientôt plus valide !
+
+    <p>Passée la date du <%= Time.at(@jwt.exp).to_datetime %> les appels à API Entreprise seront rejetés.</p>
+
+    <p>Merci de contacter le support à l'adresse <%= mail_to 'tech@entreprise.api.gouv.fr' %> afin de procéder au renouvellement.</p>
+
+
+    <p>Cordialement,</p>
+    <p>L'équipe API Entreprise</p>
+  </body>
+</html>

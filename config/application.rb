@@ -36,5 +36,14 @@ module AdminApientreprise
 
     # Set dry-validation as the validation engine for reform
     config.reform.validations = :dry
+
+    config.time_zone = 'Paris'
+    config.i18n.available_locales = [:fr_FR]
+    config.i18n.default_locale = :fr_FR
+
+    config.active_job.queue_adapter = :sidekiq
+    config.active_job.queue_name_prefix = "admin_api_entreprise_#{Rails.env}"
+
+    config.action_mailer.deliver_later_queue_name = :default
   end
 end

@@ -1,7 +1,4 @@
 class UserMailer < ApplicationMailer
-  default from: 'tech@entreprise.api.gouv.fr'
-  layout 'mailer'
-
   def confirm_account_action(user)
     subject = 'API Entreprise - Activation de compte utilisateur'
 
