@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   require 'sidekiq/web'
   require 'sidekiq/cron/web'
-  mount Sidekiq::Web => '/sidekiq'
+  mount Sidekiq::Web => '/api/admin/sidekiq'
 
   scope 'api/admin' do
     resources :incidents, only: [:index, :create, :update]
