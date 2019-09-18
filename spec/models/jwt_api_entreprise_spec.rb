@@ -14,6 +14,7 @@ describe JwtApiEntreprise, type: :model do
     it { is_expected.to have_db_column(:exp).of_type(:integer) }
     it { is_expected.to have_db_column(:version).of_type(:string) }
     it { is_expected.to have_db_column(:blacklisted).of_type(:boolean).with_options(default: false) }
+    it { is_expected.to have_db_column(:days_left_notification_sent).of_type(:json) }
   end
 
   describe 'relationships' do
