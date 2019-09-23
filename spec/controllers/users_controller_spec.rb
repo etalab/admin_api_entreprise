@@ -26,11 +26,12 @@ describe UsersController, type: :controller do
 
         user_raw = body.first
         expect(user_raw).to be_an_instance_of Hash
-        expect(user_raw.size).to eq 4
+        expect(user_raw.size).to eq 5
         expect(user_raw.key?(:id)).to be true
         expect(user_raw.key?(:email)).to be true
         expect(user_raw.key?(:context)).to be true
         expect(user_raw.key?(:confirmed)).to be true
+        expect(user_raw.key?(:created_at)).to be true
       end
     end
 
