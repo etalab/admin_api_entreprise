@@ -25,15 +25,15 @@ describe JwtApiEntrepriseMailer, type: :mailer do
     end
 
     it 'contains the JWT information' do
-      jwt_info = "le jeton utilisé dans le cadre \"#{jwt.subject}\" (id : #{jwt.id}) ne sera bientôt plus valide !"
+      jwt_info = "le jeton attribué dans le cadre d'utilisation \"#{jwt.subject}\" (id : #{jwt.id}) ne sera bientôt plus valide !"
 
       expect(subject.html_part.decoded).to include(jwt_info)
       expect(subject.text_part.decoded).to include(jwt_info)
     end
 
     it 'contains the exact expiration time of the JWT' do
-      expiration_datetime = Time.at(jwt.exp).to_datetime
-      tested_corpus = "Passée la date du #{expiration_datetime} les appels à API Entreprise seront rejetés."
+      expiration_datetime = jwt.user_friendly_exp_date
+      tested_corpus = "Passée la date du #{expiration_datetime} les appels à API Entreprise avec ce jeton seront rejetés."
 
       expect(subject.html_part.decoded).to include(tested_corpus)
       expect(subject.text_part.decoded).to include(tested_corpus)
