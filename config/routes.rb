@@ -16,10 +16,6 @@ Rails.application.routes.draw do
         end
       end
 
-      member do
-        post 'add_roles'
-      end
-
       # User account related routes
       collection do
         post :confirm

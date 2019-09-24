@@ -110,26 +110,6 @@ describe UsersController, type: :controller do
               expect(created_user.contacts).to eq created_contacts
             end
           end
-
-          pending 'allow token creation on user creation'
-          # context 'when submitting list of roles for token creation' do
-          #   let(:params_with_token_payload) do
-          #     user_params[:token_payload] = ['rol1', 'rol2', 'rol3']
-          #     user_params
-          #   end
-
-          #   it 'creates a token for the new user' do
-          #     expect { post :create, params: params_with_token_payload }
-          #       .to change(Token, :count).by(1)
-          #   end
-
-          #   it 'attaches the token to the user' do
-          #     post :create, params: params_with_token_payload
-          #     created_user = User.last
-          #     created_token = Token.last
-          #     expect(created_token.user).to eq created_user
-          #   end
-          # end
         end
       end
 
@@ -145,15 +125,13 @@ describe UsersController, type: :controller do
         body = JSON.parse(response.body, symbolize_names: true)
 
         expect(body).to be_an_instance_of Hash
-        expect(body.size).to eq 9
+        expect(body.size).to eq 7
         expect(body.key?(:id)).to be true
         expect(body.key?(:email)).to be true
         expect(body.key?(:context)).to be true
         expect(body.key?(:note)).to be true
         expect(body.key?(:contacts)).to be true
         expect(body.key?(:tokens)).to be true
-        expect(body.key?(:allowed_roles)).to be true
-        expect(body.key?(:allow_token_creation)).to be true
 
         expect(body[:contacts]).to be_an_instance_of Array
         expect(body[:contacts].size).to eq 3
@@ -172,10 +150,6 @@ describe UsersController, type: :controller do
 
         expect(body[:blacklisted_tokens]).to be_an_instance_of Array
         expect(body[:blacklisted_tokens].size).to eq 0
-
-        expect(body[:allowed_roles]).to be_an(Array)
-        expect(body[:allowed_roles].size).to eq(4)
-        expect(body[:allowed_roles].first).to be_a(String)
       end
     end
 
@@ -336,47 +310,6 @@ describe UsersController, type: :controller do
         expect(response.code).to eq '422'
       end
     end
-  end
-
-  describe '#add_roles' do
-    let(:roles) { create_list(:role, 4) }
-    let(:op_params) do
-      user = create(:user)
-      {
-        id: user.id,
-        roles: roles.pluck(:id)
-      }
-    end
-
-    context 'admin request' do
-      include_context 'admin request'
-
-      context 'when data is valid' do
-        it 'links roles to the user' do
-          post :add_roles, params: op_params
-          user = User.find(op_params[:id])
-
-          expect(user.roles).to eq(roles)
-        end
-
-        it 'returns 200' do
-          post :add_roles, params: op_params
-
-          expect(response.code).to eq('200')
-        end
-      end
-
-      context 'when data is invalid' do
-        it 'returns 422' do
-          op_params[:id] = 0
-          post :add_roles, params: op_params
-
-          expect(response.code).to eq('422')
-        end
-      end
-    end
-
-    it_behaves_like 'client user unauthorized', :post, :add_roles, { id: 'much id', roles: ['rol1'] }
   end
 
   describe '#update' do
