@@ -9,44 +9,27 @@
 Ce message s'addresse à toute personne ayant cloné ce projet **avant** que le
 choix d'utilisation des UUID n'ait été fait. Si vous avez dans vos
 environnements de développement une jeune version de la base de donnée avec des
-IDs "entier", veuillez exécuter la commande suivante :
+IDs "entier", veuillez exécuter les commandes suivantes :
 
 `rails db:drop`
 
 Cela supprimera entièrement les bases de données non conformes, le plus simple
 étant de repartir de zéro, comme il est documenté ci-dessous.
 
-#### Configuration des BDD de développement
+Supprimez également le fichier `db/schema.rb` si vous en avez un.
 
-Création de l'utilisateur:
-```
-sudo -u postgres -i
-cd /path/to/admin_apientreprise
-psql -f db/init.sql
-```
+#### Configuration des BDD de développement
 
 L'application est configurée pour que les ID des modèles ne soient plus un entier
 incrémenté à chaque création en base mais des UUID. Depuis Rails 5, il suffit
-d'activer l'extension _pgcrypto_ dans Postgresql. Pour cela, créer tout d'abord
-les bases de données de votre environnement de développement :
+d'activer l'extension _pgcrypto_ dans Postgresql (selon la distribution UNIX de votre machine, une librairie telle que `postgresql-contrib` peut être nécessaire.)
 
-`rails db:create`
-
-Puis exécuter la commande suivante dans la console de Postgresql (pour chacune
-des deux bases de données de développement et de tests) :
-
-`CREATE EXTENSION pgcrypto;`
-
-Soit en détail:
+Pour créer l'utilisateur, les bases de donnée `test` et `development`, et installer les extensions `pgcrypto` :
 
 ```
 sudo -u postgres -i
-psql -d admin_apientreprise_development
-psql> CREATE EXTENSION pgcrypto;
-psql>\q
-psql -d admin_apientreprise_test
-psql> CREATE EXTENSION pgcrypto;
-psql>\q
+cd /path/to/admin_apientreprise
+psql -f postgresql_setup.txt
 ```
 
 La commande `rails db:migrate` devrait alors se dérouler sans encombre.
@@ -58,6 +41,8 @@ Si les migrations échouent avec le message d'erreur suivant :
 ... cela signifie que l'extension _pgcrypto_ n'est pas installée (note : la
 commande `\dx` depuis la console de Postgresql permet de lister les extensions
 installées sur une base de données).
+
+Attention, si cette erreur apparait tout de même après que vous ayez manuellement installé l'extension `pgcrypto`, vérifiez que vous n'avez pas de fichier db/schema.rb. Il se peut que Rails désinstalle l'extension lorsqu'il load `schema.rb` (par exemple pendant les tests).
 
 Le fichier de configuration _config/initializers/generators.rb_ assure de la prise
 en compte du changement de type d'ID dans les futures migrations : vérifier tout

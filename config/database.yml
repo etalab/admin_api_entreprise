@@ -18,7 +18,6 @@ default: &default
   adapter: postgresql
   encoding: unicode
   username: admin_apientreprise
-  password: wow*verysecret
   # For details on connection pooling, see Rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 15 } %>
@@ -26,6 +25,7 @@ default: &default
 development:
   <<: *default
   host: localhost
+  password: wow*verysecret
   database: admin_apientreprise_development
 
   # The specified database role being used to connect to postgres.
@@ -61,6 +61,7 @@ development:
 test:
   <<: *default
   host: localhost
+  password: wow*verysecret
   database: admin_apientreprise_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
@@ -85,5 +86,4 @@ test:
 production:
   <<: *default
   database: admin_apientreprise_production
-  username: admin_apientreprise
   password: <%= ENV['ADMIN_APIENTREPRISE_DATABASE_PASSWORD'] %>

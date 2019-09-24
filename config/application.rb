@@ -37,6 +37,9 @@ module AdminApientreprise
     # Set dry-validation as the validation engine for reform
     config.reform.validations = :dry
 
+    # Do not use schema.rb, but structure.sql
+    config.active_record.dump_schema_after_migration = false
+
     config.time_zone = 'Paris'
     config.i18n.available_locales = [:fr_FR]
     config.i18n.default_locale = :fr_FR
