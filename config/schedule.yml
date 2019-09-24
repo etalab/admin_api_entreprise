@@ -6,12 +6,12 @@ development:
 
 sandbox:
   jwt_expiration_notice:
-    cron: '0 1 * * *'
+    cron: '0 */4 * * *'
     class: 'JwtApiEntrepriseExpirationNoticeJob'
     queue: default
 
 production:
   jwt_expiration_notice:
-    cron: '0 1 * * *'
+    cron: '0 */4 * * *'
     class: 'JwtApiEntrepriseExpirationNoticeJob'
     queue: default
