@@ -9,7 +9,7 @@
 Ce message s'addresse à toute personne ayant cloné ce projet **avant** que le
 choix d'utilisation des UUID n'ait été fait. Si vous avez dans vos
 environnements de développement une jeune version de la base de donnée avec des
-IDs "entier", veuillez exécuter les commandes suivantes :
+IDs "entier", veuillez exécuter la commande suivante :
 
 `rails db:drop`
 
