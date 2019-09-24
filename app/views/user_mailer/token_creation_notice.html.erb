@@ -26,7 +26,7 @@
       <li>le nombre d'appels par API sur les dernières 30h/8j</li>
     </ul>
 
-    <p>Si vous avez besoin d'un nouveau token contactez-nous : tech@entreprise.api.gouv.fr</p>
+    <p>Si vous avez besoin d'un nouveau token contactez-nous : <%= mail_to(Rails.configuration.emails_from_address) %></p>
 
     <p>Vous recevez cet email car vous êtes renseigné parmi les contacts pour le compte <%= @user.email %>. Les accès se font uniquement à partir de cette adresse email.</p>
 

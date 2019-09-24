@@ -12,7 +12,7 @@
 
     <p><strong>Passée la date du <%= @jwt.user_friendly_exp_date %> les appels à API Entreprise avec ce jeton seront rejetés.</strong></p>
 
-    <p>Merci de contacter le support à l'adresse <%= mail_to 'tech@entreprise.api.gouv.fr' %> afin de procéder au renouvellement.</p>
+    <p>Merci de contacter le support à l'adresse <%= mail_to(Rails.configuration.emails_from_address) %> afin de procéder au renouvellement.</p>
 
 
     <p>Cordialement,</p>

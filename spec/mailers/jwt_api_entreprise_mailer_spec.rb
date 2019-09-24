@@ -9,7 +9,7 @@ describe JwtApiEntrepriseMailer, type: :mailer do
     let(:nb_days) { '4000' }
 
     its(:subject) { is_expected.to eq("API Entreprise - Votre jeton expire dans #{nb_days} jours !") }
-    its(:from) { is_expected.to include('tech@entreprise.api.gouv.fr') }
+    its(:from) { is_expected.to include(Rails.configuration.emails_from_address) }
 
     describe 'notification recipients' do
       it 'sends the email to the account owner' do
@@ -58,7 +58,7 @@ describe JwtApiEntrepriseMailer, type: :mailer do
     end
 
     it 'contains the team email address to request a renewal' do
-      renewal_process = 'Merci de contacter le support à l\'adresse <a href="mailto:tech@entreprise.api.gouv.fr">tech@entreprise.api.gouv.fr</a> afin de procéder au renouvellement'
+      renewal_process = "Merci de contacter le support à l\'adresse <a href=\"mailto:#{Rails.configuration.emails_from_address}\">#{Rails.configuration.emails_from_address}</a> afin de procéder au renouvellement"
 
       expect(subject.html_part.decoded).to include(renewal_process)
       expect(subject.text_part.decoded).to include(renewal_process)
