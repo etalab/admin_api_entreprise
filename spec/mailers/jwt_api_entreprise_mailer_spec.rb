@@ -4,17 +4,35 @@ describe JwtApiEntrepriseMailer, type: :mailer do
   describe '#expiration_notice' do
     subject { described_class.expiration_notice(jwt, nb_days) }
 
-    let(:user) { create(:user, :with_jwt) }
+    let(:user) { create(:user, :with_jwt, :with_contacts) }
     let(:jwt) { user.jwt_api_entreprise.first }
     let(:nb_days) { '4000' }
 
     its(:subject) { is_expected.to eq("API Entreprise - Votre jeton expire dans #{nb_days} jours !") }
     its(:from) { is_expected.to include('tech@entreprise.api.gouv.fr') }
 
-    it 'sends the email to the account owner' do
-      subject
+    describe 'notification recipients' do
+      it 'sends the email to the account owner' do
+        subject
 
-      expect(subject.to).to include(user.email)
+        expect(subject.to).to include(user.email)
+      end
+
+      it 'sends the email to the business contact' do
+        # TODO This could be better and clearer here, be patient it will be refactor soon
+        business_addresses = user.contacts.where(contact_type: 'admin').pluck(:email).uniq
+        subject
+
+        expect(subject.to).to include(*business_addresses)
+      end
+
+      it 'send the email to the tech contact' do
+        # TODO This could be better and clearer here, be patient it will be refactor soon
+        tech_addresses = user.contacts.where(contact_type: 'tech').pluck(:email).uniq
+        subject
+
+        expect(subject.to).to include(*tech_addresses)
+      end
     end
 
     it 'contains the number of remaining days' do
