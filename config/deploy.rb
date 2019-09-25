@@ -99,6 +99,7 @@ task :deploy => :environment do
       in_path(fetch(:current_path)) do
         command %{mkdir -p tmp/}
         command %{touch tmp/restart.txt}
+        invoke :restart_sidekiq
         invoke :'passenger'
       end
     end
@@ -106,6 +107,11 @@ task :deploy => :environment do
 
   # you can use `run :local` to run tasks on local machine before of after the deploy scripts
   # run(:local){ say 'done' }
+end
+
+task :restart_sidekiq do
+  comment 'Restarting Sidekiq (reloads code)'.green
+  command %(sudo systemctl restart sidekiq_admin_apientreprise_#{ENV['to']}_1.service)
 end
 
 task :passenger do
