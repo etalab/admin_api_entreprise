@@ -37,7 +37,7 @@ module AdminApientreprise
     # Set dry-validation as the validation engine for reform
     config.reform.validations = :dry
 
-    config.time_zone = 'Paris'
+    config.time_zone = 'Europe/Paris'
     config.i18n.available_locales = [:fr_FR]
     config.i18n.default_locale = :fr_FR
 
