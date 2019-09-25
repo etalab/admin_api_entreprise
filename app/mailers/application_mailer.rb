@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'tech@entreprise.api.gouv.fr'
+  default from: Rails.configuration.emails_sender_address
   layout 'mailer'
 end

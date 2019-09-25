@@ -11,6 +11,10 @@ class JwtApiEntreprise < ApplicationRecord
     self.roles.pluck(:code)
   end
 
+  def user_friendly_exp_date
+    "#{Time.at(exp).strftime('%d/%m/%Y à %Hh%M')} (heure de Paris)"
+  end
+
   private
 
   def token_payload

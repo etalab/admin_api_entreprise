@@ -23,6 +23,17 @@ describe JwtApiEntreprise, type: :model do
     it { is_expected.to have_and_belong_to_many :roles }
   end
 
+  describe '#user_friendly_exp_date' do
+    it 'returns a friendly formated date' do
+      # About the offset here, during winter (March 17th here)
+      # it is UTC+01:00 so this is a valid datetime in Paris
+      datetime = DateTime.new(1998, 3, 17, 15, 28, 49, '+1')
+      jwt.exp = datetime.to_i
+
+      expect(jwt.user_friendly_exp_date).to eq('17/03/1998 à 15h28 (heure de Paris)')
+    end
+  end
+
   describe '#rehash' do
     let(:token) { jwt.rehash }
 

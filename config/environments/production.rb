@@ -103,4 +103,5 @@ Rails.application.configure do
   config.trailblazer.enable_loader = true
 
   config.redis_database = 'redis://localhost:6379/0'
+  config.emails_sender_address = 'support@entreprise.api.gouv.fr'
 end

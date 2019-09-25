@@ -8,11 +8,11 @@
 
     <p>Un de vos jetons d'accès à API Entreprise expire dans moins de <%= @nb_days %> jours.</p>
 
-    <p>En effet, le jeton utilisé dans le cadre "<%= @jwt.subject %>" (id : <%= @jwt.id %>) ne sera bientôt plus valide !
+    <p>En effet, le jeton attribué dans le cadre d'utilisation "<%= @jwt.subject %>" (id : <%= @jwt.id %>) ne sera bientôt plus valide !
 
-    <p>Passée la date du <%= Time.at(@jwt.exp).to_datetime %> les appels à API Entreprise seront rejetés.</p>
+    <p><strong>Passée la date du <%= @jwt.user_friendly_exp_date %> les appels à API Entreprise avec ce jeton seront rejetés.</strong></p>
 
-    <p>Merci de contacter le support à l'adresse <%= mail_to 'tech@entreprise.api.gouv.fr' %> afin de procéder au renouvellement.</p>
+    <p>Merci de contacter le support à l'adresse <%= mail_to(Rails.configuration.emails_sender_address) %> afin de procéder au renouvellement.</p>
 
 
     <p>Cordialement,</p>

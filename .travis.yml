@@ -6,6 +6,8 @@ service:
   - postgresql
 addons:
   postgresql: '9.6'
+before_install:
+  - export TZ=Europe/Paris
 before_script:
   - bundle exec rake dev:init
   - psql -U postgres -f postgresql_setup.txt
