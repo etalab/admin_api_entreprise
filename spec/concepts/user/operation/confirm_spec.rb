@@ -18,7 +18,7 @@ describe User::Operation::Confirm do
         confirmation_params[:confirmation_token] = 'invalid token'
 
         expect(result).to be_failure
-        expect(result['errors']).to include 'invalid token'
+        expect(result[:errors]).to include token: ['confirmation token not found']
       end
 
       it 'confirms the user' do
@@ -51,7 +51,7 @@ describe User::Operation::Confirm do
 
       it 'fails with error message' do
         expect(result).to be_failure
-        expect(result['errors']).to include 'user already confirmed'
+        expect(result[:errors]).to include user: ['user already confirmed']
       end
 
       it 'does not change the password' do
