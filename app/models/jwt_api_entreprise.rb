@@ -12,7 +12,7 @@ class JwtApiEntreprise < ApplicationRecord
   end
 
   def user_friendly_exp_date
-    "#{Time.at(exp).strftime('%d/%m/%Y à %Hh%M')} (heure de Paris)"
+    "#{Time.zone.at(exp).strftime('%d/%m/%Y à %Hh%M')} (heure de Paris)"
   end
 
   private

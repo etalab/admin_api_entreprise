@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :jwt_api_entreprise do
     subject { 'Humm testy' }
-    iat { Time.now.to_i }
+    iat { Time.zone.now.to_i }
     exp { 18.months.from_now.to_i }
     version { '1.0' }
     days_left_notification_sent { [] }

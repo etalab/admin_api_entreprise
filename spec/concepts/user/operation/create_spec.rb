@@ -157,7 +157,7 @@ describe User::Operation::Create do
       end
 
       it 'sets the confirmation request timestamp' do
-        expect(result[:model].confirmation_sent_at.to_i).to be_within(2).of(Time.now.to_i)
+        expect(result[:model].confirmation_sent_at.to_i).to be_within(2).of(Time.zone.now.to_i)
       end
 
       describe 'mail notifications' do
