@@ -1,6 +1,5 @@
 class User < ApplicationRecord
   has_many :contacts, dependent: :destroy
-  has_and_belongs_to_many :roles
   has_many :jwt_api_entreprise, dependent: :nullify
 
   # Passing validations: false as argument so password can be blank on creation
@@ -32,18 +31,6 @@ class User < ApplicationRecord
 
   def blacklisted_jwt
     jwt_api_entreprise.where(blacklisted: true).map(&:rehash)
-  end
-
-  def manage_token?
-    self.allow_token_creation
-  end
-
-  def allowed_roles
-    if self.manage_token?
-      self.roles.pluck(:code)
-    else
-      combine_roles_from_tokens
-    end
   end
 
   private

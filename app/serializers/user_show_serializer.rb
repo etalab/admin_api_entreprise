@@ -1,9 +1,8 @@
 class UserShowSerializer < ActiveModel::Serializer
-  attributes :id, :email, :context, :allow_token_creation
+  attributes :id, :email, :context
   attribute :note, if: :admin?
   attribute :blacklisted_tokens, if: :admin?
   attributes :tokens
-  attributes :allowed_roles
 
   has_many :contacts
 

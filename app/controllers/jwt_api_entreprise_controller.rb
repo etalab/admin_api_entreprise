@@ -12,22 +12,6 @@ class JwtApiEntrepriseController < ApplicationController
     end
   end
 
-  def create
-    raise Pundit::NotAuthorizedError unless pundit_user.id == params[:user_id]
-    authorize JwtApiEntreprise
-
-    # permit!.to_h is needed here because dry-validation needs params[:contact] to be a hash
-    result = JwtApiEntreprise::Operation::UserCreate.call(params: params.permit!.to_h)
-
-    if result.success?
-      render json: { new_token: result[:created_token].rehash }, status: 201
-
-    else
-      errors = retrieve_errors(result)
-      render json: { errors: errors }, status: 422
-    end
-  end
-
   def blacklist
     authorize :admin, :admin?
 

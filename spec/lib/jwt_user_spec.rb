@@ -17,23 +17,4 @@ describe JwtUser, type: :jwt do
 
     its(:admin?) { is_expected.to eq(true) }
   end
-
-  context 'when the user can manage roles' do
-    let(:user_id) do
-      user = create(:user_with_roles)
-      user.id
-    end
-
-    its(:manage_token?) { is_expected.to eq(true) }
-  end
-
-  context 'when the user as no rights' do
-    let(:user_id) do
-      user = create(:confirmed_user)
-      user.id
-    end
-
-    its(:admin?) { is_expected.to eq(false) }
-    its(:manage_token?) { is_expected.to eq(false) }
-  end
 end
