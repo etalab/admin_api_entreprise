@@ -20,7 +20,7 @@ describe 'JWT for account data access', type: :jwt do
 
     # giving the test 2 seconds lag security
     # look gem time cop
-    expect(creation_timestamp).to be_within(2).of(Time.now.to_i)
+    expect(creation_timestamp).to be_within(2).of(Time.zone.now.to_i)
   end
 
   it 'expires in 4 hours' do

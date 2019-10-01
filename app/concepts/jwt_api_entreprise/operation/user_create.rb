@@ -21,7 +21,7 @@ module JwtApiEntreprise::Operation
     def create_token(options, token_contact:, authorized_roles:, user:, params:, **)
       new_token = JwtApiEntreprise.create({
         subject: params[:subject],
-        iat: Time.now.to_i,
+        iat: Time.zone.now.to_i,
         version: '1.0',
         exp: 18.months.from_now.to_i
       })

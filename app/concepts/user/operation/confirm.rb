@@ -3,7 +3,7 @@ module User::Operation
     step self::Contract::Validate(constant: User::Contract::Confirm)
     step :retrieve_user_from_token
     fail :invalid_token, fail_fast: true
-    step ->(options, model:, **) { model.cgu_agreement_date = Time.now }
+    step ->(options, model:, **) { model.cgu_agreement_date = Time.zone.now }
     step ->(options, model:, **) { model.confirm }
     fail :user_already_confirmed
     step :set_user_password

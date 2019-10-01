@@ -37,7 +37,7 @@ describe User::Operation::Confirm do
       end
 
       it 'set the CGU agreements attribute to the current timestamp' do
-        expect(result[:model].cgu_agreement_date.to_i).to be_within(2).of(Time.now.to_i)
+        expect(result[:model].cgu_agreement_date.to_i).to be_within(2).of(Time.zone.now.to_i)
       end
 
       it 'sends a notification email to the user'
