@@ -326,29 +326,7 @@ describe UsersController, type: :controller do
     end
 
     context 'when params are invalid' do
-      let(:confirmation_params) do
-        {
-          confirmation_token: inactive_user.confirmation_token,
-          cgu_checked: true,
-          password: 'validPWD12',
-          password_confirmation: 'validPWD123'
-        }
-      end
-
-      before { post :confirm, params: confirmation_params, as: :json }
-
-      it 'returns 422' do
-        expect(response.code).to eq '422'
-      end
-
-      it 'returns an error' do
-        expect(response_json)
-          .to eq errors: { password_confirmation: ['must be equal to password'] }
-      end
-    end
-
-    context 'when confirmation token is not found' do
-      let(:confirmation_params) do
+     let(:confirmation_params) do
         {
           confirmation_token: 'oups',
           cgu_checked: true,
@@ -365,7 +343,7 @@ describe UsersController, type: :controller do
 
       it 'returns an error' do
         expect(response_json)
-          .to eq errors: { token: ['confirmation token not found'] }
+          .to eq errors: { confirmation_token: ['confirmation token not found'] }
       end
     end
   end

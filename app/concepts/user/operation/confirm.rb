@@ -3,12 +3,11 @@ module User::Operation
     step self::Contract::Validate(constant: User::Contract::Confirm)
     fail :contract_errors, fail_fast: true
     step :retrieve_user_from_token
-    fail :invalid_token, fail_fast: true
     step ->(options, model:, **) { model.cgu_agreement_date = Time.now }
     step ->(options, model:, **) { model.confirm }
-    fail :user_already_confirmed
     step :set_user_password
     step :dispose_session_token
+    fail :unexpected_error
 
     def retrieve_user_from_token(options, params:, **)
       options[:model] = User.find_by(
@@ -31,14 +30,9 @@ module User::Operation
       options['errors'].merge! options['result.contract.default'].errors
     end
 
-    def invalid_token(options, **)
+    def unexpected_error(options, params:, **)
       options['errors'] = {} if options['errors'].nil?
-      options['errors'].merge! token: ['confirmation token not found']
-    end
-
-    def user_already_confirmed(options, **)
-      options['errors'] = {} if options['errors'].nil?
-      options['errors'].merge! user: ['user already confirmed']
+      options['errors'].merge! critical: ["unexpected error occured (#{params})"]
     end
   end
 end
