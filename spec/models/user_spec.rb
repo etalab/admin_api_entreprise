@@ -16,8 +16,7 @@ describe User do
   end
 
   describe 'relationships' do
-    it { is_expected.to have_many(:contacts).dependent(:destroy) }
-    it { is_expected.to have_many :jwt_api_entreprise }
+    it { is_expected.to have_many(:jwt_api_entreprise).dependent(:nullify) }
   end
 
   describe '#encoded_jwt' do

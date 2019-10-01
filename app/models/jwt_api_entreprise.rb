@@ -1,5 +1,6 @@
 class JwtApiEntreprise < ApplicationRecord
   belongs_to :user
+  has_many :contacts
   has_and_belongs_to_many :roles
 
   def rehash
