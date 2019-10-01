@@ -49,4 +49,7 @@ Rails.application.configure do
 
   config.account_confirmation_url = 'https://sandbox.dashboard.entreprise.api.gouv.fr/account/confirm'
   config.account_tokens_list_url  = 'https://sandbox.dashboard.entreprise.api.gouv.fr/admin/users/%s/tokens/'
+
+  config.redis_database = 'redis://localhost:6379/0'
+  config.emails_sender_address = 'support@entreprise.api.gouv.fr'
 end

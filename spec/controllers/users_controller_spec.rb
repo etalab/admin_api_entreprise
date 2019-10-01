@@ -26,11 +26,12 @@ describe UsersController, type: :controller do
 
         user_raw = body.first
         expect(user_raw).to be_an_instance_of Hash
-        expect(user_raw.size).to eq 4
+        expect(user_raw.size).to eq 5
         expect(user_raw.key?(:id)).to be true
         expect(user_raw.key?(:email)).to be true
         expect(user_raw.key?(:context)).to be true
         expect(user_raw.key?(:confirmed)).to be true
+        expect(user_raw.key?(:created_at)).to be true
       end
     end
 
@@ -66,9 +67,10 @@ describe UsersController, type: :controller do
             .to change(User, :count).by 1
         end
 
-        it 'sends a confirmation email' do
-          expect { post :create, params: user_params }
-            .to change(ActionMailer::Base.deliveries, :count).by(1)
+        it 'calls the mailer to send a confirmation email' do
+          expect(UserMailer).to receive(:confirm_account_action).and_call_original
+
+          post :create, params: user_params
         end
 
         context 'when submitting data for contacts creation' do

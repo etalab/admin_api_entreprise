@@ -24,6 +24,9 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'sidekiq'
+gem 'sidekiq-cron'
+
 gem 'doorkeeper', '~> 4.4.0'
 gem 'jwtf', '~> 0.1'
 gem 'jwt', '~> 2.0'
@@ -47,6 +50,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'unindent'
   gem 'guard-rspec'
+  gem 'faker'
 end
 
 group :development do

@@ -11,7 +11,7 @@ module JwtApiEntreprise::Operation
 
     step :create_contact
     step :create_token
-    step ->(options, created_token:, **) { UserMailer.token_creation_notice(created_token).deliver_now }
+    step ->(options, created_token:, **) { UserMailer.token_creation_notice(created_token).deliver_later }
 
     def filter_authorized_roles(options, user:, params:, **)
       options[:authorized_roles] = user.roles.where(code: params[:roles])

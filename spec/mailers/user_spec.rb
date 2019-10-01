@@ -8,7 +8,7 @@ describe UserMailer, type: :mailer do
 
     its(:subject) { is_expected.to eq 'API Entreprise - Activation de compte utilisateur' }
     its(:to) { is_expected.to eq [user.email] }
-    its(:from) { is_expected.to eq ['tech@entreprise.api.gouv.fr'] }
+    its(:from) { is_expected.to include(Rails.configuration.emails_sender_address) }
 
     it 'contains the user confirmation URL' do
       confirmation_url = "https://sandbox.dashboard.entreprise.api.gouv.fr/account/confirm?confirmation_token=very_confirm"
@@ -30,7 +30,7 @@ describe UserMailer, type: :mailer do
 
       its(:subject) { is_expected.to eq 'API Entreprise - Activation de compte utilisateur' }
       its(:to) { is_expected.to eq user.contacts.pluck(:email) }
-      its(:from) { is_expected.to eq ['tech@entreprise.api.gouv.fr'] }
+      its(:from) { is_expected.to include(Rails.configuration.emails_sender_address) }
 
       it 'contains the confirm account notice' do
         notice = "votre administrateur (#{user.email}) a reçu un e-mail"
@@ -69,7 +69,7 @@ describe UserMailer, type: :mailer do
     let(:new_token) { user.jwt_api_entreprise.first }
 
     its(:subject) { is_expected.to eq 'API Entreprise - Création d\'un nouveau token' }
-    its(:from) { is_expected.to eq ['tech@entreprise.api.gouv.fr'] }
+    its(:from) { is_expected.to include(Rails.configuration.emails_sender_address) }
 
     it 'sends the email to all contacts (including the account owner)' do
       user.contacts.first.update email: user.email
