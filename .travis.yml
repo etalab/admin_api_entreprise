@@ -11,4 +11,5 @@ before_script:
   - psql -U postgres -f postgresql_setup.txt
   - RAILS_ENV=test bundle exec rails db:migrate
 script:
+  - bundle exec rubocop
   - bundle exec rspec
