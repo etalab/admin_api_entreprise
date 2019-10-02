@@ -12,7 +12,7 @@ describe User do
     it { is_expected.to have_db_column(:confirmed_at).of_type(:datetime) }
     it { is_expected.to have_db_column(:confirmation_sent_at).of_type(:datetime) }
     it { is_expected.to have_db_column(:cgu_agreement_date).of_type(:datetime) }
-    it { is_expected.to have_db_column(:note).of_type(:text) }
+    it { is_expected.to have_db_column(:note).of_type(:text).with_options(default: '') }
   end
 
   describe 'relationships' do

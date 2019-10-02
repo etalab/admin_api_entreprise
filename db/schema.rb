@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_01_133751) do
+ActiveRecord::Schema.define(version: 2019_10_02_125658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -108,7 +108,7 @@ ActiveRecord::Schema.define(version: 2019_10_01_133751) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.datetime "cgu_agreement_date"
-    t.text "note"
+    t.text "note", default: ""
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   end
 

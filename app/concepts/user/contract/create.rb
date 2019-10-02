@@ -22,7 +22,5 @@ module User::Contract
       required(:context).maybe(:str?)
       required(:note).maybe(:str?)
     end
-
-    collection :contacts, form: Contact::Contract::Upsert, populate_if_empty: Contact
   end
 end

@@ -97,5 +97,19 @@ describe JwtApiEntreprise::Operation::AdminCreate do
         expect(subject).to be_success
       end
     end
+
+    describe '#contacts' do
+      it 'is not valid if contact\'s data is not valid' do
+        user_params[:contacts].append(email: 'not an email')
+
+        expect(result).to be_failure
+      end
+
+      it 'is optionnal' do
+        user_params.delete :contacts
+
+        expect(result).to be_success
+      end
+    end
   end
 end
