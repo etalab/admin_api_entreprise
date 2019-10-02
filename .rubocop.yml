@@ -6,6 +6,7 @@ AllCops:
     - 'bin/**/*'
     - 'db/**/*'
     - 'config/**/*'
+    - 'vendor/**/*'
 
 Style/FrozenStringLiteralComment:
   Enabled: false
@@ -23,3 +24,29 @@ Style/CommentAnnotation:
 
 Layout/AlignParameters:
   EnforcedStyle: with_fixed_indentation
+
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+  Exclude:
+    - 'app/channels/**/*'
+    - 'app/concepts/**/*'
+
+Metrics/LineLength:
+  Max: 110
+  IgnoredPatterns:
+    - '# TODO'
+
+Style/SignalException:
+  Exclude:
+    - 'app/concepts/**/*'
+
+Lint/UnreachableCode:
+  Exclude:
+    - 'app/concepts/**/*'
+
+Naming/UncommunicativeMethodParamName:
+  AllowedNames:
+    - '_'
+
+Layout/MultilineMethodCallIndentation:
+  Enabled: false
