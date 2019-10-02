@@ -4,17 +4,18 @@ module Role::Operation
     step ->(options, **) { options[:log] = [] }
     step :seed!
 
-    def seed!(options, roles_seed:, log:, **)
+    def seed!(_options, roles_seed:, log:, **)
       roles_seed.each do |role|
         result = Role::Operation::Create.call(params: role)
-        if result.success?
-          log << "Role created : name \"#{role[:name]}\", code \"#{role[:code]}\""
-        else
-          log << "Warning role already exists : name \"#{role[:name]}\", code \"#{role[:code]}\""
-        end
+        log << if result.success?
+                 "Role created : name \"#{role[:name]}\", code \"#{role[:code]}\""
+               else
+                 "Warning role already exists : name \"#{role[:name]}\", code \"#{role[:code]}\""
+               end
       end
     end
 
+    # rubocop:disable Metrics/MethodLength
     def init_roles_seed(ctx, roles_seed: nil, **)
       if roles_seed.nil?
         ctx[:roles_seed] = [
@@ -39,7 +40,9 @@ module Role::Operation
           { name: 'Bilans Entreprises BDF', code: 'bilans_entreprise_bdf' }
         ]
       end
+
       ctx[:roles_seed]
     end
+    # rubocop:enable Metrics/MethodLength
   end
 end

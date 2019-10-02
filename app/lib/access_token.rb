@@ -9,9 +9,9 @@ class AccessToken
     end
 
     def decode(token)
-      payload = JWT.decode token, HASH_SECRET, true,
-        verify_iat: true,
-        algorithm: HASH_ALGO
+      payload = JWT.decode(token, HASH_SECRET, true,
+                           verify_iat: true,
+                           algorithm: HASH_ALGO)
       payload.map(&:deep_symbolize_keys!)
       payload.first
     end

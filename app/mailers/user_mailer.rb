@@ -3,7 +3,7 @@ class UserMailer < ApplicationMailer
     subject = 'API Entreprise - Activation de compte utilisateur'
 
     @user = user
-    @confirmation_url = Rails.configuration.account_confirmation_url.to_s + "?confirmation_token=#{@user.confirmation_token}"
+    @confirmation_url = base_url + "?confirmation_token=#{@user.confirmation_token}"
     mail(to: @user.email, subject: subject)
   end
 
@@ -16,7 +16,7 @@ class UserMailer < ApplicationMailer
 
   def token_creation_notice(new_token)
     @user = new_token.user
-    @url_jwt = Rails.configuration.account_tokens_list_url.to_s % [@user.id]
+    @url_jwt = format(Rails.configuration.account_tokens_list_url.to_s, @user.id)
     @jwt = new_token
 
     subject = 'API Entreprise - Création d\'un nouveau token'
@@ -25,6 +25,10 @@ class UserMailer < ApplicationMailer
   end
 
   private
+
+  def base_url
+    Rails.configuration.account_confirmation_url.to_s
+  end
 
   def confirm_account_notice_recipients
     recipients = @user.contacts.pluck(:email).uniq

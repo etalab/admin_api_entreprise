@@ -36,9 +36,7 @@ class ApplicationController < ActionController::API
 
   # Method called by Pundit to get the current user of the request
   # @pundit_user is the first argument passed to policies
-  def pundit_user
-    @pundit_user
-  end
+  attr_reader :pundit_user
 
   def current_user
     @pundit_user
