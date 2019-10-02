@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     result = User::Operation::Create.call(params: params)
 
     if result.success?
-      render json: result['model'], status: 201
+      render json: result['model'], serializer: UserShowSerializer, status: 201
 
     else
       errors = result['result.contract.default'].errors.messages

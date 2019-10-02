@@ -4,7 +4,6 @@ class UserShowSerializer < ActiveModel::Serializer
   attribute :blacklisted_tokens, if: :admin?
   attributes :tokens
 
-  has_many :contacts
 
   def tokens
     object.encoded_jwt

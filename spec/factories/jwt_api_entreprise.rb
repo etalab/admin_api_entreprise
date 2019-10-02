@@ -3,6 +3,7 @@ FactoryBot.define do
     subject { 'Humm testy' }
     iat { Time.zone.now.to_i }
     exp { 18.months.from_now.to_i }
+    blacklisted { false }
     version { '1.0' }
     days_left_notification_sent { [] }
     user
@@ -23,5 +24,9 @@ FactoryBot.define do
 
   factory :jwt_expiring_in_1_year, class: JwtApiEntreprise do
     exp { 1.year.from_now }
+  end
+
+  trait :blacklisted do
+    blacklisted { true }
   end
 end
