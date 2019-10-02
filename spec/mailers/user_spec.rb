@@ -1,4 +1,4 @@
-require "rails_helper"
+require 'rails_helper'
 
 describe UserMailer, type: :mailer do
   describe 'confirm account action' do
@@ -11,7 +11,7 @@ describe UserMailer, type: :mailer do
     its(:from) { is_expected.to include(Rails.configuration.emails_sender_address) }
 
     it 'contains the user confirmation URL' do
-      confirmation_url = "https://sandbox.dashboard.entreprise.api.gouv.fr/account/confirm?confirmation_token=very_confirm"
+      confirmation_url = 'https://sandbox.dashboard.entreprise.api.gouv.fr/account/confirm?confirmation_token=very_confirm'
 
       expect(subject.html_part.decoded).to include(confirmation_url)
       expect(subject.text_part.decoded).to include(confirmation_url)
@@ -24,7 +24,11 @@ describe UserMailer, type: :mailer do
     context 'when contact principal is not métier or/and technique' do
       let(:user) do
         user = create :user
-        user.contacts = [create_list(:contact, 2), create_list(:tech_contact, 2), create_list(:admin_contact, 2)].flatten
+        user.contacts = [
+          create_list(:contact, 2),
+          create_list(:tech_contact, 2),
+          create_list(:admin_contact, 2)
+        ].flatten
         user
       end
 

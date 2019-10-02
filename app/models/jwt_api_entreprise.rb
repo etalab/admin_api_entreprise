@@ -7,7 +7,7 @@ class JwtApiEntreprise < ApplicationRecord
   end
 
   def access_roles
-    self.roles.pluck(:code)
+    roles.pluck(:code)
   end
 
   def user_friendly_exp_date
@@ -18,15 +18,15 @@ class JwtApiEntreprise < ApplicationRecord
 
   def token_payload
     payload = {
-      uid: self.user_id,
-      jti: self.id,
-      roles: self.roles.pluck(:code),
-      sub: self.subject,
-      iat: self.iat,
-      version: self.version
+      uid: user_id,
+      jti: id,
+      roles: roles.pluck(:code),
+      sub: subject,
+      iat: iat,
+      version: version
     }
     # JWT is by design expired if exp is null
-    payload[:exp] = self.exp unless self.exp.nil?
+    payload[:exp] = exp unless exp.nil?
     payload
   end
 end

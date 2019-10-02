@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+# rubocop:disable Metrics/LineLength
 describe JwtApiEntrepriseMailer, type: :mailer do
   describe '#expiration_notice' do
     subject { described_class.expiration_notice(jwt, nb_days) }
@@ -65,3 +66,4 @@ describe JwtApiEntrepriseMailer, type: :mailer do
     end
   end
 end
+# rubocop:enable Metrics/LineLength

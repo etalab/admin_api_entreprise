@@ -67,7 +67,7 @@ describe JwtApiEntrepriseController, type: :controller do
     end
 
     # TODO find a way to pass arguments outside example groups ('let' variables not not accessible here)
-    it_behaves_like 'client user unauthorized', :post, :admin_create, { user_id: 0 }
+    it_behaves_like 'client user unauthorized', :post, :admin_create, user_id: 0
   end
 
   describe '#blacklist' do
@@ -87,7 +87,7 @@ describe JwtApiEntrepriseController, type: :controller do
     describe 'normal user context' do
       include_context 'user request'
 
-      it_behaves_like 'client user unauthorized', :post, :blacklist, { id: 0, user_id: 0 }
+      it_behaves_like 'client user unauthorized', :post, :blacklist, id: 0, user_id: 0
 
       it 'does not blacklist the token' do
         post :blacklist, params: { id: jwt.to_param, user_id: jwt.user.id }
@@ -96,6 +96,6 @@ describe JwtApiEntrepriseController, type: :controller do
       end
     end
 
-    it_behaves_like 'client user unauthorized', :post, :blacklist, { id: 0, user_id: 0 }
+    it_behaves_like 'client user unauthorized', :post, :blacklist, id: 0, user_id: 0
   end
 end

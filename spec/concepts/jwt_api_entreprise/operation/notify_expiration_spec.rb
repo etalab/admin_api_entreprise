@@ -39,13 +39,15 @@ describe JwtApiEntreprise::Operation::NotifyExpiration do
       jwt_1.reload
       jwt_2.reload
 
-      expect([jwt_1, jwt_2]).to all(have_attributes(days_left_notification_sent: a_collection_including(days)))
+      expect([jwt_1, jwt_2])
+        .to all(have_attributes(days_left_notification_sent: a_collection_including(days)))
     end
   end
 
   context 'when expire_in: is not specified' do
     it 'raises an error' do
-      expect { described_class.call }.to raise_error(ArgumentError, a_string_matching(/missing keyword: expire_in/))
+      expect { described_class.call }
+        .to raise_error(ArgumentError, a_string_matching(/missing keyword: expire_in/))
     end
   end
 end

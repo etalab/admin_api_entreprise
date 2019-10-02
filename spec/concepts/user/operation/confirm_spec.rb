@@ -28,8 +28,8 @@ describe User::Operation::Confirm do
 
       it 'sets the user password' do
         expect(result[:model].password_digest).to_not eq ''
-        expect(!!result[:model].authenticate(confirmation_params[:password]))
-          .to be true
+        expect(result[:model].authenticate(confirmation_params[:password]))
+          .to be_truthy
       end
 
       it 'returns a session JWT for user dashboard access' do
@@ -60,8 +60,8 @@ describe User::Operation::Confirm do
           confirmation_params[:password_confirmation] = 'newPAssw0rd'
 
         expect(result).to be_failure
-        expect(!!result[:model].authenticate(old_password))
-          .to be true
+        expect(result[:model].authenticate(old_password))
+          .to be_truthy
       end
     end
   end
@@ -71,7 +71,7 @@ describe User::Operation::Confirm do
       it 'is required' do
         confirmation_params[:confirmation_token] = ''
         contract_error = result['result.contract.default']
-          .errors[:confirmation_token]
+                         .errors[:confirmation_token]
 
         expect(result).to be_failure
         expect(contract_error).to include 'must be filled'
@@ -80,7 +80,9 @@ describe User::Operation::Confirm do
 
     describe '#password' do
       let(:contract_error) { result['result.contract.default'].errors[:password] }
-      let(:format_error_message) { 'minimum eight characters, at least one uppercase letter, one lowercase letter and one number' }
+      let(:format_error_message) do
+        'minimum eight characters, at least one uppercase letter, one lowercase letter and one number'
+      end
 
       it 'must match confirmation' do
         confirmation_params[:password_confirmation] = 'coucou23'

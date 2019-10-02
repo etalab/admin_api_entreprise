@@ -29,15 +29,15 @@ describe RolesController, type: :controller do
     end
 
     # TODO re-add authorizations for role index (login needed or OAuth application token)
-    #context 'when requested from an admin' do
+    # context 'when requested from an admin' do
     #  include_context 'admin request'
     #  it_behaves_like 'list roles'
-    #end
+    # end
 
-    #context 'when requested from a client' do
+    # context 'when requested from a client' do
     #  include_context 'user request'
     #  it_behaves_like 'list roles'
-    #end
+    # end
   end
 
   describe '#create' do

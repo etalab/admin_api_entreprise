@@ -12,8 +12,17 @@ describe JwtApiEntreprise, type: :model do
     it { is_expected.to have_db_column(:updated_at).of_type(:datetime) }
     it { is_expected.to have_db_column(:exp).of_type(:integer) }
     it { is_expected.to have_db_column(:version).of_type(:string) }
-    it { is_expected.to have_db_column(:blacklisted).of_type(:boolean).with_options(default: false) }
-    it { is_expected.to have_db_column(:days_left_notification_sent).of_type(:json).with_options(default: []) }
+    it do
+      is_expected.to have_db_column(:blacklisted)
+        .of_type(:boolean)
+        .with_options(default: false)
+    end
+
+    it do
+      is_expected.to have_db_column(:days_left_notification_sent)
+        .of_type(:json)
+        .with_options(default: [])
+    end
   end
 
   describe 'relationships' do

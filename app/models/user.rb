@@ -6,7 +6,9 @@ class User < ApplicationRecord
   has_secure_password(validations: false)
 
   def confirmed?
+    # rubocop:disable Style/DoubleNegation
     !!confirmed_at
+    # rubocop:enable Style/DoubleNegation
   end
 
   def confirm
@@ -36,7 +38,7 @@ class User < ApplicationRecord
   private
 
   def combine_roles_from_tokens
-    roles = self.jwt_api_entreprise.reduce([]) { |result, jwt| result + jwt.access_roles }
+    roles = jwt_api_entreprise.reduce([]) { |result, jwt| result + jwt.access_roles }
     roles.uniq
   end
 end

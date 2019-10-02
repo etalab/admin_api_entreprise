@@ -35,16 +35,18 @@ describe User do
 
       it 'does not return blacklisted token with #encoded_jwt' do
         expect(user.encoded_jwt).not_to include blacklisted_jwt.rehash
-        expect(user.encoded_jwt.size).to eq (user.jwt_api_entreprise.size - 1)
+        expect(user.encoded_jwt.size).to eq(user.jwt_api_entreprise.size - 1)
       end
 
-      it 'returns one #blacklisted_jwt'  do
+      it 'returns one #blacklisted_jwt' do
         expect(user.blacklisted_jwt).to eq [blacklisted_jwt.rehash]
       end
     end
 
     context 'JWT generation' do
-      before { expect_any_instance_of(JwtApiEntreprise).to receive(:rehash).and_return('Much token') }
+      before do
+        expect_any_instance_of(JwtApiEntreprise).to receive(:rehash).and_return('Much token')
+      end
 
       # TODO learn how to stub this
       pending 'is delegated to the Role#rehash method'

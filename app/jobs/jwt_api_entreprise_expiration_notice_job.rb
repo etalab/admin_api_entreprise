@@ -1,7 +1,7 @@
 class JwtApiEntrepriseExpirationNoticeJob < ApplicationJob
   queue_as :default
 
-  def perform(*args)
+  def perform(*_args)
     JwtApiEntreprise::Operation::NotifyExpiration.call(expire_in: 90)
     JwtApiEntreprise::Operation::NotifyExpiration.call(expire_in: 60)
     JwtApiEntreprise::Operation::NotifyExpiration.call(expire_in: 30)

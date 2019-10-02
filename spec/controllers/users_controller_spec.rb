@@ -263,7 +263,7 @@ describe UsersController, type: :controller do
       end
     end
 
-    it_behaves_like 'client user unauthorized', :delete, :destroy, { id: 0 }
+    it_behaves_like 'client user unauthorized', :delete, :destroy, id: 0
   end
 
   describe '#confirm' do
@@ -325,7 +325,7 @@ describe UsersController, type: :controller do
 
     context 'when requested from a user' do
       include_context 'user request'
-      it_behaves_like 'client user unauthorized', :put, :update, { id: 'random' }
+      it_behaves_like 'client user unauthorized', :put, :update, id: 'random'
 
       it 'does not update the user' do
         subject

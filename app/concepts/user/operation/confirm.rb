@@ -3,8 +3,8 @@ module User::Operation
     step self::Contract::Validate(constant: User::Contract::Confirm)
     step :retrieve_user_from_token
     fail :invalid_token, fail_fast: true
-    step ->(options, model:, **) { model.cgu_agreement_date = Time.zone.now }
-    step ->(options, model:, **) { model.confirm }
+    step ->(_options, model:, **) { model.cgu_agreement_date = Time.zone.now }
+    step ->(_options, model:, **) { model.confirm }
     fail :user_already_confirmed
     step :set_user_password
     step :dispose_session_token
@@ -15,7 +15,7 @@ module User::Operation
       )
     end
 
-    def set_user_password(options, model:, params:, **)
+    def set_user_password(_options, model:, params:, **)
       model.update_attribute :password, params[:password]
     end
 

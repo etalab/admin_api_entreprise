@@ -12,5 +12,3 @@ module AuthenticationHelper
     request.headers['Authorization'] = "Bearer #{admin_token}"
   end
 end
-
-

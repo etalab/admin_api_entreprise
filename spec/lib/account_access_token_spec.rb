@@ -29,6 +29,6 @@ describe 'JWT for account data access', type: :jwt do
 
     # giving the test 2 seconds lag security
     expect(expiration_timestamp)
-      .to be_within(2).of(creation_timestamp + (4*3600))
+      .to be_within(2).of(creation_timestamp + (4 * 3600))
   end
 end

@@ -30,7 +30,7 @@ describe User::Operation::Create do
       expect(result[:model]).to have_attributes(
         email: user_email,
         context: 'very development',
-        note: 'Much notes very commercial data',
+        note: 'Much notes very commercial data'
       )
     end
 
