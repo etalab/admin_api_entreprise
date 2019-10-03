@@ -7,7 +7,6 @@ module User::Operation
     step ->(options, model:, **) { model.confirm }
     step :set_user_password
     step :dispose_session_token
-    fail :unexpected_error
 
     def retrieve_user_from_token(options, params:, **)
       options[:model] = User.find_by(
@@ -28,11 +27,6 @@ module User::Operation
     def contract_errors(options, **)
       options['errors'] = {} if options['errors'].nil?
       options['errors'].merge! options['result.contract.default'].errors
-    end
-
-    def unexpected_error(options, params:, **)
-      options['errors'] = {} if options['errors'].nil?
-      options['errors'].merge! critical: ["unexpected error occured (#{params})"]
     end
   end
 end

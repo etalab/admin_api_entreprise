@@ -149,16 +149,5 @@ describe User::Operation::Confirm do
         expect(cgu_error_message).to include('CGU must be accepted')
       end
     end
-
-    describe 'unexpected error' do
-      before do
-        allow_any_instance_of(User).to receive(:confirm).and_return(false)
-      end
-
-      it 'fails unexpectedly' do
-        expect(result).to be_failure
-        expect(result[:errors]).to include critical: [/unexpected error occured/]
-      end
-    end
   end
 end
