@@ -71,7 +71,7 @@ describe User::Operation::Confirm do
       it 'is required' do
         confirmation_params[:confirmation_token] = ''
         contract_error = result['result.contract.default']
-                         .errors[:confirmation_token]
+          .errors[:confirmation_token]
 
         expect(result).to be_failure
         expect(contract_error).to include 'must be filled'
