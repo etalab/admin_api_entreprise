@@ -57,7 +57,9 @@ describe UsersController, type: :controller do
 
         it 'returns errors' do
           body = JSON.parse(response.body, symbolize_names: true)
-          expect(body[:errors]).to be_an_instance_of Hash
+          expect(response_json).to include errors: {
+            email: ['must be filled', 'value already exists']
+          }
         end
       end
 
@@ -278,6 +280,7 @@ describe UsersController, type: :controller do
           password_confirmation: 'validPWD12'
         }
       end
+
       before { post :confirm, params: confirmation_params, as: :json }
 
       it 'returns 200' do
@@ -297,17 +300,24 @@ describe UsersController, type: :controller do
     end
 
     context 'when params are invalid' do
-      let(:confirmation_params) do
+     let(:confirmation_params) do
         {
           confirmation_token: 'oups',
+          cgu_checked: true,
           password: 'validPWD12',
           password_confirmation: 'validPWD12'
         }
       end
-      before { post :confirm, params: confirmation_params }
+
+      before { post :confirm, params: confirmation_params, as: :json }
 
       it 'returns 422' do
         expect(response.code).to eq '422'
+      end
+
+      it 'returns an error' do
+        expect(response_json)
+          .to eq errors: { confirmation_token: ['confirmation token not found'] }
       end
     end
   end
