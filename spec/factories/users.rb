@@ -6,8 +6,8 @@ FactoryBot.define do
     # TODO make user factory confirmed by default
     # use an :inactive_user factory for this specific state
     factory :confirmed_user do
-      confirmed_at { Time.now.to_i }
-      cgu_agreement_date { Time.now.to_i }
+      confirmed_at { Time.zone.now.to_i }
+      cgu_agreement_date { Time.zone.now.to_i }
     end
 
     factory :admin do
@@ -26,14 +26,6 @@ FactoryBot.define do
     trait :with_jwt do
       after(:create) do |u|
         create_list(:jwt_api_entreprise, 3, user: u)
-      end
-    end
-
-    factory :user_with_roles do
-      allow_token_creation { true }
-
-      after(:create) do |u|
-        create_list(:role, 4, users: [u])
       end
     end
   end

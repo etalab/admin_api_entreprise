@@ -58,17 +58,4 @@ class UsersController < ApplicationController
       render json: { errors: result['errors'] }, status: 422
     end
   end
-
-  def add_roles
-    authorize :admin, :admin?
-    result = User::Operation::AddRoles.call(params: params)
-
-    if result.success?
-      render json: {}, status: 200
-
-    else
-      errors = result['result.contract.default'] || result['errors']
-      render json: { errors: errors }, status: 422
-    end
-  end
 end

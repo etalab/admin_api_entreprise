@@ -6,6 +6,6 @@ task 'create_admin': :environment do
     email: 'admin@entreprise.api.gouv.fr',
     password: user_pwd,
     context: 'Admin',
-    confirmed_at: Time.now
+    confirmed_at: Time.zone.now
   )
 end

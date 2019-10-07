@@ -3,7 +3,6 @@ module User::Contract
     property :email
     property :context
     property :note
-    property :allow_token_creation
 
     validation do
       configure do
@@ -22,7 +21,6 @@ module User::Contract
       )
       required(:context).maybe(:str?)
       required(:note).maybe(:str?)
-      required(:allow_token_creation).maybe(:bool?)
     end
 
     collection :contacts, form: Contact::Contract::Upsert, populate_if_empty: Contact

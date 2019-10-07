@@ -8,7 +8,6 @@ describe User::Operation::Create do
       email: user_email,
       context: 'very development',
       note: 'Much notes very commercial data',
-      allow_token_creation: true,
       contacts: [
         {
           email: 'coucou@hello.fr',
@@ -32,7 +31,6 @@ describe User::Operation::Create do
         email: user_email,
         context: 'very development',
         note: 'Much notes very commercial data',
-        allow_token_creation: true,
       )
     end
 
@@ -112,34 +110,6 @@ describe User::Operation::Create do
       end
     end
 
-    describe '#allow_token_creation' do
-      let(:errors) { result['result.contract.default'].errors.messages[:allow_token_creation] }
-
-      context 'when provided' do
-        it 'is a boolean value' do
-          user_params[:allow_token_creation] = 'truedat'
-
-          expect(result).to be_failure
-          expect(errors).to include('must be boolean')
-        end
-      end
-
-      context 'when not provided' do
-        it 'still works' do
-          user_params.delete(:allow_token_creation)
-
-          expect(result).to be_success
-        end
-
-        it 'is default to false' do
-          user_params.delete(:allow_token_creation)
-          created_user = result[:model]
-
-          expect(created_user.allow_token_creation).to eq(false)
-        end
-      end
-    end
-
     describe 'account created state' do
       let(:created_user) { result[:model] }
 
@@ -157,7 +127,7 @@ describe User::Operation::Create do
       end
 
       it 'sets the confirmation request timestamp' do
-        expect(result[:model].confirmation_sent_at.to_i).to be_within(2).of(Time.now.to_i)
+        expect(result[:model].confirmation_sent_at.to_i).to be_within(2).of(Time.zone.now.to_i)
       end
 
       describe 'mail notifications' do
