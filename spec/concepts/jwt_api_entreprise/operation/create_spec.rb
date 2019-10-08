@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe JwtApiEntreprise::Operation::AdminCreate do
+describe JwtApiEntreprise::Operation::Create do
   let(:user) { create(:user) }
   let(:roles) { create_list(:role, 7) }
   let(:roles_code) { roles.map { |attr| attr.slice(:code) } }

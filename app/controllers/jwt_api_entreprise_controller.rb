@@ -1,7 +1,7 @@
 class JwtApiEntrepriseController < ApplicationController
-  def admin_create
+  def create
     authorize :admin, :admin?
-    result = JwtApiEntreprise::Operation::AdminCreate.call(params: params)
+    result = JwtApiEntreprise::Operation::Create.call(params: params)
 
     if result.success?
       render json: { new_token: result[:created_token].rehash }, status: 201

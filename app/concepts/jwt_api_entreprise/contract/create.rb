@@ -1,5 +1,5 @@
 module JwtApiEntreprise::Contract
-  class AdminCreate < Reform::Form
+  class Create < Reform::Form
     property :user_id
     property :subject
 
