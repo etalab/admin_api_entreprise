@@ -3,17 +3,31 @@ require 'rails_helper'
 describe JwtApiEntreprise::Operation::AdminCreate do
   let(:user) { create(:user) }
   let(:roles) { create_list(:role, 7) }
+  let(:roles_code) { roles.map { |attr| attr.slice(:code) } }
   let(:token_params) do
     {
       user_id: user.id,
-      roles: roles.pluck(:code),
-      subject: 'So testy'
+      roles: roles_code,
+      subject: 'So testy',
+      contacts: [
+        {
+          email: 'coucou@hello.fr',
+          phone_number: '0123456789',
+          contact_type: 'admin'
+        },
+        {
+          email: 'supsup@hi.yo',
+          phone_number: '0987654321',
+          contact_type: 'tech'
+        }
+      ]
     }
   end
+
   subject { described_class.call(params: token_params) }
 
   context 'when input data is valid' do
-    let(:created_token) { subject[:created_token] }
+    let(:created_token) { subject[:model] }
 
     it 'is successful' do
       expect(subject).to be_success
@@ -27,16 +41,39 @@ describe JwtApiEntreprise::Operation::AdminCreate do
       expect(created_token.user).to eq(user)
     end
 
-    it 'is associated to the listed roles' do
-      expect(created_token.roles.to_a).to eql roles
+    it 'is has the valid access rights' do
+      expect(created_token.roles.to_a).to contain_exactly(*roles.to_a)
     end
 
     it 'expires after 18 months' do
       expect(created_token.exp).to be_within(2).of(18.months.from_now.to_i)
     end
 
-    it 'is saved with the payload version number' do
+    it 'has a timestamp of creation' do
+      expect(created_token.iat).to be_within(2).of(Time.zone.now.to_i)
+    end
+
+    it 'is saved with a default version number' do
       expect(created_token.version).to eq('1.0')
+    end
+
+    it 'creates the related contacts' do
+      expect { subject }.to change(Contact, :count).by(2)
+    end
+
+    it 'persists valid contacts data' do
+			expect(created_token.contacts).to contain_exactly(
+        an_object_having_attributes(
+          email: 'coucou@hello.fr',
+          phone_number: '0123456789',
+          contact_type: 'admin'
+        ),
+        an_object_having_attributes(
+          email: 'supsup@hi.yo',
+          phone_number: '0987654321',
+          contact_type: 'tech'
+        )
+			)
     end
 
     describe 'mail notification' do
@@ -50,6 +87,7 @@ describe JwtApiEntreprise::Operation::AdminCreate do
         subject
       end
 
+      # TODO move into a 'when input is invalid' context group
       it 'does not send an email when invalid' do
         token_params.delete(:user_id)
         expect(UserMailer).not_to receive(:token_creation_notice)
@@ -60,16 +98,21 @@ describe JwtApiEntreprise::Operation::AdminCreate do
 
   context 'when input data is invalid' do
     describe ':roles' do
-      let(:errors) { subject['result.contract.default'].errors[:roles] }
+      let(:errors) { subject['result.contract.default'].errors }
 
       it 'is required' do
         token_params[:roles] = []
 
         expect(subject).to be_failure
-        expect(errors).to include 'must be filled'
+        expect(errors[:roles]).to include 'must be filled'
       end
 
-      pending 'roles into payload must exists in database'
+      it 'fails if provided roles does not exist' do
+        token_params[:roles].push({ code: 'ghost_code' })
+
+        expect(subject).to be_failure
+        expect(errors[:'roles.code']).to include('role "ghost_code" does not exist')
+      end
     end
 
     describe ':user_id' do
@@ -79,37 +122,45 @@ describe JwtApiEntreprise::Operation::AdminCreate do
         token_params.delete(:user_id)
 
         expect(subject).to be_failure
-        expect(errors).to include('is missing')
+        expect(errors).to include('must be filled')
       end
 
       it 'is an existing user id' do
         token_params[:user_id] = 'not a user id'
 
         expect(subject).to be_failure
-        expect(subject[:errors]).to eq("user does not exist (UID : 'not a user id')")
+        expect(errors).to include('user with ID "not a user id" does not exist')
       end
     end
 
     describe ':subject' do
-      it 'can be blanck' do
+      let(:errors) { subject['result.contract.default'].errors[:subject] }
+
+      it 'is required' do
         token_params[:subject] = ''
 
-        expect(subject).to be_success
+        expect(subject).to be_failure
+        expect(errors).to include('must be filled')
       end
     end
 
-    describe '#contacts' do
-      it 'is not valid if contact\'s data is not valid' do
-        user_params[:contacts].append(email: 'not an email')
+    describe ':contacts' do
+      let(:errors) { subject['result.contract.default'].errors[:contacts] }
 
-        expect(result).to be_failure
+      it 'fails if contact\'s data is not valid' do
+        token_params[:contacts].append(email: 'not an email')
+
+        expect(subject).to be_failure
       end
 
-      it 'is optionnal' do
-        user_params.delete :contacts
+      it 'is required' do
+        token_params.delete(:contacts)
 
-        expect(result).to be_success
+        expect(subject).to be_failure
+        expect(errors).to include('must be filled')
       end
+
+      pending 'business and tech contacts are required'
     end
   end
 end
