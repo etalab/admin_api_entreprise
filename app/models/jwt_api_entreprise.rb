@@ -15,6 +15,11 @@ class JwtApiEntreprise < ApplicationRecord
     "#{Time.zone.at(exp).strftime('%d/%m/%Y à %Hh%M')} (heure de Paris)"
   end
 
+  def all_contacts_email
+    emails = contacts.pluck(:email).uniq
+    emails << user.email
+  end
+
   private
 
   def token_payload

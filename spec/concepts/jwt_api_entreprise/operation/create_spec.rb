@@ -76,21 +76,18 @@ describe JwtApiEntreprise::Operation::Create do
 			)
     end
 
-    describe 'mail notification' do
-      before do
-        allow(UserMailer).to receive(:token_creation_notice).and_call_original
-      end
+    describe 'mail notifications' do
+      it 'calls the mailer to notice for a JWT creation' do
+        expect(JwtApiEntrepriseMailer).to receive(:creation_notice).and_call_original
 
-      it 'notifies contacts techniques & contact principal of token creation' do
-        expect(UserMailer).to receive(:token_creation_notice)
-          .with(an_instance_of(JwtApiEntreprise))
         subject
       end
 
       # TODO move into a 'when input is invalid' context group
-      it 'does not send an email when invalid' do
+      it 'does not call the mailer' do
         token_params.delete(:user_id)
-        expect(UserMailer).not_to receive(:token_creation_notice)
+        expect(JwtApiEntrepriseMailer).not_to receive(:creation_notice)
+
         subject
       end
     end
