@@ -90,7 +90,7 @@ describe JwtApiEntreprise, type: :model do
 
     subject { jwt.all_contacts_email }
 
-    it 'contains the jwt owner\'s• email (account owner)' do
+    it 'contains the jwt owner\'s email (account owner)' do
       user_email = jwt.user.email
 
       expect(subject).to include(user_email)

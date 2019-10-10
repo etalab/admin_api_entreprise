@@ -16,11 +16,11 @@ describe 'JWT for account data access', type: :jwt do
   end
 
   it 'contains the creation date timestamp' do
+    Timecop.freeze
     creation_timestamp = token_payload[:iat]
 
-    # giving the test 2 seconds lag security
-    # look gem time cop
-    expect(creation_timestamp).to be_within(2).of(Time.zone.now.to_i)
+    expect(creation_timestamp).to eq(Time.zone.now.to_i)
+    Timecop.return
   end
 
   it 'expires in 4 hours' do

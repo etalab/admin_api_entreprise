@@ -46,11 +46,17 @@ describe JwtApiEntreprise::Operation::Create do
     end
 
     it 'expires after 18 months' do
-      expect(created_token.exp).to be_within(2).of(18.months.from_now.to_i)
+      Timecop.freeze
+
+      expect(created_token.exp).to eq(18.months.from_now.to_i)
+      Timecop.return
     end
 
     it 'has a timestamp of creation' do
-      expect(created_token.iat).to be_within(2).of(Time.zone.now.to_i)
+      Timecop.freeze
+
+      expect(created_token.iat).to eq(Time.zone.now.to_i)
+      Timecop.return
     end
 
     it 'is saved with a default version number' do
@@ -62,7 +68,7 @@ describe JwtApiEntreprise::Operation::Create do
     end
 
     it 'persists valid contacts data' do
-			expect(created_token.contacts).to contain_exactly(
+      expect(created_token.contacts).to contain_exactly(
         an_object_having_attributes(
           email: 'coucou@hello.fr',
           phone_number: '0123456789',
@@ -73,7 +79,7 @@ describe JwtApiEntreprise::Operation::Create do
           phone_number: '0987654321',
           contact_type: 'tech'
         )
-			)
+      )
     end
 
     describe 'mail notifications' do

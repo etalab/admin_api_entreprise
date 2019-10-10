@@ -52,6 +52,7 @@ group :development, :test do
   gem 'unindent'
   gem 'guard-rspec'
   gem 'faker'
+  gem 'timecop'
 end
 
 group :development do

@@ -69,7 +69,7 @@ describe UsersController, type: :controller do
 
       context 'when data is valid' do
         # TODO move this into integration specs, here we want to test that the
-        # returned HTTP code and payload is valid. This has already be tested
+        # returned HTTP code and payload is valid. This has already been tested
         # in the operation unit tests
         it 'saves the user into the database' do
           expect { post(:create, params: user_params) }

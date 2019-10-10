@@ -31,7 +31,7 @@ describe User::Operation::Create do
       end
 
       it 'sets the password to an empty string' do
-        expect(new_user.password_digest).to eq ''
+        expect(new_user.password_digest).to be_empty
       end
 
       it 'sets a token for future email confirmation' do
@@ -43,8 +43,11 @@ describe User::Operation::Create do
       end
 
       it 'sets the confirmation request timestamp' do
-        expect(new_user.confirmation_sent_at.to_i)
-          .to be_within(2).of(Time.zone.now.to_i)
+        Timecop.freeze
+        confirmation_sent_time = new_user.confirmation_sent_at.to_i
+
+        expect(confirmation_sent_time).to eq(Time.zone.now.to_i)
+        Timecop.return
       end
     end
 
