@@ -9,7 +9,7 @@ module Contact::Contract
         format?: /\A[a-zA-Z0-9_.+\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-.]+\z/
       )
       required(:phone_number).maybe(format?: /\A0\d(\d{2}){4}\z/)
-      required(:contact_type).filled(included_in?: %w(admin tech other))
+      required(:contact_type).filled(included_in?: %w[admin tech other])
     end
   end
 end

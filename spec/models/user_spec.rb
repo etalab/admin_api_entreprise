@@ -44,9 +44,7 @@ describe User do
     end
 
     context 'JWT generation' do
-      before do
-        expect_any_instance_of(JwtApiEntreprise).to receive(:rehash).and_return('Much token')
-      end
+      before { expect_any_instance_of(JwtApiEntreprise).to receive(:rehash).and_return('Much token') }
 
       # TODO learn how to stub this
       pending 'is delegated to the Role#rehash method'
