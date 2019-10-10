@@ -6,9 +6,7 @@ class User < ApplicationRecord
   has_secure_password(validations: false)
 
   def confirmed?
-    # rubocop:disable Style/DoubleNegation
-    !!confirmed_at
-    # rubocop:enable Style/DoubleNegation
+    !confirmed_at.nil?
   end
 
   def confirm
