@@ -16,7 +16,8 @@ FactoryBot.define do
 
     trait :with_jwt do
       after(:create) do |u|
-        create_list(:jwt_api_entreprise, 3, user: u)
+        create_list(:jwt_api_entreprise, 2, user: u)
+        create_list(:jwt_api_entreprise, 2, :with_contacts, user: u)
       end
     end
 

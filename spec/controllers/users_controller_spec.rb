@@ -97,6 +97,7 @@ describe UsersController, type: :controller do
             context: a_kind_of(String),
             note: '',
             tokens: [],
+            contacts: [],
             blacklisted_tokens: []
           })
         end
@@ -117,7 +118,17 @@ describe UsersController, type: :controller do
           id: a_kind_of(String),
           email: a_kind_of(String),
           context: a_kind_of(String),
-          tokens: a_collection_including(a_kind_of(String))
+          tokens: a_collection_including(a_kind_of(String)),
+          contacts: a_collection_including(
+            a_hash_including(
+              jwt_usage_policy: a_kind_of(String),
+              jwt_id: a_kind_of(String),
+              id: a_kind_of(String),
+              email: a_kind_of(String),
+              phone_number: a_kind_of(String),
+              contact_type: a_kind_of(String)
+            )
+          )
         })
       end
     end
