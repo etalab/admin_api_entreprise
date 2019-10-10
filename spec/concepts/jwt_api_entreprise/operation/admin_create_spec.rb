@@ -52,7 +52,7 @@ describe JwtApiEntreprise::Operation::AdminCreate do
 
       it 'does not send an email when invalid' do
         token_params.delete(:user_id)
-        expect(UserMailer).not_to receive(:token_creation_notice)
+        expect(UserMailer).to_not receive(:token_creation_notice)
         subject
       end
     end

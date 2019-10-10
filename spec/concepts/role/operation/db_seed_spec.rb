@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Role::Operation::DBSeed do
   describe 'with custom roles seed' do
-    subject { described_class.call roles_seed: roles_seed }
+    subject { described_class.call(roles_seed: roles_seed) }
 
     let(:roles_seed) do
       [

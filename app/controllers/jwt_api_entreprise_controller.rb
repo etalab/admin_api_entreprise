@@ -15,7 +15,7 @@ class JwtApiEntrepriseController < ApplicationController
   def blacklist
     authorize :admin, :admin?
 
-    jwt = JwtApiEntreprise.find params[:id]
+    jwt = JwtApiEntreprise.find(params[:id])
 
     if jwt.update(blacklisted: true)
       render json: { message: 'Jwt blacklisted' }, status: :ok

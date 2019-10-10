@@ -64,7 +64,7 @@ describe UsersController, type: :controller do
       context 'when data is valid' do
         it 'saves the user into the database' do
           expect { post :create, params: user_params }
-            .to change(User, :count).by 1
+            .to change(User, :count).by(1)
         end
 
         it 'calls the mailer to send a confirmation email' do
@@ -211,7 +211,7 @@ describe UsersController, type: :controller do
         expect(user.blacklisted_jwt.size).to eq 1
         get :show, params: { id: user.id }
 
-        expect(response_json).not_to have_key :blacklisted_tokens
+        expect(response_json).to_not have_key(:blacklisted_tokens)
       end
 
       it 'denies access to other users data' do
@@ -331,7 +331,7 @@ describe UsersController, type: :controller do
         subject
         user.reload
 
-        expect(user.note).not_to eq('Test update')
+        expect(user.note).to_not eq('Test update')
       end
     end
 

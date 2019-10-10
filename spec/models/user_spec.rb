@@ -34,7 +34,7 @@ describe User do
       end
 
       it 'does not return blacklisted token with #encoded_jwt' do
-        expect(user.encoded_jwt).not_to include blacklisted_jwt.rehash
+        expect(user.encoded_jwt).to_not include blacklisted_jwt.rehash
         expect(user.encoded_jwt.size).to eq(user.jwt_api_entreprise.size - 1)
       end
 

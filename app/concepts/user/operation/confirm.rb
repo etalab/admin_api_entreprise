@@ -16,7 +16,7 @@ module User::Operation
     end
 
     def set_user_password(_options, model:, params:, **)
-      model.update_attribute :password, params[:password]
+      model.update_attribute(:password, params[:password])
     end
 
     def dispose_session_token(options, model:, **)

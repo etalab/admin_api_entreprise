@@ -5,7 +5,7 @@ class AccessToken
     HASH_ALGO = Rails.application.secrets.jwt_hash_algo
 
     def create(payload)
-      JWT.encode payload, HASH_SECRET, HASH_ALGO
+      JWT.encode(payload, HASH_SECRET, HASH_ALGO)
     end
 
     def decode(token)
@@ -18,7 +18,7 @@ class AccessToken
 
     def get_scope(token)
       payload = decode token
-      scope_a = payload.select { |e| e.key? :scope }
+      scope_a = payload.select { |e| e.key?(:scope) }
       scope_a.first[:scope]
     end
   end

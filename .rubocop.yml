@@ -8,6 +8,15 @@ AllCops:
     - 'config/**/*'
     - 'vendor/**/*'
 
+Style/MethodCallWithArgsParentheses:
+  Enabled: true
+  Exclude:
+    - 'config.ru'
+  IgnoredMethods:
+    - require
+    - to
+    - to_not
+
 Style/FrozenStringLiteralComment:
   Enabled: false
 

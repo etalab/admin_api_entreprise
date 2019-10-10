@@ -1,4 +1,4 @@
-RSpec.shared_examples 'client user unauthorized' do |req_verb, action, req_params = {}|
+RSpec.shared_examples('client user unauthorized') do |req_verb, action, req_params = {}|
   include_context 'user request'
   before { send(req_verb, action, params: req_params) }
 

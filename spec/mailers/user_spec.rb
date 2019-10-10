@@ -19,7 +19,7 @@ describe UserMailer, type: :mailer do
   end
 
   describe 'confirm account notice' do
-    subject { UserMailer.confirm_account_notice user }
+    subject { UserMailer.confirm_account_notice(user) }
 
     context 'when contact principal is not métier or/and technique' do
       let(:user) do
@@ -67,7 +67,7 @@ describe UserMailer, type: :mailer do
   end
 
   describe 'token_creation_notice' do
-    subject { described_class.token_creation_notice new_token }
+    subject { described_class.token_creation_notice(new_token) }
 
     let(:user) { create :user, :with_contacts, :with_jwt }
     let(:new_token) { user.jwt_api_entreprise.first }
@@ -76,7 +76,7 @@ describe UserMailer, type: :mailer do
     its(:from) { is_expected.to include(Rails.configuration.emails_sender_address) }
 
     it 'sends the email to all contacts (including the account owner)' do
-      user.contacts.first.update email: user.email
+      user.contacts.first.update(email: user.email)
       all_emails = user.contacts.pluck(:email) << user.email
       expect(subject.to).to eq all_emails.uniq
     end

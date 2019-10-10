@@ -104,7 +104,7 @@ describe User::Operation::Create do
       end
 
       it 'is optionnal' do
-        user_params.delete :contacts
+        user_params.delete(:contacts)
 
         expect(result).to be_success
       end
@@ -150,14 +150,14 @@ describe User::Operation::Create do
 
         it 'do not send confirm account notice when there is no contact' do
           user_params[:contacts].clear
-          expect(UserMailer).not_to receive(:confirm_account_notice)
+          expect(UserMailer).to_not receive(:confirm_account_notice)
           result
           expect(result).to be_success
         end
 
         it 'do not send confirm account notice when all contacts are the same' do
           user_params[:contacts].each { |contact| contact[:email] = user_email }
-          expect(UserMailer).not_to receive(:confirm_account_notice)
+          expect(UserMailer).to_not receive(:confirm_account_notice)
           result
           expect(result).to be_success
         end
