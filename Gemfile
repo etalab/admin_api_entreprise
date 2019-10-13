@@ -68,6 +68,7 @@ group :test do
   gem 'rspec-its'
   gem 'factory_bot_rails'
   gem 'simplecov', require: false
+  gem 'simplecov-console', require: false
   gem 'shoulda-matchers'
 end
 
