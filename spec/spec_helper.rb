@@ -13,11 +13,33 @@
 # it.
 
 # Configuration for simplecov
-require 'simplecov'
-SimpleCov.start 'rails' do
-  add_filter '/bin/'
-  add_filter '/db/'
-  add_filter '/spec/'
+# Test coverage options (activated only if rspec is run without arguments)
+if ARGV.grep(/spec\.rb/).empty?
+  require 'simplecov'
+  require 'simplecov-console'
+
+  puts 'Simplecov does not work with Spring'.red if defined?(Spring)
+
+  # it will fail CI if:
+  SimpleCov.minimum_coverage 95
+  SimpleCov.minimum_coverage_by_file 80
+
+  # only SimpleCov in console
+  # SimpleCov.formatter = SimpleCov.formatter = SimpleCov::Formatter::Console
+  # or can be both console & files
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
+    [
+      SimpleCov::Formatter::HTMLFormatter,
+      SimpleCov::Formatter::Console
+    ]
+  )
+
+  SimpleCov.start 'rails' do
+    add_filter 'app/channels/'
+    add_filter 'app/jobs/application_job.rb'
+    add_filter 'app/mailers/application_mailer.rb'
+    add_filter 'lib/tasks/'
+  end
 end
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
