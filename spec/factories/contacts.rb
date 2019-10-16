@@ -3,14 +3,18 @@ FactoryBot.define do
     sequence(:email) { |n| "contact_#{n}@example.org" }
     phone_number { '0256743256' }
     contact_type { 'other' }
-    user
+    jwt_api_entreprise
 
-    factory :admin_contact do
+    trait :business do
       contact_type { 'admin' }
     end
 
-    factory :tech_contact do
+    trait :tech do
       contact_type { 'tech' }
+    end
+
+    trait :other do
+      contact_type { 'other' }
     end
   end
 end

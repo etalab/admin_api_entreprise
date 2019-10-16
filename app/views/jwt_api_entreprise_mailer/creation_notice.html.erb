@@ -8,7 +8,7 @@
 
     <p>Un nouveau token est disponible dans votre espace client.<p>
 
-    <p>Vous pouvez le récupérer en suivant ce lien : <%= @url_jwt  %></p>
+    <p>Vous pouvez le récupérer en suivant ce lien : <%= @url_to_jwt  %></p>
 
     <p>Ce token possède les droits d'accès suivants :</p>
     <ul>
@@ -28,7 +28,7 @@
 
     <p>Si vous avez besoin d'un nouveau token contactez-nous : <%= mail_to(Rails.configuration.emails_sender_address) %></p>
 
-    <p>Vous recevez cet email car vous êtes renseigné parmi les contacts pour le compte <%= @user.email %>. Les accès se font uniquement à partir de cette adresse email.</p>
+    <p>Vous recevez cet email car vous êtes renseigné parmi les contacts pour le compte <%= @jwt.user.email %>. Les accès se font uniquement à partir de cette adresse email.</p>
 
     <p>Cordialement,</p>
     <p>L'équipe API Entreprise</p>

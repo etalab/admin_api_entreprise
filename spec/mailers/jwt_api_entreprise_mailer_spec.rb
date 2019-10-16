@@ -4,8 +4,8 @@ describe JwtApiEntrepriseMailer, type: :mailer do
   describe '#expiration_notice' do
     subject { described_class.expiration_notice(jwt, nb_days) }
 
-    let(:user) { create(:user, :with_jwt, :with_contacts) }
-    let(:jwt) { user.jwt_api_entreprise.first }
+    let(:jwt) { create(:jwt_api_entreprise, :with_contacts) }
+    let(:user) { jwt.user }
     let(:nb_days) { '4000' }
 
     its(:subject) { is_expected.to eq("API Entreprise - Votre jeton expire dans #{nb_days} jours !") }
@@ -18,20 +18,10 @@ describe JwtApiEntrepriseMailer, type: :mailer do
         expect(subject.to).to include(user.email)
       end
 
-      it 'sends the email to the business contact' do
-        # TODO This could be better and clearer here, be patient it will be refactor soon
-        business_addresses = user.contacts.where(contact_type: 'admin').pluck(:email).uniq
-        subject
+      it 'sends the email to all jwt\'s contacts' do
+        contacts_emails = jwt.contacts.pluck(:email).uniq
 
-        expect(subject.to).to include(*business_addresses)
-      end
-
-      it 'send the email to the tech contact' do
-        # TODO This could be better and clearer here, be patient it will be refactor soon
-        tech_addresses = user.contacts.where(contact_type: 'tech').pluck(:email).uniq
-        subject
-
-        expect(subject.to).to include(*tech_addresses)
+        expect(subject.to).to include(*contacts_emails)
       end
     end
 
@@ -62,6 +52,49 @@ describe JwtApiEntrepriseMailer, type: :mailer do
 
       expect(subject.html_part.decoded).to include(renewal_process)
       expect(subject.text_part.decoded).to include(renewal_process)
+    end
+  end
+
+  describe '#creation_notice' do
+    let(:jwt) { create(:jwt_api_entreprise, :with_contacts) }
+
+    subject { described_class.creation_notice(jwt) }
+
+    its(:subject) { is_expected.to eq 'API Entreprise - Création d\'un nouveau token' }
+    its(:from) { is_expected.to include(Rails.configuration.emails_sender_address) }
+
+    it 'sends the email to all contacts (including the account owner)' do
+      account_owner_email = jwt.user.email
+      jwt_contacts_emails = jwt.contacts.pluck(:email).uniq
+
+      expect(subject.to).to include(account_owner_email, *jwt_contacts_emails)
+    end
+
+    it 'contains the token_creation_notice' do
+      notice = 'Un nouveau token est disponible dans votre espace client'
+
+      expect(subject.html_part.decoded).to include(notice)
+      expect(subject.text_part.decoded).to include(notice)
+    end
+
+    it 'contains the list of all roles' do
+      jwt.roles.each do |role|
+        expect(subject.html_part.decoded).to include(role.name)
+        expect(subject.text_part.decoded).to include(role.name)
+      end
+    end
+
+    it 'contains the link to the token' do
+      token_url = "https://sandbox.dashboard.entreprise.api.gouv.fr/admin/users/#{jwt.user.id}/tokens/"
+      expect(subject.html_part.decoded).to include(token_url)
+      expect(subject.text_part.decoded).to include(token_url)
+    end
+
+    it 'contains info regarding the current account access' do
+      notice = "parmi les contacts pour le compte #{jwt.user.email}"
+
+      expect(subject.html_part.decoded).to include(notice)
+      expect(subject.text_part.decoded).to include(notice)
     end
   end
 end

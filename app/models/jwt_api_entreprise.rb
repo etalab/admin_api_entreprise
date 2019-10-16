@@ -1,5 +1,6 @@
 class JwtApiEntreprise < ApplicationRecord
   belongs_to :user
+  has_many :contacts
   has_and_belongs_to_many :roles
 
   def rehash
@@ -12,6 +13,10 @@ class JwtApiEntreprise < ApplicationRecord
 
   def user_friendly_exp_date
     "#{Time.zone.at(exp).strftime('%d/%m/%Y à %Hh%M')} (heure de Paris)"
+  end
+
+  def user_and_contacts_email
+    Set[*contacts.pluck(:email)] << user.email
   end
 
   private

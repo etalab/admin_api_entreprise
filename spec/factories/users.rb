@@ -14,18 +14,16 @@ FactoryBot.define do
       id { Rails.application.secrets.fetch(:admin_uid) }
     end
 
-    trait :with_contacts do
+    trait :with_jwt do
       after(:create) do |u|
-        create(:contact, contact_type: 'tech', user: u)
-        create(:contact, contact_type: 'admin', user: u)
-        create(:contact, contact_type: 'other', user: u)
-        create(:jwt_api_entreprise, user: u)
+        create_list(:jwt_api_entreprise, 2, user: u)
+        create_list(:jwt_api_entreprise, 2, :with_contacts, user: u)
       end
     end
 
-    trait :with_jwt do
+    trait :with_blacklisted_jwt do
       after(:create) do |u|
-        create_list(:jwt_api_entreprise, 3, user: u)
+        create(:jwt_api_entreprise, :blacklisted, user: u)
       end
     end
   end

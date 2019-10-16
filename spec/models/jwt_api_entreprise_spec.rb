@@ -17,8 +17,9 @@ describe JwtApiEntreprise, type: :model do
   end
 
   describe 'relationships' do
-    it { is_expected.to belong_to :user }
-    it { is_expected.to have_and_belong_to_many :roles }
+    it { is_expected.to belong_to(:user) }
+    it { is_expected.to have_many(:contacts) }
+    it { is_expected.to have_and_belong_to_many(:roles) }
   end
 
   describe '#user_friendly_exp_date' do
@@ -81,6 +82,24 @@ describe JwtApiEntreprise, type: :model do
         expect(payload.fetch(:version)).to_not be_nil
         expect(payload.fetch(:version)).to eq(jwt.version)
       end
+    end
+  end
+
+  describe '#user_and_contacts_email' do
+    let(:jwt) { create(:jwt_api_entreprise, :with_contacts) }
+
+    subject { jwt.user_and_contacts_email }
+
+    it 'contains the jwt owner\'s email (account owner)' do
+      user_email = jwt.user.email
+
+      expect(subject).to include(user_email)
+    end
+
+    it 'contains all jwt\'s contacts email' do
+      contacts_emails = jwt.contacts.pluck(:email).uniq
+
+      expect(subject).to include(*contacts_emails)
     end
   end
 end
