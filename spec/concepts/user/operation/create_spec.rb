@@ -22,29 +22,20 @@ describe User::Operation::Create do
     end
 
     describe 'created user' do
-      it 'has the given email' do
-        expect(new_user.email).to eq(user_params[:email])
+      subject do
+        result = described_class.call(params: user_params)
+        result[:model]
       end
 
-      it 'has the given context' do
-        expect(new_user.context).to eq(user_params[:context])
-      end
-
-      it 'sets the password to an empty string' do
-        expect(new_user.password_digest).to be_empty
-      end
-
-      it 'sets a token for future email confirmation' do
-        expect(new_user.confirmation_token).to match(/\A[0-9a-f]{20}\z/)
-      end
-
-      it 'is not confirmed' do
-        expect(new_user).to_not be_confirmed
-      end
+      its(:email) { is_expected.to eq(user_params[:email]) }
+      its(:context) { is_expected.to eq(user_params[:context]) }
+      its(:password_digest) { is_expected.to be_blank }
+      its(:confirmation_token) { is_expected.to match(/\A[0-9a-f]{20}\z/) }
+      its(:confirmed?) { is_expected.to eq(false) }
 
       it 'sets the confirmation request timestamp' do
         Timecop.freeze
-        confirmation_sent_time = new_user.confirmation_sent_at.to_i
+        confirmation_sent_time = subject.confirmation_sent_at.to_i
 
         expect(confirmation_sent_time).to eq(Time.zone.now.to_i)
         Timecop.return

@@ -85,10 +85,10 @@ describe JwtApiEntreprise, type: :model do
     end
   end
 
-  describe '#all_contacts_email' do
+  describe '#user_and_contacts_email' do
     let(:jwt) { create(:jwt_api_entreprise, :with_contacts) }
 
-    subject { jwt.all_contacts_email }
+    subject { jwt.user_and_contacts_email }
 
     it 'contains the jwt owner\'s email (account owner)' do
       user_email = jwt.user.email

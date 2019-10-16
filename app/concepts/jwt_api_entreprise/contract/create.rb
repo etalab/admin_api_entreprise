@@ -48,7 +48,7 @@ module JwtApiEntreprise::Contract
 
 
     def populate_roles_from_code(options)
-      Role.find_by_code(options[:fragment][:code]) or Role.new
+      Role.find_by_code(options[:fragment][:code]) || Role.new
     end
   end
 end
