@@ -6,7 +6,7 @@ describe JwtApiEntreprise::Operation::AdminCreate do
   let(:token_params) do
     {
       user_id: user.id,
-      roles: roles.pluck(:code),
+      roles:   roles.pluck(:code),
       subject: 'So testy'
     }
   end

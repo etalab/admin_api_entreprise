@@ -9,7 +9,7 @@ module User::Contract
     required(:confirmation_token).filled
     required(:password).filled(
       min_size?: 8,
-      format?: /(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}/
+      format?:   /(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}/
     ).confirmation
     required(:cgu_checked).value(eql?: true)
   end

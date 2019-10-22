@@ -272,9 +272,9 @@ describe UsersController, type: :controller do
     context 'when params are valid' do
       let(:confirmation_params) do
         {
-          confirmation_token: inactive_user.confirmation_token,
-          cgu_checked: true,
-          password: 'validPWD12',
+          confirmation_token:    inactive_user.confirmation_token,
+          cgu_checked:           true,
+          password:              'validPWD12',
           password_confirmation: 'validPWD12'
         }
       end
@@ -299,8 +299,8 @@ describe UsersController, type: :controller do
     context 'when params are invalid' do
       let(:confirmation_params) do
         {
-          confirmation_token: 'oups',
-          password: 'validPWD12',
+          confirmation_token:    'oups',
+          password:              'validPWD12',
           password_confirmation: 'validPWD12'
         }
       end
@@ -316,7 +316,7 @@ describe UsersController, type: :controller do
     let(:user) { create(:user) }
     let(:user_params) do
       {
-        id: user.id,
+        id:   user.id,
         note: 'Test update'
       }
     end

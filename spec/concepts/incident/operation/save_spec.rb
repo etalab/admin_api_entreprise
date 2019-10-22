@@ -3,8 +3,8 @@ require 'rails_helper'
 describe Incident::Operation::Save do
   let(:operation_params) do
     {
-      title: 'Test incident',
-      subtitle: 'From yesterday to tomorrow',
+      title:       'Test incident',
+      subtitle:    'From yesterday to tomorrow',
       description: 'I\'m the incident description.'
     }
   end

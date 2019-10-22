@@ -60,8 +60,8 @@ describe 'Request authentication', type: :controller do
 
     it 'does not require token authentication' do
       login_params = {
-        username: user.email,
-        password: user.password,
+        username:   user.email,
+        password:   user.password,
         grant_type: 'password'
       }
       post '/api/admin/users/login', params: login_params
@@ -75,8 +75,8 @@ describe 'Request authentication', type: :controller do
 
       it 'issues a JWT with admin role' do
         login_params = {
-          username: admin.email,
-          password: Rails.application.secrets.fetch(:admin_password),
+          username:   admin.email,
+          password:   Rails.application.secrets.fetch(:admin_password),
           grant_type: 'password'
         }
         post '/api/admin/users/login', params: login_params

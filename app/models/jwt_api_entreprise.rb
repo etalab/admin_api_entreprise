@@ -18,11 +18,11 @@ class JwtApiEntreprise < ApplicationRecord
 
   def token_payload
     payload = {
-      uid: user_id,
-      jti: id,
-      roles: roles.pluck(:code),
-      sub: subject,
-      iat: iat,
+      uid:     user_id,
+      jti:     id,
+      roles:   roles.pluck(:code),
+      sub:     subject,
+      iat:     iat,
       version: version
     }
     # JWT is by design expired if exp is null

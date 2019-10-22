@@ -3,7 +3,7 @@ require 'rails_helper'
 describe User::Operation::Update do
   let(:operation_params) do
     {
-      id: user_id,
+      id:   user_id,
       note: 'Updated description'
     }
   end

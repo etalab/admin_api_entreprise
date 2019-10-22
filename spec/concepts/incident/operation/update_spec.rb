@@ -3,9 +3,9 @@ require 'rails_helper'
 describe Incident::Operation::Update do
   let(:operation_params) do
     {
-      id: incident_id,
-      title: 'Updated title',
-      subtitle: 'Updated subtitle',
+      id:          incident_id,
+      title:       'Updated title',
+      subtitle:    'Updated subtitle',
       description: 'Updated description'
     }
   end

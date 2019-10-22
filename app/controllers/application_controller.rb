@@ -16,7 +16,7 @@ class ApplicationController < ActionController::API
 
   def extract_payload_from_header
     authorization_header = request.headers['Authorization']
-    return nil unless authorization_header
+    return unless authorization_header
 
     token = extract_token_from(authorization_header)
     # TODO: move AccessToken logic into JwtApiEntreprise model

@@ -3,11 +3,11 @@ require 'rails_helper'
 describe JwtApiEntrepriseController, type: :controller do
   let(:token_params) do
     {
-      roles: jwt_roles,
+      roles:   jwt_roles,
       user_id: user.id,
       subject: 'coucou',
       contact: {
-        email: 'valid@email.com',
+        email:        'valid@email.com',
         phone_number: '0123456789'
       }
     }

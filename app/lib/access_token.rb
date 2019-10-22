@@ -14,7 +14,7 @@ class AccessToken
         HASH_SECRET,
         true,
         verify_iat: true,
-        algorithm: HASH_ALGO
+        algorithm:  HASH_ALGO
       )
 
       payload.map(&:deep_symbolize_keys!)

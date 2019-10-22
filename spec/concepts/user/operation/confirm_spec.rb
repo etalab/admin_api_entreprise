@@ -5,10 +5,10 @@ describe User::Operation::Confirm do
   let(:inactive_user) { UsersFactory.inactive_user }
   let(:confirmation_params) do
     {
-      password: 'couCOU23',
+      password:              'couCOU23',
       password_confirmation: 'couCOU23',
-      confirmation_token: inactive_user.confirmation_token,
-      cgu_checked: true
+      confirmation_token:    inactive_user.confirmation_token,
+      cgu_checked:           true
     }
   end
 

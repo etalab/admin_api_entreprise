@@ -27,9 +27,9 @@ module JwtApiEntreprise::Operation
     def create_new_token_from(params)
       JwtApiEntreprise.create(
         subject: params[:subject],
-        iat: Time.zone.now.to_i,
+        iat:     Time.zone.now.to_i,
         version: '1.0',
-        exp: 18.months.from_now.to_i
+        exp:     18.months.from_now.to_i
       )
     end
   end

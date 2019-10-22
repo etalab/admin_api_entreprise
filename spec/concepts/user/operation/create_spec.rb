@@ -5,17 +5,17 @@ describe User::Operation::Create do
   let(:user_email) { 'new@record.gg' }
   let(:user_params) do
     {
-      email: user_email,
-      context: 'very development',
-      note: 'Much notes very commercial data',
+      email:    user_email,
+      context:  'very development',
+      note:     'Much notes very commercial data',
       contacts: [
         {
-          email: 'coucou@hello.fr',
+          email:        'coucou@hello.fr',
           phone_number: '0123456789',
           contact_type: 'tech'
         },
         {
-          email: 'supsup@hi.yo',
+          email:        'supsup@hi.yo',
           phone_number: nil,
           contact_type: 'other'
         }
@@ -28,9 +28,9 @@ describe User::Operation::Create do
       expect { result }.to change(User, :count).by(1)
       expect(result).to be_success
       expect(result[:model]).to have_attributes(
-        email: user_email,
+        email:   user_email,
         context: 'very development',
-        note: 'Much notes very commercial data'
+        note:    'Much notes very commercial data'
       )
     end
 
