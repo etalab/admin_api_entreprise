@@ -55,7 +55,7 @@ describe Role::Operation::Create do
         expect(errors).to include 'must be filled'
       end
 
-      # TODO deal with this constraint to restrain jwt size
+      # TODO: deal with this constraint to restrain jwt size
       # it 'is max 4 characters length' do
       #  role_params[:code] = '12345'
 

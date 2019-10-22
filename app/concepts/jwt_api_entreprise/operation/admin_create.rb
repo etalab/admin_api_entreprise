@@ -10,7 +10,7 @@ module JwtApiEntreprise::Operation
       options[:user] = User.find_by_id(params[:user_id])
     end
 
-    # TODO move this into a postgresql transaction
+    # TODO: move this into a postgresql transaction
     def create_token(options, params:, user:, **)
       new_token = create_new_token_from params
       new_token.roles << Role.where(code: params[:roles])

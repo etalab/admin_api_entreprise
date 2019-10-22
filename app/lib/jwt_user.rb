@@ -1,4 +1,4 @@
-# TODO move it into app/models
+# TODO: move it into app/models
 class JwtUser
   attr_reader :id, :admin
 

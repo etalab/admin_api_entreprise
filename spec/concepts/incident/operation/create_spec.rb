@@ -10,7 +10,7 @@ describe Incident::Operation::Create do
   end
   subject { described_class.call(params: operation_params) }
 
-  # TODO not sure about how to text this
+  # TODO: not sure about how to text this
   it 'delegates the call and validations to the Save operation'
 
   it 'creates a new incident' do

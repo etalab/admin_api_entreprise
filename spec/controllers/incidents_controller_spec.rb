@@ -110,7 +110,7 @@ describe IncidentsController, type: :controller do
         end
       end
 
-      # TODO test this the generic way with mock and doubles, test generic operation
+      # TODO: test this the generic way with mock and doubles, test generic operation
       # interfaces for errors
       context 'when params are not valid' do
         before { incident_params[:title] = 'a' * 129 }

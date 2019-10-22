@@ -3,7 +3,7 @@ FactoryBot.define do
     sequence(:email) { |n| "user_#{n}@example.org" }
     context { 'VERY_DEVELOPMENT' }
 
-    # TODO make user factory confirmed by default
+    # TODO: make user factory confirmed by default
     # use an :inactive_user factory for this specific state
     factory :confirmed_user do
       confirmed_at { Time.zone.now.to_i }

@@ -56,7 +56,7 @@ class UsersController < ApplicationController
       render json: { access_token: result['access_token'] }, status: 200
 
     else
-      # TODO handle errors from a generic application way
+      # TODO: handle errors from a generic application way
       errors = result['result.contract.default'].errors || result['errors']
       render json: { errors: errors }, status: 422
     end

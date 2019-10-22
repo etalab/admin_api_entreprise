@@ -29,7 +29,7 @@ describe Incident::Operation::Update do
       incident.id
     end
 
-    # TODO not sure about how to text this
+    # TODO: not sure about how to text this
     it 'delegates the call and validations to the Save operation'
 
     it 'references the updated incident into the :model result field' do

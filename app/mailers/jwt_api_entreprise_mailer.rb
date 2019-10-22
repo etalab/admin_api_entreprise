@@ -12,7 +12,7 @@ class JwtApiEntrepriseMailer < ApplicationMailer
   private
 
   def exp_notice_recipients
-    # TODO This could be better and clearer here, be patient it will be refactor soon
+    # TODO: This could be better and clearer here, be patient it will be refactor soon
     main_account_email = @jwt.user.email
     business_addresses = @jwt.user.contacts.where(contact_type: 'admin').pluck(:email)
     tech_addresses = @jwt.user.contacts.where(contact_type: 'tech').pluck(:email)

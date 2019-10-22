@@ -25,7 +25,7 @@ module User::Operation
       options['access_token'] = jwt
     end
 
-    # TODO Set errors field into higher level application operation
+    # TODO: Set errors field into higher level application operation
     # as a generic way of handling business errors
     def invalid_token(options, **)
       options['errors'] = [] if options['errors'].nil?

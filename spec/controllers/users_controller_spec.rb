@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe UsersController, type: :controller do
   describe '#index' do
-    # TODO pagination handling
+    # TODO: pagination handling
     let(:nb_users) { 10 }
     before do
       create_list :user, nb_users
@@ -252,7 +252,7 @@ describe UsersController, type: :controller do
             .to change(User, :count).by(-1)
         end
 
-        # TODO move into user model's specs
+        # TODO: move into user model's specs
         it 'deletes associated contacts' do
           user = create :user, :with_contacts
           expect { delete :destroy, params: { id: user.id } }

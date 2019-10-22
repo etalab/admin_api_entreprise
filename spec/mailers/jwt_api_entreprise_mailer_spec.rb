@@ -18,7 +18,7 @@ describe JwtApiEntrepriseMailer, type: :mailer do
       end
 
       it 'sends the email to the business contact' do
-        # TODO This could be better and clearer here, be patient it will be refactor soon
+        # TODO: This could be better and clearer here, be patient it will be refactor soon
         business_addresses = user.contacts.where(contact_type: 'admin').pluck(:email).uniq
         subject
 
@@ -26,7 +26,7 @@ describe JwtApiEntrepriseMailer, type: :mailer do
       end
 
       it 'send the email to the tech contact' do
-        # TODO This could be better and clearer here, be patient it will be refactor soon
+        # TODO: This could be better and clearer here, be patient it will be refactor soon
         tech_addresses = user.contacts.where(contact_type: 'tech').pluck(:email).uniq
         subject
 

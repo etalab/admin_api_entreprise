@@ -44,7 +44,7 @@ describe User::Operation::Confirm do
     end
 
     context 'when user is already confirmed' do
-      # TODO mock this the right way
+      # TODO: mock this the right way
       # allow_any_instance_of(User).to receive(:confirmed?).and_return(true)
       # did not worked because .confirmation_token then return nil
       before { described_class.call(params: confirmation_params) }

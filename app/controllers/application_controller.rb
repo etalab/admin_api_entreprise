@@ -6,7 +6,7 @@ class ApplicationController < ActionController::API
 
   private
 
-  # TODO move this into a Request::Authenticate operation ?
+  # TODO: move this into a Request::Authenticate operation ?
   def jwt_authenticate!
     extract_payload_from_header
     return unauthorized unless @auth_payload
@@ -19,7 +19,7 @@ class ApplicationController < ActionController::API
     return nil unless authorization_header
 
     token = extract_token_from(authorization_header)
-    # TODO move AccessToken logic into JwtApiEntreprise model
+    # TODO: move AccessToken logic into JwtApiEntreprise model
     @auth_payload = AccessToken.decode(token)
   rescue JWT::DecodeError
     nil

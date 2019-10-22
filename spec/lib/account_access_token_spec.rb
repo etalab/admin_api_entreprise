@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-# TODO Replace "account" naming with "session"
+# TODO: Replace "account" naming with "session"
 # JWT emited by doorkeeper on user login
 describe 'JWT for account data access', type: :jwt do
   let(:user) { UsersFactory.confirmed_user }

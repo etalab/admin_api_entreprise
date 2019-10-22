@@ -28,7 +28,7 @@ describe RolesController, type: :controller do
       expect(role_raw.key?(:code)).to be true
     end
 
-    # TODO re-add authorizations for role index (login needed or OAuth application token)
+    # TODO: re-add authorizations for role index (login needed or OAuth application token)
     # context 'when requested from an admin' do
     #  include_context 'admin request'
     #  it_behaves_like 'list roles'
