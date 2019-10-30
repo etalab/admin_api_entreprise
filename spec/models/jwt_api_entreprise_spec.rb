@@ -10,17 +10,16 @@ describe JwtApiEntreprise, type: :model do
     it { is_expected.to have_db_column(:user_id).of_type(:uuid) }
     it { is_expected.to have_db_column(:created_at).of_type(:datetime) }
     it { is_expected.to have_db_column(:updated_at).of_type(:datetime) }
-    it { is_expected.to have_db_column(:contact_id).of_type(:uuid) }
     it { is_expected.to have_db_column(:exp).of_type(:integer) }
     it { is_expected.to have_db_column(:version).of_type(:string) }
     it { is_expected.to have_db_column(:blacklisted).of_type(:boolean).with_options(default: false) }
-    it { is_expected.to have_db_column(:days_left_notification_sent).of_type(:json) }
+    it { is_expected.to have_db_column(:days_left_notification_sent).of_type(:json).with_options(default: []) }
   end
 
   describe 'relationships' do
-    it { is_expected.to belong_to :user }
-    it { is_expected.to belong_to(:contact).optional }
-    it { is_expected.to have_and_belong_to_many :roles }
+    it { is_expected.to belong_to(:user) }
+    it { is_expected.to have_many(:contacts) }
+    it { is_expected.to have_and_belong_to_many(:roles) }
   end
 
   describe '#user_friendly_exp_date' do
@@ -83,6 +82,24 @@ describe JwtApiEntreprise, type: :model do
         expect(payload.fetch(:version)).to_not be_nil
         expect(payload.fetch(:version)).to eq(jwt.version)
       end
+    end
+  end
+
+  describe '#user_and_contacts_email' do
+    let(:jwt) { create(:jwt_api_entreprise, :with_contacts) }
+
+    subject { jwt.user_and_contacts_email }
+
+    it 'contains the jwt owner\'s email (account owner)' do
+      user_email = jwt.user.email
+
+      expect(subject).to include(user_email)
+    end
+
+    it 'contains all jwt\'s contacts email' do
+      contacts_emails = jwt.contacts.pluck(:email).uniq
+
+      expect(subject).to include(*contacts_emails)
     end
   end
 end

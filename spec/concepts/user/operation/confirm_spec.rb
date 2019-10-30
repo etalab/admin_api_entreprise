@@ -18,7 +18,7 @@ describe User::Operation::Confirm do
         confirmation_params[:confirmation_token] = 'invalid token'
 
         expect(result).to be_failure
-        expect(result['errors']).to include 'invalid token'
+        expect(result[:errors]).to include confirmation_token: ['confirmation token not found']
       end
 
       it 'confirms the user' do
@@ -37,7 +37,10 @@ describe User::Operation::Confirm do
       end
 
       it 'set the CGU agreements attribute to the current timestamp' do
-        expect(result[:model].cgu_agreement_date.to_i).to be_within(2).of(Time.now.to_i)
+        Timecop.freeze
+
+        expect(result[:model].cgu_agreement_date.to_i).to eq(Time.zone.now.to_i)
+        Timecop.return
       end
 
       it 'sends a notification email to the user'
@@ -51,7 +54,7 @@ describe User::Operation::Confirm do
 
       it 'fails with error message' do
         expect(result).to be_failure
-        expect(result['errors']).to include 'user already confirmed'
+        expect(result[:errors]).to include confirmation_token: ['user already confirmed']
       end
 
       it 'does not change the password' do
@@ -60,8 +63,8 @@ describe User::Operation::Confirm do
           confirmation_params[:password_confirmation] = 'newPAssw0rd'
 
         expect(result).to be_failure
-        expect(!!result[:model].authenticate(old_password))
-          .to be true
+        user = User.find_by(confirmation_token: confirmation_params[:confirmation_token])
+        expect(user.authenticate(old_password)).to be_truthy
       end
     end
   end
@@ -70,50 +73,52 @@ describe User::Operation::Confirm do
     describe '#confirmation_token' do
       it 'is required' do
         confirmation_params[:confirmation_token] = ''
-        contract_error = result['result.contract.default']
-          .errors[:confirmation_token]
 
         expect(result).to be_failure
-        expect(contract_error).to include 'must be filled'
+        expect(result[:errors]).to include confirmation_token: ['must be filled']
+      end
+
+      it 'must exist' do
+        confirmation_params[:confirmation_token] = 'you will never find me'
+        expect(result).to be_failure
+        expect(result[:errors]).to include confirmation_token: ['confirmation token not found']
       end
     end
 
     describe '#password' do
-      let(:contract_error) { result['result.contract.default'].errors[:password] }
+      let(:errors) { result[:errors][:password] }
       let(:format_error_message) { 'minimum eight characters, at least one uppercase letter, one lowercase letter and one number' }
 
       it 'must match confirmation' do
         confirmation_params[:password_confirmation] = 'coucou23'
 
         expect(result).to be_failure
-        expect(result['result.contract.default']
-          .errors[:password_confirmation])
-          .to include 'must be equal to password'
+        expect(result[:errors]).to include password_confirmation: ['must be equal to password']
       end
 
       it 'is min 8 characters long' do
         confirmation_params[:password] =
           confirmation_params[:password_confirmation] = 'a' * 7
 
-        expect(contract_error).to include 'size cannot be less than 8'
+        expect(errors).to include 'size cannot be less than 8'
       end
 
       it 'contains a lowercase letter' do
         confirmation_params[:password] =
           confirmation_params[:password_confirmation] = 'AAAAAAAAA3'
-        expect(contract_error).to include format_error_message
+        expect(errors).to include format_error_message
       end
 
       it 'contains an uppercase letter' do
         confirmation_params[:password] =
           confirmation_params[:password_confirmation] = 'aaaaaaaaa3'
-        expect(contract_error).to include format_error_message
+        expect(errors).to include format_error_message
       end
 
       it 'contains a number' do
         confirmation_params[:password] =
           confirmation_params[:password_confirmation] = 'AAAAAAAAAa'
-        expect(contract_error).to include format_error_message
+        expect(errors).to include format_error_message
       end
 
       it 'accepts special characters' do
@@ -124,7 +129,7 @@ describe User::Operation::Confirm do
     end
 
     describe '#accepted_cgu_check' do
-      let(:cgu_error_message) { result['result.contract.default'].errors[:cgu_checked] }
+      let(:cgu_error_message) { result[:errors][:cgu_checked] }
 
       it 'is required' do
         confirmation_params.delete(:cgu_checked)

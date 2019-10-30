@@ -4,10 +4,7 @@ JWTF.configure do |config|
 
   config.token_payload do |resource_owner_id:, **|
     user = User.find(resource_owner_id)
-
     payload = { uid: resource_owner_id }
-    payload[:grants] = []
-    payload[:grants].push('token') if user.manage_token?
     payload[:admin] = true if resource_owner_id == Rails.application.secrets.fetch(:admin_uid)
     payload
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_29_095622) do
+ActiveRecord::Schema.define(version: 2019_10_02_125658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -20,10 +20,10 @@ ActiveRecord::Schema.define(version: 2019_08_29_095622) do
     t.string "email"
     t.string "phone_number"
     t.string "contact_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.uuid "user_id"
-    t.index ["user_id"], name: "index_contacts_on_user_id"
+    t.uuid "jwt_api_entreprise_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["jwt_api_entreprise_id"], name: "index_contacts_on_jwt_api_entreprise_id"
   end
 
   create_table "incidents", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -40,12 +40,10 @@ ActiveRecord::Schema.define(version: 2019_08_29_095622) do
     t.uuid "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.uuid "contact_id"
     t.integer "exp"
     t.string "version"
     t.boolean "blacklisted", default: false
     t.json "days_left_notification_sent", default: [], null: false
-    t.index ["contact_id"], name: "index_jwt_api_entreprises_on_contact_id"
     t.index ["user_id"], name: "index_jwt_api_entreprises_on_user_id"
   end
 
@@ -100,11 +98,6 @@ ActiveRecord::Schema.define(version: 2019_08_29_095622) do
     t.string "code"
   end
 
-  create_table "roles_users", id: false, force: :cascade do |t|
-    t.uuid "user_id", null: false
-    t.uuid "role_id", null: false
-  end
-
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email"
     t.string "context"
@@ -114,14 +107,12 @@ ActiveRecord::Schema.define(version: 2019_08_29_095622) do
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.boolean "allow_token_creation", default: false
     t.datetime "cgu_agreement_date"
-    t.text "note"
+    t.text "note", default: ""
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   end
 
-  add_foreign_key "contacts", "users"
-  add_foreign_key "jwt_api_entreprises", "contacts"
+  add_foreign_key "contacts", "jwt_api_entreprises"
   add_foreign_key "jwt_api_entreprises", "users"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_grants", "users", column: "resource_owner_id"

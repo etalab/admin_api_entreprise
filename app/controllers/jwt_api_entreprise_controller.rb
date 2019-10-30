@@ -1,29 +1,13 @@
 class JwtApiEntrepriseController < ApplicationController
-  def admin_create
-    authorize :admin, :admin?
-    result = JwtApiEntreprise::Operation::AdminCreate.call(params: params)
-
-    if result.success?
-      render json: { new_token: result[:created_token].rehash }, status: 201
-
-    else
-      errors = retrieve_errors(result)
-      render json: { errors: errors }, status: 422
-    end
-  end
-
   def create
-    raise Pundit::NotAuthorizedError unless pundit_user.id == params[:user_id]
-    authorize JwtApiEntreprise
-
-    # permit!.to_h is needed here because dry-validation needs params[:contact] to be a hash
-    result = JwtApiEntreprise::Operation::UserCreate.call(params: params.permit!.to_h)
+    authorize :admin, :admin?
+    result = JwtApiEntreprise::Operation::Create.call(params: params)
 
     if result.success?
-      render json: { new_token: result[:created_token].rehash }, status: 201
+      render json: { new_token: result[:model].rehash }, status: 201
 
     else
-      errors = retrieve_errors(result)
+      errors = result['result.contract.default'].errors.messages
       render json: { errors: errors }, status: 422
     end
   end
@@ -37,16 +21,6 @@ class JwtApiEntrepriseController < ApplicationController
       render json: { message: 'Jwt blacklisted' }, status: :ok
     else
       render json: { error: 'Jwt still active' }, status: :unprocessable_entity
-    end
-  end
-
-  private
-
-  def retrieve_errors(operation_result)
-    if operation_result['result.contract.default'].errors.empty?
-      operation_result['manual_errors']
-    else
-      operation_result['result.contract.default'].errors
     end
   end
 end

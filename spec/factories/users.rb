@@ -6,34 +6,24 @@ FactoryBot.define do
     # TODO make user factory confirmed by default
     # use an :inactive_user factory for this specific state
     factory :confirmed_user do
-      confirmed_at { Time.now.to_i }
-      cgu_agreement_date { Time.now.to_i }
+      confirmed_at { Time.zone.now.to_i }
+      cgu_agreement_date { Time.zone.now.to_i }
     end
 
     factory :admin do
       id { Rails.application.secrets.fetch(:admin_uid) }
     end
 
-    trait :with_contacts do
-      after(:create) do |u|
-        create(:contact, contact_type: 'tech', user: u)
-        create(:contact, contact_type: 'admin', user: u)
-        create(:contact, contact_type: 'other', user: u)
-        create(:jwt_api_entreprise, user: u)
-      end
-    end
-
     trait :with_jwt do
       after(:create) do |u|
-        create_list(:jwt_api_entreprise, 3, user: u)
+        create_list(:jwt_api_entreprise, 2, user: u)
+        create_list(:jwt_api_entreprise, 2, :with_contacts, user: u)
       end
     end
 
-    factory :user_with_roles do
-      allow_token_creation { true }
-
+    trait :with_blacklisted_jwt do
       after(:create) do |u|
-        create_list(:role, 4, users: [u])
+        create(:jwt_api_entreprise, :blacklisted, user: u)
       end
     end
   end

@@ -34,6 +34,7 @@ gem 'active_model_serializers', '~> 0.10.0'
 
 gem 'trailblazer', '~> 2.1.0.rc13'
 gem 'reform-rails'
+gem 'reform', '2.3.0.rc1'
 gem 'dry-validation', '~> 0.11.1'
 
 gem 'pundit', '~> 1.1'
@@ -51,6 +52,7 @@ group :development, :test do
   gem 'unindent'
   gem 'guard-rspec'
   gem 'faker'
+  gem 'timecop'
 end
 
 group :development do
