@@ -3,7 +3,7 @@ namespace :db_seed do
   task roles: :environment do
     pastel = Pastel.new
 
-    operation_result = Role::DBSeed.call
+    operation_result = Role::Operation::DBSeed.call
     operation_result[:log].map do |log|
       if log =~ /\ARole created/
         puts pastel.green(log)
