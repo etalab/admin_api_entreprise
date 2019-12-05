@@ -17,12 +17,11 @@ class User < ApplicationRecord
   end
 
   def generate_confirmation_token
-    token = ''
-    loop do
-      token = SecureRandom.hex(10)
-      break unless User.find_by(confirmation_token: token)
-    end
-    self.confirmation_token = token
+    update(confirmation_token: random_token_for(:confirmation_token))
+  end
+
+  def generate_pwd_renewal_token
+    update(pwd_renewal_token: random_token_for(:pwd_renewal_token))
   end
 
   def encoded_jwt
@@ -38,5 +37,14 @@ class User < ApplicationRecord
   def combine_roles_from_tokens
     roles = self.jwt_api_entreprise.reduce([]) { |result, jwt| result + jwt.access_roles }
     roles.uniq
+  end
+
+  def random_token_for(attr)
+    constraint = {}
+    loop do
+      token = SecureRandom.hex(10)
+      constraint[attr] = token
+      return token unless User.find_by(constraint)
+    end
   end
 end

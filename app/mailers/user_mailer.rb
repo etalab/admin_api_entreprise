@@ -6,4 +6,7 @@ class UserMailer < ApplicationMailer
 
     mail(to: @user.email, subject: subject)
   end
+
+  def renew_account_password(user)
+  end
 end
