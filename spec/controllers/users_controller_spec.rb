@@ -327,4 +327,86 @@ describe UsersController, type: :controller do
       end
     end
   end
+
+  describe '#password_renewal' do
+    let(:renewal_params) { { email: 'test_email' } }
+
+    subject { post :password_renewal, params: renewal_params }
+
+    context 'when the :email params is not present' do
+      before { renewal_params[:email] = nil }
+
+      it 'returns a HTTP code 422' do
+        subject
+
+        expect(response.code).to eq('422')
+      end
+
+      it 'returns an error message' do
+        subject
+
+        expect(response_json).to include(email: ['must be filled'])
+      end
+    end
+
+    context 'when the email does not identify any user' do
+      it 'returns a HTTP code 422' do
+        subject
+
+        expect(response.code).to eq('422')
+      end
+
+      it 'returns an error message' do
+        subject
+
+        expect(response_json).to include(email: ['user with email "test_email" does not exist'])
+      end
+    end
+
+    context 'when the user exists' do
+      context 'when the user is not confirmed' do
+        before do
+          inactive_user = UsersFactory.inactive_user
+          renewal_params[:email] = inactive_user.email
+        end
+
+        it 'returns a HTTP code 422' do
+          subject
+
+          expect(response.code).to eq('422')
+        end
+
+        it 'returns an error message' do
+          subject
+
+          expect(response_json).to include(email: ["the account for #{renewal_params[:email]} is inactive and has not be confirmed"])
+        end
+      end
+
+      context 'when the user is confirmed' do
+        before do
+          user = UsersFactory.confirmed_user
+          renewal_params[:email] = user.email
+        end
+
+        it 'returns a HTTP code 200' do
+          subject
+
+          expect(response.code).to eq('200')
+        end
+
+        it 'returns an empty payload' do
+          subject
+
+          expect(response_json).to eq({})
+        end
+
+        it 'sends an email' do
+          expect(UserMailer).to receive(:renew_account_password).and_call_original
+
+          subject
+        end
+      end
+    end
+  end
 end

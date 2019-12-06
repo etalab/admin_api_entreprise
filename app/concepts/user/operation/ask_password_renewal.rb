@@ -27,7 +27,7 @@ module User::Operation
 
     def error_inactive_user(ctx, params:, **)
       ctx[:errors] = {
-        email: "the account for #{params[:email]} is inactive and has not be confirmed"
+        email: ["the account for #{params[:email]} is inactive and has not be confirmed"]
       }
     end
 
