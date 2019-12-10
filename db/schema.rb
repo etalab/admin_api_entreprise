@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_05_143354) do
+ActiveRecord::Schema.define(version: 2019_12_10_155546) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -110,7 +110,9 @@ ActiveRecord::Schema.define(version: 2019_12_05_143354) do
     t.datetime "cgu_agreement_date"
     t.text "note", default: ""
     t.string "pwd_renewal_token"
+    t.datetime "pwd_renewal_token_sent_at"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["pwd_renewal_token"], name: "index_users_on_pwd_renewal_token"
   end
 
   add_foreign_key "contacts", "jwt_api_entreprises"

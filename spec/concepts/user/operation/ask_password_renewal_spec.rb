@@ -40,6 +40,15 @@ describe User::Operation::AskPasswordRenewal do
         expect(user.pwd_renewal_token).to match(/\A[0-9a-f]{20}\z/)
       end
 
+      it 'sets the timestamp the link has been sent at' do
+        Timecop.freeze
+        pwd_renewal_request
+        user.reload
+
+        expect(user.pwd_renewal_token_sent_at).to eq(Time.zone.now)
+        Timecop.return
+      end
+
       it 'sends a password renewal email' do
         allow(UserMailer).to receive(:renew_account_password)
         expect(UserMailer).to receive(:renew_account_password)

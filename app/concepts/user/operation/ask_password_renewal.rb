@@ -6,6 +6,7 @@ module User::Operation
     step :ensure_user_is_confirmed
     fail :error_inactive_user, fail_fast: true
     step :generate_a_renewal_token
+    step :add_timestamp
     step :send_renewal_email
 
 
@@ -19,6 +20,10 @@ module User::Operation
 
     def generate_a_renewal_token(ctx, user:, **)
       user.generate_pwd_renewal_token
+    end
+
+    def add_timestamp(ctx, user:, **)
+      user.update(pwd_renewal_token_sent_at: Time.zone.now)
     end
 
     def send_renewal_email(ctx, user:, **)

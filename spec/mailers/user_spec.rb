@@ -36,6 +36,13 @@ describe UserMailer, type: :mailer do
         expect(subject.html_part.decoded).to include(reset_pwd_url)
         expect(subject.text_part.decoded).to include(reset_pwd_url)
       end
+
+      it 'says the link will expire in 24h' do
+        corpus = 'Le lien de renouvellement est valide pendant 24 heures.'
+
+        expect(subject.html_part.decoded).to include(corpus)
+        expect(subject.text_part.decoded).to include(corpus)
+      end
     end
   end
 end

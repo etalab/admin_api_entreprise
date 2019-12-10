@@ -85,47 +85,8 @@ describe User::Operation::Confirm do
       end
     end
 
-    describe '#password' do
-      let(:errors) { result[:errors][:password] }
-      let(:format_error_message) { 'minimum eight characters, at least one uppercase letter, one lowercase letter and one number' }
-
-      it 'must match confirmation' do
-        confirmation_params[:password_confirmation] = 'coucou23'
-
-        expect(result).to be_failure
-        expect(result[:errors]).to include password_confirmation: ['must be equal to password']
-      end
-
-      it 'is min 8 characters long' do
-        confirmation_params[:password] =
-          confirmation_params[:password_confirmation] = 'a' * 7
-
-        expect(errors).to include 'size cannot be less than 8'
-      end
-
-      it 'contains a lowercase letter' do
-        confirmation_params[:password] =
-          confirmation_params[:password_confirmation] = 'AAAAAAAAA3'
-        expect(errors).to include format_error_message
-      end
-
-      it 'contains an uppercase letter' do
-        confirmation_params[:password] =
-          confirmation_params[:password_confirmation] = 'aaaaaaaaa3'
-        expect(errors).to include format_error_message
-      end
-
-      it 'contains a number' do
-        confirmation_params[:password] =
-          confirmation_params[:password_confirmation] = 'AAAAAAAAAa'
-        expect(errors).to include format_error_message
-      end
-
-      it 'accepts special characters' do
-        confirmation_params[:password] =
-          confirmation_params[:password_confirmation] = 'Cou-cou!123?'
-        expect(result).to be_success
-      end
+    describe ':password' do
+      it_behaves_like :password_renewal_contract
     end
 
     describe '#accepted_cgu_check' do
