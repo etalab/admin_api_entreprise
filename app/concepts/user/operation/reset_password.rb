@@ -6,6 +6,7 @@ module User::Operation
     step :renewal_token_valid?
     fail :log_renewal_token_expired
     step :reset_user_password
+    step :dispose_session_token
 
     def validation_errors(ctx, **)
       ctx[:errors] = {} if ctx[:errors].nil?
@@ -21,6 +22,12 @@ module User::Operation
         password: params[:password],
         pwd_renewal_token: nil
       )
+    end
+
+    def dispose_session_token(ctx, user:, **)
+      # Call JWTF the way Doorkeeper does it
+      jwt = JWTF.generate(resource_owner_id: user.id)
+      ctx[:access_token] = jwt
     end
 
     def renewal_token_valid?(ctx, user:, **)

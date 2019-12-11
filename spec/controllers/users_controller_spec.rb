@@ -286,6 +286,44 @@ describe UsersController, type: :controller do
     end
   end
 
+  describe '#password_reset' do
+    let(:user) { create(:user, pwd_renewal_token: 'verytoken', pwd_renewal_token_sent_at: 12.hours.ago) }
+    let(:pwd_reset_params) do
+      {
+        token: user.pwd_renewal_token,
+        password: 'Coucou123!',
+        password_confirmation: 'Coucou123!'
+      }
+    end
+
+    context 'when params are valid' do
+      before { post :password_reset, params: pwd_reset_params }
+
+      it 'returns an HTTP code 200' do
+        expect(response.code).to eq('200')
+      end
+
+      it 'returns a JWT token for the user to be logged in' do
+        expect(response_json).to include(access_token: a_kind_of(String))
+      end
+    end
+
+    context 'when params are invalid' do
+      before do
+        pwd_reset_params.delete(:token)
+        post :password_reset, params: pwd_reset_params
+      end
+
+      it 'returns a HTTP code 422' do
+        expect(response.code).to eq('422')
+      end
+
+      it 'returns an error message' do
+        expect(response_json).to match({ errors: { token: ['is missing']}})
+      end
+    end
+  end
+
   describe '#update' do
     let(:user) { create(:user) }
     let(:user_params) do

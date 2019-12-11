@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :jwt_authenticate!, only: [:confirm, :password_renewal]
+  skip_before_action :jwt_authenticate!, only: [:confirm, :password_renewal, :password_reset]
 
   def index
     authorize :admin, :admin?
@@ -54,6 +54,16 @@ class UsersController < ApplicationController
 
     if result.success?
       render json: { access_token: result['access_token'] }, status: 200
+    else
+      render json: { errors: result['errors'] }, status: 422
+    end
+  end
+
+  def password_reset
+    result = User::Operation::ResetPassword.call(params: params)
+
+    if result.success?
+      render json: { access_token: result[:access_token] }, status: 200
     else
       render json: { errors: result['errors'] }, status: 422
     end
