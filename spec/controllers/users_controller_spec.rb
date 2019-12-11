@@ -383,7 +383,7 @@ describe UsersController, type: :controller do
       it 'returns an error message' do
         subject
 
-        expect(response_json).to include(email: ['must be filled'])
+        expect(response_json).to match({ errors: { email: ['must be filled'] } })
       end
     end
 
@@ -397,7 +397,7 @@ describe UsersController, type: :controller do
       it 'returns an error message' do
         subject
 
-        expect(response_json).to include(email: ['user with email "test_email" does not exist'])
+        expect(response_json).to match({ errors: { email: ['user with email "test_email" does not exist'] } })
       end
     end
 
@@ -417,7 +417,7 @@ describe UsersController, type: :controller do
         it 'returns an error message' do
           subject
 
-          expect(response_json).to include(email: ["the account for #{renewal_params[:email]} is inactive and has not be confirmed"])
+          expect(response_json).to match({ errors: { email: ["the account for #{renewal_params[:email]} is inactive and has not be confirmed"] } })
         end
       end
 

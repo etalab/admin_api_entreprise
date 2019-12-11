@@ -75,7 +75,7 @@ class UsersController < ApplicationController
     if renewal_request.success?
       render json: {}, status: 200
     else
-      render json: renewal_request[:errors], status: 422
+      render json: { errors: renewal_request[:errors] }, status: 422
     end
   end
 end

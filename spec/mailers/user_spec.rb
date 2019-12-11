@@ -31,7 +31,7 @@ describe UserMailer, type: :mailer do
 
     describe 'body' do
       it 'contains the URL for a password update' do
-        reset_pwd_url = "https://sandbox.dashboard.entreprise.api.gouv.fr/account/renew_password?token=coucou"
+        reset_pwd_url = "https://sandbox.dashboard.entreprise.api.gouv.fr/account/password_reset?token=coucou"
 
         expect(subject.html_part.decoded).to include(reset_pwd_url)
         expect(subject.text_part.decoded).to include(reset_pwd_url)
