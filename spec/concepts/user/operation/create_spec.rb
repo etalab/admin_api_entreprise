@@ -78,13 +78,6 @@ describe User::Operation::Create do
         expect(subject).to be_failure
         expect(errors).to include 'value already exists'
       end
-
-      it 'is saved lowercase' do
-        user_params[:email] = 'COUCOU@COUCOU.FR'
-
-        expect(subject).to be_success
-        expect(subject[:model].email).to eq 'coucou@coucou.fr'
-      end
     end
 
     describe '#context' do
