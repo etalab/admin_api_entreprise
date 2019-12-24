@@ -15,11 +15,5 @@ class AccessToken
       payload.map(&:deep_symbolize_keys!)
       payload.first
     end
-
-    def get_scope(token)
-      payload = decode token
-      scope_a = payload.select { |e| e.key? :scope }
-      scope_a.first[:scope]
-    end
   end
 end

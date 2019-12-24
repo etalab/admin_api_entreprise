@@ -19,6 +19,8 @@ Rails.application.routes.draw do
       # User account related routes
       collection do
         post :confirm
+        post :password_renewal
+        post :password_reset
         post :login, to: 'doorkeeper/tokens#create'
       end
     end

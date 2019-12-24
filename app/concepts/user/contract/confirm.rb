@@ -1,5 +1,5 @@
 module User::Contract
-  Confirm = Dry::Validation.Schema do
+  Confirm = Dry::Validation.Schema(PasswordParams) do
     configure do
       config.messages_file = Rails.root
         .join('config/dry_validation_errors.yml').to_s
@@ -19,10 +19,6 @@ module User::Contract
       :confirmation_token_used?
     )
 
-    required(:password).filled(
-      min_size?: 8,
-      format?: /(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}/
-    ).confirmation
     required(:cgu_checked).value(eql?: true)
   end
 end
