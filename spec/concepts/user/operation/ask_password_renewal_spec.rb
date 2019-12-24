@@ -45,7 +45,7 @@ describe User::Operation::AskPasswordRenewal do
         pwd_renewal_request
         user.reload
 
-        expect(user.pwd_renewal_token_sent_at).to eq(Time.zone.now)
+        expect(user.pwd_renewal_token_sent_at.to_i).to eq(Time.zone.now.to_i)
         Timecop.return
       end
 

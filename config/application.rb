@@ -41,7 +41,7 @@ module AdminApientreprise
     config.i18n.available_locales = [:fr_FR]
     config.i18n.default_locale = :fr_FR
 
-    config.active_job.queue_adapter = :async
+    config.active_job.queue_adapter = :sidekiq
     config.active_job.queue_name_prefix = "admin_api_entreprise_#{Rails.env}"
 
     config.action_mailer.deliver_later_queue_name = :default
