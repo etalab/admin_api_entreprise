@@ -39,6 +39,7 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
+  config.active_job.queue_adapter = :async
 
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
@@ -48,7 +49,8 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.account_confirmation_url = 'https://sandbox.dashboard.entreprise.api.gouv.fr/account/confirm'
-  config.account_tokens_list_url  = 'https://sandbox.dashboard.entreprise.api.gouv.fr/admin/users/%s/tokens/'
+  config.renew_password_url = 'https://sandbox.dashboard.entreprise.api.gouv.fr/account/password_reset'
+  config.account_tokens_list_url  = 'https://sandbox.dashboard.entreprise.api.gouv.fr/me/tokens/'
 
   config.redis_database = 'redis://localhost:6379/0'
   config.emails_sender_address = 'support@entreprise.api.gouv.fr'
