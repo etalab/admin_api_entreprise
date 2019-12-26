@@ -80,6 +80,7 @@ class UsersController < ApplicationController
     else
       render json: { errors: renewal_request[:errors] }, status: 422
     end
+  end
 
   private
 
