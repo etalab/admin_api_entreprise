@@ -4,6 +4,7 @@ FactoryBot.define do
     iat { Time.zone.now.to_i }
     exp { 18.months.from_now.to_i }
     blacklisted { false }
+    archived { false }
     version { '1.0' }
     days_left_notification_sent { [] }
     user
