@@ -2,17 +2,13 @@ require 'rails_helper'
 
 describe JwtApiEntreprise::Operation::NotifyExpiration do
   describe 'expire_in: option (provide a number of days)' do
-    let(:user_1) { create(:user) }
-    let(:user_2) { create(:user) }
-    let(:user_3) { create(:user) }
-
     # Let's test with a 90 days (3 months) expiration notice
     # Two tokens on the three are targetted
     let(:days) { 90 }
 
-    let!(:jwt_1) { create(:jwt_expiring_within_3_month, user: user_1) }
-    let!(:jwt_2) { create(:jwt_expiring_within_3_month, user: user_2) }
-    let!(:jwt_3) { create(:jwt_expiring_in_1_year, user: user_3) }
+    let!(:jwt_1) { create(:jwt_api_entreprise, :expiring_within_3_month) }
+    let!(:jwt_2) { create(:jwt_api_entreprise, :expiring_within_3_month) }
+    let!(:jwt_3) { create(:jwt_api_entreprise, :expiring_in_1_year) }
 
     subject { described_class.call(expire_in: days) }
 
