@@ -30,6 +30,26 @@ describe JwtApiEntreprise::Operation::NotifyExpiration do
       subject
     end
 
+    it 'does not call the mailer for archived JWTs' do
+      archived_jwt = create(:jwt_api_entreprise, :expiring_within_3_month, archived: true)
+      # Expectations for sent notifications are needed, otherwise the code runs against the "dumb" double
+      expect(JwtApiEntrepriseMailer).to receive(:expiration_notice).with(jwt_1, days).and_call_original
+      expect(JwtApiEntrepriseMailer).to receive(:expiration_notice).with(jwt_2, days).and_call_original
+      expect(JwtApiEntrepriseMailer).to_not receive(:expiration_notice).with(archived_jwt, days)
+
+      subject
+    end
+
+    it 'does not call the mailer for blacklisted JWTs' do
+      blacklisted_jwt = create(:jwt_api_entreprise, :expiring_within_3_month, blacklisted: true)
+      # Expectations for sent notifications are needed, otherwise the code runs against the "dumb" double
+      expect(JwtApiEntrepriseMailer).to receive(:expiration_notice).with(jwt_1, days).and_call_original
+      expect(JwtApiEntrepriseMailer).to receive(:expiration_notice).with(jwt_2, days).and_call_original
+      expect(JwtApiEntrepriseMailer).to_not receive(:expiration_notice).with(blacklisted_jwt, days)
+
+      subject
+    end
+
     it 'saves that the notification has been sent' do
       subject
       jwt_1.reload
