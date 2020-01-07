@@ -18,10 +18,6 @@ describe User do
 
   describe 'relationships' do
     it { is_expected.to have_many(:jwt_api_entreprise).dependent(:nullify) }
-
-    # Testing the old relationship does not exist after model change
-    # TODO: remove it soon (date 16/10/19)
-    it { is_expected.to_not have_many(:contacts).dependent(:destroy) }
   end
 
   describe '#generate_pwd_renewal_token' do
