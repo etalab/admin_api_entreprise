@@ -9,12 +9,7 @@ Rails.application.routes.draw do
     resources :incidents, only: [:index, :create, :update]
     resources :roles, only: [:index, :create]
     resources :users, only: [:index, :create, :show, :update, :destroy] do
-      resources :jwt_api_entreprise do
-        collection do
-          post :create
-          post :blacklist, to: 'jwt_api_entreprise#blacklist'
-        end
-      end
+      resources :jwt_api_entreprise, only: [:create]
 
       # User account related routes
       collection do
@@ -24,5 +19,6 @@ Rails.application.routes.draw do
         post :login, to: 'doorkeeper/tokens#create'
       end
     end
+    resources :jwt_api_entreprise, only: [:update]
   end
 end

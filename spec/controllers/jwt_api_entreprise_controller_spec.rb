@@ -98,32 +98,53 @@ describe JwtApiEntrepriseController, type: :controller do
     it_behaves_like 'client user unauthorized', :post, :create, { user_id: 0 }
   end
 
-  describe '#blacklist' do
-    let(:jwt) { create :jwt_api_entreprise }
-
+  describe '#update' do
     describe 'admin context' do
       include_context 'admin request'
 
-      it 'blacklist the jwt' do
-        post :blacklist, params: { id: jwt.to_param, user_id: jwt.user.id }
-        jwt.reload
-        expect(jwt).to have_attributes blacklisted: true
-        expect(response).to have_http_status :ok
+      context 'when the JWT exists' do
+        let(:jwt) { create(:jwt_api_entreprise, archived: false, blacklisted: false) }
+
+        subject(:update!) do
+          patch(
+            :update,
+            params: { id: jwt.id, archived: true, blacklisted: true, subject: 'New subject' },
+            as: :json
+          )
+        end
+
+        it 'changes updatable attributes' do
+          update!
+
+          expect(jwt.reload).to have_attributes(archived: true, blacklisted: true)
+        end
+
+        it 'ignores non-updatable attributes' do
+          update!
+
+          expect(jwt.reload.subject).to_not eq('New subject')
+        end
+
+        it 'returns an HTTP code 200' do
+          update!
+
+          expect(response.code).to eq('200')
+        end
+      end
+
+      context 'when the params are invalid' do
+        before { patch :update, params: { id: 0 }, as: :json }
+
+        it 'returns an HTTP code 422' do
+          expect(response.code).to eq('422')
+        end
+
+        it 'returns an error message' do
+          expect(response_json).to include(:errors)
+        end
       end
     end
 
-    describe 'normal user context' do
-      include_context 'user request'
-
-      it_behaves_like 'client user unauthorized', :post, :blacklist, { id: 0, user_id: 0 }
-
-      it 'does not blacklist the token' do
-        post :blacklist, params: { id: jwt.to_param, user_id: jwt.user.id }
-        jwt.reload
-        expect(jwt).to have_attributes blacklisted: false
-      end
-    end
-
-    it_behaves_like 'client user unauthorized', :post, :blacklist, { id: 0, user_id: 0 }
+    it_behaves_like 'client user unauthorized', :post, :update, { id: 0, user_id: 0 }
   end
 end

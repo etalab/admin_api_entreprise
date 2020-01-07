@@ -12,15 +12,21 @@ class JwtApiEntrepriseController < ApplicationController
     end
   end
 
-  def blacklist
+  def update
     authorize :admin, :admin?
 
-    jwt = JwtApiEntreprise.find params[:id]
+    update = JwtApiEntreprise::Operation::Update.call(params: update_params)
 
-    if jwt.update(blacklisted: true)
-      render json: { message: 'Jwt blacklisted' }, status: :ok
+    if update.success?
+      render json: {}, status: 200
     else
-      render json: { error: 'Jwt still active' }, status: :unprocessable_entity
+      render json: { errors: update[:errors] }, status: 422
     end
+  end
+
+  private
+
+  def update_params
+    params.permit(:id, :blacklisted, :archived)
   end
 end
