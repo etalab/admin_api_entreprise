@@ -32,8 +32,14 @@ describe UsersController, type: :controller do
   end
 
   describe '#create' do
-    # getting attributes from :user Factory
     let(:user_params) { attributes_for :user }
+    let(:user_params) do
+      {
+        email: 'user@email.com',
+        context: 'very create',
+        cgu_agreement_date: '2020-01-07T12:38:45.490Z'
+      }
+    end
 
     context 'when requested from an admin' do
       include_context 'admin request'
@@ -239,7 +245,6 @@ describe UsersController, type: :controller do
       let(:confirmation_params) do
         {
           confirmation_token: inactive_user.confirmation_token,
-          cgu_checked: true,
           password: 'validPWD12',
           password_confirmation: 'validPWD12'
         }
@@ -267,7 +272,6 @@ describe UsersController, type: :controller do
      let(:confirmation_params) do
         {
           confirmation_token: 'oups',
-          cgu_checked: true,
           password: 'validPWD12',
           password_confirmation: 'validPWD12'
         }

@@ -3,6 +3,7 @@ module User::Contract
     property :email
     property :context
     property :note
+    property :cgu_agreement_date
 
     validation do
       configure do
@@ -13,6 +14,12 @@ module User::Contract
           existing_email = User.find_by(email: value)
           !existing_email
         end
+
+        def datetime?(value)
+          Time.zone.parse(value)
+        rescue ArgumentError
+          false
+        end
       end
 
       required(:email).filled(
@@ -21,6 +28,7 @@ module User::Contract
       )
       required(:context).maybe(:str?)
       required(:note).maybe(:str?)
+      required(:cgu_agreement_date).filled(:datetime?)
     end
   end
 end
