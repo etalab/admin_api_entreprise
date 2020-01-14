@@ -3,8 +3,11 @@ class UsersController < ApplicationController
 
   def index
     authorize :admin, :admin?
-    users = User.all
-    render json: users, each_serializer: UserIndexSerializer, status: 200
+    result = User::Operation::Index.call(params: user_params)
+    if result.success?
+      user_list = result[:user_list]
+      render json: user_list, each_serializer: UserIndexSerializer, status: 200
+    end
   end
 
   def create
@@ -77,5 +80,11 @@ class UsersController < ApplicationController
     else
       render json: { errors: renewal_request[:errors] }, status: 422
     end
+  end
+
+  private
+
+  def user_params
+    params.permit(:email, :context)
   end
 end

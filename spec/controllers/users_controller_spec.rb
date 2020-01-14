@@ -6,25 +6,46 @@ describe UsersController, type: :controller do
 
     context 'when requested from an admin' do
       include_context 'admin request'
-      before { get :index }
 
-      it 'returns an HTTP code 200' do
-        expect(response.code).to eq('200')
+      context 'when requested without filters' do
+        before { get :index }
+
+        it 'returns an HTTP code 200' do
+          expect(response.code).to eq('200')
+        end
+
+        it 'calls User::Operation::Index' do
+          expect(User::Operation::Index).to receive(:call)
+            .and_call_original
+
+          get :index
+        end
+
+        it 'returns all users from database' do
+          # Pretty ugly... We have one more user than the 5 created: the admin
+          expect(response_json.size).to eq(6)
+        end
+
+        it 'returns the correct payload format' do
+          expect(response_json).to all(match({
+            id: a_kind_of(String),
+            email: a_kind_of(String),
+            context: a_kind_of(String),
+            confirmed: be(true).or(be(false)),
+            created_at: a_kind_of(String),
+          }))
+        end
       end
 
-      it 'returns all users from database' do
-        # Pretty ugly... We have one more user than the 5 created: the admin
-        expect(response_json.size).to eq(6)
-      end
+      context 'when requested with filters' do
+        it 'apply filters' do
+          User.take.update(email: 'random_query')
+          get :index, params: { email: 'random_query' }, as: :json
 
-      it 'returns the correct payload format' do
-        expect(response_json).to all(match({
-          id: a_kind_of(String),
-          email: a_kind_of(String),
-          context: a_kind_of(String),
-          confirmed: be(true).or(be(false)),
-          created_at: a_kind_of(String),
-        }))
+          expect(response_json).to contain_exactly(
+            a_hash_including(email: 'random_query')
+          )
+        end
       end
     end
 
