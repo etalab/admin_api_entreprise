@@ -2,6 +2,7 @@ class UserShowSerializer < ActiveModel::Serializer
   attributes :id, :email, :context
   attribute :note, if: :admin?
   attribute :blacklisted_tokens, if: :admin?
+  attribute :archived_tokens, if: :admin?
   attributes :tokens
 
   # This is to keep some kind of ascending compatibility with the dashboard
@@ -17,6 +18,10 @@ class UserShowSerializer < ActiveModel::Serializer
 
   def blacklisted_tokens
     object.blacklisted_jwt
+  end
+
+  def archived_tokens
+    object.archived_jwt
   end
 
   def admin?
