@@ -8,13 +8,9 @@ Rails.application.routes.draw do
   scope 'api/admin' do
     resources :incidents, only: [:index, :create, :update]
     resources :roles, only: [:index, :create]
+    resources :jwt_api_entreprise, only: [:update]
     resources :users, only: [:index, :create, :show, :update, :destroy] do
-      resources :jwt_api_entreprise do
-        collection do
-          post :create
-          post :blacklist, to: 'jwt_api_entreprise#blacklist'
-        end
-      end
+      resources :jwt_api_entreprise, only: [:create]
 
       # User account related routes
       collection do

@@ -4,6 +4,7 @@ FactoryBot.define do
     iat { Time.zone.now.to_i }
     exp { 18.months.from_now.to_i }
     blacklisted { false }
+    archived { false }
     version { '1.0' }
     days_left_notification_sent { [] }
     user
@@ -18,11 +19,11 @@ FactoryBot.define do
     user
   end
 
-  factory :jwt_expiring_within_3_month, class: JwtApiEntreprise do
+  trait :expiring_within_3_month do
     exp { Faker::Time.forward(days: 90) }
   end
 
-  factory :jwt_expiring_in_1_year, class: JwtApiEntreprise do
+  trait :expiring_in_1_year do
     exp { 1.year.from_now }
   end
 

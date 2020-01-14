@@ -7,6 +7,7 @@ module JwtApiEntreprise::Operation
     def find_expiring_tokens(ctx, expire_in:, **)
       expiration_period = expire_in.days.from_now.to_i
       ctx[:expiring_tokens] = JwtApiEntreprise
+        .where(archived: false, blacklisted: false)
         .where("exp <= ? AND NOT days_left_notification_sent::jsonb @> '?'::jsonb", expiration_period, expire_in)
     end
 
