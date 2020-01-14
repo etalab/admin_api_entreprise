@@ -5,7 +5,8 @@ describe User::Operation::Create do
   let(:user_params) do
     {
       email: user_email,
-      context: 'very development'
+      context: 'very development',
+      cgu_agreement_date: '2019-12-26T14:38:45.490Z'
     }
   end
 
@@ -32,6 +33,12 @@ describe User::Operation::Create do
       its(:password_digest) { is_expected.to be_blank }
       its(:confirmation_token) { is_expected.to match(/\A[0-9a-f]{20}\z/) }
       its(:confirmed?) { is_expected.to eq(false) }
+
+      it 'sets the CGU agreement timestamp' do
+        params_cgu_time = Time.zone.parse(user_params[:cgu_agreement_date])
+
+        expect(subject.cgu_agreement_date).to eq(params_cgu_time)
+      end
 
       it 'sets the confirmation request timestamp' do
         Timecop.freeze
@@ -93,5 +100,24 @@ describe User::Operation::Create do
       end
     end
 
+    describe '#cgu_agreement_date' do
+      let(:errors) do
+        subject['result.contract.default'].errors.messages[:cgu_agreement_date]
+      end
+
+      it 'is required' do
+        user_params.delete(:cgu_agreement_date)
+
+        expect(subject).to be_failure
+        expect(errors).to include('must be filled')
+      end
+
+      it 'has a valid date format' do
+        user_params[:cgu_agreement_date] = 'not a datetime'
+
+        expect(subject).to be_failure
+        expect(errors).to include('must be a datetime format')
+      end
+    end
   end
 end
