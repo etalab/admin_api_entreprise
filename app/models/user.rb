@@ -25,11 +25,15 @@ class User < ApplicationRecord
   end
 
   def encoded_jwt
-    jwt_api_entreprise.where(blacklisted: false).map(&:rehash)
+    jwt_api_entreprise.where(blacklisted: false, archived: false).map(&:rehash)
   end
 
   def blacklisted_jwt
     jwt_api_entreprise.where(blacklisted: true).map(&:rehash)
+  end
+
+  def archived_jwt
+    jwt_api_entreprise.where(archived: true).map(&:rehash)
   end
 
   private

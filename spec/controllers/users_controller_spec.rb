@@ -125,7 +125,8 @@ describe UsersController, type: :controller do
             note: '',
             tokens: [],
             contacts: [],
-            blacklisted_tokens: []
+            blacklisted_tokens: [],
+            archived_tokens: []
           })
         end
       end
@@ -135,7 +136,7 @@ describe UsersController, type: :controller do
   end
 
   describe '#show' do
-    let(:user) { create(:user, :with_jwt, :with_blacklisted_jwt) }
+    let(:user) { create(:user, :with_jwt, :with_blacklisted_jwt, :with_archived_jwt) }
 
     shared_examples 'show user' do
       it 'returns the user data' do
@@ -181,6 +182,14 @@ describe UsersController, type: :controller do
             blacklisted_tokens: a_collection_including(a_kind_of(String))
           )
         end
+
+        it 'shows archived jwt' do
+          get :show, params: { id: user.id }
+
+          expect(response_json).to include(
+            archived_tokens: a_collection_including(a_kind_of(String))
+          )
+        end
       end
 
       it 'also returns the user note attribute' do
@@ -210,6 +219,12 @@ describe UsersController, type: :controller do
         get :show, params: { id: user.id }
 
         expect(response_json).to_not include(:blacklisted_tokens)
+      end
+
+      it 'does not return the user archived jwt' do
+        get :show, params: { id: user.id }
+
+        expect(response_json).to_not include(:archived_tokens)
       end
 
       it 'denies access to other users data' do
