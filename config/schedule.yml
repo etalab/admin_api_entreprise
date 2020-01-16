@@ -21,3 +21,8 @@ production:
     cron: '0 */4 * * *'
     class: 'JwtApiEntrepriseExpirationNoticeJob'
     queue: default
+
+  jwt_purge:
+    cron: '0 2 * * 6'
+    class: 'JwtApiEntreprisePurgeJob'
+    queue: default

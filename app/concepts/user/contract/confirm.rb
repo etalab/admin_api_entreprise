@@ -18,7 +18,5 @@ module User::Contract
       :confirmation_token_exists?,
       :confirmation_token_used?
     )
-
-    required(:cgu_checked).value(eql?: true)
   end
 end

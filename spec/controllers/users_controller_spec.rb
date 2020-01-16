@@ -6,25 +6,46 @@ describe UsersController, type: :controller do
 
     context 'when requested from an admin' do
       include_context 'admin request'
-      before { get :index }
 
-      it 'returns an HTTP code 200' do
-        expect(response.code).to eq('200')
+      context 'when requested without filters' do
+        before { get :index }
+
+        it 'returns an HTTP code 200' do
+          expect(response.code).to eq('200')
+        end
+
+        it 'calls User::Operation::Index' do
+          expect(User::Operation::Index).to receive(:call)
+            .and_call_original
+
+          get :index
+        end
+
+        it 'returns all users from database' do
+          # Pretty ugly... We have one more user than the 5 created: the admin
+          expect(response_json.size).to eq(6)
+        end
+
+        it 'returns the correct payload format' do
+          expect(response_json).to all(match({
+            id: a_kind_of(String),
+            email: a_kind_of(String),
+            context: a_kind_of(String),
+            confirmed: be(true).or(be(false)),
+            created_at: a_kind_of(String),
+          }))
+        end
       end
 
-      it 'returns all users from database' do
-        # Pretty ugly... We have one more user than the 5 created: the admin
-        expect(response_json.size).to eq(6)
-      end
+      context 'when requested with filters' do
+        it 'apply filters' do
+          User.take.update(email: 'random_query')
+          get :index, params: { email: 'random_query' }, as: :json
 
-      it 'returns the correct payload format' do
-        expect(response_json).to all(match({
-          id: a_kind_of(String),
-          email: a_kind_of(String),
-          context: a_kind_of(String),
-          confirmed: be(true).or(be(false)),
-          created_at: a_kind_of(String),
-        }))
+          expect(response_json).to contain_exactly(
+            a_hash_including(email: 'random_query')
+          )
+        end
       end
     end
 
@@ -32,8 +53,14 @@ describe UsersController, type: :controller do
   end
 
   describe '#create' do
-    # getting attributes from :user Factory
     let(:user_params) { attributes_for :user }
+    let(:user_params) do
+      {
+        email: 'user@email.com',
+        context: 'very create',
+        cgu_agreement_date: '2020-01-07T12:38:45.490Z'
+      }
+    end
 
     context 'when requested from an admin' do
       include_context 'admin request'
@@ -98,7 +125,8 @@ describe UsersController, type: :controller do
             note: '',
             tokens: [],
             contacts: [],
-            blacklisted_tokens: []
+            blacklisted_tokens: [],
+            archived_tokens: []
           })
         end
       end
@@ -108,7 +136,7 @@ describe UsersController, type: :controller do
   end
 
   describe '#show' do
-    let(:user) { create(:user, :with_jwt, :with_blacklisted_jwt) }
+    let(:user) { create(:user, :with_jwt, :with_blacklisted_jwt, :with_archived_jwt) }
 
     shared_examples 'show user' do
       it 'returns the user data' do
@@ -154,6 +182,14 @@ describe UsersController, type: :controller do
             blacklisted_tokens: a_collection_including(a_kind_of(String))
           )
         end
+
+        it 'shows archived jwt' do
+          get :show, params: { id: user.id }
+
+          expect(response_json).to include(
+            archived_tokens: a_collection_including(a_kind_of(String))
+          )
+        end
       end
 
       it 'also returns the user note attribute' do
@@ -183,6 +219,12 @@ describe UsersController, type: :controller do
         get :show, params: { id: user.id }
 
         expect(response_json).to_not include(:blacklisted_tokens)
+      end
+
+      it 'does not return the user archived jwt' do
+        get :show, params: { id: user.id }
+
+        expect(response_json).to_not include(:archived_tokens)
       end
 
       it 'denies access to other users data' do
@@ -239,7 +281,6 @@ describe UsersController, type: :controller do
       let(:confirmation_params) do
         {
           confirmation_token: inactive_user.confirmation_token,
-          cgu_checked: true,
           password: 'validPWD12',
           password_confirmation: 'validPWD12'
         }
@@ -267,7 +308,6 @@ describe UsersController, type: :controller do
      let(:confirmation_params) do
         {
           confirmation_token: 'oups',
-          cgu_checked: true,
           password: 'validPWD12',
           password_confirmation: 'validPWD12'
         }
