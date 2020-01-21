@@ -1,6 +1,7 @@
 module JwtApiEntreprise::Contract
   class Create < Reform::Form
     property :user_id
+    property :authorization_request_id
     property :subject
 
     validation do
@@ -15,6 +16,7 @@ module JwtApiEntreprise::Contract
 
       required(:user_id).filled(:str?, :user_exists?)
       required(:subject).filled(:str?)
+      required(:authorization_request_id).filled(:str?)
 
       # TODO Add a high level validation rule here to ensure at least one
       # business and one tech contact is provided in the payload

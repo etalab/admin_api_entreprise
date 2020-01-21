@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :jwt_api_entreprise do
     subject { 'Humm testy' }
+    authorization_request_id { '1234' }
     iat { Time.zone.now.to_i }
     exp { 18.months.from_now.to_i }
     blacklisted { false }
