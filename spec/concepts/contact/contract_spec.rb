@@ -44,11 +44,11 @@ describe Contact::Contract::Upsert do
         expect(errors).to be_empty
       end
 
-      it 'has a french number format' do
-        contact_params[:phone_number] = '202-555-0110'
+      it 'can be anything' do # We won't validate any phone number format now...
+        contact_params[:phone_number] = '+33 coucou lol'
         contact_form.validate contact_params
 
-        expect(err_messages).to include('is in invalid format')
+        expect(errors).to be_empty
       end
     end
 
