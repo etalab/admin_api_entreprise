@@ -6,32 +6,18 @@ class ApplicationController < ActionController::API
 
   private
 
-  # TODO move this into a Request::Authenticate operation ?
   def jwt_authenticate!
-    extract_payload_from_header
-    return unauthorized unless @auth_payload
+    authent = Request::Operation::Authenticate.call(request: request)
 
-    @pundit_user = JwtUser.new(@auth_payload)
-  end
-
-  def extract_payload_from_header
-    authorization_header = request.headers['Authorization']
-    return nil unless authorization_header
-
-    token = extract_token_from(authorization_header)
-    # TODO move AccessToken logic into JwtApiEntreprise model
-    @auth_payload = AccessToken.decode(token)
-  rescue JWT::DecodeError
-    nil
+    if authent.success?
+      @pundit_user = authent[:authenticated_user]
+    else
+      unauthorized
+    end
   end
 
   def unauthorized
     render json: { error: 'Unauthorized' }, status: 401
-  end
-
-  def extract_token_from(header)
-    matchs = header.match(/\ABearer (.+)\z/)
-    matchs[1] if matchs
   end
 
   # Method called by Pundit to get the current user of the request
