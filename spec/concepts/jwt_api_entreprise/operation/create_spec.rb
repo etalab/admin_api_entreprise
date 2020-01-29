@@ -7,6 +7,7 @@ describe JwtApiEntreprise::Operation::Create do
   let(:token_params) do
     {
       user_id: user.id,
+      authorization_request_id: '1234',
       roles: roles_code,
       subject: 'So testy',
       contacts: [
@@ -39,6 +40,10 @@ describe JwtApiEntreprise::Operation::Create do
 
     it 'belongs to the correct user' do
       expect(created_token.user).to eq(user)
+    end
+
+    it 'saves the related authorization request id' do
+      expect(created_token.authorization_request_id).to eq(token_params[:authorization_request_id])
     end
 
     it 'is has the valid access rights' do
@@ -133,6 +138,24 @@ describe JwtApiEntreprise::Operation::Create do
 
         expect(subject).to be_failure
         expect(errors).to include('user with ID "not a user id" does not exist')
+      end
+    end
+
+    describe ':authorization_request_id' do
+      let(:errors) { subject['result.contract.default'].errors[:authorization_request_id] }
+
+      it 'is required' do
+        token_params.delete(:authorization_request_id)
+
+        expect(subject).to be_failure
+        expect(errors).to include('must be filled')
+      end
+
+      it 'is a string' do
+        token_params[:authorization_request_id] = true
+
+        expect(subject).to be_failure
+        expect(errors).to include('must be a string')
       end
     end
 
