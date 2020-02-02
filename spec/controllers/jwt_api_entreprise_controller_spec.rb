@@ -23,6 +23,7 @@ describe JwtApiEntrepriseController, type: :controller do
       {
         roles: jwt_roles,
         user_id: user.id,
+        authorization_request_id: '1234',
         subject: 'coucou',
         contacts: [
           {
