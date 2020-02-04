@@ -6,19 +6,29 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/api/admin/sidekiq'
 
   scope 'api/admin' do
-    resources :incidents, only: [:index, :create, :update]
-    resources :roles, only: [:index, :create]
-    resources :jwt_api_entreprise, only: [:update]
-    resources :users, only: [:index, :create, :show, :update, :destroy] do
-      resources :jwt_api_entreprise, only: [:create]
+    # Incidents
+    get '/incidents'     => 'incidents#index'
+    post '/incidents'    => 'incidents#create'
+    put '/incidents/:id' => 'incidents#update'
 
-      # User account related routes
-      collection do
-        post :confirm
-        post :password_renewal
-        post :password_reset
-        post :login, to: 'doorkeeper/tokens#create'
-      end
-    end
+    #roles
+    get '/roles'  => 'roles#index'
+    post '/roles' => 'roles#create'
+
+    # users
+    get '/users'        => 'users#index'
+    post '/users'       => 'users#create'
+    get '/users/:id'    => 'users#show'
+    patch '/users/:id'  => 'users#update'
+    delete '/users/:id' => 'users#destroy'
+
+    post '/users/login'            => 'doorkeeper/tokens#create'
+    post '/users/confirm'          => 'users#confirm'
+    post '/users/password_renewal' => 'users#password_renewal'
+    post '/users/password_reset'   => 'users#password_reset'
+
+    # jwt_api_entreprise
+    post '/users/:user_id/jwt_api_entreprise' => 'jwt_api_entreprise#create'
+    patch '/jwt_api_entreprise/:id'           => 'jwt_api_entreprise#update'
   end
 end
