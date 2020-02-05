@@ -13,6 +13,44 @@ describe JwtApiEntrepriseController, type: :controller do
     }
   end
 
+  describe '#index' do
+    before { create_list(:jwt_api_entreprise, 8) }
+
+    context 'when requested from an admin' do
+      include_context 'admin request'
+
+      it 'returns an HTTP code 200' do
+        get :index
+
+        expect(response.code).to eq('200')
+      end
+
+      it 'returns all JWT from the database' do
+        get :index
+
+        expect(response_json.size).to eq(8)
+      end
+
+      it 'has a valid payload' do
+        get :index
+
+        expect(response_json).to all(
+          match({
+            id: String,
+            user_id: String,
+            subject: String,
+            iat: Integer,
+            exp: Integer,
+            blacklisted: be(true).or(be(false)),
+            archived: be(true).or(be(false))
+          })
+        )
+      end
+    end
+
+    it_behaves_like 'client user unauthorized', :get, :index
+  end
+
   describe '#create' do
     let(:user) { UsersFactory.confirmed_user }
     let(:jwt_roles) do

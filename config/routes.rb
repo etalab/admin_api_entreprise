@@ -28,7 +28,8 @@ Rails.application.routes.draw do
     post '/users/password_reset'   => 'users#password_reset'
 
     # jwt_api_entreprise
-    post '/users/:user_id/jwt_api_entreprise' => 'jwt_api_entreprise#create'
-    patch '/jwt_api_entreprise/:id'           => 'jwt_api_entreprise#update'
+    get   '/jwt_api_entreprise'                => 'jwt_api_entreprise#index'
+    post  '/users/:user_id/jwt_api_entreprise' => 'jwt_api_entreprise#create'
+    patch '/jwt_api_entreprise/:id'            => 'jwt_api_entreprise#update'
   end
 end
