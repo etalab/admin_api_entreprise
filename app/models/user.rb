@@ -24,17 +24,7 @@ class User < ApplicationRecord
     update(pwd_renewal_token: random_token_for(:pwd_renewal_token))
   end
 
-  def encoded_jwt
-    jwt_api_entreprise.where(blacklisted: false, archived: false).map(&:rehash)
-  end
-
   private
-
-  # TODO XXX FIXME This may be dead code, test to remove it
-  def combine_roles_from_tokens
-    roles = self.jwt_api_entreprise.reduce([]) { |result, jwt| result + jwt.access_roles }
-    roles.uniq
-  end
 
   def random_token_for(attr)
     constraint = {}

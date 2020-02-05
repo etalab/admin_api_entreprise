@@ -39,35 +39,4 @@ describe User do
       expect(user.confirmation_token).to match(/\A[0-9a-f]{20}\z/)
     end
   end
-
-  describe '#encoded_jwt' do
-    it 'returns an array of all user\'s jwt' do
-      expect(user.encoded_jwt.size).to eq(user.jwt_api_entreprise.size)
-    end
-
-    context 'when one token is blacklisted' do
-      let!(:blacklisted_jwt) { create(:jwt_api_entreprise, :blacklisted, user: user) }
-
-      it 'does not return blacklisted token with #encoded_jwt' do
-        expect(user.encoded_jwt).not_to include blacklisted_jwt.rehash
-        expect(user.encoded_jwt.size).to eq (user.jwt_api_entreprise.size - 1)
-      end
-    end
-
-    context 'when one token is archived' do
-      let!(:archived_jwt) { create(:jwt_api_entreprise, :archived, user: user) }
-
-      it 'does not return blacklisted token with #encoded_jwt' do
-        expect(user.encoded_jwt).not_to include archived_jwt.rehash
-        expect(user.encoded_jwt.size).to eq (user.jwt_api_entreprise.size - 1)
-      end
-    end
-
-    context 'JWT generation' do
-      before { expect_any_instance_of(JwtApiEntreprise).to receive(:rehash).and_return('Much token') }
-
-      # TODO learn how to stub this
-      pending 'is delegated to the Role#rehash method'
-    end
-  end
 end
