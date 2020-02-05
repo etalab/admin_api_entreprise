@@ -28,16 +28,9 @@ class User < ApplicationRecord
     jwt_api_entreprise.where(blacklisted: false, archived: false).map(&:rehash)
   end
 
-  def blacklisted_jwt
-    jwt_api_entreprise.where(blacklisted: true).map(&:rehash)
-  end
-
-  def archived_jwt
-    jwt_api_entreprise.where(archived: true).map(&:rehash)
-  end
-
   private
 
+  # TODO XXX FIXME This may be dead code, test to remove it
   def combine_roles_from_tokens
     roles = self.jwt_api_entreprise.reduce([]) { |result, jwt| result + jwt.access_roles }
     roles.uniq

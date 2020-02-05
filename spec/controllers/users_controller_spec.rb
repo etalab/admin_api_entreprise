@@ -125,8 +125,6 @@ describe UsersController, type: :controller do
             note: '',
             tokens: [],
             contacts: [],
-            blacklisted_tokens: [],
-            archived_tokens: []
           })
         end
       end
@@ -136,7 +134,7 @@ describe UsersController, type: :controller do
   end
 
   describe '#show' do
-    let(:user) { create(:user, :with_jwt, :with_blacklisted_jwt, :with_archived_jwt) }
+    let(:user) { create(:user, :confirmed, :with_jwt, :with_blacklisted_jwt, :with_archived_jwt) }
 
     shared_examples 'show user' do
       it 'returns the user data' do
@@ -146,7 +144,19 @@ describe UsersController, type: :controller do
           id: a_kind_of(String),
           email: a_kind_of(String),
           context: a_kind_of(String),
-          tokens: a_collection_including(a_kind_of(String)),
+          tokens: a_collection_including(
+            a_hash_including({
+              id: String,
+              authorization_request_id: String,
+              secret_key: String,
+              iat: Integer,
+              exp: Integer,
+              subject: String,
+              roles: a_collection_including(String),
+              archived: be(true).or(be(false)),
+              blacklisted: be(true).or(be(false))
+            })
+          ),
           contacts: a_collection_including(
             a_hash_including(
               jwt_usage_policy: a_kind_of(String),
@@ -172,14 +182,16 @@ describe UsersController, type: :controller do
         end
       end
 
-      context 'show another user' do
+      context 'when user exists' do
         it_behaves_like 'show user'
 
         it 'shows blacklisted jwt' do
           get :show, params: { id: user.id }
 
           expect(response_json).to include(
-            blacklisted_tokens: a_collection_including(a_kind_of(String))
+            tokens: a_collection_including(a_hash_including({
+              blacklisted: true
+            }))
           )
         end
 
@@ -187,7 +199,9 @@ describe UsersController, type: :controller do
           get :show, params: { id: user.id }
 
           expect(response_json).to include(
-            archived_tokens: a_collection_including(a_kind_of(String))
+            tokens: a_collection_including(a_hash_including({
+              archived: true
+            }))
           )
         end
       end
@@ -200,10 +214,11 @@ describe UsersController, type: :controller do
     end
 
     context 'when requested from a client user' do
-      let(:user) { UsersFactory.confirmed_user }
       before { fill_request_headers_with_user_jwt(user.id) }
 
-      it 'returns requesting user\'s info' do
+      it_behaves_like 'show user'
+
+      it 'responds with an HTTP code 200' do
         get :show, params: { id: user.id }
 
         expect(response.code).to eq('200')
@@ -218,13 +233,13 @@ describe UsersController, type: :controller do
       it 'does not return the user blacklisted jwt' do
         get :show, params: { id: user.id }
 
-        expect(response_json).to_not include(:blacklisted_tokens)
+        expect(response_json[:tokens]).to all(include(blacklisted: false))
       end
 
       it 'does not return the user archived jwt' do
         get :show, params: { id: user.id }
 
-        expect(response_json).to_not include(:archived_tokens)
+        expect(response_json[:tokens]).to all(include(archived: false))
       end
 
       it 'denies access to other users data' do
@@ -305,7 +320,7 @@ describe UsersController, type: :controller do
     end
 
     context 'when params are invalid' do
-     let(:confirmation_params) do
+      let(:confirmation_params) do
         {
           confirmation_token: 'oups',
           password: 'validPWD12',

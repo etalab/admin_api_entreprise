@@ -52,10 +52,6 @@ describe User do
         expect(user.encoded_jwt).not_to include blacklisted_jwt.rehash
         expect(user.encoded_jwt.size).to eq (user.jwt_api_entreprise.size - 1)
       end
-
-      it 'returns one #blacklisted_jwt'  do
-        expect(user.blacklisted_jwt).to eq [blacklisted_jwt.rehash]
-      end
     end
 
     context 'when one token is archived' do
@@ -64,10 +60,6 @@ describe User do
       it 'does not return blacklisted token with #encoded_jwt' do
         expect(user.encoded_jwt).not_to include archived_jwt.rehash
         expect(user.encoded_jwt.size).to eq (user.jwt_api_entreprise.size - 1)
-      end
-
-      it 'returns one #archived_jwt'  do
-        expect(user.archived_jwt).to eq [archived_jwt.rehash]
       end
     end
 
