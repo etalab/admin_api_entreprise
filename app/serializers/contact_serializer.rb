@@ -9,7 +9,7 @@ class ContactSerializer < ActiveModel::Serializer
   )
 
   def jwt_usage_policy
-    object.jwt_api_entreprise.subject
+    object.jwt_api_entreprise.displayed_subject
   end
 
   def jwt_id

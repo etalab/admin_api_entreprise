@@ -1,4 +1,11 @@
 class JwtApiEntrepriseController < ApplicationController
+  def index
+    authorize :admin, :admin?
+
+    jwt_list = JwtApiEntreprise.all
+    render json: jwt_list, each_serializer: JwtApiEntrepriseIndexSerializer, status: 200
+  end
+
   def create
     authorize :admin, :admin?
     result = JwtApiEntreprise::Operation::Create.call(params: params)
