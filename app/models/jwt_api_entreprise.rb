@@ -15,6 +15,10 @@ class JwtApiEntreprise < ApplicationRecord
     "#{Time.zone.at(exp).strftime('%d/%m/%Y à %Hh%M')} (heure de Paris)"
   end
 
+  def renewal_url
+    "#{Rails.configuration.jwt_renewal_url}#{authorization_request_id}"
+  end
+
   def user_and_contacts_email
     Set[*contacts.pluck(:email)] << user.email
   end
