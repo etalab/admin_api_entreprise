@@ -3,7 +3,7 @@ class JwtApiEntrepriseController < ApplicationController
     authorize :admin, :admin?
 
     jwt_list = JwtApiEntreprise.all
-    render json: jwt_list, each_serializer: JwtApiEntrepriseSerializer, status: 200
+    render json: jwt_list, each_serializer: JwtApiEntrepriseIndexSerializer, status: 200
   end
 
   def create
