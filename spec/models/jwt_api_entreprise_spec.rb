@@ -86,6 +86,15 @@ describe JwtApiEntreprise, type: :model do
     end
   end
 
+  describe '#renewal_url' do
+    it 'returns the Signup\'s form URL' do
+      j = create(:jwt_api_entreprise, subject: 'coucou subject', authorization_request_id: '42')
+      url = Rails.configuration.jwt_renewal_url + '42'
+
+      expect(j.renewal_url).to eq(url)
+    end
+  end
+
   # TODO XXX This is temporary, the real "subject" of a JWT is set into the
   # #temp_use_case attribute when the #subject was fill with a SIRET number
   # (legacy reasons). Fix when the #temp_use_case attirbute isn't use anymore
