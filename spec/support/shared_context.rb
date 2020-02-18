@@ -6,7 +6,7 @@ end
 
 RSpec.shared_context 'user request' do
   before do
-    user = create(:confirmed_user)
+    user = create(:user, :confirmed)
     fill_request_headers_with_user_jwt(user.id)
   end
 end

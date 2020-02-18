@@ -13,7 +13,12 @@ module JwtApiEntreprise::Operation
 
     def send_expiration_notices(ctx, expiring_tokens:, expire_in:, **)
       expiring_tokens.each do |jwt|
-        JwtApiEntrepriseMailer.expiration_notice(jwt, expire_in).deliver_later
+        # TODO Clean when no more JWT issued from DS
+        if jwt.authorization_request_id == nil # Old JWT issued from DS
+          JwtApiEntrepriseMailer.expiration_notice_old(jwt, expire_in).deliver_later
+        else
+          JwtApiEntrepriseMailer.expiration_notice(jwt, expire_in).deliver_later
+        end
         jwt.days_left_notification_sent << expire_in
         jwt.save
       end

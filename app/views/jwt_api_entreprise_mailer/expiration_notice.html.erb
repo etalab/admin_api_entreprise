@@ -12,8 +12,9 @@
 
     <p><strong>Passée la date du <%= @jwt.user_friendly_exp_date %> les appels à API Entreprise avec ce jeton seront rejetés.</strong></p>
 
-    <p>Merci de contacter le support à l'adresse <%= mail_to(Rails.configuration.emails_sender_address) %> afin de procéder au renouvellement.</p>
+    <p>Le lien <%= link_to("suivant", @jwt.renewal_url) %> vous permet de demander le renouvellement de votre jeton. Le formulaire a été pré-rempli avec les données fournies lors de votre précédente demande d'accès, veuillez cependant vérifier que les informations sont à jour (notamment les coordonnées de contact) et les re-saisir dans le cas contraire. De plus, de nouvelles sources de données auxquelles vous auriez accès sont potentiellement disponibles depuis votre dernière demande !</p>
 
+    <p>N'hésitez pas à contacter le support en répondant directement à cet email si vous avez la moindre question.</p>
 
     <p>Cordialement,</p>
     <p>L'équipe API Entreprise</p>
