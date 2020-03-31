@@ -6,26 +6,28 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/api/admin/sidekiq'
 
   scope 'api/admin' do
+    # Authentication
+    post '/users/login'               => 'doorkeeper/tokens#create'
+    get  '/users/auth_api_gouv_token' => 'users#auth_api_gouv_token'
+    post '/users/confirm'             => 'users#confirm'
+    post '/users/password_renewal'    => 'users#password_renewal'
+    post '/users/password_reset'      => 'users#password_reset'
+
     # Incidents
-    get '/incidents'     => 'incidents#index'
-    post '/incidents'    => 'incidents#create'
-    put '/incidents/:id' => 'incidents#update'
+    get  '/incidents'     => 'incidents#index'
+    post '/incidents'     => 'incidents#create'
+    put  '/incidents/:id' => 'incidents#update'
 
     #roles
-    get '/roles'  => 'roles#index'
+    get  '/roles' => 'roles#index'
     post '/roles' => 'roles#create'
 
     # users
-    get '/users'        => 'users#index'
-    post '/users'       => 'users#create'
-    get '/users/:id'    => 'users#show'
-    patch '/users/:id'  => 'users#update'
+    get    '/users'     => 'users#index'
+    post   '/users'     => 'users#create'
+    get    '/users/:id' => 'users#show'
+    patch  '/users/:id' => 'users#update'
     delete '/users/:id' => 'users#destroy'
-
-    post '/users/login'            => 'doorkeeper/tokens#create'
-    post '/users/confirm'          => 'users#confirm'
-    post '/users/password_renewal' => 'users#password_renewal'
-    post '/users/password_reset'   => 'users#password_reset'
 
     # jwt_api_entreprise
     get   '/jwt_api_entreprise'                => 'jwt_api_entreprise#index'

@@ -60,6 +60,11 @@ describe 'Application routes' do
         .to route_to(controller: 'doorkeeper/tokens', action: 'create')
     end
 
+    it 'has a route to login from an API Gouv OAuth authorization code' do
+      expect(get('api/admin/users/auth_api_gouv_token?authorization_code=very_code'))
+        .to route_to(controller: 'users', action: 'auth_api_gouv_token', authorization_code: 'very_code')
+    end
+
     it 'has a confirm route' do
       expect(post('api/admin/users/confirm'))
         .to route_to(controller: 'users', action: 'confirm')
