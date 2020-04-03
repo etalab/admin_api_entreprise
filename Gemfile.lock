@@ -61,6 +61,8 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2)
+    addressable (2.7.0)
+      public_suffix (>= 2.0.2, < 5.0)
     ansi (1.5.0)
     ast (2.4.0)
     awesome_print (1.8.0)
@@ -73,6 +75,8 @@ GEM
     colorize (0.8.1)
     concurrent-ruby (1.1.6)
     connection_pool (2.2.2)
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
     crass (1.0.6)
     declarative (0.0.10)
     declarative-builder (0.1.0)
@@ -149,6 +153,7 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+    hashdiff (1.0.1)
     hirb (0.7.3)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
@@ -206,6 +211,7 @@ GEM
       pry (~> 0.13.0)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
+    public_suffix (4.0.3)
     puma (3.12.4)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
@@ -297,6 +303,7 @@ GEM
       unicode-display_width (>= 1.4.0, < 2.0)
     ruby-progressbar (1.10.1)
     ruby_dep (1.5.0)
+    safe_yaml (1.0.5)
     shellany (0.0.1)
     shoulda-matchers (4.3.0)
       activesupport (>= 4.2.0)
@@ -362,6 +369,11 @@ GEM
     uber (0.1.0)
     unicode-display_width (1.7.0)
     unindent (1.0)
+    vcr (5.1.0)
+    webmock (3.8.3)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff (>= 0.4.0, < 2.0.0)
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
@@ -411,6 +423,8 @@ DEPENDENCIES
   trailblazer (~> 2.1.0.rc13)
   tzinfo-data
   unindent
+  vcr
+  webmock
 
 BUNDLED WITH
    2.0.1

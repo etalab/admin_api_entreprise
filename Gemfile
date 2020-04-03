@@ -44,6 +44,8 @@ gem 'pastel'
 gem 'logstasher'
 
 group :development, :test do
+  gem 'vcr'
+  gem 'webmock'
   gem 'awesome_print'
   gem 'colorize'
   gem 'pry'

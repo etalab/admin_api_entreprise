@@ -12,6 +12,8 @@
 # the additional setup, and require it from the spec files that actually need
 # it.
 
+require 'vcr_helper'
+
 # Configuration for simplecov
 # Test coverage options (activated only if rspec is run without arguments)
 # Warning: Simplecov does not work with Spring
