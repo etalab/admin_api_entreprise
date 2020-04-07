@@ -6,6 +6,7 @@ describe User do
   describe 'db_columns' do
     it { is_expected.to have_db_column(:id).of_type(:uuid) }
     it { is_expected.to have_db_column(:email).of_type(:string) }
+    it { is_expected.to have_db_column(:oauth_api_gouv_id).of_type(:integer) }
     it { is_expected.to have_db_column(:context).of_type(:string) }
     it { is_expected.to have_db_column(:password_digest).of_type(:string) }
     it { is_expected.to have_db_column(:confirmation_token).of_type(:string) }
