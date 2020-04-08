@@ -2,7 +2,12 @@ require 'rake'
 
 module UsersFactory
   def self.inactive_user
-    params = { email: 'in@ctive.user', context: 'testing confirmation', cgu_agreement_date: '2019-12-26T14:38:45.490Z' }
+    params = {
+      email: 'in@ctive.user',
+      oauth_api_gouv_id: 1234,
+      context: 'testing confirmation',
+      cgu_agreement_date: '2019-12-26T14:38:45.490Z'
+    }
     operation_result = User::Operation::Create.call(params: params)
     operation_result[:model]
   end

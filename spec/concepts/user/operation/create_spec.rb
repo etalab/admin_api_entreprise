@@ -5,6 +5,7 @@ describe User::Operation::Create do
   let(:user_params) do
     {
       email: user_email,
+      oauth_api_gouv_id: 31442,
       context: 'very development',
       cgu_agreement_date: '2019-12-26T14:38:45.490Z'
     }
@@ -29,6 +30,7 @@ describe User::Operation::Create do
       end
 
       its(:email) { is_expected.to eq(user_params[:email]) }
+      its(:oauth_api_gouv_id) { is_expected.to eq(31442) }
       its(:context) { is_expected.to eq(user_params[:context]) }
       its(:password_digest) { is_expected.to be_blank }
       its(:confirmation_token) { is_expected.to match(/\A[0-9a-f]{20}\z/) }
@@ -97,6 +99,24 @@ describe User::Operation::Create do
 
         expect(subject).to be_success
         expect(errors).to be_nil
+      end
+    end
+
+    describe '#oauth_api_gouv_id' do
+      let(:errors) { subject['result.contract.default'].errors.messages[:oauth_api_gouv_id] }
+
+      it 'is required' do
+        user_params.delete(:oauth_api_gouv_id)
+
+        expect(subject).to be_failure
+        expect(errors).to include('must be filled')
+      end
+
+      it 'is an integer' do
+        user_params[:oauth_api_gouv_id] = '123'
+
+        expect(subject).to be_failure
+        expect(errors).to include('must be an integer')
       end
     end
 
