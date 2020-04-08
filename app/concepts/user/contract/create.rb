@@ -1,6 +1,7 @@
 module User::Contract
   class Create < Reform::Form
     property :email
+    property :oauth_api_gouv_id
     property :context
     property :note
     property :cgu_agreement_date
@@ -29,6 +30,7 @@ module User::Contract
       required(:context).maybe(:str?)
       required(:note).maybe(:str?)
       required(:cgu_agreement_date).filled(:datetime?)
+      required(:oauth_api_gouv_id).filled(:int?)
     end
   end
 end

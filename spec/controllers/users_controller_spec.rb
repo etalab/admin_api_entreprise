@@ -53,10 +53,10 @@ describe UsersController, type: :controller do
   end
 
   describe '#create' do
-    let(:user_params) { attributes_for :user }
     let(:user_params) do
       {
         email: 'user@email.com',
+        oauth_api_gouv_id: 123,
         context: 'very create',
         cgu_agreement_date: '2020-01-07T12:38:45.490Z'
       }
@@ -70,7 +70,7 @@ describe UsersController, type: :controller do
           .to receive(:call)
           .and_call_original
 
-        post(:create, params: user_params)
+        post(:create, params: user_params, as: :json)
       end
 
       context 'when data is not valid' do
@@ -79,7 +79,7 @@ describe UsersController, type: :controller do
           # This is not a quickwin since mocking a contract error message
           # is not simple.
           user_params[:email] = ''
-          post(:create, params: user_params)
+          post(:create, params: user_params, as: :json)
         end
 
         it 'returns code 422' do
@@ -99,24 +99,24 @@ describe UsersController, type: :controller do
         # returned HTTP code and payload is valid. This has already been tested
         # in the operation unit tests
         it 'saves the user into the database' do
-          expect { post(:create, params: user_params) }
+          expect { post(:create, params: user_params, as: :json) }
             .to change(User, :count).by(1)
         end
 
         it 'calls the mailer to send a confirmation email' do
           expect(UserMailer).to receive(:confirm_account_action).and_call_original
 
-          post(:create, params: user_params)
+          post(:create, params: user_params, as: :json)
         end
 
         it 'returns code 201' do
-          post(:create, params: user_params)
+          post(:create, params: user_params, as: :json)
 
           expect(response.code).to eq('201')
         end
 
         it 'returns the created user' do
-          post(:create, params: user_params)
+          post(:create, params: user_params, as: :json)
 
           expect(response_json).to match({
             id: a_kind_of(String),
