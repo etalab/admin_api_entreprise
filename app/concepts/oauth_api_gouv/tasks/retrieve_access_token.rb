@@ -1,5 +1,5 @@
-module OAuthApiGouv::Operation
-  class Authenticate < Trailblazer::Operation
+module OAuthApiGouv::Tasks
+  class RetrieveAccessToken < Trailblazer::Operation
     step :request_access_tokens
     step :valid_response?
     fail :log_error
