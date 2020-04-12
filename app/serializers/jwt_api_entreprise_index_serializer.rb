@@ -1,5 +1,5 @@
 class JwtApiEntrepriseIndexSerializer < ActiveModel::Serializer
-  attributes :id, :user_id, :iat, :exp, :blacklisted, :archived
+  attributes :id, :user_id, :iat, :exp, :blacklisted, :archived, :authorization_request_id
 
   attribute :subject
 
