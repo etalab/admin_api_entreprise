@@ -42,7 +42,8 @@ describe JwtApiEntrepriseController, type: :controller do
             iat: Integer,
             exp: Integer,
             blacklisted: be(true).or(be(false)),
-            archived: be(true).or(be(false))
+            archived: be(true).or(be(false)),
+            authorization_request_id: String
           })
         )
       end
