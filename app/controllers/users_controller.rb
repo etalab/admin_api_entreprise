@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :jwt_authenticate!, only: [:confirm, :password_renewal, :password_reset, :auth_api_gouv_token]
+  skip_before_action :jwt_authenticate!, only: [:confirm, :password_renewal, :password_reset]
 
   def index
     authorize :admin, :admin?
@@ -80,10 +80,6 @@ class UsersController < ApplicationController
     else
       render json: { errors: renewal_request[:errors] }, status: 422
     end
-  end
-
-  def auth_api_gouv_token
-    render json: 'yeah', status: 200
   end
 
   private

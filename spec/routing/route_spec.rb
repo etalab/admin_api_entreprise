@@ -29,6 +29,14 @@ describe 'Application routes' do
     end
   end
 
+  describe 'oauth_api_gouv' do
+    it 'has a route to login with an authorization code' do
+      expect(get('api/admin/oauth_api_gouv/login?authorization_code=very_code'))
+        .to route_to(controller: 'oauth_api_gouv', action: 'login', authorization_code: 'very_code')
+    end
+
+  end
+
   describe 'users' do
     it 'has an index route' do
       expect(get('api/admin/users'))
@@ -58,11 +66,6 @@ describe 'Application routes' do
     it 'has a login route' do
       expect(post('api/admin/users/login'))
         .to route_to(controller: 'doorkeeper/tokens', action: 'create')
-    end
-
-    it 'has a route to login from an API Gouv OAuth authorization code' do
-      expect(get('api/admin/users/auth_api_gouv_token?authorization_code=very_code'))
-        .to route_to(controller: 'users', action: 'auth_api_gouv_token', authorization_code: 'very_code')
     end
 
     it 'has a confirm route' do

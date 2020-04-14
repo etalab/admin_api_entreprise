@@ -7,8 +7,8 @@ Rails.application.routes.draw do
 
   scope 'api/admin' do
     # Authentication
+    get  '/oauth_api_gouv/login'      => 'oauth_api_gouv#login'
     post '/users/login'               => 'doorkeeper/tokens#create'
-    get  '/users/auth_api_gouv_token' => 'users#auth_api_gouv_token'
     post '/users/confirm'             => 'users#confirm'
     post '/users/password_renewal'    => 'users#password_renewal'
     post '/users/password_reset'      => 'users#password_reset'
