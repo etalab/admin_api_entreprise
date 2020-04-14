@@ -18,8 +18,7 @@ describe OAuthApiGouv::Tasks::RetrieveUserInfo do
     end
 
     context 'when the related user exists' do
-      # Here the specified ID is the one recorded in the cassette
-      let!(:user) { create(:user, oauth_api_gouv_id: 5037) }
+      let!(:user) { create(:user, :known_api_gouv_user) }
 
       it { is_expected.to be_success }
 
@@ -27,12 +26,6 @@ describe OAuthApiGouv::Tasks::RetrieveUserInfo do
         db_user = fetch_user![:user]
 
         expect(db_user).to eq(user)
-      end
-
-      it 'returns a JWT to access to the dashboard' do
-        dashboard_token = fetch_user![:dashboard_token]
-
-        expect(dashboard_token).to match(/.+\..+\..+/)
       end
     end
   end

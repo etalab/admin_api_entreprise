@@ -4,14 +4,11 @@ describe OAuthApiGouv::Tasks::RetrieveAccessToken do
   subject(:retrieve_tokens!) { described_class.call(authorization_code: code) }
 
   context 'when the authorization code is valid' do
-    let(:code) { '4Z4DB7FEr405jLYEA2teJctiMkIvgOwEBvejwZfU0X9' }
+    let(:code) { OAuthApiGouv::AuthorizationCode.valid }
 
     context 'when Admin API credentials are valid', vcr: { cassette_name: 'oauth_api_gouv_valid_call' } do
-      # Time when the recorded ID Token hasn't expired yet
-      let(:id_token_alive_time) { Time.at(1585921500) }
-
       context 'when the ID Token is valid' do
-        before { Timecop.freeze(id_token_alive_time) }
+        include_context 'oauth api gouv valid call'
 
         it 'returns an Access Token' do
           access_token = retrieve_tokens![:access_token]
@@ -32,8 +29,6 @@ describe OAuthApiGouv::Tasks::RetrieveAccessToken do
 
           expect(user_id).to be_an(Integer)
         end
-
-        after { Timecop.return }
       end
 
       context 'when the ID Token is not valid' do
@@ -66,10 +61,10 @@ describe OAuthApiGouv::Tasks::RetrieveAccessToken do
         end
 
         describe 'invalid audience' do
+          include_context 'oauth api gouv valid call'
           # No way to forge the JWT with another 'aud' claim, so let's use the
           # valid JWT and modify the expected audience value instead
           before do
-            Timecop.freeze(id_token_alive_time)
             allow(Rails.configuration).to receive(:oauth_api_gouv_client_id).and_return('lol audience')
           end
 
@@ -81,15 +76,13 @@ describe OAuthApiGouv::Tasks::RetrieveAccessToken do
 
             retrieve_tokens!
           end
-
-          after { Timecop.return }
         end
 
         describe 'invalid issuer' do
+          include_context 'oauth api gouv valid call'
           # No way to forge the JWT with another 'iss' claim, so let's use the
           # valid JWT and modify the expected issuer value instead
           before do
-            Timecop.freeze(id_token_alive_time)
             allow(Rails.configuration).to receive(:oauth_api_gouv_issuer).and_return('lol issuer')
           end
 
@@ -101,8 +94,6 @@ describe OAuthApiGouv::Tasks::RetrieveAccessToken do
 
             retrieve_tokens!
           end
-
-          after { Timecop.return }
         end
 
         # ID tokens expire in 3h, let's run the test with a valid one
@@ -149,7 +140,7 @@ describe OAuthApiGouv::Tasks::RetrieveAccessToken do
   end
 
   context 'when the authorization code is invalid', vcr: { cassette_name: 'oauth_api_gouv_invalid_authorization_code' } do
-    let(:code) { 'coucode' }
+    let(:code) { OAuthApiGouv::AuthorizationCode.invalid }
 
     it { is_expected.to be_failure }
 
