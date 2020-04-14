@@ -4,6 +4,7 @@ module OAuthApiGouv::Tasks
     step :valid_response?
     fail :log_error
     step :find_related_user, Output(:failure) => End(:unknown_user)
+    step :generate_token_for_dashboard_access
 
 
     def call_user_info_endpoint(ctx, access_token:, **)
@@ -26,6 +27,12 @@ module OAuthApiGouv::Tasks
 
     def log_error(ctx, raw_response:, **)
       Rails.logger.error("OAuth User Info call failed: status #{raw_response.code}, description #{raw_response.body}")
+    end
+
+    # Generate a JWT the way Doorkeeper does it
+    # TODO Refactor when removing Doorkeeper dependency
+    def generate_token_for_dashboard_access(ctx, user:, **)
+      ctx[:dashboard_token] = JWTF.generate(resource_owner_id: user.id)
     end
   end
 end

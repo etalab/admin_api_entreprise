@@ -28,6 +28,12 @@ describe OAuthApiGouv::Tasks::RetrieveUserInfo do
 
         expect(db_user).to eq(user)
       end
+
+      it 'returns a JWT to access to the dashboard' do
+        dashboard_token = fetch_user![:dashboard_token]
+
+        expect(dashboard_token).to match(/.+\..+\..+/)
+      end
     end
   end
 
