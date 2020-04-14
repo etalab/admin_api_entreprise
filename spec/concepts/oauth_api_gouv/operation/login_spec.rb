@@ -70,15 +70,19 @@ describe OAuthApiGouv::Operation::Login, type: :jwt do
 
       it 'is required' do
         op_params.delete(:authorization_code)
+        final_state = login!.event.to_h[:semantic]
 
         expect(login!).to be_failure
+        expect(final_state).to eq(:invalid_params)
         expect(errors).to include(authorization_code: ['is missing'])
       end
 
       it 'is a string' do
         op_params[:authorization_code] = 123
+        final_state = login!.event.to_h[:semantic]
 
         expect(login!).to be_failure
+        expect(final_state).to eq(:invalid_params)
         expect(errors).to include(authorization_code: ['must be a string'])
       end
     end
