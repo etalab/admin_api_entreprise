@@ -44,8 +44,6 @@ gem 'pastel'
 gem 'logstasher'
 
 group :development, :test do
-  gem 'vcr'
-  gem 'webmock'
   gem 'awesome_print'
   gem 'colorize'
   gem 'pry'
@@ -67,6 +65,8 @@ group :development do
 end
 
 group :test do
+  gem 'vcr'
+  gem 'webmock'
   gem 'spring-commands-rspec'
   gem 'rspec-rails'
   gem 'rspec-its'
