@@ -33,7 +33,7 @@ describe OAuthApiGouvController, type: :controller do
 
         it 'returns an error message' do
           get :login, params: login_params, as: :json
-          msg = response_json[:error]
+          msg = response_json[:errors]
 
           expect(msg).to eq('Utilisateur inconnu du service API Entreprise.')
         end
@@ -48,7 +48,7 @@ describe OAuthApiGouvController, type: :controller do
 
         it 'returns an error message' do
           get :login, params: login_params, as: :json
-          msg = response_json[:error]
+          msg = response_json[:errors]
 
           expect(msg).to eq('Une erreur est survenue lors des échanges avec OAuth API Gouv. Contactez API Entreprise à support@entreprise.api.gouv.fr si le problème persiste.')
         end
@@ -58,15 +58,15 @@ describe OAuthApiGouvController, type: :controller do
     context 'when authorization_code param is invalid', vcr: { cassette_name: 'oauth_api_gouv_invalid_authorization_code' } do
       let(:code) { OAuthApiGouv::AuthorizationCode.invalid }
 
-      it 'returns HTTP code 422' do
+      it 'returns HTTP code 401' do
         get :login, params: login_params, as: :json
 
-        expect(response.code).to eq('422')
+        expect(response.code).to eq('401')
       end
 
       it 'returns an error message' do
         get :login, params: login_params, as: :json
-        msg = response_json[:error]
+        msg = response_json[:errors]
 
         expect(msg).to eq('Erreur lors de l\'authentification : authorization code invalide.')
       end
@@ -83,7 +83,7 @@ describe OAuthApiGouvController, type: :controller do
 
       it 'returns an error message' do
         get :login, params: login_params, as: :json
-        msg = response_json[:error]
+        msg = response_json[:errors]
 
         expect(msg).to eq(authorization_code: ["must be filled"])
       end

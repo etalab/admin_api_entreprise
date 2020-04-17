@@ -11,14 +11,14 @@ class OAuthApiGouvController < ApplicationController
       final_state = signin.event.to_h[:semantic]
 
       if final_state == :unknown_user
-        render json: { error: 'Utilisateur inconnu du service API Entreprise.' }, status: 422
+        render json: { errors: 'Utilisateur inconnu du service API Entreprise.' }, status: 422
       elsif final_state == :invalid_authorization_code
-        render json: { error: 'Erreur lors de l\'authentification : authorization code invalide.' }, status: 422
+        render json: { errors: 'Erreur lors de l\'authentification : authorization code invalide.' }, status: 401
       elsif final_state == :invalid_params
         err = signin['result.contract.default'].errors
-        render json: { error: err }, status: 422
+        render json: { errors: err }, status: 422
       elsif final_state == :failure
-        render json: { error: 'Une erreur est survenue lors des échanges avec OAuth API Gouv. Contactez API Entreprise à support@entreprise.api.gouv.fr si le problème persiste.' }, status: 502
+        render json: { errors: 'Une erreur est survenue lors des échanges avec OAuth API Gouv. Contactez API Entreprise à support@entreprise.api.gouv.fr si le problème persiste.' }, status: 502
       end
     end
   end
