@@ -99,7 +99,7 @@ describe OAuthApiGouv::Tasks::RetrieveAccessToken do
         # ID tokens expire in 3h, let's run the test with a valid one
         # freezing the time 4 hours later
         describe 'expired id token' do
-          before { Timecop.freeze(Time.zone.now + 14400) }
+          before { Timecop.freeze(Time.zone.now + 4.hours) }
 
           it_behaves_like :jwt_validation_failure
 
