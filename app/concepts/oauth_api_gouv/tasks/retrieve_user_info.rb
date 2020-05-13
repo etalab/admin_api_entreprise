@@ -1,3 +1,5 @@
+require "net/http"
+
 module OAuthApiGouv::Tasks
   class RetrieveUserInfo < Trailblazer::Operation
     step :call_user_info_endpoint
