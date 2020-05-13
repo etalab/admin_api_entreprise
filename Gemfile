@@ -28,13 +28,13 @@ gem 'sidekiq'
 gem 'sidekiq-cron'
 
 gem 'doorkeeper', '~> 4.4.0'
-gem 'jwtf', '~> 0.1'
-gem 'jwt', '~> 2.0'
+gem 'jwtf', '0.2.0'
+gem 'jwt', '~> 2.2.1'
 gem 'active_model_serializers', '~> 0.10.0'
 
-gem 'trailblazer', '~> 2.1.0.rc13'
+gem 'trailblazer', '~> 2.1.0'
 gem 'reform-rails'
-gem 'reform', '2.3.0.rc1'
+gem 'reform', '~> 2.3.0.rc1'
 gem 'dry-validation', '~> 0.11.1'
 
 gem 'pundit', '~> 1.1'
@@ -65,6 +65,8 @@ group :development do
 end
 
 group :test do
+  gem 'vcr'
+  gem 'webmock'
   gem 'spring-commands-rspec'
   gem 'rspec-rails'
   gem 'rspec-its'

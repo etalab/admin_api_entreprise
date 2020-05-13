@@ -52,4 +52,9 @@ Rails.application.configure do
 
   config.redis_database = 'redis://localhost:6379/0'
   config.emails_sender_address = 'support@entreprise.api.gouv.fr'
+
+  # OAuth API Gouv config
+  config.oauth_api_gouv_client_id = '4442bfd8caac8e19ff202d33060edcd248592662d5a8098e28b706ba906fe9e0db95ad336c38248f42896db272990b8dfc969d8b8857101dabf9b2ffe7ec49b9'
+  config.oauth_api_gouv_issuer = 'http://localhost:3000'
+  config.oauth_api_gouv_redirect_uri = 'http://localhost:8080/auth_api_gouv_callback'
 end

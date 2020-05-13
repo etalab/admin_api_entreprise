@@ -1,0 +1,209 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://auth-staging.api.gouv.fr/oauth/token
+    body:
+      encoding: US-ASCII
+      string: grant_type=authorization_code&code=4Z4DB7FEr405jLYEA2teJctiMkIvgOwEBvejwZfU0X9&client_id=4442bfd8caac8e19ff202d33060edcd248592662d5a8098e28b706ba906fe9e0db95ad336c38248f42896db272990b8dfc969d8b8857101dabf9b2ffe7ec49b9&client_secret=<OAUTH_API_GOUV_CLIENT_SECRET>&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fauth_api_gouv_callback
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - auth-staging.api.gouv.fr
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.10.3 (Ubuntu)
+      Date:
+      - Fri, 03 Apr 2020 13:33:50 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '1683'
+      Connection:
+      - keep-alive
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=15552000
+      - max-age=15552000; includeSubDomains
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Security-Policy:
+      - default-src 'self'; img-src 'self' stats.data.gouv.fr; connect-src 'self'
+        entreprise.data.gouv.fr; script-src 'self' stats.data.gouv.fr; style-src 'self'
+        unpkg.com; font-src 'self' unpkg.com
+      X-Content-Security-Policy:
+      - default-src 'self'; img-src 'self' stats.data.gouv.fr; connect-src 'self'
+        entreprise.data.gouv.fr; script-src 'self' stats.data.gouv.fr; style-src 'self'
+        unpkg.com; font-src 'self' unpkg.com
+      X-Webkit-Csp:
+      - default-src 'self'; img-src 'self' stats.data.gouv.fr; connect-src 'self'
+        entreprise.data.gouv.fr; script-src 'self' stats.data.gouv.fr; style-src 'self'
+        unpkg.com; font-src 'self' unpkg.com
+      Vary:
+      - Origin
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-cache, no-store
+      Set-Cookie:
+      - connect.sid=s%3AYQpddF592m_ySDYxSbqjUduCjtfr8p1s.4%2FJFllYZ6tsBU%2BoQY3ZYYymMG2b2PdcG0iotqcHpOBs;
+        Path=/; Expires=Sat, 04 Apr 2020 13:33:50 GMT; HttpOnly; Secure
+    body:
+      encoding: UTF-8
+      string: '{"access_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFlRE5WTy1tVTNVR2ZQNlVYbElRY09lN295cmtxNm5LcTlVeTdLWVByZzQifQ.eyJqdGkiOiJwVXF6cnpRZDlJNGZ5bmg3ekdsRmEiLCJzdWIiOjUwMzcsImlhdCI6MTU4NTkyMDgzMCwiZXhwIjoxNTg1OTMxNjMwLCJzY29wZSI6Im9wZW5pZCBlbWFpbCIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCIsImF1ZCI6IjQ0NDJiZmQ4Y2FhYzhlMTlmZjIwMmQzMzA2MGVkY2QyNDg1OTI2NjJkNWE4MDk4ZTI4YjcwNmJhOTA2ZmU5ZTBkYjk1YWQzMzZjMzgyNDhmNDI4OTZkYjI3Mjk5MGI4ZGZjOTY5ZDhiODg1NzEwMWRhYmY5YjJmZmU3ZWM0OWI5In0.rEsKINoN2ZdZ4yq9lK8FdA5dqwQ06z6NJj4RAne5anzcX1uO9hAlCFazlJ0KvTIjfxBFdLtgzrTMZQ8vl-QKvwZS5vUCaGz-oF7CwkVSqo03lCmmOClmcA_aD6vMhGIGgBngZvc-TBqz-84cBZDC0JFarOYCf9eq3cnvgTel1W9I4f79dfHKaWtHpEuilPQ-dANkNFakazSESSgUSMEuMbf-wU4jm4mK9YcnHJgZbZUcMDF9q3I55Aea5MsjomNndkSrFw_L5hj3h9Ss6czHUce0AaGGA0K96P9QyhlCibm2I05TDZJLSGBb0jNmVE2Q5Oxjxz7KoTxgwLkrJf1NMQ","expires_in":10800,"id_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFlRE5WTy1tVTNVR2ZQNlVYbElRY09lN295cmtxNm5LcTlVeTdLWVByZzQifQ.eyJzdWIiOjUwMzcsImF0X2hhc2giOiJWMENCeTFYOTBlOEoyUXhTM3h6NWpRIiwiYXVkIjoiNDQ0MmJmZDhjYWFjOGUxOWZmMjAyZDMzMDYwZWRjZDI0ODU5MjY2MmQ1YTgwOThlMjhiNzA2YmE5MDZmZTllMGRiOTVhZDMzNmMzODI0OGY0Mjg5NmRiMjcyOTkwYjhkZmM5NjlkOGI4ODU3MTAxZGFiZjliMmZmZTdlYzQ5YjkiLCJleHAiOjE1ODU5MzE2MzAsImlhdCI6MTU4NTkyMDgzMCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIn0.Kt4CoYL9CQu78ez-c9ap6UETE9-5Qu84BrYVpViFGWY6nzYkff_gdt0KIIJmke2aJQWLuoQk6cHPf-78R0ocMjG7-pDd7jI9uvRTnwrDdkY9CMr991rG-FeQA2HMC_kM7sfZRpQH90IyU7B1GtCdMLhqwbkeAJUIExRvYF-zulqn51SmzaKpdxHdorhZ6z1HiSkJUnNgeZm9Opm6SqiOIwrpS7khN6Wz0Rd2igkoKploG25fqTiCI8fULVwAwd-OufEpZvhZWOJ41oADbf3A5V9PN-C7ddN-EcjisbxI8s6hvIWPIUmWjtxjMJNy8bTiDQMv2Y92B411o7lSP-KY9A","scope":"openid
+        email","token_type":"Bearer"}'
+    http_version: null
+  recorded_at: Fri, 03 Apr 2020 13:20:00 GMT
+- request:
+    method: get
+    uri: https://auth-staging.api.gouv.fr/jwks
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - auth-staging.api.gouv.fr
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.10.3 (Ubuntu)
+      Date:
+      - Fri, 03 Apr 2020 13:33:50 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '1412'
+      Connection:
+      - keep-alive
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=15552000
+      - max-age=15552000; includeSubDomains
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Security-Policy:
+      - default-src 'self'; img-src 'self' stats.data.gouv.fr; connect-src 'self'
+        entreprise.data.gouv.fr; script-src 'self' stats.data.gouv.fr; style-src 'self'
+        unpkg.com; font-src 'self' unpkg.com
+      X-Content-Security-Policy:
+      - default-src 'self'; img-src 'self' stats.data.gouv.fr; connect-src 'self'
+        entreprise.data.gouv.fr; script-src 'self' stats.data.gouv.fr; style-src 'self'
+        unpkg.com; font-src 'self' unpkg.com
+      X-Webkit-Csp:
+      - default-src 'self'; img-src 'self' stats.data.gouv.fr; connect-src 'self'
+        entreprise.data.gouv.fr; script-src 'self' stats.data.gouv.fr; style-src 'self'
+        unpkg.com; font-src 'self' unpkg.com
+      Vary:
+      - Origin
+      Set-Cookie:
+      - connect.sid=s%3AbvAOzvvSDVnlpTiEo0Z-t9gRTGZQL2RP.f45sZDFvf%2Bj3Jsaf1uzborY4uLrx7pNKfQ4t2NhtQYQ;
+        Path=/; Expires=Sat, 04 Apr 2020 13:33:50 GMT; HttpOnly; Secure
+    body:
+      encoding: UTF-8
+      string: '{"keys":[{"crv":"P-256","x":"gDprfWE_RsCb8a3BynIXgJtZUSzpHv4ajCfyfS26Ins","y":"AnyddogAFQVPhwvUrtl0bSg7VmBHp5j12Q_H1EsZ_H0","kty":"EC","kid":"crZez2ZFQh7BhbEK87mRf5IpEOSUAhYovqjQpGReJuk","use":"sig"},{"crv":"P-256","x":"JGmZumP48-NXJSKInIruqfSBy-Cl3VRyjmyaThpVUWc","y":"8LpgoDIRct_N6sfU4LJVnz2T9Sa05l4oYv4M7_rbmFc","kty":"EC","kid":"cgOHygKULSX83Md32nrECSqzOPoJb4GQ1ZHgxPq6uWw","use":"enc"},{"crv":"Ed25519","x":"OZhhCZ9LPOfelTVVn53J0dm5q1LeFg5jKncVwcj2_dQ","kty":"OKP","kid":"3R-pD7ZiDHzEnzfjcrKyOoSMR2hwF-nG1Pk26uVq1WE","use":"sig"},{"e":"AQAB","n":"11cFYjLOqP_xIjZjhxk5tM1zw2a5e_fp1DTr-gFsU0yIYC8aMnW_ePrOabIa-taPmewcJ27zAcoxWqvAohSYZldQnEzWe4i1T7WK2HEoRkm0rJSe118X_KqlHycy1PmrTZaRLKH9Wsc2nhZ-awR-fD5vrn-AFWBfw9VHnQewnqsM0bUeiXbVEUrX8VlmFvGlBTgB5mX1b7rp-rIUXzxiC26RC4VmgurMYjPA8yWxSu80UXJJj0_Il0fxeL_1DJck68wWIS3oaRgdvX57SXCMYlROh2is-JlUN07VRXHVl9Ifz_kU9sDpyJ4S7HmlSv9oaNOrJvQlTG5yHmE-hUFA5w","kty":"RSA","kid":"Ldg4LlKIGK6TVHPA00X_4moKoMkPlBDiNHK77YxGhtk","use":"enc"},{"e":"AQAB","n":"4j5CL-dY3m_bSXHhnWhLhqCCCnfeVeJkB5trEE-5wHMMQcfZRZVko32EcQqS5EUPJ23gFegwzlwP0WvoanFGnBRYb3QfTgkrO6oq8-PhBQR0sMTjG8IqUs0htlXewEtSuYN8Ac5qmLx8WEBbHfh2mHwQM6CH3THiUtGKEumm_7sx_anffOUvS-bRZT7WuOV93guI5hhsn3bxLejl93tCGhT-zukIlu6tE2pT_8qFpL8r5Av_r9QQRfAjOdWGiTvqkHZ7CwpGZ5nhC3NYJv76zEY6R-aIHOZNMXqxQB7wC7kw08gpmzZQ0VA3rx77CKYBKdEjluxrPKWzsncglQAyCw","kty":"RSA","kid":"QeDNVO-mU3UGfP6UXlIQcOe7oyrkq6nKq9Uy7KYPrg4","use":"sig"}]}'
+    http_version: null
+  recorded_at: Fri, 03 Apr 2020 13:20:00 GMT
+- request:
+    method: get
+    uri: https://auth-staging.api.gouv.fr/oauth/userinfo
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Authorization:
+      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFlRE5WTy1tVTNVR2ZQNlVYbElRY09lN295cmtxNm5LcTlVeTdLWVByZzQifQ.eyJqdGkiOiJjaDJmbXBWVU5fRnR4ZFlHRks0SXciLCJzdWIiOjUwMzcsImlhdCI6MTU4NjQyNDA5MiwiZXhwIjoxNTg2NDM0ODkyLCJzY29wZSI6Im9wZW5pZCBlbWFpbCIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCIsImF1ZCI6IjQ0NDJiZmQ4Y2FhYzhlMTlmZjIwMmQzMzA2MGVkY2QyNDg1OTI2NjJkNWE4MDk4ZTI4YjcwNmJhOTA2ZmU5ZTBkYjk1YWQzMzZjMzgyNDhmNDI4OTZkYjI3Mjk5MGI4ZGZjOTY5ZDhiODg1NzEwMWRhYmY5YjJmZmU3ZWM0OWI5In0.jucBE7qWYFjfRUg7sBP0rS9a_mHo35oVVJuAVKzI4h9AC5V_P47ZsiOVcIsTrKCtEiD7dDYU7y84wZXtQ52LU-Jvf1svcNsoOEgNGbKm-NgK8cjS021XPciRCYvdkaHdP8jPz5UyG4RrnoP6cevn2YyB9En7jl60d1GHaSJQPm5bHM36ESBr_pu4w_1ZhbnI57yRyNZSsKKkjbgG1gA5cUgVZpzKdovvlEE3vdm3MldFKQycQR57hTgr0aGljC2FzrXFKk8Wg-D4dcrdsrF1fV15gdQ8HonlwYQrmlWjh8hAHoJL2hYeZ8O02NjtIb-k8U9TCtuRk4kXuBrtuVHkWw
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.10.3 (Ubuntu)
+      Date:
+      - Thu, 09 Apr 2020 10:38:01 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '75'
+      Connection:
+      - keep-alive
+      X-Dns-Prefetch-Control:
+      - 'off'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=15552000
+      - max-age=15552000; includeSubDomains
+      X-Download-Options:
+      - noopen
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Security-Policy:
+      - default-src 'self'; img-src 'self' stats.data.gouv.fr; connect-src 'self'
+        entreprise.data.gouv.fr; script-src 'self' stats.data.gouv.fr; style-src 'self'
+        unpkg.com; font-src 'self' unpkg.com
+      X-Content-Security-Policy:
+      - default-src 'self'; img-src 'self' stats.data.gouv.fr; connect-src 'self'
+        entreprise.data.gouv.fr; script-src 'self' stats.data.gouv.fr; style-src 'self'
+        unpkg.com; font-src 'self' unpkg.com
+      X-Webkit-Csp:
+      - default-src 'self'; img-src 'self' stats.data.gouv.fr; connect-src 'self'
+        entreprise.data.gouv.fr; script-src 'self' stats.data.gouv.fr; style-src 'self'
+        unpkg.com; font-src 'self' unpkg.com
+      Vary:
+      - Origin
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-cache, no-store
+      Set-Cookie:
+      - connect.sid=s%3AyvmGgOp7F8wloD7j3PrhGga_rKK8d1qe.7sE51CqtVGZTqLoAPzhFs%2BlQ90NBGhWNUPpOCJ5c17M;
+        Path=/; Expires=Fri, 10 Apr 2020 10:38:01 GMT; HttpOnly; Secure
+    body:
+      encoding: UTF-8
+      string: '{"sub":5037,"email":"alexandre.depablo@data.gouv.fr","email_verified":true}'
+    http_version: null
+  recorded_at: Thu, 09 Apr 2020 10:38:01 GMT
+recorded_with: VCR 5.1.0
