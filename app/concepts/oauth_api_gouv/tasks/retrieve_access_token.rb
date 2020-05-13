@@ -1,3 +1,5 @@
+require "net/http"
+
 module OAuthApiGouv::Tasks
   class RetrieveAccessToken < Trailblazer::Operation
     step :request_access_tokens
