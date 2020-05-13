@@ -11,7 +11,7 @@ RSpec.shared_context 'user request' do
   end
 end
 
-RSpec.shared_context 'oauth api gouv valid call' do
+RSpec.shared_context 'oauth api gouv fresh token' do
   # Time when the recorded ID Token hasn't expired yet
   let(:id_token_alive_time) { Time.at(1585921500) }
 

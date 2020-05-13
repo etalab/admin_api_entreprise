@@ -5,7 +5,7 @@ describe OAuthApiGouvController, type: :controller do
     let(:login_params) { { authorization_code: code } }
 
     context 'when the authorization code is valid', vcr: { cassette_name: 'oauth_api_gouv_valid_call' } do
-      include_context 'oauth api gouv valid call'
+      include_context 'oauth api gouv fresh token'
       let(:code) { OAuthApiGouv::AuthorizationCode.valid }
 
       context 'when the authenticated user exists' do

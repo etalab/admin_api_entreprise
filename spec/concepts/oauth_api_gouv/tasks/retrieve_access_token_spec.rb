@@ -8,7 +8,7 @@ describe OAuthApiGouv::Tasks::RetrieveAccessToken do
 
     context 'when Admin API credentials are valid', vcr: { cassette_name: 'oauth_api_gouv_valid_call' } do
       context 'when the ID Token is valid' do
-        include_context 'oauth api gouv valid call'
+        include_context 'oauth api gouv fresh token'
 
         it 'returns an Access Token' do
           access_token = retrieve_tokens![:access_token]
@@ -61,7 +61,7 @@ describe OAuthApiGouv::Tasks::RetrieveAccessToken do
         end
 
         describe 'invalid audience' do
-          include_context 'oauth api gouv valid call'
+          include_context 'oauth api gouv fresh token'
           # No way to forge the JWT with another 'aud' claim, so let's use the
           # valid JWT and modify the expected audience value instead
           before do
@@ -79,7 +79,7 @@ describe OAuthApiGouv::Tasks::RetrieveAccessToken do
         end
 
         describe 'invalid issuer' do
-          include_context 'oauth api gouv valid call'
+          include_context 'oauth api gouv fresh token'
           # No way to forge the JWT with another 'iss' claim, so let's use the
           # valid JWT and modify the expected issuer value instead
           before do
