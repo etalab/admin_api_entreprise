@@ -21,7 +21,7 @@ FactoryBot.define do
   end
 
   trait :expiring_within_3_month do
-    exp { Faker::Time.forward(days: 90) }
+    exp { Faker::Time.forward(days: 88) }
   end
 
   trait :expiring_in_1_year do
