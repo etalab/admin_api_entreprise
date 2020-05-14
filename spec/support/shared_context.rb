@@ -13,7 +13,7 @@ end
 
 RSpec.shared_context 'oauth api gouv fresh token' do
   # Time when the recorded ID Token hasn't expired yet
-  let(:id_token_alive_time) { Time.at(1585921500) }
+  let(:id_token_alive_time) { Time.at(1589460000) }
 
   before { Timecop.freeze(id_token_alive_time) }
 
