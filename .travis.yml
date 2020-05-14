@@ -1,12 +1,14 @@
 language: ruby
 cache: bundle
 service:
-  - postgresql
+- postgresql
 addons:
   postgresql: '9.6'
 before_script:
-  - bundle exec rake dev:init
-  - psql -U postgres -f postgresql_setup.txt
-  - RAILS_ENV=test bundle exec rails db:migrate
+- bundle exec rake dev:init
+- psql -U postgres -f postgresql_setup.txt
+- RAILS_ENV=test bundle exec rails db:migrate
 script:
-  - bundle exec rspec
+- bundle exec rspec
+env:
+  secure: gRdkqgSuZESEJr8OLUxfYflmqAZKyUezPS5qwYIU66lFHembUo3sS0FCI3vO/Tim/Q9WODwFW+Hrmcpxx56Zuok4mnUpFk/4UDZOPNnnfAzDMm692bRXbbA1B94eovCp0VYpr79hQ8Fw8JB3ItLN7YLsbc1r0+M3L3J1fecoOK5GVWRWzrYx4dSTjg80PsuATwOHlNSNgQWPlccpQUNDC6MgoRPzkVvFb6zCuxOctrFA7CTgNPfddhb9IcyfFV915KHywmcQ58nFNtt1c1hEE2zLDK4ebashxE9ihbcs6OpoAauvZdb4/3gtNNm7z7B79hsg9RgxT2UT+422Gucy8zsB4TFvy1HmySsbCdJ6yMpDL/r0oiLJNLiLm3fBdqCW4g2QoiG16QJ1nrJRZdqE0nVl8roiFuG0bi6HoZrYgKdWOx1QDOq2fNjmCVJQLAfYDwMp/2dT5yq9A3hWds0xa+6gqGNKrNdjk+77a4FihfnAL8ZpSVHnKwFWGlInE17kDVnQH16ri93NBmi/H1KmmQ2mk2ue3qLwC7zJvgz4ymGNF3c7taK7mpoFYEvW/Nm+ZGBqnHzYIAiikTgSqAk28Hof+bsG9g9nL8rAfrmnN0OUL9nqkZdRQEOuwGXVvlIIL5YMMyTLnDpDURKPlLPykdSzRG+ekzrlFYQb0zr+1Cw=

@@ -3,7 +3,7 @@ require 'fileutils'
 namespace :dev do
   desc 'initialize dev environment'
   task :init do
-    create_secrets
+    # create_secrets
   end
 
   def create_secrets
