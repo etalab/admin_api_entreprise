@@ -12,7 +12,7 @@ FactoryBot.define do
     end
 
     factory :admin do
-      id { Rails.application.secrets.fetch(:admin_uid) }
+      id { Rails.application.credentials.admin_uid }
     end
 
     trait :known_api_gouv_user do

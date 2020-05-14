@@ -18,7 +18,7 @@ module OAuthApiGouv::Tasks
         grant_type: 'authorization_code',
         code: authorization_code,
         client_id: Rails.configuration.oauth_api_gouv_client_id,
-        client_secret: Rails.application.secrets.oauth_api_gouv_client_secret,
+        client_secret: Rails.application.credentials.oauth_api_gouv_client_secret,
         redirect_uri: Rails.configuration.oauth_api_gouv_redirect_uri
       })
       ctx[:oauth_response] = res
