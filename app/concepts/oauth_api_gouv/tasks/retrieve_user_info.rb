@@ -9,7 +9,7 @@ module OAuthApiGouv::Tasks
 
 
     def call_user_info_endpoint(ctx, access_token:, **)
-      uri = URI('https://auth-staging.api.gouv.fr/oauth/userinfo')
+      uri = URI("#{Rails.configuration.oauth_api_gouv_issuer}/oauth/userinfo")
       ctx[:raw_response] = Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
         request = Net::HTTP::Get.new(uri.request_uri)
         request['Authorization'] = "Bearer #{access_token}"

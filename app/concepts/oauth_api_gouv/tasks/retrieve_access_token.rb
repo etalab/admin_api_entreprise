@@ -35,7 +35,7 @@ module OAuthApiGouv::Tasks
     end
 
     def fetch_jwks_for_id_token_verification(ctx, **)
-      jwks_raw = Net::HTTP.get(URI("https://auth-staging.api.gouv.fr/jwks"))
+      jwks_raw = Net::HTTP.get(URI("#{Rails.configuration.oauth_api_gouv_issuer}/jwks"))
       ctx[:jwks] = JSON.parse(jwks_raw, symbolize_names: true)[:keys]
     end
 
