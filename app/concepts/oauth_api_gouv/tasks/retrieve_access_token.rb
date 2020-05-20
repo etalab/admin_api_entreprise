@@ -13,7 +13,7 @@ module OAuthApiGouv::Tasks
 
 
     def request_access_tokens(ctx, authorization_code:, **)
-      uri = URI('https://auth-staging.api.gouv.fr/oauth/token')
+      uri = URI("#{Rails.configuration.oauth_api_gouv_issuer}/oauth/token")
       res = Net::HTTP.post_form(uri, {
         grant_type: 'authorization_code',
         code: authorization_code,
