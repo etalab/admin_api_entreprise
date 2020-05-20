@@ -15,6 +15,11 @@ FactoryBot.define do
       id { Rails.application.secrets.fetch(:admin_uid) }
     end
 
+    trait :known_api_gouv_user do
+      # ID of the API Gouv User recorded in VCR's cassettes
+      oauth_api_gouv_id { 5037 }
+    end
+
     trait :with_jwt do
       after(:create) do |u|
         create_list(:jwt_api_entreprise, 2, user: u)

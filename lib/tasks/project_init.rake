@@ -11,6 +11,7 @@ namespace :dev do
     content = secrets
     file = File.new('config/secrets.yml', 'w+')
     file.write(content.unindent)
+    puts '[WARNING] fetch the oauth_api_gouv_client_secret from Ansible and add it to the file!'
   end
 
   def secrets

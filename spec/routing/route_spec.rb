@@ -29,6 +29,14 @@ describe 'Application routes' do
     end
   end
 
+  describe 'oauth_api_gouv' do
+    it 'has a route to login with an authorization code' do
+      expect(get('api/admin/oauth_api_gouv/login?authorization_code=very_code'))
+        .to route_to(controller: 'oauth_api_gouv', action: 'login', authorization_code: 'very_code')
+    end
+
+  end
+
   describe 'users' do
     it 'has an index route' do
       expect(get('api/admin/users'))

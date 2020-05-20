@@ -23,6 +23,7 @@ require 'rspec/rails'
 # Require helpers files containing factories
 Dir[Rails.root.join("spec/helpers/**/*.rb")].each { |f| require f }
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+require 'fixtures/oauth_api_gouv_token.rb'
 
 # Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -66,6 +67,9 @@ RSpec.configure do |config|
   config.include JWTHelper, type: :model
   config.include JWTHelper, type: :request
   config.include ResponseHelper, type: :controller
+
+  # Include fixtures tokens to test OAuth API Gouv interaction
+  config.include OAuthApiGouv
 end
 
 Shoulda::Matchers.configure do |config|
