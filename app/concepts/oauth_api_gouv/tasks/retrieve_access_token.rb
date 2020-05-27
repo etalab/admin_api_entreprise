@@ -13,7 +13,7 @@ module OAuthApiGouv::Tasks
 
 
     def request_access_tokens(ctx, authorization_code:, **)
-      uri = URI("#{Rails.configuration.oauth_api_gouv_issuer}/oauth/token")
+      uri = URI("#{Rails.configuration.oauth_api_gouv_baseurl}/oauth/token")
       res = Net::HTTP.post_form(uri, {
         grant_type: 'authorization_code',
         code: authorization_code,
@@ -35,7 +35,7 @@ module OAuthApiGouv::Tasks
     end
 
     def fetch_jwks_for_id_token_verification(ctx, **)
-      jwks_raw = Net::HTTP.get(URI("#{Rails.configuration.oauth_api_gouv_issuer}/jwks"))
+      jwks_raw = Net::HTTP.get(URI("#{Rails.configuration.oauth_api_gouv_baseurl}/jwks"))
       ctx[:jwks] = JSON.parse(jwks_raw, symbolize_names: true)[:keys]
     end
 

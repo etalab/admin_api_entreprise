@@ -59,5 +59,6 @@ Rails.application.configure do
   # OAuth API Gouv config
   config.oauth_api_gouv_client_id = '4442bfd8caac8e19ff202d33060edcd248592662d5a8098e28b706ba906fe9e0db95ad336c38248f42896db272990b8dfc969d8b8857101dabf9b2ffe7ec49b9'
   config.oauth_api_gouv_issuer = 'https://auth-staging.api.gouv.fr'
+  config.oauth_api_gouv_baseurl = 'https://auth-staging.api.gouv.fr'
   config.oauth_api_gouv_redirect_uri = 'http://localhost:8080/auth_api_gouv_callback'
 end
