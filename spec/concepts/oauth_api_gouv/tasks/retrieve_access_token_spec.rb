@@ -83,14 +83,14 @@ describe OAuthApiGouv::Tasks::RetrieveAccessToken do
           # No way to forge the JWT with another 'iss' claim, so let's use the
           # valid JWT and modify the expected issuer value instead
           before do
-            allow(Rails.configuration).to receive(:oauth_api_gouv_issuer).and_return('lol issuer')
+            allow(Rails.configuration).to receive(:oauth_api_gouv_issuer).and_return('http://www.issuer.fr')
           end
 
           it_behaves_like :jwt_validation_failure
 
           it 'logs the error' do
             expect(Rails.logger).to receive(:error)
-              .with(a_string_starting_with('ID Token verification error: Invalid issuer. Expected lol issuer, received'))
+              .with(a_string_starting_with('ID Token verification error: Invalid issuer. Expected http://www.issuer.fr, received'))
 
             retrieve_tokens!
           end
