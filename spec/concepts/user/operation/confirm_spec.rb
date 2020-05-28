@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe User::Operation::Confirm do
   let(:result) { described_class.call(params: confirmation_params) }
-  let(:inactive_user) { UsersFactory.inactive_user }
+  let(:inactive_user) { create(:user, :inactive) }
   let(:confirmation_params) do
     {
       password: 'couCOU23',

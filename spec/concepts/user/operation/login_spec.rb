@@ -19,7 +19,7 @@ describe User::Operation::Login do
     end
 
     context 'when user is not confirmed' do
-      let(:user) { UsersFactory.inactive_user }
+      let(:user) { create(:user, :inactive) }
 
       it 'fails authentication' do
         # much edge case where user is unconfirmed but has password set
@@ -31,7 +31,7 @@ describe User::Operation::Login do
     end
 
     context 'when user is confirmed' do
-      let(:user) { UsersFactory.confirmed_user }
+      let(:user) { create(:user) }
 
       context 'when password is invalid' do
         it 'fails authentication' do

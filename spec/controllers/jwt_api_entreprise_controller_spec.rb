@@ -53,7 +53,7 @@ describe JwtApiEntrepriseController, type: :controller do
   end
 
   describe '#create' do
-    let(:user) { UsersFactory.confirmed_user }
+    let(:user) { create(:user) }
     let(:jwt_roles) do
       roles = create_list(:role, 4)
       roles.map { |role| role.slice(:code) }

@@ -134,7 +134,7 @@ describe UsersController, type: :controller do
   end
 
   describe '#show' do
-    let(:user) { create(:user, :confirmed, :with_jwt, :with_blacklisted_jwt, :with_archived_jwt) }
+    let(:user) { create(:user, :with_jwt, :with_blacklisted_jwt, :with_archived_jwt) }
 
     shared_examples 'show user' do
       it 'returns the user data' do
@@ -290,7 +290,7 @@ describe UsersController, type: :controller do
   end
 
   describe '#confirm' do
-    let(:inactive_user) { UsersFactory.inactive_user }
+    let(:inactive_user) { create(:user, :inactive) }
 
     context 'when params are valid' do
       let(:confirmation_params) do
@@ -459,7 +459,7 @@ describe UsersController, type: :controller do
     context 'when the user exists' do
       context 'when the user is not confirmed' do
         before do
-          inactive_user = UsersFactory.inactive_user
+          inactive_user = create(:user, :inactive)
           renewal_params[:email] = inactive_user.email
         end
 
@@ -478,7 +478,7 @@ describe UsersController, type: :controller do
 
       context 'when the user is confirmed' do
         before do
-          user = UsersFactory.confirmed_user
+          user = create(:user)
           renewal_params[:email] = user.email
         end
 

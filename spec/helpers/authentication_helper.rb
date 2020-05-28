@@ -7,7 +7,7 @@ module AuthenticationHelper
   end
 
   def fill_request_headers_with_admin_jwt
-    create(:admin)
+    create(:user, :admin)
     admin_token = JWTF.generate(resource_owner_id: ADMIN_UID)
     request.headers['Authorization'] = "Bearer #{admin_token}"
   end

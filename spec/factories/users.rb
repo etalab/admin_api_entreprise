@@ -3,16 +3,19 @@ FactoryBot.define do
     sequence(:email) { |n| "user_#{n}@example.org" }
     sequence(:oauth_api_gouv_id) { |n| n }
     context { 'VERY_DEVELOPMENT' }
-    cgu_agreement_date { Time.zone.now.to_i }
+    cgu_agreement_date { Time.zone.now }
+    sequence(:confirmation_token) { |n| "v3rytok3n#{n}" }
+    confirmed_at { Time.zone.now }
+    password { 'Coucou123' }
 
-    # TODO make user factory confirmed by default
-    # use an :inactive_user factory for this specific state
-    trait :confirmed do
-      confirmed_at { Time.zone.now.to_i }
+    trait :admin do
+      id { Rails.application.secrets.fetch(:admin_uid) }
+      password { Rails.application.secrets.fetch(:admin_password) }
     end
 
-    factory :admin do
-      id { Rails.application.secrets.fetch(:admin_uid) }
+    trait :inactive do
+      confirmed_at { nil }
+      password { '' }
     end
 
     trait :known_api_gouv_user do
