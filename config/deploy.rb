@@ -57,6 +57,9 @@ set :shared_dirs, fetch(:shared_dirs, []).push(
   'tmp/cache'
 )
 set :shared_files, fetch(:shared_files, []).push(
+  'config/credentials/sandbox.key',
+  'config/credentials/staging.key',
+  'config/credentials/production.key',
   'config/database.yml',
   'config/sidekiq.yml',
   'config/master.key',
