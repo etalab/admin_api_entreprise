@@ -1,11 +1,11 @@
 JWTF.configure do |config|
-  config.algorithm = Rails.application.secrets.jwt_hash_algo
-  config.secret = Rails.application.secrets.jwt_hash_secret
+  config.algorithm = Rails.application.credentials.jwt_hash_algo
+  config.secret = Rails.application.credentials.jwt_hash_secret
 
   config.token_payload do |resource_owner_id:, **|
     user = User.find(resource_owner_id)
     payload = { uid: resource_owner_id }
-    payload[:admin] = true if resource_owner_id == Rails.application.secrets.fetch(:admin_uid)
+    payload[:admin] = true if resource_owner_id == Rails.application.credentials.admin_uid
     payload
   end
 

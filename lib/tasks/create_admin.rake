@@ -1,6 +1,6 @@
 task 'create_admin': :environment do
-  user_id = Rails.application.secrets.fetch(:admin_uid)
-  user_pwd = Rails.application.secrets.fetch(:admin_password)
+  user_id = Rails.application.credentials.admin_uid
+  user_pwd = Rails.application.credentials.admin_password
   User.create(
     id: user_id,
     email: 'admin@entreprise.api.gouv.fr',

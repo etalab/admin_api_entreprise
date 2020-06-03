@@ -117,7 +117,7 @@ describe OAuthApiGouv::Tasks::RetrieveAccessToken do
 
     context 'when Admin API credentials are not valid', vcr: { cassette_name: 'oauth_api_gouv_invalid_client_credentials' } do
       before do
-        allow(Rails.application.secrets).to receive(:oauth_api_gouv_client_secret)
+        allow(Rails.application.credentials).to receive(:oauth_api_gouv_client_secret)
           .and_return('lecodecestlecode')
       end
 

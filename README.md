@@ -86,6 +86,16 @@ class AddMyRelationToMyModel < ActiveRecord::Migration[5.1]
 end
 ```
 
+## Récupérer la MASTER_KEY pour les environnements de test et de développement
+
+Le fichier `config/credentials.yml.enc` contient les paramètres d'environnements
+de développement et de tests (utilisation des _credentials_ Rails). Il est
+nécessaire de récupérer la clé dans le répertoire Ansible et de créer un fichier
+`config/master.key` contenant cette clé.
+
+La MASTER_KEY en question est disponible dans le fichier
+`secrets/admin_apientreprise_dev_and_test.yml`.
+
 ## Déploiements à l'aide de Mina
 
 Il peut être nécessaire que mina exécute ses commandes dans un shell intéractif,
@@ -115,6 +125,8 @@ variables d'environnements qui doivent être déployées au préalable par Ansib
 sur les machines de production.
 
 * `config/database.yml`
-* `config/secrets.yml`
+* `config/credentials/sandbox.key`
+* `config/credentials/staging.key`
+* `config/credentials/production.key`
 * `config/environments/rails_env.rb`
 * `config/initializers/cors.rb`

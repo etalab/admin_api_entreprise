@@ -28,7 +28,7 @@ describe User::Operation::AskPasswordRenewal do
 
   context 'when a user is found for the given email' do
     context 'when the user is confirmed' do
-      let(:user) { UsersFactory.confirmed_user }
+      let(:user) { create(:user) }
       let(:account_email) { user.email }
 
       it { is_expected.to be_success }
@@ -60,7 +60,7 @@ describe User::Operation::AskPasswordRenewal do
     end
 
     context 'when the user is not confirmed' do
-      let(:user) { UsersFactory.inactive_user }
+      let(:user) { create(:user, :inactive) }
       let(:account_email) { user.email }
 
       it { is_expected.to be_failure }
