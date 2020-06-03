@@ -9,8 +9,8 @@ FactoryBot.define do
     password { 'Coucou123' }
 
     trait :admin do
-      id { Rails.application.secrets.fetch(:admin_uid) }
-      password { Rails.application.secrets.fetch(:admin_password) }
+      id { Rails.application.credentials.admin_uid }
+      password { Rails.application.credentials.admin_password }
     end
 
     trait :inactive do
