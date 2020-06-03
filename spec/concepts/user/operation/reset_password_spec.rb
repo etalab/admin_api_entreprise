@@ -65,8 +65,7 @@ describe User::Operation::ResetPassword do
       it 'does not change the password' do
         user = subject[:user]
 
-        expect { user.authenticate(reset_params[:password]) }
-          .to raise_error(BCrypt::Errors::InvalidHash)
+        expect(user.authenticate(reset_params[:password])).to eq(false)
       end
 
       it 'returns an error' do

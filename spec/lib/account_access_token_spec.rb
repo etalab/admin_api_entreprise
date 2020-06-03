@@ -3,7 +3,7 @@ require 'rails_helper'
 # TODO Replace "account" naming with "session"
 # JWT emited by doorkeeper on user login
 describe 'JWT for account data access', type: :jwt do
-  let(:user) { UsersFactory.confirmed_user }
+  let(:user) { create(:user) }
   let(:token_payload) do
     # call JWTF the way Doorkeeper does
     token = JWTF.generate(resource_owner_id: user.id)

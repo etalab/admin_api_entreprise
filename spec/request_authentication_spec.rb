@@ -56,7 +56,7 @@ describe 'Request authentication', type: :controller do
   # Login action resides in Doorkeeper::TokensController which does not
   # inherits from ApplicationController
   describe 'Login action', type: :request do
-    let(:user) { UsersFactory.confirmed_user }
+    let(:user) { create(:user) }
 
     it 'does not require token authentication' do
       login_params = {
@@ -71,7 +71,7 @@ describe 'Request authentication', type: :controller do
     end
 
     context 'when admin logs in' do
-      let(:admin) { UsersFactory.admin }
+      let(:admin) { create(:user, :admin) }
 
       it 'issues a JWT with admin role' do
         login_params = {
