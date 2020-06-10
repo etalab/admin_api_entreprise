@@ -33,7 +33,6 @@ describe User::Operation::Create do
       its(:oauth_api_gouv_id) { is_expected.to eq(31442) }
       its(:context) { is_expected.to eq(user_params[:context]) }
       its(:password_digest) { is_expected.to be_blank }
-      its(:confirmation_token) { is_expected.to match(/\A[0-9a-f]{20}\z/) }
       its(:confirmed?) { is_expected.to eq(false) }
 
       it 'sets the CGU agreement timestamp' do
@@ -41,22 +40,6 @@ describe User::Operation::Create do
 
         expect(subject.cgu_agreement_date).to eq(params_cgu_time)
       end
-
-      it 'sets the confirmation request timestamp' do
-        Timecop.freeze
-        confirmation_sent_time = subject.confirmation_sent_at.to_i
-
-        expect(confirmation_sent_time).to eq(Time.zone.now.to_i)
-        Timecop.return
-      end
-    end
-
-    it 'sends an account confirmation email to the account owner' do
-        allow(UserMailer).to receive(:confirm_account_action).and_call_original
-        expect(UserMailer).to receive(:confirm_account_action)
-          .with(an_object_having_attributes(email: user_email, class: User))
-
-        subject
     end
   end
 

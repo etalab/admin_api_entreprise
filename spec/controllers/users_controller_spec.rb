@@ -103,12 +103,6 @@ describe UsersController, type: :controller do
             .to change(User, :count).by(1)
         end
 
-        it 'calls the mailer to send a confirmation email' do
-          expect(UserMailer).to receive(:confirm_account_action).and_call_original
-
-          post(:create, params: user_params, as: :json)
-        end
-
         it 'returns code 201' do
           post(:create, params: user_params, as: :json)
 

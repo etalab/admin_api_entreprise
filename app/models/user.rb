@@ -16,10 +16,6 @@ class User < ApplicationRecord
     save
   end
 
-  def generate_confirmation_token
-    update(confirmation_token: random_token_for(:confirmation_token))
-  end
-
   def generate_pwd_renewal_token
     update(pwd_renewal_token: random_token_for(:pwd_renewal_token))
   end

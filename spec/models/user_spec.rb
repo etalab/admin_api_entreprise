@@ -19,6 +19,7 @@ describe User do
 
   describe 'relationships' do
     it { is_expected.to have_many(:jwt_api_entreprise).dependent(:nullify) }
+    it { is_expected.to have_many(:contacts).through(:jwt_api_entreprise) }
   end
 
   describe '#generate_pwd_renewal_token' do
@@ -28,16 +29,6 @@ describe User do
       user.reload
 
       expect(user.pwd_renewal_token).to match(/\A[0-9a-f]{20}\z/)
-    end
-  end
-
-  describe '#generate_confirmation_token' do
-    it 'generates a random string for confirmation_token attribute' do
-      user.update(confirmation_token: nil)
-      user.generate_confirmation_token
-      user.reload
-
-      expect(user.confirmation_token).to match(/\A[0-9a-f]{20}\z/)
     end
   end
 end
