@@ -30,10 +30,20 @@ FactoryBot.define do
 
   trait :blacklisted do
     blacklisted { true }
+
+    after(:create) do |jwt|
+      create(:contact, :business, jwt_api_entreprise: jwt)
+      create(:contact, :tech, jwt_api_entreprise: jwt)
+    end
   end
 
   trait :archived do
     archived { true }
+
+    after(:create) do |jwt|
+      create(:contact, :business, jwt_api_entreprise: jwt)
+      create(:contact, :tech, jwt_api_entreprise: jwt)
+    end
   end
 
   trait :with_contacts do

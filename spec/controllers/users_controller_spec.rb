@@ -129,6 +129,8 @@ describe UsersController, type: :controller do
 
   describe '#show' do
     let(:user) { create(:user, :with_jwt, :with_blacklisted_jwt, :with_archived_jwt) }
+    let(:blacklisted_jwt) { user.jwt_api_entreprise.where(blacklisted: true).first }
+    let(:archived_jwt) { user.jwt_api_entreprise.where(archived: true).first }
 
     shared_examples 'show user' do
       it 'returns the user data' do
@@ -198,12 +200,32 @@ describe UsersController, type: :controller do
             }))
           )
         end
-      end
 
-      it 'also returns the user note attribute' do
-        get :show, params: { id: user.id }
+        it 'returns the user note attribute' do
+          get :show, params: { id: user.id }
 
-        expect(response_json).to include(:note)
+          expect(response_json).to include(:note)
+        end
+
+        it 'shows contacts of archived JWT' do
+          get :show, params: { id: user.id }
+
+          expect(response_json).to include(
+            contacts: a_collection_including(a_hash_including({
+              jwt_id: archived_jwt.id
+            }))
+          )
+        end
+
+        it 'shows contacts of blacklisted JWT' do
+          get :show, params: { id: user.id }
+
+          expect(response_json).to include(
+            contacts: a_collection_including(a_hash_including({
+              jwt_id: blacklisted_jwt.id
+            }))
+          )
+        end
       end
     end
 
@@ -241,6 +263,20 @@ describe UsersController, type: :controller do
         get :show, params: { id: another_user.id }
 
         expect(response.code).to eq('403')
+      end
+
+      describe 'associated contacts' do
+        it 'does not return contacts for an archived token' do
+          get :show, params: { id: user.id }
+
+          expect(response_json[:contacts]).to_not include(a_hash_including(jwt_id: archived_jwt.id))
+        end
+
+        it 'does not return contacts for a blacklisted token' do
+          get :show, params: { id: user.id }
+
+          expect(response_json[:contacts]).to_not include(a_hash_including(jwt_id: blacklisted_jwt.id))
+        end
       end
     end
   end
