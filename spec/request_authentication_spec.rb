@@ -76,7 +76,7 @@ describe 'Request authentication', type: :controller do
       it 'issues a JWT with admin role' do
         login_params = {
           username: admin.email,
-          password: Rails.application.credentials.admin_password,
+          password: AuthenticationHelper::ADMIN_PWD,
           grant_type: 'password'
         }
         post '/api/admin/users/login', params: login_params

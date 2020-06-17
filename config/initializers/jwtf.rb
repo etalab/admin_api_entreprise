@@ -5,7 +5,7 @@ JWTF.configure do |config|
   config.token_payload do |resource_owner_id:, **|
     user = User.find(resource_owner_id)
     payload = { uid: resource_owner_id }
-    payload[:admin] = true if resource_owner_id == Rails.application.credentials.admin_uid
+    payload[:admin] = true if user.admin?
     payload
   end
 

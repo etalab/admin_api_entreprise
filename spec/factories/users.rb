@@ -9,8 +9,8 @@ FactoryBot.define do
     password { 'Coucou123' }
 
     trait :admin do
-      id { Rails.application.credentials.admin_uid }
-      password { Rails.application.credentials.admin_password }
+      admin { true }
+      password { AuthenticationHelper::ADMIN_PWD }
     end
 
     trait :inactive do
