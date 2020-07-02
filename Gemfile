@@ -24,7 +24,9 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'sidekiq', '~> 5.2.7'
+# DO NOT update sidekiq to major 6 version until Redis has been
+# upgraded on host machines
+gem 'sidekiq', '~> 5.2'
 gem 'sidekiq-cron'
 
 gem 'doorkeeper', '~> 4.4.0'
