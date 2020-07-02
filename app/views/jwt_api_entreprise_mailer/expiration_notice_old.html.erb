@@ -12,8 +12,10 @@
 
     <p><strong>Passée la date du <%= @jwt.user_friendly_exp_date %> les appels à API Entreprise avec ce jeton seront rejetés.</strong></p>
 
-    <p>Merci de contacter le support à l'adresse <%= mail_to(Rails.configuration.emails_sender_address) %> afin de procéder au renouvellement.</p>
 
+    <p>Pour obtenir un nouveau jeton il vous faut faire une nouvelle demande d'accès comme décrit ici : https://entreprise.api.gouv.fr/demander_un_acces/</p>
+
+    <p>Il n'est pas nécessaire de créer un nouveau compte d'accès au dashboard, seul un nouveau jeton vous sera créé lorsque votre demande aura été validée, il sera alors disponible dans votre espace client à l'adresse : <a href="https://dashboard.entreprise.api.gouv.fr/login">https://dashboard.entreprise.api.gouv.fr/login</a></p>
 
     <p>Cordialement,</p>
     <p>L'équipe API Entreprise</p>
