@@ -82,11 +82,18 @@ describe JwtApiEntrepriseMailer, type: :mailer do
 
       it_behaves_like 'expiration notice'
 
-      it 'contains the team email address to request a renewal' do
-        renewal_process = "Merci de contacter le support à l\'adresse <a href=\"mailto:#{Rails.configuration.emails_sender_address}\">#{Rails.configuration.emails_sender_address}</a> afin de procéder au renouvellement"
+      it 'contains the dashboard URL' do
+        url_part = 'dashboard.entreprise.api.gouv.fr/login'
 
-        expect(subject.html_part.decoded).to include(renewal_process)
-        expect(subject.text_part.decoded).to include(renewal_process)
+        expect(subject.html_part.decoded).to include(url_part)
+        expect(subject.text_part.decoded).to include(url_part)
+      end
+
+      it 'contains the renewal process' do
+        instructions = 'Pour obtenir un nouveau jeton il vous faut faire une nouvelle demande d\'accès comme décrit ici : https://entreprise.api.gouv.fr/demander_un_acces/'
+
+        expect(subject.html_part.decoded).to include(instructions)
+        expect(subject.text_part.decoded).to include(instructions)
       end
 
       it 'does not contain the URL to the renewal request form' do
