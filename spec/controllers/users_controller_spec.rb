@@ -319,58 +319,6 @@ describe UsersController, type: :controller do
     it_behaves_like 'client user unauthorized', :delete, :destroy, { id: 0 }
   end
 
-  describe '#confirm' do
-    let(:inactive_user) { create(:user, :inactive) }
-
-    context 'when params are valid' do
-      let(:confirmation_params) do
-        {
-          confirmation_token: inactive_user.confirmation_token,
-          password: 'validPWD12',
-          password_confirmation: 'validPWD12'
-        }
-      end
-
-      before { post :confirm, params: confirmation_params, as: :json }
-
-      it 'returns 200' do
-        expect(response.code).to eq('200')
-      end
-
-      it 'returns a session JWT' do
-        expect(response_json).to include(access_token: a_kind_of(String))
-      end
-
-      it 'confirms the user' do
-        user_token = confirmation_params[:confirmation_token]
-        confirmed_user = User.find_by(confirmation_token: user_token)
-
-        expect(confirmed_user).to be_confirmed
-      end
-    end
-
-    context 'when params are invalid' do
-      let(:confirmation_params) do
-        {
-          confirmation_token: 'oups',
-          password: 'validPWD12',
-          password_confirmation: 'validPWD12'
-        }
-      end
-
-      before { post :confirm, params: confirmation_params, as: :json }
-
-      it 'returns 422' do
-        expect(response.code).to eq '422'
-      end
-
-      it 'returns an error' do
-        expect(response_json)
-          .to eq errors: { confirmation_token: ['confirmation token not found'] }
-      end
-    end
-  end
-
   describe '#password_reset' do
     let(:user) { create(:user, pwd_renewal_token: 'verytoken', pwd_renewal_token_sent_at: 12.hours.ago) }
     let(:pwd_reset_params) do

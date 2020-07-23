@@ -52,16 +52,6 @@ class UsersController < ApplicationController
     render json: {}, status: 404
   end
 
-  def confirm
-    result = User::Operation::Confirm.call(params: params)
-
-    if result.success?
-      render json: { access_token: result['access_token'] }, status: 200
-    else
-      render json: { errors: result['errors'] }, status: 422
-    end
-  end
-
   def password_reset
     result = User::Operation::ResetPassword.call(params: params)
 

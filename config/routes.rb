@@ -9,7 +9,6 @@ Rails.application.routes.draw do
     # Authentication
     get  '/oauth_api_gouv/login'      => 'oauth_api_gouv#login'
     post '/users/login'               => 'doorkeeper/tokens#create'
-    post '/users/confirm'             => 'users#confirm'
     post '/users/password_renewal'    => 'users#password_renewal'
     post '/users/password_reset'      => 'users#password_reset'
 
