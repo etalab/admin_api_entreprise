@@ -68,11 +68,6 @@ describe 'Application routes' do
         .to route_to(controller: 'doorkeeper/tokens', action: 'create')
     end
 
-    it 'has a confirm route' do
-      expect(post('api/admin/users/confirm'))
-        .to route_to(controller: 'users', action: 'confirm')
-    end
-
     it 'has a password_renewal route' do
       expect(post('api/admin/users/password_renewal'))
         .to route_to(controller: 'users', action: 'password_renewal')

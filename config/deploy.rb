@@ -18,7 +18,7 @@ print "Deploy to #{ENV['to']}\n".green
 
 set :commit, ENV['commit']
 set :application_name, 'admin_apientreprise'
-set :domain, 'watchdoge.entreprise.api.gouv.fr'
+set :domain, ENV['domain']
 set :deploy_to, "/var/www/admin_apientreprise_#{ENV['to']}"
 set :rails_env, ENV['to']
 set :repository, 'git@github.com:etalab/admin_api_entreprise.git'

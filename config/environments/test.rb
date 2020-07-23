@@ -45,7 +45,6 @@ Rails.application.configure do
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
 
-  config.account_confirmation_url = 'https://sandbox.dashboard.entreprise.api.gouv.fr/account/confirm'
   config.renew_password_url = 'https://sandbox.dashboard.entreprise.api.gouv.fr/account/password_reset'
   config.account_tokens_list_url  = 'https://sandbox.dashboard.entreprise.api.gouv.fr/me/tokens/'
   config.jwt_renewal_url  = 'https://signup-staging.api.gouv.fr/copy-authorization-request/'
