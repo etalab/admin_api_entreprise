@@ -90,7 +90,7 @@ describe JwtApiEntrepriseMailer, type: :mailer do
       end
 
       it 'contains the renewal process' do
-        instructions = 'Pour obtenir un nouveau jeton il vous faut faire une nouvelle demande d\'accès comme décrit ici : https://entreprise.api.gouv.fr/demander_un_acces/'
+        instructions = 'Pour obtenir un nouveau jeton il vous faut faire une nouvelle demande d\'accès comme décrit ici : https://entreprise.api.gouv.fr/doc/#renouvellement-token'
 
         expect(subject.html_part.decoded).to include(instructions)
         expect(subject.text_part.decoded).to include(instructions)
