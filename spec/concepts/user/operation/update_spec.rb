@@ -5,7 +5,8 @@ describe User::Operation::Update do
   let(:operation_params) do
     {
       id: user_id,
-      note: 'Updated description'
+      note: 'Updated description',
+      oauth_api_gouv_id: 9001
     }
   end
   subject { described_class.call(params: operation_params) }
@@ -37,10 +38,31 @@ describe User::Operation::Update do
         expect(subject).to be_success
       end
 
-      it 'can be update' do
+      it 'can be updated' do
         updated_user = subject[:model]
 
         expect(updated_user.note).to eq('Updated description')
+      end
+    end
+
+    describe '#oauth_api_gouv_id' do
+      it 'is optional' do
+        operation_params.delete(:oauth_api_gouv_id)
+
+        expect(subject).to be_success
+      end
+
+      it 'must be an integer' do
+        operation_params[:oauth_api_gouv_id] = '42'
+
+        expect(subject).to be_failure
+        expect(subject[:errors]).to eq(oauth_api_gouv_id: ["must be an integer"])
+      end
+
+      it 'can be updated' do
+        updated_user = subject[:model]
+
+        expect(updated_user.oauth_api_gouv_id).to eq(9001)
       end
     end
   end

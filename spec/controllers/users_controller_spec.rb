@@ -365,18 +365,19 @@ describe UsersController, type: :controller do
     let(:user_params) do
       {
         id: user.id,
-        note: 'Test update'
+        note: 'Test update',
+        oauth_api_gouv_id: 9001
       }
     end
 
-    subject { put :update, params: user_params }
+    subject(:update_user!) { put :update, params: user_params, as: :json }
 
     context 'when requested from a user' do
       include_context 'user request'
       it_behaves_like 'client user unauthorized', :put, :update, { id: 'random' }
 
       it 'does not update the user' do
-        subject
+        update_user!
         user.reload
 
         expect(user.note).not_to eq('Test update')
@@ -388,15 +389,19 @@ describe UsersController, type: :controller do
 
       context 'when params are valid' do
         it 'returns code 200' do
-          subject
+          update_user!
+
           expect(response.code).to eq('200')
         end
 
         it 'updates the user' do
-          subject
+          update_user!
           user.reload
 
-          expect(user.note).to eq('Test update')
+          expect(user).to have_attributes({
+            note: 'Test update',
+            oauth_api_gouv_id: 9001
+          })
         end
       end
     end
