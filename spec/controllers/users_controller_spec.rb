@@ -32,6 +32,7 @@ describe UsersController, type: :controller do
             email: a_kind_of(String),
             context: a_kind_of(String),
             confirmed: be(true).or(be(false)),
+            oauth_api_gouv_id: a_kind_of(Integer),
             created_at: a_kind_of(String),
           }))
         end
@@ -116,6 +117,7 @@ describe UsersController, type: :controller do
             id: a_kind_of(String),
             email: a_kind_of(String),
             context: a_kind_of(String),
+            oauth_api_gouv_id: a_kind_of(Integer),
             note: '',
             tokens: [],
             contacts: [],
@@ -140,6 +142,7 @@ describe UsersController, type: :controller do
           id: a_kind_of(String),
           email: a_kind_of(String),
           context: a_kind_of(String),
+          oauth_api_gouv_id: a_kind_of(Integer),
           tokens: a_collection_including(
             a_hash_including({
               id: String,
