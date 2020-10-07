@@ -1,5 +1,5 @@
 class UserShowSerializer < ActiveModel::Serializer
-  attributes :id, :email, :context
+  attributes :id, :email, :context, :oauth_api_gouv_id
   attribute :note, if: :admin?
 
   # This is to keep some kind of ascending compatibility with the dashboard
