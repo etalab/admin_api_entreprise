@@ -36,7 +36,8 @@ module Role::Operation
           { name: 'Certificat Qualibat',    code: 'qualibat' },
           { name: 'Certificat PROBTP',      code: 'probtp' },
           { name: 'Cotisation MSA',         code: 'msa_cotisations' },
-          { name: 'Bilans Entreprises BDF', code: 'bilans_entreprise_bdf' }
+          { name: 'Bilans Entreprises BDF', code: 'bilans_entreprise_bdf' },
+          { name: 'UptimeRobot',            code: 'uptime' }
         ]
       end
       ctx[:roles_seed]
