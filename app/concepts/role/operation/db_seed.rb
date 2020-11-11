@@ -37,7 +37,9 @@ module Role::Operation
           { name: 'Certificat PROBTP',      code: 'probtp' },
           { name: 'Cotisation MSA',         code: 'msa_cotisations' },
           { name: 'Bilans Entreprises BDF', code: 'bilans_entreprise_bdf' },
-          { name: 'UptimeRobot',            code: 'uptime' }
+          { name: 'Actes INPI',             code: 'actes_inpi' },
+          { name: 'Bilans INPI',            code: 'bilans_inpi' },
+          { name: 'UptimeRobot',            code: 'uptime' },
         ]
       end
       ctx[:roles_seed]
