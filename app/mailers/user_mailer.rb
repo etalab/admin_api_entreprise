@@ -5,4 +5,8 @@ class UserMailer < ApplicationMailer
 
     mail(to: user.email, subject: subject)
   end
+
+  def transfer_ownership
+
+  end
 end
