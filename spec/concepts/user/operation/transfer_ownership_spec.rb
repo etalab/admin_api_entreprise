@@ -50,6 +50,7 @@ describe User::Operation::TransferOwnership do
 
       it 'sends a notification email' do
         expect(UserMailer).to receive(:transfer_ownership)
+          .with(old_owner, new_owner)
           .and_call_original
 
         subject

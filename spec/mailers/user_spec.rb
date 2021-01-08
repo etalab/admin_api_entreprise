@@ -26,4 +26,67 @@ describe UserMailer, type: :mailer do
       end
     end
   end
+
+  describe '#transfer_ownership' do
+    let(:new_owner) { create(:user) }
+    let(:old_owner) { create(:user) }
+
+    subject { described_class.transfer_ownership(old_owner, new_owner) }
+
+    its(:subject) { is_expected.to eq('API Entreprise - Délégation d\'accès') }
+    its(:to) { is_expected.to eq([new_owner.email]) }
+    its(:from) { is_expected.to include(Rails.configuration.emails_sender_address) }
+
+    describe 'email body' do
+      it 'contains the previous owner email address' do
+        corpus = "L'accès au dashboard API Entreprise vient de vous être octroyé par #{old_owner.email}"
+
+        expect(subject.html_part.decoded).to include(corpus)
+        expect(subject.text_part.decoded).to include(corpus)
+      end
+
+      it 'notifies the user he now has access to the tokens' do
+        corpus = 'Vous pouvez alors accéder aux jetons votre organisation : connectez-vous simplement au <a href="https://dashboard.entreprise.api.gouv.fr/login">dashboard</a> en utilisant vos identifiants API Gouv !'
+
+        expect(subject.html_part.decoded).to include(corpus)
+        expect(subject.text_part.decoded).to include(corpus)
+      end
+
+      context 'when the new owner already has an API Gouv account' do
+        before { new_owner.oauth_api_gouv_id = 12 }
+
+        it 'informs the user he will need his API Gouv account' do
+          corpus = "Vos identifiants de compte API Gouv associés à votre addresse email #{new_owner.email} vous seront demandés pour accéder à votre espace client API Entreprise."
+
+          expect(subject.html_part.decoded).to include(corpus)
+          expect(subject.text_part.decoded).to include(corpus)
+        end
+      end
+
+      context 'when the new owner does not have an API Gouv account' do
+        before { new_owner.oauth_api_gouv_id = nil }
+
+        it 'informs an API Gouv account is needed' do
+          corpus = 'Vous devez au préalable vous créer un compte <a href="https://auth.api.gouv.fr/users/sign-up">API Gouv</a> pour accéder à votre espace client API Entreprise.'
+
+          expect(subject.html_part.decoded).to include(corpus)
+          expect(subject.text_part.decoded).to include(corpus)
+        end
+
+        it 'informs to use the same email address' do
+          corpus = "adresse email : #{new_owner.email}"
+
+          expect(subject.html_part.decoded).to include(corpus)
+          expect(subject.text_part.decoded).to include(corpus)
+        end
+
+        it 'informs to use the same siret' do
+          corpus = "siret de votre organisation : #{new_owner.context}"
+
+          expect(subject.html_part.decoded).to include(corpus)
+          expect(subject.text_part.decoded).to include(corpus)
+        end
+      end
+    end
+  end
 end

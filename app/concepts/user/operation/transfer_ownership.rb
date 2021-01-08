@@ -24,8 +24,8 @@ module User::Operation
       model.jwt_api_entreprise.clear
     end
 
-    def send_email_notification(ctx, new_owner:, **)
-      UserMailer.transfer_ownership.deliver_later
+    def send_email_notification(ctx, model:, new_owner:, **)
+      UserMailer.transfer_ownership(model, new_owner).deliver_later
     end
   end
 end
