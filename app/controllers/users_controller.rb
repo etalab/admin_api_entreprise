@@ -72,9 +72,23 @@ class UsersController < ApplicationController
     end
   end
 
+  def transfer_ownership
+    user = User.find(params[:id])
+    authorize user
+    transfer = User::Operation::TransferOwnership.call(params: transfer_account_params)
+
+    if transfer.success?
+      render json: transfer[:model], serializer: UserShowSerializer, status: 200
+    end
+  end
+
   private
 
   def user_params
     params.permit(:email, :context)
+  end
+
+  def transfer_account_params
+    params.permit(:id, :new_owner_email)
   end
 end

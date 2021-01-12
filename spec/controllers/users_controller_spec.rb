@@ -488,4 +488,70 @@ describe UsersController, type: :controller do
       end
     end
   end
+
+  describe '#transfer_ownership' do
+    let(:old_owner) { create(:user, :with_jwt) }
+    let(:new_owner_email) { 'yours@is.mine' }
+
+    subject(:call!) do
+      post :transfer_ownership, params: { id: old_owner.id, new_owner_email: new_owner_email }
+    end
+
+    shared_examples :account_transfer_success do
+      it 'returns HTTP code 200' do
+        call!
+
+        expect(response.status).to eq(200)
+      end
+
+      it 'returns the current user payload without any JWT' do
+        call!
+
+        expect(response_json).to include({
+          id: old_owner.id,
+          email: old_owner.email,
+          context: old_owner.context,
+          oauth_api_gouv_id: old_owner.oauth_api_gouv_id,
+          contacts: [],
+          tokens: []
+        })
+      end
+
+      it 'calls the underlying operation' do
+        expect(User::Operation::TransferOwnership).to receive(:call).and_call_original
+
+        call!
+      end
+    end
+
+    context 'when requested from an admin' do
+      include_context 'admin request'
+
+      it_behaves_like :account_transfer_success
+    end
+
+    context 'when requested from the current owner' do
+      before do
+        fill_request_headers_with_user_jwt(old_owner.id)
+      end
+
+      it_behaves_like :account_transfer_success
+    end
+
+    context 'when requested from a user who do not own the account' do
+      include_context 'user request'
+
+      before { call! }
+
+      it 'returns HTTP code 403' do
+        expect(response.status).to eq(403)
+      end
+
+      it 'returns an error message' do
+        expect(response_json).to match({
+          errors: "Forbidden"
+        })
+      end
+    end
+  end
 end

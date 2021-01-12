@@ -10,6 +10,10 @@ class UserPolicy < ApplicationPolicy
     admin? || current_user?
   end
 
+  def transfer_ownership?
+    admin? || current_user?
+  end
+
   private
 
   def admin?

@@ -22,11 +22,12 @@ Rails.application.routes.draw do
     post '/roles' => 'roles#create'
 
     # users
-    get    '/users'     => 'users#index'
-    post   '/users'     => 'users#create'
-    get    '/users/:id' => 'users#show'
-    patch  '/users/:id' => 'users#update'
-    delete '/users/:id' => 'users#destroy'
+    get    '/users'                            => 'users#index'
+    post   '/users'                            => 'users#create'
+    get    '/users/:id'                        => 'users#show'
+    patch  '/users/:id'                        => 'users#update'
+    delete '/users/:id'                        => 'users#destroy'
+    post   '/users/:id/transfer_ownership'     => 'users#transfer_ownership'
 
     # jwt_api_entreprise
     get   '/jwt_api_entreprise'                => 'jwt_api_entreprise#index'
