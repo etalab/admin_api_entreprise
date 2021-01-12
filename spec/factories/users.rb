@@ -4,18 +4,11 @@ FactoryBot.define do
     sequence(:oauth_api_gouv_id) { |n| n }
     context { 'VERY_DEVELOPMENT' }
     cgu_agreement_date { Time.zone.now }
-    sequence(:confirmation_token) { |n| "v3rytok3n#{n}" }
-    confirmed_at { Time.zone.now }
     password { 'Coucou123' }
 
     trait :admin do
       admin { true }
       password { AuthenticationHelper::ADMIN_PWD }
-    end
-
-    trait :inactive do
-      confirmed_at { nil }
-      password { '' }
     end
 
     trait :known_api_gouv_user do

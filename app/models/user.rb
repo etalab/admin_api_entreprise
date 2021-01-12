@@ -6,14 +6,7 @@ class User < ApplicationRecord
   has_secure_password(validations: false)
 
   def confirmed?
-    !!confirmed_at
-  end
-
-  def confirm
-    return false if confirmed?
-
-    self.confirmed_at = Time.now.utc
-    save
+    !!oauth_api_gouv_id
   end
 
   def generate_pwd_renewal_token

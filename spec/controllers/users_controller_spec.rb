@@ -443,48 +443,27 @@ describe UsersController, type: :controller do
     end
 
     context 'when the user exists' do
-      context 'when the user is not confirmed' do
-        before do
-          inactive_user = create(:user, :inactive)
-          renewal_params[:email] = inactive_user.email
-        end
-
-        it 'returns a HTTP code 422' do
-          subject
-
-          expect(response.code).to eq('422')
-        end
-
-        it 'returns an error message' do
-          subject
-
-          expect(response_json).to match({ errors: { email: ["the account for #{renewal_params[:email]} is inactive and has not be confirmed"] } })
-        end
+      before do
+        user = create(:user)
+        renewal_params[:email] = user.email
       end
 
-      context 'when the user is confirmed' do
-        before do
-          user = create(:user)
-          renewal_params[:email] = user.email
-        end
+      it 'returns a HTTP code 200' do
+        subject
 
-        it 'returns a HTTP code 200' do
-          subject
+        expect(response.code).to eq('200')
+      end
 
-          expect(response.code).to eq('200')
-        end
+      it 'returns an empty payload' do
+        subject
 
-        it 'returns an empty payload' do
-          subject
+        expect(response_json).to eq({})
+      end
 
-          expect(response_json).to eq({})
-        end
+      it 'sends an email' do
+        expect(UserMailer).to receive(:renew_account_password).and_call_original
 
-        it 'sends an email' do
-          expect(UserMailer).to receive(:renew_account_password).and_call_original
-
-          subject
-        end
+        subject
       end
     end
   end

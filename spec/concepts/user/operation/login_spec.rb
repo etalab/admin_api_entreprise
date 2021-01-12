@@ -18,45 +18,31 @@ describe User::Operation::Login do
       { username: user.email, password: user.password }
     end
 
-    context 'when user is not confirmed' do
-      let(:user) { create(:user, :inactive) }
+    let(:user) { create(:user) }
 
+    context 'when password is invalid' do
       it 'fails authentication' do
-        # much edge case where user is unconfirmed but has password set
-        user.password = 'verypwd'
-        user.save
+        login_params[:password] = 'invalid password'
 
         expect(result).to be_failure
       end
+
+      it 'increments counter before lock'
     end
 
-    context 'when user is confirmed' do
-      let(:user) { create(:user) }
-
-      context 'when password is invalid' do
-        it 'fails authentication' do
-          login_params[:password] = 'invalid password'
-
-          expect(result).to be_failure
-        end
-
-        it 'increments counter before lock'
+    context 'when incomming params are valid' do
+      it 'returns the user' do
+        expect(result).to be_success
+        expect(result[:model]).to eq user
       end
 
-      context 'when incomming params are valid' do
-        it 'returns the user' do
-          expect(result).to be_success
-          expect(result[:model]).to eq user
-        end
+      it 'resets counter before lock'
+    end
 
-        it 'resets counter before lock'
-      end
-
-      context 'with empty spaces around email' do
-        it 'strips spaces' do
-          user.email = '   ' + user.email + '    '
-          expect(result).to be_success
-        end
+    context 'with empty spaces around email' do
+      it 'strips spaces' do
+        user.email = '   ' + user.email + '    '
+        expect(result).to be_success
       end
     end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_12_090854) do
+ActiveRecord::Schema.define(version: 2021_01_12_154435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -107,16 +107,12 @@ ActiveRecord::Schema.define(version: 2020_06_12_090854) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest", default: "", null: false
-    t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
     t.datetime "cgu_agreement_date"
     t.text "note", default: ""
     t.string "pwd_renewal_token"
     t.datetime "pwd_renewal_token_sent_at"
     t.integer "oauth_api_gouv_id"
     t.boolean "admin", default: false
-    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["pwd_renewal_token"], name: "index_users_on_pwd_renewal_token"
   end
 

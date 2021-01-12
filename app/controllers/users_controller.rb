@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :jwt_authenticate!, only: [:confirm, :password_renewal, :password_reset]
+  skip_before_action :jwt_authenticate!, only: [:password_renewal, :password_reset]
 
   def index
     authorize :admin, :admin?

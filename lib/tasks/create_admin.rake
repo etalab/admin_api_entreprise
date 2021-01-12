@@ -4,6 +4,5 @@ task 'create_admin': :environment do
     password: 'admin',
     admin: true,
     context: 'Admin',
-    confirmed_at: Time.zone.now
   )
 end
