@@ -477,29 +477,49 @@ describe UsersController, type: :controller do
     end
 
     shared_examples :account_transfer_success do
-      it 'returns HTTP code 200' do
-        call!
+      context 'when the email address is valid' do
+        it 'returns HTTP code 200' do
+          call!
 
-        expect(response.status).to eq(200)
+          expect(response.status).to eq(200)
+        end
+
+        it 'returns the current user payload without any JWT' do
+          call!
+
+          expect(response_json).to include({
+            id: old_owner.id,
+            email: old_owner.email,
+            context: old_owner.context,
+            oauth_api_gouv_id: old_owner.oauth_api_gouv_id,
+            contacts: [],
+            tokens: []
+          })
+        end
+
+        it 'calls the underlying operation' do
+          expect(User::Operation::TransferOwnership).to receive(:call).and_call_original
+
+          call!
+        end
       end
 
-      it 'returns the current user payload without any JWT' do
-        call!
+      context 'when the email address is not valid' do
+        let(:new_owner_email) { 'badFormatN00b' }
 
-        expect(response_json).to include({
-          id: old_owner.id,
-          email: old_owner.email,
-          context: old_owner.context,
-          oauth_api_gouv_id: old_owner.oauth_api_gouv_id,
-          contacts: [],
-          tokens: []
-        })
-      end
+        it 'returns HTTP code 422' do
+          call!
 
-      it 'calls the underlying operation' do
-        expect(User::Operation::TransferOwnership).to receive(:call).and_call_original
+          expect(response.status).to eq(422)
+        end
 
-        call!
+        it 'returns an error message' do
+          call!
+
+          expect(response_json).to match({
+            errors: { new_owner_email: ["is in invalid format"] }
+          })
+        end
       end
     end
 
