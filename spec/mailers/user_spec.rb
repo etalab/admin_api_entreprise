@@ -89,4 +89,37 @@ describe UserMailer, type: :mailer do
       end
     end
   end
+
+  describe '#notify_datapasss_for_data_reconciliation' do
+    let(:user) { create(:user, :with_jwt) }
+
+    subject { described_class.notify_datapasss_for_data_reconciliation(user) }
+
+    its(:subject) { is_expected.to eq('API Entreprise - Réconciliation de demandes d\'accès à un nouvel usager') }
+    its(:to) { is_expected.to eq(['contact@api.gouv.fr']) }
+    its(:from) { is_expected.to include(Rails.configuration.emails_sender_address) }
+
+    it 'contains the user email address' do
+      corpus = "L'utilisateur #{user.email}"
+
+      expect(subject.html_part.decoded).to include(corpus)
+      expect(subject.text_part.decoded).to include(corpus)
+    end
+
+    it 'contains the user API Gouv ID' do
+      corpus = "ayant pour ID technique API Gouv #{user.oauth_api_gouv_id}"
+
+      expect(subject.html_part.decoded).to include(corpus)
+      expect(subject.text_part.decoded).to include(corpus)
+    end
+
+    it 'contains the user\'s JWT requests ID' do
+      authorization_requests_ids = user.jwt_api_entreprise.pluck(:authorization_request_id)
+      authorization_requests_ids.map!(&:to_i)
+      corpus = "dont voici les ID : #{authorization_requests_ids}"
+
+      expect(subject.html_part.decoded).to include(corpus)
+      expect(subject.text_part.decoded).to include(corpus)
+    end
+  end
 end
