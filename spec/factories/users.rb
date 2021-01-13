@@ -12,8 +12,8 @@ FactoryBot.define do
     end
 
     trait :known_api_gouv_user do
-      # ID of the API Gouv User recorded in VCR's cassettes
-      oauth_api_gouv_id { 5037 }
+      oauth_api_gouv_id { 5037 } # Hard coded ID in VCR's cassette
+      email { 'alexandre.depablo@data.gouv.fr' }
     end
 
     trait :with_jwt do

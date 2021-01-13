@@ -27,6 +27,28 @@ describe OAuthApiGouv::Tasks::RetrieveUserInfo do
 
         expect(db_user).to eq(user)
       end
+
+      context 'when the user is not confirmed yet (:oauth_api_gouv_id unknown)' do
+        before { user.update(oauth_api_gouv_id: nil) }
+
+        it 'updates the :oauth_api_gouv_id' do
+          fetch_user!
+          user.reload
+
+          expect(user.oauth_api_gouv_id).to eq(5037) # Hard coded value in VCR cassette
+        end
+
+        # This is temporary, right now DataPass ensures manually our user
+        # tokens are linked to the appropriate access requests (the information
+        # might be loss for DataPass after a user account has been transfered
+        it 'sends an email to the DataPass support team' do
+          expect(UserMailer).to receive(:notify_datapasss_for_data_reconciliation)
+            .with(user)
+            .and_call_original
+
+          fetch_user!
+        end
+      end
     end
   end
 

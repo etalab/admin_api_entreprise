@@ -15,4 +15,8 @@ class UserMailer < ApplicationMailer
 
     mail(to: @new_owner.email, subject: subject)
   end
+
+  def notify_datapasss_for_data_reconciliation(user)
+
+  end
 end
