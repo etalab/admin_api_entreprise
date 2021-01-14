@@ -39,27 +39,23 @@ describe UserMailer, type: :mailer do
 
     describe 'email body' do
       it 'contains the previous owner email address' do
-        corpus = "L'accès au dashboard API Entreprise vient de vous être octroyé par #{old_owner.email}"
-
-        expect(subject.html_part.decoded).to include(corpus)
-        expect(subject.text_part.decoded).to include(corpus)
+        expect(subject.html_part.decoded).to include(old_owner.email)
+        expect(subject.text_part.decoded).to include(old_owner.email)
       end
 
-      it 'notifies the user he now has access to the tokens' do
-        corpus = 'Vous pouvez alors accéder aux jetons votre organisation : connectez-vous simplement au <a href="https://dashboard.entreprise.api.gouv.fr/login">dashboard</a> en utilisant vos identifiants API Gouv.'
+      it 'notifies the user to login to access his tokens' do
+        signin_link = 'https://dashboard.entreprise.api.gouv.fr/login'
 
-        expect(subject.html_part.decoded).to include(corpus)
-        expect(subject.text_part.decoded).to include(corpus)
+        expect(subject.html_part.decoded).to include(signin_link)
+        expect(subject.text_part.decoded).to include(signin_link)
       end
 
       context 'when the new owner already has an API Gouv account' do
         before { new_owner.oauth_api_gouv_id = 12 }
 
         it 'informs the user he will need his API Gouv account' do
-          corpus = "Vos identifiants de compte API Gouv associés à votre addresse email #{new_owner.email} vous seront demandés pour accéder à votre espace client API Entreprise."
-
-          expect(subject.html_part.decoded).to include(corpus)
-          expect(subject.text_part.decoded).to include(corpus)
+          expect(subject.html_part.decoded).to include(new_owner.email)
+          expect(subject.text_part.decoded).to include(new_owner.email)
         end
       end
 
@@ -67,24 +63,20 @@ describe UserMailer, type: :mailer do
         before { new_owner.oauth_api_gouv_id = nil }
 
         it 'informs an API Gouv account is needed' do
-          corpus = 'Vous devez au préalable vous créer un compte <a href="https://auth.api.gouv.fr/users/sign-up">API Gouv</a> pour accéder à votre espace client API Entreprise.'
+          signup_link = 'https://auth.api.gouv.fr/users/sign-up'
 
-          expect(subject.html_part.decoded).to include(corpus)
-          expect(subject.text_part.decoded).to include(corpus)
+          expect(subject.html_part.decoded).to include(signup_link)
+          expect(subject.text_part.decoded).to include(signup_link)
         end
 
         it 'informs to use the same email address' do
-          corpus = "adresse email : #{new_owner.email}"
-
-          expect(subject.html_part.decoded).to include(corpus)
-          expect(subject.text_part.decoded).to include(corpus)
+          expect(subject.html_part.decoded).to include(new_owner.email)
+          expect(subject.text_part.decoded).to include(new_owner.email)
         end
 
         it 'informs to use the same siret' do
-          corpus = "siret de votre organisation : #{new_owner.context}"
-
-          expect(subject.html_part.decoded).to include(corpus)
-          expect(subject.text_part.decoded).to include(corpus)
+          expect(subject.html_part.decoded).to include(new_owner.context)
+          expect(subject.text_part.decoded).to include(new_owner.context)
         end
       end
     end
@@ -100,26 +92,21 @@ describe UserMailer, type: :mailer do
     its(:from) { is_expected.to include(Rails.configuration.emails_sender_address) }
 
     it 'contains the user email address' do
-      corpus = "L'utilisateur #{user.email}"
-
-      expect(subject.html_part.decoded).to include(corpus)
-      expect(subject.text_part.decoded).to include(corpus)
+      expect(subject.html_part.decoded).to include(user.email)
+      expect(subject.text_part.decoded).to include(user.email)
     end
 
     it 'contains the user API Gouv ID' do
-      corpus = "ayant pour ID technique API Gouv #{user.oauth_api_gouv_id}"
-
-      expect(subject.html_part.decoded).to include(corpus)
-      expect(subject.text_part.decoded).to include(corpus)
+      expect(subject.html_part.decoded).to include(user.oauth_api_gouv_id.to_s)
+      expect(subject.text_part.decoded).to include(user.oauth_api_gouv_id.to_s)
     end
 
     it 'contains the user\'s JWT requests ID' do
       authorization_requests_ids = user.jwt_api_entreprise.pluck(:authorization_request_id)
       authorization_requests_ids.map!(&:to_i)
-      corpus = "dont voici les ID : #{authorization_requests_ids}"
 
-      expect(subject.html_part.decoded).to include(corpus)
-      expect(subject.text_part.decoded).to include(corpus)
+      expect(subject.html_part.decoded).to include(authorization_requests_ids.to_s)
+      expect(subject.text_part.decoded).to include(authorization_requests_ids.to_s)
     end
   end
 end
