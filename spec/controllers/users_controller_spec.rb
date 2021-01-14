@@ -517,7 +517,7 @@ describe UsersController, type: :controller do
           call!
 
           expect(response_json).to match({
-            errors: { new_owner_email: ["is in invalid format"] }
+            errors: { email: ["is in invalid format"] }
           })
         end
       end

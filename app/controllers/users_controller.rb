@@ -82,7 +82,7 @@ class UsersController < ApplicationController
     when :success
       render json: transfer[:model], serializer: UserShowSerializer, status: 200
     when :invalid_params
-      render json: { errors: transfer['result.contract.default'].errors }, status: 422
+      render json: { errors: transfer[:contract_errors] }, status: 422
     when :not_found
       msg = "Current owner account with ID `#{params[:id]}` does not exist."
       render json: { errors: msg }, status: 404

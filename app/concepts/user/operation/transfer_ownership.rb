@@ -2,21 +2,19 @@ module User::Operation
   class TransferOwnership < Trailblazer::Operation
     step Model(User, :find_by), Output(:failure) => End(:not_found)
     step :find_new_owner
-    fail Contract::Validate(constant: User::Contract::TransferOwnership), Output(:failure) => End(:invalid_params)
-    fail :create_new_owner, Output(:success) => Track(:success)
+
+    fail Subprocess(User::Operation::CreateGhost),
+      input: :input_for_ghost_creation,
+      output: :output_from_ghost_creation,
+      Output(:success) => Track(:success),
+      Output(:failure) => End(:invalid_params)
+
     step :transfer_tokens
     step :send_email_notification
 
 
     def find_new_owner(ctx, params:, **)
       ctx[:new_owner] = User.find_by_email(params[:new_owner_email])
-    end
-
-    def create_new_owner(ctx, params:, model:, **)
-      ctx[:new_owner] = User.create({
-        email: params[:new_owner_email],
-        context: model.context
-      })
     end
 
     def transfer_tokens(ctx, model:, new_owner:, **)
@@ -26,6 +24,22 @@ module User::Operation
 
     def send_email_notification(ctx, model:, new_owner:, **)
       UserMailer.transfer_ownership(model, new_owner).deliver_later
+    end
+
+    def input_for_ghost_creation(ctx, params:, model:, **)
+      {
+        params: {
+          email: params[:new_owner_email],
+          context: model.context
+        }
+      }
+    end
+
+    def output_from_ghost_creation(scoped_ctx, model:, **)
+      {
+        new_owner: model,
+        contract_errors: scoped_ctx['result.contract.default'].errors.messages
+      }
     end
   end
 end

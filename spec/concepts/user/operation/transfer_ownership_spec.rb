@@ -102,7 +102,7 @@ describe User::Operation::TransferOwnership do
       describe 'validation contract' do
         describe ':new_owner_email' do
           let(:errors) do
-            subject['result.contract.default'].errors[:new_owner_email]
+            subject[:contract_errors][:email]
           end
 
           it 'is required' do
