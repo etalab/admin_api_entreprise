@@ -5,7 +5,7 @@ describe User::Operation::TransferOwnership do
 
   subject { described_class.call(params: op_params) }
 
-  context 'when the currrent owner does not exists' do
+  context 'when the ID does not refer to a registered user' do
     let(:op_params) do
       {
         id: 'much_id',
@@ -20,8 +20,8 @@ describe User::Operation::TransferOwnership do
     end
   end
 
-  context 'when the current owner exists' do
-    let(:old_owner) { create(:user, :with_jwt) }
+  context 'when the ID refers to an existing user' do
+    let!(:old_owner) { create(:user, :with_jwt) }
     let(:op_params) do
       {
         id: old_owner.id,
@@ -29,7 +29,7 @@ describe User::Operation::TransferOwnership do
       }
     end
 
-    context 'when the new owner is already a user' do
+    context 'when the new owner is already a registered user' do
       let(:new_owner_email) { 'already@known.com' }
       let!(:new_owner) { create(:user, email: new_owner_email) }
 
@@ -42,7 +42,7 @@ describe User::Operation::TransferOwnership do
         expect(new_owner.jwt_api_entreprise_ids).to include(*transfered_jwt_ids)
       end
 
-      it 'removes token ownership to the old user' do
+      it 'removes token ownership from the old user' do
         subject
 
         expect(old_owner.jwt_api_entreprise).to be_empty
@@ -55,9 +55,13 @@ describe User::Operation::TransferOwnership do
 
         subject
       end
+
+      it 'does not create a new user' do
+        expect { subject }.to_not change(User, :count)
+      end
     end
 
-    context 'when the owner is unknown' do
+    context 'when the new owner does not exist in database' do
       let(:new_owner_email) { 'not@known.com' }
 
       it { is_expected.to be_success }

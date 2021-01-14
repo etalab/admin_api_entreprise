@@ -16,7 +16,7 @@ class UserMailer < ApplicationMailer
     mail(to: @new_owner.email, subject: subject)
   end
 
-  def notify_datapasss_for_data_reconciliation(user)
+  def notify_datapass_for_data_reconciliation(user)
     @user = user
     @authorization_requests_ids = user.jwt_api_entreprise.pluck(:authorization_request_id).map(&:to_i)
     dest_address = 'contact@api.gouv.fr'

@@ -46,7 +46,7 @@ describe UserMailer, type: :mailer do
       end
 
       it 'notifies the user he now has access to the tokens' do
-        corpus = 'Vous pouvez alors accéder aux jetons votre organisation : connectez-vous simplement au <a href="https://dashboard.entreprise.api.gouv.fr/login">dashboard</a> en utilisant vos identifiants API Gouv !'
+        corpus = 'Vous pouvez alors accéder aux jetons votre organisation : connectez-vous simplement au <a href="https://dashboard.entreprise.api.gouv.fr/login">dashboard</a> en utilisant vos identifiants API Gouv.'
 
         expect(subject.html_part.decoded).to include(corpus)
         expect(subject.text_part.decoded).to include(corpus)
@@ -90,10 +90,10 @@ describe UserMailer, type: :mailer do
     end
   end
 
-  describe '#notify_datapasss_for_data_reconciliation' do
+  describe '#notify_datapass_for_data_reconciliation' do
     let(:user) { create(:user, :with_jwt) }
 
-    subject { described_class.notify_datapasss_for_data_reconciliation(user) }
+    subject { described_class.notify_datapass_for_data_reconciliation(user) }
 
     its(:subject) { is_expected.to eq('API Entreprise - Réconciliation de demandes d\'accès à un nouvel usager') }
     its(:to) { is_expected.to eq(['contact@api.gouv.fr']) }

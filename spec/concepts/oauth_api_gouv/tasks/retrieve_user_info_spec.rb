@@ -42,7 +42,7 @@ describe OAuthApiGouv::Tasks::RetrieveUserInfo do
         # tokens are linked to the appropriate access requests (the information
         # might be loss for DataPass after a user account has been transfered
         it 'sends an email to the DataPass support team' do
-          expect(UserMailer).to receive(:notify_datapasss_for_data_reconciliation)
+          expect(UserMailer).to receive(:notify_datapass_for_data_reconciliation)
             .with(user)
             .and_call_original
 
