@@ -87,6 +87,10 @@ describe User::Operation::TransferOwnership do
         subject
       end
 
+      it 'creates the new user record' do
+        expect { subject }.to change(User, :count).by(1)
+      end
+
       it 'creates a ghost user' do
         subject
         new_owner = User.find_by_email(new_owner_email)
@@ -95,7 +99,7 @@ describe User::Operation::TransferOwnership do
           email: new_owner_email,
           context: old_owner.context,
           oauth_api_gouv_id: nil,
-          persisted?: true
+          confirmed?: false
         })
       end
 
