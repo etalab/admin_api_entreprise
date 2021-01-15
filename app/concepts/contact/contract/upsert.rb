@@ -5,9 +5,7 @@ module Contact::Contract
     property :contact_type
 
     validation do
-      required(:email).filled(
-        format?: /\A[a-zA-Z0-9_.+\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-.]+\z/
-      )
+      required(:email).filled(format?: ParamsValidation::EmailRegex)
       required(:phone_number).maybe(:str?)
       required(:contact_type).filled(included_in?: %w(admin tech other))
     end
