@@ -42,6 +42,13 @@ describe User::Operation::TransferOwnership do
         expect(new_owner.jwt_api_entreprise_ids).to include(*transfered_jwt_ids)
       end
 
+      it 'keeps the existing tokens of the target user' do
+        existing_tokens_id = new_owner.jwt_api_entreprise_ids
+        subject
+
+        expect(new_owner.jwt_api_entreprise_ids).to include(*existing_tokens_id)
+      end
+
       it 'removes token ownership from the old user' do
         subject
 
@@ -71,7 +78,7 @@ describe User::Operation::TransferOwnership do
         subject
         new_owner = User.find_by_email(new_owner_email)
 
-        expect(new_owner.jwt_api_entreprise_ids).to include(*transfered_jwt_ids)
+        expect(new_owner.jwt_api_entreprise_ids).to eq(transfered_jwt_ids)
       end
 
       it 'removes token ownership to the old user' do

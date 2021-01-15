@@ -25,8 +25,8 @@ module OAuthApiGouv::Tasks
     end
 
     def find_related_user(ctx, raw_response:, **)
-      user_info = ctx[:user_info] = JSON.parse(raw_response.body, symbolize_names: true)
-      ctx[:user] = User.find_by(email: user_info[:email])
+      ctx[:user_info] = JSON.parse(raw_response.body, symbolize_names: true)
+      ctx[:user] = User.find_by(email: ctx[:user_info][:email])
     end
 
     def log_error(ctx, raw_response:, **)
