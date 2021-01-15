@@ -6,6 +6,9 @@ module OAuthApiGouv::Tasks
     step :valid_response?
     fail :log_error
     step :find_related_user, Output(:failure) => End(:unknown_user)
+    step :reconciliate_data?, Output(:failure) => End(:success)
+    step :update_user_api_gouv_id
+    step :notify_datapass_for_data_reconciliation
 
 
     def call_user_info_endpoint(ctx, access_token:, **)
@@ -22,12 +25,24 @@ module OAuthApiGouv::Tasks
     end
 
     def find_related_user(ctx, raw_response:, **)
-      user_info = JSON.parse(raw_response.body, symbolize_names: true)
-      ctx[:user] = User.find_by(oauth_api_gouv_id: user_info[:sub])
+      ctx[:user_info] = JSON.parse(raw_response.body, symbolize_names: true)
+      ctx[:user] = User.find_by(email: ctx[:user_info][:email])
     end
 
     def log_error(ctx, raw_response:, **)
       Rails.logger.error("OAuth User Info call failed: status #{raw_response.code}, description #{raw_response.body}")
+    end
+
+    def reconciliate_data?(ctx, user:, **)
+      !user.confirmed?
+    end
+
+    def update_user_api_gouv_id(ctx, user:, user_info:, **)
+      user.update(oauth_api_gouv_id: user_info[:sub])
+    end
+
+    def notify_datapass_for_data_reconciliation(ctx, user:, **)
+      UserMailer.notify_datapass_for_data_reconciliation(user).deliver_later
     end
   end
 end

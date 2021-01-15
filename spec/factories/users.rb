@@ -4,8 +4,6 @@ FactoryBot.define do
     sequence(:oauth_api_gouv_id) { |n| n }
     context { 'VERY_DEVELOPMENT' }
     cgu_agreement_date { Time.zone.now }
-    sequence(:confirmation_token) { |n| "v3rytok3n#{n}" }
-    confirmed_at { Time.zone.now }
     password { 'Coucou123' }
 
     trait :admin do
@@ -13,14 +11,9 @@ FactoryBot.define do
       password { AuthenticationHelper::ADMIN_PWD }
     end
 
-    trait :inactive do
-      confirmed_at { nil }
-      password { '' }
-    end
-
     trait :known_api_gouv_user do
-      # ID of the API Gouv User recorded in VCR's cassettes
-      oauth_api_gouv_id { 5037 }
+      oauth_api_gouv_id { 5037 } # Hard coded ID in VCR's cassette
+      email { 'alexandre.depablo@data.gouv.fr' }
     end
 
     trait :with_jwt do

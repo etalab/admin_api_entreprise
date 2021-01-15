@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Bonjour,</p>
+
+    <p>L'accès au dashboard API Entreprise vient de vous être octroyé par <%= @old_owner.email %>.</p>
+
+    <% if @new_owner.oauth_api_gouv_id.nil? %>
+      <p>
+      Vous devez au préalable vous créer un compte <%= link_to 'API Gouv', @datapass_signup_url %> pour accéder à votre espace client API Entreprise. Il est impératif de renseigner les informations suivantes afin d'éviter des erreurs de réconciliation à votre première connexion :
+      </p>
+      <ul>
+        <li>adresse email : <%= @new_owner.email %></li>
+        <li>siret de votre organisation : <%= @new_owner.context %></li>
+      </ul>
+    <% else %>
+      <p>Vos identifiants de compte API Gouv associés à votre addresse email <%= @new_owner.email %> vous seront demandés pour accéder à votre espace client API Entreprise.</p>
+    <% end %>
+
+    <p>Vous pouvez alors accéder aux jetons votre organisation : connectez-vous simplement au <%= link_to 'dashboard', @login_url %> en utilisant vos identifiants API Gouv.</p>
+
+    <p>Cordialement,</p>
+    <p>L'équipe API Entreprise</p>
+  </body>
+</html>
