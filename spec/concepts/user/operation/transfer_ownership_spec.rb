@@ -9,7 +9,7 @@ describe User::Operation::TransferOwnership do
     let(:op_params) do
       {
         id: 'much_id',
-        new_owner_email: 'whatever'
+        email: 'whatever'
       }
     end
 
@@ -25,7 +25,7 @@ describe User::Operation::TransferOwnership do
     let(:op_params) do
       {
         id: old_owner.id,
-        new_owner_email: new_owner_email
+        email: new_owner_email
       }
     end
 
@@ -104,25 +104,25 @@ describe User::Operation::TransferOwnership do
       end
 
       describe 'validation contract' do
-        describe ':new_owner_email' do
+        describe ':email' do
           let(:errors) do
             subject[:contract_errors][:email]
           end
 
           it 'is required' do
-            op_params[:new_owner_email] = ''
+            op_params[:email] = ''
 
             expect(errors).to include 'must be filled'
           end
 
           it 'has an email format' do
-            op_params[:new_owner_email] = 'verymail'
+            op_params[:email] = 'verymail'
 
             expect(errors).to include 'is in invalid format'
           end
 
           it 'is failure' do
-            op_params[:new_owner_email] = ''
+            op_params[:email] = ''
 
             expect(subject).to be_failure
             expect(end_state).to eq(:invalid_params)

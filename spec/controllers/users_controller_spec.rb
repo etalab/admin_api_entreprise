@@ -473,7 +473,7 @@ describe UsersController, type: :controller do
     let(:new_owner_email) { 'yours@is.mine' }
 
     subject(:call!) do
-      post :transfer_ownership, params: { id: old_owner.id, new_owner_email: new_owner_email }
+      post :transfer_ownership, params: { id: old_owner.id, email: new_owner_email }
     end
 
     shared_examples :account_transfer_success do

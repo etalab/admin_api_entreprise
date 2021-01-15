@@ -96,6 +96,6 @@ class UsersController < ApplicationController
   end
 
   def transfer_account_params
-    params.permit(:id, :new_owner_email)
+    params.permit(:id, :email)
   end
 end

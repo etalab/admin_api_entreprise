@@ -14,7 +14,7 @@ module User::Operation
 
 
     def find_new_owner(ctx, params:, **)
-      ctx[:new_owner] = User.find_by_email(params[:new_owner_email])
+      ctx[:new_owner] = User.find_by_email(params[:email])
     end
 
     def transfer_tokens(ctx, model:, new_owner:, **)
@@ -29,7 +29,7 @@ module User::Operation
     def input_for_ghost_creation(ctx, params:, model:, **)
       {
         params: {
-          email: params[:new_owner_email],
+          email: params[:email],
           context: model.context
         }
       }
