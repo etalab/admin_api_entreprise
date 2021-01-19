@@ -68,6 +68,11 @@ describe 'Application routes' do
         .to route_to(controller: 'doorkeeper/tokens', action: 'create')
     end
 
+    it 'has an account tranfer route' do
+      expect(post('api/admin/users/much_id/transfer_ownership'))
+        .to route_to(controller: 'users', action: 'transfer_ownership', id: 'much_id')
+    end
+
     it 'has a password_renewal route' do
       expect(post('api/admin/users/password_renewal'))
         .to route_to(controller: 'users', action: 'password_renewal')

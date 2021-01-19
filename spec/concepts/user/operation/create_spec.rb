@@ -34,7 +34,6 @@ describe User::Operation::Create do
       its(:oauth_api_gouv_id) { is_expected.to eq(31442) }
       its(:context) { is_expected.to eq(user_params[:context]) }
       its(:password_digest) { is_expected.to be_blank }
-      its(:confirmed?) { is_expected.to eq(false) }
 
       it 'sets the CGU agreement timestamp' do
         params_cgu_time = Time.zone.parse(user_params[:cgu_agreement_date])

@@ -9,9 +9,6 @@ describe User do
     it { is_expected.to have_db_column(:oauth_api_gouv_id).of_type(:integer) }
     it { is_expected.to have_db_column(:context).of_type(:string) }
     it { is_expected.to have_db_column(:password_digest).of_type(:string) }
-    it { is_expected.to have_db_column(:confirmation_token).of_type(:string) }
-    it { is_expected.to have_db_column(:confirmed_at).of_type(:datetime) }
-    it { is_expected.to have_db_column(:confirmation_sent_at).of_type(:datetime) }
     it { is_expected.to have_db_column(:cgu_agreement_date).of_type(:datetime) }
     it { is_expected.to have_db_column(:note).of_type(:text).with_options(default: '') }
     it { is_expected.to have_db_column(:pwd_renewal_token).of_type(:string).with_options(default: nil) }
@@ -30,6 +27,20 @@ describe User do
       user.reload
 
       expect(user.pwd_renewal_token).to match(/\A[0-9a-f]{20}\z/)
+    end
+  end
+
+  describe '#confirmed?' do
+    subject { user.confirmed? }
+
+    context 'when the user has an API Gouv ID' do
+      before { user.oauth_api_gouv_id = 12 }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the user does not have an API Gouv ID' do
+      before { user.oauth_api_gouv_id = nil }
+      it { is_expected.to eq(false) }
     end
   end
 end

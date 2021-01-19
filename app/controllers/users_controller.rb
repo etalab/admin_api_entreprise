@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :jwt_authenticate!, only: [:confirm, :password_renewal, :password_reset]
+  skip_before_action :jwt_authenticate!, only: [:password_renewal, :password_reset]
 
   def index
     authorize :admin, :admin?
@@ -72,9 +72,30 @@ class UsersController < ApplicationController
     end
   end
 
+  def transfer_ownership
+    user = User.find(params[:id])
+    authorize user
+    transfer = User::Operation::TransferOwnership.call(params: transfer_account_params)
+    transfer_final_state = transfer.event.to_h[:semantic]
+
+    case transfer_final_state
+    when :success
+      render json: transfer[:model], serializer: UserShowSerializer, status: 200
+    when :invalid_params
+      render json: { errors: transfer[:contract_errors] }, status: 422
+    when :not_found
+      msg = "Current owner account with ID `#{params[:id]}` does not exist."
+      render json: { errors: msg }, status: 404
+    end
+  end
+
   private
 
   def user_params
     params.permit(:email, :context)
+  end
+
+  def transfer_account_params
+    params.permit(:id, :email)
   end
 end

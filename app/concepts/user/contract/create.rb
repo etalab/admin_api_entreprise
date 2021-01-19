@@ -23,10 +23,7 @@ module User::Contract
         end
       end
 
-      required(:email).filled(
-        format?: /\A[a-zA-Z0-9_.+\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-.]+\z/,
-        &:unique?
-      )
+      required(:email).filled(format?: ParamsValidation::EmailRegex, &:unique?)
       required(:context).maybe(:str?)
       required(:note).maybe(:str?)
       required(:cgu_agreement_date).filled(:datetime?)

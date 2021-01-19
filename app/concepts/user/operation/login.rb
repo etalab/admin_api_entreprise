@@ -1,7 +1,6 @@
 module User::Operation
   class Login < Trailblazer::Operation
     step :retrieve_user_from_email
-    step ->(options, model:, **) { model.confirmed? }
     step :authenticate_user
 
     def retrieve_user_from_email(options, params:, **)
