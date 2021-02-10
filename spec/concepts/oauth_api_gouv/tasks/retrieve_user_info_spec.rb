@@ -40,6 +40,25 @@ describe OAuthApiGouv::Tasks::RetrieveUserInfo do
           expect(user.oauth_api_gouv_id).to eq(hard_coded_id_in_cassette)
         end
 
+        describe 'non-regression test' do
+          it 'does not send any email to DataPass' do
+            expect(UserMailer).to_not receive(:notify_datapass_for_data_reconciliation)
+
+            fetch_user!
+          end
+        end
+      end
+
+      context 'when the user has been delegated new tokens' do
+        before { user.update(tokens_newly_transfered: true) }
+
+        it 'updates #tokens_newly_transfered to false' do
+          fetch_user!
+          user.reload
+
+          expect(user.tokens_newly_transfered).to eq(false)
+        end
+
         # This is temporary, right now DataPass ensures manually our user
         # tokens are linked to the appropriate access requests (the information
         # might be loss for DataPass after a user account has been transfered

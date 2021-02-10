@@ -13,6 +13,7 @@ describe User do
     it { is_expected.to have_db_column(:note).of_type(:text).with_options(default: '') }
     it { is_expected.to have_db_column(:pwd_renewal_token).of_type(:string).with_options(default: nil) }
     it { is_expected.to have_db_column(:admin).of_type(:boolean).with_options(default: false) }
+    it { is_expected.to have_db_column(:tokens_newly_transfered).of_type(:boolean).with_options(default: false) }
   end
 
   describe 'relationships' do

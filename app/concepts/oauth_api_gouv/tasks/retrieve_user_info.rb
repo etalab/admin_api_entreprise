@@ -6,9 +6,10 @@ module OAuthApiGouv::Tasks
     step :valid_response?
     fail :log_error
     step :find_related_user, Output(:failure) => End(:unknown_user)
-    step :reconciliate_data?, Output(:failure) => End(:success)
     step :update_user_api_gouv_id
+    step :reconciliate_data?, Output(:failure) => End(:success)
     step :notify_datapass_for_data_reconciliation
+    step :prevail_further_notifications
 
 
     def call_user_info_endpoint(ctx, access_token:, **)
@@ -34,7 +35,7 @@ module OAuthApiGouv::Tasks
     end
 
     def reconciliate_data?(ctx, user:, **)
-      !user.confirmed?
+      user.tokens_newly_transfered?
     end
 
     def update_user_api_gouv_id(ctx, user:, user_info:, **)
@@ -43,6 +44,10 @@ module OAuthApiGouv::Tasks
 
     def notify_datapass_for_data_reconciliation(ctx, user:, **)
       UserMailer.notify_datapass_for_data_reconciliation(user).deliver_later
+    end
+
+    def prevail_further_notifications(ctx, user:, **)
+      user.update(tokens_newly_transfered: false)
     end
   end
 end
