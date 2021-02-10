@@ -31,11 +31,13 @@ describe OAuthApiGouv::Tasks::RetrieveUserInfo do
       context 'when the user is not confirmed yet (:oauth_api_gouv_id unknown)' do
         before { user.update(oauth_api_gouv_id: nil) }
 
+        let(:hard_coded_id_in_cassette) { 5037 }
+
         it 'updates the :oauth_api_gouv_id' do
           fetch_user!
           user.reload
 
-          expect(user.oauth_api_gouv_id).to eq(5037) # Hard coded value in VCR cassette
+          expect(user.oauth_api_gouv_id).to eq(hard_coded_id_in_cassette)
         end
 
         # This is temporary, right now DataPass ensures manually our user
