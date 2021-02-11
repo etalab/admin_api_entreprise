@@ -9,6 +9,10 @@ class User < ApplicationRecord
     !!oauth_api_gouv_id
   end
 
+  def tokens_newly_transfered?
+    tokens_newly_transfered
+  end
+
   def generate_pwd_renewal_token
     update(pwd_renewal_token: random_token_for(:pwd_renewal_token))
   end

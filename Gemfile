@@ -9,9 +9,9 @@ end
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0'
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 0.18'
+gem 'pg'
 # Use Puma as the app server
-gem 'puma', '~> 3.12'
+gem 'puma'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -24,22 +24,20 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-# DO NOT update sidekiq to major 6 version until Redis has been
-# upgraded on host machines
-gem 'sidekiq', '~> 5.2'
+gem 'sidekiq'
 gem 'sidekiq-cron'
 
 gem 'doorkeeper', '~> 4.4.0'
 gem 'jwtf', '0.2.0'
-gem 'jwt', '~> 2.2.1'
+gem 'jwt'
 gem 'active_model_serializers', '~> 0.10.0'
 
-gem 'trailblazer', '~> 2.1.0'
+gem 'trailblazer'
 gem 'reform-rails'
-gem 'reform', '~> 2.3.0.rc1'
+gem 'reform'
 gem 'dry-validation', '~> 0.11.1'
 
-gem 'pundit', '~> 1.1'
+gem 'pundit'
 
 gem 'pastel'
 
@@ -59,10 +57,10 @@ group :development, :test do
 end
 
 group :development do
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'listen'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-watcher-listen'
   gem 'mina', '~> 1.2'
   gem 'rubocop', require: false
 end

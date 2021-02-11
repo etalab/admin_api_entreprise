@@ -10,6 +10,7 @@ module User::Operation
       Output(:failure) => End(:invalid_params)
 
     step :transfer_tokens
+    step :tag_tokens_transfer
     step :send_email_notification
 
 
@@ -24,6 +25,10 @@ module User::Operation
 
     def send_email_notification(ctx, model:, new_owner:, **)
       UserMailer.transfer_ownership(model, new_owner).deliver_later
+    end
+
+    def tag_tokens_transfer(ctx, new_owner:, **)
+      new_owner.update(tokens_newly_transfered: true)
     end
 
     def input_for_ghost_creation(ctx, params:, model:, **)

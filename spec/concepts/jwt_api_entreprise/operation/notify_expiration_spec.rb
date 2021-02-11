@@ -77,7 +77,7 @@ describe JwtApiEntreprise::Operation::NotifyExpiration do
 
   context 'when expire_in: is not specified' do
     it 'raises an error' do
-      expect { described_class.call }.to raise_error(ArgumentError, a_string_matching(/missing keyword: expire_in/))
+      expect { described_class.call }.to raise_error(ArgumentError, a_string_matching(/missing keyword: :expire_in/))
     end
   end
 end
