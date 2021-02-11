@@ -5,6 +5,7 @@ FactoryBot.define do
     context { 'VERY_DEVELOPMENT' }
     cgu_agreement_date { Time.zone.now }
     password { 'Coucou123' }
+    tokens_newly_transfered { false }
 
     trait :admin do
       admin { true }

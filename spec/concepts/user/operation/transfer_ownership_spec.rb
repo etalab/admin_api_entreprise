@@ -63,6 +63,13 @@ describe User::Operation::TransferOwnership do
         subject
       end
 
+      it 'sets new tokens have been transfered' do
+        subject
+        new_owner.reload
+
+        expect(new_owner.tokens_newly_transfered).to eq(true)
+      end
+
       it 'does not create a new user' do
         expect { subject }.to_not change(User, :count)
       end
@@ -106,6 +113,7 @@ describe User::Operation::TransferOwnership do
           email: new_owner_email,
           context: old_owner.context,
           oauth_api_gouv_id: nil,
+          tokens_newly_transfered: true,
           confirmed?: false
         })
       end

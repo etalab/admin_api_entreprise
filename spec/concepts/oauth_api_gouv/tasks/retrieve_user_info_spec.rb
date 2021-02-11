@@ -31,11 +31,32 @@ describe OAuthApiGouv::Tasks::RetrieveUserInfo do
       context 'when the user is not confirmed yet (:oauth_api_gouv_id unknown)' do
         before { user.update(oauth_api_gouv_id: nil) }
 
+        let(:hard_coded_id_in_cassette) { 5037 }
+
         it 'updates the :oauth_api_gouv_id' do
           fetch_user!
           user.reload
 
-          expect(user.oauth_api_gouv_id).to eq(5037) # Hard coded value in VCR cassette
+          expect(user.oauth_api_gouv_id).to eq(hard_coded_id_in_cassette)
+        end
+
+        describe 'non-regression test' do
+          it 'does not send any email to DataPass' do
+            expect(UserMailer).to_not receive(:notify_datapass_for_data_reconciliation)
+
+            fetch_user!
+          end
+        end
+      end
+
+      context 'when the user has been delegated new tokens' do
+        before { user.update(tokens_newly_transfered: true) }
+
+        it 'updates #tokens_newly_transfered to false' do
+          fetch_user!
+          user.reload
+
+          expect(user.tokens_newly_transfered).to eq(false)
         end
 
         # This is temporary, right now DataPass ensures manually our user
