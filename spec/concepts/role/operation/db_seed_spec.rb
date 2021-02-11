@@ -44,7 +44,7 @@ describe Role::Operation::DBSeed do
     subject { described_class.call }
 
     it 'saves all roles in the database' do
-      expect { subject }.to change(Role, :count).by(22)
+      expect { subject }.to change(Role, :count).by(23)
     end
   end
 end
