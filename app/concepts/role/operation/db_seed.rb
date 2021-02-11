@@ -40,7 +40,6 @@ module Role::Operation
           { name: 'Actes INPI',             code: 'actes_inpi' },
           { name: 'Bilans INPI',            code: 'bilans_inpi' },
           { name: 'UptimeRobot',            code: 'uptime' },
-          { name: 'Douanes EORI',           code: 'eori_douanes' },
         ]
       end
       ctx[:roles_seed]
