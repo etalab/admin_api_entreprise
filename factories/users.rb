@@ -7,6 +7,11 @@ FactoryBot.define do
     password { 'Coucou123' }
     tokens_newly_transfered { false }
 
+    trait :full_name do
+      first_name { Faker::Name.first_name }
+      last_name { Faker::Name.last_name }
+    end
+
     trait :admin do
       admin { true }
       password { AuthenticationHelper::ADMIN_PWD }

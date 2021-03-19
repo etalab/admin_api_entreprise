@@ -5,6 +5,8 @@ module User::Contract
     property :context
     property :note
     property :cgu_agreement_date
+    property :first_name
+    property :last_name
 
     validation do
       configure do

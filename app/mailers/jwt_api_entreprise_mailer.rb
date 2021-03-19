@@ -1,4 +1,6 @@
 class JwtApiEntrepriseMailer < ApplicationMailer
+  include ::UserHelper
+
   def expiration_notice(jwt, nb_days)
     @jwt = jwt
     @nb_days = nb_days
@@ -23,6 +25,21 @@ class JwtApiEntrepriseMailer < ApplicationMailer
     @jwt = new_token
     recipients = @jwt.user_and_contacts_email
     subject = 'API Entreprise - Création d\'un nouveau token'
+
+    mail(to: recipients, subject: subject)
+  end
+
+  def satisfaction_survey(jwt)
+    @url_to_jwt = Rails.configuration.account_tokens_list_url.to_s
+    @jwt = jwt
+    recipients = @jwt.user_and_contacts_email
+    @full_name = full_name_builder(@jwt.user.first_name, @jwt.user.last_name)
+
+    subject = if @full_name.nil?
+                t('jwt_api_entreprise_mailer_satisfaction_survey_subject')
+              else
+                t('jwt_api_entreprise_mailer_satisfaction_survey_subject_with_full_name', full_name: @full_name)
+              end
 
     mail(to: recipients, subject: subject)
   end

@@ -147,4 +147,36 @@ RSpec.describe JwtApiEntrepriseMailer, type: :mailer do
       expect(subject.text_part.decoded).to include(notice)
     end
   end
+
+  describe '#satisfaction_survey' do
+    subject do
+      described_class.satisfaction_survey(jwt)
+    end
+
+    let(:jwt) { create(:jwt_api_entreprise, :with_contacts) }
+
+    its(:subject) { is_expected.to eq ::I18n.t!('jwt_api_entreprise_mailer_satisfaction_survey_subject') }
+    its(:from) { is_expected.to include(Rails.configuration.emails_sender_address) }
+
+    it 'sends the email to all contacts (including the account owner)' do
+      account_owner_email = jwt.user.email
+      jwt_contacts_emails = jwt.contacts.pluck(:email).uniq
+
+      expect(subject.to).to include(account_owner_email, *jwt_contacts_emails)
+    end
+
+    it 'contains the link to the form' do
+      token_url = "https://startupdetat.typeform.com/to/bFo1H9NJ"
+
+      expect(subject.html_part.decoded).to include(token_url)
+      expect(subject.text_part.decoded).to include(token_url)
+    end
+
+    it 'contains info regarding the access request' do
+      notice = "votre demande d'accès à l'API Entreprise N°[XXXX]"
+
+      expect(subject.html_part.decoded).to include(notice)
+      expect(subject.text_part.decoded).to include(notice)
+    end
+  end
 end

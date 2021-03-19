@@ -123,5 +123,27 @@ RSpec.describe User::Operation::Create do
         expect(errors).to include('must be a datetime format')
       end
     end
+
+    describe '#first_name' do
+      before do
+        user_params.update(first_name: context_value).compact!
+      end
+
+      let(:data_model) { subject[:model] }
+
+      context 'when blank' do
+        let(:context_value) { nil }
+
+        it { expect(subject).to be_success }
+        it { expect(data_model.first_name).to be_blank }
+      end
+
+      context 'when present' do
+        let(:context_value) { attributes_for(:user, :full_name).fetch(:first_name) }
+
+        it { expect(subject).to be_success }
+        it { expect(data_model.first_name).to be_present }
+      end
+    end
   end
 end
