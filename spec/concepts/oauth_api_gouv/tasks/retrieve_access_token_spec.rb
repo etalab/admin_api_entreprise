@@ -27,7 +27,7 @@ RSpec.describe OAuthApiGouv::Tasks::RetrieveAccessToken do
         it 'returns the user ID (from OAuth API Gouv)' do
           user_id = retrieve_tokens![:oauth_api_gouv_user_id]
 
-          expect(user_id).to be_an(Integer)
+          expect(user_id).to be_a(String)
         end
       end
 
