@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe JwtApiEntreprise::Operation::NotifyExpiration do
+RSpec.describe JwtApiEntreprise::Operation::NotifyExpiration do
   describe 'expire_in: option (provide a number of days)' do
     # Let's test with a 90 days (3 months) expiration notice
     let(:days) { 90 }

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe JwtApiEntrepriseController, type: :controller do
+RSpec.describe JwtApiEntrepriseController, type: :controller do
   let(:token_params) do
     {
       roles: jwt_roles,

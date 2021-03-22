@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Request authentication', type: :controller do
+RSpec.describe 'Request authentication', type: :controller do
   # Use of anonymous controller with random action which inherits from
   # ApplicationController to test authentication callback genericity
   controller(ApplicationController) do

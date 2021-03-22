@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Application routes' do
+RSpec.describe 'Application routes' do
   describe 'incidents' do
     it 'has an index route' do
       expect(get('api/admin/incidents'))

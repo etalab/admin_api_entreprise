@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe IncidentsController, type: :controller do
+RSpec.describe IncidentsController, type: :controller do
   describe '#index' do
     let(:nb_incidents) { 5 }
     let(:body) { JSON.parse(response.body, symbolize_names: true) }

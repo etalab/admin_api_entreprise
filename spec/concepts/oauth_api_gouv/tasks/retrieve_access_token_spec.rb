@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe OAuthApiGouv::Tasks::RetrieveAccessToken do
+RSpec.describe OAuthApiGouv::Tasks::RetrieveAccessToken do
   subject(:retrieve_tokens!) { described_class.call(authorization_code: code) }
 
   context 'when the authorization code is valid' do

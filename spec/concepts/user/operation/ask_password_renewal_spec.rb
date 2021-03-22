@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe User::Operation::AskPasswordRenewal do
+RSpec.describe User::Operation::AskPasswordRenewal do
   let(:op_params) { { email: account_email } }
 
   subject(:pwd_renewal_request) { described_class.call(params: op_params) }

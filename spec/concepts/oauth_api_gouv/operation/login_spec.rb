@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe OAuthApiGouv::Operation::Login, type: :jwt do
+RSpec.describe OAuthApiGouv::Operation::Login, type: :jwt do
   let(:op_params) do
     { authorization_code: code }
   end

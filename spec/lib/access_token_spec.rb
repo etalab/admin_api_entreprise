@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe AccessToken do
+RSpec.describe AccessToken do
   context 'token encoding' do
     payload = { data: 'test', more_data: 'verytest' }
     token = described_class.create payload

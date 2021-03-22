@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe JwtApiEntrepriseMailer, type: :mailer do
+RSpec.describe JwtApiEntrepriseMailer, type: :mailer do
   describe 'Expiration notices (old and new)' do
     let(:jwt) { create(:jwt_api_entreprise, :with_contacts) }
     let(:user) { jwt.user }

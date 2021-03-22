@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe User do
+RSpec.describe User do
   let(:user) { create :user, :with_jwt }
 
   describe 'db_columns' do

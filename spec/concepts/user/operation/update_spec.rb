@@ -1,7 +1,7 @@
 
 require 'rails_helper'
 
-describe User::Operation::Update do
+RSpec.describe User::Operation::Update do
   let(:operation_params) do
     {
       id: user_id,
