@@ -46,6 +46,7 @@ gem 'logstasher'
 group :development, :test do
   gem 'awesome_print'
   gem 'colorize'
+  gem 'factory_bot_rails'
   gem 'pry'
   gem 'pry-byebug'
   gem 'pry-rails'
@@ -71,7 +72,6 @@ group :test do
   gem 'spring-commands-rspec'
   gem 'rspec-rails'
   gem 'rspec-its'
-  gem 'factory_bot_rails'
   gem 'simplecov', require: false
   gem 'simplecov-console', require: false
   gem 'shoulda-matchers'
