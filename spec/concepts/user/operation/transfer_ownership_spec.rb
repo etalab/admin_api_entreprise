@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe User::Operation::TransferOwnership do
+RSpec.describe User::Operation::TransferOwnership do
   let(:end_state) { subject.event.to_h[:semantic] }
 
   subject { described_class.call(params: op_params) }

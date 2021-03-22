@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe UserMailer, type: :mailer do
+RSpec.describe UserMailer, type: :mailer do
   describe '#renew_account_password' do
     let(:user) { create(:user, pwd_renewal_token: 'coucou') }
 

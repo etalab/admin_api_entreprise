@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Incident::Operation::Save do
+RSpec.describe Incident::Operation::Save do
   let(:operation_params) do
     {
       title: 'Test incident',

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe User::Operation::Index do
+RSpec.describe User::Operation::Index do
   before { create_list(:user, 8) }
 
   let(:op_params) { {} }

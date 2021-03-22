@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe JwtApiEntreprise, type: :model do
+RSpec.describe JwtApiEntreprise, type: :model do
   let(:jwt) { create(:jwt_api_entreprise) }
 
   describe 'db_columns' do

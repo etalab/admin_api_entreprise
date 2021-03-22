@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe JwtApiEntreprisePurgeJob do
+RSpec.describe JwtApiEntreprisePurgeJob do
   subject { described_class.perform_now }
 
   it 'calls the purge operation' do

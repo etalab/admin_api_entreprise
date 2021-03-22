@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe OAuthApiGouv::Tasks::RetrieveUserInfo do
+RSpec.describe OAuthApiGouv::Tasks::RetrieveUserInfo do
   subject(:fetch_user!) { described_class.call(access_token: token) }
 
   context 'when the access token is valid', vcr: { cassette_name: 'oauth_api_gouv_user_info_valid_token' } do

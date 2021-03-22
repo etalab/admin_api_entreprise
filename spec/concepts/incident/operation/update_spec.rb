@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Incident::Operation::Update do
+RSpec.describe Incident::Operation::Update do
   let(:operation_params) do
     {
       id: incident_id,

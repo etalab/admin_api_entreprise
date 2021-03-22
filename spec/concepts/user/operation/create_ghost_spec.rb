@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe User::Operation::CreateGhost do
+RSpec.describe User::Operation::CreateGhost do
   let(:op_params) do
     {
       email: 'new@record.com',

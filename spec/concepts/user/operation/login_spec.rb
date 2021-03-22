@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe User::Operation::Login do
+RSpec.describe User::Operation::Login do
   let(:result) { described_class.call(params: login_params) }
 
   context 'when user email is unknown' do

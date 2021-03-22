@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 # TODO Move those specs into future contact creation operation
-describe Contact::Contract::Upsert do
+RSpec.describe Contact::Contract::Upsert do
   let(:contact_params) { attributes_for :contact }
 
   describe 'contact creation' do
