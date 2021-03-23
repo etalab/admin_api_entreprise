@@ -162,19 +162,5 @@ RSpec.describe JwtApiEntrepriseMailer, type: :mailer do
     it 'only sends the email to the account owner' do
       expect(subject.to).to eq [account_owner_email]
     end
-
-    it 'contains the link to the form' do
-      token_url = "https://startupdetat.typeform.com/to/bFo1H9NJ"
-
-      expect(subject.html_part.decoded).to include(token_url)
-      expect(subject.text_part.decoded).to include(token_url)
-    end
-
-    it 'contains info regarding the access request' do
-      notice = "votre demande d'accès à l'API Entreprise N°[XXXX]"
-
-      expect(subject.html_part.decoded).to include(notice)
-      expect(subject.text_part.decoded).to include(notice)
-    end
   end
 end
