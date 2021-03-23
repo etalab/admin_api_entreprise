@@ -30,10 +30,9 @@ class JwtApiEntrepriseMailer < ApplicationMailer
   def satisfaction_survey(jwt)
     @url_to_jwt = Rails.configuration.account_tokens_list_url.to_s
     @jwt = jwt
-    recipients = @jwt.user_and_contacts_email
-
+    recipient = @jwt.user.email
     subject = t('jwt_api_entreprise_mailer_satisfaction_survey_subject')
 
-    mail(to: recipients, subject: subject)
+    mail(to: recipient, subject: subject)
   end
 end

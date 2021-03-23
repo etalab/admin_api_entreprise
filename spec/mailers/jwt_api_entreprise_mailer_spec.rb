@@ -154,15 +154,13 @@ RSpec.describe JwtApiEntrepriseMailer, type: :mailer do
     end
 
     let(:jwt) { create(:jwt_api_entreprise, :with_contacts) }
+    let(:account_owner_email) { jwt.user.email }
 
     its(:subject) { is_expected.to eq ::I18n.t!('jwt_api_entreprise_mailer_satisfaction_survey_subject') }
     its(:from) { is_expected.to include(Rails.configuration.emails_sender_address) }
 
-    it 'sends the email to all contacts (including the account owner)' do
-      account_owner_email = jwt.user.email
-      jwt_contacts_emails = jwt.contacts.pluck(:email).uniq
-
-      expect(subject.to).to include(account_owner_email, *jwt_contacts_emails)
+    it 'only sends the email to the account owner' do
+      expect(subject.to).to eq [account_owner_email]
     end
 
     it 'contains the link to the form' do
