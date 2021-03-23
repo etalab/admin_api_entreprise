@@ -1,6 +1,4 @@
 class JwtApiEntrepriseMailer < ApplicationMailer
-  include ::UserHelper
-
   def expiration_notice(jwt, nb_days)
     @jwt = jwt
     @nb_days = nb_days
@@ -33,13 +31,8 @@ class JwtApiEntrepriseMailer < ApplicationMailer
     @url_to_jwt = Rails.configuration.account_tokens_list_url.to_s
     @jwt = jwt
     recipients = @jwt.user_and_contacts_email
-    @full_name = full_name_builder(@jwt.user.first_name, @jwt.user.last_name)
 
-    subject = if @full_name.nil?
-                t('jwt_api_entreprise_mailer_satisfaction_survey_subject')
-              else
-                t('jwt_api_entreprise_mailer_satisfaction_survey_subject_with_full_name', full_name: @full_name)
-              end
+    subject = t('jwt_api_entreprise_mailer_satisfaction_survey_subject')
 
     mail(to: recipients, subject: subject)
   end
