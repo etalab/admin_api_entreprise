@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :user do
     sequence(:email) { |n| "user_#{n}@example.org" }
-    sequence(:oauth_api_gouv_id) { |n| n }
+    sequence(:oauth_api_gouv_id) { |n| "#{n}" }
     context { 'VERY_DEVELOPMENT' }
     cgu_agreement_date { Time.zone.now }
     password { 'Coucou123' }
@@ -13,7 +13,7 @@ FactoryBot.define do
     end
 
     trait :known_api_gouv_user do
-      oauth_api_gouv_id { 5037 } # Hard coded ID in VCR's cassette
+      oauth_api_gouv_id { '5037' } # Hard coded ID in VCR's cassette
       email { 'alexandre.depablo@data.gouv.fr' }
     end
 
