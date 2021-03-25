@@ -27,7 +27,7 @@ module User::Contract
       required(:context).maybe(:str?)
       required(:note).maybe(:str?)
       required(:cgu_agreement_date).filled(:datetime?)
-      required(:oauth_api_gouv_id).filled(:int?)
+      required(:oauth_api_gouv_id).filled(:str?)
     end
   end
 end
