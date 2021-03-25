@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe User::Operation::ResetPassword do
+RSpec.describe User::Operation::ResetPassword do
   let(:user) { create(:user, pwd_renewal_token: 'coucou') }
   let(:reset_params) do
     {

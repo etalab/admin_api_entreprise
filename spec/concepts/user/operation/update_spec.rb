@@ -1,12 +1,12 @@
 
 require 'rails_helper'
 
-describe User::Operation::Update do
+RSpec.describe User::Operation::Update do
   let(:operation_params) do
     {
       id: user_id,
       note: 'Updated description',
-      oauth_api_gouv_id: 9001
+      oauth_api_gouv_id: '9001'
     }
   end
   subject { described_class.call(params: operation_params) }
@@ -52,17 +52,17 @@ describe User::Operation::Update do
         expect(subject).to be_success
       end
 
-      it 'must be an integer' do
-        operation_params[:oauth_api_gouv_id] = '42'
+      it 'must be an string' do
+        operation_params[:oauth_api_gouv_id] = 42
 
         expect(subject).to be_failure
-        expect(subject[:errors]).to eq(oauth_api_gouv_id: ["must be an integer"])
+        expect(subject[:errors]).to eq(oauth_api_gouv_id: ['must be a string'])
       end
 
       it 'can be updated' do
         updated_user = subject[:model]
 
-        expect(updated_user.oauth_api_gouv_id).to eq(9001)
+        expect(updated_user.oauth_api_gouv_id).to eq('9001')
       end
     end
   end

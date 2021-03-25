@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-describe User::Operation::Create do
+RSpec.describe User::Operation::Create do
   let(:user_email) { 'new@record.gg' }
   let(:user_params) do
     {
       email: user_email,
-      oauth_api_gouv_id: 31442,
+      oauth_api_gouv_id: '31442',
       context: 'very development',
       cgu_agreement_date: '2019-12-26T14:38:45.490Z'
     }
@@ -32,7 +32,7 @@ describe User::Operation::Create do
       its(:email) { is_expected.to eq(user_params[:email]) }
       its(:admin) { is_expected.to eq(false) }
       its(:tokens_newly_transfered) { is_expected.to eq(false) }
-      its(:oauth_api_gouv_id) { is_expected.to eq(31442) }
+      its(:oauth_api_gouv_id) { is_expected.to eq('31442') }
       its(:context) { is_expected.to eq(user_params[:context]) }
       its(:password_digest) { is_expected.to be_blank }
 
@@ -96,11 +96,11 @@ describe User::Operation::Create do
         expect(errors).to include('must be filled')
       end
 
-      it 'is an integer' do
-        user_params[:oauth_api_gouv_id] = '123'
+      it 'is a string' do
+        user_params[:oauth_api_gouv_id] = 123
 
         expect(subject).to be_failure
-        expect(errors).to include('must be an integer')
+        expect(errors).to include('must be a string')
       end
     end
 

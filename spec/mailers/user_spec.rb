@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe UserMailer, type: :mailer do
+RSpec.describe UserMailer, type: :mailer do
   describe '#renew_account_password' do
     let(:user) { create(:user, pwd_renewal_token: 'coucou') }
 
@@ -51,7 +51,7 @@ describe UserMailer, type: :mailer do
       end
 
       context 'when the new owner already has an API Gouv account' do
-        before { new_owner.oauth_api_gouv_id = 12 }
+        before { new_owner.oauth_api_gouv_id = '12' }
 
         it 'informs the user he will need his API Gouv account' do
           expect(subject.html_part.decoded).to include(new_owner.email)

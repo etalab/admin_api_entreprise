@@ -1,7 +1,7 @@
 module OAuthApiGouv
   module AuthorizationCode
     def self.valid
-      '3CLi1gIYUeYMUpPh1UfjdBQrj9vaieJTV05HzoPXtgk'
+      'Ief-WSvp96CYrV_OhhgdsycWynhlJk2JcniBacfSNxQ'
     end
 
     def self.invalid

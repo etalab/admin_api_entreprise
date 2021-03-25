@@ -5,7 +5,7 @@ module User::Contract
 
     validation do
       required(:note).maybe(:str?)
-      required(:oauth_api_gouv_id).maybe(:int?)
+      required(:oauth_api_gouv_id).maybe(:str?)
     end
   end
 end

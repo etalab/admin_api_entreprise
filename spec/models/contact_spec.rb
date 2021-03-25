@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Contact do
+RSpec.describe Contact do
   describe 'db columns' do
     it { is_expected.to have_db_column(:id).of_type(:uuid) }
     it { is_expected.to have_db_column(:email).of_type(:string) }

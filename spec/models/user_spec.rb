@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-describe User do
+RSpec.describe User do
   let(:user) { create :user, :with_jwt }
 
   describe 'db_columns' do
     it { is_expected.to have_db_column(:id).of_type(:uuid) }
     it { is_expected.to have_db_column(:email).of_type(:string) }
-    it { is_expected.to have_db_column(:oauth_api_gouv_id).of_type(:integer) }
+    it { is_expected.to have_db_column(:oauth_api_gouv_id).of_type(:string) }
     it { is_expected.to have_db_column(:context).of_type(:string) }
     it { is_expected.to have_db_column(:password_digest).of_type(:string) }
     it { is_expected.to have_db_column(:cgu_agreement_date).of_type(:datetime) }
@@ -35,7 +35,7 @@ describe User do
     subject { user.confirmed? }
 
     context 'when the user has an API Gouv ID' do
-      before { user.oauth_api_gouv_id = 12 }
+      before { user.oauth_api_gouv_id = '12' }
       it { is_expected.to eq(true) }
     end
 

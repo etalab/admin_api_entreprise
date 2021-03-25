@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe UsersController, type: :controller do
+RSpec.describe UsersController, type: :controller do
   describe '#index' do
     before { create_list(:user, 5) }
 
@@ -32,7 +32,7 @@ describe UsersController, type: :controller do
             email: a_kind_of(String),
             context: a_kind_of(String),
             confirmed: be(true).or(be(false)),
-            oauth_api_gouv_id: a_kind_of(Integer),
+            oauth_api_gouv_id: a_kind_of(String),
             created_at: a_kind_of(String),
           }))
         end
@@ -57,7 +57,7 @@ describe UsersController, type: :controller do
     let(:user_params) do
       {
         email: 'user@email.com',
-        oauth_api_gouv_id: 123,
+        oauth_api_gouv_id: '123',
         context: 'very create',
         cgu_agreement_date: '2020-01-07T12:38:45.490Z'
       }
@@ -117,7 +117,7 @@ describe UsersController, type: :controller do
             id: a_kind_of(String),
             email: a_kind_of(String),
             context: a_kind_of(String),
-            oauth_api_gouv_id: a_kind_of(Integer),
+            oauth_api_gouv_id: a_kind_of(String),
             note: '',
             tokens: [],
             contacts: [],
@@ -142,7 +142,7 @@ describe UsersController, type: :controller do
           id: a_kind_of(String),
           email: a_kind_of(String),
           context: a_kind_of(String),
-          oauth_api_gouv_id: a_kind_of(Integer),
+          oauth_api_gouv_id: a_kind_of(String),
           tokens: a_collection_including(
             a_hash_including({
               id: String,
@@ -366,7 +366,7 @@ describe UsersController, type: :controller do
       {
         id: user.id,
         note: 'Test update',
-        oauth_api_gouv_id: 9001
+        oauth_api_gouv_id: '9001'
       }
     end
 
@@ -400,7 +400,7 @@ describe UsersController, type: :controller do
 
           expect(user).to have_attributes({
             note: 'Test update',
-            oauth_api_gouv_id: 9001
+            oauth_api_gouv_id: '9001'
           })
         end
       end

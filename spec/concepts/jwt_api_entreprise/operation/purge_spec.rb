@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe JwtApiEntreprise::Operation::Purge do
+RSpec.describe JwtApiEntreprise::Operation::Purge do
   subject(:purge!) { described_class.call }
 
   context 'when a JWT has expired' do

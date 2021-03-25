@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe JwtApiEntrepriseExpirationNoticeJob do
+RSpec.describe JwtApiEntrepriseExpirationNoticeJob do
   subject { described_class.perform_now }
 
   shared_examples 'sending expiration notices' do |nb_days|

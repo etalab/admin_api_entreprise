@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe OAuthApiGouv::Tasks::RetrieveAccessToken do
+RSpec.describe OAuthApiGouv::Tasks::RetrieveAccessToken do
   subject(:retrieve_tokens!) { described_class.call(authorization_code: code) }
 
   context 'when the authorization code is valid' do
@@ -27,7 +27,7 @@ describe OAuthApiGouv::Tasks::RetrieveAccessToken do
         it 'returns the user ID (from OAuth API Gouv)' do
           user_id = retrieve_tokens![:oauth_api_gouv_user_id]
 
-          expect(user_id).to be_an(Integer)
+          expect(user_id).to be_a(String)
         end
       end
 
