@@ -1,5 +1,25 @@
 # README
 
+## Par où commencer ?
+
+```sh
+git clone git@github.com:etalab/admin_api_entreprise.git
+cd admin_api_entreprise/
+psql -f postgresql_setup.txt
+bundle install
+bin/rails db:migrate
+bin/rails db:migrate RAILS_ENV=test
+```
+
+Il faudra ensuite renseigner la clé `master.key` pour pouvoir avoir accès aux
+credentials (voir plus bas le détail de la procédure à suivre).
+
+Il sera alors possible d'exécuter la suite de tests :
+
+```sh
+bin/rspec
+```
+
 ## Configuration de la base de données
 
 ### Choosing UUIDs as IDs
