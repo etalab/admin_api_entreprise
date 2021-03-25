@@ -1,5 +1,25 @@
 # README
 
+## Par où commencer ?
+
+```sh
+git clone git@github.com:etalab/admin_api_entreprise.git
+cd admin_api_entreprise/
+psql -f postgresql_setup.txt
+bundle install
+bin/rails db:migrate
+bin/rails db:migrate RAILS_ENV=test
+```
+
+Il faudra ensuite renseigner la clé `master.key` pour pouvoir avoir accès aux
+credentials (voir plus bas le détail de la procédure à suivre).
+
+Il sera alors possible d'exécuter la suite de tests :
+
+```sh
+bin/rspec
+```
+
 ## Configuration de la base de données
 
 ### Choosing UUIDs as IDs
@@ -17,13 +37,6 @@ Cela supprimera entièrement les bases de données non conformes, le plus simple
 étant de repartir de zéro, comme il est documenté ci-dessous.
 
 #### Configuration des BDD de développement
-
-Création de l'utilisateur:
-```
-sudo -u postgres -i
-cd /path/to/admin_apientreprise
-psql -f db/init.sql
-```
 
 L'application est configurée pour que les ID des modèles ne soient plus un entier
 incrémenté à chaque création en base mais des UUID. Depuis Rails 5, il suffit
