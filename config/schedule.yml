@@ -10,10 +10,21 @@ sandbox:
     class: 'JwtApiEntrepriseExpirationNoticeJob'
     queue: default
 
+  jwt_satisfaction_survey:
+    # every day at 3:00 a.m.
+    cron: '0 3 * * *'
+    class: 'JwtSatisfactionSurveyJob'
+    queue: default
+
 staging:
   jwt_expiration_notice:
     cron: '0 */4 * * *'
     class: 'JwtApiEntrepriseExpirationNoticeJob'
+    queue: default
+
+  jwt_satisfaction_survey:
+    cron: '0 3 * * *'
+    class: 'JwtSatisfactionSurveyJob'
     queue: default
 
 production:
@@ -25,4 +36,9 @@ production:
   jwt_purge:
     cron: '0 2 * * 6'
     class: 'JwtApiEntreprisePurgeJob'
+    queue: default
+
+  jwt_satisfaction_survey:
+    cron: '0 3 * * *'
+    class: 'JwtSatisfactionSurveyJob'
     queue: default

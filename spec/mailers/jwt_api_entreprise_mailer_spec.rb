@@ -150,17 +150,17 @@ RSpec.describe JwtApiEntrepriseMailer, type: :mailer do
 
   describe '#satisfaction_survey' do
     subject do
-      described_class.satisfaction_survey(jwt)
+      described_class.satisfaction_survey(token_owner_email)
     end
 
     let(:jwt) { create(:jwt_api_entreprise, :with_contacts) }
-    let(:account_owner_email) { jwt.user.email }
+    let(:token_owner_email) { jwt.user.email }
 
     its(:subject) { is_expected.to eq "Comment s'est déroulé votre accès à l'API Entreprise ?" }
     its(:from) { is_expected.to include(Rails.configuration.emails_sender_address) }
 
     it 'only sends the email to the account owner' do
-      expect(subject.to).to eq [account_owner_email]
+      expect(subject.to).to eq [token_owner_email]
     end
   end
 end
