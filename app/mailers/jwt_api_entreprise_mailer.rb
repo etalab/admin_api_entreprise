@@ -27,7 +27,9 @@ class JwtApiEntrepriseMailer < ApplicationMailer
     mail(to: recipients, subject: subject)
   end
 
-  def satisfaction_survey(recipient)
+  def satisfaction_survey(recipient, jwt_authorization_request_id)
+    @jwt_authorization_request_id = jwt_authorization_request_id
+
     mail(
       to: recipient,
       subject: t(:jwt_api_entreprise_mailer_satisfaction_survey_subject)

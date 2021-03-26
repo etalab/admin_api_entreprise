@@ -150,11 +150,12 @@ RSpec.describe JwtApiEntrepriseMailer, type: :mailer do
 
   describe '#satisfaction_survey' do
     subject do
-      described_class.satisfaction_survey(token_owner_email)
+      described_class.satisfaction_survey(token_owner_email, token_authorization_request_id)
     end
 
     let(:jwt) { create(:jwt_api_entreprise, :with_contacts) }
     let(:token_owner_email) { jwt.user.email }
+    let(:token_authorization_request_id) { jwt.authorization_request_id }
 
     its(:subject) { is_expected.to eq "Comment s'est déroulé votre accès à l'API Entreprise ?" }
     its(:from) { is_expected.to include(Rails.configuration.emails_sender_address) }

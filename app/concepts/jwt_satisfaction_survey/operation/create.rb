@@ -6,7 +6,7 @@ module JwtSatisfactionSurvey::Operation
 
     def deliver_satisfaction_surveys(_, **)
       tokens.find_each do |token|
-        ::JwtApiEntrepriseMailer.satisfaction_survey(token.user.email).deliver_later
+        ::JwtApiEntrepriseMailer.satisfaction_survey(token.user.email, token.authorization_request_id).deliver_later
       end
     end
 
