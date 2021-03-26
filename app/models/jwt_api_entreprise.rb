@@ -3,6 +3,8 @@ class JwtApiEntreprise < ApplicationRecord
   has_many :contacts, dependent: :delete_all
   has_and_belongs_to_many :roles
 
+  scope :order_by_issued_time, -> { order(iat: :asc) }
+
   def rehash
     AccessToken.create(token_payload)
   end
