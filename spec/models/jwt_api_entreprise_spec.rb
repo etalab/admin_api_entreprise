@@ -24,6 +24,36 @@ RSpec.describe JwtApiEntreprise, type: :model do
     it { is_expected.to have_and_belong_to_many(:roles) }
   end
 
+  describe '.seven_days_ago_created_tokens' do
+    let!(:token) { create(:jwt_api_entreprise, iat: iat_value) }
+
+    subject(:model) { described_class }
+
+    context 'when the token was issued 6 days ago' do
+      let(:iat_value) { 6.days.ago.to_i }
+
+      its(:seven_days_ago_created_tokens) { is_expected.not_to be_exist token.id }
+    end
+
+    context 'when the token was issued 7 days ago' do
+      let(:iat_value) { 7.days.ago.to_i }
+
+      its(:seven_days_ago_created_tokens) { is_expected.not_to be_exist token.id }
+    end
+
+    context 'when the token was issued 8 days ago' do
+      let(:iat_value) { 8.days.ago.to_i }
+
+      its(:seven_days_ago_created_tokens) { is_expected.to be_exist token.id }
+    end
+
+    context 'when the token was issued 9 days ago' do
+      let(:iat_value) { 9.days.ago.to_i }
+
+      its(:seven_days_ago_created_tokens) { is_expected.not_to be_exist token.id }
+    end
+  end
+
   describe '#user_friendly_exp_date' do
     it 'returns a friendly formated date' do
       # About the offset here, during winter (March 17th here)

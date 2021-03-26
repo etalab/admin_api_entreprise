@@ -20,6 +20,10 @@ FactoryBot.define do
     user
   end
 
+  trait :about_seven_days_ago do
+    iat { 7.days.ago - 1.second }
+  end
+
   trait :expiring_within_3_month do
     exp { Faker::Time.forward(days: 88) }
   end
