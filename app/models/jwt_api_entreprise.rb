@@ -4,7 +4,7 @@ class JwtApiEntreprise < ApplicationRecord
   has_and_belongs_to_many :roles
 
   scope :seven_days_ago_created_tokens, -> { where(iat: 8.days.ago...7.days.ago) }
-  scope :order_by_issued_time, -> { order(iat: :asc) }
+  scope :order_by_creation_datetime, -> { reorder(created_at: :asc) }
 
   def rehash
     AccessToken.create(token_payload)

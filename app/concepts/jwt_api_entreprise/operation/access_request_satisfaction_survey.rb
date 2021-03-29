@@ -8,7 +8,7 @@ module JwtApiEntreprise::Operation
     def fetch_eligible_tokens(ctx, **)
       ctx[:tokens] = ::JwtApiEntreprise.seven_days_ago_created_tokens
                                        .includes(:user)
-                                       .order_by_issued_time
+                                       .order_by_creation_datetime
     end
 
     def deliver_satisfaction_surveys(ctx, tokens:, **)
