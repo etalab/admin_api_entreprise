@@ -3,6 +3,7 @@ class JwtApiEntreprise < ApplicationRecord
   has_many :contacts, dependent: :delete_all
   has_and_belongs_to_many :roles
 
+  scope :access_request_survey_not_sent_tokens, -> { where(is_access_request_survey_sent: false) }
   scope :seven_days_ago_created_tokens, -> { where(iat: 8.days.ago...7.days.ago) }
   scope :order_by_creation_datetime, -> { reorder(created_at: :asc) }
 

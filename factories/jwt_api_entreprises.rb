@@ -20,6 +20,14 @@ FactoryBot.define do
     user
   end
 
+  trait :access_request_survey_not_sent do
+    is_access_request_survey_sent { false }
+  end
+
+  trait :access_request_survey_sent do
+    is_access_request_survey_sent { true }
+  end
+
   trait :about_seven_days_ago do
     iat { 7.days.ago - 1.second }
   end

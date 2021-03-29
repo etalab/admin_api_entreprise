@@ -54,6 +54,24 @@ RSpec.describe JwtApiEntreprise, type: :model do
     end
   end
 
+  describe '.access_request_survey_not_sent_tokens' do
+    let!(:token) { create(:jwt_api_entreprise, access_request_survey_sent_trait) }
+
+    subject(:model) { described_class }
+
+    context 'when the access request survey was not sent' do
+      let(:access_request_survey_sent_trait) { :access_request_survey_not_sent }
+
+      its(:access_request_survey_not_sent_tokens) { is_expected.to be_exist token.id }
+    end
+
+    context 'when the access request survey was sent' do
+      let(:access_request_survey_sent_trait) { :access_request_survey_sent }
+
+      its(:access_request_survey_not_sent_tokens) { is_expected.not_to be_exist token.id }
+    end
+  end
+
   describe '#user_friendly_exp_date' do
     it 'returns a friendly formated date' do
       # About the offset here, during winter (March 17th here)
