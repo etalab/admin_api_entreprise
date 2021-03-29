@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe JwtSatisfactionSurvey::Operation::Create do
+RSpec.describe JwtApiEntreprise::Operation::AccessRequestSatisfactionSurvey do
   subject(:operation) { described_class }
 
   before do

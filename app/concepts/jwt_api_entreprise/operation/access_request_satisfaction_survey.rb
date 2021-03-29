@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module JwtSatisfactionSurvey::Operation
-  class Create < ::Trailblazer::Operation
+module JwtApiEntreprise::Operation
+  class AccessRequestSatisfactionSurvey < ::Trailblazer::Operation
     step :deliver_satisfaction_surveys
 
     def deliver_satisfaction_surveys(_, **)

@@ -13,7 +13,7 @@ sandbox:
   jwt_satisfaction_survey:
     # every day at 3:00 a.m.
     cron: '0 3 * * *'
-    class: 'JwtSatisfactionSurveyJob'
+    class: 'AccessRequestSatisfactionSurveyJob'
     queue: default
 
 staging:
@@ -24,7 +24,7 @@ staging:
 
   jwt_satisfaction_survey:
     cron: '0 3 * * *'
-    class: 'JwtSatisfactionSurveyJob'
+    class: 'AccessRequestSatisfactionSurveyJob'
     queue: default
 
 production:
@@ -40,5 +40,5 @@ production:
 
   jwt_satisfaction_survey:
     cron: '0 3 * * *'
-    class: 'JwtSatisfactionSurveyJob'
+    class: 'AccessRequestSatisfactionSurveyJob'
     queue: default
