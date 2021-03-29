@@ -4,8 +4,10 @@ class JwtApiEntreprise < ApplicationRecord
   has_and_belongs_to_many :roles
 
   scope :access_request_survey_not_sent_tokens, -> { where(is_access_request_survey_sent: false) }
-  scope :seven_days_ago_created_tokens, -> { where(iat: 8.days.ago...7.days.ago) }
+  scope :more_than_seven_days_ago_issued_tokens, -> { where('iat < ?', 7.days.ago.to_i) }
   scope :order_by_creation_datetime, -> { reorder(created_at: :asc) }
+  scope :satisfaction_survey_eligible_tokens,
+    -> { includes(:user).access_request_survey_not_sent_tokens.more_than_seven_days_ago_issued_tokens.order_by_creation_datetime }
 
   def rehash
     AccessToken.create(token_payload)

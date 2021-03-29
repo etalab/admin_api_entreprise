@@ -24,33 +24,21 @@ RSpec.describe JwtApiEntreprise, type: :model do
     it { is_expected.to have_and_belong_to_many(:roles) }
   end
 
-  describe '.seven_days_ago_created_tokens' do
-    let!(:token) { create(:jwt_api_entreprise, iat: iat_value) }
+  describe '.more_than_seven_days_ago_issued_tokens' do
+    let!(:token) { create(:jwt_api_entreprise, iat: iat_value.to_i) }
 
     subject(:model) { described_class }
 
-    context 'when the token was issued 6 days ago' do
-      let(:iat_value) { 6.days.ago.to_i }
+    context 'when the token was issued up to maximum 7 days ago' do
+      let(:iat_value) { Faker::Time.backward(days: 7) }
 
-      its(:seven_days_ago_created_tokens) { is_expected.not_to be_exist token.id }
+      its(:more_than_seven_days_ago_issued_tokens) { is_expected.not_to be_exist token.id }
     end
 
-    context 'when the token was issued 7 days ago' do
-      let(:iat_value) { 7.days.ago.to_i }
+    context 'when the token was issued more than 7 days ago' do
+      let(:iat_value) { Faker::Time.backward(days: 7) - 7.days }
 
-      its(:seven_days_ago_created_tokens) { is_expected.not_to be_exist token.id }
-    end
-
-    context 'when the token was issued 8 days ago' do
-      let(:iat_value) { 8.days.ago.to_i }
-
-      its(:seven_days_ago_created_tokens) { is_expected.to be_exist token.id }
-    end
-
-    context 'when the token was issued 9 days ago' do
-      let(:iat_value) { 9.days.ago.to_i }
-
-      its(:seven_days_ago_created_tokens) { is_expected.not_to be_exist token.id }
+      its(:more_than_seven_days_ago_issued_tokens) { is_expected.to be_exist token.id }
     end
   end
 
@@ -70,6 +58,20 @@ RSpec.describe JwtApiEntreprise, type: :model do
 
       its(:access_request_survey_not_sent_tokens) { is_expected.not_to be_exist token.id }
     end
+  end
+
+  describe '.satisfaction_survey_eligible_tokens' do
+    subject(:model) { described_class }
+
+    describe '.access_request_survey_not_sent_tokens' do
+      it { expect(model).to receive(:access_request_survey_not_sent_tokens).and_call_original }
+    end
+
+    describe '.more_than_seven_days_ago_issued_tokens' do
+      it { expect(model).to receive(:more_than_seven_days_ago_issued_tokens).and_call_original }
+    end
+
+    after { model.satisfaction_survey_eligible_tokens }
   end
 
   describe '#user_friendly_exp_date' do

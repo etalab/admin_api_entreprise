@@ -6,12 +6,10 @@ module JwtApiEntreprise::Operation
     step :deliver_satisfaction_surveys
 
     def fetch_eligible_tokens(ctx, **)
-      ctx[:tokens] = ::JwtApiEntreprise.seven_days_ago_created_tokens
-                                       .includes(:user)
-                                       .order_by_creation_datetime
+      ctx[:tokens] = ::JwtApiEntreprise.satisfaction_survey_eligible_tokens
     end
 
-    def deliver_satisfaction_surveys(ctx, tokens:, **)
+    def deliver_satisfaction_surveys(_ctx, tokens:, **)
       tokens.find_each do |token|
         ::JwtApiEntrepriseMailer.satisfaction_survey(token.user.email, token.authorization_request_id).deliver_later
       end

@@ -4,7 +4,7 @@ RSpec.describe JwtApiEntreprise::Operation::AccessRequestSatisfactionSurvey do
   subject(:operation) { described_class }
 
   before do
-    expect(JwtApiEntreprise).to receive(:seven_days_ago_created_tokens).and_call_original
+    expect(JwtApiEntreprise).to receive(:satisfaction_survey_eligible_tokens).and_call_original
   end
 
   let!(:token) do
