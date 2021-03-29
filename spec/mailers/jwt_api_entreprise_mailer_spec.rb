@@ -149,19 +149,24 @@ RSpec.describe JwtApiEntrepriseMailer, type: :mailer do
   end
 
   describe '#satisfaction_survey' do
-    subject do
-      described_class.satisfaction_survey(token_owner_email, token_authorization_request_id)
+    subject(:mailer) { described_class }
+
+    before do
+      expect(JwtApiEntreprise).to receive(:access_request_survey_sent!).with(jwt_api_entreprise.id).and_call_original
     end
 
-    let(:jwt) { create(:jwt_api_entreprise, :with_contacts) }
-    let(:token_owner_email) { jwt.user.email }
-    let(:token_authorization_request_id) { jwt.authorization_request_id }
+    let(:jwt_api_entreprise) { create(:jwt_api_entreprise, :with_contacts) }
+    let(:token_owner_email) { jwt_api_entreprise.user.email }
+    let(:token_authorization_request_id) { jwt_api_entreprise.authorization_request_id }
 
-    its(:subject) { is_expected.to eq "Comment s'est déroulé votre accès à l'API Entreprise ?" }
-    its(:from) { is_expected.to include(Rails.configuration.emails_sender_address) }
+    let(:sent_mail) do
+      mailer.satisfaction_survey(jwt_api_entreprise.id, token_owner_email, token_authorization_request_id)
+    end
 
-    it 'only sends the email to the account owner' do
-      expect(subject.to).to eq [token_owner_email]
+    it 'has special properties' do
+      expect(sent_mail.subject).to eq "Comment s'est déroulé votre accès à l'API Entreprise ?"
+      expect(sent_mail.from).to include(Rails.configuration.emails_sender_address)
+      expect(sent_mail.to).to eq [token_owner_email]
     end
   end
 end

@@ -31,6 +31,38 @@ RSpec.describe JwtApiEntreprise, type: :model do
     it { is_expected.to have_and_belong_to_many(:roles) }
   end
 
+  describe '.access_request_survey_sent!' do
+    let!(:token) { create(:jwt_api_entreprise, access_request_survey_sent_trait) }
+
+    subject(:model) { described_class }
+
+    context 'when the access request survey was not sent' do
+      let(:access_request_survey_sent_trait) { :access_request_survey_not_sent }
+
+      it 'sets the flag to sent' do
+        expect {
+          model.access_request_survey_sent!(token.id)
+          token.reload
+        }.to change(token, :is_access_request_survey_sent?).from(false).to(true)
+      end
+
+      it { expect(model.access_request_survey_sent!(token.id)).to be_truthy }
+    end
+
+    context 'when the access request survey was sent' do
+      let(:access_request_survey_sent_trait) { :access_request_survey_sent }
+
+      it 'does not set the flag to sent' do
+        expect {
+          model.access_request_survey_sent!(token.id)
+          token.reload
+        }.not_to change(token, :is_access_request_survey_sent?)
+      end
+
+      it { expect(model.access_request_survey_sent!(token.id)).to be_falsey }
+    end
+  end
+
   describe '.at_least_seven_days_ago_issued_tokens' do
     let!(:token) { create(:jwt_api_entreprise, iat: iat_value.to_i) }
 

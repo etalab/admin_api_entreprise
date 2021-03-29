@@ -9,6 +9,11 @@ class JwtApiEntreprise < ApplicationRecord
   scope :satisfaction_survey_eligible_tokens,
     -> { includes(:user).access_request_survey_not_sent_tokens.at_least_seven_days_ago_issued_tokens.order_by_creation_datetime }
 
+  def self.access_request_survey_sent!(id)
+    updated_rows_count = access_request_survey_not_sent_tokens.where(id: id).update_all(is_access_request_survey_sent: true)
+    updated_rows_count.positive?
+  end
+
   def rehash
     AccessToken.create(token_payload)
   end
