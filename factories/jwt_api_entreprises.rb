@@ -28,8 +28,12 @@ FactoryBot.define do
     is_access_request_survey_sent { true }
   end
 
+  trait :less_than_seven_days_ago do
+    iat { Faker::Time.backward(days: 6).to_i }
+  end
+
   trait :about_seven_days_ago do
-    iat { 7.days.ago - 1.second }
+    iat { 7.days.ago.to_i }
   end
 
   trait :expiring_within_3_month do

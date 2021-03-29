@@ -64,18 +64,18 @@ RSpec.describe JwtApiEntreprise, type: :model do
   end
 
   describe '.at_least_seven_days_ago_issued_tokens' do
-    let!(:token) { create(:jwt_api_entreprise, iat: iat_value.to_i) }
+    let!(:token) { create(:jwt_api_entreprise, iat: iat_trait) }
 
     subject(:model) { described_class }
 
     context 'when the token was issued up to maximum 6 days ago' do
-      let(:iat_value) { Faker::Time.backward(days: 6) }
+      let(:iat_trait) { attributes_for(:jwt_api_entreprise, :less_than_seven_days_ago).fetch(:iat) }
 
       its(:at_least_seven_days_ago_issued_tokens) { is_expected.not_to be_exist token.id }
     end
 
     context 'when the token was issued since at least 7 days ago' do
-      let(:iat_value) { 7.days.ago }
+      let(:iat_trait) { attributes_for(:jwt_api_entreprise, :about_seven_days_ago).fetch(:iat) }
 
       its(:at_least_seven_days_ago_issued_tokens) { is_expected.to be_exist token.id }
     end
