@@ -28,7 +28,6 @@ RSpec.describe 'rendering the mail template' do
   end
 
   it 'renders the message' do
-    # byebug
     expect(subject).to match full_message
   end
 end
