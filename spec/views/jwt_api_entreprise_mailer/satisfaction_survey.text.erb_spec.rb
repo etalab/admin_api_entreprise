@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'rendering the mail template' do
   before do
     assign(:jwt_authorization_request_id, 42)
-    render template: 'jwt_api_entreprise_mailer/satisfaction_survey.text.erb'
+    render template: 'jwt_api_entreprise_mailer/satisfaction_survey', formats: [:text]
   end
 
   let(:full_message) do
