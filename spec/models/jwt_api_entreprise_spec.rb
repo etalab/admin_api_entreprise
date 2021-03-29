@@ -16,6 +16,13 @@ RSpec.describe JwtApiEntreprise, type: :model do
     it { is_expected.to have_db_column(:archived).of_type(:boolean).with_options(default: false) }
     it { is_expected.to have_db_column(:days_left_notification_sent).of_type(:json).with_options(default: []) }
     it { is_expected.to have_db_column(:authorization_request_id).of_type(:string) }
+    it { is_expected.to have_db_column(:is_access_request_survey_sent).of_type(:boolean).with_options(default: false, null: false) }
+  end
+
+  describe 'db_indexes' do
+    it { is_expected.to have_db_index(:created_at) }
+    it { is_expected.to have_db_index(:iat) }
+    it { is_expected.to have_db_index(:is_access_request_survey_sent) }
   end
 
   describe 'relationships' do
