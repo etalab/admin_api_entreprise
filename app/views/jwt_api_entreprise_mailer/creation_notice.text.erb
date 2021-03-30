@@ -2,9 +2,11 @@ Bonjour,
 
 Un nouveau token est disponible dans votre espace client.
 
-Vous pouvez le récupérer en suivant ce lien : <%= @url_to_jwt  %>
+Vous pouvez le récupérer en suivant ce lien :
 
-Ce token possède les droits d'accès suivants :
+<%= @url_to_jwt %>
+
+Ce token possède les droits d'accès suivants :
 <% @jwt.roles.each do |role| %>
   - <%= role.name %>
 <% end %>
