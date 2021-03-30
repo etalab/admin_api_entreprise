@@ -15,7 +15,7 @@ RSpec.describe 'rendering the mail template' do
 
       Le formulaire suivant, qui devrait vous prendre 5 minutes, nous permettra d'évaluer votre satisfaction sur le parcours d'accès à l'API Entreprise, d'identifier des pistes d'amélioration et de recueillir vos besoins actuels :
 
-      <a href="https://startupdetat.typeform.com/to/bFo1H9NJ">Répondre à l&#39;enquête utilisateur</a>
+      https://startupdetat.typeform.com/to/bFo1H9NJ
 
       Merci par avance pour votre participation,
 
