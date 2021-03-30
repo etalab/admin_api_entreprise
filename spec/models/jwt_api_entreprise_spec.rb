@@ -32,9 +32,9 @@ RSpec.describe JwtApiEntreprise, type: :model do
   end
 
   describe '.access_request_survey_sent!' do
-    let!(:token) { create(:jwt_api_entreprise, access_request_survey_sent_trait) }
-
     subject(:model) { described_class }
+
+    let!(:token) { create(:jwt_api_entreprise, access_request_survey_sent_trait) }
 
     context 'when the access request survey was not sent' do
       let(:access_request_survey_sent_trait) { :access_request_survey_not_sent }
@@ -64,53 +64,39 @@ RSpec.describe JwtApiEntreprise, type: :model do
   end
 
   describe '.at_least_seven_days_ago_issued_tokens' do
-    let!(:token) { create(:jwt_api_entreprise, iat: iat_trait) }
+    subject { described_class }
 
-    subject(:model) { described_class }
+    let!(:token) { create(:jwt_api_entreprise, datetime_of_issue) }
 
     context 'when the token was issued up to maximum 6 days ago' do
-      let(:iat_trait) { attributes_for(:jwt_api_entreprise, :less_than_seven_days_ago).fetch(:iat) }
+      let(:datetime_of_issue) { :less_than_seven_days_ago }
 
       its(:at_least_seven_days_ago_issued_tokens) { is_expected.not_to be_exist token.id }
     end
 
     context 'when the token was issued since at least 7 days ago' do
-      let(:iat_trait) { attributes_for(:jwt_api_entreprise, :about_seven_days_ago).fetch(:iat) }
+      let(:datetime_of_issue) { :about_seven_days_ago }
 
       its(:at_least_seven_days_ago_issued_tokens) { is_expected.to be_exist token.id }
     end
   end
 
   describe '.access_request_survey_not_sent_tokens' do
-    let!(:token) { create(:jwt_api_entreprise, access_request_survey_sent_trait) }
+    subject { described_class }
 
-    subject(:model) { described_class }
+    let!(:token) { create(:jwt_api_entreprise, sent_state) }
 
     context 'when the access request survey was not sent' do
-      let(:access_request_survey_sent_trait) { :access_request_survey_not_sent }
+      let(:sent_state) { :access_request_survey_not_sent }
 
       its(:access_request_survey_not_sent_tokens) { is_expected.to be_exist token.id }
     end
 
     context 'when the access request survey was sent' do
-      let(:access_request_survey_sent_trait) { :access_request_survey_sent }
+      let(:sent_state) { :access_request_survey_sent }
 
       its(:access_request_survey_not_sent_tokens) { is_expected.not_to be_exist token.id }
     end
-  end
-
-  describe '.satisfaction_survey_eligible_tokens' do
-    subject(:model) { described_class }
-
-    describe '.access_request_survey_not_sent_tokens' do
-      it { expect(model).to receive(:access_request_survey_not_sent_tokens).and_call_original }
-    end
-
-    describe '.at_least_seven_days_ago_issued_tokens' do
-      it { expect(model).to receive(:at_least_seven_days_ago_issued_tokens).and_call_original }
-    end
-
-    after { model.satisfaction_survey_eligible_tokens }
   end
 
   describe '#user_friendly_exp_date' do
