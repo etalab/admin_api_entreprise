@@ -163,9 +163,15 @@ RSpec.describe JwtApiEntrepriseMailer, type: :mailer do
       mailer.satisfaction_survey(jwt_api_entreprise.id, token_owner_email, token_authorization_request_id)
     end
 
-    it 'has special properties' do
+    it 'has a valid subject' do
       expect(sent_mail.subject).to eq "Comment s'est déroulé votre accès à l'API Entreprise ?"
+    end
+
+    it 'is sent from the valid email address' do
       expect(sent_mail.from).to include(Rails.configuration.emails_sender_address)
+    end
+
+    it 'is sent to the email owner' do
       expect(sent_mail.to).to eq [token_owner_email]
     end
   end
