@@ -8,18 +8,8 @@ RSpec.describe 'rendering the mail template' do
 
   let(:number) { Faker::Number.number(digits: 5) }
 
-  let(:some_html_content) do
-    <<~SOME_HTML_CONTENT.chomp
-      quelle est votre satisfaction</strong> concernant votre
-    SOME_HTML_CONTENT
-  end
-
   subject do
     rendered
-  end
-
-  it 'renders some content with HTML tags' do
-    expect(subject).to match some_html_content
   end
 
   it 'renders the JWT authorization request id' do
