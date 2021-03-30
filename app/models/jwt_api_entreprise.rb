@@ -5,9 +5,8 @@ class JwtApiEntreprise < ApplicationRecord
 
   scope :access_request_survey_not_sent_tokens, -> { where(is_access_request_survey_sent: false) }
   scope :at_least_seven_days_ago_issued_tokens, -> { where('iat <= ?', 7.days.ago.to_i) }
-  scope :order_by_creation_datetime, -> { reorder(created_at: :asc) }
   scope :satisfaction_survey_eligible_tokens,
-    -> { includes(:user).access_request_survey_not_sent_tokens.at_least_seven_days_ago_issued_tokens.order_by_creation_datetime }
+    -> { includes(:user).access_request_survey_not_sent_tokens.at_least_seven_days_ago_issued_tokens }
 
   def self.access_request_survey_sent!(id)
     updated_rows_count = access_request_survey_not_sent_tokens.where(id: id).update_all(is_access_request_survey_sent: true)
