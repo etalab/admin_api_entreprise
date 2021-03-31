@@ -152,7 +152,7 @@ RSpec.describe JwtApiEntrepriseMailer, type: :mailer do
     subject(:mailer) { described_class }
 
     before do
-      expect(JwtApiEntreprise).to receive(:access_request_survey_sent!).with(jwt_api_entreprise.id).and_call_original
+      expect(JwtApiEntreprise).to receive(:mark_access_request_survey_sent!).with(jwt_api_entreprise.id).and_call_original
     end
 
     let(:jwt_api_entreprise) { create(:jwt_api_entreprise, :with_contacts) }

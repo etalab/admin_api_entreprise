@@ -32,6 +32,6 @@ class JwtApiEntrepriseMailer < ApplicationMailer
 
     mail(to: recipient, subject: "Comment s'est déroulé votre accès à l'API Entreprise ?")
 
-    JwtApiEntreprise.access_request_survey_sent!(jwt_id)
+    JwtApiEntreprise.mark_access_request_survey_sent!(jwt_id)
   end
 end

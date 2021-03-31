@@ -31,7 +31,7 @@ RSpec.describe JwtApiEntreprise, type: :model do
     it { is_expected.to have_and_belong_to_many(:roles) }
   end
 
-  describe '.access_request_survey_sent!' do
+  describe '.mark_access_request_survey_sent!' do
     subject(:model) { described_class }
 
     let!(:token) { create(:jwt_api_entreprise, access_request_survey_sent_trait) }
@@ -41,7 +41,7 @@ RSpec.describe JwtApiEntreprise, type: :model do
 
       it 'sets the flag to sent' do
         expect {
-          model.access_request_survey_sent!(token.id)
+          model.mark_access_request_survey_sent!(token.id)
           token.reload
         }.to change(token, :access_request_survey_sent?).from(false).to(true)
       end
@@ -52,7 +52,7 @@ RSpec.describe JwtApiEntreprise, type: :model do
 
       it 'does not set the flag to sent' do
         expect {
-          model.access_request_survey_sent!(token.id)
+          model.mark_access_request_survey_sent!(token.id)
           token.reload
         }.not_to change(token, :access_request_survey_sent?)
       end
