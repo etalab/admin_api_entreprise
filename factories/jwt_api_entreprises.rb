@@ -32,7 +32,7 @@ FactoryBot.define do
     iat { Faker::Time.backward(days: 6).to_i }
   end
 
-  trait :about_seven_days_ago do
+  trait :seven_days_ago do
     iat { 7.days.ago.to_i }
   end
 

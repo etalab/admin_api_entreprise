@@ -71,7 +71,7 @@ RSpec.describe JwtApiEntreprise, type: :model do
     end
 
     context 'when the token was issued since at least 7 days ago' do
-      let(:datetime_of_issue) { :about_seven_days_ago }
+      let(:datetime_of_issue) { :seven_days_ago }
 
       its(:issued_in_last_seven_days) { is_expected.to be_exist token.id }
     end

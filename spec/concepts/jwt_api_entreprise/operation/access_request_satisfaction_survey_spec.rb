@@ -30,7 +30,7 @@ RSpec.describe JwtApiEntreprise::Operation::AccessRequestSatisfactionSurvey do
   end
 
   context 'when the waiting time is reached' do
-    let(:datetime_of_issue) { :about_seven_days_ago }
+    let(:datetime_of_issue) { :seven_days_ago }
 
     context 'when the mail is not sent' do
       let(:sent_state) { :access_request_survey_not_sent }
