@@ -6,7 +6,7 @@ module JwtApiEntreprise::Operation
     step :deliver_satisfaction_surveys
 
     def fetch_eligible_tokens(ctx, **)
-      ctx[:tokens] = ::JwtApiEntreprise.satisfaction_survey_eligible_tokens
+      ctx[:tokens] = ::JwtApiEntreprise.includes(:user).access_request_survey_not_sent.issued_in_last_seven_days
     end
 
     def deliver_satisfaction_surveys(_ctx, tokens:, **)
