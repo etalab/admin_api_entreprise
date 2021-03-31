@@ -45,8 +45,6 @@ RSpec.describe JwtApiEntreprise, type: :model do
           token.reload
         }.to change(token, :access_request_survey_sent?).from(false).to(true)
       end
-
-      it { expect(model.access_request_survey_sent!(token.id)).to be_truthy }
     end
 
     context 'when the access request survey was sent' do
@@ -58,8 +56,6 @@ RSpec.describe JwtApiEntreprise, type: :model do
           token.reload
         }.not_to change(token, :access_request_survey_sent?)
       end
-
-      it { expect(model.access_request_survey_sent!(token.id)).to be_falsey }
     end
   end
 
