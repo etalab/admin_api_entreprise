@@ -63,7 +63,7 @@ RSpec.describe JwtApiEntreprise, type: :model do
     end
   end
 
-  describe '.at_least_seven_days_ago_issued_tokens' do
+  describe '.issued_in_last_seven_days' do
     subject { described_class }
 
     let!(:token) { create(:jwt_api_entreprise, datetime_of_issue) }
@@ -71,17 +71,17 @@ RSpec.describe JwtApiEntreprise, type: :model do
     context 'when the token was issued up to maximum 6 days ago' do
       let(:datetime_of_issue) { :less_than_seven_days_ago }
 
-      its(:at_least_seven_days_ago_issued_tokens) { is_expected.not_to be_exist token.id }
+      its(:issued_in_last_seven_days) { is_expected.not_to be_exist token.id }
     end
 
     context 'when the token was issued since at least 7 days ago' do
       let(:datetime_of_issue) { :about_seven_days_ago }
 
-      its(:at_least_seven_days_ago_issued_tokens) { is_expected.to be_exist token.id }
+      its(:issued_in_last_seven_days) { is_expected.to be_exist token.id }
     end
   end
 
-  describe '.access_request_survey_not_sent_tokens' do
+  describe '.access_request_survey_not_sent' do
     subject { described_class }
 
     let!(:token) { create(:jwt_api_entreprise, sent_state) }
@@ -89,13 +89,13 @@ RSpec.describe JwtApiEntreprise, type: :model do
     context 'when the access request survey was not sent' do
       let(:sent_state) { :access_request_survey_not_sent }
 
-      its(:access_request_survey_not_sent_tokens) { is_expected.to be_exist token.id }
+      its(:access_request_survey_not_sent) { is_expected.to be_exist token.id }
     end
 
     context 'when the access request survey was sent' do
       let(:sent_state) { :access_request_survey_sent }
 
-      its(:access_request_survey_not_sent_tokens) { is_expected.not_to be_exist token.id }
+      its(:access_request_survey_not_sent) { is_expected.not_to be_exist token.id }
     end
   end
 
