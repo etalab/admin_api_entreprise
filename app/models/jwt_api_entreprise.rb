@@ -3,11 +3,11 @@ class JwtApiEntreprise < ApplicationRecord
   has_many :contacts, dependent: :delete_all
   has_and_belongs_to_many :roles
 
-  scope :access_request_survey_not_sent, -> { where(is_access_request_survey_sent: false) }
+  scope :access_request_survey_not_sent, -> { where(access_request_survey_sent: false) }
   scope :issued_in_last_seven_days, -> { where('iat <= ?', 7.days.ago.to_i) }
 
   def self.access_request_survey_sent!(id)
-    updated_rows_count = access_request_survey_not_sent.where(id: id).update_all(is_access_request_survey_sent: true)
+    updated_rows_count = access_request_survey_not_sent.where(id: id).update_all(access_request_survey_sent: true)
     updated_rows_count.positive?
   end
 

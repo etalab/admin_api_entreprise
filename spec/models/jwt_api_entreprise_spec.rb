@@ -16,13 +16,13 @@ RSpec.describe JwtApiEntreprise, type: :model do
     it { is_expected.to have_db_column(:archived).of_type(:boolean).with_options(default: false) }
     it { is_expected.to have_db_column(:days_left_notification_sent).of_type(:json).with_options(default: []) }
     it { is_expected.to have_db_column(:authorization_request_id).of_type(:string) }
-    it { is_expected.to have_db_column(:is_access_request_survey_sent).of_type(:boolean).with_options(default: false, null: false) }
+    it { is_expected.to have_db_column(:access_request_survey_sent).of_type(:boolean).with_options(default: false, null: false) }
   end
 
   describe 'db_indexes' do
     it { is_expected.to have_db_index(:created_at) }
     it { is_expected.to have_db_index(:iat) }
-    it { is_expected.to have_db_index(:is_access_request_survey_sent) }
+    it { is_expected.to have_db_index(:access_request_survey_sent) }
   end
 
   describe 'relationships' do
@@ -43,7 +43,7 @@ RSpec.describe JwtApiEntreprise, type: :model do
         expect {
           model.access_request_survey_sent!(token.id)
           token.reload
-        }.to change(token, :is_access_request_survey_sent?).from(false).to(true)
+        }.to change(token, :access_request_survey_sent?).from(false).to(true)
       end
 
       it { expect(model.access_request_survey_sent!(token.id)).to be_truthy }
@@ -56,7 +56,7 @@ RSpec.describe JwtApiEntreprise, type: :model do
         expect {
           model.access_request_survey_sent!(token.id)
           token.reload
-        }.not_to change(token, :is_access_request_survey_sent?)
+        }.not_to change(token, :access_request_survey_sent?)
       end
 
       it { expect(model.access_request_survey_sent!(token.id)).to be_falsey }

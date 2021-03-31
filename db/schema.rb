@@ -47,10 +47,10 @@ ActiveRecord::Schema.define(version: 2021_03_29_125933) do
     t.boolean "archived", default: false
     t.string "temp_use_case"
     t.string "authorization_request_id"
-    t.boolean "is_access_request_survey_sent", default: false, null: false
+    t.boolean "access_request_survey_sent", default: false, null: false
+    t.index ["access_request_survey_sent"], name: "index_jwt_api_entreprises_on_access_request_survey_sent"
     t.index ["created_at"], name: "index_jwt_api_entreprises_on_created_at"
     t.index ["iat"], name: "index_jwt_api_entreprises_on_iat"
-    t.index ["is_access_request_survey_sent"], name: "index_jwt_api_entreprises_on_is_access_request_survey_sent"
     t.index ["user_id"], name: "index_jwt_api_entreprises_on_user_id"
   end
 

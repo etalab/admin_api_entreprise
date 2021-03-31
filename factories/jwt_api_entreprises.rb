@@ -21,11 +21,11 @@ FactoryBot.define do
   end
 
   trait :access_request_survey_not_sent do
-    is_access_request_survey_sent { false }
+    access_request_survey_sent { false }
   end
 
   trait :access_request_survey_sent do
-    is_access_request_survey_sent { true }
+    access_request_survey_sent { true }
   end
 
   trait :less_than_seven_days_ago do
