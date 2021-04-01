@@ -27,11 +27,10 @@ class JwtApiEntrepriseMailer < ApplicationMailer
     mail(to: recipients, subject: subject)
   end
 
-  def satisfaction_survey(jwt_id, recipient, jwt_authorization_request_id)
-    @jwt_authorization_request_id = jwt_authorization_request_id
+  def satisfaction_survey(jwt)
+    @jwt = jwt
+    recipient = @jwt.user.email
 
-    mail(to: recipient, subject: "Comment s'est déroulé votre accès à l'API Entreprise ?")
-
-    JwtApiEntreprise.mark_access_request_survey_sent!(jwt_id)
+    mail(to: recipient, subject: 'API Entreprise - Comment s\'est déroulée votre demande d\'accès ?')
   end
 end

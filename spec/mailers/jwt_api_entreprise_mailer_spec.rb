@@ -149,30 +149,12 @@ RSpec.describe JwtApiEntrepriseMailer, type: :mailer do
   end
 
   describe '#satisfaction_survey' do
-    subject(:mailer) { described_class }
+    subject(:mailer) { described_class.satisfaction_survey(jwt_api_entreprise) }
 
-    before do
-      expect(JwtApiEntreprise).to receive(:mark_access_request_survey_sent!).with(jwt_api_entreprise.id).and_call_original
-    end
+    let(:jwt_api_entreprise) { create(:jwt_api_entreprise) }
 
-    let(:jwt_api_entreprise) { create(:jwt_api_entreprise, :with_contacts) }
-    let(:token_owner_email) { jwt_api_entreprise.user.email }
-    let(:token_authorization_request_id) { jwt_api_entreprise.authorization_request_id }
-
-    let(:sent_mail) do
-      mailer.satisfaction_survey(jwt_api_entreprise.id, token_owner_email, token_authorization_request_id)
-    end
-
-    it 'has a valid subject' do
-      expect(sent_mail.subject).to eq "Comment s'est déroulé votre accès à l'API Entreprise ?"
-    end
-
-    it 'is sent from the valid email address' do
-      expect(sent_mail.from).to include(Rails.configuration.emails_sender_address)
-    end
-
-    it 'is sent to the email owner' do
-      expect(sent_mail.to).to eq [token_owner_email]
-    end
+    its(:subject) { is_expected.to eq('API Entreprise - Comment s\'est déroulée votre demande d\'accès ?') }
+    its(:from) { is_expected.to include(Rails.configuration.emails_sender_address) }
+    its(:to) { is_expected.to contain_exactly(jwt_api_entreprise.user.email) }
   end
 end
