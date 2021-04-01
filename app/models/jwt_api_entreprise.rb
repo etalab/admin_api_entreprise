@@ -4,11 +4,10 @@ class JwtApiEntreprise < ApplicationRecord
   has_and_belongs_to_many :roles
 
   scope :access_request_survey_not_sent, -> { where(access_request_survey_sent: false) }
-  scope :issued_in_last_seven_days, -> { where('iat <= ?', 7.days.ago.to_i) }
+  scope :issued_in_last_seven_days, -> { where('created_at <= ?', 7.days.ago) }
 
-  def self.mark_access_request_survey_sent!(id)
-    updated_rows_count = access_request_survey_not_sent.where(id: id).update_all(access_request_survey_sent: true)
-    updated_rows_count.positive?
+  def mark_access_request_survey_sent!
+    update_attribute(:access_request_survey_sent, true)
   end
 
   def rehash

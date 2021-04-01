@@ -1,54 +1,62 @@
 require 'rails_helper'
 
 RSpec.describe JwtApiEntreprise::Operation::AccessRequestSatisfactionSurvey do
-  subject(:operation) { described_class }
+  subject(:call!) { described_class.call }
 
-  let!(:token) { create(:jwt_api_entreprise, datetime_of_issue, sent_state) }
 
-  context 'when the waiting time is not reached' do
-    let(:datetime_of_issue) { :less_than_seven_days_ago }
+  context 'when the JWT is less than 7 days old' do
+    let!(:token) { create(:jwt_api_entreprise, :less_than_seven_days_ago) }
 
-    context 'when the mail is not sent' do
-      let(:sent_state) { :access_request_survey_not_sent }
+    it { is_expected.to be_a_success }
 
-      it 'does not send any email to token owners' do
-        expect {
-          operation.call
-        }.not_to have_enqueued_mail(JwtApiEntrepriseMailer, :satisfaction_survey)
-      end
+    it 'does not send the survey' do
+      expect { call! }
+        .not_to have_enqueued_mail(JwtApiEntrepriseMailer, :satisfaction_survey)
     end
 
-    context 'when the mail is sent' do
-      let(:sent_state) { :access_request_survey_sent }
-
-      it 'does not send any email to token owners' do
-        expect {
-          operation.call
-        }.not_to have_enqueued_mail(JwtApiEntrepriseMailer, :satisfaction_survey)
-      end
+    it 'does not change the JWT state' do
+      expect { call! }
+        .to_not change(token, :access_request_survey_sent)
     end
   end
 
-  context 'when the waiting time is reached' do
-    let(:datetime_of_issue) { :seven_days_ago }
+  context 'when the JWT is 7 days old or more' do
+    let!(:token) { create(:jwt_api_entreprise, :seven_days_ago, sent_state) }
 
-    context 'when the mail is not sent' do
+    context 'when the survey has not been sent yet' do
       let(:sent_state) { :access_request_survey_not_sent }
 
-      it 'sends an email to token owners' do
-        expect {
-          operation.call
-        }.to have_enqueued_mail(JwtApiEntrepriseMailer, :satisfaction_survey).with(args: [token.id, token.user.email, token.authorization_request_id])
+      it { is_expected.to be_a_success }
+
+      it 'sends an email survey' do
+        expect { call! }
+          .to have_enqueued_mail(JwtApiEntrepriseMailer, :satisfaction_survey)
+          .with(args: [token])
+      end
+
+      it 'saves that the survey was sent' do
+        expect do
+          call!
+          token.reload
+        end
+          .to change(token, :access_request_survey_sent).from(false).to(true)
       end
     end
 
-    context 'when the mail is sent' do
+    context 'when the survey was already sent' do
       let(:sent_state) { :access_request_survey_sent }
 
-      it 'does not send any email to token owners' do
+      it { is_expected.to be_a_success }
+
+      it 'does not send it again' do
         expect {
-          operation.call
+          call!
         }.not_to have_enqueued_mail(JwtApiEntrepriseMailer, :satisfaction_survey)
+      end
+
+      it 'does not change the JWT state' do
+        expect { call! }
+          .to_not change(token, :access_request_survey_sent)
       end
     end
   end

@@ -11,8 +11,10 @@ module JwtApiEntreprise::Operation
 
     def deliver_satisfaction_surveys(_ctx, tokens:, **)
       tokens.find_each do |token|
-        ::JwtApiEntrepriseMailer.satisfaction_survey(token.id, token.user.email, token.authorization_request_id).deliver_later
+        ::JwtApiEntrepriseMailer.satisfaction_survey(token).deliver_later
+        token.mark_access_request_survey_sent!
       end
+      true
     end
   end
 end
