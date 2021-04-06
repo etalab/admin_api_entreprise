@@ -5,14 +5,27 @@
 ```sh
 git clone git@github.com:etalab/admin_api_entreprise.git
 cd admin_api_entreprise/
-psql -f postgresql_setup.txt
+sudo apt install postgresql
+sudo -i -u postgres
+```
+
+Puis, dans le sous-shell, entrer cette commande :
+
+```sh
+psql -f /absolute/path/to/admin_api_entreprise/postgresql_setup.txt
+exit
+```
+
+Poursuivre ensuite l'installation :
+
+```sh
 bundle install
 bin/rails db:migrate
 bin/rails db:migrate RAILS_ENV=test
 ```
 
 Il faudra ensuite renseigner la clé `master.key` pour pouvoir avoir accès aux
-credentials (voir plus bas le détail de la procédure à suivre).
+_credentials_ (voir plus bas le détail de la procédure à suivre).
 
 Il sera alors possible d'exécuter la suite de tests :
 
