@@ -4,7 +4,6 @@ FactoryBot.define do
     sequence(:authorization_request_id) { |n| "1234#{n}" }
     iat { Time.zone.now.to_i }
     exp { 18.months.from_now.to_i }
-    blacklisted { false }
     archived { false }
     version { '1.0' }
     days_left_notification_sent { [] }
@@ -42,6 +41,10 @@ FactoryBot.define do
 
   trait :expiring_in_1_year do
     exp { 1.year.from_now }
+  end
+
+  trait :not_blacklisted do
+    blacklisted { false }
   end
 
   trait :blacklisted do
