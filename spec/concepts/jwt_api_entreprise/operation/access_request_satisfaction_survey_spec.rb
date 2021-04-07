@@ -7,7 +7,7 @@ RSpec.describe JwtApiEntreprise::Operation::AccessRequestSatisfactionSurvey do
   context 'when the JWT is less than 7 days old' do
     let!(:token) { create(:jwt_api_entreprise, :less_than_seven_days_ago) }
 
-    it { is_expected.to_not be_a_success }
+    it { is_expected.to be_a_failure }
 
     it 'does not send the survey' do
       expect { call! }
@@ -29,7 +29,7 @@ RSpec.describe JwtApiEntreprise::Operation::AccessRequestSatisfactionSurvey do
       context 'when the token is blacklisted' do
         let(:blacklisted_or_not_blacklisted) { :blacklisted }
 
-        it { is_expected.to_not be_a_success }
+        it { is_expected.to be_a_failure }
 
         it 'does not send the survey' do
           expect { call! }
@@ -69,7 +69,7 @@ RSpec.describe JwtApiEntreprise::Operation::AccessRequestSatisfactionSurvey do
       context 'when the token is blacklisted' do
         let(:blacklisted_or_not_blacklisted) { :blacklisted }
 
-        it { is_expected.to_not be_a_success }
+        it { is_expected.to be_a_failure }
 
         it 'does not send it again' do
           expect {
@@ -86,7 +86,7 @@ RSpec.describe JwtApiEntreprise::Operation::AccessRequestSatisfactionSurvey do
       context 'when the token is not blacklisted' do
         let(:blacklisted_or_not_blacklisted) { :not_blacklisted }
 
-        it { is_expected.to_not be_a_success }
+        it { is_expected.to be_a_failure }
 
         it 'does not send it again' do
           expect {
