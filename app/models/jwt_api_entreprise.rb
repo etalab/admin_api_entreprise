@@ -4,7 +4,7 @@ class JwtApiEntreprise < ApplicationRecord
   has_and_belongs_to_many :roles
 
   scope :access_request_survey_not_sent, -> { where(access_request_survey_sent: false) }
-  scope :issued_in_last_seven_days, -> { where('created_at <= ?', 7.days.ago) }
+  scope :issued_in_last_seven_days, -> { where(created_at: 3.weeks.ago..1.week.ago) }
 
   def mark_access_request_survey_sent!
     update_attribute(:access_request_survey_sent, true)
