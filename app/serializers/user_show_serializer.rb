@@ -19,7 +19,7 @@ class UserShowSerializer < ActiveModel::Serializer
     # an alias of scope but, for unknown reasons, current_user does not exist
     # inside the block... So here scope == current_user
     if scope.admin?
-      object.jwt_api_entreprise.unexpired
+      object.jwt_api_entreprise
     else
       object.jwt_api_entreprise
         .unexpired
