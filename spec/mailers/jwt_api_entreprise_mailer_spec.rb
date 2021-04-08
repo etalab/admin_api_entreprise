@@ -147,4 +147,14 @@ RSpec.describe JwtApiEntrepriseMailer, type: :mailer do
       expect(subject.text_part.decoded).to include(notice)
     end
   end
+
+  describe '#satisfaction_survey' do
+    subject(:mailer) { described_class.satisfaction_survey(jwt_api_entreprise) }
+
+    let(:jwt_api_entreprise) { create(:jwt_api_entreprise) }
+
+    its(:subject) { is_expected.to eq('API Entreprise - Comment s\'est déroulée votre demande d\'accès ?') }
+    its(:from) { is_expected.to include(Rails.configuration.emails_sender_address) }
+    its(:to) { is_expected.to contain_exactly(jwt_api_entreprise.user.email) }
+  end
 end

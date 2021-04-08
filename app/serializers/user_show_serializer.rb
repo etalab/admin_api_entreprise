@@ -21,7 +21,7 @@ class UserShowSerializer < ActiveModel::Serializer
     if scope.admin?
       object.jwt_api_entreprise.all
     else
-      object.jwt_api_entreprise.where(blacklisted: false, archived: false)
+      object.jwt_api_entreprise.not_blacklisted.where(archived: false)
     end
   end
 

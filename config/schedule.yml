@@ -26,3 +26,8 @@ production:
     cron: '0 2 * * 6'
     class: 'JwtApiEntreprisePurgeJob'
     queue: default
+
+  jwt_satisfaction_survey:
+    cron: '0 3 * * *'
+    class: 'AccessRequestSatisfactionSurveyJob'
+    queue: default
