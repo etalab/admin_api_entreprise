@@ -7,7 +7,7 @@ module JwtApiEntreprise::Operation
 
     def fetch_eligible_tokens(ctx, **)
       ctx[:tokens] = ::JwtApiEntreprise.includes(:user).access_request_survey_not_sent.issued_in_last_seven_days.not_blacklisted
-      ctx[:tokens].any?
+      ctx[:tokens].exists?
     end
 
     def deliver_satisfaction_surveys(_ctx, tokens:, **)
