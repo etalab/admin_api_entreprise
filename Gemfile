@@ -43,6 +43,10 @@ gem 'pastel'
 
 gem 'logstasher'
 
+group :development, :sandbox, :staging do
+  gem 'mail_interceptor'
+end
+
 group :development, :test do
   gem 'awesome_print'
   gem 'colorize'
