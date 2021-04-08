@@ -1,21 +1,14 @@
 default: &default
-  domains:
-    - '@beta.gouv.fr'
-    - '@data.gouv.fr'
-    - '@entreprise.api.gouv.fr'
-    - '@modernisation.gouv.fr'
+  support: support@entreprise.api.gouv.fr
 
 development:
   <<: *default
-  catcher: catched-from-admin_api_entreprise-development@data.gouv.fr
 
 sandbox:
   <<: *default
-  catcher: catched-from-admin_api_entreprise-sandbox@data.gouv.fr
 
 staging:
   <<: *default
-  catcher: catched-from-admin_api_entreprise-staging@data.gouv.fr
 
 production:
   <<: *default
