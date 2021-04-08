@@ -10,20 +10,10 @@ sandbox:
     class: 'JwtApiEntrepriseExpirationNoticeJob'
     queue: default
 
-  jwt_satisfaction_survey:
-    cron: '0 3 * * *'
-    class: 'AccessRequestSatisfactionSurveyJob'
-    queue: default
-
 staging:
   jwt_expiration_notice:
     cron: '0 */4 * * *'
     class: 'JwtApiEntrepriseExpirationNoticeJob'
-    queue: default
-
-  jwt_satisfaction_survey:
-    cron: '0 3 * * *'
-    class: 'AccessRequestSatisfactionSurveyJob'
     queue: default
 
 production:
