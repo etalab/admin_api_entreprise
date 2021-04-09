@@ -130,9 +130,18 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe '#show' do
-    let(:user) { create(:user, :with_jwt, :with_blacklisted_jwt, :with_archived_jwt) }
+    let(:user) do
+      create(:user,
+             :with_jwt,
+             :with_blacklisted_jwt,
+             :with_archived_jwt,
+             :with_expired_jwt
+            )
+    end
+
     let(:blacklisted_jwt) { user.jwt_api_entreprise.where(blacklisted: true).first }
     let(:archived_jwt) { user.jwt_api_entreprise.where(archived: true).first }
+    let(:expired_jwt) { user.jwt_api_entreprise.where('exp < ?', Time.zone.now.to_i) }
 
     shared_examples 'show user' do
       it 'returns the user data' do
@@ -229,6 +238,14 @@ RSpec.describe UsersController, type: :controller do
             }))
           )
         end
+
+        it 'returns the user\'s expired tokens' do
+          get :show, params: { id: user.id }
+          tokens_in_payload = response_json[:tokens]
+          tokens_ids_in_payload = tokens_in_payload.map! { |t| t[:id] }
+
+          expect(tokens_ids_in_payload).to include(*expired_jwt.ids)
+        end
       end
     end
 
@@ -259,6 +276,14 @@ RSpec.describe UsersController, type: :controller do
         get :show, params: { id: user.id }
 
         expect(response_json[:tokens]).to all(include(archived: false))
+      end
+
+      it 'does not return the user\'s expired tokens' do
+        get :show, params: { id: user.id }
+        tokens_in_payload = response_json[:tokens]
+        tokens_ids_in_payload = tokens_in_payload.map! { |t| t[:id] }
+
+        expect(tokens_ids_in_payload).to_not include(*expired_jwt.ids)
       end
 
       it 'denies access to other users data' do

@@ -22,7 +22,7 @@ production:
     class: 'JwtApiEntrepriseExpirationNoticeJob'
     queue: default
 
-  jwt_purge:
-    cron: '0 2 * * 6'
-    class: 'JwtApiEntreprisePurgeJob'
+  jwt_satisfaction_survey:
+    cron: '0 3 * * *'
+    class: 'AccessRequestSatisfactionSurveyJob'
     queue: default

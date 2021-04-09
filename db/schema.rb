@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_24_150631) do
+ActiveRecord::Schema.define(version: 2021_03_29_125933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -47,6 +47,10 @@ ActiveRecord::Schema.define(version: 2021_03_24_150631) do
     t.boolean "archived", default: false
     t.string "temp_use_case"
     t.string "authorization_request_id"
+    t.boolean "access_request_survey_sent", default: false, null: false
+    t.index ["access_request_survey_sent"], name: "index_jwt_api_entreprises_on_access_request_survey_sent"
+    t.index ["created_at"], name: "index_jwt_api_entreprises_on_created_at"
+    t.index ["iat"], name: "index_jwt_api_entreprises_on_iat"
     t.index ["user_id"], name: "index_jwt_api_entreprises_on_user_id"
   end
 
