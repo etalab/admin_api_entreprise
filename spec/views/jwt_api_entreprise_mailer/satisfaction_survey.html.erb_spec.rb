@@ -13,6 +13,6 @@ RSpec.describe 'rendering the mail template' do
   end
 
   it 'renders the JWT authorization request id' do
-    expect(subject).to match "N°#{jwt.authorization_request_id}"
+    expect(subject).to match "n°#{jwt.authorization_request_id}"
   end
 end
