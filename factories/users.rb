@@ -35,5 +35,11 @@ FactoryBot.define do
         create(:jwt_api_entreprise, :archived, user: u)
       end
     end
+
+    trait :with_expired_jwt do
+      after(:create) do |u|
+        create(:jwt_api_entreprise, :expired, user: u)
+      end
+    end
   end
 end

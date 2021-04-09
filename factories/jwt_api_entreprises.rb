@@ -73,4 +73,8 @@ FactoryBot.define do
       create(:contact, :other, jwt_api_entreprise: jwt)
     end
   end
+
+  trait :expired do
+    exp { Faker::Time.between(from: 20.months.ago, to:19.months.ago).to_i }
+  end
 end

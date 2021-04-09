@@ -104,6 +104,21 @@ RSpec.describe JwtApiEntreprise, type: :model do
     end
   end
 
+  describe '.unexpired' do
+    subject { described_class.unexpired }
+
+    let!(:expired_jwt) { create_list(:jwt_api_entreprise, 2, :expired) }
+    let!(:unexpired_jwt) { create_list(:jwt_api_entreprise, 2) }
+
+    it 'returns unexpired tokens' do
+      expect(subject).to include(*unexpired_jwt)
+    end
+
+    it 'does not return expired tokens' do
+      expect(subject).to_not include(*expired_jwt)
+    end
+  end
+
   describe '#rehash' do
     let(:token) { jwt.rehash }
 
