@@ -122,13 +122,24 @@ Pour déployer le projet :
 
     bundle exec mina deploy to=sandbox|production
 
+### Droit administrateur
+
+Le comptes administrateurs sont individuels il faudra vous rajouter manuellement :
+
+1. créer un [compte API Gouv](https://auth.api.gouv.fr/users/sign-up) avec votre
+adresse email ;
+2. renseigner cette adresse email dans les fichiers de secrets encryptés pour
+les différents environnements (`config/credentials/sandbox.yml.enc`,
+`config/credentials/production.yml.enc`) ;
+3. lancer la tâche rake `lib/tasks/db_seed/create_admins.rake` sur les
+environnements de production.
+
 ### Premier déploiement
 
-Après le premier déploiement sur une machine, la BDD est vide.
-L'utilisateur admin n'existe pas et les rôles non plus.
-Par exemple en staging :
+Après le premier déploiement sur une machine : la BDD est vide, les
+administrateurs n'existent pas, aucun rôle, etc
 
-    RAILS_ENV=staging bundle exec rake create_admin
+    RAILS_ENV=staging bundle exec rake db_seed:create_admins
     RAILS_ENV=staging bundle exec rake db_seed:roles
 
 ### Paramètres d'environnements
