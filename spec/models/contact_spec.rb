@@ -11,6 +11,6 @@ RSpec.describe Contact do
   end
 
   describe 'relationships' do
-    it { is_expected.to belong_to(:jwt_api_entreprise) }
+    it { is_expected.to belong_to(:jwt_api_entreprise).optional }
   end
 end
