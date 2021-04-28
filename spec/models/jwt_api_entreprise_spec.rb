@@ -17,12 +17,15 @@ RSpec.describe JwtApiEntreprise, type: :model do
     it { is_expected.to have_db_column(:days_left_notification_sent).of_type(:json).with_options(default: []) }
     it { is_expected.to have_db_column(:authorization_request_id).of_type(:string) }
     it { is_expected.to have_db_column(:access_request_survey_sent).of_type(:boolean).with_options(default: false, null: false) }
+    it { is_expected.to have_db_column(:magic_link_token).of_type(:string).with_options(default: nil) }
+    it { is_expected.to have_db_column(:magic_link_issuance_date).of_type(:datetime).with_options(default: nil) }
   end
 
   describe 'db_indexes' do
     it { is_expected.to have_db_index(:created_at) }
     it { is_expected.to have_db_index(:iat) }
     it { is_expected.to have_db_index(:access_request_survey_sent) }
+    it { is_expected.to have_db_index(:magic_link_token) }
   end
 
   describe 'relationships' do
