@@ -31,7 +31,6 @@ gem 'doorkeeper', '~> 4.4.0'
 gem 'jwtf', '0.2.0'
 gem 'jwt'
 gem 'active_model_serializers', '~> 0.10.0'
-
 gem 'trailblazer'
 gem 'reform-rails'
 gem 'reform'
@@ -44,8 +43,10 @@ gem 'pastel'
 gem 'logstasher'
 
 group :development, :test do
+  gem 'dotenv-rails', require: 'dotenv/rails-now'
   gem 'awesome_print'
   gem 'colorize'
+  gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'pry'
   gem 'pry-byebug'
