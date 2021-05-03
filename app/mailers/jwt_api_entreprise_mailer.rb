@@ -33,4 +33,8 @@ class JwtApiEntrepriseMailer < ApplicationMailer
 
     mail(to: recipient, subject: 'API Entreprise - Comment s\'est déroulée votre demande d\'accès ?')
   end
+
+  def magic_link(recipient, jwt)
+
+  end
 end

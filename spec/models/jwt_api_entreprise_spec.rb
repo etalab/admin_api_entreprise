@@ -60,6 +60,28 @@ RSpec.describe JwtApiEntreprise, type: :model do
     end
   end
 
+  describe '#generate_magic_link_token' do
+    let(:jwt) { create(:jwt_api_entreprise) }
+
+    it 'generates a random string for the :magic_link_token attribute' do
+      jwt.update(magic_link_token: nil)
+      jwt.generate_magic_link_token
+      jwt.reload
+
+      expect(jwt.magic_link_token).to match(/\A[0-9a-f]{20}\z/)
+    end
+
+    it 'saves the issuance date of the token' do
+      creation_time = Time.zone.now
+      Timecop.freeze(creation_time) do
+        jwt.generate_magic_link_token
+        jwt.reload
+
+        expect(jwt.magic_link_issuance_date).to eq(creation_time)
+      end
+    end
+  end
+
   describe '.issued_in_last_seven_days' do
     subject { described_class }
 
