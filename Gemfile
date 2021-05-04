@@ -35,7 +35,7 @@ gem 'trailblazer'
 gem 'reform-rails'
 gem 'reform'
 gem 'dry-validation', '~> 0.11.1'
-
+gem 'mailjet'
 gem 'pundit'
 
 gem 'pastel'
@@ -43,10 +43,8 @@ gem 'pastel'
 gem 'logstasher'
 
 group :development, :test do
-  gem 'dotenv-rails', require: 'dotenv/rails-now'
   gem 'awesome_print'
   gem 'colorize'
-  gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'pry'
   gem 'pry-byebug'

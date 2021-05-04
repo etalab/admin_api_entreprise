@@ -49,28 +49,13 @@ module MailjetContact::Operation
     end
 
     def create_to_mailjet(ctx, serialized_contacts:, **)
-      require 'net/http'
-      require 'uri'
-      require 'json'
+      Mailjet::Contactslist_managemanycontacts.create(
+        id:       ::Rails.application.credentials.mj_list_id!,
+        action:   'addnoforce',
+        contacts: serialized_contacts
+      )
 
-      uri = URI.parse("https://api.mailjet.com/v3/REST/contactslist/#{ENV.fetch('MJ_LIST_ID')}/managemanycontacts")
-      request = Net::HTTP::Post.new(uri)
-      request.basic_auth(ENV.fetch('MJ_APIKEY_PUBLIC'), ENV.fetch('MJ_APIKEY_PRIVATE'))
-      request.content_type = "application/json"
-      request.body = JSON.dump({
-        "Action" => "addnoforce",
-        "Contacts" => serialized_contacts
-      })
-
-      req_options = {
-        use_ssl: uri.scheme == "https",
-      }
-
-      response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-        http.request(request)
-      end
-
-      %w[200 201].include?(response.code)
+      true
     end
   end
 end

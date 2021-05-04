@@ -94,12 +94,10 @@ GEM
       representable (>= 2.4.0, <= 3.1.0)
       uber (< 0.2.0)
     docile (1.3.5)
+    domain_name (0.5.20190701)
+      unf (>= 0.0.5, < 1.0.0)
     doorkeeper (4.4.3)
       railties (>= 4.2)
-    dotenv (2.7.6)
-    dotenv-rails (2.7.6)
-      dotenv (= 2.7.6)
-      railties (>= 3.2)
     dry-configurable (0.12.0)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.5, >= 0.5.0)
@@ -176,6 +174,9 @@ GEM
     hashie (4.1.0)
     highline (1.7.10)
     hirb (0.7.3)
+    http-accept (1.7.0)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     inflecto (0.0.2)
@@ -198,8 +199,15 @@ GEM
     lumberjack (1.2.8)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
+    mailjet (1.6.0)
+      activesupport (>= 3.1.0)
+      rack (>= 1.4.0)
+      rest-client (>= 2.0.0)
     marcel (1.0.1)
     method_source (1.0.0)
+    mime-types (3.3.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2021.0225)
     mina (1.2.3)
       open4 (~> 1.3.4)
       rake
@@ -211,6 +219,7 @@ GEM
     nenv (0.3.0)
     net-http-persistent (2.9.4)
     net-http-pipeline (1.0.1)
+    netrc (0.11.0)
     nio4r (2.5.7)
     nokogiri (1.11.3)
       mini_portile2 (~> 2.5.0)
@@ -293,6 +302,11 @@ GEM
       uber (< 0.2.0)
     request_store (1.5.0)
       rack (>= 1.4)
+    rest-client (2.1.0)
+      http-accept (>= 1.7.0, < 2.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rexml (3.2.5)
     rspec (3.10.0)
       rspec-core (~> 3.10.0)
@@ -407,6 +421,9 @@ GEM
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.7)
     unicode-display_width (1.7.0)
     unindent (1.0)
     vcr (6.0.0)
@@ -429,7 +446,6 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   colorize
   doorkeeper (~> 4.4.0)
-  dotenv-rails
   dry-validation (~> 0.11.1)
   factory_bot_rails
   faker
@@ -438,6 +454,7 @@ DEPENDENCIES
   jwtf (= 0.2.0)
   listen
   logstasher
+  mailjet
   mina (~> 1.2)
   pastel
   pg
