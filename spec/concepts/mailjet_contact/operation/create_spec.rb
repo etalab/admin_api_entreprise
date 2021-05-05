@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe MailjetContact::Operation::Create do
+RSpec.describe MailjetContacts::Operation::Create do
   subject { described_class.call }
 
   before do

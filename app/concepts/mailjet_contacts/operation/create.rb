@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module MailjetContact::Operation
+module MailjetContacts::Operation
   class Create < ::Trailblazer::Operation
     step :fetch_users
     step :build_payload
