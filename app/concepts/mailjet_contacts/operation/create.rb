@@ -25,7 +25,7 @@ module MailjetContacts::Operation
           'incidents': nil,           # Bool
           'infolettre': nil,          # Bool
           'nom': nil,                 # String
-          'origine': nil,             # String
+          'origine': 'dashboard',     # String
           'prénom': nil,              # String
           'techlettre': nil           # Bool
         }
