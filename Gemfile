@@ -64,6 +64,7 @@ group :development do
   gem 'spring-watcher-listen'
   gem 'mina', '~> 1.2'
   gem 'rubocop', require: false
+  gem 'rubocop-rspec', require: false
 end
 
 group :test do

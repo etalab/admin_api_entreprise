@@ -97,7 +97,7 @@ RSpec.describe JwtApiEntreprise::Operation::Create do
       # TODO move into a 'when input is invalid' context group
       it 'does not call the mailer' do
         token_params.delete(:user_id)
-        expect(JwtApiEntrepriseMailer).not_to receive(:creation_notice)
+        expect(JwtApiEntrepriseMailer).to_not receive(:creation_notice)
 
         subject
       end

@@ -7,6 +7,9 @@ AllCops:
     - 'db/**/*'
     - 'config/**/*'
 
+require:
+  - rubocop-rspec
+
 Style/FrozenStringLiteralComment:
   Enabled: false
 
@@ -26,3 +29,6 @@ Layout/ParameterAlignment:
 
 Style/StringLiterals:
   EnforcedStyle: single_quotes
+
+RSpec/NotToNot:
+  EnforcedStyle: to_not

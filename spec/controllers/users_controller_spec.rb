@@ -405,7 +405,7 @@ RSpec.describe UsersController, type: :controller do
         update_user!
         user.reload
 
-        expect(user.note).not_to eq('Test update')
+        expect(user.note).to_not eq('Test update')
       end
     end
 

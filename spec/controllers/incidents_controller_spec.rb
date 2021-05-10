@@ -88,7 +88,7 @@ RSpec.describe IncidentsController, type: :controller do
         subject
         incident.reload
 
-        expect(incident.title).not_to eq('Test update')
+        expect(incident.title).to_not eq('Test update')
       end
     end
 
@@ -120,7 +120,7 @@ RSpec.describe IncidentsController, type: :controller do
           subject
           incident.reload
 
-          expect(incident.subtitle).not_to eq('Updated subtitle')
+          expect(incident.subtitle).to_not eq('Updated subtitle')
         end
 
         it 'returns 422' do
