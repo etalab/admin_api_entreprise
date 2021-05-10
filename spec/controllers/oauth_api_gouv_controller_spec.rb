@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe OAuthApiGouvController, type: :controller do
+RSpec.describe(OAuthApiGouvController, type: :controller) do
   describe '#login' do
     let(:login_params) { { authorization_code: code } }
 
@@ -14,13 +14,13 @@ RSpec.describe OAuthApiGouvController, type: :controller do
         it 'returns HTTP code 200' do
           get :login, params: login_params, as: :json
 
-          expect(response.code).to eq('200')
+          expect(response.code).to(eq('200'))
         end
 
         it 'returns an access token' do
           get :login, params: login_params, as: :json
 
-          expect(response_json).to include(access_token: String)
+          expect(response_json).to(include(access_token: String))
         end
       end
 
@@ -28,14 +28,14 @@ RSpec.describe OAuthApiGouvController, type: :controller do
         it 'returns HTTP code 422' do
           get :login, params: login_params, as: :json
 
-          expect(response.code).to eq('422')
+          expect(response.code).to(eq('422'))
         end
 
         it 'returns an error message' do
           get :login, params: login_params, as: :json
           msg = response_json[:errors]
 
-          expect(msg).to eq('Utilisateur inconnu du service API Entreprise.')
+          expect(msg).to(eq('Utilisateur inconnu du service API Entreprise.'))
         end
       end
 
@@ -43,14 +43,14 @@ RSpec.describe OAuthApiGouvController, type: :controller do
         it 'returns HTTP code 502' do
           get :login, params: login_params, as: :json
 
-          expect(response.code).to eq('502')
+          expect(response.code).to(eq('502'))
         end
 
         it 'returns an error message' do
           get :login, params: login_params, as: :json
           msg = response_json[:errors]
 
-          expect(msg).to eq('Une erreur est survenue lors des échanges avec OAuth API Gouv. Contactez API Entreprise à support@entreprise.api.gouv.fr si le problème persiste.')
+          expect(msg).to(eq('Une erreur est survenue lors des échanges avec OAuth API Gouv. Contactez API Entreprise à support@entreprise.api.gouv.fr si le problème persiste.'))
         end
       end
     end
@@ -61,14 +61,14 @@ RSpec.describe OAuthApiGouvController, type: :controller do
       it 'returns HTTP code 401' do
         get :login, params: login_params, as: :json
 
-        expect(response.code).to eq('401')
+        expect(response.code).to(eq('401'))
       end
 
       it 'returns an error message' do
         get :login, params: login_params, as: :json
         msg = response_json[:errors]
 
-        expect(msg).to eq('Erreur lors de l\'authentification : authorization code invalide.')
+        expect(msg).to(eq('Erreur lors de l\'authentification : authorization code invalide.'))
       end
     end
 
@@ -78,14 +78,14 @@ RSpec.describe OAuthApiGouvController, type: :controller do
       it 'returns HTTP code 422' do
         get :login, params: login_params, as: :json
 
-        expect(response.code).to eq('422')
+        expect(response.code).to(eq('422'))
       end
 
       it 'returns an error message' do
         get :login, params: login_params, as: :json
         msg = response_json[:errors]
 
-        expect(msg).to eq(authorization_code: ['must be filled'])
+        expect(msg).to(eq(authorization_code: ['must be filled']))
       end
     end
   end

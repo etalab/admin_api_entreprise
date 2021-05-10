@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe IncidentsController, type: :controller do
+RSpec.describe(IncidentsController, type: :controller) do
   describe '#index' do
     let(:nb_incidents) { 5 }
     let(:body) { JSON.parse(response.body, symbolize_names: true) }
@@ -10,21 +10,21 @@ RSpec.describe IncidentsController, type: :controller do
     end
 
     it 'returns 200' do
-      expect(response.code).to eq '200'
+      expect(response.code).to(eq('200'))
     end
 
     it 'returns the right payload format' do
-      expect(body).to be_an_instance_of(Array)
-      expect(body.size).to eq(5)
+      expect(body).to(be_an_instance_of(Array))
+      expect(body.size).to(eq(5))
 
       incident_raw = body.first
-      expect(incident_raw).to be_an_instance_of(Hash)
-      expect(incident_raw.size).to eq(5)
-      expect(incident_raw.key?(:id)).to eq(true)
-      expect(incident_raw.key?(:title)).to eq(true)
-      expect(incident_raw.key?(:subtitle)).to eq(true)
-      expect(incident_raw.key?(:description)).to eq(true)
-      expect(incident_raw.key?(:created_at)).to eq(true)
+      expect(incident_raw).to(be_an_instance_of(Hash))
+      expect(incident_raw.size).to(eq(5))
+      expect(incident_raw.key?(:id)).to(eq(true))
+      expect(incident_raw.key?(:title)).to(eq(true))
+      expect(incident_raw.key?(:subtitle)).to(eq(true))
+      expect(incident_raw.key?(:description)).to(eq(true))
+      expect(incident_raw.key?(:created_at)).to(eq(true))
     end
   end
 
@@ -37,7 +37,7 @@ RSpec.describe IncidentsController, type: :controller do
       it_behaves_like 'client user unauthorized', :post, :create
 
       it 'does not save the incident' do
-        expect { subject }.to_not change(Incident, :count)
+        expect { subject }.to_not(change(Incident, :count))
       end
     end
 
@@ -47,11 +47,11 @@ RSpec.describe IncidentsController, type: :controller do
       context 'when params are valid' do
         it 'returns code 201' do
           subject
-          expect(response.code).to eq('201')
+          expect(response.code).to(eq('201'))
         end
 
         it 'saves the new incident' do
-          expect { subject }.to change(Incident, :count).by(1)
+          expect { subject }.to(change(Incident, :count).by(1))
         end
       end
 
@@ -59,12 +59,12 @@ RSpec.describe IncidentsController, type: :controller do
         before { incident_params.delete(:title) }
 
         it 'does not save the incident' do
-          expect { subject }.to_not change(Incident, :count)
+          expect { subject }.to_not(change(Incident, :count))
         end
 
         it 'returns 422' do
           subject
-          expect(response.code).to eq('422')
+          expect(response.code).to(eq('422'))
         end
       end
     end
@@ -88,7 +88,7 @@ RSpec.describe IncidentsController, type: :controller do
         subject
         incident.reload
 
-        expect(incident.title).not_to eq('Test update')
+        expect(incident.title).not_to(eq('Test update'))
       end
     end
 
@@ -98,7 +98,7 @@ RSpec.describe IncidentsController, type: :controller do
       context 'when params are valid' do
         it 'returns code 200' do
           subject
-          expect(response.code).to eq('200')
+          expect(response.code).to(eq('200'))
         end
 
         it 'updates the incident' do
@@ -106,7 +106,7 @@ RSpec.describe IncidentsController, type: :controller do
           subject
           incident.reload
 
-          expect(incident.title).to eq('Updated title')
+          expect(incident.title).to(eq('Updated title'))
         end
       end
 
@@ -120,12 +120,12 @@ RSpec.describe IncidentsController, type: :controller do
           subject
           incident.reload
 
-          expect(incident.subtitle).not_to eq('Updated subtitle')
+          expect(incident.subtitle).not_to(eq('Updated subtitle'))
         end
 
         it 'returns 422' do
           subject
-          expect(response.code).to eq('422')
+          expect(response.code).to(eq('422'))
         end
       end
     end

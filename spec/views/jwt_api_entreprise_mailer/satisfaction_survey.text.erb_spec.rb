@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'rendering the mail template' do
+RSpec.describe('rendering the mail template') do
   before do
     assign(:jwt, jwt)
     render template: 'jwt_api_entreprise_mailer/satisfaction_survey', formats: [:text]
@@ -27,6 +27,6 @@ RSpec.describe 'rendering the mail template' do
   end
 
   it 'renders the message' do
-    expect(subject).to match full_message
+    expect(subject).to(match(full_message))
   end
 end

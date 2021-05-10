@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe OAuthApiGouv::Tasks::RetrieveAccessToken do
+RSpec.describe(OAuthApiGouv::Tasks::RetrieveAccessToken) do
   subject(:retrieve_tokens!) { described_class.call(authorization_code: code) }
 
   context 'when the authorization code is valid' do
@@ -13,48 +13,48 @@ RSpec.describe OAuthApiGouv::Tasks::RetrieveAccessToken do
         it 'returns an Access Token' do
           access_token = retrieve_tokens![:access_token]
 
-          expect(access_token).to be_a(String)
+          expect(access_token).to(be_a(String))
         end
 
         it 'returns an ID Token' do
           id_token = retrieve_tokens![:access_token]
 
-          expect(id_token).to be_a(String)
+          expect(id_token).to(be_a(String))
         end
 
-        it { is_expected.to be_success }
+        it { is_expected.to(be_success) }
 
         it 'returns the user ID (from OAuth API Gouv)' do
           user_id = retrieve_tokens![:oauth_api_gouv_user_id]
 
-          expect(user_id).to be_a(String)
+          expect(user_id).to(be_a(String))
         end
       end
 
       context 'when the ID Token is not valid' do
         shared_examples :jwt_validation_failure do
-          it { is_expected.to be_failure }
+          it { is_expected.to(be_failure) }
 
           it 'ends in the :failure' do
             res = retrieve_tokens!
             state = res.event.to_h[:semantic]
 
-            expect(state).to eq(:failure)
+            expect(state).to(eq(:failure))
           end
         end
 
         describe 'invalid signature' do
           # Here we provide an invalid ID Token on code execution
           before do
-            allow(AccessToken).to receive(:decode_oauth_api_gouv_id_token)
-              .and_wrap_original { |m, jwt, jwks| m.call(OAuthApiGouv::IdToken.invalid_signature, jwks) }
+            allow(AccessToken).to(receive(:decode_oauth_api_gouv_id_token)
+              .and_wrap_original { |m, jwt, jwks| m.call(OAuthApiGouv::IdToken.invalid_signature, jwks) })
           end
 
           it_behaves_like :jwt_validation_failure
 
           it 'logs the error' do
-            expect(Rails.logger).to receive(:error)
-              .with('ID Token verification error: Signature verification raised')
+            expect(Rails.logger).to(receive(:error)
+              .with('ID Token verification error: Signature verification raised'))
 
             retrieve_tokens!
           end
@@ -65,14 +65,14 @@ RSpec.describe OAuthApiGouv::Tasks::RetrieveAccessToken do
           # No way to forge the JWT with another 'aud' claim, so let's use the
           # valid JWT and modify the expected audience value instead
           before do
-            allow(Rails.configuration).to receive(:oauth_api_gouv_client_id).and_return('lol audience')
+            allow(Rails.configuration).to(receive(:oauth_api_gouv_client_id).and_return('lol audience'))
           end
 
           it_behaves_like :jwt_validation_failure
 
           it 'logs the error' do
-            expect(Rails.logger).to receive(:error)
-              .with(a_string_starting_with('ID Token verification error: Invalid audience. Expected lol audience, received'))
+            expect(Rails.logger).to(receive(:error)
+              .with(a_string_starting_with('ID Token verification error: Invalid audience. Expected lol audience, received')))
 
             retrieve_tokens!
           end
@@ -83,14 +83,14 @@ RSpec.describe OAuthApiGouv::Tasks::RetrieveAccessToken do
           # No way to forge the JWT with another 'iss' claim, so let's use the
           # valid JWT and modify the expected issuer value instead
           before do
-            allow(Rails.configuration).to receive(:oauth_api_gouv_issuer).and_return('http://www.issuer.fr')
+            allow(Rails.configuration).to(receive(:oauth_api_gouv_issuer).and_return('http://www.issuer.fr'))
           end
 
           it_behaves_like :jwt_validation_failure
 
           it 'logs the error' do
-            expect(Rails.logger).to receive(:error)
-              .with(a_string_starting_with('ID Token verification error: Invalid issuer. Expected http://www.issuer.fr, received'))
+            expect(Rails.logger).to(receive(:error)
+              .with(a_string_starting_with('ID Token verification error: Invalid issuer. Expected http://www.issuer.fr, received')))
 
             retrieve_tokens!
           end
@@ -104,8 +104,8 @@ RSpec.describe OAuthApiGouv::Tasks::RetrieveAccessToken do
           it_behaves_like :jwt_validation_failure
 
           it 'logs the error' do
-            expect(Rails.logger).to receive(:error)
-              .with(a_string_starting_with('ID Token verification error: Signature has expired'))
+            expect(Rails.logger).to(receive(:error)
+              .with(a_string_starting_with('ID Token verification error: Signature has expired')))
 
             retrieve_tokens!
           end
@@ -117,15 +117,15 @@ RSpec.describe OAuthApiGouv::Tasks::RetrieveAccessToken do
 
     context 'when Admin API credentials are not valid', vcr: { cassette_name: 'oauth_api_gouv_invalid_client_credentials' } do
       before do
-        allow(Rails.application.credentials).to receive(:oauth_api_gouv_client_secret)
-          .and_return('lecodecestlecode')
+        allow(Rails.application.credentials).to(receive(:oauth_api_gouv_client_secret)
+          .and_return('lecodecestlecode'))
       end
 
-      it { is_expected.to be_failure }
+      it { is_expected.to(be_failure) }
 
       it 'logs the error' do
-        expect(Rails.logger).to receive(:error)
-          .with('OAuth API Gouv call failed: status 401, description {"error":"invalid_client","error_description":"client authentication failed"}')
+        expect(Rails.logger).to(receive(:error)
+          .with('OAuth API Gouv call failed: status 401, description {"error":"invalid_client","error_description":"client authentication failed"}'))
 
         retrieve_tokens!
       end
@@ -134,7 +134,7 @@ RSpec.describe OAuthApiGouv::Tasks::RetrieveAccessToken do
         res = retrieve_tokens!
         state = res.event.to_h[:semantic]
 
-        expect(state).to eq(:failure)
+        expect(state).to(eq(:failure))
       end
     end
   end
@@ -142,11 +142,11 @@ RSpec.describe OAuthApiGouv::Tasks::RetrieveAccessToken do
   context 'when the authorization code is invalid', vcr: { cassette_name: 'oauth_api_gouv_invalid_authorization_code' } do
     let(:code) { OAuthApiGouv::AuthorizationCode.invalid }
 
-    it { is_expected.to be_failure }
+    it { is_expected.to(be_failure) }
 
     it 'logs the error' do
-      expect(Rails.logger).to receive(:error)
-        .with('OAuth API Gouv call failed: status 400, description {"error":"invalid_grant","error_description":"grant request is invalid"}')
+      expect(Rails.logger).to(receive(:error)
+        .with('OAuth API Gouv call failed: status 400, description {"error":"invalid_grant","error_description":"grant request is invalid"}'))
 
       retrieve_tokens!
     end
@@ -155,7 +155,7 @@ RSpec.describe OAuthApiGouv::Tasks::RetrieveAccessToken do
       res = retrieve_tokens!
       state = res.event.to_h[:semantic]
 
-      expect(state).to eq(:invalid_authorization_code)
+      expect(state).to(eq(:invalid_authorization_code))
     end
   end
 end

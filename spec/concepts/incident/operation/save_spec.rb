@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Incident::Operation::Save do
+RSpec.describe(Incident::Operation::Save) do
   let(:operation_params) do
     {
       title: 'Test incident',
@@ -13,8 +13,8 @@ RSpec.describe Incident::Operation::Save do
 
   context 'when no incident record is present in params' do
     it 'saves a new incident into the database' do
-      expect { subject }.to change(Incident, :count).by(1)
-      expect(subject).to be_success
+      expect { subject }.to(change(Incident, :count).by(1))
+      expect(subject).to(be_success)
     end
   end
 
@@ -25,9 +25,9 @@ RSpec.describe Incident::Operation::Save do
       subject
       incident_record.reload
 
-      expect(incident_record.title).to eq('Test incident')
-      expect(incident_record.subtitle).to eq('From yesterday to tomorrow')
-      expect(incident_record.description).to eq('I\'m the incident description.')
+      expect(incident_record.title).to(eq('Test incident'))
+      expect(incident_record.subtitle).to(eq('From yesterday to tomorrow'))
+      expect(incident_record.description).to(eq('I\'m the incident description.'))
     end
   end
 
@@ -40,15 +40,15 @@ RSpec.describe Incident::Operation::Save do
       it 'is required' do
         operation_params.delete(:title)
 
-        expect(subject).to be_failure
-        expect(errors).to include 'must be filled'
+        expect(subject).to(be_failure)
+        expect(errors).to(include('must be filled'))
       end
 
       it 'is max 128 characters long' do
         operation_params[:title] = 'a' * 129
 
-        expect(subject).to be_failure
-        expect(errors).to include 'size cannot be greater than 128'
+        expect(subject).to(be_failure)
+        expect(errors).to(include('size cannot be greater than 128'))
       end
     end
 
@@ -58,15 +58,15 @@ RSpec.describe Incident::Operation::Save do
       it 'is required' do
         operation_params.delete(:subtitle)
 
-        expect(subject).to be_failure
-        expect(errors).to include 'must be filled'
+        expect(subject).to(be_failure)
+        expect(errors).to(include('must be filled'))
       end
 
       it 'is max 128 characters long' do
         operation_params[:subtitle] = 'a' * 129
 
-        expect(subject).to be_failure
-        expect(errors).to include 'size cannot be greater than 128'
+        expect(subject).to(be_failure)
+        expect(errors).to(include('size cannot be greater than 128'))
       end
     end
 
@@ -76,8 +76,8 @@ RSpec.describe Incident::Operation::Save do
       it 'is required' do
         operation_params.delete(:description)
 
-        expect(subject).to be_failure
-        expect(errors).to include 'must be filled'
+        expect(subject).to(be_failure)
+        expect(errors).to(include('must be filled'))
       end
     end
   end

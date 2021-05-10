@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe JwtApiEntreprise::Operation::Update do
+RSpec.describe(JwtApiEntreprise::Operation::Update) do
   subject(:update_jwt!) { described_class.call(params: op_params) }
 
   context 'when the JWT id is valid' do
@@ -8,29 +8,29 @@ RSpec.describe JwtApiEntreprise::Operation::Update do
     let(:op_params) { { id: jwt.id, blacklisted: true, archived: true } }
 
     describe '#blacklisted' do
-      it { is_expected.to be_success }
+      it { is_expected.to(be_success) }
 
       it 'updates the resource' do
         update_jwt!
         jwt.reload
 
-        expect(jwt.blacklisted).to eq(true)
+        expect(jwt.blacklisted).to(eq(true))
       end
     end
 
     describe '#archived' do
-      it { is_expected.to be_success }
+      it { is_expected.to(be_success) }
 
       it 'updates the resource' do
         update_jwt!
         jwt.reload
 
-        expect(jwt.archived).to eq(true)
+        expect(jwt.archived).to(eq(true))
       end
     end
 
     describe 'non-updatable attributes' do
-      it { is_expected.to be_success }
+      it { is_expected.to(be_success) }
 
       it 'does not update the resource' do
         op_params.merge!({
@@ -43,10 +43,10 @@ RSpec.describe JwtApiEntreprise::Operation::Update do
         update_jwt!
         jwt.reload
 
-        expect(jwt.subject).to_not eq('new subject')
-        expect(jwt.iat).to_not eq(9000)
-        expect(jwt.exp).to_not eq(10000)
-        expect(jwt.version).to_not eq('2.1')
+        expect(jwt.subject).to_not(eq('new subject'))
+        expect(jwt.iat).to_not(eq(9000))
+        expect(jwt.exp).to_not(eq(10000))
+        expect(jwt.version).to_not(eq('2.1'))
       end
     end
 
@@ -64,14 +64,14 @@ RSpec.describe JwtApiEntreprise::Operation::Update do
         it 'is optional' do
           op_params.delete(:blacklisted)
 
-          expect(update_jwt!).to be_success
+          expect(update_jwt!).to(be_success)
         end
 
         it 'must be boolean' do
           op_params[:blacklisted] = 'no bool'
 
-          expect(update_jwt!).to be_failure
-          expect(errors).to include(blacklisted: ['must be boolean'])
+          expect(update_jwt!).to(be_failure)
+          expect(errors).to(include(blacklisted: ['must be boolean']))
         end
       end
 
@@ -79,14 +79,14 @@ RSpec.describe JwtApiEntreprise::Operation::Update do
         it 'is optional' do
           op_params.delete(:archived)
 
-          expect(update_jwt!).to be_success
+          expect(update_jwt!).to(be_success)
         end
 
         it 'must be boolean' do
           op_params[:archived] = 'no bool'
 
-          expect(update_jwt!).to be_failure
-          expect(errors).to include(archived: ['must be boolean'])
+          expect(update_jwt!).to(be_failure)
+          expect(errors).to(include(archived: ['must be boolean']))
         end
       end
 
@@ -96,8 +96,8 @@ RSpec.describe JwtApiEntreprise::Operation::Update do
           op_params.delete(:blacklisted)
           op_params.delete(:archived)
 
-          expect(update_jwt!).to be_failure
-          expect(errors).to include('dunno yet')
+          expect(update_jwt!).to(be_failure)
+          expect(errors).to(include('dunno yet'))
         end
       end
     end
@@ -107,12 +107,12 @@ RSpec.describe JwtApiEntreprise::Operation::Update do
     let(:op_params) { { id: '0102', blacklisted: true, archived: true } }
     let(:errors) { update_jwt![:errors] }
 
-    it { is_expected.to be_failure }
+    it { is_expected.to(be_failure) }
 
     it 'returns an error message' do
       update_jwt!
 
-      expect(errors).to include(jwt_api_entreprise: ['the resource with id `0102` is not found'])
+      expect(errors).to(include(jwt_api_entreprise: ['the resource with id `0102` is not found']))
     end
   end
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe JwtUser, type: :jwt do
+RSpec.describe(JwtUser, type: :jwt) do
   let(:token_payload) do
     # call JWTF the way Doorkeeper does
     token = JWTF.generate(resource_owner_id: user_id)
@@ -15,6 +15,6 @@ RSpec.describe JwtUser, type: :jwt do
       admin.id
     end
 
-    its(:admin?) { is_expected.to eq(true) }
+    its(:admin?) { is_expected.to(eq(true)) }
   end
 end

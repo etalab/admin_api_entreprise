@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe JwtApiEntreprise::Operation::Create do
+RSpec.describe(JwtApiEntreprise::Operation::Create) do
   let(:user) { create(:user) }
   let(:roles) { create_list(:role, 7) }
   let(:roles_code) { roles.map { |attr| attr.slice(:code) } }
@@ -31,49 +31,49 @@ RSpec.describe JwtApiEntreprise::Operation::Create do
     let(:created_token) { subject[:model] }
 
     it 'is successful' do
-      expect(subject).to be_success
+      expect(subject).to(be_success)
     end
 
     it 'creates the jwt' do
-      expect { subject }.to change(JwtApiEntreprise, :count).by(1)
+      expect { subject }.to(change(JwtApiEntreprise, :count).by(1))
     end
 
     it 'belongs to the correct user' do
-      expect(created_token.user).to eq(user)
+      expect(created_token.user).to(eq(user))
     end
 
     it 'saves the related authorization request id' do
-      expect(created_token.authorization_request_id).to eq(token_params[:authorization_request_id])
+      expect(created_token.authorization_request_id).to(eq(token_params[:authorization_request_id]))
     end
 
     it 'is has the valid access rights' do
-      expect(created_token.roles.to_a).to contain_exactly(*roles.to_a)
+      expect(created_token.roles.to_a).to(contain_exactly(*roles.to_a))
     end
 
     it 'expires after 18 months' do
       Timecop.freeze
 
-      expect(created_token.exp).to eq(18.months.from_now.to_i)
+      expect(created_token.exp).to(eq(18.months.from_now.to_i))
       Timecop.return
     end
 
     it 'has a timestamp of creation' do
       Timecop.freeze
 
-      expect(created_token.iat).to eq(Time.zone.now.to_i)
+      expect(created_token.iat).to(eq(Time.zone.now.to_i))
       Timecop.return
     end
 
     it 'is saved with a default version number' do
-      expect(created_token.version).to eq('1.0')
+      expect(created_token.version).to(eq('1.0'))
     end
 
     it 'creates the related contacts' do
-      expect { subject }.to change(Contact, :count).by(2)
+      expect { subject }.to(change(Contact, :count).by(2))
     end
 
     it 'persists valid contacts data' do
-      expect(created_token.contacts).to contain_exactly(
+      expect(created_token.contacts).to(contain_exactly(
         an_object_having_attributes(
           email: 'coucou@hello.fr',
           phone_number: '0123456789',
@@ -84,12 +84,12 @@ RSpec.describe JwtApiEntreprise::Operation::Create do
           phone_number: '0987654321',
           contact_type: 'tech'
         )
-      )
+      ))
     end
 
     describe 'mail notifications' do
       it 'calls the mailer to notice for a JWT creation' do
-        expect(JwtApiEntrepriseMailer).to receive(:creation_notice).and_call_original
+        expect(JwtApiEntrepriseMailer).to(receive(:creation_notice).and_call_original)
 
         subject
       end
@@ -97,7 +97,7 @@ RSpec.describe JwtApiEntreprise::Operation::Create do
       # TODO move into a 'when input is invalid' context group
       it 'does not call the mailer' do
         token_params.delete(:user_id)
-        expect(JwtApiEntrepriseMailer).not_to receive(:creation_notice)
+        expect(JwtApiEntrepriseMailer).not_to(receive(:creation_notice))
 
         subject
       end
@@ -111,15 +111,15 @@ RSpec.describe JwtApiEntreprise::Operation::Create do
       it 'is required' do
         token_params[:roles] = []
 
-        expect(subject).to be_failure
-        expect(errors[:roles]).to include 'must be filled'
+        expect(subject).to(be_failure)
+        expect(errors[:roles]).to(include('must be filled'))
       end
 
       it 'fails if provided roles does not exist' do
         token_params[:roles].push({ code: 'ghost_code' })
 
-        expect(subject).to be_failure
-        expect(errors[:'roles.code']).to include('role "ghost_code" does not exist')
+        expect(subject).to(be_failure)
+        expect(errors[:'roles.code']).to(include('role "ghost_code" does not exist'))
       end
     end
 
@@ -129,15 +129,15 @@ RSpec.describe JwtApiEntreprise::Operation::Create do
       it 'is required' do
         token_params.delete(:user_id)
 
-        expect(subject).to be_failure
-        expect(errors).to include('must be filled')
+        expect(subject).to(be_failure)
+        expect(errors).to(include('must be filled'))
       end
 
       it 'is an existing user id' do
         token_params[:user_id] = 'not a user id'
 
-        expect(subject).to be_failure
-        expect(errors).to include('user with ID "not a user id" does not exist')
+        expect(subject).to(be_failure)
+        expect(errors).to(include('user with ID "not a user id" does not exist'))
       end
     end
 
@@ -147,15 +147,15 @@ RSpec.describe JwtApiEntreprise::Operation::Create do
       it 'is required' do
         token_params.delete(:authorization_request_id)
 
-        expect(subject).to be_failure
-        expect(errors).to include('must be filled')
+        expect(subject).to(be_failure)
+        expect(errors).to(include('must be filled'))
       end
 
       it 'is a string' do
         token_params[:authorization_request_id] = true
 
-        expect(subject).to be_failure
-        expect(errors).to include('must be a string')
+        expect(subject).to(be_failure)
+        expect(errors).to(include('must be a string'))
       end
     end
 
@@ -165,8 +165,8 @@ RSpec.describe JwtApiEntreprise::Operation::Create do
       it 'is required' do
         token_params[:subject] = ''
 
-        expect(subject).to be_failure
-        expect(errors).to include('must be filled')
+        expect(subject).to(be_failure)
+        expect(errors).to(include('must be filled'))
       end
     end
 
@@ -176,14 +176,14 @@ RSpec.describe JwtApiEntreprise::Operation::Create do
       it 'fails if contact\'s data is not valid' do
         token_params[:contacts].append(email: 'not an email')
 
-        expect(subject).to be_failure
+        expect(subject).to(be_failure)
       end
 
       it 'is required' do
         token_params.delete(:contacts)
 
-        expect(subject).to be_failure
-        expect(errors).to include('must be filled')
+        expect(subject).to(be_failure)
+        expect(errors).to(include('must be filled'))
       end
 
       pending 'business and tech contacts are required'

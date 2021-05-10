@@ -17,7 +17,7 @@ class ApplicationController < ActionController::API
   end
 
   def unauthorized
-    render json: { error: 'Unauthorized' }, status: 401
+    render(json: { error: 'Unauthorized' }, status: 401)
   end
 
   # Method called by Pundit to get the current user of the request
@@ -31,6 +31,6 @@ class ApplicationController < ActionController::API
   end
 
   def user_not_authorized
-    render json: { errors: 'Forbidden' }, status: 403
+    render(json: { errors: 'Forbidden' }, status: 403)
   end
 end

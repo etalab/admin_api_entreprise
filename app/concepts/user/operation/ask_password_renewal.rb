@@ -26,7 +26,7 @@ module User::Operation
 
     def validation_errors(ctx, **)
       ctx[:errors] = {} if ctx[:errors].nil?
-      ctx[:errors].merge! ctx['result.contract.default'].errors
+      ctx[:errors].merge!(ctx['result.contract.default'].errors)
     end
   end
 end

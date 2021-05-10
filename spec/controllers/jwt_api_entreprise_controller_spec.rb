@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe JwtApiEntrepriseController, type: :controller do
+RSpec.describe(JwtApiEntrepriseController, type: :controller) do
   let(:token_params) do
     {
       roles: jwt_roles,
@@ -22,19 +22,19 @@ RSpec.describe JwtApiEntrepriseController, type: :controller do
       it 'returns an HTTP code 200' do
         get :index
 
-        expect(response.code).to eq('200')
+        expect(response.code).to(eq('200'))
       end
 
       it 'returns all JWT from the database' do
         get :index
 
-        expect(response_json.size).to eq(8)
+        expect(response_json.size).to(eq(8))
       end
 
       it 'has a valid payload' do
         get :index
 
-        expect(response_json).to all(
+        expect(response_json).to(all(
           match({
             id: String,
             user_id: String,
@@ -45,7 +45,7 @@ RSpec.describe JwtApiEntrepriseController, type: :controller do
             archived: be(true).or(be(false)),
             authorization_request_id: String
           })
-        )
+        ))
       end
     end
 
@@ -84,24 +84,24 @@ RSpec.describe JwtApiEntrepriseController, type: :controller do
 
       context 'when data is valid' do
         it 'creates a valid token' do
-          expect { post :create, params: token_params }
-            .to change(JwtApiEntreprise, :count).by(1)
+          expect { post(:create, params: token_params) }
+            .to(change(JwtApiEntreprise, :count).by(1))
         end
 
         it 'creates the contacts' do
-          expect { post :create, params: token_params }
-            .to change(Contact, :count).by(2)
+          expect { post(:create, params: token_params) }
+            .to(change(Contact, :count).by(2))
         end
 
         it 'returns code 201' do
           post :create, params: token_params
-          expect(response.code).to eq '201'
+          expect(response.code).to(eq('201'))
         end
 
         it 'returns the created JWT' do
           post :create, params: token_params
 
-          expect(response_json[:new_token]).to be_a(String)
+          expect(response_json[:new_token]).to(be_a(String))
         end
       end
 
@@ -114,22 +114,22 @@ RSpec.describe JwtApiEntrepriseController, type: :controller do
         it 'returns a 422' do
           post :create, params: invalid_params
 
-          expect(response.code).to eq '422'
+          expect(response.code).to(eq('422'))
         end
 
         it 'returns error messages' do
           post :create, params: invalid_params
 
-          expect(response_json).to match({
+          expect(response_json).to(match({
             errors: {
               user_id: a_collection_including(String)
             }
-          })
+          }))
         end
 
         it 'does not create the token' do
-          expect { post :create, params: invalid_params }
-            .to_not change(JwtApiEntreprise, :count)
+          expect { post(:create, params: invalid_params) }
+            .to_not(change(JwtApiEntreprise, :count))
         end
       end
     end
@@ -156,19 +156,19 @@ RSpec.describe JwtApiEntrepriseController, type: :controller do
         it 'changes updatable attributes' do
           update!
 
-          expect(jwt.reload).to have_attributes(archived: true, blacklisted: true)
+          expect(jwt.reload).to(have_attributes(archived: true, blacklisted: true))
         end
 
         it 'ignores non-updatable attributes' do
           update!
 
-          expect(jwt.reload.subject).to_not eq('New subject')
+          expect(jwt.reload.subject).to_not(eq('New subject'))
         end
 
         it 'returns an HTTP code 200' do
           update!
 
-          expect(response.code).to eq('200')
+          expect(response.code).to(eq('200'))
         end
       end
 
@@ -176,11 +176,11 @@ RSpec.describe JwtApiEntrepriseController, type: :controller do
         before { patch :update, params: { id: 0 }, as: :json }
 
         it 'returns an HTTP code 422' do
-          expect(response.code).to eq('422')
+          expect(response.code).to(eq('422'))
         end
 
         it 'returns an error message' do
-          expect(response_json).to include(:errors)
+          expect(response_json).to(include(:errors))
         end
       end
     end

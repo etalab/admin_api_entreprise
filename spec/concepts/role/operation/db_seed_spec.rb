@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Role::Operation::DBSeed do
+RSpec.describe(Role::Operation::DBSeed) do
   describe 'with custom roles seed' do
-    subject { described_class.call roles_seed: roles_seed }
+    subject { described_class.call(roles_seed: roles_seed) }
 
     let(:roles_seed) do
       [
@@ -14,12 +14,12 @@ RSpec.describe Role::Operation::DBSeed do
 
     context 'when roles do not exist' do
       it 'saves them into db' do
-        expect { subject }.to change(Role, :count).by(2)
+        expect { subject }.to(change(Role, :count).by(2))
       end
 
       it 'logs role\'s creation' do
-        expect(log).to include('Role created : name "Role 1", code "rol1"')
-        expect(log).to include('Role created : name "Role 2", code "rol2"')
+        expect(log).to(include('Role created : name "Role 1", code "rol1"'))
+        expect(log).to(include('Role created : name "Role 2", code "rol2"'))
       end
     end
 
@@ -30,12 +30,12 @@ RSpec.describe Role::Operation::DBSeed do
       end
 
       it 'does not saves the roles' do
-        expect { subject }.to_not change(Role, :count)
+        expect { subject }.to_not(change(Role, :count))
       end
 
       it 'logs the error' do
-        expect(log).to include('Warning role already exists : name "Role 1", code "rol1"')
-        expect(log).to include('Warning role already exists : name "Role 2", code "rol2"')
+        expect(log).to(include('Warning role already exists : name "Role 1", code "rol1"'))
+        expect(log).to(include('Warning role already exists : name "Role 2", code "rol2"'))
       end
     end
   end
@@ -44,7 +44,7 @@ RSpec.describe Role::Operation::DBSeed do
     subject { described_class.call }
 
     it 'saves all roles in the database' do
-      expect { subject }.to change(Role, :count).by(22)
+      expect { subject }.to(change(Role, :count).by(22))
     end
   end
 end

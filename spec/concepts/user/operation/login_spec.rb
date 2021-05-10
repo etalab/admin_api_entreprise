@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe User::Operation::Login do
+RSpec.describe(User::Operation::Login) do
   let(:result) { described_class.call(params: login_params) }
 
   context 'when user email is unknown' do
@@ -9,7 +9,7 @@ RSpec.describe User::Operation::Login do
     end
 
     it 'fails authentication' do
-      expect(result).to be_failure
+      expect(result).to(be_failure)
     end
   end
 
@@ -24,7 +24,7 @@ RSpec.describe User::Operation::Login do
       it 'fails authentication' do
         login_params[:password] = 'invalid password'
 
-        expect(result).to be_failure
+        expect(result).to(be_failure)
       end
 
       it 'increments counter before lock'
@@ -32,8 +32,8 @@ RSpec.describe User::Operation::Login do
 
     context 'when incomming params are valid' do
       it 'returns the user' do
-        expect(result).to be_success
-        expect(result[:model]).to eq user
+        expect(result).to(be_success)
+        expect(result[:model]).to(eq(user))
       end
 
       it 'resets counter before lock'
@@ -42,7 +42,7 @@ RSpec.describe User::Operation::Login do
     context 'with empty spaces around email' do
       it 'strips spaces' do
         user.email = '   ' + user.email + '    '
-        expect(result).to be_success
+        expect(result).to(be_success)
       end
     end
 

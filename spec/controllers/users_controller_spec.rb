@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UsersController, type: :controller do
+RSpec.describe(UsersController, type: :controller) do
   describe '#index' do
     before { create_list(:user, 5) }
 
@@ -11,30 +11,30 @@ RSpec.describe UsersController, type: :controller do
         before { get :index }
 
         it 'returns an HTTP code 200' do
-          expect(response.code).to eq('200')
+          expect(response.code).to(eq('200'))
         end
 
         it 'calls User::Operation::Index' do
-          expect(User::Operation::Index).to receive(:call)
-            .and_call_original
+          expect(User::Operation::Index).to(receive(:call)
+            .and_call_original)
 
           get :index
         end
 
         it 'returns all users from database' do
           # Pretty ugly... We have one more user than the 5 created: the admin
-          expect(response_json.size).to eq(6)
+          expect(response_json.size).to(eq(6))
         end
 
         it 'returns the correct payload format' do
-          expect(response_json).to all(match({
+          expect(response_json).to(all(match({
             id: a_kind_of(String),
             email: a_kind_of(String),
             context: a_kind_of(String),
             confirmed: be(true).or(be(false)),
             oauth_api_gouv_id: a_kind_of(String),
             created_at: a_kind_of(String),
-          }))
+          })))
         end
       end
 
@@ -43,9 +43,9 @@ RSpec.describe UsersController, type: :controller do
           User.take.update(email: 'random_query')
           get :index, params: { email: 'random_query' }, as: :json
 
-          expect(response_json).to contain_exactly(
+          expect(response_json).to(contain_exactly(
             a_hash_including(email: 'random_query')
-          )
+          ))
         end
       end
     end
@@ -68,8 +68,8 @@ RSpec.describe UsersController, type: :controller do
 
       it 'calls the operation to create a user' do
         expect(User::Operation::Create)
-          .to receive(:call)
-          .and_call_original
+          .to(receive(:call)
+          .and_call_original)
 
         post(:create, params: user_params, as: :json)
       end
@@ -84,14 +84,14 @@ RSpec.describe UsersController, type: :controller do
         end
 
         it 'returns code 422' do
-          expect(response.code).to eq('422')
+          expect(response.code).to(eq('422'))
         end
 
         it 'returns errors' do
-          expect(response_json).to match(
+          expect(response_json).to(match(
             errors: {
               email: a_collection_including(kind_of(String))
-            })
+            }))
         end
       end
 
@@ -101,19 +101,19 @@ RSpec.describe UsersController, type: :controller do
         # in the operation unit tests
         it 'saves the user into the database' do
           expect { post(:create, params: user_params, as: :json) }
-            .to change(User, :count).by(1)
+            .to(change(User, :count).by(1))
         end
 
         it 'returns code 201' do
           post(:create, params: user_params, as: :json)
 
-          expect(response.code).to eq('201')
+          expect(response.code).to(eq('201'))
         end
 
         it 'returns the created user' do
           post(:create, params: user_params, as: :json)
 
-          expect(response_json).to match({
+          expect(response_json).to(match({
             id: a_kind_of(String),
             email: a_kind_of(String),
             context: a_kind_of(String),
@@ -121,7 +121,7 @@ RSpec.describe UsersController, type: :controller do
             note: '',
             tokens: [],
             contacts: [],
-          })
+          }))
         end
       end
     end
@@ -147,7 +147,7 @@ RSpec.describe UsersController, type: :controller do
       it 'returns the user data' do
         get :show, params: { id: user.id }
 
-        expect(response_json).to include({
+        expect(response_json).to(include({
           id: a_kind_of(String),
           email: a_kind_of(String),
           context: a_kind_of(String),
@@ -175,7 +175,7 @@ RSpec.describe UsersController, type: :controller do
               contact_type: a_kind_of(String)
             )
           )
-        })
+        }))
       end
     end
 
@@ -186,7 +186,7 @@ RSpec.describe UsersController, type: :controller do
         it 'returns 404' do
           get :show, params: { id: 0 }
 
-          expect(response.code).to eq('404')
+          expect(response.code).to(eq('404'))
         end
       end
 
@@ -196,47 +196,47 @@ RSpec.describe UsersController, type: :controller do
         it 'shows blacklisted jwt' do
           get :show, params: { id: user.id }
 
-          expect(response_json).to include(
+          expect(response_json).to(include(
             tokens: a_collection_including(a_hash_including({
               blacklisted: true
             }))
-          )
+          ))
         end
 
         it 'shows archived jwt' do
           get :show, params: { id: user.id }
 
-          expect(response_json).to include(
+          expect(response_json).to(include(
             tokens: a_collection_including(a_hash_including({
               archived: true
             }))
-          )
+          ))
         end
 
         it 'returns the user note attribute' do
           get :show, params: { id: user.id }
 
-          expect(response_json).to include(:note)
+          expect(response_json).to(include(:note))
         end
 
         it 'shows contacts of archived JWT' do
           get :show, params: { id: user.id }
 
-          expect(response_json).to include(
+          expect(response_json).to(include(
             contacts: a_collection_including(a_hash_including({
               jwt_id: archived_jwt.id
             }))
-          )
+          ))
         end
 
         it 'shows contacts of blacklisted JWT' do
           get :show, params: { id: user.id }
 
-          expect(response_json).to include(
+          expect(response_json).to(include(
             contacts: a_collection_including(a_hash_including({
               jwt_id: blacklisted_jwt.id
             }))
-          )
+          ))
         end
 
         it 'returns the user\'s expired tokens' do
@@ -244,7 +244,7 @@ RSpec.describe UsersController, type: :controller do
           tokens_in_payload = response_json[:tokens]
           tokens_ids_in_payload = tokens_in_payload.map! { |t| t[:id] }
 
-          expect(tokens_ids_in_payload).to include(*expired_jwt.ids)
+          expect(tokens_ids_in_payload).to(include(*expired_jwt.ids))
         end
       end
     end
@@ -257,25 +257,25 @@ RSpec.describe UsersController, type: :controller do
       it 'responds with an HTTP code 200' do
         get :show, params: { id: user.id }
 
-        expect(response.code).to eq('200')
+        expect(response.code).to(eq('200'))
       end
 
       it 'does not return the user note attribute' do
         get :show, params: { id: user.id }
 
-        expect(response_json).to_not include(:note)
+        expect(response_json).to_not(include(:note))
       end
 
       it 'does not return the user blacklisted jwt' do
         get :show, params: { id: user.id }
 
-        expect(response_json[:tokens]).to all(include(blacklisted: false))
+        expect(response_json[:tokens]).to(all(include(blacklisted: false)))
       end
 
       it 'does not return the user archived jwt' do
         get :show, params: { id: user.id }
 
-        expect(response_json[:tokens]).to all(include(archived: false))
+        expect(response_json[:tokens]).to(all(include(archived: false)))
       end
 
       it 'does not return the user\'s expired tokens' do
@@ -283,27 +283,27 @@ RSpec.describe UsersController, type: :controller do
         tokens_in_payload = response_json[:tokens]
         tokens_ids_in_payload = tokens_in_payload.map! { |t| t[:id] }
 
-        expect(tokens_ids_in_payload).to_not include(*expired_jwt.ids)
+        expect(tokens_ids_in_payload).to_not(include(*expired_jwt.ids))
       end
 
       it 'denies access to other users data' do
         another_user = create(:user)
         get :show, params: { id: another_user.id }
 
-        expect(response.code).to eq('403')
+        expect(response.code).to(eq('403'))
       end
 
       describe 'associated contacts' do
         it 'does not return contacts for an archived token' do
           get :show, params: { id: user.id }
 
-          expect(response_json[:contacts]).to_not include(a_hash_including(jwt_id: archived_jwt.id))
+          expect(response_json[:contacts]).to_not(include(a_hash_including(jwt_id: archived_jwt.id)))
         end
 
         it 'does not return contacts for a blacklisted token' do
           get :show, params: { id: user.id }
 
-          expect(response_json[:contacts]).to_not include(a_hash_including(jwt_id: blacklisted_jwt.id))
+          expect(response_json[:contacts]).to_not(include(a_hash_including(jwt_id: blacklisted_jwt.id)))
         end
       end
     end
@@ -317,12 +317,12 @@ RSpec.describe UsersController, type: :controller do
         it 'returns 404' do
           delete :destroy, params: { id: 0 }
 
-          expect(response.code).to eq('404')
+          expect(response.code).to(eq('404'))
         end
 
         it 'does not change the database' do
-          expect { delete :destroy, params: { id: 0 } }
-            .to_not change(User, :count)
+          expect { delete(:destroy, params: { id: 0 }) }
+            .to_not(change(User, :count))
         end
       end
 
@@ -331,13 +331,13 @@ RSpec.describe UsersController, type: :controller do
           user = create(:user)
           delete :destroy, params: { id: user.id }
 
-          expect(response.code).to eq('204')
+          expect(response.code).to(eq('204'))
         end
 
         it 'deletes the user' do
           user = create(:user)
-          expect { delete :destroy, params: { id: user.id } }
-            .to change(User, :count).by(-1)
+          expect { delete(:destroy, params: { id: user.id }) }
+            .to(change(User, :count).by(-1))
         end
 
         pending 'it deletes associated tokens'
@@ -361,11 +361,11 @@ RSpec.describe UsersController, type: :controller do
       before { post :password_reset, params: pwd_reset_params }
 
       it 'returns an HTTP code 200' do
-        expect(response.code).to eq('200')
+        expect(response.code).to(eq('200'))
       end
 
       it 'returns a JWT token for the user to be logged in' do
-        expect(response_json).to include(access_token: a_kind_of(String))
+        expect(response_json).to(include(access_token: a_kind_of(String)))
       end
     end
 
@@ -376,11 +376,11 @@ RSpec.describe UsersController, type: :controller do
       end
 
       it 'returns a HTTP code 422' do
-        expect(response.code).to eq('422')
+        expect(response.code).to(eq('422'))
       end
 
       it 'returns an error message' do
-        expect(response_json).to match({ errors: { token: ['is missing']}})
+        expect(response_json).to(match({ errors: { token: ['is missing']}}))
       end
     end
   end
@@ -405,7 +405,7 @@ RSpec.describe UsersController, type: :controller do
         update_user!
         user.reload
 
-        expect(user.note).not_to eq('Test update')
+        expect(user.note).not_to(eq('Test update'))
       end
     end
 
@@ -416,17 +416,17 @@ RSpec.describe UsersController, type: :controller do
         it 'returns code 200' do
           update_user!
 
-          expect(response.code).to eq('200')
+          expect(response.code).to(eq('200'))
         end
 
         it 'updates the user' do
           update_user!
           user.reload
 
-          expect(user).to have_attributes({
+          expect(user).to(have_attributes({
             note: 'Test update',
             oauth_api_gouv_id: '9001'
-          })
+          }))
         end
       end
     end
@@ -443,13 +443,13 @@ RSpec.describe UsersController, type: :controller do
       it 'returns a HTTP code 422' do
         subject
 
-        expect(response.code).to eq('422')
+        expect(response.code).to(eq('422'))
       end
 
       it 'returns an error message' do
         subject
 
-        expect(response_json).to match({ errors: { email: ['must be filled'] } })
+        expect(response_json).to(match({ errors: { email: ['must be filled'] } }))
       end
     end
 
@@ -457,13 +457,13 @@ RSpec.describe UsersController, type: :controller do
       it 'returns a HTTP code 422' do
         subject
 
-        expect(response.code).to eq('422')
+        expect(response.code).to(eq('422'))
       end
 
       it 'returns an error message' do
         subject
 
-        expect(response_json).to match({ errors: { email: ['user with email "test_email" does not exist'] } })
+        expect(response_json).to(match({ errors: { email: ['user with email "test_email" does not exist'] } }))
       end
     end
 
@@ -476,17 +476,17 @@ RSpec.describe UsersController, type: :controller do
       it 'returns a HTTP code 200' do
         subject
 
-        expect(response.code).to eq('200')
+        expect(response.code).to(eq('200'))
       end
 
       it 'returns an empty payload' do
         subject
 
-        expect(response_json).to eq({})
+        expect(response_json).to(eq({}))
       end
 
       it 'sends an email' do
-        expect(UserMailer).to receive(:renew_account_password).and_call_original
+        expect(UserMailer).to(receive(:renew_account_password).and_call_original)
 
         subject
       end
@@ -506,24 +506,24 @@ RSpec.describe UsersController, type: :controller do
         it 'returns HTTP code 200' do
           call!
 
-          expect(response.status).to eq(200)
+          expect(response.status).to(eq(200))
         end
 
         it 'returns the current user payload without any JWT' do
           call!
 
-          expect(response_json).to include({
+          expect(response_json).to(include({
             id: old_owner.id,
             email: old_owner.email,
             context: old_owner.context,
             oauth_api_gouv_id: old_owner.oauth_api_gouv_id,
             contacts: [],
             tokens: []
-          })
+          }))
         end
 
         it 'calls the underlying operation' do
-          expect(User::Operation::TransferOwnership).to receive(:call).and_call_original
+          expect(User::Operation::TransferOwnership).to(receive(:call).and_call_original)
 
           call!
         end
@@ -535,15 +535,15 @@ RSpec.describe UsersController, type: :controller do
         it 'returns HTTP code 422' do
           call!
 
-          expect(response.status).to eq(422)
+          expect(response.status).to(eq(422))
         end
 
         it 'returns an error message' do
           call!
 
-          expect(response_json).to match({
+          expect(response_json).to(match({
             errors: { email: ['is in invalid format'] }
-          })
+          }))
         end
       end
     end
@@ -568,13 +568,13 @@ RSpec.describe UsersController, type: :controller do
       before { call! }
 
       it 'returns HTTP code 403' do
-        expect(response.status).to eq(403)
+        expect(response.status).to(eq(403))
       end
 
       it 'returns an error message' do
-        expect(response_json).to match({
+        expect(response_json).to(match({
           errors: 'Forbidden'
-        })
+        }))
       end
     end
   end

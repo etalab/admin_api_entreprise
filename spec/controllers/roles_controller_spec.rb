@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe RolesController, type: :controller do
+RSpec.describe(RolesController, type: :controller) do
   describe '#index' do
     let(:nb_roles) { 8 }
     before do
@@ -11,21 +11,21 @@ RSpec.describe RolesController, type: :controller do
       get :index
       body = JSON.parse(response.body, symbolize_names: true)
 
-      expect(response.code).to eq '200'
-      expect(body.size).to eq nb_roles
+      expect(response.code).to(eq('200'))
+      expect(body.size).to(eq(nb_roles))
     end
 
     it 'returns the right payload format' do
       get :index
       body = JSON.parse(response.body, symbolize_names: true)
-      expect(body).to be_an_instance_of Array
+      expect(body).to(be_an_instance_of(Array))
 
       role_raw = body.first
-      expect(role_raw).to be_an_instance_of Hash
-      expect(role_raw.size).to eq 3
-      expect(role_raw.key?(:id)).to be true
-      expect(role_raw.key?(:name)).to be true
-      expect(role_raw.key?(:code)).to be true
+      expect(role_raw).to(be_an_instance_of(Hash))
+      expect(role_raw.size).to(eq(3))
+      expect(role_raw.key?(:id)).to(be(true))
+      expect(role_raw.key?(:name)).to(be(true))
+      expect(role_raw.key?(:code)).to(be(true))
     end
 
     # TODO re-add authorizations for role index (login needed or OAuth application token)
@@ -48,13 +48,13 @@ RSpec.describe RolesController, type: :controller do
 
       context 'when data are valid' do
         it 'creates a valid role' do
-          expect { post :create, params: role_params }
-            .to change(Role, :count).by(1)
+          expect { post(:create, params: role_params) }
+            .to(change(Role, :count).by(1))
         end
 
         it 'returns code 201' do
           post :create, params: role_params
-          expect(response.code).to eq '201'
+          expect(response.code).to(eq('201'))
         end
       end
 
@@ -62,12 +62,12 @@ RSpec.describe RolesController, type: :controller do
         before { role_params[:name] = '' }
 
         it 'does not save the role' do
-          expect { post :create, params: role_params }.to_not change(Role, :count)
+          expect { post(:create, params: role_params) }.to_not(change(Role, :count))
         end
 
         it 'returns code 422' do
           post :create, params: role_params
-          expect(response.code).to eq '422'
+          expect(response.code).to(eq('422'))
         end
       end
     end
@@ -77,7 +77,7 @@ RSpec.describe RolesController, type: :controller do
       it_behaves_like 'client user unauthorized', :post, :create
 
       it 'does not save the role' do
-        expect { post :create, params: role_params }.to_not change(Role, :count)
+        expect { post(:create, params: role_params) }.to_not(change(Role, :count))
       end
     end
   end

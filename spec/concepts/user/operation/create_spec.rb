@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe User::Operation::Create do
+RSpec.describe(User::Operation::Create) do
   let(:user_email) { 'new@record.gg' }
   let(:user_params) do
     {
@@ -16,11 +16,11 @@ RSpec.describe User::Operation::Create do
   context 'when params are valid' do
     let(:new_user) { subject[:model] }
 
-    it { is_expected.to be_success }
+    it { is_expected.to(be_success) }
 
     it 'creates a new user' do
-      expect { subject }.to change(User, :count).by(1)
-      expect(new_user).to be_persisted
+      expect { subject }.to(change(User, :count).by(1))
+      expect(new_user).to(be_persisted)
     end
 
     describe 'created user' do
@@ -29,17 +29,17 @@ RSpec.describe User::Operation::Create do
         result[:model]
       end
 
-      its(:email) { is_expected.to eq(user_params[:email]) }
-      its(:admin) { is_expected.to eq(false) }
-      its(:tokens_newly_transfered) { is_expected.to eq(false) }
-      its(:oauth_api_gouv_id) { is_expected.to eq('31442') }
-      its(:context) { is_expected.to eq(user_params[:context]) }
-      its(:password_digest) { is_expected.to be_blank }
+      its(:email) { is_expected.to(eq(user_params[:email])) }
+      its(:admin) { is_expected.to(eq(false)) }
+      its(:tokens_newly_transfered) { is_expected.to(eq(false)) }
+      its(:oauth_api_gouv_id) { is_expected.to(eq('31442')) }
+      its(:context) { is_expected.to(eq(user_params[:context])) }
+      its(:password_digest) { is_expected.to(be_blank) }
 
       it 'sets the CGU agreement timestamp' do
         params_cgu_time = Time.zone.parse(user_params[:cgu_agreement_date])
 
-        expect(subject.cgu_agreement_date).to eq(params_cgu_time)
+        expect(subject.cgu_agreement_date).to(eq(params_cgu_time))
       end
     end
   end
@@ -53,23 +53,23 @@ RSpec.describe User::Operation::Create do
       it 'is required' do
         user_params[:email] = ''
 
-        expect(subject).to be_failure
-        expect(errors).to include 'must be filled'
+        expect(subject).to(be_failure)
+        expect(errors).to(include('must be filled'))
       end
 
       it 'has an email format' do
         user_params[:email] = 'verymail'
 
-        expect(subject).to be_failure
-        expect(errors).to include 'is in invalid format'
+        expect(subject).to(be_failure)
+        expect(errors).to(include('is in invalid format'))
       end
 
       it 'is unique' do
         user = create(:user)
         user_params[:email] = user.email
 
-        expect(subject).to be_failure
-        expect(errors).to include 'value already exists'
+        expect(subject).to(be_failure)
+        expect(errors).to(include('value already exists'))
       end
     end
 
@@ -81,8 +81,8 @@ RSpec.describe User::Operation::Create do
       it 'can be blank' do
         user_params[:context] = ''
 
-        expect(subject).to be_success
-        expect(errors).to be_nil
+        expect(subject).to(be_success)
+        expect(errors).to(be_nil)
       end
     end
 
@@ -92,15 +92,15 @@ RSpec.describe User::Operation::Create do
       it 'is required' do
         user_params.delete(:oauth_api_gouv_id)
 
-        expect(subject).to be_failure
-        expect(errors).to include('must be filled')
+        expect(subject).to(be_failure)
+        expect(errors).to(include('must be filled'))
       end
 
       it 'is a string' do
         user_params[:oauth_api_gouv_id] = 123
 
-        expect(subject).to be_failure
-        expect(errors).to include('must be a string')
+        expect(subject).to(be_failure)
+        expect(errors).to(include('must be a string'))
       end
     end
 
@@ -112,15 +112,15 @@ RSpec.describe User::Operation::Create do
       it 'is required' do
         user_params.delete(:cgu_agreement_date)
 
-        expect(subject).to be_failure
-        expect(errors).to include('must be filled')
+        expect(subject).to(be_failure)
+        expect(errors).to(include('must be filled'))
       end
 
       it 'has a valid date format' do
         user_params[:cgu_agreement_date] = 'not a datetime'
 
-        expect(subject).to be_failure
-        expect(errors).to include('must be a datetime format')
+        expect(subject).to(be_failure)
+        expect(errors).to(include('must be a datetime format'))
       end
     end
   end

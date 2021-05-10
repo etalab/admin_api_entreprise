@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe User::Operation::CreateGhost do
+RSpec.describe(User::Operation::CreateGhost) do
   let(:op_params) do
     {
       email: 'new@record.com',
@@ -21,13 +21,13 @@ RSpec.describe User::Operation::CreateGhost do
       it 'is required' do
         op_params[:email] = ''
 
-        expect(errors).to include 'must be filled'
+        expect(errors).to(include('must be filled'))
       end
 
       it 'has an email format' do
         op_params[:email] = 'verymail'
 
-        expect(errors).to include 'is in invalid format'
+        expect(errors).to(include('is in invalid format'))
       end
     end
 
@@ -37,27 +37,27 @@ RSpec.describe User::Operation::CreateGhost do
       it 'is required' do
         op_params[:context] = ''
 
-        expect(errors).to include 'must be filled'
+        expect(errors).to(include('must be filled'))
       end
     end
   end
 
   context 'when :email is valid' do
-    it { is_expected.to be_success }
+    it { is_expected.to(be_success) }
 
     it 'creates a user' do
-      expect { subject }.to change(User, :count).by(1)
+      expect { subject }.to(change(User, :count).by(1))
     end
 
     describe 'new ghost user' do
       let(:ghost_user) { subject[:model] }
 
       it 'does not have an ID API Gouv' do
-        expect(ghost_user.oauth_api_gouv_id).to be_nil
+        expect(ghost_user.oauth_api_gouv_id).to(be_nil)
       end
 
       it 'is not confirmed' do
-        expect(ghost_user).to_not be_confirmed
+        expect(ghost_user).to_not(be_confirmed)
       end
     end
   end
@@ -65,10 +65,10 @@ RSpec.describe User::Operation::CreateGhost do
   context 'when the contract fails' do
     before { op_params.delete(:email) }
 
-    it { is_expected.to be_failure }
+    it { is_expected.to(be_failure) }
 
     it 'does not create a new user' do
-      expect { subject }.to_not change(User, :count)
+      expect { subject }.to_not(change(User, :count))
     end
   end
 end

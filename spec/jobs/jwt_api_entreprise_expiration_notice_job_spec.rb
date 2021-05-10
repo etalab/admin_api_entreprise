@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe JwtApiEntrepriseExpirationNoticeJob do
+RSpec.describe(JwtApiEntrepriseExpirationNoticeJob) do
   subject { described_class.perform_now }
 
   shared_examples 'sending expiration notices' do |nb_days|
@@ -10,7 +10,7 @@ RSpec.describe JwtApiEntrepriseExpirationNoticeJob do
 
       subject
 
-      expect(notifier_spy).to have_received(:call).with(expire_in: nb_days)
+      expect(notifier_spy).to(have_received(:call).with(expire_in: nb_days))
     end
   end
 

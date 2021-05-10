@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe User::Operation::ResetPassword do
+RSpec.describe(User::Operation::ResetPassword) do
   let(:user) { create(:user, pwd_renewal_token: 'coucou') }
   let(:reset_params) do
     {
@@ -20,16 +20,16 @@ RSpec.describe User::Operation::ResetPassword do
         reset_params[:token] = nil
         subject
 
-        expect(subject).to be_failure
-        expect(errors[:token]).to include('must be filled')
+        expect(subject).to(be_failure)
+        expect(errors[:token]).to(include('must be filled'))
       end
 
       it 'must exists in database' do
         reset_params[:token] = 'ghost'
         subject
 
-        expect(subject).to be_failure
-        expect(errors[:token]).to include('Le lien de régénération de mot de passe est invalide')
+        expect(subject).to(be_failure)
+        expect(errors[:token]).to(include('Le lien de régénération de mot de passe est invalide'))
       end
     end
 
@@ -42,36 +42,36 @@ RSpec.describe User::Operation::ResetPassword do
     context 'when the token has not expired' do
       before { user.update(pwd_renewal_token_sent_at: 12.hours.ago) }
 
-      it { is_expected.to be_success }
+      it { is_expected.to(be_success) }
 
       it 'sets the new password' do
         user = subject[:user]
 
-        expect(user.authenticate(reset_params[:password])).to be_truthy
+        expect(user.authenticate(reset_params[:password])).to(be_truthy)
       end
 
       it 'expires the token' do
         user = subject[:user]
 
-        expect(user.pwd_renewal_token).to eq(nil)
+        expect(user.pwd_renewal_token).to(eq(nil))
       end
     end
 
     context 'when the token has expired' do
       before { user.update(pwd_renewal_token_sent_at: 25.hours.ago) }
 
-      it { is_expected.to be_failure }
+      it { is_expected.to(be_failure) }
 
       it 'does not change the password' do
         user = subject[:user]
 
-        expect(user.authenticate(reset_params[:password])).to eq(false)
+        expect(user.authenticate(reset_params[:password])).to(eq(false))
       end
 
       it 'returns an error' do
         err_msg = subject[:errors]
 
-        expect(err_msg).to eq('Le lien de renouvellement de mot de passe a expiré')
+        expect(err_msg).to(eq('Le lien de renouvellement de mot de passe a expiré'))
       end
     end
   end
