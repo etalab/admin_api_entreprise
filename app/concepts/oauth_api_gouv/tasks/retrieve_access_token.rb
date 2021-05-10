@@ -1,4 +1,4 @@
-require "net/http"
+require 'net/http'
 
 module OAuthApiGouv::Tasks
   class RetrieveAccessToken < Trailblazer::Operation
@@ -53,7 +53,7 @@ module OAuthApiGouv::Tasks
 
     def invalid_authorization_code?(ctx, oauth_response:, **)
       body = JSON.parse(oauth_response.body)
-      oauth_response.code == '400' && body["error"] = 'invalid_grant'
+      oauth_response.code == '400' && body['error'] = 'invalid_grant'
     end
   end
 end

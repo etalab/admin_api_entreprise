@@ -85,7 +85,7 @@ RSpec.describe OAuthApiGouvController, type: :controller do
         get :login, params: login_params, as: :json
         msg = response_json[:errors]
 
-        expect(msg).to eq(authorization_code: ["must be filled"])
+        expect(msg).to eq(authorization_code: ['must be filled'])
       end
     end
   end

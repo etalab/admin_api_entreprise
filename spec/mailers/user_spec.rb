@@ -1,4 +1,4 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe UserMailer, type: :mailer do
   describe '#renew_account_password' do
@@ -12,7 +12,7 @@ RSpec.describe UserMailer, type: :mailer do
 
     describe 'body' do
       it 'contains the URL for a password update' do
-        reset_pwd_url = "https://sandbox.dashboard.entreprise.api.gouv.fr/account/password_reset?token=coucou"
+        reset_pwd_url = 'https://sandbox.dashboard.entreprise.api.gouv.fr/account/password_reset?token=coucou'
 
         expect(subject.html_part.decoded).to include(reset_pwd_url)
         expect(subject.text_part.decoded).to include(reset_pwd_url)

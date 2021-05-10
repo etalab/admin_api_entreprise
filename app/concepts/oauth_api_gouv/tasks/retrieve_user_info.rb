@@ -1,4 +1,4 @@
-require "net/http"
+require 'net/http'
 
 module OAuthApiGouv::Tasks
   class RetrieveUserInfo < Trailblazer::Operation

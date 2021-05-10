@@ -21,8 +21,8 @@ require 'rspec/rails'
 # option on the command line or in ~/.rspec, .rspec or `.rspec-local`.
 
 # Require helpers files containing factories
-Dir[Rails.root.join("spec/helpers/**/*.rb")].each { |f| require f }
-Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+Dir[Rails.root.join('spec/helpers/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 require 'fixtures/oauth_api_gouv_token.rb'
 
 # Checks for pending migration and applies them before tests are run.
