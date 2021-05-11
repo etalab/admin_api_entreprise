@@ -14,25 +14,19 @@ module MailjetContacts::Operation
     def build_payload(ctx, users_relation:, **)
       ctx[:serialized_contacts] = users_relation.find_each.with_object([]) do |user, serialized_contacts|
         serialized_properties = {
-          'contact_demandeur': nil,   # Bool
-          'contact_écosystème': nil,  # Bool
-          'contact_éditeur': nil,     # Bool
-          'contact_métier': nil,      # Bool
-          'contact_technique': nil,   # Bool
-          'default': nil,             # String
-          'incidents': nil,           # Bool
-          'infolettre': nil,          # Bool
-          'nom': nil,                 # String
-          'origine': 'dashboard',     # String
-          'prénom': nil,              # String
-          'techlettre': nil           # Bool
+          'contact_demandeur':  user.contacts.map(&:contact_type).include?('other'),
+          'contact_écosystème': nil,
+          'contact_éditeur':    nil,
+          'contact_métier':     user.contacts.map(&:contact_type).include?('admin'),
+          'contact_technique':  user.contacts.map(&:contact_type).include?('tech'),
+          'default':            nil,
+          'incidents':          nil,
+          'infolettre':         true,
+          'nom':                nil,
+          'origine':            'dashboard',
+          'prénom':             nil,
+          'techlettre':         user.contacts.map(&:contact_type).include?('tech')
         }
-
-        serialized_properties[:'contact_demandeur'] = user.contacts.map(&:contact_type).include?('other')
-        serialized_properties[:'contact_technique'] = user.contacts.map(&:contact_type).include?('tech')
-        serialized_properties[:'contact_métier']    = user.contacts.map(&:contact_type).include?('admin')
-        serialized_properties[:'infolettre']        = true
-        serialized_properties[:'techlettre']        = user.contacts.map(&:contact_type).include?('tech')
 
         serialized_contact = {
           email: user.email,
