@@ -12,9 +12,7 @@ module MailjetContacts::Operation
     end
 
     def build_payload(ctx, users_relation:, **)
-      serialized_contacts = []
-
-      users_relation.find_each do |user|
+      ctx[:serialized_contacts] = users_relation.find_each.with_object([]) do |user, serialized_contacts|
         serialized_properties = {
           'contact_demandeur': nil,   # Bool
           'contact_écosystème': nil,  # Bool
@@ -44,7 +42,6 @@ module MailjetContacts::Operation
         serialized_contacts << serialized_contact
       end
 
-      ctx[:serialized_contacts] = serialized_contacts
       ctx[:serialized_contacts].any?
     end
 
