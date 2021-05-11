@@ -15,22 +15,16 @@ module MailjetContacts::Operation
       ctx[:serialized_contacts] = users_relation.find_each.with_object([]) do |user, serialized_contacts|
         serialized_properties = {
           contact_demandeur:  user.contacts.map(&:contact_type).include?('other'),
-          contact_écosystème: nil,
-          contact_éditeur:    nil,
           contact_métier:     user.contacts.map(&:contact_type).include?('admin'),
           contact_technique:  user.contacts.map(&:contact_type).include?('tech'),
-          default:            nil,
-          incidents:          nil,
           infolettre:         true,
-          nom:                nil,
           origine:            'dashboard',
-          prénom:             nil,
           techlettre:         user.contacts.map(&:contact_type).include?('tech')
         }
 
         serialized_contact = {
           email: user.email,
-          properties: serialized_properties.compact
+          properties: serialized_properties
         }
 
         serialized_contacts << serialized_contact
