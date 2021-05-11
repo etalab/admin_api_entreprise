@@ -16,17 +16,19 @@ RSpec.describe MailjetContacts::Operation::Create do
   let(:jwt_api_entreprise) { create(:jwt_api_entreprise, user: user) }
 
   context 'when users were added a long time ago' do
-    before do
-      expect(Mailjet::Contactslist_managemanycontacts).to_not receive(:create)
-    end
-
     let(:created_date) { 2.years.ago }
 
-    it { is_expected.to be_a_failure }
+    it 'do not send any contacts to Mailjet' do
+      expect(Mailjet::Contactslist_managemanycontacts).to_not receive(:create)
+
+      is_expected.to be_a_failure
+    end
   end
 
   context 'when users were recently added' do
-    before do
+    let(:created_date) { 2.minutes.ago }
+
+    it 'does send the contact to Mailjet' do
       expect(Mailjet::Contactslist_managemanycontacts).to receive(:create).with(
         action: 'addnoforce',
         contacts: [
@@ -44,10 +46,8 @@ RSpec.describe MailjetContacts::Operation::Create do
         ],
         id: Rails.application.credentials.mj_list_id!
       )
+
+      is_expected.to be_a_success
     end
-
-    let(:created_date) { 2.minutes.ago }
-
-    it { is_expected.to be_a_success }
   end
 end
