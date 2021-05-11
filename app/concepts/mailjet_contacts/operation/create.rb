@@ -12,22 +12,8 @@ module MailjetContacts::Operation
     end
 
     def build_payload(ctx, users_relation:, **)
-      ctx[:serialized_contacts] = users_relation.find_each.with_object([]) do |user, serialized_contacts|
-        serialized_properties = {
-          contact_demandeur:  user.contacts.map(&:contact_type).include?('other'),
-          contact_métier:     user.contacts.map(&:contact_type).include?('admin'),
-          contact_technique:  user.contacts.map(&:contact_type).include?('tech'),
-          infolettre:         true,
-          origine:            'dashboard',
-          techlettre:         user.contacts.map(&:contact_type).include?('tech')
-        }
-
-        serialized_contact = {
-          email: user.email,
-          properties: serialized_properties
-        }
-
-        serialized_contacts << serialized_contact
+      ctx[:serialized_contacts] = users_relation.find_each.map do |user|
+        build_mailjet_payload(user)
       end
 
       ctx[:serialized_contacts].any?
@@ -41,6 +27,22 @@ module MailjetContacts::Operation
       )
 
       true
+    end
+
+    private
+
+    def build_mailjet_payload(user)
+      {
+        email: user.email,
+        properties: {
+          contact_demandeur:  user.contacts.map(&:contact_type).include?('other'),
+          contact_métier:     user.contacts.map(&:contact_type).include?('admin'),
+          contact_technique:  user.contacts.map(&:contact_type).include?('tech'),
+          infolettre:         true,
+          origine:            'dashboard',
+          techlettre:         user.contacts.map(&:contact_type).include?('tech')
+        }
+      }
     end
   end
 end
