@@ -5,12 +5,24 @@ RSpec.describe Mailjet::PropertyBuilder do
     described_class.new(user)
   end
 
-  let(:user) { create(:contact, type).jwt_api_entreprise.user }
+  let(:jwt_api_entreprise) { create(:jwt_api_entreprise) }
+  let(:user) { create(:jwt_api_entreprise).user }
 
-  context 'when the contact is tech' do
-    let(:type) { :tech }
+  it 'has the default properties' do
+    expect(builder.call).to eq(
+      contact_demandeur:  false,
+      contact_métier:     false,
+      contact_technique:  false,
+      techlettre:         false,
+      infolettre:         true,
+      origine:            'dashboard'
+    )
+  end
 
-    it 'returns the payload' do
+  context 'when a tech contact is present' do
+    before { create(:contact, :tech, jwt_api_entreprise: jwt_api_entreprise) }
+
+    it 'enables additional tech properties' do
       expect(builder.call).to eq(
         contact_demandeur:  false,
         contact_métier:     false,
@@ -20,35 +32,35 @@ RSpec.describe Mailjet::PropertyBuilder do
         origine:            'dashboard'
       )
     end
-  end
 
-  context 'when the contact is business' do
-    let(:type) { :business }
+    context 'when a business contact is also present' do
+      before { create(:contact, :business, jwt_api_entreprise: jwt_api_entreprise) }
 
-    it 'returns the payload' do
-      expect(builder.call).to eq(
-        contact_demandeur:  false,
-        contact_métier:     true,
-        contact_technique:  false,
-        techlettre:         false,
-        infolettre:         true,
-        origine:            'dashboard'
-      )
-    end
-  end
+      it 'enables additional business properties' do
+        expect(builder.call).to eq(
+          contact_demandeur:  false,
+          contact_métier:     true,
+          contact_technique:  true,
+          techlettre:         true,
+          infolettre:         true,
+          origine:            'dashboard'
+        )
+      end
 
-  context 'when the contact is other' do
-    let(:type) { :other }
+      context 'when another contact is also present' do
+        before { create(:contact, :other, jwt_api_entreprise: jwt_api_entreprise) }
 
-    it 'returns the payload' do
-      expect(builder.call).to eq(
-        contact_demandeur:  true,
-        contact_métier:     false,
-        contact_technique:  false,
-        techlettre:         false,
-        infolettre:         true,
-        origine:            'dashboard'
-      )
+        it 'enables additional other properties' do
+          expect(builder.call).to eq(
+            contact_demandeur:  true,
+            contact_métier:     true,
+            contact_technique:  true,
+            techlettre:         true,
+            infolettre:         true,
+            origine:            'dashboard'
+          )
+        end
+      end
     end
   end
 end
