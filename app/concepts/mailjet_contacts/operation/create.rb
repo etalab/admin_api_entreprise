@@ -2,47 +2,28 @@
 
 module MailjetContacts::Operation
   class Create < ::Trailblazer::Operation
-    step :fetch_users
-    step :build_payload
+    step :fetch_users_and_build_payload
     step :create_to_mailjet
 
-    def fetch_users(ctx, **)
-      ctx[:users_relation] = ::User.added_since_yesterday.includes(:contacts)
-      ctx[:users_relation].exists?
-    end
-
-    def build_payload(ctx, users_relation:, **)
-      ctx[:serialized_contacts] = users_relation.find_each.map do |user|
-        build_mailjet_payload(user)
+    def fetch_users_and_build_payload(ctx, **)
+      ctx[:payload] = ::User.added_since_yesterday.includes(:contacts).find_each.map do |user|
+        {
+          email:      user.email,
+          properties: ::Mailjet::PropertyBuilder.new(user).call
+        }
       end
 
-      ctx[:serialized_contacts].any?
+      ctx[:payload].any?
     end
 
-    def create_to_mailjet(ctx, serialized_contacts:, **)
+    def create_to_mailjet(ctx, payload:, **)
       Mailjet::Contactslist_managemanycontacts.create(
         id:       ::Rails.application.credentials.mj_list_id!,
         action:   'addnoforce',
-        contacts: serialized_contacts
+        contacts: payload
       )
 
       true
-    end
-
-    private
-
-    def build_mailjet_payload(user)
-      {
-        email: user.email,
-        properties: {
-          contact_demandeur:  user.contacts.map(&:contact_type).include?('other'),
-          contact_métier:     user.contacts.map(&:contact_type).include?('admin'),
-          contact_technique:  user.contacts.map(&:contact_type).include?('tech'),
-          infolettre:         true,
-          origine:            'dashboard',
-          techlettre:         user.contacts.map(&:contact_type).include?('tech')
-        }
-      }
     end
   end
 end
