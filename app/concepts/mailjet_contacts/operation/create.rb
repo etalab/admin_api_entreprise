@@ -2,10 +2,10 @@
 
 module MailjetContacts::Operation
   class Create < ::Trailblazer::Operation
-    step :fetch_users_and_build_payload
+    step :retrieve_users_email_attributes
     step :create_to_mailjet
 
-    def fetch_users_and_build_payload(ctx, **)
+    def retrieve_users_email_attributes(ctx, **)
       ctx[:payload] = ::User.added_since_yesterday.includes(:contacts).find_each.map do |user|
         {
           email:      user.email,
