@@ -5,8 +5,6 @@ module Mailjet
     attr_reader :user, :types
 
     def initialize(user)
-      raise ::TypeError, user.class.inspect unless user.is_a?(::User)
-
       @user = user
       @types = user.contacts.unscoped.pluck(:contact_type)
     end
