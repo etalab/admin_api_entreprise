@@ -17,6 +17,14 @@ FactoryBot.define do
       email { 'alexandre.depablo@data.gouv.fr' }
     end
 
+    trait :added_since_yesterday do
+      created_at { Faker::Time.between(from: 1.day.ago + 1, to: Time.current) }
+    end
+
+    trait :not_added_since_yesterday do
+      created_at { Faker::Time.between(from: 10.years.ago, to: 1.day.ago) }
+    end
+
     trait :with_jwt do
       after(:create) do |u|
         create_list(:jwt_api_entreprise, 2, user: u)
