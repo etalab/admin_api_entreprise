@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Mailjet::PropertyBuilder do
+RSpec.describe Mailjet::ContactPropertiesAdapter do
   subject(:builder) do
     described_class.new(user)
   end

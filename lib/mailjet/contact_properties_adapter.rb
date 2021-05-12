@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Mailjet
-  class PropertyBuilder
+  class ContactPropertiesAdapter
     attr_reader :user, :types
 
     def initialize(user)

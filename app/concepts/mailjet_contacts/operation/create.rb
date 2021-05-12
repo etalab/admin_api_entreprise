@@ -9,7 +9,7 @@ module MailjetContacts::Operation
       ctx[:payload] = ::User.added_since_yesterday.includes(:contacts).find_each.map do |user|
         {
           email:      user.email,
-          properties: ::Mailjet::PropertyBuilder.new(user).call
+          properties: ::Mailjet::ContactPropertiesAdapter.new(user).call
         }
       end
 
