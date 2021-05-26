@@ -542,7 +542,7 @@ RSpec.describe UsersController, type: :controller do
           call!
 
           expect(response_json).to match({
-            errors: { email: ["is in invalid format"] }
+            errors: { email: ['is in invalid format'] }
           })
         end
       end
@@ -573,7 +573,7 @@ RSpec.describe UsersController, type: :controller do
 
       it 'returns an error message' do
         expect(response_json).to match({
-          errors: "Forbidden"
+          errors: 'Forbidden'
         })
       end
     end

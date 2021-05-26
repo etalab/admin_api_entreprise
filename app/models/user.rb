@@ -2,6 +2,8 @@ class User < ApplicationRecord
   has_many :jwt_api_entreprise, dependent: :nullify
   has_many :contacts, through: :jwt_api_entreprise
 
+  scope :added_since_yesterday, -> { where('created_at > ?', 1.day.ago) }
+
   # Passing validations: false as argument so password can be blank on creation
   has_secure_password(validations: false)
 

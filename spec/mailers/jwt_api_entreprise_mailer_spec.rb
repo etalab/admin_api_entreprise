@@ -135,7 +135,7 @@ RSpec.describe JwtApiEntrepriseMailer, type: :mailer do
     end
 
     it 'contains the link to the token' do
-      token_url = "https://sandbox.dashboard.entreprise.api.gouv.fr/me/tokens/"
+      token_url = 'https://sandbox.dashboard.entreprise.api.gouv.fr/me/tokens/'
       expect(subject.html_part.decoded).to include(token_url)
       expect(subject.text_part.decoded).to include(token_url)
     end

@@ -21,6 +21,24 @@ RSpec.describe User do
     it { is_expected.to have_many(:contacts).through(:jwt_api_entreprise) }
   end
 
+  describe '.added_since_yesterday' do
+    subject { described_class }
+
+    let!(:user) { create(:user, added_datetime) }
+
+    context 'when he has just been created ' do
+      let(:added_datetime) { :added_since_yesterday }
+
+      its(:added_since_yesterday) { is_expected.to be_exist user.id }
+    end
+
+    context 'when he was created a long time ago' do
+      let(:added_datetime) { :not_added_since_yesterday }
+
+      its(:added_since_yesterday) { is_expected.not_to be_exist user.id }
+    end
+  end
+
   describe '#generate_pwd_renewal_token' do
     it 'generates a random string for pwd_renewal_token attribute' do
       user.update(pwd_renewal_token: nil)

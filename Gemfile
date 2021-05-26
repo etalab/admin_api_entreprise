@@ -31,12 +31,11 @@ gem 'doorkeeper', '~> 4.4.0'
 gem 'jwtf', '0.2.0'
 gem 'jwt'
 gem 'active_model_serializers', '~> 0.10.0'
-
 gem 'trailblazer'
 gem 'reform-rails'
 gem 'reform'
 gem 'dry-validation', '~> 0.11.1'
-
+gem 'mailjet'
 gem 'pundit'
 
 gem 'pastel'
