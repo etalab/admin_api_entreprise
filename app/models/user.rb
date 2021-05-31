@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :jwt_api_entreprise, dependent: :nullify
   has_many :contacts, through: :jwt_api_entreprise
+  has_many :roles, through: :jwt_api_entreprise
 
   scope :added_since_yesterday, -> { where('created_at > ?', 1.day.ago) }
 

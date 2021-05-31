@@ -2,11 +2,12 @@
 
 module Mailjet
   class ContactPropertiesAdapter
-    attr_reader :user, :types
+    attr_reader :user, :roles, :types
 
     def initialize(user)
       @user = user
-      @types = user.contacts.unscoped.pluck(:contact_type)
+      @roles = user.roles.map(&:code)
+      @types = user.contacts.map(&:contact_type)
     end
 
     def call
@@ -17,7 +18,25 @@ module Mailjet
         techlettre:         types.include?('tech'),
         infolettre:         true,
         origine:            'dashboard'
-      }
+      }.merge(**role_properties)
+    end
+
+    private
+
+    def role_properties
+      available_roles.inject({}) do |properties, role|
+        properties.merge("role_#{role}".to_sym => roles.include?(role))
+      end
+    end
+
+    def available_roles
+      ::Role.where.not(code: excluded_roles).map(&:code)
+    end
+
+    def excluded_roles
+      %w[
+        uptime
+      ]
     end
   end
 end
