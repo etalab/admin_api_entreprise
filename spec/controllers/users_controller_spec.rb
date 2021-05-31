@@ -130,6 +130,12 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe '#show' do
+    before do
+      user.jwt_api_entreprise.find_each do |jwt|
+        create_list(:role, 4, jwt_api_entreprise: [jwt])
+      end
+    end
+
     let(:user) do
       create(:user,
              :with_jwt,
