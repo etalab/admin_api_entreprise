@@ -18,6 +18,7 @@ RSpec.describe User do
 
   describe 'relationships' do
     it { is_expected.to have_many(:jwt_api_entreprise).dependent(:nullify) }
+    it { is_expected.to have_many(:roles).through(:jwt_api_entreprise) }
     it { is_expected.to have_many(:contacts).through(:jwt_api_entreprise) }
   end
 
