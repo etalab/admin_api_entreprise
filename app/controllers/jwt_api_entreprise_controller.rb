@@ -1,4 +1,6 @@
 class JwtApiEntrepriseController < ApplicationController
+  skip_before_action :jwt_authenticate!, only: [:show_magic_link]
+
   def index
     authorize :admin, :admin?
 
@@ -50,6 +52,16 @@ class JwtApiEntrepriseController < ApplicationController
       elsif state == :unauthorized
         render json: { errors: 'Unauthorized' }, status: 403
       end
+    end
+  end
+
+  def show_magic_link
+    result = JwtApiEntreprise::Operation::RetrieveFromMagicLink.call(params: params)
+
+    if result.success?
+      render json: result[:jwt], serializer: JwtApiEntrepriseShowSerializer, status: 200
+    else
+      render json: { errors: { token: ['not a valid token'] } }, status: 404
     end
   end
 

@@ -304,4 +304,76 @@ RSpec.describe JwtApiEntrepriseController, type: :controller do
       end
     end
   end
+
+  describe '#show_magic_link' do
+    subject(:call!) do
+      get :show_magic_link, params: { token: token }
+    end
+
+    context 'when the token does not exist' do
+      let(:token) { 'not a valid token' }
+
+      it 'returns HTTP code 404' do
+        call!
+
+        expect(response.status).to eq(404)
+      end
+
+      it 'returns an error message' do
+        call!
+
+        expect(response_json).to match({
+          errors: { token: ['not a valid token'] }
+        })
+      end
+    end
+
+    context 'when the token exists' do
+      let!(:jwt) { create(:jwt_api_entreprise, :with_magic_link) }
+      let(:token) { jwt.magic_link_token }
+
+      context 'when the token is expired' do
+        before { Timecop.freeze(Time.zone.now + 4.hours) }
+        after { Timecop.return }
+
+        it 'returns HTTP code 404' do
+          call!
+
+          expect(response.status).to eq(404)
+        end
+
+        it 'returns an error message' do
+          call!
+
+          expect(response_json).to match({
+            errors: { token: ['not a valid token'] }
+          })
+        end
+      end
+
+      context 'when the token is valid' do
+        it 'returns HTTP code 200' do
+          call!
+
+          expect(response.status).to eq(200)
+        end
+
+        it 'returns the JWT payload' do
+          call!
+
+          expect(response_json).to include(
+            id: jwt.id,
+            authorization_request_id: jwt.authorization_request_id,
+            iat: jwt.iat,
+            exp: jwt.exp,
+            blacklisted: jwt.blacklisted,
+            archived: jwt.archived,
+            subject: jwt.subject,
+            secret_key: jwt.rehash,
+            roles: a_collection_containing_exactly(*jwt.roles.pluck(:code)),
+          )
+        end
+      end
+    end
+  end
 end

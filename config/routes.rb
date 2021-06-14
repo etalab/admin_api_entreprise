@@ -34,5 +34,6 @@ Rails.application.routes.draw do
     post  '/users/:user_id/jwt_api_entreprise'   => 'jwt_api_entreprise#create'
     patch '/jwt_api_entreprise/:id'              => 'jwt_api_entreprise#update'
     post  '/jwt_api_entreprise/:id/magic_link'   => 'jwt_api_entreprise#magic_link'
+    get   '/jwt_api_entreprise/show_magic_link'  => 'jwt_api_entreprise#show_magic_link'
   end
 end
