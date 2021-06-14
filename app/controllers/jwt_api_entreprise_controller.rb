@@ -33,7 +33,7 @@ class JwtApiEntrepriseController < ApplicationController
     end
   end
 
-  def magic_link
+  def create_magic_link
     result = JwtApiEntreprise::Operation::CreateMagicLink.call(
       params: params,
       current_user: pundit_user,

@@ -190,7 +190,7 @@ RSpec.describe JwtApiEntrepriseController, type: :controller do
 
   describe '#magic_link' do
     subject(:call!) do
-      post :magic_link, params: { id: jwt_id, email: email }
+      post :create_magic_link, params: { id: jwt_id, email: email }
     end
 
     shared_examples :magic_links do
