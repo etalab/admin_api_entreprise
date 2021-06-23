@@ -9,6 +9,10 @@ RSpec.describe Role do
     it { is_expected.to have_db_column(:updated_at).of_type(:datetime) }
   end
 
+  describe 'db_indexes' do
+    it { is_expected.to have_db_index(:created_at) }
+  end
+
   describe 'relationships' do
     it { is_expected.to have_and_belong_to_many(:jwt_api_entreprise) }
   end

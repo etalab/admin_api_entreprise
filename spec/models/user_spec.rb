@@ -16,6 +16,10 @@ RSpec.describe User do
     it { is_expected.to have_db_column(:tokens_newly_transfered).of_type(:boolean).with_options(default: false) }
   end
 
+  describe 'db_indexes' do
+    it { is_expected.to have_db_index(:created_at) }
+  end
+
   describe 'relationships' do
     it { is_expected.to have_many(:jwt_api_entreprise).dependent(:nullify) }
     it { is_expected.to have_many(:roles).through(:jwt_api_entreprise) }

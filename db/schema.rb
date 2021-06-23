@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_29_125933) do
+ActiveRecord::Schema.define(version: 2021_06_23_080558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2021_03_29_125933) do
     t.uuid "jwt_api_entreprise_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_contacts_on_created_at"
     t.index ["jwt_api_entreprise_id"], name: "index_contacts_on_jwt_api_entreprise_id"
   end
 
@@ -32,6 +33,7 @@ ActiveRecord::Schema.define(version: 2021_03_29_125933) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_incidents_on_created_at"
   end
 
   create_table "jwt_api_entreprises", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -49,7 +51,10 @@ ActiveRecord::Schema.define(version: 2021_03_29_125933) do
     t.string "authorization_request_id"
     t.boolean "access_request_survey_sent", default: false, null: false
     t.index ["access_request_survey_sent"], name: "index_jwt_api_entreprises_on_access_request_survey_sent"
+    t.index ["archived"], name: "index_jwt_api_entreprises_on_archived"
+    t.index ["blacklisted"], name: "index_jwt_api_entreprises_on_blacklisted"
     t.index ["created_at"], name: "index_jwt_api_entreprises_on_created_at"
+    t.index ["exp"], name: "index_jwt_api_entreprises_on_exp"
     t.index ["iat"], name: "index_jwt_api_entreprises_on_iat"
     t.index ["user_id"], name: "index_jwt_api_entreprises_on_user_id"
   end
@@ -68,6 +73,7 @@ ActiveRecord::Schema.define(version: 2021_03_29_125933) do
     t.datetime "created_at", null: false
     t.datetime "revoked_at"
     t.string "scopes"
+    t.index ["created_at"], name: "index_oauth_access_grants_on_created_at"
     t.index ["token"], name: "index_oauth_access_grants_on_token", unique: true
   end
 
@@ -81,6 +87,7 @@ ActiveRecord::Schema.define(version: 2021_03_29_125933) do
     t.datetime "created_at", null: false
     t.string "scopes"
     t.string "previous_refresh_token", default: "", null: false
+    t.index ["created_at"], name: "index_oauth_access_tokens_on_created_at"
     t.index ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true
     t.index ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id"
     t.index ["token"], name: "index_oauth_access_tokens_on_token", unique: true
@@ -95,6 +102,7 @@ ActiveRecord::Schema.define(version: 2021_03_29_125933) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "confidential", default: true, null: false
+    t.index ["created_at"], name: "index_oauth_applications_on_created_at"
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
 
@@ -103,6 +111,7 @@ ActiveRecord::Schema.define(version: 2021_03_29_125933) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "code"
+    t.index ["created_at"], name: "index_roles_on_created_at"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -118,6 +127,8 @@ ActiveRecord::Schema.define(version: 2021_03_29_125933) do
     t.string "oauth_api_gouv_id"
     t.boolean "admin", default: false
     t.boolean "tokens_newly_transfered", default: false
+    t.index ["created_at"], name: "index_users_on_created_at"
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["pwd_renewal_token"], name: "index_users_on_pwd_renewal_token"
   end
 
