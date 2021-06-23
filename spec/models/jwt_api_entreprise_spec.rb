@@ -20,7 +20,10 @@ RSpec.describe JwtApiEntreprise, type: :model do
   end
 
   describe 'db_indexes' do
+    it { is_expected.to have_db_index(:archived) }
     it { is_expected.to have_db_index(:created_at) }
+    it { is_expected.to have_db_index(:blacklisted) }
+    it { is_expected.to have_db_index(:exp) }
     it { is_expected.to have_db_index(:iat) }
     it { is_expected.to have_db_index(:access_request_survey_sent) }
   end

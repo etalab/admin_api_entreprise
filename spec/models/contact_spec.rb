@@ -10,6 +10,10 @@ RSpec.describe Contact do
     it { is_expected.to have_db_column(:updated_at).of_type(:datetime) }
   end
 
+  describe 'db_indexes' do
+    it { is_expected.to have_db_index(:created_at) }
+  end
+
   describe 'relationships' do
     it { is_expected.to belong_to(:jwt_api_entreprise) }
   end
