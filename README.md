@@ -1,5 +1,7 @@
 # README
 
+[![RuboCop](https://github.com/etalab/admin_api_entreprise/workflows/RuboCop/badge.svg?branch=master)](https://github.com/etalab/admin_api_entreprise/actions?query=workflow%3Arubocop+branch%3Amaster)
+
 ## Par où commencer ?
 
 ```sh
