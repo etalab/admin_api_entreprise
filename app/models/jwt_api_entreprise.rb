@@ -1,4 +1,6 @@
 class JwtApiEntreprise < ApplicationRecord
+  include RandomToken
+
   belongs_to :user
   has_many :contacts, dependent: :delete_all
   has_and_belongs_to_many :roles
@@ -30,6 +32,14 @@ class JwtApiEntreprise < ApplicationRecord
 
   def user_and_contacts_email
     Set[*contacts.pluck(:email)] << user.email
+  end
+
+  def generate_magic_link_token
+    token = random_token_for(:magic_link_token)
+    update(
+      magic_link_token: token,
+      magic_link_issuance_date: Time.zone.now
+    )
   end
 
   # TODO XXX This is temporary, the real "subject" of a JWT is set into the

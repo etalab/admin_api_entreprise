@@ -73,4 +73,9 @@ FactoryBot.define do
   trait :expired do
     exp { Faker::Time.between(from: 20.months.ago, to:19.months.ago).to_i }
   end
+
+  trait :with_magic_link do
+    magic_link_token { 'mUchmaGicWOW' }
+    magic_link_issuance_date { Time.zone.now }
+  end
 end

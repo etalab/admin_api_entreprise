@@ -30,8 +30,10 @@ Rails.application.routes.draw do
     post   '/users/:id/transfer_ownership'     => 'users#transfer_ownership'
 
     # jwt_api_entreprise
-    get   '/jwt_api_entreprise'                => 'jwt_api_entreprise#index'
-    post  '/users/:user_id/jwt_api_entreprise' => 'jwt_api_entreprise#create'
-    patch '/jwt_api_entreprise/:id'            => 'jwt_api_entreprise#update'
+    get   '/jwt_api_entreprise'                       => 'jwt_api_entreprise#index'
+    post  '/users/:user_id/jwt_api_entreprise'        => 'jwt_api_entreprise#create'
+    patch '/jwt_api_entreprise/:id'                   => 'jwt_api_entreprise#update'
+    post  '/jwt_api_entreprise/:id/create_magic_link' => 'jwt_api_entreprise#create_magic_link'
+    get   '/jwt_api_entreprise/show_magic_link'       => 'jwt_api_entreprise#show_magic_link'
   end
 end
