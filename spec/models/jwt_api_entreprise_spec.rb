@@ -17,12 +17,18 @@ RSpec.describe JwtApiEntreprise, type: :model do
     it { is_expected.to have_db_column(:days_left_notification_sent).of_type(:json).with_options(default: []) }
     it { is_expected.to have_db_column(:authorization_request_id).of_type(:string) }
     it { is_expected.to have_db_column(:access_request_survey_sent).of_type(:boolean).with_options(default: false, null: false) }
+    it { is_expected.to have_db_column(:magic_link_token).of_type(:string).with_options(default: nil) }
+    it { is_expected.to have_db_column(:magic_link_issuance_date).of_type(:datetime).with_options(default: nil) }
   end
 
   describe 'db_indexes' do
+    it { is_expected.to have_db_index(:archived) }
     it { is_expected.to have_db_index(:created_at) }
+    it { is_expected.to have_db_index(:blacklisted) }
+    it { is_expected.to have_db_index(:exp) }
     it { is_expected.to have_db_index(:iat) }
     it { is_expected.to have_db_index(:access_request_survey_sent) }
+    it { is_expected.to have_db_index(:magic_link_token) }
   end
 
   describe 'relationships' do
@@ -53,6 +59,28 @@ RSpec.describe JwtApiEntreprise, type: :model do
           instance.mark_access_request_survey_sent!
           instance.reload
         }.not_to change(instance, :access_request_survey_sent?)
+      end
+    end
+  end
+
+  describe '#generate_magic_link_token' do
+    let(:jwt) { create(:jwt_api_entreprise) }
+
+    it 'generates a random string for the :magic_link_token attribute' do
+      jwt.update(magic_link_token: nil)
+      jwt.generate_magic_link_token
+      jwt.reload
+
+      expect(jwt.magic_link_token).to match(/\A[0-9a-f]{20}\z/)
+    end
+
+    it 'saves the issuance date of the token' do
+      creation_time = Time.zone.now
+      Timecop.freeze(creation_time) do
+        jwt.generate_magic_link_token
+        jwt.reload
+
+        expect(jwt.magic_link_issuance_date).to eq(creation_time)
       end
     end
   end

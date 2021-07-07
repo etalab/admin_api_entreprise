@@ -94,5 +94,15 @@ RSpec.describe 'Application routes' do
       expect(patch('api/admin/jwt_api_entreprise/very_id'))
         .to route_to(controller: 'jwt_api_entreprise', action: 'update', id: 'very_id')
     end
+
+    it 'has a route to create a magic link' do
+      expect(post('api/admin/jwt_api_entreprise/very_id/create_magic_link'))
+        .to route_to(controller: 'jwt_api_entreprise', action: 'create_magic_link', id: 'very_id')
+    end
+
+    it 'has an update route' do
+      expect(get('api/admin/jwt_api_entreprise/show_magic_link?token=very_token'))
+        .to route_to(controller: 'jwt_api_entreprise', action: 'show_magic_link', token: 'very_token')
+    end
   end
 end
