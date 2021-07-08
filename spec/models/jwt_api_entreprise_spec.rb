@@ -80,7 +80,7 @@ RSpec.describe JwtApiEntreprise, type: :model do
         jwt.generate_magic_link_token
         jwt.reload
 
-        expect(jwt.magic_link_issuance_date).to eq(creation_time)
+        expect(jwt.magic_link_issuance_date.to_i).to eq(creation_time.to_i)
       end
     end
   end

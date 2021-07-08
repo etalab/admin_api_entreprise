@@ -1,5 +1,7 @@
 # README
 
+[![CI](https://github.com/etalab/admin_api_entreprise/actions/workflows/ci.yml/badge.svg)](https://github.com/etalab/admin_api_entreprise/actions/workflows/ci.yml)
+
 ## Par où commencer ?
 
 ```sh
@@ -66,7 +68,7 @@ La commande `rails db:migrate` devrait alors se dérouler sans encombre.
 
 Si les migrations échouent avec le message d'erreur suivant :
 
-> PG::UndefinedFunction: ERROR:  function gen_random_uuid() does not exist
+> PG::UndefinedFunction: ERROR: function gen_random_uuid() does not exist
 
 ... cela signifie que l'extension _pgcrypto_ n'est pas installée (note : la
 commande `\dx` depuis la console de Postgresql permet de lister les extensions
@@ -109,6 +111,15 @@ nécessaire de récupérer la clé dans le répertoire Ansible et de créer un f
 La MASTER_KEY en question est disponible dans le fichier
 `secrets/admin_apientreprise_dev_and_test.yml`.
 
+A noter qu'il existe un fichier de credentials `test.ci` où la clé est aussi
+versionnée, vous pouvez utiliser celle-ci pour les tests en effectuant la
+manipulation suivante:
+
+```sh
+cp config/credentials/test.ci.yml.enc config/credentials/test.yml.enc
+cp config/credentials/test.ci.key config/credentials/test.key
+```
+
 ## Déploiements à l'aide de Mina
 
 Il peut être nécessaire que mina exécute ses commandes dans un shell intéractif,
@@ -127,12 +138,12 @@ Pour déployer le projet :
 Le comptes administrateurs sont individuels il faudra vous rajouter manuellement :
 
 1. créer un [compte API Gouv](https://auth.api.gouv.fr/users/sign-up) avec votre
-adresse email ;
+   adresse email ;
 2. renseigner cette adresse email dans les fichiers de secrets encryptés pour
-les différents environnements (`config/credentials/sandbox.yml.enc`,
-`config/credentials/production.yml.enc`) ;
+   les différents environnements (`config/credentials/sandbox.yml.enc`,
+   `config/credentials/production.yml.enc`) ;
 3. lancer la tâche rake `lib/tasks/db_seed/create_admins.rake` sur les
-environnements de production.
+   environnements de production.
 
 ### Premier déploiement
 
@@ -148,9 +159,9 @@ Les fichiers suivants ne sont pas déployés par mina. Ils contiennent des
 variables d'environnements qui doivent être déployées au préalable par Ansible
 sur les machines de production.
 
-* `config/database.yml`
-* `config/credentials/sandbox.key`
-* `config/credentials/staging.key`
-* `config/credentials/production.key`
-* `config/environments/rails_env.rb`
-* `config/initializers/cors.rb`
+- `config/database.yml`
+- `config/credentials/sandbox.key`
+- `config/credentials/staging.key`
+- `config/credentials/production.key`
+- `config/environments/rails_env.rb`
+- `config/initializers/cors.rb`
