@@ -1,5 +1,7 @@
 # README
 
+[![CI](https://github.com/etalab/admin_api_entreprise/actions/workflows/ci.yml/badge.svg)](https://github.com/etalab/admin_api_entreprise/actions/workflows/ci.yml)
+
 ## Par où commencer ?
 
 ```sh
