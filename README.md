@@ -109,6 +109,15 @@ nécessaire de récupérer la clé dans le répertoire Ansible et de créer un f
 La MASTER_KEY en question est disponible dans le fichier
 `secrets/admin_apientreprise_dev_and_test.yml`.
 
+A noter qu'il existe un fichier de credentials `test.ci` où la clé est aussi
+versionnée, vous pouvez utiliser celle-ci pour les tests en effectuant la
+manipulation suivante:
+
+```sh
+cp config/credentials/test.ci.yml.enc config/credentials/test.yml.enc
+cp config/credentials/test.ci.key config/credentials/test.key
+```
+
 ## Déploiements à l'aide de Mina
 
 Il peut être nécessaire que mina exécute ses commandes dans un shell intéractif,
