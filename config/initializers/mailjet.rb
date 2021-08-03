@@ -8,5 +8,5 @@ Mailjet.configure do |config|
   # We recommend you create a dedicated instance of the wrapper set with it to send your emails.
   # If you're only using the gem to send emails, then you can safely set it to this version.
   # Otherwise, you can remove the dedicated line into config/initializers/mailjet.rb.
-  config.api_version = 'v3'
+  config.api_version = 'v3.1'
 end
