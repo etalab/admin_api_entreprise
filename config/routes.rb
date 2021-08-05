@@ -38,5 +38,8 @@ Rails.application.routes.draw do
 
     # datapass webhook
     post '/datapass/webhook' => 'datapass_webhooks#create'
+
+    # private_metrics
+    get '/private_metrics' => 'private_metrics#index'
   end
 end
