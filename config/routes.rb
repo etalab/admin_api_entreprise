@@ -35,5 +35,8 @@ Rails.application.routes.draw do
     patch '/jwt_api_entreprise/:id'                   => 'jwt_api_entreprise#update'
     post  '/jwt_api_entreprise/:id/create_magic_link' => 'jwt_api_entreprise#create_magic_link'
     get   '/jwt_api_entreprise/show_magic_link'       => 'jwt_api_entreprise#show_magic_link'
+
+    # datapass webhook
+    post '/datapass/webhook' => 'datapass_webhooks#create'
   end
 end
