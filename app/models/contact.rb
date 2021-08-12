@@ -1,8 +1,21 @@
 class Contact < ApplicationRecord
-  belongs_to :jwt_api_entreprise
-  scope :not_expired, -> { where(jwt_api_entreprises: { blacklisted: false, archived: false } ) }
+  belongs_to :authorization_request
+  has_one :jwt_api_entreprise, through: :authorization_request
 
   def full_name
     "#{last_name} #{first_name}"
   end
+
+  scope :not_expired, lambda {
+    joins(
+      :jwt_api_entreprise,
+    ).where(
+      authorization_request: {
+        jwt_api_entreprises: {
+          blacklisted: false,
+          archived: false
+        }
+      }
+    )
+  }
 end

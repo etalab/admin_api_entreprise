@@ -1,8 +1,9 @@
 class JwtApiEntreprise < ApplicationRecord
   include RandomToken
 
-  belongs_to :user
-  has_many :contacts, dependent: :delete_all
+  belongs_to :authorization_request, foreign_key: 'authorization_request_model_id', required: false
+  has_one :user, through: :authorization_request
+  has_many :contacts, through: :authorization_request
   has_and_belongs_to_many :roles
 
   scope :access_request_survey_not_sent, -> { where(access_request_survey_sent: false) }
@@ -27,7 +28,7 @@ class JwtApiEntreprise < ApplicationRecord
   end
 
   def renewal_url
-    "#{Rails.configuration.jwt_renewal_url}#{authorization_request_id}"
+    "#{Rails.configuration.jwt_renewal_url}#{authorization_request.external_id}"
   end
 
   def user_and_contacts_email

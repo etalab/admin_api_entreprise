@@ -67,10 +67,8 @@ RSpec.describe JwtApiEntrepriseMailer, type: :mailer do
       end
 
       it 'contains the URL to the JWT\'s renewal request form' do
-        renewal_url = "#{Rails.configuration.jwt_renewal_url}#{jwt.authorization_request_id}"
-
-        expect(subject.html_part.decoded).to include(renewal_url)
-        expect(subject.text_part.decoded).to include(renewal_url)
+        expect(subject.html_part.decoded).to include(jwt.renewal_url)
+        expect(subject.text_part.decoded).to include(jwt.renewal_url)
       end
     end
 

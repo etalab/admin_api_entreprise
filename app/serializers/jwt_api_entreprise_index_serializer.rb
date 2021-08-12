@@ -6,4 +6,8 @@ class JwtApiEntrepriseIndexSerializer < ActiveModel::Serializer
   def subject
     object.displayed_subject
   end
+
+  def user_id
+    object.authorization_request.try(:user_id)
+  end
 end
