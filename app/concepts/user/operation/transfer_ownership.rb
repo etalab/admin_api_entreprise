@@ -19,8 +19,8 @@ module User::Operation
     end
 
     def transfer_tokens(ctx, model:, new_owner:, **)
-      new_owner.jwt_api_entreprise << model.jwt_api_entreprise
-      model.jwt_api_entreprise.clear
+      new_owner.authorization_requests << model.authorization_requests
+      model.authorization_requests.clear
     end
 
     def send_email_notification(ctx, model:, new_owner:, **)
