@@ -16,6 +16,18 @@ ActiveRecord::Schema.define(version: 2021_08_20_102431) do
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
+  create_table "authorization_requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "intitule"
+    t.string "description"
+    t.string "external_id"
+    t.string "status"
+    t.datetime "last_update"
+    t.datetime "first_submitted_at"
+    t.datetime "validated_at"
+    t.datetime "created_at"
+    t.uuid "user_id", null: false
+  end
+
   create_table "contacts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email"
     t.string "phone_number"
@@ -25,6 +37,7 @@ ActiveRecord::Schema.define(version: 2021_08_20_102431) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "first_name"
     t.string "last_name"
+    t.uuid "authorization_request_id"
     t.index ["created_at"], name: "index_contacts_on_created_at"
     t.index ["jwt_api_entreprise_id"], name: "index_contacts_on_jwt_api_entreprise_id"
   end
@@ -54,6 +67,7 @@ ActiveRecord::Schema.define(version: 2021_08_20_102431) do
     t.boolean "access_request_survey_sent", default: false, null: false
     t.string "magic_link_token"
     t.datetime "magic_link_issuance_date"
+    t.uuid "authorization_request_model_id"
     t.index ["access_request_survey_sent"], name: "index_jwt_api_entreprises_on_access_request_survey_sent"
     t.index ["archived"], name: "index_jwt_api_entreprises_on_archived"
     t.index ["blacklisted"], name: "index_jwt_api_entreprises_on_blacklisted"
