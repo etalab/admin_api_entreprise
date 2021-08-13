@@ -14,6 +14,10 @@ class User < ApplicationRecord
     !!oauth_api_gouv_id
   end
 
+  def full_name
+    "#{last_name} #{first_name}"
+  end
+
   def tokens_newly_transfered?
     tokens_newly_transfered
   end
