@@ -42,6 +42,9 @@ gem 'pastel'
 
 gem 'logstasher'
 
+gem 'sentry-ruby'
+gem 'sentry-rails'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'colorize'
