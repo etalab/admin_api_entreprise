@@ -53,7 +53,6 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'faker'
   gem 'timecop'
-  gem 'travis'
 end
 
 group :development do
