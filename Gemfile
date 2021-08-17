@@ -42,6 +42,9 @@ gem 'pastel'
 
 gem 'logstasher'
 
+gem 'sentry-ruby'
+gem 'sentry-rails'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'colorize'
@@ -53,7 +56,6 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'faker'
   gem 'timecop'
-  gem 'travis'
 end
 
 group :development do
