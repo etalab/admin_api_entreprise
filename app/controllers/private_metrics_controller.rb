@@ -18,9 +18,9 @@ class PrivateMetricsController < ApplicationController
     client = ElasticClient.new
     client.establish_connection
 
-    raw_response = client.search(used_jti_query, size: 0)
+    client.search(used_jti_query, size: 0)
 
-    raw_response.dig('aggregations', 'unique-jti', 'buckets').map{ |bucket| bucket['key'] }
+    client.raw_response.dig('aggregations', 'unique-jti', 'buckets').map{ |bucket| bucket['key'] }
   end
 
   def used_jti_query
