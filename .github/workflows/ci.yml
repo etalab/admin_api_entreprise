@@ -72,8 +72,6 @@ jobs:
           POSTGRES_HOST: localhost
           POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
         run: |
-          cp config/credentials/test.ci.key config/credentials/test.key
-          cp config/credentials/test.ci.yml.enc config/credentials/test.yml.enc
           bundler exec rails db:create RAILS_ENV=test
           PGPASSWORD="${{ env.POSTGRES_PASSWORD }}" psql -h ${{ env.POSTGRES_HOST}} -U ${{ env.POSTGRES_USER }} -d ${{ env.POSTGRES_DB }} --command 'CREATE EXTENSION IF NOT EXISTS pgcrypto;'
           bundler exec rails db:schema:load RAILS_ENV=test
