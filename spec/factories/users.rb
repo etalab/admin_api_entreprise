@@ -1,6 +1,8 @@
 FactoryBot.define do
+  sequence(:email) { |n| "user_#{n}@example.org" }
+
   factory :user do
-    sequence(:email) { |n| "user_#{n}@example.org" }
+    email
     sequence(:oauth_api_gouv_id) { |n| "#{n}" }
     context { 'VERY_DEVELOPMENT' }
     cgu_agreement_date { Time.zone.now }
