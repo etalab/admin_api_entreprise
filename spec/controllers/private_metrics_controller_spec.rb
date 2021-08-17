@@ -3,39 +3,56 @@ require 'rails_helper'
 RSpec.describe PrivateMetricsController, type: :controller do
   describe '#index' do
     describe 'fields' do
+      let(:json) { json = JSON.parse(response.body) }
+
+      before do
+        allow_any_instance_of(ElasticClient).to receive(:establish_connection).and_return(true)
+
+        allow_any_instance_of(ElasticClient).to receive(:search).and_return({
+          "took"=>2130,
+          "timed_out"=>false,
+          "_shards"=>{"total"=>29, "successful"=>29, "skipped"=>0, "failed"=>0},
+          "hits"=>{"total"=>{"value"=>10000, "relation"=>"gte"}, "max_score"=>nil, "hits"=>[]},
+          "aggregations"=> {
+            "unique-jti"=> {
+              "doc_count_error_upper_bound"=>0,
+              "sum_other_doc_count"=>0,
+              "buckets"=> [
+                {"key"=>"ab375719-986e-48b0-9bbb-d45fe9343cc3", "doc_count"=>8470146},
+                {"key"=>"5af58470-f007-4102-8d48-016ce018de23", "doc_count"=>7800786},
+                {"key"=>"fdc7196c-ba45-43b3-bf26-b0aaba44ee03", "doc_count"=>7710650}
+              ]
+            }
+          }
+        })
+      end
+
       it 'structure is valid' do
         get :index
 
-        expect(response_json.keys).to include(:unused_jwt)
+        expect(json.keys).to include("unused_jwt_list")
+        expect(json["unused_jwt_list"]).to be_an(Array)
       end
 
       describe 'unused_jwt' do
+        let!(:used_jwt_1)   { create(:jwt_api_entreprise, id: 'ab375719-986e-48b0-9bbb-d45fe9343cc3') }
+        let!(:used_jwt_2)   { create(:jwt_api_entreprise, id: '5af58470-f007-4102-8d48-016ce018de23') }
+        let!(:used_jwt_3)   { create(:jwt_api_entreprise, id: 'fdc7196c-ba45-43b3-bf26-b0aaba44ee03') }
+        let!(:unused_jwt_1) { create(:jwt_api_entreprise, id: 'not-used') }
 
-        let!(:all_jwt) { create_list(:jwt_api_entreprise, 3) }
-        let!(:used_jwt){ all_jwt.first }
-        let!(:used_jti){ used_jwt.id }
-
-        before do
-          expect_any_instance_of(PrivateMetricsController).to receive(:used_jti).and_return([used_jti])
-
+        it 'selects unused jwt' do
           get :index
+
+          expect(json["unused_jwt_list"]).to include(unused_jwt_1.serializable_hash.as_json)
+          expect(json["unused_jwt_list"].size).to eq(1)
         end
 
         it 'filters out used jwt' do
-          unused_jwt = JSON.parse(response.body)["unused_jwt"]
-          used_jwt_as_json_hash = JSON.parse(used_jwt.to_json)
+          get :index
 
-          expect(unused_jwt).not_to include(used_jwt_as_json_hash)
-          expect(unused_jwt.size).to eq(2)
-        end
-
-        it 'selects unused jwt' do
-          unused_jwt = JSON.parse(response.body)["unused_jwt"]
-          unused_jwt_in_json_body_1 = JSON.parse(all_jwt[1].to_json)
-          unused_jwt_in_json_body_2 = JSON.parse(all_jwt[2].to_json)
-
-          expect(unused_jwt).to include(unused_jwt_in_json_body_1)
-          expect(unused_jwt).to include(unused_jwt_in_json_body_2)
+          expect(json["unused_jwt_list"]).not_to include(used_jwt_1.serializable_hash.as_json)
+          expect(json["unused_jwt_list"]).not_to include(used_jwt_2.serializable_hash.as_json)
+          expect(json["unused_jwt_list"]).not_to include(used_jwt_3.serializable_hash.as_json)
         end
       end
     end
