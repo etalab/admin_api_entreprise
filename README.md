@@ -13,9 +13,6 @@ bin/rails db:migrate
 bin/rails db:migrate RAILS_ENV=test
 ```
 
-Il faudra ensuite renseigner la clé `master.key` pour pouvoir avoir accès aux
-credentials (voir plus bas le détail de la procédure à suivre).
-
 Il sera alors possible d'exécuter la suite de tests :
 
 ```sh
@@ -101,24 +98,22 @@ class AddMyRelationToMyModel < ActiveRecord::Migration[5.1]
 end
 ```
 
-## Récupérer la MASTER_KEY pour les environnements de test et de développement
+## Ajout de credentials via rails:credentials
 
-Le fichier `config/credentials.yml.enc` contient les paramètres d'environnements
-de développement et de tests (utilisation des _credentials_ Rails). Il est
-nécessaire de récupérer la clé dans le répertoire Ansible et de créer un fichier
-`config/master.key` contenant cette clé.
+Chaque environnement possède son propre fichier de credentials.
 
-La MASTER_KEY en question est disponible dans le fichier
-`secrets/admin_apientreprise_dev_and_test.yml`.
+Pour les environments de tests et developments, le fichier de développment est un lien
+symbolique sur le fichier de test : modifier l'un modifie l'autre, et la
+clé est présente dans le dépôt. Il ne faut mettre aucune donnée sensible dans
+ce fichier.
 
-A noter qu'il existe un fichier de credentials `test.ci` où la clé est aussi
-versionnée, vous pouvez utiliser celle-ci pour les tests en effectuant la
-manipulation suivante:
+Pour les fichiers de production (i.e. sandbox, staging et production), il y a
+aussi plusieurs fichiers. Les clés ne sont pas versionnées, il faut les importer
+depuis le vault d'ansible du dépôt stockant l'ensemble des secrets.
 
-```sh
-cp config/credentials/test.ci.yml.enc config/credentials/test.yml.enc
-cp config/credentials/test.ci.key config/credentials/test.key
-```
+Vous pouvez le script
+[`scripts/import_master_keys.sh`](./scripts/import_master_keys.sh) pour
+effectuer l'import
 
 ## Déploiements à l'aide de Mina
 
