@@ -58,6 +58,8 @@ gem 'logstasher'
 
 gem 'interactor'
 
+gem 'chronic'
+
 gem 'sentry-ruby'
 gem 'sentry-rails'
 

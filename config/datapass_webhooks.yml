@@ -1,0 +1,67 @@
+# Check https://github.com/betagouv/signup-back/tree/master/docs/webhooks.md for all events and their details
+---
+development: &development
+  created: {}
+  updated: {}
+  owner_updated: {}
+  rgpd_contact_updated: {}
+  send_application:
+    emails:
+      - id: '11'
+      - id: '12'
+        when: 'in 14 days'
+  notify: {}
+  review_application: {}
+  refuse_application: {}
+  validate_application:
+    emails:
+      - id: '51'
+        condition: 'authorization_request.user.first_name == "run"'
+      - id: '52'
+        condition: 'authorization_request.user.last_name == "run"'
+        to:
+          - 'authorization_request.contact_metier'
+        cc:
+          - 'authorization_request.contact_technique'
+          - 'authorization_request.user'
+test: *development
+
+production: &production
+  created:
+    emails:
+      - id: '3098115'
+      - id: '3098214'
+        when: 'in 14 days'
+  updated: {}
+  owner_updated: {}
+  rgpd_contact_updated: {}
+  sent_application:
+    emails:
+      - id: '3098391'
+      - id: '3098436'
+        when: 'in 14 days'
+  notify: {}
+  review_application:
+    emails:
+      - id: '3098236'
+      - id: '3098155'
+        when: 'in 14 days'
+  refuse_application:
+    emails:
+      - id: '3084277'
+  # FIXME
+  validate_application:
+    emails:
+      - id: '51'
+        condition: 'authorization_request.all_contacts_have_the_same_email?'
+      - id: '52'
+        condition: 'authorization_request.all_contacts_have_different_emails?'
+        to:
+          - 'authorization_request.user'
+        cc:
+          - 'authorization_request.contact_metier'
+          - 'authorization_request.contact_technique'
+
+
+sandbox: *production
+staging: *production
