@@ -1,0 +1,68 @@
+# frozen_string_literal: true
+
+require 'rails_helper'
+
+RSpec.describe DatapassWebhook::ExtractMailjetVariables, type: :interactor do
+  subject { described_class.call(datapass_webhook_params.merge(authorization_request: authorization_request)) }
+
+  let(:datapass_webhook_params) { build(:datapass_webhook, event: event) }
+  let(:authorization_request) { create(:authorization_request) }
+
+  let(:event) { 'created' }
+
+  it { is_expected.to be_a_success }
+
+  it 'creates a hash with all required variables extracted from datapass webhook payload' do
+    expect(subject.mailjet_variables).to be_present
+
+    expect(subject.mailjet_variables['authorization_request_id']).to eq(authorization_request.external_id)
+    expect(subject.mailjet_variables['authorization_request_intitule']).to eq(authorization_request.intitule)
+    expect(subject.mailjet_variables['authorization_request_description']).to eq(authorization_request.description)
+
+    expect(subject.mailjet_variables['token_roles']).to be_nil
+  end
+
+  context 'when event is from an instructor' do
+    let(:event) { 'refuse_application' }
+
+    it 'sets instructor first and last name' do
+      expect(subject.mailjet_variables['instructor_first_name']).to eq('Instructor first name')
+      expect(subject.mailjet_variables['instructor_last_name']).to eq('Instructor last name')
+    end
+  end
+
+  context 'when event is not from an instructor' do
+    let(:event) { 'created' }
+
+    it 'does not set instructor first and last name' do
+      expect(subject.mailjet_variables['instructor_first_name']).to be_nil
+      expect(subject.mailjet_variables['instructor_last_name']).to be_nil
+    end
+  end
+
+  context 'when authorization request has a token' do
+    let!(:jwt_api_entreprise) { create(:jwt_api_entreprise, authorization_request: authorization_request) }
+
+    before do
+      %w[
+        uptime
+        entreprise
+        liasse_fiscale
+      ].each do |code|
+        jwt_api_entreprise.roles << create(:role, code: code)
+      end
+
+      create(:role, code: 'etablissement')
+    end
+
+    it 'sets token_roles with these values, excluding uptime' do
+      expect(subject.mailjet_variables['token_roles']).to be_present
+
+      expect(subject.mailjet_variables['token_roles']['role_uptime']).to be_nil
+      expect(subject.mailjet_variables['token_roles']['role_entreprise']).to eq true
+      expect(subject.mailjet_variables['token_roles']['role_liasse_fiscale']).to eq true
+
+      expect(subject.mailjet_variables['token_roles']['role_etablissement']).to eq false
+    end
+  end
+end
