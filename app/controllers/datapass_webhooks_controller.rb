@@ -1,5 +1,6 @@
 class DatapassWebhooksController < ApplicationController
   skip_before_action :jwt_authenticate!
+  before_action :track_payload_through_sentry
   before_action :verify_hub_signature!
 
   def create
@@ -27,6 +28,19 @@ class DatapassWebhooksController < ApplicationController
 
   def event
     params[:event]
+  end
+
+  def track_payload_through_sentry
+    Sentry.set_context(
+      'DataPass webhook incoming payload',
+      payload: params.permit!.to_h.except('controller', 'action', 'datapass_webhook'),
+    )
+    Sentry.capture_message(
+      'DataPass Incoming Payload',
+      {
+        level: 'info',
+      }
+    )
   end
 
   def verify_hub_signature!

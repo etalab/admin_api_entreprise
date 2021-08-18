@@ -64,6 +64,21 @@ RSpec.describe DatapassWebhooksController, type: :controller do
         subject
       end
 
+      it 'tracks through Sentry the incoming payload' do
+        expect(Sentry).to receive(:set_context).with(
+          'DataPass webhook incoming payload',
+          payload: params,
+        )
+        expect(Sentry).to receive(:capture_message).with(
+          'DataPass Incoming Payload',
+          {
+            level: 'info',
+          }
+        )
+
+        subject
+      end
+
       it 'renders 401' do
         subject
 
@@ -94,6 +109,21 @@ RSpec.describe DatapassWebhooksController, type: :controller do
         subject
 
         expect(response.code).to eq('200')
+      end
+
+      it 'tracks through Sentry the incoming payload' do
+        expect(Sentry).to receive(:set_context).with(
+          'DataPass webhook incoming payload',
+          payload: params,
+        )
+        expect(Sentry).to receive(:capture_message).with(
+          'DataPass Incoming Payload',
+          {
+            level: 'info',
+          }
+        )
+
+        subject
       end
 
       context 'when event is validate_application' do
