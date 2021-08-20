@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_13_124603) do
+ActiveRecord::Schema.define(version: 2021_08_20_102431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 2021_08_13_124603) do
     t.uuid "jwt_api_entreprise_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "first_name"
+    t.string "last_name"
     t.index ["created_at"], name: "index_contacts_on_created_at"
     t.index ["jwt_api_entreprise_id"], name: "index_contacts_on_jwt_api_entreprise_id"
   end
