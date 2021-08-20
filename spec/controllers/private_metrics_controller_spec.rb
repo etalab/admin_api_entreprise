@@ -8,7 +8,8 @@ RSpec.describe PrivateMetricsController, type: :controller do
       before do
         allow_any_instance_of(ElasticClient).to receive(:establish_connection).and_return(true)
 
-        allow_any_instance_of(ElasticClient).to receive(:search).and_return({
+        allow_any_instance_of(ElasticClient).to receive(:raw_response).and_return(true)
+        allow_any_instance_of(ElasticClient).to receive(:raw_response).and_return({
           "took"=>2130,
           "timed_out"=>false,
           "_shards"=>{"total"=>29, "successful"=>29, "skipped"=>0, "failed"=>0},
