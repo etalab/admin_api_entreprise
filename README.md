@@ -160,3 +160,7 @@ sur les machines de production.
 - `config/credentials/production.key`
 - `config/environments/rails_env.rb`
 - `config/initializers/cors.rb`
+
+## Gestion des webhooks DataPass
+
+Se référer à [docs/webhooks.md](docs/webhooks.md)
