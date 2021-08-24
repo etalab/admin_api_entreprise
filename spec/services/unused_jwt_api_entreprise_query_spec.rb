@@ -21,5 +21,7 @@ RSpec.describe UnusedJwtApiEntrepriseQuery, type: :service do
 
     expect(results).not_to include(*[used_jwt_1, used_jwt_2, used_jwt_3])
     expect(results).to include(unused_jwt_1)
+
+    expect(results.size). to eq(1)
   end
 end
