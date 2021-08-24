@@ -18,7 +18,7 @@ class UsedJwtIdsElasticQuery
         "bool" => {
           "must": [
             { "match" =>  { "type" => "siade" }},
-            { "range" =>  { "@timestamp" => { "gte" => "now-730d/d", "lte" => "now/d" }}}
+            { "range" =>  { "@timestamp" => { "gte" => "now-#{@number_of_days_from_now}d/d", "lte" => "now/d" }}}
           ]
         }
       },
