@@ -44,13 +44,11 @@ class DatapassWebhooksController < ApplicationController
   end
 
   def verify_hub_signature!
-    if hub_signature_invalid?
-      unauthorized
-    end
+    unauthorized unless hub_signature_valid?
   end
 
-  def hub_signature_invalid?
-    !HubSignature.new(hub_signature, request.raw_post).valid?
+  def hub_signature_valid?
+    HubSignature.new(hub_signature, request.raw_post).valid?
   end
 
   def hub_signature
