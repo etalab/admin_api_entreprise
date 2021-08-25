@@ -32,10 +32,13 @@ RSpec.describe DatapassWebhooksController, type: :controller do
         subject
       end
 
-      it 'renders 401' do
+      it 'renders 401 with an error message as json' do
         subject
 
         expect(response.code).to eq('401')
+        expect(JSON.parse(response.body)).to eq({
+          'error' => 'Unauthorized',
+        })
       end
     end
 
