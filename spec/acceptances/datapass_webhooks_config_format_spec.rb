@@ -36,10 +36,14 @@ RSpec.describe 'Datapass webhook config format', type: :acceptance do
             expect(date).to be_future, "[#{env}] #{event} emails ##{index+1} has an invalid date for 'when', which is not in the future: #{email_config['when']}"
           end
 
-          if email_config['condition'].present?
-            result = SafeEval.new(email_config['condition'], dummy_authorization_request).perform
+          if email_config['condition_on_authorization'].present?
+            next if %w[development test].include?(env)
 
-            expect(result).to be_an_instance_of(TrueClass).or be_an_instance_of(FalseClass)
+            method = email_config['condition_on_authorization']
+            expect(AuthorizationRequestConditionFacade).to be_method_defined(method), "[#{env}] #{event} emails ##{index+1} condition_on_authorization: AuthorizationRequestConditionFacade##{method} is not defined"
+
+            result = AuthorizationRequestConditionFacade.new(dummy_authorization_request).public_send(method)
+            expect(result).to be_an_instance_of(TrueClass).or(be_an_instance_of(FalseClass)), "[#{env}] #{event} emails ##{index+1} condition_on_authorization: AuthorizationRequestConditionFacade##{method} does not returns a boolean"
           end
         end
       end

@@ -10,7 +10,7 @@ class DatapassWebhook::ScheduleAuthorizationRequestEmails < ApplicationInteracto
   private
 
   def schedule_email(email_config)
-    return unless condition_met?(email_config['condition'])
+    return unless condition_on_authorization_met?(email_config['condition_on_authorization'])
 
     ScheduleAuthorizationRequestMailjetEmailJob.set(wait_until: extract_when_time(email_config['when'])).perform_later(
       context.authorization_request.id,
@@ -19,10 +19,10 @@ class DatapassWebhook::ScheduleAuthorizationRequestEmails < ApplicationInteracto
     )
   end
 
-  def condition_met?(condition)
-    return true if condition.nil?
+  def condition_on_authorization_met?(condition_on_authorization)
+    return true if condition_on_authorization.nil?
 
-    SafeEval.new(condition, context.authorization_request).perform
+    AuthorizationRequestConditionFacade.new(context.authorization_request).public_send(condition_on_authorization)
   end
 
   def build_mailjet_attributes(email_config)

@@ -12,18 +12,18 @@ development: &development
         when: 'in 14 days'
   notify: {}
   review_application: {}
-  refuse_application: {}
-  validate_application:
+  refuse_application:
     emails:
       - id: '51'
-        condition: 'authorization_request.user.first_name == "run"'
+        condition_on_authorization: 'user_first_name_is_run?'
       - id: '52'
-        condition: 'authorization_request.user.last_name == "run"'
+        condition_on_authorization: 'user_last_name_is_run?'
         to:
           - 'authorization_request.contact_metier'
         cc:
           - 'authorization_request.contact_technique'
           - 'authorization_request.user'
+  validate_application: {}
 test: *development
 
 production: &production
@@ -53,9 +53,9 @@ production: &production
   validate_application:
     emails:
       - id: '51'
-        condition: 'authorization_request.all_contacts_have_the_same_email?'
+        condition_on_authorization: 'all_contacts_have_the_same_email?'
       - id: '52'
-        condition: 'authorization_request.all_contacts_have_different_emails?'
+        condition_on_authorization: 'all_contacts_have_different_emails?'
         to:
           - 'authorization_request.user'
         cc:

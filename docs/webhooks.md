@@ -71,11 +71,11 @@ production:
   validate_application:
     emails:
       - id: "51"
-        # La clé 'condition' permet d'appliquer une condition sur l'envoi de l'email. Cette condition est évaluée au moment de la réception du webhook et non lors de l'envoi. Cette condition doit
+        # La clé 'condition_on_authorization' permet d'appliquer une condition sur l'envoi de l'email. Cette condition est évaluée au moment de la réception du webhook et non lors de l'envoi. Cette condition doit être une méthode définie sur la classe AuthorizationRequestConditionFacade
         # Par défaut condition est évalué à true
-        condition: "authorization_request.all_contacts_have_the_same_email?"
+        condition_on_authorization: "all_contacts_have_the_same_email?"
       - id: "52"
-        condition: "authorization_request.all_contacts_have_different_emails?"
+        condition_on_authorization: "all_contacts_have_different_emails?"
         # Tableau des destinataires, doit être soit un modèle User soit un modèle Contact
         to:
           - "authorization_request.contact_metier"
@@ -88,9 +88,8 @@ production:
 Un test d'acceptance vérifie le format du fichier: si il y a une typo les tests
 ne passeront pas.
 
-A noter de même que les conditions sont évalués dans un environnement sécurisé
-un minimum, mais il faut vérifier tout de même qu'aucune action dangereuse
-n'est présente (à priori il s'agit de simple vérifications d'attributs).
+Pour les conditions évaluées, vous trouverez le fichier ici:
+[AuthorizationRequestConditionFacade](../app/lib/authorization_request_condition_facade.rb)
 
 ## Variables d'environnement disponibles lors de l'envoi via Mailjet
 

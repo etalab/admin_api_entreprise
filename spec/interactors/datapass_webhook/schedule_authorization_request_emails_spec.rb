@@ -77,7 +77,22 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
   end
 
   context 'with an event which trigger emails, conditions and recipients attributes' do
-    let(:event) { 'validate_application' }
+    let(:event) { 'refuse_application' }
+
+    before do
+      AuthorizationRequestConditionFacade.define_method(:user_first_name_is_run?) do
+        user.first_name == 'run'
+      end
+
+      AuthorizationRequestConditionFacade.define_method(:user_last_name_is_run?) do
+        user.last_name == 'run'
+      end
+    end
+
+    after do
+      AuthorizationRequestConditionFacade.remove_method(:user_first_name_is_run?)
+      AuthorizationRequestConditionFacade.remove_method(:user_last_name_is_run?)
+    end
 
     context 'when all conditions are met' do
       before do
