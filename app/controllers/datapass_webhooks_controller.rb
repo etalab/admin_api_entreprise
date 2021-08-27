@@ -6,6 +6,16 @@ class DatapassWebhooksController < ApplicationController
   def create
     result = DatapassWebhook.call(**datapass_webhook_params)
 
+    if result.success?
+      handle_success(result)
+    else
+      render json: {}, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def handle_success(result)
     if event == 'validate_application'
       render json: {
         token_id: result.token_id
@@ -14,8 +24,6 @@ class DatapassWebhooksController < ApplicationController
       render json: {}
     end
   end
-
-  private
 
   def datapass_webhook_params
     params.permit(
