@@ -85,7 +85,9 @@ RSpec.describe User::Operation::TransferOwnership do
         subject
         new_owner = User.find_by_email(new_owner_email)
 
-        expect(new_owner.jwt_api_entreprise_ids).to eq(transfered_jwt_ids)
+        # added a sort call, equal was enforced but the order was not preserved in some
+        # test seeds
+        expect(new_owner.jwt_api_entreprise_ids.sort).to eq(transfered_jwt_ids.sort)
       end
 
       it 'removes token ownership to the old user' do
