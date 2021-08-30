@@ -24,19 +24,13 @@ module Mailjet
     private
 
     def role_properties
-      available_roles.inject({}) do |properties, role|
+      available_role_codes.inject({}) do |properties, role|
         properties.merge("role_#{role}".to_sym => roles.include?(role))
       end
     end
 
-    def available_roles
-      ::Role.where.not(code: excluded_roles).map(&:code)
-    end
-
-    def excluded_roles
-      %w[
-        uptime
-      ]
+    def available_role_codes
+      ::Role.available.map(&:code)
     end
   end
 end

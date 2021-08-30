@@ -36,7 +36,7 @@ class DatapassWebhook::ExtractMailjetVariables < ApplicationInteractor
   def add_token_roles
     context.mailjet_variables['token_roles'] ||= {}
 
-    available_roles.each do |role|
+    available_role_codes.each do |role|
       context.mailjet_variables['token_roles']["role_#{role}"] = token_roles.include?(role)
     end
   end
@@ -62,8 +62,8 @@ class DatapassWebhook::ExtractMailjetVariables < ApplicationInteractor
     context.authorization_request
   end
 
-  def available_roles
-    ::Role.where.not(code: excluded_roles).pluck(:code)
+  def available_role_codes
+    ::Role.available.pluck(:code)
   end
 
   def excluded_roles
