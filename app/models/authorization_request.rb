@@ -4,6 +4,8 @@ class AuthorizationRequest < ApplicationRecord
   belongs_to :user
   has_one :jwt_api_entreprise, required: false, foreign_key: 'authorization_request_model_id'
 
+  validates :external_id, uniqueness: true, allow_blank: true
+
   has_many :contacts, dependent: :delete_all
 
   has_one :contact_technique, -> { where(contact_type: 'tech') }, class_name: 'Contact'
