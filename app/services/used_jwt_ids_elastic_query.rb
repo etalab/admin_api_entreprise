@@ -1,6 +1,6 @@
 class UsedJwtIdsElasticQuery
-  def initialize(number_of_days_from_now: 30)
-    @number_of_days_from_now = number_of_days_from_now
+  def initialize
+    @number_of_days_from_now = 730
   end
 
   def perform

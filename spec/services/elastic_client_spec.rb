@@ -53,7 +53,6 @@ RSpec.describe ElasticClient, type: :service do
 
   # VCR cassette is not generated but it is mandatory a HTTP request is performed
   describe 'when API access is forbidden', vcr: { cassette_name: 'basic_json_query_denied_TO_DELETE' } do
-    # better perf
     # rubocop:disable RSpec/InstanceVariable
     subject { @access_denied }
 

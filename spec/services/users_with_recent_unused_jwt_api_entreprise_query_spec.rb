@@ -9,6 +9,10 @@ RSpec.describe UsersWithRecentUnusedJwtApiEntrepriseQuery, type: :service do
     Timecop.freeze(now)
   end
 
+  after do
+    Timecop.return
+  end
+
   # user without tokens
   context 'user without tokens' do
     let!(:user) { create(:user) }
@@ -37,7 +41,14 @@ RSpec.describe UsersWithRecentUnusedJwtApiEntrepriseQuery, type: :service do
   end
 
   context 'user with rather old unused token' do
-    let!(:user) { Timecop.freeze(now - 60.days); create(:user, :with_jwt) }
+    let!(:user) do
+      timecoped_now = Time.now
+      Timecop.freeze(timecoped_now - 60.days)
+      user = create(:user, :with_jwt) # cant use fields created_at and updated_at because it won't work on associated jwt
+      Timecop.freeze(timecoped_now)
+
+      user
+    end
 
     before do
       allow_any_instance_of(UsedJwtIdsElasticQuery).to receive(:perform).and_return(
@@ -50,11 +61,17 @@ RSpec.describe UsersWithRecentUnusedJwtApiEntrepriseQuery, type: :service do
     end
   end
 
-  context 'user with recent tokens and one recently active token' do
-    let!(:user) { Timecop.freeze(now - 60.days); create(:user) }
+  context 'user with one unused recent token and one recently active token' do
+    it 'is included' do
+      user = create(:user)
+      unused_recent_token = create(:jwt_api_entreprise, user: user, created_at: 3.days.ago, updated_at: 3.days.ago)
+      recently_active_but_not_recently_created_token = create(:jwt_api_entreprise, user: user, created_at: 30.days.ago, updated_at: 30.days.ago)
+
+      allow_any_instance_of(UsedJwtIdsElasticQuery).to receive(:perform).and_return(
+        [recently_active_but_not_recently_created_token.id]
+      )
+
+      expect(subject).to include(user)
+    end
   end
-
-  # # user with one unused token and one recently active token
-  # -> expect include
-
 end

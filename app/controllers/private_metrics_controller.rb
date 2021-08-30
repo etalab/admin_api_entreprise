@@ -2,8 +2,6 @@ class PrivateMetricsController < ApplicationController
   skip_before_action :jwt_authenticate!
 
   def index
-    all_jwt = JwtApiEntreprise.all
-
     render json: {
       unused_jwt_list: UnusedJwtApiEntrepriseQuery.new.perform,
       jwt_expiring_in_less_than_1_week: jwt_expiring_in_less_than_1_week,
@@ -34,7 +32,7 @@ class PrivateMetricsController < ApplicationController
   end
 
   def now
-    Time.now
+    @now ||= Time.now
   end
 
   #new_users_histogram: User.all.group_by{ |u| u.created_at.beginning_of_month }.map{ |d, results| [d.strftime('%Y-%m'), results.count] },

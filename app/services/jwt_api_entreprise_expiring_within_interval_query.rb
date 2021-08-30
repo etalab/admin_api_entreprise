@@ -5,9 +5,10 @@ class JwtApiEntrepriseExpiringWithinIntervalQuery
   end
 
   def perform
-    JwtApiEntreprise.where('exp >= ? AND exp <= ?',
-                           @interval_start.beginning_of_day.to_i,
-                           @interval_stop.end_of_day.to_i
-                          )
+    JwtApiEntreprise.where(exp: interval_range)
+  end
+
+  def interval_range
+    (@interval_start.beginning_of_day.to_i..@interval_stop.end_of_day.to_i)
   end
 end

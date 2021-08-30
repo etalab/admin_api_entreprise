@@ -11,34 +11,35 @@ RSpec.describe JwtApiEntrepriseExpiringWithinIntervalQuery, type: :service do
     Timecop.freeze(now)
   end
 
+  after do
+    Timecop.return
+  end
+
   subject { described_class.new(interval_start: interval_start, interval_stop: interval_stop) }
 
   let(:results) { subject.perform }
 
-  it 'returns jwt expiring within interval' do
-    jwt = create_list(:jwt_api_entreprise, 2, exp: 7.days.from_now)
+  let!(:jwt_expiring_within_interval)                 { create(:jwt_api_entreprise, exp: 7.days.from_now) }
+  let!(:jwt_expiring_early_within_interval_start_day) { create(:jwt_api_entreprise, exp: interval_start.beginning_of_day) }
+  let!(:jwt_expiring_late_within_interval_stop_day)   { create(:jwt_api_entreprise, exp: interval_stop.end_of_day) }
 
-    expect(results).to include(*jwt)
+  let!(:jwt_expiring_day_after_interval_stop_day)     { create(:jwt_api_entreprise, exp: interval_stop.end_of_day + 1.second) }
+  let!(:jwt_expiring_day_before_interval_start_day)   { create(:jwt_api_entreprise, exp: interval_start.beginning_of_day - 1.second) }
+
+  it 'returns jwt expiring within interval' do
+    expect(results).to include(jwt_expiring_within_interval)
   end
 
   it 'returns jwt expiring outside interval but within beginning of interval_start day' do
-    jwt = create(:jwt_api_entreprise, exp: interval_start.beginning_of_day)
-
-    expect(results).to include(jwt)
+    expect(results).to include(jwt_expiring_early_within_interval_start_day)
   end
 
   it 'returns jwt expiring outside interval but within ending of interval_stop day' do
-    jwt = create(:jwt_api_entreprise, exp: interval_stop.end_of_day)
-
-    expect(results).to include(jwt)
+    expect(results).to include(jwt_expiring_late_within_interval_stop_day)
   end
 
   it 'does not return jwt expiring outside interval' do
-    jwt1 = create(:jwt_api_entreprise, exp: interval_start.beginning_of_day - 1.second)
-    jwt2 = create(:jwt_api_entreprise, exp: interval_stop.end_of_day + 1.second)
-
-
-    expect(results).not_to include(jwt1)
-    expect(results).not_to include(jwt2)
+    expect(results).not_to include(jwt_expiring_day_after_interval_stop_day)
+    expect(results).not_to include(jwt_expiring_day_before_interval_start_day)
   end
 end
