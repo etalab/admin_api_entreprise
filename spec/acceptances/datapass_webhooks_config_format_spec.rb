@@ -36,6 +36,21 @@ RSpec.describe 'Datapass webhook config format', type: :acceptance do
             expect(date).to be_future, "[#{env}] #{event} emails ##{index+1} has an invalid date for 'when', which is not in the future: #{email_config['when']}"
           end
 
+          %w[to cc].each do |kind|
+            if email_config[kind].present?
+              expect(email_config[kind]).to be_an_instance_of(Array), "[#{env}] #{event} emails ##{index+1} has an invalid '#{kind}': not an array"
+
+              email_config[kind].each do |to_recipient|
+                contact = to_recipient.split('.').reduce(OpenStruct.new(authorization_request: dummy_authorization_request)) do |object, method|
+                  object = object.public_send(method)
+                end
+
+                expect(contact).to respond_to(:email)
+                expect(contact).to respond_to(:full_name)
+              end
+            end
+          end
+
           if email_config['condition_on_authorization'].present?
             next if %w[development test].include?(env)
 
