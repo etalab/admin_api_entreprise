@@ -34,7 +34,7 @@ class DatapassWebhook::ScheduleAuthorizationRequestEmails < ApplicationInteracto
 
   def recipients_payload(email_config)
     {
-      to: recipient_payload(email_config['to'] || ['authorization_request.user']),
+      to: recipient_payload(email_config['to'] || default_recipients),
       cc: recipient_payload(email_config['cc']),
     }.compact
   end
@@ -52,6 +52,12 @@ class DatapassWebhook::ScheduleAuthorizationRequestEmails < ApplicationInteracto
         'full_name' => contact.full_name,
       }
     end
+  end
+
+  def default_recipients
+    [
+      'authorization_request.user',
+    ]
   end
 
   def extract_when_time(when_time)
