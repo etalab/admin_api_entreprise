@@ -17,11 +17,10 @@ class DatapassWebhook::CreateJwtToken < ApplicationInteractor
 
   def create_jwt_token
     authorization_request.create_jwt_api_entreprise(
-      subject: authorization_request.intitule,
-      authorization_request_id: authorization_request.external_id,
-      iat: Time.zone.now.to_i,
-      version: '1.0',
-      exp: 18.months.from_now.to_i
+      JwtApiEntreprise.default_create_params.merge(
+        subject: authorization_request.intitule,
+        authorization_request_id: authorization_request.external_id,
+      )
     )
   end
 

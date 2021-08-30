@@ -50,6 +50,14 @@ class JwtApiEntreprise < ApplicationRecord
     temp_use_case || subject
   end
 
+  def self.default_create_params
+    {
+      iat: Time.zone.now.to_i,
+      version: '1.0',
+      exp: 18.months.from_now.to_i,
+    }
+  end
+
   private
 
   def token_payload

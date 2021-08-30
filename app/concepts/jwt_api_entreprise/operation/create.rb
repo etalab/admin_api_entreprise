@@ -40,9 +40,7 @@ module JwtApiEntreprise::Operation
 
     def set_token_defaults(options, model:, **)
       model.update(
-        iat: Time.zone.now.to_i,
-        version: '1.0',
-        exp: 18.months.from_now.to_i
+        JwtApiEntreprise.default_create_params
       )
     end
 
