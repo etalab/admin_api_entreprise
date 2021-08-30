@@ -6,10 +6,7 @@ RSpec.describe UsedJwtIdsElasticQuery, type: :service do
   let(:used_jwt_id_3){ "fdc7196c-ba45-43b3-bf26-b0aaba44ee03" }
 
   before do
-    allow_any_instance_of(ElasticClient).to receive(:establish_connection).and_return(true)
-
-    allow_any_instance_of(ElasticClient).to receive(:raw_response).and_return(true)
-    allow_any_instance_of(ElasticClient).to receive(:raw_response).and_return({
+    allow($elastic).to receive(:search).and_return({
       "took"=>2130,
       "timed_out"=>false,
       "_shards"=>{"total"=>29, "successful"=>29, "skipped"=>0, "failed"=>0},

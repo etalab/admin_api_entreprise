@@ -4,12 +4,7 @@ class UsedJwtIdsElasticQuery
   end
 
   def perform
-    client = ElasticClient.new
-    client.establish_connection
-
-    client.search(used_jti_ids_json_query, size: 0)
-
-    client.raw_response.dig('aggregations', 'unique-jti', 'buckets').map{ |bucket| bucket['key'] }
+    $elastic.search(body: used_jti_ids_json_query, size: 0).dig('aggregations', 'unique-jti', 'buckets').map{ |bucket| bucket['key'] }
   end
 
   def used_jti_ids_json_query
