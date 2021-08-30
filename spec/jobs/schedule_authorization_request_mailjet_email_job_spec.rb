@@ -59,28 +59,22 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob, type: :job do
     context 'when current authorization request status did not changed' do
       it 'calls Mailjet client with valid params' do
         expect(Mailjet::Send).to receive(:create).with(
-          messages: [
-            {
-              'From' => anything,
-              'To' => [
-                {
-                  'Email' => to_user.email,
-                  'Name' => to_user.full_name,
-                },
-              ],
-              'Variables' => mailjet_template_vars,
-              'TemplateLanguage' => true,
-              'TemplateID' => mailjet_template_id,
-            }
-          ]
+          {
+            from_name: anything,
+            from_email: anything,
+            to: "#{to_user.full_name} <#{to_user.email}>",
+            vars: mailjet_template_vars,
+            'Mj-TemplateLanguage' => true,
+            'Mj-TemplateID' => mailjet_template_id,
+          }
         )
 
         subject
       end
 
       context 'when there is cc field in mailjet attributes' do
-        let(:cc_contact1) { create(:contact) }
-        let(:cc_contact2) { create(:contact) }
+        let(:cc_contact1) { create(:contact, :with_full_name) }
+        let(:cc_contact2) { create(:contact, :with_full_name) }
 
         before do
           mailjet_attributes[:cc] = [
@@ -97,30 +91,13 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob, type: :job do
 
         it 'calls Mailjet client with the CC field for these users' do
           expect(Mailjet::Send).to receive(:create).with(
-            messages: [
-              {
-                'From' => anything,
-                'To' => [
-                  {
-                    'Email' => to_user.email,
-                    'Name' => to_user.full_name,
-                  },
-                ],
-                'Cc' => [
-                  {
-                    'Email' => cc_contact1.email,
-                    'Name' => cc_contact1.full_name,
-                  },
-                  {
-                    'Email' => cc_contact2.email,
-                    'Name' => cc_contact2.full_name,
-                  },
-                ],
-                'Variables' => mailjet_template_vars,
-                'TemplateLanguage' => true,
-                'TemplateID' => mailjet_template_id,
-              }
-            ]
+            from_name: anything,
+            from_email: anything,
+            to: "#{to_user.full_name} <#{to_user.email}>",
+            cc: "#{cc_contact1.full_name} <#{cc_contact1.email}>, #{cc_contact2.full_name} <#{cc_contact2.email}>",
+            vars: mailjet_template_vars,
+            'Mj-TemplateLanguage' => true,
+            'Mj-TemplateID' => mailjet_template_id,
           )
 
           subject

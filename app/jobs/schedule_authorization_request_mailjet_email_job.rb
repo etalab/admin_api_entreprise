@@ -17,22 +17,19 @@ class ScheduleAuthorizationRequestMailjetEmailJob < ApplicationJob
 
   def deliver_mailjet_email(message)
     Mailjet::Send.create(
-      messages: [
-        message,
-      ]
+      message,
     )
   end
 
   def build_message(mailjet_attributes)
     {
-      'From' => {
-        'Email' => Rails.configuration.emails_sender_address,
-      },
-      'To' => build_recipient_attributes(mailjet_attributes['to']),
-      'Cc' => build_recipient_attributes(mailjet_attributes['cc']),
-      'Variables' => mailjet_attributes['vars'],
-      'TemplateLanguage' => true,
-      'TemplateID' => mailjet_attributes['template_id'],
+      from_name: 'API Entreprise',
+      from_email: Rails.configuration.emails_sender_address,
+      to: build_recipient_attributes(mailjet_attributes['to']),
+      cc: build_recipient_attributes(mailjet_attributes['cc']),
+      vars: mailjet_attributes['vars'],
+      'Mj-TemplateLanguage' => true,
+      'Mj-TemplateID' => mailjet_attributes['template_id'],
     }.compact
   end
 
@@ -42,11 +39,8 @@ class ScheduleAuthorizationRequestMailjetEmailJob < ApplicationJob
     recipient_payloads.map do |recipient_payload|
       recipient_payload.stringify_keys!
 
-      {
-        'Name' => recipient_payload['full_name'],
-        'Email' => recipient_payload['email'],
-      }
-    end
+      "#{recipient_payload['full_name']} <#{recipient_payload['email']}>"
+    end.join(', ')
   end
 
   def set_mailjet_context_for_sentry(mailjet_exception)
