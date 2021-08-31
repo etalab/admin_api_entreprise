@@ -22,6 +22,7 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
       }.to change { authorization_request.reload.intitule }.to(datapass_webhook_params['data']['pass']['intitule'])
 
       expect(authorization_request.last_update.to_i).to eq(fired_at)
+      expect(authorization_request.status).to eq('sent')
     end
 
     it 'updates contacts associated to authorization request' do

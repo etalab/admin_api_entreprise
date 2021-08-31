@@ -33,6 +33,7 @@ FactoryBot.define do
     sequence(:id) { |n| "#{n}" }
     intitule { 'intitule from webhook' }
     description { 'description from webhook' }
+    status { 'sent' }
 
     user { build(:datapass_webhook_user_model) }
 

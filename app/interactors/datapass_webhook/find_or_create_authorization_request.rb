@@ -36,6 +36,7 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
     context.data['pass'].slice(
       'intitule',
       'description',
+      'status',
     ).merge(authorization_request_attributes_for_current_event).merge(
       'last_update' => fired_at_as_datetime,
     )
