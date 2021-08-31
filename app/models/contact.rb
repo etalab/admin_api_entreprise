@@ -3,7 +3,7 @@ class Contact < ApplicationRecord
   has_one :jwt_api_entreprise, through: :authorization_request
 
   def full_name
-    "#{last_name} #{first_name}"
+    "#{last_name.try(:upcase)} #{first_name}"
   end
 
   scope :not_expired, lambda {

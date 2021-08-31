@@ -16,7 +16,7 @@ class User < ApplicationRecord
   end
 
   def full_name
-    "#{last_name} #{first_name}"
+    "#{last_name.try(:upcase)} #{first_name}"
   end
 
   def tokens_newly_transfered?

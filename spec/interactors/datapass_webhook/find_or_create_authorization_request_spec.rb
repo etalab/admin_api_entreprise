@@ -25,8 +25,8 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
     end
 
     it 'updates contacts associated to authorization request' do
-      expect(authorization_request.contact_metier.full_name).not_to eq("metier last name metier first name")
-      expect(authorization_request.contact_technique.full_name).not_to eq("technique last name technique first name")
+      expect(authorization_request.contact_metier.full_name).not_to eq("METIER LAST NAME metier first name")
+      expect(authorization_request.contact_technique.full_name).not_to eq("TECHNIQUE LAST NAME technique first name")
 
       expect(authorization_request.contact_technique.email).not_to match(/technique\d+@/)
       expect(authorization_request.contact_metier.email).not_to match(/metier\d+@/)
@@ -38,8 +38,8 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
       expect(authorization_request.contact_technique.email).to match(/technique\d+@/)
       expect(authorization_request.contact_metier.email).to match(/metier\d+@/)
 
-      expect(authorization_request.contact_metier.full_name).to eq("metier last name metier first name")
-      expect(authorization_request.contact_technique.full_name).to eq("technique last name technique first name")
+      expect(authorization_request.contact_metier.full_name).to eq("METIER LAST NAME metier first name")
+      expect(authorization_request.contact_technique.full_name).to eq("TECHNIQUE LAST NAME technique first name")
     end
 
     context 'when it is the same user' do
