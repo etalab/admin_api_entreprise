@@ -1,4 +1,6 @@
 class ScheduleAuthorizationRequestMailjetEmailJob < ApplicationJob
+  queue_as :default
+
   attr_reader :authorization_request
 
   def perform(authorization_request_id, authorization_request_status, mailjet_attributes)
