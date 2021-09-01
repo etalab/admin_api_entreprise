@@ -14,13 +14,13 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
   private
 
   def create_or_update_contacts
-    create_or_update_contact(:technique)
-    create_or_update_contact(:metier)
+    create_or_update_contact(:responsable_technique, :technique)
+    create_or_update_contact(:contact_metier, :metier)
   end
 
-  def create_or_update_contact(kind)
-    contact = context.authorization_request.public_send("contact_#{kind}") || context.authorization_request.public_send("build_contact_#{kind}")
-    contact_payload = contact_payload_for(kind)
+  def create_or_update_contact(from_kind, to_kind)
+    contact = context.authorization_request.public_send("contact_#{to_kind}") || context.authorization_request.public_send("build_contact_#{to_kind}")
+    contact_payload = contact_payload_for(from_kind)
 
     contact.assign_attributes(
       last_name: contact_payload['family_name'],
@@ -62,8 +62,8 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
   end
 
   def contact_payload_for(kind)
-    context.data['pass']['contacts'].find do |contact_payload|
-      contact_payload['id'] == kind.to_s
+    context.data['pass']['team_members'].find do |contact_payload|
+      contact_payload['type'] == kind.to_s
     end
   end
 

@@ -6,8 +6,8 @@ RSpec.describe DatapassWebhook::FindOrCreateUser, type: :interactor do
   describe '.call' do
     subject { described_class.call(datapass_webhook_params) }
 
-    let(:datapass_webhook_params) { build(:datapass_webhook, user_attributes: user_attributes) }
-    let(:user_attributes) do
+    let(:datapass_webhook_params) { build(:datapass_webhook, demandeur_attributes: demandeur_attributes) }
+    let(:demandeur_attributes) do
       {
         email: generate(:email),
       }
@@ -23,14 +23,14 @@ RSpec.describe DatapassWebhook::FindOrCreateUser, type: :interactor do
         }.to change { User.count }.by(1)
 
         user = User.last
-        expect(user.oauth_api_gouv_id).to eq(datapass_webhook_params['data']['pass']['user']['uid'])
-        expect(user.first_name).to eq('John')
-        expect(user.last_name).to eq('Doe')
+        expect(user.oauth_api_gouv_id).to be_present
+        expect(user.first_name).to eq('demandeur first name')
+        expect(user.last_name).to eq('demandeur last name')
       end
     end
 
     context 'when there is already a user with the same email' do
-      let!(:user) { create(:user, email: user_attributes[:email]) }
+      let!(:user) { create(:user, email: demandeur_attributes[:email]) }
 
       it { is_expected.to be_a_success }
       it { expect(subject.user).to eq(user) }
@@ -44,7 +44,7 @@ RSpec.describe DatapassWebhook::FindOrCreateUser, type: :interactor do
       it 'updates existing user with attributes' do
         expect {
           subject
-        }.to change { user.reload.first_name }.to('John')
+        }.to change { user.reload.first_name }.to('demandeur first name')
       end
     end
   end

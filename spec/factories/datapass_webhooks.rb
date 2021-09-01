@@ -12,7 +12,7 @@ FactoryBot.define do
     end
 
     transient do
-      user_attributes { nil }
+      demandeur_attributes { nil }
       authorization_request_attributes { nil }
     end
 
@@ -21,8 +21,12 @@ FactoryBot.define do
         datapass_webhook['data']['pass'] = build(:datapass_webhook_pass_model, evaluator.authorization_request_attributes)
       end
 
-      if evaluator.user_attributes
-        datapass_webhook['data']['pass']['user'] = build(:datapass_webhook_user_model, evaluator.user_attributes)
+      if evaluator.demandeur_attributes
+        datapass_webhook['data']['pass']['team_members'].reject! do |team_member_model|
+          team_member_model['type'] == 'demandeur'
+        end
+
+        datapass_webhook['data']['pass']['team_members'] << build(:datapass_webhook_team_member_model, evaluator.demandeur_attributes.merge(type: 'demandeur'))
       end
     end
   end
@@ -35,14 +39,15 @@ FactoryBot.define do
     description { 'description from webhook' }
     status { 'sent' }
 
-    user { build(:datapass_webhook_user_model) }
-
     events { build_list(:datapass_webhook_event_model, 2) }
 
-    contacts do
+    team_members do
       [
-        build(:datapass_webhook_contact_model, id: 'metier'),
-        build(:datapass_webhook_contact_model, id: 'technique'),
+        build(:datapass_webhook_team_member_model, type: 'demandeur'),
+        build(:datapass_webhook_team_member_model, type: 'delegue_protection_donnees'),
+        build(:datapass_webhook_team_member_model, type: 'responsable_traitement'),
+        build(:datapass_webhook_team_member_model, type: 'responsable_technique'),
+        build(:datapass_webhook_team_member_model, type: 'contact_metier'),
       ]
     end
 
@@ -55,26 +60,19 @@ FactoryBot.define do
     end
   end
 
-  factory :datapass_webhook_user_model, class: Hash do
+  factory :datapass_webhook_team_member_model, class: Hash do
     initialize_with { attributes.stringify_keys }
 
     sequence(:id) { |n| "#{n}" }
     sequence(:uid) { |n| "uid#{n}" }
-    given_name { 'John' }
-    family_name { 'Doe' }
-    sequence(:email) { |n| "john.doe.#{n}@service.api.gouv.fr" }
-  end
-
-  factory :datapass_webhook_contact_model, class: Hash do
-    initialize_with { attributes.stringify_keys }
-
-    id { 'random' }
+    type { 'demandeur' }
     phone_number { '0256743256' }
 
-    after(:build) do |contact_model|
-      contact_model['family_name'] = "#{contact_model['id']} last name"
-      contact_model['given_name'] = "#{contact_model['id']} first name"
-      contact_model['email'] = "#{contact_model['id']}#{rand(9001)}@service.gouv.fr"
+    after(:build) do |team_member_model|
+      team_member_model['family_name'] ||= "#{team_member_model['type']} last name"
+      team_member_model['given_name'] ||= "#{team_member_model['type']} first name"
+      team_member_model['email'] ||= "#{team_member_model['type']}#{rand(9001)}@service.gouv.fr"
+      team_member_model['job'] ||= "#{team_member_model['type'].humanize}"
     end
   end
 

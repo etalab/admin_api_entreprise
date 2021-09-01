@@ -19,6 +19,8 @@ class DatapassWebhook::FindOrCreateUser < ApplicationInteractor
   end
 
   def user_attributes
-    context.data['pass']['user']
+    context.data['pass']['team_members'].find do |team_member|
+      team_member['type'] == 'demandeur'
+    end
   end
 end
