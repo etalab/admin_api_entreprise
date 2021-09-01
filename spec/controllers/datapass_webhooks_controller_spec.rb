@@ -43,16 +43,8 @@ RSpec.describe DatapassWebhooksController, type: :controller do
     end
 
     context 'with a valid hub signature' do
-      let(:token_id) { 'token id' }
-
       before do
         allow_any_instance_of(HubSignature).to receive(:valid?).and_return(true)
-
-        allow(DatapassWebhook).to receive(:call).and_return(
-          OpenStruct.new(
-            token_id: token_id,
-          )
-        )
       end
 
       it 'calls DatapassWebhook' do
@@ -80,26 +72,6 @@ RSpec.describe DatapassWebhooksController, type: :controller do
         )
 
         subject
-      end
-
-      context 'when event is validate_application' do
-        let(:event) { 'validate_application' }
-
-        it 'renders a json with a token id' do
-          subject
-
-          expect(JSON.parse(response.body)['token_id']).to eq(token_id)
-        end
-      end
-
-      context 'when event is not validate_application' do
-        let(:event) { 'whatever' }
-
-        it 'renders an empty json' do
-          subject
-
-          expect(JSON.parse(response.body)).to eq({})
-        end
       end
     end
   end
