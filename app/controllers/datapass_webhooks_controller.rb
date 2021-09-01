@@ -9,7 +9,7 @@ class DatapassWebhooksController < ApplicationController
     if event == 'validate_application'
       render json: {
         token_id: result.token_id
-      }
+      }.compact
     else
       render json: {}
     end
