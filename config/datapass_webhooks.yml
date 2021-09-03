@@ -35,7 +35,7 @@ production: &production
   updated: {}
   owner_updated: {}
   rgpd_contact_updated: {}
-  sent_application:
+  send_application:
     emails:
       - id: '3098391'
       - id: '3098436'
@@ -49,19 +49,53 @@ production: &production
   refuse_application:
     emails:
       - id: '3084277'
-  # FIXME
   validate_application:
     emails:
-      - id: '51'
+      - id: '3090261'
         condition_on_authorization: 'all_contacts_have_the_same_email?'
-      - id: '52'
+
+
+      - id: '3090303'
         condition_on_authorization: 'all_contacts_have_different_emails?'
         to:
           - 'authorization_request.user'
+      - id: '3090321'
+        condition_on_authorization: 'all_contacts_have_different_emails?'
+        to:
+          - 'authorization_request.contact_technique'
         cc:
+          - 'authorization_request.user'
+      - id: '3084241'
+        condition_on_authorization: 'all_contacts_have_different_emails?'
+        to:
           - 'authorization_request.contact_metier'
+        cc:
+          - 'authorization_request.user'
           - 'authorization_request.contact_technique'
 
+
+      - id: '3090303'
+        condition_on_authorization: 'user_is_contact_metier_and_not_contact_technique?'
+        to:
+          - 'authorization_request.user'
+      - id: '3090321'
+        condition_on_authorization: 'user_is_contact_metier_and_not_contact_technique?'
+        to:
+          - 'authorization_request.contact_technique'
+        cc:
+          - 'authorization_request.user'
+
+
+      - id: '3090261'
+        condition_on_authorization: 'user_is_contact_technique_and_not_contact_metier?'
+        to:
+          - 'authorization_request.user'
+      - id: '3084241'
+        condition_on_authorization: 'user_is_contact_technique_and_not_contact_metier?'
+        to:
+          - 'authorization_request.contact_metier'
+        cc:
+          - 'authorization_request.user'
 
 sandbox: *production
 staging: *production
