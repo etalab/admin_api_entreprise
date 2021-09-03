@@ -34,10 +34,8 @@ class DatapassWebhook::ExtractMailjetVariables < ApplicationInteractor
   end
 
   def add_token_roles
-    context.mailjet_variables['token_roles'] ||= {}
-
     available_role_codes.each do |role|
-      context.mailjet_variables['token_roles']["role_#{role}"] = token_roles.include?(role)
+      context.mailjet_variables["token_role_#{role}"] = token_roles.include?(role).to_s
     end
   end
 

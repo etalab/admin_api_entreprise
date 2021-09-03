@@ -112,14 +112,8 @@ sont mis à jour avant l'envoi des emails, et décrit ci-dessous.
 Si un jeton est associé à la demande (théoriquement seulement dans le cas de la
 validation), les variables suivantes sont disponibles:
 
-1. `token_roles`, hash de configuration des authorizations associé à la demande.
-   Le format est le suivant:
-   ```json
-   {
-     "role_entreprise": true,
-     "role_exercices": false
-   }
-   ```
+1. `token_role_ROLE`, `boolean`, détermine si ROLE est associé au jeton. La
+   liste des rôles est celle en base de données.
 
 ## Mise à jour des attributs des contacts
 

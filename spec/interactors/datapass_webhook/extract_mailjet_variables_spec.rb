@@ -56,13 +56,11 @@ RSpec.describe DatapassWebhook::ExtractMailjetVariables, type: :interactor do
     end
 
     it 'sets token_roles with these values, excluding uptime' do
-      expect(subject.mailjet_variables['token_roles']).to be_present
+      expect(subject.mailjet_variables['token_role_uptime']).to be_nil
+      expect(subject.mailjet_variables['token_role_entreprise']).to eq 'true'
+      expect(subject.mailjet_variables['token_role_liasse_fiscale']).to eq 'true'
 
-      expect(subject.mailjet_variables['token_roles']['role_uptime']).to be_nil
-      expect(subject.mailjet_variables['token_roles']['role_entreprise']).to eq true
-      expect(subject.mailjet_variables['token_roles']['role_liasse_fiscale']).to eq true
-
-      expect(subject.mailjet_variables['token_roles']['role_etablissement']).to eq false
+      expect(subject.mailjet_variables['token_role_etablissement']).to eq 'false'
     end
   end
 end
