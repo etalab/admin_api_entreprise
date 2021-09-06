@@ -16,7 +16,7 @@ class CreateAuthorizationRequests < ActiveRecord::Migration[6.1]
     add_column :contacts, :authorization_request_id, :uuid
     add_column :jwt_api_entreprises, :authorization_request_model_id, :uuid
 
-    JwtApiEntreprise.includes(:contacts).where.not(authorization_request_id: nil).find_each do |jwt_api_entreprise|
+    JwtApiEntreprise.where.not(authorization_request_id: nil).find_each do |jwt_api_entreprise|
       authorization_request = AuthorizationRequest.create!(
         intitule: jwt_api_entreprise.subject,
         external_id: jwt_api_entreprise.authorization_request_id,
@@ -26,7 +26,7 @@ class CreateAuthorizationRequests < ActiveRecord::Migration[6.1]
         user_id: jwt_api_entreprise.user_id,
       )
 
-      jwt_api_entreprise.contacts.each do |contact|
+      Contact.where(jwt_api_entreprise_id: jwt_api_entreprise.id).each do |contact|
         contact.update!(
           authorization_request_id: authorization_request.id,
         )
