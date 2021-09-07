@@ -12,4 +12,8 @@ class UsersQuery
     @relation.left_outer_joins(:jwt_api_entreprise).
       where.not(jwt_api_entreprise: { id: nil }).uniq
   end
+
+  def recently_created
+    @relation.where('created_at > ?', 1.week.ago.beginning_of_week)
+  end
 end
