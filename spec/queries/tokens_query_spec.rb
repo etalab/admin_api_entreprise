@@ -59,4 +59,40 @@ RSpec.describe TokensQuery, type: :query do
       expect(results).to eq([unused_token])
     end
   end
+
+  describe 'recently_created' do
+    let(:now) { Time.local(2021, 8, 24, 12, 0) } # mardi 24 aout midi
+
+    before do
+      Timecop.freeze(now)
+    end
+
+    after do
+      Timecop.return
+    end
+
+    def create_token_at(time)
+      create(:jwt_api_entreprise, created_at: time, updated_at: time)
+    end
+
+    let!(:created_now_token)              { create_token_at(now) }
+    let!(:created_lundi)                  { create_token_at(now - 1.day) }
+
+    let!(:created_mardi_dernier)          { create_token_at(now - 7.day) }
+    let!(:created_lundi_dernier)          { create_token_at(now - 8.day) }
+    let!(:created_dimanche_en_8_dernier)  { create_token_at(now - 9.day) }
+
+    subject(:results) { described_class.new.recently_created }
+
+    it '#call returns tokens created this week and last week' do
+      expect(results).to include(*[
+        created_now_token,
+        created_lundi,
+        created_mardi_dernier,
+        created_lundi_dernier
+      ])
+
+      expect(results).not_to include(created_dimanche_en_8_dernier)
+    end
+  end
 end
