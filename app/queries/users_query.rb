@@ -1,0 +1,10 @@
+class UsersQuery
+  def initialize(relation = User.all)
+    @relation = relation
+  end
+
+  def without_token
+    @relation.left_outer_joins(:jwt_api_entreprise).
+      where(jwt_api_entreprise: { id: nil })
+  end
+end
