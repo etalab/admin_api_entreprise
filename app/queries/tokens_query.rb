@@ -8,4 +8,10 @@ class TokensQuery
 
     @relation.where(exp: interval_range)
   end
+
+  def unused
+    used_jwt_ids = UsedJwtIdsElasticQuery.new.perform
+
+    @relation.where.not(id: used_jwt_ids)
+  end
 end

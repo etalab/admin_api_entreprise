@@ -3,7 +3,7 @@ class PrivateMetricsController < ApplicationController
 
   def index
     render json: {
-      unused_tokens_list: UnusedJwtApiEntrepriseQuery.new.perform,
+      unused_tokens_list: TokensQuery.new.unused,
       tokens_expiring_in_less_than_1_week: tokens_expiring_in_less_than_1_week,
       tokens_expiring_in_less_than_1_month_but_after_1_week: tokens_expiring_in_less_than_1_month_but_after_1_week,
       tokens_expiring_in_less_than_3_months_but_after_1_month: tokens_expiring_in_less_than_3_months_but_after_1_month
