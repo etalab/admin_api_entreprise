@@ -7,4 +7,9 @@ class UsersQuery
     @relation.left_outer_joins(:jwt_api_entreprise).
       where(jwt_api_entreprise: { id: nil })
   end
+
+  def with_token
+    @relation.left_outer_joins(:jwt_api_entreprise).
+      where.not(jwt_api_entreprise: { id: nil }).uniq
+  end
 end
