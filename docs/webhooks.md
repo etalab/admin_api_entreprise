@@ -98,6 +98,17 @@ Les variables ci-dessous sont disponibles quelque soit l'état de la demande:
 1. `authorization_request_id`, `integer`, l'ID de la demande DataPass
 1. `authorization_request_intitule`, `string`, l'intitulé de la demande DataPass
 1. `authorization_request_description`, `string`, la description de la demande DataPass
+1. `demandeur_first_name`, `string`, le prénom du demandeur
+1. `demandeur_last_name`, `string`, le nom du demandeur
+1. `demandeur_email`, `string`, l'email du demandeur
+1. `contact_metier_first_name`, `string`, le prénom du contact métier
+1. `contact_metier_last_name`, `string`, le nom du contact métier
+1. `contact_metier_email`, `string`, l'email du contact métier
+1. `contact_technique_first_name`, `string`, le prénom du contact technique
+1. `contact_technique_last_name`, `string`, le nom du contact technique
+1. `contact_technique_email`, `string`, l'email du contact technique
+
+A noter que les variables associées aux contacts peuvent être vides.
 
 Si l'événement est initié par un instructeur (`refuse_application`,
 `review_application`, `validate_application`, `review`), les variables suivantes

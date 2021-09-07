@@ -13,6 +13,25 @@ class DatapassWebhook::ExtractMailjetVariables < ApplicationInteractor
       'authorization_request_id'          => authorization_request.external_id,
       'authorization_request_intitule'    => authorization_request.intitule,
       'authorization_request_description' => authorization_request.description,
+    }.merge(
+      build_contact_payload(:user),
+    ).merge(
+      build_contact_payload(:contact_metier),
+    ).merge(
+      build_contact_payload(:contact_technique),
+    )
+  end
+
+  def build_contact_payload(contact_kind)
+    model = authorization_request.public_send(contact_kind)
+    key = contact_kind == :user ? :demandeur : contact_kind
+
+    return {} if model.blank?
+
+    {
+      "#{key}_first_name" => model.first_name,
+      "#{key}_last_name" => model.last_name,
+      "#{key}_email" => model.email,
     }
   end
 

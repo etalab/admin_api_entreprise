@@ -19,6 +19,10 @@ RSpec.describe DatapassWebhook::ExtractMailjetVariables, type: :interactor do
     expect(subject.mailjet_variables['authorization_request_intitule']).to eq(authorization_request.intitule)
     expect(subject.mailjet_variables['authorization_request_description']).to eq(authorization_request.description)
 
+    expect(subject.mailjet_variables['demandeur_first_name']).to eq(authorization_request.user.first_name)
+    expect(subject.mailjet_variables['demandeur_last_name']).to eq(authorization_request.user.last_name)
+    expect(subject.mailjet_variables['demandeur_email']).to eq(authorization_request.user.email)
+
     expect(subject.mailjet_variables['token_roles']).to be_nil
   end
 
@@ -61,6 +65,21 @@ RSpec.describe DatapassWebhook::ExtractMailjetVariables, type: :interactor do
       expect(subject.mailjet_variables['token_role_liasse_fiscale']).to eq 'true'
 
       expect(subject.mailjet_variables['token_role_etablissement']).to eq 'false'
+    end
+  end
+
+  context 'when authorization request has contacts' do
+    let(:authorization_request) { create(:authorization_request, :with_contacts) }
+
+    it 'adds contact metier and technique first, last name and email' do
+      %w[
+        technique
+        metier
+      ].each do |contact_kind|
+        expect(subject.mailjet_variables["contact_#{contact_kind}_first_name"]).to be_present
+        expect(subject.mailjet_variables["contact_#{contact_kind}_last_name"]).to be_present
+        expect(subject.mailjet_variables["contact_#{contact_kind}_email"]).to be_present
+      end
     end
   end
 end
