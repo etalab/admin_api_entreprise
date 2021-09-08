@@ -14,8 +14,6 @@ gem 'pg'
 gem 'puma'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 5.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
@@ -47,6 +45,9 @@ gem 'pundit'
 gem 'elasticsearch', '= 7.10.1'
 
 gem 'pastel'
+
+# Nice charts
+gem 'chartkick'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
@@ -83,6 +84,9 @@ group :development do
   gem 'spring-watcher-listen'
   gem 'mina', '~> 1.2'
   gem 'rubocop', require: false
+
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :test do
