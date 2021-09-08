@@ -52,7 +52,7 @@ RSpec.describe User::Operation::TransferOwnership do
       it 'removes token ownership from the old user' do
         subject
 
-        expect(old_owner.jwt_api_entreprise).to be_empty
+        expect(old_owner.reload.jwt_api_entreprise).to be_empty
       end
 
       it 'sends a notification email' do
@@ -93,7 +93,7 @@ RSpec.describe User::Operation::TransferOwnership do
       it 'removes token ownership to the old user' do
         subject
 
-        expect(old_owner.jwt_api_entreprise).to be_empty
+        expect(old_owner.reload.jwt_api_entreprise).to be_empty
       end
 
       it 'sends a notification email for account creation' do

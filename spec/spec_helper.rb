@@ -36,6 +36,10 @@ if ARGV.grep(/spec\.rb/).empty? && !defined?(Spring)
   end
 end
 
+require 'capybara/rspec'
+require 'capybara/apparition'
+Capybara.javascript_driver = :apparition
+
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
