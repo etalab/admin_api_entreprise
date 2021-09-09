@@ -1,4 +1,4 @@
-class Api::OAuthApiGouvController < ApplicationController
+class Api::OAuthApiGouvController < ApiController
   skip_before_action :jwt_authenticate!, only: [:login]
 
   def login

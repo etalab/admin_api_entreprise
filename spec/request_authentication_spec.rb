@@ -1,16 +1,16 @@
 require 'rails_helper'
 
-RSpec.describe 'Request authentication', type: :controller do
+RSpec.describe ApiController, type: :controller do
   # Use of anonymous controller with random action which inherits from
   # ApplicationController to test authentication callback genericity
-  controller(ApplicationController) do
+  controller do
     def random_action
       render json: { very: 'random' }, status: 200
     end
   end
 
   before do
-    routes.draw { get 'random_action' => 'anonymous#random_action' }
+    routes.draw { get 'random_action' => 'api#random_action' }
   end
 
   context 'when Authorization header is absent' do
