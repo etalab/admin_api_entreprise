@@ -1,4 +1,4 @@
-class IncidentsController < ApplicationController
+class Api::IncidentsController < ApplicationController
   skip_before_action :jwt_authenticate!, only: [:index]
 
   def index

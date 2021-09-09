@@ -1,4 +1,4 @@
-class JwtApiEntrepriseController < ApplicationController
+class Api::JwtApiEntrepriseController < ApplicationController
   skip_before_action :jwt_authenticate!, only: [:show_magic_link]
 
   def index

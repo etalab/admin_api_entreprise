@@ -1,4 +1,4 @@
-class RolesController < ApplicationController
+class Api::RolesController < ApplicationController
   skip_before_action :jwt_authenticate!, only: [:index]
 
   def index
