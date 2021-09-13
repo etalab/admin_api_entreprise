@@ -20,11 +20,11 @@ class API::PrivateMetricsController < APIController
     @tokens_active_this_month = UsedJwtIdsElasticQuery.new(30).perform.count
     @tokens_inactive_this_month = JwtApiEntreprise.all.count - @tokens_active_this_month
 
-		@users_recently_created = UsersQuery.new.recently_created
+    @users_recently_created = UsersQuery.new.recently_created.results
     # TODO : we have a naive expectation here : all tokens are not "valid", ie they can be archived / blacklisted
     # we could achieve that with additional explicit scoping in UsersQuery or default scoping
 
-  	@users_with_recent_unused_token = TokensQuery.new.unused.recently_created.users.uniq
+    @users_with_recent_unused_token = User.where(id: TokensQuery.new.unused.recently_created.results).distinct
     render 'private_metrics/index'
   end
 

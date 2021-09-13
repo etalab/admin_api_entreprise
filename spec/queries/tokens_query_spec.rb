@@ -16,7 +16,7 @@ RSpec.describe TokensQuery, type: :query do
       Timecop.return
     end
 
-    subject(:results) { described_class.new.expiring_within_interval(interval_start: interval_start, interval_stop: interval_stop) }
+    subject(:results) { described_class.new.expiring_within_interval(interval_start: interval_start, interval_stop: interval_stop).results }
 
     let!(:token_expiring_within_interval)                 { create(:jwt_api_entreprise, exp: 7.days.from_now) }
     let!(:token_expiring_early_within_interval_start_day) { create(:jwt_api_entreprise, exp: interval_start.beginning_of_day) }
@@ -53,7 +53,7 @@ RSpec.describe TokensQuery, type: :query do
       )
     end
 
-    subject(:results) { described_class.new.unused }
+    subject(:results) { described_class.new.unused.results }
 
     it 'returns unused_tokens only' do
       expect(results).to eq([unused_token])
@@ -82,7 +82,7 @@ RSpec.describe TokensQuery, type: :query do
     let!(:created_lundi_dernier)          { create_token_at(now - 8.day) }
     let!(:created_dimanche_en_8_dernier)  { create_token_at(now - 9.day) }
 
-    subject(:results) { described_class.new.recently_created }
+    subject(:results) { described_class.new.recently_created.results }
 
     it '#call returns tokens created this week and last week' do
       expect(results).to include(*[

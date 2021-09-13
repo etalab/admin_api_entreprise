@@ -5,7 +5,7 @@ RSpec.describe UsersQuery, type: :query do
     let!(:user_with_token)     { create(:user, :with_jwt) }
     let!(:user_without_token)  { create(:user) }
 
-    subject(:results) { described_class.new.without_token }
+    subject(:results) { described_class.new.without_token.results }
 
     it 'returns users with no tokens' do
       expect(results).to eq([user_without_token])
@@ -16,7 +16,7 @@ RSpec.describe UsersQuery, type: :query do
     let!(:user_with_token)     { create(:user, :with_jwt) }
     let!(:user_without_token)  { create(:user) }
 
-    subject(:results) { described_class.new.with_token }
+    subject(:results) { described_class.new.with_token.results }
 
     it 'returns users with no tokens' do
       expect(results).to eq([user_with_token])
@@ -45,7 +45,7 @@ RSpec.describe UsersQuery, type: :query do
     let!(:created_lundi_dernier)          { create_user_at(now - 8.day) }
     let!(:created_dimanche_en_8_dernier)  { create_user_at(now - 9.day) }
 
-    subject(:results) { described_class.new.recently_created }
+    subject(:results) { described_class.new.recently_created.results }
 
     it '#call returns users created this week and last week' do
       expect(results).to include(*[
