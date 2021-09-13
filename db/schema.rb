@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_23_080558) do
+ActiveRecord::Schema.define(version: 2021_08_30_072250) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "authorization_requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "intitule"
+    t.string "description"
+    t.string "external_id"
+    t.string "status"
+    t.datetime "last_update"
+    t.datetime "first_submitted_at"
+    t.datetime "validated_at"
+    t.datetime "created_at"
+    t.uuid "user_id", null: false
+    t.index ["external_id"], name: "index_authorization_requests_on_external_id", unique: true, where: "(external_id IS NOT NULL)"
+  end
 
   create_table "contacts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email"
@@ -22,6 +36,9 @@ ActiveRecord::Schema.define(version: 2021_06_23_080558) do
     t.uuid "jwt_api_entreprise_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.uuid "authorization_request_id"
     t.index ["created_at"], name: "index_contacts_on_created_at"
     t.index ["jwt_api_entreprise_id"], name: "index_contacts_on_jwt_api_entreprise_id"
   end
@@ -51,6 +68,7 @@ ActiveRecord::Schema.define(version: 2021_06_23_080558) do
     t.boolean "access_request_survey_sent", default: false, null: false
     t.string "magic_link_token"
     t.datetime "magic_link_issuance_date"
+    t.uuid "authorization_request_model_id"
     t.index ["access_request_survey_sent"], name: "index_jwt_api_entreprises_on_access_request_survey_sent"
     t.index ["archived"], name: "index_jwt_api_entreprises_on_archived"
     t.index ["blacklisted"], name: "index_jwt_api_entreprises_on_blacklisted"
@@ -129,6 +147,8 @@ ActiveRecord::Schema.define(version: 2021_06_23_080558) do
     t.string "oauth_api_gouv_id"
     t.boolean "admin", default: false
     t.boolean "tokens_newly_transfered", default: false
+    t.string "first_name"
+    t.string "last_name"
     t.index ["created_at"], name: "index_users_on_created_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["pwd_renewal_token"], name: "index_users_on_pwd_renewal_token"

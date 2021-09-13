@@ -43,20 +43,24 @@ RSpec.describe DatapassWebhooksController, type: :controller do
     end
 
     context 'with a valid hub signature' do
+      let(:token_id) { 'token id' }
+      let(:success) { true }
+
       before do
         allow_any_instance_of(HubSignature).to receive(:valid?).and_return(true)
+
+        allow(DatapassWebhook).to receive(:call).and_return(
+          OpenStruct.new(
+            token_id: token_id,
+            success?: success,
+          )
+        )
       end
 
       it 'calls DatapassWebhook' do
         expect(DatapassWebhook).to receive(:call)
 
         subject
-      end
-
-      it 'renders 200' do
-        subject
-
-        expect(response.code).to eq('200')
       end
 
       it 'tracks through Sentry the incoming payload' do
@@ -72,6 +76,46 @@ RSpec.describe DatapassWebhooksController, type: :controller do
         )
 
         subject
+      end
+
+      context 'when DatapassWebhook succeed' do
+        let(:success) { true }
+
+        it 'renders 200' do
+          subject
+
+          expect(response.code).to eq('200')
+        end
+
+        context 'when event is validate_application' do
+          let(:event) { 'validate_application' }
+
+          it 'renders a json with a token id' do
+            subject
+
+            expect(JSON.parse(response.body)['token_id']).to eq(token_id)
+          end
+        end
+
+        context 'when event is not validate_application' do
+          let(:event) { 'whatever' }
+
+          it 'renders an empty json' do
+            subject
+
+            expect(JSON.parse(response.body)).to eq({})
+          end
+        end
+      end
+
+      context 'when DatapassWebhook fails' do
+        let(:success) { false }
+
+        it 'renders 422' do
+          subject
+
+          expect(response.code).to eq('422')
+        end
       end
     end
   end

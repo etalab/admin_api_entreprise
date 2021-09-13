@@ -1,11 +1,18 @@
 FactoryBot.define do
+  sequence(:email) { |n| "user_#{n}@example.org" }
+
   factory :user do
-    sequence(:email) { |n| "user_#{n}@example.org" }
+    email
     sequence(:oauth_api_gouv_id) { |n| "#{n}" }
     context { 'VERY_DEVELOPMENT' }
     cgu_agreement_date { Time.zone.now }
     password { 'Coucou123' }
     tokens_newly_transfered { false }
+
+    trait :with_full_name do
+      first_name { 'Jean-Marie' }
+      last_name { 'Gigot' }
+    end
 
     trait :admin do
       admin { true }

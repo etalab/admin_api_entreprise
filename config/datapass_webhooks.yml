@@ -1,0 +1,101 @@
+# Check https://github.com/betagouv/signup-back/tree/master/docs/webhooks.md for all events and their details
+---
+development: &development
+  created: {}
+  updated: {}
+  owner_updated: {}
+  rgpd_contact_updated: {}
+  send_application:
+    emails:
+      - id: '11'
+      - id: '12'
+        when: 'in 14 days'
+  notify: {}
+  review_application: {}
+  refuse_application:
+    emails:
+      - id: '51'
+        condition_on_authorization: 'user_first_name_is_run?'
+      - id: '52'
+        condition_on_authorization: 'user_last_name_is_run?'
+        to:
+          - 'authorization_request.contact_metier'
+        cc:
+          - 'authorization_request.contact_technique'
+          - 'authorization_request.user'
+  validate_application: {}
+test: *development
+
+production: &production
+  created:
+    emails:
+      - id: '3098115'
+      - id: '3098214'
+        when: 'in 14 days'
+  updated: {}
+  owner_updated: {}
+  rgpd_contact_updated: {}
+  send_application:
+    emails:
+      - id: '3098391'
+      - id: '3098436'
+        when: 'in 14 days'
+  notify: {}
+  review_application:
+    emails:
+      - id: '3098236'
+      - id: '3098155'
+        when: 'in 14 days'
+  refuse_application:
+    emails:
+      - id: '3084277'
+  validate_application:
+    emails:
+      - id: '3090261'
+        condition_on_authorization: 'all_contacts_have_the_same_email?'
+
+
+      - id: '3090303'
+        condition_on_authorization: 'all_contacts_have_different_emails?'
+        to:
+          - 'authorization_request.user'
+      - id: '3090321'
+        condition_on_authorization: 'all_contacts_have_different_emails?'
+        to:
+          - 'authorization_request.contact_technique'
+        cc:
+          - 'authorization_request.user'
+      - id: '3084241'
+        condition_on_authorization: 'all_contacts_have_different_emails?'
+        to:
+          - 'authorization_request.contact_metier'
+        cc:
+          - 'authorization_request.user'
+          - 'authorization_request.contact_technique'
+
+
+      - id: '3090303'
+        condition_on_authorization: 'user_is_contact_metier_and_not_contact_technique?'
+        to:
+          - 'authorization_request.user'
+      - id: '3090321'
+        condition_on_authorization: 'user_is_contact_metier_and_not_contact_technique?'
+        to:
+          - 'authorization_request.contact_technique'
+        cc:
+          - 'authorization_request.user'
+
+
+      - id: '3090261'
+        condition_on_authorization: 'user_is_contact_technique_and_not_contact_metier?'
+        to:
+          - 'authorization_request.user'
+      - id: '3084241'
+        condition_on_authorization: 'user_is_contact_technique_and_not_contact_metier?'
+        to:
+          - 'authorization_request.contact_metier'
+        cc:
+          - 'authorization_request.user'
+
+sandbox: *production
+staging: *production

@@ -56,6 +56,10 @@ gem 'chartkick'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'logstasher'
 
+gem 'interactor'
+
+gem 'chronic'
+
 gem 'sentry-ruby'
 gem 'sentry-rails'
 
