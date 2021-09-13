@@ -141,8 +141,8 @@ RSpec.describe JwtApiEntreprise::Operation::Create do
       end
     end
 
-    describe ':authorization_request_id' do
-      let(:errors) { subject['result.contract.default'].errors[:authorization_request_id] }
+    describe ':authorization_request_id (which is renamed external_id)' do
+      let(:errors) { subject['result.contract.default'].errors[:external_id] }
 
       it 'is required' do
         token_params.delete(:authorization_request_id)
@@ -183,7 +183,7 @@ RSpec.describe JwtApiEntreprise::Operation::Create do
         token_params.delete(:contacts)
 
         expect(subject).to be_failure
-        expect(errors).to include('must be filled')
+        expect(errors).to include('is missing')
       end
 
       pending 'business and tech contacts are required'

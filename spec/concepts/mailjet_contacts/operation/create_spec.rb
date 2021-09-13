@@ -8,7 +8,7 @@ RSpec.describe MailjetContacts::Operation::Create do
   end
 
   context 'when a user with a tech contact is present in the DB' do
-    let(:user) { create(:contact, :tech).jwt_api_entreprise.user }
+    let(:user) { create(:contact, :tech).authorization_request.user }
 
     context 'when he was added a long time ago' do
       let(:creation_period) { Faker::Time.between(from: 10.years.ago, to: 1.day.ago) }

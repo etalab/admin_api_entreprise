@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe JwtApiEntreprise, type: :model do
+  it 'has valid factories' do
+    expect(build(:jwt_api_entreprise)).to be_valid
+  end
+
   let(:jwt) { create(:jwt_api_entreprise) }
 
   describe 'db_columns' do
@@ -32,8 +36,8 @@ RSpec.describe JwtApiEntreprise, type: :model do
   end
 
   describe 'relationships' do
-    it { is_expected.to belong_to(:user) }
-    it { is_expected.to have_many(:contacts).dependent(:delete_all) }
+    it { is_expected.to have_one(:user) }
+    it { is_expected.to have_many(:contacts) }
     it { is_expected.to have_and_belong_to_many(:roles) }
   end
 
@@ -200,11 +204,18 @@ RSpec.describe JwtApiEntreprise, type: :model do
   end
 
   describe '#renewal_url' do
-    it 'returns the Signup\'s form URL' do
-      j = create(:jwt_api_entreprise, subject: 'coucou subject', authorization_request_id: '42')
-      url = Rails.configuration.jwt_renewal_url + '42'
+    let(:external_id) { generate(:external_authorization_request_id) }
 
-      expect(j.renewal_url).to eq(url)
+    before do
+      jwt.authorization_request.update!(
+        external_id: external_id,
+      )
+    end
+
+    it 'returns the Signup\'s form URL' do
+      url = Rails.configuration.jwt_renewal_url + external_id
+
+      expect(jwt.renewal_url).to eq(url)
     end
   end
 

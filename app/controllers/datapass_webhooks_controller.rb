@@ -1,11 +1,23 @@
 class DatapassWebhooksController < ApplicationController
   skip_before_action :jwt_authenticate!
+  skip_before_action :verify_authenticity_token
+
   before_action :track_payload_through_sentry
   before_action :verify_hub_signature!
 
   def create
     result = DatapassWebhook.call(**datapass_webhook_params)
 
+    if result.success?
+      handle_success(result)
+    else
+      render json: {}, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def handle_success(result)
     if event == 'validate_application'
       render json: {
         token_id: result.token_id
@@ -14,8 +26,6 @@ class DatapassWebhooksController < ApplicationController
       render json: {}
     end
   end
-
-  private
 
   def datapass_webhook_params
     params.permit(

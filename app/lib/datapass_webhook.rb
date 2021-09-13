@@ -1,5 +1,10 @@
 class DatapassWebhook
-  def self.call(...)
-    OpenStruct.new(token_id: nil)
-  end
+  include ::Interactor::Organizer
+
+  organize ::DatapassWebhook::FindOrCreateUser,
+           ::DatapassWebhook::FindOrCreateAuthorizationRequest,
+           ::DatapassWebhook::CreateJwtToken,
+           ::DatapassWebhook::UpdateMailjetContacts,
+           ::DatapassWebhook::ExtractMailjetVariables,
+           ::DatapassWebhook::ScheduleAuthorizationRequestEmails
 end

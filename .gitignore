@@ -12,6 +12,14 @@
 !/log/.keep
 !/tmp/.keep
 
+# Ignore pidfiles, but keep the directory.
+/tmp/pids/*
+!/tmp/pids/
+!/tmp/pids/.keep
+
+# Ignore uploaded files in development.
+/storage/*
+!/storage/.keep
 # Ignore database dumps
 /dumps/*
 !/dumps/.keep
@@ -19,6 +27,7 @@
 # Ignore files from simplecov
 /coverage/*
 
+/public/assets
 .byebug_history
 .idea
 .rvmrc
@@ -28,3 +37,6 @@
 /config/credentials/sandbox.key
 /config/credentials/staging.key
 /config/credentials/production.key
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
