@@ -42,7 +42,7 @@ gem 'dry-validation', '~> 0.11.1'
 gem 'mailjet'
 gem 'pundit'
 
-gem 'elasticsearch', '= 7.10.1'
+gem 'elasticsearch', '7.14.1'
 
 gem 'pastel'
 
