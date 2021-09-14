@@ -2,12 +2,6 @@ class API::PrivateMetricsController < APIController
   skip_before_action :jwt_authenticate!
 
   def index
-    #render json: {
-    #  unused_tokens_list: TokensQuery.new.unused,
-    #  tokens_expiring_in_less_than_1_week: tokens_expiring_in_less_than_1_week,
-    #  tokens_expiring_in_less_than_1_month_but_after_1_week: tokens_expiring_in_less_than_1_month_but_after_1_week,
-    #  tokens_expiring_in_less_than_3_months_but_after_1_month: tokens_expiring_in_less_than_3_months_but_after_1_month
-    #}, status: 200
     @histogram = User.all.group_by{ |u| u.created_at.beginning_of_month }.map{ |d, results| [d.strftime('%Y-%m'), results.count] }
 
     @tokens_expiring_in_less_than_1_week = tokens_expiring_in_less_than_1_week
@@ -25,6 +19,10 @@ class API::PrivateMetricsController < APIController
     # we could achieve that with additional explicit scoping in UsersQuery or default scoping
 
     @users_with_recent_unused_token = User.where(id: TokensQuery.new.unused.recently_created.results).distinct
+		@users_with_production_delayed_jti = User.where(id:
+			MonthPlusOldNotInProductionJwtIdsElasticQuery.new.perform
+		)
+
     render 'private_metrics/index'
   end
 
@@ -59,8 +57,5 @@ class API::PrivateMetricsController < APIController
   def now
     @now ||= Time.now
   end
-
-  #new_users_histogram: User.all.group_by{ |u| u.created_at.beginning_of_month }.map{ |d, results| [d.strftime('%Y-%m'), results.count] },
-  #active_jwt_count:
 end
 

@@ -5,7 +5,7 @@ class UsedJwtIdsElasticQuery
 
   def perform
     if Rails.env.development?
-      [UsersQuery.new.with_token.first.jwt_api_entreprise.first.id]
+      [UsersQuery.new.with_token.results.first.jwt_api_entreprise.first.id]
     else
       $elastic.search(body: used_jti_ids_json_query, size: 0).dig('aggregations', 'unique-jti', 'buckets').map{ |bucket| bucket['key'] }
     end
