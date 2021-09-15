@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe OAuthApiGouvController, type: :controller do
+RSpec.describe Api::OAuthApiGouvController, type: :controller do
   describe '#login' do
     let(:login_params) { { authorization_code: code } }
 

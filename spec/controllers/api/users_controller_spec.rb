@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UsersController, type: :controller do
+RSpec.describe Api::UsersController, type: :controller do
   describe '#index' do
     before { create_list(:user, 5) }
 

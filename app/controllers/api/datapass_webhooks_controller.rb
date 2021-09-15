@@ -1,4 +1,4 @@
-class DatapassWebhooksController < ApplicationController
+class Api::DatapassWebhooksController < ApiController
   skip_before_action :jwt_authenticate!
   skip_before_action :verify_authenticity_token
 

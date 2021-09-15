@@ -1,4 +1,4 @@
-class PrivateMetricsController < ApplicationController
+class PrivateMetricsController < ApiController
   skip_before_action :jwt_authenticate!
 
   def index
