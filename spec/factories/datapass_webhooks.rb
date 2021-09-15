@@ -38,6 +38,7 @@ FactoryBot.define do
     intitule { 'intitule from webhook' }
     description { 'description from webhook' }
     status { 'sent' }
+    copied_from_enrollment_id { nil }
 
     events { build_list(:datapass_webhook_event_model, 2) }
 
