@@ -44,4 +44,9 @@ Rails.application.routes.draw do
       get '/private_metrics' => 'private_metrics#index'
     end
   end
+
+  root to: redirect('/login')
+
+  get '/login', to: 'oauth_api_gouv_logins#new'
+  get '/login/create', to: 'oauth_api_gouv_logins#create'
 end
