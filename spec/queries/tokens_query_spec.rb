@@ -84,7 +84,7 @@ RSpec.describe TokensQuery, type: :query do
 
     subject(:results) { described_class.new.recently_created.results }
 
-    it '#call returns tokens created this week and last week' do
+    it 'returns tokens created this week and last week' do
       expect(results).to include(*[
         created_now_token,
         created_lundi,
@@ -93,6 +93,52 @@ RSpec.describe TokensQuery, type: :query do
       ])
 
       expect(results).not_to include(created_dimanche_en_8_dernier)
+    end
+  end
+
+  describe 'relevent' do
+    let(:now) { Time.local(2021, 8, 24, 12, 0) } # mardi 24 aout midi
+
+    before do
+      Timecop.freeze(now)
+    end
+
+    after do
+      Timecop.return
+    end
+
+    let!(:already_expired_token) { create(:jwt_api_entreprise, exp: now.yesterday) }
+    let!(:blacklisted_token)     { create(:jwt_api_entreprise, blacklisted: true) }
+    let!(:archived_token)        { create(:jwt_api_entreprise, archived: true) }
+    let!(:relevent_token)        { create(:jwt_api_entreprise, exp: 1.year.from_now, blacklisted: nil, archived: nil) }
+
+    subject(:results) { described_class.new.relevent.results }
+
+    it 'returns tokens not expired, archived or blacklisted' do
+      expect(results).to eq([relevent_token])
+    end
+  end
+
+  describe 'default scope' do
+    let(:now) { Time.local(2021, 8, 24, 12, 0) } # mardi 24 aout midi
+
+    before do
+      Timecop.freeze(now)
+    end
+
+    after do
+      Timecop.return
+    end
+
+    let!(:already_expired_token) { create(:jwt_api_entreprise, exp: now.yesterday) }
+    let!(:blacklisted_token)     { create(:jwt_api_entreprise, blacklisted: true) }
+    let!(:archived_token)        { create(:jwt_api_entreprise, archived: true) }
+    let!(:relevent_token)        { create(:jwt_api_entreprise, exp: 1.year.from_now, blacklisted: nil, archived: nil) }
+
+    subject(:results) { described_class.new..results }
+
+    it 'returns relevent tokens only' do
+      expect(described_class.new.results.to_a).to eq(described_class.new.relevent.results.to_a)
     end
   end
 end

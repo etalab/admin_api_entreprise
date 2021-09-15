@@ -1,6 +1,8 @@
 class TokensQuery
   def initialize(relation = JwtAPIEntreprise.all)
     @relation = relation
+
+    self.relevent
   end
 
   def results
@@ -29,6 +31,15 @@ class TokensQuery
 
   def recently_created
     @relation = @relation.where('created_at > ?', 1.week.ago.beginning_of_week)
+
+    self
+  end
+
+  def relevent
+    @relation = @relation.
+      where(archived: [nil, false]).
+      where(blacklisted: [nil, false]).
+      where('exp > ?', Time.zone.now.to_i)
 
     self
   end
