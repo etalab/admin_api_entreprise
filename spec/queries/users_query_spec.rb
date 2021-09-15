@@ -47,7 +47,7 @@ RSpec.describe UsersQuery, type: :query do
 
     subject(:results) { described_class.new.recently_created.results }
 
-    it '#call returns users created this week and last week' do
+    it 'returns users created this week and last week' do
       expect(results).to include(*[
         created_now_user,
         created_lundi,
@@ -56,6 +56,26 @@ RSpec.describe UsersQuery, type: :query do
       ])
 
       expect(results).not_to include(created_dimanche_en_8_dernier)
+    end
+  end
+
+  describe 'relevent' do
+    let!(:admin_user)   { create(:user, admin: true) }
+    let!(:regular_user) { create(:user) }
+
+    subject(:results) { described_class.new.relevent.results }
+
+    it 'returns users not admin' do
+      expect(results.to_a).to eq([regular_user])
+    end
+  end
+
+  describe 'default scope' do
+    let!(:admin_user)   { create(:user, admin: true) }
+    let!(:regular_user) { create(:user) }
+
+    it 'returns relevent users' do
+      expect(described_class.new.results.to_a).to eq(described_class.new.relevent.results.to_a)
     end
   end
 end
