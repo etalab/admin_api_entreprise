@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe TokensQuery, type: :query do
+  def create_token_at(time)
+    create(:jwt_api_entreprise, created_at: time, updated_at: time)
+  end
+
   describe 'expiring_within_interval' do
     let(:now)               { Time.local(2021,8,26,12,0) }
     let(:interval_start)    { 3.days.from_now  }
@@ -71,16 +75,12 @@ RSpec.describe TokensQuery, type: :query do
       Timecop.return
     end
 
-    def create_token_at(time)
-      create(:jwt_api_entreprise, created_at: time, updated_at: time)
-    end
-
     let!(:created_now_token)              { create_token_at(now) }
-    let!(:created_lundi)                  { create_token_at(now - 1.day) }
+    let!(:created_lundi)                  { create_token_at(1.day.ago) }
 
-    let!(:created_mardi_dernier)          { create_token_at(now - 7.day) }
-    let!(:created_lundi_dernier)          { create_token_at(now - 8.day) }
-    let!(:created_dimanche_en_8_dernier)  { create_token_at(now - 9.day) }
+    let!(:created_mardi_dernier)          { create_token_at(7.day.ago) }
+    let!(:created_lundi_dernier)          { create_token_at(8.day.ago) }
+    let!(:created_dimanche_en_8_dernier)  { create_token_at(9.day.ago) }
 
     subject(:results) { described_class.new.recently_created.results }
 
@@ -137,10 +137,37 @@ RSpec.describe TokensQuery, type: :query do
     let!(:relevent_token)        { create(:jwt_api_entreprise, exp: 1.year.from_now, blacklisted: nil, archived: nil) }
     let!(:uptime_robot_token)    { create(:jwt_api_entreprise, subject: 'mon token UptimeRobot interne') }
 
-    subject(:results) { described_class.new..results }
+    subject(:results) { described_class.new.results }
 
     it 'returns relevent tokens only' do
-      expect(described_class.new.results.to_a).to eq(described_class.new.relevent.results.to_a)
+      expect(results.to_a).to eq(described_class.new.relevent.results.to_a)
+    end
+  end
+
+  describe 'production_delayed' do
+    let(:now) { Time.local(2021, 8, 24, 12, 0) } # mardi 24 aout midi
+
+    before do
+      Timecop.freeze(now)
+    end
+
+    after do
+      Timecop.return
+    end
+
+    let(:month_plus_old_not_in_production_token)  { create_token_at(45.day.ago) }
+    let(:month_plus_old_in_production_token)      { create_token_at(45.day.ago) }
+
+    before do
+      allow_any_instance_of(MonthPlusOldNotInProductionJwtIdsElasticQuery).to receive(:perform).and_return(
+        month_plus_old_not_in_production_token.id
+      )
+    end
+
+    subject(:results) { described_class.new.production_delayed.results }
+
+    it 'returns tokens not in production aged one month or plus' do
+      expect(results.to_a).to eq([month_plus_old_not_in_production_token])
     end
   end
 end
