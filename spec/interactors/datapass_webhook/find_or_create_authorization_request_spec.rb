@@ -5,9 +5,10 @@ require 'rails_helper'
 RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interactor do
   subject { described_class.call(datapass_webhook_params.merge(user: user)) }
 
-  let(:datapass_webhook_params) { build(:datapass_webhook, fired_at: fired_at, authorization_request_attributes: { id: authorization_id }) }
+  let(:datapass_webhook_params) { build(:datapass_webhook, fired_at: fired_at, authorization_request_attributes: { id: authorization_id, copied_from_enrollment_id: previous_authorization_id }) }
   let(:user) { create(:user) }
-  let(:authorization_id) { rand(1..9001) }
+  let(:authorization_id) { rand(1..4000).to_s }
+  let(:previous_authorization_id) { rand(4001..9001).to_s }
   let(:fired_at) { 2.minutes.ago.to_i }
 
   context 'when authorization request already exists' do
@@ -76,6 +77,7 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
       authorization_request = user.authorization_requests.last
 
       expect(authorization_request.intitule).to eq(datapass_webhook_params['data']['pass']['intitule'])
+      expect(authorization_request.previous_external_id).to eq(datapass_webhook_params['data']['pass']['copied_from_enrollment_id'])
       expect(authorization_request.contacts.count).to eq(2)
       expect(authorization_request.contact_technique.email).to match(/technique\d+@/)
       expect(authorization_request.contact_metier.email).to match(/metier\d+@/)
