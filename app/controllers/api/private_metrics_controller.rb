@@ -1,4 +1,4 @@
-class PrivateMetricsController < ApiController
+class Api::PrivateMetricsController < ApiController
   skip_before_action :jwt_authenticate!
 
   def index
@@ -9,6 +9,7 @@ class PrivateMetricsController < ApiController
     #  tokens_expiring_in_less_than_3_months_but_after_1_month: tokens_expiring_in_less_than_3_months_but_after_1_month
     #}, status: 200
     @histogram = User.all.group_by{ |u| u.created_at.beginning_of_month }.map{ |d, results| [d.strftime('%Y-%m'), results.count] }
+    render 'private_metrics/index'
   end
 
   def tokens_expiring_in_less_than_1_week
