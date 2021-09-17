@@ -13,11 +13,6 @@ Rails.application.routes.draw do
       post '/users/password_renewal'    => 'users#password_renewal'
       post '/users/password_reset'      => 'users#password_reset'
 
-      # Incidents
-      get  '/incidents'     => 'incidents#index'
-      post '/incidents'     => 'incidents#create'
-      put  '/incidents/:id' => 'incidents#update'
-
       #roles
       get  '/roles' => 'roles#index'
       post '/roles' => 'roles#create'

@@ -1,22 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Application routes' do
-  describe 'incidents' do
-    it 'has an index route' do
-      expect(get('api/admin/incidents'))
-        .to route_to(controller: 'api/incidents', action: 'index')
-    end
-
-    it 'has a create route' do
-      expect(post('api/admin/incidents'))
-        .to route_to(controller: 'api/incidents', action: 'create')
-    end
-    it 'has an update route' do
-      expect(put('api/admin/incidents/very_id'))
-        .to route_to(controller: 'api/incidents', action: 'update', id: 'very_id')
-    end
-  end
-
   describe 'roles' do
     it 'has an index route' do
       expect(get('api/admin/roles'))
