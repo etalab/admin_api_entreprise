@@ -157,10 +157,11 @@ RSpec.describe TokensQuery, type: :query do
 
     let(:month_plus_old_not_in_production_token)  { create_token_at(45.day.ago) }
     let(:month_plus_old_in_production_token)      { create_token_at(45.day.ago) }
+    let(:recent_not_in_production_token)          { create_token_at(7.day.ago)  }
 
     before do
-      allow_any_instance_of(MonthPlusOldNotInProductionJwtIdsElasticQuery).to receive(:perform).and_return(
-        month_plus_old_not_in_production_token.id
+      allow_any_instance_of(NotInProductionJwtIdsElasticQuery).to receive(:perform).and_return(
+        [month_plus_old_not_in_production_token.id, recent_not_in_production_token.id]
       )
     end
 

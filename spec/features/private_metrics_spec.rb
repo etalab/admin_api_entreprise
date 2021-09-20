@@ -10,6 +10,10 @@ RSpec.describe 'private metrics', type: :feature do
       user_with_inactive_token.jwt_api_entreprise.pluck(:id)
     )
 
+    allow_any_instance_of(NotInProductionJwtIdsElasticQuery).to receive(:perform).and_return(
+      user_with_inactive_token.jwt_api_entreprise.pluck(:id)
+    )
+
     expect{ visit('/api/admin/private_metrics') }.not_to raise_error
   end
 end

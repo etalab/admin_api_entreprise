@@ -9,6 +9,18 @@ div {
 }
 </style>
 
+<h3> ATTENTION </h3>
+
+<span style='font-weight= bold'>Les statistiques et chiffres que vous consultez sont trompeurs et doivent etre pris avec des pincettes.</span> Nous n'avons pas le contexte ni la granularite suffisante pour prendre ces chiffres pour argent comptant.
+
+Par exemple,
+<ul>
+  <li> un utilisateur peut decider de mettre a jour sa base de donnees par confort. Les appels ne representent alors pas de demarche effectuee au nom d'un beneficiaire quelconque</li>
+  <li> les appels effectues par un utilisateur sont effectues plusieurs fois a cause d'un dysfonctionnement applicatif gonflant artificiellement les statistiques</li>
+</ul>
+
+Nous nous cantonnons a des chiffres generaux permettant de degager des <i>  tendances </i>, et de voir les evolutions. A ce titre, les statistiques ne portent pas sur les utilisateurs administrateurs. Concernant les tokens, ceux de ping, blacklistes, archives ou expires sont exclus des statistiques
+
 <div>
 	<h1> Statistiques generales </h1>
   <table>
@@ -94,6 +106,31 @@ div {
 	</table>
 	</br>
 	</br>
+
+
+  <h2> Utilisateurs avec un token de plus de 30 jours et pas en production </h2>
+    Un token n'est pas considere en production quand il n'a pas au moins appele 20 sirets/siren/rna_id distincts
+  <table>
+    <thead>
+      <tr>
+        <td> Email </td>
+        <td> Contexte </td>
+        <td> Profil </td>
+      </tr>
+    </thead>
+    <tbody>
+			<% @users_with_production_delayed_token.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.context %></td>
+        <td> Lien a creer </td>
+      </tr>
+    </tbody>
+		<% end %>
+	</table>
+	</br>
+	</br>
+
 
 
 </div>

@@ -46,7 +46,9 @@ class TokensQuery
   end
 
   def production_delayed
-    @relation = @relation.where(id: MonthPlusOldNotInProductionJwtIdsElasticQuery.new.perform)
+    @relation = @relation.
+      where('created_at < ?', 30.day.ago).
+      where(id: NotInProductionJwtIdsElasticQuery.new.perform)
 
     self
   end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe MonthPlusOldNotInProductionJwtIdsElasticQuery, type: :service do
+RSpec.describe NotInProductionJwtIdsElasticQuery, type: :service do
   let(:production_delayed_jwt_1){ "ab375719-986e-48b0-9bbb-d45fe9343cc3" }
   let(:production_delayed_jwt_2){ "5af58470-f007-4102-8d48-016ce018de23" }
 

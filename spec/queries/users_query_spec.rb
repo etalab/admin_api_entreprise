@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe UsersQuery, type: :query do
+  def create_user_at(time)
+    create(:user, created_at: time, updated_at: time)
+  end
+
   describe 'without_token' do
     let!(:user_with_token)     { create(:user, :with_jwt) }
     let!(:user_without_token)  { create(:user) }
@@ -34,16 +38,12 @@ RSpec.describe UsersQuery, type: :query do
       Timecop.return
     end
 
-    def create_user_at(time)
-      create(:user, created_at: time, updated_at: time)
-    end
-
     let!(:created_now_user)               { create_user_at(now) }
-    let!(:created_lundi)                  { create_user_at(now - 1.day) }
+    let!(:created_lundi)                  { create_user_at(1.day.ago) }
 
-    let!(:created_mardi_dernier)          { create_user_at(now - 7.day) }
-    let!(:created_lundi_dernier)          { create_user_at(now - 8.day) }
-    let!(:created_dimanche_en_8_dernier)  { create_user_at(now - 9.day) }
+    let!(:created_mardi_dernier)          { create_user_at(7.day.ago) }
+    let!(:created_lundi_dernier)          { create_user_at(8.day.ago) }
+    let!(:created_dimanche_en_8_dernier)  { create_user_at(9.day.ago) }
 
     subject(:results) { described_class.new.recently_created.results }
 
@@ -76,6 +76,34 @@ RSpec.describe UsersQuery, type: :query do
 
     it 'returns relevent users' do
       expect(described_class.new.results.to_a).to eq(described_class.new.relevent.results.to_a)
+    end
+  end
+
+  describe 'with_production_delayed_token' do
+    let(:now) { Time.local(2021, 8, 24, 12, 0) } # mardi 24 aout midi
+
+    before do
+      Timecop.freeze(now)
+    end
+
+    after do
+      Timecop.return
+    end
+
+    let!(:user_with_production_delayed_tokens) { create(:user) }
+    let!(:production_delayed_token_1) { create(:jwt_api_entreprise, user: user_with_production_delayed_tokens, created_at: 45.day.ago, updated_at: 45.day.ago) }
+    let!(:production_delayed_token_2) { create(:jwt_api_entreprise, user: user_with_production_delayed_tokens, created_at: 45.day.ago, updated_at: 45.day.ago) }
+
+    let!(:user_without_production_delayed_token) { create(:user) }
+
+    subject(:results) { described_class.new.with_production_delayed_token.results }
+
+    it 'returns distinct users having at least one production delayed token (30 day+)' do
+      allow_any_instance_of(NotInProductionJwtIdsElasticQuery).to receive(:perform).and_return(
+        [production_delayed_token_1.id, production_delayed_token_2.id]
+      )
+
+      expect(results.to_a).to eq([user_with_production_delayed_tokens])
     end
   end
 end

@@ -1,4 +1,4 @@
-class MonthPlusOldNotInProductionJwtIdsElasticQuery
+class NotInProductionJwtIdsElasticQuery
   def perform
     if Rails.env.development?
       [UsersQuery.new.with_token.results.first.jwt_api_entreprise.first.id]
@@ -14,7 +14,7 @@ class MonthPlusOldNotInProductionJwtIdsElasticQuery
         "bool" => {
           "must" => [
             { "match" =>  { "type" => "siade" }},
-            { "range" =>  { "@timestamp" => { "gte" => "now-730d/d", "lte" => "now-30d/d" }}}
+            { "range" =>  { "@timestamp" => { "gte" => "now-730d/d", "lte" => "now/d" }}}
           ]
         }
       },
