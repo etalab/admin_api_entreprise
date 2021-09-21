@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_17_131948) do
+ActiveRecord::Schema.define(version: 2021_09_21_145440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -131,7 +131,6 @@ ActiveRecord::Schema.define(version: 2021_09_17_131948) do
     t.string "context"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "password_digest", default: "", null: false
     t.datetime "cgu_agreement_date"
     t.text "note", default: ""
     t.string "pwd_renewal_token"

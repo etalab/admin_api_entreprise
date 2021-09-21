@@ -8,9 +8,6 @@ class User < ApplicationRecord
 
   scope :added_since_yesterday, -> { where('created_at > ?', 1.day.ago) }
 
-  # Passing validations: false as argument so password can be blank on creation
-  has_secure_password(validations: false)
-
   def confirmed?
     !!oauth_api_gouv_id
   end
