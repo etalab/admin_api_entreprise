@@ -41,4 +41,8 @@ Rails.application.routes.draw do
   get '/login', to: 'oauth_api_gouv_logins#new'
   post '/auth/api_gouv', as: :login_api_gouv
   match '/auth/api_gouv/callback', to: 'oauth_api_gouv_logins#create', via: [:get, :post]
+
+  # Users
+  get '/users'     => 'users#index'
+  get '/users/:id' => 'users#show', as: :user
 end
