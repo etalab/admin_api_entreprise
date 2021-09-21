@@ -1,4 +1,4 @@
-module JwtApiEntreprise::Contract
+module JwtAPIEntreprise::Contract
   class Update < Reform::Form
     property :blacklisted
     property :archived

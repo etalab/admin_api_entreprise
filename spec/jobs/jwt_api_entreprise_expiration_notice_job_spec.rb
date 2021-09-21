@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe JwtApiEntrepriseExpirationNoticeJob do
+RSpec.describe JwtAPIEntrepriseExpirationNoticeJob do
   subject { described_class.perform_now }
 
   shared_examples 'sending expiration notices' do |nb_days|
     it "sends notifications for JWT expiration in #{nb_days} days" do
-      notifier_spy = class_spy(JwtApiEntreprise::Operation::NotifyExpiration)
-      stub_const('JwtApiEntreprise::Operation::NotifyExpiration', notifier_spy)
+      notifier_spy = class_spy(JwtAPIEntreprise::Operation::NotifyExpiration)
+      stub_const('JwtAPIEntreprise::Operation::NotifyExpiration', notifier_spy)
 
       subject
 

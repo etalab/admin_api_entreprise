@@ -69,7 +69,7 @@ RSpec.configure do |config|
   config.include ResponseHelper, type: :controller
 
   # Include fixtures tokens to test OAuth API Gouv interaction
-  config.include OAuthApiGouv
+  config.include OAuthAPIGouv
 end
 
 Shoulda::Matchers.configure do |config|

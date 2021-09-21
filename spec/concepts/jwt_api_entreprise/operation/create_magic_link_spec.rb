@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe JwtApiEntreprise::Operation::CreateMagicLink do
+RSpec.describe JwtAPIEntreprise::Operation::CreateMagicLink do
   subject { described_class.call(params: op_params, current_user: current_user) }
 
   let(:op_params) do
@@ -16,7 +16,7 @@ RSpec.describe JwtApiEntreprise::Operation::CreateMagicLink do
 
   let(:end_state) { subject.event.to_h[:semantic] }
 
-  context 'when the JwtApiEntreprise record does not exist' do
+  context 'when the JwtAPIEntreprise record does not exist' do
     let(:email_address) { 'whatever' }
     let(:jwt_id) { '0' }
     let(:user_id) { 'whatever' }
@@ -30,11 +30,11 @@ RSpec.describe JwtApiEntreprise::Operation::CreateMagicLink do
 
     it 'does not queue any email' do
       expect { subject }
-        .to_not have_enqueued_mail(JwtApiEntrepriseMailer, :magic_link)
+        .to_not have_enqueued_mail(JwtAPIEntrepriseMailer, :magic_link)
     end
   end
 
-  context 'when the JwtApiEntreprise record exists' do
+  context 'when the JwtAPIEntreprise record exists' do
     let!(:jwt) { create(:jwt_api_entreprise) }
     let(:jwt_id) { jwt.id }
 
@@ -46,7 +46,7 @@ RSpec.describe JwtApiEntreprise::Operation::CreateMagicLink do
 
         it 'queues the magic link email' do
           expect { subject }
-            .to have_enqueued_mail(JwtApiEntrepriseMailer, :magic_link)
+            .to have_enqueued_mail(JwtAPIEntrepriseMailer, :magic_link)
             .with(args: [email_address, jwt])
         end
 
@@ -96,7 +96,7 @@ RSpec.describe JwtApiEntreprise::Operation::CreateMagicLink do
 
         it 'does not queue any email' do
           expect { subject }
-            .to_not have_enqueued_mail(JwtApiEntrepriseMailer, :magic_link)
+            .to_not have_enqueued_mail(JwtAPIEntrepriseMailer, :magic_link)
         end
       end
     end
@@ -114,7 +114,7 @@ RSpec.describe JwtApiEntreprise::Operation::CreateMagicLink do
 
       it 'does not queue any email' do
         expect { subject }
-          .to_not have_enqueued_mail(JwtApiEntrepriseMailer, :magic_link)
+          .to_not have_enqueued_mail(JwtAPIEntrepriseMailer, :magic_link)
       end
     end
   end

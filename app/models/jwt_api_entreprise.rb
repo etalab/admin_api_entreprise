@@ -1,4 +1,4 @@
-class JwtApiEntreprise < ApplicationRecord
+class JwtAPIEntreprise < ApplicationRecord
   include RandomToken
 
   belongs_to :authorization_request, foreign_key: 'authorization_request_model_id', required: false

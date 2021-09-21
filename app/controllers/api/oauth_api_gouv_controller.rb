@@ -1,8 +1,8 @@
-class Api::OAuthApiGouvController < ApiController
+class API::OAuthAPIGouvController < APIController
   skip_before_action :jwt_authenticate!, only: [:login]
 
   def login
-    signin = OAuthApiGouv::Operation::Login.call(params: params)
+    signin = OAuthAPIGouv::Operation::Login.call(params: params)
 
     if signin.success?
       access_token = signin[:dashboard_token]

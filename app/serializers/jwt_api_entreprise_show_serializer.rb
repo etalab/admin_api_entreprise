@@ -1,4 +1,4 @@
-class JwtApiEntrepriseShowSerializer < ActiveModel::Serializer
+class JwtAPIEntrepriseShowSerializer < ActiveModel::Serializer
   attributes :id, :authorization_request_id, :iat, :exp, :blacklisted, :archived
   attribute :subject
   attribute :secret_key

@@ -1,4 +1,4 @@
-module JwtApiEntreprise::Contract
+module JwtAPIEntreprise::Contract
   class Create < Reform::Form
     property :authorization_request
     property :authorization_request_id

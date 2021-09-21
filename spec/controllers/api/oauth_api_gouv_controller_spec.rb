@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe Api::OAuthApiGouvController, type: :controller do
+RSpec.describe API::OAuthAPIGouvController, type: :controller do
   describe '#login' do
     let(:login_params) { { authorization_code: code } }
 
     context 'when the authorization code is valid', vcr: { cassette_name: 'oauth_api_gouv_valid_call' } do
       include_context 'oauth api gouv fresh token'
-      let(:code) { OAuthApiGouv::AuthorizationCode.valid }
+      let(:code) { OAuthAPIGouv::AuthorizationCode.valid }
 
       context 'when the authenticated user exists' do
         let!(:user) { create(:user, :known_api_gouv_user) }
@@ -56,7 +56,7 @@ RSpec.describe Api::OAuthApiGouvController, type: :controller do
     end
 
     context 'when authorization_code param is invalid', vcr: { cassette_name: 'oauth_api_gouv_invalid_authorization_code' } do
-      let(:code) { OAuthApiGouv::AuthorizationCode.invalid }
+      let(:code) { OAuthAPIGouv::AuthorizationCode.invalid }
 
       it 'returns HTTP code 401' do
         get :login, params: login_params, as: :json

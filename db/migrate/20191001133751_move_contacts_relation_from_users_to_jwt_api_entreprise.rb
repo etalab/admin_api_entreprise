@@ -1,4 +1,4 @@
-class MoveContactsRelationFromUsersToJwtApiEntreprise < ActiveRecord::Migration[6.0]
+class MoveContactsRelationFromUsersToJwtAPIEntreprise < ActiveRecord::Migration[6.0]
   def change
     # Move existing data aside
     rename_table :contacts, :old_contacts
@@ -25,7 +25,7 @@ class MoveContactsRelationFromUsersToJwtApiEntreprise < ActiveRecord::Migration[
   end
 
   def link_contacts_to_jwt
-    JwtApiEntreprise.all.each do |jwt|
+    JwtAPIEntreprise.all.each do |jwt|
       # Some JWT have no related user: this is a valid behaviour at the moment
       # When we destroy a user we keep a track of it's given JWT in base
       next if jwt.user.nil?

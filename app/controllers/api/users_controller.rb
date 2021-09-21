@@ -1,4 +1,4 @@
-class Api::UsersController < ApiController
+class API::UsersController < APIController
   skip_before_action :jwt_authenticate!, only: [:password_renewal, :password_reset]
 
   def index

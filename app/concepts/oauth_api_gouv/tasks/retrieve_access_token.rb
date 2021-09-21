@@ -1,6 +1,6 @@
 require 'net/http'
 
-module OAuthApiGouv::Tasks
+module OAuthAPIGouv::Tasks
   class RetrieveAccessToken < Trailblazer::Operation
     step :request_access_tokens
     step :valid_response?

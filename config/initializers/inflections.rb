@@ -9,8 +9,9 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.irregular 'person', 'people'
 #   inflect.uncountable %w( fish sheep )
 
-  inflect.irregular 'JwtApiEntreprise', 'JwtApiEntreprise'
+  inflect.irregular 'JwtAPIEntreprise', 'JwtAPIEntreprise'
 
+  inflect.acronym 'API'
   inflect.acronym 'DB'
   inflect.acronym 'OAuth'
 end

@@ -1,5 +1,5 @@
 class TokensQuery
-  def initialize(relation = JwtApiEntreprise.all)
+  def initialize(relation = JwtAPIEntreprise.all)
     @relation = relation
   end
 

@@ -32,9 +32,9 @@ RSpec.describe DatapassWebhook, type: :interactor do
   it 'creates token and stores id in token_id' do
     expect {
       subject
-    }.to change { JwtApiEntreprise.count }.by(1)
+    }.to change { JwtAPIEntreprise.count }.by(1)
 
-    token = JwtApiEntreprise.last
+    token = JwtAPIEntreprise.last
 
     expect(subject.token_id).to eq(token.id)
   end

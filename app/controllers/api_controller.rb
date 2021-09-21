@@ -1,4 +1,4 @@
-class ApiController < ActionController::Base
+class APIController < ActionController::Base
   include Pundit
   before_action :jwt_authenticate!
 

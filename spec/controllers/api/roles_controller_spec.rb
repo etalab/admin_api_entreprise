@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::RolesController, type: :controller do
+RSpec.describe API::RolesController, type: :controller do
   describe '#index' do
     let(:nb_roles) { 8 }
     before do

@@ -1,4 +1,4 @@
-module OAuthApiGouv
+module OAuthAPIGouv
   module AuthorizationCode
     def self.valid
       'Ief-WSvp96CYrV_OhhgdsycWynhlJk2JcniBacfSNxQ'

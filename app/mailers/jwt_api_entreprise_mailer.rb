@@ -1,4 +1,4 @@
-class JwtApiEntrepriseMailer < ApplicationMailer
+class JwtAPIEntrepriseMailer < ApplicationMailer
   def expiration_notice(jwt, nb_days)
     @jwt = jwt
     @nb_days = nb_days

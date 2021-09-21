@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::JwtApiEntrepriseController, type: :controller do
+RSpec.describe API::JwtAPIEntrepriseController, type: :controller do
   let(:token_params) do
     {
       roles: jwt_roles,
@@ -85,7 +85,7 @@ RSpec.describe Api::JwtApiEntrepriseController, type: :controller do
       context 'when data is valid' do
         it 'creates a valid token' do
           expect { post :create, params: token_params }
-            .to change(JwtApiEntreprise, :count).by(1)
+            .to change(JwtAPIEntreprise, :count).by(1)
         end
 
         it 'creates the contacts' do
@@ -129,7 +129,7 @@ RSpec.describe Api::JwtApiEntrepriseController, type: :controller do
 
         it 'does not create the token' do
           expect { post :create, params: invalid_params }
-            .to_not change(JwtApiEntreprise, :count)
+            .to_not change(JwtAPIEntreprise, :count)
         end
       end
     end
@@ -214,7 +214,7 @@ RSpec.describe Api::JwtApiEntrepriseController, type: :controller do
 
         it 'does not send a magic link through email' do
           expect { call! }
-            .to_not have_enqueued_mail(JwtApiEntrepriseMailer, :magic_link)
+            .to_not have_enqueued_mail(JwtAPIEntrepriseMailer, :magic_link)
         end
       end
 
@@ -241,7 +241,7 @@ RSpec.describe Api::JwtApiEntrepriseController, type: :controller do
 
           it 'does not send a magic link through email' do
             expect { call! }
-              .to_not have_enqueued_mail(JwtApiEntrepriseMailer, :magic_link)
+              .to_not have_enqueued_mail(JwtAPIEntrepriseMailer, :magic_link)
           end
         end
 
@@ -256,7 +256,7 @@ RSpec.describe Api::JwtApiEntrepriseController, type: :controller do
 
           it 'sends a magic link through email' do
             expect { call! }
-              .to have_enqueued_mail(JwtApiEntrepriseMailer, :magic_link)
+              .to have_enqueued_mail(JwtAPIEntrepriseMailer, :magic_link)
               .with(args: [email, jwt])
           end
         end
@@ -300,7 +300,7 @@ RSpec.describe Api::JwtApiEntrepriseController, type: :controller do
 
       it 'does not send a magic link through email' do
         expect { call! }
-          .to_not have_enqueued_mail(JwtApiEntrepriseMailer, :magic_link)
+          .to_not have_enqueued_mail(JwtAPIEntrepriseMailer, :magic_link)
       end
     end
   end

@@ -1,9 +1,9 @@
-class AddArchivedToJwtApiEntreprise < ActiveRecord::Migration[6.0]
+class AddArchivedToJwtAPIEntreprise < ActiveRecord::Migration[6.0]
   def change
     add_column :jwt_api_entreprises, :archived, :boolean, default: false
 
     # Update tokens state: previsoully "blacklisted" tokens are in fact "archived"
-    wrong_blacklist = JwtApiEntreprise.where(blacklisted: true)
+    wrong_blacklist = JwtAPIEntreprise.where(blacklisted: true)
     wrong_blacklist.each do |t|
       t.update(blacklisted: false, archived: true) unless t.id == only_blacklisted_token
     end
