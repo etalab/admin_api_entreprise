@@ -95,9 +95,9 @@ group :development do
 end
 
 group :test do
-  # Adds support for Capybara system testing and selenium driver
+  # Adds support for Capybara system testing and apparition driver
   gem 'capybara', '>= 3.26'
-  gem 'apparition'
+  gem 'apparition', github: 'twalpole/apparition', branch: 'master'
   gem 'vcr'
   gem 'webmock'
   gem 'spring-commands-rspec'

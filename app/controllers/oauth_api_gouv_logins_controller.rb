@@ -11,6 +11,10 @@ class OAuthAPIGouvLoginsController < ApplicationController
     end
   end
 
+  def failure
+    redirect_to login_path
+  end
+
   private
 
   def auth_hash

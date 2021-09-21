@@ -39,6 +39,7 @@ end
 require 'capybara/rspec'
 require 'capybara/apparition'
 Capybara.javascript_driver = :apparition
+Capybara.default_driver = :apparition
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
