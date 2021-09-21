@@ -31,7 +31,6 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'sidekiq'
 gem 'sidekiq-cron'
 
-gem 'doorkeeper', '~> 4.4.0'
 gem 'jwtf', '0.2.0'
 gem 'jwt'
 gem 'active_model_serializers', '~> 0.10.0'

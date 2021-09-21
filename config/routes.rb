@@ -9,7 +9,6 @@ Rails.application.routes.draw do
     scope '/admin' do
       # Authentication
       get  '/oauth_api_gouv/login'      => 'oauth_api_gouv#login'
-      post '/users/login',              to: '/doorkeeper/tokens#create'
 
       #roles
       get  '/roles' => 'roles#index'

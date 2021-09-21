@@ -42,11 +42,6 @@ RSpec.describe 'Application routes' do
         .to route_to(controller: 'api/users', action: 'destroy', id: 'very_id')
     end
 
-    it 'has a login route' do
-      expect(post('api/admin/users/login'))
-        .to route_to(controller: 'doorkeeper/tokens', action: 'create')
-    end
-
     it 'has an account tranfer route' do
       expect(post('api/admin/users/much_id/transfer_ownership'))
         .to route_to(controller: 'api/users', action: 'transfer_ownership', id: 'much_id')
