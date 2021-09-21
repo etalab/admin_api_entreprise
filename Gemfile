@@ -95,7 +95,6 @@ group :development do
 end
 
 group :test do
-  # Adds support for Capybara system testing and apparition driver
   gem 'capybara', '>= 3.26'
   gem 'apparition', github: 'twalpole/apparition', branch: 'master'
   gem 'vcr'

@@ -3,7 +3,7 @@ module OmniAuth::Strategies
     option :name, :api_gouv
 
     option :client_options, {
-      site: 'https://auth-staging.api.gouv.fr',
+      site: Rails.configuration.oauth_api_gouv_baseurl,
       authorize_url: '/oauth/authorize',
       callback_path: '/auth/api_gouv/callback',
       auth_scheme: :basic_auth,

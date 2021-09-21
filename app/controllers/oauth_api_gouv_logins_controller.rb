@@ -3,7 +3,7 @@ class OAuthAPIGouvLoginsController < ApplicationController
   end
 
   def create
-    if @user = User.find_by_email(authenticated_user_email)
+    if @user = User.find_by(email: authenticated_user_email)
       create_login_cookie
       redirect_to_user_homepage
     else
