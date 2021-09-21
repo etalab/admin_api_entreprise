@@ -54,11 +54,6 @@ RSpec.describe 'Application routes' do
   end
 
   describe 'jwt_api_entreprise' do
-    it 'has a create route' do
-      expect(post('api/admin/users/very_user_id/jwt_api_entreprise'))
-        .to route_to(controller: 'api/jwt_api_entreprise', action: 'create', user_id: 'very_user_id')
-    end
-
     it 'has an update route' do
       expect(patch('api/admin/jwt_api_entreprise/very_id'))
         .to route_to(controller: 'api/jwt_api_entreprise', action: 'update', id: 'very_id')

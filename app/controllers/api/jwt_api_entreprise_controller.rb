@@ -8,19 +8,6 @@ class API::JwtAPIEntrepriseController < APIController
     render json: jwt_list, each_serializer: JwtAPIEntrepriseIndexSerializer, status: 200
   end
 
-  def create
-    authorize :admin, :admin?
-    result = JwtAPIEntreprise::Operation::Create.call(params: params)
-
-    if result.success?
-      render json: { new_token: result[:model].rehash }, status: 201
-
-    else
-      errors = result['result.contract.default'].errors.messages
-      render json: { errors: errors }, status: 422
-    end
-  end
-
   def update
     authorize :admin, :admin?
 
