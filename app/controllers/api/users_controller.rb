@@ -10,19 +10,6 @@ class API::UsersController < APIController
     end
   end
 
-  def create
-    authorize :admin, :admin?
-    result = User::Operation::Create.call(params: params)
-
-    if result.success?
-      render json: result[:model], serializer: UserShowSerializer, status: 201
-
-    else
-      errors = result['result.contract.default'].errors.messages
-      render json: { errors: errors }, status: 422
-    end
-  end
-
   def show
     user = User.find(params[:id])
     authorize user

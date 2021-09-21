@@ -27,11 +27,6 @@ RSpec.describe 'Application routes' do
         .to route_to(controller: 'api/users', action: 'index')
     end
 
-    it 'has a create route' do
-      expect(post('api/admin/users'))
-        .to route_to(controller: 'api/users', action: 'create')
-    end
-
     it 'has a show route' do
       expect(get('api/admin/users/very_id'))
         .to route_to(controller: 'api/users', action: 'show', id: 'very_id')
