@@ -40,6 +40,8 @@ gem 'reform'
 gem 'dry-validation', '~> 0.11.1'
 gem 'mailjet'
 gem 'pundit'
+gem 'omniauth-oauth2'
+gem 'omniauth-rails_csrf_protection'
 
 gem 'elasticsearch', '= 7.10.1'
 
