@@ -33,7 +33,7 @@ RSpec.describe DatapassWebhook::ArchivePreviousToken, type: :interactor do
       it 'does nothing' do
         expect {
           subject
-        }.not_to change { JwtApiEntreprise.where(archived: true).count }
+        }.not_to change { JwtAPIEntreprise.where(archived: true).count }
       end
     end
   end
@@ -47,7 +47,7 @@ RSpec.describe DatapassWebhook::ArchivePreviousToken, type: :interactor do
       it 'does nothing' do
         expect {
           subject
-        }.not_to change { JwtApiEntreprise.where(archived: true).count }
+        }.not_to change { JwtAPIEntreprise.where(archived: true).count }
       end
     end
   end

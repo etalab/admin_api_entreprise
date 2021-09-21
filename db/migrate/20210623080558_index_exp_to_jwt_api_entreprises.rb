@@ -1,4 +1,4 @@
-class IndexExpToJwtApiEntreprises < ActiveRecord::Migration[6.1]
+class IndexExpToJwtAPIEntreprises < ActiveRecord::Migration[6.1]
   def change
     add_index(:jwt_api_entreprises, :exp)
   end

@@ -1,4 +1,4 @@
-module JwtApiEntreprise::Operation
+module JwtAPIEntreprise::Operation
   class Create < Trailblazer::Operation
     step Subprocess(AuthorizationRequest::Operation::FindOrCreateFromJwt),
       input: :input_for_authorization_request_retrieval,
@@ -6,8 +6,8 @@ module JwtApiEntreprise::Operation
 
     fail :invalid_authorization_request_params
 
-    step Model(JwtApiEntreprise, :new)
-    step self::Contract::Build(constant: JwtApiEntreprise::Contract::Create)
+    step Model(JwtAPIEntreprise, :new)
+    step self::Contract::Build(constant: JwtAPIEntreprise::Contract::Create)
     step self::Contract::Validate()
     step self::Contract::Persist()
     step :set_token_defaults
@@ -40,12 +40,12 @@ module JwtApiEntreprise::Operation
 
     def set_token_defaults(options, model:, **)
       model.update(
-        JwtApiEntreprise.default_create_params
+        JwtAPIEntreprise.default_create_params
       )
     end
 
     def send_creation_notices(_ctx, model:, **)
-      JwtApiEntrepriseMailer.creation_notice(model).deliver_later
+      JwtAPIEntrepriseMailer.creation_notice(model).deliver_later
     end
   end
 end

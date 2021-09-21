@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe JwtApiEntreprise::Operation::AccessRequestSatisfactionSurvey do
+RSpec.describe JwtAPIEntreprise::Operation::AccessRequestSatisfactionSurvey do
   subject(:call!) { described_class.call }
 
 
@@ -11,7 +11,7 @@ RSpec.describe JwtApiEntreprise::Operation::AccessRequestSatisfactionSurvey do
 
     it 'does not send the survey' do
       expect { call! }
-        .not_to have_enqueued_mail(JwtApiEntrepriseMailer, :satisfaction_survey)
+        .not_to have_enqueued_mail(JwtAPIEntrepriseMailer, :satisfaction_survey)
     end
 
     it 'does not change the JWT state' do
@@ -33,7 +33,7 @@ RSpec.describe JwtApiEntreprise::Operation::AccessRequestSatisfactionSurvey do
 
         it 'does not send the survey' do
           expect { call! }
-            .to_not have_enqueued_mail(JwtApiEntrepriseMailer, :satisfaction_survey)
+            .to_not have_enqueued_mail(JwtAPIEntrepriseMailer, :satisfaction_survey)
         end
 
         it 'does not change the JWT state' do
@@ -49,7 +49,7 @@ RSpec.describe JwtApiEntreprise::Operation::AccessRequestSatisfactionSurvey do
 
         it 'sends an email survey' do
           expect { call! }
-            .to have_enqueued_mail(JwtApiEntrepriseMailer, :satisfaction_survey)
+            .to have_enqueued_mail(JwtAPIEntrepriseMailer, :satisfaction_survey)
             .with(args: [token])
         end
 
@@ -74,7 +74,7 @@ RSpec.describe JwtApiEntreprise::Operation::AccessRequestSatisfactionSurvey do
         it 'does not send it again' do
           expect {
             call!
-          }.not_to have_enqueued_mail(JwtApiEntrepriseMailer, :satisfaction_survey)
+          }.not_to have_enqueued_mail(JwtAPIEntrepriseMailer, :satisfaction_survey)
         end
 
         it 'does not change the JWT state' do
@@ -91,7 +91,7 @@ RSpec.describe JwtApiEntreprise::Operation::AccessRequestSatisfactionSurvey do
         it 'does not send it again' do
           expect {
             call!
-          }.not_to have_enqueued_mail(JwtApiEntrepriseMailer, :satisfaction_survey)
+          }.not_to have_enqueued_mail(JwtAPIEntrepriseMailer, :satisfaction_survey)
         end
 
         it 'does not change the JWT state' do

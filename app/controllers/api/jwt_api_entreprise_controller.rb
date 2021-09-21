@@ -1,16 +1,16 @@
-class Api::JwtApiEntrepriseController < ApiController
+class API::JwtAPIEntrepriseController < APIController
   skip_before_action :jwt_authenticate!, only: [:show_magic_link]
 
   def index
     authorize :admin, :admin?
 
-    jwt_list = JwtApiEntreprise.all
-    render json: jwt_list, each_serializer: JwtApiEntrepriseIndexSerializer, status: 200
+    jwt_list = JwtAPIEntreprise.all
+    render json: jwt_list, each_serializer: JwtAPIEntrepriseIndexSerializer, status: 200
   end
 
   def create
     authorize :admin, :admin?
-    result = JwtApiEntreprise::Operation::Create.call(params: params)
+    result = JwtAPIEntreprise::Operation::Create.call(params: params)
 
     if result.success?
       render json: { new_token: result[:model].rehash }, status: 201
@@ -24,7 +24,7 @@ class Api::JwtApiEntrepriseController < ApiController
   def update
     authorize :admin, :admin?
 
-    update = JwtApiEntreprise::Operation::Update.call(params: update_params)
+    update = JwtAPIEntreprise::Operation::Update.call(params: update_params)
 
     if update.success?
       render json: {}, status: 200
@@ -34,7 +34,7 @@ class Api::JwtApiEntrepriseController < ApiController
   end
 
   def create_magic_link
-    result = JwtApiEntreprise::Operation::CreateMagicLink.call(
+    result = JwtAPIEntreprise::Operation::CreateMagicLink.call(
       params: params,
       current_user: pundit_user,
     )
@@ -56,10 +56,10 @@ class Api::JwtApiEntrepriseController < ApiController
   end
 
   def show_magic_link
-    result = JwtApiEntreprise::Operation::RetrieveFromMagicLink.call(params: params)
+    result = JwtAPIEntreprise::Operation::RetrieveFromMagicLink.call(params: params)
 
     if result.success?
-      render json: result[:jwt], serializer: JwtApiEntrepriseShowSerializer, status: 200
+      render json: result[:jwt], serializer: JwtAPIEntrepriseShowSerializer, status: 200
     else
       render json: { errors: { token: ['not a valid token'] } }, status: 404
     end

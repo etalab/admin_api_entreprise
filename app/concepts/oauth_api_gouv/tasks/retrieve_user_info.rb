@@ -1,6 +1,6 @@
 require 'net/http'
 
-module OAuthApiGouv::Tasks
+module OAuthAPIGouv::Tasks
   class RetrieveUserInfo < Trailblazer::Operation
     step :call_user_info_endpoint
     step :valid_response?

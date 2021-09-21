@@ -16,7 +16,7 @@ module Request::Operation
     end
 
     def decode_jwt(ctx, token:, **)
-      # TODO move AccessToken logic into JwtApiEntreprise model
+      # TODO move AccessToken logic into JwtAPIEntreprise model
       ctx[:jwt_payload] = AccessToken.decode(token)
     rescue JWT::DecodeError
       false

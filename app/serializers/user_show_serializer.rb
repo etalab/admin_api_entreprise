@@ -14,7 +14,7 @@ class UserShowSerializer < ActiveModel::Serializer
     end
   end
 
-  has_many :jwt_api_entreprise, key: 'tokens', serializer: JwtApiEntrepriseShowSerializer do
+  has_many :jwt_api_entreprise, key: 'tokens', serializer: JwtAPIEntrepriseShowSerializer do
     # According to the documentation the method current_user is supposed to be
     # an alias of scope but, for unknown reasons, current_user does not exist
     # inside the block... So here scope == current_user

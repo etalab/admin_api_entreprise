@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe JwtApiEntreprise::Operation::RetrieveFromMagicLink do
+RSpec.describe JwtAPIEntreprise::Operation::RetrieveFromMagicLink do
   subject { described_class.call(params: params) }
 
   let(:params) do

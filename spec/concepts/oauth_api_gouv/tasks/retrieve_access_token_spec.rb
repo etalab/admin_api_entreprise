@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe OAuthApiGouv::Tasks::RetrieveAccessToken do
+RSpec.describe OAuthAPIGouv::Tasks::RetrieveAccessToken do
   subject(:retrieve_tokens!) { described_class.call(authorization_code: code) }
 
   context 'when the authorization code is valid' do
-    let(:code) { OAuthApiGouv::AuthorizationCode.valid }
+    let(:code) { OAuthAPIGouv::AuthorizationCode.valid }
 
     context 'when Admin API credentials are valid', vcr: { cassette_name: 'oauth_api_gouv_valid_call' } do
       context 'when the ID Token is valid' do
@@ -47,7 +47,7 @@ RSpec.describe OAuthApiGouv::Tasks::RetrieveAccessToken do
           # Here we provide an invalid ID Token on code execution
           before do
             allow(AccessToken).to receive(:decode_oauth_api_gouv_id_token)
-              .and_wrap_original { |m, jwt, jwks| m.call(OAuthApiGouv::IdToken.invalid_signature, jwks) }
+              .and_wrap_original { |m, jwt, jwks| m.call(OAuthAPIGouv::IdToken.invalid_signature, jwks) }
           end
 
           it_behaves_like :jwt_validation_failure
@@ -140,7 +140,7 @@ RSpec.describe OAuthApiGouv::Tasks::RetrieveAccessToken do
   end
 
   context 'when the authorization code is invalid', vcr: { cassette_name: 'oauth_api_gouv_invalid_authorization_code' } do
-    let(:code) { OAuthApiGouv::AuthorizationCode.invalid }
+    let(:code) { OAuthAPIGouv::AuthorizationCode.invalid }
 
     it { is_expected.to be_failure }
 

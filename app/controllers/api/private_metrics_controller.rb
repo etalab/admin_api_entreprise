@@ -1,4 +1,4 @@
-class Api::PrivateMetricsController < ApiController
+class API::PrivateMetricsController < APIController
   skip_before_action :jwt_authenticate!
 
   def index
@@ -39,6 +39,6 @@ class Api::PrivateMetricsController < ApiController
 
   #new_users_histogram: User.all.group_by{ |u| u.created_at.beginning_of_month }.map{ |d, results| [d.strftime('%Y-%m'), results.count] },
   #active_jwt_count:
-  #user_wiht_recent_unused_jwt_api_entreprise: JwtApiEntreprise.where.not(id: used_jti).where('created_at > ?', 1.week.ago.beginning_of_week).users.uniq,
+  #user_wiht_recent_unused_jwt_api_entreprise: JwtAPIEntreprise.where.not(id: used_jti).where('created_at > ?', 1.week.ago.beginning_of_week).users.uniq,
 end
 

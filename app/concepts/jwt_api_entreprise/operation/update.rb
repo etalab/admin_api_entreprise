@@ -1,8 +1,8 @@
-module JwtApiEntreprise::Operation
+module JwtAPIEntreprise::Operation
   class Update < Trailblazer::Operation
-    step Model(JwtApiEntreprise, :find_by)
+    step Model(JwtAPIEntreprise, :find_by)
     fail :model_not_found, fail_fast: true
-    step self::Contract::Build(constant: JwtApiEntreprise::Contract::Update)
+    step self::Contract::Build(constant: JwtAPIEntreprise::Contract::Update)
     step self::Contract::Validate()
     step self::Contract::Persist()
     fail :validation_errors

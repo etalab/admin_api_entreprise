@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe JwtApiEntreprise::Operation::Create do
+RSpec.describe JwtAPIEntreprise::Operation::Create do
   let(:user) { create(:user) }
   let(:roles) { create_list(:role, 7) }
   let(:roles_code) { roles.map { |attr| attr.slice(:code) } }
@@ -35,7 +35,7 @@ RSpec.describe JwtApiEntreprise::Operation::Create do
     end
 
     it 'creates the jwt' do
-      expect { subject }.to change(JwtApiEntreprise, :count).by(1)
+      expect { subject }.to change(JwtAPIEntreprise, :count).by(1)
     end
 
     it 'belongs to the correct user' do
@@ -89,7 +89,7 @@ RSpec.describe JwtApiEntreprise::Operation::Create do
 
     describe 'mail notifications' do
       it 'calls the mailer to notice for a JWT creation' do
-        expect(JwtApiEntrepriseMailer).to receive(:creation_notice).and_call_original
+        expect(JwtAPIEntrepriseMailer).to receive(:creation_notice).and_call_original
 
         subject
       end
@@ -97,7 +97,7 @@ RSpec.describe JwtApiEntreprise::Operation::Create do
       # TODO move into a 'when input is invalid' context group
       it 'does not call the mailer' do
         token_params.delete(:user_id)
-        expect(JwtApiEntrepriseMailer).not_to receive(:creation_notice)
+        expect(JwtAPIEntrepriseMailer).not_to receive(:creation_notice)
 
         subject
       end

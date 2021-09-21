@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe JwtApiEntreprise, type: :model do
+RSpec.describe JwtAPIEntreprise, type: :model do
   it 'has valid factories' do
     expect(build(:jwt_api_entreprise)).to be_valid
   end

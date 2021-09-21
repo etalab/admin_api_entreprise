@@ -1,4 +1,4 @@
-class OAuthApiGouvLoginsController < ApplicationController
+class OAuthAPIGouvLoginsController < ApplicationController
   def new
   end
 

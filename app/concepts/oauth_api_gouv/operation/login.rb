@@ -1,11 +1,11 @@
-module OAuthApiGouv::Operation
+module OAuthAPIGouv::Operation
   class Login < Trailblazer::Operation
-    step self::Contract::Validate(constant: OAuthApiGouv::Contract::Login),
+    step self::Contract::Validate(constant: OAuthAPIGouv::Contract::Login),
       Output(:failure) => End(:invalid_params)
     step ->(ctx, params:, **) { ctx[:authorization_code] = params[:authorization_code] }
-    step Subprocess(OAuthApiGouv::Tasks::RetrieveAccessToken),
+    step Subprocess(OAuthAPIGouv::Tasks::RetrieveAccessToken),
       Output(:invalid_authorization_code) => End(:invalid_authorization_code)
-    step Subprocess(OAuthApiGouv::Tasks::RetrieveUserInfo),
+    step Subprocess(OAuthAPIGouv::Tasks::RetrieveUserInfo),
       Output(:unknown_user) => End(:unknown_user)
     step :generate_token_for_dashboard_access
 

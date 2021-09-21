@@ -9,11 +9,9 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.irregular 'person', 'people'
 #   inflect.uncountable %w( fish sheep )
 
-    inflect.irregular 'JwtApiEntreprise', 'JwtApiEntreprise'
-end
+  inflect.irregular 'JwtAPIEntreprise', 'JwtAPIEntreprise'
 
-# These inflection rules are supported but not enabled by default:
-ActiveSupport::Inflector.inflections(:en) do |inflect|
+  inflect.acronym 'API'
   inflect.acronym 'DB'
   inflect.acronym 'OAuth'
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::DatapassWebhooksController, type: :controller do
+RSpec.describe API::DatapassWebhooksController, type: :controller do
   describe '#create' do
     subject do
       post :create, params: params
