@@ -1,6 +1,4 @@
 class API::UsersController < APIController
-  skip_before_action :jwt_authenticate!, only: [:password_renewal, :password_reset]
-
   def index
     authorize :admin, :admin?
     result = User::Operation::Index.call(params: user_params)
@@ -37,26 +35,6 @@ class API::UsersController < APIController
     render json: {}, status: 204
   rescue ActiveRecord::RecordNotFound
     render json: {}, status: 404
-  end
-
-  def password_reset
-    result = User::Operation::ResetPassword.call(params: params)
-
-    if result.success?
-      render json: { access_token: result[:access_token] }, status: 200
-    else
-      render json: { errors: result['errors'] }, status: 422
-    end
-  end
-
-  def password_renewal
-    renewal_request = User::Operation::AskPasswordRenewal.call({ params: { email: params[:email] } })
-
-    if renewal_request.success?
-      render json: {}, status: 200
-    else
-      render json: { errors: renewal_request[:errors] }, status: 422
-    end
   end
 
   def transfer_ownership

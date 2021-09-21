@@ -51,16 +51,6 @@ RSpec.describe 'Application routes' do
       expect(post('api/admin/users/much_id/transfer_ownership'))
         .to route_to(controller: 'api/users', action: 'transfer_ownership', id: 'much_id')
     end
-
-    it 'has a password_renewal route' do
-      expect(post('api/admin/users/password_renewal'))
-        .to route_to(controller: 'api/users', action: 'password_renewal')
-    end
-
-    it 'has a password_reset route' do
-      expect(post('api/admin/users/password_reset'))
-        .to route_to(controller: 'api/users', action: 'password_reset')
-    end
   end
 
   describe 'jwt_api_entreprise' do

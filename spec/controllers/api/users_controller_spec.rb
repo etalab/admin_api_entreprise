@@ -291,44 +291,6 @@ RSpec.describe API::UsersController, type: :controller do
     it_behaves_like 'client user unauthorized', :delete, :destroy, { id: 0 }
   end
 
-  describe '#password_reset' do
-    let(:user) { create(:user, pwd_renewal_token: 'verytoken', pwd_renewal_token_sent_at: 12.hours.ago) }
-    let(:pwd_reset_params) do
-      {
-        token: user.pwd_renewal_token,
-        password: 'Coucou123!',
-        password_confirmation: 'Coucou123!'
-      }
-    end
-
-    context 'when params are valid' do
-      before { post :password_reset, params: pwd_reset_params }
-
-      it 'returns an HTTP code 200' do
-        expect(response.code).to eq('200')
-      end
-
-      it 'returns a JWT token for the user to be logged in' do
-        expect(response_json).to include(access_token: a_kind_of(String))
-      end
-    end
-
-    context 'when params are invalid' do
-      before do
-        pwd_reset_params.delete(:token)
-        post :password_reset, params: pwd_reset_params
-      end
-
-      it 'returns a HTTP code 422' do
-        expect(response.code).to eq('422')
-      end
-
-      it 'returns an error message' do
-        expect(response_json).to match({ errors: { token: ['is missing']}})
-      end
-    end
-  end
-
   describe '#update' do
     let(:user) { create(:user) }
     let(:user_params) do
@@ -372,67 +334,6 @@ RSpec.describe API::UsersController, type: :controller do
             oauth_api_gouv_id: '9001'
           })
         end
-      end
-    end
-  end
-
-  describe '#password_renewal' do
-    let(:renewal_params) { { email: 'test_email' } }
-
-    subject { post :password_renewal, params: renewal_params }
-
-    context 'when the :email params is not present' do
-      before { renewal_params[:email] = nil }
-
-      it 'returns a HTTP code 422' do
-        subject
-
-        expect(response.code).to eq('422')
-      end
-
-      it 'returns an error message' do
-        subject
-
-        expect(response_json).to match({ errors: { email: ['must be filled'] } })
-      end
-    end
-
-    context 'when the email does not identify any user' do
-      it 'returns a HTTP code 422' do
-        subject
-
-        expect(response.code).to eq('422')
-      end
-
-      it 'returns an error message' do
-        subject
-
-        expect(response_json).to match({ errors: { email: ['user with email "test_email" does not exist'] } })
-      end
-    end
-
-    context 'when the user exists' do
-      before do
-        user = create(:user)
-        renewal_params[:email] = user.email
-      end
-
-      it 'returns a HTTP code 200' do
-        subject
-
-        expect(response.code).to eq('200')
-      end
-
-      it 'returns an empty payload' do
-        subject
-
-        expect(response_json).to eq({})
-      end
-
-      it 'sends an email' do
-        expect(UserMailer).to receive(:renew_account_password).and_call_original
-
-        subject
       end
     end
   end
