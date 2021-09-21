@@ -37,9 +37,9 @@ ActiveRecord::Schema.define(version: 2021_09_21_150557) do
     t.uuid "jwt_api_entreprise_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.uuid "authorization_request_id"
     t.string "first_name"
     t.string "last_name"
-    t.uuid "authorization_request_id"
     t.index ["created_at"], name: "index_contacts_on_created_at"
     t.index ["jwt_api_entreprise_id"], name: "index_contacts_on_jwt_api_entreprise_id"
   end
@@ -99,7 +99,6 @@ ActiveRecord::Schema.define(version: 2021_09_21_150557) do
     t.string "first_name"
     t.string "last_name"
     t.index ["created_at"], name: "index_users_on_created_at"
-    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["pwd_renewal_token"], name: "index_users_on_pwd_renewal_token"
   end
 
