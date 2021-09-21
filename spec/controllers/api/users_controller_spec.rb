@@ -252,6 +252,20 @@ RSpec.describe API::UsersController, type: :controller do
 
           expect(tokens_ids_in_payload).to include(*expired_jwt.ids)
         end
+
+        context 'when user does not have jwt token' do
+          before do
+            user.jwt_api_entreprise.each do |token|
+              token.destroy
+            end
+          end
+
+          it 'renders 200 (non regression test)' do
+            get :show, params: { id: user.id }
+
+            expect(response.status).to eq(200)
+          end
+        end
       end
     end
 
