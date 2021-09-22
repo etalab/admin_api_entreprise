@@ -63,5 +63,11 @@ RSpec.describe 'the signin process', type: :feature do
 
       expect(page.current_path).to eq('/login')
     end
+
+    it 'displays an error message' do
+      subject
+
+      expect(find('div.notice').text).to eq('Invalid credentials')
+    end
   end
 end

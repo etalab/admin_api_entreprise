@@ -12,13 +12,17 @@ class OAuthAPIGouvLoginsController < ApplicationController
   end
 
   def failure
-    redirect_to login_path
+    redirect_to login_path, notice: failure_message
   end
 
   private
 
   def auth_hash
     request.env['omniauth.auth']
+  end
+
+  def failure_message
+    params[:message].humanize
   end
 
   def authenticated_user_email
