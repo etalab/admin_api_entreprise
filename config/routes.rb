@@ -44,6 +44,6 @@ Rails.application.routes.draw do
   get '/auth/failure', to: 'oauth_api_gouv_logins#failure'
 
   # Users
-  get '/users'     => 'users#index'
+  get '/users'     => 'users#index', as: :users
   get '/users/:id' => 'users#show', as: :user
 end
