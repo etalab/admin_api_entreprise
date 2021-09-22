@@ -75,6 +75,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'faker'
   gem 'timecop'
+  gem 'rack_session_access'
 end
 
 group :development do

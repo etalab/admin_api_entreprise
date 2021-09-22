@@ -1,8 +1,4 @@
-class UsersController < ApplicationController
-  def index
-
-  end
-
+class UsersController < AuthenticatedUsersController
   def show
 
   end

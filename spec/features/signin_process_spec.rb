@@ -25,7 +25,7 @@ RSpec.describe 'the signin process', type: :feature do
       it 'redirects to the login page' do
         subject
 
-        expect(page.current_path).to eq('/login')
+        expect(page.current_path).to eq(login_path)
       end
     end
 
@@ -35,7 +35,7 @@ RSpec.describe 'the signin process', type: :feature do
       it 'redirects to the users index page' do
         subject
 
-        expect(page.current_path).to eq('/users')
+        expect(page.current_path).to eq(admin_users_path)
       end
     end
 
@@ -45,7 +45,7 @@ RSpec.describe 'the signin process', type: :feature do
       it 'redirects to the user detail page' do
         subject
 
-        expect(page.current_path).to eq("/users/#{user.id}")
+        expect(page.current_path).to eq(user_path(user))
       end
     end
   end
@@ -61,7 +61,7 @@ RSpec.describe 'the signin process', type: :feature do
     it 'redirects to the login page' do
       subject
 
-      expect(page.current_path).to eq('/login')
+      expect(page.current_path).to eq(login_path)
     end
 
     it 'displays an error message' do

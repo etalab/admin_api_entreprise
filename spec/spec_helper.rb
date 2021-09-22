@@ -38,6 +38,7 @@ end
 
 require 'capybara/rspec'
 require 'capybara/apparition'
+require 'rack_session_access/capybara'
 Capybara.javascript_driver = :apparition
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
