@@ -1,11 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'the signin process', type: :feature do
-  it 'delegates authentication to OAuth API Gouv' do
-    visit '/login'
-    click_link 'Identifiez-vous avec votre compte API GOUV'
-
-    expect(page.current_host).to eq('https://auth-staging.api.gouv.fr')
+  subject do
+    visit login_path
+    click_on 'login'
   end
 
   context 'when API Gouv authentication is successful' do
@@ -25,8 +23,7 @@ RSpec.describe 'the signin process', type: :feature do
       let!(:user) { build(:user) }
 
       it 'redirects to the login page' do
-        visit '/login'
-        click_link 'Identifiez-vous avec votre compte API GOUV'
+        subject
 
         expect(page.current_path).to eq('/login')
       end
@@ -36,8 +33,7 @@ RSpec.describe 'the signin process', type: :feature do
       let!(:user) { create(:user, :admin) }
 
       it 'redirects to the users index page' do
-        visit '/login'
-        click_link 'Identifiez-vous avec votre compte API GOUV'
+        subject
 
         expect(page.current_path).to eq('/users')
       end
@@ -47,8 +43,7 @@ RSpec.describe 'the signin process', type: :feature do
       let!(:user) { create(:user) }
 
       it 'redirects to the user detail page' do
-        visit '/login'
-        click_link 'Identifiez-vous avec votre compte API GOUV'
+        subject
 
         expect(page.current_path).to eq("/users/#{user.id}")
       end
@@ -64,8 +59,7 @@ RSpec.describe 'the signin process', type: :feature do
     after { OmniAuth.config.test_mode = false }
 
     it 'redirects to the login page' do
-      visit '/login'
-      click_link 'Identifiez-vous avec votre compte API GOUV'
+      subject
 
       expect(page.current_path).to eq('/login')
     end
