@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr" data-fr-theme="light">
   <head>
     <title><%= t('.title') %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -11,10 +12,16 @@
   </head>
 
   <body>
-    <% flash.each do |name, msg| -%>
-      <%= content_tag :div, msg, class: name %>
-    <% end -%>
+    <%= render partial: 'shared/header' %>
 
-    <%= yield %>
+    <div class="fr-container">
+      <% flash.each do |name, msg| -%>
+        <%= content_tag :div, msg, class: name %>
+      <% end -%>
+
+      <%= yield %>
+    </div>
+
+    <%= render partial: 'shared/footer' %>
   </body>
 </html>
