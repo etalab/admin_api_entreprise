@@ -15,6 +15,10 @@ module OmniAuth::Strategies
 
     uid { raw_info['sub'] }
 
+    def callback_url
+      "https://sandbox.dashboard.entreprise.api.gouv.fr/auth/api_gouv/callback"
+    end
+
     info { raw_info }
 
     private
