@@ -5,6 +5,7 @@ module OmniAuth::Strategies
     option :client_options, {
       site: 'https://auth-staging.api.gouv.fr',
       authorize_url: '/oauth/authorize',
+      callback_path: '/auth/api_gouv/callback',
       auth_scheme: :basic_auth,
       ssl: {
         verify: !Rails.env.development?
@@ -14,10 +15,6 @@ module OmniAuth::Strategies
     option :scope, 'openid email'
 
     uid { raw_info['sub'] }
-
-    def callback_url
-      "https://sandbox.dashboard.entreprise.api.gouv.fr/auth/api_gouv/callback"
-    end
 
     info { raw_info }
 
