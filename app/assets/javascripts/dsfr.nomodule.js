@@ -1,5 +1,7 @@
 /*! DSFR v1.1.0 | SPDX-License-Identifier: MIT | License-Filename: LICENCE.md | restricted use (see terms and conditions) */
 
+document.addEventListener('turbolinks:load', function() {
+
 (function () {
   'use strict';
 
@@ -1923,3 +1925,5 @@
 
 }());
 //# sourceMappingURL=dsfr.nomodule.js.map
+
+});
