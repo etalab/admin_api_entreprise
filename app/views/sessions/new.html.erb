@@ -1,0 +1,7 @@
+<h2>Connectez-vous à votre tableau de bord pour suivre vos endpoints API Entreprise</h2>
+
+<% flash.each do |name, msg| -%>
+  <%= content_tag :div, msg, class: name %>
+<% end -%>
+
+<%= button_to 'Identifiez-vous avec votre compte API GOUV', login_api_gouv_path, method: :post, id: 'login' %>

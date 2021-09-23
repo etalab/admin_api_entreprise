@@ -1,4 +1,4 @@
-class OAuthAPIGouvLoginsController < AuthenticatedUsersController
+class SessionsController < AuthenticatedUsersController
   skip_before_action :authenticate_user!
 
   def new
@@ -7,7 +7,7 @@ class OAuthAPIGouvLoginsController < AuthenticatedUsersController
 
   def create
     if user = User.find_by(email: authenticated_user_email)
-      sign_in(user)
+      sign_in_and_redirect(user)
     else
       redirect_to login_path
     end

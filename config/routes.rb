@@ -38,10 +38,10 @@ Rails.application.routes.draw do
   root to: redirect('/login')
 
   # Authentication
-  get '/login', to: 'oauth_api_gouv_logins#new'
+  get '/login', to: 'sessions#new'
   post '/auth/api_gouv', as: :login_api_gouv
-  match '/auth/api_gouv/callback', to: 'oauth_api_gouv_logins#create', via: [:get, :post]
-  get '/auth/failure', to: 'oauth_api_gouv_logins#failure'
+  match '/auth/api_gouv/callback', to: 'sessions#create', via: [:get, :post]
+  get '/auth/failure', to: 'sessions#failure'
 
   resources :users, only: %i[show]
 
