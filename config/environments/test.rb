@@ -60,7 +60,6 @@ Rails.application.configure do
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
 
-  config.renew_password_url = 'https://sandbox.dashboard.entreprise.api.gouv.fr/account/password_reset'
   config.account_tokens_list_url  = 'https://sandbox.dashboard.entreprise.api.gouv.fr/me/tokens/'
   config.jwt_renewal_url  = 'https://signup-staging.api.gouv.fr/copy-authorization-request/'
   config.jwt_magic_link_url = 'https://sandbox.dashboard.entreprise.api.gouv.fr/magic_link'

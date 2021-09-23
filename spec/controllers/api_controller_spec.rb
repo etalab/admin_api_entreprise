@@ -52,40 +52,4 @@ RSpec.describe APIController, type: :controller do
 
     pending 'denies unwell-signed tokens'
   end
-
-  # Login action resides in Doorkeeper::TokensController which does not
-  # inherits from ApplicationController
-  describe 'Login action', type: :request do
-    let(:user) { create(:user) }
-
-    it 'does not require token authentication' do
-      login_params = {
-        username: user.email,
-        password: user.password,
-        grant_type: 'password'
-      }
-      post '/api/admin/users/login', params: login_params
-
-      expect(response.code).to eq '200'
-      expect(response.body).to include 'access_token'
-    end
-
-    context 'when admin logs in' do
-      let(:admin) { create(:user, :admin) }
-
-      it 'issues a JWT with admin role' do
-        login_params = {
-          username: admin.email,
-          password: AuthenticationHelper::ADMIN_PWD,
-          grant_type: 'password'
-        }
-        post '/api/admin/users/login', params: login_params
-        body = JSON.parse(response.body, symbolize_names: true)
-        jwt = body.fetch(:access_token)
-
-        expect(response.code).to eq '200'
-        expect(extract_payload_from(jwt).fetch(:admin)).to eq true
-      end
-    end
-  end
 end
