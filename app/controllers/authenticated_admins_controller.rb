@@ -1,9 +1,9 @@
-class AuthenticatedAdminsController < ApplicationController
-  before_action :require_admin
+class AuthenticatedAdminsController < AuthenticatedUsersController
+  before_action :authenticate_admin!
 
   private
 
-  def require_admin
+  def authenticate_admin!
     redirect_to user_path(current_user) unless current_user.admin?
   end
 end

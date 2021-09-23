@@ -1,14 +1,13 @@
-class OAuthAPIGouvLoginsController < ApplicationController
-  skip_before_action :require_login
+class OAuthAPIGouvLoginsController < AuthenticatedUsersController
+  skip_before_action :authenticate_user!
 
   def new
-    redirect_current_user_to_homepage if current_user
+    redirect_current_user_to_homepage if user_signed_in?
   end
 
   def create
     if user = User.find_by(email: authenticated_user_email)
-      create_login_session(user)
-      redirect_current_user_to_homepage
+      sign_in(user)
     else
       redirect_to login_path
     end
@@ -25,22 +24,10 @@ class OAuthAPIGouvLoginsController < ApplicationController
   end
 
   def failure_message
-    params[:message].humanize
+    params[:message]
   end
 
   def authenticated_user_email
     auth_hash.try('info').try('email')
-  end
-
-  def create_login_session(user)
-    session[:current_user_id] = user.id
-  end
-
-  def redirect_current_user_to_homepage
-    if current_user.admin?
-      redirect_to admin_users_path
-    else
-      redirect_to user_path(current_user)
-    end
   end
 end

@@ -16,7 +16,7 @@ RSpec.describe 'resources access', type: :feature do
       end
 
       it 'shows an error message' do
-        expect(find('div.alert').text).to eq('Veuillez-vous connecter pour accéder à cette page.')
+        expect(page).to have_css('.alert')
       end
     end
   end
