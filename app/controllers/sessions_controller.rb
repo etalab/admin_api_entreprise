@@ -1,6 +1,4 @@
-class SessionsController < AuthenticatedUsersController
-  skip_before_action :authenticate_user!
-
+class SessionsController < ApplicationController
   def new
     redirect_current_user_to_homepage if user_signed_in?
   end
