@@ -40,6 +40,8 @@ gem 'reform'
 gem 'dry-validation', '~> 0.11.1'
 gem 'mailjet'
 gem 'pundit'
+gem 'omniauth-oauth2'
+gem 'omniauth-rails_csrf_protection'
 
 gem 'elasticsearch', '= 7.10.1'
 
@@ -73,6 +75,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'faker'
   gem 'timecop'
+  gem 'rack_session_access'
 end
 
 group :development do
@@ -93,9 +96,8 @@ group :development do
 end
 
 group :test do
-  # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 3.26'
-  gem 'apparition'
+  gem 'apparition', github: 'twalpole/apparition', branch: 'master'
   gem 'vcr'
   gem 'webmock'
   gem 'spring-commands-rspec'
