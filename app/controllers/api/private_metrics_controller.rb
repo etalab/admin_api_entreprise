@@ -12,7 +12,7 @@ class API::PrivateMetricsController < APIController
     @users_with_token = UsersQuery.new.with_token.count
     @users_without_token = UsersQuery.new.without_token.count
     @tokens_active_this_month = UsedJwtIdsElasticQuery.new(30).perform.count
-    @tokens_inactive_this_month = JwtApiEntreprise.all.count - @tokens_active_this_month
+    @tokens_inactive_this_month = JwtAPIEntreprise.all.count - @tokens_active_this_month
 
     @users_recently_created = UsersQuery.new.recently_created.results
 
@@ -44,7 +44,7 @@ class API::PrivateMetricsController < APIController
   end
 
   def tokens_expiring_in_more_than_3_months
-    JwtApiEntreprise.all.count - TokensQuery.new.expiring_within_interval(
+    JwtAPIEntreprise.all.count - TokensQuery.new.expiring_within_interval(
       interval_start: now,
       interval_stop: now + 3.month
     ).count
