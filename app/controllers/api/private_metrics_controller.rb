@@ -1,6 +1,4 @@
-class API::PrivateMetricsController < APIController
-  skip_before_action :jwt_authenticate!
-
+class API::PrivateMetricsController < AuthenticatedAdminsController
   def index
     @histogram = User.all.group_by{ |u| u.created_at.beginning_of_month }.map{ |d, results| [d.strftime('%Y-%m'), results.count] }
 
