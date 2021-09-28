@@ -1,5 +1,5 @@
 module OmniAuth::Strategies
-  class ApiGouv < OmniAuth::Strategies::OAuth2
+  class APIGouv < OmniAuth::Strategies::OAuth2
     option :name, :api_gouv
 
     option :client_options, {
@@ -25,3 +25,5 @@ module OmniAuth::Strategies
     end
   end
 end
+
+OmniAuth::Strategies::ApiGouv = OmniAuth::Strategies::APIGouv
