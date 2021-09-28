@@ -18,6 +18,10 @@ module OmniAuth::Strategies
 
     info { raw_info }
 
+    def callback_url
+      full_host + callback_path
+    end
+
     private
 
     def raw_info
