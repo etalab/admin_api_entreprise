@@ -43,7 +43,9 @@ Rails.application.routes.draw do
   match '/auth/api_gouv/callback', to: 'sessions#create', via: [:get, :post]
   get '/auth/failure', to: 'sessions#failure'
 
-  resources :users, only: %i[show]
+  resources :users, only: %i[show] do
+    resources :jwt_api_entreprise, only: %i[index]
+  end
 
   namespace :admin do
     resources :users, only: %i[index]
