@@ -1,4 +1,4 @@
-class API::PrivateMetricsController < AuthenticatedAdminsController
+class Admin::PrivateMetricsController < AuthenticatedAdminsController
   def index
     @histogram = User.all.group_by{ |u| u.created_at.beginning_of_month }.map{ |d, results| [d.strftime('%Y-%m'), results.count] }
 
