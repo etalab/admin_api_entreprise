@@ -4,7 +4,7 @@ class NotInProductionJwtIdsElasticQuery
       [UsersQuery.new.with_token.results.first.jwt_api_entreprise.first.id]
     else
       $elastic.search(body: json_query, size: 0).
-				dig('aggregations', 'production-delayed-jti', 'buckets').map{ |bucket| bucket['key'] }
+        dig('aggregations', 'production-delayed-jti', 'buckets').map{ |bucket| bucket['key'] }
     end
   end
 

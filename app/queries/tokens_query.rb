@@ -2,7 +2,7 @@ class TokensQuery
   def initialize(relation = JwtAPIEntreprise.all)
     @relation = relation
 
-    self.relevent
+    self.relevant
   end
 
   def results
@@ -35,7 +35,7 @@ class TokensQuery
     self
   end
 
-  def relevent
+  def relevant
     @relation = @relation.
       where(archived: [nil, false]).
       where(blacklisted: [nil, false]).

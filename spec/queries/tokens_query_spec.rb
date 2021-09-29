@@ -5,10 +5,13 @@ RSpec.describe TokensQuery, type: :query do
     create(:jwt_api_entreprise, created_at: time, updated_at: time)
   end
 
+  let(:mardi_24_aout)   { Time.local(2021,8,24,12,0) }
+
   describe 'expiring_within_interval' do
-    let(:now)               { Time.local(2021,8,26,12,0) }
-    let(:interval_start)    { 3.days.from_now  }
-    let(:interval_stop)     { 10.days.from_now }
+    let(:now)             { mardi_24_aout }
+
+    let(:interval_start)  { 3.days.from_now  }
+    let(:interval_stop)   { 10.days.from_now }
 
     # let postgresql fail and raise error if start == stop or start is after stop
 
@@ -65,7 +68,7 @@ RSpec.describe TokensQuery, type: :query do
   end
 
   describe 'recently_created' do
-    let(:now) { Time.local(2021, 8, 24, 12, 0) } # mardi 24 aout midi
+    let(:now) { mardi_24_aout }
 
     before do
       Timecop.freeze(now)
@@ -96,8 +99,8 @@ RSpec.describe TokensQuery, type: :query do
     end
   end
 
-  describe 'relevent' do
-    let(:now) { Time.local(2021, 8, 24, 12, 0) } # mardi 24 aout midi
+  describe 'relevant' do
+    let(:now) { mardi_24_aout } # mardi 24 aout midi
 
     before do
       Timecop.freeze(now)
@@ -110,18 +113,18 @@ RSpec.describe TokensQuery, type: :query do
     let!(:already_expired_token) { create(:jwt_api_entreprise, exp: now.yesterday) }
     let!(:blacklisted_token)     { create(:jwt_api_entreprise, blacklisted: true) }
     let!(:archived_token)        { create(:jwt_api_entreprise, archived: true) }
-    let!(:relevent_token)        { create(:jwt_api_entreprise, exp: 1.year.from_now, blacklisted: nil, archived: nil) }
+    let!(:relevant_token)        { create(:jwt_api_entreprise, exp: 1.year.from_now, blacklisted: nil, archived: nil) }
     let!(:uptime_robot_token)    { create(:jwt_api_entreprise, subject: 'mon token UptimeRobot interne') }
 
-    subject(:results) { described_class.new.relevent.results }
+    subject(:results) { described_class.new.relevant.results }
 
     it 'returns tokens not expired, archived, blacklisted or used for uptime robot' do
-      expect(results).to eq([relevent_token])
+      expect(results).to eq([relevant_token])
     end
   end
 
   describe 'default scope' do
-    let(:now) { Time.local(2021, 8, 24, 12, 0) } # mardi 24 aout midi
+    let(:now) { mardi_24_aout } # mardi 24 aout midi
 
     before do
       Timecop.freeze(now)
@@ -134,18 +137,18 @@ RSpec.describe TokensQuery, type: :query do
     let!(:already_expired_token) { create(:jwt_api_entreprise, exp: now.yesterday) }
     let!(:blacklisted_token)     { create(:jwt_api_entreprise, blacklisted: true) }
     let!(:archived_token)        { create(:jwt_api_entreprise, archived: true) }
-    let!(:relevent_token)        { create(:jwt_api_entreprise, exp: 1.year.from_now, blacklisted: nil, archived: nil) }
+    let!(:relevant_token)        { create(:jwt_api_entreprise, exp: 1.year.from_now, blacklisted: nil, archived: nil) }
     let!(:uptime_robot_token)    { create(:jwt_api_entreprise, subject: 'mon token UptimeRobot interne') }
 
     subject(:results) { described_class.new.results }
 
-    it 'returns relevent tokens only' do
-      expect(results.to_a).to eq(described_class.new.relevent.results.to_a)
+    it 'returns relevant tokens only' do
+      expect(results.to_a).to eq(described_class.new.relevant.results.to_a)
     end
   end
 
   describe 'production_delayed' do
-    let(:now) { Time.local(2021, 8, 24, 12, 0) } # mardi 24 aout midi
+    let(:now) { mardi_24_aout }
 
     before do
       Timecop.freeze(now)

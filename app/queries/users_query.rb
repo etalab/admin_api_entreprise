@@ -2,7 +2,7 @@ class UsersQuery
   def initialize(relation = User.all)
     @relation = relation
 
-    self.relevent
+    self.relevant
   end
 
   def results
@@ -43,7 +43,7 @@ class UsersQuery
     self
   end
 
-  def relevent
+  def relevant
     @relation = @relation.where(admin: [nil, false])
 
     self

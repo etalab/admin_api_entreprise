@@ -59,11 +59,11 @@ RSpec.describe UsersQuery, type: :query do
     end
   end
 
-  describe 'relevent' do
+  describe 'relevant' do
     let!(:admin_user)   { create(:user, admin: true) }
     let!(:regular_user) { create(:user) }
 
-    subject(:results) { described_class.new.relevent.results }
+    subject(:results) { described_class.new.relevant.results }
 
     it 'returns users not admin' do
       expect(results.to_a).to eq([regular_user])
@@ -74,8 +74,8 @@ RSpec.describe UsersQuery, type: :query do
     let!(:admin_user)   { create(:user, admin: true) }
     let!(:regular_user) { create(:user) }
 
-    it 'returns relevent users' do
-      expect(described_class.new.results.to_a).to eq(described_class.new.relevent.results.to_a)
+    it 'returns relevant users' do
+      expect(described_class.new.results.to_a).to eq(described_class.new.relevant.results.to_a)
     end
   end
 

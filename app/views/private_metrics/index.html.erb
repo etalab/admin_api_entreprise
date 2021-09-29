@@ -3,7 +3,7 @@ table, th, td {
   border: 1px solid black;
 }
 div {
-	text-align: center;
+  text-align: center;
   margin: 0 auto;
   width: 720px;
 }
@@ -22,7 +22,7 @@ Par exemple,
 Nous nous cantonnons a des chiffres generaux permettant de degager des <i>  tendances </i>, et de voir les evolutions. A ce titre, les statistiques ne portent pas sur les utilisateurs administrateurs. Concernant les tokens, ceux de ping, blacklistes, archives ou expires sont exclus des statistiques
 
 <div>
-	<h1> Statistiques generales </h1>
+  <h1> Statistiques generales </h1>
   <table>
     <thead>
       <tr>
@@ -41,22 +41,21 @@ Nous nous cantonnons a des chiffres generaux permettant de degager des <i>  tend
       </tr>
     </tbody>
   </table>
-	<br/>
-	<br/>
+  <br/>
+  <br/>
 
   <h1> Renouvellement des jetons </h1>
   <%= pie_chart [
     ['Sous 7 jours', @tokens_expiring_in_less_than_1_week],
     ['Entre 7 jours et 1 mois', @tokens_expiring_in_less_than_1_month_but_after_1_week],
     ['Entre 1 mois et 3 mois', @tokens_expiring_in_less_than_3_months_but_after_1_month],
-    ['Apres 3 mois', @tokens_expiring_in_more_than_3_months]
-  ]
+    ['Apres 3 mois', @tokens_expiring_in_more_than_3_months]]
   %>
-	<br/>
-	<br/>
+  <br/>
+  <br/>
 
   <h1> Pilotage onboarding </h1>
-	<h2> Utilisateurs recemment inscrits </h2>
+  <h2> Utilisateurs recemment inscrits </h2>
   <table>
     <thead>
       <tr>
@@ -67,25 +66,25 @@ Nous nous cantonnons a des chiffres generaux permettant de degager des <i>  tend
       </tr>
     </thead>
     <tbody>
-			<% @users_recently_created.each do |user| %>
-      <tr>
-        <td><%= user.email %></td>
-        <td><%= user.context %></td>
-        <td> Lien a creer </td>
-        <td>Il y a <%= time_ago_in_words(user.created_at)%></td>
-      </tr>
+      <% @users_recently_created.each do |user| %>
+        <tr>
+          <td><%= user.email %></td>
+          <td><%= user.context %></td>
+          <td> Lien a creer </td>
+          <td>Il y a <%= time_ago_in_words(user.created_at)%></td>
+        </tr>
     </tbody>
-		<% end %>
-	</table>
-	</br>
-	</br>
+  <% end %>
+  </table>
+  </br>
+  </br>
 
-	<h2> Inscriptions par mois </h2>
-	<%= column_chart @histogram %>
-	</br>
-	</br>
+  <h2> Inscriptions par mois </h2>
+  <%= column_chart @monthly_new_users_histogram %>
+  </br>
+  </br>
 
-	<h2> Utilisateurs avec un token recent et jamais utilise </h2>
+  <h2> Utilisateurs avec un token recent et jamais utilise </h2>
   <table>
     <thead>
       <tr>
@@ -95,21 +94,21 @@ Nous nous cantonnons a des chiffres generaux permettant de degager des <i>  tend
       </tr>
     </thead>
     <tbody>
-			<% @users_with_recent_unused_token.each do |user| %>
-      <tr>
-        <td><%= user.email %></td>
-        <td><%= user.context %></td>
-        <td> Lien a creer </td>
-      </tr>
+      <% @users_with_recent_unused_token.each do |user| %>
+        <tr>
+          <td><%= user.email %></td>
+          <td><%= user.context %></td>
+          <td> Lien a creer </td>
+        </tr>
     </tbody>
-		<% end %>
-	</table>
-	</br>
-	</br>
+  <% end %>
+  </table>
+  </br>
+  </br>
 
 
   <h2> Utilisateurs avec un token de plus de 30 jours et pas en production </h2>
-    Un token n'est pas considere en production quand il n'a pas au moins appele 20 sirets/siren/rna_id distincts
+  Un token n'est pas considere en production quand il n'a pas au moins appele 20 sirets/siren/rna_id distincts
   <table>
     <thead>
       <tr>
@@ -119,17 +118,17 @@ Nous nous cantonnons a des chiffres generaux permettant de degager des <i>  tend
       </tr>
     </thead>
     <tbody>
-			<% @users_with_production_delayed_token.each do |user| %>
-      <tr>
-        <td><%= user.email %></td>
-        <td><%= user.context %></td>
-        <td> Lien a creer </td>
-      </tr>
+      <% @users_with_production_delayed_token.each do |user| %>
+        <tr>
+          <td><%= user.email %></td>
+          <td><%= user.context %></td>
+          <td> Lien a creer </td>
+        </tr>
     </tbody>
-		<% end %>
-	</table>
-	</br>
-	</br>
+  <% end %>
+  </table>
+  </br>
+  </br>
 
 
 

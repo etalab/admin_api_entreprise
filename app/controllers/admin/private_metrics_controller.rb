@@ -1,6 +1,6 @@
 class Admin::PrivateMetricsController < AuthenticatedAdminsController
   def index
-    @histogram = User.all.group_by{ |u| u.created_at.beginning_of_month }.map{ |d, results| [d.strftime('%Y-%m'), results.count] }
+    @monthly_new_users_histogram = User.all.group_by{ |u| u.created_at.beginning_of_month }.map{ |d, results| [d.strftime('%Y-%m'), results.count] }
 
     @tokens_expiring_in_less_than_1_week = tokens_expiring_in_less_than_1_week
     @tokens_expiring_in_less_than_1_month_but_after_1_week = tokens_expiring_in_less_than_1_month_but_after_1_week
