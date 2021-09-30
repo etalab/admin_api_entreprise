@@ -13,7 +13,7 @@ RSpec.describe 'User JWT listing', type: :feature do
   end
 
   context 'when the user is authenticated' do
-    before { log_as(user) }
+    before { login_as(user) }
 
     it 'lists the user\'s active tokens' do
       jwt_index

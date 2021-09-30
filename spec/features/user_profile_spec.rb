@@ -14,7 +14,7 @@ RSpec.describe 'user profile page', type: :feature do
 
   context 'when the user is authenticated' do
     before do
-      log_as(user)
+      login_as(user)
       show_profile
     end
 

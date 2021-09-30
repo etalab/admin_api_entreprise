@@ -1,10 +1,14 @@
 class UsedJwtIdsElasticQuery
-  def initialize
-    @number_of_days_from_now = 730
+  def initialize(number_of_days_from_now = 730)
+    @number_of_days_from_now = number_of_days_from_now
   end
 
   def perform
-    $elastic.search(body: used_jti_ids_json_query, size: 0).dig('aggregations', 'unique-jti', 'buckets').map{ |bucket| bucket['key'] }
+    if Rails.env.development?
+      [UsersQuery.new.with_token.results.first.jwt_api_entreprise.first.id]
+    else
+      $elastic.search(body: used_jti_ids_json_query, size: 0).dig('aggregations', 'unique-jti', 'buckets').map{ |bucket| bucket['key'] }
+    end
   end
 
   def used_jti_ids_json_query

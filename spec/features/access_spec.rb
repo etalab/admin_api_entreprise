@@ -22,7 +22,7 @@ RSpec.describe 'page access', type: :feature do
   end
 
   context 'when the user is logged in' do
-    before { log_as(user) }
+    before { login_as(user) }
 
     context 'when the user is an admin' do
       let(:user) { create(:user, :admin) }

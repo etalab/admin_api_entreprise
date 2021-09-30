@@ -29,9 +29,6 @@ Rails.application.routes.draw do
 
       # datapass webhook
       post '/datapass/webhook' => 'datapass_webhooks#create'
-
-      # private_metrics
-      get '/private_metrics' => 'private_metrics#index'
     end
   end
 
@@ -47,6 +44,8 @@ Rails.application.routes.draw do
   get '/profile/tokens', to: 'jwt_api_entreprise#index', as: :user_tokens
 
   namespace :admin do
+    get '/private_metrics' => 'private_metrics#index'
+
     resources :users, only: %i[index]
   end
 end
