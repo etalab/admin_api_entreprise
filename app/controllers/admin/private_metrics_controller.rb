@@ -16,8 +16,6 @@ class Admin::PrivateMetricsController < AuthenticatedAdminsController
 
     @users_with_recent_unused_token = User.left_outer_joins(:jwt_api_entreprise).where(jwt_api_entreprise: { id: TokensQuery.new.unused.recently_created.results }).distinct
     @users_with_production_delayed_token = UsersQuery.new.with_production_delayed_token.results
-
-    render 'private_metrics/index', layout: 'application'
   end
 
   def tokens_expiring_in_less_than_1_week
@@ -52,4 +50,3 @@ class Admin::PrivateMetricsController < AuthenticatedAdminsController
     @now ||= Time.now
   end
 end
-

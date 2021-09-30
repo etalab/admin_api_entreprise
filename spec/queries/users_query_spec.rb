@@ -5,6 +5,8 @@ RSpec.describe UsersQuery, type: :query do
     create(:user, created_at: time, updated_at: time)
   end
 
+  let(:mardi_24_aout)   { Time.local(2021,8,24,12,0) }
+
   describe 'without_token' do
     let!(:user_with_token)     { create(:user, :with_jwt) }
     let!(:user_without_token)  { create(:user) }
@@ -28,7 +30,7 @@ RSpec.describe UsersQuery, type: :query do
   end
 
   describe 'recently_created' do
-    let(:now) { Time.local(2021, 8, 24, 12, 0) } # mardi 24 aout midi
+    let(:now) { mardi_24_aout }
 
     before do
       Timecop.freeze(now)
@@ -80,7 +82,7 @@ RSpec.describe UsersQuery, type: :query do
   end
 
   describe 'with_production_delayed_token' do
-    let(:now) { Time.local(2021, 8, 24, 12, 0) } # mardi 24 aout midi
+    let(:now) { mardi_24_aout }
 
     before do
       Timecop.freeze(now)

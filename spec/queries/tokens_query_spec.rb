@@ -100,7 +100,7 @@ RSpec.describe TokensQuery, type: :query do
   end
 
   describe 'relevant' do
-    let(:now) { mardi_24_aout } # mardi 24 aout midi
+    let(:now) { mardi_24_aout }
 
     before do
       Timecop.freeze(now)
@@ -124,7 +124,7 @@ RSpec.describe TokensQuery, type: :query do
   end
 
   describe 'default scope' do
-    let(:now) { mardi_24_aout } # mardi 24 aout midi
+    let(:now) { mardi_24_aout }
 
     before do
       Timecop.freeze(now)
