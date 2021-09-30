@@ -4,6 +4,6 @@ class AuthenticatedAdminsController < AuthenticatedUsersController
   private
 
   def authenticate_admin!
-    redirect_to user_path(current_user) unless current_user.admin?
+    redirect_current_user_to_homepage unless current_user.admin?
   end
 end

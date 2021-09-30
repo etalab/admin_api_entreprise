@@ -43,7 +43,8 @@ Rails.application.routes.draw do
   match '/auth/api_gouv/callback', to: 'sessions#create', via: [:get, :post]
   get '/auth/failure', to: 'sessions#failure'
 
-  resources :users, only: %i[show]
+  get '/profile', to: 'users#profile', as: :user_profile
+  get '/profile/tokens', to: 'jwt_api_entreprise#index', as: :user_tokens
 
   namespace :admin do
     resources :users, only: %i[index]

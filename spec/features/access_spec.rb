@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'resources access', type: :feature do
+RSpec.describe 'page access', type: :feature do
   context 'when the user is not logged in' do
     it 'can access the login page' do
       visit login_path
@@ -46,13 +46,13 @@ RSpec.describe 'resources access', type: :feature do
       it 'is redirected to the user details while accessing the login page' do
         visit login_path
 
-        expect(page.current_path).to eq(user_path(user.id))
+        expect(page.current_path).to eq(user_profile_path)
       end
 
       it 'is redirected to the user details while accessing an admin page' do
         visit admin_users_path
 
-        expect(page.current_path).to eq(user_path(user))
+        expect(page.current_path).to eq(user_profile_path)
       end
     end
   end

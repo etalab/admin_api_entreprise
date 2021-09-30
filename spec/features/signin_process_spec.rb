@@ -42,10 +42,10 @@ RSpec.describe 'the signin process', type: :feature do
     context 'when the user is not an admin' do
       let!(:user) { create(:user) }
 
-      it 'redirects to the user detail page' do
+      it 'redirects to the user profile' do
         subject
 
-        expect(page.current_path).to eq(user_path(user))
+        expect(page.current_path).to eq(user_profile_path)
       end
     end
   end
