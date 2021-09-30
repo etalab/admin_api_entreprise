@@ -25,7 +25,7 @@ RSpec.shared_examples 'admin_path' do |admin_restricted_path|
 
     visit admin_restricted_path
 
-    expect(page.current_path).to eq(user_path(user.id))
+    expect(page.current_path).to eq(user_profile_path)
   end
 
   it 'directs logged in admins to admin_restricted_path ' do
