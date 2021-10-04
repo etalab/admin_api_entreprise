@@ -1,6 +1,14 @@
 <h2>Profil de l'organisation</h2>
 
+<% flash.each do |name, msg| -%>
+  <%= content_tag :div, msg, class: name %>
+<% end -%>
+
 <p>Adresse email : <%= @user.email %></p>
 <p>Siret de l'organisation : <%= @user.context %></p>
 
-<%= button_to 'Déléguer le compte utilisateur', '#', id: 'transfer_account' %>
+<%= form_with url: '/profile/transfer_account', method: :post, id: dom_id(@user, :transfer_account) do |form| %>
+  <%= form.label :email, 'Déléguer le compte utilisateur : ' %>
+  <%= form.email_field :email, placeholder: 'Adresse email du destinataire...' %>
+  <%= form.submit 'Confirmer' %>
+<% end %>
