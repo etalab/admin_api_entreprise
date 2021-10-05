@@ -71,36 +71,6 @@ RSpec.describe JwtAPIEntrepriseMailer, type: :mailer do
         expect(subject.text_part.decoded).to include(jwt.renewal_url)
       end
     end
-
-    # TODO this is a legacy behaviour and should be droppped when all tokens
-    # requested through DS have been renewed with Signup
-    # For all those JWT the authorization_request_id attribute equals `nil`
-    describe '#expiration_notice_old' do
-      subject { described_class.expiration_notice_old(jwt, nb_days) }
-
-      it_behaves_like 'expiration notice'
-
-      it 'contains the dashboard URL' do
-        url_part = 'dashboard.entreprise.api.gouv.fr/login'
-
-        expect(subject.html_part.decoded).to include(url_part)
-        expect(subject.text_part.decoded).to include(url_part)
-      end
-
-      it 'contains the renewal process' do
-        instructions = 'Pour obtenir un nouveau jeton il vous faut faire une nouvelle demande d\'accès comme décrit ici : https://entreprise.api.gouv.fr/doc/#renouvellement-token'
-
-        expect(subject.html_part.decoded).to include(instructions)
-        expect(subject.text_part.decoded).to include(instructions)
-      end
-
-      it 'does not contain the URL to the renewal request form' do
-        renewal_url = "#{Rails.configuration.jwt_renewal_url}#{jwt.authorization_request_id}"
-
-        expect(subject.html_part.decoded).to_not include(renewal_url)
-        expect(subject.text_part.decoded).to_not include(renewal_url)
-      end
-    end
   end
 
   describe '#creation_notice' do

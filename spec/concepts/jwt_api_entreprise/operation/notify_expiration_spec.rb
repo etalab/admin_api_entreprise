@@ -63,16 +63,6 @@ RSpec.describe JwtAPIEntreprise::Operation::NotifyExpiration do
 
       it_behaves_like 'JWT notification mailer', :expiration_notice
     end
-
-    # TODO Remove when no more JWT issued through DS
-    context 'when JWT have been requested through DS' do
-      # Two tokens on the three are targetted
-      let!(:jwt_1) { create(:jwt_api_entreprise, :expiring_within_3_month, authorization_request_id: nil) }
-      let!(:jwt_2) { create(:jwt_api_entreprise, :expiring_within_3_month, authorization_request_id: nil) }
-      let!(:jwt_3) { create(:jwt_api_entreprise, :expiring_in_1_year, authorization_request_id: nil) }
-
-      it_behaves_like 'JWT notification mailer', :expiration_notice_old
-    end
   end
 
   context 'when expire_in: is not specified' do
