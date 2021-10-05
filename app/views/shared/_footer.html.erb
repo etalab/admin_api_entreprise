@@ -11,21 +11,16 @@
       </div>
       <div class="fr-footer__content">
         <p class="fr-footer__content-desc">
-        Description API Entreprise ici
+          <%= t('.tagline').html_safe %>
         </p>
         <ul class="fr-footer__content-list">
-          <li class="fr-footer__content-item">
-            <a class="fr-footer__content-link" href="https://legifrance.gouv.fr">legifrance.gouv.fr</a>
-          </li>
-          <li class="fr-footer__content-item">
-            <a class="fr-footer__content-link" href="https://gouvernement.fr">gouvernement.fr</a>
-          </li>
-          <li class="fr-footer__content-item">
-            <a class="fr-footer__content-link" href="https://service-public.fr">service-public.fr</a>
-          </li>
-          <li class="fr-footer__content-item">
-            <a class="fr-footer__content-link" href="https://data.gouv.fr">data.gouv.fr</a>
-          </li>
+          <% t('.external_links').each do |external_link| %>
+            <li class="fr-footer__content-item">
+              <a class="fr-footer__content-link" href="https://<%= external_link %>">
+                <%= external_link %>
+              </a>
+            </li>
+          <% end %>
         </ul>
       </div>
     </div>
@@ -44,7 +39,7 @@
           <a class="fr-footer__bottom-link" href="#">Données personnelles</a>
         </li>
         <li class="fr-footer__bottom-item">
-          <a class="fr-footer__bottom-link" href="#">Gestion des cookies</a>
+          <a class="fr-footer__bottom-link" href="#">Conditions Générales d'Utilisation</a>
         </li>
       </ul>
       <div class="fr-footer__bottom-copy">
