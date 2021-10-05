@@ -1,4 +1,6 @@
 class ScheduleAuthorizationRequestMailjetEmailJob < ApplicationJob
+  include MailjetHelpers
+
   queue_as :default
 
   attr_reader :authorization_request
@@ -15,12 +17,6 @@ class ScheduleAuthorizationRequestMailjetEmailJob < ApplicationJob
   rescue Mailjet::ApiError => e
     set_mailjet_context_for_sentry(e)
     raise
-  end
-
-  def deliver_mailjet_email(message)
-    Mailjet::Send.create(
-      message,
-    )
   end
 
   def build_message(mailjet_attributes)
@@ -43,19 +39,5 @@ class ScheduleAuthorizationRequestMailjetEmailJob < ApplicationJob
 
       "#{recipient_payload['full_name']} <#{recipient_payload['email']}>"
     end.join(', ')
-  end
-
-  def set_mailjet_context_for_sentry(mailjet_exception)
-    Sentry.set_context(
-      'mailjet error',
-      build_mailjet_error_context(mailjet_exception)
-    )
-  end
-
-  def build_mailjet_error_context(mailjet_exception)
-    {
-      mailjet_error_code: mailjet_exception.code,
-      mailjet_error_reason: mailjet_exception.reason,
-    }
   end
 end
