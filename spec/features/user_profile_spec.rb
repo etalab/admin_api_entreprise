@@ -27,7 +27,7 @@ RSpec.describe 'user profile page', type: :feature do
     end
 
     it 'has a form to transfer the account ownership' do
-      expect(page).to have_css("#transfer_account_user_#{user.id}")
+      expect(page).to have_css('#transfer_account')
     end
   end
 end

@@ -2,14 +2,14 @@ require 'rails_helper'
 
 RSpec.describe 'transfer user account ownership', type: :feature do
   let(:user) { create(:user, :with_jwt) }
-  let(:form_dom_id) { "#transfer_account_user_#{user.id}" }
+  let(:form_dom_id) { '#transfer_account' }
   let(:email) { 'valid@email.com' }
 
   subject do
     visit user_profile_path
     within form_dom_id do
       fill_in 'email', with: email
-      click_button 'Confirmer'
+      click_button
     end
   end
 

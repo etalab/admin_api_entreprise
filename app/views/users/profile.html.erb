@@ -3,8 +3,8 @@
 <p>Adresse email : <%= @user.email %></p>
 <p>Siret de l'organisation : <%= @user.context %></p>
 
-<%= form_with url: '/profile/transfer_account', method: :post, id: dom_id(@user, :transfer_account) do |form| %>
+<%= form_with url: user_transfer_account_path, method: :post, id: :transfer_account do |form| %>
   <%= form.label :email, 'Déléguer le compte utilisateur : ' %>
-  <%= form.email_field :email, placeholder: 'Adresse email du destinataire...' %>
-  <%= form.submit 'Confirmer' %>
+  <%= form.email_field :email, placeholder: 'jean.dupont@gouv.fr' %>
+  <%= form.submit 'Transférer mon compte', data: { confirm: "Êtes-vous sûr de vouloir transférer votre compte ?" } %>
 <% end %>
