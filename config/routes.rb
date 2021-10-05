@@ -49,4 +49,6 @@ Rails.application.routes.draw do
 
     resources :users, only: %i[index]
   end
+
+  get '/mentions', to: 'pages#mentions'
 end
