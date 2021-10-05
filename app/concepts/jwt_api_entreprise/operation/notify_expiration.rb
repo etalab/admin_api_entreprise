@@ -14,7 +14,7 @@ module JwtAPIEntreprise::Operation
 
     def send_expiration_notices(ctx, expiring_tokens:, expire_in:, **)
       expiring_tokens.each do |jwt|
-        JwtAPIEntrepriseMailer.expiration_notice(jwt, expire_in).deliver_later
+        ScheduleExpirationNoticeMailjetEmailJob.perform_later(jwt, expire_in)
 
         jwt.days_left_notification_sent << expire_in
         jwt.save
