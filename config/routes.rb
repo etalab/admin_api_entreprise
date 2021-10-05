@@ -51,4 +51,5 @@ Rails.application.routes.draw do
   end
 
   get '/mentions', to: 'pages#mentions'
+  get '/cgu', to: 'pages#cgu'
 end
