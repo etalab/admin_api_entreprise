@@ -8,15 +8,6 @@ class JwtAPIEntrepriseMailer < ApplicationMailer
     mail(to: recipients, subject: subject)
   end
 
-  def creation_notice(new_token)
-    @url_to_jwt = Rails.configuration.account_tokens_list_url.to_s
-    @jwt = new_token
-    recipients = @jwt.user_and_contacts_email
-    subject = 'API Entreprise - Création d\'un nouveau token'
-
-    mail(to: recipients, subject: subject)
-  end
-
   def satisfaction_survey(jwt)
     @jwt = jwt
     recipient = @jwt.user.email

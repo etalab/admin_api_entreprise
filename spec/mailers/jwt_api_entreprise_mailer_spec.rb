@@ -73,49 +73,6 @@ RSpec.describe JwtAPIEntrepriseMailer, type: :mailer do
     end
   end
 
-  describe '#creation_notice' do
-    let(:jwt) { create(:jwt_api_entreprise, :with_contacts) }
-
-    subject { described_class.creation_notice(jwt) }
-
-    its(:subject) { is_expected.to eq 'API Entreprise - Création d\'un nouveau token' }
-    its(:from) { is_expected.to include(Rails.configuration.emails_sender_address) }
-
-    it 'sends the email to all contacts (including the account owner)' do
-      account_owner_email = jwt.user.email
-      jwt_contacts_emails = jwt.contacts.pluck(:email).uniq
-
-      expect(subject.to).to include(account_owner_email, *jwt_contacts_emails)
-    end
-
-    it 'contains the token_creation_notice' do
-      notice = 'Un nouveau token est disponible dans votre espace client'
-
-      expect(subject.html_part.decoded).to include(notice)
-      expect(subject.text_part.decoded).to include(notice)
-    end
-
-    it 'contains the list of all roles' do
-      jwt.roles.each do |role|
-        expect(subject.html_part.decoded).to include(role.name)
-        expect(subject.text_part.decoded).to include(role.name)
-      end
-    end
-
-    it 'contains the link to the token' do
-      token_url = 'https://sandbox.dashboard.entreprise.api.gouv.fr/me/tokens/'
-      expect(subject.html_part.decoded).to include(token_url)
-      expect(subject.text_part.decoded).to include(token_url)
-    end
-
-    it 'contains info regarding the current account access' do
-      notice = "parmi les contacts pour le compte #{jwt.user.email}"
-
-      expect(subject.html_part.decoded).to include(notice)
-      expect(subject.text_part.decoded).to include(notice)
-    end
-  end
-
   describe '#satisfaction_survey' do
     subject(:mailer) { described_class.satisfaction_survey(jwt_api_entreprise) }
 
