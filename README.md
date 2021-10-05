@@ -164,3 +164,7 @@ sur les machines de production.
 ## Gestion des webhooks DataPass
 
 Se référer à [docs/webhooks.md](docs/webhooks.md)
+
+## Wordings
+
+Se réferer à [docs/wordings.md](docs/wordings.md)
