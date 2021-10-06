@@ -14,4 +14,5 @@ RSpec.describe 'jwt_api_entreprise/_jwt_api_entreprise.html.erb' do
   it { is_expected.to include(*token.roles.pluck(:code)) }
   it { is_expected.to include(token.rehash) }
   it { is_expected.to include(token.renewal_url) }
+  it { is_expected.to include(token.authorization_request_url) }
 end

@@ -192,7 +192,7 @@ RSpec.describe JwtAPIEntreprise, type: :model do
     end
   end
 
-  describe '#renewal_url' do
+  describe 'external URLs to DataPass' do
     let(:external_id) { generate(:external_authorization_request_id) }
 
     before do
@@ -201,10 +201,20 @@ RSpec.describe JwtAPIEntreprise, type: :model do
       )
     end
 
-    it 'returns the Signup\'s form URL' do
-      url = Rails.configuration.jwt_renewal_url + external_id
+    describe '#renewal_url' do
+      it 'returns the DataPass\' renewal form URL' do
+        url = Rails.configuration.jwt_renewal_url + external_id
 
-      expect(jwt.renewal_url).to eq(url)
+        expect(jwt.renewal_url).to eq(url)
+      end
+    end
+
+    describe '#authorization_request_url' do
+      it 'returns the DataPass\' authorization request URL' do
+        url = Rails.configuration.jwt_authorization_request_url + external_id
+
+        expect(jwt.authorization_request_url).to eq(url)
+      end
     end
   end
 

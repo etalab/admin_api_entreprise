@@ -17,6 +17,6 @@
   <%= button_to 'Transmettre le jeton à mon equipe technique', '#', id: 'magic_link_button' %>
   <%= button_to 'Renouveler ou étendre mes droits', jwt_api_entreprise.renewal_url, id: 'renew_access_button' %>
 
-  <%= link_to 'Aller à la demande DataPass', '#' %>
+  <%= link_to 'Aller à la demande DataPass', jwt_api_entreprise.authorization_request_url, id: :authorization_request_link %>
   <%= link_to 'Voir les statistiques', '#' %>
 </div>

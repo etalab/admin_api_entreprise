@@ -27,6 +27,10 @@ class JwtAPIEntreprise < ApplicationRecord
     "#{Rails.configuration.jwt_renewal_url}#{authorization_request.external_id}"
   end
 
+  def authorization_request_url
+    "#{Rails.configuration.jwt_authorization_request_url}#{authorization_request.external_id}"
+  end
+
   def user_and_contacts_email
     Set[*contacts.pluck(:email)] << user.email
   end
