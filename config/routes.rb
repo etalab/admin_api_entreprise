@@ -42,6 +42,7 @@ Rails.application.routes.draw do
 
   get '/profile', to: 'users#profile', as: :user_profile
   get '/profile/tokens', to: 'jwt_api_entreprise#index', as: :user_tokens
+  post 'profile/transfer_account', to: 'users#transfer_account', as: :user_transfer_account
 
   namespace :admin do
     get '/private_metrics' => 'private_metrics#index'
