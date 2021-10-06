@@ -61,13 +61,15 @@ RSpec.configure do |config|
   # Include factory_bot methods into test suite
   config.include FactoryBot::Syntax::Methods
 
+  config.include FriendlyDateHelper
+
   # Include helpers / support accurately for each spec type
   config.include AuthenticationHelper, type: :controller
   config.include JWTHelper, type: :jwt
   config.include JWTHelper, type: :model
   config.include JWTHelper, type: :request
   config.include ResponseHelper, type: :controller
-  config.include FeatureHelpers, type: :feature
+  config.include FeatureHelper, type: :feature
 
   # Include fixtures tokens to test OAuth API Gouv interaction
   config.include OAuthAPIGouv

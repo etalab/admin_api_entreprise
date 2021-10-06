@@ -1,8 +1,8 @@
 <div class="jwt_api_entreprise_tile" id="<%= dom_id(jwt_api_entreprise) %>">
   <h4>Cadre d'utilisation : <%= jwt_api_entreprise.displayed_subject %></h4>
 
-  <p>Délivré le : <%= jwt_api_entreprise.iat %></p>
-  <p>Expire le : <%= jwt_api_entreprise.user_friendly_exp_date %></p>
+  <p>Délivré le : <%= friendly_format_from_timestamp(jwt_api_entreprise.iat) %></p>
+  <p>Expire le : <%= friendly_format_from_timestamp(jwt_api_entreprise.exp) %></p>
 
   <h5>Accès</h5>
   <ul>
@@ -15,8 +15,8 @@
   <p><%= jwt_api_entreprise.rehash %></p>
 
   <%= button_to 'Transmettre le jeton à mon equipe technique', '#', id: 'magic_link_button' %>
-  <%= button_to 'Renouveler ou étendre mes droits', '#', id: 'renew_access_button' %>
+  <%= button_to 'Renouveler ou étendre mes droits', jwt_api_entreprise.renewal_url, id: 'renew_access_button' %>
 
-  <%= link_to 'Aller à la demande DataPass', '#' %>
+  <%= link_to 'Aller à la demande DataPass', jwt_api_entreprise.authorization_request_url, id: :authorization_request_link %>
   <%= link_to 'Voir les statistiques', '#' %>
 </div>

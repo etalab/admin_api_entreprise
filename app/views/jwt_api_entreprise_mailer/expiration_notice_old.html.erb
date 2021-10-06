@@ -10,7 +10,7 @@
 
     <p>En effet, le jeton attribué dans le cadre d'utilisation "<%= @jwt.subject %>" (id : <%= @jwt.id %>) ne sera bientôt plus valide !
 
-    <p><strong>Passée la date du <%= @jwt.user_friendly_exp_date %> les appels à API Entreprise avec ce jeton seront rejetés.</strong></p>
+    <p><strong>Passée la date du <%= friendly_format_from_timestamp(@jwt.exp) %> les appels à API Entreprise avec ce jeton seront rejetés.</strong></p>
 
 
     <p>Pour obtenir un nouveau jeton il vous faut faire une nouvelle demande d'accès comme décrit ici : https://entreprise.api.gouv.fr/doc/#renouvellement-token</p>
