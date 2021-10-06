@@ -13,7 +13,7 @@ RSpec.describe 'transfer user account ownership', type: :feature do
     end
   end
 
-  before { log_as(user) }
+  before { login_as(user) }
 
   shared_examples :it_aborts_the_transfer do
     it 'displays an error' do
