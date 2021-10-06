@@ -74,7 +74,7 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   config.account_tokens_list_url  = 'https://sandbox.dashboard.entreprise.api.gouv.fr/me/tokens/'
-  config.jwt_renewal_url  = 'https://signup-staging.api.gouv.fr/copy-authorization-request/'
+  config.jwt_renewal_url  = 'https://datapass-staging.api.gouv.fr/copy-authorization-request/'
   config.jwt_magic_link_url = 'https://sandbox.dashboard.entreprise.api.gouv.fr/magic_link'
 
   config.redis_database = 'redis://localhost:6379/0'

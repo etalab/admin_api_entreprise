@@ -15,7 +15,7 @@
   <p><%= jwt_api_entreprise.rehash %></p>
 
   <%= button_to 'Transmettre le jeton à mon equipe technique', '#', id: 'magic_link_button' %>
-  <%= button_to 'Renouveler ou étendre mes droits', '#', id: 'renew_access_button' %>
+  <%= button_to 'Renouveler ou étendre mes droits', jwt_api_entreprise.renewal_url, id: 'renew_access_button' %>
 
   <%= link_to 'Aller à la demande DataPass', '#' %>
   <%= link_to 'Voir les statistiques', '#' %>
