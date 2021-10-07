@@ -17,9 +17,7 @@
     <%= render partial: 'shared/header' %>
 
     <div class="fr-container fr-main-container">
-      <% flash.each do |name, msg| -%>
-        <%= content_tag :div, msg, class: name %>
-      <% end -%>
+      <%= render partial: 'shared/alerts' %>
 
       <%= yield %>
     </div>

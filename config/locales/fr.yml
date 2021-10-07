@@ -23,13 +23,29 @@ fr:
         - annuaire-entreprises.data.gouv.fr
         - data.gouv.fr
 
-  ## Login page
+  ## Login page / sessions management
   sessions:
     new:
       title: Connectez-vous à votre tableau de bord<br />pour suivre vos endpoints API Entreprise
-      button: Identifiez-vous avec votre compte API GOUV
+      button: Identifiez-vous avec votre compte API Gouv
       disclaimer: Seule la personne ayant effectué la demande d'habilitation peut accéder au tableau de bord.
         <br />
         <br />
 
         Si vous avez besoin d'accéder au jeton d'accès mais que vous n'êtes pas cette personne, veuillez vous référer à <a href="https://entreprise.api.gouv.fr/support/#050-connection-dashboard" target="_blank">cette rubrique</a>.
+    failure:
+      unknown: Une erreur inconnue est survenue, veuillez réessayer ultérieurement
+    create:
+      not_found:
+        title: Utilisateur inconnu
+        description: Vous ne possédez pas de compte associé à l'adresse email que vous avez renseignée sur API Gouv, veuillez vous déconnectez de API Gouv et tester une nouvelle adresse
+    unauthorized:
+      error:
+        title: Veuillez vous connecter pour accéder à cette page.
+
+  users:
+    transfer_account:
+      success:
+        title: Vos jetons ont été transférés avec succès.
+      error:
+        title: Quelque chose s'est mal passé.
