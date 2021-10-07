@@ -151,7 +151,7 @@ RSpec.describe JwtAPIEntreprise, type: :model do
       let(:payload) { extract_payload_from(token) }
 
       it 'contains its owner user id into the "uid" key' do
-        expect(payload.fetch(:uid)).to eq(jwt.user_id)
+        expect(payload.fetch(:uid)).to eq(jwt.user.id)
       end
 
       it 'contains its id into the "jti" key' do
