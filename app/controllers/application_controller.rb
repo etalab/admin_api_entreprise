@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-  include UserSessionsHelpers
+  include UserSessionsHelper
+  helper UserSessionsHelper
 
   layout 'application'
 
