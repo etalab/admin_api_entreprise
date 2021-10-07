@@ -4,14 +4,18 @@
 
 <div class="fr-container">
   <div class="fr-grid-row">
-    <div class="login-box fr-col-lg-6 fr-col-offset-lg-3 fr-col-12 fr-mt-5w fr-mb-5w fr-p-5w center">
-      <%= form_with(url: login_api_gouv_path, method: :post) do |f| %>
-        <%= f.button t('.button'), class: %w(fr-btn fr-btn--md), id: 'login' %>
-      <% end %>
+    <div class="fr-col-lg-6 fr-col-offset-lg-3 fr-col-12 center">
+      <div class="fr-card fr-card--horizontal fr-card--no-arrow">
+        <div class="fr-card__body">
+          <%= form_with(url: login_api_gouv_path, method: :post) do |f| %>
+            <%= f.button t('.button'), class: %w(fr-btn fr-btn--md), id: 'login' %>
+          <% end %>
 
-      <p class="fr-mt-2w fr-mb-0">
-        <%= t('.disclaimer').html_safe %>
-      </p>
+          <p class="fr-mt-2w fr-mb-0">
+            <%= t('.disclaimer').html_safe %>
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
