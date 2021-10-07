@@ -1,10 +1,23 @@
-<h2>Profil de l'organisation</h2>
+<h1>Profil de l'organisation</h1>
 
-<p>Adresse email : <%= @user.email %></p>
-<p>Siret de l'organisation : <%= @user.context %></p>
+<ul>
+  <li>
+    Adresse email : <%= @user.email %>
+  </li>
+  <li>
+    Siret de l'organisation : <%= @user.context %>
+  </li>
+</ul>
 
-<%= form_with url: user_transfer_account_path, method: :post, id: :transfer_account do |form| %>
-  <%= form.label :email, 'Déléguer le compte utilisateur : ' %>
-  <%= form.email_field :email, placeholder: 'jean.dupont@gouv.fr' %>
-  <%= form.submit 'Transférer mon compte', data: { confirm: "Êtes-vous sûr de vouloir transférer votre compte ?" } %>
-<% end %>
+<div class="fr-grid-row">
+  <div class="fr-col-lg-3 fr-col-12">
+    <%= form_with url: user_transfer_account_path, method: :post, id: :transfer_account do |form| %>
+      <div class="fr-input-group">
+        <%= form.label :email, 'Déléguer le compte utilisateur : ', class: %w(fr-label) %>
+        <%= form.email_field :email, placeholder: 'jean.dupont@gouv.fr', class: %w(fr-input) %>
+      </div>
+
+      <%= form.button 'Transférer mon compte', data: { confirm: "Êtes-vous sûr de vouloir transférer votre compte ?" }, class: %w(fr-btn) %>
+    <% end %>
+  </div>
+</div>
