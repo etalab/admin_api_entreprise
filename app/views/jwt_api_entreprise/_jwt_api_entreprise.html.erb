@@ -1,26 +1,28 @@
 <div class="fr-card fr-card--horizontal fr-card--no-arrow" id="<%= dom_id(jwt_api_entreprise) %>">
   <div class="fr-card__body">
     <h4 class="fr-card__title">
-      Cadre d'utilisation : <%= jwt_api_entreprise.displayed_subject %>
+      <%= t('.title', displayed_subject: jwt_api_entreprise.displayed_subject) %>
 
       <span class="fr-text--sm fr-m-0 pull-right">
-        <%= link_to 'Aller à la demande DataPass', jwt_api_entreprise.authorization_request_url, target: '_blank', id: :authorization_request_link, class: %w(fr-link fr-link--sm) %>
-        <%= link_to 'Voir les statistiques', '#', class: %w(fr-link fr-link--sm fr-fi-arrow-right-line fr-link--icon-right) %>
+        <%= link_to t('.links.datapass'), jwt_api_entreprise.authorization_request_url, target: '_blank', id: :authorization_request_link, class: %w(fr-link fr-link--sm) %>
+        <%= link_to t('links.stats'), '#', class: %w(fr-link fr-link--sm fr-fi-arrow-right-line fr-link--icon-right) %>
       </span>
     </h4>
 
     <div class="fr-card__desc">
       <ul>
         <li>
-          Délivré le : <%= friendly_format_from_timestamp(jwt_api_entreprise.iat) %>
+          <%= t('.delivered_at', humanized_date: friendly_format_from_timestamp(jwt_api_entreprise.iat)) %>
         </li>
         <li>
-          Expire le : <%= friendly_format_from_timestamp(jwt_api_entreprise.exp) %>
+          <%= t('.expired_at', humanized_date: friendly_format_from_timestamp(jwt_api_entreprise.exp)) %>
         </li>
       </ul>
 
       <div class="fr-mb-2v">
-        <strong>Accès</strong>
+        <strong>
+          <%= t('.access') %>
+        </strong>
 
         <ul class="fr-tags-group">
           <% jwt_api_entreprise.roles.pluck(:code).each do |code| %>
@@ -34,7 +36,9 @@
       </div>
 
       <div class="fr-mb-2v">
-        <strong>Token</strong>
+        <strong>
+          <%= t('.token') %>
+        </strong>
 
         <br />
 
@@ -42,8 +46,8 @@
       </div>
 
       <div class="actions">
-        <%= button_to 'Transmettre le jeton à mon equipe technique', '#', id: 'magic_link_button', class: %w(fr-btn) %>
-        <%= button_to 'Renouveler ou étendre mes droits', jwt_api_entreprise.renewal_url, id: 'renew_access_button', class: %w(fr-btn) %>
+        <%= button_to t('.actions.transfer'), '#', id: 'magic_link_button', class: %w(fr-btn) %>
+        <%= button_to t('.actions.renew'), jwt_api_entreprise.renewal_url, id: 'renew_access_button', class: %w(fr-btn) %>
       </div>
     </div>
   </div>
