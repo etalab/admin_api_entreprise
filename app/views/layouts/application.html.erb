@@ -19,7 +19,11 @@
     <div class="fr-container fr-mb-5w fr-mt-5w">
       <%= render partial: 'shared/alerts' %>
 
-      <%= yield %>
+      <% if content_for?(:body) %>
+        <%= yield(:body) %>
+      <% else %>
+        <%= yield %>
+      <% end %>
     </div>
 
     <%= render partial: 'shared/footer' %>

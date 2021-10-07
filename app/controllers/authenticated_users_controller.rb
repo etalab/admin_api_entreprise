@@ -1,6 +1,8 @@
 class AuthenticatedUsersController < ApplicationController
   before_action :authenticate_user!
 
+  layout 'authenticated_user'
+
   private
 
   def authenticate_user!

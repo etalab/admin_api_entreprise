@@ -1,0 +1,12 @@
+<% content_for :body do %>
+  <div class="fr-grid-row">
+    <div class="fr-col-12 fr-col-md-2">
+      <%= render partial: 'shared/user_signed_in_side_menu' %>
+    </div>
+    <div class="fr-col-12 fr-col-md-10">
+      <%= yield %>
+    </div>
+  </div>
+<% end %>
+
+<%= render template: "layouts/application" %>
