@@ -168,3 +168,7 @@ Se référer à [docs/webhooks.md](docs/webhooks.md)
 ## Wordings
 
 Se réferer à [docs/wordings.md](docs/wordings.md)
+
+## Design
+
+Se réferer à [docs/design.md](docs/design.md)
