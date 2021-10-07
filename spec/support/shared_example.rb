@@ -12,54 +12,28 @@ RSpec.shared_examples 'client user unauthorized' do |req_verb, action, req_param
   end
 end
 
-RSpec.shared_examples :password_renewal_contract do
-  let(:op_params) do
-    {
-      password: 'couCOU23',
-      password_confirmation: 'couCOU23'
-    }
+RSpec.shared_examples 'admin_path' do |admin_restricted_path|
+  it 'redirects disconnected user to login page' do
+    visit admin_restricted_path
+
+    expect(page.current_path).to eq(login_path)
   end
 
-  subject { described_class.call(params: op_params) }
+  it 'redirects logged in regular users to their profile' do
+    user = create(:user)
+    login_as(user)
 
-  let(:errors) { subject[:errors] }
-  let(:format_error_message) { 'minimum eight characters, at least one uppercase letter, one lowercase letter and one number' }
+    visit admin_restricted_path
 
-  it 'must match confirmation' do
-    op_params[:password_confirmation] = 'coucou23'
-    subject
-
-    expect(subject).to be_failure
-    expect(errors[:password_confirmation]).to include('must be equal to password')
+    expect(page.current_path).to eq(user_profile_path)
   end
 
-  it 'is min 8 characters long' do
-    op_params[:password] = op_params[:password_confirmation] = 'a' * 7
+  it 'directs logged in admins to admin_restricted_path ' do
+    admin = create(:user, :admin)
+    login_as(admin)
 
-    expect(errors[:password]).to include('size cannot be less than 8')
-  end
+    visit admin_restricted_path
 
-  it 'contains a lowercase letter' do
-    op_params[:password] = op_params[:password_confirmation] = 'AAAAAAAAA3'
-
-    expect(errors[:password]).to include(format_error_message)
-  end
-
-  it 'contains an uppercase letter' do
-    op_params[:password] = op_params[:password_confirmation] = 'aaaaaaaaa3'
-
-    expect(errors[:password]).to include(format_error_message)
-  end
-
-  it 'contains a number' do
-    op_params[:password] = op_params[:password_confirmation] = 'AAAAAAAAAa'
-
-    expect(errors[:password]).to include(format_error_message)
-  end
-
-  it 'accepts special characters' do
-    op_params[:password] = op_params[:password_confirmation] = 'Cou-cou!123?'
-
-    expect(errors[:password]).to be_nil
+    expect(page.current_path).to eq(admin_restricted_path)
   end
 end

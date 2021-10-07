@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe JwtApiEntrepriseMailer, type: :mailer do
+RSpec.describe JwtAPIEntrepriseMailer, type: :mailer do
   describe 'Expiration notices (old and new)' do
     let(:jwt) { create(:jwt_api_entreprise, :with_contacts) }
     let(:user) { jwt.user }
@@ -39,7 +39,7 @@ RSpec.describe JwtApiEntrepriseMailer, type: :mailer do
       end
 
       it 'contains the exact expiration time of the JWT' do
-        expiration_datetime = jwt.user_friendly_exp_date
+        expiration_datetime = friendly_format_from_timestamp(jwt.exp)
         tested_corpus = "Passée la date du #{expiration_datetime} les appels à API Entreprise avec ce jeton seront rejetés."
 
         expect(subject.html_part.decoded).to include(tested_corpus)

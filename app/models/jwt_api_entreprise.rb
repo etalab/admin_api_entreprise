@@ -1,4 +1,4 @@
-class JwtApiEntreprise < ApplicationRecord
+class JwtAPIEntreprise < ApplicationRecord
   include RandomToken
 
   belongs_to :authorization_request, foreign_key: 'authorization_request_model_id', required: false
@@ -23,12 +23,12 @@ class JwtApiEntreprise < ApplicationRecord
     self.roles.pluck(:code)
   end
 
-  def user_friendly_exp_date
-    "#{Time.zone.at(exp).strftime('%d/%m/%Y à %Hh%M')} (heure de Paris)"
-  end
-
   def renewal_url
     "#{Rails.configuration.jwt_renewal_url}#{authorization_request.external_id}"
+  end
+
+  def authorization_request_url
+    "#{Rails.configuration.jwt_authorization_request_url}#{authorization_request.external_id}"
   end
 
   def user_and_contacts_email
@@ -62,7 +62,7 @@ class JwtApiEntreprise < ApplicationRecord
 
   def token_payload
     payload = {
-      uid: self.user_id,
+      uid: self.user.id,
       jti: self.id,
       roles: self.roles.pluck(:code),
       sub: self.subject,

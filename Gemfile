@@ -31,7 +31,6 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'sidekiq'
 gem 'sidekiq-cron'
 
-gem 'doorkeeper', '~> 4.4.0'
 gem 'jwtf', '0.2.0'
 gem 'jwt'
 gem 'active_model_serializers', '~> 0.10.0'
@@ -41,6 +40,8 @@ gem 'reform'
 gem 'dry-validation', '~> 0.11.1'
 gem 'mailjet'
 gem 'pundit'
+gem 'omniauth-oauth2'
+gem 'omniauth-rails_csrf_protection'
 
 gem 'elasticsearch', '= 7.10.1'
 
@@ -48,6 +49,8 @@ gem 'pastel'
 
 # Nice charts
 gem 'chartkick'
+
+gem 'rails-i18n','~> 6.0.0'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
@@ -74,6 +77,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'faker'
   gem 'timecop'
+  gem 'rack_session_access'
 end
 
 group :development do
@@ -94,9 +98,8 @@ group :development do
 end
 
 group :test do
-  # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 3.26'
-  gem 'apparition'
+  gem 'apparition', github: 'twalpole/apparition', branch: 'master'
   gem 'vcr'
   gem 'webmock'
   gem 'spring-commands-rspec'

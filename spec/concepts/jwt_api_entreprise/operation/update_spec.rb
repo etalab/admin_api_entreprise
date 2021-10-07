@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe JwtApiEntreprise::Operation::Update do
+RSpec.describe JwtAPIEntreprise::Operation::Update do
   subject(:update_jwt!) { described_class.call(params: op_params) }
 
   context 'when the JWT id is valid' do

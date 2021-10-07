@@ -1,10 +1,10 @@
-module JwtApiEntreprise::Operation
+module JwtAPIEntreprise::Operation
   class RetrieveFromMagicLink < Trailblazer::Operation
     step :retrieve_from_magic_link_token
     step :magic_link_token_valid?
 
     def retrieve_from_magic_link_token(ctx, params:, **)
-      ctx[:jwt] = JwtApiEntreprise.find_by_magic_link_token(params[:token])
+      ctx[:jwt] = JwtAPIEntreprise.find_by_magic_link_token(params[:token])
     end
 
     def magic_link_token_valid?(ctx, jwt:, **)

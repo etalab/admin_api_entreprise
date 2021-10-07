@@ -30,7 +30,7 @@ Rails.application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+  # config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
   config.action_mailer.delivery_method = :sendmail
@@ -73,9 +73,9 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 
-  config.renew_password_url = 'https://sandbox.dashboard.entreprise.api.gouv.fr/account/password_reset'
   config.account_tokens_list_url  = 'https://sandbox.dashboard.entreprise.api.gouv.fr/me/tokens/'
-  config.jwt_renewal_url  = 'https://signup-staging.api.gouv.fr/copy-authorization-request/'
+  config.jwt_renewal_url  = 'https://datapass-staging.api.gouv.fr/copy-authorization-request/'
+  config.jwt_authorization_request_url  = 'https://datapass-staging.api.gouv.fr/api-entreprise/'
   config.jwt_magic_link_url = 'https://sandbox.dashboard.entreprise.api.gouv.fr/magic_link'
 
   config.redis_database = 'redis://localhost:6379/0'

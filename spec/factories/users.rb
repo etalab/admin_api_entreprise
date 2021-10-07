@@ -6,7 +6,6 @@ FactoryBot.define do
     sequence(:oauth_api_gouv_id) { |n| "#{n}" }
     context { 'VERY_DEVELOPMENT' }
     cgu_agreement_date { Time.zone.now }
-    password { 'Coucou123' }
     tokens_newly_transfered { false }
 
     trait :with_full_name do
@@ -16,7 +15,6 @@ FactoryBot.define do
 
     trait :admin do
       admin { true }
-      password { AuthenticationHelper::ADMIN_PWD }
     end
 
     trait :known_api_gouv_user do

@@ -34,7 +34,7 @@ Rails.application.configure do
   config.action_controller.allow_forgery_protection = false
 
   # Store uploaded files on the local file system in a temporary directory.
-  config.active_storage.service = :test
+  # config.active_storage.service = :test
 
   config.action_mailer.perform_caching = false
 
@@ -60,9 +60,11 @@ Rails.application.configure do
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
 
-  config.renew_password_url = 'https://sandbox.dashboard.entreprise.api.gouv.fr/account/password_reset'
+  config.middleware.use RackSessionAccess::Middleware
+
   config.account_tokens_list_url  = 'https://sandbox.dashboard.entreprise.api.gouv.fr/me/tokens/'
-  config.jwt_renewal_url  = 'https://signup-staging.api.gouv.fr/copy-authorization-request/'
+  config.jwt_renewal_url  = 'https://datapass-staging.api.gouv.fr/copy-authorization-request/'
+  config.jwt_authorization_request_url  = 'https://datapass-staging.api.gouv.fr/api-entreprise/'
   config.jwt_magic_link_url = 'https://sandbox.dashboard.entreprise.api.gouv.fr/magic_link'
 
   config.redis_database = 'redis://localhost:6379/0'

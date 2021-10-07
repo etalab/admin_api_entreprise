@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe JwtApiEntreprise::Operation::NotifyExpiration do
+RSpec.describe JwtAPIEntreprise::Operation::NotifyExpiration do
   describe 'expire_in: option (provide a number of days)' do
     # Let's test with a 90 days (3 months) expiration notice
     let(:days) { 90 }
@@ -11,17 +11,17 @@ RSpec.describe JwtApiEntreprise::Operation::NotifyExpiration do
       it { is_expected.to be_success }
 
       it 'calls the mailer for the affected JWT only' do
-        expect(JwtApiEntrepriseMailer).to receive(mailer_action).with(jwt_1, days).and_call_original
-        expect(JwtApiEntrepriseMailer).to receive(mailer_action).with(jwt_2, days).and_call_original
-        expect(JwtApiEntrepriseMailer).to_not receive(mailer_action).with(jwt_3, days).and_call_original
+        expect(JwtAPIEntrepriseMailer).to receive(mailer_action).with(jwt_1, days).and_call_original
+        expect(JwtAPIEntrepriseMailer).to receive(mailer_action).with(jwt_2, days).and_call_original
+        expect(JwtAPIEntrepriseMailer).to_not receive(mailer_action).with(jwt_3, days).and_call_original
 
         subject
       end
 
       it 'does not send the same notification twice' do
         described_class.call(expire_in: days)
-        expect(JwtApiEntrepriseMailer).to_not receive(mailer_action).with(jwt_1, days)
-        expect(JwtApiEntrepriseMailer).to_not receive(mailer_action).with(jwt_2, days)
+        expect(JwtAPIEntrepriseMailer).to_not receive(mailer_action).with(jwt_1, days)
+        expect(JwtAPIEntrepriseMailer).to_not receive(mailer_action).with(jwt_2, days)
 
         subject
       end
@@ -29,9 +29,9 @@ RSpec.describe JwtApiEntreprise::Operation::NotifyExpiration do
       it 'does not call the mailer for archived JWTs' do
         archived_jwt = create(:jwt_api_entreprise, :expiring_within_3_month, archived: true)
         # Expectations for sent notifications are needed, otherwise the code runs against the "dumb" double
-        expect(JwtApiEntrepriseMailer).to receive(mailer_action).with(jwt_1, days).and_call_original
-        expect(JwtApiEntrepriseMailer).to receive(mailer_action).with(jwt_2, days).and_call_original
-        expect(JwtApiEntrepriseMailer).to_not receive(mailer_action).with(archived_jwt, days)
+        expect(JwtAPIEntrepriseMailer).to receive(mailer_action).with(jwt_1, days).and_call_original
+        expect(JwtAPIEntrepriseMailer).to receive(mailer_action).with(jwt_2, days).and_call_original
+        expect(JwtAPIEntrepriseMailer).to_not receive(mailer_action).with(archived_jwt, days)
 
         subject
       end
@@ -39,9 +39,9 @@ RSpec.describe JwtApiEntreprise::Operation::NotifyExpiration do
       it 'does not call the mailer for blacklisted JWTs' do
         blacklisted_jwt = create(:jwt_api_entreprise, :expiring_within_3_month, blacklisted: true)
         # Expectations for sent notifications are needed, otherwise the code runs against the "dumb" double
-        expect(JwtApiEntrepriseMailer).to receive(mailer_action).with(jwt_1, days).and_call_original
-        expect(JwtApiEntrepriseMailer).to receive(mailer_action).with(jwt_2, days).and_call_original
-        expect(JwtApiEntrepriseMailer).to_not receive(mailer_action).with(blacklisted_jwt, days)
+        expect(JwtAPIEntrepriseMailer).to receive(mailer_action).with(jwt_1, days).and_call_original
+        expect(JwtAPIEntrepriseMailer).to receive(mailer_action).with(jwt_2, days).and_call_original
+        expect(JwtAPIEntrepriseMailer).to_not receive(mailer_action).with(blacklisted_jwt, days)
 
         subject
       end

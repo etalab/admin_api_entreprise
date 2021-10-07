@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe JwtApiEntreprise, type: :model do
+RSpec.describe JwtAPIEntreprise, type: :model do
   it 'has valid factories' do
     expect(build(:jwt_api_entreprise)).to be_valid
   end
@@ -125,17 +125,6 @@ RSpec.describe JwtApiEntreprise, type: :model do
     end
   end
 
-  describe '#user_friendly_exp_date' do
-    it 'returns a friendly formated date' do
-      # About the offset here, during winter (March 17th here)
-      # it is UTC+01:00 so this is a valid datetime in Paris
-      datetime = DateTime.new(1998, 3, 17, 15, 28, 49, '+1')
-      jwt.exp = datetime.to_i
-
-      expect(jwt.user_friendly_exp_date).to eq('17/03/1998 à 15h28 (heure de Paris)')
-    end
-  end
-
   describe '.unexpired' do
     subject { described_class.unexpired }
 
@@ -162,7 +151,7 @@ RSpec.describe JwtApiEntreprise, type: :model do
       let(:payload) { extract_payload_from(token) }
 
       it 'contains its owner user id into the "uid" key' do
-        expect(payload.fetch(:uid)).to eq(jwt.user_id)
+        expect(payload.fetch(:uid)).to eq(jwt.user.id)
       end
 
       it 'contains its id into the "jti" key' do
@@ -203,7 +192,7 @@ RSpec.describe JwtApiEntreprise, type: :model do
     end
   end
 
-  describe '#renewal_url' do
+  describe 'external URLs to DataPass' do
     let(:external_id) { generate(:external_authorization_request_id) }
 
     before do
@@ -212,10 +201,20 @@ RSpec.describe JwtApiEntreprise, type: :model do
       )
     end
 
-    it 'returns the Signup\'s form URL' do
-      url = Rails.configuration.jwt_renewal_url + external_id
+    describe '#renewal_url' do
+      it 'returns the DataPass\' renewal form URL' do
+        url = Rails.configuration.jwt_renewal_url + external_id
 
-      expect(jwt.renewal_url).to eq(url)
+        expect(jwt.renewal_url).to eq(url)
+      end
+    end
+
+    describe '#authorization_request_url' do
+      it 'returns the DataPass\' authorization request URL' do
+        url = Rails.configuration.jwt_authorization_request_url + external_id
+
+        expect(jwt.authorization_request_url).to eq(url)
+      end
     end
   end
 

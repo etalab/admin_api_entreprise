@@ -2,6 +2,6 @@ class AccessRequestSatisfactionSurveyJob < ApplicationJob
   queue_as :default
 
   def perform
-    JwtApiEntreprise::Operation::AccessRequestSatisfactionSurvey.call
+    JwtAPIEntreprise::Operation::AccessRequestSatisfactionSurvey.call
   end
 end
