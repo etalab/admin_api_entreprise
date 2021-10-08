@@ -1,4 +1,8 @@
 class JwtAPIEntreprise < ApplicationRecord
+  self.ignored_columns = %w[
+    user_id
+  ]
+
   include RandomToken
 
   belongs_to :authorization_request, foreign_key: 'authorization_request_model_id', required: false
