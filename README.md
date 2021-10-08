@@ -50,6 +50,10 @@ Dans le cas d'API entreprise, les 2 comptes suivants sont disponibles :
 
 ## Ajout de credentials via rails:credentials
 
+Avant toute chose, lisez la partie sur la gestion des credentials chiffré dans
+la [doc officielle de
+Rails](https://edgeguides.rubyonrails.org/security.html#environmental-security)
+
 Chaque environnement possède son propre fichier de credentials.
 
 Pour les environments de tests et developments, le fichier de développment est un lien
@@ -61,9 +65,15 @@ Pour les fichiers de production (i.e. sandbox, staging et production), il y a
 aussi plusieurs fichiers. Les clés ne sont pas versionnées, il faut les importer
 depuis le vault d'ansible du dépôt stockant l'ensemble des secrets.
 
-Vous pouvez le script
+Vous pouvez executer le script
 [`scripts/import_master_keys.sh`](./scripts/import_master_keys.sh) pour
-effectuer l'import
+effectuer l'import.
+
+Pour rappel, la commande d'édition:
+
+```sh
+rails credentials:edit
+```
 
 ## Déploiements à l'aide de Mina
 
