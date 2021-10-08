@@ -2,21 +2,33 @@
 
 [![CI](https://github.com/etalab/admin_api_entreprise/actions/workflows/ci.yml/badge.svg)](https://github.com/etalab/admin_api_entreprise/actions/workflows/ci.yml)
 
-## Par où commencer ?
+## Requirements
+
+- ruby 2.7.2
+- redis-server >= 6
+- postgresql >= 9
+
+## Install
+
+Il suffit de lancer la commande suivante pour configurer la base de données,
+installer les paquets et importer les tables de la base de données :
 
 ```sh
-git clone git@github.com:etalab/admin_api_entreprise.git
-cd admin_api_entreprise/
-psql -f postgresql_setup.txt
-bundle install
-bin/rails db:migrate
-bin/rails db:migrate RAILS_ENV=test
+./bin/install.sh
 ```
 
-Il sera alors possible d'exécuter la suite de tests :
+## Tests
+
+Il faut lancer:
 
 ```sh
 bin/rspec
+```
+
+[Guard](https://github.com/guard/guard) est aussi installé:
+
+```sh
+guard
 ```
 
 ### Développement
