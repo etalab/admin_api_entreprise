@@ -7,12 +7,16 @@ class SessionsController < ApplicationController
     if user = User.find_by(email: authenticated_user_email)
       sign_in_and_redirect(user)
     else
+      error_message(title: t('.not_found.title'), description: t('.not_found.description'))
+
       redirect_to login_path
     end
   end
 
   def failure
-    redirect_to login_path, notice: failure_message
+    error_message(title: t(".#{failure_message}", default: t('.unknown')))
+
+    redirect_to login_path
   end
 
   private

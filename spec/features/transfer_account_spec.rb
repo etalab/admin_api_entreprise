@@ -19,7 +19,7 @@ RSpec.describe 'transfer user account ownership', type: :feature do
     it 'displays an error' do
       subject
 
-      expect(page).to have_css('.alert')
+      expect(page).to have_css('.fr-alert--error')
     end
 
     it 'does not transfer any tokens' do
@@ -47,7 +47,7 @@ RSpec.describe 'transfer user account ownership', type: :feature do
     it 'displays success' do
       subject
 
-      expect(page).to have_css('.notice')
+      expect(page).to have_css('.fr-alert--success')
     end
 
     it 'deletes the tokens from the previous account' do

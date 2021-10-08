@@ -1,5 +1,9 @@
 <h2>Tokens de l'organisation</h2>
 
-<% @tokens.each do |token| %>
-  <%= render partial: 'jwt_api_entreprise', object: token %>
-<% end %>
+<div class="fr-grid-row">
+  <% @tokens.each do |token| %>
+    <div class="fr-col-12 fr-pb-2w">
+      <%= render partial: 'jwt_api_entreprise', object: token %>
+    </div>
+  <% end %>
+</div>

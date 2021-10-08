@@ -67,7 +67,7 @@ RSpec.describe 'the signin process', type: :feature do
     it 'displays an error message' do
       subject
 
-      expect(page).to have_css('.notice')
+      expect(page).to have_css('.fr-alert--error')
     end
   end
 end

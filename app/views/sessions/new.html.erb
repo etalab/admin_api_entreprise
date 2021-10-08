@@ -1,3 +1,22 @@
-<h2>Connectez-vous à votre tableau de bord pour suivre vos endpoints API Entreprise</h2>
+<h2 class="center">
+  <%= t('.title').html_safe %>
+</h2>
 
-<%= button_to 'Identifiez-vous avec votre compte API GOUV', login_api_gouv_path, method: :post, id: 'login' %>
+<div class="fr-container">
+  <div class="fr-grid-row">
+    <div class="fr-col-md-6 fr-col-offset-md-3 fr-col-12 center">
+      <div class="fr-card fr-card--horizontal fr-card--no-arrow">
+        <div class="fr-card__body">
+          <%= form_with(url: login_api_gouv_path, method: :post) do |f| %>
+            <%= f.button t('.button'), class: %w(fr-btn fr-btn--md), id: 'login' %>
+          <% end %>
+
+          <p class="fr-mt-2w fr-mb-0">
+            <%= t('.disclaimer').html_safe %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

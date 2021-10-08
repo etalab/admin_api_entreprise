@@ -1,1 +1,75 @@
 fr:
+  ## Layout / commons
+  layouts:
+    application:
+      title: API Entreprise
+
+  shared:
+    header:
+      title: API Entreprise
+      tagline: Le hub des données entreprises et associations <strong>pour les administractions</strong>
+      tools:
+        links:
+          notification:
+            title: Notifications
+            icon: mail-fill
+          faq_contact:
+            title: FAQ & Contact
+            icon: question-fill
+    footer:
+      tagline: API Entreprise, une <strong>brique de l'écosystème des API et des données</strong> au sein de l'État.
+      external_links:
+        - api.gouv.fr
+        - annuaire-entreprises.data.gouv.fr
+        - data.gouv.fr
+
+  ## Login page / sessions management
+  sessions:
+    new:
+      title: Connectez-vous à votre tableau de bord<br />pour suivre vos endpoints API Entreprise
+      button: Identifiez-vous avec votre compte API Gouv
+      disclaimer: Seule la personne ayant effectué la demande d'habilitation peut accéder au tableau de bord.
+        <br />
+        <br />
+
+        Si vous avez besoin d'accéder au jeton d'accès mais que vous n'êtes pas cette personne, veuillez vous référer à <a href="https://entreprise.api.gouv.fr/support/#050-connection-dashboard" target="_blank">cette rubrique</a>.
+    failure:
+      unknown: Une erreur inconnue est survenue, veuillez réessayer ultérieurement
+    create:
+      not_found:
+        title: Utilisateur inconnu
+        description: Vous ne possédez pas de compte associé à l'adresse email que vous avez renseignée sur API Gouv, veuillez vous déconnectez de API Gouv et tester une nouvelle adresse
+    unauthorized:
+      error:
+        title: Veuillez vous connecter pour accéder à cette page.
+
+  users:
+    profile:
+      title: "Profil de l'organisation"
+      email_address: "Adresse email: %{email}"
+      siret: "Siret de l'organisation : %{context}"
+      transfert_account:
+        email:
+          label: "Déléguer le compte utilisateur :"
+          placeholder: jean.dupont@gouv.fr
+        cta: Transférer mon compte
+        confirm: Êtes-vous sûr de vouloir transférer votre compte ?
+    transfer_account:
+      success:
+        title: Vos jetons ont été transférés avec succès.
+      error:
+        title: Quelque chose s'est mal passé.
+
+  jwt_api_entreprise:
+    jwt_api_entreprise:
+      title: "Cadre d'utilisation : %{displayed_subject}"
+      links:
+        datapass: Aller à la demande DataPass
+        stats: Voir les statistiques
+      delivered_at: "Délivré le : %{humanized_date}"
+      expired_at: "Expire le : %{humanized_date}"
+      access: Accès
+      token: Jeton
+      actions:
+        transfer: Transmettre le jeton à mon equipe technique
+        renew: Renouveler ou étendre mes droits

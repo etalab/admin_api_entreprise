@@ -19,6 +19,22 @@ Il sera alors possible d'exécuter la suite de tests :
 bin/rspec
 ```
 
+### Développement
+
+Il existe des seeds:
+
+```sh
+rails db:seed:replant
+```
+
+En local, la connexion s'effectue sur `auth-test.api.gouv.fr` qui est remplie
+des données de fixtures.
+
+Dans le cas d'API entreprise, les 2 comptes suivants sont dispo:
+
+- user@yopmail.com / user@yopmail.com -> utilisateur normal
+- api-entreprise@yopmail.com / api-entreprise@yopmail.com -> utilisateur admin
+
 ## Configuration de la base de données
 
 ### Choosing UUIDs as IDs
@@ -164,3 +180,11 @@ sur les machines de production.
 ## Gestion des webhooks DataPass
 
 Se référer à [docs/webhooks.md](docs/webhooks.md)
+
+## Wordings
+
+Se réferer à [docs/wordings.md](docs/wordings.md)
+
+## Design
+
+Se réferer à [docs/design.md](docs/design.md)

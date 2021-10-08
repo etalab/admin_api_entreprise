@@ -1,10 +1,25 @@
-<h2>Profil de l'organisation</h2>
+<h1>
+  <%= t('.title') %>
+</h1>
 
-<p>Adresse email : <%= @user.email %></p>
-<p>Siret de l'organisation : <%= @user.context %></p>
+<ul>
+  <li>
+    <%= t('.email_address', email: @user.email) %>
+  </li>
+  <li>
+    <%= t('.siret', context: @user.context) %>
+  </li>
+</ul>
 
-<%= form_with url: user_transfer_account_path, method: :post, id: :transfer_account do |form| %>
-  <%= form.label :email, 'Déléguer le compte utilisateur : ' %>
-  <%= form.email_field :email, placeholder: 'jean.dupont@gouv.fr' %>
-  <%= form.submit 'Transférer mon compte', data: { confirm: "Êtes-vous sûr de vouloir transférer votre compte ?" } %>
-<% end %>
+<div class="fr-grid-row">
+  <div class="fr-col-md-3 fr-col-12">
+    <%= form_with url: user_transfer_account_path, method: :post, id: :transfer_account do |form| %>
+      <div class="fr-input-group">
+        <%= form.label :email, t('.transfert_account.email.label'), class: %w(fr-label) %>
+        <%= form.email_field :email, placeholder: t('.transfert_account.email.placeholder'), class: %w(fr-input) %>
+      </div>
+
+      <%= form.button t('.transfert_account.cta'), data: { confirm: t('.transfert_account.confirm') }, class: %w(fr-btn) %>
+    <% end %>
+  </div>
+</div>

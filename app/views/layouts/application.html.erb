@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr" data-fr-theme="light">
   <head>
-    <title>AdminApientreprise</title>
+    <title><%= t('.title') %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <%= render partial: 'shared/favicons' %>
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -11,10 +14,18 @@
   </head>
 
   <body>
-    <% flash.each do |name, msg| -%>
-      <%= content_tag :div, msg, class: name %>
-    <% end -%>
+    <%= render partial: 'shared/header' %>
 
-    <%= yield %>
+    <div class="fr-container fr-mb-5w fr-mt-5w">
+      <%= render partial: 'shared/alerts' %>
+
+      <% if content_for?(:body) %>
+        <%= yield(:body) %>
+      <% else %>
+        <%= yield %>
+      <% end %>
+    </div>
+
+    <%= render partial: 'shared/footer' %>
   </body>
 </html>
