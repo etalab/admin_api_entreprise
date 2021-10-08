@@ -97,6 +97,7 @@ task :deploy => :environment do
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
+    invoke :cgu_to_pdf
     invoke :'deploy:cleanup'
 
     on :launch do
@@ -127,6 +128,11 @@ task :passenger do
     else
       echo 'Skipping: no Passenger app found (will be automatically loaded)'
     fi}
+end
+
+task :cgu_to_pdf do
+  comment 'Generating PDF version of CGU'.green
+  command %(pandoc app/views/pages/cgu.html.erb -o public/cgu.pdf --pdf-engine=xelatex)
 end
 
 # For help in making your deploy script, see the Mina documentation:

@@ -19,7 +19,7 @@ RSpec.describe 'User JWT listing', type: :feature do
       jwt_index
 
       user.jwt_api_entreprise.each do |jwt|
-        expect(page).to have_content(jwt.rehash)
+        expect(page).to have_css("input[value='#{jwt.rehash}']")
       end
     end
 
@@ -28,7 +28,7 @@ RSpec.describe 'User JWT listing', type: :feature do
       jwt_index
 
       another_user.jwt_api_entreprise.each do |jwt|
-        expect(page).to_not have_content(jwt.rehash)
+        expect(page).not_to have_css("input[value='#{jwt.rehash}']")
       end
     end
 
@@ -36,21 +36,21 @@ RSpec.describe 'User JWT listing', type: :feature do
       archived_jwt = create(:jwt_api_entreprise, :archived, user: user)
       jwt_index
 
-      expect(page).to_not have_content(archived_jwt.rehash)
+      expect(page).not_to have_css("input[value='#{archived_jwt.rehash}']")
     end
 
     it 'does not display blacklisted tokens' do
       blacklisted_jwt = create(:jwt_api_entreprise, :blacklisted, user: user)
       jwt_index
 
-      expect(page).to_not have_content(blacklisted_jwt.rehash)
+      expect(page).not_to have_css("input[value='#{blacklisted_jwt.rehash}']")
     end
 
     it 'does not display expired tokens' do
       expired_jwt = create(:jwt_api_entreprise, :expired)
       jwt_index
 
-      expect(page).to_not have_content(expired_jwt.rehash)
+      expect(page).not_to have_css("input[value='#{expired_jwt.rehash}']")
     end
   end
 end

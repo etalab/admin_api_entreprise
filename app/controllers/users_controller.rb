@@ -5,11 +5,13 @@ class UsersController < AuthenticatedUsersController
 
   def transfer_account
     transfer = User::Operation::TransferOwnership.call(params: transfer_account_params)
+
     if transfer.success?
-      flash[:notice] = 'Vos jetons ont été transférés avec succès.'
+      success_message(title: t('.success.title'))
     else
-      flash[:alert] = transfer[:contract_errors]
+      error_message(title: t('.error.title'))
     end
+
     redirect_back fallback_location: root_path
   end
 

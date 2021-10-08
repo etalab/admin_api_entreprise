@@ -16,7 +16,7 @@ RSpec.describe 'page access', type: :feature do
       end
 
       it 'shows an error message' do
-        expect(page).to have_css('.alert')
+        expect(page).to have_css('.fr-alert--error')
       end
     end
   end
