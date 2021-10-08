@@ -40,7 +40,7 @@ class ScheduleExpirationNoticeMailjetEmailJob < ApplicationJob
   def build_vars(token)
     {
       cadre_utilisation_token: token.subject,
-      authorization_request_id: token.authorization_request.id,
+      authorization_request_id: token.authorization_request.external_id,
       expiration_date: friendly_format_from_timestamp(token.exp)
     }
   end
