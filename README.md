@@ -48,6 +48,20 @@ Dans le cas d'API entreprise, les 2 comptes suivants sont disponibles :
 - user@yopmail.com / user@yopmail.com -> utilisateur normal
 - api-entreprise@yopmail.com / api-entreprise@yopmail.com -> utilisateur admin
 
+## Déploiements
+
+Effectuer la commande suivante pour déployer en production:
+
+```
+rake deploy
+```
+
+Dans le cas d'un test sur sandbox avec la branche `features/whatever`
+
+```
+bundle exec mina deploy domain=dashboard.entreprise.api.gouv.fr branch=features/whatever to=sandbox
+```
+
 ## Ajout de credentials via rails:credentials
 
 Avant toute chose, lisez la partie sur la gestion des credentials chiffré dans
@@ -74,19 +88,6 @@ Pour rappel, la commande d'édition:
 ```sh
 rails credentials:edit
 ```
-
-## Déploiements à l'aide de Mina
-
-Il peut être nécessaire que mina exécute ses commandes dans un shell intéractif,
-cela peut notamment permettre de taper 'yes' si SSH demande l'ajout de l'hôte à
-la liste known_hosts.
-Pour cela, ajouter la config suivante dans le fichier `config/deploy.rb` :
-
-    set :execution_mode, 'system'
-
-Pour déployer le projet :
-
-    bundle exec mina deploy to=sandbox|production
 
 ### Droit administrateur
 
