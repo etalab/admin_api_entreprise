@@ -1,4 +1,8 @@
 class Contact < ApplicationRecord
+  self.ignored_columns = %w[
+    jwt_api_entreprise_id
+  ]
+
   belongs_to :authorization_request
   has_one :jwt_api_entreprise, through: :authorization_request
 
