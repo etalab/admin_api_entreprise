@@ -2,6 +2,9 @@ module UserSessionsHelper
   def current_user
     @current_user ||= session[:current_user_id] &&
       User.find(session[:current_user_id])
+  rescue ActiveRecord::RecordNotFound
+    session[:current_user_id] = nil
+    nil
   end
 
   def user_signed_in?
