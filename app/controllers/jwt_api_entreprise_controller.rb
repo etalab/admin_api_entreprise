@@ -5,4 +5,8 @@ class JwtAPIEntrepriseController < AuthenticatedUsersController
       .not_blacklisted
       .where(archived: false)
   end
+
+  def create_magic_link
+
+  end
 end
