@@ -7,7 +7,7 @@
     <div class="fr-col-md-6 fr-col-offset-md-3 fr-col-12 center">
       <div class="fr-card fr-card--horizontal fr-card--no-arrow">
         <div class="fr-card__body">
-          <%= form_with(url: login_api_gouv_path, method: :post) do |f| %>
+          <%= form_with(url: login_api_gouv_path, method: :post, data: { turbo: false }) do |f| %>
             <%= f.button t('.button'), class: %w(fr-btn fr-btn--md), id: 'login' %>
           <% end %>
 
