@@ -1,4 +1,6 @@
 class JwtAPIEntrepriseController < AuthenticatedUsersController
+  skip_before_action :authenticate_user!, only: [:show_magic_link]
+
   def index
     @tokens = current_user.jwt_api_entreprise
       .unexpired
@@ -19,5 +21,17 @@ class JwtAPIEntrepriseController < AuthenticatedUsersController
     end
 
     redirect_back fallback_location: root_path
+  end
+
+  def show_magic_link
+    retrieve_jwt = JwtAPIEntreprise::Operation::RetrieveFromMagicLink.call(params: params)
+
+    if retrieve_jwt.success?
+      @tokens = [retrieve_jwt[:jwt]]
+      render :index
+    else
+      error_message(title: t('.error.title'))
+      redirect_to login_path
+    end
   end
 end

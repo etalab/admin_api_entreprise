@@ -15,5 +15,5 @@ RSpec.describe 'jwt_api_entreprise/_jwt_api_entreprise.html.erb' do
   it { is_expected.to include(token.rehash) }
   it { is_expected.to include(token.renewal_url) }
   it { is_expected.to include(token.authorization_request_url) }
-  it { is_expected.to include(token_magic_link_path(token)) }
+  it { is_expected.to include(token_create_magic_link_path(token)) }
 end

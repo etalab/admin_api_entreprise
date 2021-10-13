@@ -65,7 +65,7 @@
             <button class="fr-link--close fr-link" aria-controls="<%= dom_id(jwt_api_entreprise, :modal) %>">Fermer</button>
           </div>
 
-          <%= form_with url: token_magic_link_path(jwt_api_entreprise), method: :post, id: dom_id(jwt_api_entreprise, :magic_link) do |form| %>
+          <%= form_with url: token_create_magic_link_path(jwt_api_entreprise), method: :post, id: dom_id(jwt_api_entreprise, :magic_link) do |form| %>
             <div class="fr-modal__content">
               <h1 id="<%= dom_id(jwt_api_entreprise, :modal_title) %>" class="fr-modal__title">
                 <span class="fr-fi-arrow-right-line fr-fi--lg"></span>
