@@ -18,11 +18,7 @@ RSpec.describe 'create a magic link', type: :feature do
   context 'when the email address is valid' do
     let(:email) { 'valid@email.com' }
 
-    it 'notifies of success' do
-      subject
-
-      expect(page).to have_css('.fr-alert--success')
-    end
+    it_behaves_like :alert_success
 
     it 'sends the email magic link' do
       expect { subject }
@@ -57,11 +53,7 @@ RSpec.describe 'create a magic link', type: :feature do
   context 'when the email address is invalid' do
     let(:email) { 'not an email' }
 
-    it 'displays an error' do
-      subject
-
-      expect(page).to have_css('.fr-alert--error')
-    end
+    it_behaves_like :alert_error
 
     it 'does not send the magic link email' do
       expect { subject }

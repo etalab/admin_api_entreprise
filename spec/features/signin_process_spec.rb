@@ -64,10 +64,6 @@ RSpec.describe 'the signin process', type: :feature do
       expect(page.current_path).to eq(login_path)
     end
 
-    it 'displays an error message' do
-      subject
-
-      expect(page).to have_css('.fr-alert--error')
-    end
+    it_behaves_like :alert_error
   end
 end

@@ -16,11 +16,7 @@ RSpec.describe 'transfer user account ownership', type: :feature do
   before { login_as(user) }
 
   shared_examples :it_aborts_the_transfer do
-    it 'displays an error' do
-      subject
-
-      expect(page).to have_css('.fr-alert--error')
-    end
+    it_behaves_like :alert_error
 
     it 'does not transfer any tokens' do
       user_tokens_id = user.jwt_api_entreprise.pluck(:id)
@@ -44,11 +40,7 @@ RSpec.describe 'transfer user account ownership', type: :feature do
   end
 
   context 'when the provided email address is valid' do
-    it 'displays success' do
-      subject
-
-      expect(page).to have_css('.fr-alert--success')
-    end
+    it_behaves_like :alert_success
 
     it 'deletes the tokens from the previous account' do
       subject

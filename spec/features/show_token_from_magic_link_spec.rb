@@ -8,11 +8,7 @@ RSpec.describe 'show token from magic link' do
   context 'when the magic link token does not exist' do
     let(:magic_token) { 'wrong token' }
 
-    it 'displays an error' do
-      subject
-
-      expect(page).to have_css('.fr-alert--error')
-    end
+    it_behaves_like :alert_error
 
     it 'redirects to the login page' do
       subject
@@ -36,11 +32,7 @@ RSpec.describe 'show token from magic link' do
 
       after { Timecop.return }
 
-      it 'displays an error' do
-        subject
-
-        expect(page).to have_css('.fr-alert--error')
-      end
+      it_behaves_like :alert_error
 
       it 'redirects to the login page' do
         subject
