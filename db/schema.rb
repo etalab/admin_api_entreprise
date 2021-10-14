@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_21_150557) do
+ActiveRecord::Schema.define(version: 2021_10_08_111119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -34,20 +34,17 @@ ActiveRecord::Schema.define(version: 2021_09_21_150557) do
     t.string "email"
     t.string "phone_number"
     t.string "contact_type"
-    t.uuid "jwt_api_entreprise_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "first_name"
     t.string "last_name"
     t.uuid "authorization_request_id"
     t.index ["created_at"], name: "index_contacts_on_created_at"
-    t.index ["jwt_api_entreprise_id"], name: "index_contacts_on_jwt_api_entreprise_id"
   end
 
   create_table "jwt_api_entreprises", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "subject"
     t.integer "iat"
-    t.uuid "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "exp"
@@ -68,7 +65,6 @@ ActiveRecord::Schema.define(version: 2021_09_21_150557) do
     t.index ["exp"], name: "index_jwt_api_entreprises_on_exp"
     t.index ["iat"], name: "index_jwt_api_entreprises_on_iat"
     t.index ["magic_link_token"], name: "index_jwt_api_entreprises_on_magic_link_token", unique: true
-    t.index ["user_id"], name: "index_jwt_api_entreprises_on_user_id"
   end
 
   create_table "jwt_api_entreprises_roles", id: false, force: :cascade do |t|
@@ -103,6 +99,4 @@ ActiveRecord::Schema.define(version: 2021_09_21_150557) do
     t.index ["pwd_renewal_token"], name: "index_users_on_pwd_renewal_token"
   end
 
-  add_foreign_key "contacts", "jwt_api_entreprises"
-  add_foreign_key "jwt_api_entreprises", "users"
 end
