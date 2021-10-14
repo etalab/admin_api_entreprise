@@ -2,119 +2,71 @@
 
 [![CI](https://github.com/etalab/admin_api_entreprise/actions/workflows/ci.yml/badge.svg)](https://github.com/etalab/admin_api_entreprise/actions/workflows/ci.yml)
 
-## Par où commencer ?
+## Requirements
+
+- ruby 2.7.2
+- redis-server >= 6
+- postgresql >= 9
+
+## Install
+
+Il suffit de lancer la commande suivante pour configurer la base de données,
+installer les paquets et importer les tables de la base de données :
 
 ```sh
-git clone git@github.com:etalab/admin_api_entreprise.git
-cd admin_api_entreprise/
-psql -f postgresql_setup.txt
-bundle install
-bin/rails db:migrate
-bin/rails db:migrate RAILS_ENV=test
+./bin/install.sh
 ```
 
-Il sera alors possible d'exécuter la suite de tests :
+## Tests
+
+Il faut lancer:
 
 ```sh
 bin/rspec
 ```
 
+[Guard](https://github.com/guard/guard) est aussi installé:
+
+```sh
+guard
+```
+
 ### Développement
 
-Il existe des seeds:
+Vous pouvez importer des données afin d'avoir un site qui ne soit pas vide:
 
 ```sh
 rails db:seed:replant
 ```
 
-En local, la connexion s'effectue sur `auth-test.api.gouv.fr` qui est remplie
-des données de fixtures.
+En local et sandbox, la connexion s'effectue sur `auth-test.api.gouv.fr` qui est remplie
+de données de fixtures (disponible
+[ici](https://github.com/betagouv/api-auth/blob/master/scripts/fixtures.sql))
 
-Dans le cas d'API entreprise, les 2 comptes suivants sont dispo:
+Dans le cas d'API entreprise, les 2 comptes suivants sont disponibles :
 
 - user@yopmail.com / user@yopmail.com -> utilisateur normal
 - api-entreprise@yopmail.com / api-entreprise@yopmail.com -> utilisateur admin
 
-## Configuration de la base de données
+## Déploiements
 
-### Choosing UUIDs as IDs
-
-#### Kill it with fire
-
-Ce message s'addresse à toute personne ayant cloné ce projet **avant** que le
-choix d'utilisation des UUID n'ait été fait. Si vous avez dans vos
-environnements de développement une jeune version de la base de donnée avec des
-IDs "entier", veuillez exécuter la commande suivante :
-
-`rails db:drop`
-
-Cela supprimera entièrement les bases de données non conformes, le plus simple
-étant de repartir de zéro, comme il est documenté ci-dessous.
-
-#### Configuration des BDD de développement
-
-L'application est configurée pour que les ID des modèles ne soient plus un entier
-incrémenté à chaque création en base mais des UUID. Depuis Rails 5, il suffit
-d'activer l'extension _pgcrypto_ dans Postgresql. Pour cela, créer tout d'abord
-les bases de données de votre environnement de développement :
-
-`rails db:create`
-
-Puis exécuter la commande suivante dans la console de Postgresql (pour chacune
-des deux bases de données de développement et de tests) :
-
-`CREATE EXTENSION pgcrypto;`
-
-Soit en détail:
+Effectuer la commande suivante pour déployer en production:
 
 ```
-sudo -u postgres -i
-psql -d admin_apientreprise_development
-psql> CREATE EXTENSION pgcrypto;
-psql>\q
-psql -d admin_apientreprise_test
-psql> CREATE EXTENSION pgcrypto;
-psql>\q
+rake deploy
 ```
 
-La commande `rails db:migrate` devrait alors se dérouler sans encombre.
+Dans le cas d'un test sur sandbox avec la branche `features/whatever`
 
-Si les migrations échouent avec le message d'erreur suivant :
-
-> PG::UndefinedFunction: ERROR: function gen_random_uuid() does not exist
-
-... cela signifie que l'extension _pgcrypto_ n'est pas installée (note : la
-commande `\dx` depuis la console de Postgresql permet de lister les extensions
-installées sur une base de données).
-
-Le fichier de configuration _config/initializers/generators.rb_ assure de la prise
-en compte du changement de type d'ID dans les futures migrations : vérifier tout
-de même la présence de l'option `id: :uuid` lorsqu'une migration créé une
-nouvelle table (ajout d'un nouveau modèle par exemple).
-
-```ruby
-class NewMigration < ActiveRecord::Migration[5.1]>
-  def change
-    create_table :my_table, id: :uuid do |t|
-      ...
-    end
-  end
-end
 ```
-
-De la même manière, lors de la création d'une relation entre deux modèles, il
-est nécessaire d'indiquer que le lien est réaliser sur des UUID à l'aide de
-l'option `type: :uuid`. Exemple :
-
-```ruby
-class AddMyRelationToMyModel < ActiveRecord::Migration[5.1]
-  def change
-    add_reference :my_model, :my_relation, foreign_key: true, type: :uuid, index: true
-  end
-end
+bundle exec mina deploy domain=dashboard.entreprise.api.gouv.fr branch=features/whatever to=sandbox
 ```
 
 ## Ajout de credentials via rails:credentials
+
+Avant toute chose, lisez la partie sur la gestion des credentials chiffré dans
+la [doc officielle de
+Rails](https://edgeguides.rubyonrails.org/security.html#environmental-security)
 
 Chaque environnement possède son propre fichier de credentials.
 
@@ -127,22 +79,15 @@ Pour les fichiers de production (i.e. sandbox, staging et production), il y a
 aussi plusieurs fichiers. Les clés ne sont pas versionnées, il faut les importer
 depuis le vault d'ansible du dépôt stockant l'ensemble des secrets.
 
-Vous pouvez le script
+Vous pouvez executer le script
 [`scripts/import_master_keys.sh`](./scripts/import_master_keys.sh) pour
-effectuer l'import
+effectuer l'import.
 
-## Déploiements à l'aide de Mina
+Pour rappel, la commande d'édition:
 
-Il peut être nécessaire que mina exécute ses commandes dans un shell intéractif,
-cela peut notamment permettre de taper 'yes' si SSH demande l'ajout de l'hôte à
-la liste known_hosts.
-Pour cela, ajouter la config suivante dans le fichier `config/deploy.rb` :
-
-    set :execution_mode, 'system'
-
-Pour déployer le projet :
-
-    bundle exec mina deploy to=sandbox|production
+```sh
+rails credentials:edit
+```
 
 ### Droit administrateur
 
