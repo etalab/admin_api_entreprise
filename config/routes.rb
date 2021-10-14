@@ -36,7 +36,7 @@ Rails.application.routes.draw do
 
   # Authentication
   get '/login', to: 'sessions#new'
-  get '/logout', to: 'sessions#destroy'
+  delete '/logout', to: 'sessions#destroy'
   post '/auth/api_gouv', as: :login_api_gouv
   match '/auth/api_gouv/callback', to: 'sessions#create', via: [:get, :post]
   get '/auth/failure', to: 'sessions#failure'
