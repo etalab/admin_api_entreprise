@@ -21,10 +21,12 @@ RSpec.describe 'show token from magic link' do
     let!(:jwt) { create(:jwt_api_entreprise, :with_magic_link) }
     let(:magic_token) { jwt.magic_link_token }
 
-    it 'shows the token details' do
-      subject
+    context 'when the magic token is still active' do
+      it 'shows the token details' do
+        subject
 
-      expect(page).to have_css("input[value='#{jwt.rehash}']")
+        expect(page).to have_css("input[value='#{jwt.rehash}']")
+      end
     end
 
     context 'when the magic link token has expired' do

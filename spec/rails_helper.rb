@@ -70,6 +70,7 @@ RSpec.configure do |config|
   config.include JWTHelper, type: :request
   config.include ResponseHelper, type: :controller
   config.include FeatureHelper, type: :feature
+  config.include UserSessionsHelper, type: :view
 
   # Include fixtures tokens to test OAuth API Gouv interaction
   config.include OAuthAPIGouv

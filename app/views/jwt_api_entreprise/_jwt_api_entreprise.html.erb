@@ -3,10 +3,12 @@
     <h4 class="fr-card__title">
       <%= t('.title', displayed_subject: jwt_api_entreprise.displayed_subject) %>
 
-      <span class="fr-text--sm fr-m-0 pull-right">
-        <%= link_to t('.links.datapass'), jwt_api_entreprise.authorization_request_url, target: '_blank', id: :authorization_request_link, class: %w(fr-link fr-link--sm) %>
-        <%= link_to t('.links.stats'), '#', class: %w(fr-link fr-link--sm fr-fi-arrow-right-line fr-link--icon-right) %>
-      </span>
+      <% if user_signed_in? %>
+        <span class="fr-text--sm fr-m-0 pull-right">
+          <%= link_to t('.links.datapass'), jwt_api_entreprise.authorization_request_url, target: '_blank', id: :authorization_request_link, class: %w(fr-link fr-link--sm) %>
+          <%= link_to t('.links.stats'), '#', id: :token_stats_link, class: %w(fr-link fr-link--sm fr-fi-arrow-right-line fr-link--icon-right) %>
+        </span>
+      <% end %>
     </h4>
 
     <div class="fr-card__desc">
@@ -45,17 +47,20 @@
         <input class="fr-input" type="text" readonly value="<%= jwt_api_entreprise.rehash %>" />
       </div>
 
-      <div class="actions">
-        <button id="<%= dom_id(jwt_api_entreprise, :modal_button) %>" class="fr-btn" data-fr-opened="false" aria-controls="<%= dom_id(jwt_api_entreprise, :modal) %>">
-          <%= t('.actions.transfer') %>
-        </button>
-        <%= button_to t('.actions.renew'), jwt_api_entreprise.renewal_url, id: 'renew_access_button', class: %w(fr-btn) %>
-      </div>
+      <% if user_signed_in? %>
+        <div class="actions">
+          <button id="<%= dom_id(jwt_api_entreprise, :modal_button) %>" class="fr-btn" data-fr-opened="false" aria-controls="<%= dom_id(jwt_api_entreprise, :modal) %>">
+            <%= t('.actions.transfer') %>
+          </button>
+          <%= button_to t('.actions.renew'), jwt_api_entreprise.renewal_url, id: 'renew_access_button', class: %w(fr-btn) %>
+        </div>
+      <% end %>
 
     </div>
   </div>
 </div>
 
+<% if user_signed_in? %>
 <dialog aria-labelledby="fr-modal-2-title" id="<%= dom_id(jwt_api_entreprise, :modal) %>" class="fr-modal" role="dialog" >
   <div class="fr-container fr-container--fluid fr-container-md">
     <div class="fr-grid-row fr-grid-row--center">
@@ -92,3 +97,4 @@
     </div>
   </div>
 </dialog>
+<% end %>

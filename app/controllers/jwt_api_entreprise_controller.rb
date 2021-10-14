@@ -28,7 +28,7 @@ class JwtAPIEntrepriseController < AuthenticatedUsersController
 
     if retrieve_jwt.success?
       @tokens = [retrieve_jwt[:jwt]]
-      render :index
+      render :index, layout: 'application'
     else
       error_message(title: t('.error.title'))
       redirect_to login_path
