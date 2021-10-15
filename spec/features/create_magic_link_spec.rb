@@ -8,7 +8,6 @@ RSpec.describe 'create a magic link', type: :feature do
 
   subject do
     visit user_tokens_path
-    click_button dom_id(token, :modal_button)
     within("#" + dom_id(token, :magic_link)) do
       fill_in 'email', with: email
       click_button
@@ -64,6 +63,15 @@ RSpec.describe 'create a magic link', type: :feature do
       subject
 
       expect(page).to have_current_path(user_tokens_path)
+    end
+  end
+
+  describe 'with javascript actived', js: true do
+    it 'works' do
+      visit user_tokens_path
+      expect(page).not_to have_css('#' + dom_id(token, :magic_link))
+      click_on dom_id(token, :modal_button)
+      expect(page).to have_css('#' + dom_id(token, :magic_link))
     end
   end
 end

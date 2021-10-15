@@ -39,6 +39,12 @@ end
 require 'capybara/rspec'
 require 'capybara/apparition'
 require 'rack_session_access/capybara'
+
+Capybara.register_driver :apparition do |app|
+  Capybara::Apparition::Driver.new(app, {
+    js_errors: false,
+  })
+end
 Capybara.javascript_driver = :apparition
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
