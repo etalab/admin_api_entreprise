@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'show token from magic link' do
+RSpec.describe 'show token from magic link', type: :feature do
   subject do
     visit token_show_magic_link_path(token: magic_token)
   end
@@ -26,6 +26,15 @@ RSpec.describe 'show token from magic link' do
         subject
 
         expect(page).to have_css("input[value='#{jwt.rehash}']")
+      end
+
+      it_behaves_like :alert_info
+
+      it 'displays the expiration time of the magic link' do
+        subject
+        expiration_time = distance_of_time_in_words(Time.zone.now, jwt.magic_link_issuance_date + 4.hours)
+
+        expect(page).to have_content(expiration_time)
       end
     end
 

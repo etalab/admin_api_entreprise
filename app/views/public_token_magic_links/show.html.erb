@@ -1,0 +1,14 @@
+<h2>Tokens de l'organisation</h2>
+
+<div class="fr-alert fr-alert--info fr-mb-8v">
+  <p class="fr-alert__title"><%= t('.disclaimer.title') %></p>
+  <p>
+  <%= t('.disclaimer.description', expiration_time: distance_of_time_in_words(Time.zone.now, @token.magic_link_issuance_date + 4.hours)) %>
+  </p>
+</div>
+
+<div class="fr-grid-row">
+  <div class="fr-col-12 fr-pb-2w">
+    <%= render partial: 'jwt_api_entreprise/jwt_api_entreprise', object: @token %>
+  </div>
+</div>
