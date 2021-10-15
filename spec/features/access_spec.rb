@@ -15,7 +15,7 @@ RSpec.describe 'page access', type: :feature do
         expect(page.current_path).to eq(login_path)
       end
 
-      it_behaves_like :alert_error
+      it_behaves_like :display_alert, :error
     end
   end
 

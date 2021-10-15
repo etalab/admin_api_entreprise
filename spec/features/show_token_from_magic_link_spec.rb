@@ -8,7 +8,7 @@ RSpec.describe 'show token from magic link', type: :feature do
   context 'when the magic link token does not exist' do
     let(:magic_token) { 'wrong token' }
 
-    it_behaves_like :alert_error
+    it_behaves_like :display_alert, :error
 
     it 'redirects to the login page' do
       subject
@@ -28,7 +28,7 @@ RSpec.describe 'show token from magic link', type: :feature do
         expect(page).to have_css("input[value='#{jwt.rehash}']")
       end
 
-      it_behaves_like :alert_info
+      it_behaves_like :display_alert, :info
 
       it 'displays the expiration time of the magic link' do
         subject
@@ -43,7 +43,7 @@ RSpec.describe 'show token from magic link', type: :feature do
 
       after { Timecop.return }
 
-      it_behaves_like :alert_error
+      it_behaves_like :display_alert, :error
 
       it 'redirects to the login page' do
         subject
