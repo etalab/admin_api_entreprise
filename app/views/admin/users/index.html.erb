@@ -1,1 +1,25 @@
-<h2>Liste des organisations</h2>
+<div class="fr-grid-row">
+  <div class="fr-table fr-table--bordered">
+    <table class="fr-col-12">
+      <caption>Liste des organisations</caption>
+      <thead>
+        <tr>
+          <th scope="col"> Date création </th>
+          <th scope="col"> Email </th>
+          <th scope="col"> Siret </th>
+          <th scope="col"> Confirmé </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr id="<%= dom_id(user) %>" class='user_summary'>
+            <td><%= user.created_at.strftime("%d/%m/%Y") %></td>
+            <td><%= user.email %></td>
+            <td><%= user.context %></td>
+            <td><%= user.confirmed? ? 'Oui' : 'Non' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
