@@ -78,6 +78,7 @@ group :development, :test do
   gem 'faker'
   gem 'timecop'
   gem 'rack_session_access'
+  gem 'i18n-tasks'
 end
 
 group :development do
