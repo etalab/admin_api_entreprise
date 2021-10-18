@@ -19,7 +19,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
   let(:mailjet_variables) { { lol: 'oki' } }
 
   before do
-    Timecop.freeze
+    Timecop.freeze(Date.new(2021, 9, 1))
   end
 
   after do
