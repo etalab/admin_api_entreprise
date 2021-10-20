@@ -23,4 +23,8 @@ module UserSessionsHelper
       redirect_to user_profile_path
     end
   end
+
+  def logout_user
+    session[:current_user_id] = nil
+  end
 end

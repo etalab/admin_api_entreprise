@@ -36,6 +36,7 @@ Rails.application.routes.draw do
 
   # Authentication
   get '/login', to: 'sessions#new'
+  delete '/logout', to: 'sessions#destroy'
   post '/auth/api_gouv', as: :login_api_gouv
   match '/auth/api_gouv/callback', to: 'sessions#create', via: [:get, :post]
   get '/auth/failure', to: 'sessions#failure'
@@ -43,6 +44,9 @@ Rails.application.routes.draw do
   get '/profile', to: 'users#profile', as: :user_profile
   get '/profile/tokens', to: 'jwt_api_entreprise#index', as: :user_tokens
   post 'profile/transfer_account', to: 'users#transfer_account', as: :user_transfer_account
+  post 'tokens/:id/create_magic_link', to: 'restricted_token_magic_links#create', as: :token_create_magic_link
+  get '/magic_link', to: 'public_token_magic_links#show', as: :token_show_magic_link_legacy
+  get '/public/tokens/:token', to: 'public_token_magic_links#show', as: :token_show_magic_link
 
   namespace :admin do
     get '/private_metrics' => 'private_metrics#index'

@@ -3,10 +3,12 @@
     <h4 class="fr-card__title">
       <%= t('.title', displayed_subject: jwt_api_entreprise.displayed_subject) %>
 
-      <span class="fr-text--sm fr-m-0 pull-right">
-        <%= link_to t('.links.datapass'), jwt_api_entreprise.authorization_request_url, target: '_blank', id: :authorization_request_link, class: %w(fr-link fr-link--sm) %>
-        <%= link_to t('links.stats'), '#', class: %w(fr-link fr-link--sm fr-fi-arrow-right-line fr-link--icon-right) %>
-      </span>
+      <% if user_signed_in? %>
+        <span class="fr-text--sm fr-m-0 pull-right">
+          <%= link_to t('.links.datapass'), jwt_api_entreprise.authorization_request_url, target: '_blank', id: :authorization_request_link, class: %w(fr-link fr-link--sm) %>
+          <%= link_to t('.links.stats'), '#', id: :token_stats_link, class: %w(fr-link fr-link--sm fr-fi-arrow-right-line fr-link--icon-right) %>
+        </span>
+      <% end %>
     </h4>
 
     <div class="fr-card__desc">
@@ -45,10 +47,54 @@
         <input class="fr-input" type="text" readonly value="<%= jwt_api_entreprise.rehash %>" />
       </div>
 
-      <div class="actions">
-        <%= button_to t('.actions.transfer'), '#', id: 'magic_link_button', class: %w(fr-btn) %>
-        <%= button_to t('.actions.renew'), jwt_api_entreprise.renewal_url, id: 'renew_access_button', class: %w(fr-btn) %>
-      </div>
+      <% if user_signed_in? %>
+        <div class="actions">
+          <button id="<%= dom_id(jwt_api_entreprise, :modal_button) %>" class="fr-btn" data-fr-opened="false" aria-controls="<%= dom_id(jwt_api_entreprise, :modal) %>">
+            <%= t('.actions.transfer') %>
+          </button>
+          <%= button_to t('.actions.renew'), jwt_api_entreprise.renewal_url, id: 'renew_access_button', class: %w(fr-btn) %>
+        </div>
+      <% end %>
+
     </div>
   </div>
 </div>
+
+<% if user_signed_in? %>
+<dialog aria-labelledby="fr-modal-2-title" id="<%= dom_id(jwt_api_entreprise, :modal) %>" class="fr-modal" role="dialog" >
+  <div class="fr-container fr-container--fluid fr-container-md">
+    <div class="fr-grid-row fr-grid-row--center">
+      <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+        <div class="fr-modal__body">
+          <div class="fr-modal__header">
+            <button class="fr-link--close fr-link" aria-controls="<%= dom_id(jwt_api_entreprise, :modal) %>">Fermer</button>
+          </div>
+
+          <%= form_with url: token_create_magic_link_path(jwt_api_entreprise), method: :post, id: dom_id(jwt_api_entreprise, :magic_link) do |form| %>
+            <div class="fr-modal__content">
+              <h1 id="<%= dom_id(jwt_api_entreprise, :modal_title) %>" class="fr-modal__title">
+                <span class="fr-fi-arrow-right-line fr-fi--lg"></span>
+                <%= t('.magic_link.title') %>
+              </h1>
+              <p><%= t('.magic_link.description').html_safe %></p>
+
+              <div class="fr-input-group">
+                <%= form.label :email, t('.magic_link.email.label'), class: %w(fr-label) %>
+                <%= form.email_field :email, placeholder: t('.magic_link.email.placeholder'), class: %w(fr-input) %>
+              </div>
+            </div>
+
+            <div class="fr-modal__footer">
+              <ul class="fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-lg fr-btns-group--icon-left">
+                <li>
+                  <%= form.button t('.magic_link.cta'), data: { confirm: t('.magic_link.confirm') }, class: %w(fr-btn fr-fi-checkbox-line) %>
+                </li>
+              </ul>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
+<% end %>

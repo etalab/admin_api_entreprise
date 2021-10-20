@@ -15,9 +15,7 @@ RSpec.describe 'page access', type: :feature do
         expect(page.current_path).to eq(login_path)
       end
 
-      it 'shows an error message' do
-        expect(page).to have_css('.fr-alert--error')
-      end
+      it_behaves_like :display_alert, :error
     end
   end
 

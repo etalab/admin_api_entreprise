@@ -18,9 +18,5 @@ RSpec.describe JwtAPIEntrepriseExpirationNoticeJob do
   it_behaves_like 'sending expiration notices', 60
   it_behaves_like 'sending expiration notices', 30
   it_behaves_like 'sending expiration notices', 14
-  it_behaves_like 'sending expiration notices', 7
-  it_behaves_like 'sending expiration notices', 5
-  it_behaves_like 'sending expiration notices', 3
-  it_behaves_like 'sending expiration notices', 2
-  it_behaves_like 'sending expiration notices', 1
+  it_behaves_like 'sending expiration notices', 0
 end

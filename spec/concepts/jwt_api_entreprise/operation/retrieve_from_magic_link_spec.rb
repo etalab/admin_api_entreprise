@@ -10,6 +10,12 @@ RSpec.describe JwtAPIEntreprise::Operation::RetrieveFromMagicLink do
   let!(:jwt) { create(:jwt_api_entreprise, :with_magic_link) }
   let(:token) { jwt.magic_link_token }
 
+  context 'when the magic token is not provided' do
+    before { params.delete(:token) }
+
+    it { is_expected.to be_failure }
+  end
+
   context 'when the magic token does not exist' do
     let(:token) { 'not a magic link token' }
 

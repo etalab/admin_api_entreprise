@@ -13,6 +13,11 @@ class SessionsController < ApplicationController
     end
   end
 
+  def destroy
+    logout_user
+    redirect_to root_path
+  end
+
   def failure
     error_message(title: t(".#{failure_message}", default: t('.unknown')))
 
