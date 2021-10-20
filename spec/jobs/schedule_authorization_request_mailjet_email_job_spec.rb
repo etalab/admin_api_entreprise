@@ -66,7 +66,7 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob, type: :job do
             vars: mailjet_template_vars,
             'Mj-TemplateLanguage' => true,
             'Mj-TemplateID' => mailjet_template_id,
-          }
+          }.stringify_keys
         )
 
         subject
@@ -91,13 +91,15 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob, type: :job do
 
         it 'calls Mailjet client with the CC field for these users' do
           expect(Mailjet::Send).to receive(:create).with(
-            from_name: anything,
-            from_email: anything,
-            to: "#{to_user.full_name} <#{to_user.email}>",
-            cc: "#{cc_contact1.full_name} <#{cc_contact1.email}>, #{cc_contact2.full_name} <#{cc_contact2.email}>",
-            vars: mailjet_template_vars,
-            'Mj-TemplateLanguage' => true,
-            'Mj-TemplateID' => mailjet_template_id,
+            {
+              from_name: anything,
+              from_email: anything,
+              to: "#{to_user.full_name} <#{to_user.email}>",
+              cc: "#{cc_contact1.full_name} <#{cc_contact1.email}>, #{cc_contact2.full_name} <#{cc_contact2.email}>",
+              vars: mailjet_template_vars,
+              'Mj-TemplateLanguage' => true,
+              'Mj-TemplateID' => mailjet_template_id,
+            }.stringify_keys
           )
 
           subject
