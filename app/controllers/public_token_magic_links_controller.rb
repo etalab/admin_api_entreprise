@@ -5,7 +5,7 @@ class PublicTokenMagicLinksController < ApplicationController
     if retrieve_jwt.success?
       @token = retrieve_jwt[:jwt]
     else
-      error_message(title: t('.error.title'))
+      error_message(title: t('.error.title'), description: t('.error.description'))
       redirect_to login_path
     end
   end

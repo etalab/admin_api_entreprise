@@ -90,13 +90,14 @@ fr:
   restricted_token_magic_links:
     create:
       success:
-        title: Le jeton a été transféré avec succès.
+        title: Le jeton a été transféré avec succès à l'adresse %{target_email}
       error:
-        title: Une erreur est survenue lors du transfert du jeton.
+        title: Une erreur est survenue lors du transfert du jeton. Vérifiez que l'adresse email est valide ou contactez le support à support@entreprise.api.gouv.fr si le problème persiste.
   public_token_magic_links:
     show:
       error:
         title: Une erreur est survenue à la récupération du jeton.
+        description: Le jeton est peut-être invalide ou le lien a expiré (les liens ont une durée de vie de 4 heures). Veuillez re-demander un accès à votre responsable de compte.
       disclaimer:
         title: Durée de validité du lien
         description: Cette page contient votre jeton d'accès à API Entreprise et ne doit en aucun cas être partagé avec un tier non habilité ! Ce lien expirera dans %{expiration_time}.
