@@ -22,8 +22,7 @@ RSpec.describe JwtAPIEntrepriseMailer, type: :mailer do
     its(:to) { is_expected.to contain_exactly(email) }
 
     it 'contains the magic link to the jwt' do
-      magic_link_path = Rails.configuration.jwt_magic_link_url
-      magic_link_url = "#{magic_link_path}?token=#{jwt.magic_link_token}"
+      magic_link_url = Rails.configuration.jwt_magic_link_url + jwt.magic_link_token
 
       expect(subject.html_part.decoded).to include(magic_link_url)
       expect(subject.text_part.decoded).to include(magic_link_url)
