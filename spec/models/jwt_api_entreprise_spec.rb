@@ -19,7 +19,6 @@ RSpec.describe JwtAPIEntreprise, type: :model do
     it { is_expected.to have_db_column(:archived).of_type(:boolean).with_options(default: false) }
     it { is_expected.to have_db_column(:days_left_notification_sent).of_type(:json).with_options(default: []) }
     it { is_expected.to have_db_column(:authorization_request_id).of_type(:string) }
-    it { is_expected.to have_db_column(:access_request_survey_sent).of_type(:boolean).with_options(default: false, null: false) }
     it { is_expected.to have_db_column(:magic_link_token).of_type(:string).with_options(default: nil) }
     it { is_expected.to have_db_column(:magic_link_issuance_date).of_type(:datetime).with_options(default: nil) }
   end
@@ -30,7 +29,6 @@ RSpec.describe JwtAPIEntreprise, type: :model do
     it { is_expected.to have_db_index(:blacklisted) }
     it { is_expected.to have_db_index(:exp) }
     it { is_expected.to have_db_index(:iat) }
-    it { is_expected.to have_db_index(:access_request_survey_sent) }
     it { is_expected.to have_db_index(:magic_link_token) }
   end
 
@@ -38,32 +36,6 @@ RSpec.describe JwtAPIEntreprise, type: :model do
     it { is_expected.to have_one(:user) }
     it { is_expected.to have_many(:contacts) }
     it { is_expected.to have_and_belong_to_many(:roles) }
-  end
-
-  describe '#mark_access_request_survey_sent!' do
-    subject(:instance) { create(:jwt_api_entreprise, access_request_survey_sent_trait) }
-
-    context 'when the access request survey was not sent' do
-      let(:access_request_survey_sent_trait) { :access_request_survey_not_sent }
-
-      it 'sets the flag to sent' do
-        expect {
-          instance.mark_access_request_survey_sent!
-          instance.reload
-        }.to change(instance, :access_request_survey_sent?).from(false).to(true)
-      end
-    end
-
-    context 'when the access request survey was sent' do
-      let(:access_request_survey_sent_trait) { :access_request_survey_sent }
-
-      it 'does not set the flag to sent' do
-        expect {
-          instance.mark_access_request_survey_sent!
-          instance.reload
-        }.not_to change(instance, :access_request_survey_sent?)
-      end
-    end
   end
 
   describe '#generate_magic_link_token' do
@@ -103,24 +75,6 @@ RSpec.describe JwtAPIEntreprise, type: :model do
       let(:datetime_of_issue) { :seven_days_ago }
 
       its(:issued_in_last_seven_days) { is_expected.to be_exist token.id }
-    end
-  end
-
-  describe '.access_request_survey_not_sent' do
-    subject { described_class }
-
-    let!(:token) { create(:jwt_api_entreprise, sent_state) }
-
-    context 'when the access request survey was not sent' do
-      let(:sent_state) { :access_request_survey_not_sent }
-
-      its(:access_request_survey_not_sent) { is_expected.to be_exist token.id }
-    end
-
-    context 'when the access request survey was sent' do
-      let(:sent_state) { :access_request_survey_sent }
-
-      its(:access_request_survey_not_sent) { is_expected.not_to be_exist token.id }
     end
   end
 
