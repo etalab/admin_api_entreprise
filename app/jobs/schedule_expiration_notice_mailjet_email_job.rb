@@ -24,17 +24,20 @@ class ScheduleExpirationNoticeMailjetEmailJob < ApplicationJob
     {
       from_name: 'API Entreprise',
       from_email: Rails.configuration.emails_sender_address,
-      to: build_recipient(token),
+      to: build_recipients(token),
       vars: build_vars(token),
       'Mj-TemplateLanguage' => true,
       'Mj-TemplateID' => expiration_in_to_mailjet_template_id(expires_in)
     }
   end
 
-  def build_recipient(token)
-    user = token.user
-
-    "#{user.full_name} <#{user.email}>"
+  def build_recipients(token)
+    [
+      token.user,
+      token.contacts
+    ].flatten.map do |recipient|
+      "#{recipient.full_name} <#{recipient.email}>"
+    end.uniq.join(', ')
   end
 
   def build_vars(token)
