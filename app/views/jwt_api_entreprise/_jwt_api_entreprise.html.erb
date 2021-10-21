@@ -6,7 +6,7 @@
       <% if user_signed_in? %>
         <span class="fr-text--sm fr-m-0 pull-right">
           <%= link_to t('.links.datapass'), jwt_api_entreprise.authorization_request_url, target: '_blank', id: :authorization_request_link, class: %w(fr-link fr-link--sm) %>
-          <%= link_to t('.links.stats'), '#', id: :token_stats_link, class: %w(fr-link fr-link--sm fr-fi-arrow-right-line fr-link--icon-right) %>
+          <%= link_to t('.links.stats'), token_stats_path(jwt_api_entreprise), id: dom_id(jwt_api_entreprise, :stats_link), class: %w(fr-link fr-link--sm fr-fi-arrow-right-line fr-link--icon-right) %>
         </span>
       <% end %>
     </h4>

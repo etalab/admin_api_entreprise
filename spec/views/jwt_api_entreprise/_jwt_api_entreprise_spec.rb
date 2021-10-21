@@ -24,6 +24,7 @@ RSpec.describe 'jwt_api_entreprise/_jwt_api_entreprise.html.erb', type: :view do
     it { is_expected.to include(token.renewal_url) }
     it { is_expected.to include(token.authorization_request_url) }
     it { is_expected.to include(token_create_magic_link_path(token)) }
+    it { is_expected.to include(token_stats_path(token)) }
   end
 
   context 'when accessed via magic link' do

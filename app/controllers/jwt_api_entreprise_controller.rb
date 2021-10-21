@@ -5,4 +5,8 @@ class JwtAPIEntrepriseController < AuthenticatedUsersController
       .not_blacklisted
       .where(archived: false)
   end
+
+  def stats
+    @token = JwtAPIEntreprise.find(params[:id])
+  end
 end
