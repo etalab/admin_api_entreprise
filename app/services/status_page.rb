@@ -2,7 +2,7 @@ require 'open-uri'
 
 class StatusPage
   def current_status
-    case page_summary['page']['status']
+    case raw_current_status
     when 'UP'
       :up
     when 'HASISSUES'
@@ -18,6 +18,19 @@ class StatusPage
 
   private
 
+  def raw_current_status
+    redis.get(redis_cached_key) ||
+      retrieve_from_status_page
+  end
+
+  def retrieve_from_status_page
+    status = page_summary['page']['status']
+
+    redis.set(redis_cached_key, status, ex: 5.minutes.to_i)
+
+    status
+  end
+
   def page_summary
     JSON.parse(
       page_summary_body
@@ -30,5 +43,13 @@ class StatusPage
 
   def page_summary_url
     'https://status.entreprise.api.gouv.fr/summary.json'
+  end
+
+  def redis_cached_key
+    'status_page_current_status'
+  end
+
+  def redis
+    Redis.current
   end
 end
