@@ -3,11 +3,24 @@ require 'rails_helper'
 RSpec.describe 'admin page', type: :feature do
   let(:admin) { create(:user, :admin) }
 
-  let(:valid_siret) { '13002526500013' }
+  let(:valid_siret) { "13002526500013" }
 
   let(:mardi_24_aout)   { Time.local(2021,8,24,12,0) }
 
-  let!(:random_user)         { create(:user, context: valid_siret, created_at: mardi_24_aout, updated_at: mardi_24_aout) }
+  let(:random_user_uuid) { "ccfa7701-1ee1-47b5-9af1-4e59dfa453d1" }
+  let!(:random_user) do
+    create(:user,
+           context: valid_siret,
+           created_at: mardi_24_aout,
+           updated_at: mardi_24_aout,
+           email: "random@email.com",
+           id: random_user_uuid,
+           note: "some observations"
+          )
+  end
+
+
+
   let!(:confirmed_user)      { create(:user, oauth_api_gouv_id: 12) }
   let!(:unconfirmed_user)    { create(:user, oauth_api_gouv_id: nil) }
 
@@ -15,12 +28,13 @@ RSpec.describe 'admin page', type: :feature do
     "#" << [record.class.to_s.underscore, record.id].join('_')
   end
 
-  it_behaves_like 'admin_path', '/admin/users'
+  it_behaves_like 'admin_path', "/admin/users"
+  it_behaves_like 'admin_path', "/admin/users/ccfa7701-1ee1-47b5-9af1-4e59dfa453d1"
 
-  describe 'displays users informations' do
+  describe 'displays users list with generic information' do
     before do
       login_as(admin)
-      visit('/admin/users')
+      visit(admin_users_path)
     end
 
     it 'displays users in a table with one row per user' do
@@ -55,6 +69,26 @@ RSpec.describe 'admin page', type: :feature do
       within(dom_id(confirmed_user)) do
         expect(page).to have_content('Oui')
       end
+    end
+
+    it 'links to user details' do
+      within(dom_id(random_user)) do
+        expect(page).to have_link(random_user.email, href: admin_user_path(random_user))
+      end
+    end
+  end
+
+  describe 'displays user detailed information' do
+    before do
+      login_as(admin)
+      visit(admin_users_path)
+      click_link(random_user.email)
+    end
+
+    it 'note' do
+      expect(page).to have_content(random_user.note)
+      expect(page).to have_content(random_user.email)
+      expect(page).to have_content(random_user.context)
     end
   end
 end

@@ -55,7 +55,7 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/private_metrics' => 'private_metrics#index'
 
-    resources :users, only: %i[index]
+    resources :users, only: %i[index show]
   end
 
   get '/mentions', to: 'pages#mentions'

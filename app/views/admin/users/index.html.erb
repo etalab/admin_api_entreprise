@@ -14,7 +14,7 @@
         <% @users.each do |user| %>
           <tr id="<%= dom_id(user) %>" class='user_summary'>
             <td><%= user.created_at.strftime("%d/%m/%Y") %></td>
-            <td><%= user.email %></td>
+            <td><%= link_to user.email, admin_user_path(user) %></td>
             <td><%= user.context %></td>
             <td><%= user.confirmed? ? 'Oui' : 'Non' %></td>
           </tr>
