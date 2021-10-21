@@ -33,6 +33,20 @@ RSpec.describe ScheduleExpirationNoticeMailjetEmailJob, type: :job do
       end
     end
 
+    context 'when token has no authorization request (no user/contact)' do
+      before do
+        token.update!(
+          authorization_request_model_id: nil,
+        )
+      end
+
+      it 'does nothing' do
+        expect(Mailjet::Send).not_to receive(:create)
+
+        subject
+      end
+    end
+
     context 'when token is found and expires_in is valid' do
       let(:external_id) { '9001' }
 
