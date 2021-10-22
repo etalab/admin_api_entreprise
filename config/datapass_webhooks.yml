@@ -97,5 +97,11 @@ production: &production
         cc:
           - 'authorization_request.user'
 
+      # Enquête de satisfaction
+      - id: '3251161'
+        when: 'in 30 days'
+        to:
+          - 'authorization_request.user'
+
 sandbox: *production
 staging: *production

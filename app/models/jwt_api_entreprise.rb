@@ -1,6 +1,7 @@
 class JwtAPIEntreprise < ApplicationRecord
   self.ignored_columns = %w[
     user_id
+    access_request_survey_sent
   ]
 
   include RandomToken
@@ -10,14 +11,9 @@ class JwtAPIEntreprise < ApplicationRecord
   has_many :contacts, through: :authorization_request
   has_and_belongs_to_many :roles
 
-  scope :access_request_survey_not_sent, -> { where(access_request_survey_sent: false) }
   scope :not_blacklisted, -> { where(blacklisted: false) }
   scope :issued_in_last_seven_days, -> { where(created_at: 3.weeks.ago..1.week.ago) }
   scope :unexpired, -> { where('exp > ?', Time.zone.now.to_i) }
-
-  def mark_access_request_survey_sent!
-    update_attribute(:access_request_survey_sent, true)
-  end
 
   def rehash
     AccessToken.create(token_payload)
