@@ -1,21 +1,85 @@
-<h2><%= t('.title', title: @token.displayed_subject) %></h2>
+<div class="fr-grid-row">
+  <div class="fr-col-12 fr-pb-2w">
+    <div class="fr-card fr-card--horizontal fr-card--no-arrow">
+      <div class="fr-card__body">
+        <h4 class="fr-card__title">
+          <%= t('.title', title: @token.displayed_subject) %>
 
-<p>
-  <%= link_to t('.links.user_tokens'), user_tokens_path, id: :user_tokens_link %>
-<p>
+          <span class="fr-text--sm fr-m-0 pull-right">
+            <%= link_to t('.links.user_tokens'), user_tokens_path, id: :user_tokens_link, class: %w(fr-link fr-link--sm fr-fi-arrow-right-line fr-link--icon-right) %>
+          </span>
+        </h4>
 
-<p>
-  <span><%= t('.details.internal_id', id: @token.id) %></span>
-</p>
+        <div class="fr-card__desc">
+          <ul>
+            <li>
+              <span><%= t('.details.internal_id', id: @token.id) %></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fr-table" id="calls_ratio">
+    <table>
+      <caption><%= t('.calls_ratio.title') %></caption>
+      <thead>
+        <tr>
+          <th scope="col"><%= t('.calls_ratio.total_header') %></th>
+          <th scope="col"><%= t('.calls_ratio.success_header') %></th>
+          <th scope="col"><%= t('.calls_ratio.not_found_header') %></th>
+          <th scope="col"><%= t('.calls_ratio.invalid_params_header') %></th>
+          <th scope="col"><%= t('.calls_ratio.error_fd_header') %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>8</td>
+          <td>8</td>
+          <td>8</td>
+          <td>8</td>
+          <td>8</td>
+        </tr>
+        <tr>
+          <td>18</td>
+          <td>18</td>
+          <td>18</td>
+          <td>18</td>
+          <td>18</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="fr-table" id="requests_details">
+    <table>
+      <caption><%= t('.requests_details.title') %></caption>
+      <thead>
+        <tr>
+          <th scope="col"><%= t('.requests_details.endpoint_header') %></th>
+          <th scope="col"><%= t('.requests_details.parameters_header') %></th>
+          <th scope="col"><%= t('.requests_details.http_code_header') %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>8</td>
+          <td>8</td>
+          <td>8</td>
+        </tr>
+        <tr>
+          <td>18</td>
+          <td>18</td>
+          <td>18</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
 
 <div id="calls_rate">
 
 </div>
-
-<div id="calls_number">
-
-</div>
-
-<div id="calls_detail">
-
 </div>

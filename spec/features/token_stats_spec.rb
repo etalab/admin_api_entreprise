@@ -38,7 +38,7 @@ RSpec.describe 'stats page for a token', type: :feature do
     it 'displays the number of calls' do
       subject
 
-      expect(page).to have_css('#calls_number')
+      expect(page).to have_css('#calls_ratio')
     end
   end
 
@@ -46,7 +46,7 @@ RSpec.describe 'stats page for a token', type: :feature do
     it 'displays the details of the last few calls' do
       subject
 
-      expect(page).to have_css('#calls_detail')
+      expect(page).to have_css('#requests_details')
     end
   end
 end
