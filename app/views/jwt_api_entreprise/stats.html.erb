@@ -21,11 +21,12 @@
     </div>
   </div>
 
-  <div class="fr-table" id="calls_ratio">
-    <table>
+  <div class="fr-table fr-table--layout-fixed">
+    <table id="calls_ratio">
       <caption><%= t('.calls_ratio.title') %></caption>
       <thead>
         <tr>
+          <th scope="col"><%= t('.calls_ratio.name_header') %></th>
           <th scope="col"><%= t('.calls_ratio.total_header') %></th>
           <th scope="col"><%= t('.calls_ratio.success_header') %></th>
           <th scope="col"><%= t('.calls_ratio.not_found_header') %></th>
@@ -34,26 +35,22 @@
         </tr>
       </thead>
       <tbody>
+        <% @stats[:last_8_days].each do |endpoint_details| %>
         <tr>
-          <td>8</td>
-          <td>8</td>
-          <td>8</td>
-          <td>8</td>
-          <td>8</td>
+          <td><%= endpoint_details[:name] %></td>
+          <td><%= endpoint_details[:total] %></td>
+          <td><%= endpoint_details[:percent_success] %></td>
+          <td><%= endpoint_details[:percent_not_found] %></td>
+          <td><%= endpoint_details[:percent_other_client_errors] %></td>
+          <td><%= endpoint_details[:percent_server_errors] %></td>
         </tr>
-        <tr>
-          <td>18</td>
-          <td>18</td>
-          <td>18</td>
-          <td>18</td>
-          <td>18</td>
-        </tr>
+        <% end %>
       </tbody>
     </table>
   </div>
 
-  <div class="fr-table" id="requests_details">
-    <table>
+  <div class="fr-table fr-table--layout-fixed">
+    <table id="requests_details">
       <caption><%= t('.requests_details.title') %></caption>
       <thead>
         <tr>
@@ -63,16 +60,13 @@
         </tr>
       </thead>
       <tbody>
+        <% @stats[:last_requests].each do |request_details| %>
         <tr>
-          <td>8</td>
-          <td>8</td>
-          <td>8</td>
+          <td><%= request_details[:url] %></td>
+          <td><%= request_details[:params].to_s %></td>
+          <td><%= request_details[:code] %></td>
         </tr>
-        <tr>
-          <td>18</td>
-          <td>18</td>
-          <td>18</td>
-        </tr>
+        <% end %>
       </tbody>
     </table>
   </div>

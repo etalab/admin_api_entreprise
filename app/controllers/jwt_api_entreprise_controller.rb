@@ -7,6 +7,13 @@ class JwtAPIEntrepriseController < AuthenticatedUsersController
   end
 
   def stats
-    @token = JwtAPIEntreprise.find(params[:id])
+    retrieve_stats = RetrieveTokenStats.call(token_id: params[:id])
+    if retrieve_stats.success?
+      @token = retrieve_stats.token
+      @stats = retrieve_stats.stats
+    else
+      error_message(title: t('.error.title'), description: retrieve_stats.message)
+      redirect_to user_tokens_path
+    end
   end
 end

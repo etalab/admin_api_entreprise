@@ -6,47 +6,103 @@ RSpec.describe 'stats page for a token', type: :feature do
 
   subject { visit token_stats_path(token) }
 
-  before { login_as(user) }
-
-  it 'has a link back to the list of tokens' do
-    subject
-
-    expect(page).to have_link(href: user_tokens_path)
+  before do
+    login_as(user)
+    stubbed_request
   end
 
-  it 'displays the token use case' do
-    subject
+  context 'when Watchdoge works' do
+    let(:url) { "https://dashboard.entreprise.api.gouv.fr/api/watchdoge/stats/jwt_usage/#{token.id}" }
+    let(:body) { File.read(Rails.root.join('spec/fixtures/watchdoge_token_stats.json')) }
 
-    expect(page).to have_content(token.displayed_subject)
-  end
+    let(:stubbed_request) do
+      stub_request(:get, url).to_return({
+        status: 200,
+        body: body,
+      })
+    end
 
-  it 'displays the token internal ID' do
-    subject
-
-    expect(page).to have_content(token.id)
-  end
-
-  describe 'calls rate' do
-    it 'displays the rate of requests made with the token' do
+    it 'has a link back to the list of tokens' do
       subject
 
-      expect(page).to have_css('#calls_rate')
+      expect(page).to have_link(href: user_tokens_path)
+    end
+
+    it 'displays the token use case' do
+      subject
+
+      expect(page).to have_content(token.displayed_subject)
+    end
+
+    it 'displays the token internal ID' do
+      subject
+
+      expect(page).to have_content(token.id)
+    end
+
+    describe 'calls rate' do
+      it 'displays the rate of requests made with the token' do
+        subject
+
+        expect(page).to have_css('#calls_rate')
+      end
+    end
+
+    describe 'the ratio of success and errors per providers' do
+      let(:provider_stats) do
+        stats = JSON.parse(body, symbolize_names: true)
+        stats[:apis_usage][:last_8_days][:by_endpoint].first
+      end
+
+      it 'displays the number of calls' do
+        subject
+
+        expect(page).to have_table('calls_ratio', with_rows: [
+          [
+            provider_stats[:name],
+            provider_stats[:total],
+            provider_stats[:percent_success],
+            provider_stats[:percent_not_found],
+            provider_stats[:percent_other_client_errors],
+            provider_stats[:percent_server_errors],
+          ]
+        ])
+      end
+    end
+
+    describe 'last calls details' do
+      let(:one_of_the_last_calls) do
+        stats = JSON.parse(body, symbolize_names: true)
+        stats[:last_calls].first
+      end
+
+      it 'displays the details of the last few calls' do
+        subject
+
+        expect(page).to have_table('requests_details', with_rows: [
+          [
+            one_of_the_last_calls[:url],
+            one_of_the_last_calls[:params].to_s,
+            one_of_the_last_calls[:code],
+          ]
+        ])
+      end
     end
   end
 
-  describe 'number of calls' do
-    it 'displays the number of calls' do
-      subject
+  context 'when Watchdoge does not work' do
+    let(:url) { "https://dashboard.entreprise.api.gouv.fr/api/watchdoge/stats/jwt_usage/#{token.id}" }
 
-      expect(page).to have_css('#calls_ratio')
+    let(:stubbed_request) do
+      stub_request(:get, url).to_timeout
     end
-  end
 
-  describe 'last calls details' do
-    it 'displays the details of the last few calls' do
+    it_behaves_like :display_alert, :error
+
+    it 'redirects to the token index page' do
       subject
 
-      expect(page).to have_css('#requests_details')
+      expect(page).to have_current_path(user_tokens_path)
     end
   end
 end
