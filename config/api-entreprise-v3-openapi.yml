@@ -1,0 +1,1253 @@
+---
+openapi: 3.0.1
+info:
+  title: API Entreprise
+  version: v3
+paths:
+  "/v3/acoss/attestations_sociales/{siren}":
+    get:
+      summary: Attestation de vigilance
+      tags:
+      - Attestations sociales et fiscales
+      parameters:
+      - name: context
+        in: query
+        description: "**Cadre de la requête** \n \n Par exemple : aides publiques,
+          marchés publics ou gestion d’un référentiel tiers utilisé pour tel type
+          d’application."
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: "**Bénéficiaire de l’appel** \n \n SIRET de l’administration
+          destinatrice des données."
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: "**La raison de l’appel ou l’identifiant de la procédure.** \n
+          \n L’identifiant peut être interne à votre organisation ou bien un numéro
+          de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous
+          permette de tracer et de retrouver les informations relatives à l’appel.
+          En effet, vous devez pouvoir justifier de la raison d’un appel auprès du
+          fournisseur de données. Description courte ( < 50 caractères )."
+        required: true
+        schema:
+          type: string
+      - name: siren
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Obtenir l'attestation validant que l'entreprise s'acquitte de ses
+        obligations déclaratives et du paiement des cotisations et contributions sociales
+        auprès de l'URSSAF Caisse nationale (anciennement ACOSS).
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Entreprise found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '511101651'
+                      type:
+                        type: string
+                        example: document
+                        enum:
+                        - document
+                      attributes:
+                        type: object
+                        properties:
+                          document_url:
+                            type: string
+                            title: Lien vers l'attestation de vigilance ACOSS
+                            description: Ce document est automatiquement supprimé
+                              au bout de 3 mois.
+                            example: https://storage.entreprise.api.gouv.fr/siade/1569139162-b99824d9c764aae19a862a0af-attestation_vigilance_acoss.pdf
+                        required:
+                        - document_url
+                    required:
+                    - id
+                    - type
+                    - attributes
+                required:
+                - data
+        '404':
+          description: Entreprise non trouvée
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+  "/v3/insee/entreprises/{siren}":
+    get:
+      summary: Données de références d'une entité
+      tags:
+      - Informations générales
+      parameters:
+      - name: context
+        in: query
+        description: "**Cadre de la requête** \n \n Par exemple : aides publiques,
+          marchés publics ou gestion d’un référentiel tiers utilisé pour tel type
+          d’application."
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: "**Bénéficiaire de l’appel** \n \n SIRET de l’administration
+          destinatrice des données."
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: "**La raison de l’appel ou l’identifiant de la procédure.** \n
+          \n L’identifiant peut être interne à votre organisation ou bien un numéro
+          de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous
+          permette de tracer et de retrouver les informations relatives à l’appel.
+          En effet, vous devez pouvoir justifier de la raison d’un appel auprès du
+          fournisseur de données. Description courte ( < 50 caractères )."
+        required: true
+        schema:
+          type: string
+      - name: siren
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Obtenir les informations de référence d'une entreprise, d'une administration
+        ou d'une association présente dans le répertoire Sirene.
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Entreprise trouvée
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '306138900'
+                      type:
+                        type: string
+                        example: entreprise
+                        enum:
+                        - entreprise
+                      attributes:
+                        type: object
+                        properties:
+                          siret_siege_social:
+                            title: Siret du siège social
+                            type: string
+                            example: '13002526500013'
+                          type:
+                            title: Type de personne
+                            type: string
+                            enum:
+                            - personne_physique
+                            - personne_morale
+                            example: personne_morale
+                            description: 'Détermine si l''entreprise est une personne
+                              morale ou une personne physique. Cette valeur est déterminée
+                              à l''aide du code juridique : 1000 correspond à une
+                              personne physique.'
+                          personne_morale_attributs:
+                            type: object
+                            title: Attributs de la personne morale
+                            description: Attributs associé à la personne morale. L'ensemble
+                              des valeurs sont à null pour les personnes physiques.
+                            properties:
+                              raison_sociale:
+                                title: Raison sociale de l'entreprise
+                                type: string
+                                example: DINUM
+                                nullable: true
+                            required:
+                            - raison_sociale
+                          personne_physique_attributs:
+                            type: object
+                            title: Attributs de la personne physique
+                            description: Attributs associé à la personne physique.
+                              L'ensemble des valeurs sont à null pour les personnes
+                              morales.
+                            properties:
+                              pseudonyme:
+                                title: Pseudonyme
+                                type: string
+                                example: DJ Falcon
+                                nullable: true
+                                description: Le pseudonyme correspond au nom qu'une
+                                  personne utilise pour se désigner dans l'exercice
+                                  de son activité, généralement littéraire ou artistique.
+                              prenom_usuel:
+                                title: Prénom usuel
+                                type: string
+                                example: Jean
+                                nullable: true
+                                description: Le prénom usuel est le prénom par lequel
+                                  une personne choisit de se faire appeler dans la
+                                  vie courante, parmi l'ensemble de ceux qui lui ont
+                                  été donnés à sa naissance et qui sont inscrits à
+                                  l'état civil.
+                              prenom_1:
+                                title: Prénom numéro 1 déclaré
+                                type: string
+                                example: Jean
+                                nullable: true
+                              prenom_2:
+                                title: Prénom numéro 2 déclaré
+                                type: string
+                                example: Jacques
+                                nullable: true
+                              prenom_3:
+                                title: Prénom numéro 3 déclaré
+                                type: string
+                                example: Pierre
+                                nullable: true
+                              prenom_4:
+                                title: Prénom numéro 4 déclaré
+                                type: string
+                                example: Paul
+                                nullable: true
+                              nom_usage:
+                                title: Nom d'usage
+                                type: string
+                                example: Dupont
+                                nullable: true
+                                description: Nom que la personne physique a choisi
+                                  d'utiliser
+                              nom_naissance:
+                                title: Nom de naissance
+                                type: string
+                                example: Dubois
+                                nullable: true
+                              sexe:
+                                title: Genre
+                                type: string
+                                example: M
+                                enum:
+                                - M
+                                - F
+                                -
+                                nullable: true
+                                description: Caractère féminin ou masculin de la personne
+                                  physique. Cette valeur peut ne pas être renseignée
+                                  pour une personne physique.
+                            required:
+                            - pseudonyme
+                            - prenom_usuel
+                            - prenom_1
+                            - prenom_2
+                            - prenom_3
+                            - prenom_4
+                            - nom_usage
+                            - nom_naissance
+                            - sexe
+                          categorie_entreprise:
+                            title: Catégorie de l'entreprise
+                            type: string
+                            example: GE
+                            enum:
+                            - GE
+                            - ETI
+                            - PME
+                            -
+                            description: "Il s'agit d'une variable statistique calculée
+                              par l'INSEE. Elle ne peut prendre que 3 valeurs: \n
+                              \n - GE: Grande Entreprise \n - ETI: Entreprise de Taille
+                              Intermédiaire \n - PME: Petite ou Moyenne Entreprise
+                              \n \n Celle-ci peut-être nulle dans certains cas : il
+                              s’agit soit d’une unité légale nouvellement créée, soit
+                              d’une unité légale cessée, soit d’une unité légale hors
+                              champ du calcul de la catégorie (unité légale agricole
+                              ou ne faisant pas partie du système productif) \n \n
+                              La définition peut-être trouvée sur le lien suivant
+                              : https://www.insee.fr/fr/metadonnees/definition/c1057"
+                          numero_tva_intracommunautaire:
+                            title: Numéro de TVA intracommunautaire
+                            type: string
+                            example: FR07130025265
+                            description: 'Cette valeur est calculée à l''aide du numéro
+                              de siren, cette donnée est donc théorique: une entreprise
+                              dont le siège social se trouve à l''étranger n''a probablement
+                              pas de numéro de TVA français.'
+                          diffusable_commercialement:
+                            title: Diffusable commercialement
+                            type: boolean
+                            example: true
+                            description: Détermine si l'entreprise est une entreprise
+                              non-diffusible. Si celle-ci est non-diffusible, ses
+                              informations ne doivent en aucun cas être accessibles
+                              au grand public.
+                          forme_juridique:
+                            type: object
+                            title: Attributs de la forme juridique
+                            properties:
+                              code:
+                                title: Code de la forme juridique de l'entreprise.
+                                type: string
+                                example: '7120'
+                                description: "Cette variable est à 1000 pour les personnes
+                                  physiques. \n \n La liste complète se trouve ici:
+                                  https://www.insee.fr/fr/information/2028129"
+                              libelle:
+                                title: Libellé associé au code de la forme juridique
+                                  de l'entreprise.
+                                type: string
+                                example: Service central d'un ministère
+                                description: Si le code ne correspond à aucun libellé
+                                  la valeur 'non référencé' est utilisée.
+                            required:
+                            - code
+                            - libelle
+                          activite_principale:
+                            title: Attributs de l'activité principale
+                            type: object
+                            properties:
+                              code:
+                                title: Code de l'activité principale (APE) de l'entreprise
+                                type: string
+                                example: 8411Z
+                                description: Ce code est extrait de la nomenclature
+                                  NAF. A noter qu'une entreprise n'ayant pas encore
+                                  de code APE peut se voir affecter la valeur 00.00Z
+                                  de manière provisoire.
+                              libelle:
+                                title: Libellé associé au code APE
+                                type: string
+                                nullable: true
+                                example: Administration publique générale
+                                description: "Si le code n'est pas renseigné dans
+                                  la nomenclature 'Naf Rév2' (nomenclature en vigueur),
+                                  le libellé n'est pas renseigné ici. Si le code ne
+                                  correspond à aucun libellé au sein de la nomenclature
+                                  'Naf Rév2', la valeur 'non référencé' est utilisée.
+                                  \n \n Le lien vers la nomenclature 'Naf Rév2' :
+                                  https://www.insee.fr/fr/information/2406147"
+                              nomenclature:
+                                title: Nomenclature associée au code
+                                type: string
+                                example: NAFRev2
+                            required:
+                            - code
+                            - libelle
+                            - nomenclature
+                          tranche_effectif_salarie:
+                            type: object
+                            title: Attributs de la tranche d'effectif salarié
+                            properties:
+                              code:
+                                type: string
+                                nullable: true
+                                example: '51'
+                              intitule:
+                                type: string
+                                nullable: true
+                                example: 2 000 à 4 999 salariés
+                              date_reference:
+                                type: string
+                                nullable: true
+                                example: '2016'
+                              de:
+                                type: integer
+                                example: 2000
+                                nullable: true
+                              a:
+                                type: integer
+                                example: 4999
+                                nullable: true
+                            required:
+                            - code
+                            - intitule
+                            - date_reference
+                            - de
+                            - a
+                          etat_administratif:
+                            title: État administratif de l'entreprise
+                            type: string
+                            enum:
+                            - A
+                            - C
+                            example: A
+                            description: " - A = Active \n - C = Cessée "
+                          date_cessation:
+                            title: Date de cessation de l'entreprise
+                            type: integer
+                            nullable: true
+                            example: 1634133818
+                            description: Cette valeur est renvoyée sous format timestamp
+                          date_creation:
+                            title: Date de cessation de l'entreprise
+                            type: integer
+                            example: 1634103818
+                            description: Cette valeur est renvoyée sous format timestamp
+                        required:
+                        - siret_siege_social
+                        - type
+                        - personne_morale_attributs
+                        - personne_physique_attributs
+                        - categorie_entreprise
+                        - numero_tva_intracommunautaire
+                        - diffusable_commercialement
+                        - forme_juridique
+                        - activite_principale
+                        - tranche_effectif_salarie
+                        - etat_administratif
+                        - date_cessation
+                        - date_creation
+                      links:
+                        type: object
+                        properties:
+                          siege_social:
+                            type: string
+                            example: https://entreprises.api.gouv.fr/api/v3/insee/etablissements/30613890001294
+                            description: Lien vers la ressource établissement correspondant
+                              au siège social
+                          siege_social_adresse:
+                            type: string
+                            example: https://entreprises.api.gouv.fr/api/v3/insee/etablissements/30613890001294/adresse
+                            description: Lien vers la ressource adresse de l'établissement
+                              correspondant au siège social
+                        required:
+                        - siege_social
+                        - siege_social_adresse
+                      meta:
+                        type: object
+                        properties:
+                          date_derniere_mise_a_jour:
+                            type: integer
+                            example: 1618396818
+                            description: Date de la dernière mise à jour à l'INSEE
+                        required:
+                        - date_derniere_mise_a_jour
+                    required:
+                    - id
+                    - type
+                    - attributes
+                    - meta
+                    - links
+                required:
+                - data
+        '404':
+          description: Non trouvée
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+  "/v3/insee/entreprises/diffusables/{siren}":
+    get:
+      summary: Données de références d'une entité diffusable commercialement
+      tags:
+      - Informations générales
+      parameters:
+      - name: context
+        in: query
+        description: "**Cadre de la requête** \n \n Par exemple : aides publiques,
+          marchés publics ou gestion d’un référentiel tiers utilisé pour tel type
+          d’application."
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: "**Bénéficiaire de l’appel** \n \n SIRET de l’administration
+          destinatrice des données."
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: "**La raison de l’appel ou l’identifiant de la procédure.** \n
+          \n L’identifiant peut être interne à votre organisation ou bien un numéro
+          de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous
+          permette de tracer et de retrouver les informations relatives à l’appel.
+          En effet, vous devez pouvoir justifier de la raison d’un appel auprès du
+          fournisseur de données. Description courte ( < 50 caractères )."
+        required: true
+        schema:
+          type: string
+      - name: siren
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Obtenir les informations de référence d'une entreprise, d'une administration
+        ou d'une association présente dans le répertoire Sirene. Ce endpoint ne renvoi
+        que des entités diffusable commercialement.
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Entreprise trouvée
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '130025265'
+                      type:
+                        type: string
+                        example: entreprise
+                        enum:
+                        - entreprise
+                      attributes:
+                        type: object
+                        properties:
+                          siret_siege_social:
+                            title: Siret du siège social
+                            type: string
+                            example: '13002526500013'
+                          type:
+                            title: Type de personne
+                            type: string
+                            enum:
+                            - personne_physique
+                            - personne_morale
+                            example: personne_morale
+                            description: 'Détermine si l''entreprise est une personne
+                              morale ou une personne physique. Cette valeur est déterminée
+                              à l''aide du code juridique : 1000 correspond à une
+                              personne physique.'
+                          personne_morale_attributs:
+                            type: object
+                            title: Attributs de la personne morale
+                            description: Attributs associé à la personne morale. L'ensemble
+                              des valeurs sont à null pour les personnes physiques.
+                            properties:
+                              raison_sociale:
+                                title: Raison sociale de l'entreprise
+                                type: string
+                                example: DINUM
+                                nullable: true
+                            required:
+                            - raison_sociale
+                          personne_physique_attributs:
+                            type: object
+                            title: Attributs de la personne physique
+                            description: Attributs associé à la personne physique.
+                              L'ensemble des valeurs sont à null pour les personnes
+                              morales.
+                            properties:
+                              pseudonyme:
+                                title: Pseudonyme
+                                type: string
+                                example: DJ Falcon
+                                nullable: true
+                                description: Le pseudonyme correspond au nom qu'une
+                                  personne utilise pour se désigner dans l'exercice
+                                  de son activité, généralement littéraire ou artistique.
+                              prenom_usuel:
+                                title: Prénom usuel
+                                type: string
+                                example: Jean
+                                nullable: true
+                                description: Le prénom usuel est le prénom par lequel
+                                  une personne choisit de se faire appeler dans la
+                                  vie courante, parmi l'ensemble de ceux qui lui ont
+                                  été donnés à sa naissance et qui sont inscrits à
+                                  l'état civil.
+                              prenom_1:
+                                title: Prénom numéro 1 déclaré
+                                type: string
+                                example: Jean
+                                nullable: true
+                              prenom_2:
+                                title: Prénom numéro 2 déclaré
+                                type: string
+                                example: Jacques
+                                nullable: true
+                              prenom_3:
+                                title: Prénom numéro 3 déclaré
+                                type: string
+                                example: Pierre
+                                nullable: true
+                              prenom_4:
+                                title: Prénom numéro 4 déclaré
+                                type: string
+                                example: Paul
+                                nullable: true
+                              nom_usage:
+                                title: Nom d'usage
+                                type: string
+                                example: Dupont
+                                nullable: true
+                                description: Nom que la personne physique a choisi
+                                  d'utiliser
+                              nom_naissance:
+                                title: Nom de naissance
+                                type: string
+                                example: Dubois
+                                nullable: true
+                              sexe:
+                                title: Genre
+                                type: string
+                                example: M
+                                enum:
+                                - M
+                                - F
+                                -
+                                nullable: true
+                                description: Caractère féminin ou masculin de la personne
+                                  physique. Cette valeur peut ne pas être renseignée
+                                  pour une personne physique.
+                            required:
+                            - pseudonyme
+                            - prenom_usuel
+                            - prenom_1
+                            - prenom_2
+                            - prenom_3
+                            - prenom_4
+                            - nom_usage
+                            - nom_naissance
+                            - sexe
+                          categorie_entreprise:
+                            title: Catégorie de l'entreprise
+                            type: string
+                            example: GE
+                            enum:
+                            - GE
+                            - ETI
+                            - PME
+                            -
+                            description: "Il s'agit d'une variable statistique calculée
+                              par l'INSEE. Elle ne peut prendre que 3 valeurs: \n
+                              \n - GE: Grande Entreprise \n - ETI: Entreprise de Taille
+                              Intermédiaire \n - PME: Petite ou Moyenne Entreprise
+                              \n \n Celle-ci peut-être nulle dans certains cas : il
+                              s’agit soit d’une unité légale nouvellement créée, soit
+                              d’une unité légale cessée, soit d’une unité légale hors
+                              champ du calcul de la catégorie (unité légale agricole
+                              ou ne faisant pas partie du système productif) \n \n
+                              La définition peut-être trouvée sur le lien suivant
+                              : https://www.insee.fr/fr/metadonnees/definition/c1057"
+                          numero_tva_intracommunautaire:
+                            title: Numéro de TVA intracommunautaire
+                            type: string
+                            example: FR07130025265
+                            description: 'Cette valeur est calculée à l''aide du numéro
+                              de siren, cette donnée est donc théorique: une entreprise
+                              dont le siège social se trouve à l''étranger n''a probablement
+                              pas de numéro de TVA français.'
+                          diffusable_commercialement:
+                            title: Diffusable commercialement
+                            type: boolean
+                            example: true
+                            enum:
+                            - true
+                            description: Détermine si l'entreprise est une entreprise
+                              non-diffusible. Cette valeur est toujours à true. Si
+                              vous voulez pouvoir récupérer des entreprises non-diffusible,
+                              référez-vous à la documentation du endpoint /insee/entreprise/:siren
+                          forme_juridique:
+                            type: object
+                            title: Attributs de la forme juridique
+                            properties:
+                              code:
+                                title: Code de la forme juridique de l'entreprise.
+                                type: string
+                                example: '7120'
+                                description: "Cette variable est à 1000 pour les personnes
+                                  physiques. \n \n La liste complète se trouve ici:
+                                  https://www.insee.fr/fr/information/2028129"
+                              libelle:
+                                title: Libellé associé au code de la forme juridique
+                                  de l'entreprise.
+                                type: string
+                                example: Service central d'un ministère
+                                description: Si le code ne correspond à aucun libellé
+                                  la valeur 'non référencé' est utilisée.
+                            required:
+                            - code
+                            - libelle
+                          activite_principale:
+                            title: Attributs de l'activité principale
+                            type: object
+                            properties:
+                              code:
+                                title: Code de l'activité principale (APE) de l'entreprise
+                                type: string
+                                example: 8411Z
+                                description: Ce code est extrait de la nomenclature
+                                  NAF. A noter qu'une entreprise n'ayant pas encore
+                                  de code APE peut se voir affecter la valeur 00.00Z
+                                  de manière provisoire.
+                              libelle:
+                                title: Libellé associé au code APE
+                                type: string
+                                nullable: true
+                                example: Administration publique générale
+                                description: "Si le code n'est pas renseigné dans
+                                  la nomenclature 'Naf Rév2' (nomenclature en vigueur),
+                                  le libellé n'est pas renseigné ici. Si le code ne
+                                  correspond à aucun libellé au sein de la nomenclature
+                                  'Naf Rév2', la valeur 'non référencé' est utilisée.
+                                  \n \n Le lien vers la nomenclature 'Naf Rév2' :
+                                  https://www.insee.fr/fr/information/2406147"
+                              nomenclature:
+                                title: Nomenclature associée au code
+                                type: string
+                                example: NAFRev2
+                            required:
+                            - code
+                            - libelle
+                            - nomenclature
+                          tranche_effectif_salarie:
+                            type: object
+                            title: Attributs de la tranche d'effectif salarié
+                            properties:
+                              code:
+                                type: string
+                                nullable: true
+                                example: '51'
+                              intitule:
+                                type: string
+                                nullable: true
+                                example: 2 000 à 4 999 salariés
+                              date_reference:
+                                type: string
+                                nullable: true
+                                example: '2016'
+                              de:
+                                type: integer
+                                example: 2000
+                                nullable: true
+                              a:
+                                type: integer
+                                example: 4999
+                                nullable: true
+                            required:
+                            - code
+                            - intitule
+                            - date_reference
+                            - de
+                            - a
+                          etat_administratif:
+                            title: État administratif de l'entreprise
+                            type: string
+                            enum:
+                            - A
+                            - C
+                            example: A
+                            description: " - A = Active \n - C = Cessée "
+                          date_cessation:
+                            title: Date de cessation de l'entreprise
+                            type: integer
+                            nullable: true
+                            example: 1634133818
+                            description: Cette valeur est renvoyée sous format timestamp
+                          date_creation:
+                            title: Date de cessation de l'entreprise
+                            type: integer
+                            example: 1634103818
+                            description: Cette valeur est renvoyée sous format timestamp
+                        required:
+                        - siret_siege_social
+                        - type
+                        - personne_morale_attributs
+                        - personne_physique_attributs
+                        - categorie_entreprise
+                        - numero_tva_intracommunautaire
+                        - diffusable_commercialement
+                        - forme_juridique
+                        - activite_principale
+                        - tranche_effectif_salarie
+                        - etat_administratif
+                        - date_cessation
+                        - date_creation
+                      links:
+                        type: object
+                        properties:
+                          siege_social:
+                            type: string
+                            example: https://entreprises.api.gouv.fr/api/v3/insee/etablissements/30613890001294
+                            description: Lien vers la ressource établissement correspondant
+                              au siège social
+                          siege_social_adresse:
+                            type: string
+                            example: https://entreprises.api.gouv.fr/api/v3/insee/etablissements/30613890001294/adresse
+                            description: Lien vers la ressource adresse de l'établissement
+                              correspondant au siège social
+                        required:
+                        - siege_social
+                        - siege_social_adresse
+                      meta:
+                        type: object
+                        properties:
+                          date_derniere_mise_a_jour:
+                            type: integer
+                            example: 1618396818
+                            description: Date de la dernière mise à jour à l'INSEE
+                        required:
+                        - date_derniere_mise_a_jour
+                    required:
+                    - id
+                    - type
+                    - attributes
+                    - meta
+                    - links
+                required:
+                - data
+        '404':
+          description: Non trouvée
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+  "/v3/mi/associations/{siret_or_rna}":
+    get:
+      summary: Informations déclaratives d'une association
+      tags:
+      - Informations générales
+      parameters:
+      - name: context
+        in: query
+        description: "**Cadre de la requête** \n \n Par exemple : aides publiques,
+          marchés publics ou gestion d’un référentiel tiers utilisé pour tel type
+          d’application."
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: "**Bénéficiaire de l’appel** \n \n SIRET de l’administration
+          destinatrice des données."
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: "**La raison de l’appel ou l’identifiant de la procédure.** \n
+          \n L’identifiant peut être interne à votre organisation ou bien un numéro
+          de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous
+          permette de tracer et de retrouver les informations relatives à l’appel.
+          En effet, vous devez pouvoir justifier de la raison d’un appel auprès du
+          fournisseur de données. Description courte ( < 50 caractères )."
+        required: true
+        schema:
+          type: string
+      - name: siret_or_rna
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Obtenir les informations déclarées par une association à la préfecture
+        et issues du Répertoire National des Associations (RNA).
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Association found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: W751227325
+                      type:
+                        type: string
+                        example: association
+                        enum:
+                        - association
+                      attributes:
+                        type: object
+                        properties:
+                          titre:
+                            type: string
+                            example: LA PRÉVENTION ROUTIERE
+                          objet:
+                            type: string
+                            example: Accroitre la sécurité des usagers en encourageant
+                              toutes mesures ou initiatives propres à réduire les
+                              accidents
+                            description: Il s'agit d'une description courte mais exhaustive
+                              des activités de l'organisme.
+                          siret:
+                            type: string
+                            nullable: true
+                            example:
+                          siret_siege_social:
+                            type: string
+                            example: '77571979202650'
+                          date_creation:
+                            type: string
+                            example: '1955-01-01'
+                            description: Il s'agit du jour de dépôt du dossier de
+                              création de l'association à la Préfecture.
+                          date_declaration:
+                            type: string
+                            example: '1955-01-01'
+                            description: Jour de la dernière déclaration faîte par
+                              l'association.
+                          date_publication:
+                            type: string
+                            nullable: true
+                            example:
+                            description: Jour de la publication au journal officiel
+                              de l'avis de création de l'association. Toutes les assoiations
+                              ne sont pas forcément 'déclarées'. La publication au
+                              Journal Officiel permet à l'association de devenir une
+                              personne morale, a contrario des 'associations de fait',
+                              non déclarées au JO.
+                          date_dissolution:
+                            type: string
+                            nullable: true
+                            example:
+                            description: Si l'association est dissolue, ce champ indique
+                              la date de dissolution, autrement, il est indiqué 'null'.
+                          adresse_siege:
+                            type: object
+                            properties:
+                              complement:
+                                type: string
+                                example: "  "
+                              numero_voie:
+                                type: string
+                                example: '33'
+                              type_voie:
+                                type: string
+                                example: rue
+                              libelle_voie:
+                                type: string
+                                example: de Modagor
+                              distribution:
+                                type: string
+                                nullable: true
+                                example:
+                              code_insee:
+                                type: string
+                                example: '75108'
+                              code_postal:
+                                type: string
+                                example: '75009'
+                              commune:
+                                type: string
+                                example: Paris
+                            required:
+                            - complement
+                            - numero_voie
+                            - type_voie
+                            - libelle_voie
+                            - distribution
+                            - code_insee
+                            - code_postal
+                            - commune
+                          etat:
+                            type: string
+                            example: 'true'
+                          groupement:
+                            type: string
+                            nullable: true
+                            example:
+                            description: 'Trois modalités possibles : si l''association
+                              n''est pas un groupement, il est indiqué ''Simple''
+                              ; si l''association est un groupement, la valeur est
+                              ''Union'' ou ''Fédération''. La valeur peut aussi être
+                              manquante (null)'
+                          mise_a_jour:
+                            type: string
+                            example: '1955-01-01'
+                        required:
+                        - titre
+                        - objet
+                        - siret
+                        - siret_siege_social
+                        - date_creation
+                        - date_declaration
+                        - date_publication
+                        - date_dissolution
+                        - adresse_siege
+                        - etat
+                        - groupement
+                        - mise_a_jour
+                    required:
+                    - id
+                    - type
+                    - attributes
+                required:
+                - data
+        '404':
+          description: Association not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+  "/v3/probtp/attestations_cotisation_retraite/{siret}":
+    get:
+      summary: Cotisations retraite bâtiment
+      tags:
+      - Attestations sociales et fiscales
+      parameters:
+      - name: context
+        in: query
+        description: "**Cadre de la requête** \n \n Par exemple : aides publiques,
+          marchés publics ou gestion d’un référentiel tiers utilisé pour tel type
+          d’application."
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: "**Bénéficiaire de l’appel** \n \n SIRET de l’administration
+          destinatrice des données."
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: "**La raison de l’appel ou l’identifiant de la procédure.** \n
+          \n L’identifiant peut être interne à votre organisation ou bien un numéro
+          de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous
+          permette de tracer et de retrouver les informations relatives à l’appel.
+          En effet, vous devez pouvoir justifier de la raison d’un appel auprès du
+          fournisseur de données. Description courte ( < 50 caractères )."
+        required: true
+        schema:
+          type: string
+      - name: siret
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Savoir si une entreprise est à jour de ses cotisations retraite
+        à la Protection Sociale du Bâtiment et des Travaux publics (PROBTP) et obtenir
+        l’attestation de l’entreprise si celle-ci est éligible.
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Attestation found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '34909797200021'
+                      type:
+                        type: string
+                        example: document
+                        enum:
+                        - document
+                      attributes:
+                        type: object
+                        properties:
+                          document_url:
+                            type: string
+                            title: Lien vers l'attestation de cotisation retraite
+                              ProBTP
+                            description: Ce document est automatiquement supprimé
+                              au bout de 3 mois.
+                            example: https://storage.entreprise.api.gouv.fr/siade/1569139162-b99824d9c764aae19a862a0af-attestation_cotisation_retraite_probtp.pdf
+                        required:
+                        - document_url
+                    required:
+                    - id
+                    - type
+                    - attributes
+                required:
+                - data
+        '404':
+          description: Attestation non trouvée
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+  "/v3/rnm/entreprises/{siren}":
+    get:
+      summary: Données de référence d'une entreprise artisanale
+      tags:
+      - Informations générales
+      parameters:
+      - name: context
+        in: query
+        description: "**Cadre de la requête** \n \n Par exemple : aides publiques,
+          marchés publics ou gestion d’un référentiel tiers utilisé pour tel type
+          d’application."
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: "**Bénéficiaire de l’appel** \n \n SIRET de l’administration
+          destinatrice des données."
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: "**La raison de l’appel ou l’identifiant de la procédure.** \n
+          \n L’identifiant peut être interne à votre organisation ou bien un numéro
+          de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous
+          permette de tracer et de retrouver les informations relatives à l’appel.
+          En effet, vous devez pouvoir justifier de la raison d’un appel auprès du
+          fournisseur de données. Description courte ( < 50 caractères )."
+        required: true
+        schema:
+          type: string
+      - name: siren
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Obtenir les informations concernant une entité enregistrée au Répertoire
+        National des Métiers (RNM)
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Entreprise found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '301123626'
+                      type:
+                        type: string
+                        example: entreprise
+                        enum:
+                        - entreprise
+                      attributes:
+                        type: object
+                        properties:
+                          modalite_exercice:
+                            type: string
+                            example: P
+                            description: "Détermine si l'entreprise a une activité
+                              permanente ou saisonnière. \n L'activité est dite saisonnière
+                              si chaque année, l'entreprise cesse totalement ses activités
+                              pendant plus de 3 mois consécutifs. \n \n Les valeurs
+                              possibles sont: \n - P => Permanent \n - S => Saisonnière
+                              \n - NR => Non renseignée"
+                            enum:
+                            - P
+                            - S
+                            - NR
+                          non_sedentaire:
+                            type: string
+                            example: '0'
+                            description: "Indique si l'entreprise a une activité ambulante.
+                              \n \n Les valeurs possibles sont: \n - 0 => sédentaire
+                              \n - 1 => non-sédentaire"
+                            enum:
+                            - '0'
+                            - '1'
+                        required:
+                        - modalite_exercice
+                        - non_sedentaire
+                    required:
+                    - id
+                    - type
+                    - attributes
+                required:
+                - data
+        '404':
+          description: Entreprise non trouvée
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+servers:
+- url: https://entreprise.api.gouv.fr
+  description: Environnement de production
+- url: https://staging.entreprise.api.gouv.fr
+  description: Environnement de staging
+components:
+  schemas:
+    NotFound:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+                example: Resource not found
+              detail:
+                type: string
+                example: Le siret ou siren indiqué n'existe pas, n'est pas connu ou
+                  ne comporte aucune information pour cet appel
+            required:
+            - title
+            - detail
+      required:
+      - errors
+    UnprocessableEntity:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+                example: Unprocessable entity
+              detail:
+                type: string
+                example: Le siret ou siren indiqué n'est pas correctement formaté.
+            required:
+            - title
+            - detail
+      required:
+      - errors
+  securitySchemes:
+    jwt_bearer_token:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT Token
