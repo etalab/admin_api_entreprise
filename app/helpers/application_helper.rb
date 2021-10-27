@@ -24,4 +24,8 @@ module ApplicationHelper
       ).to_html.html_safe
     end
   end
+
+  def swagger_url(anchor)
+    "https://entreprise.api.gouv.fr/v3/developers/index.html##{anchor}"
+  end
 end

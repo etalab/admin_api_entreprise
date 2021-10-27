@@ -1,0 +1,60 @@
+<article id="<%= dom_id(endpoint) %>" class="endpoint-card">
+  <div class="wrapper">
+    <h2>
+      <%= endpoint.title %> - <%= t("providers.#{endpoint.providers.first}") %>
+    </h2>
+
+    <div class="fr-grid-row">
+      <div class="fr-col-md-10 fr-col-12">
+        <%= simple_format(endpoint.description, { class: %w(fr-text--lg fr-mb-0) }, wrapper_tag: 'div') %>
+
+        <div class="fr-grid-row fr-mt-3w">
+          <div class="fr-col-md-6 fr-col-12 fr-pr-2w">
+            <h5>
+              <%= t('.perimeter') %>
+            </h5>
+
+            <div>
+              <%= endpoint.perimeter['summary'] %>
+            </div>
+          </div>
+
+          <div class="fr-col-md-6 fr-col-12 fr-mt-2w fr-mt-md-0">
+            <h5>
+              <%= t('.opening') %>
+            </h5>
+
+            <div>
+              <%= endpoint.opening %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fr-col-md-2 fr-displayed-md fr-hidden-xs providers">
+        <div class="wrapper">
+          <% endpoint.providers.each do |provider| %>
+            <%= image_tag("providers/#{provider}.png") %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="availability fr-displayed-md fr-hidden-xs fr-text--lg">
+      <span class="circle circle-success"></span> <strong>99.98%</strong>
+
+      <a class="fr-link fr-fi-arrow-right-line fr-link--icon-right" title="<%= t('.cta.availability_history') %>" href="https://status.entreprise.api.gouv.fr" target="_blank">
+        <%= t('.cta.availability_history') %>
+      </a>
+    </div>
+    <ul class="fr-btns-group fr-btns-group--right fr-btns-group--lg fr-btns-group--inline-md fr-mt-1w">
+      <li>
+        <%= link_to t('.cta.documentation'), endpoint_path(uid: endpoint.uid), class: %(fr-btn) %>
+      </li>
+      <li>
+        <%= link_to t('.cta.swagger'), swagger_url('whatever'), class: %(fr-btn fr-btn--secondary) %>
+      </li>
+    </ul>
+  </footer>
+</article>
