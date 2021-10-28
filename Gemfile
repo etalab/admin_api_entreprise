@@ -109,6 +109,7 @@ group :test do
   gem 'simplecov-console', require: false
   gem 'shoulda-matchers'
   gem 'super_diff'
+  gem 'rspec-retry'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

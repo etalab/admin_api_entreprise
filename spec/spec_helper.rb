@@ -13,6 +13,7 @@
 # it.
 
 require 'vcr_helper'
+require 'rspec/retry'
 
 # Configuration for simplecov
 # Test coverage options (activated only if rspec is run without arguments)

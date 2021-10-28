@@ -75,6 +75,10 @@ RSpec.configure do |config|
 
   # Include fixtures tokens to test OAuth API Gouv interaction
   config.include OAuthAPIGouv
+
+  config.around(:each, js: true) do |example|
+    example.run_with_retry retry: 3
+  end
 end
 
 Shoulda::Matchers.configure do |config|
