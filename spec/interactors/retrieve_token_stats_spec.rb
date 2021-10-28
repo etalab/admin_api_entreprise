@@ -37,6 +37,8 @@ RSpec.describe RetrieveTokenStats do
               percent_other_client_errors: 0.0,
               percent_server_errors: 0.0,
           )),
+          last_30_hours: Array,
+          last_10_minutes: Array,
           last_requests: a_collection_including(a_hash_including(
             uname: 'apie_3_entreprises',
             name: 'Entreprise (INSEE v3)',

@@ -27,6 +27,8 @@ class RetrieveTokenStats < ApplicationInteractor
 
   def format_stats_data!
     context.stats = {
+      last_10_minutes: context.raw_stats[:apis_usage][:last_10_minutes][:by_endpoint],
+      last_30_hours: context.raw_stats[:apis_usage][:last_30_hours][:by_endpoint],
       last_8_days: context.raw_stats[:apis_usage][:last_8_days][:by_endpoint],
       last_requests: context.raw_stats[:last_calls]
     }

@@ -11,9 +11,16 @@ class JwtAPIEntrepriseController < AuthenticatedUsersController
     if retrieve_stats.success?
       @token = retrieve_stats.token
       @stats = retrieve_stats.stats
+      @period = period_to_display
     else
       error_message(title: t('.error.title'), description: retrieve_stats.message)
       redirect_to user_tokens_path
     end
+  end
+
+  private
+
+  def period_to_display
+    params[:period]&.to_sym || :last_8_days
   end
 end

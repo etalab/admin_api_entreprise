@@ -48,25 +48,89 @@ RSpec.describe 'stats page for a token', type: :feature do
       end
     end
 
-    describe 'the ratio of success and errors per providers' do
-      let(:provider_stats) do
-        stats = JSON.parse(body, symbolize_names: true)
-        stats[:apis_usage][:last_8_days][:by_endpoint].first
+    describe 'the ratio of success and errors per providers', js: true do
+      shared_examples :show_the_last_10_minutes_stats do
+        it 'displays the corresponding period (no stats for 10mn in fixtures file)' do
+          subject
+
+          expect(page).to have_table('calls_ratio_last_10_minutes', with_rows: [])
+        end
+
+        it 'does not display stats from other periods' do
+          subject
+
+          expect(page).not_to have_table('calls_ratio_last_8_hours')
+        end
       end
 
-      it 'displays the number of calls' do
-        subject
+      context 'when visiting the page the first time' do
+        subject { visit token_stats_path(token) }
 
-        expect(page).to have_table('calls_ratio', with_rows: [
-          [
-            provider_stats[:name],
-            provider_stats[:total],
-            provider_stats[:percent_success],
-            provider_stats[:percent_not_found],
-            provider_stats[:percent_other_client_errors],
-            provider_stats[:percent_server_errors],
-          ]
-        ])
+        it_behaves_like :show_the_last_10_minutes_stats
+      end
+
+      context 'when clicking on a tab' do
+        subject do
+          visit token_stats_path(token)
+          click_on("tabpanel-#{period}")
+        end
+
+        context 'for the last 10 minutes period' do
+          let(:period) { 'last_10_minutes' }
+
+          it_behaves_like :show_the_last_10_minutes_stats
+        end
+
+        context 'for the last 30 hours period' do
+          let(:period) { 'last_30_hours' }
+
+          it 'displays the corresponding period (no stats for 30h in fixtures file)' do
+            subject
+
+            expect(page).to have_table("calls_ratio_#{period}", with_rows: [])
+          end
+
+          it 'does not display stats from other periods' do
+            subject
+
+            expect(page).not_to have_table('calls_ratio_last_10_minutes')
+          end
+        end
+
+        context 'for the last 8 days period' do
+          let(:period) { 'last_8_days' }
+          let(:expected_stats) do
+            stats = JSON.parse(body, symbolize_names: true)
+            stats[:apis_usage][period.to_sym][:by_endpoint].first
+          end
+
+          it 'displays the corresponding period' do
+            subject
+
+            expect(page).to have_table("calls_ratio_#{period}", with_rows: [])
+          end
+
+          it 'does not display stats from other periods' do
+            subject
+
+            expect(page).not_to have_table('calls_ratio_last_10_minutes')
+          end
+
+          it 'displays data in the right format' do
+            subject
+
+            expect(page).to have_table("calls_ratio_#{period}", with_rows: [
+              [
+                expected_stats[:name],
+                expected_stats[:total],
+                expected_stats[:percent_success],
+                expected_stats[:percent_not_found],
+                expected_stats[:percent_other_client_errors],
+                expected_stats[:percent_server_errors],
+              ]
+            ])
+          end
+        end
       end
     end
 
