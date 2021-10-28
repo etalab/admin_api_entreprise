@@ -38,15 +38,13 @@ if ARGV.grep(/spec\.rb/).empty? && !defined?(Spring)
 end
 
 require 'capybara/rspec'
-require 'capybara/apparition'
 require 'rack_session_access/capybara'
 
-Capybara.register_driver :apparition do |app|
-  Capybara::Apparition::Driver.new(app, {
-    js_errors: false,
-  })
+require "capybara/cuprite"
+Capybara.javascript_driver = :cuprite
+Capybara.register_driver(:cuprite) do |app|
+  Capybara::Cuprite::Driver.new(app, window_size: [1200, 800])
 end
-Capybara.javascript_driver = :apparition
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|

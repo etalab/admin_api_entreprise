@@ -99,7 +99,7 @@ end
 
 group :test do
   gem 'capybara', '>= 3.26'
-  gem 'apparition', github: 'twalpole/apparition', branch: 'master'
+  gem "cuprite"
   gem 'vcr'
   gem 'webmock'
   gem 'spring-commands-rspec'
