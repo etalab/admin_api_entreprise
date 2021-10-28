@@ -128,5 +128,7 @@ Ci-dessous les diverses rubriques principalement à destination des métiers /
 produits pour itérer sur le site (que ce soit en terme de contenu ou fonctionnel)
 
 - [Gestion des webhooks DataPass](docs/webhooks.md)
-- [Gestion des wordings](docs/wordings.md)
 - [Design (CSS and stuff)](docs/design.md)
+- Contenu
+  - [Gestion des wordings globaux (layouts, templates)](docs/wordings.md)
+  - [Ajout d'un nouvel endpoint dans le catalogue](docs/endpoint.md)
