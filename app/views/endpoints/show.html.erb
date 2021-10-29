@@ -1,0 +1,139 @@
+<% layout_main_bloc = 9 %>
+<article id="<%= dom_id(@endpoint) %>" class="endpoint">
+  <h1>
+    <%= @endpoint.title %> - <%= t("providers.#{@endpoint.providers.first}") %>
+  </h1>
+
+  <div class="fr-grid-row fr-pb-2w">
+    <div class="fr-col-md-<%= layout_main_bloc %> fr-col-12">
+      <p class="fr-text--lg fr-mt-md-2w">
+        <%= @endpoint.description %>
+      </p>
+    </div>
+
+    <div class="providers fr-col-md-<%= 12 - layout_main_bloc %> fr-col-12">
+      <div class="fr-grid-row">
+        <div class="fr-col-md-6 fr-col-12 logos">
+          <% @endpoint.providers.each do |provider| %>
+            <%= image_tag("providers/#{provider}.png") %>
+          <% end %>
+        </div>
+
+        <div class="text fr-col-md-6 fr-col-12">
+          <h5>
+            <% @endpoint.providers.map do |provider| %>
+              <%= t("providers.#{provider}") %>
+            <% end.join(' & ') %>
+          </h5>
+
+          <div>
+            <%= t('.providers.description', count: @endpoint.providers.count) %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="separator fr-displayed-md fr-hidden">
+
+  <div class="fr-grid-row">
+    <div class="fr-col-md-<%= layout_main_bloc %> fr-pt-2w fr-mt-md-0 fr-pr-md-2w fr-pr-0">
+      <h3 id="perimetre">
+        <%= t('.perimeter.title') %>
+      </h3>
+      <div>
+        <%= markdown_to_html(@endpoint.perimeter['description']) %>
+      </div>
+
+      <%= render partial: 'use_cases', locals: { id: 'use_cases_mobile', extra_classes: 'fr-hidden-md' } %>
+      <%= render partial: 'details', locals: { id: 'use_cases_mobile', extra_classes: 'fr-mb-3w fr-hidden-md' } %>
+
+      <h3 id="donnees" class="fr-mt-md-5w">
+        <%= t('.data.title') %>
+      </h3>
+
+      <div>
+        <%= @endpoint.opening %>
+      </div>
+
+      <div class="fr-my-2w">
+        <button class="fr-btn fr-btn--secondary">
+          Conditions d'utilisation des données de cette API
+        </button>
+      </div>
+
+      <h4 id="donnees_attributs" class="fr-mt-md-5w">
+        <%= t('.attributes.title') %>
+      </h4>
+
+      <div class="keep-within-block">
+        <% @endpoint.attributes.each do |key, properties| %>
+          <%=
+            render partial: 'property', locals: {
+              key: key,
+              kind: 'attribute',
+              properties: properties
+            }
+          %>
+        <% end %>
+      </div>
+
+      <% if @endpoint.links.any? %>
+        <h4 id="donnees_liens" class="fr-mt-md-5w">
+          <%= t('.links.title') %>
+        </h4>
+
+        <div class="fr-pb-3w">
+          <%= t('.links.description') %>
+        </div>
+
+        <div class="keep-within-block">
+          <% @endpoint.links.each do |key, properties| %>
+            <%=
+              render partial: 'property', locals: {
+                key: key,
+                kind: 'link',
+                properties: properties
+              }
+            %>
+          <% end %>
+        </div>
+      <% end %>
+
+      <% if @endpoint.meta.any? %>
+        <h4 id="donnees_metadonnes" class="fr-mt-md-5w">
+          <%= t('.meta.title') %>
+        </h4>
+
+        <div class="fr-pb-3w">
+          <%= t('.meta.description') %>
+        </div>
+
+        <div class="keep-within-block">
+          <% @endpoint.meta.each do |key, properties| %>
+            <%=
+              render partial: 'property', locals: {
+                key: key,
+                kind: 'meta',
+                properties: properties
+              }
+            %>
+          <% end %>
+        </div>
+      <% end %>
+
+      <h3 id="exemple" class="fr-mt-md-5w">
+        <%= t('.example.title') %>
+      </h3>
+
+      <div class="keep-within-block code-block">
+        <code><%= JSON.pretty_generate(@endpoint.example_payload) %></code>
+      </div>
+    </div>
+
+    <div class="fr-col-md-<%= 12 - layout_main_bloc %>">
+      <%= render partial: 'use_cases', locals: { id: 'use_cases_desktop', extra_classes: 'fr-hidden fr-displayed-md' } %>
+      <%= render partial: 'details', locals: { id: 'details_desktop', extra_classes: 'fr-hidden fr-displayed-md' } %>
+    </div>
+  </div>
+</article>

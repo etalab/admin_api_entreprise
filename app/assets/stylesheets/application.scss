@@ -4,7 +4,12 @@
  *= require_self
  *= require_tree ./components
  *= require_tree ./pages
+ *= require shame
  */
+
+:root {
+  --card-box-shadow: 4px 4px 4px rgba(0, 0, 0, .25);
+}
 
 body {
   background-color: var(--g100);
@@ -20,6 +25,10 @@ body {
 
 .pull-left {
   float: left;
+}
+
+p {
+  margin-bottom: 1rem;
 }
 
 @media (max-width: 48em) {

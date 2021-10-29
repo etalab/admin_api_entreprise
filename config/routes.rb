@@ -48,6 +48,9 @@ Rails.application.routes.draw do
   get '/magic_link', to: 'public_token_magic_links#show', as: :token_show_magic_link_legacy
   get '/public/tokens/:token', to: 'public_token_magic_links#show', as: :token_show_magic_link
 
+  resources :endpoints, only: %i[index]
+  get 'endpoints/*uid', as: :endpoint, to: 'endpoints#show'
+
   namespace :admin do
     get '/private_metrics' => 'private_metrics#index'
 

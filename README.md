@@ -122,14 +122,13 @@ sur les machines de production.
 - `config/environments/rails_env.rb`
 - `config/initializers/cors.rb`
 
-## Gestion des webhooks DataPass
+## Documentation métier
 
-Se référer à [docs/webhooks.md](docs/webhooks.md)
+Ci-dessous les diverses rubriques principalement à destination des métiers /
+produits pour itérer sur le site (que ce soit en terme de contenu ou fonctionnel)
 
-## Wordings
-
-Se réferer à [docs/wordings.md](docs/wordings.md)
-
-## Design
-
-Se réferer à [docs/design.md](docs/design.md)
+- [Gestion des webhooks DataPass](docs/webhooks.md)
+- [Design (CSS and stuff)](docs/design.md)
+- Contenu
+  - [Gestion des wordings globaux (layouts, templates)](docs/wordings.md)
+  - [Ajout d'un nouvel endpoint dans le catalogue](docs/endpoint.md)

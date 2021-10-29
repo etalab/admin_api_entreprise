@@ -65,6 +65,8 @@ gem 'chronic'
 gem 'sentry-ruby'
 gem 'sentry-rails'
 
+gem 'kramdown-parser-gfm'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'colorize'
