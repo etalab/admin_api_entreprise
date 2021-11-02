@@ -12,7 +12,7 @@ RSpec.describe RetrieveTokenStats do
   context 'when the token exists' do
     let(:token) { create(:jwt_api_entreprise) }
 
-    context 'when Watchdoge works' do
+    context 'when backend for stats works' do
       let(:url) { "https://dashboard.entreprise.api.gouv.fr/api/watchdoge/stats/jwt_usage/#{token.id}" }
       let(:body) { File.read(Rails.root.join('spec/fixtures/watchdoge_token_stats.json')) }
 
@@ -52,7 +52,7 @@ RSpec.describe RetrieveTokenStats do
       its(:stats) { is_expected.to include(:last_8_days, :last_requests) }
     end
 
-    context 'when Watchdoge does not work' do
+    context 'when backend for stats does not work' do
       let(:url) { "https://dashboard.entreprise.api.gouv.fr/api/watchdoge/stats/jwt_usage/#{token.id}" }
 
       let(:stubbed_request) do

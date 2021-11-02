@@ -11,7 +11,7 @@ RSpec.describe 'stats page for a token', type: :feature do
     stubbed_request
   end
 
-  context 'when Watchdoge works' do
+  context 'when backend for stats works' do
     let(:url) { "https://dashboard.entreprise.api.gouv.fr/api/watchdoge/stats/jwt_usage/#{token.id}" }
     let(:body) { File.read(Rails.root.join('spec/fixtures/watchdoge_token_stats.json')) }
 
@@ -154,7 +154,7 @@ RSpec.describe 'stats page for a token', type: :feature do
     end
   end
 
-  context 'when Watchdoge does not work' do
+  context 'when backend for stats does not work' do
     let(:url) { "https://dashboard.entreprise.api.gouv.fr/api/watchdoge/stats/jwt_usage/#{token.id}" }
 
     let(:stubbed_request) do
