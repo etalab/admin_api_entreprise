@@ -1,4 +1,5 @@
 <div class="fr-grid-row">
+  <% if @token %>
   <div class="fr-col-12 fr-pb-2w">
     <div class="fr-card fr-card--horizontal fr-card--no-arrow">
       <div class="fr-card__body">
@@ -20,7 +21,9 @@
       </div>
     </div>
   </div>
+  <% end %>
 
+  <% if @stats %>
   <div class="fr-col-12 fr-pb-2w">
     <div class="fr-tabs">
       <ul class="fr-tabs__list" role="tablist" aria-label="stats-for-period-tabs">
@@ -90,6 +93,7 @@
       </table>
     </div>
   </div>
+  <% end %>
 </div>
 
 

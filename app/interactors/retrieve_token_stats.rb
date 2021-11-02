@@ -6,7 +6,7 @@ class RetrieveTokenStats < ApplicationInteractor
     retrieve_stats!
     format_stats_data!
   rescue ActiveRecord::RecordNotFound
-    fail!('Token not found', 'error')
+    fail!('not_found', 'warning')
   end
 
   private
@@ -14,7 +14,7 @@ class RetrieveTokenStats < ApplicationInteractor
   def retrieve_stats!
     context.raw_stats = JSON.parse(raw_body, symbolize_names: true)
   rescue StandardError
-    fail!('Watchdoge error', 'error')
+    fail!('stats_backend', 'error')
   end
 
   def raw_body

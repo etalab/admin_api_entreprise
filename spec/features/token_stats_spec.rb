@@ -162,11 +162,5 @@ RSpec.describe 'stats page for a token', type: :feature do
     end
 
     it_behaves_like :display_alert, :error
-
-    it 'redirects to the token index page' do
-      subject
-
-      expect(page).to have_current_path(user_tokens_path)
-    end
   end
 end
