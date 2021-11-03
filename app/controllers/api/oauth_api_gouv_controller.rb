@@ -2,7 +2,7 @@ class API::OAuthAPIGouvController < APIController
   skip_before_action :jwt_authenticate!, only: [:login]
 
   def login
-    signin = OAuthAPIGouv::Operation::Login.call(params: params)
+    signin = OAuthAPIGouv::Operation::Login.call(params: params.to_unsafe_h)
 
     if signin.success?
       access_token = signin[:dashboard_token]
@@ -15,7 +15,7 @@ class API::OAuthAPIGouvController < APIController
       elsif final_state == :invalid_authorization_code
         render json: { errors: 'Erreur lors de l\'authentification : authorization code invalide.' }, status: 401
       elsif final_state == :invalid_params
-        err = signin['result.contract.default'].errors
+        err = signin['result.contract.default'].errors.to_h
         render json: { errors: err }, status: 422
       elsif final_state == :failure
         render json: { errors: 'Une erreur est survenue lors des échanges avec OAuth API Gouv. Contactez API Entreprise à support@entreprise.api.gouv.fr si le problème persiste.' }, status: 502

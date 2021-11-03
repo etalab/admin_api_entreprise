@@ -1,9 +1,9 @@
-module JwtAPIEntreprise::Contract
-  class Update < Reform::Form
-    property :blacklisted
-    property :archived
+class JwtAPIEntreprise::Contract::Update < Reform::Form
+  property :blacklisted
+  property :archived
 
-    validation do
+  validation do
+    json do
       optional(:blacklisted).filled(:bool?)
       optional(:archived).filled(:bool?)
     end
