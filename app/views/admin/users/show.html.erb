@@ -1,4 +1,49 @@
-<div class="fr-grid-row">
-  <h3> Notes </h3>
-  <%= @user.note %>
+<div class='user_details' id='<%= dom_id(@user) %>'>
+
+  <div class="profile">
+    <h3> Profil </h3>
+    <div class='well'>
+      <div class='well_element'>
+        <div class='title'> Email </div>
+        <div class='content'><%= @user.email%></div>
+      </div>
+      <div class='well_element'>
+        <div class='title'> Siret / Contexte </div>
+        <div class='content'><%= @user.context%></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <h3> Notes </h3>
+    <div class='well toggleMe'>
+      <%= @user.note %>
+    </div>
+    <button class="fr-btn toggleMe" onclick="toggleEditNote();">
+      Editer
+    </button>
+    <div class='toggleMe hidden'>
+      <%= form_with url: admin_user_path(@user), method: :patch do |f| %>
+        <%= f.text_area :note, value: @user.note, class: 'well', autofocus: true %>
+        <%= button_tag type: 'submit', class: 'fr-btn' do %>
+            Valider
+        <% end %>
+        <%= button_tag class: 'fr-btn', onclick: "toggleEditNote();" do %>
+            Annuler
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>
+
+
+  <script>
+    function toggleEditNote(){
+      Array.from(document.getElementsByClassName('toggleMe')).forEach(
+        (el) => {
+          el.classList.toggle('hidden');
+        }
+      );
+
+    }
+  </script>

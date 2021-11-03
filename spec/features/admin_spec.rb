@@ -85,9 +85,26 @@ RSpec.describe 'admin page', type: :feature do
       click_link(random_user.email)
     end
 
+    it 'email' do
+      expect(page).to have_content(random_user.email)
+    end
+
     it 'note' do
       expect(page).to have_content(random_user.note)
-      expect(page).to have_content(random_user.email)
+    end
+
+    it 'note edit' do
+      within(dom_id(random_user)) do
+        click_button 'Editer'
+        fill_in 'note', with: 'very note'
+        click_button 'Valider'
+
+        expect(page).to have_content('very note')
+        expect(random_user.reload.note).to eq('very note')
+      end
+    end
+
+    it 'context' do
       expect(page).to have_content(random_user.context)
     end
   end
