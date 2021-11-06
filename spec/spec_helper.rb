@@ -45,6 +45,7 @@ Capybara.javascript_driver = :cuprite
 Capybara.register_driver(:cuprite) do |app|
   Capybara::Cuprite::Driver.new(app, window_size: [1200, 800])
 end
+Capybara.server = :puma, { Silent: true }
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
