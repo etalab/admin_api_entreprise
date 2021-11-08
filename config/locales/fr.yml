@@ -117,6 +117,33 @@ fr:
           placeholder: jean@dupont.fr
         cta: Envoyer
         confirm: Etes-vous sûr de vouloir transférer votre jeton à cette addresse ?
+    stats:
+      title: "Cas d'usage du jeton : %{title}"
+      tabs:
+        last_10_minutes: 10 dernières minutes
+        last_30_hours: 30 dernières heures
+        last_8_days: 8 derniers jours
+      error:
+        not_found: Le jeton ayant pour ID technique %{token_id} n'existe pas.
+        stats_backend: Une erreur est survenue à la récupération des statistiques du jeton. Tentez de raffraichir la page et contactez le support si le problème persiste.
+      links:
+        user_tokens: Retour à la liste des jetons
+      details:
+        internal_id: "Identifiant technique du jeton : %{id}"
+      calls_ratio:
+        title: Ratio d'utilisation
+        name_header: Endpoint
+        total_header: Appels total
+        success_header: Appels en succès
+        not_found_header: Appels hors périmètre
+        error_fd_header: Erreurs FD
+        invalid_params_header: Erreurs de paramétrage
+      requests_details:
+        title: Détails des dernières requêtes
+        endpoint_header: Endpoint
+        parameters_header: Paramètres
+        http_code_header: Code retour HTTP
+
   restricted_token_magic_links:
     create:
       success:
