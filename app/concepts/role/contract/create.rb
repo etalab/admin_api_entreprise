@@ -1,16 +1,19 @@
-module Role::Contract
-  Create = Dry::Validation.Schema do
-    configure do
-      config.messages_file = Rails.root
-        .join('config/dry_validation_errors.yml').to_s
+class Role::Contract::Create < Reform::Form
+  property :name
+  property :code
 
-      def unique?(attr_name, value)
-        Role.where(attr_name => value).empty?
-      end
+  validation do
+    json do
+      required(:name).filled(:str?, max_size?: 50)
+      required(:code).filled(:str?)
     end
 
-    required(:name).filled(:str?, max_size?: 50, unique?: :name)
-    # required(:code).filled(:str?, max_size?: 4)
-    required(:code).filled(:str?, unique?: :code)
+    rule(:name) do
+      key.failure('value already exists') unless Role.where(name: value).empty?
+    end
+
+    rule(:code) do
+      key.failure('value already exists') unless Role.where(code: value).empty?
+    end
   end
 end

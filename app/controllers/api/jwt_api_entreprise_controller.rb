@@ -22,7 +22,7 @@ class API::JwtAPIEntrepriseController < APIController
 
   def create_magic_link
     result = JwtAPIEntreprise::Operation::CreateMagicLink.call(
-      params: params,
+      params: params.to_unsafe_h,
       current_user: pundit_user,
     )
 
@@ -34,7 +34,7 @@ class API::JwtAPIEntrepriseController < APIController
       if state == :not_found
         render json: { errors: { id: ["JWT with id #{params[:id]} is not found."] } }, status: 404
       elsif state == :invalid_params
-        errors = result['result.contract.default'].errors
+        errors = result['result.contract.default'].errors.to_h
         render json: { errors: errors }, status: 422
       elsif state == :unauthorized
         render json: { errors: 'Unauthorized' }, status: 403

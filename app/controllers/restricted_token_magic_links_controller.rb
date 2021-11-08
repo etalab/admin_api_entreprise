@@ -1,7 +1,7 @@
 class RestrictedTokenMagicLinksController < AuthenticatedUsersController
   def create
     send_magic_link = JwtAPIEntreprise::Operation::CreateMagicLink.call(
-      params: params,
+      params: params.to_unsafe_h,
       current_user: current_user,
     )
 

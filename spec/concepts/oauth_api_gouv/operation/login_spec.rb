@@ -66,7 +66,7 @@ RSpec.describe OAuthAPIGouv::Operation::Login, type: :jwt do
     let(:code) { 'random' }
 
     describe 'authorization_code' do
-      let(:errors) { login!['result.contract.default'].errors }
+      let(:errors) { login!['result.contract.default'].errors.to_h }
 
       it 'is required' do
         op_params.delete(:authorization_code)

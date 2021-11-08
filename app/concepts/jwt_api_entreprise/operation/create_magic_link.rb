@@ -4,7 +4,7 @@ module JwtAPIEntreprise::Operation
       Output(:failure) => End(:not_found)
     step Policy::Pundit(JwtAPIEntreprisePolicy, :magic_link?),
       Output(:failure) => End(:unauthorized)
-    step self::Contract::Validate(constant: JwtAPIEntreprise::Contract::CreateMagicLink),
+    step self::Contract::Validate(constant: JwtAPIEntreprise::Contract::CreateMagicLink.new),
       Output(:failure) => End(:invalid_params), fail_fast: true
     step :generate_magic_link_token
     step :send_magic_link
