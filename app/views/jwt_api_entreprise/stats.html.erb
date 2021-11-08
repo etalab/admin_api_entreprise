@@ -37,7 +37,7 @@
         </ul>
 
         <% %i[last_10_minutes last_30_hours last_8_days].each do |period| %>
-          <div id=<%= "tabpanel-#{period}-panel" %> class="fr-tabs__panel <%= (@period == period) ? 'fr-tabs__panel--selected' : '' %>" role="tabpanel" aria-labelledby=i<% "tabpanel-#{period}" %> tabindex="0">
+          <div id=<%= "tabpanel-#{period}-panel" %> class="fr-tabs__panel <%= (@period == period) ? 'fr-tabs__panel--selected' : '' %>" role="tabpanel" aria-labelledby=<%= "tabpanel-#{period}" %> tabindex="0">
             <div class="fr-table fr-table--layout-fixed">
               <table id=<%= "calls_ratio_#{period}" %>>
                 <caption><%= t('.calls_ratio.title') %></caption>
