@@ -40,14 +40,6 @@ RSpec.describe 'stats page for a token', type: :feature do
       expect(page).to have_content(token.id)
     end
 
-    describe 'calls rate' do
-      it 'displays the rate of requests made with the token' do
-        subject
-
-        expect(page).to have_css('#calls_rate')
-      end
-    end
-
     describe 'the ratio of success and errors per providers', js: true do
       shared_examples :show_the_last_10_minutes_stats do
         it 'displays the corresponding period (no stats for 10mn in fixtures file)' do
