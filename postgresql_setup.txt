@@ -4,10 +4,10 @@ CREATE DATABASE admin_apientreprise_development WITH OWNER admin_apientreprise;
 CREATE DATABASE admin_apientreprise_test WITH OWNER admin_apientreprise;
 
 \c admin_apientreprise_production;
-CREATE EXTENSION pgcrypto;
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 \c admin_apientreprise_test;
-CREATE EXTENSION pgcrypto;
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 \c admin_apientreprise_development;
-CREATE EXTENSION pgcrypto;
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
