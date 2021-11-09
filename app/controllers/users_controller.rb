@@ -5,7 +5,7 @@ class UsersController < AuthenticatedUsersController
 
   def transfer_account
     if transfer_allowed_for_current_user?
-      transfer = User::Operation::TransferOwnership.call(params: transfer_account_params)
+      transfer = User::TransferAccount.call(transfer_account_params)
 
       if transfer.success?
         success_message(title: t('.success.title'))
@@ -23,13 +23,17 @@ class UsersController < AuthenticatedUsersController
 
   def transfer_account_params
     {
-      id: params[:id],
-      email: params[:email],
+      current_owner: current_account_owner,
+      target_user_email: params[:email],
     }
   end
 
   def transfer_allowed_for_current_user?
     current_user.id == params[:id] ||
       current_user.admin?
+  end
+
+  def current_account_owner
+    User.find(params[:id])
   end
 end

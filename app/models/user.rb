@@ -6,7 +6,10 @@ class User < ApplicationRecord
   has_many :contacts, through: :authorization_requests
   has_many :roles, through: :jwt_api_entreprise
 
-  validates :email, uniqueness: { case_sensitive: false }
+  validates :email,
+    presence: true,
+    uniqueness: { case_sensitive: false },
+    format: { with: /#{EMAIL_FORMAT_REGEX}/ }
 
   scope :added_since_yesterday, -> { where('created_at > ?', 1.day.ago) }
 
