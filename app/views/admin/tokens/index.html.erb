@@ -1,0 +1,27 @@
+<div class="fr-grid-row">
+  <div class="fr-table fr-table--bordered">
+    <table class="fr-col-12">
+      <caption>Liste des jetons</caption>
+      <thead>
+        <tr>
+          <th scope="col"> Date création </th>
+          <th scope="col"> Cas d'usage </th>
+          <th scope="col"> Date d'expiration </th>
+          <th scope="col"> Archivé </th>
+          <th scope="col"> Blacklisté </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @tokens.each do |token| %>
+          <tr id="<%= dom_id(token) %>" class='token_summary'>
+            <td><%= token.created_at.strftime("%d/%m/%Y") %></td>
+            <td><%= token.subject %></td>
+            <td><%= Time.at(token.exp).strftime("%d/%m/%Y à %H:%M:%S") %></td>
+            <td><%= token.archived? ? 'Oui' : 'Non' %></td>
+            <td><%= token.blacklisted? ? 'Oui' : 'Non' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
