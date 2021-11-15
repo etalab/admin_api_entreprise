@@ -1,6 +1,12 @@
 <div class="fr-grid-row">
   <div class="fr-table fr-table--bordered">
-    <table class="fr-col-12">
+    <div class="fr-search-bar fr-col-6" id="header-search" role="search">
+      <label class="fr-label" for="search-input">
+        Recherche par cas d'usage, JTI
+      </label>
+      <input class="fr-input" placeholder="Rechercher par cas d'usage, JTI" type="search" id="search-input" name="search-input" onkeyup="filterTable()">
+    </div>
+    <table class="fr-col-12 filterable-table">
       <caption>Liste des jetons</caption>
       <thead>
         <tr>
@@ -15,7 +21,7 @@
         <% @tokens.each do |token| %>
           <tr id="<%= dom_id(token) %>" class='token_summary'>
             <td><%= token.created_at.strftime("%d/%m/%Y") %></td>
-            <td><%= token.subject %></td>
+            <td class="filter"><%= link_to token.subject, admin_token_path(token), class: "filter" %></td>
             <td><%= Time.at(token.exp).strftime("%d/%m/%Y à %H:%M:%S") %></td>
             <td><%= token.archived? ? 'Oui' : 'Non' %></td>
             <td><%= token.blacklisted? ? 'Oui' : 'Non' %></td>
