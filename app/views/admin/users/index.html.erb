@@ -1,6 +1,12 @@
 <div class="fr-grid-row">
   <div class="fr-table fr-table--bordered">
-    <table class="fr-col-12">
+    <div class="fr-search-bar fr-col-6" id="header-search" role="search">
+      <label class="fr-label" for="search-input">
+        Recherche par UID, email, siret
+      </label>
+      <input class="fr-input" placeholder="Rechercher par UID, email, siret" type="search" id="search-input" name="search-input" onkeyup="filterTable()">
+    </div>
+    <table class="fr-col-12" id="users_list">
       <caption>Liste des organisations</caption>
       <thead>
         <tr>
@@ -14,8 +20,8 @@
         <% @users.each do |user| %>
           <tr id="<%= dom_id(user) %>" class='user_summary'>
             <td><%= user.created_at.strftime("%d/%m/%Y") %></td>
-            <td><%= link_to user.email, admin_user_path(user) %></td>
-            <td><%= user.context %></td>
+            <td class="filter"><%= link_to user.email, admin_user_path(user), class: "filter" %></td>
+            <td class="filter"><%= user.context %></td>
             <td><%= user.confirmed? ? 'Oui' : 'Non' %></td>
           </tr>
         <% end %>
@@ -23,3 +29,34 @@
     </table>
   </div>
 </div>
+
+<script>
+function filterTable() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("search-input");
+  search = input.value.toUpperCase();
+  table = document.getElementById("users_list");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 1; i < tr.length; i++) {
+
+    var filterable_elements = [].slice.call(tr[i].getElementsByClassName("filter"));
+
+		filterable_text = filterable_elements.map(filterable => {
+			if (filterable.hasAttribute('href')) {
+				return filterable['href'];
+			} else {
+				return (filterable.innerText || filterable.textContent);
+			}
+		}).join(" ");
+
+    if (filterable_text.toUpperCase().indexOf(search) > -1) {
+      tr[i].style.display = "";
+    } else {
+      tr[i].style.display = "none";
+    }
+  }
+}
+</script>
