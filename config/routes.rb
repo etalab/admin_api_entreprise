@@ -56,7 +56,7 @@ Rails.application.routes.draw do
     get '/private_metrics' => 'private_metrics#index'
 
     resources :users, only: %i[index show update]
-    resources :tokens, only: %i[index]
+    resources :tokens, only: %i[index show]
   end
 
   get '/mentions', to: 'pages#mentions'

@@ -28,12 +28,12 @@ RSpec.shared_examples 'admin_path' do |admin_restricted_path|
     expect(page.current_path).to eq(user_profile_path)
   end
 
-  it 'directs logged in admins to admin_restricted_path ' do
+  it 'directs logged in admins to admin_restricted path (identical or redirect) ' do
     admin = create(:user, :admin)
     login_as(admin)
 
     visit admin_restricted_path
 
-    expect(page.current_path).to eq(admin_restricted_path)
+    expect(page.current_path).to eq(admin_restricted_path).or(match(/\A\/admin\//))
   end
 end

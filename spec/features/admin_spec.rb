@@ -50,7 +50,7 @@ RSpec.describe 'admin page', type: :feature do
   it_behaves_like 'admin_path', "/admin/users/ccfa7701-1ee1-47b5-9af1-4e59dfa453d1"
 
   it_behaves_like 'admin_path', "/admin/tokens"
-  #it_behaves_like 'admin_path', "/admin/users/ccfa7701-1ee1-47b5-9af1-4e59dfa453d1/tokens"
+  it_behaves_like 'admin_path', "/admin/tokens/5373d24b-bfd0-4327-9762-70f8016f120e"
 
   describe 'displays users list with generic information' do
     before do
@@ -148,6 +148,15 @@ RSpec.describe 'admin page', type: :feature do
 
     it 'subject' do
       within(dom_id(random_token1)) do
+        click_link(random_token1.subject)
+
+        expect(page.current_path).to eq(admin_user_path(random_user))
+      end
+    end
+
+    it 'clicking subject redirects to user profile' do
+      within(dom_id(random_token1)) do
+
         expect(page).to have_content(random_token1.subject)
       end
     end
