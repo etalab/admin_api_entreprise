@@ -56,4 +56,14 @@ RSpec.describe 'transfer user account ownership', type: :feature do
       expect(target_user.jwt_api_entreprise.pluck(:id)).to include(*tokens_id)
     end
   end
+
+  describe 'with javascript actived', js: true do
+    it 'works' do
+      visit user_profile_path
+      expect(page).not_to have_css(form_dom_id)
+      click_on("transfer_account_button")
+
+      expect(page).to have_css(form_dom_id)
+    end
+  end
 end
