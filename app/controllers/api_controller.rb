@@ -1,5 +1,6 @@
 class APIController < ActionController::Base
   include Pundit
+  skip_before_action :verify_authenticity_token
   before_action :jwt_authenticate!
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
