@@ -18,13 +18,13 @@ function filterTable() {
 
     var filterable_elements = [].slice.call(tr[i].getElementsByClassName("filter"));
 
-		filterable_text = filterable_elements.map(filterable => {
-			if (filterable.hasAttribute('href')) {
-				return filterable['href'];
-			} else {
-				return (filterable.innerText || filterable.textContent);
-			}
-		}).join(" ");
+    filterable_text = filterable_elements.map(filterable => {
+      if (filterable.hasAttribute('href')) {
+        return filterable['href'];
+      } else {
+        return (filterable.innerText || filterable.textContent);
+      }
+    }).join(" ");
 
     if (filterable_text.toUpperCase().indexOf(search) > -1) {
       tr[i].style.display = "";
