@@ -1,6 +1,5 @@
 class API::DatapassWebhooksController < APIController
   skip_before_action :jwt_authenticate!
-  skip_before_action :verify_authenticity_token
 
   before_action :track_payload_through_sentry
   before_action :verify_hub_signature!
