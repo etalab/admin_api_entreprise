@@ -12,7 +12,7 @@ RSpec.shared_examples 'client user unauthorized' do |req_verb, action, req_param
   end
 end
 
-RSpec.shared_examples 'admin_path' do |admin_restricted_path|
+RSpec.shared_examples 'admin_restricted_path' do |admin_restricted_path|
   it 'redirects disconnected user to login page' do
     visit admin_restricted_path
 

@@ -42,11 +42,11 @@ RSpec.describe 'admin page', type: :feature do
   let!(:confirmed_user)      { create(:user, oauth_api_gouv_id: 12) }
   let!(:unconfirmed_user)    { create(:user, oauth_api_gouv_id: nil) }
 
-  it_behaves_like 'admin_path', "/admin/users"
-  it_behaves_like 'admin_path', "/admin/users/ccfa7701-1ee1-47b5-9af1-4e59dfa453d1"
+  it_behaves_like 'admin_restricted_path', "/admin/users"
+  it_behaves_like 'admin_restricted_path', "/admin/users/ccfa7701-1ee1-47b5-9af1-4e59dfa453d1"
 
-  it_behaves_like 'admin_path', "/admin/tokens"
-  it_behaves_like 'admin_path', "/admin/tokens/5373d24b-bfd0-4327-9762-70f8016f120e"
+  it_behaves_like 'admin_restricted_path', "/admin/tokens"
+  it_behaves_like 'admin_restricted_path', "/admin/tokens/5373d24b-bfd0-4327-9762-70f8016f120e"
 
   describe 'displays users list with generic information' do
     before do
