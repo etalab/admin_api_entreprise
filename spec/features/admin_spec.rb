@@ -154,6 +154,11 @@ RSpec.describe 'admin page', type: :feature do
         end
 
         it 'can be archived' do
+          within('#' << dom_id(random_token1)) do
+            expect{ click_link('Archiver') }.to change{
+              random_token1.reload.archived?
+            }.from(false).to(true)
+          end
         end
       end
     end

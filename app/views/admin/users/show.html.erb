@@ -36,13 +36,24 @@
   </div>
   <div id='tokens'>
     <% @user.jwt_api_entreprise.each do |token| %>
-      <div id="<%= dom_id(token) %>" class="<%= token.blacklisted? ? 'blacklisted' : '' %>" >
+      <% token_div_classes = [] %>
+      <% token_div_classes << 'blacklisted' if token.blacklisted %>
+      <% token_div_classes << 'archived' if token.archived%>
+      <div id="<%= dom_id(token) %>" class="<%= token_div_classes.join(' ') %>">
         <h5><%= token.displayed_subject %></h5>
 
         <% unless token.blacklisted? %>
           <%= link_to admin_token_blacklist_path(token) do %>
             <%= button_tag class: 'fr-btn' do %>
               Blacklister
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <% unless token.archived? %>
+          <%= link_to admin_token_archive_path(token) do %>
+            <%= button_tag class: 'fr-btn' do %>
+              Archiver
             <% end %>
           <% end %>
         <% end %>

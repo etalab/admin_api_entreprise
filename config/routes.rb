@@ -59,6 +59,7 @@ Rails.application.routes.draw do
     resources :tokens, only: %i[index show]
 
     get '/tokens/:id/blacklist', as: :token_blacklist, to: 'tokens#blacklist'
+    get '/tokens/:id/archive', as: :token_archive, to: 'tokens#archive'
   end
 
   get '/mentions', to: 'pages#mentions'
