@@ -23,6 +23,14 @@ RSpec.describe 'User JWT listing', type: :feature do
       end
     end
 
+    it 'has a button to copy active tokens hash to clipboard' do
+      jwt_index
+
+      user.jwt_api_entreprise.each do |jwt|
+        expect(page).to have_css("##{dom_id(jwt, :copy_button)}")
+      end
+    end
+
     it 'does not list other users tokens' do
       another_user = create(:user, :with_jwt)
       jwt_index
