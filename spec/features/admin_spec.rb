@@ -124,6 +124,40 @@ RSpec.describe 'admin page', type: :feature do
     it 'context' do
       expect(page).to have_content(random_user.context)
     end
+
+    context 'user tokens list' do
+      it 'is displayed' do
+        expect(page).to have_css('#tokens')
+
+        within('#tokens') do
+          random_user.jwt_api_entreprise.each do |token|
+            expect(page).to have_css('#' << dom_id(token))
+          end
+        end
+      end
+
+      context 'each token' do
+        it 'can be blacklisted' do
+          within('#' << dom_id(random_token1)) do
+            expect{ click_link('Blacklister') }.to change{
+              random_token1.reload.blacklisted?
+            }.from(false).to(true)
+          end
+        end
+
+        it 'does not have a blacklist button when token is already blacklisted' do
+          within('#' << dom_id(random_token1)) do
+            click_link('Blacklister')
+
+            expect(page).not_to have_button('Blacklister')
+          end
+        end
+
+        it 'can be archived' do
+        end
+      end
+    end
+
   end
 
   describe 'display tokens' do

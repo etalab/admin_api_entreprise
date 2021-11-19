@@ -34,6 +34,21 @@
       <% end %>
     </div>
   </div>
+  <div id='tokens'>
+    <% @user.jwt_api_entreprise.each do |token| %>
+      <div id="<%= dom_id(token) %>" class="<%= token.blacklisted? ? 'blacklisted' : '' %>" >
+        <h5><%= token.displayed_subject %></h5>
+
+        <% unless token.blacklisted? %>
+          <%= link_to admin_token_blacklist_path(token) do %>
+            <%= button_tag class: 'fr-btn' do %>
+              Blacklister
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>
 
 <script>

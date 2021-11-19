@@ -57,6 +57,8 @@ Rails.application.routes.draw do
 
     resources :users, only: %i[index show update]
     resources :tokens, only: %i[index show]
+
+    get '/tokens/:id/blacklist', as: :token_blacklist, to: 'tokens#blacklist'
   end
 
   get '/mentions', to: 'pages#mentions'
