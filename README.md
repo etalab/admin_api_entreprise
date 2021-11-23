@@ -53,7 +53,7 @@ Dans le cas d'API entreprise, les 2 comptes suivants sont disponibles :
 Effectuer la commande suivante pour déployer en production:
 
 ```
-rake deploy to=production
+./bin/deploy
 ```
 
 Dans le cas d'un test sur sandbox avec la branche `features/whatever`

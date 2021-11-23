@@ -1,0 +1,14 @@
+#!/bin/bash
+
+current_branch=$(git branch --show-current)
+
+git stash && \
+  git checkout master && \
+  git fetch origin &&
+  git pull origin master && \
+  bundle install && \
+  bundle exec rake deploy  && \
+  git tag releases/$(date +"%Y-%m-%d--%H-%M") master && \
+  git push --tags && \
+  git checkout $current_branch && \
+  git stash pop
