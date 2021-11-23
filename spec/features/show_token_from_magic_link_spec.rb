@@ -36,6 +36,12 @@ RSpec.describe 'show token from magic link', type: :feature do
 
         expect(page).to have_content(expiration_time)
       end
+
+      it 'has a button to copy the token hash' do
+        subject
+
+        expect(page).to have_css('#' + dom_id(jwt, :copy_button))
+      end
     end
 
     context 'when the magic link token has expired' do

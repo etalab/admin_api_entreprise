@@ -1,4 +1,4 @@
-<div class="fr-card fr-card--horizontal fr-card--no-arrow token-card" id="<%= dom_id(jwt_api_entreprise) %>">
+<div class="fr-card fr-card--horizontal fr-card--no-arrow token-card" id="<%= dom_id(jwt_api_entreprise) %>" data-controller="clipboard" data-clipboard-alert-message-value="Le jeton a été copié avec succès">
   <div class="fr-card__body">
     <h4 class="fr-card__title">
       <%= t('.title', displayed_subject: jwt_api_entreprise.displayed_subject) %>
@@ -44,23 +44,28 @@
 
         <br />
 
-        <input class="fr-input" type="text" readonly value="<%= jwt_api_entreprise.rehash %>" />
+        <input id="<%= dom_id(jwt_api_entreprise, :token_hash) %>" class="fr-input" type="text" data-clipboard-target="source" readonly value="<%= jwt_api_entreprise.rehash %>" />
       </div>
 
-      <% if user_signed_in? %>
         <div class="actions">
-          <ul class="fr-btns-group fr-btns-group--inline">
+          <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left">
             <li>
-              <button id="<%= dom_id(jwt_api_entreprise, :modal_button) %>" class="fr-btn fr-btn--secondary" data-fr-opened="false" aria-controls="<%= dom_id(jwt_api_entreprise, :modal) %>">
-                <%= t('.actions.transfer') %>
-              </button>
+              <%= button_tag class: 'fr-btn fr-fi-file-line fr-btn--icon-left', id: dom_id(jwt_api_entreprise, :copy_button), data: { action: 'click->clipboard#copy' } do %>
+                Copier
+              <% end %>
             </li>
-            <li>
-              <%= button_to t('.actions.renew'), jwt_api_entreprise.renewal_url, id: 'renew_access_button', class: %w(fr-btn) %>
-            </li>
+            <% if user_signed_in? %>
+              <li>
+                <button id="<%= dom_id(jwt_api_entreprise, :modal_button) %>" class="fr-btn fr-btn--secondary" data-fr-opened="false" aria-controls="<%= dom_id(jwt_api_entreprise, :modal) %>">
+                  <%= t('.actions.transfer') %>
+                </button>
+              </li>
+              <li>
+                <%= button_to t('.actions.renew'), jwt_api_entreprise.renewal_url, id: 'renew_access_button', class: %w(fr-btn) %>
+              </li>
+            <% end %>
           </ul>
         </div>
-      <% end %>
 
     </div>
   </div>
