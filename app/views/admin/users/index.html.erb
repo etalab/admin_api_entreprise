@@ -19,7 +19,7 @@
       <tbody>
         <% @users.each do |user| %>
           <tr id="<%= dom_id(user) %>" class='user_summary'>
-            <td><%= user.created_at.strftime("%d/%m/%Y") %></td>
+            <td><%= I18n.l(user.created_at, format: :compact ) %></td>
             <td class="filter"><%= link_to user.email, admin_user_path(user), class: "filter" %></td>
             <td class="filter"><%= user.context %></td>
             <td><%= user.confirmed? ? 'Oui' : 'Non' %></td>

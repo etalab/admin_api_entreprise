@@ -1,9 +1,4 @@
 class Admin::UsersController < AuthenticatedAdminsController
-  if Rails.env.development?
-    skip_before_action :authenticate_user!
-    skip_before_action :authenticate_admin!
-  end
-
   def index
     @users = User.all
   end
