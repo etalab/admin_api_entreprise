@@ -1,9 +1,1 @@
-<h1><%= t('.title') %></h1>
-
-<div class="fr-grid-row">
-  <% @tokens.each do |token| %>
-    <div class="fr-col-12 fr-pb-2w">
-      <%= render partial: 'jwt_api_entreprise', object: token %>
-    </div>
-  <% end %>
-</div>
+<%= render partial: 'jwt_api_entreprise/user_tokens_list', locals: { subtitle: t('.title'), tokens: @tokens } %>
