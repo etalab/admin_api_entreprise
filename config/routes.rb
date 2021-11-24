@@ -56,10 +56,12 @@ Rails.application.routes.draw do
     get '/private_metrics' => 'private_metrics#index'
 
     resources :users, only: %i[index show update]
-    resources :tokens, only: %i[index show]
-
-    get '/tokens/:id/blacklist', as: :token_blacklist, to: 'tokens#blacklist'
-    get '/tokens/:id/archive', as: :token_archive, to: 'tokens#archive'
+    resources :tokens, only: %i[index show] do
+      member do
+        post :archive
+        post :blacklist
+      end
+    end
   end
 
   get '/mentions', to: 'pages#mentions'

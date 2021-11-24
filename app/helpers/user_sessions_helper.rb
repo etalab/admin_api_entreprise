@@ -11,6 +11,10 @@ module UserSessionsHelper
     !current_user.nil?
   end
 
+  def user_admin?
+    current_user&.admin?
+  end
+
   def sign_in_and_redirect(user)
     session[:current_user_id] = user.id
     redirect_current_user_to_homepage

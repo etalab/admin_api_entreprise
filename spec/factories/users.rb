@@ -13,6 +13,10 @@ FactoryBot.define do
       last_name { 'Gigot' }
     end
 
+    trait :with_note do
+      note { 'much note' }
+    end
+
     trait :admin do
       admin { true }
     end
