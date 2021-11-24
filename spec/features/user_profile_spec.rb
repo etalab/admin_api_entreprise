@@ -26,8 +26,8 @@ RSpec.describe 'user profile page', type: :feature do
       expect(page).to have_content(user.context)
     end
 
-    it 'has a form to transfer the account ownership' do
-      expect(page).to have_css('#transfer_account')
+    it 'has a button to transfer the account ownership' do
+      expect(page).to have_css('#transfer_account_button')
     end
   end
 end

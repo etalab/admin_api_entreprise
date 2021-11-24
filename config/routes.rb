@@ -43,7 +43,7 @@ Rails.application.routes.draw do
 
   get '/profile', to: 'users#profile', as: :user_profile
   get '/profile/tokens', to: 'jwt_api_entreprise#index', as: :user_tokens
-  post 'profile/transfer_account', to: 'users#transfer_account', as: :user_transfer_account
+  post 'users/:id/transfer_account', to: 'users#transfer_account', as: :user_transfer_account
   post 'tokens/:id/create_magic_link', to: 'restricted_token_magic_links#create', as: :token_create_magic_link
   get 'tokens/:id/stats', to: 'jwt_api_entreprise#stats', as: :token_stats
   get '/magic_link', to: 'public_token_magic_links#show', as: :token_show_magic_link_legacy

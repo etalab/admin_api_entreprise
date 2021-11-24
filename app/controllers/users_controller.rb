@@ -19,7 +19,7 @@ class UsersController < AuthenticatedUsersController
 
   def transfer_account_params
     {
-      id: current_user.id,
+      id: params[:id],
       email: params[:email],
     }
   end
