@@ -17,6 +17,14 @@ FactoryBot.define do
       note { 'much note' }
     end
 
+    trait :confirmed do
+      sequence(:oauth_api_gouv_id) { |n| n }
+    end
+
+    trait :unconfirmed do
+      sequence(:oauth_api_gouv_id) { nil }
+    end
+
     trait :admin do
       admin { true }
     end
