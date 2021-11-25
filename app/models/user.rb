@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :contacts, through: :authorization_requests
   has_many :roles, through: :jwt_api_entreprise
 
+  validates :email, uniqueness: true
+
   scope :added_since_yesterday, -> { where('created_at > ?', 1.day.ago) }
 
   before_save { email.downcase! }
