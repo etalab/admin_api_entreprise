@@ -66,4 +66,11 @@ RSpec.describe User do
       it { is_expected.to eq(false) }
     end
   end
+
+  describe 'saving callbacks' do
+    it 'downcase emails before saving' do
+      user = create :user, email: 'CAPS_LOCK@EMAIL.COM'
+      expect(user.email).to eq('caps_lock@email.com')
+    end
+  end
 end

@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
   scope :added_since_yesterday, -> { where('created_at > ?', 1.day.ago) }
 
+  before_save { email.downcase! }
+
   def confirmed?
     !!oauth_api_gouv_id
   end
