@@ -22,7 +22,7 @@
             <td><%= I18n.l(user.created_at, format: :compact ) %></td>
             <td class="filter"><%= link_to user.email, admin_user_path(user), class: "filter" %></td>
             <td class="filter"><%= user.context %></td>
-            <td><%= user.confirmed? ? 'Oui' : 'Non' %></td>
+            <td><%= boolean_i18n(user.confirmed?) %></td>
           </tr>
         <% end %>
       </tbody>

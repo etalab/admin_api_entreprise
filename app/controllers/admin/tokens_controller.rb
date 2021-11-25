@@ -4,31 +4,29 @@ class Admin::TokensController < AuthenticatedAdminsController
   end
 
   def show
-    @token = JwtAPIEntreprise.find(token_params[:id])
+    @token = JwtAPIEntreprise.find(params[:id])
     @user  = @token.user
 
-    redirect_to admin_user_url(@user)
+    redirect_to admin_user_path(@user)
   end
 
   def blacklist
-    @token = JwtAPIEntreprise.find(token_params[:id])
-    @token.update_attribute(:blacklisted, true)
+    @token = JwtAPIEntreprise.find(params[:id])
+    @token.update(blacklisted: true)
 
     @user  = @token.user
 
-    redirect_to admin_user_url(@user)
+    info_message(title: t('.alert', token_subject: @token.displayed_subject))
+    redirect_to admin_user_path(@user)
   end
 
   def archive
-    @token = JwtAPIEntreprise.find(token_params[:id])
-    @token.update_attribute(:archived, true)
+    @token = JwtAPIEntreprise.find(params[:id])
+    @token.update(archived: true)
 
     @user  = @token.user
 
-    redirect_to admin_user_url(@user)
-  end
-
-  def token_params
-    params.permit(:id)
+    info_message(title: t('.alert', token_subject: @token.displayed_subject))
+    redirect_to admin_user_path(@user)
   end
 end

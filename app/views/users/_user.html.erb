@@ -12,7 +12,7 @@
     </li>
   </ul>
 
-  <% if user_admin? %>
+  <% if current_user_admin? %>
     <%= form_with url: admin_user_path(@user), method: :patch do |f| %>
       <div class="fr-input-group">
         <%= f.label :note, 'Notes sur l\'organisation :', class: %w(fr-label) %>

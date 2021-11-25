@@ -65,7 +65,7 @@
               </li>
             <% end %>
           </ul>
-          <% if user_admin? %>
+          <% if current_user_admin? %>
             <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left">
               <% unless jwt_api_entreprise.archived? %>
                 <li>
