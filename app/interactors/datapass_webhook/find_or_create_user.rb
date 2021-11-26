@@ -1,6 +1,6 @@
 class DatapassWebhook::FindOrCreateUser < ApplicationInteractor
   def call
-    context.user = User.find_or_initialize_by(email: user_attributes['email'])
+    context.user = User.find_or_initialize_by_email(user_attributes['email'])
     context.user.assign_attributes(user_attributes_to_assign)
 
     return if context.user.save

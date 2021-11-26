@@ -15,7 +15,7 @@ module User::Operation
 
 
     def find_new_owner(ctx, params:, **)
-      ctx[:new_owner] = User.find_by_email(params[:email])
+      ctx[:new_owner] = User.insensitive_find_by_email(params[:email])
     end
 
     def transfer_tokens(ctx, model:, new_owner:, **)

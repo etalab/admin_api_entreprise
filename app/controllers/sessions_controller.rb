@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if user = User.find_by(email: authenticated_user_email)
+    if user = User.insensitive_find_by_email(authenticated_user_email)
       sign_in_and_redirect(user)
     else
       error_message(title: t('.not_found.title'), description: t('.not_found.description'))

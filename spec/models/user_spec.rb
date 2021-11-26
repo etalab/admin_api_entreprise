@@ -25,6 +25,10 @@ RSpec.describe User do
     it { is_expected.to have_many(:contacts) }
   end
 
+  describe 'constraints' do
+    it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
+  end
+
   describe '.added_since_yesterday' do
     subject { described_class }
 
@@ -64,6 +68,31 @@ RSpec.describe User do
     context 'when the user does not have an API Gouv ID' do
       before { user.oauth_api_gouv_id = nil }
       it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '#find_or_initialize_by_email' do
+    subject { described_class.find_or_initialize_by_email(email) }
+
+    let(:email) { 'email_WITH@case.COM' }
+
+    context 'when email does not exist' do
+      its(:id) { is_expected.to be_nil }
+      its(:email) { is_expected.to eq email }
+    end
+
+    context 'when email already exists' do
+      let!(:user) { create :user, email: email }
+
+      its(:id) { is_expected.to eq user.id }
+      its(:email) { is_expected.to eq email }
+    end
+
+    context 'when email already exists with different case' do
+      let!(:user) { create :user, email: 'EMAIL_with@CASE.com' }
+
+      its(:id) { is_expected.to eq user.id }
+      its(:email) { is_expected.to eq 'EMAIL_with@CASE.com' }
     end
   end
 end
