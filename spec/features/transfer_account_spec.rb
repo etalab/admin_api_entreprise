@@ -51,7 +51,7 @@ RSpec.describe 'transfer user account ownership', type: :feature do
     it 'transfer the tokens to the target account' do
       tokens_id = user.jwt_api_entreprise.pluck(:id)
       subject
-      target_user = User.find_by(email: email)
+      target_user = User.insensitive_find_by_email(email)
 
       expect(target_user.jwt_api_entreprise.pluck(:id)).to include(*tokens_id)
     end

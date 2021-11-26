@@ -83,7 +83,7 @@ RSpec.describe User::Operation::TransferOwnership do
       it 'gives the token ownership to the new user' do
         transfered_jwt_ids = old_owner.jwt_api_entreprise_ids
         subject
-        new_owner = User.find_by_email(new_owner_email)
+        new_owner = User.insensitive_find_by_email(new_owner_email)
 
         # added a sort call, equal was enforced but the order was not preserved in some
         # test seeds
@@ -109,7 +109,7 @@ RSpec.describe User::Operation::TransferOwnership do
 
       it 'creates a ghost user' do
         subject
-        new_owner = User.find_by_email(new_owner_email)
+        new_owner = User.insensitive_find_by_email(new_owner_email)
 
         expect(new_owner).to have_attributes({
           email: new_owner_email,
