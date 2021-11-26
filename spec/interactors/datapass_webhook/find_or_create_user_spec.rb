@@ -47,23 +47,5 @@ RSpec.describe DatapassWebhook::FindOrCreateUser, type: :interactor do
         }.to change { user.reload.first_name }.to('demandeur first name')
       end
     end
-
-    context 'when the input email contains upcase' do
-      before do
-        demandeur_attributes[:email].upcase!
-      end
-
-      it { is_expected.to be_a_success }
-      it { expect(subject.user.email).to eq(demandeur_attributes[:email].downcase) }
-
-      context 'when the input emails already exists' do
-        before do
-          create :user, email: demandeur_attributes[:email].downcase
-        end
-
-        it { is_expected.to be_a_success }
-        it { expect(subject.user.email).to eq(demandeur_attributes[:email].downcase) }
-      end
-    end
   end
 end

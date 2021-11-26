@@ -6,11 +6,17 @@ class User < ApplicationRecord
   has_many :contacts, through: :authorization_requests
   has_many :roles, through: :jwt_api_entreprise
 
-  validates :email, uniqueness: true
+  validates :email, uniqueness: { case_sensitive: false }
 
   scope :added_since_yesterday, -> { where('created_at > ?', 1.day.ago) }
 
-  before_save { email.downcase! }
+  def self.find_or_initialize_by_email(email)
+    insensitive_find_by_email(email) || new(email: email)
+  end
+
+  def self.insensitive_find_by_email(email)
+    where('email ilike (?)', email).limit(1).first
+  end
 
   def confirmed?
     !!oauth_api_gouv_id
