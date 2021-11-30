@@ -146,13 +146,7 @@ RSpec.describe JwtAPIEntreprise, type: :model do
   end
 
   describe 'external URLs to DataPass' do
-    let(:external_id) { generate(:external_authorization_request_id) }
-
-    before do
-      jwt.authorization_request.update!(
-        external_id: external_id,
-      )
-    end
+    let(:external_id) { jwt.authorization_request.external_id }
 
     describe '#renewal_url' do
       it 'returns the DataPass\' renewal form URL' do
