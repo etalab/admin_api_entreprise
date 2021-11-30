@@ -12,7 +12,7 @@ module UserSessionsHelper
   end
 
   def current_user_admin?
-    current_user&.admin?
+    user_signed_in? && current_user.admin?
   end
 
   def sign_in_and_redirect(user)

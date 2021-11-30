@@ -42,6 +42,24 @@ RSpec.describe 'show token from magic link', type: :feature do
 
         expect(page).to have_css('#' + dom_id(jwt, :copy_button))
       end
+
+      it 'does not show the token renewal button' do
+        subject
+
+        expect(page).not_to have_button(dom_id(jwt, :renew))
+      end
+
+      it 'does not show the link to the associated authorization request' do
+        subject
+
+        expect(page).not_to have_link(href: jwt.authorization_request_url)
+      end
+
+      it 'does not allow the magic link creation' do
+        subject
+
+        expect(page).not_to have_button(dom_id(jwt, :modal_button))
+      end
     end
 
     context 'when the magic link token has expired' do

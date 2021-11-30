@@ -61,7 +61,7 @@
                 </button>
               </li>
               <li>
-                <%= button_to t('.actions.renew'), jwt_api_entreprise.renewal_url, id: 'renew_access_button', class: %w(fr-btn) %>
+                <%= button_to t('.actions.renew'), jwt_api_entreprise.renewal_url, id: dom_id(jwt_api_entreprise, :renew), class: %w(fr-btn) %>
               </li>
             <% end %>
           </ul>

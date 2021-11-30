@@ -25,6 +25,14 @@ FactoryBot.define do
       end
     end
 
+    trait :with_roles do
+      roles do
+        [
+          build(:role),
+        ]
+      end
+    end
+
     trait :without_authorization_request_id do
       authorization_request_id { nil }
     end
