@@ -52,4 +52,28 @@ RSpec.describe 'transfer user account ownership', type: :feature do
       expect(page).to have_css(form_dom_id)
     end
   end
+
+  describe 'transfering another user account' do
+    let(:another_user) { create(:user) }
+
+    subject do
+      page.driver.post(user_transfer_account_path(another_user), params: {
+        email: 'hackerman@email.fr'
+      })
+    end
+
+    it 'does not transfer any tokens' do
+      user_tokens_id = user.jwt_api_entreprise.pluck(:id)
+      subject
+
+      expect(user.jwt_api_entreprise.reload.pluck(:id))
+        .to contain_exactly(*user_tokens_id)
+    end
+
+    it 'returns an error' do
+      subject
+
+      expect(page.driver.status_code).to eq(403)
+    end
+  end
 end

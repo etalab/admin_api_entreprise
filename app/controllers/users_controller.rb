@@ -4,15 +4,19 @@ class UsersController < AuthenticatedUsersController
   end
 
   def transfer_account
-    transfer = User::Operation::TransferOwnership.call(params: transfer_account_params)
+    if transfer_allowed_for_current_user?
+      transfer = User::Operation::TransferOwnership.call(params: transfer_account_params)
 
-    if transfer.success?
-      success_message(title: t('.success.title'))
+      if transfer.success?
+        success_message(title: t('.success.title'))
+      else
+        error_message(title: t('.error.title'))
+      end
+
+      redirect_back fallback_location: root_path
     else
-      error_message(title: t('.error.title'))
+      head :forbidden
     end
-
-    redirect_back fallback_location: root_path
   end
 
   private
@@ -22,5 +26,10 @@ class UsersController < AuthenticatedUsersController
       id: params[:id],
       email: params[:email],
     }
+  end
+
+  def transfer_allowed_for_current_user?
+    current_user.id == params[:id] ||
+      current_user.admin?
   end
 end
