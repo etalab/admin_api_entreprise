@@ -36,7 +36,7 @@ RSpec.describe 'admin user profile', type: :feature do
       subject
 
       within('#user_details') do
-        fill_in 'note', with: 'very note'
+        fill_in 'user_note', with: 'very note'
         click_button 'commit'
 
         expect(page).to have_content('very note')

@@ -4,7 +4,7 @@ class Admin::UsersController < AuthenticatedAdminsController
   end
 
   def show
-    @user = User.includes(:jwt_api_entreprise).find(user_params[:id])
+    @user = User.includes(:jwt_api_entreprise).find(params[:id])
     @active_jwt = @user.jwt_api_entreprise.filter do |token|
       !token.archived? && !token.blacklisted?
     end
@@ -15,17 +15,20 @@ class Admin::UsersController < AuthenticatedAdminsController
   end
 
   def update
-    @user = User.find(user_params[:id])
-    @user.update_attribute(:note, user_update_params[:note])
+    @user = User.find(params[:id])
+
+    if @user.update(user_update_params)
+      success_message(title: t('.success'))
+    else
+      error_message(title: t('.error'))
+    end
 
     redirect_to admin_user_url(@user)
   end
 
-  def user_params
-    params.permit(:id)
-  end
+  private
 
   def user_update_params
-    params.permit(:id, :note)
+    params.require(:user).permit(:note)
   end
 end
