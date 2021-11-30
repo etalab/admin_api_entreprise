@@ -93,6 +93,40 @@ RSpec.describe JwtAPIEntreprise, type: :model do
     end
   end
 
+  describe 'scopes' do
+    let!(:active) { create_list(:jwt_api_entreprise, 2) }
+    let!(:archived) { create_list(:jwt_api_entreprise, 2, :archived) }
+    let!(:blacklisted) { create_list(:jwt_api_entreprise, 2, :blacklisted) }
+    let!(:archived_and_blacklisted) { create_list(:jwt_api_entreprise, 2, :blacklisted, :archived) }
+
+    describe '.active' do
+      subject { described_class.active }
+
+      it { is_expected.to     include(*active) }
+      it { is_expected.not_to include(*archived) }
+      it { is_expected.not_to include(*blacklisted) }
+      it { is_expected.not_to include(*archived_and_blacklisted) }
+    end
+
+    describe '.archived' do
+      subject { described_class.archived }
+
+      it { is_expected.not_to include(*active) }
+      it { is_expected.to     include(*archived) }
+      it { is_expected.not_to include(*blacklisted) }
+      it { is_expected.not_to include(*archived_and_blacklisted) }
+    end
+
+    describe '.blacklisted' do
+      subject { described_class.blacklisted }
+
+      it { is_expected.not_to include(*active) }
+      it { is_expected.not_to include(*archived) }
+      it { is_expected.to     include(*blacklisted) }
+      it { is_expected.to     include(*archived_and_blacklisted) }
+    end
+  end
+
   describe '#rehash' do
     let(:token) { jwt.rehash }
 

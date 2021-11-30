@@ -4,14 +4,7 @@ class Admin::UsersController < AuthenticatedAdminsController
   end
 
   def show
-    @user = User.includes(:jwt_api_entreprise).find(params[:id])
-    @active_jwt = @user.jwt_api_entreprise.filter do |token|
-      !token.archived? && !token.blacklisted?
-    end
-    @archived_jwt = @user.jwt_api_entreprise.filter do |token|
-      token.archived? && !token.blacklisted?
-    end
-    @blacklisted_jwt = @user.jwt_api_entreprise.filter(&:blacklisted)
+    @user = User.find(params[:id])
   end
 
   def update

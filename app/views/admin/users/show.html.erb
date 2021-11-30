@@ -1,8 +1,8 @@
 <%= render 'users/user' %>
 <br />
 
-<%= render partial: 'jwt_api_entreprise/user_tokens_list', locals: { subtitle: t('jwt_api_entreprise.index.title'), tokens: @active_jwt } %>
+<%= render partial: 'jwt_api_entreprise/user_tokens_list', locals: { subtitle: t('jwt_api_entreprise.index.title'), tokens: @user.jwt_api_entreprise.active } %>
 
-<%= render partial: 'jwt_api_entreprise/user_tokens_list', locals: { subtitle: t('.archived_token_title'), tokens: @archived_jwt } %>
+<%= render partial: 'jwt_api_entreprise/user_tokens_list', locals: { subtitle: t('.archived_token_title'), tokens: @user.jwt_api_entreprise.archived } %>
 
-<%= render partial: 'jwt_api_entreprise/user_tokens_list', locals: { subtitle: t('.blacklisted_token_title'), tokens: @blacklisted_jwt } %>
+<%= render partial: 'jwt_api_entreprise/user_tokens_list', locals: { subtitle: t('.blacklisted_token_title'), tokens: @user.jwt_api_entreprise.blacklisted } %>
