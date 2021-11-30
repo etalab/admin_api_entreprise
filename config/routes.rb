@@ -58,8 +58,8 @@ Rails.application.routes.draw do
     resources :users, only: %i[index show update]
     resources :tokens, only: %i[index show] do
       member do
-        post :archive
-        post :blacklist
+        patch :archive
+        patch :blacklist
       end
     end
   end
