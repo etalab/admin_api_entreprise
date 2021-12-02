@@ -72,4 +72,15 @@ RSpec.describe 'admin token index', type: :feature do
       expect(page).to have_content('Non')
     end
   end
+
+  describe 'regression tests' do
+    context 'when one token exp is nil (usually admin/ping tokens)' do
+      before { create(:jwt_api_entreprise, exp: nil) }
+
+      it 'works' do
+        expect { visit(admin_tokens_path) }
+          .not_to raise_error
+      end
+    end
+  end
 end
