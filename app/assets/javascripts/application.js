@@ -4,3 +4,5 @@
 
 //= require chartkick
 //= require Chart.bundle
+
+//= require utils/table_search

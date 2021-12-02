@@ -19,6 +19,13 @@ installer les paquets et importer les tables de la base de données :
 
 ## Tests
 
+Pour faire tourner les tests, un navigateur headless est necessaire (au moins
+sous linux).
+
+```
+sudo apt install chromium-browser
+```
+
 Il faut lancer:
 
 ```sh

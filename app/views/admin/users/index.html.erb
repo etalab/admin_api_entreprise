@@ -1,1 +1,31 @@
-<h2>Liste des organisations</h2>
+<div class="fr-grid-row">
+  <div class="fr-table fr-table--bordered">
+    <div class="fr-search-bar fr-col-6" id="header-search" role="search">
+      <label class="fr-label" for="search-input">
+        Recherche par UID, email, siret
+      </label>
+      <input class="fr-input" placeholder="Rechercher par UID, email, siret" type="search" id="search-input" name="search-input" onkeyup="filterTable()">
+    </div>
+    <table class="fr-col-12 filterable-table">
+      <caption>Liste des organisations</caption>
+      <thead>
+        <tr>
+          <th scope="col"> Date création </th>
+          <th scope="col"> Email </th>
+          <th scope="col"> Siret </th>
+          <th scope="col"> Confirmé </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr id="<%= dom_id(user) %>" class='user_summary'>
+            <td><%= I18n.l(user.created_at, format: :compact ) %></td>
+            <td class="filter"><%= link_to user.email, admin_user_path(user), class: "filter" %></td>
+            <td class="filter"><%= user.context %></td>
+            <td><%= boolean_i18n(user.confirmed?) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

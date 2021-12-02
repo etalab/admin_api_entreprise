@@ -1,0 +1,11 @@
+<% active = current_page?(path) %>
+
+<% li_classes = ["fr-sidemenu__item"] %>
+<% li_classes << "fr-sidemenu__item--active" if active %>
+
+<% link_to_args_hash = { class: "fr-sidemenu__link" } %>
+<% link_to_args_hash.merge!(aria: { current: "page" }) if active %>
+
+<%= content_tag :li, class: li_classes do %>
+  <%= link_to link_name, path, link_to_args_hash %>
+<% end %>

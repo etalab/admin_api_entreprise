@@ -1,4 +1,14 @@
 fr:
+  ## Decorators / Formats
+  'yes': 'Oui'
+  'no': 'Non'
+
+  datetime: &datetime_format
+    formats:
+      compact: "%d/%m/%Y"
+      compact_with_hours: "%d/%m/%Y à %H:%M:%S"
+  time: *datetime_format
+
   ## Layout / commons
   layouts:
     application:
@@ -74,7 +84,7 @@ fr:
         title: Veuillez vous connecter pour accéder à cette page.
 
   users:
-    profile:
+    user:
       title: "Profil de l'organisation"
       email_address: "Adresse e-mail: %{email}"
       siret: "Siret de l'organisation : %{context}"
@@ -86,6 +96,10 @@ fr:
           placeholder: jean.dupont@gouv.fr
         cta: Transférer mon compte
         confirm: Êtes-vous sûr de vouloir transférer votre compte ?
+      update:
+        note:
+          label: Notes sur l'organisation
+        cta: Editer la note
     transfer_account:
       success:
         title: Vos jetons ont été transférés avec succès.
@@ -107,6 +121,8 @@ fr:
       actions:
         transfer: Transmettre le jeton à mon équipe technique
         renew: Renouveler ou étendre mes droits
+        archive: Archiver
+        blacklist: Blacklister
       magic_link:
         title: Transférer le jeton d'accès
         description: Votre clé d'accès est unique et privée. L'utilisation de cette fonctionnalité doit avoir pour unique objectif la transmission sécurisée de votre jeton d'accès à vos services techniques qui intégreront l'API Entreprise.
@@ -162,6 +178,19 @@ fr:
       disclaimer:
         title: Durée de validité du lien
         description: Cette page contient votre jeton d'accès à API Entreprise et ne doit en aucun cas être partagé avec un tiers non habilité ! Ce lien expirera dans %{expiration_time}.
+  admin:
+    users:
+      show:
+        archived_token_title: Jetons archivés
+        blacklisted_token_title: Jetons blacklistés
+      update:
+        success: Données de l'utilisateur mise à jour.
+        error: Une erreur est survenue à la mise à jour des données.
+    tokens:
+      blacklist:
+        alert: Le jeton "%{token_subject}" a bien été blacklisté.
+      archive:
+        alert: Le jeton "%{token_subject}" a bien été archivé.
 
   endpoints:
     index:

@@ -1,7 +1,7 @@
 class AuthenticatedAdminsController < AuthenticatedUsersController
   before_action :authenticate_admin!
 
-  layout 'application'
+  layout 'authenticated_admin'
 
   private
 

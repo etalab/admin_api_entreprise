@@ -15,6 +15,10 @@ class JwtAPIEntreprise < ApplicationRecord
   scope :issued_in_last_seven_days, -> { where(created_at: 3.weeks.ago..1.week.ago) }
   scope :unexpired, -> { where('exp > ?', Time.zone.now.to_i) }
 
+  scope :active, -> { where(blacklisted: false, archived: false) }
+  scope :archived, -> { where(blacklisted: false, archived: true) }
+  scope :blacklisted, -> { where(blacklisted: true) }
+
   def rehash
     AccessToken.create(token_payload)
   end

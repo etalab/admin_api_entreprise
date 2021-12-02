@@ -69,6 +69,11 @@ RSpec.describe User do
       before { user.oauth_api_gouv_id = nil }
       it { is_expected.to eq(false) }
     end
+
+    context 'when the user has an empty API Gouv ID' do
+       before { user.oauth_api_gouv_id = '' }
+       it { is_expected.to eq(false) }
+    end
   end
 
   describe '#find_or_initialize_by_email' do

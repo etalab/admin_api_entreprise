@@ -1,11 +1,10 @@
 FactoryBot.define do
-  sequence(:external_authorization_request_id) { |n| "#{n}" }
-
   factory :authorization_request do
+    sequence(:external_id) { |n| "#{n}" }
     user { build(:user, :with_full_name) }
 
-    trait :with_external_id do
-      external_id { generate(:external_authorization_request_id) }
+    trait :without_external_id do
+      external_id { nil }
     end
 
     trait :with_contacts do

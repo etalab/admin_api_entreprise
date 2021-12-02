@@ -19,7 +19,7 @@ class User < ApplicationRecord
   end
 
   def confirmed?
-    !!oauth_api_gouv_id
+    oauth_api_gouv_id.present?
   end
 
   def full_name

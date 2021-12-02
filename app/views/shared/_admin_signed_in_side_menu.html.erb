@@ -1,0 +1,12 @@
+<nav class="fr-sidemenu" aria-label="Menu latéral">
+  <div class="fr-sidemenu__inner">
+    <div class="fr-collapse" id="fr-sidemenu-wrapper">
+      <div class="fr-sidemenu__title">Menu</div>
+      <ul class="fr-sidemenu__list">
+        <%= render partial: "shared/sidemenu_list_item", locals: { path: admin_users_path, link_name: "Liste des organisations" } %>
+        <%= render partial: "shared/sidemenu_list_item", locals: { path: admin_tokens_path, link_name: "Liste des jetons"} %>
+        <%= render partial: "shared/sidemenu_list_item", locals: { path: admin_private_metrics_path, link_name: "Metrics internes"} %>
+      </ul>
+    </div>
+  </div>
+</nav>
