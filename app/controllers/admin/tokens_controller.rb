@@ -29,8 +29,6 @@ class Admin::TokensController < AuthenticatedAdminsController
     if @token.update(updated_attrs)
       @user = @token.user
 
-      # i18n-tasks-use t('admin.tokens.archive.alert')
-      # i18n-tasks-use t('admin.tokens.blacklist.alert')
       info_message(title: t(".#{params[:action]}.alert", token_subject: @token.displayed_subject))
       redirect_to admin_user_path(@user)
     end
