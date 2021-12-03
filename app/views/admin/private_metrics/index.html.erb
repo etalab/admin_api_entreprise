@@ -1,21 +1,29 @@
 <div class="fr-grid-row">
-  <h3> ATTENTION </h3>
-
-  <h5>Les statistiques et chiffres que vous consultez sont trompeurs et doivent etre pris avec des pincettes. Nous n'avons pas le contexte ni la granularite suffisante pour prendre ces chiffres pour argent comptant.</h5>
-  Par exemple :
-
-  <ul>
-    <li> un utilisateur peut decider de mettre a jour sa base de donnees par confort. Les appels ne representent alors pas de demarche effectuee au nom d'un beneficiaire quelconque</li>
-    <li> les appels effectues par un utilisateur sont effectues plusieurs fois a cause d'un dysfonctionnement applicatif gonflant artificiellement les statistiques</li>
-  </ul>
+  <h3> Comment lire les statistiques ci-dessous ?</h3>
 
   <p>
-  Nous nous cantonnons a des chiffres generaux permettant de degager des <i>tendances </i>, et de voir les evolutions. A ce titre, les statistiques ne portent pas sur les utilisateurs administrateurs. Concernant les tokens, ceux de ping, blacklistes, archives ou expires sont exclus des statistiques
+  Ce sont des chiffres généraux permettant de dégager des <i>tendances </i>, et de voir les évolutions. Ils peuvent prêter à confusion car leur contexte et leur granularité sont limités.
+  Il faut donc être vigilant dans la façon de les analyser. Par exemple :
   </p>
+  <ul>
+    <li> un utilisateur peut décider de mettre a jour sa base de données par confort. Les appels ne représentent alors pas de démarche effectuée au nom d'un bénéficiaire quelconque ;</li>
+    <li> le nombre d'appels affiché pour un utilisateur peut être surévalué à cause d'un dysfonctionnement applicatif gonflant artificiellement les statistiques.</li>
+  </ul>
+  
+  <p>
+  Enfin, sont exclus de ces statistiques : 
+    ne tiennent pas compte des utilisateurs administrateurs. Concernant les tokens, ceux de ping, blacklistés, archivés ou expirés sont exclus des statistiques
+  </p>
+  <ul>
+    <li> les comptes des utilisateurs administrateurs ;</li>
+    <li> les tokens de ping ;</li>
+    <li> les tokens blacklistés, archivés ou expirés.</li>
+  </ul>
+
 </div>
 
 <div class="fr-grid-row">
-  <h2> Statistiques generales </h2>
+  <h2> Statistiques générales </h2>
   <div class="fr-table fr-table--bordered">
     <table>
       <thead>
@@ -50,15 +58,15 @@
 
 <div class="fr-grid-row">
   <h2> Pilotage onboarding </h2>
-  <h3> Utilisateurs recemment inscrits </h3>
+  <h3> Utilisateurs récemment inscrits </h3>
   <div class="fr-table fr-table--bordered">
     <table>
       <thead>
         <tr>
-          <td> Email </td>
+          <td> E-mail </td>
           <td> Contexte </td>
           <td> Profil </td>
-          <td> Date de creation </td>
+          <td> Date de création </td>
         </tr>
       </thead>
       <tbody>
@@ -66,7 +74,7 @@
           <tr>
             <td><%= user.email %></td>
             <td><%= user.context %></td>
-            <td> Lien a creer </td>
+            <td> Lien a créer </td>
             <td>Il y a <%= time_ago_in_words(user.created_at)%></td>
           </tr>
       </tbody>
@@ -77,12 +85,12 @@
   <h3> Inscriptions par mois </h3>
   <%= column_chart @monthly_new_users_histogram %>
 
-  <h3> Utilisateurs avec un token recent et jamais utilise </h3>
+  <h3> Utilisateurs avec un token récent et jamais utilisé </h3>
   <div class="fr-table fr-table--bordered">
     <table>
       <thead>
         <tr>
-          <td> Email </td>
+          <td> E-mail </td>
           <td> Contexte </td>
           <td> Profil </td>
         </tr>
@@ -100,12 +108,12 @@
   </div>
 
   <h3> Utilisateurs avec un token de plus de 30 jours et pas en production </h3>
-  Un token n'est pas considere en production quand il n'a pas au moins appele 20 sirets/siren/rna_id distincts
+  Un token n'est pas considéré en production tant qu'il n'a pas appelé au moins 20 sirets/siren/rna_id distincts.
   <div class="fr-table fr-table--bordered">
     <table>
       <thead>
         <tr>
-          <td> Email </td>
+          <td> E-mail </td>
           <td> Contexte </td>
           <td> Profil </td>
         </tr>
