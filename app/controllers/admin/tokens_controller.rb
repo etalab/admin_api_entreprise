@@ -6,7 +6,7 @@ class Admin::TokensController < AuthenticatedAdminsController
   end
 
   def show
-    @user  = @token.user
+    @user = @token.user
 
     redirect_to admin_user_path(@user)
   end
