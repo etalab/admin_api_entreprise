@@ -18,9 +18,15 @@
         <li>
           <%= t('.delivered_at', humanized_date: friendly_format_from_timestamp(jwt_api_entreprise.iat)) %>
         </li>
-        <li>
-          <%= t('.expired_at', humanized_date: friendly_format_from_timestamp(jwt_api_entreprise.exp)) %>
-        </li>
+        <% if jwt_api_entreprise.exp %>
+          <li>
+            <%= t('.expired_at', humanized_date: friendly_format_from_timestamp(jwt_api_entreprise.exp)) %>
+          </li>
+        <% else %>
+          <li>
+            <%= t('.no_expiry') %>
+          </li>
+        <% end %>
       </ul>
 
       <div class="fr-mb-2v">

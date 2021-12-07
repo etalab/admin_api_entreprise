@@ -97,4 +97,14 @@ RSpec.describe 'token details page', type: :feature do
       expect(page).to have_current_path(user_profile_path)
     end
   end
+
+  describe 'non-regression tests' do
+    context 'when the token has no expiration' do
+      let(:token) { create(:jwt_api_entreprise, exp: nil, user: user) }
+
+      it 'works' do
+        expect { visit token_path(token) }.not_to raise_error
+      end
+    end
+  end
 end
