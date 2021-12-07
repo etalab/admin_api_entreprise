@@ -66,7 +66,7 @@ class JwtAPIEntreprise < ApplicationRecord
 
   def token_payload
     payload = {
-      uid: self.user.id,
+      uid: self.user&.id,
       jti: self.id,
       roles: self.roles.pluck(:code),
       sub: self.subject,

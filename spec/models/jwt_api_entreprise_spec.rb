@@ -177,6 +177,24 @@ RSpec.describe JwtAPIEntreprise, type: :model do
         expect(payload.fetch(:version)).to eq(jwt.version)
       end
     end
+
+    describe 'non-regression test' do
+      context 'when the token has no authorization request' do
+        let(:jwt) { create(:jwt_api_entreprise, :without_authorization_request_id) }
+
+        subject { jwt.rehash }
+
+        it 'still works' do
+          expect(subject).to match(/\A([a-zA-Z0-9_-]+\.){2}([a-zA-Z0-9_-]+)?\z/)
+        end
+
+        it 'sets uid field to nil in the JWT' do
+          payload = extract_payload_from(subject)
+
+          expect(payload.fetch(:uid)).to be_nil
+        end
+      end
+    end
   end
 
   describe 'external URLs to DataPass' do
