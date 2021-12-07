@@ -6,6 +6,10 @@ class JwtAPIEntrepriseController < AuthenticatedUsersController
       .where(archived: false)
   end
 
+  def show
+    @token = JwtAPIEntreprise.find(params[:id])
+  end
+
   def stats
     retrieve_stats = RetrieveTokenStats.call(token_id: params[:id])
 

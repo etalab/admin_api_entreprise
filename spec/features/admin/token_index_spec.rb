@@ -8,6 +8,7 @@ RSpec.describe 'admin token index', type: :feature do
   let!(:active_token) { create(:jwt_api_entreprise, archived: false, blacklisted: false) }
   let!(:archived_token) { create(:jwt_api_entreprise, archived: true) }
   let!(:blacklisted_token) { create(:jwt_api_entreprise, blacklisted: true) }
+  let!(:orphan_token) { create(:jwt_api_entreprise, :without_authorization_request_id) }
 
   before do
     login_as(admin)
@@ -33,11 +34,11 @@ RSpec.describe 'admin token index', type: :feature do
     end
   end
 
-  it 'clicking subject redirects to user profile' do
+  it 'clicking subject redirects to token details' do
     within('#' << dom_id(random_token)) do
       click_link(random_token.displayed_subject)
 
-      expect(page.current_path).to eq(admin_user_path(random_token.user))
+      expect(page.current_path).to eq(token_path(random_token))
     end
   end
 
