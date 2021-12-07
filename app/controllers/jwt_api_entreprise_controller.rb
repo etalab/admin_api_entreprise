@@ -6,6 +6,15 @@ class JwtAPIEntrepriseController < AuthenticatedUsersController
       .where(archived: false)
   end
 
+  def show
+    @token = JwtAPIEntreprise.find(params[:id])
+
+    unless access_allowed_for_current_user?
+      error_message(title: t('.error.title'))
+      redirect_current_user_to_homepage
+    end
+  end
+
   def stats
     retrieve_stats = RetrieveTokenStats.call(token_id: params[:id])
 
@@ -24,5 +33,10 @@ class JwtAPIEntrepriseController < AuthenticatedUsersController
 
   def period_to_display
     params[:period]&.to_sym || :last_8_days
+  end
+
+  def access_allowed_for_current_user?
+    current_user == @token.user ||
+      current_user.admin?
   end
 end
