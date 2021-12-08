@@ -8,7 +8,7 @@ fichier OpenAPI disponible à l'adresse suivante:
 
 Il existe une copie locale situé [ici](../config/api-entreprise-v3-openapi.yml)
 en cas d'erreur du serveur (pour le mettre à jour vous pouvez utiliser le
-binaine `bin/download_latest_open_api_definition.sh`)
+binaire `bin/download_latest_open_api_definition.sh`)
 
 ## Ajout d'un nouveau endpoint
 
