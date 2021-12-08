@@ -51,6 +51,24 @@ paths:
           description: Accès interdit
         '200':
           description: Entreprise found
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
           content:
             application/json:
               schema:
@@ -90,9 +108,627 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
-  "/v3/insee/entreprises/{siren}":
+  "/v3/dgddi/eoris/{siret_or_eori}":
     get:
-      summary: Données de références d'une entité
+      summary: Immatriculation EORI
+      tags:
+      - Informations générales
+      parameters:
+      - name: context
+        in: query
+        description: "**Cadre de la requête** \n \n Par exemple : aides publiques,
+          marchés publics ou gestion d’un référentiel tiers utilisé pour tel type
+          d’application."
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: "**Bénéficiaire de l’appel** \n \n SIRET de l’administration
+          destinatrice des données."
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: "**La raison de l’appel ou l’identifiant de la procédure.** \n
+          \n L’identifiant peut être interne à votre organisation ou bien un numéro
+          de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous
+          permette de tracer et de retrouver les informations relatives à l’appel.
+          En effet, vous devez pouvoir justifier de la raison d’un appel auprès du
+          fournisseur de données. Description courte ( < 50 caractères )."
+        required: true
+        schema:
+          type: string
+      - name: siret_or_eori
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: |
+        Accéder au statut de l’immatriculation des entreprises de la base des douanes. L'appel se fait par numéro EORI ou SIRET :
+        - Appel par numéro EORI: fonctionne pour toutes les entreprises
+        - Appel par SIRET: fonctionne uniquement pour les entreprises ayant fait leur immatriculation EORI en France. Une entreprise immatriculée dans un autre pays européen renverra toujours un négatif.
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Entité trouvée
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: FR16002307300010
+                      type:
+                        type: string
+                        example: entreprise
+                        enum:
+                        - entreprise
+                      attributes:
+                        type: object
+                        properties:
+                          id:
+                            title: Identifiant EORI
+                            description: 'Numéro EORI (Economic Operator Registration
+                              and Identification) de l''entité: un numéro unique communautaire
+                              permettant d’identifier chaque opérateur économique
+                              dans ses relations avec les autorités douanières.'
+                            type: string
+                            example: FR16002307300010
+                          actif:
+                            title: Actif
+                            type: boolean
+                            description: Indique si ce numéro est encore actif (true)
+                              ou non (false)
+                            example: true
+                          code_pays:
+                            title: Code Pays
+                            type: string
+                            example: FR
+                          code_postal:
+                            title: Code Postal
+                            type: string
+                            example: '95520'
+                          libelle:
+                            title: Libellé de l'entité
+                            type: string
+                            description: Libellé de l'entreprise tel que connu par
+                              les douanes, équivalent à la Raison Sociale pour une
+                              entreprise Française.
+                            example: CENTRE INFORMATIQUE DOUANIER
+                          pays:
+                            title: Pays
+                            type: string
+                            description: Pays de résidence de l'établissement telle
+                              que connue par les douanes
+                            example: FRANCE
+                          rue:
+                            title: Rue
+                            type: string
+                            description: Rue de l'établissement telle que connue par
+                              les douanes
+                            example: 27 R DES BEAUX SOLEILS
+                          ville:
+                            title: Ville
+                            type: string
+                            description: Ville de l'établissement telle que connue
+                              par les douanes
+                            example: OSNY
+                        required:
+                        - id
+                        - actif
+                        - code_pays
+                        - code_postal
+                        - libelle
+                        - pays
+                        - rue
+                        - ville
+                    required:
+                    - id
+                    - type
+                    - attributes
+                required:
+                - data
+        '404':
+          description: Non trouvée
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+  "/v3/insee/sirene/etablissements/{siret}/adresse":
+    get:
+      summary: Adresse de l'établissement
+      tags:
+      - Informations générales
+      parameters:
+      - name: context
+        in: query
+        description: "**Cadre de la requête** \n \n Par exemple : aides publiques,
+          marchés publics ou gestion d’un référentiel tiers utilisé pour tel type
+          d’application."
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: "**Bénéficiaire de l’appel** \n \n SIRET de l’administration
+          destinatrice des données."
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: "**La raison de l’appel ou l’identifiant de la procédure.** \n
+          \n L’identifiant peut être interne à votre organisation ou bien un numéro
+          de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous
+          permette de tracer et de retrouver les informations relatives à l’appel.
+          En effet, vous devez pouvoir justifier de la raison d’un appel auprès du
+          fournisseur de données. Description courte ( < 50 caractères )."
+        required: true
+        schema:
+          type: string
+      - name: siret
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Adresse de l'établissement présente dans le répertoire Sirene.
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Etablissement trouvé
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '30613890002979'
+                      type:
+                        type: string
+                        example: adresse
+                        enum:
+                        - adresse
+                      attributes:
+                        type: object
+                        properties:
+                          numero_voie:
+                            title: Numéro dans la voie
+                            type: string
+                            example: '22'
+                          indice_repetition_voie:
+                            title: Indice de répétition du numero dans la voie
+                            description: 'Plus d''infos ici: https://www.sirene.fr/sirene/public/variable/indrep'
+                            type: string
+                            nullable: true
+                            enum:
+                            - bis
+                            - ter
+                            - quarter
+                            - quinquies
+                            - 
+                          type_voie:
+                            title: Type de la voie de localisation
+                            example: RUE
+                            description: "Cette information n'est pas toujours renseignée
+                              ou il n'en existe pas toujours dans les petites communes.
+                              \n Celle-ci est en majuscule. \n Plus d'infos: https://www.sirene.fr/sirene/public/variable/typvoie"
+                            type: string
+                            nullable: true
+                            enum:
+                            - ALLÉE
+                            - AVENUE
+                            - BOULEVARD
+                            - CARREFOUR
+                            - CHEMIN
+                            - CHAUSSÉE
+                            - CITÉ
+                            - CORNICHE
+                            - COURS
+                            - DOMAINE
+                            - DESCENTE
+                            - ECART
+                            - ESPLANADE
+                            - FAUBOURG
+                            - GRANDE RUE
+                            - HAMEAU
+                            - HALLE
+                            - IMPASSE
+                            - LIEU-DIT
+                            - LOTISSEMENT
+                            - MARCHÉ
+                            - MONTÉE
+                            - PASSAGE
+                            - PLACE
+                            - PLAINE
+                            - PLATEAU
+                            - PROMENADE
+                            - PARVIS
+                            - QUARTIER
+                            - QUAI
+                            - RÉSIDENCE
+                            - RUELLE
+                            - ROCADE
+                            - ROND-POINT
+                            - ROUTE
+                            - RUE
+                            - SENTIER
+                            - SQUARE
+                            - TERRE-PLEIN
+                            - TRAVERSE
+                            - VILLA
+                            - VILLAGE
+                            - 
+                          libelle_voie:
+                            title: Libellé de la voie
+                            example: DE LA PAIX
+                          complement_adresse:
+                            title: Complément d'adresse
+                            type: string
+                            description: Le complément d'adresse correspond à des
+                              éléments situés à l'extérieur du bâtiment qui permettent
+                              de compléter l'adresse (résidence, bâtiment, entrée,
+                              etc..)
+                            example: ZAE SAINT GUENAULT
+                            nullable: true
+                          code_commune:
+                            title: Code commune
+                            description: "Le code commune est défini dans le COG disponible
+                              ici: https://www.insee.fr/fr/information/2028028 \n
+                              \n Cette valeur est à nulle pour les entreprises à l'étranger"
+                            type: string
+                            example: '75112'
+                            nullable: true
+                          code_postal:
+                            title: Code postal
+                            example: '75016'
+                            type: string
+                          distribution_speciale:
+                            title: Distribution spéciale
+                            description: "La distribution spéciale reprend les éléments
+                              particuliers qui accompagnent une adresse de distribution
+                              spéciale. C'est un élément constitutif de l'adresse.
+                              \n \n Plus d'infos: \n * https://www.sirene.fr/sirene/public/variable/distributionSpecialeEtablissement
+                              \n * https://www.sirene.fr/sirene/public/variable/l5-disp"
+                            example: CS 72809
+                          code_cedex:
+                            title: Code cedex
+                            nullable: true
+                            description: 'Plus d''infos: https://fr.wikipedia.org/wiki/Courrier_d%27entreprise_%C3%A0_distribution_exceptionnelle'
+                            example: '75590'
+                          libelle_cedex:
+                            title: Libellé du code cedex
+                            type: string
+                            nullable: true
+                            example: PARIS CEDEX 12
+                            description: Cette variable indique le libellé correspondant
+                              au code cedex de l'établissement si celui-ci est non
+                              null. Ce libellé est le libellé utilisé dans la ligne
+                              6 d'adresse pour l'acheminement postal.
+                          libelle_commune:
+                            title: Libellé de la commune pour une adresse en France
+                            description: Cette valeur est à nulle pour les établissements
+                              à l'étranger
+                            type: string
+                            example: PARIS 12
+                            nullable: true
+                          libelle_commune_etranger:
+                            title: Libellé complémentaire pour une adresse à l'étranger
+                            description: Cette valeur est à nulle pour les établissements
+                              en France
+                            type: string
+                            nullable: true
+                          code_pays_etranger:
+                            title: Code pays pour les établissements situés à l'étranger
+                            description: 'La nomenclature se trouve ici: https://www.insee.fr/fr/information/2028273'
+                            type: string
+                            example: '99132'
+                            nullable: true
+                          libelle_pays_etranger:
+                            title: Libellé du pays pour les établissements situés
+                              à l'étranger
+                            type: string
+                            nullable: true
+                            example: ROYAUME-UNI
+                        required:
+                        - numero_voie
+                        - indice_repetition_voie
+                        - type_voie
+                        - libelle_voie
+                        - complement_adresse
+                        - code_commune
+                        - code_postal
+                        - distribution_speciale
+                        - code_cedex
+                        - libelle_cedex
+                        - libelle_commune
+                        - libelle_commune_etranger
+                        - code_pays_etranger
+                        - libelle_pays_etranger
+                      links:
+                        type: object
+                        properties:
+                          entreprise:
+                            type: string
+                            example: https://entreprises.api.gouv.fr/api/v3/insee/entreprises/130025265/
+                            description: Lien vers la ressource entreprise correspondant
+                              à cette adresse d'établissement
+                          etablissement:
+                            type: string
+                            example: https://entreprises.api.gouv.fr/api/v3/insee/etablissements/13002526500013
+                            description: Lien vers la ressource établissement correspondant
+                              à cette adresse d'établissement
+                        required:
+                        - entreprise
+                        - etablissement
+                      meta:
+                        type: object
+                        properties:
+                          date_derniere_mise_a_jour:
+                            type: integer
+                            example: 1618396818
+                            description: Date de la dernière mise à jour à l'INSEE
+                        required:
+                        - date_derniere_mise_a_jour
+                    required:
+                    - id
+                    - type
+                    - attributes
+                    - meta
+                    - links
+                required:
+                - data
+        '404':
+          description: Non trouvé
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+  "/v3/insee/sirene/etablissements/{siret}":
+    get:
+      summary: Données de référence d'un établissement
+      tags:
+      - Informations générales
+      parameters:
+      - name: context
+        in: query
+        description: "**Cadre de la requête** \n \n Par exemple : aides publiques,
+          marchés publics ou gestion d’un référentiel tiers utilisé pour tel type
+          d’application."
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: "**Bénéficiaire de l’appel** \n \n SIRET de l’administration
+          destinatrice des données."
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: "**La raison de l’appel ou l’identifiant de la procédure.** \n
+          \n L’identifiant peut être interne à votre organisation ou bien un numéro
+          de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous
+          permette de tracer et de retrouver les informations relatives à l’appel.
+          En effet, vous devez pouvoir justifier de la raison d’un appel auprès du
+          fournisseur de données. Description courte ( < 50 caractères )."
+        required: true
+        schema:
+          type: string
+      - name: siret
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Obtenir des informations générales concernant un établissement
+        du répertoire Sirene.
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Etablissement trouvé
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '30613890002979'
+                      type:
+                        type: string
+                        example: etablissement
+                        enum:
+                        - etablissement
+                      attributes:
+                        type: object
+                        properties:
+                          siege_social:
+                            type: boolean
+                            example: true
+                            enum:
+                            - true
+                            - false
+                            description: Indique si l'établissement est le siège social
+                              de l'entreprise
+                          etat_administratif:
+                            type: string
+                            enum:
+                            - A
+                            - F
+                            example: A
+                            description: "État administratif de l'établissement. \n
+                              \n - A = Actif \n - F = Fermé"
+                          activite_principale:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                                example: 8411Z
+                                description: Code de l'activité principale (APE) de
+                                  l'établissement. Ce code est extrait de la nomenclature
+                                  NAF. A noter qu'un établissement n'ayant pas encore
+                                  de code APE peut se voir affecter la valeur 00.00Z
+                                  de manière provisoire.
+                              libelle:
+                                type: string
+                                nullable: true
+                                example: Administration publique générale
+                                description: "Libellé associé au code APE. Si le code
+                                  n'est pas renseigné dans la nomenclature 'Naf Rév2'
+                                  (nomenclature en vigueur), le libellé n'est pas
+                                  renseigné ici. Si le code ne correspond à aucun
+                                  libellé au sein de la nomenclature 'Naf Rév2', la
+                                  valeur 'non référencé' est utilisée. \n \n Le lien
+                                  vers la nomenclature 'Naf Rév2' : https://www.insee.fr/fr/information/2406147"
+                              nomenclature:
+                                type: string
+                                example: NAFRev2
+                                description: Nomenclature associée au code
+                            required:
+                            - code
+                            - libelle
+                            - nomenclature
+                          tranche_effectif_salarie:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                                nullable: true
+                                example: '51'
+                              intitule:
+                                type: string
+                                nullable: true
+                                example: 2 000 à 4 999 salariés
+                              date_reference:
+                                type: string
+                                nullable: true
+                                example: '2016'
+                              de:
+                                type: integer
+                                example: 2000
+                                nullable: true
+                              a:
+                                type: integer
+                                example: 4999
+                                nullable: true
+                            required:
+                            - code
+                            - intitule
+                            - date_reference
+                            - de
+                            - a
+                          diffusable_commercialement:
+                            type: boolean
+                            example: true
+                            enum:
+                            - true
+                            - false
+                            description: Détermine si l'établissemenr est un établissement
+                              diffusible commercialement.
+                          date_creation:
+                            type: integer
+                            example: 1634103818
+                        required:
+                        - siege_social
+                        - etat_administratif
+                        - activite_principale
+                        - tranche_effectif_salarie
+                        - diffusable_commercialement
+                        - date_creation
+                      links:
+                        type: object
+                        properties:
+                          entreprise:
+                            type: string
+                            example: https://entreprises.api.gouv.fr/api/v3/insee/entreprises/306138900
+                            description: Lien vers la ressource entreprise correspondant
+                              à cet établissement
+                        required:
+                        - entreprise
+                      meta:
+                        type: object
+                        properties:
+                          date_derniere_mise_a_jour:
+                            type: integer
+                            example: 1618396818
+                            description: Date de la dernière mise à jour à l'INSEE
+                        required:
+                        - date_derniere_mise_a_jour
+                    required:
+                    - id
+                    - type
+                    - attributes
+                    - meta
+                    - links
+                required:
+                - data
+        '404':
+          description: Non trouvé
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+  "/v3/insee/sirene/unites_legales/{siren}/siege":
+    get:
+      summary: Données de références du siège d'une unité légale
       tags:
       - Informations générales
       parameters:
@@ -129,13 +765,241 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir les informations de référence d'une entreprise, d'une administration
-        ou d'une association présente dans le répertoire Sirene.
+      description: Obtenir des informations générales concernant le siège d'une unité
+        légale du répertoire Sirene.
       responses:
         '403':
           description: Accès interdit
         '200':
-          description: Entreprise trouvée
+          description: Établissement trouvé
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '306138900'
+                      type:
+                        type: string
+                        example: etablissement
+                        enum:
+                        - etablissement
+                      attributes:
+                        type: object
+                        properties:
+                          siege_social:
+                            type: boolean
+                            example: true
+                            enum:
+                            - true
+                            - false
+                            description: Indique si l'établissement est le siège social
+                              de l'entreprise
+                          etat_administratif:
+                            type: string
+                            enum:
+                            - A
+                            - F
+                            example: A
+                            description: "État administratif de l'établissement. \n
+                              \n - A = Actif \n - F = Fermé"
+                          activite_principale:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                                example: 8411Z
+                                description: Code de l'activité principale (APE) de
+                                  l'établissement. Ce code est extrait de la nomenclature
+                                  NAF. A noter qu'un établissement n'ayant pas encore
+                                  de code APE peut se voir affecter la valeur 00.00Z
+                                  de manière provisoire.
+                              libelle:
+                                type: string
+                                nullable: true
+                                example: Administration publique générale
+                                description: "Libellé associé au code APE. Si le code
+                                  n'est pas renseigné dans la nomenclature 'Naf Rév2'
+                                  (nomenclature en vigueur), le libellé n'est pas
+                                  renseigné ici. Si le code ne correspond à aucun
+                                  libellé au sein de la nomenclature 'Naf Rév2', la
+                                  valeur 'non référencé' est utilisée. \n \n Le lien
+                                  vers la nomenclature 'Naf Rév2' : https://www.insee.fr/fr/information/2406147"
+                              nomenclature:
+                                type: string
+                                example: NAFRev2
+                                description: Nomenclature associée au code
+                            required:
+                            - code
+                            - libelle
+                            - nomenclature
+                          tranche_effectif_salarie:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                                nullable: true
+                                example: '51'
+                              intitule:
+                                type: string
+                                nullable: true
+                                example: 2 000 à 4 999 salariés
+                              date_reference:
+                                type: string
+                                nullable: true
+                                example: '2016'
+                              de:
+                                type: integer
+                                example: 2000
+                                nullable: true
+                              a:
+                                type: integer
+                                example: 4999
+                                nullable: true
+                            required:
+                            - code
+                            - intitule
+                            - date_reference
+                            - de
+                            - a
+                          diffusable_commercialement:
+                            type: boolean
+                            example: true
+                            enum:
+                            - true
+                            - false
+                            description: Détermine si l'établissemenr est un établissement
+                              diffusible commercialement.
+                          date_creation:
+                            type: integer
+                            example: 1634103818
+                        required:
+                        - siege_social
+                        - etat_administratif
+                        - activite_principale
+                        - tranche_effectif_salarie
+                        - diffusable_commercialement
+                        - date_creation
+                      links:
+                        type: object
+                        properties:
+                          entreprise:
+                            type: string
+                            example: https://entreprises.api.gouv.fr/api/v3/insee/entreprises/306138900
+                            description: Lien vers la ressource entreprise correspondant
+                              à cet établissement
+                        required:
+                        - entreprise
+                      meta:
+                        type: object
+                        properties:
+                          date_derniere_mise_a_jour:
+                            type: integer
+                            example: 1618396818
+                            description: Date de la dernière mise à jour à l'INSEE
+                        required:
+                        - date_derniere_mise_a_jour
+                    required:
+                    - id
+                    - type
+                    - attributes
+                    - meta
+                    - links
+                required:
+                - data
+        '404':
+          description: Non trouvé
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+  "/v3/insee/sirene/unites_legales/{siren}":
+    get:
+      summary: Données de références d'une unité légale
+      tags:
+      - Informations générales
+      parameters:
+      - name: context
+        in: query
+        description: "**Cadre de la requête** \n \n Par exemple : aides publiques,
+          marchés publics ou gestion d’un référentiel tiers utilisé pour tel type
+          d’application."
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: "**Bénéficiaire de l’appel** \n \n SIRET de l’administration
+          destinatrice des données."
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: "**La raison de l’appel ou l’identifiant de la procédure.** \n
+          \n L’identifiant peut être interne à votre organisation ou bien un numéro
+          de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous
+          permette de tracer et de retrouver les informations relatives à l’appel.
+          En effet, vous devez pouvoir justifier de la raison d’un appel auprès du
+          fournisseur de données. Description courte ( < 50 caractères )."
+        required: true
+        schema:
+          type: string
+      - name: siren
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Obtenir les informations de référence d'une unité légale, qui est
+        soit entreprise, soit administration, soit une association présente dans le
+        répertoire Sirene.
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Unité légale trouvée
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
           content:
             application/json:
               schema:
@@ -166,7 +1030,7 @@ paths:
                             - personne_physique
                             - personne_morale
                             example: personne_morale
-                            description: 'Détermine si l''entreprise est une personne
+                            description: 'Détermine si l''unité légale est une personne
                               morale ou une personne physique. Cette valeur est déterminée
                               à l''aide du code juridique : 1000 correspond à une
                               personne physique.'
@@ -177,7 +1041,7 @@ paths:
                               des valeurs sont à null pour les personnes physiques.
                             properties:
                               raison_sociale:
-                                title: Raison sociale de l'entreprise
+                                title: Raison sociale de l'unité légale
                                 type: string
                                 example: DINUM
                                 nullable: true
@@ -247,7 +1111,7 @@ paths:
                                 enum:
                                 - M
                                 - F
-                                -
+                                - 
                                 nullable: true
                                 description: Caractère féminin ou masculin de la personne
                                   physique. Cette valeur peut ne pas être renseignée
@@ -263,14 +1127,14 @@ paths:
                             - nom_naissance
                             - sexe
                           categorie_entreprise:
-                            title: Catégorie de l'entreprise
+                            title: Catégorie de l'unité légale
                             type: string
                             example: GE
                             enum:
                             - GE
                             - ETI
                             - PME
-                            -
+                            - 
                             description: "Il s'agit d'une variable statistique calculée
                               par l'INSEE. Elle ne peut prendre que 3 valeurs: \n
                               \n - GE: Grande Entreprise \n - ETI: Entreprise de Taille
@@ -294,16 +1158,16 @@ paths:
                             title: Diffusable commercialement
                             type: boolean
                             example: true
-                            description: Détermine si l'entreprise est une entreprise
-                              non-diffusible. Si celle-ci est non-diffusible, ses
-                              informations ne doivent en aucun cas être accessibles
+                            description: Détermine si l'unité légale est une unité
+                              légale non-diffusible. Si celle-ci est non-diffusible,
+                              ses informations ne doivent en aucun cas être accessibles
                               au grand public.
                           forme_juridique:
                             type: object
                             title: Attributs de la forme juridique
                             properties:
                               code:
-                                title: Code de la forme juridique de l'entreprise.
+                                title: Code de la forme juridique de l'unité légale.
                                 type: string
                                 example: '7120'
                                 description: "Cette variable est à 1000 pour les personnes
@@ -311,7 +1175,7 @@ paths:
                                   https://www.insee.fr/fr/information/2028129"
                               libelle:
                                 title: Libellé associé au code de la forme juridique
-                                  de l'entreprise.
+                                  de l'unité légale.
                                 type: string
                                 example: Service central d'un ministère
                                 description: Si le code ne correspond à aucun libellé
@@ -324,7 +1188,8 @@ paths:
                             type: object
                             properties:
                               code:
-                                title: Code de l'activité principale (APE) de l'entreprise
+                                title: Code de l'activité principale (APE) de l'unité
+                                  légale
                                 type: string
                                 example: 8411Z
                                 description: Ce code est extrait de la nomenclature
@@ -382,7 +1247,7 @@ paths:
                             - de
                             - a
                           etat_administratif:
-                            title: État administratif de l'entreprise
+                            title: État administratif de l'unité légale
                             type: string
                             enum:
                             - A
@@ -390,13 +1255,13 @@ paths:
                             example: A
                             description: " - A = Active \n - C = Cessée "
                           date_cessation:
-                            title: Date de cessation de l'entreprise
+                            title: Date de cessation de l'unité légale
                             type: integer
                             nullable: true
                             example: 1634133818
                             description: Cette valeur est renvoyée sous format timestamp
                           date_creation:
-                            title: Date de cessation de l'entreprise
+                            title: Date de cessation de l'unité légale
                             type: integer
                             example: 1634103818
                             description: Cette valeur est renvoyée sous format timestamp
@@ -453,9 +1318,9 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
-  "/v3/insee/entreprises/diffusables/{siren}":
+  "/v3/insee/sirene/unites_legales/diffusibles/{siren}":
     get:
-      summary: Données de références d'une entité diffusable commercialement
+      summary: Données de références d'une entité légale diffusable commercialement
       tags:
       - Informations générales
       parameters:
@@ -492,14 +1357,33 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir les informations de référence d'une entreprise, d'une administration
-        ou d'une association présente dans le répertoire Sirene. Ce endpoint ne renvoi
-        que des entités diffusable commercialement.
+      description: Obtenir les informations de référence d'une unité légale, qui est
+        soit uneentreprise, soit une administration, soit une association, présente
+        dans le répertoire Sirene. Ce endpoint ne renvoi que des entités diffusable
+        commercialement.
       responses:
         '403':
           description: Accès interdit
         '200':
-          description: Entreprise trouvée
+          description: Unité légale trouvée
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
           content:
             application/json:
               schema:
@@ -530,7 +1414,7 @@ paths:
                             - personne_physique
                             - personne_morale
                             example: personne_morale
-                            description: 'Détermine si l''entreprise est une personne
+                            description: 'Détermine si l''unité légale est une personne
                               morale ou une personne physique. Cette valeur est déterminée
                               à l''aide du code juridique : 1000 correspond à une
                               personne physique.'
@@ -541,7 +1425,7 @@ paths:
                               des valeurs sont à null pour les personnes physiques.
                             properties:
                               raison_sociale:
-                                title: Raison sociale de l'entreprise
+                                title: Raison sociale de l'unité légale
                                 type: string
                                 example: DINUM
                                 nullable: true
@@ -611,7 +1495,7 @@ paths:
                                 enum:
                                 - M
                                 - F
-                                -
+                                - 
                                 nullable: true
                                 description: Caractère féminin ou masculin de la personne
                                   physique. Cette valeur peut ne pas être renseignée
@@ -627,14 +1511,14 @@ paths:
                             - nom_naissance
                             - sexe
                           categorie_entreprise:
-                            title: Catégorie de l'entreprise
+                            title: Catégorie de l'unité légale
                             type: string
                             example: GE
                             enum:
                             - GE
                             - ETI
                             - PME
-                            -
+                            - 
                             description: "Il s'agit d'une variable statistique calculée
                               par l'INSEE. Elle ne peut prendre que 3 valeurs: \n
                               \n - GE: Grande Entreprise \n - ETI: Entreprise de Taille
@@ -660,16 +1544,16 @@ paths:
                             example: true
                             enum:
                             - true
-                            description: Détermine si l'entreprise est une entreprise
+                            description: Détermine si l'unité légale est une entreprise
                               non-diffusible. Cette valeur est toujours à true. Si
-                              vous voulez pouvoir récupérer des entreprises non-diffusible,
-                              référez-vous à la documentation du endpoint /insee/entreprise/:siren
+                              vous voulez pouvoir récupérer des unités légales non-diffusible,
+                              référez-vous à la documentation du endpoint /insee/unites_legales/:siren
                           forme_juridique:
                             type: object
                             title: Attributs de la forme juridique
                             properties:
                               code:
-                                title: Code de la forme juridique de l'entreprise.
+                                title: Code de la forme juridique de l'unité légale.
                                 type: string
                                 example: '7120'
                                 description: "Cette variable est à 1000 pour les personnes
@@ -677,7 +1561,7 @@ paths:
                                   https://www.insee.fr/fr/information/2028129"
                               libelle:
                                 title: Libellé associé au code de la forme juridique
-                                  de l'entreprise.
+                                  de l'unité légale.
                                 type: string
                                 example: Service central d'un ministère
                                 description: Si le code ne correspond à aucun libellé
@@ -690,7 +1574,8 @@ paths:
                             type: object
                             properties:
                               code:
-                                title: Code de l'activité principale (APE) de l'entreprise
+                                title: Code de l'activité principale (APE) de l'unité
+                                  légale
                                 type: string
                                 example: 8411Z
                                 description: Ce code est extrait de la nomenclature
@@ -748,7 +1633,7 @@ paths:
                             - de
                             - a
                           etat_administratif:
-                            title: État administratif de l'entreprise
+                            title: État administratif de l'unité légale
                             type: string
                             enum:
                             - A
@@ -756,13 +1641,13 @@ paths:
                             example: A
                             description: " - A = Active \n - C = Cessée "
                           date_cessation:
-                            title: Date de cessation de l'entreprise
+                            title: Date de cessation de l'unité légale
                             type: integer
                             nullable: true
                             example: 1634133818
                             description: Cette valeur est renvoyée sous format timestamp
                           date_creation:
-                            title: Date de cessation de l'entreprise
+                            title: Date de cessation de l'unité légale
                             type: integer
                             example: 1634103818
                             description: Cette valeur est renvoyée sous format timestamp
@@ -865,6 +1750,24 @@ paths:
           description: Accès interdit
         '200':
           description: Association found
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
           content:
             application/json:
               schema:
@@ -897,7 +1800,7 @@ paths:
                           siret:
                             type: string
                             nullable: true
-                            example:
+                            example: 
                           siret_siege_social:
                             type: string
                             example: '77571979202650'
@@ -914,7 +1817,7 @@ paths:
                           date_publication:
                             type: string
                             nullable: true
-                            example:
+                            example: 
                             description: Jour de la publication au journal officiel
                               de l'avis de création de l'association. Toutes les assoiations
                               ne sont pas forcément 'déclarées'. La publication au
@@ -924,7 +1827,7 @@ paths:
                           date_dissolution:
                             type: string
                             nullable: true
-                            example:
+                            example: 
                             description: Si l'association est dissolue, ce champ indique
                               la date de dissolution, autrement, il est indiqué 'null'.
                           adresse_siege:
@@ -945,7 +1848,7 @@ paths:
                               distribution:
                                 type: string
                                 nullable: true
-                                example:
+                                example: 
                               code_insee:
                                 type: string
                                 example: '75108'
@@ -970,7 +1873,7 @@ paths:
                           groupement:
                             type: string
                             nullable: true
-                            example:
+                            example: 
                             description: 'Trois modalités possibles : si l''association
                               n''est pas un groupement, il est indiqué ''Simple''
                               ; si l''association est un groupement, la valeur est
@@ -1057,6 +1960,24 @@ paths:
           description: Accès interdit
         '200':
           description: Attestation found
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
           content:
             application/json:
               schema:
@@ -1143,6 +2064,24 @@ paths:
           description: Accès interdit
         '200':
           description: Entreprise found
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
           content:
             application/json:
               schema:
