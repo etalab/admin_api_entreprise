@@ -20,7 +20,7 @@ RSpec.describe Endpoint, type: :model do
       it { is_expected.to be_an_instance_of(Endpoint) }
 
       its(:uid) { is_expected.to eq(uid) }
-      its(:path) { is_expected.to eq('/v3/insee/entreprises/{siren}') }
+      its(:path) { is_expected.to eq('/v3/insee/sirene/unites_legales/{siren}') }
 
       its(:providers) { is_expected.to be_an_instance_of(Array) }
       its(:perimeter) { is_expected.to be_present }
