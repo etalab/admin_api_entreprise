@@ -9,6 +9,7 @@
             <%= link_to t('.links.datapass'), jwt_api_entreprise.authorization_request_url, target: '_blank', id: :authorization_request_link, class: %w(fr-link fr-link--sm) %>
           <% end %>
           <%= link_to t('.links.stats'), token_stats_path(jwt_api_entreprise), id: dom_id(jwt_api_entreprise, :stats_link), class: %w(fr-link fr-link--sm fr-fi-arrow-right-line fr-link--icon-right) %>
+          <%= link_to t('.links.contacts'), token_contacts_path(jwt_api_entreprise), id: dom_id(jwt_api_entreprise, :contacts_link), class: %w(fr-link fr-link--sm fr-fi-arrow-right-line fr-link--icon-right) %>
         </span>
       <% end %>
     </h4>

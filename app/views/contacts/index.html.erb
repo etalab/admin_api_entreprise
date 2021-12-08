@@ -1,0 +1,11 @@
+<h1><%= t('.title') %></h1>
+
+<div class="fr-grid-row">
+  <% if @contacts %>
+    <% @contacts.each do |contact| %>
+      <div class="fr-col-6 fr-p-2w">
+        <%= render contact %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

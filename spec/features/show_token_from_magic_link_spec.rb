@@ -55,6 +55,12 @@ RSpec.describe 'show token from magic link', type: :feature do
         expect(page).not_to have_link(href: jwt.authorization_request_url)
       end
 
+      it 'does not show the links to the token contacts' do
+        subject
+
+        expect(page).not_to have_link(href: token_contacts_path(jwt))
+      end
+
       it 'does not allow the magic link creation' do
         subject
 
