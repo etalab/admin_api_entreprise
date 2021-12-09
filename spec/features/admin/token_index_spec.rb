@@ -33,6 +33,15 @@ RSpec.describe 'admin token index', type: :feature do
     end
   end
 
+  it 'authorization request external id' do
+    within('#' << dom_id(random_token)) do
+      external_id = random_token.authorization_request.external_id
+
+      expect(page).to have_content(external_id)
+      expect(page).to have_link(href: random_token.authorization_request_url)
+    end
+  end
+
   it 'clicking subject redirects to token details' do
     within('#' << dom_id(random_token)) do
       click_link(random_token.displayed_subject)

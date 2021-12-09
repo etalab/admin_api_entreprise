@@ -12,6 +12,7 @@
         <tr>
           <th scope="col"> Date création </th>
           <th scope="col"> Cas d'usage </th>
+          <th scope="col"> Demande DataPass </th>
           <th scope="col"> Date d'expiration </th>
           <th scope="col"> Archivé </th>
           <th scope="col"> Blacklisté </th>
@@ -22,6 +23,7 @@
           <tr id="<%= dom_id(token) %>" class='token_summary'>
             <td><%= I18n.l(token.created_at, format: :compact ) %></td>
             <td class="filter"><%= link_to token.displayed_subject, token_path(token), class: "filter" %></td>
+            <td class="filter"><%= link_to token.authorization_request.external_id, token.authorization_request_url %></td>
             <% if token.exp %>
               <td><%= I18n.l(Time.zone.at(token.exp), format: :compact_with_hours) %></td>
             <% else %>
