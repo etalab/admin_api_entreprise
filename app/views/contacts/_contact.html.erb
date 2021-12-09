@@ -10,6 +10,17 @@
 
       <label class="fr-label" for="<%= dom_id(contact, :phone) %>"><%= t('.phone_label') %></label>
       <input id="<%= dom_id(contact, :phone) %>" class="fr-input" type="text" readonly value="<%= contact.phone_number %>" />
+
+      <% if current_user_admin? %>
+        <div class="actions">
+          <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left">
+            <li>
+
+              <%= button_to t('.actions.update'), edit_admin_contact_path(contact), method: :get, id: dom_id(contact, :edit_button), class: %w(fr-btn) %>
+            </li>
+          </ul>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

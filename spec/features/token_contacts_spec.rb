@@ -36,6 +36,10 @@ RSpec.describe 'token contacts page', type: :feature do
       end
 
       it_behaves_like :it_displays_contacts_data
+
+      it 'does not have a button to update the contact data' do
+        expect(page).not_to have_button(dom_id(contact_tech, :edit_button))
+      end
     end
 
     context 'when accessing another user data' do
@@ -58,5 +62,9 @@ RSpec.describe 'token contacts page', type: :feature do
     end
 
     it_behaves_like :it_displays_contacts_data
+
+    it 'has a button to update the contact data' do
+      expect(page).to have_button(dom_id(contact_tech, :edit_button))
+    end
   end
 end

@@ -64,6 +64,8 @@ Rails.application.routes.draw do
         patch :blacklist
       end
     end
+
+    resources :contacts, only: %i[edit update]
   end
 
   get '/mentions', to: 'pages#mentions'
