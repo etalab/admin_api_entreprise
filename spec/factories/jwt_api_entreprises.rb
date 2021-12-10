@@ -33,10 +33,6 @@ FactoryBot.define do
       end
     end
 
-    trait :without_authorization_request_id do
-      authorization_request_id { nil }
-    end
-
     trait :access_request_survey_not_sent do
       access_request_survey_sent { false }
     end

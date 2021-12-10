@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_25_152733) do
+ActiveRecord::Schema.define(version: 2021_12_10_095845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 2021_11_25_152733) do
     t.integer "iat"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "exp"
+    t.integer "exp", null: false
     t.string "version"
     t.boolean "blacklisted", default: false
     t.json "days_left_notification_sent", default: [], null: false
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 2021_11_25_152733) do
     t.boolean "access_request_survey_sent", default: false, null: false
     t.string "magic_link_token"
     t.datetime "magic_link_issuance_date"
-    t.uuid "authorization_request_model_id"
+    t.uuid "authorization_request_model_id", null: false
     t.index ["access_request_survey_sent"], name: "index_jwt_api_entreprises_on_access_request_survey_sent"
     t.index ["archived"], name: "index_jwt_api_entreprises_on_archived"
     t.index ["blacklisted"], name: "index_jwt_api_entreprises_on_blacklisted"

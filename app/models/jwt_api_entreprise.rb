@@ -6,7 +6,11 @@ class JwtAPIEntreprise < ApplicationRecord
 
   include RandomToken
 
-  belongs_to :authorization_request, foreign_key: 'authorization_request_model_id', required: false
+  belongs_to :authorization_request, foreign_key: 'authorization_request_model_id'
+  validates :authorization_request, presence: true
+
+  validates :exp, presence: true
+
   has_one :user, through: :authorization_request
   has_many :contacts, through: :authorization_request
   has_and_belongs_to_many :roles
