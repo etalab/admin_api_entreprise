@@ -4,16 +4,15 @@ class Admin::ContactsController < AuthenticatedAdminsController
   end
 
   def update
-    @form = ::ContactForm.new(Contact.find(params[:id]))
+    @contact = Contact.find(params[:id])
 
-    if @form.update(update_params)
+    if @contact.update(update_params)
       success_message(title: t('.success'))
-      token = @form.model.authorization_request.jwt_api_entreprise
+      token = @contact.authorization_request.jwt_api_entreprise
 
       redirect_to token_contacts_path(token)
     else
-      error_message(title: t('.error'), description: @form.errors.messages)
-      @contact = @form.model
+      error_message(title: t('.error'), description: @contact.errors)
 
       render :edit
     end

@@ -26,6 +26,19 @@ RSpec.describe Contact do
     it { is_expected.to have_db_column(:updated_at).of_type(:datetime) }
   end
 
+  describe 'validations' do
+    describe '#email' do
+      it { is_expected.to validate_presence_of(:email) }
+      it { is_expected.to allow_value('valid@email.com').for(:email) }
+      it { is_expected.not_to allow_value('not an email').for(:email) }
+    end
+
+    describe '#contact_type' do
+      it { is_expected.to validate_presence_of(:contact_type) }
+      it { is_expected.to validate_inclusion_of(:contact_type).in_array(%w(admin tech other)) }
+    end
+  end
+
   describe 'db_indexes' do
     it { is_expected.to have_db_index(:created_at) }
   end
