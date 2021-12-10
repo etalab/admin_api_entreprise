@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :datapass_webhook, class: Hash do
     initialize_with { attributes.stringify_keys }
 
-    event { 'refuse_application' }
+    event { %w(refuse_application refuse).sample }
     model_type { 'Pass' }
     fired_at { Time.now.to_i }
     data do

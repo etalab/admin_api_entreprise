@@ -84,8 +84,8 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
     end
   end
 
-  context 'when event is send_application' do
-    let(:datapass_webhook_params) { build(:datapass_webhook, event: 'send_application', fired_at: fired_at, authorization_request_attributes: { id: authorization_id }) }
+  context 'when event is send_application or submit' do
+    let(:datapass_webhook_params) { build(:datapass_webhook, event: %w(send_application submit).sample, fired_at: fired_at, authorization_request_attributes: { id: authorization_id }) }
 
     let!(:authorization_request) { create(:authorization_request, :with_contacts, external_id: authorization_id, first_submitted_at: first_submitted_at) }
 
@@ -110,8 +110,8 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
     end
   end
 
-  context 'when event is validate_application' do
-    let(:datapass_webhook_params) { build(:datapass_webhook, event: 'validate_application', fired_at: fired_at, authorization_request_attributes: { id: authorization_id }) }
+  context 'when event is validate_application or validate' do
+    let(:datapass_webhook_params) { build(:datapass_webhook, event: %w(validate_application validate).sample, fired_at: fired_at, authorization_request_attributes: { id: authorization_id }) }
 
     let!(:authorization_request) { create(:authorization_request, :with_contacts, external_id: authorization_id) }
 

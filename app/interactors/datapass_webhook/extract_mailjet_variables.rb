@@ -72,6 +72,10 @@ class DatapassWebhook::ExtractMailjetVariables < ApplicationInteractor
       review_application
       validate_application
       notify
+
+      refuse
+      request_changes
+      validate
     ].freeze
   end
 

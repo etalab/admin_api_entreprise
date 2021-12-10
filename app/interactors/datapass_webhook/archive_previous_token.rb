@@ -2,7 +2,7 @@
 
 class DatapassWebhook::ArchivePreviousToken < ApplicationInteractor
   def call
-    return if context.event != 'validate_application'
+    return if %w(validate_application validate).exclude?(context.event)
     return if context.authorization_request.previous_external_id.blank?
     return if previous_token.blank?
 
