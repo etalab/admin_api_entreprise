@@ -51,17 +51,6 @@ RSpec.describe 'token details page', type: :feature do
     end
   end
 
-  context 'when the token has no authorization request' do
-    let(:user) { create(:user, :admin) }
-    let(:token) { create(:jwt_api_entreprise, :without_authorization_request_id) }
-
-    context 'when the token has no authorization request' do
-      it 'works' do
-        expect { visit token_path(token) }.not_to raise_error
-      end
-    end
-  end
-
   context 'when connected as a simple user' do
     it 'has no button to archive tokens' do
       expect(page).to_not have_button(dom_id(token, :archive_button))
@@ -95,16 +84,6 @@ RSpec.describe 'token details page', type: :feature do
 
     it 'redirects to the user profile' do
       expect(page).to have_current_path(user_profile_path)
-    end
-  end
-
-  describe 'non-regression tests' do
-    context 'when the token has no expiration' do
-      let(:token) { create(:jwt_api_entreprise, exp: nil, user: user) }
-
-      it 'works' do
-        expect { visit token_path(token) }.not_to raise_error
-      end
     end
   end
 end

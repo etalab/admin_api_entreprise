@@ -8,7 +8,6 @@ RSpec.describe 'admin token index', type: :feature do
   let!(:active_token) { create(:jwt_api_entreprise, archived: false, blacklisted: false) }
   let!(:archived_token) { create(:jwt_api_entreprise, archived: true) }
   let!(:blacklisted_token) { create(:jwt_api_entreprise, blacklisted: true) }
-  let!(:orphan_token) { create(:jwt_api_entreprise, :without_authorization_request_id) }
 
   before do
     login_as(admin)
@@ -71,17 +70,6 @@ RSpec.describe 'admin token index', type: :feature do
   it 'archived status as Non for not archived token' do
     within('#' << dom_id(active_token)) do
       expect(page).to have_content('Non')
-    end
-  end
-
-  describe 'regression tests' do
-    context 'when one token exp is nil (usually admin/ping tokens)' do
-      before { create(:jwt_api_entreprise, exp: nil) }
-
-      it 'works' do
-        expect { visit(admin_tokens_path) }
-          .not_to raise_error
-      end
     end
   end
 end
