@@ -37,33 +37,6 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
     end
   end
 
-  describe 'with contacts without attributes' do
-    before do
-      create(:contact, email: nil, first_name: nil, last_name: nil, contact_type: 'metier', authorization_request: authorization_request)
-    end
-
-    it 'updates mailjet authorization request user with first and last name, but not the contact' do
-      expect(Mailjet::Contactslist_managemanycontacts).to receive(:create).with(
-        id: anything,
-        action: 'addnoforce',
-        contacts: [
-          {
-            email: user.email,
-            properties: {
-              'prénom' => user.first_name,
-              'nom' => user.last_name,
-              'contact_demandeur' => true,
-              'contact_métier' => false,
-              'contact_technique' => false,
-            }
-          }
-        ]
-      )
-
-      subject
-    end
-  end
-
   context 'with valid contacts' do
     let(:authorization_request) { create(:authorization_request, :with_contacts, user: user) }
 
