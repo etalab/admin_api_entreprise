@@ -13,7 +13,7 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob, type: :job do
     end
 
     let(:authorization_request_id) { authorization_request.id }
-    let(:authorization_request_status) { 'created' }
+    let(:authorization_request_status) { 'draft' }
     let(:mailjet_attributes) do
       {
         template_id: mailjet_template_id,
@@ -51,6 +51,29 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob, type: :job do
 
       it 'does nothing' do
         expect(Mailjet::Send).not_to receive(:create)
+
+        subject
+      end
+    end
+
+    context 'when current authorization request status did not changed but has the old nomenclature' do
+      before do
+        authorization_request.update!(
+          status: 'pending',
+        )
+      end
+
+      it 'calls Mailjet client with valid params' do
+        expect(Mailjet::Send).to receive(:create).with(
+          {
+            from_name: anything,
+            from_email: anything,
+            to: "#{to_user.full_name} <#{to_user.email}>",
+            vars: mailjet_template_vars,
+            'Mj-TemplateLanguage' => true,
+            'Mj-TemplateID' => mailjet_template_id,
+          }.stringify_keys
+        )
 
         subject
       end
