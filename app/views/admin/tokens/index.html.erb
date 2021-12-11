@@ -24,11 +24,7 @@
             <td><%= I18n.l(token.created_at, format: :compact ) %></td>
             <td class="filter"><%= link_to token.displayed_subject, token_path(token), class: "filter" %></td>
             <td class="filter"><%= link_to token.authorization_request.external_id, token.authorization_request_url %></td>
-            <% if token.exp %>
-              <td><%= I18n.l(Time.zone.at(token.exp), format: :compact_with_hours) %></td>
-            <% else %>
-              <td><%= t('.no_expiration') %></td>
-            <% end %>
+            <td><%= I18n.l(Time.zone.at(token.exp), format: :compact_with_hours) %></td>
             <td><%= boolean_i18n(token.archived?)    %></td>
             <td><%= boolean_i18n(token.blacklisted?) %></td>
           </tr>
