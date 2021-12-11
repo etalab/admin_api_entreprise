@@ -15,5 +15,9 @@ FactoryBot.define do
         ]
       end
     end
+
+    trait :with_token do
+      jwt_api_entreprise { create(:jwt_api_entreprise) }
+    end
   end
 end

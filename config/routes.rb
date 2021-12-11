@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   post 'tokens/:id/create_magic_link', to: 'restricted_token_magic_links#create', as: :token_create_magic_link
   get 'tokens/:id/stats', to: 'jwt_api_entreprise#stats', as: :token_stats
   get 'tokens/:id', to: 'jwt_api_entreprise#show', as: :token
+  get 'tokens/:id/contacts', to: 'contacts#index', as: :token_contacts
   get '/magic_link', to: 'public_token_magic_links#show', as: :token_show_magic_link_legacy
   get '/public/tokens/:token', to: 'public_token_magic_links#show', as: :token_show_magic_link
 
@@ -63,6 +64,8 @@ Rails.application.routes.draw do
         patch :blacklist
       end
     end
+
+    resources :contacts, only: %i[edit update]
   end
 
   get '/mentions', to: 'pages#mentions'
