@@ -17,6 +17,23 @@ RSpec.describe Contact do
     end
   end
 
+  describe '.with_token' do
+    let!(:contacts) do
+      create(:authorization_request, :with_contacts, :with_token)
+        .contacts
+    end
+
+    let!(:pending_contacts) do
+      create(:authorization_request, :with_contacts)
+        .contacts
+    end
+
+    subject { described_class.with_token }
+
+    it { is_expected.to include(*contacts) }
+    it { is_expected.not_to include(*pending_contacts) }
+  end
+
   describe 'db columns' do
     it { is_expected.to have_db_column(:id).of_type(:uuid) }
     it { is_expected.to have_db_column(:email).of_type(:string) }
@@ -44,6 +61,7 @@ RSpec.describe Contact do
   end
 
   describe 'relationships' do
+    it { is_expected.to belong_to(:authorization_request) }
     it { is_expected.to have_one(:jwt_api_entreprise) }
   end
 end

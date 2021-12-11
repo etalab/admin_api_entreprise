@@ -4,7 +4,7 @@ class Admin::ContactsController < AuthenticatedAdminsController
   end
 
   def update
-    @contact = Contact.find(params[:id])
+    @contact = Contact.with_token.find(params[:id])
 
     if @contact.update(update_params)
       success_message(title: t('.success'))

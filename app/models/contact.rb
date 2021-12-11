@@ -25,4 +25,6 @@ class Contact < ApplicationRecord
       }
     )
   }
+
+  scope :with_token, ->() { Contact.joins(authorization_request: :jwt_api_entreprise) }
 end
