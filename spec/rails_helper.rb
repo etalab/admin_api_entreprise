@@ -68,7 +68,6 @@ RSpec.configure do |config|
   config.include AuthenticationHelper, type: :controller
   config.include JWTHelper, type: :jwt
   config.include JWTHelper, type: :model
-  config.include JWTHelper, type: :request
   config.include ResponseHelper, type: :controller
   config.include FeatureHelper, type: :feature
   config.include UserSessionsHelper, type: :view
