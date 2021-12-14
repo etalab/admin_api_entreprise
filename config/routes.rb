@@ -28,7 +28,6 @@ Rails.application.routes.draw do
   get 'tokens/:id/stats', to: 'jwt_api_entreprise#stats', as: :token_stats
   get 'tokens/:id', to: 'jwt_api_entreprise#show', as: :token
   get 'tokens/:id/contacts', to: 'contacts#index', as: :token_contacts
-  get '/magic_link', to: 'public_token_magic_links#show', as: :token_show_magic_link_legacy
   get '/public/tokens/:token', to: 'public_token_magic_links#show', as: :token_show_magic_link
 
   resources :endpoints, only: %i[index]
