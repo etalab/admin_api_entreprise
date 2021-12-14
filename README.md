@@ -55,6 +55,12 @@ Dans le cas d'API entreprise, les 2 comptes suivants sont disponibles :
 - user@yopmail.com / user@yopmail.com -> utilisateur normal
 - api-entreprise@yopmail.com / api-entreprise@yopmail.com -> utilisateur admin
 
+Pour lancer le server:
+
+```sh
+./bin/local.sh
+```
+
 ## Déploiements
 
 Effectuer la commande suivante pour déployer en production:
