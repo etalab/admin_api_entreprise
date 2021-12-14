@@ -8,7 +8,7 @@ RSpec.describe DatapassWebhook::ExtractMailjetVariables, type: :interactor do
   let(:datapass_webhook_params) { build(:datapass_webhook, event: event) }
   let(:authorization_request) { create(:authorization_request) }
 
-  let(:event) { 'created' }
+  let(:event) { %w(created create).sample }
 
   it { is_expected.to be_a_success }
 
@@ -27,7 +27,7 @@ RSpec.describe DatapassWebhook::ExtractMailjetVariables, type: :interactor do
   end
 
   context 'when event is from an instructor' do
-    let(:event) { 'refuse_application' }
+    let(:event) { %w(refuse_application refuse).sample }
 
     it 'sets instructor first and last name' do
       expect(subject.mailjet_variables['instructor_first_name']).to eq('Instructor first name')
@@ -36,7 +36,7 @@ RSpec.describe DatapassWebhook::ExtractMailjetVariables, type: :interactor do
   end
 
   context 'when event is not from an instructor' do
-    let(:event) { 'created' }
+    let(:event) { %w(created create).sample }
 
     it 'does not set instructor first and last name' do
       expect(subject.mailjet_variables['instructor_first_name']).to be_nil

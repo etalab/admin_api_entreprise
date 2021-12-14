@@ -29,7 +29,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
   end
 
   describe 'with an event which does not trigger email' do
-    let(:event) { 'created' }
+    let(:event) { %w(created create).sample }
 
     it 'does not call schedule emails' do
       subject
@@ -39,7 +39,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
   end
 
   context 'with an event which trigger emails, no conditions, a when key and no attributes on recipients' do
-    let(:event) { 'send_application' }
+    let(:event) { %w(send_application submit).sample }
 
     it 'schedules emails according to configuration, to authorization request\'s user' do
       subject
@@ -77,7 +77,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
   end
 
   context 'with an event which trigger emails, conditions and recipients attributes' do
-    let(:event) { 'refuse_application' }
+    let(:event) { %w(refuse_application refuse).sample }
 
     before do
       AuthorizationRequestConditionFacade.define_method(:user_first_name_is_run?) do

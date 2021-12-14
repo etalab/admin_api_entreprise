@@ -45,7 +45,7 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
 
   def authorization_request_attributes_for_current_event
     case context.event
-    when 'send_application'
+    when 'send_application', 'submit'
       if context.authorization_request.first_submitted_at.nil?
         {
           'first_submitted_at' => fired_at_as_datetime,
@@ -53,7 +53,7 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
       else
         {}
       end
-    when 'validate_application'
+    when 'validate_application', 'validate'
       {
         'validated_at' => fired_at_as_datetime,
       }
