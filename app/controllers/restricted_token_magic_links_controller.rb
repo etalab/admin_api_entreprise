@@ -1,22 +1,33 @@
 class RestrictedTokenMagicLinksController < AuthenticatedUsersController
   def create
-    send_magic_link = JwtAPIEntreprise::Operation::CreateMagicLink.call(
-      params: params.to_unsafe_h,
-      current_user: current_user,
-    )
+    @token = JwtAPIEntreprise.find(params[:id])
 
-    if send_magic_link.success?
-      success_message(title: t('.success.title', target_email: target_email))
+    if access_allowed_for_current_user?
+      send_magic_link = Token::CreateMagicLink.call(
+        token: @token,
+        email: target_email,
+      )
+
+      if send_magic_link.success?
+        success_message(title: t('.success.title', target_email: target_email))
+      else
+        error_message(title: t('.error.title'))
+      end
+
+      redirect_back fallback_location: root_path
     else
-      error_message(title: t('.error.title'))
+      head :forbidden
     end
-
-    redirect_back fallback_location: root_path
   end
 
   private
 
   def target_email
     params[:email]
+  end
+
+  def access_allowed_for_current_user?
+    current_user == @token.user ||
+      current_user.admin?
   end
 end
