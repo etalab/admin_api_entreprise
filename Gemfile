@@ -49,7 +49,7 @@ gem 'pastel'
 # Nice charts
 gem 'chartkick'
 
-gem 'rails-i18n','~> 6.0.0'
+gem 'rails-i18n','~> 7.0.1'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
