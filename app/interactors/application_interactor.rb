@@ -11,9 +11,7 @@ class ApplicationInteractor
 
     Sentry.capture_message(
       message,
-      {
-        level: level,
-      }
+      level: level,
     )
 
     context.fail!(message: message, attributes: attributes)
