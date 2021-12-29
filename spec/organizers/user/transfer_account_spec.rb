@@ -71,9 +71,7 @@ RSpec.describe User::TransferAccount, type: :organizer do
         subject
         target_user = User.find_by_email(target_user_email)
 
-        # added a sort call, equal was enforced but the order was not preserved in some
-        # test seeds
-        expect(target_user.jwt_api_entreprise_ids.sort).to eq(transfered_jwt_ids.sort)
+        expect(target_user.jwt_api_entreprise_ids).to contain_exactly(*transfered_jwt_ids)
       end
 
       it 'removes token ownership of the previous user' do
