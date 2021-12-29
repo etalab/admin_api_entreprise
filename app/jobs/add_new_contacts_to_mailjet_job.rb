@@ -2,6 +2,6 @@ class AddNewContactsToMailjetJob < ApplicationJob
   queue_as :default
 
   def perform
-    ::MailjetContacts::Operation::Create.call
+    ::Mailjet::CreateContacts.call
   end
 end

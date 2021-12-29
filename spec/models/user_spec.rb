@@ -26,7 +26,12 @@ RSpec.describe User do
   end
 
   describe 'constraints' do
-    it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
+    describe '#email' do
+      it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
+      it { is_expected.to validate_presence_of(:email) }
+      it { is_expected.to allow_value('valid@email.com').for(:email) }
+      it { is_expected.not_to allow_value('not an email').for(:email) }
+    end
   end
 
   describe '.added_since_yesterday' do
@@ -71,8 +76,8 @@ RSpec.describe User do
     end
 
     context 'when the user has an empty API Gouv ID' do
-       before { user.oauth_api_gouv_id = '' }
-       it { is_expected.to eq(false) }
+      before { user.oauth_api_gouv_id = '' }
+      it { is_expected.to eq(false) }
     end
   end
 

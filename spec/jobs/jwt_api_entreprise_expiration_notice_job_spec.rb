@@ -5,8 +5,8 @@ RSpec.describe JwtAPIEntrepriseExpirationNoticeJob do
 
   shared_examples 'sending expiration notices' do |nb_days|
     it "sends notifications for JWT expiration in #{nb_days} days" do
-      notifier_spy = class_spy(JwtAPIEntreprise::Operation::NotifyExpiration)
-      stub_const('JwtAPIEntreprise::Operation::NotifyExpiration', notifier_spy)
+      notifier_spy = class_spy(Token::SendExpirationNotices)
+      stub_const('Token::SendExpirationNotices', notifier_spy)
 
       subject
 

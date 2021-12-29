@@ -24,7 +24,6 @@ require 'super_diff/rspec-rails'
 # Require helpers files containing factories
 Dir[Rails.root.join('spec/helpers/**/*.rb')].each { |f| require f }
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
-require 'fixtures/oauth_api_gouv_token.rb'
 
 # Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -65,16 +64,7 @@ RSpec.configure do |config|
   config.include FriendlyDateHelper
 
   # Include helpers / support accurately for each spec type
-  config.include AuthenticationHelper, type: :controller
-  config.include JWTHelper, type: :jwt
-  config.include JWTHelper, type: :model
-  config.include JWTHelper, type: :request
-  config.include ResponseHelper, type: :controller
   config.include FeatureHelper, type: :feature
-  config.include UserSessionsHelper, type: :view
-
-  # Include fixtures tokens to test OAuth API Gouv interaction
-  config.include OAuthAPIGouv
 
   config.around(:each, js: true) do |example|
     example.run_with_retry retry: 3

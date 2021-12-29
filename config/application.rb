@@ -29,9 +29,6 @@ module AdminApientreprise
     #
     # config.eager_load_paths << Rails.root.join("extras")
 
-    # Set dry-validation as the validation engine for reform
-    config.reform.validations = :dry
-
     config.time_zone = 'Europe/Paris'
     config.i18n.available_locales = [:fr]
     config.i18n.default_locale = :fr
