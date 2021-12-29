@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Token::NotifyExpiration do
+RSpec.describe Token::SendExpirationNotices, type: :organizer do
   describe 'expire_in: option (provide a number of days)' do
     let(:days) { 90 }
 
