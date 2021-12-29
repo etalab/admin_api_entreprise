@@ -1,25 +1,25 @@
 <nav class="fr-sidemenu authenticated-user-sidemenu" aria-label="Menu latéral">
   <div class="fr-sidemenu__inner">
     <button class="fr-sidemenu__btn" hidden aria-controls="fr-sidemenu-wrapper" aria-expanded="false">
-      Menu
+      <%= t('.toggle') %>
     </button>
     <div class="fr-collapse" id="fr-sidemenu-wrapper">
       <ul class="fr-sidemenu__list">
         <li class="fr-sidemenu__item <%= current_page?(controller: 'users', action: 'profile') ? 'fr-sidemenu__item--active' : '' %>">
           <a class="fr-sidemenu__link" href="<%= user_profile_path %>" target="_self" <%= current_page?(controller: 'users', action: 'profile') ? 'aria-current=page' : '' %>>
-            Profil
+            <%= t('.profil') %>
           </a>
         </li>
 
         <li class="fr-sidemenu__item <%= current_page?(controller: 'jwt_api_entreprise', action: 'index') ? 'fr-sidemenu__item--active' : '' %>">
           <a class="fr-sidemenu__link" href="<%= user_tokens_path %>" target="_self" <%= current_page?(controller: 'jwt_api_entreprise', action: 'index') ? 'aria-current=page' : '' %>>
-            Jetons
+            <%= t('.tokens') %>
           </a>
         </li>
 
         <li class="fr-sidemenu__item">
           <a id="logout_button" class="fr-sidemenu__link" href="<%= logout_path %>" target="_self" data-method="delete">
-            Se déconnecter
+            <%= t('.sign_out') %>
           </a>
         </li>
       </ul>
