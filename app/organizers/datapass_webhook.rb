@@ -1,6 +1,4 @@
-class DatapassWebhook
-  include ::Interactor::Organizer
-
+class DatapassWebhook < ApplicationOrganizer
   organize ::DatapassWebhook::FindOrCreateUser,
            ::DatapassWebhook::FindOrCreateAuthorizationRequest,
            ::DatapassWebhook::CreateJwtToken,
