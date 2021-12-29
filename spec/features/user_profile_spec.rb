@@ -18,12 +18,8 @@ RSpec.describe 'user profile page', type: :feature do
       show_profile
     end
 
-    it 'displays the user email' do
+    it 'displays the user infos' do
       expect(page).to have_content(user.email)
-    end
-
-    it 'displays the user siret' do
-      expect(page).to have_content(user.context)
     end
 
     it 'does not display the user note' do

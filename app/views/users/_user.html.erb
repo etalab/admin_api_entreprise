@@ -3,34 +3,67 @@
     <%= t('.title') %>
   </h1>
 
-  <ul>
-    <li>
-      <%= t('.email_address', email: @user.email) %>
-    </li>
-    <li>
-      <%= t('.siret', context: @user.context) %>
-    </li>
-  </ul>
+  <div class="main-content">
+    <h3>
+      <%= @user.full_name %>
 
-  <% if current_user_admin? %>
-    <%= form_with(model: [:admin, @user], method: :patch) do |f| %>
-      <div class="fr-input-group">
-        <%= f.label :note, t('.update.note.label'), class: %w(fr-label) %>
-        <%= f.text_area :note, class: %w(fr-input) %>
+      <% if @user.demandeur? %>
+        <span class="fr-tag">
+          <%= t('commons.demandeur') %>
+        </span>
+      <% end %>
+
+      <% if @user.contact_metier? %>
+        <span class="fr-tag">
+          <%= t('commons.contact_metier') %>
+        </span>
+      <% end %>
+
+      <% if @user.contact_technique? %>
+        <span class="fr-tag">
+          <%= t('commons.contact_technique') %>
+        </span>
+      <% end %>
+    </h3>
+    <div class="fr-grid-row">
+      <div class="fr-col-6">
+        <ul class="list-unstyled user-general-infos">
+          <li>
+            <%= icon('fr-fi-mail-line') %>
+            <%= @user.email %>
+          </li>
+          <li>
+            <%= icon('ri-phone-line') %>
+            <%= @user.phone_number || t('.no_phone_number') %>
+          </li>
+        </ul>
+
+        <% if current_user_admin? %>
+          <%= form_with(model: [:admin, @user], method: :patch) do |f| %>
+            <div class="fr-input-group">
+              <%= f.label :note, t('.update.note.label'), class: %w(fr-label) %>
+              <%= f.text_area :note, class: %w(fr-input) %>
+            </div>
+            <ul class="fr-btns-group fr-btns-group--sm fr-btns-group--right fr-btns-group--inline">
+              <li>
+                <%= f.submit t('.update.cta'), class: %w(fr-btn fr-btn--secondary) %>
+              </li>
+            </ul>
+          <% end %>
+        <% end %>
       </div>
-      <ul class="fr-btns-group fr-btns-group--sm fr-btns-group--right fr-btns-group--inline">
-        <li>
-          <%= f.submit t('.update.cta'), class: %w(fr-btn fr-btn--secondary) %>
-        </li>
-      </ul>
-    <% end %>
-  <% end %>
+      <div class="fr-col-6">
+        <p class="center fr-m-1w">
+          <%= t('.transfert_account.disclaimer') %>
 
-  <div class="fr-grid-row">
-    <div class="fr-col-md-3 fr-col-12">
-      <button id="transfer_account_button" class="fr-btn--sm fr-btn--secondary" data-fr-opened="false" aria-controls="transfer_account_modal">
-        <%= t('.transfert_account.cta') %>
-      </button>
+          <br />
+          <br />
+
+          <button id="transfer_account_button" class="fr-btn--sm fr-btn--secondary" data-fr-opened="false" aria-controls="transfer_account_modal">
+            <%= t('.transfert_account.cta') %>
+          </button>
+        </p>
+      </div>
     </div>
   </div>
 </div>
