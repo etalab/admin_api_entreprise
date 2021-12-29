@@ -14,6 +14,7 @@ class DatapassWebhook::FindOrCreateUser < ApplicationInteractor
     {
       'first_name' => user_attributes['given_name'],
       'last_name' => user_attributes['family_name'],
+      'phone_number' => user_attributes['phone_number'],
       'oauth_api_gouv_id' => user_attributes['uid']
     }
   end
