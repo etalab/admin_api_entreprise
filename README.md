@@ -4,7 +4,7 @@
 
 ## Requirements
 
-- ruby 2.7.2
+- ruby 3.0.2
 - redis-server >= 6
 - postgresql >= 9
 
