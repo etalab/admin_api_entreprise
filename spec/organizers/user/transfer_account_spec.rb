@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe User::TransferAccount do
+RSpec.describe User::TransferAccount, type: :organizer do
   subject { described_class.call(params) }
 
   let!(:current_owner) { create(:user, :with_jwt) }
@@ -50,6 +50,7 @@ RSpec.describe User::TransferAccount do
 
       it 'sets new tokens have been transfered' do
         subject
+
         target_user.reload
 
         expect(target_user.tokens_newly_transfered).to eq(true)
@@ -130,4 +131,5 @@ RSpec.describe User::TransferAccount do
       expect(subject.message).to eq('invalid_email')
     end
   end
+
 end
