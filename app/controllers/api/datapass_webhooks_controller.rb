@@ -44,9 +44,7 @@ class API::DatapassWebhooksController < APIController
     )
     Sentry.capture_message(
       'DataPass Incoming Payload',
-      {
-        level: 'info',
-      }
+      level: 'info',
     )
   end
 
