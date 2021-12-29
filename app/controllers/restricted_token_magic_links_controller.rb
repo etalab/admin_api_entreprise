@@ -3,12 +3,12 @@ class RestrictedTokenMagicLinksController < AuthenticatedUsersController
     @token = JwtAPIEntreprise.find(params[:id])
 
     if access_allowed_for_current_user?
-      send_magic_link = Token::CreateMagicLink.call(
+      organizer = Token::DeliverMagicLinkToEmail.call(
         token: @token,
         email: target_email,
       )
 
-      if send_magic_link.success?
+      if organizer.success?
         success_message(title: t('.success.title', target_email: target_email))
       else
         error_message(title: t('.error.title'))

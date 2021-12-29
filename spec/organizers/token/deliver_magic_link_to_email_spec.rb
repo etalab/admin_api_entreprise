@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Token::CreateMagicLink do
+RSpec.describe Token::DeliverMagicLinkToEmail, type: :organizer do
   let(:token) { create(:jwt_api_entreprise) }
 
   subject { described_class.call(params) }
