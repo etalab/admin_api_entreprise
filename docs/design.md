@@ -8,6 +8,9 @@ l'État](https://gouvfr.atlassian.net/wiki/spaces/DB/overview)
 Les éléments / la documentation se trouvent sur le lien ci-dessous, la recherche
 fonctionne assez bien (grid, button etc etc .. tout ça fonctionne)
 
+Pour les icônes, la librairie [Remix Icon](https://remixicon.com/) sur laquelle
+le DSFR s'est inspirée, a été ajoutée.
+
 ### Installation de la dernière version du DSFr
 
 Avant toute chose, [téléchargez la dernière version
