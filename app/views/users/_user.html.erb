@@ -25,6 +25,7 @@
         </span>
       <% end %>
     </h3>
+
     <div class="fr-grid-row">
       <div class="fr-col-6">
         <ul class="list-unstyled user-general-infos">
@@ -54,52 +55,17 @@
       </div>
       <div class="fr-col-6">
         <p class="center fr-m-1w">
-          <%= t('.transfert_account.disclaimer') %>
+          <%= t('.transfer_account.disclaimer') %>
 
           <br />
           <br />
 
-          <button id="transfer_account_button" class="fr-btn--sm fr-btn--secondary" data-fr-opened="false" aria-controls="transfer_account_modal">
-            <%= t('.transfert_account.cta') %>
-          </button>
+          <a id="transfer_account_button" href="<%= new_user_transfer_account_path(@user) %>" data-turbo-frame="main-modal-content" class="fr-btn fr-btn--secondary fr-btn--icon-left" data-fr-opened="false" aria-controls="main-modal">
+            <span class="ri-user-shared-line"></span>
+            <%= t('.transfer_account.cta') %>
+          </a>
         </p>
       </div>
     </div>
   </div>
 </div>
-
-<dialog aria-labelledby="fr-modal-2-title" id="transfer_account_modal" class="fr-modal" role="dialog" >
-  <div class="fr-container fr-container--fluid fr-container-md">
-    <div class="fr-grid-row fr-grid-row--center">
-      <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
-        <div class="fr-modal__body">
-          <div class="fr-modal__header">
-            <button class="fr-link--close fr-link" aria-controls="transfer_account_modal">Fermer</button>
-          </div>
-
-          <%= form_with url: user_transfer_account_path(@user.id), method: :post, id: :transfer_account do |form| %>
-            <div class="fr-modal__content">
-              <h1 id="modal_title" class="fr-modal__title">
-                <span class="fr-fi-arrow-right-line fr-fi--lg"></span>
-                <%= t('.transfert_account.modal.title') %>
-              </h1>
-
-              <div class="fr-input-group">
-                <%= form.label :email, t('.transfert_account.email.label'), class: %w(fr-label) %>
-                <%= form.email_field :email, placeholder: t('.transfert_account.email.placeholder'), class: %w(fr-input) %>
-              </div>
-            </div>
-
-            <div class="fr-modal__footer">
-              <ul class="fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-lg fr-btns-group--icon-left">
-                <li>
-                  <%= form.button t('.transfert_account.cta'), data: { confirm: t('.transfert_account.confirm') }, class: %w(fr-btn) %>
-                </li>
-              </ul>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-</dialog>
