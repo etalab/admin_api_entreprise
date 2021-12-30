@@ -33,6 +33,8 @@ Rails.application.routes.draw do
     resources :transfer_account, only: [:new, :create], controller: :transfer_user_account
   end
 
+  resources :authorization_requests, only: :index
+
   resources :endpoints, only: %i[index]
   get 'endpoints/*uid', as: :endpoint, to: 'endpoints#show'
 
