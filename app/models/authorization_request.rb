@@ -10,4 +10,8 @@ class AuthorizationRequest < ApplicationRecord
 
   has_one :contact_technique, -> { where(contact_type: 'tech') }, class_name: 'Contact'
   has_one :contact_metier, -> { where(contact_type: 'admin') }, class_name: 'Contact'
+
+  def url
+    "#{Rails.configuration.jwt_authorization_request_url}#{external_id}"
+  end
 end

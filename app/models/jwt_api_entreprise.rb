@@ -36,7 +36,7 @@ class JwtAPIEntreprise < ApplicationRecord
   end
 
   def authorization_request_url
-    "#{Rails.configuration.jwt_authorization_request_url}#{authorization_request.external_id}"
+    authorization_request.url
   end
 
   def user_and_contacts_email
