@@ -149,8 +149,8 @@ RSpec.describe JwtAPIEntreprise, type: :model do
         expect(payload.fetch(:jti)).to eq(jwt.id)
       end
 
-      it 'contains its subject into the "sub" key' do
-        expect(payload.fetch(:sub)).to eq(jwt.subject)
+      it 'contains its authorization request intitule into the "sub" key' do
+        expect(payload.fetch(:sub)).to eq(jwt.intitule)
       end
 
       it 'contains its creation timestamp into the "iat" key' do
@@ -200,23 +200,6 @@ RSpec.describe JwtAPIEntreprise, type: :model do
 
         expect(jwt.authorization_request_url).to eq(url)
       end
-    end
-  end
-
-  # TODO XXX This is temporary, the real "subject" of a JWT is set into the
-  # #temp_use_case attribute when the #subject was fill with a SIRET number
-  # (legacy reasons). Fix when the #temp_use_case attirbute isn't use anymore
-  describe '#displayed_subject' do
-    it 'returns the #subject value if #temp_use_case is nil' do
-      j = create(:jwt_api_entreprise, subject: 'coucou subject', temp_use_case: nil)
-
-      expect(j.displayed_subject).to eq('coucou subject')
-    end
-
-    it 'returns #temp_use_case value if it is not nil' do
-      j = create(:jwt_api_entreprise, subject: 'coucou subject', temp_use_case: 'coucou use case')
-
-      expect(j.displayed_subject).to eq('coucou use case')
     end
   end
 

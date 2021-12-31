@@ -51,19 +51,16 @@ class JwtAPIEntreprise < ApplicationRecord
     )
   end
 
-  # TODO XXX This is temporary, the real "subject" of a JWT is set into the
-  # #temp_use_case attribute when the #subject was fill with a SIRET number
-  # (legacy reasons). Fix when the #temp_use_case attirbute isn't use anymore
-  def displayed_subject
-    temp_use_case || subject
-  end
-
   def self.default_create_params
     {
       iat: Time.zone.now.to_i,
       version: '1.0',
       exp: 18.months.from_now.to_i,
     }
+  end
+
+  def intitule
+    authorization_request.intitule
   end
 
   private
@@ -73,7 +70,7 @@ class JwtAPIEntreprise < ApplicationRecord
       uid: self.user ? self.user.id : nil,
       jti: self.id,
       roles: self.roles.pluck(:code),
-      sub: self.subject,
+      sub: self.intitule,
       iat: self.iat,
       version: self.version
     }

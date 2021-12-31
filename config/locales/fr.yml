@@ -108,12 +108,16 @@ fr:
 
   jwt_api_entreprise:
     index:
-      title: Jetons de l'organisation
+      title:
+        zero: "Jetons d'accès"
+        one: "Jetons d'accès"
+        other: "Jetons d'accès (%{count})"
+
     show:
       error:
         title: Accès au jeton non autorisé
     jwt_api_entreprise:
-      title: "Cadre d'utilisation : %{displayed_subject}"
+      title: "Cadre d'utilisation : %{intitule}"
       links:
         datapass: Aller à la demande DataPass
         stats: Voir les statistiques
@@ -205,9 +209,9 @@ fr:
         error: Une erreur est survenue à la mise à jour des données.
     tokens:
       blacklist:
-        alert: Le jeton "%{token_subject}" a bien été blacklisté.
+        alert: Le jeton "%{intitule}" a bien été blacklisté.
       archive:
-        alert: Le jeton "%{token_subject}" a bien été archivé.
+        alert: Le jeton "%{intitule}" a bien été archivé.
     contacts:
       edit:
         title: Mise à jour du contact
