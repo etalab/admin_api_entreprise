@@ -1,4 +1,4 @@
-<div class="fr-grid-row">
+<div class="">
   <h3> Comment lire les statistiques ci-dessous ?</h3>
 
   <p>
@@ -10,7 +10,7 @@
     <li> le nombre d'appels affiché pour un utilisateur peut être surévalué à cause d'un dysfonctionnement applicatif gonflant artificiellement les statistiques.</li>
   </ul>
   <p>
-  Enfin, sont exclus de ces statistiques : 
+  Enfin, sont exclus de ces statistiques :
     ne tiennent pas compte des utilisateurs administrateurs. Concernant les tokens, ceux de ping, blacklistés, archivés ou expirés sont exclus des statistiques
   </p>
   <ul>
@@ -21,7 +21,7 @@
 
 </div>
 
-<div class="fr-grid-row">
+<div class="metrics-section">
   <h2> Statistiques générales </h2>
   <div class="fr-table fr-table--bordered">
     <table>
@@ -45,7 +45,7 @@
   </div>
 </div>
 
-<div class="fr-grid-row">
+<div class="metrics-section">
   <h2> Renouvellement des jetons </h2>
   <%= pie_chart [
     ['Sous 7 jours', @tokens_expiring_in_less_than_1_week],
@@ -55,77 +55,85 @@
   %>
 </div>
 
-<div class="fr-grid-row">
+<div class="metrics-section">
   <h2> Pilotage onboarding </h2>
-  <h3> Utilisateurs récemment inscrits </h3>
-  <div class="fr-table fr-table--bordered">
-    <table>
-      <thead>
-        <tr>
-          <td> E-mail </td>
-          <td> Contexte </td>
-          <td> Profil </td>
-          <td> Date de création </td>
-        </tr>
-      </thead>
-      <tbody>
-        <% @users_recently_created.each do |user| %>
+  <div class="metrics-subsection">
+    <h3> Utilisateurs récemment inscrits </h3>
+    <div class="fr-table fr-table--bordered">
+      <table>
+        <thead>
           <tr>
-            <td><%= user.email %></td>
-            <td><%= user.context %></td>
-            <td> Lien a créer </td>
-            <td>Il y a <%= time_ago_in_words(user.created_at)%></td>
+            <td> E-mail </td>
+            <td> Contexte </td>
+            <td> Profil </td>
+            <td> Date de création </td>
           </tr>
-      </tbody>
-    <% end %>
-    </table>
+        </thead>
+        <tbody>
+          <% @users_recently_created.each do |user| %>
+            <tr>
+              <td><%= user.email %></td>
+              <td><%= user.context %></td>
+              <td> Lien a créer </td>
+              <td>Il y a <%= time_ago_in_words(user.created_at)%></td>
+            </tr>
+        </tbody>
+      <% end %>
+      </table>
+    </div>
   </div>
 
-  <h3> Inscriptions par mois </h3>
-  <%= column_chart @monthly_new_users_histogram %>
+  <div class="metrics-subsection">
+    <h3> Inscriptions par mois </h3>
+    <%= column_chart @monthly_new_users_histogram %>
+  </div>
 
+  <div class="metrics-subsection">
   <h3> Utilisateurs avec un token récent et jamais utilisé </h3>
-  <div class="fr-table fr-table--bordered">
-    <table>
-      <thead>
-        <tr>
-          <td> E-mail </td>
-          <td> Contexte </td>
-          <td> Profil </td>
-        </tr>
-      </thead>
-      <tbody>
-        <% @users_with_recent_unused_token.each do |user| %>
+    <div class="fr-table fr-table--bordered">
+      <table>
+        <thead>
           <tr>
-            <td><%= user.email %></td>
-            <td><%= user.context %></td>
-            <td> Lien a creer </td>
+            <td> E-mail </td>
+            <td> Contexte </td>
+            <td> Profil </td>
           </tr>
-      </tbody>
-    <% end %>
-    </table>
+        </thead>
+        <tbody>
+          <% @users_with_recent_unused_token.each do |user| %>
+            <tr>
+              <td><%= user.email %></td>
+              <td><%= user.context %></td>
+              <td> Lien a creer </td>
+            </tr>
+        </tbody>
+      <% end %>
+      </table>
+    </div>
   </div>
 
-  <h3> Utilisateurs avec un token de plus de 30 jours et pas en production </h3>
-  Un token n'est pas considéré en production tant qu'il n'a pas appelé au moins 20 sirets/siren/rna_id distincts.
-  <div class="fr-table fr-table--bordered">
-    <table>
-      <thead>
-        <tr>
-          <td> E-mail </td>
-          <td> Contexte </td>
-          <td> Profil </td>
-        </tr>
-      </thead>
-      <tbody>
-        <% @users_with_production_delayed_token.each do |user| %>
+  <div class="metrics-subsection">
+    <h3> Utilisateurs avec un token de plus de 30 jours et pas en production </h3>
+    <p>Un token n'est pas considéré en production tant qu'il n'a pas appelé au moins 20 sirets/siren/rna_id distincts.</p>
+    <div class="fr-table fr-table--bordered">
+      <table>
+        <thead>
           <tr>
-            <td><%= user.email %></td>
-            <td><%= user.context %></td>
-            <td> Lien a creer </td>
+            <td> E-mail </td>
+            <td> Contexte </td>
+            <td> Profil </td>
           </tr>
-      </tbody>
-    <% end %>
-    </table>
+        </thead>
+        <tbody>
+          <% @users_with_production_delayed_token.each do |user| %>
+            <tr>
+              <td><%= user.email %></td>
+              <td><%= user.context %></td>
+              <td> Lien a creer </td>
+            </tr>
+        </tbody>
+      <% end %>
+      </table>
+    </div>
   </div>
 </div>
