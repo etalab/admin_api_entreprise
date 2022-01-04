@@ -26,10 +26,9 @@ RSpec.describe 'admin token index', type: :feature do
     end
   end
 
-  it 'subject' do
+  it 'intitule' do
     within('#' << dom_id(random_token)) do
-
-      expect(page).to have_content(random_token.displayed_subject)
+      expect(page).to have_content(random_token.intitule)
     end
   end
 
@@ -44,7 +43,7 @@ RSpec.describe 'admin token index', type: :feature do
 
   it 'clicking subject redirects to token details' do
     within('#' << dom_id(random_token)) do
-      click_link(random_token.displayed_subject)
+      click_link(dom_id(random_token, :show))
 
       expect(page.current_path).to eq(token_path(random_token))
     end

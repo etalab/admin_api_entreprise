@@ -142,6 +142,8 @@ produits pour itérer sur le site (que ce soit en terme de contenu ou fonctionne
 
 - [Gestion des webhooks DataPass](docs/webhooks.md)
 - [Design (CSS and stuff)](docs/design.md)
+- Technique
+  - [Utilisation des modals avec Turbo](docs/tech-modal-turbo.md)
 - Contenu
   - [Gestion des wordings globaux (layouts, templates)](docs/wordings.md)
   - [Ajout d'un nouvel endpoint dans le catalogue](docs/endpoint.md)

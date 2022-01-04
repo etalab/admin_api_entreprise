@@ -1,0 +1,57 @@
+<turbo-frame id="authorization_requests">
+  <h3>
+    <%= t('.title', count: @authorization_requests.count) %>
+  </h3>
+
+  <a href="https://api.gouv.fr/les-api/api-entreprise/demande-acces" target="_blank" class="fr-btn fr-btn--secondary">
+    <%= t('.new_cta') %>
+  </a>
+
+  <div class="fr-table fr-table--no-caption fr-mt-5w">
+    <table>
+      <caption>
+        <%= t('.table.caption') %>
+      </caption>
+
+      <tbody>
+        <% current_year = nil %>
+        <% @authorization_requests.each do |authorization_request| %>
+          <tr id="<%= dom_id(authorization_request, :list) %>">
+            <td>
+              <% if current_year != authorization_request.first_submitted_at.year %>
+                <% current_year = authorization_request.first_submitted_at.year %>
+                <strong>
+                  <%= current_year %>
+                </strong>
+              <% end %>
+            </td>
+
+            <td>
+              <%= link_to t('.table.external_url', external_id: authorization_request.external_id), authorization_request.url, target: '_blank' %>
+            </td>
+
+            <td>
+              <%= authorization_request.intitule %>
+            </td>
+
+            <td>
+              <span class="fr-tag">
+                <%= t(".table.status.#{authorization_request.status}") %>
+              </span>
+            </td>
+
+            <td>
+              <% if token = authorization_request.jwt_api_entreprise %>
+                <% if token.archived? %>
+                  <%= link_to t('.table.token.archived'), token_path(token), class: %w(fr-tag fr-tag--sm fr-fi-arrow-right-line), data: { turbo_frame: '_top' } %>
+                <% else %>
+                  <%= link_to t('.table.token.active'), token_path(token), class: %w(fr-tag fr-tag--sm fr-tag--green-emeraude fr-fi-arrow-right-line), data: { turbo_frame: '_top' } %>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</turbo-frame>

@@ -26,6 +26,7 @@ RSpec.describe DatapassWebhook::FindOrCreateUser, type: :interactor do
         expect(user.oauth_api_gouv_id).to be_present
         expect(user.first_name).to eq('demandeur first name')
         expect(user.last_name).to eq('demandeur last name')
+        expect(user.phone_number).to be_present
       end
     end
 

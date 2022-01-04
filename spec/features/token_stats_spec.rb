@@ -28,10 +28,10 @@ RSpec.describe 'stats page for a token', type: :feature do
       expect(page).to have_link(href: user_tokens_path)
     end
 
-    it 'displays the token use case' do
+    it 'displays the token intitule' do
       subject
 
-      expect(page).to have_content(token.displayed_subject)
+      expect(page).to have_content(token.intitule)
     end
 
     it 'displays the token internal ID' do

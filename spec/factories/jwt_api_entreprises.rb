@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :jwt_api_entreprise do
-    subject { 'Humm testy' }
     iat { Time.zone.now.to_i }
     exp { 18.months.from_now.to_i }
     archived { false }

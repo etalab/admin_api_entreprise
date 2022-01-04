@@ -9,7 +9,7 @@
         </h4>
 
         <div class="fr-card__desc">
-          <%= form_with model: [:admin, @contact], method: :patch do |form| %>
+          <%= form_with model: [:admin, @contact], id: dom_id(@contact, :edit), method: :patch do |form| %>
             <%= form.label :email, t('.email'), class: 'fr-label' %>
             <%= form.email_field :email, class: 'fr-input' %>
             <%= form.label :phone_number, t('.phone_number'), class: 'fr-label' %>

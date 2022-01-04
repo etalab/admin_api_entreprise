@@ -33,4 +33,8 @@ module ApplicationHelper
     i18n_key = value ? 'yes' : 'no'
     I18n.t(i18n_key)
   end
+
+  def icon(kind)
+    "<span class=\"#{kind}\" aria-hidden=\"true\"></span>".html_safe
+  end
 end

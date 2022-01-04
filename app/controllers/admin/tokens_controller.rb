@@ -29,7 +29,7 @@ class Admin::TokensController < AuthenticatedAdminsController
     if @token.update(updated_attrs)
       @user = @token.user
 
-      info_message(title: t(".#{params[:action]}.alert", token_subject: @token.displayed_subject))
+      info_message(title: t(".#{params[:action]}.alert", intitule: @token.intitule))
       redirect_to admin_user_path(@user)
     end
   end

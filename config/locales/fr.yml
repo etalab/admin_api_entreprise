@@ -10,6 +10,11 @@ fr:
   time: *datetime_format
 
   ## Layout / commons
+  commons:
+    demandeur: "Demandeur"
+    contact_metier: "Contact métier"
+    contact_technique: "Contact technique"
+
   layouts:
     application:
       title: API Entreprise
@@ -54,6 +59,13 @@ fr:
         - annuaire-entreprises.data.gouv.fr
         - data.gouv.fr
 
+    user_signed_in_side_menu:
+      toggle: "Menu"
+      profil: "Compte utilisateur"
+      tokens: "Jetons d'accès"
+      sign_out: "Se déconnecter"
+
+
   pages:
     current_status:
       title: "Status des API"
@@ -85,22 +97,25 @@ fr:
 
   users:
     user:
-      title: "Profil de l'organisation"
-      email_address: "Adresse e-mail: %{email}"
-      siret: "Siret de l'organisation : %{context}"
-      transfert_account:
-        modal:
-          title: Déléguer mon compte utilisateur
-        email:
-          label: Adresse e-mail du destinataire
-          placeholder: jean.dupont@gouv.fr
+      title: "Compte utilisateur"
+      no_phone_number: "-"
+      transfer_account:
+        disclaimer: "Votre équipe évolue ? Vous quittez votre service ? Vous pouvez léguer votre compte à une autre personne :"
         cta: Transférer mon compte
-        confirm: Êtes-vous sûr de vouloir transférer votre compte ?
       update:
         note:
           label: Notes sur l'organisation
         cta: Editer la note
-    transfer_account:
+
+  transfer_user_account:
+    new:
+      title: Déléguer mon compte utilisateur
+      email:
+        label: Adresse e-mail du destinataire
+        placeholder: jean.dupont@gouv.fr
+      cta: Transférer mon compte
+      confirm: Êtes-vous sûr de vouloir transférer votre compte ?
+    create:
       success:
         title: Vos jetons ont été transférés avec succès.
       error:
@@ -108,12 +123,16 @@ fr:
 
   jwt_api_entreprise:
     index:
-      title: Jetons de l'organisation
+      title:
+        zero: "Jetons d'accès"
+        one: "Jetons d'accès"
+        other: "Jetons d'accès (%{count})"
+
     show:
       error:
         title: Accès au jeton non autorisé
     jwt_api_entreprise:
-      title: "Cadre d'utilisation : %{displayed_subject}"
+      title: "Cadre d'utilisation : %{intitule}"
       links:
         datapass: Aller à la demande DataPass
         stats: Voir les statistiques
@@ -168,6 +187,24 @@ fr:
         parameters_header: Paramètres
         http_code_header: Code retour HTTP
 
+  authorization_requests:
+    index:
+      title: "Vos demandes d'habilitation (%{count})"
+      new_cta: "Nouvelle demande d'autorisation API Entreprise"
+      table:
+        caption: "Liste des demandes d'autorisation"
+        external_url: "Demande d'accès (numéro %{external_id})"
+        status:
+          draft: "Demande en brouillon 📝"
+          changes_requested: "Demande en attente de modifications ⚠️"
+          submitted: "Demande en attente de validation ⚙️"
+          validated: "Demande validée ✅"
+          refused: "Demande refusée ❌"
+        token:
+          archived: "Jeton archivé"
+          active: "Jeton actif"
+
+
   restricted_token_magic_links:
     create:
       success:
@@ -205,9 +242,9 @@ fr:
         error: Une erreur est survenue à la mise à jour des données.
     tokens:
       blacklist:
-        alert: Le jeton "%{token_subject}" a bien été blacklisté.
+        alert: Le jeton "%{intitule}" a bien été blacklisté.
       archive:
-        alert: Le jeton "%{token_subject}" a bien été archivé.
+        alert: Le jeton "%{intitule}" a bien été archivé.
     contacts:
       edit:
         title: Mise à jour du contact

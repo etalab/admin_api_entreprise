@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'edit contacts', type: :feature do
+RSpec.describe 'Admin: edit contacts', type: :feature do
   let(:admin) { create(:user, :admin) }
   let(:contact) { create(:contact) }
   let(:token) do
@@ -11,14 +11,19 @@ RSpec.describe 'edit contacts', type: :feature do
 
   before do
     login_as(admin)
+
     visit token_contacts_path(token)
+
     click_button(dom_id(contact, :edit_button))
   end
 
   describe '#email' do
     subject(:edit!) do
-      fill_in :contact_email, with: email
-      click_button
+      within("##{dom_id(contact, :edit)}") do
+        fill_in :contact_email, with: email
+
+        click_button
+      end
     end
 
     context 'when the email is valid' do
@@ -62,8 +67,11 @@ RSpec.describe 'edit contacts', type: :feature do
 
   describe '#phone_number' do
     subject(:edit!) do
-      fill_in :contact_phone_number, with: phone_number
-      click_button
+      within("##{dom_id(contact, :edit)}") do
+        fill_in :contact_phone_number, with: phone_number
+
+        click_button
+      end
     end
 
     context 'when it is present' do

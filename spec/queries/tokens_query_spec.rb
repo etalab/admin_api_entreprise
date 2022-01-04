@@ -114,11 +114,10 @@ RSpec.describe TokensQuery, type: :query do
     let!(:blacklisted_token)     { create(:jwt_api_entreprise, blacklisted: true) }
     let!(:archived_token)        { create(:jwt_api_entreprise, archived: true) }
     let!(:relevant_token)        { create(:jwt_api_entreprise, exp: 1.year.from_now, blacklisted: nil, archived: nil) }
-    let!(:uptime_robot_token)    { create(:jwt_api_entreprise, subject: 'mon token UptimeRobot interne') }
 
     subject(:results) { described_class.new.relevant.results }
 
-    it 'returns tokens not expired, archived, blacklisted or used for uptime robot' do
+    it 'returns tokens not expired, archived or blacklisted' do
       expect(results).to eq([relevant_token])
     end
   end
@@ -138,7 +137,6 @@ RSpec.describe TokensQuery, type: :query do
     let!(:blacklisted_token)     { create(:jwt_api_entreprise, blacklisted: true) }
     let!(:archived_token)        { create(:jwt_api_entreprise, archived: true) }
     let!(:relevant_token)        { create(:jwt_api_entreprise, exp: 1.year.from_now, blacklisted: nil, archived: nil) }
-    let!(:uptime_robot_token)    { create(:jwt_api_entreprise, subject: 'mon token UptimeRobot interne') }
 
     subject(:results) { described_class.new.results }
 

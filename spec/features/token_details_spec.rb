@@ -9,8 +9,8 @@ RSpec.describe 'token details page', type: :feature do
     visit token_path(token)
   end
 
-  it 'displays tokens subject' do
-    expect(page).to have_content(token.displayed_subject)
+  it 'displays tokens intitules' do
+    expect(page).to have_content(token.intitule)
   end
 
   it 'displays tokens creation date' do

@@ -23,12 +23,17 @@ Rails.application.routes.draw do
 
   get '/profile', to: 'users#profile', as: :user_profile
   get '/profile/tokens', to: 'jwt_api_entreprise#index', as: :user_tokens
-  post 'users/:id/transfer_account', to: 'users#transfer_account', as: :user_transfer_account
   post 'tokens/:id/create_magic_link', to: 'restricted_token_magic_links#create', as: :token_create_magic_link
   get 'tokens/:id/stats', to: 'jwt_api_entreprise#stats', as: :token_stats
   get 'tokens/:id', to: 'jwt_api_entreprise#show', as: :token
   get 'tokens/:id/contacts', to: 'contacts#index', as: :token_contacts
   get '/public/tokens/:token', to: 'public_token_magic_links#show', as: :token_show_magic_link
+
+  resources :users, only: [] do
+    resources :transfer_account, only: [:new, :create], controller: :transfer_user_account
+  end
+
+  resources :authorization_requests, only: :index
 
   resources :endpoints, only: %i[index]
   get 'endpoints/*uid', as: :endpoint, to: 'endpoints#show'

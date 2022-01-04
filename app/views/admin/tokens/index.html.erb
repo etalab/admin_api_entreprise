@@ -22,7 +22,7 @@
         <% @tokens.each do |token| %>
           <tr id="<%= dom_id(token) %>" class='token_summary'>
             <td><%= I18n.l(token.created_at, format: :compact ) %></td>
-            <td class="filter"><%= link_to token.displayed_subject, token_path(token), class: "filter" %></td>
+            <td class="filter"><%= link_to token.intitule, token_path(token), class: "filter", id: dom_id(token, :show) %></td>
             <td class="filter"><%= link_to token.authorization_request.external_id, token.authorization_request_url %></td>
             <td><%= I18n.l(Time.zone.at(token.exp), format: :compact_with_hours) %></td>
             <td><%= boolean_i18n(token.archived?)    %></td>

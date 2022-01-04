@@ -9,10 +9,10 @@ RSpec.shared_examples :it_displays_user_owned_token do
     end
   end
 
-  it 'displays tokens subject' do
+  it 'displays tokens intitule' do
     subject
 
-    expect(page).to have_content(example_token.displayed_subject)
+    expect(page).to have_content(example_token.intitule)
   end
 
   it 'displays tokens creation date' do

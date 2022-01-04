@@ -51,7 +51,7 @@ RSpec.describe ScheduleExpirationNoticeMailjetEmailJob, type: :job do
             from_email: anything,
             to: "#{token.user.full_name} <#{token.user.email}>, #{contact.full_name} <#{contact.email}>",
             vars: {
-              cadre_utilisation_token: token.subject,
+              cadre_utilisation_token: token.intitule,
               authorization_request_id: external_id,
               expiration_date: "#{Time.zone.at(token.exp).strftime('%d/%m/%Y à %Hh%M')} (heure de Paris)"
             },

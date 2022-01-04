@@ -39,8 +39,7 @@ class TokensQuery
     @relation = @relation.
       where(archived: [nil, false]).
       where(blacklisted: [nil, false]).
-      where('exp > ?', Time.zone.now.to_i).
-      where.not('subject LIKE ?','%UptimeRobot%')
+      where('exp > ?', Time.zone.now.to_i)
 
     self
   end

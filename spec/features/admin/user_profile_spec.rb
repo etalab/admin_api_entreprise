@@ -20,12 +20,6 @@ RSpec.describe 'admin user profile', type: :feature do
       expect(page).to have_content(user.email)
     end
 
-    it 'displays the context' do
-      subject
-
-      expect(page).to have_content(user.context)
-    end
-
     it 'displays the note' do
       subject
 
@@ -50,15 +44,21 @@ RSpec.describe 'admin user profile', type: :feature do
       expect(page).to have_css('#transfer_account_button')
     end
 
-    describe 'user account transfer' do
+    describe 'user account transfer', js: true do
       let(:form_dom_id) { '#transfer_account' }
       let(:user) { create(:user, :with_jwt) }
 
       subject do
         visit(admin_user_path(user))
+
+        click_on 'transfer_account_button'
+
         within(form_dom_id) do
           fill_in 'email', with: email
-          click_button
+
+          accept_prompt do
+            click_button
+          end
         end
       end
 
@@ -68,26 +68,10 @@ RSpec.describe 'admin user profile', type: :feature do
         it_behaves_like :it_aborts_the_user_account_transfer
       end
 
-      context 'when the provided email address is invalid' do
-        let(:email) { 'not a valid email' }
-
-        it_behaves_like :it_aborts_the_user_account_transfer
-      end
-
       context 'when the provided email address is valid' do
         let(:email) { 'valid@email.com' }
 
         it_behaves_like :it_succeeds_the_user_account_transfer
-      end
-
-      describe 'with javascript actived', js: true do
-        it 'works' do
-          visit(admin_user_path(user))
-          expect(page).not_to have_css(form_dom_id)
-          click_on("transfer_account_button")
-
-          expect(page).to have_css(form_dom_id)
-        end
       end
     end
   end

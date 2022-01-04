@@ -25,6 +25,18 @@ class User < ApplicationRecord
     oauth_api_gouv_id.present?
   end
 
+  def demandeur?
+    true
+  end
+
+  def contact_technique?
+    Contact.where(contact_type: 'tech', email: email).any?
+  end
+
+  def contact_metier?
+    Contact.where(contact_type: 'admin', email: email).any?
+  end
+
   def full_name
     "#{last_name.try(:upcase)} #{first_name}"
   end
