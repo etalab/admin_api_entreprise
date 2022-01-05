@@ -1,3 +1,6 @@
-return unless Rails.env.development?
+return unless %w[development sandbox].include?(Rails.env)
 
-Seeds.new.perform
+seeds = Seeds.new
+
+seeds.flushdb
+seeds.perform
