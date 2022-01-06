@@ -115,6 +115,14 @@ task :deploy => :environment do
   # run(:local){ say 'done' }
 end
 
+desc "Seeds database (only works in sandbox)"
+task :seeds => :environment do
+  in_path(fetch(:current_path)) do
+    command %(bundle exec rails db:seed)
+  end
+end
+
+
 task :restart_sidekiq do
   comment 'Restarting Sidekiq (reloads code)'.green
   command %(sudo systemctl restart sidekiq_admin_apientreprise_#{ENV['to']}_1.service)
