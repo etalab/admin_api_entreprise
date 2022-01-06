@@ -83,9 +83,6 @@ group :development do
   # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
   gem 'rack-mini-profiler', '~> 3.0'
   gem 'listen'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen'
   gem 'mina', '~> 1.2'
   gem 'rubocop', require: false
   gem 'rubocop-rails'
@@ -100,7 +97,6 @@ group :test do
   gem "cuprite"
   gem 'vcr'
   gem 'webmock'
-  gem 'spring-commands-rspec'
   gem 'rspec-collection_matchers'
   gem 'rspec-rails'
   gem 'rspec-its'
