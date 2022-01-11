@@ -13,18 +13,24 @@ class UsersQuery
     @relation.count
   end
 
-  def without_token
-    @relation = @relation.left_outer_joins(:jwt_api_entreprise).
-      where(jwt_api_entreprise: { id: nil })
+  def with_token
+    @relation = @relation.where(id: with_token_ids)
 
     self
   end
 
-  def with_token
-    @relation = @relation.left_outer_joins(:jwt_api_entreprise).
-      where.not(jwt_api_entreprise: { id: nil }).distinct
+  def with_token_ids
+    User.joins(:authorization_requests).joins(:jwt_api_entreprise).pluck('users.id').uniq
+  end
+
+  def without_token
+    @relation = @relation.where.not(id: with_token_ids)
 
     self
+  end
+
+  def users_with_only_orphan_authorization_requests
+    User.where.not(id: with_token_ids).joins(:authorization_requests).where.missing(:jwt_api_entreprise).pluck('users.id').uniq
   end
 
   def with_production_delayed_token

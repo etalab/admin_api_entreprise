@@ -7,25 +7,49 @@ RSpec.describe UsersQuery, type: :query do
 
   let(:mardi_24_aout)   { Time.local(2021,8,24,12,0) }
 
+  describe 'with_token' do
+    let!(:user_with_token)     { create(:user, :with_jwt) }
+    let!(:user_without_token)  { create(:user) }
+    let!(:user_with_pending_authorization_request_and_token) do
+      u = create(:user, :with_jwt)
+      create(:authorization_request, user: u)
+
+      u
+    end
+    let!(:user_with_pending_authorization_request_only) do
+      u = create(:user)
+      create(:authorization_request, user: u)
+
+      u
+    end
+
+    subject(:results) { described_class.new.with_token.results }
+
+    it 'returns users with tokens' do
+      expect(results.to_a).to eq([user_with_token, user_with_pending_authorization_request_and_token])
+    end
+  end
+
   describe 'without_token' do
     let!(:user_with_token)     { create(:user, :with_jwt) }
     let!(:user_without_token)  { create(:user) }
+    let!(:user_with_pending_authorization_request_and_token) do
+      u = create(:user, :with_jwt)
+      create(:authorization_request, user: u)
+
+      u
+    end
+    let!(:user_with_pending_authorization_request_only) do
+      u = create(:user)
+      create(:authorization_request, user: u)
+
+      u
+    end
 
     subject(:results) { described_class.new.without_token.results }
 
     it 'returns users with no tokens' do
-      expect(results).to eq([user_without_token])
-    end
-  end
-
-  describe 'with_token' do
-    let!(:user_with_token)     { create(:user, :with_jwt) }
-    let!(:user_without_token)  { create(:user) }
-
-    subject(:results) { described_class.new.with_token.results }
-
-    it 'returns users with no tokens' do
-      expect(results).to eq([user_with_token])
+      expect(results.to_a).to eq([user_without_token, user_with_pending_authorization_request_only])
     end
   end
 
