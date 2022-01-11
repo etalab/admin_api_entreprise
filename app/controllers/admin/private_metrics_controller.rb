@@ -9,12 +9,15 @@ class Admin::PrivateMetricsController < AuthenticatedAdminsController
 
     @users_with_token = UsersQuery.new.with_token.count
     @users_without_token = UsersQuery.new.without_token.count
-    @tokens_active_this_month = UsedJwtIdsElasticQuery.new(30).perform.count
-    @tokens_inactive_this_month = JwtAPIEntreprise.all.count - @tokens_active_this_month
+
+    @tokens_ids_active_this_month = UsedJwtIdsElasticQuery.new(30).perform
+
+    @tokens_active_this_month = TokensQuery.new.results.where(id: @tokens_ids_active_this_month).count
+    @tokens_inactive_this_month = TokensQuery.new.results.where.not(id: @tokens_ids_active_this_month).count
 
     @users_recently_created = UsersQuery.new.recently_created.results
 
-    @users_with_recent_unused_token = User.left_outer_joins(:jwt_api_entreprise).where(jwt_api_entreprise: { id: TokensQuery.new.unused.recently_created.results }).distinct
+    @users_with_recent_unused_token = UsersQuery.new.results.left_outer_joins(:jwt_api_entreprise).where(jwt_api_entreprise: { id: TokensQuery.new.unused.recently_created.results }).distinct
     @users_with_production_delayed_token = UsersQuery.new.with_production_delayed_token.results
   end
 
