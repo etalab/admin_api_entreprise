@@ -15,13 +15,18 @@ class DatapassWebhook::FindOrCreateUser < ApplicationInteractor
       'first_name' => user_attributes['given_name'],
       'last_name' => user_attributes['family_name'],
       'phone_number' => user_attributes['phone_number'],
-      'oauth_api_gouv_id' => user_attributes['uid']
+      'oauth_api_gouv_id' => user_attributes['uid'],
+      'context' => datapass_attributes['siret']
     }
   end
 
   def user_attributes
-    context.data['pass']['team_members'].find do |team_member|
+    datapass_attributes['team_members'].find do |team_member|
       team_member['type'] == 'demandeur'
     end
+  end
+
+  def datapass_attributes
+    context.data['pass']
   end
 end
