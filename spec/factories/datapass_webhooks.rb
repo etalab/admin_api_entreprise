@@ -39,6 +39,7 @@ FactoryBot.define do
     description { 'description from webhook' }
     status { 'sent' }
     copied_from_enrollment_id { nil }
+    siret { '13002526500013' }
 
     events { build_list(:datapass_webhook_event_model, 2) }
 
