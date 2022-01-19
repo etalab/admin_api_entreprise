@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'stats page for a token', type: :feature do
   let(:user) { create(:user, :with_jwt) }
+  let(:admin) { create(:user, :admin) }
   let(:token) { user.jwt_api_entreprise.take }
 
   subject { visit token_stats_path(token) }
@@ -22,10 +23,24 @@ RSpec.describe 'stats page for a token', type: :feature do
       })
     end
 
-    it 'has a link back to the list of tokens' do
-      subject
+    context 'when connected as a simple user' do
+      it 'has a link back to the list of tokens' do
+        subject
 
-      expect(page).to have_link(href: user_tokens_path)
+        expect(page).to have_link(href: user_tokens_path)
+      end
+    end
+
+    context 'when connected as an admin' do
+      before do
+        login_as(admin)
+      end
+
+      it 'has a link back to the list of tokens' do
+        subject
+
+        expect(page).to have_link(href: admin_user_path(token.user))
+      end
     end
 
     it 'displays the token intitule' do
