@@ -10,4 +10,6 @@ class PagesController < ApplicationController
   def mentions; end
 
   def cgu; end
+
+  def redoc; end
 end
