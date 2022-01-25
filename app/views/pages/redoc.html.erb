@@ -13,7 +13,8 @@
 </script>
 
 <script>
-  var uri = <% if Rails.env.production? %> 'https://entreprise.api.gouv.fr/v3/openapi.yaml' <% else %> '../api-entreprise-v3-openapi.yml' <% end %>
+  var uri = '<%= openapi_definition_path %>';
+
   document.addEventListener("turbo:load", function () {
     Redoc.init(
       uri,

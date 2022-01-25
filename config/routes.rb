@@ -57,4 +57,6 @@ Rails.application.routes.draw do
   get '/mentions', to: 'pages#mentions'
   get '/cgu', to: 'pages#cgu'
   get '/current_status', to: 'pages#current_status'
+
+  get '/v3/openapi.yaml', to: ->(env) { [200, {}, [OpenAPIDefinition.instance.open_api_definition_content]] }, as: :openapi_definition
 end
