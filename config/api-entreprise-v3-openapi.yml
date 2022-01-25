@@ -10,34 +10,58 @@ paths:
       tags:
       - Attestations sociales et fiscales
       parameters:
+      - name: siren
+        in: path
+        description: Siren de l'entreprise
+        examples:
+          siren_octo_technology:
+            value: '418166096'
+            summary: SIREN Octo Technology
+          siren_non_diffusible:
+            value: '005572466'
+            summary: SIREN entreprise non diffusible
+          siren_artisant:
+            value: '301123626'
+            summary: SIREN entreprise artisanale
+          siren_fntp:
+            value: '339379984'
+            summary: SIREN pour FNTP
+          siren_cnetp:
+            value: '542036207'
+            summary: SIREN pour CNETP
+          siren_opqibi:
+            value: '515228211'
+            summary: SIREN pour OPQIBI
+        required: true
+        schema:
+          type: string
       - name: context
         in: query
-        description: "**Cadre de la requête** \n \n Par exemple : aides publiques,
-          marchés publics ou gestion d’un référentiel tiers utilisé pour tel type
-          d’application."
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
         required: true
         schema:
           type: string
       - name: recipient
         in: query
-        description: "**Bénéficiaire de l’appel** \n \n SIRET de l’administration
-          destinatrice des données."
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '123456789'
         required: true
         schema:
           type: string
       - name: object
         in: query
-        description: "**La raison de l’appel ou l’identifiant de la procédure.** \n
-          \n L’identifiant peut être interne à votre organisation ou bien un numéro
-          de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous
-          permette de tracer et de retrouver les informations relatives à l’appel.
-          En effet, vous devez pouvoir justifier de la raison d’un appel auprès du
-          fournisseur de données. Description courte ( < 50 caractères )."
-        required: true
-        schema:
-          type: string
-      - name: siren
-        in: path
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
         required: true
         schema:
           type: string
@@ -108,40 +132,164 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
+  "/v3/cnetp/attestations_cotisations_conges_payes_chomage_intemperies/{siren}":
+    get:
+      summary: Attestation de cotisations congés payés & chômage-intempéries
+      tags:
+      - Attestations sociales et fiscales
+      parameters:
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '123456789'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      - name: siren
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Obtenir l’attestation de cotisation des congés payés et chômage
+        intempéries d’une entreprise, délivrée par la Caisse Nationale des Entrepreneurs
+        de Travaux Publics (CNETP).
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Certificat trouvé
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '34909797200021'
+                      type:
+                        type: string
+                        example: document
+                        enum:
+                        - document
+                      attributes:
+                        type: object
+                        properties:
+                          document_url:
+                            type: string
+                            title: Lien vers l'attestation de cotisation retraite
+                              ProBTP
+                            description: Ce document est automatiquement supprimé
+                              au bout de 3 mois.
+                            example: https://storage.entreprise.api.gouv.fr/siade/1569139162-b99824d9c764aae19a862a0af-attestation_cotisation_retraite_probtp.pdf
+                        required:
+                        - document_url
+                    required:
+                    - id
+                    - type
+                    - attributes
+                required:
+                - data
+        '404':
+          description: Non trouvé
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
   "/v3/dgddi/eoris/{siret_or_eori}":
     get:
       summary: Immatriculation EORI
       tags:
       - Informations générales
       parameters:
+      - name: siret_or_eori
+        in: path
+        description: Siret ou numéro EORI de l'entreprise
+        examples:
+          french_siret:
+            value: '16002307300010'
+            summary: Siret français
+          french_eori:
+            value: FR16002307300010
+            summary: Numéro EORI français
+          spanish_eori:
+            value: ESA08536583
+            summary: Numéro EORI espagnol
+        required: true
+        schema:
+          type: string
       - name: context
         in: query
-        description: "**Cadre de la requête** \n \n Par exemple : aides publiques,
-          marchés publics ou gestion d’un référentiel tiers utilisé pour tel type
-          d’application."
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
         required: true
         schema:
           type: string
       - name: recipient
         in: query
-        description: "**Bénéficiaire de l’appel** \n \n SIRET de l’administration
-          destinatrice des données."
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '123456789'
         required: true
         schema:
           type: string
       - name: object
         in: query
-        description: "**La raison de l’appel ou l’identifiant de la procédure.** \n
-          \n L’identifiant peut être interne à votre organisation ou bien un numéro
-          de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous
-          permette de tracer et de retrouver les informations relatives à l’appel.
-          En effet, vous devez pouvoir justifier de la raison d’un appel auprès du
-          fournisseur de données. Description courte ( < 50 caractères )."
-        required: true
-        schema:
-          type: string
-      - name: siret_or_eori
-        in: path
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
         required: true
         schema:
           type: string
@@ -261,40 +409,806 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
+  "/v3/dgfip/liasses_fiscales/declarations/{year}/{siren}":
+    get:
+      summary: Déclarations des liasses fiscales
+      tags:
+      - Informations financières
+      parameters:
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '123456789'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      - name: siren
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: year
+        in: path
+        required: true
+        schema:
+          type: integer
+      security:
+      - jwt_bearer_token: []
+      description: FEEDME
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Entreprise trouvée
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '301028346'
+                      type:
+                        type: string
+                        example: entreprise
+                        enum:
+                        - entreprise
+                      attributes:
+                        type: object
+                        properties: {}
+                        required: []
+                    required:
+                    - id
+                    - type
+                    - attributes
+                required:
+                - data
+        '502':
+          description: Non trouvée
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+  "/v3/fntp/cartes_professionnelle_travaux_publics/{siren}":
+    get:
+      summary: Carte professionnelle de travaux publics
+      tags:
+      - Attestations sociales et fiscales
+      parameters:
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '123456789'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      - name: siren
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Récupérer la carte professionnelle d’entrepreneur de travaux publics,
+        délivrée à une entreprise de travaux publics en règle de ses obligations sociales,
+        administratives et juridiques.
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Carte professionnelle trouvée
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '562077503'
+                      type:
+                        type: string
+                        example: document
+                        enum:
+                        - document
+                      attributes:
+                        type: object
+                        properties:
+                          document_url:
+                            type: string
+                            title: Lien vers la carte professionnelle
+                            description: Ce document est automatiquement supprimé
+                              au bout de 3 mois.
+                            example: https://storage.entreprise.api.gouv.fr/siade/1569139162-b99824d9c764aae19a862a0af-carte_professionnelle_fntp.pdf
+                        required:
+                        - document_url
+                    required:
+                    - id
+                    - type
+                    - attributes
+                required:
+                - data
+        '404':
+          description: Non trouvée
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+  "/v3/inpi/brevets/{siren}":
+    get:
+      summary: Derniers brevets
+      tags:
+      - Propriété intellectuelle
+      parameters:
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '123456789'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      - name: siren
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: |
+        Derniers brevets déposés par l'entreprise et nombre total de brevets.
+        Cet endpoint appelle les informations à partir d’un SIREN. Le SIREN étant une information facultative lors du dépôt de dossier à l’INPI, le taux de sirénage est donc incomplet.
+
+        Taux de sirénage des déposants (sur personnes morales FR) :
+
+        *Brevets France et brevets Europe délivrés : environ 80% sur les demandes de brevets publiées ces 20 dernières années ;
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Brevets trouvés
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          title: Numéro de publication
+                          description: Numéro de publication du brevet, constitué
+                            du Code zone + Numéro du brevet + Catégorie de publication
+                          type: string
+                          example: FR3110115A1
+                        titre:
+                          title: Titre
+                          description: Titre du brevet
+                          type: string
+                          example: DETERMINATION DE PARAMETRES D&apos;UN MODELE DYNAMIQUE
+                            POUR UNE CELLULE ELECTROCHIMIQUE DE BATTERIE
+                        date_publication:
+                          title: Date de publication
+                          description: Date de publication du brevet
+                          type: string
+                          format: date
+                          example: '2017-06-16'
+                        date_depot:
+                          title: Date de dépot
+                          description: Date de dépot du brevet
+                          type: string
+                          format: date
+                          example: '2015-12-14'
+                        code_zone:
+                          description: |
+                            Code de 2 lettres représentent la zone géographique où le brevet a été déposé, en fonction
+                            de l'organisation qui a enregistré le brevet.
+                          type: string
+                          example: FR
+                          enum:
+                          - ALBANIE
+                          - ORGANISATION RÉGIONALE AFRICAINE DE LA PROPRIÉTÉ INDUSTRIELLE
+                          - ARGENTINE
+                          - AUTRICHE
+                          - AUSTRALIE
+                          - BOSNIE-HERZÉGOVINE
+                          - BELGIQUE
+                          - BULGARIE
+                          - BRÉSIL
+                          - CANADA
+                          - SUISSE
+                          - CHILI
+                          - CHINE
+                          - COLOMBIE
+                          - COSTA RICA
+                          - TCHÉCOSLOVAQUIE (JUSQU’EN 1993)
+                          - CUBA
+                          - CHYPRE
+                          - RÉPUBLIQUE TCHÈQUE
+                          - RÉPUBLIQUE DÉMOCRATIQUE ALLEMANDE
+                          - ALLEMAGNE
+                          - DANEMARK
+                          - ALGÉRIE
+                          - ORGANISATION EURASIENNE DES BREVETS
+                          - EQUATEUR
+                          - ESTONIE
+                          - EGYPTE
+                          - OFFICE EUROPÉEN DES BREVETS
+                          - ESPAGNE
+                          - FINLANDE
+                          - FRANCE
+                          - ROYAUME-UNI
+                          - CONSEIL DE COOPÉRATION DU GOLFE
+                          - GÉORGIE
+                          - GRÈCE
+                          - GUATEMALA
+                          - HONG KONG (R.A.S.)
+                          - CROATIE
+                          - HONGRIE
+                          - INDONÉSIE
+                          - IRLANDE
+                          - ISRAËL
+                          - INDE
+                          - ISLANDE
+                          - ITALIE
+                          - JAPON
+                          - KENYA
+                          - CORÉE (DU SUD)
+                          - LIECHTENSTEIN
+                          - LITUANIE
+                          - LUXEMBOURG
+                          - LETTONIE
+                          - MAROC
+                          - MONACO
+                          - RÉPUBLIQUE DE MOLDOVA
+                          - MONTÉNÉGRO
+                          - EX-RÉPUBLIQUE YOUGOSLAVE DE MACÉDOINE
+                          - MONGOLIE
+                          - MALTE
+                          - MALAWI
+                          - MEXIQUE
+                          - MALAISIE
+                          - NOUVELLE-CALÉDONIE
+                          - NICARAGUA
+                          - PAYS-BAS
+                          - NORVÈGE
+                          - NOUVELLE-ZÉLANDE
+                          - ORGANISATION AFRICAINE DE LA PROPRIÉTÉ INTELLECTUELLE
+                          - PANAMA
+                          - PÉROU
+                          - PHILIPPINES
+                          - POLOGNE
+                          - PORTUGAL
+                          - ROUMANIE
+                          - SERBIE
+                          - FÉDÉRATION DE RUSSIE
+                          - SUÈDE
+                          - SINGAPOUR
+                          - SLOVÉNIE
+                          - SLOVAQUIE
+                          - SAINT-MARIN
+                          - UNION SOVIÉTIQUE (URSS)
+                          - SALVADOR
+                          - TADJIKISTAN
+                          - TURQUIE
+                          - TRINITÉ-ET-TOBAGO
+                          - TAIWAN
+                          - UKRAINE
+                          - ETATS-UNIS D’AMÉRIQUE
+                          - URUGUAY
+                          - VIÊT NAM
+                          - ORGANISATION MONDIALE DE LA PROPRIÉTÉ INTELLECTUELLE (OMPI)
+                          - YOUGOSLAVIE (SERBIE-ET-MONTÉNÉGRO)
+                          - AFRIQUE DU SUD
+                          - ZAMBIE
+                          - ZIMBABWE
+                          -
+                        numero_brevet:
+                          title: Numéro du brevet
+                          description: 'Numéro du brevet dans l''organisation ou il
+                            a été déposé (déterminée par le code de zone)
+
+                            '
+                          type: string
+                          example: '3110115'
+                        categorie_publication:
+                          title: Catégorie
+                          description: 'Code représentant la catégorie du brevet (ex:
+                            A1 pour une demande de brevet,'
+                          type: string
+                          example: A1
+                required:
+                - data
+                - meta
+        '404':
+          description: Brevets non trouvés
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+  "/v3/inpi/marques/{siren}":
+    get:
+      summary: Marques
+      tags:
+      - Propriété intellectuelle
+      parameters:
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '123456789'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      - name: siren
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: |
+        Marques déposées par l'entreprise:
+        Cet endpoint appelle les informations à partir d’un SIREN. Le SIREN étant une information facultative lors du dépôt de dossier à l’INPI, le taux de sirénage est donc incomplet.
+
+        Taux de sirénage des déposants (sur personnes morales FR) :
+
+        *Marques France : 60% ;
+        *Marques européennes : 0 % (marques déposées à l’EUIPO) ;
+        *Marques internationales : 0% (marques déposées à l’OMPI) ;
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Marques trouvées
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          title: Numéro d'identification
+                          type: string
+                          example: '4313464'
+                        nom:
+                          title: Nom
+                          type: string
+                          example: DISTRIGO PARTS DISTRIBUTION
+                          nullable: true
+                        status:
+                          title: Statut
+                          type: string
+                          example: Marque enregistrée
+                          enum:
+                          - Demande déposée
+                          - Demande publiée
+                          - Demande non publiée
+                          - Demande irrecevable après publication
+                          - Marque enregistrée
+                          - Renouvellement demandé
+                          - Marque renouvelée
+                          - Demande totalement rejetée
+                          - Marque ayant fait l'objet d'une renonciation totale
+                          - Marque ayant fait l'objet d'un retrait total
+                          - Marque annulée
+                          - Marque expirée
+                        depositaire:
+                          title: Dépositaire
+                          description: Nom de déposant ou titulaire
+                          type: string
+                          example: PEUGEOT CITROËN AUTOMOBILES SA, Société anonyme
+                        clef:
+                          title: Clef
+                          type: string
+                          example: FMARK|4313464
+                  links:
+                    type: object
+                    properties:
+                      notice:
+                        type: string
+                        example: https://opendata-pi.inpi.fr/inpi/marques/notice/FR4313464
+                        description: Lien vers la notice concernant ce dépôt de marque,
+                          au format XML
+                    required:
+                    - notice
+                required:
+                - data
+                - meta
+        '404':
+          description: Marques non trouvées
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+  "/v3/inpi/modeles/{siren}":
+    get:
+      summary: Modeles
+      tags:
+      - Propriété intellectuelle
+      parameters:
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '123456789'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      - name: siren
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: |
+        Modèles déposés par l'entreprise:
+        Cet endpoint appelle les informations à partir d’un SIREN. Le SIREN étant une information facultative lors du dépôt de dossier à l’INPI, le taux de sirénage est donc incomplet.
+
+        Taux de sirénage des déposants (sur personnes morales FR) :
+
+        *Dessins & Modèles France : 50% ;
+        *Dessins & Modèles internationaux : 0% (dessins & modèles déposés à l’OMPI).
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Modèles trouvés
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          title: Identifiant
+                          description: 'Identifiant du modèle dans la base de l''INPI,
+                            constitué du code de l''office de dépôt (ex: FR), du numéro
+                            national de dépôt (ex: 20203928) et du numéro de référence
+                            (ex: 001) '
+                          type: string
+                          example: FR20203928-001
+                        numero_depot:
+                          title: Numéro national de dépôt
+                          description: Numéro national sous lequel le modèle est enregistré
+                          type: string
+                          example: '20203928'
+                        titre:
+                          title: Titre
+                          description: Titre du modèle
+                          type: string
+                          example: Véhicule automobile, vues de détails
+                        total_representations:
+                          title: Représentations totales
+                          description: Nombre de représentations (vues) du modèle
+                          type: number
+                          example: 7
+                        deposant:
+                          title: Déposant
+                          description: Nom de l'entité ayant déposé le modèle
+                          type: string
+                          example: PSA AUTOMOBILES, SA
+                        date_depot:
+                          title: Date de dépôt
+                          description: Date à laquelle le modèle a été déposé pour
+                            publication
+                          type: string
+                          example: '2015-12-14'
+                        date_publication:
+                          title: Date de publication
+                          description: Date de publication du modèle
+                          type: string
+                          example: '2015-12-14'
+                        classe:
+                          title: Code de classification
+                          description: Code de classification du modèle, sur 4 chiffres
+                          type: string
+                          example: '2606'
+                        reference:
+                          title: Numéro de réference
+                          description: Numéro de référence du modèle par entité, sur
+                            trois chiffres. Le premier modèle d'une entité est numéroté
+                            001, le second 002, etc.
+                          type: string
+                          example: '001'
+                  links:
+                    type: object
+                    properties:
+                      notice:
+                        type: string
+                        example: https://opendata-pi.inpi.fr/inpi/modeles/notice/FR20203928?ref=006
+                        description: Lien vers la notice concernant ce dépôt de modèle,
+                          au format XML
+                    required:
+                    - notice
+                required:
+                - data
+                - meta
+        '404':
+          description: Modèles non trouvés
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
   "/v3/insee/sirene/etablissements/{siret}/adresse":
     get:
       summary: Adresse de l'établissement
       tags:
       - Informations générales
       parameters:
+      - name: siret
+        in: path
+        description: Siret de l'établissement
+        examples:
+          siret_octo_technology:
+            value: '41816609600069'
+            summary: SIRET Octo Technology
+          siret_non_diffusible:
+            value: '00557246600026'
+            summary: SIRET établissement non diffusible
+          siret_agefiph:
+            value: '39332832300059'
+            summary: SIRET pour AGEFIPH
+          siret_msa:
+            value: '81104725700019'
+            summary: SIRET pour MSA
+          siret_probtp:
+            value: '43841606700017'
+            summary: SIRET pour ProBTP
+          siret_agence_bio:
+            value: '48311105000025'
+            summary: SIRET pour l'Agence Bio
+          siret_qualibat:
+            value: '78824266700020'
+            summary: SIRET pour Qualibat
+        required: true
+        schema:
+          type: string
       - name: context
         in: query
-        description: "**Cadre de la requête** \n \n Par exemple : aides publiques,
-          marchés publics ou gestion d’un référentiel tiers utilisé pour tel type
-          d’application."
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
         required: true
         schema:
           type: string
       - name: recipient
         in: query
-        description: "**Bénéficiaire de l’appel** \n \n SIRET de l’administration
-          destinatrice des données."
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '123456789'
         required: true
         schema:
           type: string
       - name: object
         in: query
-        description: "**La raison de l’appel ou l’identifiant de la procédure.** \n
-          \n L’identifiant peut être interne à votre organisation ou bien un numéro
-          de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous
-          permette de tracer et de retrouver les informations relatives à l’appel.
-          En effet, vous devez pouvoir justifier de la raison d’un appel auprès du
-          fournisseur de données. Description courte ( < 50 caractères )."
-        required: true
-        schema:
-          type: string
-      - name: siret
-        in: path
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
         required: true
         schema:
           type: string
@@ -339,7 +1253,7 @@ paths:
                             - ter
                             - quarter
                             - quinquies
-                            - 
+                            -
                           type_voie:
                             title: Type de la voie de localisation
                             example: RUE
@@ -391,7 +1305,7 @@ paths:
                             - TRAVERSE
                             - VILLA
                             - VILLAGE
-                            - 
+                            -
                           libelle_voie:
                             title: Libellé de la voie
                             example: DE LA PAIX
@@ -418,11 +1332,297 @@ paths:
                             type: string
                           distribution_speciale:
                             title: Distribution spéciale
-                            description: "La distribution spéciale reprend les éléments
-                              particuliers qui accompagnent une adresse de distribution
-                              spéciale. C'est un élément constitutif de l'adresse.
-                              \n \n Plus d'infos: \n * https://www.sirene.fr/sirene/public/variable/distributionSpecialeEtablissement
-                              \n * https://www.sirene.fr/sirene/public/variable/l5-disp"
+                            description: |
+                              La distribution spéciale reprend les éléments particuliers qui accompagnent une adresse de distribution spéciale. C'est un élément constitutif de l'adresse.
+
+                              Plus d'infos:
+                              * https://www.sirene.fr/sirene/public/variable/distributionSpecialeEtablissement
+                              * https://www.sirene.fr/sirene/public/variable/l5-disp"
+                            example: CS 72809
+                          code_cedex:
+                            title: Code cedex
+                            nullable: true
+                            description: 'Plus d''infos: https://fr.wikipedia.org/wiki/Courrier_d%27entreprise_%C3%A0_distribution_exceptionnelle'
+                            example: '75590'
+                          libelle_cedex:
+                            title: Libellé du code cedex
+                            type: string
+                            nullable: true
+                            example: PARIS CEDEX 12
+                            description: Cette variable indique le libellé correspondant
+                              au code cedex de l'établissement si celui-ci est non
+                              null. Ce libellé est le libellé utilisé dans la ligne
+                              6 d'adresse pour l'acheminement postal.
+                          libelle_commune:
+                            title: Libellé de la commune pour une adresse en France
+                            description: Cette valeur est à nulle pour les établissements
+                              à l'étranger
+                            type: string
+                            example: PARIS 12
+                            nullable: true
+                          libelle_commune_etranger:
+                            title: Libellé complémentaire pour une adresse à l'étranger
+                            description: Cette valeur est à nulle pour les établissements
+                              en France
+                            type: string
+                            nullable: true
+                          code_pays_etranger:
+                            title: Code pays pour les établissements situés à l'étranger
+                            description: 'La nomenclature se trouve ici: https://www.insee.fr/fr/information/2028273'
+                            type: string
+                            example: '99132'
+                            nullable: true
+                          libelle_pays_etranger:
+                            title: Libellé du pays pour les établissements situés
+                              à l'étranger
+                            type: string
+                            nullable: true
+                            example: ROYAUME-UNI
+                        required:
+                        - numero_voie
+                        - indice_repetition_voie
+                        - type_voie
+                        - libelle_voie
+                        - complement_adresse
+                        - code_commune
+                        - code_postal
+                        - distribution_speciale
+                        - code_cedex
+                        - libelle_cedex
+                        - libelle_commune
+                        - libelle_commune_etranger
+                        - code_pays_etranger
+                        - libelle_pays_etranger
+                      links:
+                        type: object
+                        properties:
+                          entreprise:
+                            type: string
+                            example: https://entreprises.api.gouv.fr/api/v3/insee/entreprises/130025265/
+                            description: Lien vers la ressource entreprise correspondant
+                              à cette adresse d'établissement
+                          etablissement:
+                            type: string
+                            example: https://entreprises.api.gouv.fr/api/v3/insee/etablissements/13002526500013
+                            description: Lien vers la ressource établissement correspondant
+                              à cette adresse d'établissement
+                        required:
+                        - entreprise
+                        - etablissement
+                      meta:
+                        type: object
+                        properties:
+                          date_derniere_mise_a_jour:
+                            type: integer
+                            example: 1618396818
+                            description: Date de la dernière mise à jour à l'INSEE
+                        required:
+                        - date_derniere_mise_a_jour
+                    required:
+                    - id
+                    - type
+                    - attributes
+                    - meta
+                    - links
+                required:
+                - data
+        '404':
+          description: Non trouvé
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+  "/v3/insee/sirene/etablissements/diffusibles/{siret}/adresse":
+    get:
+      summary: Adresse d'un établissement diffusible
+      tags:
+      - Informations générales
+      parameters:
+      - name: siret
+        in: path
+        description: Siret de l'établissement
+        examples:
+          siret_octo_technology:
+            value: '41816609600069'
+            summary: SIRET Octo Technology
+          siret_non_diffusible:
+            value: '00557246600026'
+            summary: SIRET établissement non diffusible
+          siret_agefiph:
+            value: '39332832300059'
+            summary: SIRET pour AGEFIPH
+          siret_msa:
+            value: '81104725700019'
+            summary: SIRET pour MSA
+          siret_probtp:
+            value: '43841606700017'
+            summary: SIRET pour ProBTP
+          siret_agence_bio:
+            value: '48311105000025'
+            summary: SIRET pour l'Agence Bio
+          siret_qualibat:
+            value: '78824266700020'
+            summary: SIRET pour Qualibat
+        required: true
+        schema:
+          type: string
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '123456789'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Adresse de l'établissement diffusible présente dans le répertoire
+        Sirene.
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Etablissement trouvé
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '30613890002979'
+                      type:
+                        type: string
+                        example: adresse
+                        enum:
+                        - adresse
+                      attributes:
+                        type: object
+                        properties:
+                          numero_voie:
+                            title: Numéro dans la voie
+                            type: string
+                            example: '22'
+                          indice_repetition_voie:
+                            title: Indice de répétition du numero dans la voie
+                            description: 'Plus d''infos ici: https://www.sirene.fr/sirene/public/variable/indrep'
+                            type: string
+                            nullable: true
+                            enum:
+                            - bis
+                            - ter
+                            - quarter
+                            - quinquies
+                            -
+                          type_voie:
+                            title: Type de la voie de localisation
+                            example: RUE
+                            description: "Cette information n'est pas toujours renseignée
+                              ou il n'en existe pas toujours dans les petites communes.
+                              \n Celle-ci est en majuscule. \n Plus d'infos: https://www.sirene.fr/sirene/public/variable/typvoie"
+                            type: string
+                            nullable: true
+                            enum:
+                            - ALLÉE
+                            - AVENUE
+                            - BOULEVARD
+                            - CARREFOUR
+                            - CHEMIN
+                            - CHAUSSÉE
+                            - CITÉ
+                            - CORNICHE
+                            - COURS
+                            - DOMAINE
+                            - DESCENTE
+                            - ECART
+                            - ESPLANADE
+                            - FAUBOURG
+                            - GRANDE RUE
+                            - HAMEAU
+                            - HALLE
+                            - IMPASSE
+                            - LIEU-DIT
+                            - LOTISSEMENT
+                            - MARCHÉ
+                            - MONTÉE
+                            - PASSAGE
+                            - PLACE
+                            - PLAINE
+                            - PLATEAU
+                            - PROMENADE
+                            - PARVIS
+                            - QUARTIER
+                            - QUAI
+                            - RÉSIDENCE
+                            - RUELLE
+                            - ROCADE
+                            - ROND-POINT
+                            - ROUTE
+                            - RUE
+                            - SENTIER
+                            - SQUARE
+                            - TERRE-PLEIN
+                            - TRAVERSE
+                            - VILLA
+                            - VILLAGE
+                            -
+                          libelle_voie:
+                            title: Libellé de la voie
+                            example: DE LA PAIX
+                          complement_adresse:
+                            title: Complément d'adresse
+                            type: string
+                            description: Le complément d'adresse correspond à des
+                              éléments situés à l'extérieur du bâtiment qui permettent
+                              de compléter l'adresse (résidence, bâtiment, entrée,
+                              etc..)
+                            example: ZAE SAINT GUENAULT
+                            nullable: true
+                          code_commune:
+                            title: Code commune
+                            description: "Le code commune est défini dans le COG disponible
+                              ici: https://www.insee.fr/fr/information/2028028 \n
+                              \n Cette valeur est à nulle pour les entreprises à l'étranger"
+                            type: string
+                            example: '75112'
+                            nullable: true
+                          code_postal:
+                            title: Code postal
+                            example: '75016'
+                            type: string
+                          distribution_speciale:
+                            title: Distribution spéciale
+                            description: |
+                              La distribution spéciale reprend les éléments particuliers qui accompagnent une adresse de distribution spéciale. C'est un élément constitutif de l'adresse.
+
+                              Plus d'infos:
+                              * https://www.sirene.fr/sirene/public/variable/distributionSpecialeEtablissement
+                              * https://www.sirene.fr/sirene/public/variable/l5-disp"
                             example: CS 72809
                           code_cedex:
                             title: Code cedex
@@ -523,34 +1723,61 @@ paths:
       tags:
       - Informations générales
       parameters:
+      - name: siret
+        in: path
+        description: Siret de l'établissement
+        examples:
+          siret_octo_technology:
+            value: '41816609600069'
+            summary: SIRET Octo Technology
+          siret_non_diffusible:
+            value: '00557246600026'
+            summary: SIRET établissement non diffusible
+          siret_agefiph:
+            value: '39332832300059'
+            summary: SIRET pour AGEFIPH
+          siret_msa:
+            value: '81104725700019'
+            summary: SIRET pour MSA
+          siret_probtp:
+            value: '43841606700017'
+            summary: SIRET pour ProBTP
+          siret_agence_bio:
+            value: '48311105000025'
+            summary: SIRET pour l'Agence Bio
+          siret_qualibat:
+            value: '78824266700020'
+            summary: SIRET pour Qualibat
+        required: true
+        schema:
+          type: string
       - name: context
         in: query
-        description: "**Cadre de la requête** \n \n Par exemple : aides publiques,
-          marchés publics ou gestion d’un référentiel tiers utilisé pour tel type
-          d’application."
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
         required: true
         schema:
           type: string
       - name: recipient
         in: query
-        description: "**Bénéficiaire de l’appel** \n \n SIRET de l’administration
-          destinatrice des données."
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '123456789'
         required: true
         schema:
           type: string
       - name: object
         in: query
-        description: "**La raison de l’appel ou l’identifiant de la procédure.** \n
-          \n L’identifiant peut être interne à votre organisation ou bien un numéro
-          de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous
-          permette de tracer et de retrouver les informations relatives à l’appel.
-          En effet, vous devez pouvoir justifier de la raison d’un appel auprès du
-          fournisseur de données. Description courte ( < 50 caractères )."
-        required: true
-        schema:
-          type: string
-      - name: siret
-        in: path
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
         required: true
         schema:
           type: string
@@ -726,40 +1953,537 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
+  "/v3/insee/sirene/etablissements/diffusibles/{siret}":
+    get:
+      summary: Données de référence d'un établissement diffusible
+      tags:
+      - Informations générales
+      parameters:
+      - name: siret
+        in: path
+        description: Siret de l'établissement
+        examples:
+          siret_octo_technology:
+            value: '41816609600069'
+            summary: SIRET Octo Technology
+          siret_non_diffusible:
+            value: '00557246600026'
+            summary: SIRET établissement non diffusible
+          siret_agefiph:
+            value: '39332832300059'
+            summary: SIRET pour AGEFIPH
+          siret_msa:
+            value: '81104725700019'
+            summary: SIRET pour MSA
+          siret_probtp:
+            value: '43841606700017'
+            summary: SIRET pour ProBTP
+          siret_agence_bio:
+            value: '48311105000025'
+            summary: SIRET pour l'Agence Bio
+          siret_qualibat:
+            value: '78824266700020'
+            summary: SIRET pour Qualibat
+        required: true
+        schema:
+          type: string
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '123456789'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Obtenir des informations générales concernant un établissement
+        diffusible du répertoire Sirene.
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Etablissement trouvé
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '30613890002979'
+                      type:
+                        type: string
+                        example: etablissement
+                        enum:
+                        - etablissement
+                      attributes:
+                        type: object
+                        properties:
+                          siege_social:
+                            type: boolean
+                            example: true
+                            enum:
+                            - true
+                            - false
+                            description: Indique si l'établissement est le siège social
+                              de l'entreprise
+                          etat_administratif:
+                            type: string
+                            enum:
+                            - A
+                            - F
+                            example: A
+                            description: "État administratif de l'établissement. \n
+                              \n - A = Actif \n - F = Fermé"
+                          activite_principale:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                                example: 8411Z
+                                description: Code de l'activité principale (APE) de
+                                  l'établissement. Ce code est extrait de la nomenclature
+                                  NAF. A noter qu'un établissement n'ayant pas encore
+                                  de code APE peut se voir affecter la valeur 00.00Z
+                                  de manière provisoire.
+                              libelle:
+                                type: string
+                                nullable: true
+                                example: Administration publique générale
+                                description: "Libellé associé au code APE. Si le code
+                                  n'est pas renseigné dans la nomenclature 'Naf Rév2'
+                                  (nomenclature en vigueur), le libellé n'est pas
+                                  renseigné ici. Si le code ne correspond à aucun
+                                  libellé au sein de la nomenclature 'Naf Rév2', la
+                                  valeur 'non référencé' est utilisée. \n \n Le lien
+                                  vers la nomenclature 'Naf Rév2' : https://www.insee.fr/fr/information/2406147"
+                              nomenclature:
+                                type: string
+                                example: NAFRev2
+                                description: Nomenclature associée au code
+                            required:
+                            - code
+                            - libelle
+                            - nomenclature
+                          tranche_effectif_salarie:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                                nullable: true
+                                example: '51'
+                              intitule:
+                                type: string
+                                nullable: true
+                                example: 2 000 à 4 999 salariés
+                              date_reference:
+                                type: string
+                                nullable: true
+                                example: '2016'
+                              de:
+                                type: integer
+                                example: 2000
+                                nullable: true
+                              a:
+                                type: integer
+                                example: 4999
+                                nullable: true
+                            required:
+                            - code
+                            - intitule
+                            - date_reference
+                            - de
+                            - a
+                          diffusable_commercialement:
+                            title: Diffusable commercialement
+                            type: boolean
+                            example: true
+                            enum:
+                            - true
+                            description: Détermine si l'établissement est un établissement
+                              non-diffusible. Cette valeur est toujours à true. Si
+                              vous voulez pouvoir récupérer des établissements non-diffusible,
+                              référez-vous à la documentation du endpoint INSEE établissement
+                          date_creation:
+                            type: integer
+                            example: 1634103818
+                        required:
+                        - siege_social
+                        - etat_administratif
+                        - activite_principale
+                        - tranche_effectif_salarie
+                        - diffusable_commercialement
+                        - date_creation
+                      links:
+                        type: object
+                        properties:
+                          entreprise:
+                            type: string
+                            example: https://entreprises.api.gouv.fr/api/v3/insee/entreprises/306138900
+                            description: Lien vers la ressource entreprise correspondant
+                              à cet établissement
+                        required:
+                        - entreprise
+                      meta:
+                        type: object
+                        properties:
+                          date_derniere_mise_a_jour:
+                            type: integer
+                            example: 1618396818
+                            description: Date de la dernière mise à jour à l'INSEE
+                        required:
+                        - date_derniere_mise_a_jour
+                    required:
+                    - id
+                    - type
+                    - attributes
+                    - meta
+                    - links
+                required:
+                - data
+        '404':
+          description: Non trouvé
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+  "/v3/insee/sirene/unites_legales/diffusibles/{siren}/siege":
+    get:
+      summary: Données de références du siège d'une unité légale diffusible
+      tags:
+      - Informations générales
+      parameters:
+      - name: siren
+        in: path
+        description: Siren de l'entreprise
+        examples:
+          siren_octo_technology:
+            value: '418166096'
+            summary: SIREN Octo Technology
+          siren_non_diffusible:
+            value: '005572466'
+            summary: SIREN entreprise non diffusible
+          siren_artisant:
+            value: '301123626'
+            summary: SIREN entreprise artisanale
+          siren_fntp:
+            value: '339379984'
+            summary: SIREN pour FNTP
+          siren_cnetp:
+            value: '542036207'
+            summary: SIREN pour CNETP
+          siren_opqibi:
+            value: '515228211'
+            summary: SIREN pour OPQIBI
+        required: true
+        schema:
+          type: string
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '123456789'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Obtenir des informations générales concernant le siège d'une unité
+        légale diffusable du répertoire Sirene.
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Établissement trouvé
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '306138900'
+                      type:
+                        type: string
+                        example: etablissement
+                        enum:
+                        - etablissement
+                      attributes:
+                        type: object
+                        properties:
+                          siege_social:
+                            type: boolean
+                            example: true
+                            enum:
+                            - true
+                            - false
+                            description: Indique si l'établissement est le siège social
+                              de l'entreprise
+                          etat_administratif:
+                            type: string
+                            enum:
+                            - A
+                            - F
+                            example: A
+                            description: "État administratif de l'établissement. \n
+                              \n - A = Actif \n - F = Fermé"
+                          activite_principale:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                                example: 8411Z
+                                description: Code de l'activité principale (APE) de
+                                  l'établissement. Ce code est extrait de la nomenclature
+                                  NAF. A noter qu'un établissement n'ayant pas encore
+                                  de code APE peut se voir affecter la valeur 00.00Z
+                                  de manière provisoire.
+                              libelle:
+                                type: string
+                                nullable: true
+                                example: Administration publique générale
+                                description: "Libellé associé au code APE. Si le code
+                                  n'est pas renseigné dans la nomenclature 'Naf Rév2'
+                                  (nomenclature en vigueur), le libellé n'est pas
+                                  renseigné ici. Si le code ne correspond à aucun
+                                  libellé au sein de la nomenclature 'Naf Rév2', la
+                                  valeur 'non référencé' est utilisée. \n \n Le lien
+                                  vers la nomenclature 'Naf Rév2' : https://www.insee.fr/fr/information/2406147"
+                              nomenclature:
+                                type: string
+                                example: NAFRev2
+                                description: Nomenclature associée au code
+                            required:
+                            - code
+                            - libelle
+                            - nomenclature
+                          tranche_effectif_salarie:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                                nullable: true
+                                example: '51'
+                              intitule:
+                                type: string
+                                nullable: true
+                                example: 2 000 à 4 999 salariés
+                              date_reference:
+                                type: string
+                                nullable: true
+                                example: '2016'
+                              de:
+                                type: integer
+                                example: 2000
+                                nullable: true
+                              a:
+                                type: integer
+                                example: 4999
+                                nullable: true
+                            required:
+                            - code
+                            - intitule
+                            - date_reference
+                            - de
+                            - a
+                          diffusable_commercialement:
+                            title: Diffusable commercialement
+                            type: boolean
+                            example: true
+                            enum:
+                            - true
+                            description: Détermine si l'établissement est un établissement
+                              non-diffusible. Cette valeur est toujours à true. Si
+                              vous voulez pouvoir récupérer des établissements non-diffusible,
+                              référez-vous à la documentation du endpoint INSEE établissement
+                          date_creation:
+                            type: integer
+                            example: 1634103818
+                        required:
+                        - siege_social
+                        - etat_administratif
+                        - activite_principale
+                        - tranche_effectif_salarie
+                        - diffusable_commercialement
+                        - date_creation
+                      links:
+                        type: object
+                        properties:
+                          entreprise:
+                            type: string
+                            example: https://entreprises.api.gouv.fr/api/v3/insee/entreprises/306138900
+                            description: Lien vers la ressource entreprise correspondant
+                              à cet établissement
+                        required:
+                        - entreprise
+                      meta:
+                        type: object
+                        properties:
+                          date_derniere_mise_a_jour:
+                            type: integer
+                            example: 1618396818
+                            description: Date de la dernière mise à jour à l'INSEE
+                        required:
+                        - date_derniere_mise_a_jour
+                    required:
+                    - id
+                    - type
+                    - attributes
+                    - meta
+                    - links
+                required:
+                - data
+        '404':
+          description: Non trouvé
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
   "/v3/insee/sirene/unites_legales/{siren}/siege":
     get:
       summary: Données de références du siège d'une unité légale
       tags:
       - Informations générales
       parameters:
+      - name: siren
+        in: path
+        description: Siren de l'entreprise
+        examples:
+          siren_octo_technology:
+            value: '418166096'
+            summary: SIREN Octo Technology
+          siren_non_diffusible:
+            value: '005572466'
+            summary: SIREN entreprise non diffusible
+          siren_artisant:
+            value: '301123626'
+            summary: SIREN entreprise artisanale
+          siren_fntp:
+            value: '339379984'
+            summary: SIREN pour FNTP
+          siren_cnetp:
+            value: '542036207'
+            summary: SIREN pour CNETP
+          siren_opqibi:
+            value: '515228211'
+            summary: SIREN pour OPQIBI
+        required: true
+        schema:
+          type: string
       - name: context
         in: query
-        description: "**Cadre de la requête** \n \n Par exemple : aides publiques,
-          marchés publics ou gestion d’un référentiel tiers utilisé pour tel type
-          d’application."
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
         required: true
         schema:
           type: string
       - name: recipient
         in: query
-        description: "**Bénéficiaire de l’appel** \n \n SIRET de l’administration
-          destinatrice des données."
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '123456789'
         required: true
         schema:
           type: string
       - name: object
         in: query
-        description: "**La raison de l’appel ou l’identifiant de la procédure.** \n
-          \n L’identifiant peut être interne à votre organisation ou bien un numéro
-          de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous
-          permette de tracer et de retrouver les informations relatives à l’appel.
-          En effet, vous devez pouvoir justifier de la raison d’un appel auprès du
-          fournisseur de données. Description courte ( < 50 caractères )."
-        required: true
-        schema:
-          type: string
-      - name: siren
-        in: path
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
         required: true
         schema:
           type: string
@@ -941,34 +2665,58 @@ paths:
       tags:
       - Informations générales
       parameters:
+      - name: siren
+        in: path
+        description: Siren de l'entreprise
+        examples:
+          siren_octo_technology:
+            value: '418166096'
+            summary: SIREN Octo Technology
+          siren_non_diffusible:
+            value: '005572466'
+            summary: SIREN entreprise non diffusible
+          siren_artisant:
+            value: '301123626'
+            summary: SIREN entreprise artisanale
+          siren_fntp:
+            value: '339379984'
+            summary: SIREN pour FNTP
+          siren_cnetp:
+            value: '542036207'
+            summary: SIREN pour CNETP
+          siren_opqibi:
+            value: '515228211'
+            summary: SIREN pour OPQIBI
+        required: true
+        schema:
+          type: string
       - name: context
         in: query
-        description: "**Cadre de la requête** \n \n Par exemple : aides publiques,
-          marchés publics ou gestion d’un référentiel tiers utilisé pour tel type
-          d’application."
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
         required: true
         schema:
           type: string
       - name: recipient
         in: query
-        description: "**Bénéficiaire de l’appel** \n \n SIRET de l’administration
-          destinatrice des données."
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '123456789'
         required: true
         schema:
           type: string
       - name: object
         in: query
-        description: "**La raison de l’appel ou l’identifiant de la procédure.** \n
-          \n L’identifiant peut être interne à votre organisation ou bien un numéro
-          de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous
-          permette de tracer et de retrouver les informations relatives à l’appel.
-          En effet, vous devez pouvoir justifier de la raison d’un appel auprès du
-          fournisseur de données. Description courte ( < 50 caractères )."
-        required: true
-        schema:
-          type: string
-      - name: siren
-        in: path
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
         required: true
         schema:
           type: string
@@ -1111,7 +2859,7 @@ paths:
                                 enum:
                                 - M
                                 - F
-                                - 
+                                -
                                 nullable: true
                                 description: Caractère féminin ou masculin de la personne
                                   physique. Cette valeur peut ne pas être renseignée
@@ -1134,7 +2882,7 @@ paths:
                             - GE
                             - ETI
                             - PME
-                            - 
+                            -
                             description: "Il s'agit d'une variable statistique calculée
                               par l'INSEE. Elle ne peut prendre que 3 valeurs: \n
                               \n - GE: Grande Entreprise \n - ETI: Entreprise de Taille
@@ -1324,34 +3072,58 @@ paths:
       tags:
       - Informations générales
       parameters:
+      - name: siren
+        in: path
+        description: Siren de l'entreprise
+        examples:
+          siren_octo_technology:
+            value: '418166096'
+            summary: SIREN Octo Technology
+          siren_non_diffusible:
+            value: '005572466'
+            summary: SIREN entreprise non diffusible
+          siren_artisant:
+            value: '301123626'
+            summary: SIREN entreprise artisanale
+          siren_fntp:
+            value: '339379984'
+            summary: SIREN pour FNTP
+          siren_cnetp:
+            value: '542036207'
+            summary: SIREN pour CNETP
+          siren_opqibi:
+            value: '515228211'
+            summary: SIREN pour OPQIBI
+        required: true
+        schema:
+          type: string
       - name: context
         in: query
-        description: "**Cadre de la requête** \n \n Par exemple : aides publiques,
-          marchés publics ou gestion d’un référentiel tiers utilisé pour tel type
-          d’application."
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
         required: true
         schema:
           type: string
       - name: recipient
         in: query
-        description: "**Bénéficiaire de l’appel** \n \n SIRET de l’administration
-          destinatrice des données."
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '123456789'
         required: true
         schema:
           type: string
       - name: object
         in: query
-        description: "**La raison de l’appel ou l’identifiant de la procédure.** \n
-          \n L’identifiant peut être interne à votre organisation ou bien un numéro
-          de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous
-          permette de tracer et de retrouver les informations relatives à l’appel.
-          En effet, vous devez pouvoir justifier de la raison d’un appel auprès du
-          fournisseur de données. Description courte ( < 50 caractères )."
-        required: true
-        schema:
-          type: string
-      - name: siren
-        in: path
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
         required: true
         schema:
           type: string
@@ -1495,7 +3267,7 @@ paths:
                                 enum:
                                 - M
                                 - F
-                                - 
+                                -
                                 nullable: true
                                 description: Caractère féminin ou masculin de la personne
                                   physique. Cette valeur peut ne pas être renseignée
@@ -1518,7 +3290,7 @@ paths:
                             - GE
                             - ETI
                             - PME
-                            - 
+                            -
                             description: "Il s'agit d'une variable statistique calculée
                               par l'INSEE. Elle ne peut prendre que 3 valeurs: \n
                               \n - GE: Grande Entreprise \n - ETI: Entreprise de Taille
@@ -1710,34 +3482,46 @@ paths:
       tags:
       - Informations générales
       parameters:
+      - name: siret_or_rna
+        in: path
+        description: Siret de l'association ou le numéro RNA
+        examples:
+          openstreetmap_france:
+            value: W751212517
+            summary: ID RNA Openstreetmap France
+          croix_rouge:
+            value: '77567227221138'
+            summary: SIRET de la Croix-Rouge France
+        required: true
+        schema:
+          type: string
       - name: context
         in: query
-        description: "**Cadre de la requête** \n \n Par exemple : aides publiques,
-          marchés publics ou gestion d’un référentiel tiers utilisé pour tel type
-          d’application."
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
         required: true
         schema:
           type: string
       - name: recipient
         in: query
-        description: "**Bénéficiaire de l’appel** \n \n SIRET de l’administration
-          destinatrice des données."
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '123456789'
         required: true
         schema:
           type: string
       - name: object
         in: query
-        description: "**La raison de l’appel ou l’identifiant de la procédure.** \n
-          \n L’identifiant peut être interne à votre organisation ou bien un numéro
-          de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous
-          permette de tracer et de retrouver les informations relatives à l’appel.
-          En effet, vous devez pouvoir justifier de la raison d’un appel auprès du
-          fournisseur de données. Description courte ( < 50 caractères )."
-        required: true
-        schema:
-          type: string
-      - name: siret_or_rna
-        in: path
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
         required: true
         schema:
           type: string
@@ -1800,7 +3584,7 @@ paths:
                           siret:
                             type: string
                             nullable: true
-                            example: 
+                            example:
                           siret_siege_social:
                             type: string
                             example: '77571979202650'
@@ -1817,7 +3601,7 @@ paths:
                           date_publication:
                             type: string
                             nullable: true
-                            example: 
+                            example:
                             description: Jour de la publication au journal officiel
                               de l'avis de création de l'association. Toutes les assoiations
                               ne sont pas forcément 'déclarées'. La publication au
@@ -1827,7 +3611,7 @@ paths:
                           date_dissolution:
                             type: string
                             nullable: true
-                            example: 
+                            example:
                             description: Si l'association est dissolue, ce champ indique
                               la date de dissolution, autrement, il est indiqué 'null'.
                           adresse_siege:
@@ -1848,7 +3632,7 @@ paths:
                               distribution:
                                 type: string
                                 nullable: true
-                                example: 
+                                example:
                               code_insee:
                                 type: string
                                 example: '75108'
@@ -1873,7 +3657,7 @@ paths:
                           groupement:
                             type: string
                             nullable: true
-                            example: 
+                            example:
                             description: 'Trois modalités possibles : si l''association
                               n''est pas un groupement, il est indiqué ''Simple''
                               ; si l''association est un groupement, la valeur est
@@ -1913,48 +3697,74 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/UnprocessableEntity"
-  "/v3/probtp/attestations_cotisation_retraite/{siret}":
+  "/v3/probtp/attestations_cotisations_retraite/{siret}":
     get:
       summary: Cotisations retraite bâtiment
       tags:
       - Attestations sociales et fiscales
       parameters:
+      - name: siret
+        in: path
+        description: Siret de l'établissement
+        examples:
+          siret_octo_technology:
+            value: '41816609600069'
+            summary: SIRET Octo Technology
+          siret_non_diffusible:
+            value: '00557246600026'
+            summary: SIRET établissement non diffusible
+          siret_agefiph:
+            value: '39332832300059'
+            summary: SIRET pour AGEFIPH
+          siret_msa:
+            value: '81104725700019'
+            summary: SIRET pour MSA
+          siret_probtp:
+            value: '43841606700017'
+            summary: SIRET pour ProBTP
+          siret_agence_bio:
+            value: '48311105000025'
+            summary: SIRET pour l'Agence Bio
+          siret_qualibat:
+            value: '78824266700020'
+            summary: SIRET pour Qualibat
+        required: true
+        schema:
+          type: string
       - name: context
         in: query
-        description: "**Cadre de la requête** \n \n Par exemple : aides publiques,
-          marchés publics ou gestion d’un référentiel tiers utilisé pour tel type
-          d’application."
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
         required: true
         schema:
           type: string
       - name: recipient
         in: query
-        description: "**Bénéficiaire de l’appel** \n \n SIRET de l’administration
-          destinatrice des données."
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '123456789'
         required: true
         schema:
           type: string
       - name: object
         in: query
-        description: "**La raison de l’appel ou l’identifiant de la procédure.** \n
-          \n L’identifiant peut être interne à votre organisation ou bien un numéro
-          de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous
-          permette de tracer et de retrouver les informations relatives à l’appel.
-          En effet, vous devez pouvoir justifier de la raison d’un appel auprès du
-          fournisseur de données. Description courte ( < 50 caractères )."
-        required: true
-        schema:
-          type: string
-      - name: siret
-        in: path
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
         required: true
         schema:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Savoir si une entreprise est à jour de ses cotisations retraite
-        à la Protection Sociale du Bâtiment et des Travaux publics (PROBTP) et obtenir
-        l’attestation de l’entreprise si celle-ci est éligible.
+      description: Obtenir l’attestation de l’entreprise (si celle-ci est éligible)
+        auprès de la Protection Sociale du Bâtiment et des Travaux publics (PROBTP)
       responses:
         '403':
           description: Accès interdit
@@ -2018,40 +3828,173 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
+  "/v3/probtp/conformites_cotisations_retraite/{siret}":
+    get:
+      summary: Conformités vis-à-vis des cotisations retraites
+      tags:
+      - Attestations sociales et fiscales
+      parameters:
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '123456789'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      - name: siret
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Savoir si une entreprise est à jour de ses cotisations retraite
+        à la Protection Sociale du Bâtiment et des Travaux publics (PROBTP)
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Entreprise trouvée
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '34909797200021'
+                      type:
+                        type: string
+                        example: entreprise
+                        enum:
+                        - entreprise
+                      attributes:
+                        type: object
+                        properties:
+                          eligible:
+                            type: boolean
+                            example: true
+                            enum:
+                            - true
+                            - false
+                            description: Détermine si une entreprise est éligible
+                              ou non aux cotisations retraites de ProBTP.
+                        required:
+                        - eligible
+                    required:
+                    - id
+                    - type
+                    - attributes
+                required:
+                - data
+        '404':
+          description: Non trouvée
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
   "/v3/rnm/entreprises/{siren}":
     get:
       summary: Données de référence d'une entreprise artisanale
       tags:
       - Informations générales
       parameters:
+      - name: siren
+        in: path
+        description: Siren de l'entreprise
+        examples:
+          siren_octo_technology:
+            value: '418166096'
+            summary: SIREN Octo Technology
+          siren_non_diffusible:
+            value: '005572466'
+            summary: SIREN entreprise non diffusible
+          siren_artisant:
+            value: '301123626'
+            summary: SIREN entreprise artisanale
+          siren_fntp:
+            value: '339379984'
+            summary: SIREN pour FNTP
+          siren_cnetp:
+            value: '542036207'
+            summary: SIREN pour CNETP
+          siren_opqibi:
+            value: '515228211'
+            summary: SIREN pour OPQIBI
+        required: true
+        schema:
+          type: string
       - name: context
         in: query
-        description: "**Cadre de la requête** \n \n Par exemple : aides publiques,
-          marchés publics ou gestion d’un référentiel tiers utilisé pour tel type
-          d’application."
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
         required: true
         schema:
           type: string
       - name: recipient
         in: query
-        description: "**Bénéficiaire de l’appel** \n \n SIRET de l’administration
-          destinatrice des données."
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '123456789'
         required: true
         schema:
           type: string
       - name: object
         in: query
-        description: "**La raison de l’appel ou l’identifiant de la procédure.** \n
-          \n L’identifiant peut être interne à votre organisation ou bien un numéro
-          de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous
-          permette de tracer et de retrouver les informations relatives à l’appel.
-          En effet, vous devez pouvoir justifier de la raison d’un appel auprès du
-          fournisseur de données. Description courte ( < 50 caractères )."
-        required: true
-        schema:
-          type: string
-      - name: siren
-        in: path
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
         required: true
         schema:
           type: string

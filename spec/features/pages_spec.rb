@@ -16,4 +16,14 @@ RSpec.describe 'Simple pages', type: :feature do
       }.not_to raise_error
     end
   end
+
+  describe 'developers redoc page', js: true do
+    it 'works and displays redoc container' do
+      expect {
+        visit developers_redoc_path
+      }.not_to raise_error
+
+      expect(page).to have_content('siret')
+    end
+  end
 end
