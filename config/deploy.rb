@@ -4,6 +4,7 @@ require 'mina/git'
 require 'colorize'
 require 'mina/rbenv'  # for rbenv support. (https://rbenv.org)
 # require 'mina/rvm'    # for rvm support. (https://rvm.io)
+require 'securerandom'
 
 ENV['to'] ||= 'sandbox'
 %w[sandbox staging production].include?(ENV['to']) || raise("target environment (#{ENV['to']}) not in the list")
@@ -68,6 +69,15 @@ set :shared_files, fetch(:shared_files, []).push(
   "config/environments/#{ENV['to']}.rb"
 )
 
+def samhain_db_update
+  samhain_listfile = "/tmp/listfile-#{SecureRandom.hex(48)}"
+
+  comment %{Updating Samhain signature database}
+  command %{find "/var/www/admin_apientreprise_#{ENV['to']}" >#{samhain_listfile}}
+  command %{sudo /usr/local/sbin/update-samhain-db.sh #{samhain_listfile}}
+  command %{rm -f #{samhain_listfile}}
+end
+
 # This task is the environment that is loaded for all remote run commands, such as
 # `mina deploy` or `mina rake`.
 task :environment do
@@ -84,6 +94,7 @@ end
 # All paths in `shared_dirs` and `shared_paths` will be created on their own.
 task :setup do
   # command %{rbenv install 2.3.0 --skip-existing}
+  samhain_db_update
 end
 
 desc "Deploys the current version to the server."
@@ -110,7 +121,7 @@ task :deploy => :environment do
       end
     end
   end
-
+  samhain_db_update
   # you can use `run :local` to run tasks on local machine before of after the deploy scripts
   # run(:local){ say 'done' }
 end
