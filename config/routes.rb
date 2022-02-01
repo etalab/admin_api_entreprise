@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   resources :endpoints, only: %i[index]
   get 'endpoints/*uid', as: :endpoint, to: 'endpoints#show'
 
-  get '/developers/redoc', to: 'pages#redoc'
+  get '/developers/openapi', to: 'pages#redoc'
 
   namespace :admin do
     get '/private_metrics' => 'private_metrics#index'
