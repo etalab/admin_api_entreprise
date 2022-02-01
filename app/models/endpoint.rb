@@ -37,6 +37,10 @@ class Endpoint
     @attributes ||= extract_properties_from_schema('attributes')
   end
 
+  def redoc_anchor
+    @redoc_anchor ||= "tag/#{tag_for_redoc}/paths/#{path_for_redoc}/get"
+  end
+
   def links
     @links ||= extract_properties_from_schema('links')
   end
@@ -57,6 +61,14 @@ class Endpoint
 
   def response_schema
     open_api_definition['responses']['200']['content']['application/json']['schema']
+  end
+
+  def tag_for_redoc
+    open_api_definition['tags'].first.parameterize(separator: '-').capitalize
+  end
+
+  def path_for_redoc
+    path.gsub('/', '~1')
   end
 
   def open_api_definition
