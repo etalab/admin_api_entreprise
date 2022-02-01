@@ -15,6 +15,10 @@ module ApplicationHelper
     end
   end
 
+  def site_v3?
+    request.subdomain.split('.')[0] == 'v3-beta'
+  end
+
   def markdown_to_html(content)
     content_tag(:div, class: %(markdown-wrapper)) do
       Kramdown::Document.new(
