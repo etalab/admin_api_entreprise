@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   include UserSessionsHelper
   helper UserSessionsHelper
 
+  helper ActiveLinks
+
   layout 'application'
 
   def error_message(title:, description: nil)
