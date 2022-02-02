@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Endpoints show', type: :feature do
-  let(:uid) { 'insee/entreprise' }
+  let(:uid) { example_uid }
 
   let(:endpoint) { Endpoint.find(uid) }
 
