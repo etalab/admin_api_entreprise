@@ -2,33 +2,45 @@
   background-color: var(--w);
   box-shadow: var(--card-box-shadow);
 
-  margin: 50px 0;
+  $card-padding: 20px;
 
-  & > .wrapper {
-    padding: 25px 35px;
+  margin: 15px;
+
+  header, section, footer {
+    padding: 0 $card-padding;
   }
 
-  & > footer {
-    position: relative;
+  header {
+    padding-top: $card-padding;
+    min-height: 150px;
+  }
+
+  header h3 {
+    $h-size: 1.1rem;
+    font-size: $h-size;
+    line-height: $h-size + 0.2rem;
+    margin-bottom: 0;
+  }
+
+  header img.provider {
+    float: right;
+
+    max-height: 80px;
+    max-width: 80px;
+  }
+
+  section.body {
+    padding-top: 10px;
+    flex-grow: 1;
+  }
+
+  section.metadata {
     background-color: var(--grey-950-100);
-    padding: 15px 20px;
 
-    .availability {
-      position: absolute;
-      top: 38px;
-      left: 30px;
-    }
+    padding: 5px $card-padding;
   }
 
-  .providers {
-    & > .wrapper {
-      text-align: center;
-      width: 100%;
-    }
-
-    img {
-      max-height: 120px;
-      max-width: 120px;
-    }
+  footer {
+    padding-top: 5px;
   }
 }

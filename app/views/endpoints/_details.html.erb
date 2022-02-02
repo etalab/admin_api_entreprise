@@ -6,30 +6,38 @@
   </h3>
 
   <h5>
-    <%= t('.parameters.title', count: 1) %>
+    <%= t('.parameters.title', count: @endpoint.parameters.count) %>
   </h5>
 
-  <div>
-    Numéro de SIREN de la personne physique ou morale recherchée
-  </div>
+  <% @endpoint.parameters.each do |parameter| %>
+    <div>
+      <%= parameter %>
+    </div>
+  <% end %>
 
-  <h5 class="fr-mt-3w">
-    <%= t('.availability.title') %>
+  <h5 class="fr-pt-2w">
+    <%= t('.technical_specifications.title') %>
   </h5>
 
-  <div>
-    Taux moyen sur 6 mois
-    <span class="circle circle-success"></span> <strong>99.98%</strong>
-    <br />
-    <br />
-    Temps réel: <strong>UP</strong>
-    <br />
-    <a href="https://status.entreprise.api.gouv.fr" alt="API Entreprise Status Page" target="_blank">
-      Page d'état des APIs
-    </a>
-    <br />
-    <br />
-    Horaires de fonctionnement : <br />
-    7jours/7 24h/24
-  </div>
+  <%= link_to t('.technical_specifications.cta'), developers_openapi_path(anchor: @endpoint.redoc_anchor), class: %(fr-btn fr-btn--icon-right fr-fi-arrow-right-line) %>
+
+  <!-- <h5 class="fr&#45;mt&#45;3w"> -->
+  <!--   <%= t('.availability.title') %> -->
+  <!-- </h5> -->
+  <!--  -->
+  <!-- <div> -->
+  <!--   Taux moyen sur 6 mois -->
+  <!--   <span class="circle circle&#45;success"></span> <strong>99.98%</strong> -->
+  <!--   <br /> -->
+  <!--   <br /> -->
+  <!--   Temps réel: <strong>UP</strong> -->
+  <!--   <br /> -->
+  <!--   <a href="https://status.entreprise.api.gouv.fr" alt="API Entreprise Status Page" target="_blank"> -->
+  <!--     Page d'état des APIs -->
+  <!--   </a> -->
+  <!--   <br /> -->
+  <!--   <br /> -->
+  <!--   Horaires de fonctionnement : <br /> -->
+  <!--   7jours/7 24h/24 -->
+  <!-- </div> -->
 </div>

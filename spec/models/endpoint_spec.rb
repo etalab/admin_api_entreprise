@@ -15,7 +15,7 @@ RSpec.describe Endpoint, type: :model do
     subject { described_class.find(uid) }
 
     context 'with valid uid' do
-      let(:uid) { 'insee/entreprise' }
+      let(:uid) { example_uid }
 
       it { is_expected.to be_an_instance_of(Endpoint) }
 

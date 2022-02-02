@@ -64,6 +64,7 @@ RSpec.configure do |config|
   config.include FriendlyDateHelper
 
   # Include helpers / support accurately for each spec type
+  config.include SpecsHelper
   config.include FeatureHelper, type: :feature
 
   config.around(:each, js: true) do |example|

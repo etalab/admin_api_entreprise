@@ -2,4 +2,16 @@
   <%= t('.title') %>
 </h1>
 
-<%= render @endpoints %>
+<% @endpoints.each_with_index do |endpoint, index| %>
+  <% if index % 3 == 0 %>
+    <div class="fr-grid-card-row-outer">
+  <% end %>
+
+  <div class="fr-grid-card-row-inner fr-col-xs-12 fr-col-md-4">
+    <%= render endpoint %>
+  </div>
+
+  <% if index % 3 == 2 %>
+    </div>
+  <% end %>
+<% end %>

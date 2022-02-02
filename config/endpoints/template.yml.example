@@ -2,8 +2,21 @@
 - uid: 'provider/resource'
   path: '/v3/provider/resource/{siren}'
   perimeter:
-    summary: "Les entités atteignables. Le markdown GFM est supporté ici."
-    description: "Une description exhaustive du périmètre. Le markdown GFM est supporté ici."
-  # Liste des clés stockés dans la locale `providers`
+    description: "Une description exhaustive du périmètre utilisée dans la fiche détaillée. Le markdown GFM est supporté ici."
+    # La liste des clés disponible est stockée dans le fichier endpoint.fr.yml
+    entities:
+      - entreprises
+      - associations
+  # Texte libre
+  call_id: "SIRET / RNA"
+  # La liste des clés disponible est stockée dans la locale `providers` du fichier providers.fr.yml
   providers:
     - 'insee'
+  # Texte libre, cette donnée est affichée sur la page du endpoint
+  use_cases:
+    - Aides publiques
+    - Marchés publics
+    - Préremplissage d'un formulaire
+  # Texte libre, cette donnée est affichée sur la page du endpoint
+  parameters:
+    - Numéro de SIREN de la personne physique ou morale recherchée
