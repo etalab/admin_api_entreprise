@@ -29,10 +29,6 @@ module ApplicationHelper
     end
   end
 
-  def swagger_url(anchor)
-    "https://entreprise.api.gouv.fr/v3/developers/index.html##{anchor}"
-  end
-
   def boolean_i18n(value)
     i18n_key = value ? 'yes' : 'no'
     I18n.t(i18n_key)
