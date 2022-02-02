@@ -1,7 +1,12 @@
 class Endpoint
   include ActiveModel::Model
 
-  attr_accessor :uid, :path, :providers, :perimeter, :opening
+  attr_accessor :uid,
+    :path,
+    :call_id,
+    :providers,
+    :perimeter,
+    :opening
 
   def self.all
     AvailableEndpoints.all.map do |endpoint|
