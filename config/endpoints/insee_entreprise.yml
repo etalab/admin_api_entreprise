@@ -1,9 +1,8 @@
 ---
-- uid: 'insee/entreprise'
+- uid: 'insee/unites_legales'
   path: '/v3/insee/sirene/unites_legales/{siren}'
   perimeter:
-    summary: "Entreprises, entrepreneurs individuels, institutions administratives et certaines associations."
-    description: &insee_entreprise_description "Ce endpoint vous donne accès :
+    description: &insee_unites_legales_perimeter_description "Ce endpoint vous donne accès :
 \n
     * aux données tirées du *Répertoire National d'identification des entreprises et des établissements*, géré par l'INSEE au travers du système Sirene ;
 \n
@@ -57,17 +56,23 @@
     **Pour en savoir plus :**
 \n
 \n
-    [Contexte juridique du Répertoire National d’identification des entreprises et des établissements](https://www.legifrance.gouv.fr/affichCode.do;jsessionid=134EFA0EE7BDCA89C2D6B31E02C48430.tplgfr30s_3?idSectionTA=LEGISCTA000006178890&cidTexte=LEGITEXT000005634379&dateTexte=20100904){:target=\"_blank\"}
-"
-  opening: "Données publiques et protégées pour les non-diffusibles."
-  providers: &insee_entreprise_providers
+    [Contexte juridique du Répertoire National d’identification des entreprises et des établissements](https://www.legifrance.gouv.fr/affichCode.do;jsessionid=134EFA0EE7BDCA89C2D6B31E02C48430.tplgfr30s_3?idSectionTA=LEGISCTA000006178890&cidTexte=LEGITEXT000005634379&dateTexte=20100904)"
+    entities:
+    - entreprises_diffusibles
+    - associations
+  opening: protected
+  call_id: &insee_unites_legales_call_id SIREN
+  providers: &insee_unites_legales_providers
     - 'insee'
 
-- uid: 'insee/entreprise_diffusable'
+- uid: 'insee/unites_legales_diffusibles'
   path: '/v3/insee/sirene/unites_legales/diffusibles/{siren}'
   perimeter:
-    summary: "Entreprises, entrepreneurs individuels, institutions administratives et certaines associations diffusables commercialement"
-    description: *insee_entreprise_description
-  opening: "Données publiques"
-  providers: *insee_entreprise_providers
+    description: *insee_unites_legales_perimeter_description
+    entities:
+    - entreprises
+    - associations
+  opening: public
+  call_id: *insee_unites_legales_call_id
+  providers: *insee_unites_legales_providers
 

@@ -2,8 +2,16 @@
 - uid: 'urssaf/attestation_sociale'
   path: '/v3/acoss/attestations_sociales/{siren}'
   perimeter:
-    summary: "Toutes les entreprises sont concernées."
-    description: ""
-  opening: "Données protégées"
+    description: "Toutes les entreprises sont concernées.
+
+
+⚠️ L’attestation est délivrée si l’entreprise s’est acquitée de ses contributions et cotisations.
+
+
+Depuis 2021, l’attestation de vigilance n’est délivrée que si la contribution annuelle de l’OETH (Obligation d’Emploi de Travailleur Handicapé) a été acquittée par l’entreprise. Cette compétence était auparavant attribuée à l’AGEFIPH."
+    entities:
+      - entreprises
+  opening: protected
+  call_id: "SIREN"
   providers:
     - 'acoss'
