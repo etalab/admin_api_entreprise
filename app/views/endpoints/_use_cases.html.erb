@@ -10,11 +10,9 @@
   </div>
 
   <ul class="fr-tags-group fr-mt-2w">
-    <% ['Aides publiques', 'Marchés publics'].each do |use_case| %>
-      <li class="fr-mb-1w">
-        <a href="#" class="fr-tag" target="_self">
-          <%= use_case %>
-        </a>
+    <% @endpoint.use_cases.each do |use_case| %>
+      <li class="fr-mb-1w fr-tag">
+        <%= use_case %>
       </li>
     <% end %>
   </ul>
