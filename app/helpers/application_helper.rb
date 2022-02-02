@@ -39,6 +39,6 @@ module ApplicationHelper
   end
 
   def icon(kind)
-    "<span class=\"#{kind}\" aria-hidden=\"true\"></span>".html_safe
+    "<span class=\"icon #{kind}\" aria-hidden=\"true\"></span>".html_safe
   end
 end
