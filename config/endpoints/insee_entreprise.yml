@@ -62,6 +62,13 @@
     - associations
   opening: protected
   call_id: &insee_unites_legales_call_id SIREN
+  parameters: &insee_unites_legales_parameters
+    - Numéro de SIREN de la personne physique ou morale recherchée
+  use_cases: &insee_unites_legales_use_cases
+    - Aides publiques
+    - Marchés publics
+    - Préremplissage d'un formulaire
+    - Détection de la fraude
   providers: &insee_unites_legales_providers
     - 'insee'
 
@@ -73,6 +80,8 @@
     - entreprises
     - associations
   opening: public
+  use_cases: *insee_unites_legales_use_cases
+  parameters: *insee_unites_legales_parameters
   call_id: *insee_unites_legales_call_id
   providers: *insee_unites_legales_providers
 

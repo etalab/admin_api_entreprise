@@ -4,8 +4,10 @@ class Endpoint
   attr_accessor :uid,
     :path,
     :call_id,
+    :parameters,
     :providers,
     :perimeter,
+    :use_cases,
     :opening
 
   def self.all
