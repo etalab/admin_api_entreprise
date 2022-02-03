@@ -26,4 +26,18 @@ RSpec.describe 'Endpoints show', type: :feature do
       end
     end
   end
+
+  describe 'actions' do
+    describe 'click on cgu', js: true do
+      it 'opens modal with CGU content' do
+        visit endpoint_path(uid: uid)
+
+        click_on 'cgu_link'
+
+        within('#main-modal-content') do
+          expect(page).to have_content('Conditions Générales')
+        end
+      end
+    end
+  end
 end
