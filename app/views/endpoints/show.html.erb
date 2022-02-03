@@ -60,6 +60,12 @@
         <a href="#cgu" class="fr-btn fr-btn--secondary fr-btn--icon-right fr-fi-arrow-down-line">
           Conditions d'utilisation des données de cette API
         </a>
+
+        <br />
+
+        <a href="<%= endpoint_example_path(uid: @endpoint.uid) %>" id="example_link" class="fr-btn fr-btn--secondary fr-fi-eye-line fr-btn--icon-left fr-mt-2w" aria-controls="main-modal" data-fr-opened="false" data-turbo-frame="main-modal-content">
+          Voir un exemple de réponse
+        </a>
       </div>
 
       <h4 id="donnees_attributs" class="fr-mt-md-5w">
@@ -121,14 +127,6 @@
           <% end %>
         </div>
       <% end %>
-
-      <h3 id="exemple" class="fr-mt-md-5w">
-        <%= t('.example.title') %>
-      </h3>
-
-      <div class="keep-within-block code-block">
-        <code><%= JSON.pretty_generate(@endpoint.example_payload) %></code>
-      </div>
 
       <h3 id="cgu" class="fr-mt-md-5w">
         <%= t('.cgu.title') %>
