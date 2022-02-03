@@ -28,6 +28,18 @@ RSpec.describe 'Endpoints show', type: :feature do
   end
 
   describe 'actions' do
+    describe 'click on example', js: true do
+      it 'opens modal with example' do
+        visit endpoint_path(uid: uid)
+
+        click_on 'example_link'
+
+        within('#main-modal-content') do
+          expect(page).to have_content('"type": "entreprise"')
+        end
+      end
+    end
+
     describe 'click on cgu', js: true do
       it 'opens modal with CGU content' do
         visit endpoint_path(uid: uid)

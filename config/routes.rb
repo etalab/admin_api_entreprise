@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   resources :authorization_requests, only: :index
 
   resources :endpoints, only: %i[index]
+  get 'endpoints/*uid/example', as: :endpoint_example, to: 'endpoints#example'
   get 'endpoints/*uid', as: :endpoint, to: 'endpoints#show'
 
   get '/developers/openapi', to: 'pages#redoc'
