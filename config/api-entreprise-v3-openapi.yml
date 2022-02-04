@@ -2,7 +2,13 @@
 openapi: 3.0.1
 info:
   title: API Entreprise
-  version: v3
+  version: 3.0.0
+tags:
+- name: Informations générales
+- name: Informations financières
+- name: Attestations sociales et fiscales
+- name: Certifications professionnelles
+- name: Propriété intellectuelle
 paths:
   "/v3/acoss/attestations_sociales/{siren}":
     get:
@@ -51,7 +57,7 @@ paths:
           "**Bénéficiaire de l’appel**
 
           SIRET de l’administration destinatrice des données."
-        example: '123456789'
+        example: '13002526500013'
         required: true
         schema:
           type: string
@@ -118,8 +124,15 @@ paths:
                             description: Ce document est automatiquement supprimé
                               au bout de 3 mois.
                             example: https://storage.entreprise.api.gouv.fr/siade/1569139162-b99824d9c764aae19a862a0af-attestation_vigilance_acoss.pdf
+                          expires_in:
+                            type: integer
+                            example: 7889238
+                            description: 'Nombre de secondes avant l''expiration de
+                              l''url associée à l''attribut document_url : cette durée
+                              correspond généralement à 3 mois.'
                         required:
                         - document_url
+                        - expires_in
                     required:
                     - id
                     - type
@@ -132,6 +145,13 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/acoss/attestations_sociales/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/cnetp/attestations_cotisations_conges_payes_chomage_intemperies/{siren}":
     get:
       summary: Attestation de cotisations congés payés & chômage-intempéries
@@ -154,7 +174,7 @@ paths:
           "**Bénéficiaire de l’appel**
 
           SIRET de l’administration destinatrice des données."
-        example: '123456789'
+        example: '13002526500013'
         required: true
         schema:
           type: string
@@ -227,8 +247,15 @@ paths:
                             description: Ce document est automatiquement supprimé
                               au bout de 3 mois.
                             example: https://storage.entreprise.api.gouv.fr/siade/1569139162-b99824d9c764aae19a862a0af-attestation_cotisation_retraite_probtp.pdf
+                          expires_in:
+                            type: integer
+                            example: 7889238
+                            description: 'Nombre de secondes avant l''expiration de
+                              l''url associée à l''attribut document_url : cette durée
+                              correspond généralement à 3 mois.'
                         required:
                         - document_url
+                        - expires_in
                     required:
                     - id
                     - type
@@ -241,6 +268,13 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/cnetp/attestations_cotisations_conges_payes_chomage_intemperies/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/dgddi/eoris/{siret_or_eori}":
     get:
       summary: Immatriculation EORI
@@ -279,7 +313,7 @@ paths:
           "**Bénéficiaire de l’appel**
 
           SIRET de l’administration destinatrice des données."
-        example: '123456789'
+        example: '13002526500013'
         required: true
         schema:
           type: string
@@ -409,6 +443,286 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/dgddi/eoris/13002526500013?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
+  "/v3/dgfip/attestations_fiscales/{siren}":
+    get:
+      summary: Attestation fiscale
+      tags:
+      - Attestations sociales et fiscales
+      parameters:
+      - name: siren
+        in: path
+        description: Siren de l'entreprise
+        examples:
+          siren_octo_technology:
+            value: '418166096'
+            summary: SIREN Octo Technology
+          siren_non_diffusible:
+            value: '005572466'
+            summary: SIREN entreprise non diffusible
+          siren_artisant:
+            value: '301123626'
+            summary: SIREN entreprise artisanale
+          siren_fntp:
+            value: '339379984'
+            summary: SIREN pour FNTP
+          siren_cnetp:
+            value: '542036207'
+            summary: SIREN pour CNETP
+          siren_opqibi:
+            value: '515228211'
+            summary: SIREN pour OPQIBI
+        required: true
+        schema:
+          type: string
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Obtenir l’attestation fiscale, délivrée par la Direction générale
+        des finances publiques, indiquant que l’entreprise est à jour de ses obligations
+        fiscales.
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Attestation fiscale trouvée
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '789510732'
+                      type:
+                        type: string
+                        example: document
+                        enum:
+                        - document
+                      attributes:
+                        type: object
+                        properties:
+                          document_url:
+                            type: string
+                            title: Lien vers l'attestation fiscale
+                            description: Ce document est automatiquement supprimé
+                              au bout de 3 mois.
+                            example: https://storage.entreprise.api.gouv.fr/siade/1569139162-b99824d9c764aae19a862a0af-attestation_fiscale_dgfip.pdf
+                          expires_in:
+                            type: integer
+                            example: 7889238
+                            description: 'Nombre de secondes avant l''expiration de
+                              l''url associée à l''attribut document_url : cette durée
+                              correspond généralement à 3 mois.'
+                        required:
+                        - document_url
+                        - expires_in
+                    required:
+                    - id
+                    - type
+                    - attributes
+                required:
+                - data
+        '404':
+          description: Non trouvée
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/dgfip/attestations_fiscales/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
+  "/v3/dgfip/chiffres_affaires/{siret}":
+    get:
+      summary: Chiffres d'affaires
+      tags:
+      - Informations financières
+      parameters:
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      - name: siret
+        in: path
+        description: Siret de l'établissement
+        examples:
+          siret_octo_technology:
+            value: '41816609600069'
+            summary: SIRET Octo Technology
+          siret_non_diffusible:
+            value: '00557246600026'
+            summary: SIRET établissement non diffusible
+          siret_agefiph:
+            value: '39332832300059'
+            summary: SIRET pour AGEFIPH
+          siret_msa:
+            value: '81104725700019'
+            summary: SIRET pour MSA
+          siret_probtp:
+            value: '43841606700017'
+            summary: SIRET pour ProBTP
+          siret_agence_bio:
+            value: '48311105000025'
+            summary: SIRET pour l'Agence Bio
+          siret_qualibat:
+            value: '78824266700020'
+            summary: SIRET pour Qualibat
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: "Obtenir les déclarations de chiffre d’affaire faites auprès de
+        la DGFIP, et portées sur la liasse fiscale. \n \n Sont disponibles uniquement
+        les chiffres d’affaire des entreprises qui vérifient les deux conditions suivantes
+        : \n * être soumises à l’impôt sur les sociétés selon les règles des régimes
+        d’imposition réels, normal ou simplifié ; \n * avoir transmis ses comptes
+        annuels aux greffes. \n \n Seuls les trois derniers exercices sont renvoyés.
+        \n ℹ️ Ceux-ci ne sont pas forcément les exercices des trois dernières années
+        car il peut y avoir plusieurs exercices dans une même année."
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Exercices trouvés
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: exercice
+                      properties:
+                        chiffre_affaires:
+                          type: number
+                          example: 900001
+                          description: Chiffre d'affaires en euros de l'établissement
+                            sur la période
+                        date_fin_exercice:
+                          type: string
+                          example: '2015-12-01'
+                          description: Date de fin de l'exercice
+                required:
+                - data
+        '404':
+          description: Non trouvée
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/dgfip/chiffres_affaires/13002526500013?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/dgfip/liasses_fiscales/declarations/{year}/{siren}":
     get:
       summary: Déclarations des liasses fiscales
@@ -431,7 +745,7 @@ paths:
           "**Bénéficiaire de l’appel**
 
           SIRET de l’administration destinatrice des données."
-        example: '123456789'
+        example: '13002526500013'
         required: true
         schema:
           type: string
@@ -513,6 +827,179 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/dgfip/liasses_fiscales/declarations/2019/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
+  "/v3/fabrique_numerique_ministeres_sociaux/conventions_collectives/{siret}":
+    get:
+      summary: Conventions collectives
+      tags:
+      - Informations générales
+      parameters:
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      - name: siret
+        in: path
+        description: Siret de l'établissement
+        examples:
+          siret_octo_technology:
+            value: '41816609600069'
+            summary: SIRET Octo Technology
+          siret_non_diffusible:
+            value: '00557246600026'
+            summary: SIRET établissement non diffusible
+          siret_agefiph:
+            value: '39332832300059'
+            summary: SIRET pour AGEFIPH
+          siret_msa:
+            value: '81104725700019'
+            summary: SIRET pour MSA
+          siret_probtp:
+            value: '43841606700017'
+            summary: SIRET pour ProBTP
+          siret_agence_bio:
+            value: '48311105000025'
+            summary: SIRET pour l'Agence Bio
+          siret_qualibat:
+            value: '78824266700020'
+            summary: SIRET pour Qualibat
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Connaître les conventions collectives d’un établissement et obtenir
+        des informations telles que l’identifiant de la convention et le lien vers
+        le texte en vigueur.
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Entreprise trouvée
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: convention_collective
+                      properties:
+                        id:
+                          type: string
+                          description: Identifiant interne (DILA) de la convention
+                          example: KALICONT000005635173
+                        titre:
+                          type: string
+                          description: Titre historique de la convention collective
+                          example: Convention collective nationale des bureaux d'études
+                            techniques, des cabinets d'ingénieurs-conseils et des
+                            sociétés de conseils du 15 décembre 1987.
+                        titre_court:
+                          type: string
+                          description: Titre abrégé / d'usage
+                          example: Bureaux d'études techniques, cabinets d'ingénieurs-conseils
+                            et sociétés de conseils
+                        numero_idcc:
+                          type: numeric
+                          description: Numéro IDCC
+                          example: 1486
+                        active:
+                          type: boolean
+                          description: Détermine si la convention est toujours active
+                          example: true
+                        etat:
+                          type: string
+                          enum:
+                          - vigueur
+                          - vigueur_etendue
+                          description: État de la convention. Si celle-ci est en vigueur
+                            elle est seulement obligatoire pour les signataires. Si
+                            celle-ci est en vigueur étendue, elle est obligatoire
+                            pour tous les employeurs de la branche.
+                          example: vigueur_etendue
+                        synonymes:
+                          type: array
+                          description: Liste de synonymes connus de la convention
+                          items:
+                            type: string
+                          example:
+                          - syntec
+                        url:
+                          type: string
+                          description: Lien vers le texte en vigueur de la convention
+                            collective sur Legifrance
+                          example: https://www.legifrance.gouv.fr/affichIDCC.do?idConvention=KALICONT000005635173
+                        date_publication:
+                          type: string
+                          description: Date de la dernière mise à jour de la convention
+                          example: '1988-01-01'
+                required:
+                - data
+        '404':
+          description: Non trouvée
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/fabrique_numerique_ministeres_sociaux/conventions_collectives/13002526500013?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/fntp/cartes_professionnelle_travaux_publics/{siren}":
     get:
       summary: Carte professionnelle de travaux publics
@@ -535,7 +1022,7 @@ paths:
           "**Bénéficiaire de l’appel**
 
           SIRET de l’administration destinatrice des données."
-        example: '123456789'
+        example: '13002526500013'
         required: true
         schema:
           type: string
@@ -607,8 +1094,15 @@ paths:
                             description: Ce document est automatiquement supprimé
                               au bout de 3 mois.
                             example: https://storage.entreprise.api.gouv.fr/siade/1569139162-b99824d9c764aae19a862a0af-carte_professionnelle_fntp.pdf
+                          expires_in:
+                            type: integer
+                            example: 7889238
+                            description: 'Nombre de secondes avant l''expiration de
+                              l''url associée à l''attribut document_url : cette durée
+                              correspond généralement à 3 mois.'
                         required:
                         - document_url
+                        - expires_in
                     required:
                     - id
                     - type
@@ -621,6 +1115,148 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/fntp/cartes_professionnelle_travaux_publics/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
+  "/v3/inpi/actes/{siren}":
+    get:
+      summary: Actes
+      tags:
+      - Informations générales
+      parameters:
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      - name: siren
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: |
+        Obtenir les métadonnées sur les actes d’une entreprise tels que connus par les greffes et archivés à l’Institut National de Propriété Industrielle (INPI).
+        Ces actes comportent des informations générales, des informations sur le capital social et sa répartition, ou encore des informations sur les associés et tout ce qui est relatif à l’administration de la société.
+
+        Cet endpoint renvoie uniquement des métadonnées sur les actes, dont l’identifiant d’accès au fichier de téléchargement de l’Acte et du fichier de métadonnées associé. Pour récupérer les actes eux-mêmes, il faut utiliser l'endpoint /inpi/actes/{siren}/documents.
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Actes trouvés
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          title: ID Fichier
+                          description: Cet identifiant permet de retrouver le document
+                            dans l'archive ZIP renvoyée par le endpoint `/inpi/actes/{siren}/documents`,
+                            à l'aide du fichier "Response.json" permettant de faire
+                            lien entre cet ID et le nom du PDF
+                          type: string
+                          example: '24924080'
+                        siren:
+                          title: Numéro Siren
+                          description: Numéro SIREN de l'entreprise concernée par
+                            l'acte
+                          type: string
+                          example: '788242667'
+                        denomination_sociale:
+                          title: Dénomination sociale
+                          description: Dénomination sociale de l'entreprise concernée
+                            par l'acte
+                          type: string
+                          example: HERA CONSULTING
+                          nullable: true
+                        code_greffe:
+                          title: Code greffe
+                          description: Code identifiant du greffe ayant traité l'acte
+                          type: number
+                          example: 5752
+                        date_depot:
+                          title: Date dépot
+                          description: Date à laquelle a été déposé l'acte
+                          type: string
+                          example: '2017-06-16'
+                        nature_archive:
+                          title: Nature de l'archive de l'acte
+                          description: 'Chaîne de caractères contenant une ou plusieurs
+                            lettres séparées par un tiret, explicitant de quelle(s)
+                            catégories d''archives l''acte provient: A (actes de sociétés)
+                            R (ordonnances) et P (actes de personnes physiques)'
+                          type: string
+                          example: A-R
+                required:
+                - data
+        '404':
+          description: Actes non trouvés
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/inpi/actes/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/inpi/brevets/{siren}":
     get:
       summary: Derniers brevets
@@ -643,7 +1279,7 @@ paths:
           "**Bénéficiaire de l’appel**
 
           SIRET de l’administration destinatrice des données."
-        example: '123456789'
+        example: '13002526500013'
         required: true
         schema:
           type: string
@@ -848,13 +1484,19 @@ paths:
                           example: A1
                 required:
                 - data
-                - meta
         '404':
           description: Brevets non trouvés
           content:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/inpi/brevets/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/inpi/marques/{siren}":
     get:
       summary: Marques
@@ -877,7 +1519,7 @@ paths:
           "**Bénéficiaire de l’appel**
 
           SIRET de l’administration destinatrice des données."
-        example: '123456789'
+        example: '13002526500013'
         required: true
         schema:
           type: string
@@ -987,13 +1629,19 @@ paths:
                     - notice
                 required:
                 - data
-                - meta
         '404':
           description: Marques non trouvées
           content:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/inpi/marques/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/inpi/modeles/{siren}":
     get:
       summary: Modeles
@@ -1016,7 +1664,7 @@ paths:
           "**Bénéficiaire de l’appel**
 
           SIRET de l’administration destinatrice des données."
-        example: '123456789'
+        example: '13002526500013'
         required: true
         schema:
           type: string
@@ -1141,13 +1789,19 @@ paths:
                     - notice
                 required:
                 - data
-                - meta
         '404':
           description: Modèles non trouvés
           content:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/inpi/modeles/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/insee/sirene/etablissements/{siret}/adresse":
     get:
       summary: Adresse de l'établissement
@@ -1198,7 +1852,7 @@ paths:
           "**Bénéficiaire de l’appel**
 
           SIRET de l’administration destinatrice des données."
-        example: '123456789'
+        example: '13002526500013'
         required: true
         schema:
           type: string
@@ -1432,6 +2086,13 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/13002526500013/adresse?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/insee/sirene/etablissements/diffusibles/{siret}/adresse":
     get:
       summary: Adresse d'un établissement diffusible
@@ -1482,7 +2143,7 @@ paths:
           "**Bénéficiaire de l’appel**
 
           SIRET de l’administration destinatrice des données."
-        example: '123456789'
+        example: '13002526500013'
         required: true
         schema:
           type: string
@@ -1717,6 +2378,13 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/diffusibles/13002526500013/adresse?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/insee/sirene/etablissements/{siret}":
     get:
       summary: Données de référence d'un établissement
@@ -1767,7 +2435,7 @@ paths:
           "**Bénéficiaire de l’appel**
 
           SIRET de l’administration destinatrice des données."
-        example: '123456789'
+        example: '13002526500013'
         required: true
         schema:
           type: string
@@ -1953,6 +2621,13 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/13002526500013?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/insee/sirene/etablissements/diffusibles/{siret}":
     get:
       summary: Données de référence d'un établissement diffusible
@@ -2003,7 +2678,7 @@ paths:
           "**Bénéficiaire de l’appel**
 
           SIRET de l’administration destinatrice des données."
-        example: '123456789'
+        example: '13002526500013'
         required: true
         schema:
           type: string
@@ -2191,9 +2866,16 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/diffusibles/13002526500013?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/insee/sirene/unites_legales/diffusibles/{siren}/siege":
     get:
-      summary: Données de références du siège d'une unité légale diffusible
+      summary: Données de référence du siège d'une unité légale diffusible
       tags:
       - Informations générales
       parameters:
@@ -2238,7 +2920,7 @@ paths:
           "**Bénéficiaire de l’appel**
 
           SIRET de l’administration destinatrice des données."
-        example: '123456789'
+        example: '13002526500013'
         required: true
         schema:
           type: string
@@ -2426,9 +3108,16 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/insee/sirene/unites_legales/diffusibles/130025265/siege?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/insee/sirene/unites_legales/{siren}/siege":
     get:
-      summary: Données de références du siège d'une unité légale
+      summary: Données de référence du siège d'une unité légale
       tags:
       - Informations générales
       parameters:
@@ -2473,7 +3162,7 @@ paths:
           "**Bénéficiaire de l’appel**
 
           SIRET de l’administration destinatrice des données."
-        example: '123456789'
+        example: '13002526500013'
         required: true
         schema:
           type: string
@@ -2659,9 +3348,16 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/insee/sirene/unites_legales/130025265/siege?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/insee/sirene/unites_legales/{siren}":
     get:
-      summary: Données de références d'une unité légale
+      summary: Données de référence d'une unité légale
       tags:
       - Informations générales
       parameters:
@@ -2706,7 +3402,7 @@ paths:
           "**Bénéficiaire de l’appel**
 
           SIRET de l’administration destinatrice des données."
-        example: '123456789'
+        example: '13002526500013'
         required: true
         schema:
           type: string
@@ -3066,9 +3762,16 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/insee/sirene/unites_legales/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/insee/sirene/unites_legales/diffusibles/{siren}":
     get:
-      summary: Données de références d'une entité légale diffusable commercialement
+      summary: Données de référence d'une entité légale diffusable commercialement
       tags:
       - Informations générales
       parameters:
@@ -3113,7 +3816,7 @@ paths:
           "**Bénéficiaire de l’appel**
 
           SIRET de l’administration destinatrice des données."
-        example: '123456789'
+        example: '13002526500013'
         required: true
         schema:
           type: string
@@ -3476,6 +4179,13 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/insee/sirene/unites_legales/diffusibles/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/mi/associations/{siret_or_rna}":
     get:
       summary: Informations déclaratives d'une association
@@ -3511,7 +4221,7 @@ paths:
           "**Bénéficiaire de l’appel**
 
           SIRET de l’administration destinatrice des données."
-        example: '123456789'
+        example: '13002526500013'
         required: true
         schema:
           type: string
@@ -3697,6 +4407,157 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/UnprocessableEntity"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/mi/associations/13002526500013?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
+  "/v3/msa/conformites_cotisations/{siret}":
+    get:
+      summary: Status des cotisations de sécurité sociale agricole
+      tags:
+      - Attestations sociales et fiscales
+      parameters:
+      - name: siret
+        in: path
+        description: Siret de l'établissement
+        examples:
+          siret_octo_technology:
+            value: '41816609600069'
+            summary: SIRET Octo Technology
+          siret_non_diffusible:
+            value: '00557246600026'
+            summary: SIRET établissement non diffusible
+          siret_agefiph:
+            value: '39332832300059'
+            summary: SIRET pour AGEFIPH
+          siret_msa:
+            value: '81104725700019'
+            summary: SIRET pour MSA
+          siret_probtp:
+            value: '43841606700017'
+            summary: SIRET pour ProBTP
+          siret_agence_bio:
+            value: '48311105000025'
+            summary: SIRET pour l'Agence Bio
+          siret_qualibat:
+            value: '78824266700020'
+            summary: SIRET pour Qualibat
+        required: true
+        schema:
+          type: string
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Savoir si une entreprise est à jour de ses cotisations sociales
+        auprès de la sécurité sociale agricole (MSA).
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Entreprise trouvée
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '38069910800011'
+                      type:
+                        type: string
+                        example: conformite
+                        enum:
+                        - conformite
+                      attributes:
+                        type: object
+                        properties:
+                          status:
+                            type: string
+                            title: Status
+                            description: "Détermine le status des cotisations, les
+                              valeurs possibles: \n \n * up_to_date : l'entreprise
+                              est à jour de ses cotisations \n * outdated : l'entreprise
+                              n'est pas à jour de ses cotisations \n * under_investigation
+                              : l'entreprise est en cours d'analyse par un agent de
+                              la MSA"
+                            enum:
+                            - up_to_date
+                            - outdated
+                            - under_investigation
+                        required:
+                        - status
+                    required:
+                    - id
+                    - type
+                    - attributes
+                required:
+                - data
+        '404':
+          description: Non trouvée
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/msa/conformites_cotisations/13002526500013?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/probtp/attestations_cotisations_retraite/{siret}":
     get:
       summary: Cotisations retraite bâtiment
@@ -3747,7 +4608,7 @@ paths:
           "**Bénéficiaire de l’appel**
 
           SIRET de l’administration destinatrice des données."
-        example: '123456789'
+        example: '13002526500013'
         required: true
         schema:
           type: string
@@ -3814,8 +4675,15 @@ paths:
                             description: Ce document est automatiquement supprimé
                               au bout de 3 mois.
                             example: https://storage.entreprise.api.gouv.fr/siade/1569139162-b99824d9c764aae19a862a0af-attestation_cotisation_retraite_probtp.pdf
+                          expires_in:
+                            type: integer
+                            example: 7889238
+                            description: 'Nombre de secondes avant l''expiration de
+                              l''url associée à l''attribut document_url : cette durée
+                              correspond généralement à 3 mois.'
                         required:
                         - document_url
+                        - expires_in
                     required:
                     - id
                     - type
@@ -3828,6 +4696,13 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/probtp/attestations_cotisations_retraite/13002526500013?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/probtp/conformites_cotisations_retraite/{siret}":
     get:
       summary: Conformités vis-à-vis des cotisations retraites
@@ -3850,7 +4725,7 @@ paths:
           "**Bénéficiaire de l’appel**
 
           SIRET de l’administration destinatrice des données."
-        example: '123456789'
+        example: '13002526500013'
         required: true
         schema:
           type: string
@@ -3937,6 +4812,13 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/probtp/conformites_cotisations_retraite/13002526500013?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/rnm/entreprises/{siren}":
     get:
       summary: Données de référence d'une entreprise artisanale
@@ -3984,7 +4866,7 @@ paths:
           "**Bénéficiaire de l’appel**
 
           SIRET de l’administration destinatrice des données."
-        example: '123456789'
+        example: '13002526500013'
         required: true
         schema:
           type: string
@@ -4081,6 +4963,13 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/rnm/entreprises/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
 servers:
 - url: https://entreprise.api.gouv.fr
   description: Environnement de production
