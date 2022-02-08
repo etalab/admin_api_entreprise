@@ -1,0 +1,46 @@
+---
+- uid: 'dgfip/attestations_fiscales'
+  path: '/v3/dgfip/attestations_fiscales/{siren}'
+  perimeter:
+    description: "
+    ⚠️ Ce endpoint ne concerne que les entreprises n'appartenant pas à un groupe de sociétés
+  imposé selon le régime fiscale d'intégration (article 223 A du CGI), dit groupe IS ;
+  ou à un groupe de sociétés ayant opté pour la consolidation du paiement de la TVA
+  (article 1693 ter du CGI), dit groupe TVA : pour ces cas, veuillez vous référer
+    aux endpoints relatifs (pas encore disponibles).
+      \n
+      \n
+    L'attestation de régularité fiscale est **limitée aux ✅ entreprises soumises
+    à l'impôt sur les sociétés (IS)** à l'exclusion des :
+
+
+    * ❌ bénéfices industriels et commerciaux (BIC) ;
+
+    * ❌ bénéfices non commerciaux (BNC) ;
+
+    * ❌ bénéfices agricoles (BA) ;
+
+
+    Sont aussi exclues, même si les obligations fiscales sont respectées, les :
+
+
+    * ❌ entreprises individuelles ;
+
+    * ❌ sociétés de personnes ;
+
+    * ❌ groupements passibles de l'impôt sur le revenu (entrepreneurs individuels).
+
+
+    ⚠️ **L'attestation est délivrée si les obligations déclaratives et de paiement d'IS et de TVA de la société sont en règle.** Ainsi, les sociétés bénéficiant d’un plan de règlement, redressement, sauvegarde ou conciliation ainsi que les sociétés ayant formulé un recours contentieux assorti d’un sursis de paiement ne peuvent pas se voir délivrer une attestation fiscale."
+    entities:
+      - entreprises
+  call_id: "SIREN"
+  opening: protected
+  providers:
+    - 'dgfip'
+  use_cases:
+    - Aides publiques
+    - Marchés publics
+    - Détection de la fraude
+  parameters:
+    - Numéro de SIREN de la personne morale recherchée
