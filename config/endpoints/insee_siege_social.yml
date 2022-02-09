@@ -1,0 +1,134 @@
+---
+- uid: 'insee/siege_social'
+  path: '/v3/insee/sirene/unites_legales/{siret}/siege_social'
+  perimeter:
+    description: &insee_siege_social_perimeter_description 
+    "**Type de données :**
+    \n
+    \n
+    Cette API délivre les information générales d'un siège social, dont l'unité légale, diffusible ou non-diffusible, est inscrite au répertoire Sirene.
+    \n
+    Pour obtenir l'adresse du siège social, utiliser l'API `sirene/etablissements/{siret}/adresse`.
+    \n
+    \n
+    **Établissements concernés :**
+    \n
+    \n
+    Tous les sièges sociaux des unité légales suivantes sont disponibles :
+    \n
+    * ✅ les sièges sociaux des personnes morales de droit privé (les entreprises). Toutes les entreprises immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RCM) figurent dans la base Sirene ;
+    \n
+    * ✅ les sièges sociaux des personnes morales de droit public : les institutions et services de l’État et les collectivités territoriales ;
+    \n
+    * ✅ les sièges sociaux des associations ayant, en plus de leur numéro RNA, un numéro de SIREN/SIRET délivré lorsqu'elles :
+    \n
+    \t* emploient du personnel salarié ;
+    \n
+    \t* sont soumises à la TVA ;
+    \n
+    \t* ont demandé ou bénéficient de transferts financiers publics.
+    \n
+    * ✅ Les sièges sociaux des organismes publics ou privés et les entreprises étrangères qui ont une représentation ou une activité en France.
+    \n
+    \n
+    **Périmètre géographique :**
+    \n
+    \n
+    La base Sirene concerne les unités légales implantées en métropole, dans les DOM et dans les collectivités d'Outre-Mer de Saint Pierre et Miquelon, Saint Barthélémy et Saint Martin.
+    \n
+    \n
+    ⚠️ Pour la Nouvelle-Calédonie, la Polynésie française, et Wallis-et-Futuna, seul le secteur public administratif, de l'État ou des communes est répertorié ; ❌ les entreprises ne sont donc pas disponibles.
+    \n
+    \n
+    **Fraicheur de la donnée :**
+    \n
+    \n
+    La mise a jour des données est faite quotidiennement entre 0h et 3h à l'INSEE.<br>
+    \n
+    \n
+    **Pour en savoir plus :**
+    \n
+    \n
+    [Contexte juridique du Répertoire National d’identification des entreprises et des établissements](https://www.legifrance.gouv.fr/affichCode.do;jsessionid=134EFA0EE7BDCA89C2D6B31E02C48430.tplgfr30s_3?idSectionTA=LEGISCTA000006178890&cidTexte=LEGITEXT000005634379&dateTexte=20100904)"
+    entities:
+    - siege_social_entreprises
+    - siege_social_associations
+  opening: protected
+  call_id: &insee_unites_legales_call_id SIRET
+  parameters: &insee_unites_legales_parameters
+    - Numéro de SIREN de l'unité légale
+  use_cases: &insee_unites_legales_use_cases
+    - Aides publiques
+    - Marchés publics
+    - Préremplissage d'un formulaire
+    - Détection de la fraude
+  providers: &insee_unites_legales_providers
+    - 'insee'
+
+- uid: 'insee/etablissements_diffusibles'
+  path: '/v3/insee/sirene/etablissements/diffusibles/{siret}'
+  perimeter:
+    description:
+    "**Type de données :**
+    \n
+    \n 
+    Cette API délivre les information générales d'un siège social, dont l'unité légale est inscrite au répertoire Sirene et diffusible commercialement.
+    \n
+    Pour obtenir l'adresse du siège social, utiliser l'API `sirene/etablissements/diffusibles/{siret}/adresse`.
+    \n
+    \n
+    ⚠️ Elle ne concerne pas : 
+    \n
+    * les sièges sociaux des unité légales non-diffusibles, appelable avec l'API `sirene/unites_legales/diffusibles/{siret}/siege_social` ;
+    \n
+    * les adresses des sièges sociaux, appelables, avec le SIRET de l'établissement, par l'API `/sirene/etablissements/diffusibles/{siret}/adresse` ;
+    \n
+    \n
+    **Établissements concernés :**
+    \n
+    \n
+    Les sièges sociaux des unités légales suivantes sont disponibles :
+    \n
+    * ✅ les sièges sociaux des personnes morales de droit privé (les entreprises). Toutes les entreprises immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RCM) figurent dans la base Sirene ;
+    \n
+    * ✅ les sièges sociaux des personnes morales de droit public : les institutions et services de l’État et les collectivités territoriales ;
+    \n
+    * ✅ les sièges sociaux des associations ayant, en plus de leur numéro RNA, un numéro de SIREN/SIRET délivré lorsqu'elles :
+    \n
+    \t* emploient du personnel salarié ;
+    \n
+    \t* sont soumises à la TVA ;
+    \n
+    \t* ont demandé ou bénéficient de transferts financiers publics.
+    \n
+    * ✅ Les sièges sociaux des organismes publics ou privés et les entreprises étrangères qui ont une représentation ou une activité en France.
+    \n
+    * ❌ Les sièges sociaux des unités légales dîtes "non-diffusibles", c'est à dire n'ayant pas donné leur accord pour que leurs informations soient publiques et utilisées à des fins commerciales ne sont pas appelables par cette API. 
+    \n
+    **Périmètre géographique :**
+    \n
+    \n
+    La base Sirene concerne les unités légales implantées en métropole, dans les DOM et dans les collectivités d'Outre-Mer de Saint Pierre et Miquelon, Saint Barthélémy et Saint Martin.
+    \n
+    \n
+    ⚠️ Pour la Nouvelle-Calédonie, la Polynésie française, et Wallis-et-Futuna, seul le secteur public administratif, de l'État ou des communes est répertorié ; ❌ les entreprises ne sont donc pas disponibles.
+    \n
+    \n
+    **Fraicheur de la donnée :**
+    \n
+    \n
+    La mise a jour des données est faite quotidiennement entre 0h et 3h à l'INSEE.<br>
+    \n
+    \n
+    **Pour en savoir plus :**
+    \n
+    \n
+    [Contexte juridique du Répertoire National d’identification des entreprises et des établissements](https://www.legifrance.gouv.fr/affichCode.do;jsessionid=134EFA0EE7BDCA89C2D6B31E02C48430.tplgfr30s_3?idSectionTA=LEGISCTA000006178890&cidTexte=LEGITEXT000005634379&dateTexte=20100904)"
+    entities:
+    - entreprises
+    - associations
+  opening: public
+  use_cases: *insee_unites_legales_use_cases
+  parameters: *insee_unites_legales_parameters
+  call_id: *insee_unites_legales_call_id
+  providers: *insee_unites_legales_providers
