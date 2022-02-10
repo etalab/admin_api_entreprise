@@ -55,7 +55,7 @@ RSpec.shared_examples :it_displays_user_owned_token do
     subject
 
     user.jwt_api_entreprise.each do |jwt|
-      expect(page).to have_button(dom_id(jwt, :renew))
+      expect(page).to have_link(dom_id(jwt, :renew))
     end
   end
 
