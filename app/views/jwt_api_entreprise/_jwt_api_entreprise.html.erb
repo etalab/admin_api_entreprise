@@ -65,7 +65,7 @@
             </li>
             <li>
               <% if jwt_api_entreprise.authorization_request %>
-                <%= button_to t('.actions.renew'), jwt_api_entreprise.renewal_url, id: dom_id(jwt_api_entreprise, :renew), class: %w(fr-btn) %>
+                <%= link_to t('.actions.renew'), jwt_api_entreprise.renewal_url, id: dom_id(jwt_api_entreprise, :renew), class: %w(fr-btn) %>
               <% end %>
             </li>
           <% end %>
