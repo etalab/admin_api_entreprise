@@ -8,15 +8,16 @@
     \n
     Cette API délivre les informations de référence des unités légales inscrites au répertoire Sirene, diffusibles ou non-diffusibles.
     \n
+    \n
     ⚠️ Elle ne concerne pas :
     \n
-    * les établissements, appelables avec les API `sirene/etablissements` et `sirene/etablissements/diffusibles`;
+    * les établissements, appelables avec les API [`sirene/etablissements`](../endpoints/insee/etablissements) et [`sirene/etablissements/diffusibles`](../endpoints/insee/etablissements_diffusibles) ;
     \n
-    * l'adresse des établissements de l'unité légale, appelables avec les API `/sirene/etablissements/:siret/adresse` et `/sirene/etablissements/diffusibles/:siret/adresse` ;
+    * l'adresse des établissements de l'unité légale, appelables avec les API [`/sirene/etablissements/:siret/adresse`](../endpoints/insee/adresse_etablissements) et [`/sirene/etablissements/diffusibles/:siret/adresse`](../endpoints/insee/adresse_etablissements_diffusibles) ;
     \n
     * les mandataires sociaux, appelables avec l'API `infogreffe/mandataires_sociaux`.
     \n
-    * les informations détaillées du siège social, appelables avec les API `unites_legales/diffusibles/:siren/siege_social` et `unites_legales/:siren/siege_social`.
+    * les informations détaillées du siège social, appelables avec les API [`unites_legales/diffusibles/:siren/siege_social`](../endpoints/insee/siege_social_diffusibles) et [`unites_legales/:siren/siege_social`](../endpoints/insee/siege_social).
     \n
     \n
     **Entreprises/associations concernées :**
@@ -86,39 +87,40 @@
     \n
     Cette API délivre les informations de référence concernant les unités légales inscrites au répertoire Sirene et diffusibles commercialement.
     \n
+    \n
     ⚠️ Elle ne concerne pas :
     \n
-    * les unités légales non diffusibles, appelables avec l'API `sirene/unites_legales/diffusibles` ;
+    * les unités légales non diffusibles, appelables avec l'API [`sirene/unites_legales/diffusibles`](../endpoints/insee/unites_legales) ;
     \n
-    * les établissements, appelables avec les API `sirene/etablissements` et `sirene/etablissements/diffusibles`;
+    * les établissements, appelables avec les API [`sirene/etablissements/diffusibles`](../endpoints/insee/etablissements_diffusibles) et [`sirene/etablissements`](../endpoints/insee/etablissements) ;
     \n
-    * l'adresse des établissements de l'unité légale, appelables avec les API `/sirene/etablissements/:siret/adresse` et `/sirene/etablissements/diffusibles/:siret/adresse` ;
+    * l'adresse des établissements de l'unité légale, appelables avec les API [`/sirene/etablissements/:siret/adresse`](../endpoints/insee/adresse_etablissements) et [`/sirene/etablissements/diffusibles/:siret/adresse`](../endpoints/insee/adresse_etablissements_diffusibles) ;
     \n
-    * les mandataires sociaux, appelables avec l'API `infogreffe/mandataires_sociaux`.
+    * les mandataires sociaux, appelables avec l'API `infogreffe/mandataires_sociaux` ;
     \n
-    * les informations détaillées du siège social, appelables avec les API `unites_legales/diffusibles/:siren/siege_social` et `unites_legales/:siren/siege_social`.
+    * les informations détaillées du siège social, appelables avec les API [`unites_legales/diffusibles/:siren/siege_social`](../endpoints/insee/siege_social_diffusibles) et [`unites_legales/:siren/siege_social`](../endpoints/insee/siege_social).
     \n
     \n
     **Entreprises/associations concernées :**
     \n
     \n
-    * Uniquement les unités dîtes \"diffusibles\", c'est à dire ayant donné leur accord pour que leurs informations soient publiques et utilisées à des fins commerciales.
+    * Uniquement les unités dîtes \"diffusibles\", c'est-à-dire ayant donné leur accord pour que leurs informations soient publiques et utilisées à des fins commerciales ;
     \n
     * ✅ les personnes morales de droit privé : les entreprises. Toutes les entreprises immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RCM) figurent dans la base Sirene ;
     \n
     * ✅ les personnes morales de droit public : les institutions et services de l’État et les collectivités territoriales ;
     \n
-    * ✅ les entrepreneurs individuels exerçant de manière indépendante une profession non salariée (exemple : un commerçant, un médecin), ayant fait une déclaration d'activité.
+    * ✅ les entrepreneurs individuels exerçant de manière indépendante une profession non salariée (exemple : un commerçant, un médecin), ayant fait une déclaration d'activité ;
     \n
     * ❌ Les particuliers employeurs ne font pas partie de la base Sirene ;
     \n
     * ✅ les associations ayant, en plus de leur numéro RNA, un numéro de SIREN/SIRET délivré lorsqu'elles :
     \n
-    \t* emploient du personnel salarié ;
+      * emploient du personnel salarié ;
     \n
-    \t* sont soumises à la TVA ;
+      * sont soumises à la TVA ;
     \n
-    \t* ont demandé ou bénéficient de transferts financiers publics.
+      * ont demandé ou bénéficient de transferts financiers publics.
     \n
     * ✅ Les organismes publics ou privés et les entreprises étrangères qui ont une représentation ou une activité en France.
     \n
@@ -135,7 +137,7 @@
     **Fraicheur de la donnée :**
     \n
     \n
-    La mise a jour des données est faite quotidiennement entre 0h et 3h à l'INSEE.<br>
+    La mise à jour des données est faite quotidiennement entre 0h et 3h à l'INSEE.<br>
     \n
     \n
     **Pour en savoir plus :**
