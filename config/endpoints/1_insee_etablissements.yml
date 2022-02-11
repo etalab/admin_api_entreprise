@@ -1,13 +1,14 @@
 ---
-- uid: 'insee/adresse_etablissements'
-  path: '/v3/insee/sirene/etablissements/{siret}/adresse'
+- uid: 'insee/etablissements'
+  position: 115
+  path: '/v3/insee/sirene/etablissements/{siret}'
   perimeter:
     description: "**Type de données :**
     \n
     \n
-    Cette API délivre l'adresse d'un établissement, diffusible ou non-diffusible.
+    Cette API délivre les information générales d'un établissement, diffusible ou non-diffusible.
     \n
-    ⚠️ Pour obtenir les informations générales d'un établissement, utiliser l'API `sirene/etablissements`.
+    Pour obtenir l'adresse d'un établissement, utiliser l'API `sirene/etablissements/{siret}/adresse`.
     \n
     \n
     **Établissements concernés :**
@@ -64,19 +65,23 @@
   providers: &insee_unites_legales_providers
     - 'insee'
 
-- uid: 'insee/adresse_etablissements_diffusibles'
-  path: '/v3/insee/sirene/etablissements/diffusibles/{siret}/adresse'
+- uid: 'insee/etablissements_diffusibles'
+  position: 110
+  path: '/v3/insee/sirene/etablissements/diffusibles/{siret}'
   perimeter:
     description: "**Type de données :**
     \n
     \n
-    Cette API délivre l'adresse d'un établissement, inscrits au répertoire Sirene et diffusibles commercialement.
+    Cette API délivre les information générales d'un établissement, inscrit au répertoire Sirene et diffusibles commercialement.
+    \n
+    Pour obtenir l'adresse d'un établissement diffusible, utiliser l'API `sirene/etablissements/diffusibles/{siret}/adresse`.
+    \n
     \n
     ⚠️ Elle ne concerne pas :
     \n
-    * les établissements non-diffusibles, leur adresse est appelable avec l'API `sirene/etablissements/diffusibles/{siret}/adresse` ;
+    * les établissements non-diffusibles, leur adresse est appelable avec l'API `sirene/etablissements/diffusibles/{siret}` ;
     \n
-    * les informations générales des établissements, appelables avec les API `/sirene/etablissements` et `/sirene/etablissements/diffusibles` ;
+    * les adresses des établissements diffusibles, appelables avec l'API `/sirene/etablissements/diffusibles` ;
     \n
     \n
     **Établissements concernés :**
