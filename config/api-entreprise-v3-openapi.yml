@@ -38,6 +38,9 @@ paths:
           siren_opqibi:
             value: '515228211'
             summary: SIREN pour OPQIBI
+          siren_entrepreneur_individuel:
+            value: '389839937'
+            summary: SIREN d'un entrepeneur individuel (cessé)
         required: true
         schema:
           type: string
@@ -73,9 +76,10 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir l'attestation validant que l'entreprise s'acquitte de ses
-        obligations déclaratives et du paiement des cotisations et contributions sociales
-        auprès de l'URSSAF Caisse nationale (anciennement ACOSS).
+      description: Obtenir l'attestation sociale d'une entreprise, confirmant qu'elle
+        s'acquitte de ses obligations déclaratives et du paiement des cotisations
+        et contributions sociales auprès de l'URSSAF Caisse nationale (anciennement
+        ACOSS).
       responses:
         '403':
           description: Accès interdit
@@ -120,9 +124,13 @@ paths:
                         properties:
                           document_url:
                             type: string
-                            title: Lien vers l'attestation de vigilance ACOSS
-                            description: Ce document est automatiquement supprimé
-                              au bout de 3 mois.
+                            title: URL de téléchargement de l'attestation de vigilance
+                            description: "Ce lien délivre l'attestation de vigilance
+                              de l'entreprise au format PDF. La date du document dépend
+                              de la situation de chaque entreprise, et de la dernière
+                              déclaration enregistrée dans le système. Elle est donc
+                              variable d'une entreprise à l'autre. \n \n Plus d'informations
+                              sur le site de l'URSSAF : https://www.urssaf.fr/portail/home/employeur/declarer-et-payer/obtenir-une-attestation/attestation-de-vigilance.html"
                             example: https://storage.entreprise.api.gouv.fr/siade/1569139162-b99824d9c764aae19a862a0af-attestation_vigilance_acoss.pdf
                           expires_in:
                             type: integer
@@ -478,6 +486,9 @@ paths:
           siren_opqibi:
             value: '515228211'
             summary: SIREN pour OPQIBI
+          siren_entrepreneur_individuel:
+            value: '389839937'
+            summary: SIREN d'un entrepeneur individuel (cessé)
         required: true
         schema:
           type: string
@@ -560,9 +571,17 @@ paths:
                         properties:
                           document_url:
                             type: string
-                            title: Lien vers l'attestation fiscale
-                            description: Ce document est automatiquement supprimé
-                              au bout de 3 mois.
+                            title: URL de téléchargement de l'attestation fiscale
+                              (.pdf)
+                            description: "Ce lien donne accès à l'attestation fiscale,
+                              au format PDF. L'attestation, toujours datée du 31/12
+                              de l’année précédente, atteste que l'entreprise est
+                              à jour de ses obligations fiscales jusqu'à cette date.
+                              \n \n Par exemple, vous appelez l'API en mars 2022,
+                              l’attestation fiscale renvoyée indique que l’entreprise
+                              est à jour de ses obligations fiscales lui incombant
+                              au 31/12/2021. \n \n L’attestation fiscale est valide
+                              un an sur une année civile (jusqu’au 31/12/AAAA)."
                             example: https://storage.entreprise.api.gouv.fr/siade/1569139162-b99824d9c764aae19a862a0af-attestation_fiscale_dgfip.pdf
                           expires_in:
                             type: integer
@@ -594,7 +613,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/dgfip/attestations_fiscales/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/dgfip/chiffres_affaires/{siret}":
     get:
-      summary: Chiffres d'affaires
+      summary: Chiffre d'affaires
       tags:
       - Informations financières
       parameters:
@@ -653,19 +672,17 @@ paths:
           siret_qualibat:
             value: '78824266700020'
             summary: SIRET pour Qualibat
+          siret_entrepreneur_individuel:
+            value: '38983993700015'
+            summary: SIRET d'un entrepreneur individuel (fermé)
         required: true
         schema:
           type: string
       security:
       - jwt_bearer_token: []
-      description: "Obtenir les déclarations de chiffre d’affaire faites auprès de
-        la DGFIP, et portées sur la liasse fiscale. \n \n Sont disponibles uniquement
-        les chiffres d’affaire des entreprises qui vérifient les deux conditions suivantes
-        : \n * être soumises à l’impôt sur les sociétés selon les règles des régimes
-        d’imposition réels, normal ou simplifié ; \n * avoir transmis ses comptes
-        annuels aux greffes. \n \n Seuls les trois derniers exercices sont renvoyés.
-        \n ℹ️ Ceux-ci ne sont pas forcément les exercices des trois dernières années
-        car il peut y avoir plusieurs exercices dans une même année."
+      description: Obtenir les déclarations de chiffre d’affaires faites auprès de
+        la Direction générale des finances publiques (DGFIP), et renseignées dans
+        la liasse fiscale.
       responses:
         '403':
           description: Accès interdit
@@ -700,14 +717,13 @@ paths:
                       type: exercice
                       properties:
                         chiffre_affaires:
+                          title: Chiffre d'affaires en euros
                           type: number
                           example: 900001
-                          description: Chiffre d'affaires en euros de l'établissement
-                            sur la période
                         date_fin_exercice:
+                          title: Date de fin de l'exercice
                           type: string
                           example: '2015-12-01'
-                          description: Date de fin de l'exercice
                 required:
                 - data
         '404':
@@ -725,7 +741,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/dgfip/chiffres_affaires/13002526500013?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/dgfip/liasses_fiscales/declarations/{year}/{siren}":
     get:
-      summary: Déclarations des liasses fiscales
+      summary: Liasses fiscales
       tags:
       - Informations financières
       parameters:
@@ -771,7 +787,9 @@ paths:
           type: integer
       security:
       - jwt_bearer_token: []
-      description: FEEDME
+      description: Obtenir les informations renseignées dans les liasses fiscales,
+        issues des déclarations de résultat d’une entreprise auprès de la Direction
+        générale des finances publiques (DGFIP).
       responses:
         '403':
           description: Accès interdit
@@ -895,6 +913,9 @@ paths:
           siret_qualibat:
             value: '78824266700020'
             summary: SIRET pour Qualibat
+          siret_entrepreneur_individuel:
+            value: '38983993700015'
+            summary: SIRET d'un entrepreneur individuel (fermé)
         required: true
         schema:
           type: string
@@ -1122,6 +1143,177 @@ paths:
           curl -X GET \
             -H "Authorization: Bearer $token" \
             --url "https://entreprise.api.gouv.fr/v3/fntp/cartes_professionnelle_travaux_publics/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
+  "/v3/infogreffe/mandataires_sociaux/{siren}":
+    get:
+      summary: Récupération des mandataires sociaux d'une entreprise
+      tags:
+      - Informations générales
+      parameters:
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      - name: siren
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Liste des mandataires sociaux d'une société
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Entité trouvée
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '418166096'
+                      type:
+                        type: string
+                        example: mandataires_sociaux
+                        enum:
+                        - mandataires_sociaux
+                      attributes:
+                        type: object
+                        properties:
+                          id:
+                            title: Siren
+                            type: string
+                            description: Siren de l'entreprise
+                            example: '418166096'
+                          pp:
+                            title: Personnes physiques
+                            type: array
+                            items:
+                              properties:
+                                nom:
+                                  title: Nom
+                                  type: string
+                                  example: Henri
+                                  nullable: true
+                                prenom:
+                                  title: Prénom
+                                  type: string
+                                  example: Martin
+                                  nullable: true
+                                fonction:
+                                  title: Fonction
+                                  type: string
+                                  example: COMMISSAIRE AUX COMPTES SUPPLEANT
+                                date_naissance:
+                                  title: Date de naissance
+                                  type: string
+                                  example: '1965-01-27'
+                                  nullable: true
+                                date_naissance_timestamp:
+                                  title: Date de naissance (timestamp)
+                                  type: number
+                                  example: -155523600
+                                  nullable: true
+                          pm:
+                            title: Personnes morales
+                            type: array
+                            items:
+                              properties:
+                                fonction:
+                                  title: Fonction
+                                  type: string
+                                  example: COMMISSAIRE AUX COMPTES SUPPLEANT
+                                raison_sociale:
+                                  title: Raison sociale
+                                  type: string
+                                  example: BCRH & ASSOCIES - SOCIETE A RESPONSABILITE
+                                    LIMITEE A ASSOCIE UNIQUE
+                                  nullable: true
+                                identifiant:
+                                  title: Identifiant
+                                  description: Cet element est facultatif, composé
+                                    de 7 à 9 chiffres, et peut être vide.
+                                  type: string
+                                  example: '490092574'
+                                  nullable: true
+                        required:
+                        - id
+                        - pp
+                        - pm
+                    required:
+                    - id
+                    - type
+                    - attributes
+                required:
+                - data
+        '404':
+          description: Entreprise non trouvée
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/infogreffe/mandataires_sociaux/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/inpi/actes/{siren}":
     get:
       summary: Actes
@@ -1166,10 +1358,10 @@ paths:
       security:
       - jwt_bearer_token: []
       description: |
-        Obtenir les métadonnées sur les actes d’une entreprise tels que connus par les greffes et archivés à l’Institut National de Propriété Industrielle (INPI).
+        Obtenir les métadonnées associées aux actes d’une entreprise issus des greffes et archivés à l’Institut national de propriété industrielle (INPI).
         Ces actes comportent des informations générales, des informations sur le capital social et sa répartition, ou encore des informations sur les associés et tout ce qui est relatif à l’administration de la société.
 
-        Cet endpoint renvoie uniquement des métadonnées sur les actes, dont l’identifiant d’accès au fichier de téléchargement de l’Acte et du fichier de métadonnées associé. Pour récupérer les actes eux-mêmes, il faut utiliser l'endpoint /inpi/actes/{siren}/documents.
+        Cet API renvoie uniquement des métadonnées sur les actes, dont l’identifiant d’accès au fichier de téléchargement de l’Acte et du fichier de métadonnées associé. Pour récupérer les actes eux-mêmes, il faut utiliser l'API /inpi/actes/{siren}/documents.
       responses:
         '403':
           description: Accès interdit
@@ -1304,9 +1496,10 @@ paths:
         Derniers brevets déposés par l'entreprise et nombre total de brevets.
         Cet endpoint appelle les informations à partir d’un SIREN. Le SIREN étant une information facultative lors du dépôt de dossier à l’INPI, le taux de sirénage est donc incomplet.
 
-        Taux de sirénage des déposants (sur personnes morales FR) :
-
-        *Brevets France et brevets Europe délivrés : environ 80% sur les demandes de brevets publiées ces 20 dernières années ;
+        Taux de sirénage des déposants (sur personnes morales FR) pour les brevets France et brevets Europe est d'environ 80% sur les demandes de brevets publiées ces 20 dernières années ;
+        \n
+        ℹ️ Pour information, seule la raison sociale compte lors du dépôt pour une personne morale.
+        \n
       responses:
         '403':
           description: Accès interdit
@@ -1343,7 +1536,7 @@ paths:
                         id:
                           title: Numéro de publication
                           description: Numéro de publication du brevet, constitué
-                            du Code zone + Numéro du brevet + Catégorie de publication
+                            du code zone + numéro du brevet + catégorie de publication
                           type: string
                           example: FR3110115A1
                         titre:
@@ -1366,7 +1559,7 @@ paths:
                           example: '2015-12-14'
                         code_zone:
                           description: |
-                            Code de 2 lettres représentent la zone géographique où le brevet a été déposé, en fonction
+                            Code de deux lettres représentant la zone géographique où le brevet a été déposé, en fonction
                             de l'organisation qui a enregistré le brevet.
                           type: string
                           example: FR
@@ -1624,7 +1817,7 @@ paths:
                         type: string
                         example: https://opendata-pi.inpi.fr/inpi/marques/notice/FR4313464
                         description: Lien vers la notice concernant ce dépôt de marque,
-                          au format XML
+                          au format XML.
                     required:
                     - notice
                 required:
@@ -1691,8 +1884,8 @@ paths:
 
         Taux de sirénage des déposants (sur personnes morales FR) :
 
-        *Dessins & Modèles France : 50% ;
-        *Dessins & Modèles internationaux : 0% (dessins & modèles déposés à l’OMPI).
+        * Dessins & Modèles France : 50% ;
+        * Dessins & Modèles internationaux : 0% (dessins & modèles déposés à l’OMPI).
       responses:
         '403':
           description: Accès interdit
@@ -1736,12 +1929,12 @@ paths:
                           example: FR20203928-001
                         numero_depot:
                           title: Numéro national de dépôt
-                          description: Numéro national sous lequel le modèle est enregistré
+                          description: Numéro national sous lequel le modèle est enregistré.
                           type: string
                           example: '20203928'
                         titre:
                           title: Titre
-                          description: Titre du modèle
+                          description: Titre du modèle.
                           type: string
                           example: Véhicule automobile, vues de détails
                         total_representations:
@@ -1751,7 +1944,7 @@ paths:
                           example: 7
                         deposant:
                           title: Déposant
-                          description: Nom de l'entité ayant déposé le modèle
+                          description: Nom de l'entité ayant déposé le modèle.
                           type: string
                           example: PSA AUTOMOBILES, SA
                         date_depot:
@@ -1833,6 +2026,9 @@ paths:
           siret_qualibat:
             value: '78824266700020'
             summary: SIRET pour Qualibat
+          siret_entrepreneur_individuel:
+            value: '38983993700015'
+            summary: SIRET d'un entrepreneur individuel (fermé)
         required: true
         schema:
           type: string
@@ -1868,7 +2064,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Adresse de l'établissement présente dans le répertoire Sirene.
+      description: Adresse d'un établissement inscrit au répertoire Sirene. Tous les
+        établissements sont appelables, y compris les non-diffusibles.
       responses:
         '403':
           description: Accès interdit
@@ -1898,8 +2095,9 @@ paths:
                             type: string
                             example: '22'
                           indice_repetition_voie:
-                            title: Indice de répétition du numero dans la voie
-                            description: 'Plus d''infos ici: https://www.sirene.fr/sirene/public/variable/indrep'
+                            title: Indice de répétition du numéro dans la voie
+                            description: 'Plus d''informations dans la documentation
+                              Insee de l''API Sirene : https://www.sirene.fr/sirene/public/variable/indrep'
                             type: string
                             nullable: true
                             enum:
@@ -1911,9 +2109,11 @@ paths:
                           type_voie:
                             title: Type de la voie de localisation
                             example: RUE
-                            description: "Cette information n'est pas toujours renseignée
-                              ou il n'en existe pas toujours dans les petites communes.
-                              \n Celle-ci est en majuscule. \n Plus d'infos: https://www.sirene.fr/sirene/public/variable/typvoie"
+                            description: "Le type de la voie de localisation est indiquée
+                              en abrégé et en majuscules. L'information n'est pas
+                              toujours renseignée. Pour certaines petites communes,
+                              l'information n'existe pas. \n \n Plus d'informations
+                              dans la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/typvoie"
                             type: string
                             nullable: true
                             enum:
@@ -1974,9 +2174,15 @@ paths:
                             nullable: true
                           code_commune:
                             title: Code commune
-                            description: "Le code commune est défini dans le COG disponible
-                              ici: https://www.insee.fr/fr/information/2028028 \n
-                              \n Cette valeur est à nulle pour les entreprises à l'étranger"
+                            description: "Le code commune désigne le code de la commune
+                              de localisation de l'établissement. Le code renvoyé
+                              correspond à la date de l'appel, ce qui implique que
+                              toute modification du code commune est repercutée sur
+                              l'ensemble des établissements concernés, y compris ceux
+                              qui sont fermés. Cette valeur est à 'null' pour les
+                              entreprises à l'étranger. \n \n Les codes sont listés
+                              dans la table d'appartenance géographique fournie par
+                              l'Insee et disponible ici: https://www.insee.fr/fr/information/2028028"
                             type: string
                             example: '75112'
                             nullable: true
@@ -1986,49 +2192,47 @@ paths:
                             type: string
                           distribution_speciale:
                             title: Distribution spéciale
-                            description: |
-                              La distribution spéciale reprend les éléments particuliers qui accompagnent une adresse de distribution spéciale. C'est un élément constitutif de l'adresse.
-
-                              Plus d'infos:
-                              * https://www.sirene.fr/sirene/public/variable/distributionSpecialeEtablissement
+                            description: "La distribution spéciale reprend les éléments
+                              particuliers qui accompagnent une adresse de distribution
+                              spéciale, la modalité la plus connue étant les adresses
+                              en 'CEDEX'. \n \n Plus d'informations dans la documentation
+                              Insee de l'API Sirene : * https://www.sirene.fr/sirene/public/variable/distributionSpecialeEtablissement
                               * https://www.sirene.fr/sirene/public/variable/l5-disp"
-                            example: CS 72809
                           code_cedex:
                             title: Code cedex
                             nullable: true
-                            description: 'Plus d''infos: https://fr.wikipedia.org/wiki/Courrier_d%27entreprise_%C3%A0_distribution_exceptionnelle'
+                            description: 'Plus d''informations : https://fr.wikipedia.org/wiki/Courrier_d%27entreprise_%C3%A0_distribution_exceptionnelle'
                             example: '75590'
                           libelle_cedex:
                             title: Libellé du code cedex
                             type: string
                             nullable: true
                             example: PARIS CEDEX 12
-                            description: Cette variable indique le libellé correspondant
-                              au code cedex de l'établissement si celui-ci est non
-                              null. Ce libellé est le libellé utilisé dans la ligne
-                              6 d'adresse pour l'acheminement postal.
+                            description: Ce champ indique le libellé correspondant
+                              au code cedex de l'établissement. Si le code cedex est
+                              à 'null', ce champ est également à 'null'.
                           libelle_commune:
-                            title: Libellé de la commune pour une adresse en France
-                            description: Cette valeur est à nulle pour les établissements
-                              à l'étranger
+                            title: Nom de la commune pour une adresse en France
+                            description: Cette valeur est à 'null' pour les établissements
+                              à l'étranger.
                             type: string
                             example: PARIS 12
                             nullable: true
                           libelle_commune_etranger:
-                            title: Libellé complémentaire pour une adresse à l'étranger
-                            description: Cette valeur est à nulle pour les établissements
-                              en France
+                            title: Nom de la commune pour une adresse à l'étranger.
+                            description: Cette valeur est à 'null' pour les établissements
+                              en France.
                             type: string
                             nullable: true
                           code_pays_etranger:
-                            title: Code pays pour les établissements situés à l'étranger
-                            description: 'La nomenclature se trouve ici: https://www.insee.fr/fr/information/2028273'
+                            title: Code du pays pour les établissements situés à l'étranger
+                            description: 'La nomenclature des codes pays se trouve
+                              ici: https://www.insee.fr/fr/information/2028273'
                             type: string
                             example: '99132'
                             nullable: true
                           libelle_pays_etranger:
-                            title: Libellé du pays pour les établissements situés
-                              à l'étranger
+                            title: Nom du pays pour les établissements situés à l'étranger
                             type: string
                             nullable: true
                             example: ROYAUME-UNI
@@ -2053,13 +2257,15 @@ paths:
                           entreprise:
                             type: string
                             example: https://entreprises.api.gouv.fr/api/v3/insee/entreprises/130025265/
-                            description: Lien vers la ressource entreprise correspondant
-                              à cette adresse d'établissement
+                            description: Lien vers la ressource 'Donnée Sirene d'une
+                              unité légale' correspondant à cette adresse d'établissement
+                              pour obtenir les données de référence de l'unité légale.
                           etablissement:
                             type: string
                             example: https://entreprises.api.gouv.fr/api/v3/insee/etablissements/13002526500013
-                            description: Lien vers la ressource établissement correspondant
-                              à cette adresse d'établissement
+                            description: Lien vers la ressource 'Donnée Sirene d'un
+                              établissement' correspondant à cette adresse d'établissement
+                              pour obtenir les données de référence de l'établissement.
                         required:
                         - entreprise
                         - etablissement
@@ -2069,7 +2275,7 @@ paths:
                           date_derniere_mise_a_jour:
                             type: integer
                             example: 1618396818
-                            description: Date de la dernière mise à jour à l'INSEE
+                            description: Date de la dernière mise à jour à l'Insee.
                         required:
                         - date_derniere_mise_a_jour
                     required:
@@ -2124,6 +2330,9 @@ paths:
           siret_qualibat:
             value: '78824266700020'
             summary: SIRET pour Qualibat
+          siret_entrepreneur_individuel:
+            value: '38983993700015'
+            summary: SIRET d'un entrepreneur individuel (fermé)
         required: true
         schema:
           type: string
@@ -2160,7 +2369,8 @@ paths:
       security:
       - jwt_bearer_token: []
       description: Adresse de l'établissement diffusible présente dans le répertoire
-        Sirene.
+        Sirene. Pour appeler un établissement non-diffusible, se référer à l'API 'Adresse
+        d'un établissement'.
       responses:
         '403':
           description: Accès interdit
@@ -2190,8 +2400,9 @@ paths:
                             type: string
                             example: '22'
                           indice_repetition_voie:
-                            title: Indice de répétition du numero dans la voie
-                            description: 'Plus d''infos ici: https://www.sirene.fr/sirene/public/variable/indrep'
+                            title: Indice de répétition du numéro dans la voie
+                            description: 'Plus d''informations dans la documentation
+                              Insee de l''API Sirene : https://www.sirene.fr/sirene/public/variable/indrep'
                             type: string
                             nullable: true
                             enum:
@@ -2203,9 +2414,11 @@ paths:
                           type_voie:
                             title: Type de la voie de localisation
                             example: RUE
-                            description: "Cette information n'est pas toujours renseignée
-                              ou il n'en existe pas toujours dans les petites communes.
-                              \n Celle-ci est en majuscule. \n Plus d'infos: https://www.sirene.fr/sirene/public/variable/typvoie"
+                            description: "Le type de la voie de localisation est indiquée
+                              en abrégé et en majuscules. L'information n'est pas
+                              toujours renseignée. Pour certaines petites communes,
+                              l'information n'existe pas. \n \n Plus d'informations
+                              dans la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/typvoie"
                             type: string
                             nullable: true
                             enum:
@@ -2266,9 +2479,15 @@ paths:
                             nullable: true
                           code_commune:
                             title: Code commune
-                            description: "Le code commune est défini dans le COG disponible
-                              ici: https://www.insee.fr/fr/information/2028028 \n
-                              \n Cette valeur est à nulle pour les entreprises à l'étranger"
+                            description: "Le code commune désigne le code de la commune
+                              de localisation de l'établissement. Le code renvoyé
+                              correspond à la date de l'appel, ce qui implique que
+                              toute modification du code commune est repercutée sur
+                              l'ensemble des établissements concernés, y compris ceux
+                              qui sont fermés. Cette valeur est à 'null' pour les
+                              entreprises à l'étranger. \n \n Les codes sont listés
+                              dans la table d'appartenance géographique fournie par
+                              l'Insee et disponible ici: https://www.insee.fr/fr/information/2028028"
                             type: string
                             example: '75112'
                             nullable: true
@@ -2278,49 +2497,47 @@ paths:
                             type: string
                           distribution_speciale:
                             title: Distribution spéciale
-                            description: |
-                              La distribution spéciale reprend les éléments particuliers qui accompagnent une adresse de distribution spéciale. C'est un élément constitutif de l'adresse.
-
-                              Plus d'infos:
-                              * https://www.sirene.fr/sirene/public/variable/distributionSpecialeEtablissement
+                            description: "La distribution spéciale reprend les éléments
+                              particuliers qui accompagnent une adresse de distribution
+                              spéciale, la modalité la plus connue étant les adresses
+                              en 'CEDEX'. \n \n Plus d'informations dans la documentation
+                              Insee de l'API Sirene : * https://www.sirene.fr/sirene/public/variable/distributionSpecialeEtablissement
                               * https://www.sirene.fr/sirene/public/variable/l5-disp"
-                            example: CS 72809
                           code_cedex:
                             title: Code cedex
                             nullable: true
-                            description: 'Plus d''infos: https://fr.wikipedia.org/wiki/Courrier_d%27entreprise_%C3%A0_distribution_exceptionnelle'
+                            description: 'Plus d''informations : https://fr.wikipedia.org/wiki/Courrier_d%27entreprise_%C3%A0_distribution_exceptionnelle'
                             example: '75590'
                           libelle_cedex:
                             title: Libellé du code cedex
                             type: string
                             nullable: true
                             example: PARIS CEDEX 12
-                            description: Cette variable indique le libellé correspondant
-                              au code cedex de l'établissement si celui-ci est non
-                              null. Ce libellé est le libellé utilisé dans la ligne
-                              6 d'adresse pour l'acheminement postal.
+                            description: Ce champ indique le libellé correspondant
+                              au code cedex de l'établissement. Si le code cedex est
+                              à 'null', ce champ est également à 'null'.
                           libelle_commune:
-                            title: Libellé de la commune pour une adresse en France
-                            description: Cette valeur est à nulle pour les établissements
-                              à l'étranger
+                            title: Nom de la commune pour une adresse en France
+                            description: Cette valeur est à 'null' pour les établissements
+                              à l'étranger.
                             type: string
                             example: PARIS 12
                             nullable: true
                           libelle_commune_etranger:
-                            title: Libellé complémentaire pour une adresse à l'étranger
-                            description: Cette valeur est à nulle pour les établissements
-                              en France
+                            title: Nom de la commune pour une adresse à l'étranger.
+                            description: Cette valeur est à 'null' pour les établissements
+                              en France.
                             type: string
                             nullable: true
                           code_pays_etranger:
-                            title: Code pays pour les établissements situés à l'étranger
-                            description: 'La nomenclature se trouve ici: https://www.insee.fr/fr/information/2028273'
+                            title: Code du pays pour les établissements situés à l'étranger
+                            description: 'La nomenclature des codes pays se trouve
+                              ici: https://www.insee.fr/fr/information/2028273'
                             type: string
                             example: '99132'
                             nullable: true
                           libelle_pays_etranger:
-                            title: Libellé du pays pour les établissements situés
-                              à l'étranger
+                            title: Nom du pays pour les établissements situés à l'étranger
                             type: string
                             nullable: true
                             example: ROYAUME-UNI
@@ -2345,13 +2562,15 @@ paths:
                           entreprise:
                             type: string
                             example: https://entreprises.api.gouv.fr/api/v3/insee/entreprises/130025265/
-                            description: Lien vers la ressource entreprise correspondant
-                              à cette adresse d'établissement
+                            description: Lien vers la ressource 'Donnée Sirene d'une
+                              unité légale' correspondant à cette adresse d'établissement
+                              pour obtenir les données de référence de l'unité légale.
                           etablissement:
                             type: string
                             example: https://entreprises.api.gouv.fr/api/v3/insee/etablissements/13002526500013
-                            description: Lien vers la ressource établissement correspondant
-                              à cette adresse d'établissement
+                            description: Lien vers la ressource 'Donnée Sirene d'un
+                              établissement' correspondant à cette adresse d'établissement
+                              pour obtenir les données de référence de l'établissement.
                         required:
                         - entreprise
                         - etablissement
@@ -2361,7 +2580,7 @@ paths:
                           date_derniere_mise_a_jour:
                             type: integer
                             example: 1618396818
-                            description: Date de la dernière mise à jour à l'INSEE
+                            description: Date de la dernière mise à jour à l'Insee.
                         required:
                         - date_derniere_mise_a_jour
                     required:
@@ -2416,6 +2635,9 @@ paths:
           siret_qualibat:
             value: '78824266700020'
             summary: SIRET pour Qualibat
+          siret_entrepreneur_individuel:
+            value: '38983993700015'
+            summary: SIRET d'un entrepreneur individuel (fermé)
         required: true
         schema:
           type: string
@@ -2452,7 +2674,8 @@ paths:
       security:
       - jwt_bearer_token: []
       description: Obtenir des informations générales concernant un établissement
-        du répertoire Sirene.
+        inscrit au répertoire Sirene. Tous les établissements sont appelables, y compris
+        les non-diffusibles.
       responses:
         '403':
           description: Accès interdit
@@ -2502,27 +2725,50 @@ paths:
                             - true
                             - false
                             description: Indique si l'établissement est le siège social
-                              de l'entreprise
+                              de l'entreprise.
                           etat_administratif:
+                            title: État administratif de l'établissement
                             type: string
+                            example: A
                             enum:
                             - A
                             - F
-                            example: A
-                            description: "État administratif de l'établissement. \n
-                              \n - A = Actif \n - F = Fermé"
+                            description: "Cette valeur décrit l'état administratif
+                              de l'établissement, qui peut être : \n \n - actif. Sauf
+                              exception, lors de son inscription au répertoire, tout
+                              établissement est à l'état 'actif'\n\n - fermé. Cet
+                              état découle de la prise en compte d'une déclaration
+                              de fermeture. Un établissement fermé peut être rouvert.
+                              \n \n Plus d'informations dans la documentation Insee
+                              de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifEtablissement"
+                          date_fermeture:
+                            title: Date de fermeture de l'établissement
+                            type: integer
+                            nullable: true
+                            example: 1634133818
+                            description: Cette valeur est renvoyée sous format timestamp
                           activite_principale:
+                            title: Attributs de l'activité principale
                             type: object
                             properties:
                               code:
+                                title: Code de l'activité principale (APE) de l'établissement
                                 type: string
                                 example: 8411Z
-                                description: Code de l'activité principale (APE) de
-                                  l'établissement. Ce code est extrait de la nomenclature
-                                  NAF. A noter qu'un établissement n'ayant pas encore
-                                  de code APE peut se voir affecter la valeur 00.00Z
-                                  de manière provisoire.
+                                description: "Le code APE (activité principale exercée)
+                                  permet d'identifier la branche d'activité principale.
+                                  Il est attribué par l'Insee lors de l'immatriculation
+                                  ou la déclaration d'activité de l'entreprise. Ce
+                                  code de 4 chiffres + 1 lettre est extrait de la
+                                  nomenclature d'activité française (NAF) de l'Insee.
+                                  \n \n À noter qu'un établissement n'ayant pas encore
+                                  de code APE peut se voir affecter la valeur '00.00Z'
+                                  de manière provisoire. \n \n Plus d'informations
+                                  métier : https://entreprendre.service-public.fr/vosdroits/F33050
+                                  Nomemclature d'activité française - NAF rév.2 de
+                                  l'Insee : https://www.insee.fr/fr/information/2120875"
                               libelle:
+                                title: Libellé associé au code APE
                                 type: string
                                 nullable: true
                                 example: Administration publique générale
@@ -2531,36 +2777,78 @@ paths:
                                   (nomenclature en vigueur), le libellé n'est pas
                                   renseigné ici. Si le code ne correspond à aucun
                                   libellé au sein de la nomenclature 'Naf Rév2', la
-                                  valeur 'non référencé' est utilisée. \n \n Le lien
-                                  vers la nomenclature 'Naf Rév2' : https://www.insee.fr/fr/information/2406147"
+                                  valeur 'non référencé' est utilisée. \n \n Nomemclature
+                                  d'activité française - NAF rév.2 de l'Insee : https://www.insee.fr/fr/information/2406147"
                               nomenclature:
+                                title: Nomenclature associée au code
                                 type: string
                                 example: NAFRev2
-                                description: Nomenclature associée au code
+                                description: Ce champ indique le nom de la nomenclature
+                                  associée au code APE.
                             required:
                             - code
                             - libelle
                             - nomenclature
                           tranche_effectif_salarie:
                             type: object
+                            title: Attributs de la tranche d'effectif salarié
                             properties:
                               code:
+                                title: Code effectif
                                 type: string
                                 nullable: true
                                 example: '51'
+                                description: "Le code effectif correspond à la tranche
+                                  d'effectif salarié de l'établissement : \n \n -
+                                  NN : Unités non employeuses (pas de salarié au cours
+                                  de l'année de référence et pas d'effectif au 31/12).
+                                  Cette tranche peut contenir quelques effectifs inconnus
+                                  \n - 00 : 0 salarié (n'ayant pas d'effectif au 31/12
+                                  mais ayant employé des salariés au cours de l'année
+                                  de référence) \n - 01 : 1 ou 2 salariés \n - 02
+                                  : 3 à 5 salariés \n - 03 : 6 à 9 salariés \n - 11
+                                  : 10 à 19 salariés \n - 12 : 20 à 49 salariés \n
+                                  - 21 : 50 à 99 salariés \n - 22 : 100 à 199 salariés
+                                  \n - 31 : 200 à 249 salariés \n - 32 : 250 à 499
+                                  salariés \n - 41 : 500 à 999 salariés \n - 42 :
+                                  1 000 à 1 999 salariés \n - 51 : 2 000 à 4 999 salariés
+                                  \n - 52 : 5 000 à 9 999 salariés \n - 53 : 10 000
+                                  salariés et plus \n \n Plus d'informations dans
+                                  la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen"
+                                enum:
+                                - NN
+                                - '00'
+                                - '01'
+                                - '02'
+                                - '03'
+                                - '11'
+                                - '12'
+                                - '21'
+                                - '22'
+                                - '31'
+                                - '32'
+                                - '41'
+                                - '42'
+                                - '51'
+                                - '52'
+                                - '53'
                               intitule:
+                                title: Intitulé associé au code effectif
                                 type: string
                                 nullable: true
                                 example: 2 000 à 4 999 salariés
                               date_reference:
+                                title: Date de référence de l'effectif
                                 type: string
                                 nullable: true
                                 example: '2016'
                               de:
+                                title: Seuil inférieur de la tranche effectif
                                 type: integer
                                 example: 2000
                                 nullable: true
                               a:
+                                title: Seuil supérieur de la tranche effectif
                                 type: integer
                                 example: 4999
                                 nullable: true
@@ -2571,19 +2859,24 @@ paths:
                             - de
                             - a
                           diffusable_commercialement:
+                            title: Diffusable commercialement
                             type: boolean
                             example: true
                             enum:
                             - true
                             - false
-                            description: Détermine si l'établissemenr est un établissement
-                              diffusible commercialement.
+                            description: "Indique si l'établissement est : \n \n -
+                              diffusible : 'true' \n - non-diffusible : 'false'. Dans
+                              ce cas, les informations obtenues ne doivent en aucun
+                              cas être accessibles au grand public. \n \n Plus d'informations
+                              sur les conditions de diffusion : LIEN TODO"
                           date_creation:
                             type: integer
                             example: 1634103818
                         required:
                         - siege_social
                         - etat_administratif
+                        - date_fermeture
                         - activite_principale
                         - tranche_effectif_salarie
                         - diffusable_commercialement
@@ -2604,7 +2897,7 @@ paths:
                           date_derniere_mise_a_jour:
                             type: integer
                             example: 1618396818
-                            description: Date de la dernière mise à jour à l'INSEE
+                            description: Date de la dernière mise à jour à l'Insee.
                         required:
                         - date_derniere_mise_a_jour
                     required:
@@ -2659,6 +2952,9 @@ paths:
           siret_qualibat:
             value: '78824266700020'
             summary: SIRET pour Qualibat
+          siret_entrepreneur_individuel:
+            value: '38983993700015'
+            summary: SIRET d'un entrepreneur individuel (fermé)
         required: true
         schema:
           type: string
@@ -2695,7 +2991,7 @@ paths:
       security:
       - jwt_bearer_token: []
       description: Obtenir des informations générales concernant un établissement
-        diffusible du répertoire Sirene.
+        diffusible inscrit au répertoire Sirene.
       responses:
         '403':
           description: Accès interdit
@@ -2745,27 +3041,50 @@ paths:
                             - true
                             - false
                             description: Indique si l'établissement est le siège social
-                              de l'entreprise
+                              de l'entreprise.
                           etat_administratif:
+                            title: État administratif de l'établissement
                             type: string
+                            example: A
                             enum:
                             - A
                             - F
-                            example: A
-                            description: "État administratif de l'établissement. \n
-                              \n - A = Actif \n - F = Fermé"
+                            description: "Cette valeur décrit l'état administratif
+                              de l'établissement, qui peut être : \n \n - actif. Sauf
+                              exception, lors de son inscription au répertoire, tout
+                              établissement est à l'état 'actif'\n\n - fermé. Cet
+                              état découle de la prise en compte d'une déclaration
+                              de fermeture. Un établissement fermé peut être rouvert.
+                              \n \n Plus d'informations dans la documentation Insee
+                              de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifEtablissement"
+                          date_fermeture:
+                            title: Date de fermeture de l'établissement
+                            type: integer
+                            nullable: true
+                            example: 1634133818
+                            description: Cette valeur est renvoyée sous format timestamp
                           activite_principale:
+                            title: Attributs de l'activité principale
                             type: object
                             properties:
                               code:
+                                title: Code de l'activité principale (APE) de l'établissement
                                 type: string
                                 example: 8411Z
-                                description: Code de l'activité principale (APE) de
-                                  l'établissement. Ce code est extrait de la nomenclature
-                                  NAF. A noter qu'un établissement n'ayant pas encore
-                                  de code APE peut se voir affecter la valeur 00.00Z
-                                  de manière provisoire.
+                                description: "Le code APE (activité principale exercée)
+                                  permet d'identifier la branche d'activité principale.
+                                  Il est attribué par l'Insee lors de l'immatriculation
+                                  ou la déclaration d'activité de l'entreprise. Ce
+                                  code de 4 chiffres + 1 lettre est extrait de la
+                                  nomenclature d'activité française (NAF) de l'Insee.
+                                  \n \n À noter qu'un établissement n'ayant pas encore
+                                  de code APE peut se voir affecter la valeur '00.00Z'
+                                  de manière provisoire. \n \n Plus d'informations
+                                  métier : https://entreprendre.service-public.fr/vosdroits/F33050
+                                  Nomemclature d'activité française - NAF rév.2 de
+                                  l'Insee : https://www.insee.fr/fr/information/2120875"
                               libelle:
+                                title: Libellé associé au code APE
                                 type: string
                                 nullable: true
                                 example: Administration publique générale
@@ -2774,36 +3093,78 @@ paths:
                                   (nomenclature en vigueur), le libellé n'est pas
                                   renseigné ici. Si le code ne correspond à aucun
                                   libellé au sein de la nomenclature 'Naf Rév2', la
-                                  valeur 'non référencé' est utilisée. \n \n Le lien
-                                  vers la nomenclature 'Naf Rév2' : https://www.insee.fr/fr/information/2406147"
+                                  valeur 'non référencé' est utilisée. \n \n Nomemclature
+                                  d'activité française - NAF rév.2 de l'Insee : https://www.insee.fr/fr/information/2406147"
                               nomenclature:
+                                title: Nomenclature associée au code
                                 type: string
                                 example: NAFRev2
-                                description: Nomenclature associée au code
+                                description: Ce champ indique le nom de la nomenclature
+                                  associée au code APE.
                             required:
                             - code
                             - libelle
                             - nomenclature
                           tranche_effectif_salarie:
                             type: object
+                            title: Attributs de la tranche d'effectif salarié
                             properties:
                               code:
+                                title: Code effectif
                                 type: string
                                 nullable: true
                                 example: '51'
+                                description: "Le code effectif correspond à la tranche
+                                  d'effectif salarié de l'établissement : \n \n -
+                                  NN : Unités non employeuses (pas de salarié au cours
+                                  de l'année de référence et pas d'effectif au 31/12).
+                                  Cette tranche peut contenir quelques effectifs inconnus
+                                  \n - 00 : 0 salarié (n'ayant pas d'effectif au 31/12
+                                  mais ayant employé des salariés au cours de l'année
+                                  de référence) \n - 01 : 1 ou 2 salariés \n - 02
+                                  : 3 à 5 salariés \n - 03 : 6 à 9 salariés \n - 11
+                                  : 10 à 19 salariés \n - 12 : 20 à 49 salariés \n
+                                  - 21 : 50 à 99 salariés \n - 22 : 100 à 199 salariés
+                                  \n - 31 : 200 à 249 salariés \n - 32 : 250 à 499
+                                  salariés \n - 41 : 500 à 999 salariés \n - 42 :
+                                  1 000 à 1 999 salariés \n - 51 : 2 000 à 4 999 salariés
+                                  \n - 52 : 5 000 à 9 999 salariés \n - 53 : 10 000
+                                  salariés et plus \n \n Plus d'informations dans
+                                  la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen"
+                                enum:
+                                - NN
+                                - '00'
+                                - '01'
+                                - '02'
+                                - '03'
+                                - '11'
+                                - '12'
+                                - '21'
+                                - '22'
+                                - '31'
+                                - '32'
+                                - '41'
+                                - '42'
+                                - '51'
+                                - '52'
+                                - '53'
                               intitule:
+                                title: Intitulé associé au code effectif
                                 type: string
                                 nullable: true
                                 example: 2 000 à 4 999 salariés
                               date_reference:
+                                title: Date de référence de l'effectif
                                 type: string
                                 nullable: true
                                 example: '2016'
                               de:
+                                title: Seuil inférieur de la tranche effectif
                                 type: integer
                                 example: 2000
                                 nullable: true
                               a:
+                                title: Seuil supérieur de la tranche effectif
                                 type: integer
                                 example: 4999
                                 nullable: true
@@ -2819,16 +3180,18 @@ paths:
                             example: true
                             enum:
                             - true
-                            description: Détermine si l'établissement est un établissement
-                              non-diffusible. Cette valeur est toujours à true. Si
-                              vous voulez pouvoir récupérer des établissements non-diffusible,
-                              référez-vous à la documentation du endpoint INSEE établissement
+                            description: Détermine si l'établissement est non-diffusible.
+                              Cette API n'appelant pas les non-diffusible, cette valeur
+                              est toujours à 'true'. Pour récupérer des établissements
+                              non-diffusibles, référez-vous à la documentation de
+                              l'API /insee/etablissements/:siren
                           date_creation:
                             type: integer
                             example: 1634103818
                         required:
                         - siege_social
                         - etat_administratif
+                        - date_fermeture
                         - activite_principale
                         - tranche_effectif_salarie
                         - diffusable_commercialement
@@ -2849,7 +3212,7 @@ paths:
                           date_derniere_mise_a_jour:
                             type: integer
                             example: 1618396818
-                            description: Date de la dernière mise à jour à l'INSEE
+                            description: Date de la dernière mise à jour à l'Insee.
                         required:
                         - date_derniere_mise_a_jour
                     required:
@@ -2875,7 +3238,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/diffusibles/13002526500013?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/insee/sirene/unites_legales/diffusibles/{siren}/siege":
     get:
-      summary: Données de référence du siège d'une unité légale diffusible
+      summary: Données d'un siège social diffusible
       tags:
       - Informations générales
       parameters:
@@ -2901,6 +3264,9 @@ paths:
           siren_opqibi:
             value: '515228211'
             summary: SIREN pour OPQIBI
+          siren_entrepreneur_individuel:
+            value: '389839937'
+            summary: SIREN d'un entrepeneur individuel (cessé)
         required: true
         schema:
           type: string
@@ -2937,7 +3303,8 @@ paths:
       security:
       - jwt_bearer_token: []
       description: Obtenir des informations générales concernant le siège d'une unité
-        légale diffusable du répertoire Sirene.
+        légale diffusable inscrite au répertoire Sirene. Pour appeler un établissement
+        non-diffusible, se référer à l'API 'Siège social d'une unité légale'.
       responses:
         '403':
           description: Accès interdit
@@ -2987,27 +3354,50 @@ paths:
                             - true
                             - false
                             description: Indique si l'établissement est le siège social
-                              de l'entreprise
+                              de l'entreprise.
                           etat_administratif:
+                            title: État administratif de l'établissement
                             type: string
+                            example: A
                             enum:
                             - A
                             - F
-                            example: A
-                            description: "État administratif de l'établissement. \n
-                              \n - A = Actif \n - F = Fermé"
+                            description: "Cette valeur décrit l'état administratif
+                              de l'établissement, qui peut être : \n \n - actif. Sauf
+                              exception, lors de son inscription au répertoire, tout
+                              établissement est à l'état 'actif'\n\n - fermé. Cet
+                              état découle de la prise en compte d'une déclaration
+                              de fermeture. Un établissement fermé peut être rouvert.
+                              \n \n Plus d'informations dans la documentation Insee
+                              de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifEtablissement"
+                          date_fermeture:
+                            title: Date de fermeture de l'établissement
+                            type: integer
+                            nullable: true
+                            example: 1634133818
+                            description: Cette valeur est renvoyée sous format timestamp
                           activite_principale:
+                            title: Attributs de l'activité principale
                             type: object
                             properties:
                               code:
+                                title: Code de l'activité principale (APE) de l'établissement
                                 type: string
                                 example: 8411Z
-                                description: Code de l'activité principale (APE) de
-                                  l'établissement. Ce code est extrait de la nomenclature
-                                  NAF. A noter qu'un établissement n'ayant pas encore
-                                  de code APE peut se voir affecter la valeur 00.00Z
-                                  de manière provisoire.
+                                description: "Le code APE (activité principale exercée)
+                                  permet d'identifier la branche d'activité principale.
+                                  Il est attribué par l'Insee lors de l'immatriculation
+                                  ou la déclaration d'activité de l'entreprise. Ce
+                                  code de 4 chiffres + 1 lettre est extrait de la
+                                  nomenclature d'activité française (NAF) de l'Insee.
+                                  \n \n À noter qu'un établissement n'ayant pas encore
+                                  de code APE peut se voir affecter la valeur '00.00Z'
+                                  de manière provisoire. \n \n Plus d'informations
+                                  métier : https://entreprendre.service-public.fr/vosdroits/F33050
+                                  Nomemclature d'activité française - NAF rév.2 de
+                                  l'Insee : https://www.insee.fr/fr/information/2120875"
                               libelle:
+                                title: Libellé associé au code APE
                                 type: string
                                 nullable: true
                                 example: Administration publique générale
@@ -3016,36 +3406,78 @@ paths:
                                   (nomenclature en vigueur), le libellé n'est pas
                                   renseigné ici. Si le code ne correspond à aucun
                                   libellé au sein de la nomenclature 'Naf Rév2', la
-                                  valeur 'non référencé' est utilisée. \n \n Le lien
-                                  vers la nomenclature 'Naf Rév2' : https://www.insee.fr/fr/information/2406147"
+                                  valeur 'non référencé' est utilisée. \n \n Nomemclature
+                                  d'activité française - NAF rév.2 de l'Insee : https://www.insee.fr/fr/information/2406147"
                               nomenclature:
+                                title: Nomenclature associée au code
                                 type: string
                                 example: NAFRev2
-                                description: Nomenclature associée au code
+                                description: Ce champ indique le nom de la nomenclature
+                                  associée au code APE.
                             required:
                             - code
                             - libelle
                             - nomenclature
                           tranche_effectif_salarie:
                             type: object
+                            title: Attributs de la tranche d'effectif salarié
                             properties:
                               code:
+                                title: Code effectif
                                 type: string
                                 nullable: true
                                 example: '51'
+                                description: "Le code effectif correspond à la tranche
+                                  d'effectif salarié de l'établissement : \n \n -
+                                  NN : Unités non employeuses (pas de salarié au cours
+                                  de l'année de référence et pas d'effectif au 31/12).
+                                  Cette tranche peut contenir quelques effectifs inconnus
+                                  \n - 00 : 0 salarié (n'ayant pas d'effectif au 31/12
+                                  mais ayant employé des salariés au cours de l'année
+                                  de référence) \n - 01 : 1 ou 2 salariés \n - 02
+                                  : 3 à 5 salariés \n - 03 : 6 à 9 salariés \n - 11
+                                  : 10 à 19 salariés \n - 12 : 20 à 49 salariés \n
+                                  - 21 : 50 à 99 salariés \n - 22 : 100 à 199 salariés
+                                  \n - 31 : 200 à 249 salariés \n - 32 : 250 à 499
+                                  salariés \n - 41 : 500 à 999 salariés \n - 42 :
+                                  1 000 à 1 999 salariés \n - 51 : 2 000 à 4 999 salariés
+                                  \n - 52 : 5 000 à 9 999 salariés \n - 53 : 10 000
+                                  salariés et plus \n \n Plus d'informations dans
+                                  la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen"
+                                enum:
+                                - NN
+                                - '00'
+                                - '01'
+                                - '02'
+                                - '03'
+                                - '11'
+                                - '12'
+                                - '21'
+                                - '22'
+                                - '31'
+                                - '32'
+                                - '41'
+                                - '42'
+                                - '51'
+                                - '52'
+                                - '53'
                               intitule:
+                                title: Intitulé associé au code effectif
                                 type: string
                                 nullable: true
                                 example: 2 000 à 4 999 salariés
                               date_reference:
+                                title: Date de référence de l'effectif
                                 type: string
                                 nullable: true
                                 example: '2016'
                               de:
+                                title: Seuil inférieur de la tranche effectif
                                 type: integer
                                 example: 2000
                                 nullable: true
                               a:
+                                title: Seuil supérieur de la tranche effectif
                                 type: integer
                                 example: 4999
                                 nullable: true
@@ -3061,16 +3493,18 @@ paths:
                             example: true
                             enum:
                             - true
-                            description: Détermine si l'établissement est un établissement
-                              non-diffusible. Cette valeur est toujours à true. Si
-                              vous voulez pouvoir récupérer des établissements non-diffusible,
-                              référez-vous à la documentation du endpoint INSEE établissement
+                            description: Détermine si l'établissement est non-diffusible.
+                              Cette API n'appelant pas les non-diffusible, cette valeur
+                              est toujours à 'true'. Pour récupérer des établissements
+                              non-diffusibles, référez-vous à la documentation de
+                              l'API /insee/etablissements/:siren
                           date_creation:
                             type: integer
                             example: 1634103818
                         required:
                         - siege_social
                         - etat_administratif
+                        - date_fermeture
                         - activite_principale
                         - tranche_effectif_salarie
                         - diffusable_commercialement
@@ -3091,7 +3525,7 @@ paths:
                           date_derniere_mise_a_jour:
                             type: integer
                             example: 1618396818
-                            description: Date de la dernière mise à jour à l'INSEE
+                            description: Date de la dernière mise à jour à l'Insee.
                         required:
                         - date_derniere_mise_a_jour
                     required:
@@ -3117,7 +3551,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/insee/sirene/unites_legales/diffusibles/130025265/siege?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/insee/sirene/unites_legales/{siren}/siege":
     get:
-      summary: Données de référence du siège d'une unité légale
+      summary: Données d'un siège social
       tags:
       - Informations générales
       parameters:
@@ -3143,6 +3577,9 @@ paths:
           siren_opqibi:
             value: '515228211'
             summary: SIREN pour OPQIBI
+          siren_entrepreneur_individuel:
+            value: '389839937'
+            summary: SIREN d'un entrepeneur individuel (cessé)
         required: true
         schema:
           type: string
@@ -3178,8 +3615,9 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir des informations générales concernant le siège d'une unité
-        légale du répertoire Sirene.
+      description: Obtenir des informations générales concernant le siège social d'une
+        unité légale inscrite au répertoire Sirene. Tous les établissements sont appelables,
+        y compris les non-diffusibles.
       responses:
         '403':
           description: Accès interdit
@@ -3229,27 +3667,50 @@ paths:
                             - true
                             - false
                             description: Indique si l'établissement est le siège social
-                              de l'entreprise
+                              de l'entreprise.
                           etat_administratif:
+                            title: État administratif de l'établissement
                             type: string
+                            example: A
                             enum:
                             - A
                             - F
-                            example: A
-                            description: "État administratif de l'établissement. \n
-                              \n - A = Actif \n - F = Fermé"
+                            description: "Cette valeur décrit l'état administratif
+                              de l'établissement, qui peut être : \n \n - actif. Sauf
+                              exception, lors de son inscription au répertoire, tout
+                              établissement est à l'état 'actif'\n\n - fermé. Cet
+                              état découle de la prise en compte d'une déclaration
+                              de fermeture. Un établissement fermé peut être rouvert.
+                              \n \n Plus d'informations dans la documentation Insee
+                              de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifEtablissement"
+                          date_fermeture:
+                            title: Date de fermeture de l'établissement
+                            type: integer
+                            nullable: true
+                            example: 1634133818
+                            description: Cette valeur est renvoyée sous format timestamp
                           activite_principale:
+                            title: Attributs de l'activité principale
                             type: object
                             properties:
                               code:
+                                title: Code de l'activité principale (APE) de l'établissement
                                 type: string
                                 example: 8411Z
-                                description: Code de l'activité principale (APE) de
-                                  l'établissement. Ce code est extrait de la nomenclature
-                                  NAF. A noter qu'un établissement n'ayant pas encore
-                                  de code APE peut se voir affecter la valeur 00.00Z
-                                  de manière provisoire.
+                                description: "Le code APE (activité principale exercée)
+                                  permet d'identifier la branche d'activité principale.
+                                  Il est attribué par l'Insee lors de l'immatriculation
+                                  ou la déclaration d'activité de l'entreprise. Ce
+                                  code de 4 chiffres + 1 lettre est extrait de la
+                                  nomenclature d'activité française (NAF) de l'Insee.
+                                  \n \n À noter qu'un établissement n'ayant pas encore
+                                  de code APE peut se voir affecter la valeur '00.00Z'
+                                  de manière provisoire. \n \n Plus d'informations
+                                  métier : https://entreprendre.service-public.fr/vosdroits/F33050
+                                  Nomemclature d'activité française - NAF rév.2 de
+                                  l'Insee : https://www.insee.fr/fr/information/2120875"
                               libelle:
+                                title: Libellé associé au code APE
                                 type: string
                                 nullable: true
                                 example: Administration publique générale
@@ -3258,36 +3719,78 @@ paths:
                                   (nomenclature en vigueur), le libellé n'est pas
                                   renseigné ici. Si le code ne correspond à aucun
                                   libellé au sein de la nomenclature 'Naf Rév2', la
-                                  valeur 'non référencé' est utilisée. \n \n Le lien
-                                  vers la nomenclature 'Naf Rév2' : https://www.insee.fr/fr/information/2406147"
+                                  valeur 'non référencé' est utilisée. \n \n Nomemclature
+                                  d'activité française - NAF rév.2 de l'Insee : https://www.insee.fr/fr/information/2406147"
                               nomenclature:
+                                title: Nomenclature associée au code
                                 type: string
                                 example: NAFRev2
-                                description: Nomenclature associée au code
+                                description: Ce champ indique le nom de la nomenclature
+                                  associée au code APE.
                             required:
                             - code
                             - libelle
                             - nomenclature
                           tranche_effectif_salarie:
                             type: object
+                            title: Attributs de la tranche d'effectif salarié
                             properties:
                               code:
+                                title: Code effectif
                                 type: string
                                 nullable: true
                                 example: '51'
+                                description: "Le code effectif correspond à la tranche
+                                  d'effectif salarié de l'établissement : \n \n -
+                                  NN : Unités non employeuses (pas de salarié au cours
+                                  de l'année de référence et pas d'effectif au 31/12).
+                                  Cette tranche peut contenir quelques effectifs inconnus
+                                  \n - 00 : 0 salarié (n'ayant pas d'effectif au 31/12
+                                  mais ayant employé des salariés au cours de l'année
+                                  de référence) \n - 01 : 1 ou 2 salariés \n - 02
+                                  : 3 à 5 salariés \n - 03 : 6 à 9 salariés \n - 11
+                                  : 10 à 19 salariés \n - 12 : 20 à 49 salariés \n
+                                  - 21 : 50 à 99 salariés \n - 22 : 100 à 199 salariés
+                                  \n - 31 : 200 à 249 salariés \n - 32 : 250 à 499
+                                  salariés \n - 41 : 500 à 999 salariés \n - 42 :
+                                  1 000 à 1 999 salariés \n - 51 : 2 000 à 4 999 salariés
+                                  \n - 52 : 5 000 à 9 999 salariés \n - 53 : 10 000
+                                  salariés et plus \n \n Plus d'informations dans
+                                  la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen"
+                                enum:
+                                - NN
+                                - '00'
+                                - '01'
+                                - '02'
+                                - '03'
+                                - '11'
+                                - '12'
+                                - '21'
+                                - '22'
+                                - '31'
+                                - '32'
+                                - '41'
+                                - '42'
+                                - '51'
+                                - '52'
+                                - '53'
                               intitule:
+                                title: Intitulé associé au code effectif
                                 type: string
                                 nullable: true
                                 example: 2 000 à 4 999 salariés
                               date_reference:
+                                title: Date de référence de l'effectif
                                 type: string
                                 nullable: true
                                 example: '2016'
                               de:
+                                title: Seuil inférieur de la tranche effectif
                                 type: integer
                                 example: 2000
                                 nullable: true
                               a:
+                                title: Seuil supérieur de la tranche effectif
                                 type: integer
                                 example: 4999
                                 nullable: true
@@ -3298,19 +3801,24 @@ paths:
                             - de
                             - a
                           diffusable_commercialement:
+                            title: Diffusable commercialement
                             type: boolean
                             example: true
                             enum:
                             - true
                             - false
-                            description: Détermine si l'établissemenr est un établissement
-                              diffusible commercialement.
+                            description: "Indique si l'établissement est : \n \n -
+                              diffusible : 'true' \n - non-diffusible : 'false'. Dans
+                              ce cas, les informations obtenues ne doivent en aucun
+                              cas être accessibles au grand public. \n \n Plus d'informations
+                              sur les conditions de diffusion : LIEN TODO"
                           date_creation:
                             type: integer
                             example: 1634103818
                         required:
                         - siege_social
                         - etat_administratif
+                        - date_fermeture
                         - activite_principale
                         - tranche_effectif_salarie
                         - diffusable_commercialement
@@ -3331,7 +3839,7 @@ paths:
                           date_derniere_mise_a_jour:
                             type: integer
                             example: 1618396818
-                            description: Date de la dernière mise à jour à l'INSEE
+                            description: Date de la dernière mise à jour à l'Insee.
                         required:
                         - date_derniere_mise_a_jour
                     required:
@@ -3383,6 +3891,9 @@ paths:
           siren_opqibi:
             value: '515228211'
             summary: SIREN pour OPQIBI
+          siren_entrepreneur_individuel:
+            value: '389839937'
+            summary: SIREN d'un entrepeneur individuel (cessé)
         required: true
         schema:
           type: string
@@ -3418,9 +3929,10 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir les informations de référence d'une unité légale, qui est
-        soit entreprise, soit administration, soit une association présente dans le
-        répertoire Sirene.
+      description: Obtenir les informations de référence d'une unité légale (entreprises,
+        associations et administrations) inscrite au répertoire Sirene, telles que
+        le type d'entreprise, son activité et son état administratif. Toutes les unités
+        légales sont appelables, y compris les non-diffusibles.
       responses:
         '403':
           description: Accès interdit
@@ -3464,7 +3976,7 @@ paths:
                         type: object
                         properties:
                           siret_siege_social:
-                            title: Siret du siège social
+                            title: SIRET du siège social
                             type: string
                             example: '13002526500013'
                           type:
@@ -3474,15 +3986,15 @@ paths:
                             - personne_physique
                             - personne_morale
                             example: personne_morale
-                            description: 'Détermine si l''unité légale est une personne
+                            description: 'Indique si l''unité légale est une personne
                               morale ou une personne physique. Cette valeur est déterminée
-                              à l''aide du code juridique : 1000 correspond à une
-                              personne physique.'
+                              à l''aide du code juridique : ''1000'' correspondant
+                              à une personne physique.'
                           personne_morale_attributs:
                             type: object
                             title: Attributs de la personne morale
-                            description: Attributs associé à la personne morale. L'ensemble
-                              des valeurs sont à null pour les personnes physiques.
+                            description: Attributs associés à la personne morale.
+                              Les valeurs sont à 'null' pour les personnes physiques.
                             properties:
                               raison_sociale:
                                 title: Raison sociale de l'unité légale
@@ -3494,9 +4006,8 @@ paths:
                           personne_physique_attributs:
                             type: object
                             title: Attributs de la personne physique
-                            description: Attributs associé à la personne physique.
-                              L'ensemble des valeurs sont à null pour les personnes
-                              morales.
+                            description: Attributs associés à la personne physique.
+                              Les valeurs sont à 'null' pour les personnes morales.
                             properties:
                               pseudonyme:
                                 title: Pseudonyme
@@ -3513,9 +4024,9 @@ paths:
                                 nullable: true
                                 description: Le prénom usuel est le prénom par lequel
                                   une personne choisit de se faire appeler dans la
-                                  vie courante, parmi l'ensemble de ceux qui lui ont
-                                  été donnés à sa naissance et qui sont inscrits à
-                                  l'état civil.
+                                  vie courante. Ce prénom fait partie de ceux qui
+                                  lui ont été donnés à sa naissance et qui sont inscrits
+                                  à l'état civil.
                               prenom_1:
                                 title: Prénom numéro 1 déclaré
                                 type: string
@@ -3542,7 +4053,7 @@ paths:
                                 example: Dupont
                                 nullable: true
                                 description: Nom que la personne physique a choisi
-                                  d'utiliser
+                                  d'utiliser.
                               nom_naissance:
                                 title: Nom de naissance
                                 type: string
@@ -3580,32 +4091,39 @@ paths:
                             - PME
                             -
                             description: "Il s'agit d'une variable statistique calculée
-                              par l'INSEE. Elle ne peut prendre que 3 valeurs: \n
+                              par l'Insee. Elle ne peut prendre que 3 valeurs: \n
                               \n - GE: Grande Entreprise \n - ETI: Entreprise de Taille
                               Intermédiaire \n - PME: Petite ou Moyenne Entreprise
-                              \n \n Celle-ci peut-être nulle dans certains cas : il
-                              s’agit soit d’une unité légale nouvellement créée, soit
-                              d’une unité légale cessée, soit d’une unité légale hors
-                              champ du calcul de la catégorie (unité légale agricole
-                              ou ne faisant pas partie du système productif) \n \n
-                              La définition peut-être trouvée sur le lien suivant
+                              \n \n Celle-ci peut-être 'null' dans certains cas :
+                              quand il s’agit d’une unité légale nouvellement créée,
+                              ou bien d’une unité légale cessée, ou encore d’une unité
+                              légale hors champ du calcul de la catégorie (unité légale
+                              agricole ou ne faisant pas partie du système productif).
+                              \n \n Définition de 'catégorie d'entreprise' par l'Insee
                               : https://www.insee.fr/fr/metadonnees/definition/c1057"
                           numero_tva_intracommunautaire:
                             title: Numéro de TVA intracommunautaire
                             type: string
                             example: FR07130025265
-                            description: 'Cette valeur est calculée à l''aide du numéro
-                              de siren, cette donnée est donc théorique: une entreprise
-                              dont le siège social se trouve à l''étranger n''a probablement
-                              pas de numéro de TVA français.'
+                            description: "Le numéro de TVA intracommunautaire est
+                              un numéro d’identification individuel attribué aux entreprises
+                              assujetties à la TVA et domiciliées au sein de l’Union
+                              européenne. Le numéro renvoyé par l'API est calculé
+                              par API Entreprise à l'aide du numéro de SIREN, cette
+                              donnée est donc théorique. \n \n Dans le cas où l’établissement
+                              siège est à l’étranger la valeur est systématiquement
+                              'null' \n \n Plus d'informations sur la méthode de calcul
+                              : LIEN TODO"
                           diffusable_commercialement:
                             title: Diffusable commercialement
                             type: boolean
                             example: true
-                            description: Détermine si l'unité légale est une unité
-                              légale non-diffusible. Si celle-ci est non-diffusible,
-                              ses informations ne doivent en aucun cas être accessibles
-                              au grand public.
+                            description: "Indique si l'unité légale est : \n \n -
+                              une unité légale diffusible : 'true' \n - une unité
+                              légale non-diffusible : 'false'. Dans ce cas, les informations
+                              obtenues ne doivent en aucun cas être accessibles au
+                              grand public. \n \n Plus d'informations sur les conditions
+                              de diffusion : LIEN TODO"
                           forme_juridique:
                             type: object
                             title: Attributs de la forme juridique
@@ -3614,16 +4132,34 @@ paths:
                                 title: Code de la forme juridique de l'unité légale.
                                 type: string
                                 example: '7120'
-                                description: "Cette variable est à 1000 pour les personnes
-                                  physiques. \n \n La liste complète se trouve ici:
-                                  https://www.insee.fr/fr/information/2028129"
+                                description: "Il existe plus de 300 catégories juridiques,
+                                  identifiables par un code spécifique à quatre chiffres.
+                                  Leur nomenclature comporte 3 niveaux. Le premier
+                                  niveau de classement contient 9 grandes catégories
+                                  identifiables avec le premier chiffre du code :
+                                  \n \n - 0 : Organisme de placement collectif en
+                                  valeurs mobilières sans personnalité morale \n -
+                                  1 : Entrepreneur individuel. La catégorie juridique
+                                  des personnes physiques est '1000'. \n - 2 : Groupement
+                                  de droit privé non doté de la personnalité morale
+                                  \n - 3 : Personne morale de droit étranger \n -
+                                  4 : Personne morale de droit public soumise au droit
+                                  commercial \n - 5 : Société commerciale \n - 6 :
+                                  Autre personne morale immatriculée au RCS \n - 7
+                                  : Personne morale et organisme soumis au droit administratif
+                                  \n - 8 : Organisme privé spécialisé \n - 9 : Groupement
+                                  de droit privé \n \n Nomenclature exhaustive des
+                                  codes fournie par l'Insee : https://www.insee.fr/fr/information/2028129"
                               libelle:
                                 title: Libellé associé au code de la forme juridique
                                   de l'unité légale.
                                 type: string
                                 example: Service central d'un ministère
-                                description: Si le code ne correspond à aucun libellé
-                                  la valeur 'non référencé' est utilisée.
+                                description: "indique le libellé correspondant au
+                                  code juridique. Si le code ne correspond à aucun
+                                  libellé la valeur 'non référencé' est utilisée.
+                                  \n \n Nomenclature exhaustive fournie par l'Insee
+                                  : https://www.insee.fr/fr/information/2028129"
                             required:
                             - code
                             - libelle
@@ -3636,10 +4172,18 @@ paths:
                                   légale
                                 type: string
                                 example: 8411Z
-                                description: Ce code est extrait de la nomenclature
-                                  NAF. A noter qu'une entreprise n'ayant pas encore
-                                  de code APE peut se voir affecter la valeur 00.00Z
-                                  de manière provisoire.
+                                description: "Le code APE (activité principale exercée)
+                                  permet d'identifier la branche d'activité principale.
+                                  Il est attribué par l'Insee lors de l'immatriculation
+                                  ou la déclaration d'activité de l'entreprise. Ce
+                                  code de 4 chiffres + 1 lettre est extrait de la
+                                  nomenclature d'activité française (NAF) de l'Insee.
+                                  \n \n À noter qu'une entreprise n'ayant pas encore
+                                  de code APE peut se voir affecter la valeur '00.00Z'
+                                  de manière provisoire. \n \n Plus d'informations
+                                  métier : https://entreprendre.service-public.fr/vosdroits/F33050
+                                  Nomemclature d'activité française - NAF rév.2 de
+                                  l'Insee : https://www.insee.fr/fr/information/2120875"
                               libelle:
                                 title: Libellé associé au code APE
                                 type: string
@@ -3650,12 +4194,14 @@ paths:
                                   le libellé n'est pas renseigné ici. Si le code ne
                                   correspond à aucun libellé au sein de la nomenclature
                                   'Naf Rév2', la valeur 'non référencé' est utilisée.
-                                  \n \n Le lien vers la nomenclature 'Naf Rév2' :
-                                  https://www.insee.fr/fr/information/2406147"
+                                  \n \n Nomemclature d'activité française - NAF rév.2
+                                  de l'Insee : https://www.insee.fr/fr/information/2406147"
                               nomenclature:
                                 title: Nomenclature associée au code
                                 type: string
                                 example: NAFRev2
+                                description: Ce champ indique le nom de la nomenclature
+                                  associée au code APE.
                             required:
                             - code
                             - libelle
@@ -3668,19 +4214,60 @@ paths:
                                 type: string
                                 nullable: true
                                 example: '51'
+                                description: "Le code effectif correspond à la tranche
+                                  d'effectif salarié de l'entreprise. Le nombre de
+                                  salarié est déterminé en fonction de l'effectif
+                                  de l'entreprise et de chacun de ses établissements
+                                  : \n \n - NN : Unités non employeuses (pas de salarié
+                                  au cours de l'année de référence et pas d'effectif
+                                  au 31/12). Cette tranche peut contenir quelques
+                                  effectifs inconnus \n - 00 : 0 salarié (n'ayant
+                                  pas d'effectif au 31/12 mais ayant employé des salariés
+                                  au cours de l'année de référence) \n - 01 : 1 ou
+                                  2 salariés \n - 02 : 3 à 5 salariés \n - 03 : 6
+                                  à 9 salariés \n - 11 : 10 à 19 salariés \n - 12
+                                  : 20 à 49 salariés \n - 21 : 50 à 99 salariés \n
+                                  - 22 : 100 à 199 salariés \n - 31 : 200 à 249 salariés
+                                  \n - 32 : 250 à 499 salariés \n - 41 : 500 à 999
+                                  salariés \n - 42 : 1 000 à 1 999 salariés \n - 51
+                                  : 2 000 à 4 999 salariés \n - 52 : 5 000 à 9 999
+                                  salariés \n - 53 : 10 000 salariés et plus \n \n
+                                  Plus d'informations dans la documentation Insee
+                                  de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen"
+                                enum:
+                                - NN
+                                - '00'
+                                - '01'
+                                - '02'
+                                - '03'
+                                - '11'
+                                - '12'
+                                - '21'
+                                - '22'
+                                - '31'
+                                - '32'
+                                - '41'
+                                - '42'
+                                - '51'
+                                - '52'
+                                - '53'
                               intitule:
+                                title: Intitulé associé au code effectif
                                 type: string
                                 nullable: true
                                 example: 2 000 à 4 999 salariés
                               date_reference:
+                                title: Date de référence de l'effectif
                                 type: string
                                 nullable: true
                                 example: '2016'
                               de:
+                                title: Seuil inférieur de la tranche effectif
                                 type: integer
                                 example: 2000
                                 nullable: true
                               a:
+                                title: Seuil supérieur de la tranche effectif
                                 type: integer
                                 example: 4999
                                 nullable: true
@@ -3696,19 +4283,39 @@ paths:
                             enum:
                             - A
                             - C
-                            example: A
-                            description: " - A = Active \n - C = Cessée "
+                            description: "Cette valeur décrit l'état administratif
+                              de l'unité légale, qui peut être : \n \n - cessée. Le
+                              passage à l'état « Cessée » découle de la prise en compte
+                              d'une déclaration de cessation administrative. Pour
+                              les personnes morales, cela correspond au dépôt de la
+                              déclaration de disparition de la personne morale. Pour
+                              les personnes physiques, cela correspond soit à la prise
+                              en compte de la déclaration de cessation d'activité
+                              déposée par l'exploitant soit au décès de l'exploitant
+                              conformément à la réglementation. \n - active. En dehors
+                              des cas explicités ci-dessus, l'unité légale est toujours
+                              à l'état administratif « Active ». \n \n Plus d'informations
+                              dans la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifUniteLegale"
                           date_cessation:
                             title: Date de cessation de l'unité légale
                             type: integer
                             nullable: true
                             example: 1634133818
-                            description: Cette valeur est renvoyée sous format timestamp
+                            description: Cette valeur est renvoyée sous format timestamp.
+                              Si l'entreprise est juridique active, cette valeur est
+                              à 'null'.
                           date_creation:
-                            title: Date de cessation de l'unité légale
+                            title: Date de création de l'unité légale
                             type: integer
                             example: 1634103818
-                            description: Cette valeur est renvoyée sous format timestamp
+                            description: "La date de création correspond à la date
+                              qui figure dans les statuts de l'entreprise qui sont
+                              déposés au centre de formalité des entreprises (CFE)
+                              compétent. Cette valeur est renvoyée sous format timestamp.
+                              \n \n Sauf pour les unités purgées, la date de création
+                              n'est jamais à 'null'. Si elle est non renseignée, elle
+                              sera au 01/01/1900. \n \n Plus d'informations dans la
+                              documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/dateCreationUniteLegale"
                         required:
                         - siret_siege_social
                         - type
@@ -3729,13 +4336,14 @@ paths:
                           siege_social:
                             type: string
                             example: https://entreprises.api.gouv.fr/api/v3/insee/etablissements/30613890001294
-                            description: Lien vers la ressource établissement correspondant
-                              au siège social
+                            description: Lien vers la ressource 'Données de référence
+                              d'un établissement' correspondant au siège social de
+                              cette unité légale.
                           siege_social_adresse:
                             type: string
                             example: https://entreprises.api.gouv.fr/api/v3/insee/etablissements/30613890001294/adresse
-                            description: Lien vers la ressource adresse de l'établissement
-                              correspondant au siège social
+                            description: Lien vers la ressource 'Adresse d'un établissement'
+                              correspondant au siège social de cette unité légale.
                         required:
                         - siege_social
                         - siege_social_adresse
@@ -3745,7 +4353,7 @@ paths:
                           date_derniere_mise_a_jour:
                             type: integer
                             example: 1618396818
-                            description: Date de la dernière mise à jour à l'INSEE
+                            description: Date de la dernière mise à jour à l'Insee.
                         required:
                         - date_derniere_mise_a_jour
                     required:
@@ -3771,7 +4379,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/insee/sirene/unites_legales/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/insee/sirene/unites_legales/diffusibles/{siren}":
     get:
-      summary: Données de référence d'une entité légale diffusable commercialement
+      summary: Données de référence d'une unité légale diffusible
       tags:
       - Informations générales
       parameters:
@@ -3797,6 +4405,9 @@ paths:
           siren_opqibi:
             value: '515228211'
             summary: SIREN pour OPQIBI
+          siren_entrepreneur_individuel:
+            value: '389839937'
+            summary: SIREN d'un entrepeneur individuel (cessé)
         required: true
         schema:
           type: string
@@ -3832,10 +4443,11 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir les informations de référence d'une unité légale, qui est
-        soit uneentreprise, soit une administration, soit une association, présente
-        dans le répertoire Sirene. Ce endpoint ne renvoi que des entités diffusable
-        commercialement.
+      description: Obtenir les informations de référence d'une unité légale (entreprises,
+        associations et administrations), inscrite au répertoire Sirene, telles que
+        le type d'entreprise, son activité et son état administratif. Pour appeler
+        une unité légale non-diffusible, se référer à l'API 'Données de référence
+        d'une unité légale'.
       responses:
         '403':
           description: Accès interdit
@@ -3879,7 +4491,7 @@ paths:
                         type: object
                         properties:
                           siret_siege_social:
-                            title: Siret du siège social
+                            title: SIRET du siège social
                             type: string
                             example: '13002526500013'
                           type:
@@ -3889,15 +4501,15 @@ paths:
                             - personne_physique
                             - personne_morale
                             example: personne_morale
-                            description: 'Détermine si l''unité légale est une personne
+                            description: 'Indique si l''unité légale est une personne
                               morale ou une personne physique. Cette valeur est déterminée
-                              à l''aide du code juridique : 1000 correspond à une
-                              personne physique.'
+                              à l''aide du code juridique : ''1000'' correspondant
+                              à une personne physique.'
                           personne_morale_attributs:
                             type: object
                             title: Attributs de la personne morale
-                            description: Attributs associé à la personne morale. L'ensemble
-                              des valeurs sont à null pour les personnes physiques.
+                            description: Attributs associés à la personne morale.
+                              Les valeurs sont à 'null' pour les personnes physiques.
                             properties:
                               raison_sociale:
                                 title: Raison sociale de l'unité légale
@@ -3909,9 +4521,8 @@ paths:
                           personne_physique_attributs:
                             type: object
                             title: Attributs de la personne physique
-                            description: Attributs associé à la personne physique.
-                              L'ensemble des valeurs sont à null pour les personnes
-                              morales.
+                            description: Attributs associés à la personne physique.
+                              Les valeurs sont à 'null' pour les personnes morales.
                             properties:
                               pseudonyme:
                                 title: Pseudonyme
@@ -3928,9 +4539,9 @@ paths:
                                 nullable: true
                                 description: Le prénom usuel est le prénom par lequel
                                   une personne choisit de se faire appeler dans la
-                                  vie courante, parmi l'ensemble de ceux qui lui ont
-                                  été donnés à sa naissance et qui sont inscrits à
-                                  l'état civil.
+                                  vie courante. Ce prénom fait partie de ceux qui
+                                  lui ont été donnés à sa naissance et qui sont inscrits
+                                  à l'état civil.
                               prenom_1:
                                 title: Prénom numéro 1 déclaré
                                 type: string
@@ -3957,7 +4568,7 @@ paths:
                                 example: Dupont
                                 nullable: true
                                 description: Nom que la personne physique a choisi
-                                  d'utiliser
+                                  d'utiliser.
                               nom_naissance:
                                 title: Nom de naissance
                                 type: string
@@ -3995,34 +4606,40 @@ paths:
                             - PME
                             -
                             description: "Il s'agit d'une variable statistique calculée
-                              par l'INSEE. Elle ne peut prendre que 3 valeurs: \n
+                              par l'Insee. Elle ne peut prendre que 3 valeurs: \n
                               \n - GE: Grande Entreprise \n - ETI: Entreprise de Taille
                               Intermédiaire \n - PME: Petite ou Moyenne Entreprise
-                              \n \n Celle-ci peut-être nulle dans certains cas : il
-                              s’agit soit d’une unité légale nouvellement créée, soit
-                              d’une unité légale cessée, soit d’une unité légale hors
-                              champ du calcul de la catégorie (unité légale agricole
-                              ou ne faisant pas partie du système productif) \n \n
-                              La définition peut-être trouvée sur le lien suivant
+                              \n \n Celle-ci peut-être 'null' dans certains cas :
+                              quand il s’agit d’une unité légale nouvellement créée,
+                              ou bien d’une unité légale cessée, ou encore d’une unité
+                              légale hors champ du calcul de la catégorie (unité légale
+                              agricole ou ne faisant pas partie du système productif).
+                              \n \n Définition de 'catégorie d'entreprise' par l'Insee
                               : https://www.insee.fr/fr/metadonnees/definition/c1057"
                           numero_tva_intracommunautaire:
                             title: Numéro de TVA intracommunautaire
                             type: string
                             example: FR07130025265
-                            description: 'Cette valeur est calculée à l''aide du numéro
-                              de siren, cette donnée est donc théorique: une entreprise
-                              dont le siège social se trouve à l''étranger n''a probablement
-                              pas de numéro de TVA français.'
+                            description: "Le numéro de TVA intracommunautaire est
+                              un numéro d’identification individuel attribué aux entreprises
+                              assujetties à la TVA et domiciliées au sein de l’Union
+                              européenne. Le numéro renvoyé par l'API est calculé
+                              par API Entreprise à l'aide du numéro de SIREN, cette
+                              donnée est donc théorique. \n \n Dans le cas où l’établissement
+                              siège est à l’étranger la valeur est systématiquement
+                              'null' \n \n Plus d'informations sur la méthode de calcul
+                              : LIEN TODO"
                           diffusable_commercialement:
-                            title: Diffusable commercialement
+                            title: Diffusible commercialement
                             type: boolean
                             example: true
                             enum:
                             - true
-                            description: Détermine si l'unité légale est une entreprise
-                              non-diffusible. Cette valeur est toujours à true. Si
-                              vous voulez pouvoir récupérer des unités légales non-diffusible,
-                              référez-vous à la documentation du endpoint /insee/unites_legales/:siren
+                            description: Détermine si l'unité légale est une entité
+                              non-diffusible. Cette API n'appelant pas les non-diffusible,
+                              cette valeur est toujours à 'true'. Pour récupérer des
+                              unités légales non-diffusible, référez-vous à la documentation
+                              de l'API /insee/unites_legales/:siren
                           forme_juridique:
                             type: object
                             title: Attributs de la forme juridique
@@ -4031,16 +4648,34 @@ paths:
                                 title: Code de la forme juridique de l'unité légale.
                                 type: string
                                 example: '7120'
-                                description: "Cette variable est à 1000 pour les personnes
-                                  physiques. \n \n La liste complète se trouve ici:
-                                  https://www.insee.fr/fr/information/2028129"
+                                description: "Il existe plus de 300 catégories juridiques,
+                                  identifiables par un code spécifique à quatre chiffres.
+                                  Leur nomenclature comporte 3 niveaux. Le premier
+                                  niveau de classement contient 9 grandes catégories
+                                  identifiables avec le premier chiffre du code :
+                                  \n \n - 0 : Organisme de placement collectif en
+                                  valeurs mobilières sans personnalité morale \n -
+                                  1 : Entrepreneur individuel. La catégorie juridique
+                                  des personnes physiques est '1000'. \n - 2 : Groupement
+                                  de droit privé non doté de la personnalité morale
+                                  \n - 3 : Personne morale de droit étranger \n -
+                                  4 : Personne morale de droit public soumise au droit
+                                  commercial \n - 5 : Société commerciale \n - 6 :
+                                  Autre personne morale immatriculée au RCS \n - 7
+                                  : Personne morale et organisme soumis au droit administratif
+                                  \n - 8 : Organisme privé spécialisé \n - 9 : Groupement
+                                  de droit privé \n \n Nomenclature exhaustive des
+                                  codes fournie par l'Insee : https://www.insee.fr/fr/information/2028129"
                               libelle:
                                 title: Libellé associé au code de la forme juridique
                                   de l'unité légale.
                                 type: string
                                 example: Service central d'un ministère
-                                description: Si le code ne correspond à aucun libellé
-                                  la valeur 'non référencé' est utilisée.
+                                description: "indique le libellé correspondant au
+                                  code juridique. Si le code ne correspond à aucun
+                                  libellé la valeur 'non référencé' est utilisée.
+                                  \n \n Nomenclature exhaustive fournie par l'Insee
+                                  : https://www.insee.fr/fr/information/2028129"
                             required:
                             - code
                             - libelle
@@ -4053,10 +4688,18 @@ paths:
                                   légale
                                 type: string
                                 example: 8411Z
-                                description: Ce code est extrait de la nomenclature
-                                  NAF. A noter qu'une entreprise n'ayant pas encore
-                                  de code APE peut se voir affecter la valeur 00.00Z
-                                  de manière provisoire.
+                                description: "Le code APE (activité principale exercée)
+                                  permet d'identifier la branche d'activité principale.
+                                  Il est attribué par l'Insee lors de l'immatriculation
+                                  ou la déclaration d'activité de l'entreprise. Ce
+                                  code de 4 chiffres + 1 lettre est extrait de la
+                                  nomenclature d'activité française (NAF) de l'Insee.
+                                  \n \n À noter qu'une entreprise n'ayant pas encore
+                                  de code APE peut se voir affecter la valeur '00.00Z'
+                                  de manière provisoire. \n \n Plus d'informations
+                                  métier : https://entreprendre.service-public.fr/vosdroits/F33050
+                                  Nomemclature d'activité française - NAF rév.2 de
+                                  l'Insee : https://www.insee.fr/fr/information/2120875"
                               libelle:
                                 title: Libellé associé au code APE
                                 type: string
@@ -4067,12 +4710,14 @@ paths:
                                   le libellé n'est pas renseigné ici. Si le code ne
                                   correspond à aucun libellé au sein de la nomenclature
                                   'Naf Rév2', la valeur 'non référencé' est utilisée.
-                                  \n \n Le lien vers la nomenclature 'Naf Rév2' :
-                                  https://www.insee.fr/fr/information/2406147"
+                                  \n \n Nomemclature d'activité française - NAF rév.2
+                                  de l'Insee : https://www.insee.fr/fr/information/2406147"
                               nomenclature:
                                 title: Nomenclature associée au code
                                 type: string
                                 example: NAFRev2
+                                description: Ce champ indique le nom de la nomenclature
+                                  associée au code APE.
                             required:
                             - code
                             - libelle
@@ -4085,19 +4730,60 @@ paths:
                                 type: string
                                 nullable: true
                                 example: '51'
+                                description: "Le code effectif correspond à la tranche
+                                  d'effectif salarié de l'entreprise. Le nombre de
+                                  salarié est déterminé en fonction de l'effectif
+                                  de l'entreprise et de chacun de ses établissements
+                                  : \n \n - NN : Unités non employeuses (pas de salarié
+                                  au cours de l'année de référence et pas d'effectif
+                                  au 31/12). Cette tranche peut contenir quelques
+                                  effectifs inconnus \n - 00 : 0 salarié (n'ayant
+                                  pas d'effectif au 31/12 mais ayant employé des salariés
+                                  au cours de l'année de référence) \n - 01 : 1 ou
+                                  2 salariés \n - 02 : 3 à 5 salariés \n - 03 : 6
+                                  à 9 salariés \n - 11 : 10 à 19 salariés \n - 12
+                                  : 20 à 49 salariés \n - 21 : 50 à 99 salariés \n
+                                  - 22 : 100 à 199 salariés \n - 31 : 200 à 249 salariés
+                                  \n - 32 : 250 à 499 salariés \n - 41 : 500 à 999
+                                  salariés \n - 42 : 1 000 à 1 999 salariés \n - 51
+                                  : 2 000 à 4 999 salariés \n - 52 : 5 000 à 9 999
+                                  salariés \n - 53 : 10 000 salariés et plus \n \n
+                                  Plus d'informations dans la documentation Insee
+                                  de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen"
+                                enum:
+                                - NN
+                                - '00'
+                                - '01'
+                                - '02'
+                                - '03'
+                                - '11'
+                                - '12'
+                                - '21'
+                                - '22'
+                                - '31'
+                                - '32'
+                                - '41'
+                                - '42'
+                                - '51'
+                                - '52'
+                                - '53'
                               intitule:
+                                title: Intitulé associé au code effectif
                                 type: string
                                 nullable: true
                                 example: 2 000 à 4 999 salariés
                               date_reference:
+                                title: Date de référence de l'effectif
                                 type: string
                                 nullable: true
                                 example: '2016'
                               de:
+                                title: Seuil inférieur de la tranche effectif
                                 type: integer
                                 example: 2000
                                 nullable: true
                               a:
+                                title: Seuil supérieur de la tranche effectif
                                 type: integer
                                 example: 4999
                                 nullable: true
@@ -4113,19 +4799,39 @@ paths:
                             enum:
                             - A
                             - C
-                            example: A
-                            description: " - A = Active \n - C = Cessée "
+                            description: "Cette valeur décrit l'état administratif
+                              de l'unité légale, qui peut être : \n \n - cessée. Le
+                              passage à l'état « Cessée » découle de la prise en compte
+                              d'une déclaration de cessation administrative. Pour
+                              les personnes morales, cela correspond au dépôt de la
+                              déclaration de disparition de la personne morale. Pour
+                              les personnes physiques, cela correspond soit à la prise
+                              en compte de la déclaration de cessation d'activité
+                              déposée par l'exploitant soit au décès de l'exploitant
+                              conformément à la réglementation. \n - active. En dehors
+                              des cas explicités ci-dessus, l'unité légale est toujours
+                              à l'état administratif « Active ». \n \n Plus d'informations
+                              dans la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifUniteLegale"
                           date_cessation:
                             title: Date de cessation de l'unité légale
                             type: integer
                             nullable: true
                             example: 1634133818
-                            description: Cette valeur est renvoyée sous format timestamp
+                            description: Cette valeur est renvoyée sous format timestamp.
+                              Si l'entreprise est juridique active, cette valeur est
+                              à 'null'.
                           date_creation:
-                            title: Date de cessation de l'unité légale
+                            title: Date de création de l'unité légale
                             type: integer
                             example: 1634103818
-                            description: Cette valeur est renvoyée sous format timestamp
+                            description: "La date de création correspond à la date
+                              qui figure dans les statuts de l'entreprise qui sont
+                              déposés au centre de formalité des entreprises (CFE)
+                              compétent. Cette valeur est renvoyée sous format timestamp.
+                              \n \n Sauf pour les unités purgées, la date de création
+                              n'est jamais à 'null'. Si elle est non renseignée, elle
+                              sera au 01/01/1900. \n \n Plus d'informations dans la
+                              documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/dateCreationUniteLegale"
                         required:
                         - siret_siege_social
                         - type
@@ -4146,13 +4852,14 @@ paths:
                           siege_social:
                             type: string
                             example: https://entreprises.api.gouv.fr/api/v3/insee/etablissements/30613890001294
-                            description: Lien vers la ressource établissement correspondant
-                              au siège social
+                            description: Lien vers la ressource 'Données de référence
+                              d'un établissement' correspondant au siège social de
+                              cette unité légale.
                           siege_social_adresse:
                             type: string
                             example: https://entreprises.api.gouv.fr/api/v3/insee/etablissements/30613890001294/adresse
-                            description: Lien vers la ressource adresse de l'établissement
-                              correspondant au siège social
+                            description: Lien vers la ressource 'Adresse d'un établissement'
+                              correspondant au siège social de cette unité légale.
                         required:
                         - siege_social
                         - siege_social_adresse
@@ -4162,7 +4869,7 @@ paths:
                           date_derniere_mise_a_jour:
                             type: integer
                             example: 1618396818
-                            description: Date de la dernière mise à jour à l'INSEE
+                            description: Date de la dernière mise à jour à l'Insee.
                         required:
                         - date_derniere_mise_a_jour
                     required:
@@ -4445,6 +5152,9 @@ paths:
           siret_qualibat:
             value: '78824266700020'
             summary: SIRET pour Qualibat
+          siret_entrepreneur_individuel:
+            value: '38983993700015'
+            summary: SIRET d'un entrepreneur individuel (fermé)
         required: true
         schema:
           type: string
@@ -4589,6 +5299,9 @@ paths:
           siret_qualibat:
             value: '78824266700020'
             summary: SIRET pour Qualibat
+          siret_entrepreneur_individuel:
+            value: '38983993700015'
+            summary: SIRET d'un entrepreneur individuel (fermé)
         required: true
         schema:
           type: string
@@ -4847,6 +5560,9 @@ paths:
           siren_opqibi:
             value: '515228211'
             summary: SIREN pour OPQIBI
+          siren_entrepreneur_individuel:
+            value: '389839937'
+            summary: SIREN d'un entrepeneur individuel (cessé)
         required: true
         schema:
           type: string
