@@ -19,14 +19,14 @@ class StatusPage
   private
 
   def raw_current_status
-    redis.get(redis_cached_key) ||
+    $redis.get(redis_cached_key) ||
       retrieve_from_status_page
   end
 
   def retrieve_from_status_page
     status = page_summary['page']['status']
 
-    redis.set(redis_cached_key, status, ex: 5.minutes.to_i)
+    $redis.set(redis_cached_key, status, ex: 5.minutes.to_i)
 
     status
   end
@@ -47,9 +47,5 @@ class StatusPage
 
   def redis_cached_key
     'status_page_current_status'
-  end
-
-  def redis
-    Redis.current
   end
 end
