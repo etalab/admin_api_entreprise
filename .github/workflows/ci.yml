@@ -64,6 +64,9 @@ jobs:
           bundle config path vendor/bundle
           bundler install --jobs 4 --retry 3
 
+      - name: Lint with rubocop
+        run: bundle exec rubocop
+
       - name: Create database
         env:
           POSTGRES_USER: admin_apientreprise
