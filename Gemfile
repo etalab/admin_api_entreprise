@@ -88,6 +88,8 @@ group :development do
   gem 'spring-watcher-listen'
   gem 'mina', '~> 1.2'
   gem 'rubocop', require: false
+  gem 'rubocop-rails'
+  gem 'rubocop-rspec'
 
   gem 'better_errors'
   gem 'binding_of_caller'
