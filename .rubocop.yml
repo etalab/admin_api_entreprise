@@ -1,28 +1,142 @@
-AllCops:
-  Exclude:
-    - 'Gemfile'
-    - 'Guardfile'
-    - 'Rakefile'
-    - 'bin/**/*'
-    - 'db/**/*'
-    - 'config/**/*'
+require:
+  - rubocop-rspec
+  - rubocop-rails
 
-Style/FrozenStringLiteralComment:
+AllCops:
+  NewCops: enable
+  Exclude:
+    - "Gemfile"
+    - "Guardfile"
+    - "Rakefile"
+    - "bin/**/*"
+    - "db/**/*"
+    - "config/**/*"
+    - "vendor/**/*"
+
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
+
+Lint/MissingSuper:
   Enabled: false
+
+Layout/EmptyLineBetweenDefs:
+  AllowAdjacentOneLineDefs: true
+
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/LineLength:
+  Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: space
+
+Lint/InheritException:
+  Enabled: false
+
+Lint/SuppressedException:
+  Exclude:
+    - "spec/**/*_spec.rb"
+
+Lint/ConstantDefinitionInBlock:
+  Exclude:
+    - "spec/**/*"
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/spec_helper.rb"
+    - "spec/support/shared_examples/*"
+    - "spec/factories/**/*"
+  IgnoredMethods:
+    - "describe"
+    - "context"
+    - "namespace"
+    - "shared_examples"
+    - "let"
+    - "path"
+    - "get"
+    - "response"
+
+Naming/MethodParameterName:
+  AllowedNames:
+    - "_"
+    - "nb"
+
+RSpec/NestedGroups:
+  Max: 5
+
+Naming/VariableNumber:
+  EnforcedStyle: snake_case
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/BlockComments:
+  Exclude:
+    - "spec/spec_helper.rb"
+
+Style/BlockDelimiters:
+  EnforcedStyle: braces_for_chaining
 
 Style/Documentation:
   Enabled: false
 
-Style/PercentLiteralDelimiters:
-  PreferredDelimiters:
-    default: '()'
-    '%w': '()'
-
-Style/CommentAnnotation:
+Style/FrozenStringLiteralComment:
   Enabled: false
 
-Layout/ParameterAlignment:
-  EnforcedStyle: with_fixed_indentation
+Style/MethodCalledOnDoEndBlock:
+  Enabled: false
+
+Style/MethodCallWithArgsParentheses:
+  Enabled: false
+
+Style/SignalException:
+  Enabled: false
 
 Style/StringLiterals:
   EnforcedStyle: single_quotes
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: single_quotes
+
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - staging
+    - sandbox
+    - development
+    - test
+
+RSpec/BeforeAfterAll:
+  Enabled: False
+
+RSpec/DescribedClass:
+  SkipBlocks: true
+
+RSpec/EmptyExampleGroup:
+  Exclude:
+    - "spec/requests/**/*"
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/LeakyConstantDeclaration:
+  Enabled: False
+
+RSpec/MessageSpies:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/NamedSubject:
+  Enabled: false
+
+RSpec/RepeatedDescription:
+  Enabled: false
