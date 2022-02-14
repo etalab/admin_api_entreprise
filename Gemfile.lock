@@ -105,13 +105,13 @@ GEM
     docile (1.4.0)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
-    elasticsearch (7.10.1)
-      elasticsearch-api (= 7.10.1)
-      elasticsearch-transport (= 7.10.1)
-    elasticsearch-api (7.10.1)
-      multi_json
-    elasticsearch-transport (7.10.1)
+    elastic-transport (8.0.0)
       faraday (~> 1)
+      multi_json
+    elasticsearch (8.0.0)
+      elastic-transport (= 8.0.0)
+      elasticsearch-api (= 8.0.0)
+    elasticsearch-api (8.0.0)
       multi_json
     erubi (1.10.0)
     et-orbi (1.2.6)
@@ -475,7 +475,7 @@ DEPENDENCIES
   chronic
   colorize
   cuprite
-  elasticsearch (= 7.10.1)
+  elasticsearch (= 8.0.0)
   factory_bot_rails
   faker
   guard-rspec
