@@ -13,7 +13,7 @@ RSpec.describe StatusPage, type: :service do
         }.to_json
       )
     end
-    let(:redis) { Redis.new(host: 'localhost', post: 6379, db: 0) }
+    let(:redis) { described_class.new.send(:redis) }
     let(:status) { 'UP' }
 
     before do
