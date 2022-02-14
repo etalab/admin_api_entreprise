@@ -50,6 +50,6 @@ class StatusPage
   end
 
   def redis
-    Redis.current
+    @redis ||= Redis.new(host: 'localhost', post: 6379, db: 0)
   end
 end
