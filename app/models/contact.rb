@@ -7,7 +7,7 @@ class Contact < ApplicationRecord
   has_one :jwt_api_entreprise, through: :authorization_request
 
   validates :email, presence: true, format: { with: /#{EMAIL_FORMAT_REGEX}/ }
-  validates :contact_type, presence: true, inclusion: { in: %w(admin tech other) }
+  validates :contact_type, presence: true, inclusion: { in: %w[admin tech other] }
 
   def full_name
     "#{last_name.try(:upcase)} #{first_name}"
@@ -15,7 +15,7 @@ class Contact < ApplicationRecord
 
   scope :not_expired, lambda {
     joins(
-      :jwt_api_entreprise,
+      :jwt_api_entreprise
     ).where(
       authorization_request: {
         jwt_api_entreprises: {
@@ -26,5 +26,5 @@ class Contact < ApplicationRecord
     )
   }
 
-  scope :with_token, ->() { Contact.joins(authorization_request: :jwt_api_entreprise) }
+  scope :with_token, -> { Contact.joins(authorization_request: :jwt_api_entreprise) }
 end

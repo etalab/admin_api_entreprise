@@ -2,12 +2,12 @@ FactoryBot.define do
   factory :datapass_webhook, class: Hash do
     initialize_with { attributes.stringify_keys }
 
-    event { %w(refuse_application refuse).sample }
+    event { %w[refuse_application refuse].sample }
     model_type { 'Pass' }
     fired_at { Time.now.to_i }
     data do
       {
-        'pass' => build(:datapass_webhook_pass_model),
+        'pass' => build(:datapass_webhook_pass_model)
       }
     end
 
@@ -17,9 +17,7 @@ FactoryBot.define do
     end
 
     after(:build) do |datapass_webhook, evaluator|
-      if evaluator.authorization_request_attributes
-        datapass_webhook['data']['pass'] = build(:datapass_webhook_pass_model, evaluator.authorization_request_attributes)
-      end
+      datapass_webhook['data']['pass'] = build(:datapass_webhook_pass_model, evaluator.authorization_request_attributes) if evaluator.authorization_request_attributes
 
       if evaluator.demandeur_attributes
         datapass_webhook['data']['pass']['team_members'].reject! do |team_member_model|
@@ -34,7 +32,7 @@ FactoryBot.define do
   factory :datapass_webhook_pass_model, class: Hash do
     initialize_with { attributes.stringify_keys }
 
-    sequence(:id) { |n| "#{n}" }
+    sequence(:id) { |n| n.to_s }
     intitule { 'intitule from webhook' }
     description { 'description from webhook' }
     status { 'sent' }
@@ -49,7 +47,7 @@ FactoryBot.define do
         build(:datapass_webhook_team_member_model, type: 'delegue_protection_donnees'),
         build(:datapass_webhook_team_member_model, type: 'responsable_traitement'),
         build(:datapass_webhook_team_member_model, type: 'responsable_technique'),
-        build(:datapass_webhook_team_member_model, type: 'contact_metier'),
+        build(:datapass_webhook_team_member_model, type: 'contact_metier')
       ]
     end
 
@@ -57,7 +55,7 @@ FactoryBot.define do
       {
         'associations' => true,
         'entreprises' => true,
-        'exercices' => false,
+        'exercices' => false
       }
     end
   end
@@ -65,7 +63,7 @@ FactoryBot.define do
   factory :datapass_webhook_team_member_model, class: Hash do
     initialize_with { attributes.stringify_keys }
 
-    sequence(:id) { |n| "#{n}" }
+    sequence(:id) { |n| n.to_s }
     sequence(:uid) { |n| "uid#{n}" }
     type { 'demandeur' }
     phone_number { '0256743256' }
@@ -74,22 +72,22 @@ FactoryBot.define do
       team_member_model['family_name'] ||= "#{team_member_model['type']} last name"
       team_member_model['given_name'] ||= "#{team_member_model['type']} first name"
       team_member_model['email'] ||= "#{team_member_model['type']}#{rand(9001)}@service.gouv.fr"
-      team_member_model['job'] ||= "#{team_member_model['type'].humanize}"
+      team_member_model['job'] ||= team_member_model['type'].humanize.to_s
     end
   end
 
   factory :datapass_webhook_event_model, class: Hash do
     initialize_with { attributes.stringify_keys }
 
-    sequence(:id) { |n| "#{n}" }
+    sequence(:id) { |n| n.to_s }
     name { 'notify' }
     comment { 'comment' }
-    created_at { rand(1..9001).seconds.ago.to_datetime.strftime("%Y-%m-%d %H:%M:%S UTC") }
+    created_at { rand(1..9001).seconds.ago.to_datetime.strftime('%Y-%m-%d %H:%M:%S UTC') }
     user do
       {
         'family_name' => 'Instructor last name',
         'given_name' => 'Instructor first name',
-        'email' => 'instructor@service.gouv.fr',
+        'email' => 'instructor@service.gouv.fr'
       }
     end
   end

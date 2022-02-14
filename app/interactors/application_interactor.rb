@@ -1,7 +1,7 @@
 class ApplicationInteractor
   include Interactor
 
-  def fail!(message, level, attributes={})
+  def fail!(message, level, attributes = {})
     if attributes.any?
       Sentry.set_context(
         'Error context',
@@ -11,7 +11,7 @@ class ApplicationInteractor
 
     Sentry.capture_message(
       message,
-      level: level,
+      level: level
     )
 
     context.fail!(message: message, attributes: attributes)

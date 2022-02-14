@@ -19,15 +19,13 @@ FactoryBot.define do
         jwt_api_entreprise.authorization_request.external_id = jwt_api_entreprise.authorization_request_id
       end
 
-      if evaluator.user
-        jwt_api_entreprise.authorization_request.user = evaluator.user
-      end
+      jwt_api_entreprise.authorization_request.user = evaluator.user if evaluator.user
     end
 
     trait :with_roles do
       roles do
         [
-          build(:role),
+          build(:role)
         ]
       end
     end
@@ -88,7 +86,7 @@ FactoryBot.define do
     end
 
     trait :expired do
-      exp { Faker::Time.between(from: 20.months.ago, to:19.months.ago).to_i }
+      exp { Faker::Time.between(from: 20.months.ago, to: 19.months.ago).to_i }
     end
 
     trait :with_magic_link do

@@ -57,11 +57,11 @@ RSpec.describe 'token details page', type: :feature do
 
   context 'when connected as a simple user' do
     it 'has no button to archive tokens' do
-      expect(page).to_not have_button(dom_id(token, :archive_button))
+      expect(page).not_to have_button(dom_id(token, :archive_button))
     end
 
     it 'has no button to blacklist tokens' do
-      expect(page).to_not have_button(dom_id(token, :blacklist_button))
+      expect(page).not_to have_button(dom_id(token, :blacklist_button))
     end
   end
 
@@ -84,7 +84,7 @@ RSpec.describe 'token details page', type: :feature do
       visit token_path(token)
     end
 
-    it_behaves_like :display_alert, :error
+    it_behaves_like 'display alert', :error
 
     it 'redirects to the user profile' do
       expect(page).to have_current_path(user_profile_path)

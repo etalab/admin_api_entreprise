@@ -2,8 +2,7 @@ class TransferUserAccountController < AuthenticatedUsersController
   before_action :retrieve_user
   before_action :can_transfer?, only: :create
 
-  def new
-  end
+  def new; end
 
   def create
     transfer = User::TransferAccount.call(transfer_account_params)
@@ -12,12 +11,12 @@ class TransferUserAccountController < AuthenticatedUsersController
       success_message(title: t('.success.title'))
 
       redirect_to user_profile_path,
-                  status: :see_other
+        status: :see_other
     else
       error_message(title: t('.error.title'))
 
       render 'new',
-             status: :unprocessable_entity
+        status: :unprocessable_entity
     end
   end
 

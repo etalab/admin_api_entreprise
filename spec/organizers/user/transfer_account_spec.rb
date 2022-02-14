@@ -8,7 +8,7 @@ RSpec.describe User::TransferAccount, type: :organizer do
   let(:params) do
     {
       current_owner: current_owner,
-      target_user_email: target_user_email,
+      target_user_email: target_user_email
     }
   end
 
@@ -57,7 +57,7 @@ RSpec.describe User::TransferAccount, type: :organizer do
       end
 
       it 'does not create a new user' do
-        expect { subject }.to_not change(User, :count)
+        expect { subject }.not_to change(User, :count)
       end
     end
 
@@ -129,5 +129,4 @@ RSpec.describe User::TransferAccount, type: :organizer do
       expect(subject.message).to eq('invalid_email')
     end
   end
-
 end

@@ -14,7 +14,7 @@ RSpec.describe API::DatapassWebhooksController, type: :controller do
         'data' => {
           'pass' => {
             'id' => '9001'
-          },
+          }
         }
       }
     end
@@ -37,7 +37,7 @@ RSpec.describe API::DatapassWebhooksController, type: :controller do
 
         expect(response.code).to eq('401')
         expect(JSON.parse(response.body)).to eq({
-          'error' => 'Unauthorized',
+          'error' => 'Unauthorized'
         })
       end
     end
@@ -52,7 +52,7 @@ RSpec.describe API::DatapassWebhooksController, type: :controller do
         allow(DatapassWebhook).to receive(:call).and_return(
           OpenStruct.new(
             token_id: token_id,
-            success?: success,
+            success?: success
           )
         )
       end
@@ -66,12 +66,12 @@ RSpec.describe API::DatapassWebhooksController, type: :controller do
       it 'tracks through Sentry the incoming payload' do
         expect(Sentry).to receive(:set_context).with(
           'DataPass webhook incoming payload',
-          payload: params,
+          payload: params
         )
         expect(Sentry).to receive(:capture_message).with(
           'DataPass Incoming Payload',
           {
-            level: 'info',
+            level: 'info'
           }
         )
 

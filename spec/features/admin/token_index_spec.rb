@@ -4,7 +4,7 @@ RSpec.describe 'admin token index', type: :feature do
   let(:admin) { create(:user, :admin) }
 
   let!(:tokens) { create_list(:jwt_api_entreprise, 3) }
-  let(:random_token) { tokens.shuffle.first }
+  let(:random_token) { tokens.sample }
   let!(:active_token) { create(:jwt_api_entreprise, archived: false, blacklisted: false) }
   let!(:archived_token) { create(:jwt_api_entreprise, archived: true) }
   let!(:blacklisted_token) { create(:jwt_api_entreprise, blacklisted: true) }
@@ -15,7 +15,7 @@ RSpec.describe 'admin token index', type: :feature do
   end
 
   it 'displays tokens in a table with one row per user' do
-    expect(page.all(".token_summary").size).to eq(JwtAPIEntreprise.count)
+    expect(page.all('.token_summary').size).to eq(JwtAPIEntreprise.count)
   end
 
   it 'created_at' do
@@ -45,7 +45,7 @@ RSpec.describe 'admin token index', type: :feature do
     within('#' << dom_id(random_token)) do
       click_link(dom_id(random_token, :show))
 
-      expect(page.current_path).to eq(token_path(random_token))
+      expect(page).to have_current_path(token_path(random_token), ignore_query: true)
     end
   end
 

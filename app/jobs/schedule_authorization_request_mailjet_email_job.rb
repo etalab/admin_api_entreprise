@@ -29,18 +29,18 @@ class ScheduleAuthorizationRequestMailjetEmailJob < ApplicationJob
       cc: build_recipient_attributes(mailjet_attributes['cc']),
       vars: mailjet_attributes['vars'],
       'Mj-TemplateLanguage' => true,
-      'Mj-TemplateID' => mailjet_attributes['template_id'],
+      'Mj-TemplateID' => mailjet_attributes['template_id']
     }.compact
   end
 
   def build_recipient_attributes(recipient_payloads)
     return if recipient_payloads.nil?
 
-    recipient_payloads.map do |recipient_payload|
+    recipient_payloads.map { |recipient_payload|
       recipient_payload.stringify_keys!
 
       "#{recipient_payload['full_name']} <#{recipient_payload['email']}>"
-    end.join(', ')
+    }.join(', ')
   end
 
   def authorization_request_status_changed?(authorization_request_status)

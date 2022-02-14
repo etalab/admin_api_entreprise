@@ -1,14 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Token::DeliverMagicLinkToEmail, type: :organizer do
-  let(:token) { create(:jwt_api_entreprise) }
-
   subject { described_class.call(params) }
 
+  let(:token) { create(:jwt_api_entreprise) }
   let(:params) do
     {
       token: token,
-      email: email,
+      email: email
     }
   end
 
@@ -48,7 +47,7 @@ RSpec.describe Token::DeliverMagicLinkToEmail, type: :organizer do
 
     it 'does not queue any email' do
       expect { subject }
-        .to_not have_enqueued_mail(JwtAPIEntrepriseMailer, :magic_link)
+        .not_to have_enqueued_mail(JwtAPIEntrepriseMailer, :magic_link)
     end
   end
 end

@@ -1,5 +1,5 @@
-RSpec.shared_examples :it_aborts_the_user_account_transfer do
-  it_behaves_like :display_alert, :error
+RSpec.shared_examples 'it aborts the user account transfer' do
+  it_behaves_like 'display alert', :error
 
   it 'does not transfer any tokens' do
     user_tokens_id = user.jwt_api_entreprise.pluck(:id)
@@ -10,8 +10,8 @@ RSpec.shared_examples :it_aborts_the_user_account_transfer do
   end
 end
 
-RSpec.shared_examples :it_succeeds_the_user_account_transfer do
-  it_behaves_like :display_alert, :success
+RSpec.shared_examples 'it succeeds the user account transfer' do
+  it_behaves_like 'display alert', :success
 
   it 'deletes the tokens from the previous account' do
     subject

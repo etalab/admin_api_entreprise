@@ -9,7 +9,7 @@ RSpec.describe 'token contacts page', type: :feature do
     visit token_contacts_path(token)
   end
 
-  shared_examples :it_displays_contacts_data do
+  shared_examples 'it displays contacts data' do
     it 'displays the business contacts data' do
       within('#' << dom_id(contact_business)) do
         expect(page).to have_css("input[value='#{contact_business.email}']")
@@ -35,7 +35,7 @@ RSpec.describe 'token contacts page', type: :feature do
         jwt
       end
 
-      it_behaves_like :it_displays_contacts_data
+      it_behaves_like 'it displays contacts data'
 
       it 'does not have a button to update the contact data' do
         expect(page).not_to have_button(dom_id(contact_tech, :edit_button))
@@ -45,7 +45,7 @@ RSpec.describe 'token contacts page', type: :feature do
     context 'when accessing another user data' do
       let(:token) { create(:jwt_api_entreprise) }
 
-      it_behaves_like :display_alert, :error
+      it_behaves_like 'display alert', :error
 
       it 'redirects to the user profile' do
         expect(page).to have_current_path(user_profile_path)
@@ -61,7 +61,7 @@ RSpec.describe 'token contacts page', type: :feature do
       jwt
     end
 
-    it_behaves_like :it_displays_contacts_data
+    it_behaves_like 'it displays contacts data'
 
     it 'has a button to update the contact data' do
       expect(page).to have_button(dom_id(contact_tech, :edit_button))

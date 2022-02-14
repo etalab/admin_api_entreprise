@@ -39,7 +39,7 @@ RSpec.describe ScheduleExpirationNoticeMailjetEmailJob, type: :job do
 
       before do
         token.authorization_request.update!(
-          external_id: external_id,
+          external_id: external_id
         )
         token.authorization_request.contacts << contact
       end
@@ -56,7 +56,7 @@ RSpec.describe ScheduleExpirationNoticeMailjetEmailJob, type: :job do
               expiration_date: "#{Time.zone.at(token.exp).strftime('%d/%m/%Y à %Hh%M')} (heure de Paris)"
             },
             'Mj-TemplateLanguage' => true,
-            'Mj-TemplateID' => 3139223,
+            'Mj-TemplateID' => 3_139_223
           }.stringify_keys
         )
 
@@ -70,14 +70,14 @@ RSpec.describe ScheduleExpirationNoticeMailjetEmailJob, type: :job do
             body,
             nil,
             'https://api.mailjet.com/v3/send',
-            params,
+            params
           )
         end
         let(:code) { 418 }
         let(:body) { "I'm a teapot!" }
         let(:params) do
           {
-            oki: 'lol',
+            oki: 'lol'
           }
         end
 
@@ -92,7 +92,7 @@ RSpec.describe ScheduleExpirationNoticeMailjetEmailJob, type: :job do
             hash_including(
               {
                 mailjet_error_code: code,
-                mailjet_error_reason: body,
+                mailjet_error_reason: body
               }
             )
           ).and_call_original

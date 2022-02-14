@@ -29,7 +29,7 @@ class API::DatapassWebhooksController < APIController
       :event,
       :model_type,
       :fired_at,
-      data: {},
+      data: {}
     ).to_h.symbolize_keys
   end
 
@@ -40,11 +40,11 @@ class API::DatapassWebhooksController < APIController
   def track_payload_through_sentry
     Sentry.set_context(
       'DataPass webhook incoming payload',
-      payload: params.permit!.to_h.except('controller', 'action', 'datapass_webhook'),
+      payload: params.permit!.to_h.except('controller', 'action', 'datapass_webhook')
     )
     Sentry.capture_message(
       'DataPass Incoming Payload',
-      level: 'info',
+      level: 'info'
     )
   end
 

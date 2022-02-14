@@ -24,7 +24,7 @@ RSpec.describe Token::RetrieveFromMagicLink do
 
   context 'when the magic token exists but is expired' do
     it 'is a failure' do
-      Timecop.freeze(Time.zone.now + 4.hours) do
+      Timecop.freeze(4.hours.from_now) do
         expect(subject).to be_a_failure
       end
     end

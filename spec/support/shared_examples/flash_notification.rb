@@ -1,4 +1,4 @@
-RSpec.shared_examples :display_alert do |kind|
+RSpec.shared_examples 'display alert' do |kind|
   it 'displays an alert' do
     subject
 

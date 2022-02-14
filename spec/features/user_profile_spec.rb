@@ -12,7 +12,7 @@ RSpec.describe 'user profile page', type: :feature do
     it 'redirects to the login' do
       show_profile
 
-      expect(page.current_path).to eq(login_path)
+      expect(page).to have_current_path(login_path, ignore_query: true)
     end
   end
 
@@ -30,7 +30,7 @@ RSpec.describe 'user profile page', type: :feature do
     it 'does not display the user note' do
       show_profile
 
-      expect(page).to_not have_content(user.note)
+      expect(page).not_to have_content(user.note)
     end
 
     it 'has a button to transfer the account ownership' do

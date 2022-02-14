@@ -41,13 +41,13 @@ RSpec.describe 'Admin: edit contacts', type: :feature do
         expect(page).to have_current_path(token_contacts_path(token))
       end
 
-      it_behaves_like :display_alert, :success
+      it_behaves_like 'display alert', :success
     end
 
     context 'when the email is blank' do
       let(:email) { '' }
 
-      it_behaves_like :display_alert, :error
+      it_behaves_like 'display alert', :error
 
       it 'does not change the email' do
         expect { edit! }.not_to change(contact, :email)
@@ -57,7 +57,7 @@ RSpec.describe 'Admin: edit contacts', type: :feature do
     context 'when the email format is invalid' do
       let(:email) { 'not an email' }
 
-      it_behaves_like :display_alert, :error
+      it_behaves_like 'display alert', :error
 
       it 'does not change the email' do
         expect { edit! }.not_to change(contact, :email)
@@ -89,7 +89,7 @@ RSpec.describe 'Admin: edit contacts', type: :feature do
         expect(page).to have_current_path(token_contacts_path(token))
       end
 
-      it_behaves_like :display_alert, :success
+      it_behaves_like 'display alert', :success
     end
 
     context 'when it is absent' do
@@ -107,7 +107,7 @@ RSpec.describe 'Admin: edit contacts', type: :feature do
         expect(page).to have_current_path(token_contacts_path(token))
       end
 
-      it_behaves_like :display_alert, :success
+      it_behaves_like 'display alert', :success
     end
   end
 end

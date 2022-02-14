@@ -1,14 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe 'User JWT listing', type: :feature do
-  let(:user) { create(:user, :with_jwt) }
   subject(:jwt_index) { visit user_tokens_path }
+
+  let(:user) { create(:user, :with_jwt) }
 
   context 'when the user is not authenticated' do
     it 'redirects to the login' do
       jwt_index
 
-      expect(page.current_path).to eq(login_path)
+      expect(page).to have_current_path(login_path, ignore_query: true)
     end
   end
 
@@ -17,7 +18,7 @@ RSpec.describe 'User JWT listing', type: :feature do
 
     let(:jwt) { user.jwt_api_entreprise.take }
 
-    it_behaves_like :it_displays_user_owned_token
+    it_behaves_like 'it displays user owned token'
 
     it 'does not display archived tokens' do
       archived_jwt = create(:jwt_api_entreprise, :archived, user: user)
@@ -36,13 +37,13 @@ RSpec.describe 'User JWT listing', type: :feature do
     it 'has no button to archive tokens' do
       jwt_index
 
-      expect(page).to_not have_button(dom_id(jwt, :archive_button))
+      expect(page).not_to have_button(dom_id(jwt, :archive_button))
     end
 
     it 'has no button to blacklist tokens' do
       jwt_index
 
-      expect(page).to_not have_button(dom_id(jwt, :blacklist_button))
+      expect(page).not_to have_button(dom_id(jwt, :blacklist_button))
     end
   end
 end

@@ -2,7 +2,7 @@ class DatapassWebhook::ScheduleAuthorizationRequestEmails < ApplicationInteracto
   def call
     (datapass_webhooks_config_for_event[:emails] || []).each do |email_config|
       schedule_email(
-        email_config.stringify_keys,
+        email_config.stringify_keys
       )
     end
   end
@@ -15,7 +15,7 @@ class DatapassWebhook::ScheduleAuthorizationRequestEmails < ApplicationInteracto
     ScheduleAuthorizationRequestMailjetEmailJob.set(wait_until: extract_when_time(email_config['when'])).perform_later(
       context.authorization_request.id,
       context.authorization_request.status,
-      build_mailjet_attributes(email_config),
+      build_mailjet_attributes(email_config)
     )
   end
 
@@ -28,14 +28,14 @@ class DatapassWebhook::ScheduleAuthorizationRequestEmails < ApplicationInteracto
   def build_mailjet_attributes(email_config)
     {
       template_id: email_config['id'],
-      vars: context.mailjet_variables,
+      vars: context.mailjet_variables
     }.merge(recipients_payload(email_config))
   end
 
   def recipients_payload(email_config)
     {
       to: recipient_payload(email_config['to'] || default_recipients),
-      cc: recipient_payload(email_config['cc']),
+      cc: recipient_payload(email_config['cc'])
     }.compact
   end
 
@@ -49,14 +49,14 @@ class DatapassWebhook::ScheduleAuthorizationRequestEmails < ApplicationInteracto
 
       {
         'email' => contact.email,
-        'full_name' => contact.full_name,
+        'full_name' => contact.full_name
       }
     end
   end
 
   def default_recipients
     [
-      'authorization_request.user',
+      'authorization_request.user'
     ]
   end
 

@@ -1,5 +1,5 @@
-RSpec.shared_examples :it_creates_a_magic_link do
-  it_behaves_like :display_alert, :success
+RSpec.shared_examples 'it creates a magic link' do
+  it_behaves_like 'display alert', :success
 
   it 'sends the email magic link' do
     expect { subject }
@@ -25,8 +25,8 @@ RSpec.shared_examples :it_creates_a_magic_link do
   end
 end
 
-RSpec.shared_examples :it_aborts_magic_link do
-  it_behaves_like :display_alert, :error
+RSpec.shared_examples 'it aborts magic link' do
+  it_behaves_like 'display alert', :error
 
   it 'does not send the magic link email' do
     expect { subject }

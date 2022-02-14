@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe 'admin user profile', type: :feature do
+  subject do
+    visit(admin_user_path(user))
+  end
+
   let(:admin) { create(:user, :admin) }
 
   before do
     login_as(admin)
-  end
-
-  subject do
-    visit(admin_user_path(user))
   end
 
   describe 'user account details' do
@@ -45,9 +45,6 @@ RSpec.describe 'admin user profile', type: :feature do
     end
 
     describe 'user account transfer', js: true do
-      let(:form_dom_id) { '#transfer_account' }
-      let(:user) { create(:user, :with_jwt) }
-
       subject do
         visit(admin_user_path(user))
 
@@ -62,16 +59,19 @@ RSpec.describe 'admin user profile', type: :feature do
         end
       end
 
+      let(:form_dom_id) { '#transfer_account' }
+      let(:user) { create(:user, :with_jwt) }
+
       context 'when no email address is provided' do
         let(:email) { '' }
 
-        it_behaves_like :it_aborts_the_user_account_transfer
+        it_behaves_like 'it aborts the user account transfer'
       end
 
       context 'when the provided email address is valid' do
         let(:email) { 'valid@email.com' }
 
-        it_behaves_like :it_succeeds_the_user_account_transfer
+        it_behaves_like 'it succeeds the user account transfer'
       end
     end
   end
@@ -80,19 +80,19 @@ RSpec.describe 'admin user profile', type: :feature do
     let(:user) { create(:user, :with_jwt) }
     let(:jwt) { user.jwt_api_entreprise.take }
 
-    it_behaves_like :it_displays_user_owned_token
+    it_behaves_like 'it displays user owned token'
 
     it 'has buttons to archive tokens' do
       subject
 
-      expect{ click_button(dom_id(jwt, :archive_button)) }
+      expect { click_button(dom_id(jwt, :archive_button)) }
         .to change { jwt.reload.archived? }.from(false).to(true)
     end
 
     it 'has button to blacklist tokens' do
       subject
 
-      expect{ click_button(dom_id(jwt, :blacklist_button)) }
+      expect { click_button(dom_id(jwt, :blacklist_button)) }
         .to change { jwt.reload.blacklisted? }.from(false).to(true)
     end
 
@@ -111,34 +111,33 @@ RSpec.describe 'admin user profile', type: :feature do
     end
 
     describe 'magic token creation' do
-      let(:user) { create(:user, :with_jwt) }
-      let(:token) { user.jwt_api_entreprise.take }
-
       subject do
         visit(admin_user_path(user))
-        within("#" + dom_id(token, :magic_link)) do
+        within('#' + dom_id(token, :magic_link)) do
           fill_in 'email', with: email
           click_button
         end
       end
 
+      let(:user) { create(:user, :with_jwt) }
+      let(:token) { user.jwt_api_entreprise.take }
+
       context 'when the email address is valid' do
         let(:email) { 'valid@email.com' }
 
-        it_behaves_like :it_creates_a_magic_link
+        it_behaves_like 'it creates a magic link'
 
         it 'redirects to the admin user details page' do
           subject
 
           expect(page).to have_current_path(admin_user_path(user))
         end
-
       end
 
       context 'when the email address is invalid' do
         let(:email) { 'not an email' }
 
-        it_behaves_like :it_aborts_magic_link
+        it_behaves_like 'it aborts magic link'
 
         it 'redirects to the admin user details page' do
           subject

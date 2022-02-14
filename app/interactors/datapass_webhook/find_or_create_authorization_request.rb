@@ -26,7 +26,7 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
       last_name: contact_payload['family_name'],
       first_name: contact_payload['given_name'],
       email: contact_payload['email'],
-      phone_number: contact_payload['phone_number'],
+      phone_number: contact_payload['phone_number']
     )
 
     contact.save
@@ -36,10 +36,10 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
     context.data['pass'].slice(
       'intitule',
       'description',
-      'status',
+      'status'
     ).merge(authorization_request_attributes_for_current_event).merge(
       'last_update' => fired_at_as_datetime,
-      'previous_external_id' => context.data['pass']['copied_from_enrollment_id'],
+      'previous_external_id' => context.data['pass']['copied_from_enrollment_id']
     )
   end
 
@@ -48,14 +48,14 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
     when 'send_application', 'submit'
       if context.authorization_request.first_submitted_at.nil?
         {
-          'first_submitted_at' => fired_at_as_datetime,
+          'first_submitted_at' => fired_at_as_datetime
         }
       else
         {}
       end
     when 'validate_application', 'validate'
       {
-        'validated_at' => fired_at_as_datetime,
+        'validated_at' => fired_at_as_datetime
       }
     else
       {}

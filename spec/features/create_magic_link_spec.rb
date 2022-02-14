@@ -1,17 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe 'create a magic link', type: :feature do
-  let(:token) { create(:jwt_api_entreprise) }
-
-  before { login_as(user) }
-
   subject do
     visit user_tokens_path
-    within("#" + dom_id(token, :magic_link)) do
+    within('#' + dom_id(token, :magic_link)) do
       fill_in 'email', with: email
       click_button
     end
   end
+
+  let(:token) { create(:jwt_api_entreprise) }
+
+  before { login_as(user) }
 
   context 'when the current user is the token owner' do
     let(:user) do
@@ -23,7 +23,7 @@ RSpec.describe 'create a magic link', type: :feature do
     context 'when the email address is valid' do
       let(:email) { 'valid@email.com' }
 
-      it_behaves_like :it_creates_a_magic_link
+      it_behaves_like 'it creates a magic link'
 
       it 'redirects to the user token index page' do
         subject
@@ -35,7 +35,7 @@ RSpec.describe 'create a magic link', type: :feature do
     context 'when the email address is invalid' do
       let(:email) { 'not an email' }
 
-      it_behaves_like :it_aborts_magic_link
+      it_behaves_like 'it aborts magic link'
 
       it 'redirects to the user token index page' do
         subject
@@ -46,14 +46,14 @@ RSpec.describe 'create a magic link', type: :feature do
   end
 
   context 'when the current user is not the token owner' do
-    let(:user) { create(:user) }
-    let(:email) { 'valid@email.com' }
-
     subject do
       page.driver.post(token_create_magic_link_path(token), params: {
         email: 'much@hack.ack'
       })
     end
+
+    let(:user) { create(:user) }
+    let(:email) { 'valid@email.com' }
 
     it 'does not send the magic link email' do
       expect { subject }
@@ -68,18 +68,18 @@ RSpec.describe 'create a magic link', type: :feature do
   end
 
   context 'when the current user is an admin' do
-    let(:user) { create(:user, :admin) }
-    let(:email) { 'valid@email.com' }
-
     subject do
       visit admin_token_path(token)
-      within("#" + dom_id(token, :magic_link)) do
+      within('#' + dom_id(token, :magic_link)) do
         fill_in 'email', with: email
         click_button
       end
     end
 
-    it_behaves_like :it_creates_a_magic_link
+    let(:user) { create(:user, :admin) }
+    let(:email) { 'valid@email.com' }
+
+    it_behaves_like 'it creates a magic link'
   end
 
   describe 'with javascript actived', js: true do

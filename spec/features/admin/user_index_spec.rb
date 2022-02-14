@@ -5,7 +5,7 @@ RSpec.describe 'admin user index', type: :feature do
   let!(:users) { create_list(:user, 3) }
   let!(:confirmed_user) { create(:user, :confirmed) }
   let!(:unconfirmed_user) { create(:user, :unconfirmed) }
-  let(:random_user) { users.shuffle.first }
+  let(:random_user) { users.sample }
 
   before do
     login_as(admin)
@@ -13,7 +13,7 @@ RSpec.describe 'admin user index', type: :feature do
   end
 
   it 'displays users in a table with one row per user' do
-    expect(page.all(".user_summary").size).to eq(User.count)
+    expect(page.all('.user_summary').size).to eq(User.count)
   end
 
   it 'email' do
@@ -30,7 +30,7 @@ RSpec.describe 'admin user index', type: :feature do
 
   it 'created_at date in a readable fashion' do
     within('#' << dom_id(random_user)) do
-      expect(page).to have_content(random_user.created_at.strftime("%d/%m/%Y"))
+      expect(page).to have_content(random_user.created_at.strftime('%d/%m/%Y'))
     end
   end
 

@@ -5,17 +5,17 @@ RSpec.describe 'page access', type: :feature do
     it 'can access the login page' do
       visit login_path
 
-      expect(page.current_path).to eq(login_path)
+      expect(page).to have_current_path(login_path, ignore_query: true)
     end
 
     context 'when the user tries to access a restricted page' do
       before { visit admin_users_path }
 
       it 'is redirected to the login page' do
-        expect(page.current_path).to eq(login_path)
+        expect(page).to have_current_path(login_path, ignore_query: true)
       end
 
-      it_behaves_like :display_alert, :error
+      it_behaves_like 'display alert', :error
     end
   end
 
@@ -28,13 +28,13 @@ RSpec.describe 'page access', type: :feature do
       it 'is redirected to the user index while accessing the login page' do
         visit login_path
 
-        expect(page.current_path).to eq(admin_users_path)
+        expect(page).to have_current_path(admin_users_path, ignore_query: true)
       end
 
       it 'can access pages with an access restricted to admins' do
         visit admin_users_path
 
-        expect(page.current_path).to eq(admin_users_path)
+        expect(page).to have_current_path(admin_users_path, ignore_query: true)
       end
     end
 
@@ -44,13 +44,13 @@ RSpec.describe 'page access', type: :feature do
       it 'is redirected to the user details while accessing the login page' do
         visit login_path
 
-        expect(page.current_path).to eq(user_profile_path)
+        expect(page).to have_current_path(user_profile_path, ignore_query: true)
       end
 
       it 'is redirected to the user details while accessing an admin page' do
         visit admin_users_path
 
-        expect(page.current_path).to eq(user_profile_path)
+        expect(page).to have_current_path(user_profile_path, ignore_query: true)
       end
     end
   end
