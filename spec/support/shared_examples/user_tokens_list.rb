@@ -1,4 +1,4 @@
-RSpec.shared_examples :it_displays_user_owned_token do
+RSpec.shared_examples 'it displays user owned token' do
   let(:example_token) { user.jwt_api_entreprise.take }
 
   it 'lists the user\'s active tokens' do

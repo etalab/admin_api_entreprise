@@ -1,6 +1,6 @@
 class DatapassWebhook::CreateJwtToken < ApplicationInteractor
   def call
-    return if %w(validate_application validate).exclude?(context.event)
+    return if %w[validate_application validate].exclude?(context.event)
     return if token_already_exists?
 
     token = create_jwt_token
@@ -18,7 +18,7 @@ class DatapassWebhook::CreateJwtToken < ApplicationInteractor
   def create_jwt_token
     authorization_request.create_jwt_api_entreprise(
       JwtAPIEntreprise.default_create_params.merge(
-        authorization_request_id: authorization_request.external_id,
+        authorization_request_id: authorization_request.external_id
       )
     )
   end
@@ -32,9 +32,9 @@ class DatapassWebhook::CreateJwtToken < ApplicationInteractor
   end
 
   def roles
-    context.data['pass']['scopes'].map do |code, bool|
+    context.data['pass']['scopes'].map { |code, bool|
       code if bool
-    end.compact
+    }.compact
   end
 
   def authorization_request

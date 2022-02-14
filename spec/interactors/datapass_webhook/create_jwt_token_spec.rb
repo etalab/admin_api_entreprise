@@ -48,7 +48,7 @@ RSpec.describe DatapassWebhook::CreateJwtToken, type: :interactor do
       token = JwtAPIEntreprise.last
 
       expect(token.authorization_request).to eq(authorization_request)
-      expect(token.exp).to eq(18.month.from_now.to_i)
+      expect(token.exp).to eq(18.months.from_now.to_i)
       expect(token.iat).to eq(Time.zone.now.to_i)
 
       expect(token.roles.pluck(:code).sort).to eq(%w[associations entreprises])

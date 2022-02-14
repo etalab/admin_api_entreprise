@@ -3,7 +3,7 @@ class AuthorizationRequestConditionFacade < SimpleDelegator
     [
       user.email,
       contact_technique.email,
-      contact_metier.email,
+      contact_metier.email
     ].uniq.count == 3
   end
 
@@ -11,7 +11,7 @@ class AuthorizationRequestConditionFacade < SimpleDelegator
     [
       user.email,
       contact_technique.email,
-      contact_metier.email,
+      contact_metier.email
     ].uniq.count == 1
   end
 

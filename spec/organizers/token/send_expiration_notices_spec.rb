@@ -2,10 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Token::SendExpirationNotices, type: :organizer do
   describe 'expire_in: option (provide a number of days)' do
-    let(:days) { 90 }
-
     subject { described_class.call(expire_in: days) }
 
+    let(:days) { 90 }
     let!(:jwt_1) { create(:jwt_api_entreprise, :expiring_within_3_month) }
     let!(:jwt_2) { create(:jwt_api_entreprise, :expiring_within_3_month) }
     let!(:jwt_3) { create(:jwt_api_entreprise, :expiring_in_1_year) }
@@ -15,15 +14,15 @@ RSpec.describe Token::SendExpirationNotices, type: :organizer do
     it 'calls the mailer for the affected JWT only' do
       expect(ScheduleExpirationNoticeMailjetEmailJob).to receive(:perform_later).with(jwt_1, days).and_call_original
       expect(ScheduleExpirationNoticeMailjetEmailJob).to receive(:perform_later).with(jwt_2, days).and_call_original
-      expect(ScheduleExpirationNoticeMailjetEmailJob).to_not receive(:perform_later).with(jwt_3, days).and_call_original
+      expect(ScheduleExpirationNoticeMailjetEmailJob).not_to receive(:perform_later).with(jwt_3, days).and_call_original
 
       subject
     end
 
     it 'does not send the same notification twice' do
       described_class.call(expire_in: days)
-      expect(ScheduleExpirationNoticeMailjetEmailJob).to_not receive(:perform_later).with(jwt_1, days)
-      expect(ScheduleExpirationNoticeMailjetEmailJob).to_not receive(:perform_later).with(jwt_2, days)
+      expect(ScheduleExpirationNoticeMailjetEmailJob).not_to receive(:perform_later).with(jwt_1, days)
+      expect(ScheduleExpirationNoticeMailjetEmailJob).not_to receive(:perform_later).with(jwt_2, days)
 
       subject
     end
@@ -33,7 +32,7 @@ RSpec.describe Token::SendExpirationNotices, type: :organizer do
       # Expectations for sent notifications are needed, otherwise the code runs against the "dumb" double
       expect(ScheduleExpirationNoticeMailjetEmailJob).to receive(:perform_later).with(jwt_1, days).and_call_original
       expect(ScheduleExpirationNoticeMailjetEmailJob).to receive(:perform_later).with(jwt_2, days).and_call_original
-      expect(ScheduleExpirationNoticeMailjetEmailJob).to_not receive(:perform_later).with(archived_jwt, days)
+      expect(ScheduleExpirationNoticeMailjetEmailJob).not_to receive(:perform_later).with(archived_jwt, days)
 
       subject
     end
@@ -43,7 +42,7 @@ RSpec.describe Token::SendExpirationNotices, type: :organizer do
       # Expectations for sent notifications are needed, otherwise the code runs against the "dumb" double
       expect(ScheduleExpirationNoticeMailjetEmailJob).to receive(:perform_later).with(jwt_1, days).and_call_original
       expect(ScheduleExpirationNoticeMailjetEmailJob).to receive(:perform_later).with(jwt_2, days).and_call_original
-      expect(ScheduleExpirationNoticeMailjetEmailJob).to_not receive(:perform_later).with(blacklisted_jwt, days)
+      expect(ScheduleExpirationNoticeMailjetEmailJob).not_to receive(:perform_later).with(blacklisted_jwt, days)
 
       subject
     end

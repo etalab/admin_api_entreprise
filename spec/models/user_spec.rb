@@ -39,7 +39,7 @@ RSpec.describe User do
 
     let!(:user) { create(:user, added_datetime) }
 
-    context 'when he has just been created ' do
+    context 'when he has just been created' do
       let(:added_datetime) { :added_since_yesterday }
 
       its(:added_since_yesterday) { is_expected.to be_exist user.id }
@@ -67,16 +67,19 @@ RSpec.describe User do
 
     context 'when the user has an API Gouv ID' do
       before { user.oauth_api_gouv_id = '12' }
+
       it { is_expected.to eq(true) }
     end
 
     context 'when the user does not have an API Gouv ID' do
       before { user.oauth_api_gouv_id = nil }
+
       it { is_expected.to eq(false) }
     end
 
     context 'when the user has an empty API Gouv ID' do
       before { user.oauth_api_gouv_id = '' }
+
       it { is_expected.to eq(false) }
     end
   end

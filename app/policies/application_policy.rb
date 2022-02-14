@@ -1,44 +1,44 @@
 class ApplicationPolicy
-  #attr_reader :user, :record
+  # attr_reader :user, :record
 
-  #def initialize(user, record)
+  # def initialize(user, record)
   #  @user = user
   #  @record = record
-  #end
+  # end
 
-  #def index?
+  # def index?
   #  false
-  #end
+  # end
 
-  #def show?
+  # def show?
   #  scope.where(:id => record.id).exists?
-  #end
+  # end
 
-  #def create?
+  # def create?
   #  false
-  #end
+  # end
 
-  #def new?
+  # def new?
   #  create?
-  #end
+  # end
 
-  #def update?
+  # def update?
   #  false
-  #end
+  # end
 
-  #def edit?
+  # def edit?
   #  update?
-  #end
+  # end
 
-  #def destroy?
+  # def destroy?
   #  false
-  #end
+  # end
 
-  #def scope
+  # def scope
   #  Pundit.policy_scope!(user, record.class)
-  #end
+  # end
 
-  #class Scope
+  # class Scope
   #  attr_reader :user, :scope
 
   #  def initialize(user, scope)
@@ -49,5 +49,5 @@ class ApplicationPolicy
   #  def resolve
   #    scope
   #  end
-  #end
+  # end
 end

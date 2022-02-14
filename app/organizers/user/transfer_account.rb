@@ -1,5 +1,5 @@
 class User::TransferAccount < ApplicationOrganizer
   organize User::FindOrCreateNewOwner,
-           User::TransferTokens,
-           User::NotifyNewTokensOwner
+    User::TransferTokens,
+    User::NotifyNewTokensOwner
 end

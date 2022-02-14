@@ -19,7 +19,7 @@ RSpec.describe RetrieveTokenStats do
       let(:stubbed_request) do
         stub_request(:get, url).to_return({
           status: 200,
-          body: body,
+          body: body
         })
       end
 
@@ -30,12 +30,12 @@ RSpec.describe RetrieveTokenStats do
       it 'returns the stats' do
         expect(subject.stats).to include(
           last_8_days: a_collection_including(a_hash_including(
-              name: 'Api/v2/etablissements restored',
-              total: 8,
-              percent_success: 100.0,
-              percent_not_found: 0.0,
-              percent_other_client_errors: 0.0,
-              percent_server_errors: 0.0,
+            name: 'Api/v2/etablissements restored',
+            total: 8,
+            percent_success: 100.0,
+            percent_not_found: 0.0,
+            percent_other_client_errors: 0.0,
+            percent_server_errors: 0.0
           )),
           last_30_hours: Array,
           last_10_minutes: Array,
@@ -49,6 +49,7 @@ RSpec.describe RetrieveTokenStats do
           ))
         )
       end
+
       its(:stats) { is_expected.to include(:last_8_days, :last_requests) }
     end
 

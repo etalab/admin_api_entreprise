@@ -1,4 +1,4 @@
-# TODO rename to APIEntrepriseAccessToken
+# TODO: rename to APIEntrepriseAccessToken
 class AccessToken
   class << self
     HASH_SECRET = Rails.application.credentials.jwt_hash_secret
@@ -27,14 +27,13 @@ class AccessToken
       })
       payload.map(&:deep_symbolize_keys!)
       payload.first
-
     rescue JWT::VerificationError,
-      JWT::InvalidAudError,
-      JWT::InvalidIssuerError,
-      JWT::ExpiredSignature => e
+           JWT::InvalidAudError,
+           JWT::InvalidIssuerError,
+           JWT::ExpiredSignature => e
 
       Rails.logger.error('ID Token verification error: ' + e.message)
-      return nil
+      nil
     end
   end
 end

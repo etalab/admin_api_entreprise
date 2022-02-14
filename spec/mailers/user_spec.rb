@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe UserMailer, type: :mailer do
   describe '#transfer_ownership' do
+    subject { described_class.transfer_ownership(old_owner, new_owner) }
+
     let(:new_owner) { create(:user) }
     let(:old_owner) { create(:user) }
-
-    subject { described_class.transfer_ownership(old_owner, new_owner) }
 
     its(:subject) { is_expected.to eq('API Entreprise - Délégation d\'accès') }
     its(:to) { is_expected.to eq([new_owner.email]) }
@@ -57,9 +57,9 @@ RSpec.describe UserMailer, type: :mailer do
   end
 
   describe '#notify_datapass_for_data_reconciliation' do
-    let(:user) { create(:user, :with_jwt) }
-
     subject { described_class.notify_datapass_for_data_reconciliation(user) }
+
+    let(:user) { create(:user, :with_jwt) }
 
     its(:subject) { is_expected.to eq('API Entreprise - Réconciliation de demandes d\'accès à un nouvel usager') }
     its(:to) { is_expected.to eq(['contact@api.gouv.fr']) }

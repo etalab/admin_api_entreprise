@@ -26,11 +26,11 @@ class AvailableEndpoints
   end
 
   def load_backend
-    @backend = endpoints_files.inject([]) do |array, endpoint_file|
+    @backend = endpoints_files.inject([]) { |array, endpoint_file|
       array.concat(YAML.safe_load(File.read(endpoint_file), aliases: true))
-    end.sort do |e1, e2|
+    }.sort { |e1, e2|
       order_by_position(e1, e2)
-    end.map do |endpoint|
+    }.map do |endpoint|
       endpoint.except('position')
     end
   end

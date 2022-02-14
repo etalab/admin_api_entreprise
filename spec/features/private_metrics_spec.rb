@@ -13,7 +13,6 @@ RSpec.describe 'private metrics', type: :feature do
     allow_any_instance_of(NotInProductionJwtIdsElasticQuery).to receive(:perform).and_return(
       user_with_inactive_token.jwt_api_entreprise.pluck(:id)
     )
-
   end
 
   it_behaves_like 'admin_restricted_path', '/admin/private_metrics'
@@ -22,8 +21,8 @@ RSpec.describe 'private metrics', type: :feature do
     admin = create(:user, :admin)
     login_as(admin)
 
-    expect{ visit(admin_private_metrics_path) }.not_to raise_error
+    expect { visit(admin_private_metrics_path) }.not_to raise_error
 
-    expect(page.current_path).to eq(admin_private_metrics_path)
+    expect(page).to have_current_path(admin_private_metrics_path, ignore_query: true)
   end
 end

@@ -80,7 +80,7 @@ RSpec.describe StatusPage, type: :service do
       end
 
       it 'retrieves the status from cache' do
-        is_expected.to eq(:up)
+        expect(subject).to eq(:up)
       end
     end
   end

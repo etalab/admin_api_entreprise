@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'stats page for a token', type: :feature do
+  subject { visit token_stats_path(token) }
+
   let(:user) { create(:user, :with_jwt) }
   let(:admin) { create(:user, :admin) }
   let(:token) { user.jwt_api_entreprise.take }
-
-  subject { visit token_stats_path(token) }
 
   before do
     login_as(user)
@@ -19,7 +19,7 @@ RSpec.describe 'stats page for a token', type: :feature do
     let(:stubbed_request) do
       stub_request(:get, url).to_return({
         status: 200,
-        body: body,
+        body: body
       })
     end
 
@@ -131,7 +131,7 @@ RSpec.describe 'stats page for a token', type: :feature do
             [
               one_of_the_last_calls[:url],
               one_of_the_last_calls[:params].to_s,
-              one_of_the_last_calls[:code],
+              one_of_the_last_calls[:code]
             ]
           ])
         end
@@ -145,7 +145,7 @@ RSpec.describe 'stats page for a token', type: :feature do
         stub_request(:get, url).to_timeout
       end
 
-      it_behaves_like :display_alert, :error
+      it_behaves_like 'display alert', :error
     end
   end
 end

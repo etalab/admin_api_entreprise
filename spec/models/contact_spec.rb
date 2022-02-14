@@ -8,8 +8,8 @@ RSpec.describe Contact do
   describe '.not_expired scope' do
     subject { Contact.not_expired }
 
-    let!(:valid_contact) { create(:contact, jwt_api_entreprise: create(:jwt_api_entreprise, blacklisted: false, archived: false))}
-    let!(:invalid_contact) { create(:contact, jwt_api_entreprise: create(:jwt_api_entreprise, blacklisted: false, archived: true))}
+    let!(:valid_contact) { create(:contact, jwt_api_entreprise: create(:jwt_api_entreprise, blacklisted: false, archived: false)) }
+    let!(:invalid_contact) { create(:contact, jwt_api_entreprise: create(:jwt_api_entreprise, blacklisted: false, archived: true)) }
 
     it 'works' do
       expect(subject.count).to eq(1)
@@ -18,6 +18,8 @@ RSpec.describe Contact do
   end
 
   describe '.with_token' do
+    subject { described_class.with_token }
+
     let!(:contacts) do
       create(:authorization_request, :with_contacts, :with_token)
         .contacts
@@ -27,8 +29,6 @@ RSpec.describe Contact do
       create(:authorization_request, :with_contacts)
         .contacts
     end
-
-    subject { described_class.with_token }
 
     it { is_expected.to include(*contacts) }
     it { is_expected.not_to include(*pending_contacts) }
@@ -52,7 +52,7 @@ RSpec.describe Contact do
 
     describe '#contact_type' do
       it { is_expected.to validate_presence_of(:contact_type) }
-      it { is_expected.to validate_inclusion_of(:contact_type).in_array(%w(admin tech other)) }
+      it { is_expected.to validate_inclusion_of(:contact_type).in_array(%w[admin tech other]) }
     end
   end
 

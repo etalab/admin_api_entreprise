@@ -1,7 +1,7 @@
 module MailjetHelpers
   def deliver_mailjet_email(message)
     Mailjet::Send.create(
-      sanitize_message_payload(message),
+      sanitize_message_payload(message)
     )
   end
 
@@ -15,7 +15,7 @@ module MailjetHelpers
   def build_mailjet_error_context(mailjet_exception)
     {
       mailjet_error_code: mailjet_exception.code,
-      mailjet_error_reason: mailjet_exception.reason,
+      mailjet_error_reason: mailjet_exception.reason
     }
   end
 

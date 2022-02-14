@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe JwtAPIEntreprise, type: :model do
+  let(:jwt) { create(:jwt_api_entreprise) }
+
   it 'has valid factories' do
     expect(build(:jwt_api_entreprise)).to be_valid
   end
-
-  let(:jwt) { create(:jwt_api_entreprise) }
 
   describe 'db_columns' do
     it { is_expected.to have_db_column(:id).of_type(:uuid) }
@@ -88,7 +88,7 @@ RSpec.describe JwtAPIEntreprise, type: :model do
     end
 
     it 'does not return expired tokens' do
-      expect(subject).to_not include(*expired_jwt)
+      expect(subject).not_to include(*expired_jwt)
     end
   end
 
@@ -171,12 +171,12 @@ RSpec.describe JwtAPIEntreprise, type: :model do
         it 'does not set exp field when expiration date is nil' do
           jwt.exp = nil
 
-          expect(payload).to_not have_key(:exp)
+          expect(payload).not_to have_key(:exp)
         end
       end
 
       it 'contains the payload version' do
-        expect(payload.fetch(:version)).to_not be_nil
+        expect(payload.fetch(:version)).not_to be_nil
         expect(payload.fetch(:version)).to eq(jwt.version)
       end
     end
@@ -203,9 +203,9 @@ RSpec.describe JwtAPIEntreprise, type: :model do
   end
 
   describe '#user_and_contacts_email' do
-    let(:jwt) { create(:jwt_api_entreprise, :with_contacts) }
-
     subject { jwt.user_and_contacts_email }
+
+    let(:jwt) { create(:jwt_api_entreprise, :with_contacts) }
 
     it 'contains the jwt owner\'s email (account owner)' do
       user_email = jwt.user.email

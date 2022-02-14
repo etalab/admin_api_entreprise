@@ -1,5 +1,5 @@
 class Token::DeliverMagicLinkToEmail < ApplicationOrganizer
   organize ValidateEmail,
-           Token::CreateMagicLink,
-           Token::SendEmailWithMagicLink
+    Token::CreateMagicLink,
+    Token::SendEmailWithMagicLink
 end

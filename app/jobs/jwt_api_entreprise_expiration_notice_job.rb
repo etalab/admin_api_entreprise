@@ -1,7 +1,7 @@
 class JwtAPIEntrepriseExpirationNoticeJob < ApplicationJob
   queue_as :default
 
-  def perform(*args)
+  def perform(*_args)
     Token::SendExpirationNotices.call(expire_in: 90)
     Token::SendExpirationNotices.call(expire_in: 60)
     Token::SendExpirationNotices.call(expire_in: 30)

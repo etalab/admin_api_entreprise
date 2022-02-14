@@ -9,7 +9,7 @@ RSpec.describe DatapassWebhook::FindOrCreateUser, type: :interactor do
     let(:datapass_webhook_params) { build(:datapass_webhook, demandeur_attributes: demandeur_attributes) }
     let(:demandeur_attributes) do
       {
-        email: generate(:email),
+        email: generate(:email)
       }
     end
 

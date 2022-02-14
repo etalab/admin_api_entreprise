@@ -2,7 +2,7 @@ class TokensQuery
   def initialize(relation = JwtAPIEntreprise.all)
     @relation = relation
 
-    self.relevant
+    relevant
   end
 
   def results
@@ -36,18 +36,18 @@ class TokensQuery
   end
 
   def relevant
-    @relation = @relation.
-      where(archived: [nil, false]).
-      where(blacklisted: [nil, false]).
-      where('exp > ?', Time.zone.now.to_i)
+    @relation = @relation
+      .where(archived: [nil, false])
+      .where(blacklisted: [nil, false])
+      .where('exp > ?', Time.zone.now.to_i)
 
     self
   end
 
   def production_delayed
-    @relation = @relation.
-      where('created_at < ?', 30.day.ago).
-      where(id: NotInProductionJwtIdsElasticQuery.new.perform)
+    @relation = @relation
+      .where('created_at < ?', 30.days.ago)
+      .where(id: NotInProductionJwtIdsElasticQuery.new.perform)
 
     self
   end

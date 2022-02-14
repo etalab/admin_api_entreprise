@@ -28,16 +28,14 @@ class JwtAPIEntreprise < ApplicationRecord
   end
 
   def access_roles
-    self.roles.pluck(:code)
+    roles.pluck(:code)
   end
 
   def renewal_url
     "#{Rails.configuration.jwt_renewal_url}#{authorization_request.external_id}"
   end
 
-  def authorization_request_url
-    authorization_request.url
-  end
+  delegate :url, to: :authorization_request, prefix: true
 
   def user_and_contacts_email
     Set[*contacts.pluck(:email)] << user.email
@@ -55,27 +53,25 @@ class JwtAPIEntreprise < ApplicationRecord
     {
       iat: Time.zone.now.to_i,
       version: '1.0',
-      exp: 18.months.from_now.to_i,
+      exp: 18.months.from_now.to_i
     }
   end
 
-  def intitule
-    authorization_request.intitule
-  end
+  delegate :intitule, to: :authorization_request
 
   private
 
   def token_payload
     payload = {
-      uid: self.user ? self.user.id : nil,
-      jti: self.id,
-      roles: self.roles.pluck(:code),
-      sub: self.intitule,
-      iat: self.iat,
-      version: self.version
+      uid: user ? user.id : nil,
+      jti: id,
+      roles: roles.pluck(:code),
+      sub: intitule,
+      iat: iat,
+      version: version
     }
     # JWT is by design expired if exp is null
-    payload[:exp] = self.exp unless self.exp.nil?
+    payload[:exp] = exp unless exp.nil?
     payload
   end
 end

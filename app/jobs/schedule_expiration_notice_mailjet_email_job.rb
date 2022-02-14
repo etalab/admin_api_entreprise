@@ -35,9 +35,9 @@ class ScheduleExpirationNoticeMailjetEmailJob < ApplicationJob
     [
       token.user,
       token.contacts
-    ].flatten.map do |recipient|
+    ].flatten.map { |recipient|
       "#{recipient.full_name} <#{recipient.email}>"
-    end.uniq.join(', ')
+    }.uniq.join(', ')
   end
 
   def build_vars(token)
@@ -50,12 +50,12 @@ class ScheduleExpirationNoticeMailjetEmailJob < ApplicationJob
 
   def expiration_in_to_mailjet_template_id(expires_in)
     {
-      90 => 3139223,
-      60 => 3139257,
-      30 => 3139276,
-      15 => 3139289,
-      7 => 3139312,
-      0 => 3139339
+      90 => 3_139_223,
+      60 => 3_139_257,
+      30 => 3_139_276,
+      15 => 3_139_289,
+      7 => 3_139_312,
+      0 => 3_139_339
     }[expires_in]
   end
 end

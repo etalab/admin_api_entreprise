@@ -10,15 +10,15 @@ class DatapassWebhook::ExtractMailjetVariables < ApplicationInteractor
 
   def build_common_mailjet_variables
     {
-      'authorization_request_id'          => authorization_request.external_id,
-      'authorization_request_intitule'    => authorization_request.intitule,
-      'authorization_request_description' => authorization_request.description,
+      'authorization_request_id' => authorization_request.external_id,
+      'authorization_request_intitule' => authorization_request.intitule,
+      'authorization_request_description' => authorization_request.description
     }.merge(
-      build_contact_payload(:user),
+      build_contact_payload(:user)
     ).merge(
-      build_contact_payload(:contact_metier),
+      build_contact_payload(:contact_metier)
     ).merge(
-      build_contact_payload(:contact_technique),
+      build_contact_payload(:contact_technique)
     )
   end
 
@@ -31,7 +31,7 @@ class DatapassWebhook::ExtractMailjetVariables < ApplicationInteractor
     {
       "#{key}_first_name" => model.first_name,
       "#{key}_last_name" => model.last_name,
-      "#{key}_email" => model.email,
+      "#{key}_email" => model.email
     }
   end
 
@@ -43,9 +43,9 @@ class DatapassWebhook::ExtractMailjetVariables < ApplicationInteractor
   end
 
   def latest_authorization_request_event
-    context.data['pass']['events'].sort do |event1, event2|
+    context.data['pass']['events'].sort { |event1, event2|
       DateTime.parse(event2['created_at']).to_i <=> DateTime.parse(event1['created_at']).to_i
-    end.first
+    }.first
   end
 
   def event_from_instructor?

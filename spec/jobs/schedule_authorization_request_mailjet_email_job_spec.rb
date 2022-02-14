@@ -8,7 +8,7 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob, type: :job do
       described_class.perform_now(
         authorization_request_id,
         authorization_request_status,
-        mailjet_attributes,
+        mailjet_attributes
       )
     end
 
@@ -21,9 +21,9 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob, type: :job do
         to: [
           {
             email: to_user.email,
-            full_name: to_user.full_name,
-          },
-        ],
+            full_name: to_user.full_name
+          }
+        ]
       }
     end
 
@@ -45,7 +45,7 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob, type: :job do
     context 'when current authorization request status is different from authorization_request_status' do
       before do
         authorization_request.update!(
-          status: 'validated',
+          status: 'validated'
         )
       end
 
@@ -59,7 +59,7 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob, type: :job do
     context 'when current authorization request status did not changed but has the old nomenclature' do
       before do
         authorization_request.update!(
-          status: 'pending',
+          status: 'pending'
         )
       end
 
@@ -71,7 +71,7 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob, type: :job do
             to: "#{to_user.full_name} <#{to_user.email}>",
             vars: mailjet_template_vars,
             'Mj-TemplateLanguage' => true,
-            'Mj-TemplateID' => mailjet_template_id,
+            'Mj-TemplateID' => mailjet_template_id
           }.stringify_keys
         )
 
@@ -88,7 +88,7 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob, type: :job do
             to: "#{to_user.full_name} <#{to_user.email}>",
             vars: mailjet_template_vars,
             'Mj-TemplateLanguage' => true,
-            'Mj-TemplateID' => mailjet_template_id,
+            'Mj-TemplateID' => mailjet_template_id
           }.stringify_keys
         )
 
@@ -103,11 +103,11 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob, type: :job do
           mailjet_attributes[:cc] = [
             {
               email: cc_contact1.email,
-              full_name: cc_contact1.full_name,
+              full_name: cc_contact1.full_name
             },
             {
               email: cc_contact2.email,
-              full_name: cc_contact2.full_name,
+              full_name: cc_contact2.full_name
             }
           ]
         end
@@ -121,7 +121,7 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob, type: :job do
               cc: "#{cc_contact1.full_name} <#{cc_contact1.email}>, #{cc_contact2.full_name} <#{cc_contact2.email}>",
               vars: mailjet_template_vars,
               'Mj-TemplateLanguage' => true,
-              'Mj-TemplateID' => mailjet_template_id,
+              'Mj-TemplateID' => mailjet_template_id
             }.stringify_keys
           )
 
@@ -136,14 +136,14 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob, type: :job do
             body,
             nil,
             'https://api.mailjet.com/v3/send',
-            params,
+            params
           )
         end
         let(:code) { 418 }
         let(:body) { "I'm a teapot!" }
         let(:params) do
           {
-            oki: 'lol',
+            oki: 'lol'
           }
         end
 
@@ -158,7 +158,7 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob, type: :job do
             hash_including(
               {
                 mailjet_error_code: code,
-                mailjet_error_reason: body,
+                mailjet_error_reason: body
               }
             )
           ).and_call_original

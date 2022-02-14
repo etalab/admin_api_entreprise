@@ -12,7 +12,7 @@ RSpec.describe 'the signin process', type: :feature do
       OmniAuth.config.mock_auth[:api_gouv] = OmniAuth::AuthHash.new({
         info: {
           email: user.email,
-          sub: user.oauth_api_gouv_id,
+          sub: user.oauth_api_gouv_id
         }
       })
     end
@@ -25,7 +25,7 @@ RSpec.describe 'the signin process', type: :feature do
       it 'redirects to the login page' do
         subject
 
-        expect(page.current_path).to eq(login_path)
+        expect(page).to have_current_path(login_path, ignore_query: true)
       end
     end
 
@@ -35,7 +35,7 @@ RSpec.describe 'the signin process', type: :feature do
       it 'redirects to the users index page' do
         subject
 
-        expect(page.current_path).to eq(admin_users_path)
+        expect(page).to have_current_path(admin_users_path, ignore_query: true)
       end
     end
 
@@ -45,7 +45,7 @@ RSpec.describe 'the signin process', type: :feature do
       it 'redirects to the user profile' do
         subject
 
-        expect(page.current_path).to eq(user_profile_path)
+        expect(page).to have_current_path(user_profile_path, ignore_query: true)
       end
     end
   end
@@ -61,9 +61,9 @@ RSpec.describe 'the signin process', type: :feature do
     it 'redirects to the login page' do
       subject
 
-      expect(page.current_path).to eq(login_path)
+      expect(page).to have_current_path(login_path, ignore_query: true)
     end
 
-    it_behaves_like :display_alert, :error
+    it_behaves_like 'display alert', :error
   end
 end

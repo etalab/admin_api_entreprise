@@ -9,7 +9,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
     described_class.call(
       datapass_webhook_params.merge(
         authorization_request: authorization_request,
-        mailjet_variables: mailjet_variables,
+        mailjet_variables: mailjet_variables
       )
     )
   end
@@ -29,7 +29,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
   end
 
   describe 'with an event which does not trigger email' do
-    let(:event) { %w(created create).sample }
+    let(:event) { %w[created create].sample }
 
     it 'does not call schedule emails' do
       subject
@@ -39,7 +39,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
   end
 
   context 'with an event which trigger emails, no conditions, a when key and no attributes on recipients' do
-    let(:event) { %w(send_application submit).sample }
+    let(:event) { %w[send_application submit].sample }
 
     it 'schedules emails according to configuration, to authorization request\'s user' do
       subject
@@ -54,9 +54,9 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
           to: [
             {
               'email' => authorization_request.user.email,
-              'full_name' => authorization_request.user.full_name,
-            },
-          ],
+              'full_name' => authorization_request.user.full_name
+            }
+          ]
         )
       ).at(Time.now)
 
@@ -68,16 +68,16 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
           to: [
             {
               'email' => authorization_request.user.email,
-              'full_name' => authorization_request.user.full_name,
-            },
-          ],
+              'full_name' => authorization_request.user.full_name
+            }
+          ]
         )
       ).at(14.days.from_now)
     end
   end
 
   context 'with an event which trigger emails, conditions and recipients attributes' do
-    let(:event) { %w(refuse_application refuse).sample }
+    let(:event) { %w[refuse_application refuse].sample }
 
     before do
       AuthorizationRequestConditionFacade.define_method(:user_first_name_is_run?) do
@@ -98,7 +98,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
       before do
         authorization_request.user.update!(
           first_name: 'run',
-          last_name: 'run',
+          last_name: 'run'
         )
       end
 
@@ -115,9 +115,9 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
             to: [
               {
                 'email' => authorization_request.user.email,
-                'full_name' => authorization_request.user.full_name,
-              },
-            ],
+                'full_name' => authorization_request.user.full_name
+              }
+            ]
           )
         ).at(Time.now)
 
@@ -129,19 +129,19 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
             to: [
               {
                 'email' => authorization_request.contact_metier.email,
-                'full_name' => authorization_request.contact_metier.full_name,
-              },
+                'full_name' => authorization_request.contact_metier.full_name
+              }
             ],
             cc: [
               {
                 'email' => authorization_request.contact_technique.email,
-                'full_name' => authorization_request.contact_technique.full_name,
+                'full_name' => authorization_request.contact_technique.full_name
               },
               {
                 'email' => authorization_request.user.email,
-                'full_name' => authorization_request.user.full_name,
-              },
-            ],
+                'full_name' => authorization_request.user.full_name
+              }
+            ]
           )
         ).at(Time.now)
       end
@@ -151,7 +151,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
       before do
         authorization_request.user.update!(
           first_name: 'run',
-          last_name: 'not run',
+          last_name: 'not run'
         )
       end
 
@@ -168,9 +168,9 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
             to: [
               {
                 'email' => authorization_request.user.email,
-                'full_name' => authorization_request.user.full_name,
-              },
-            ],
+                'full_name' => authorization_request.user.full_name
+              }
+            ]
           )
         ).at(Time.now)
       end

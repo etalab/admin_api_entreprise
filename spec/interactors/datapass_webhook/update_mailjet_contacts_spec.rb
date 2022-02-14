@@ -8,11 +8,11 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
   let(:authorization_request) { create(:authorization_request, user: user) }
   let(:user) { create(:user, :with_full_name) }
 
-  it { is_expected.to be_a_success }
-
   before do
     allow(Mailjet::Contactslist_managemanycontacts).to receive(:create)
   end
+
+  it { is_expected.to be_a_success }
 
   describe 'without contacts on authorization request' do
     it 'updates mailjet authorization request user with first and last name' do
@@ -27,7 +27,7 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
               'nom' => user.last_name,
               'contact_demandeur' => true,
               'contact_métier' => false,
-              'contact_technique' => false,
+              'contact_technique' => false
             }
           }
         ]
@@ -50,25 +50,25 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
             properties: hash_including(
               'contact_demandeur' => true,
               'contact_métier' => false,
-              'contact_technique' => false,
-            ),
+              'contact_technique' => false
+            )
           },
           {
             email: authorization_request.contact_metier.email,
             properties: hash_including(
               'contact_demandeur' => false,
               'contact_métier' => true,
-              'contact_technique' => false,
-            ),
+              'contact_technique' => false
+            )
           },
           {
             email: authorization_request.contact_technique.email,
             properties: hash_including(
               'contact_demandeur' => false,
               'contact_métier' => false,
-              'contact_technique' => true,
-            ),
-          },
+              'contact_technique' => true
+            )
+          }
         ]
       )
 
@@ -78,7 +78,7 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
     context 'when contact technique is the same as user' do
       before do
         user.update!(
-          email: authorization_request.contact_technique.email,
+          email: authorization_request.contact_technique.email
         )
       end
 
@@ -92,17 +92,17 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
               properties: hash_including(
                 'contact_demandeur' => true,
                 'contact_métier' => false,
-                'contact_technique' => true,
-              ),
+                'contact_technique' => true
+              )
             },
             {
               email: authorization_request.contact_metier.email,
               properties: hash_including(
                 'contact_demandeur' => false,
                 'contact_métier' => true,
-                'contact_technique' => false,
-              ),
-            },
+                'contact_technique' => false
+              )
+            }
           ]
         )
 
@@ -113,7 +113,7 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
     context 'when contact metier is the same as user' do
       before do
         user.update!(
-          email: authorization_request.contact_metier.email,
+          email: authorization_request.contact_metier.email
         )
       end
 
@@ -127,17 +127,17 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
               properties: hash_including(
                 'contact_demandeur' => true,
                 'contact_métier' => true,
-                'contact_technique' => false,
-              ),
+                'contact_technique' => false
+              )
             },
             {
               email: authorization_request.contact_technique.email,
               properties: hash_including(
                 'contact_demandeur' => false,
                 'contact_métier' => false,
-                'contact_technique' => true,
-              ),
-            },
+                'contact_technique' => true
+              )
+            }
           ]
         )
 
@@ -148,7 +148,7 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
     context 'when all contacts emails are the same' do
       before do
         authorization_request.contacts.update_all(
-          email: user.email,
+          email: user.email
         )
       end
 
@@ -162,9 +162,9 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
               properties: hash_including(
                 'contact_demandeur' => true,
                 'contact_métier' => true,
-                'contact_technique' => true,
-              ),
-            },
+                'contact_technique' => true
+              )
+            }
           ]
         )
 
@@ -177,7 +177,7 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
 
       before do
         authorization_request.contacts.update_all(
-          email: another_email,
+          email: another_email
         )
       end
 
@@ -191,17 +191,17 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
               properties: hash_including(
                 'contact_demandeur' => true,
                 'contact_métier' => false,
-                'contact_technique' => false,
-              ),
+                'contact_technique' => false
+              )
             },
             {
               email: another_email,
               properties: hash_including(
                 'contact_demandeur' => false,
                 'contact_métier' => true,
-                'contact_technique' => true,
-              ),
-            },
+                'contact_technique' => true
+              )
+            }
           ]
         )
 

@@ -27,8 +27,8 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
     end
 
     it 'updates contacts associated to authorization request' do
-      expect(authorization_request.contact_metier.full_name).not_to eq("CONTACT_METIER LAST NAME contact_metier first name")
-      expect(authorization_request.contact_technique.full_name).not_to eq("RESPONSABLE_TECHNIQUE LAST NAME responsable_technique first name")
+      expect(authorization_request.contact_metier.full_name).not_to eq('CONTACT_METIER LAST NAME contact_metier first name')
+      expect(authorization_request.contact_technique.full_name).not_to eq('RESPONSABLE_TECHNIQUE LAST NAME responsable_technique first name')
 
       expect(authorization_request.contact_technique.email).not_to match(/technique\d+@/)
       expect(authorization_request.contact_metier.email).not_to match(/metier\d+@/)
@@ -40,8 +40,8 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
       expect(authorization_request.contact_technique.email).to match(/technique\d+@/)
       expect(authorization_request.contact_metier.email).to match(/metier\d+@/)
 
-      expect(authorization_request.contact_metier.full_name).to eq("CONTACT_METIER LAST NAME contact_metier first name")
-      expect(authorization_request.contact_technique.full_name).to eq("RESPONSABLE_TECHNIQUE LAST NAME responsable_technique first name")
+      expect(authorization_request.contact_metier.full_name).to eq('CONTACT_METIER LAST NAME contact_metier first name')
+      expect(authorization_request.contact_technique.full_name).to eq('RESPONSABLE_TECHNIQUE LAST NAME responsable_technique first name')
     end
 
     context 'when it is the same user' do
@@ -85,7 +85,7 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
   end
 
   context 'when event is send_application or submit' do
-    let(:datapass_webhook_params) { build(:datapass_webhook, event: %w(send_application submit).sample, fired_at: fired_at, authorization_request_attributes: { id: authorization_id }) }
+    let(:datapass_webhook_params) { build(:datapass_webhook, event: %w[send_application submit].sample, fired_at: fired_at, authorization_request_attributes: { id: authorization_id }) }
 
     let!(:authorization_request) { create(:authorization_request, :with_contacts, external_id: authorization_id, first_submitted_at: first_submitted_at) }
 
@@ -111,7 +111,7 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
   end
 
   context 'when event is validate_application or validate' do
-    let(:datapass_webhook_params) { build(:datapass_webhook, event: %w(validate_application validate).sample, fired_at: fired_at, authorization_request_attributes: { id: authorization_id }) }
+    let(:datapass_webhook_params) { build(:datapass_webhook, event: %w[validate_application validate].sample, fired_at: fired_at, authorization_request_attributes: { id: authorization_id }) }
 
     let!(:authorization_request) { create(:authorization_request, :with_contacts, external_id: authorization_id) }
 

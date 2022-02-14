@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe 'log out', type: :feature do
-  before { login_as(create(:user)) }
-
   subject do
     visit user_profile_path
     click_link 'logout_button'
   end
+
+  before { login_as(create(:user)) }
 
   it 'clears the session' do
     subject

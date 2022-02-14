@@ -3,8 +3,11 @@ FactoryBot.define do
 
   factory :user do
     email
-    sequence(:oauth_api_gouv_id) { |n| "#{n}" }
+    sequence(:oauth_api_gouv_id) { |n| n.to_s }
+    # rubocop:disable RSpec/EmptyExampleGroup
     context { 'VERY_DEVELOPMENT' }
+    # rubocop:enable RSpec/EmptyExampleGroup
+
     cgu_agreement_date { Time.zone.now }
     tokens_newly_transfered { false }
 

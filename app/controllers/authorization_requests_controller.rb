@@ -6,7 +6,7 @@ class AuthorizationRequestsController < AuthenticatedUsersController
       .authorization_requests
       .submitted_at_least_once
       .order(
-        first_submitted_at: :desc,
+        first_submitted_at: :desc
       )
   end
 end

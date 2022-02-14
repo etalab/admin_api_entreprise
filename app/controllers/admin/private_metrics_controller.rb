@@ -1,6 +1,6 @@
 class Admin::PrivateMetricsController < AuthenticatedAdminsController
   def index
-    @monthly_new_users_histogram = User.all.group_by{ |u| u.created_at.beginning_of_month }.map{ |d, results| [d.strftime('%Y-%m'), results.count] }
+    @monthly_new_users_histogram = User.all.group_by { |u| u.created_at.beginning_of_month }.map { |d, results| [d.strftime('%Y-%m'), results.count] }
 
     @tokens_expiring_in_less_than_1_week = tokens_expiring_in_less_than_1_week
     @tokens_expiring_in_less_than_1_month_but_after_1_week = tokens_expiring_in_less_than_1_month_but_after_1_week
@@ -35,14 +35,14 @@ class Admin::PrivateMetricsController < AuthenticatedAdminsController
   def tokens_expiring_in_less_than_3_months_but_after_1_month
     TokensQuery.new.expiring_within_interval(
       interval_start: 1.month.from_now.tomorrow,
-      interval_stop: now + 3.month
+      interval_stop: now + 3.months
     ).count
   end
 
   def tokens_expiring_in_more_than_3_months
     JwtAPIEntreprise.all.count - TokensQuery.new.expiring_within_interval(
       interval_start: now,
-      interval_stop: now + 3.month
+      interval_stop: now + 3.months
     ).count
   end
 

@@ -5,11 +5,9 @@ class EndpointsController < ApplicationController
     @endpoints = Endpoint.all
   end
 
-  def show
-  end
+  def show; end
 
-  def example
-  end
+  def example; end
 
   private
 

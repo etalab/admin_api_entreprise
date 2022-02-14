@@ -40,7 +40,7 @@ end
 require 'capybara/rspec'
 require 'rack_session_access/capybara'
 
-require "capybara/cuprite"
+require 'capybara/cuprite'
 Capybara.javascript_driver = :cuprite
 Capybara.register_driver(:cuprite) do |app|
   Capybara::Cuprite::Driver.new(app, window_size: [1200, 800])
@@ -49,7 +49,6 @@ Capybara.server = :puma, { Silent: true }
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
-
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
