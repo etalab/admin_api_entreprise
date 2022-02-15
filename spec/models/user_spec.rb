@@ -108,4 +108,18 @@ RSpec.describe User do
       its(:email) { is_expected.to eq 'EMAIL_with@CASE.com' }
     end
   end
+
+  describe '#any_token_with_attestation_role?' do
+    subject { user.any_token_with_attestation_role? }
+
+    context 'when user doesnt have attestation roles' do
+      it { is_expected.to be_falsey }
+    end
+
+    context 'when user has attestation role' do
+      let(:user) { create :user, :with_jwt_specific_roles, specific_roles: ['attestations_fiscales'] }
+
+      it { is_expected.to be_truthy }
+    end
+  end
 end

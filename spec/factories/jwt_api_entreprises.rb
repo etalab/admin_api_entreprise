@@ -30,6 +30,16 @@ FactoryBot.define do
       end
     end
 
+    trait :with_specific_roles do
+      transient do
+        specific_roles { ['entreprises'] }
+      end
+
+      roles do
+        specific_roles.map { |role| build(:role, :with_specific_role, specific_role: role) }
+      end
+    end
+
     trait :access_request_survey_not_sent do
       access_request_survey_sent { false }
     end

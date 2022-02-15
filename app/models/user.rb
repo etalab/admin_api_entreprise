@@ -48,4 +48,22 @@ class User < ApplicationRecord
   def generate_pwd_renewal_token
     update(pwd_renewal_token: random_token_for(:pwd_renewal_token))
   end
+
+  def any_token_with_attestation_role?
+    any_token_with_attestation_sociale_role? || any_token_with_attestation_fiscale_role?
+  end
+
+  def any_token_with_attestation_sociale_role?
+    tokens_roles_codes.include? 'attestations_sociales'
+  end
+
+  def any_token_with_attestation_fiscale_role?
+    tokens_roles_codes.include? 'attestations_fiscales'
+  end
+
+  private
+
+  def tokens_roles_codes
+    jwt_api_entreprise.joins(:roles).pluck('roles.code').uniq
+  end
 end
