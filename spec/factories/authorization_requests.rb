@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :authorization_request do
-    intitule { 'Intitule' }
+    sequence(:intitule) { |n| "Intitule #{n}" }
     description { 'description' }
     sequence(:external_id) { |n| n.to_s }
     user { build(:user, :with_full_name) }

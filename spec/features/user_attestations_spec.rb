@@ -29,4 +29,33 @@ RSpec.describe 'User can download attestations', type: :feature do
       end
     end
   end
+
+  describe 'select menu' do
+    subject(:visit_attestations) { visit user_attestations_path }
+
+    before do
+      login_as(user)
+      visit_attestations
+    end
+
+    context 'when user has 3 tokens' do
+      let(:user) { create :user, :with_jwt_specific_roles, specific_roles: ['attestations_fiscales'] }
+
+      it 'has a select list' do
+        expect(page).to have_select('token')
+      end
+
+      it 'select list has 3 options' do
+        expect(page.all('select#token option').map(&:value)).to eq(['Intitule 1', 'Intitule 2', 'Intitule 3'])
+      end
+    end
+
+    context 'when user has no token' do
+      let(:user) { create(:user) }
+
+      it 'does not have a select list' do
+        expect(page).not_to have_select('token')
+      end
+    end
+  end
 end

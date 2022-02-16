@@ -1,1 +1,30 @@
-Salut c'est cool bienvenue à <%= current_user %>
+<h1>Interface d'appel</h1>
+
+<h5>Récupérez l'<strong>attestation sociale</strong> d'une entreprise ou d'une association, en entrant son numéro de siret.</h5>
+
+<div class="fr-card fr-card--horizontal fr-card--no-arrow token-card">
+  <div class="fr-card__body">
+    <h4 class="fr-card__title">
+      <% if user_signed_in? && current_user.any_token_with_attestation_role? %>
+        <span class="fr-text--sm fr-m-0 pull-left">
+          <p>API att. sociale</p>
+          <p>API att. fiscale</p>
+        </span>
+        <span class="fr-text--sm fr-m-0 pull-right">
+          <div data-controller="hello">
+            <div class="fr-select-group">
+              <label class="fr-label" for="select">
+                Jetons d'accès
+              </label>
+              <%= select_tag(
+                :jwt_api_entreprise,
+                options_for_select(current_user.jwt_api_entreprise.map { |j| j.authorization_request.intitule }, current_user.jwt_api_entreprise),
+                { class: "fr-select", id: "token" }
+              ) %>
+            </div>
+            <div>
+        </span>
+      <% end %>
+    </h4>
+  </div>
+</div>
