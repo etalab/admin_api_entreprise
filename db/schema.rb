@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_11_162835) do
+ActiveRecord::Schema.define(version: 2022_02_16_124927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
@@ -30,13 +30,13 @@ ActiveRecord::Schema.define(version: 2022_01_11_162835) do
     t.string "status"
     t.string "ip"
     t.string "source"
-    t.uuid "jwt_api_entreprise_id"
     t.jsonb "params", default: "{}"
+    t.uuid "jwt_api_entreprise_id"
     t.index "((params ->> 'recipient'::text))", name: "index_access_logs_on_params_recipient", using: :gin
     t.index "((params ->> 'siren'::text))", name: "index_access_logs_on_params_siren", using: :gin
     t.index "((params ->> 'siret'::text))", name: "index_access_logs_on_params_siret", using: :gin
     t.index "((params ->> 'siret_or_eori'::text))", name: "index_access_logs_on_params_siret_or_eori", using: :gin
-    t.index ["jwt_api_entreprise_id"], name: "index_access_logs_on_jwt_api_entreprise_id"
+    t.index ["jwt_api_entreprise_id"], name: "index_access_logs_on_jwt_api_entreprise_id", where: "(jwt_api_entreprise_id IS NOT NULL)"
   end
 
   create_table "authorization_requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -122,5 +122,4 @@ ActiveRecord::Schema.define(version: 2022_01_11_162835) do
     t.index ["pwd_renewal_token"], name: "index_users_on_pwd_renewal_token"
   end
 
-  add_foreign_key "access_logs", "jwt_api_entreprises"
 end
