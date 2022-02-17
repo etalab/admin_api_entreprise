@@ -34,6 +34,30 @@ RSpec.describe Endpoint, type: :model do
 
       its(:meta) { is_expected.to be_an_instance_of(Hash) }
       its(:meta) { is_expected.to have_key('date_derniere_mise_a_jour') }
+
+      its(:collection?) { is_expected.to be false }
+    end
+
+    context 'with collection uid' do
+      let(:uid) { example_collection_uid }
+
+      it { is_expected.to be_an_instance_of(Endpoint) }
+
+      its(:attributes) { is_expected.to be_an_instance_of(Hash) }
+      its(:attributes) { is_expected.to have_key('fonction') }
+
+      its(:root_links) { is_expected.to be_an_instance_of(Hash) }
+
+      its(:root_meta) { is_expected.to be_an_instance_of(Hash) }
+      its(:root_meta) { is_expected.to have_key('personnes_morales_count') }
+
+      its(:example_payload) { is_expected.to be_an_instance_of(Hash) }
+
+      it 'has custom example' do
+        expect(subject.example_payload['data']).to have_exactly(2).items
+      end
+
+      its(:collection?) { is_expected.to be true }
     end
 
     context 'with invalid uid' do
