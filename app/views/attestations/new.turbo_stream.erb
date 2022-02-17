@@ -1,0 +1,16 @@
+<%= turbo_stream.update "attestations_search" do %>
+  <div>
+    <h4>Attestations téléchargeables avec ce token:</h4>
+    <% if @jwt_attestations_roles.nil? %>
+      Veuillez sélectionner un token dans la liste.
+    <% elsif @jwt_attestations_roles.blank? %>
+      Aucune attestation disponible avec ce token.
+    <% else %>
+      <ul>
+        <% @jwt_attestations_roles.map(&:name).each do |role| %>
+          <li><%= role %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+<% end %>

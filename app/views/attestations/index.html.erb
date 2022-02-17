@@ -6,23 +6,22 @@
   <div class="fr-card__body">
     <h4 class="fr-card__title">
       <% if user_signed_in? && current_user.any_token_with_attestation_role? %>
-        <span class="fr-text--sm fr-m-0 pull-left">
-          <p>API att. sociale</p>
-          <p>API att. fiscale</p>
-        </span>
-        <span class="fr-text--sm fr-m-0 pull-right">
-          <div data-controller="hello">
+        <span class="fr-text--sm fr-m-0">
+          <div data-controller="token">
             <div class="fr-select-group">
               <label class="fr-label" for="select">
                 Jetons d'accès
               </label>
               <%= select_tag(
                 :jwt_api_entreprise,
-                options_for_select(current_user.jwt_api_entreprise.map { |j| j.authorization_request.intitule }, current_user.jwt_api_entreprise),
-                { class: "fr-select", id: "token" }
+                options_for_select(current_user.jwt_api_entreprise.map { |jwt| [jwt.authorization_request.intitule, jwt.id] }),
+                { class: "fr-select", id: "token", include_blank: true, data: {action: 'change->token#select'} }
               ) %>
             </div>
-            <div>
+            <%= turbo_frame_tag "attestations_search" do %>
+              Selectionnez un token pour voir les droits
+            <% end %>
+          </div>
         </span>
       <% end %>
     </h4>
