@@ -41,6 +41,10 @@ paths:
           siren_entrepreneur_individuel:
             value: '389839937'
             summary: SIREN d'un entrepeneur individuel (cessé)
+          siren_marques_brevets_modeles:
+            value: '542065479'
+            summary: SIREN d'une entreprise ayant des marques, brevets et modèles
+              (INPI)
         required: true
         schema:
           type: string
@@ -76,10 +80,9 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir l'attestation sociale d'une entreprise, confirmant qu'elle
-        s'acquitte de ses obligations déclaratives et du paiement des cotisations
-        et contributions sociales auprès de l'URSSAF Caisse nationale (anciennement
-        ACOSS).
+      description: Attestation sociale délivrée à une entreprise acquittée de ses
+        obligations de cotisations et contributions sociales auprès de l'URSSAF Caisse
+        nationale.
       responses:
         '403':
           description: Accès interdit
@@ -489,6 +492,10 @@ paths:
           siren_entrepreneur_individuel:
             value: '389839937'
             summary: SIREN d'un entrepeneur individuel (cessé)
+          siren_marques_brevets_modeles:
+            value: '542065479'
+            summary: SIREN d'une entreprise ayant des marques, brevets et modèles
+              (INPI)
         required: true
         schema:
           type: string
@@ -524,8 +531,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir l’attestation fiscale, délivrée par la Direction générale
-        des finances publiques, indiquant que l’entreprise est à jour de ses obligations
+      description: Attestation fiscale délivrée par la Direction générale des finances
+        publiques (DGFIP), indiquant que l’entreprise est à jour de ses obligations
         fiscales.
       responses:
         '403':
@@ -680,9 +687,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir les déclarations de chiffre d’affaires faites auprès de
-        la Direction générale des finances publiques (DGFIP), et renseignées dans
-        la liasse fiscale.
+      description: Déclarations de chiffre d’affaires, des trois derniers exercices,
+        faites auprès de la Direction générale des finances publiques (DGFIP).
       responses:
         '403':
           description: Accès interdit
@@ -787,9 +793,9 @@ paths:
           type: integer
       security:
       - jwt_bearer_token: []
-      description: Obtenir les informations renseignées dans les liasses fiscales,
-        issues des déclarations de résultat d’une entreprise auprès de la Direction
-        générale des finances publiques (DGFIP).
+      description: Informations renseignées dans les liasses fiscales, issues des
+        déclarations de résultat d’une entreprise auprès de la Direction générale
+        des finances publiques (DGFIP).
       responses:
         '403':
           description: Accès interdit
@@ -1149,6 +1155,38 @@ paths:
       tags:
       - Informations générales
       parameters:
+      - name: siren
+        in: path
+        description: Siren de l'entreprise
+        examples:
+          siren_octo_technology:
+            value: '418166096'
+            summary: SIREN Octo Technology
+          siren_non_diffusible:
+            value: '005572466'
+            summary: SIREN entreprise non diffusible
+          siren_artisant:
+            value: '301123626'
+            summary: SIREN entreprise artisanale
+          siren_fntp:
+            value: '339379984'
+            summary: SIREN pour FNTP
+          siren_cnetp:
+            value: '542036207'
+            summary: SIREN pour CNETP
+          siren_opqibi:
+            value: '515228211'
+            summary: SIREN pour OPQIBI
+          siren_entrepreneur_individuel:
+            value: '389839937'
+            summary: SIREN d'un entrepeneur individuel (cessé)
+          siren_marques_brevets_modeles:
+            value: '542065479'
+            summary: SIREN d'une entreprise ayant des marques, brevets et modèles
+              (INPI)
+        required: true
+        schema:
+          type: string
       - name: context
         in: query
         description: |-
@@ -1179,14 +1217,9 @@ paths:
         required: true
         schema:
           type: string
-      - name: siren
-        in: path
-        required: true
-        schema:
-          type: string
       security:
       - jwt_bearer_token: []
-      description: Liste des mandataires sociaux d'une société
+      description: Liste des mandataires sociaux d'une société inscrites au RCS.
       responses:
         '403':
           description: Accès interdit
@@ -1216,85 +1249,179 @@ paths:
                 type: object
                 properties:
                   data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          title: Numéro d'identification
+                          type: string
+                          example: HENRI-MARTIN-1965-01-27
+                        type:
+                          title: Type de mandataire social
+                          description: Ce champ permet de faire la distinction entre
+                            les personnes physiques et morales
+                          type: string
+                          example: personne_morale
+                          enum:
+                          - personne_morale
+                          - personne_physique
+                        attributes:
+                          type: object
+                          required:
+                          - fonction
+                          additionalProperties: false
+                          properties:
+                            fonction:
+                              title: Fonction au sein de l'entreprise
+                              description: Information disponible pour les personnes
+                                morales et physiques
+                              type: string
+                              example: COMMISSAIRE AUX COMPTES SUPPLEANT
+                            nom:
+                              title: Nom
+                              description: Information disponible uniquement pour
+                                une personne physique
+                              type: string
+                              example: Henri
+                              nullable: true
+                            prenom:
+                              title: Prénom
+                              description: Information disponible uniquement pour
+                                une personne physique
+                              type: string
+                              example: Martin
+                              nullable: true
+                            date_naissance:
+                              title: Date de naissance
+                              description: Information disponible uniquement pour
+                                une personne physique
+                              type: string
+                              example: '1965-01-27'
+                              nullable: true
+                            date_naissance_timestamp:
+                              title: Date de naissance (timestamp)
+                              description: Information disponible uniquement pour
+                                une personne physique
+                              type: integer
+                              example: -155523600
+                              nullable: true
+                            lieu_naissance:
+                              title: Lieu de naissance
+                              description: Information disponible uniquement pour
+                                une personne physique
+                              type: string
+                              example: ROUBAIX
+                              nullable: true
+                            pays_naissance:
+                              title: Pays de naissance
+                              description: Information disponible uniquement pour
+                                une personne physique
+                              type: string
+                              example: FRANCE
+                              nullable: true
+                            code_pays_naissance:
+                              title: Code pays ISO 3166 Alpha 2
+                              description: Information disponible uniquement pour
+                                une personne physique
+                              type: string
+                              example: FR
+                              nullable: true
+                            nationalite:
+                              title: Nationalité de la personne physique
+                              description: Information disponible uniquement pour
+                                une personne physique
+                              type: string
+                              example: FRANCAISE
+                              nullable: true
+                            code_nationalite:
+                              title: Code pays ISO 3166 Alpha 2
+                              description: Information disponible uniquement pour
+                                une personne physique
+                              type: string
+                              example: FR
+                              nullable: true
+                            raison_sociale:
+                              title: Raison sociale
+                              description: Information disponible uniquement pour
+                                une personne morale
+                              type: string
+                              example: BCRH & ASSOCIES - SOCIETE A RESPONSABILITE
+                                LIMITEE A ASSOCIE UNIQUE
+                              nullable: true
+                            code_greffe:
+                              title: Code du greffe de l'entreprise
+                              description: 'Information disponible uniquement pour
+                                une personne morale. Tous les code greffe sont disponibles
+                                ici : https://opendata.datainfogreffe.fr/explore/dataset/liste-des-greffes/table/'
+                              type: string
+                              example: '9201'
+                              nullable: true
+                            libelle_greffe:
+                              title: Libellé du greffe de l'entreprise (uniquement
+                                personne morales)
+                              description: 'Information disponible uniquement pour
+                                une personne morale. Tous les libellés sont disponibles
+                                ici : https://opendata.datainfogreffe.fr/explore/dataset/liste-des-greffes/table/'
+                              type: string
+                              example: NANTERRE
+                              nullable: true
+                  meta:
                     type: object
                     properties:
-                      id:
-                        type: string
-                        example: '418166096'
-                      type:
-                        type: string
-                        example: mandataires_sociaux
-                        enum:
-                        - mandataires_sociaux
-                      attributes:
-                        type: object
-                        properties:
-                          id:
-                            title: Siren
-                            type: string
-                            description: Siren de l'entreprise
-                            example: '418166096'
-                          pp:
-                            title: Personnes physiques
-                            type: array
-                            items:
-                              properties:
-                                nom:
-                                  title: Nom
-                                  type: string
-                                  example: Henri
-                                  nullable: true
-                                prenom:
-                                  title: Prénom
-                                  type: string
-                                  example: Martin
-                                  nullable: true
-                                fonction:
-                                  title: Fonction
-                                  type: string
-                                  example: COMMISSAIRE AUX COMPTES SUPPLEANT
-                                date_naissance:
-                                  title: Date de naissance
-                                  type: string
-                                  example: '1965-01-27'
-                                  nullable: true
-                                date_naissance_timestamp:
-                                  title: Date de naissance (timestamp)
-                                  type: number
-                                  example: -155523600
-                                  nullable: true
-                          pm:
-                            title: Personnes morales
-                            type: array
-                            items:
-                              properties:
-                                fonction:
-                                  title: Fonction
-                                  type: string
-                                  example: COMMISSAIRE AUX COMPTES SUPPLEANT
-                                raison_sociale:
-                                  title: Raison sociale
-                                  type: string
-                                  example: BCRH & ASSOCIES - SOCIETE A RESPONSABILITE
-                                    LIMITEE A ASSOCIE UNIQUE
-                                  nullable: true
-                                identifiant:
-                                  title: Identifiant
-                                  description: Cet element est facultatif, composé
-                                    de 7 à 9 chiffres, et peut être vide.
-                                  type: string
-                                  example: '490092574'
-                                  nullable: true
-                        required:
-                        - id
-                        - pp
-                        - pm
+                      personnes_physiques_count:
+                        title: Nombre de personnes physiques
+                        description: Nombre de personnes physiques parmis les mandataires
+                          sociaux
+                        type: integer
+                        example: 10
+                      personnes_morales_count:
+                        title: Nombre de personnes morales
+                        description: Nombre de personnes morales parmis les mandataires
+                          sociaux
+                        type: integer
+                        example: 2
+                      count:
+                        title: Nombre de mandataires sociaux
+                        description: Somme des personnes morales et physiques
+                        type: integer
+                        example: 12
                     required:
-                    - id
-                    - type
-                    - attributes
+                    - personnes_physiques_count
+                    - personnes_morales_count
+                    - count
                 required:
                 - data
+                - meta
+                example:
+                  data:
+                  - id: GAUQUELIN-ARNAUD-1969-08-24
+                    type: personne_physique
+                    attributes:
+                      id: GAUQUELIN-ARNAUD-1969-08-24
+                      fonction: PRESIDENT
+                      nom: GAUQUELIN
+                      prenom: ARNAUD
+                      date_naissance: '1969-08-24'
+                      date_naissance_timestamp: -11235600
+                      lieu_naissance: FLERS
+                      pays_naissance: FRANCE
+                      code_pays_naissance: FR
+                      nationalite: FRANCAISE
+                      code_nationalite: FR
+                  - id: '784824153'
+                    type: personne_morale
+                    attributes:
+                      id: '784824153'
+                      fonction: COMMISSAIRE AUX COMPTES TITULAIRE
+                      raison_sociale: MAZARS - SOCIETE ANONYME A DIRECTOIRE ET CONSEIL
+                        DE SURVEILLANCE
+                      code_greffe: '9201'
+                      libelle_greffe: NANTERRE
+                  meta:
+                    personnes_physiques_count: 3
+                    personnes_morales_count: 2
+                    count: 5
         '404':
           description: Entreprise non trouvée
           content:
@@ -2368,9 +2495,7 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Adresse de l'établissement diffusible présente dans le répertoire
-        Sirene. Pour appeler un établissement non-diffusible, se référer à l'API 'Adresse
-        d'un établissement'.
+      description: Adresse d'un établissement diffusible inscrit au répertoire Sirene."
       responses:
         '403':
           description: Accès interdit
@@ -2673,9 +2798,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir des informations générales concernant un établissement
-        inscrit au répertoire Sirene. Tous les établissements sont appelables, y compris
-        les non-diffusibles.
+      description: Informations générales concernant un établissement inscrit au répertoire
+        Sirene. Tous les établissements sont appelables, y compris les non-diffusibles.
       responses:
         '403':
           description: Accès interdit
@@ -2990,8 +3114,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir des informations générales concernant un établissement
-        diffusible inscrit au répertoire Sirene.
+      description: Informations générales concernant un établissement diffusible inscrit
+        au répertoire Sirene.
       responses:
         '403':
           description: Accès interdit
@@ -3267,6 +3391,10 @@ paths:
           siren_entrepreneur_individuel:
             value: '389839937'
             summary: SIREN d'un entrepeneur individuel (cessé)
+          siren_marques_brevets_modeles:
+            value: '542065479'
+            summary: SIREN d'une entreprise ayant des marques, brevets et modèles
+              (INPI)
         required: true
         schema:
           type: string
@@ -3302,9 +3430,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir des informations générales concernant le siège d'une unité
-        légale diffusable inscrite au répertoire Sirene. Pour appeler un établissement
-        non-diffusible, se référer à l'API 'Siège social d'une unité légale'.
+      description: Informations générales concernant le siège d'une unité légale diffusible
+        inscrite au répertoire Sirene.
       responses:
         '403':
           description: Accès interdit
@@ -3580,6 +3707,10 @@ paths:
           siren_entrepreneur_individuel:
             value: '389839937'
             summary: SIREN d'un entrepeneur individuel (cessé)
+          siren_marques_brevets_modeles:
+            value: '542065479'
+            summary: SIREN d'une entreprise ayant des marques, brevets et modèles
+              (INPI)
         required: true
         schema:
           type: string
@@ -3615,9 +3746,9 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir des informations générales concernant le siège social d'une
-        unité légale inscrite au répertoire Sirene. Tous les établissements sont appelables,
-        y compris les non-diffusibles.
+      description: Informations générales concernant le siège social d'une unité légale
+        inscrite au répertoire Sirene. Tous les sièges sociaux sont appelables, y
+        compris les non-diffusibles.
       responses:
         '403':
           description: Accès interdit
@@ -3894,6 +4025,10 @@ paths:
           siren_entrepreneur_individuel:
             value: '389839937'
             summary: SIREN d'un entrepeneur individuel (cessé)
+          siren_marques_brevets_modeles:
+            value: '542065479'
+            summary: SIREN d'une entreprise ayant des marques, brevets et modèles
+              (INPI)
         required: true
         schema:
           type: string
@@ -3929,10 +4064,9 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir les informations de référence d'une unité légale (entreprises,
-        associations et administrations) inscrite au répertoire Sirene, telles que
-        le type d'entreprise, son activité et son état administratif. Toutes les unités
-        légales sont appelables, y compris les non-diffusibles.
+      description: Informations de référence d'une unité légale (entreprise, association
+        ou administration) inscrite au répertoire Sirene. Toutes les unités légales
+        sont appelables, y compris les non-diffusibles.
       responses:
         '403':
           description: Accès interdit
@@ -4409,6 +4543,10 @@ paths:
           siren_entrepreneur_individuel:
             value: '389839937'
             summary: SIREN d'un entrepeneur individuel (cessé)
+          siren_marques_brevets_modeles:
+            value: '542065479'
+            summary: SIREN d'une entreprise ayant des marques, brevets et modèles
+              (INPI)
         required: true
         schema:
           type: string
@@ -4444,11 +4582,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir les informations de référence d'une unité légale (entreprises,
-        associations et administrations), inscrite au répertoire Sirene, telles que
-        le type d'entreprise, son activité et son état administratif. Pour appeler
-        une unité légale non-diffusible, se référer à l'API 'Données de référence
-        d'une unité légale'.
+      description: Informations de référence d'une unité légale (entreprise, association
+        ou administration) diffusible, inscrite au répertoire Sirene.
       responses:
         '403':
           description: Accès interdit
@@ -5565,6 +5700,10 @@ paths:
           siren_entrepreneur_individuel:
             value: '389839937'
             summary: SIREN d'un entrepeneur individuel (cessé)
+          siren_marques_brevets_modeles:
+            value: '542065479'
+            summary: SIREN d'une entreprise ayant des marques, brevets et modèles
+              (INPI)
         required: true
         schema:
           type: string
