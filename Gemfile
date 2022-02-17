@@ -101,6 +101,7 @@ group :test do
   gem 'vcr'
   gem 'webmock'
   gem 'spring-commands-rspec'
+  gem 'rspec-collection_matchers'
   gem 'rspec-rails'
   gem 'rspec-its'
   gem 'simplecov', require: false
