@@ -3,6 +3,15 @@ openapi: 3.0.1
 info:
   title: API Entreprise
   version: 3.0.0
+  description: Cette page contient la documentation technique pour accéder à API Entreprise.
+    Les API étant accessible uniquement sous habilitation, l'interaction avec l'environnement
+    de production n'est possible que si vous êtes **en possession d'une clé d'accès
+    (jeton).
+  termsOfService: https://entreprise.api.gouv.fr/cgu/
+  contact:
+    name: Support API Entreprise
+    email: support@entreprise.api.gouv.fr
+    url: https://entreprise.api.gouv.fr/
 tags:
 - name: Informations générales
 - name: Informations financières
@@ -1458,9 +1467,9 @@ paths:
                       code_greffe: '9201'
                       libelle_greffe: NANTERRE
                   meta:
-                    personnes_physiques_count: 3
-                    personnes_morales_count: 2
-                    count: 5
+                    personnes_physiques_count: 1
+                    personnes_morales_count: 1
+                    count: 2
         '404':
           description: Entreprise non trouvée
           content:
@@ -6098,6 +6107,15 @@ components:
   securitySchemes:
     jwt_bearer_token:
       type: http
+      description: |-
+        Votre jeton d'authentification doit être placé dans le header 'Authorization: Bearer VOTRE_JWT', sa validité est de 18 mois.
+
+        Exemple cURL :
+
+            curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/..."
+      name: Authorization
+      in: header
       scheme: bearer
       bearerFormat: JWT
-      description: JWT Token
