@@ -21,6 +21,18 @@ module SpecsHelper
   end
 
   def siret_not_found
-    '41816609600068'
+    '41816608600068'
+  end
+
+  def siren_valid
+    siret_valid.first(9)
+  end
+
+  def siren_invalid
+    siret_invalid.first(9)
+  end
+
+  def siren_not_found
+    siret_not_found.first(9)
   end
 end

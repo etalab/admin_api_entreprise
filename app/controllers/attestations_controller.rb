@@ -15,6 +15,10 @@ class AttestationsController < AuthenticatedUsersController
     end
   end
 
+  def search
+    @result = Siade.new(siret: param[:siret]).call(:entreprise)
+  end
+
   private
 
   def attestations_roles
