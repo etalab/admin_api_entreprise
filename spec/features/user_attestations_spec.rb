@@ -47,7 +47,7 @@ RSpec.describe 'User can download attestations', type: :feature do
       end
 
       it 'select list has 3 options' do
-        expect(page.all('select#token option').map(&:text)).to eq(['', 'Intitule 1', 'Intitule 2', 'Intitule 3'])
+        expect(page.all('select#token option').map(&:text)).to eq(['', 'JWT with roles: ["attestations_fiscales"]', 'JWT with no roles'])
       end
 
       it 'tell user to select a token' do
@@ -55,26 +55,28 @@ RSpec.describe 'User can download attestations', type: :feature do
       end
 
       context 'when user select token with roles', js: true do
-        it 'shows roles' do
-          select('Intitule 1', from: 'token')
+        before { select('JWT with roles: ["attestations_fiscales"]', from: 'token') }
 
+        it 'shows roles' do
           expect(page).to have_content("Attestations téléchargeables avec ce token:\nAttestations fiscales")
         end
       end
 
       context 'when user select token with no roles', js: true do
-        it 'shows no roles' do
-          select('Intitule 2', from: 'token')
+        before { select('JWT with no roles', from: 'token') }
 
+        it 'shows no roles' do
           expect(page).to have_content('Aucune attestation disponible avec ce token')
         end
       end
 
       context 'when user comes back to empty selection', js: true do
-        it 'ask to select a token' do
-          select('Intitule 1', from: 'token')
+        before do
+          select('JWT with roles: ["attestations_fiscales"]', from: 'token')
           select('', from: 'token')
+        end
 
+        it 'ask to select a token' do
           expect(page).to have_content('Veuillez sélectionner un token dans la liste.')
         end
       end
@@ -85,6 +87,79 @@ RSpec.describe 'User can download attestations', type: :feature do
 
       it 'does not have a select list' do
         expect(page).not_to have_select('token')
+      end
+    end
+  end
+
+  describe 'search' do
+    subject(:search) do
+      login_as(user)
+      visit user_attestations_path
+      select(token, from: 'token')
+      fill_in('search_bar', with: siret)
+      click_button('search')
+    end
+
+    let(:user) { create :user, :with_jwt_specific_roles, specific_roles: ['attestations_fiscales'] }
+    let(:token) { 'JWT with no roles' }
+
+    before do
+      search
+      FactoryBot.rewind_sequences
+    end
+
+    context 'when user search a valid siret', vcr: { cassette_name: 'attestation_search/valid_siret' } do
+      let(:siret) { siret_valid }
+
+      it 'shows company information' do
+        expect(page).to have_content('Octo-technology')
+      end
+
+      context 'when selected token have no attestation roles' do
+        it 'doesnt show attestations download buttons' do
+          expect(page).not_to have_button('Attestation sociale')
+          expect(page).not_to have_button('Attestation Fiscale')
+        end
+      end
+
+      context 'when selected token have one attestation role' do
+        let(:token) { 'JWT with roles: ["attestations_fiscales"]' }
+
+        it 'shows button to download this attestation' do
+          expect(page).not_to have_button('Attestation sociale')
+          expect(page).to have_button('Attestation Fiscale')
+        end
+      end
+
+      context 'when selected token have two attestation roles' do
+        let(:user) do
+          create :user,
+            :with_jwt_specific_roles,
+            specific_roles: %w[attestions_sociales attestations_fiscales]
+        end
+
+        let(:token) { 'JWT with roles: ["attestations_sociales", "attestations_fiscales"]' }
+
+        it 'shows both button to download attestations' do
+          expect(page).to have_button('Attestation sociale')
+          expect(page).to have_button('Attestation Fiscale')
+        end
+      end
+    end
+
+    context 'when user search an invalid siret', vcr: { cassette_name: 'attestation_search/invalid_siret' } do
+      let(:siret) { siret_invalid }
+
+      it 'fails with invalid message' do
+        expect(page).to have_content('Erreur: Siret invalide.')
+      end
+    end
+
+    context 'when user search a siret not found', vcr: { cassette_name: 'attestation_search/siret_not_found' } do
+      let(:siret) { siret_not_found }
+
+      it 'fails with not found message' do
+        expect(page).to have_content('Erreur: Siret non trouvé.')
       end
     end
   end

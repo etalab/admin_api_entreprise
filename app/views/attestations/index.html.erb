@@ -3,9 +3,11 @@
 <h5>Récupérez l'<strong>attestation sociale</strong> d'une entreprise ou d'une association, en entrant son numéro de siret.</h5>
 
 <div class="fr-card fr-card--horizontal fr-card--no-arrow token-card">
+
   <div class="fr-card__body">
     <h4 class="fr-card__title">
       <% if user_signed_in? && current_user.any_token_with_attestation_role? %>
+
         <span class="fr-text--sm fr-m-0">
           <div data-controller="token">
             <div class="fr-select-group">
@@ -23,7 +25,12 @@
             <% end %>
           </div>
         </span>
+
+        <span>
+        </span>
+
       <% end %>
     </h4>
   </div>
+
 </div>
