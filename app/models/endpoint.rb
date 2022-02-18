@@ -52,18 +52,43 @@ class Endpoint
     @links ||= extract_properties_from_schema('links')
   end
 
+  def root_links
+    @root_links ||= extract_root_properties_from_schema('links')
+  end
+
   def meta
     @meta ||= extract_properties_from_schema('meta')
   end
 
+  def root_meta
+    @root_meta ||= extract_root_properties_from_schema('meta')
+  end
+
   def example_payload
-    @example_payload ||= OpenAPISchemaToExample.new(response_schema).perform
+    @example_payload ||= response_schema['example'] ||
+                         OpenAPISchemaToExample.new(response_schema).perform
+  end
+
+  def collection_types
+    @collection_types ||= response_schema
+      .dig('properties', 'data', 'items', 'properties', 'type') || {}
+  end
+
+  def collection?
+    response_schema['properties']['data']['type'] == 'array'
   end
 
   private
 
   def extract_properties_from_schema(name)
-    response_schema['properties']['data']['properties'][name].try(:[], 'properties') || {}
+    properties_path = ['properties', 'data', 'properties', name]
+    properties_path.insert(2, 'items') if collection?
+
+    response_schema.dig(*properties_path).try(:[], 'properties') || {}
+  end
+
+  def extract_root_properties_from_schema(name)
+    response_schema.dig('properties', name).try(:[], 'properties') || {}
   end
 
   def response_schema

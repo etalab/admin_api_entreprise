@@ -41,6 +41,10 @@ paths:
           siren_entrepreneur_individuel:
             value: '389839937'
             summary: SIREN d'un entrepeneur individuel (cessé)
+          siren_marques_brevets_modeles:
+            value: '542065479'
+            summary: SIREN d'une entreprise ayant des marques, brevets et modèles
+              (INPI)
         required: true
         schema:
           type: string
@@ -76,10 +80,9 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir l'attestation sociale d'une entreprise, confirmant qu'elle
-        s'acquitte de ses obligations déclaratives et du paiement des cotisations
-        et contributions sociales auprès de l'URSSAF Caisse nationale (anciennement
-        ACOSS).
+      description: Attestation sociale délivrée à une entreprise acquittée de ses
+        obligations de cotisations et contributions sociales auprès de l'URSSAF Caisse
+        nationale.
       responses:
         '403':
           description: Accès interdit
@@ -489,6 +492,10 @@ paths:
           siren_entrepreneur_individuel:
             value: '389839937'
             summary: SIREN d'un entrepeneur individuel (cessé)
+          siren_marques_brevets_modeles:
+            value: '542065479'
+            summary: SIREN d'une entreprise ayant des marques, brevets et modèles
+              (INPI)
         required: true
         schema:
           type: string
@@ -524,8 +531,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir l’attestation fiscale, délivrée par la Direction générale
-        des finances publiques, indiquant que l’entreprise est à jour de ses obligations
+      description: Attestation fiscale délivrée par la Direction générale des finances
+        publiques (DGFIP), indiquant que l’entreprise est à jour de ses obligations
         fiscales.
       responses:
         '403':
@@ -680,9 +687,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir les déclarations de chiffre d’affaires faites auprès de
-        la Direction générale des finances publiques (DGFIP), et renseignées dans
-        la liasse fiscale.
+      description: Déclarations de chiffre d’affaires, des trois derniers exercices,
+        faites auprès de la Direction générale des finances publiques (DGFIP).
       responses:
         '403':
           description: Accès interdit
@@ -714,16 +720,33 @@ paths:
                   data:
                     type: array
                     items:
-                      type: exercice
+                      type: object
                       properties:
-                        chiffre_affaires:
-                          title: Chiffre d'affaires en euros
-                          type: number
-                          example: 900001
-                        date_fin_exercice:
-                          title: Date de fin de l'exercice
+                        id:
+                          title: FIXME
                           type: string
-                          example: '2015-12-01'
+                        type:
+                          title: Exercice annuel
+                          type: string
+                          example: exercice
+                        attributes:
+                          type: object
+                          properties:
+                            chiffre_affaires:
+                              title: Chiffre d'affaires en euros
+                              type: number
+                              example: 900001
+                            date_fin_exercice:
+                              title: Date de fin de l'exercice
+                              type: string
+                              example: '2015-12-01'
+                          required:
+                          - chiffre_affaires
+                          - date_fin_exercice
+                      required:
+                      - id
+                      - type
+                      - attributes
                 required:
                 - data
         '404':
@@ -787,9 +810,9 @@ paths:
           type: integer
       security:
       - jwt_bearer_token: []
-      description: Obtenir les informations renseignées dans les liasses fiscales,
-        issues des déclarations de résultat d’une entreprise auprès de la Direction
-        générale des finances publiques (DGFIP).
+      description: Informations renseignées dans les liasses fiscales, issues des
+        déclarations de résultat d’une entreprise auprès de la Direction générale
+        des finances publiques (DGFIP).
       responses:
         '403':
           description: Accès interdit
@@ -955,57 +978,78 @@ paths:
                   data:
                     type: array
                     items:
-                      type: convention_collective
+                      type: object
                       properties:
                         id:
                           type: string
                           description: Identifiant interne (DILA) de la convention
                           example: KALICONT000005635173
-                        titre:
+                        type:
+                          title: Convention collective
                           type: string
-                          description: Titre historique de la convention collective
-                          example: Convention collective nationale des bureaux d'études
-                            techniques, des cabinets d'ingénieurs-conseils et des
-                            sociétés de conseils du 15 décembre 1987.
-                        titre_court:
-                          type: string
-                          description: Titre abrégé / d'usage
-                          example: Bureaux d'études techniques, cabinets d'ingénieurs-conseils
-                            et sociétés de conseils
-                        numero_idcc:
-                          type: numeric
-                          description: Numéro IDCC
-                          example: 1486
-                        active:
-                          type: boolean
-                          description: Détermine si la convention est toujours active
-                          example: true
-                        etat:
-                          type: string
-                          enum:
-                          - vigueur
-                          - vigueur_etendue
-                          description: État de la convention. Si celle-ci est en vigueur
-                            elle est seulement obligatoire pour les signataires. Si
-                            celle-ci est en vigueur étendue, elle est obligatoire
-                            pour tous les employeurs de la branche.
-                          example: vigueur_etendue
-                        synonymes:
-                          type: array
-                          description: Liste de synonymes connus de la convention
-                          items:
-                            type: string
-                          example:
-                          - syntec
-                        url:
-                          type: string
-                          description: Lien vers le texte en vigueur de la convention
-                            collective sur Legifrance
-                          example: https://www.legifrance.gouv.fr/affichIDCC.do?idConvention=KALICONT000005635173
-                        date_publication:
-                          type: string
-                          description: Date de la dernière mise à jour de la convention
-                          example: '1988-01-01'
+                          example: convention_collective
+                        attributes:
+                          type: object
+                          properties:
+                            titre:
+                              type: string
+                              description: Titre historique de la convention collective
+                              example: Convention collective nationale des bureaux
+                                d'études techniques, des cabinets d'ingénieurs-conseils
+                                et des sociétés de conseils du 15 décembre 1987.
+                            titre_court:
+                              type: string
+                              description: Titre abrégé / d'usage
+                              example: Bureaux d'études techniques, cabinets d'ingénieurs-conseils
+                                et sociétés de conseils
+                            numero_idcc:
+                              type: numeric
+                              description: Numéro IDCC
+                              example: 1486
+                            active:
+                              type: boolean
+                              description: Détermine si la convention est toujours
+                                active
+                              example: true
+                            etat:
+                              type: string
+                              enum:
+                              - vigueur
+                              - vigueur_etendue
+                              description: État de la convention. Si celle-ci est
+                                en vigueur elle est seulement obligatoire pour les
+                                signataires. Si celle-ci est en vigueur étendue, elle
+                                est obligatoire pour tous les employeurs de la branche.
+                              example: vigueur_etendue
+                            synonymes:
+                              type: array
+                              description: Liste de synonymes connus de la convention
+                              items:
+                                type: string
+                              example:
+                              - syntec
+                            url:
+                              type: string
+                              description: Lien vers le texte en vigueur de la convention
+                                collective sur Legifrance
+                              example: https://www.legifrance.gouv.fr/affichIDCC.do?idConvention=KALICONT000005635173
+                            date_publication:
+                              type: string
+                              description: Date de la dernière mise à jour de la convention
+                              example: '1988-01-01'
+                          required:
+                          - titre
+                          - titre_court
+                          - numero_idcc
+                          - active
+                          - etat
+                          - synonymes
+                          - url
+                          - date_publication
+                      required:
+                      - id
+                      - type
+                      - attributes
                 required:
                 - data
         '404':
@@ -1149,6 +1193,38 @@ paths:
       tags:
       - Informations générales
       parameters:
+      - name: siren
+        in: path
+        description: Siren de l'entreprise
+        examples:
+          siren_octo_technology:
+            value: '418166096'
+            summary: SIREN Octo Technology
+          siren_non_diffusible:
+            value: '005572466'
+            summary: SIREN entreprise non diffusible
+          siren_artisant:
+            value: '301123626'
+            summary: SIREN entreprise artisanale
+          siren_fntp:
+            value: '339379984'
+            summary: SIREN pour FNTP
+          siren_cnetp:
+            value: '542036207'
+            summary: SIREN pour CNETP
+          siren_opqibi:
+            value: '515228211'
+            summary: SIREN pour OPQIBI
+          siren_entrepreneur_individuel:
+            value: '389839937'
+            summary: SIREN d'un entrepeneur individuel (cessé)
+          siren_marques_brevets_modeles:
+            value: '542065479'
+            summary: SIREN d'une entreprise ayant des marques, brevets et modèles
+              (INPI)
+        required: true
+        schema:
+          type: string
       - name: context
         in: query
         description: |-
@@ -1179,14 +1255,10 @@ paths:
         required: true
         schema:
           type: string
-      - name: siren
-        in: path
-        required: true
-        schema:
-          type: string
       security:
       - jwt_bearer_token: []
-      description: Liste des mandataires sociaux d'une société
+      description: Liste des mandataires sociaux d'une société inscrite au RCS, délivrée
+        par Infogreffe.
       responses:
         '403':
           description: Accès interdit
@@ -1216,85 +1288,179 @@ paths:
                 type: object
                 properties:
                   data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          title: Numéro d'identification
+                          type: string
+                          example: HENRI-MARTIN-1965-01-27
+                        type:
+                          title: Type de mandataire social
+                          description: Ce champ permet de faire la distinction entre
+                            les personnes physiques et morales
+                          type: string
+                          example: personne_morale
+                          enum:
+                          - personne_morale
+                          - personne_physique
+                        attributes:
+                          type: object
+                          properties:
+                            fonction:
+                              title: Fonction au sein de l'entreprise
+                              description: Information disponible pour les personnes
+                                morales et physiques
+                              type: string
+                              example: COMMISSAIRE AUX COMPTES SUPPLEANT
+                            nom:
+                              title: Nom
+                              description: Information disponible uniquement pour
+                                une personne physique
+                              type: string
+                              example: Henri
+                              nullable: true
+                            prenom:
+                              title: Prénom
+                              description: Information disponible uniquement pour
+                                une personne physique
+                              type: string
+                              example: Martin
+                              nullable: true
+                            date_naissance:
+                              title: Date de naissance
+                              description: Information disponible uniquement pour
+                                une personne physique
+                              type: string
+                              example: '1965-01-27'
+                              nullable: true
+                            date_naissance_timestamp:
+                              title: Date de naissance (timestamp)
+                              description: Information disponible uniquement pour
+                                une personne physique
+                              type: integer
+                              example: -155523600
+                              nullable: true
+                            lieu_naissance:
+                              title: Lieu de naissance
+                              description: Information disponible uniquement pour
+                                une personne physique
+                              type: string
+                              example: ROUBAIX
+                              nullable: true
+                            pays_naissance:
+                              title: Pays de naissance
+                              description: Information disponible uniquement pour
+                                une personne physique
+                              type: string
+                              example: FRANCE
+                              nullable: true
+                            code_pays_naissance:
+                              title: Code pays ISO 3166 Alpha 2
+                              description: Information disponible uniquement pour
+                                une personne physique
+                              type: string
+                              example: FR
+                              nullable: true
+                            nationalite:
+                              title: Nationalité de la personne physique
+                              description: Information disponible uniquement pour
+                                une personne physique
+                              type: string
+                              example: FRANCAISE
+                              nullable: true
+                            code_nationalite:
+                              title: Code pays ISO 3166 Alpha 2
+                              description: Information disponible uniquement pour
+                                une personne physique
+                              type: string
+                              example: FR
+                              nullable: true
+                            raison_sociale:
+                              title: Raison sociale
+                              description: Information disponible uniquement pour
+                                une personne morale
+                              type: string
+                              example: BCRH & ASSOCIES - SOCIETE A RESPONSABILITE
+                                LIMITEE A ASSOCIE UNIQUE
+                              nullable: true
+                            code_greffe:
+                              title: Code du greffe de l'entreprise
+                              description: 'Information disponible uniquement pour
+                                une personne morale. Tous les code greffe sont disponibles
+                                ici : https://opendata.datainfogreffe.fr/explore/dataset/liste-des-greffes/table/'
+                              type: string
+                              example: '9201'
+                              nullable: true
+                            libelle_greffe:
+                              title: Libellé du greffe de l'entreprise
+                              description: 'Information disponible uniquement pour
+                                une personne morale. Tous les libellés sont disponibles
+                                ici : https://opendata.datainfogreffe.fr/explore/dataset/liste-des-greffes/table/'
+                              type: string
+                              example: NANTERRE
+                              nullable: true
+                          required:
+                          - fonction
+                      required:
+                      - id
+                      - type
+                      - attributes
+                  meta:
                     type: object
                     properties:
-                      id:
-                        type: string
-                        example: '418166096'
-                      type:
-                        type: string
-                        example: mandataires_sociaux
-                        enum:
-                        - mandataires_sociaux
-                      attributes:
-                        type: object
-                        properties:
-                          id:
-                            title: Siren
-                            type: string
-                            description: Siren de l'entreprise
-                            example: '418166096'
-                          pp:
-                            title: Personnes physiques
-                            type: array
-                            items:
-                              properties:
-                                nom:
-                                  title: Nom
-                                  type: string
-                                  example: Henri
-                                  nullable: true
-                                prenom:
-                                  title: Prénom
-                                  type: string
-                                  example: Martin
-                                  nullable: true
-                                fonction:
-                                  title: Fonction
-                                  type: string
-                                  example: COMMISSAIRE AUX COMPTES SUPPLEANT
-                                date_naissance:
-                                  title: Date de naissance
-                                  type: string
-                                  example: '1965-01-27'
-                                  nullable: true
-                                date_naissance_timestamp:
-                                  title: Date de naissance (timestamp)
-                                  type: number
-                                  example: -155523600
-                                  nullable: true
-                          pm:
-                            title: Personnes morales
-                            type: array
-                            items:
-                              properties:
-                                fonction:
-                                  title: Fonction
-                                  type: string
-                                  example: COMMISSAIRE AUX COMPTES SUPPLEANT
-                                raison_sociale:
-                                  title: Raison sociale
-                                  type: string
-                                  example: BCRH & ASSOCIES - SOCIETE A RESPONSABILITE
-                                    LIMITEE A ASSOCIE UNIQUE
-                                  nullable: true
-                                identifiant:
-                                  title: Identifiant
-                                  description: Cet element est facultatif, composé
-                                    de 7 à 9 chiffres, et peut être vide.
-                                  type: string
-                                  example: '490092574'
-                                  nullable: true
-                        required:
-                        - id
-                        - pp
-                        - pm
+                      personnes_physiques_count:
+                        title: Nombre de personnes physiques
+                        description: Nombre de personnes physiques parmis les mandataires
+                          sociaux
+                        type: integer
+                        example: 10
+                      personnes_morales_count:
+                        title: Nombre de personnes morales
+                        description: Nombre de personnes morales parmis les mandataires
+                          sociaux
+                        type: integer
+                        example: 2
+                      count:
+                        title: Nombre de mandataires sociaux
+                        description: Somme des personnes morales et physiques
+                        type: integer
+                        example: 12
                     required:
-                    - id
-                    - type
-                    - attributes
+                    - personnes_physiques_count
+                    - personnes_morales_count
+                    - count
                 required:
                 - data
+                - meta
+                example:
+                  data:
+                  - id: GAUQUELIN-ARNAUD-1969-08-24
+                    type: personne_physique
+                    attributes:
+                      fonction: PRESIDENT
+                      nom: GAUQUELIN
+                      prenom: ARNAUD
+                      date_naissance: '1969-08-24'
+                      date_naissance_timestamp: -11235600
+                      lieu_naissance: FLERS
+                      pays_naissance: FRANCE
+                      code_pays_naissance: FR
+                      nationalite: FRANCAISE
+                      code_nationalite: FR
+                  - id: '784824153'
+                    type: personne_morale
+                    attributes:
+                      fonction: COMMISSAIRE AUX COMPTES TITULAIRE
+                      raison_sociale: MAZARS - SOCIETE ANONYME A DIRECTOIRE ET CONSEIL
+                        DE SURVEILLANCE
+                      code_greffe: '9201'
+                      libelle_greffe: NANTERRE
+                  meta:
+                    personnes_physiques_count: 3
+                    personnes_morales_count: 2
+                    count: 5
         '404':
           description: Entreprise non trouvée
           content:
@@ -1403,37 +1569,48 @@ paths:
                             lien entre cet ID et le nom du PDF
                           type: string
                           example: '24924080'
-                        siren:
-                          title: Numéro Siren
-                          description: Numéro SIREN de l'entreprise concernée par
-                            l'acte
+                        type:
+                          title: Acte
                           type: string
-                          example: '788242667'
-                        denomination_sociale:
-                          title: Dénomination sociale
-                          description: Dénomination sociale de l'entreprise concernée
-                            par l'acte
-                          type: string
-                          example: HERA CONSULTING
-                          nullable: true
-                        code_greffe:
-                          title: Code greffe
-                          description: Code identifiant du greffe ayant traité l'acte
-                          type: number
-                          example: 5752
-                        date_depot:
-                          title: Date dépot
-                          description: Date à laquelle a été déposé l'acte
-                          type: string
-                          example: '2017-06-16'
-                        nature_archive:
-                          title: Nature de l'archive de l'acte
-                          description: 'Chaîne de caractères contenant une ou plusieurs
-                            lettres séparées par un tiret, explicitant de quelle(s)
-                            catégories d''archives l''acte provient: A (actes de sociétés)
-                            R (ordonnances) et P (actes de personnes physiques)'
-                          type: string
-                          example: A-R
+                          example: acte
+                        attributes:
+                          type: object
+                          properties:
+                            siren:
+                              title: Numéro Siren
+                              description: Numéro SIREN de l'entreprise concernée
+                                par l'acte
+                              type: string
+                              example: '788242667'
+                            code_greffe:
+                              title: Code greffe
+                              description: Code identifiant du greffe ayant traité
+                                l'acte
+                              type: number
+                              example: 5752
+                            date_depot:
+                              title: Date dépot
+                              description: Date à laquelle a été déposé l'acte
+                              type: string
+                              example: '2017-06-16'
+                            nature_archive:
+                              title: Nature de l'archive de l'acte
+                              description: 'Chaîne de caractères contenant une ou
+                                plusieurs lettres séparées par un tiret, explicitant
+                                de quelle(s) catégories d''archives l''acte provient:
+                                A (actes de sociétés) R (ordonnances) et P (actes
+                                de personnes physiques)'
+                              type: string
+                              example: A-R
+                          required:
+                          - siren
+                          - code_greffe
+                          - date_depot
+                          - nature_archive
+                      required:
+                      - id
+                      - type
+                      - attributes
                 required:
                 - data
         '404':
@@ -1539,142 +1716,160 @@ paths:
                             du code zone + numéro du brevet + catégorie de publication
                           type: string
                           example: FR3110115A1
-                        titre:
-                          title: Titre
-                          description: Titre du brevet
+                        type:
+                          title: Brevet
                           type: string
-                          example: DETERMINATION DE PARAMETRES D&apos;UN MODELE DYNAMIQUE
-                            POUR UNE CELLULE ELECTROCHIMIQUE DE BATTERIE
-                        date_publication:
-                          title: Date de publication
-                          description: Date de publication du brevet
-                          type: string
-                          format: date
-                          example: '2017-06-16'
-                        date_depot:
-                          title: Date de dépot
-                          description: Date de dépot du brevet
-                          type: string
-                          format: date
-                          example: '2015-12-14'
-                        code_zone:
-                          description: |
-                            Code de deux lettres représentant la zone géographique où le brevet a été déposé, en fonction
-                            de l'organisation qui a enregistré le brevet.
-                          type: string
-                          example: FR
-                          enum:
-                          - ALBANIE
-                          - ORGANISATION RÉGIONALE AFRICAINE DE LA PROPRIÉTÉ INDUSTRIELLE
-                          - ARGENTINE
-                          - AUTRICHE
-                          - AUSTRALIE
-                          - BOSNIE-HERZÉGOVINE
-                          - BELGIQUE
-                          - BULGARIE
-                          - BRÉSIL
-                          - CANADA
-                          - SUISSE
-                          - CHILI
-                          - CHINE
-                          - COLOMBIE
-                          - COSTA RICA
-                          - TCHÉCOSLOVAQUIE (JUSQU’EN 1993)
-                          - CUBA
-                          - CHYPRE
-                          - RÉPUBLIQUE TCHÈQUE
-                          - RÉPUBLIQUE DÉMOCRATIQUE ALLEMANDE
-                          - ALLEMAGNE
-                          - DANEMARK
-                          - ALGÉRIE
-                          - ORGANISATION EURASIENNE DES BREVETS
-                          - EQUATEUR
-                          - ESTONIE
-                          - EGYPTE
-                          - OFFICE EUROPÉEN DES BREVETS
-                          - ESPAGNE
-                          - FINLANDE
-                          - FRANCE
-                          - ROYAUME-UNI
-                          - CONSEIL DE COOPÉRATION DU GOLFE
-                          - GÉORGIE
-                          - GRÈCE
-                          - GUATEMALA
-                          - HONG KONG (R.A.S.)
-                          - CROATIE
-                          - HONGRIE
-                          - INDONÉSIE
-                          - IRLANDE
-                          - ISRAËL
-                          - INDE
-                          - ISLANDE
-                          - ITALIE
-                          - JAPON
-                          - KENYA
-                          - CORÉE (DU SUD)
-                          - LIECHTENSTEIN
-                          - LITUANIE
-                          - LUXEMBOURG
-                          - LETTONIE
-                          - MAROC
-                          - MONACO
-                          - RÉPUBLIQUE DE MOLDOVA
-                          - MONTÉNÉGRO
-                          - EX-RÉPUBLIQUE YOUGOSLAVE DE MACÉDOINE
-                          - MONGOLIE
-                          - MALTE
-                          - MALAWI
-                          - MEXIQUE
-                          - MALAISIE
-                          - NOUVELLE-CALÉDONIE
-                          - NICARAGUA
-                          - PAYS-BAS
-                          - NORVÈGE
-                          - NOUVELLE-ZÉLANDE
-                          - ORGANISATION AFRICAINE DE LA PROPRIÉTÉ INTELLECTUELLE
-                          - PANAMA
-                          - PÉROU
-                          - PHILIPPINES
-                          - POLOGNE
-                          - PORTUGAL
-                          - ROUMANIE
-                          - SERBIE
-                          - FÉDÉRATION DE RUSSIE
-                          - SUÈDE
-                          - SINGAPOUR
-                          - SLOVÉNIE
-                          - SLOVAQUIE
-                          - SAINT-MARIN
-                          - UNION SOVIÉTIQUE (URSS)
-                          - SALVADOR
-                          - TADJIKISTAN
-                          - TURQUIE
-                          - TRINITÉ-ET-TOBAGO
-                          - TAIWAN
-                          - UKRAINE
-                          - ETATS-UNIS D’AMÉRIQUE
-                          - URUGUAY
-                          - VIÊT NAM
-                          - ORGANISATION MONDIALE DE LA PROPRIÉTÉ INTELLECTUELLE (OMPI)
-                          - YOUGOSLAVIE (SERBIE-ET-MONTÉNÉGRO)
-                          - AFRIQUE DU SUD
-                          - ZAMBIE
-                          - ZIMBABWE
-                          -
-                        numero_brevet:
-                          title: Numéro du brevet
-                          description: 'Numéro du brevet dans l''organisation ou il
-                            a été déposé (déterminée par le code de zone)
+                          example: brevet
+                        attributes:
+                          type: object
+                          properties:
+                            titre:
+                              title: Titre
+                              description: Titre du brevet
+                              type: string
+                              example: DETERMINATION DE PARAMETRES D&apos;UN MODELE
+                                DYNAMIQUE POUR UNE CELLULE ELECTROCHIMIQUE DE BATTERIE
+                            date_publication:
+                              title: Date de publication
+                              description: Date de publication du brevet
+                              type: string
+                              format: date
+                              example: '2017-06-16'
+                            date_depot:
+                              title: Date de dépot
+                              description: Date de dépot du brevet
+                              type: string
+                              format: date
+                              example: '2015-12-14'
+                            code_zone:
+                              description: |
+                                Code de deux lettres représentant la zone géographique où le brevet a été déposé, en fonction
+                                de l'organisation qui a enregistré le brevet.
+                              type: string
+                              example: FR
+                              enum:
+                              - AL
+                              - AP
+                              - AR
+                              - AT
+                              - AU
+                              - BA
+                              - BE
+                              - BG
+                              - BR
+                              - CA
+                              - CH
+                              - CL
+                              - CN
+                              - CO
+                              - CR
+                              - CS
+                              - CU
+                              - CY
+                              - CZ
+                              - DD
+                              - DE
+                              - DK
+                              - DZ
+                              - EA
+                              - EC
+                              - EE
+                              - EG
+                              - EP
+                              - ES
+                              - FI
+                              - FR
+                              - GB
+                              - GC
+                              - GE
+                              - GR
+                              - GT
+                              - HK
+                              - HR
+                              - HU
+                              - ID
+                              - IE
+                              - IL
+                              - IN
+                              - IS
+                              - IT
+                              - JP
+                              - KE
+                              - KR
+                              - LI
+                              - LT
+                              - LU
+                              - LV
+                              - MA
+                              - MC
+                              - MD
+                              - ME
+                              - MK
+                              - MN
+                              - MT
+                              - MW
+                              - MX
+                              - MY
+                              - NC
+                              - NI
+                              - NL
+                              - false
+                              - NZ
+                              - OA
+                              - PA
+                              - PE
+                              - PH
+                              - PL
+                              - PT
+                              - RO
+                              - RS
+                              - RU
+                              - SE
+                              - SG
+                              - SI
+                              - SK
+                              - SM
+                              - SU
+                              - SV
+                              - TJ
+                              - TR
+                              - TT
+                              - TW
+                              - UA
+                              - US
+                              - UY
+                              - VN
+                              - WO
+                              - YU
+                              - ZA
+                              - ZM
+                              - ZW
+                              -
+                            numero_brevet:
+                              title: Numéro du brevet
+                              description: 'Numéro du brevet dans l''organisation
+                                ou il a été déposé (déterminée par le code de zone)
 
-                            '
-                          type: string
-                          example: '3110115'
-                        categorie_publication:
-                          title: Catégorie
-                          description: 'Code représentant la catégorie du brevet (ex:
-                            A1 pour une demande de brevet,'
-                          type: string
-                          example: A1
+                                '
+                              type: string
+                              example: '3110115'
+                            categorie_publication:
+                              title: Catégorie
+                              description: 'Code représentant la catégorie du brevet
+                                (ex: A1 pour une demande de brevet,'
+                              type: string
+                              example: A1
+                          required:
+                          - titre
+                          - date_publication
+                          - date_depot
+                          - code_zone
+                          - numero_brevet
+                          - categorie_publication
+                      required:
+                      - id
+                      - type
+                      - attributes
                 required:
                 - data
         '404':
@@ -1779,47 +1974,64 @@ paths:
                           title: Numéro d'identification
                           type: string
                           example: '4313464'
-                        nom:
-                          title: Nom
+                        type:
+                          title: Marque
                           type: string
-                          example: DISTRIGO PARTS DISTRIBUTION
-                          nullable: true
-                        status:
-                          title: Statut
-                          type: string
-                          example: Marque enregistrée
-                          enum:
-                          - Demande déposée
-                          - Demande publiée
-                          - Demande non publiée
-                          - Demande irrecevable après publication
-                          - Marque enregistrée
-                          - Renouvellement demandé
-                          - Marque renouvelée
-                          - Demande totalement rejetée
-                          - Marque ayant fait l'objet d'une renonciation totale
-                          - Marque ayant fait l'objet d'un retrait total
-                          - Marque annulée
-                          - Marque expirée
-                        depositaire:
-                          title: Dépositaire
-                          description: Nom de déposant ou titulaire
-                          type: string
-                          example: PEUGEOT CITROËN AUTOMOBILES SA, Société anonyme
-                        clef:
-                          title: Clef
-                          type: string
-                          example: FMARK|4313464
-                  links:
-                    type: object
-                    properties:
-                      notice:
-                        type: string
-                        example: https://opendata-pi.inpi.fr/inpi/marques/notice/FR4313464
-                        description: Lien vers la notice concernant ce dépôt de marque,
-                          au format XML.
-                    required:
-                    - notice
+                          example: marque
+                        attributes:
+                          type: object
+                          properties:
+                            nom:
+                              title: Nom
+                              type: string
+                              example: DISTRIGO PARTS DISTRIBUTION
+                              nullable: true
+                            status:
+                              title: Statut
+                              type: string
+                              example: Marque enregistrée
+                              enum:
+                              - Demande déposée
+                              - Demande publiée
+                              - Demande non publiée
+                              - Demande irrecevable après publication
+                              - Marque enregistrée
+                              - Renouvellement demandé
+                              - Marque renouvelée
+                              - Demande totalement rejetée
+                              - Marque ayant fait l'objet d'une renonciation totale
+                              - Marque ayant fait l'objet d'un retrait total
+                              - Marque annulée
+                              - Marque expirée
+                            depositaire:
+                              title: Dépositaire
+                              description: Nom de déposant ou titulaire
+                              type: string
+                              example: PEUGEOT CITROËN AUTOMOBILES SA, Société anonyme
+                            clef:
+                              title: Clef
+                              type: string
+                              example: FMARK|4313464
+                          required:
+                          - nom
+                          - status
+                          - depositaire
+                          - clef
+                        links:
+                          type: object
+                          properties:
+                            notice:
+                              type: string
+                              example: https://opendata-pi.inpi.fr/inpi/marques/notice/FR4313464
+                              description: Lien vers la notice concernant ce dépôt
+                                de marque, au format XML.
+                          required:
+                          - notice
+                      required:
+                      - id
+                      - type
+                      - attributes
+                      - links
                 required:
                 - data
         '404':
@@ -1927,59 +2139,82 @@ paths:
                             (ex: 001) '
                           type: string
                           example: FR20203928-001
-                        numero_depot:
-                          title: Numéro national de dépôt
-                          description: Numéro national sous lequel le modèle est enregistré.
+                        type:
+                          title: Modèle
                           type: string
-                          example: '20203928'
-                        titre:
-                          title: Titre
-                          description: Titre du modèle.
-                          type: string
-                          example: Véhicule automobile, vues de détails
-                        total_representations:
-                          title: Représentations totales
-                          description: Nombre de représentations (vues) du modèle
-                          type: number
-                          example: 7
-                        deposant:
-                          title: Déposant
-                          description: Nom de l'entité ayant déposé le modèle.
-                          type: string
-                          example: PSA AUTOMOBILES, SA
-                        date_depot:
-                          title: Date de dépôt
-                          description: Date à laquelle le modèle a été déposé pour
-                            publication
-                          type: string
-                          example: '2015-12-14'
-                        date_publication:
-                          title: Date de publication
-                          description: Date de publication du modèle
-                          type: string
-                          example: '2015-12-14'
-                        classe:
-                          title: Code de classification
-                          description: Code de classification du modèle, sur 4 chiffres
-                          type: string
-                          example: '2606'
-                        reference:
-                          title: Numéro de réference
-                          description: Numéro de référence du modèle par entité, sur
-                            trois chiffres. Le premier modèle d'une entité est numéroté
-                            001, le second 002, etc.
-                          type: string
-                          example: '001'
-                  links:
-                    type: object
-                    properties:
-                      notice:
-                        type: string
-                        example: https://opendata-pi.inpi.fr/inpi/modeles/notice/FR20203928?ref=006
-                        description: Lien vers la notice concernant ce dépôt de modèle,
-                          au format XML
-                    required:
-                    - notice
+                          example: modele
+                        attributes:
+                          type: object
+                          properties:
+                            numero_depot:
+                              title: Numéro national de dépôt
+                              description: Numéro national sous lequel le modèle est
+                                enregistré.
+                              type: string
+                              example: '20203928'
+                            titre:
+                              title: Titre
+                              description: Titre du modèle.
+                              type: string
+                              example: Véhicule automobile, vues de détails
+                            total_representations:
+                              title: Représentations totales
+                              description: Nombre de représentations (vues) du modèle
+                              type: number
+                              example: 7
+                            deposant:
+                              title: Déposant
+                              description: Nom de l'entité ayant déposé le modèle.
+                              type: string
+                              example: PSA AUTOMOBILES, SA
+                            date_depot:
+                              title: Date de dépôt
+                              description: Date à laquelle le modèle a été déposé
+                                pour publication
+                              type: string
+                              example: '2015-12-14'
+                            date_publication:
+                              title: Date de publication
+                              description: Date de publication du modèle
+                              type: string
+                              example: '2015-12-14'
+                            classe:
+                              title: Code de classification
+                              description: Code de classification du modèle, sur 4
+                                chiffres
+                              type: string
+                              example: '2606'
+                            reference:
+                              title: Numéro de réference
+                              description: Numéro de référence du modèle par entité,
+                                sur trois chiffres. Le premier modèle d'une entité
+                                est numéroté 001, le second 002, etc.
+                              type: string
+                              example: '001'
+                          required:
+                          - numero_depot
+                          - titre
+                          - total_representations
+                          - deposant
+                          - date_depot
+                          - date_publication
+                          - classe
+                          - reference
+                        links:
+                          type: object
+                          properties:
+                            notice:
+                              type: string
+                              example: https://opendata-pi.inpi.fr/inpi/modeles/notice/FR20203928?ref=006
+                              description: Lien vers la notice concernant ce dépôt
+                                de modèle, au format XML
+                          required:
+                          - notice
+                      required:
+                      - id
+                      - type
+                      - attributes
+                      - links
                 required:
                 - data
         '404':
@@ -2236,6 +2471,62 @@ paths:
                             type: string
                             nullable: true
                             example: ROYAUME-UNI
+                          acheminement_postal:
+                            type: object
+                            title: Éléments constitutifs de l'adresse postale pour
+                              son acheminement.
+                            description: Il ne s'agit pas d'un traitement RNVP mais
+                              simplement d'une réorganisation des éléments renvoyé
+                              par l'Insee pour faciliter l'affichage des adresses
+                              postales
+                            properties:
+                              l1:
+                                title: Ligne 1
+                                description: 'Si l''établissement correspond à une
+                                  personne morale: la dénomination sociale de la personne
+                                  morale. Le cas contraire: cette variable est vide.'
+                                example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
+                              l2:
+                                title: Ligne 2
+                                description: 'Si l''établissement correspond à une
+                                  personne physique: concaténation du nom et prénom'
+                                example: JEAN MARIE DURAND
+                              l3:
+                                title: Ligne 3
+                                description: Complément d'adresse comme décrit dans
+                                  la clé `complement_adresse`
+                                example: ZAE SAINT GUENAULT
+                              l4:
+                                title: Ligne 4
+                                description: Concaténation du numéro de voie, d'indice
+                                  de répétition, du type de voie et du libellé de
+                                  la voie
+                                example: 51 BIS RUE DE LA PAIX
+                              l5:
+                                title: Ligne 5
+                                description: Distribution spéciale comme décrit dans
+                                  la clé `distribution_speciale`
+                                example: CS 72809
+                              l6:
+                                title: Ligne 6
+                                description: 'Si le code cedex est existant: code
+                                  cedex accompagné de son libellé ; sinon, si le pays
+                                  est en France: code postal accompagné de son libellé,
+                                  sinon : libellé de la commune de l''établissement
+                                  situé à l''étranger'
+                                example: 75256 PARIX CEDEX 12
+                              l7:
+                                title: Ligne 7
+                                description: Pays de l'établissement
+                                example: FRANCE
+                            required:
+                            - l1
+                            - l2
+                            - l3
+                            - l4
+                            - l5
+                            - l6
+                            - l7
                         required:
                         - numero_voie
                         - indice_repetition_voie
@@ -2251,6 +2542,7 @@ paths:
                         - libelle_commune_etranger
                         - code_pays_etranger
                         - libelle_pays_etranger
+                        - acheminement_postal
                       links:
                         type: object
                         properties:
@@ -2368,9 +2660,7 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Adresse de l'établissement diffusible présente dans le répertoire
-        Sirene. Pour appeler un établissement non-diffusible, se référer à l'API 'Adresse
-        d'un établissement'.
+      description: Adresse d'un établissement diffusible inscrit au répertoire Sirene."
       responses:
         '403':
           description: Accès interdit
@@ -2541,6 +2831,62 @@ paths:
                             type: string
                             nullable: true
                             example: ROYAUME-UNI
+                          acheminement_postal:
+                            type: object
+                            title: Éléments constitutifs de l'adresse postale pour
+                              son acheminement.
+                            description: Il ne s'agit pas d'un traitement RNVP mais
+                              simplement d'une réorganisation des éléments renvoyé
+                              par l'Insee pour faciliter l'affichage des adresses
+                              postales
+                            properties:
+                              l1:
+                                title: Ligne 1
+                                description: 'Si l''établissement correspond à une
+                                  personne morale: la dénomination sociale de la personne
+                                  morale. Le cas contraire: cette variable est vide.'
+                                example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
+                              l2:
+                                title: Ligne 2
+                                description: 'Si l''établissement correspond à une
+                                  personne physique: concaténation du nom et prénom'
+                                example: JEAN MARIE DURAND
+                              l3:
+                                title: Ligne 3
+                                description: Complément d'adresse comme décrit dans
+                                  la clé `complement_adresse`
+                                example: ZAE SAINT GUENAULT
+                              l4:
+                                title: Ligne 4
+                                description: Concaténation du numéro de voie, d'indice
+                                  de répétition, du type de voie et du libellé de
+                                  la voie
+                                example: 51 BIS RUE DE LA PAIX
+                              l5:
+                                title: Ligne 5
+                                description: Distribution spéciale comme décrit dans
+                                  la clé `distribution_speciale`
+                                example: CS 72809
+                              l6:
+                                title: Ligne 6
+                                description: 'Si le code cedex est existant: code
+                                  cedex accompagné de son libellé ; sinon, si le pays
+                                  est en France: code postal accompagné de son libellé,
+                                  sinon : libellé de la commune de l''établissement
+                                  situé à l''étranger'
+                                example: 75256 PARIX CEDEX 12
+                              l7:
+                                title: Ligne 7
+                                description: Pays de l'établissement
+                                example: FRANCE
+                            required:
+                            - l1
+                            - l2
+                            - l3
+                            - l4
+                            - l5
+                            - l6
+                            - l7
                         required:
                         - numero_voie
                         - indice_repetition_voie
@@ -2556,6 +2902,7 @@ paths:
                         - libelle_commune_etranger
                         - code_pays_etranger
                         - libelle_pays_etranger
+                        - acheminement_postal
                       links:
                         type: object
                         properties:
@@ -2673,9 +3020,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir des informations générales concernant un établissement
-        inscrit au répertoire Sirene. Tous les établissements sont appelables, y compris
-        les non-diffusibles.
+      description: Informations générales concernant un établissement inscrit au répertoire
+        Sirene. Tous les établissements sont appelables, y compris les non-diffusibles.
       responses:
         '403':
           description: Accès interdit
@@ -2990,8 +3336,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir des informations générales concernant un établissement
-        diffusible inscrit au répertoire Sirene.
+      description: Informations générales concernant un établissement diffusible inscrit
+        au répertoire Sirene.
       responses:
         '403':
           description: Accès interdit
@@ -3267,6 +3613,10 @@ paths:
           siren_entrepreneur_individuel:
             value: '389839937'
             summary: SIREN d'un entrepeneur individuel (cessé)
+          siren_marques_brevets_modeles:
+            value: '542065479'
+            summary: SIREN d'une entreprise ayant des marques, brevets et modèles
+              (INPI)
         required: true
         schema:
           type: string
@@ -3302,9 +3652,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir des informations générales concernant le siège d'une unité
-        légale diffusable inscrite au répertoire Sirene. Pour appeler un établissement
-        non-diffusible, se référer à l'API 'Siège social d'une unité légale'.
+      description: Informations générales concernant le siège d'une unité légale diffusible
+        inscrite au répertoire Sirene.
       responses:
         '403':
           description: Accès interdit
@@ -3580,6 +3929,10 @@ paths:
           siren_entrepreneur_individuel:
             value: '389839937'
             summary: SIREN d'un entrepeneur individuel (cessé)
+          siren_marques_brevets_modeles:
+            value: '542065479'
+            summary: SIREN d'une entreprise ayant des marques, brevets et modèles
+              (INPI)
         required: true
         schema:
           type: string
@@ -3615,9 +3968,9 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir des informations générales concernant le siège social d'une
-        unité légale inscrite au répertoire Sirene. Tous les établissements sont appelables,
-        y compris les non-diffusibles.
+      description: Informations générales concernant le siège social d'une unité légale
+        inscrite au répertoire Sirene. Tous les sièges sociaux sont appelables, y
+        compris les non-diffusibles.
       responses:
         '403':
           description: Accès interdit
@@ -3894,6 +4247,10 @@ paths:
           siren_entrepreneur_individuel:
             value: '389839937'
             summary: SIREN d'un entrepeneur individuel (cessé)
+          siren_marques_brevets_modeles:
+            value: '542065479'
+            summary: SIREN d'une entreprise ayant des marques, brevets et modèles
+              (INPI)
         required: true
         schema:
           type: string
@@ -3929,10 +4286,9 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir les informations de référence d'une unité légale (entreprises,
-        associations et administrations) inscrite au répertoire Sirene, telles que
-        le type d'entreprise, son activité et son état administratif. Toutes les unités
-        légales sont appelables, y compris les non-diffusibles.
+      description: Informations de référence d'une unité légale (entreprise, association
+        ou administration) inscrite au répertoire Sirene. Toutes les unités légales
+        sont appelables, y compris les non-diffusibles.
       responses:
         '403':
           description: Accès interdit
@@ -4409,6 +4765,10 @@ paths:
           siren_entrepreneur_individuel:
             value: '389839937'
             summary: SIREN d'un entrepeneur individuel (cessé)
+          siren_marques_brevets_modeles:
+            value: '542065479'
+            summary: SIREN d'une entreprise ayant des marques, brevets et modèles
+              (INPI)
         required: true
         schema:
           type: string
@@ -4444,11 +4804,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir les informations de référence d'une unité légale (entreprises,
-        associations et administrations), inscrite au répertoire Sirene, telles que
-        le type d'entreprise, son activité et son état administratif. Pour appeler
-        une unité légale non-diffusible, se référer à l'API 'Données de référence
-        d'une unité légale'.
+      description: Informations de référence d'une unité légale (entreprise, association
+        ou administration) diffusible, inscrite au répertoire Sirene.
       responses:
         '403':
           description: Accès interdit
@@ -5565,6 +5922,10 @@ paths:
           siren_entrepreneur_individuel:
             value: '389839937'
             summary: SIREN d'un entrepeneur individuel (cessé)
+          siren_marques_brevets_modeles:
+            value: '542065479'
+            summary: SIREN d'une entreprise ayant des marques, brevets et modèles
+              (INPI)
         required: true
         schema:
           type: string
