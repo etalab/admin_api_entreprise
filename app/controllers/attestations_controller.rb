@@ -16,7 +16,13 @@ class AttestationsController < AuthenticatedUsersController
   end
 
   def search
-    @result = Siade.new(siret: param[:siret]).call(:entreprise)
+    search = Siade.new(token: params[:token]).entreprises(siret: params[:siret])
+
+    @results = search.body
+
+    respond_to do |format|
+      format.turbo_stream
+    end
   end
 
   private
