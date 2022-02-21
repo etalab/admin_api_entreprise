@@ -25,13 +25,14 @@
       </div>
 
       <div>
-        <%= form_with url: "attestations/search", method: :get do |f| %>
+        <%= form_with url: profile_attestations_search_path(format: :turbo_stream), method: :get do |f| %>
           <%= f.label :siret, "Numéro de SIRET :", { class: "fr-label" } %>
           <%= f.text_field :siret, { maxlength: 14, class: "fr-input", id: "search_bar" } %>
           <%= f.submit "Rechercher", { class: 'fr-btn fr-btn--secondary', id: 'search' } %>
         <% end %>
       </div>
 
+      <%= turbo_frame_tag "attestations_results" do %><% end %>
     <% end %>
   </div>
 

@@ -18,6 +18,8 @@ class AttestationsController < AuthenticatedUsersController
   def search
     search = Siade.new(token: params[:token]).entreprises(siret: params[:siret])
 
+    return unless search
+
     @results = search.body
 
     respond_to do |format|
