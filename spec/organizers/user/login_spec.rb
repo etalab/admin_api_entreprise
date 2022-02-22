@@ -1,13 +1,12 @@
 require 'rails_helper'
 
-# rubocop:disable RSpec/FilePath
 RSpec.describe User::Login, type: :organizer do
   subject(:sync!) { described_class.call(params) }
 
   let(:params) do
     {
       oauth_api_gouv_email: user.email,
-      oauth_api_gouv_id: oauth_api_gouv_id,
+      oauth_api_gouv_id: oauth_api_gouv_id
     }
   end
 
@@ -54,4 +53,3 @@ RSpec.describe User::Login, type: :organizer do
     end
   end
 end
-# rubocop:enable RSpec/FilePath

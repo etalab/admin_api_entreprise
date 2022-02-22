@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+# rubocop:disable RSpec/FilePath
 RSpec.describe User::SyncOAuthAPIGouvData, type: :organizer do
   subject(:sync!) { described_class.call(params) }
 
@@ -35,7 +36,8 @@ RSpec.describe User::SyncOAuthAPIGouvData, type: :organizer do
       sync!
 
       expect { sync! }
-        .to_not have_enqueued_mail(UserMailer, :notify_datapass_for_data_reconciliation)
+        .not_to have_enqueued_mail(UserMailer, :notify_datapass_for_data_reconciliation)
     end
   end
 end
+# rubocop:enable RSpec/FilePath

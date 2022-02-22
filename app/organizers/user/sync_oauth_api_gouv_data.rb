@@ -1,4 +1,6 @@
-class User::SyncOAuthAPIGouvData < ApplicationOrganizer
-  organize User::UpdateOAuthAPIGouvId,
-    User::NotifyDatapassOfTokenOwnership
+class User
+  class SyncOAuthAPIGouvData < ApplicationOrganizer
+    organize User::UpdateOAuthAPIGouvId,
+      User::NotifyDatapassOfTokenOwnership
+  end
 end

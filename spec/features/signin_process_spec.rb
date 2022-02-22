@@ -70,7 +70,7 @@ RSpec.describe 'the signin process', type: :feature do
 
           it 'does not send any email to DataPass' do
             expect { subject }
-              .to_not have_enqueued_mail(UserMailer, :notify_datapass_for_data_reconciliation)
+              .not_to have_enqueued_mail(UserMailer, :notify_datapass_for_data_reconciliation)
           end
 
           it 'redirects to the user profile' do
