@@ -27,15 +27,17 @@ RSpec.describe AttestationsController, type: :controller do
   end
 
   describe '#search' do
-    let(:results) { controller.instance_variable_get(:@results) }
+    let(:result) { controller.instance_variable_get(:@result) }
 
     context 'when searching for a siret', vcr: { cassette_name: 'controllers/attestations_search' } do
       before do
-        get :search, params: { siret: siret_valid, token: apientreprise_test_token }, format: :turbo_stream
+        allow_any_instance_of(JwtAPIEntreprise).to receive(:rehash).and_return(apientreprise_test_token)
+
+        get :search, params: { siret: siret_valid, jwt_id: jwt.id }
       end
 
       it 'find results' do
-        expect(results).to include('JK ASSOCIATES CONSULTING')
+        expect(result['entreprise']['enseigne']).to eq('JK AC')
       end
     end
   end

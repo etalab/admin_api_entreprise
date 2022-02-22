@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
   get '/profile', to: 'users#profile', as: :user_profile
   get '/profile/tokens', to: 'jwt_api_entreprise#index', as: :user_tokens
-  get '/profile/attestations', to: 'attestations#index', as: :user_attestations
+  get '/profile/attestations', to: 'attestations#index'
   get '/profile/attestations/new', to: 'attestations#new'
   get '/profile/attestations/search', to: 'attestations#search'
   post 'tokens/:id/create_magic_link', to: 'restricted_token_magic_links#create', as: :token_create_magic_link

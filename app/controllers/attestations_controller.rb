@@ -16,15 +16,16 @@ class AttestationsController < AuthenticatedUsersController
   end
 
   def search
-    search = Siade.new(token: params[:token]).entreprises(siret: params[:siret])
+    jwt = JwtAPIEntreprise.find(params[:jwt_id])
 
-    return unless search
-
-    @results = search.body
-
-    respond_to do |format|
-      format.turbo_stream
+    begin
+      search = Siade.new(token: jwt.rehash).entreprises(siret: params[:siret])
+    rescue RestClient::Unauthorized
+      flash_message(:error, title: 'Erreur lors de la recherche', description: 'Non-autorisé')
+      return redirect_to profile_attestations_path
     end
+
+    @result = JSON.parse(search.body)
   end
 
   private

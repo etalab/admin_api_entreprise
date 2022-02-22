@@ -31,7 +31,7 @@ RSpec.describe 'User can download attestations', type: :feature do
   end
 
   describe 'select menu' do
-    subject(:visit_attestations) { visit user_attestations_path }
+    subject(:visit_attestations) { visit profile_attestations_path }
 
     before do
       login_as(user)
@@ -47,7 +47,11 @@ RSpec.describe 'User can download attestations', type: :feature do
       end
 
       it 'select list has 3 options' do
-        expect(page.all('select#token option').map(&:text)).to eq(['', 'JWT with roles: ["attestations_fiscales"]', 'JWT with no roles'])
+        expect(page.all('select#token option').map(&:text)).to eq([
+          '',
+          'JWT with roles: ["attestations_fiscales"]',
+          'JWT with no roles'
+        ])
       end
 
       it 'tell user to select a token' do
@@ -94,9 +98,9 @@ RSpec.describe 'User can download attestations', type: :feature do
   describe 'search' do
     subject(:search) do
       login_as(user)
-      visit user_attestations_path
+      visit profile_attestations_path
       select(token, from: 'token')
-      fill_in('search_bar', with: siret)
+      fill_in('search_siret', with: siret)
       click_button('search')
     end
 
@@ -104,15 +108,16 @@ RSpec.describe 'User can download attestations', type: :feature do
     let(:token) { 'JWT with no roles' }
 
     before do
+      allow_any_instance_of(JwtAPIEntreprise).to receive(:rehash).and_return(apientreprise_test_token)
       search
       FactoryBot.rewind_sequences
     end
 
-    context 'when user search a valid siret', vcr: { cassette_name: 'attestation_search/valid_siret' } do
+    context 'when user search a valid siret', vcr: { cassette_name: 'features/user_attestations/valid_siret' } do
       let(:siret) { siret_valid }
 
       it 'shows company information' do
-        expect(page).to have_content('Octo-technology')
+        expect(page).to have_content('JK AC')
       end
 
       context 'when selected token have no attestation roles' do
@@ -147,7 +152,7 @@ RSpec.describe 'User can download attestations', type: :feature do
       end
     end
 
-    context 'when user search an invalid siret', vcr: { cassette_name: 'attestation_search/invalid_siret' } do
+    context 'when user search an invalid siret', vcr: { cassette_name: 'features/user_attestations/invalid_siret' } do
       let(:siret) { siret_invalid }
 
       it 'fails with invalid message' do
@@ -155,7 +160,7 @@ RSpec.describe 'User can download attestations', type: :feature do
       end
     end
 
-    context 'when user search a siret not found', vcr: { cassette_name: 'attestation_search/siret_not_found' } do
+    context 'when user search a siret not found', vcr: { cassette_name: 'features/user_attestations/siret_not_found' } do
       let(:siret) { siret_not_found }
 
       it 'fails with not found message' do

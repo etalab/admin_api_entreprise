@@ -6,34 +6,28 @@
   <div class="fr-card__body">
     <% if user_signed_in? && current_user.any_token_with_attestation_role? %>
 
-      <div class="fr-text--sm fr-m-0" data-controller="token">
-        <div class="fr-select-group">
-          <label class="fr-label" for="select">
-            Jetons d'accès
-          </label>
-          <%= select_tag(
-            :jwt_api_entreprise,
-            options_for_select(
-              current_user.jwt_api_entreprise.map { |jwt| [jwt.authorization_request.intitule, jwt.id] }
-            ),
-            { class: "fr-select", id: "token", include_blank: true, data: {action: 'change->token#select'} }
-          ) %>
+      </div>
+        <div>
+          <%= form_with url: profile_attestations_search_path, method: :get, data: { turbo_frame: "attestations_token" } do |f| %>
+            <div class="fr-text--sm fr-m-0" data-controller="token">
+              <div class="fr-select-group">
+                <%= f.label :jwt_id, "Jeton d'accès", { class: "fr-label", for: "select" } %>
+                <%= select_tag(
+                  :jwt_id,
+                  options_for_select(
+                    current_user.jwt_api_entreprise.map { |jwt| [jwt.authorization_request.intitule, jwt.id] }
+                  ),
+                  { class: "fr-select", id: "token", include_blank: true, data: {action: 'change->token#select'} }
+                )%>
+                <%= turbo_frame_tag "attestations_token" do %>Selectionnez un token pour voir les droits<% end %>
+              </div>
+            </div>
+            <%= f.label :siret, "Numéro de SIRET :", { class: "fr-label" } %>
+            <%= f.text_field :siret, { maxlength: 14, class: "fr-input", id: "search_siret" } %>
+            <%= f.submit "Rechercher", { class: 'fr-btn fr-btn--secondary', id: 'search' } %>
+          <% end %>
         </div>
-        <%= turbo_frame_tag "attestations_search" do %>
-          Selectionnez un token pour voir les droits
-        <% end %>
-      </div>
-
-      <div>
-        <%= form_with url: profile_attestations_search_path(format: :turbo_stream), method: :get do |f| %>
-          <%= f.label :siret, "Numéro de SIRET :", { class: "fr-label" } %>
-          <%= f.text_field :siret, { maxlength: 14, class: "fr-input", id: "search_bar" } %>
-          <%= f.submit "Rechercher", { class: 'fr-btn fr-btn--secondary', id: 'search' } %>
-        <% end %>
-      </div>
-
-      <%= turbo_frame_tag "attestations_results" do %><% end %>
+      <%= turbo_frame_tag "attestations_result" do %><% end %>
     <% end %>
   </div>
-
 </div>
