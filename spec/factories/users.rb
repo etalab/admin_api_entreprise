@@ -28,6 +28,11 @@ FactoryBot.define do
       sequence(:oauth_api_gouv_id) { nil }
     end
 
+    trait :new_token_owner do
+      oauth_api_gouv_id { nil }
+      tokens_newly_transfered { true }
+    end
+
     trait :admin do
       admin { true }
     end

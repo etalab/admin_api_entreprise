@@ -4,8 +4,10 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if user = User.insensitive_find_by_email(authenticated_user_email)
-      sign_in_and_redirect(user)
+    login = User::Login.call(login_params)
+
+    if login.success?
+      sign_in_and_redirect(login.user)
     else
       error_message(title: t('.not_found.title'), description: t('.not_found.description'))
 
@@ -34,7 +36,10 @@ class SessionsController < ApplicationController
     params[:message]
   end
 
-  def authenticated_user_email
-    auth_hash.try('info').try('email')
+  def login_params
+    {
+      oauth_api_gouv_email: auth_hash.try('info').try('email'),
+      oauth_api_gouv_id: auth_hash.try('info').try('sub')
+    }
   end
 end
