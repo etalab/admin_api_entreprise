@@ -1,14 +1,14 @@
 class AttestationsController < AuthenticatedUsersController
+  before_action :find_jwt, only: %i[new search]
+
   def index
     @user = current_user
   end
 
   def new
-    return if params[:jwt_id].blank?
+    return unless @jwt
 
-    jwt = JwtAPIEntreprise.find(params[:jwt_id])
-
-    @jwt_attestations_roles = jwt.roles.select { |r| attestations_roles.include? r.code }
+    @jwt_attestations_roles = @jwt.roles.select { |r| attestations_roles.include? r.code }
 
     respond_to do |format|
       format.turbo_stream
@@ -16,10 +16,8 @@ class AttestationsController < AuthenticatedUsersController
   end
 
   def search
-    jwt = JwtAPIEntreprise.find(params[:jwt_id])
-
     begin
-      search = Siade.new(token: jwt.rehash).entreprises(siret: params[:siret])
+      search = Siade.new(token: @jwt.rehash).entreprises(siret: params[:siret])
     rescue RestClient::Unauthorized
       flash_message(:error, title: 'Erreur lors de la recherche', description: 'Non-autorisé')
       return redirect_to profile_attestations_path
@@ -29,6 +27,12 @@ class AttestationsController < AuthenticatedUsersController
   end
 
   private
+
+  def find_jwt
+    return if params[:jwt_id].blank?
+
+    @jwt = JwtAPIEntreprise.find(params[:jwt_id])
+  end
 
   def attestations_roles
     %w[attestations_sociales attestations_fiscales]
