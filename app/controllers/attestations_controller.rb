@@ -24,6 +24,11 @@ class AttestationsController < AuthenticatedUsersController
     end
 
     @result = JSON.parse(search.body)
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html
+    end
   end
 
   private

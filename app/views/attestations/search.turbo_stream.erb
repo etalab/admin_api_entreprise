@@ -1,4 +1,4 @@
-<%= turbo_frame_tag "attestations_result" do%>
+<%= turbo_stream.append "attestations" do%>
   <div>
     RESULTAT:
     <%= @result['entreprise']['enseigne'] %>

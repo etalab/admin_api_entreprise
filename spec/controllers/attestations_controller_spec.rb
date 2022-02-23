@@ -33,7 +33,7 @@ RSpec.describe AttestationsController, type: :controller do
       before do
         allow_any_instance_of(JwtAPIEntreprise).to receive(:rehash).and_return(apientreprise_test_token)
 
-        get :search, params: { siret: siret_valid, jwt_id: jwt.id }
+        post :search, params: { siret: siret_valid, jwt_id: jwt.id }, format: :turbo_stream
       end
 
       it 'find results' do

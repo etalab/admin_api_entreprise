@@ -95,7 +95,7 @@ RSpec.describe 'User can download attestations', type: :feature do
     end
   end
 
-  describe 'search' do
+  describe 'search', js: true do
     subject(:search) do
       login_as(user)
       visit profile_attestations_path
@@ -116,7 +116,7 @@ RSpec.describe 'User can download attestations', type: :feature do
     context 'when user search a valid siret', vcr: { cassette_name: 'features/user_attestations/valid_siret' } do
       let(:siret) { siret_valid }
 
-      it 'shows company information' do
+      it 'shows company name' do
         expect(page).to have_content('JK AC')
       end
 
