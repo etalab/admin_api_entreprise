@@ -1,6 +1,13 @@
-<%= turbo_stream.append "attestations" do%>
-  <div>
-    RESULTAT:
-    <%= @result['entreprise']['enseigne'] %>
+<%= turbo_stream.replace "attestations_result" do %>
+  <div class="fr-callout fr-fi-information-line">
+    <p class="fr-callout__title">Entreprise trouvée :</p>
+    <p class="fr-callout__text"><%= @result['entreprise']['enseigne'] %></p>
+
+    <% if @jwt_attestations_roles.map(&:code).include? 'attestations_sociales' %>
+      <%= button_tag "Attestation sociale", { class: "fr-btn" } %>
+    <% end %>
+    <% if @jwt_attestations_roles.map(&:code).include? 'attestations_fiscales' %>
+      <%= button_tag "Attestation fiscale", { class: "fr-btn" } %>
+    <% end %>
   </div>
 <% end %>

@@ -123,7 +123,7 @@ RSpec.describe 'User can download attestations', type: :feature do
       context 'when selected token have no attestation roles' do
         it 'doesnt show attestations download buttons' do
           expect(page).not_to have_button('Attestation sociale')
-          expect(page).not_to have_button('Attestation Fiscale')
+          expect(page).not_to have_button('Attestation fiscale')
         end
       end
 
@@ -132,7 +132,7 @@ RSpec.describe 'User can download attestations', type: :feature do
 
         it 'shows button to download this attestation' do
           expect(page).not_to have_button('Attestation sociale')
-          expect(page).to have_button('Attestation Fiscale')
+          expect(page).to have_button('Attestation fiscale')
         end
       end
 
@@ -140,14 +140,14 @@ RSpec.describe 'User can download attestations', type: :feature do
         let(:user) do
           create :user,
             :with_jwt_specific_roles,
-            specific_roles: %w[attestions_sociales attestations_fiscales]
+            specific_roles: %w[attestations_sociales attestations_fiscales]
         end
 
         let(:token) { 'JWT with roles: ["attestations_sociales", "attestations_fiscales"]' }
 
         it 'shows both button to download attestations' do
           expect(page).to have_button('Attestation sociale')
-          expect(page).to have_button('Attestation Fiscale')
+          expect(page).to have_button('Attestation fiscale')
         end
       end
     end
