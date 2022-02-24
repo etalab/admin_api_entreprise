@@ -4,10 +4,10 @@
     <p class="fr-callout__text"><%= @result['entreprise']['enseigne'] %></p>
 
     <% if @jwt_attestations_roles.map(&:code).include? 'attestations_sociales' %>
-      <%= button_tag "Attestation sociale", { class: "fr-btn" } %>
+      <%= link_to "Attestation sociale", @url_attestation_sociale, { class: "fr-btn" } %>
     <% end %>
     <% if @jwt_attestations_roles.map(&:code).include? 'attestations_fiscales' %>
-      <%= button_tag "Attestation fiscale", { class: "fr-btn" } %>
+      <%= link_to "Attestation fiscale", @url_attestation_fiscale, { class: "fr-btn" } %>
     <% end %>
   </div>
 <% end %>
