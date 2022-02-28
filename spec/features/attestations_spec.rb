@@ -113,15 +113,15 @@ RSpec.describe 'User can download attestations', type: :feature do
       FactoryBot.rewind_sequences
     end
 
-    context 'when user search a valid siret', vcr: { cassette_name: 'features/user_attestations/valid_siret' } do
+    context 'when user search a valid siret', vcr: { cassette_name: 'features/attestations/valid_siret' } do
       let(:siret) { siret_valid }
 
-      it 'shows company name', vcr: { cassette_name: 'features/user_attestations/valid_siret' } do
+      it 'shows company name', vcr: { cassette_name: 'features/attestations/valid_siret' } do
         expect(page).to have_content('JK ASSOCIATES CONSULTING')
       end
 
       context 'when selected token have no attestation roles',
-        vcr: { cassette_name: 'features/user_attestations/valid_siret_no_role' } do
+        vcr: { cassette_name: 'features/attestations/valid_siret_no_role' } do
         it 'doesnt show attestations download links' do
           expect(page).not_to have_link('Attestation sociale')
           expect(page).not_to have_link('Attestation fiscale')
@@ -129,7 +129,7 @@ RSpec.describe 'User can download attestations', type: :feature do
       end
 
       context 'when selected token have one attestation role',
-        vcr: { cassette_name: 'features/user_attestations/valid_siret_one_role' } do
+        vcr: { cassette_name: 'features/attestations/valid_siret_one_role' } do
         let(:token) { 'JWT with roles: ["attestations_fiscales"]' }
 
         it 'shows link to download this attestation' do
@@ -139,7 +139,7 @@ RSpec.describe 'User can download attestations', type: :feature do
       end
 
       context 'when selected token have two attestation roles',
-        vcr: { cassette_name: 'features/user_attestations/valid_siret_two_roles' } do
+        vcr: { cassette_name: 'features/attestations/valid_siret_two_roles' } do
         let(:user) do
           create :user,
             :with_jwt_specific_roles,
@@ -155,7 +155,7 @@ RSpec.describe 'User can download attestations', type: :feature do
       end
     end
 
-    context 'when user search an invalid siret', vcr: { cassette_name: 'features/user_attestations/invalid_siret' } do
+    context 'when user search an invalid siret', vcr: { cassette_name: 'features/attestations/invalid_siret' } do
       let(:siret) { siret_invalid }
 
       it 'fails with invalid message' do
@@ -163,7 +163,7 @@ RSpec.describe 'User can download attestations', type: :feature do
       end
     end
 
-    context 'when user search a siret not found', vcr: { cassette_name: 'features/user_attestations/siret_not_found' } do
+    context 'when user search a siret not found', vcr: { cassette_name: 'features/attestations/siret_not_found' } do
       let(:siret) { siret_not_found }
 
       it 'fails with not found message' do
@@ -171,7 +171,7 @@ RSpec.describe 'User can download attestations', type: :feature do
       end
     end
 
-    context 'when user is unauthorized', vcr: { cassette_name: 'features/user_attestations/token_unauthorized' } do
+    context 'when user is unauthorized', vcr: { cassette_name: 'features/attestations/token_unauthorized' } do
       let(:siret) { siret_invalid }
 
       it 'fails with invalid message' do
@@ -201,11 +201,11 @@ RSpec.describe 'User can download attestations', type: :feature do
       FactoryBot.rewind_sequences
     end
 
-    it 'have correct download URL', vcr: { cassette_name: 'features/user_attestations/valid_siret_one_role' } do
+    it 'have correct download URL', vcr: { cassette_name: 'features/attestations/valid_siret_one_role' } do
       expect(page).to have_link('Attestation fiscale', href: attestation_fiscale_href)
     end
 
-    context 'when user clicks', vcr: { cassette_name: 'features/user_attestations/download_authorized' } do
+    context 'when user clicks', vcr: { cassette_name: 'features/attestations/download_authorized' } do
       subject(:download_attestation_fiscale) { click_link('Attestation fiscale') }
 
       it 'do not error' do
