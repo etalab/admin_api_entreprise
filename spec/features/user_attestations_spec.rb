@@ -62,7 +62,7 @@ RSpec.describe 'User can download attestations', type: :feature do
         before { select('JWT with roles: ["attestations_fiscales"]', from: 'token') }
 
         it 'shows roles' do
-          expect(page).to have_content("Attestations téléchargeables avec ce token:\nAttestations fiscales")
+          expect(page).to have_content("Attestations disponibles pour ce token :\nAttestations fiscales")
         end
       end
 
@@ -117,7 +117,7 @@ RSpec.describe 'User can download attestations', type: :feature do
       let(:siret) { siret_valid }
 
       it 'shows company name', vcr: { cassette_name: 'features/user_attestations/valid_siret' } do
-        expect(page).to have_content('JK AC')
+        expect(page).to have_content('JK ASSOCIATES CONSULTING')
       end
 
       context 'when selected token have no attestation roles',

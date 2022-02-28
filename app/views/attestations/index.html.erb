@@ -2,31 +2,33 @@
 
 <h5>Récupérez l'<strong>attestation sociale</strong> d'une entreprise ou d'une association, en entrant son numéro de siret.</h5>
 
-<div class="fr-card fr-card--horizontal fr-card--no-arrow token-card">
+<div class="fr-card--horizontal fr-card--no-arrow token-card">
   <div class="fr-card__body">
     <% if user_signed_in? && current_user.any_token_with_attestation_role? %>
       <div id='attestations'>
-        <%= form_with url: profile_attestations_search_path, data: { turbo_frame: "attestations_token" } do |f| %>
-          <div class="fr-text--sm fr-m-0" data-controller="token">
-            <div class="fr-select-group">
-              <div id='attestations_token'>
-                Selectionnez un token pour voir les droits.
+        <div class="form-container">
+          <%= form_with url: profile_attestations_search_path, data: { turbo_frame: "attestations_token" } do |f| %>
+            <div class="fr-text--sm fr-m-0" data-controller="token">
+              <div class="fr-select-group">
+                <%= select_tag(
+                  :jwt_id,
+                  options_for_select(
+                    current_user.jwt_api_entreprise.map { |jwt| [jwt.authorization_request.intitule, jwt.id] }
+                  ),
+                  { class: "fr-select", id: "token", include_blank: true, data: {action: 'change->token#select'} }
+                ) %>
               </div>
-              <%= select_tag(
-                :jwt_id,
-                options_for_select(
-                  current_user.jwt_api_entreprise.map { |jwt| [jwt.authorization_request.intitule, jwt.id] }
-                ),
-                { class: "fr-select", id: "token", include_blank: true, data: {action: 'change->token#select'} }
-              )%>
             </div>
-          </div>
-          <%= f.label :siret, "Numéro de SIRET :", { class: "fr-label" } %>
-          <%= f.text_field :siret, { maxlength: 14, class: "fr-input", id: "search_siret" } %>
-          <%= f.submit "Rechercher", { class: 'fr-btn fr-btn--secondary', id: 'search' } %>
-        <% end %>
-        <div id='attestations_result'></div>
-       </div>
+            <%= f.label :siret, "Numéro de SIRET :", { class: "fr-label" } %>
+            <%= f.text_field :siret, { maxlength: 14, class: "fr-input", id: "search_siret" } %>
+            <%= f.submit "Rechercher", { class: 'fr-btn fr-btn--secondary', id: 'search' } %>
+          <% end %>
+        </div>
+        <span id='attestations-token'>
+          <p><em>Selectionnez un token pour voir les droits</em></p>
+        </span>
+      </div>
+      <div id='result'></div>
     <% end %>
   </div>
 </div>

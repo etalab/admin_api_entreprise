@@ -1,6 +1,6 @@
-<%= turbo_stream.update "attestations_token", target: '_top' do %>
+<%= turbo_stream.update "attestations-token", target: '_top' do %>
   <div>
-    <h4>Attestations téléchargeables avec ce token:</h4>
+    <h4>Attestations disponibles pour ce token :</h4>
     <% if @jwt_attestations_roles.nil? %>
       Veuillez sélectionner un token dans la liste.
     <% elsif @jwt_attestations_roles.blank? %>

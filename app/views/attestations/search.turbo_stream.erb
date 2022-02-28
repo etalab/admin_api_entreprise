@@ -1,13 +1,27 @@
-<%= turbo_stream.replace "attestations_result" do %>
-  <div class="fr-callout fr-fi-information-line">
-    <p class="fr-callout__title">Entreprise trouvée :</p>
-    <p class="fr-callout__text"><%= @result['entreprise']['enseigne'] %></p>
+<%= turbo_stream.replace "result" do %>
+  <div class="fr-callout">
+    <p class="fr-callout__title">
+      <%= @result['entreprise']['raison_sociale'] %>
+    </p>
+    <p><strong>Nature juridique : </strong><%= @result['entreprise']['forme_juridique'] %></p>
+    <p><strong>Catégorie d'entreprise : </strong><%= @result['entreprise']['categorie_entreprise'] %></p>
+    <p>
+      <strong>Code NAF : </strong>
+      <%= "#{@result['entreprise']['naf_entreprise']} - #{@result['entreprise']['libelle_naf_entreprise']}" %>
+    </p>
 
     <% if @jwt_attestations_roles.map(&:code).include? 'attestations_sociales' %>
-      <%= link_to "Attestation sociale", @url_attestation_sociale, { class: "fr-btn" } %>
+      <%= link_to @url_attestation_sociale, { class: "fr-btn" } do %>
+        <%= image_tag "icons/download.svg", alt: 'icon_download' %>
+        &nbsp;Attestation sociale (PDF)
+      <% end %>
     <% end %>
+
     <% if @jwt_attestations_roles.map(&:code).include? 'attestations_fiscales' %>
-      <%= link_to "Attestation fiscale", @url_attestation_fiscale, { class: "fr-btn" } %>
+      <%= link_to @url_attestation_fiscale, { class: "fr-btn" } do %>
+        <%= image_tag "icons/download.svg", alt: 'icon_download' %>
+        &nbsp;Attestation fiscale (PDF)
+      <% end %>
     <% end %>
   </div>
 <% end %>
