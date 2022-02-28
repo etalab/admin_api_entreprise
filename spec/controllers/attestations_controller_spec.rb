@@ -21,7 +21,7 @@ RSpec.describe AttestationsController, type: :controller do
       before { get :new, params: { jwt_id: nil }, format: :turbo_stream }
 
       it 'sets up nil @jwt_attestations_roles' do
-        expect(jwt_codes).to eq(nil)
+        expect(jwt_codes).to be_nil
       end
     end
   end
