@@ -53,7 +53,7 @@ RSpec.describe User::TransferAccount, type: :organizer do
 
         target_user.reload
 
-        expect(target_user.tokens_newly_transfered).to eq(true)
+        expect(target_user.tokens_newly_transfered).to be(true)
       end
 
       it 'does not create a new user' do

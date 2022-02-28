@@ -68,19 +68,19 @@ RSpec.describe User do
     context 'when the user has an API Gouv ID' do
       before { user.oauth_api_gouv_id = '12' }
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to be(true) }
     end
 
     context 'when the user does not have an API Gouv ID' do
       before { user.oauth_api_gouv_id = nil }
 
-      it { is_expected.to eq(false) }
+      it { is_expected.to be(false) }
     end
 
     context 'when the user has an empty API Gouv ID' do
       before { user.oauth_api_gouv_id = '' }
 
-      it { is_expected.to eq(false) }
+      it { is_expected.to be(false) }
     end
   end
 
