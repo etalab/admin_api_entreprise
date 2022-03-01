@@ -104,7 +104,7 @@ RSpec.describe 'User can download attestations', type: :feature do
       click_button('search')
     end
 
-    let(:user) { create :user, :with_jwt_specific_roles, specific_roles: ['attestations_fiscales'] }
+    let(:user) { create(:user, :with_jwt_specific_roles, specific_roles: ['attestations_fiscales']) }
     let(:token) { 'JWT with no roles' }
 
     before do
