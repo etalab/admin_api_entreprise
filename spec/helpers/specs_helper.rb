@@ -12,7 +12,10 @@ module SpecsHelper
   end
 
   def siret_valid
-    # Octo-technology
+    octo_technology_siret
+  end
+  
+  def octo_technology_siret
     '41816609600069'
   end
 
