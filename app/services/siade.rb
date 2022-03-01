@@ -6,21 +6,15 @@ class Siade
   end
 
   def entreprises(siret:)
-    endpoint = "v2/entreprises/#{siret}"
-
-    siade_request(endpoint)
+    siade_request("v2/entreprises/#{siret}" )
   end
 
   def attestations_sociales(siren:)
-    endpoint = "v2/attestations_sociales_acoss/#{siren}"
-
-    siade_request(endpoint)
+    siade_request("v2/attestations_sociales_acoss/#{siren}" )
   end
 
   def attestations_fiscales(siren:)
-    endpoint = "v2/attestations_fiscales_dgfip/#{siren}"
-
-    siade_request(endpoint)
+    siade_request("v2/attestations_fiscales_dgfip/#{siren}" )
   end
 
   private
