@@ -14,12 +14,8 @@ class AttestationsController < AuthenticatedUsersController
 
   def search
     try_search
-  rescue RestClient::Unauthorized
-    handle_error!('Le token ne présente pas les autorisations nécessaires.')
-  rescue RestClient::UnprocessableEntity
-    handle_error!('Siret non valide.')
-  rescue RestClient::NotFound
-    handle_error!('Siret non trouvé.')
+  rescue StandardError => e
+    handle_error!(e)
   end
 
   private
@@ -53,8 +49,10 @@ class AttestationsController < AuthenticatedUsersController
     @url_attestation_fiscale = JSON.parse(response.body)['url']
   end
 
-  def handle_error!(msg)
+  def handle_error!(error)
+    msg = JSON.parse(error.response)['errors'].first
     flash_message(:error, title: 'Erreur lors de la recherche', description: msg)
+
     redirect_to profile_attestations_path
   end
 
