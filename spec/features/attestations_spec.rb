@@ -54,10 +54,6 @@ RSpec.describe 'User can download attestations', type: :feature do
         ])
       end
 
-      it 'tell user to select a token' do
-        expect(page).to have_content('Selectionnez un token pour voir les droits')
-      end
-
       context 'when user select token with roles', js: true do
         before { select('JWT with roles: ["attestations_fiscales"]', from: 'token') }
 
