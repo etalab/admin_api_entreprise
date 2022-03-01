@@ -1,10 +1,8 @@
 class AttestationsController < AuthenticatedUsersController
-  before_action :find_jwt,       only: %i[new search]
+  before_action :extract_token,  only: %i[new search]
   before_action :find_jwt_roles, only: %i[new search]
 
-  def index
-    @user = current_user
-  end
+  def index; end
 
   def new
     return unless @jwt
@@ -60,7 +58,7 @@ class AttestationsController < AuthenticatedUsersController
     redirect_to profile_attestations_path
   end
 
-  def find_jwt
+  def extract_token
     return if params[:jwt_id].blank?
 
     @jwt = JwtAPIEntreprise.find(params[:jwt_id])
