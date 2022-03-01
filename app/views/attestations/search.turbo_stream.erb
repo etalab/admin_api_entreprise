@@ -11,14 +11,14 @@
     </p>
 
     <% if @jwt_attestations_roles.map(&:code).include? 'attestations_sociales' %>
-      <%= link_to @url_attestation_sociale, { class: "fr-btn" } do %>
+      <%= link_to @url_attestation_sociale, { class: "fr-btn", target: "_blank" } do %>
         <%= image_tag "icons/download.svg", alt: 'icon_download' %>
         &nbsp;Attestation sociale (PDF)
       <% end %>
     <% end %>
 
     <% if @jwt_attestations_roles.map(&:code).include? 'attestations_fiscales' %>
-      <%= link_to @url_attestation_fiscale, { class: "fr-btn" } do %>
+      <%= link_to @url_attestation_fiscale, { class: "fr-btn", target: "_blank" } do %>
         <%= image_tag "icons/download.svg", alt: 'icon_download' %>
         &nbsp;Attestation fiscale (PDF)
       <% end %>
