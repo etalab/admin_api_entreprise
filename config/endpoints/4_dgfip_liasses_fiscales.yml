@@ -1,0 +1,51 @@
+---
+- uid: 'dgfip/liasses_fiscales'
+  position: 150
+  path: '/v3/dgfip/liasses_fiscales/{siren}'
+  perimeter:
+    description: "**Types de données :**
+      \n
+      \n
+      TODO
+      \n
+      \n
+      **Entreprises concernées :**
+      \n
+      \n
+      Cette API concerne les entreprises : 
+      \n
+      \n
+      ✅ soumises à l’impôt sur les sociétés (IS), au régime réel normal, simplifié ou normal groupe (membre) ;
+      \n
+      ✅ soumises à l’impôt sur les sociétés dû par le groupe (IS GROUPE), 
+      au régime réel normal groupe (Tête) ;
+      \n
+      ✅ aux bénéfices industriels et commerciaux (BIC), au régime réel normal ou simplifié ;
+      \n
+      ✅ aux bénéfices non commerciaux (BNC), au régime déclaration contrôlée ;
+      \n
+      ✅ aux bénéfices agricoles (BA), au régime réel normal ou simplifié.
+      \n
+      \n
+      Cette API ne concerne pas les entreprises aux régimes ❌ micro-BIC, ❌ micro-BNC et ❌ micro-BA. 
+  En effet, ces dernières ne déposent pas de déclaration de résultat mais des éléments spécifiques dans la déclaration 2042C 
+  qui relève de d’impôt sur le revenu.
+      \n
+      \n
+      ** Fraicheur de la donnée :**
+      \n
+      \n
+      Les liasses fiscales sont disponibles à compter du lendemain de la date de dépôt (J+1) et 
+      trois jours plus tard (J+3) si le dépôt intervient une veille de week-end."
+    entities:
+      - entreprises
+  call_id: "SIREN"
+  opening: protected
+  providers:
+    - 'dgfip'
+  use_cases:
+    - Aides publiques
+    - Marchés publics
+    - Détection de la fraude
+  parameters:
+    - Numéro de SIREN de l'enteprise
