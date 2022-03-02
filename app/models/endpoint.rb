@@ -8,6 +8,7 @@ class Endpoint
     :providers,
     :perimeter,
     :use_cases,
+    :faq,
     :opening
 
   def self.all

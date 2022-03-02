@@ -52,3 +52,63 @@
     - Détection de la fraude
   parameters:
     - Numéro de SIREN de la personne morale recherchée
+  faq:
+    - q: "Quelles obligations fiscales sont prises en compte ?" 
+      a: "L'attestation concerne seulement :
+      \n
+      \n
+      * ✅ la taxe sur la valeur ajoutée (TVA) ;
+      \n
+      * ✅ l'impôt sur les sociétés (IS).
+      \n
+      \n
+      L'attestation ne concerne pas : 
+      \n
+      \n
+      * ❌ la contribution économique territoriale (CET) ;
+      \n
+      * ❌ la cotisation foncière des entreprises (CFE) ;
+      \n
+      * ❌ la cotisation sur la valeur ajoutée des entreprises (CVAE) ;
+      \n
+      * ❌ la taxe sur les salaires (TS).
+      \n
+      \n
+      Plus d'informations disponibles dans le [BOFIP - Dispositions juridiques communes - Attestation de régularité fiscale](https://bofip.impots.gouv.fr/bofip/8485-PGP.html/identifiant%3DBOI-DJC-ARF-20161207)
+      "
+    - q: "L'attestation délivrée n'est pas signée, comment s'assurer de son authenticité ?" 
+      a: "L'attestation de régularité fiscale délivrée est une version dématérialisée. Toutes les données délivrées par API Entreprise sont certifiées
+      car prise à la source ; dans ce cas précis, directement auprès de la DGFIP. Par ailleurs, le numéro de délivrance indiqué sur le PDF
+      est unique et permet de s'assurer de l'authenticité du document. 
+      \n
+      \n
+      **Cette attestation à la même valeur juridique qu'une attestation signée par les services des impôts concernés**.
+      Plus d'informations disponibles dans le [BOFIP - Dispositions juridiques communes - Attestation de régularité fiscale](https://bofip.impots.gouv.fr/bofip/8485-PGP.html/identifiant%3DBOI-DJC-ARF-20161207)"
+    - q: "Quelle est la date de délivrance de l'attestation ?" 
+      a: "Théoriquement, l'attestation de régularité fiscale peut être obtenue tout au long de l'année 
+      et apprécie la situation de l'entreprise au dernier jour du mois précédant la demande de délivrance de l'attestation.
+      En pratique, les dates de délivrance des attestations obtenues sur API Entreprise varient."
+    - q: "Pourquoi l'attestation délivrée par cette API n'est pas valable pour une entreprise filiale d'un groupe de sociétés ?"
+      a: "Une société fille doit fournir deux attestations pour justifier de sa situation fiscale : 
+      \n
+      \n
+      * sa propore attestation, justifiant de ses propres obligations, 
+      à savoir le dépôt des déclarations de résultats et de TVA, ainsi que le paiement de la TVA ;
+      \n
+      * l'attestation de régularité fiscale de la société mère du groupe, qui confirme le paiement de l'impôt sur les société.
+      \n
+      \n
+      Cette API ne permet d'entrer le numéro de SIREN de la société mère. Par conséquent, elle ne délivre que la partie concernant la société fille. Ce qui est insuffisant.
+      Une API dédiée sera bientôt disponible.
+      \n
+      \n
+      Plus d'informations disponibles dans le [BOFIP - Dispositions juridiques communes - Attestation de régularité fiscale](https://bofip.impots.gouv.fr/bofip/8485-PGP.html/identifiant%3DBOI-DJC-ARF-20161207)"
+    - q: "L’api ne renvoie pas de pièce, cela signifie-t'il que l’entreprise n’est pas à jour ?"
+      a: "Non, dans certains cas particuliers, l'API ne peut pas renvoyer l’attestation. 
+      Cela ne veut pas dire que l’entreprise n’est pas à jour. Il faut se rapprocher de l’entreprise pour 
+      lui demander la pièce directement.
+      \n
+      \n
+      De plus, si une entreprise se voit refuser la délivrance de l’attestation pour cause de carence de ses déclarations 
+      ou de ses paiements, cette non délivrance n’est pas définitive pour toute l’année N. 
+      Si ensuite elle régularise sa situation pour les années N-1 et antérieures, alors l’attestation de régularité lui sera délivrée."
