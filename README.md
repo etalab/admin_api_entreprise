@@ -175,3 +175,16 @@ produits pour itérer sur le site (que ce soit en terme de contenu ou fonctionne
 - Contenu
   - [Gestion des wordings globaux (layouts, templates)](docs/wordings.md)
   - [Ajout d'un nouvel endpoint dans le catalogue](docs/endpoint.md)
+
+## Access logs
+
+Les logs applicatifs sont envoyés dans la base de données de cette application
+afin de faire des rapprochements aisés avec les données des clients.
+La table utilisée est `access_logs` et la vue `access_logs_view` qui éclate le champ
+JSONB en plusieurs champs.
+
+Afin de faire des tests en local des données de tests sont disponibles :
+
+```shell
+sudo -u postgres psql -f db/seed_access_logs.txt
+```
