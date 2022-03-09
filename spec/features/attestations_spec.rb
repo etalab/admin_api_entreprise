@@ -36,7 +36,6 @@ RSpec.describe 'User can download attestations', type: :feature do
     before do
       login_as(user)
       visit_attestations
-      FactoryBot.rewind_sequences
     end
 
     context 'when user has tokens with attestation roles' do
@@ -106,7 +105,6 @@ RSpec.describe 'User can download attestations', type: :feature do
     before do
       allow_any_instance_of(JwtAPIEntreprise).to receive(:rehash).and_return(apientreprise_test_token)
       search
-      FactoryBot.rewind_sequences
     end
 
     context 'when user search a valid siret', vcr: { cassette_name: 'features/attestations/valid_siret' } do
@@ -155,7 +153,7 @@ RSpec.describe 'User can download attestations', type: :feature do
       let(:siret) { siret_invalid }
 
       it 'fails with invalid message' do
-        expect(page).to have_content('Siret non valide.')
+        expect(page).to have_content('422 Unprocessable Entity')
       end
     end
 
@@ -163,7 +161,7 @@ RSpec.describe 'User can download attestations', type: :feature do
       let(:siret) { siret_not_found }
 
       it 'fails with not found message' do
-        expect(page).to have_content('Siret non trouvé.')
+        expect(page).to have_content('404 Not Found')
       end
     end
 
@@ -171,7 +169,7 @@ RSpec.describe 'User can download attestations', type: :feature do
       let(:siret) { siret_invalid }
 
       it 'fails with invalid message' do
-        expect(page).to have_content('Le token ne présente pas les autorisations nécessaires.')
+        expect(page).to have_content('401 Unauthorized')
       end
     end
   end
@@ -194,7 +192,6 @@ RSpec.describe 'User can download attestations', type: :feature do
     before do
       allow_any_instance_of(JwtAPIEntreprise).to receive(:rehash).and_return(apientreprise_test_token)
       search
-      FactoryBot.rewind_sequences
     end
 
     it 'have correct download URL', vcr: { cassette_name: 'features/attestations/valid_siret_one_role' } do

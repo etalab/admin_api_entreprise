@@ -50,8 +50,7 @@ class AttestationsController < AuthenticatedUsersController
   end
 
   def handle_error!(error)
-    msg = JSON.parse(error.response)['errors'].first
-    flash_message(:error, title: 'Erreur lors de la recherche', description: msg)
+    flash_message(:error, title: 'Erreur lors de la recherche', description: error.message)
 
     redirect_to profile_attestations_path
   end
