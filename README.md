@@ -48,6 +48,8 @@ bin/rspec
 guard
 ```
 
+Pour régénerer/enregistrer les cassettes VCR, faire passer l'option `regenerate_cassettes=true`
+
 ### Développement
 
 Vous pouvez importer des données afin d'avoir un site qui ne soit pas vide:
