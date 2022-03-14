@@ -19,7 +19,7 @@ RSpec.describe Token::DeliverMagicLinkToEmail, type: :organizer do
     it 'queues the magic link email' do
       expect { subject }
         .to have_enqueued_mail(JwtAPIEntrepriseMailer, :magic_link)
-        .with(args: [email, token])
+        .with(email, token)
     end
 
     it 'saves a magic token' do

@@ -41,7 +41,7 @@ RSpec.describe User::Login, type: :organizer do
       it 'sends an email to datapass for authorization request ownership update' do
         expect { sync! }
           .to have_enqueued_mail(UserMailer, :notify_datapass_for_data_reconciliation)
-          .with(args: [user])
+          .with(user)
       end
 
       it 'does not send emails on second login' do

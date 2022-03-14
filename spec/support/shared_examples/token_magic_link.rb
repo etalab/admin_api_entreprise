@@ -4,7 +4,7 @@ RSpec.shared_examples 'it creates a magic link' do
   it 'sends the email magic link' do
     expect { subject }
       .to have_enqueued_mail(JwtAPIEntrepriseMailer, :magic_link)
-      .with(args: [email, token])
+      .with(email, token)
   end
 
   describe 'the token record' do
