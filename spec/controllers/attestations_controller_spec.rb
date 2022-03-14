@@ -27,14 +27,9 @@ RSpec.describe AttestationsController, type: :controller do
   end
 
   describe '#search' do
+    include_context 'with siade payloads'
+
     let(:result) { controller.instance_variable_get(:@result) }
-    let(:payload_entreprise) do
-      {
-        entreprise: {
-          enseigne: 'JK AC'
-        }
-      }.to_json
-    end
 
     context 'when searching for a siret' do
       before do
@@ -44,7 +39,7 @@ RSpec.describe AttestationsController, type: :controller do
       end
 
       it 'find results' do
-        expect(result['entreprise']['enseigne']).to eq('JK AC')
+        expect(result['entreprise']['raison_sociale']).to eq('dummy name')
       end
     end
   end
