@@ -1,11 +1,8 @@
 class AttestationsController < AuthenticatedUsersController
-  before_action :extract_token,  only: %i[new search]
-  before_action :find_jwt_roles, only: %i[new search]
-
   def index; end
 
   def new
-    return unless @jwt
+    @jwt_facade = JwtFacade.new(jwt_id: params[:jwt_id])
 
     respond_to do |format|
       format.turbo_stream
@@ -22,11 +19,9 @@ class AttestationsController < AuthenticatedUsersController
   private
 
   def try_search
-    result = Siade.new(token: @jwt.rehash).entreprises(siret: params[:siret])
+    @jwt_facade = JwtFacade.new(jwt_id: params[:jwt_id])
 
-    @result = JSON.parse(result)
-
-    set_attestations_url if @result
+    @attestation_facade = AttestationFacade.new(jwt: @jwt_facade.jwt, siret: params[:siret])
 
     respond_to do |format|
       format.turbo_stream
@@ -34,44 +29,9 @@ class AttestationsController < AuthenticatedUsersController
     end
   end
 
-  def set_attestations_url
-    set_attestation_sociale_url if @jwt_attestations_roles.map(&:code).include? 'attestations_sociales'
-    set_attestation_fiscale_url if @jwt_attestations_roles.map(&:code).include? 'attestations_fiscales'
-  end
-
-  def set_attestation_sociale_url
-    response = Siade.new(token: @jwt.rehash).attestations_sociales(siren: siren)
-
-    @url_attestation_sociale = JSON.parse(response)['url']
-  end
-
-  def set_attestation_fiscale_url
-    response = Siade.new(token: @jwt.rehash).attestations_fiscales(siren: siren)
-
-    @url_attestation_fiscale = JSON.parse(response)['url']
-  end
-
   def handle_error!(error)
     flash_message(:error, title: 'Erreur lors de la recherche', description: error.message)
 
     redirect_to profile_attestations_path
-  end
-
-  def extract_token
-    return if params[:jwt_id].blank?
-
-    @jwt = JwtAPIEntreprise.find(params[:jwt_id])
-  end
-
-  def find_jwt_roles
-    @jwt_attestations_roles = @jwt.roles.select { |r| attestations_roles.include? r.code } if @jwt
-  end
-
-  def attestations_roles
-    %w[attestations_sociales attestations_fiscales]
-  end
-
-  def siren
-    params[:siret].first(9)
   end
 end

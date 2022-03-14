@@ -1,8 +1,8 @@
 class Siade
-  attr_reader :token
+  def initialize(token_rehash:)
+    token_rehash = File.read('config/apientreprise_test_token') if Rails.env.development?
 
-  def initialize(token:)
-    @token = token
+    @token_rehash = token_rehash
   end
 
   def entreprises(siret:)
@@ -34,7 +34,7 @@ class Siade
   end
 
   def siade_params
-    ["token=#{token}", "context=#{context}", "recipient=#{recipient}", "object=#{object}"].join('&')
+    ["token=#{token_rehash}", "context=#{context}", "recipient=#{recipient}", "object=#{object}"].join('&')
   end
 
   def domain
