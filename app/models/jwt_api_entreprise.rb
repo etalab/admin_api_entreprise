@@ -24,8 +24,6 @@ class JwtAPIEntreprise < ApplicationRecord
   scope :blacklisted, -> { where(blacklisted: true) }
 
   def rehash
-    return File.read('spec/fixtures/apientreprise_test_token') if Rails.env.development?
-
     AccessToken.create(token_payload)
   end
 

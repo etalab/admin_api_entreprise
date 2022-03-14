@@ -6,22 +6,28 @@ class Siade
   end
 
   def entreprises(siret:)
-    siade_request("v2/entreprises/#{siret}" )
+    siade_result("v2/entreprises/#{siret}")
   end
 
   def attestations_sociales(siren:)
-    siade_request("v2/attestations_sociales_acoss/#{siren}" )
+    siade_result("v2/attestations_sociales_acoss/#{siren}")
   end
 
   def attestations_fiscales(siren:)
-    siade_request("v2/attestations_fiscales_dgfip/#{siren}" )
+    siade_result("v2/attestations_fiscales_dgfip/#{siren}")
   end
 
   private
 
-  def siade_request(endpoint)
+  def siade_result(endpoint)
     return unless endpoint && token
 
+    result = siade_request(endpoint)
+
+    JSON.parse(result)
+  end
+
+  def siade_request(endpoint)
     siade_url = [domain, endpoint, '?', siade_params].join
 
     RestClient.get siade_url
@@ -40,7 +46,10 @@ class Siade
   end
 
   def recipient
-    # DINUM
+    siret_dinum
+  end
+
+  def siret_dinum
     '13002526500013'
   end
 

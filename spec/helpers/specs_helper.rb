@@ -7,14 +7,10 @@ module SpecsHelper
     'infogreffe/mandataires_sociaux'
   end
 
-  def apientreprise_test_token
-    File.read('spec/fixtures/apientreprise_test_token')
-  end
-
   def siret_valid
     octo_technology_siret
   end
-  
+
   def octo_technology_siret
     '41816609600069'
   end

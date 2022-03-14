@@ -14,6 +14,7 @@ class AttestationsController < AuthenticatedUsersController
 
   def search
     try_search
+  # Faire heriter des erreurs dans les controller (meme une classe mère)
   rescue StandardError => e
     handle_error!(e)
   end
@@ -21,8 +22,9 @@ class AttestationsController < AuthenticatedUsersController
   private
 
   def try_search
-    search = Siade.new(token: @jwt.rehash).entreprises(siret: params[:siret])
-    @result = JSON.parse(search.body)
+    result = Siade.new(token: @jwt.rehash).entreprises(siret: params[:siret])
+
+    @result = JSON.parse(result)
 
     set_attestations_url if @result
 
@@ -40,13 +42,13 @@ class AttestationsController < AuthenticatedUsersController
   def set_attestation_sociale_url
     response = Siade.new(token: @jwt.rehash).attestations_sociales(siren: siren)
 
-    @url_attestation_sociale = JSON.parse(response.body)['url']
+    @url_attestation_sociale = JSON.parse(response)['url']
   end
 
   def set_attestation_fiscale_url
     response = Siade.new(token: @jwt.rehash).attestations_fiscales(siren: siren)
 
-    @url_attestation_fiscale = JSON.parse(response.body)['url']
+    @url_attestation_fiscale = JSON.parse(response)['url']
   end
 
   def handle_error!(error)

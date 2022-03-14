@@ -1,6 +1,30 @@
 require 'rails_helper'
 
 RSpec.describe 'User can download attestations', type: :feature do
+  let(:payload_entreprise) do
+    {
+      entreprise: {
+        raison_sociale: 'dummy name',
+        forme_juridique: 'dummy forme juridique',
+        categorie_entreprise: 'dummy cat. entreprise',
+        naf_entreprise: 'dummy naf',
+        libelle_naf_entreprise: 'dummy libelle naf'
+      }
+    }.to_json
+  end
+
+  let(:payload_attestation_sociale) do
+    {
+      url: 'dummy url sociale'
+    }.to_json
+  end
+
+  let(:payload_attestation_fiscale) do
+    {
+      url: 'dummy url fiscale'
+    }.to_json
+  end
+
   describe 'side menu' do
     subject(:visit_profile) { visit user_profile_path }
 
@@ -100,40 +124,42 @@ RSpec.describe 'User can download attestations', type: :feature do
     end
 
     let(:user) { create(:user, :with_jwt_specific_roles, specific_roles: ['attestations_fiscales']) }
+    let(:siret) { siret_valid }
     let(:token) { 'JWT with no roles' }
 
-    before do
-      allow_any_instance_of(JwtAPIEntreprise).to receive(:rehash).and_return(apientreprise_test_token)
-      search
-    end
-
     context 'when user search a valid siret', vcr: { cassette_name: 'features/attestations/valid_siret' } do
-      let(:siret) { siret_valid }
+      let(:token) { 'JWT with roles: ["attestations_fiscales"]' }
 
-      it 'shows company name', vcr: { cassette_name: 'features/attestations/valid_siret' } do
-        expect(page).to have_content('JK ASSOCIATES CONSULTING')
+      before do
+        allow_any_instance_of(Siade).to receive(:entreprises).and_return(payload_entreprise)
+        allow_any_instance_of(Siade).to receive(:attestations_fiscales).and_return(payload_attestation_fiscale)
+        allow_any_instance_of(Siade).to receive(:attestations_sociales).and_return(payload_attestation_sociale)
+        search
       end
 
-      context 'when selected token have no attestation roles',
-        vcr: { cassette_name: 'features/attestations/valid_siret_no_role' } do
+      it 'shows company name' do
+        expect(page).to have_content('dummy name')
+      end
+
+      context 'when selected token have no attestation roles' do
+        let(:token) { 'JWT with no roles' }
+
         it 'doesnt show attestations download links' do
-          expect(page).not_to have_link('Attestation sociale')
+          expect(page).not_to have_link('Attestation sociale', href: 'dummy url sociale')
           expect(page).not_to have_link('Attestation fiscale')
         end
       end
 
-      context 'when selected token have one attestation role',
-        vcr: { cassette_name: 'features/attestations/valid_siret_one_role' } do
+      context 'when selected token have one attestation role' do
         let(:token) { 'JWT with roles: ["attestations_fiscales"]' }
 
         it 'shows link to download this attestation' do
           expect(page).not_to have_link('Attestation sociale')
-          expect(page).to have_link('Attestation fiscale')
+          expect(page).to have_link('Attestation fiscale', href: 'dummy url fiscale')
         end
       end
 
-      context 'when selected token have two attestation roles',
-        vcr: { cassette_name: 'features/attestations/valid_siret_two_roles' } do
+      context 'when selected token have two attestation roles' do
         let(:user) do
           create :user,
             :with_jwt_specific_roles,
@@ -143,69 +169,43 @@ RSpec.describe 'User can download attestations', type: :feature do
         let(:token) { 'JWT with roles: ["attestations_sociales", "attestations_fiscales"]' }
 
         it 'shows both links to download attestations' do
-          expect(page).to have_link('Attestation sociale')
-          expect(page).to have_link('Attestation fiscale')
+          expect(page).to have_link('Attestation sociale', href: 'dummy url sociale')
+          expect(page).to have_link('Attestation fiscale', href: 'dummy url fiscale')
         end
       end
     end
 
-    context 'when user search an invalid siret', vcr: { cassette_name: 'features/attestations/invalid_siret' } do
-      let(:siret) { siret_invalid }
+    context 'when user search an invalid siret' do
+      before do
+        allow_any_instance_of(Siade).to receive(:entreprises).and_raise('422 Unprocessable Entity')
+        search
+      end
 
       it 'fails with invalid message' do
         expect(page).to have_content('422 Unprocessable Entity')
       end
     end
 
-    context 'when user search a siret not found', vcr: { cassette_name: 'features/attestations/siret_not_found' } do
-      let(:siret) { siret_not_found }
+    context 'when user search a siret not found' do
+      before do
+        allow_any_instance_of(Siade).to receive(:entreprises).and_raise('404 Not Found')
+        search
+      end
 
       it 'fails with not found message' do
         expect(page).to have_content('404 Not Found')
       end
     end
 
-    context 'when user is unauthorized', vcr: { cassette_name: 'features/attestations/token_unauthorized' } do
-      let(:siret) { siret_invalid }
+    context 'when user is unauthorized' do
+      before do
+        allow_any_instance_of(Siade).to receive(:entreprises).and_raise('401 Unauthorized')
+        search
+      end
 
       it 'fails with invalid message' do
         expect(page).to have_content('401 Unauthorized')
       end
-    end
-  end
-
-  describe 'download link', js: true do
-    let(:user) { create :user, :with_jwt_specific_roles, specific_roles: ['attestations_fiscales'] }
-
-    let(:attestation_fiscale_href) do
-      'https://storage.entreprise.api.gouv.fr/siade/1569156756-f6b7779f99fa95cd60dc03c04fcb-attestation_fiscale_dgfip.pdf'
-    end
-
-    let(:search) do
-      login_as(user)
-      visit profile_attestations_path
-      select('JWT with roles: ["attestations_fiscales"]', from: 'token')
-      fill_in('search_siret', with: siret_valid)
-      click_button('search')
-    end
-
-    before do
-      allow_any_instance_of(JwtAPIEntreprise).to receive(:rehash).and_return(apientreprise_test_token)
-      search
-    end
-
-    it 'have correct download URL', vcr: { cassette_name: 'features/attestations/valid_siret_one_role' } do
-      expect(page).to have_link('Attestation fiscale', href: attestation_fiscale_href)
-    end
-
-    context 'when user clicks', vcr: { cassette_name: 'features/attestations/download_authorized' } do
-      subject(:download_attestation_fiscale) { click_link('Attestation fiscale') }
-
-      it 'do not error' do
-        expect { download_attestation_fiscale }.not_to raise_error
-      end
-
-      it 'downloads a file'
     end
   end
 end
