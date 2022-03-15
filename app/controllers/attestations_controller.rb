@@ -11,8 +11,7 @@ class AttestationsController < AuthenticatedUsersController
 
   def search
     try_search
-  # Faire heriter des erreurs dans les controller (meme une classe mère)
-  rescue StandardError => e
+  rescue SiadeClientError => e
     handle_error!(e)
   end
 

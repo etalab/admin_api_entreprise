@@ -1,3 +1,9 @@
+class SiadeClientError < StandardError
+  def initialize(msg = 'Error with Siade client')
+    super
+  end
+end
+
 class Siade
   def initialize(token_rehash:)
     token_rehash = File.read('config/apientreprise_test_token') if Rails.env.development?
@@ -20,7 +26,7 @@ class Siade
   private
 
   def siade_result(endpoint)
-    return unless endpoint && token
+    return unless endpoint && @token_rehash
 
     result = siade_request(endpoint)
 
@@ -31,10 +37,12 @@ class Siade
     siade_url = [domain, endpoint, '?', siade_params].join
 
     RestClient.get siade_url
+  rescue RestClient::Exception => e
+    raise SiadeClientError, e.message
   end
 
   def siade_params
-    ["token=#{token_rehash}", "context=#{context}", "recipient=#{recipient}", "object=#{object}"].join('&')
+    ["token=#{@token_rehash}", "context=#{context}", "recipient=#{recipient}", "object=#{object}"].join('&')
   end
 
   def domain
