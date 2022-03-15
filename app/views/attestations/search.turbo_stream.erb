@@ -12,15 +12,13 @@
 
     <% if @jwt_facade.attestations_roles.map(&:code).include? 'attestations_sociales' %>
       <%= link_to @attestation_facade.attestation_sociale_url, { class: "fr-btn", target: "_blank" } do %>
-        <%= image_tag "icons/download.svg", alt: 'icon_download' %>
-        &nbsp;Attestation sociale (PDF)
+        <span class="fr-fi-download-line" aria-hidden="true"></span>&nbsp;Attestation sociale (PDF)
       <% end %>
     <% end %>
 
     <% if @jwt_facade.attestations_roles.map(&:code).include? 'attestations_fiscales' %>
       <%= link_to @attestation_facade.attestation_fiscale_url, { class: "fr-btn", target: "_blank" } do %>
-        <%= image_tag "icons/download.svg", alt: 'icon_download' %>
-        &nbsp;Attestation fiscale (PDF)
+        <span class="fr-fi-download-line" aria-hidden="true"></span>&nbsp;Attestation fiscale (PDF)
       <% end %>
     <% end %>
   </div>
