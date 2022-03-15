@@ -63,21 +63,6 @@ RSpec.describe API::DatapassWebhooksController, type: :controller do
         subject
       end
 
-      it 'tracks through Sentry the incoming payload' do
-        expect(Sentry).to receive(:set_context).with(
-          'DataPass webhook incoming payload',
-          payload: params
-        )
-        expect(Sentry).to receive(:capture_message).with(
-          'DataPass Incoming Payload',
-          {
-            level: 'info'
-          }
-        )
-
-        subject
-      end
-
       context 'when DatapassWebhook succeed' do
         let(:success) { true }
 
