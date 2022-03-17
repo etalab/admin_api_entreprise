@@ -4,7 +4,7 @@
 
 <div class="fr-card--horizontal fr-card--no-arrow token-card">
   <div class="fr-card__body">
-    <% if user_signed_in? && current_user.any_token_with_attestation_role? %>
+    <% if current_user.any_token_with_attestation_role? %>
       <div id='attestations'>
         <div class="form-container">
           <%= form_with url: profile_attestations_search_path, data: { turbo_frame: "attestations_token" } do |f| %>
