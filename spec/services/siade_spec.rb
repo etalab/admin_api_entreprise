@@ -101,7 +101,7 @@ RSpec.describe Siade, type: :service do
       end
 
       it 'raises SiadeClientError' do
-        expect{ subject }.to raise_error(SiadeClientError).with_message('422 Unprocessable Entity')
+        expect { subject }.to raise_error(SiadeClientError).with_message('422 Unprocessable Entity')
       end
     end
   end

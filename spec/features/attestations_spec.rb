@@ -37,7 +37,6 @@ RSpec.describe 'User can download attestations', type: :feature do
 
     let(:user) { create :user }
 
-    #let(:user) { create(:user, :with_jwt_specific_roles, specific_roles: ['attestations_fiscales']) }
     before do
       login_as(user)
       visit_attestations
@@ -77,6 +76,9 @@ RSpec.describe 'User can download attestations', type: :feature do
       click_button('search')
     end
 
+    before { allow(Siade).to receive(:new).and_return(siade_double) }
+
+    let(:siade_double) { class_double('SiadeService') }
     let(:user) { create(:user, :with_jwt_specific_roles, specific_roles: ['attestations_fiscales']) }
     let(:siret) { siret_valid }
     let(:token) { 'JWT with no roles' }
@@ -85,9 +87,9 @@ RSpec.describe 'User can download attestations', type: :feature do
       let(:token) { 'JWT with roles: ["attestations_fiscales"]' }
 
       before do
-        allow_any_instance_of(Siade).to receive(:entreprises).and_return(payload_entreprise)
-        allow_any_instance_of(Siade).to receive(:attestations_fiscales).and_return(payload_attestation_fiscale)
-        allow_any_instance_of(Siade).to receive(:attestations_sociales).and_return(payload_attestation_sociale)
+        allow(siade_double).to receive(:entreprises).and_return(payload_entreprise)
+        allow(siade_double).to receive(:attestations_fiscales).and_return(payload_attestation_fiscale)
+        allow(siade_double).to receive(:attestations_sociales).and_return(payload_attestation_sociale)
         search
       end
 
@@ -131,8 +133,7 @@ RSpec.describe 'User can download attestations', type: :feature do
 
     context 'when user search an invalid siret' do
       before do
-        allow_any_instance_of(Siade).to receive(:entreprises)
-          .and_raise(SiadeClientError.new(msg: '422 Unprocessable Entity'))
+        allow(siade_double).to receive(:entreprises).and_raise(SiadeClientError.new(msg: '422 Unprocessable Entity'))
         search
       end
 
@@ -143,7 +144,7 @@ RSpec.describe 'User can download attestations', type: :feature do
 
     context 'when user search a siret not found' do
       before do
-        allow_any_instance_of(Siade).to receive(:entreprises).and_raise(SiadeClientError.new(msg: '404 Not Found'))
+        allow(siade_double).to receive(:entreprises).and_raise(SiadeClientError.new(msg: '404 Not Found'))
         search
       end
 
@@ -154,7 +155,7 @@ RSpec.describe 'User can download attestations', type: :feature do
 
     context 'when user is unauthorized' do
       before do
-        allow_any_instance_of(Siade).to receive(:entreprises).and_raise(SiadeClientError.new(msg: '401 Unauthorized'))
+        allow(siade_double).to receive(:entreprises).and_raise(SiadeClientError.new(msg: '401 Unauthorized'))
         search
       end
 
