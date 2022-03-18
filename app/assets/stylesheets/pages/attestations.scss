@@ -3,10 +3,36 @@
   flex-direction: row;
 
   .form-container {
-    width: 300px;
+    width: 100%;
 
     * {
       margin: 10px 3px 10px 3px;
+    }
+
+    #token {
+      margin-bottom: 24px;
+    }
+
+    .search-group {
+      display: flex;
+      flex-direction: column;
+
+      @media (min-width: 767px) {
+        flex-direction: row;
+        align-items: flex-end;
+      }
+
+      #search {
+        width: 136px;
+
+        @media (min-width: 767px) {
+          margin-left: 20px;
+        }
+      }
+
+      #search_siret {
+        margin-bottom: 0;
+      }
     }
   }
 
