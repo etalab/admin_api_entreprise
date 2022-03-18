@@ -13,9 +13,10 @@
                 <%= select_tag(
                   :jwt_id,
                   options_for_select(
-                    current_user.jwt_api_entreprise.map { |jwt| [jwt.authorization_request.intitule, jwt.id] }
+                    @jwts.map { |jwt| [jwt.authorization_request.intitule, jwt.id] },
+                    @best_jwt&.id
                   ),
-                  { class: "fr-select", id: "token", include_blank: true, data: {action: 'change->token#select'} }
+                  { class: "fr-select", id: "token", include_blank: true }
                 ) %>
               </div>
             </div>
@@ -24,9 +25,6 @@
             <%= f.submit "Rechercher", { class: 'fr-btn fr-btn--secondary', id: 'search' } %>
           <% end %>
         </div>
-        <span id='attestations-token-roles'>
-          <p><em>Selectionnez un token pour voir les droits</em></p>
-        </span>
       </div>
       <div id='attestations-result'></div>
     <% end %>

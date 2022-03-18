@@ -35,59 +35,35 @@ RSpec.describe 'User can download attestations', type: :feature do
   describe 'select menu' do
     subject(:visit_attestations) { visit profile_attestations_path }
 
+    let(:user) { create :user }
+
+    #let(:user) { create(:user, :with_jwt_specific_roles, specific_roles: ['attestations_fiscales']) }
     before do
       login_as(user)
       visit_attestations
     end
 
+    context 'when user has no token with attestation roles' do
+      it 'does not have a select list' do
+        expect(page).not_to have_select('token')
+      end
+    end
+
     context 'when user has tokens with attestation roles' do
-      let(:user) { create :user, :with_jwt_specific_roles, specific_roles: ['attestations_fiscales'] }
+      let(:user) { create(:user, :with_jwt_specific_roles, specific_roles: %w[attestations_sociales attestations_fiscales]) }
+      let(:id_selected_jwt) { find('select#token').value }
+      let(:roles_selected_jwt) { JwtAPIEntreprise.find(id_selected_jwt).roles }
 
       it 'has a select list' do
         expect(page).to have_select('token')
       end
 
+      it 'automatically select token with the most permissions' do
+        expect(roles_selected_jwt.count).to eq(2)
+      end
+
       it 'select list has 3 options' do
-        expect(page.all('select#token option').map(&:text)).to eq([
-          '',
-          'JWT with roles: ["attestations_fiscales"]',
-          'JWT with no roles'
-        ])
-      end
-
-      context 'when user select token with roles', js: true do
-        before { select('JWT with roles: ["attestations_fiscales"]', from: 'token') }
-
-        it 'shows roles' do
-          expect(page).to have_content("Attestations disponibles pour ce token :\nAttestations fiscales")
-        end
-      end
-
-      context 'when user select token with no roles', js: true do
-        before { select('JWT with no roles', from: 'token') }
-
-        it 'shows no roles' do
-          expect(page).to have_content('Aucune attestation disponible avec ce token')
-        end
-      end
-
-      context 'when user comes back to empty selection', js: true do
-        before do
-          select('JWT with roles: ["attestations_fiscales"]', from: 'token')
-          select('', from: 'token')
-        end
-
-        it 'ask to select a token' do
-          expect(page).to have_content('Veuillez sélectionner un token dans la liste.')
-        end
-      end
-    end
-
-    context 'when user has no token with attestation roles' do
-      let(:user) { create(:user) }
-
-      it 'does not have a select list' do
-        expect(page).not_to have_select('token')
+        expect(page.all('select#token option').count).to eq(3)
       end
     end
   end
@@ -105,7 +81,7 @@ RSpec.describe 'User can download attestations', type: :feature do
     let(:siret) { siret_valid }
     let(:token) { 'JWT with no roles' }
 
-    context 'when user search a valid siret', vcr: { cassette_name: 'features/attestations/valid_siret' } do
+    context 'when user search a valid siret' do
       let(:token) { 'JWT with roles: ["attestations_fiscales"]' }
 
       before do
