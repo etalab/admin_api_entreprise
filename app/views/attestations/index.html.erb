@@ -14,10 +14,12 @@
                 <%= select_tag(
                   :jwt_id,
                   options_for_select(
-                    @jwts.map { |jwt| [jwt.authorization_request.intitule, jwt.id] },
+                    @jwts.map { |jwt| [
+                      "Demande n°#{jwt.authorization_request.external_id} - #{jwt.authorization_request.intitule}",
+                      jwt.id] },
                     @best_jwt&.id
                   ),
-                  { class: "fr-select", id: "token", include_blank: true }
+                  { class: "fr-select", id: "token" }
                 ) %>
               </div>
             </div>

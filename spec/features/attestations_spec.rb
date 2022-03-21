@@ -61,8 +61,8 @@ RSpec.describe 'User can download attestations', type: :feature do
         expect(roles_selected_jwt.count).to eq(2)
       end
 
-      it 'select list has 3 options' do
-        expect(page.all('select#token option').count).to eq(3)
+      it 'select list has 2 options' do
+        expect(page.all('select#token option').count).to eq(2)
       end
     end
   end
