@@ -1,6 +1,6 @@
-<h1>Interface d'appel</h1>
+<h1><%= t('.interface') %></h1>
 
-<h5>Récupérez l'<strong>attestation sociale</strong> d'une entreprise ou d'une association, en entrant son numéro de siret.</h5>
+<h5><%= t('.description') %><h5>
 
 <div class="fr-card--horizontal fr-card--no-arrow token-card">
   <div class="fr-card__body">
@@ -10,12 +10,13 @@
           <%= form_with url: profile_attestations_search_path, data: { turbo_frame: "attestations_token" } do |f| %>
             <div class="fr-text" data-controller="token">
               <div class="fr-select-group">
-                <label>🔑 Jeton d'habilitation :</label>
+                <label>🔑 <%= t('.title.token') %></label>
                 <%= select_tag(
                   :jwt_id,
                   options_for_select(
                     @jwts.map { |jwt| [
-                      "Demande n°#{jwt.authorization_request.external_id} - #{jwt.authorization_request.intitule}",
+                      "#{t('.authorization_request_number')}\
+                        #{jwt.authorization_request.external_id} - #{jwt.authorization_request.intitule}",
                       jwt.id] },
                     @best_jwt&.id
                   ),
@@ -26,10 +27,10 @@
             <hr>
             <div class="search-group">
               <div>
-                <%= f.label :siret, "Numéro de SIRET :", { class: "fr-label" } %>
+                <%= f.label :siret, t('.title.siret_number'), { class: "fr-label" } %>
                 <%= f.text_field :siret, { maxlength: 14, class: "fr-input", id: "search_siret" } %>
               </div>
-              <%= f.submit "Rechercher", { class: 'fr-btn fr-btn--secondary', id: 'search' } %>
+              <%= f.submit t('.search'), { class: 'fr-btn fr-btn--secondary', id: 'search' } %>
             </div>
           <% end %>
         </div>
