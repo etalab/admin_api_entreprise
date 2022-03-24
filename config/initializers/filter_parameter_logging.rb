@@ -10,5 +10,6 @@ Rails.application.config.filter_parameters += [
   :salt,
   :certificate,
   :otp,
-  :ssn
+  :ssn,
+  'data.pass'
 ]
