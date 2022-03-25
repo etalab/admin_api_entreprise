@@ -1,0 +1,42 @@
+<h1>
+  <%= t('.title') %>
+</h1>
+
+<div class="fr-grid-row">
+  <div class="fr-col-12 fr-col-sm-4 fr-col-md-3">
+    <nav class="fr-sidemenu" aria-label="Menu latéral">
+      <div class="fr-sidemenu__inner">
+        <div class="fr-collapse" id="fr-sidemenu-wrapper">
+          <ul class="fr-sidemenu__list">
+            <% @faq_entries_grouped_by_entries.keys.each do |category_name| %>
+              <%= render partial: "shared/sidemenu_list_item", locals: { path: faq_index_path(anchor: category_name.parameterize), link_name: category_name } %>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <div class="fr-col-12 fr-col-sm-8 fr-col-md-9">
+    <% @faq_entries_grouped_by_entries.each do |category_name, faq_entries| %>
+      <h2 id="<%= category_name.parameterize %>">
+        <%= category_name %>
+      </h2>
+
+      <div class="fr-accordions-group">
+        <% faq_entries.each do |faq_entry| %>
+          <section class="fr-accordion">
+            <h3 class="fr-accordion__title" id="<%= dom_id(faq_entry) %>">
+              <button class="fr-accordion__btn" aria-expanded="false" aria-controls="<%= dom_id(faq_entry, :answer) %>">
+                <%= faq_entry.question %>
+              </button>
+            </h3>
+            <div class="fr-collapse" id="<%= dom_id(faq_entry, :answer) %>">
+              <%= markdown_to_html(faq_entry.answer) %>
+            </div>
+          </section>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
