@@ -35,6 +35,6 @@ class AttestationsController < AuthenticatedUsersController
   def handle_error!(error)
     flash_message(:error, title: 'Erreur lors de la recherche', description: error.message)
 
-    redirect_to profile_attestations_path
+    redirect_to attestations_path
   end
 end

@@ -33,7 +33,7 @@ RSpec.describe 'User can download attestations', type: :feature do
   end
 
   describe 'select menu' do
-    subject(:visit_attestations) { visit profile_attestations_path }
+    subject(:visit_attestations) { visit attestations_path }
 
     let(:user) { create :user }
 
@@ -70,7 +70,7 @@ RSpec.describe 'User can download attestations', type: :feature do
   describe 'search', js: true do
     subject(:search) do
       login_as(user)
-      visit profile_attestations_path
+      visit attestations_path
       select(token, from: 'token')
       fill_in('search_siret', with: siret)
       click_button('search')
