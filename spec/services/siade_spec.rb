@@ -33,7 +33,7 @@ RSpec.describe Siade, type: :service do
       end
     end
 
-    describe 'unhappy path' do
+    context 'when it is not found (404)' do
       before do
         stub_request(:get, endpoint_url)
           .with(query: siade_params)
@@ -63,7 +63,7 @@ RSpec.describe Siade, type: :service do
       end
     end
 
-    describe 'unhappy path' do
+    context 'when token is unauthorized (401)' do
       before do
         stub_request(:get, endpoint_url)
           .with(query: siade_params)
@@ -93,7 +93,7 @@ RSpec.describe Siade, type: :service do
       end
     end
 
-    describe 'unhappy path' do
+    context 'with invalid params (422)' do
       before do
         stub_request(:get, endpoint_url)
           .with(query: siade_params)

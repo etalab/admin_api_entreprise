@@ -109,7 +109,7 @@ RSpec.describe 'User can download attestations', type: :feature do
       context 'when selected token have one attestation role' do
         let(:token) { 'JWT with roles: ["attestations_fiscales"]' }
 
-        it 'shows link to download this attestation' do
+        it 'shows link to download this attestation only, not the other' do
           expect(page).not_to have_link(I18n.t('.attestations.search.attestation_sociale'))
           expect(page).to have_link(I18n.t('.attestations.search.attestation_fiscale'), href: 'dummy url fiscale')
         end
