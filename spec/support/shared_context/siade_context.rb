@@ -13,13 +13,13 @@ RSpec.shared_context 'with siade payloads' do
 
   let(:payload_attestation_sociale) do
     {
-      'url' => 'dummy url sociale'
+      'url' => 'http://entreprise.api.gouv.fr/uploads/attestation_sociale.pdf'
     }
   end
 
   let(:payload_attestation_fiscale) do
     {
-      'url' => 'dummy url fiscale'
+      'url' => 'http://entreprise.api.gouv.fr/uploads/attestation_fiscale.pdf'
     }
   end
 end

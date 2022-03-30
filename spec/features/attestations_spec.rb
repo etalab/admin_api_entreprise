@@ -101,7 +101,8 @@ RSpec.describe 'User can download attestations', type: :feature do
         let(:token) { 'JWT with no roles' }
 
         it 'doesnt show attestations download links' do
-          expect(page).not_to have_link(I18n.t('.attestations.search.attestation_sociale'), href: 'dummy url sociale')
+          expect(page).not_to have_link(I18n.t('.attestations.search.attestation_sociale'),
+            href: 'http://entreprise.api.gouv.fr/uploads/attestation_sociale.pdf')
           expect(page).not_to have_link(I18n.t('.attestations.search.attestation_fiscale'))
         end
       end
@@ -111,7 +112,8 @@ RSpec.describe 'User can download attestations', type: :feature do
 
         it 'shows link to download this attestation only, not the other' do
           expect(page).not_to have_link(I18n.t('.attestations.search.attestation_sociale'))
-          expect(page).to have_link(I18n.t('.attestations.search.attestation_fiscale'), href: 'dummy url fiscale')
+          expect(page).to have_link(I18n.t('.attestations.search.attestation_fiscale'),
+            href: 'http://entreprise.api.gouv.fr/uploads/attestation_fiscale.pdf')
         end
       end
 
@@ -125,8 +127,10 @@ RSpec.describe 'User can download attestations', type: :feature do
         let(:token) { 'JWT with roles: ["attestations_sociales", "attestations_fiscales"]' }
 
         it 'shows both links to download attestations' do
-          expect(page).to have_link(I18n.t('.attestations.search.attestation_sociale'), href: 'dummy url sociale')
-          expect(page).to have_link(I18n.t('.attestations.search.attestation_fiscale'), href: 'dummy url fiscale')
+          expect(page).to have_link(I18n.t('.attestations.search.attestation_sociale'),
+            href: 'http://entreprise.api.gouv.fr/uploads/attestation_sociale.pdf')
+          expect(page).to have_link(I18n.t('.attestations.search.attestation_fiscale'),
+            href: 'http://entreprise.api.gouv.fr/uploads/attestation_fiscale.pdf')
         end
       end
     end

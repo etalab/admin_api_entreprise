@@ -59,7 +59,7 @@ RSpec.describe Siade, type: :service do
       end
 
       it 'returns correct result' do
-        expect(subject['url']).to eq('dummy url sociale')
+        expect(subject['url']).to eq('http://entreprise.api.gouv.fr/uploads/attestation_sociale.pdf')
       end
     end
 
@@ -89,7 +89,7 @@ RSpec.describe Siade, type: :service do
       end
 
       it 'returns correct result' do
-        expect(subject['url']).to eq('dummy url fiscale')
+        expect(subject['url']).to eq('http://entreprise.api.gouv.fr/uploads/attestation_fiscale.pdf')
       end
     end
 
