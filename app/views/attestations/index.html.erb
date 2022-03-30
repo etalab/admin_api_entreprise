@@ -14,10 +14,12 @@
                 <%= select_tag(
                   :jwt_id,
                   options_for_select(
-                    @jwts.map { |jwt| [
-                      "#{t('.authorization_request_number')}\
-                        #{jwt.authorization_request.external_id} - #{jwt.authorization_request.intitule}",
-                      jwt.id] },
+                    @jwts.map do |jwt|
+                      [
+                        "#{t('.authorization_request_number')} #{jwt.authorization_request.external_id} - #{jwt.authorization_request.intitule}",
+                        jwt.id
+                      ]
+                    end,
                     @best_jwt&.id
                   ),
                   { class: "fr-select", id: "token" }
