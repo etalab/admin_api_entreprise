@@ -2,7 +2,7 @@ class AttestationsController < AuthenticatedUsersController
   def index
     @jwts = current_user.jwt_api_entreprise
 
-    @best_jwt = find_best_jwt
+    @best_jwt = best_jwt_to_retrieve_attestations
   end
 
   def new; end
@@ -15,7 +15,7 @@ class AttestationsController < AuthenticatedUsersController
 
   private
 
-  def find_best_jwt
+  def best_jwt_to_retrieve_attestations
     return if @jwts.blank?
 
     @jwts.max_by { |jwt| JwtFacade.new(jwt_id: jwt.id).attestations_roles }
