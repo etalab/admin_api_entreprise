@@ -1,17 +1,39 @@
 # frozen_string_literal: true
 
+require 'kramdown'
+require 'kramdown-parser-gfm'
+
 class FAQEntry
   include ActiveModel::Model
+  include ActiveModelAlgoliaSearchable
 
   attr_accessor :question,
     :answer,
     :category,
+    :position,
     :slug
+
+  algoliasearch_active_model do
+    attributes :question, :answer_markdownify, :category
+
+    searchableAttributes %w[
+      question
+      answer_markdownify
+    ]
+
+    attributesForFaceting %w[
+      category
+    ]
+  end
 
   def self.all
     I18n.t('faq.categories').each_with_object([]) do |category, array|
       entries = category[:entries].map do |entry|
-        new(entry.merge(category: category[:name]))
+        new(
+          entry.merge(
+            category: category[:name]
+          )
+        )
       end
 
       array.concat(entries)
@@ -37,4 +59,14 @@ class FAQEntry
   def id
     slug
   end
+
+  # rubocop:disable Rails/OutputSafety
+  def answer_markdownify
+    Kramdown::Document.new(
+      answer,
+      input: 'GFM',
+      parse_block_html: true
+    ).to_html.html_safe
+  end
+  # rubocop:enable Rails/OutputSafety
 end
