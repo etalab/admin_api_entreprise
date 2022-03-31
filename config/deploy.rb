@@ -118,6 +118,7 @@ task :deploy => :environment do
         command %{touch tmp/restart.txt}
         invoke :restart_sidekiq
         invoke :'passenger'
+        invoke :'reindex_algolia'
       end
     end
   end
@@ -133,6 +134,10 @@ task :seeds => :environment do
   end
 end
 
+task :reindex_algolia do
+  comment 'Reindex Algolia models'.green
+  command %{RAILS_ENV=#{ENV['to']} bundle exec rake algolia:reindex}
+end
 
 task :restart_sidekiq do
   comment 'Restarting Sidekiq (reloads code)'.green
