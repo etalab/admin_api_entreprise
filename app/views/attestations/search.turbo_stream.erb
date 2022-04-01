@@ -1,19 +1,19 @@
 <%= turbo_stream.replace "attestations-result" do %>
   <div class="fr-callout" id="attestations-result-wrapper">
     <p class="fr-callout__title">
-      <%= @attestation_facade.entreprise_raison_sociale %>
+      <%= @attestation_facade.entreprise.raison_sociale %>
     </p>
     <p>
       <strong><%= t('.title.company_type') %></strong>
-      <%= @attestation_facade.entreprise_forme_juridique %>
+      <%= @attestation_facade.entreprise.forme_juridique %>
     </p>
     <p>
       <strong><%= t('.title.company_category') %></strong>
-      <%= @attestation_facade.entreprise_categorie %>
+      <%= @attestation_facade.entreprise.categorie_entreprise %>
     </p>
     <p>
       <strong><%= t('.title.naf_code') %></strong>
-      <%= "#{@attestation_facade.entreprise_naf} - #{@attestation_facade.entreprise_libelle_naf}" %>
+      <%= "#{@attestation_facade.entreprise.naf_entreprise} - #{@attestation_facade.entreprise.libelle_naf_entreprise}" %>
     </p>
 
     <% if @jwt_facade.attestations_roles.map(&:code).include? 'attestations_sociales' %>

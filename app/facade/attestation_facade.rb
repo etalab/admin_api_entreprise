@@ -15,12 +15,6 @@ class AttestationFacade
     @attestation_fiscale_url = attestation_fiscale_url if jwt_roles.include? 'attestations_fiscales'
   end
 
-  def entreprise
-    response = @siade_client.entreprises(siret: @siret)
-
-    response['entreprise']
-  end
-
   def attestation_sociale_url
     response = @siade_client.attestations_sociales(siren: siren)
 
@@ -33,24 +27,18 @@ class AttestationFacade
     response['url']
   end
 
-  def entreprise_raison_sociale
-    entreprise['raison_sociale']
+  def entreprise
+    entreprise_interesting_keys = entreprise_payload.slice(
+      :raison_sociale, :naf_entreprise, :libelle_naf_entreprise, :forme_juridique, :categorie_entreprise
+    )
+
+    @entreprise ||= Entreprise.new(entreprise_interesting_keys)
   end
 
-  def entreprise_naf
-    entreprise['naf_entreprise']
-  end
+  def entreprise_payload
+    response = @siade_client.entreprises(siret: @siret)
 
-  def entreprise_libelle_naf
-    entreprise['libelle_naf_entreprise']
-  end
-
-  def entreprise_forme_juridique
-    entreprise['forme_juridique']
-  end
-
-  def entreprise_categorie
-    entreprise['categorie_entreprise']
+    response['entreprise'].transform_keys(&:to_sym)
   end
 
   def siren
