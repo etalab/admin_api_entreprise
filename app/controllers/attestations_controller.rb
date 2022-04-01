@@ -24,7 +24,7 @@ class AttestationsController < AuthenticatedUsersController
   def try_search
     @jwt_facade = JwtFacade.new(jwt_id: params[:jwt_id])
 
-    @attestation_facade = AttestationFacade.new(jwt: @jwt_facade.jwt, siret: params[:siret])
+    @attestation_facade = EntrepriseWithAttestationsFacade.new(jwt: @jwt_facade.jwt, siret: params[:siret])
 
     respond_to do |format|
       format.turbo_stream

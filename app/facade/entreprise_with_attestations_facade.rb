@@ -1,4 +1,4 @@
-class AttestationFacade
+class EntrepriseWithAttestationsFacade
   def initialize(jwt:, siret:)
     @siret = siret
     @siade_client = Siade.new(token_rehash: jwt.rehash)
