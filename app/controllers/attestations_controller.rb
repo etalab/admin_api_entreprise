@@ -1,4 +1,6 @@
 class AttestationsController < AuthenticatedUsersController
+  before_action :redirect_unless_authorized
+
   def index
     @jwts = current_user.jwt_api_entreprise
 
@@ -14,6 +16,10 @@ class AttestationsController < AuthenticatedUsersController
   end
 
   private
+
+  def redirect_unless_authorized
+    redirect_to user_profile_path unless current_user.any_token_with_attestation_role?
+  end
 
   def best_jwt_to_retrieve_attestations
     return if @jwts.blank?

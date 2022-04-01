@@ -43,8 +43,8 @@ RSpec.describe 'User can download attestations', type: :feature do
     end
 
     context 'when user has no token with attestation roles' do
-      it 'does not have a select list' do
-        expect(page).not_to have_select('token')
+      it 'redirect to profile' do
+        expect(page).to have_current_path('/profile')
       end
     end
 

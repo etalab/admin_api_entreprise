@@ -4,40 +4,38 @@
 
 <div class="fr-card--horizontal fr-card--no-arrow token-card">
   <div class="fr-card__body">
-    <% if current_user.any_token_with_attestation_role? %>
-      <div id='attestations'>
-        <div class="form-container">
-          <%= form_with url: search_attestations_path, data: { turbo_frame: "attestations_token" } do |f| %>
-            <div class="fr-text" data-controller="token">
-              <div class="fr-select-group">
-                <label><%= t('.title.token') %></label>
-                <%= select_tag(
-                  :jwt_id,
-                  options_for_select(
-                    @jwts.map do |jwt|
-                      [
-                        "#{t('.authorization_request_number')} #{jwt.authorization_request.external_id} - #{jwt.authorization_request.intitule}",
-                        jwt.id
-                      ]
-                    end,
-                    @best_jwt&.id
-                  ),
-                  { class: "fr-select", id: "token" }
-                ) %>
-              </div>
+    <div id='attestations'>
+      <div class="form-container">
+        <%= form_with url: search_attestations_path, data: { turbo_frame: "attestations_token" } do |f| %>
+          <div class="fr-text" data-controller="token">
+            <div class="fr-select-group">
+              <label><%= t('.title.token') %></label>
+              <%= select_tag(
+                :jwt_id,
+                options_for_select(
+                  @jwts.map do |jwt|
+                    [
+                      "#{t('.authorization_request_number')} #{jwt.authorization_request.external_id} - #{jwt.authorization_request.intitule}",
+                      jwt.id
+                    ]
+                  end,
+                  @best_jwt&.id
+                ),
+                { class: "fr-select", id: "token" }
+              ) %>
             </div>
-            <hr>
-            <div class="search-group">
-              <div>
-                <%= f.label :siret, t('.title.siret_number'), { class: "fr-label" } %>
-                <%= f.text_field :siret, { maxlength: 14, class: "fr-input", id: "search_siret" } %>
-              </div>
-              <%= f.submit t('.search'), { class: 'fr-btn fr-btn--secondary', id: 'search' } %>
+          </div>
+          <hr>
+          <div class="search-group">
+            <div>
+              <%= f.label :siret, t('.title.siret_number'), { class: "fr-label" } %>
+              <%= f.text_field :siret, { maxlength: 14, class: "fr-input", id: "search_siret" } %>
             </div>
-          <% end %>
-        </div>
+            <%= f.submit t('.search'), { class: 'fr-btn fr-btn--secondary', id: 'search' } %>
+          </div>
+        <% end %>
       </div>
-      <div id='attestations-result'></div>
-    <% end %>
+    </div>
+    <div id='attestations-result'></div>
   </div>
 </div>
