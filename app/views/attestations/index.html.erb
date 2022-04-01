@@ -21,7 +21,7 @@
                   end,
                   @best_jwt&.id
                 ),
-                { class: "fr-select", id: "token" }
+                { class: "fr-select fr-mt-2w", id: "token" }
               ) %>
             </div>
           </div>
@@ -29,9 +29,9 @@
           <div class="search-group">
             <div>
               <%= f.label :siret, t('.siret_number.label'), { class: "fr-label" } %>
-              <%= f.text_field :siret, { maxlength: 14, class: "fr-input", id: "search_siret" } %>
+              <%= f.text_field :siret, { maxlength: 14, class: "fr-input fr-col-3", id: "search_siret" } %>
             </div>
-            <%= f.submit t('.search'), { class: 'fr-btn fr-btn--secondary', id: 'search' } %>
+            <%= f.submit t('.search'), { class: 'fr-btn fr-btn--secondary fr-mt-4w', id: 'search' } %>
           </div>
         <% end %>
       </div>
