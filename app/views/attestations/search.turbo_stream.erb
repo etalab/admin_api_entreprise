@@ -16,7 +16,7 @@
       <%= "#{@attestation_facade.entreprise.naf_entreprise} - #{@attestation_facade.entreprise.libelle_naf_entreprise}" %>
     </p>
 
-    <% if @jwt_facade.attestations_roles.map(&:code).include? 'attestations_sociales' %>
+    <% if @jwt_facade.include_attestation_sociale? %>
       <%= link_to @attestation_facade.attestation_sociale_url, { class: "fr-btn", target: "_blank" } do %>
         <span class="fr-fi-download-line" aria-hidden="true"></span>
         &nbsp;
@@ -24,7 +24,7 @@
       <% end %>
     <% end %>
 
-    <% if @jwt_facade.attestations_roles.map(&:code).include? 'attestations_fiscales' %>
+    <% if @jwt_facade.include_attestation_fiscale? %>
       <%= link_to @attestation_facade.attestation_fiscale_url, { class: "fr-btn", target: "_blank" } do %>
         <span class="fr-fi-download-line" aria-hidden="true"></span>
         &nbsp;

@@ -15,6 +15,14 @@ class JwtFacade
     roles&.select { |r| attestations_codes.include? r.code }
   end
 
+  def include_attestation_sociale?
+    attestations_roles.map(&:code).include? 'attestations_sociales'
+  end
+
+  def include_attestation_fiscale?
+    attestations_roles.map(&:code).include? 'attestations_fiscales'
+  end
+
   private
 
   def attestations_codes
