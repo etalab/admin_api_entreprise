@@ -1,42 +1,66 @@
-<h1>
-  <%= t('.title') %>
-</h1>
+<div class="fr-grid-row" data-controller="algolia-search-with-accordion" data-algolia-search-with-accordion-index-value="FAQEntry" data-algolia-search-with-accordion-attributes-to-highlight-value='["question", "answer_markdownify"]'>
+  <div class="fr-col-12">
+    <div class="fr-grid-row fr-mb-2w">
+      <div class="fr-col-12">
+        <h1>
+          <%= t('.title') %>
+        </h1>
+      </div>
 
-<div class="fr-grid-row">
-  <div class="fr-col-12 fr-col-sm-4 fr-col-md-3">
-    <nav class="fr-sidemenu" aria-label="Menu latéral">
-      <div class="fr-sidemenu__inner">
-        <div class="fr-collapse" id="fr-sidemenu-wrapper">
-          <ul class="fr-sidemenu__list">
-            <% @faq_entries_grouped_by_entries.keys.each do |category_name| %>
-              <%= render partial: "shared/sidemenu_list_item", locals: { path: faq_index_path(anchor: category_name.parameterize), link_name: category_name } %>
-            <% end %>
-          </ul>
+      <div class="fr-col-12 fr-hidden" data-algolia-search-with-accordion-target="searchBox">
+        <div class="fr-search-bar fr-search-bar--lg" role="search">
+          <label class="fr-label" for="faq_search_input">
+            <%= t('.search_bar.label') %>
+          </label>
+
+          <input class="fr-input" placeholder="<%= t('.search_bar.placeholder') %>" type="search" id="faq_search_input" name="faq_search_input">
+
+          <button class="fr-btn">
+            <%= t('.search_bar.button') %>
+          </button>
         </div>
       </div>
-    </nav>
-  </div>
+    </div>
 
-  <div class="fr-col-12 fr-col-sm-8 fr-col-md-9">
-    <% @faq_entries_grouped_by_entries.each do |category_name, faq_entries| %>
-      <h2 id="<%= category_name.parameterize %>">
-        <%= category_name %>
-      </h2>
-
-      <div class="fr-accordions-group">
-        <% faq_entries.each do |faq_entry| %>
-          <section class="fr-accordion">
-            <h3 class="fr-accordion__title" id="<%= dom_id(faq_entry) %>">
-              <button class="fr-accordion__btn" aria-expanded="false" aria-controls="<%= dom_id(faq_entry, :answer) %>">
-                <%= faq_entry.question %>
-              </button>
-            </h3>
-            <div class="fr-collapse" id="<%= dom_id(faq_entry, :answer) %>">
-              <%= markdown_to_html(faq_entry.answer) %>
+    <div class="fr-grid-row fr-mt-2w">
+      <div class="fr-col-12 fr-col-sm-4 fr-col-md-3">
+        <nav class="fr-sidemenu" aria-label="Menu latéral">
+          <div class="fr-sidemenu__inner">
+            <div class="fr-collapse" id="fr-sidemenu-wrapper">
+              <ul class="fr-sidemenu__list">
+                <% @faq_entries_grouped_by_entries.keys.each do |category_name| %>
+                  <%= render partial: "shared/sidemenu_list_item", locals: { path: faq_index_path(anchor: category_name.parameterize), link_name: category_name } %>
+                <% end %>
+              </ul>
             </div>
-          </section>
+          </div>
+        </nav>
+      </div>
+
+      <div class="fr-col-12 fr-col-sm-8 fr-col-md-9">
+        <% @faq_entries_grouped_by_entries.each do |category_name, faq_entries| %>
+          <h2 id="<%= category_name.parameterize %>" class="fr-mt-4w">
+            <%= category_name %>
+          </h2>
+
+          <div class="fr-accordions-group fr-mb-2w">
+            <% faq_entries.each do |faq_entry| %>
+              <section class="fr-accordion faq-entry" data-algolia-search-with-accordion-hit="<%= dom_id(faq_entry) %>" id="<%= faq_entry.id %>">
+                <h3 class="fr-accordion__title">
+                  <button class="fr-accordion__btn" aria-expanded="false" aria-controls="<%= dom_id(faq_entry, :answer) %>">
+                    <div data-algolia-search-with-accordion-hit-attribute="question">
+                      <%= faq_entry.question %>
+                    </div>
+                  </button>
+                </h3>
+                <div class="fr-collapse" id="<%= dom_id(faq_entry, :answer) %>" data-algolia-search-with-accordion-hit-attribute="answer_markdownify">
+                  <%= faq_entry.answer_markdownify %>
+                </div>
+              </section>
+            <% end %>
+          </div>
         <% end %>
       </div>
-    <% end %>
+    </div>
   </div>
 </div>
