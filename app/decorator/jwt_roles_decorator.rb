@@ -1,4 +1,4 @@
-class JwtFacade
+class JwtRolesDecorator
   attr_reader :jwt
 
   def initialize(jwt_id:)

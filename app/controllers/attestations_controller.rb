@@ -24,13 +24,13 @@ class AttestationsController < AuthenticatedUsersController
   def best_jwt_to_retrieve_attestations
     return if @jwts.blank?
 
-    @jwts.max_by { |jwt| JwtFacade.new(jwt_id: jwt.id).attestations_roles }
+    @jwts.max_by { |jwt| JwtRolesDecorator.new(jwt_id: jwt.id).attestations_roles }
   end
 
   def try_search
-    @jwt_facade = JwtFacade.new(jwt_id: params[:jwt_id])
+    @jwt_roles_decorator = JwtRolesDecorator.new(jwt_id: params[:jwt_id])
 
-    @attestation_facade = EntrepriseWithAttestationsFacade.new(jwt: @jwt_facade.jwt, siret: params[:siret])
+    @attestation_facade = EntrepriseWithAttestationsFacade.new(jwt: @jwt_roles_decorator.jwt, siret: params[:siret])
 
     respond_to do |format|
       format.turbo_stream
