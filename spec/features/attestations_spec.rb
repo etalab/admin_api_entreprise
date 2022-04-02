@@ -22,7 +22,7 @@ RSpec.describe 'User can download attestations', type: :feature do
     end
 
     context 'when user has attestations role' do
-      let(:user) { create :user, :with_jwt_specific_roles, specific_roles: ['attestations_fiscales'] }
+      let(:user) { create :user, :with_jwt, roles: ['attestations_fiscales'] }
 
       it 'shows menu item for attestations download' do
         within('.authenticated-user-sidemenu') do
@@ -49,7 +49,7 @@ RSpec.describe 'User can download attestations', type: :feature do
     end
 
     context 'when user has tokens with attestation roles' do
-      let(:user) { create(:user, :with_jwt_specific_roles, specific_roles: %w[attestations_sociales attestations_fiscales]) }
+      let(:user) { create(:user, :with_jwt, roles: %w[attestations_sociales attestations_fiscales]) }
       let(:id_selected_jwt) { find('select#token').value }
       let(:roles_selected_jwt) { JwtAPIEntreprise.find(id_selected_jwt).roles }
 
@@ -79,7 +79,7 @@ RSpec.describe 'User can download attestations', type: :feature do
     before { allow(Siade).to receive(:new).and_return(siade_double) }
 
     let(:siade_double) { class_double('SiadeService') }
-    let(:user) { create(:user, :with_jwt_specific_roles, specific_roles: ['attestations_fiscales']) }
+    let(:user) { create(:user, :with_jwt, roles: ['attestations_fiscales']) }
     let(:siret) { siret_valid }
     let(:token) { 'JWT with no roles' }
 
@@ -119,9 +119,7 @@ RSpec.describe 'User can download attestations', type: :feature do
 
       context 'when selected token have two attestation roles' do
         let(:user) do
-          create :user,
-            :with_jwt_specific_roles,
-            specific_roles: %w[attestations_sociales attestations_fiscales]
+          create :user, :with_jwt, roles: %w[attestations_sociales attestations_fiscales]
         end
 
         let(:token) { 'JWT with roles: ["attestations_sociales", "attestations_fiscales"]' }

@@ -117,7 +117,7 @@ RSpec.describe User do
     end
 
     context 'when user has attestation role' do
-      let(:user) { create :user, :with_jwt_specific_roles, specific_roles: ['attestations_fiscales'] }
+      let(:user) { create :user, :with_jwt, roles: ['attestations_fiscales'] }
 
       it { is_expected.to be_truthy }
     end

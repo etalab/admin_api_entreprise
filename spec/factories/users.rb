@@ -51,24 +51,17 @@ FactoryBot.define do
     end
 
     trait :with_jwt do
-      after(:create) do |u|
-        create_list(:jwt_api_entreprise, 2, user: u)
-        create_list(:jwt_api_entreprise, 2, :with_contacts, user: u)
-      end
-    end
-
-    trait :with_jwt_specific_roles do
       transient do
-        specific_roles { ['entreprises'] }
+        roles { ['entreprises'] }
       end
 
       after(:create) do |u, evaluator|
         create(
           :jwt_api_entreprise,
           :with_specific_roles,
-          specific_roles: evaluator.specific_roles,
+          specific_roles: evaluator.roles,
           user: u,
-          intitule: "JWT with roles: #{evaluator.specific_roles}"
+          intitule: "JWT with roles: #{evaluator.roles}"
         )
         create(:jwt_api_entreprise, :with_contacts, user: u, intitule: 'JWT with no roles')
       end
