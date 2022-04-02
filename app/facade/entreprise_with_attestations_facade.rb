@@ -7,24 +7,20 @@ class EntrepriseWithAttestationsFacade
   end
 
   def preload_available_endpoints(jwt)
-    @entreprise = entreprise
+    entreprise
 
     jwt_roles = JwtFacade.new(jwt_id: jwt.id).roles
 
-    @attestation_sociale_url = attestation_sociale_url if jwt_roles.include? 'attestations_sociales'
-    @attestation_fiscale_url = attestation_fiscale_url if jwt_roles.include? 'attestations_fiscales'
+    attestation_sociale_url if jwt_roles.include? 'attestations_sociales'
+    attestation_fiscale_url if jwt_roles.include? 'attestations_fiscales'
   end
 
   def attestation_sociale_url
-    response = @siade_client.attestations_sociales(siren: siren)
-
-    response['url']
+    @attestation_sociale_url ||= @siade_client.attestations_sociales(siren: siren)['url']
   end
 
   def attestation_fiscale_url
-    response = @siade_client.attestations_fiscales(siren: siren)
-
-    response['url']
+    @attestation_fiscale_url ||= @siade_client.attestations_fiscales(siren: siren)['url']
   end
 
   def entreprise
