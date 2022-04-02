@@ -36,13 +36,17 @@ class Siade
   def siade_request(endpoint)
     siade_url = [domain, endpoint, '?', siade_params].join
 
-    RestClient.get siade_url
+    RestClient.get siade_url, siade_headers
   rescue RestClient::Exception => e
     raise SiadeClientError, e.message
   end
 
   def siade_params
-    ["token=#{@token_rehash}", "context=#{context}", "recipient=#{recipient}", "object=#{object}"].join('&')
+    ["context=#{context}", "recipient=#{recipient}", "object=#{object}"].join('&')
+  end
+
+  def siade_headers
+    { Authorization: "Bearer #{@token_rehash}" }
   end
 
   def domain

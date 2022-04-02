@@ -7,12 +7,12 @@ RSpec.describe Siade, type: :service do
   let(:siade_url) { Rails.application.credentials.siade_url }
   let(:siade_params) do
     {
-      token: 'dummy token rehash',
       context: 'Admin API Entreprise',
       recipient: '13002526500013',
       object: 'Admin API Entreprise request from Attestations Downloader'
     }
   end
+  let(:siade_headers) { { Authorization: 'Bearer dummy token rehash' } }
   let(:siret) { siret_valid }
   let(:siren) { siren_valid }
 
@@ -24,7 +24,7 @@ RSpec.describe Siade, type: :service do
     describe 'happy path' do
       before do
         stub_request(:get, endpoint_url)
-          .with(query: siade_params)
+          .with(query: siade_params, headers: siade_headers)
           .to_return(status: 200, body: payload_entreprise.to_json)
       end
 
@@ -36,7 +36,7 @@ RSpec.describe Siade, type: :service do
     context 'when it is not found (404)' do
       before do
         stub_request(:get, endpoint_url)
-          .with(query: siade_params)
+          .with(query: siade_params, headers: siade_headers)
           .to_return(status: 404)
       end
 
@@ -54,7 +54,7 @@ RSpec.describe Siade, type: :service do
     describe 'happy path' do
       before do
         stub_request(:get, endpoint_url)
-          .with(query: siade_params)
+          .with(query: siade_params, headers: siade_headers)
           .to_return(status: 200, body: payload_attestation_sociale.to_json)
       end
 
@@ -66,7 +66,7 @@ RSpec.describe Siade, type: :service do
     context 'when token is unauthorized (401)' do
       before do
         stub_request(:get, endpoint_url)
-          .with(query: siade_params)
+          .with(query: siade_params, headers: siade_headers)
           .to_return(status: 401)
       end
 
@@ -84,7 +84,7 @@ RSpec.describe Siade, type: :service do
     describe 'happy path' do
       before do
         stub_request(:get, endpoint_url)
-          .with(query: siade_params)
+          .with(query: siade_params, headers: siade_headers)
           .to_return(status: 200, body: payload_attestation_fiscale.to_json)
       end
 
@@ -96,7 +96,7 @@ RSpec.describe Siade, type: :service do
     context 'with invalid params (422)' do
       before do
         stub_request(:get, endpoint_url)
-          .with(query: siade_params)
+          .with(query: siade_params, headers: siade_headers)
           .to_return(status: 422)
       end
 
