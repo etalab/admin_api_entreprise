@@ -8,13 +8,13 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
   subject do
     described_class.call(
       datapass_webhook_params.merge(
-        authorization_request: authorization_request,
-        mailjet_variables: mailjet_variables
+        authorization_request:,
+        mailjet_variables:
       )
     )
   end
 
-  let(:datapass_webhook_params) { build(:datapass_webhook, event: event) }
+  let(:datapass_webhook_params) { build(:datapass_webhook, event:) }
   let(:authorization_request) { create(:authorization_request, :with_contacts) }
   let(:mailjet_variables) { { lol: 'oki' } }
 

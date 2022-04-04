@@ -4,7 +4,7 @@ RSpec.describe Token::RetrieveFromMagicLink do
   subject { described_class.call(params) }
 
   let(:params) do
-    { magic_token: magic_token }
+    { magic_token: }
   end
 
   let!(:jwt) { create(:jwt_api_entreprise, :with_magic_link) }

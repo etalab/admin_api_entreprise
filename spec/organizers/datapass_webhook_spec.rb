@@ -12,7 +12,7 @@ RSpec.describe DatapassWebhook, type: :interactor do
   before do
     allow(Mailjet::Contactslist_managemanycontacts).to receive(:create)
 
-    create(:authorization_request, external_id: previous_enrollment_id, jwt_api_entreprise: jwt_api_entreprise)
+    create(:authorization_request, external_id: previous_enrollment_id, jwt_api_entreprise:)
   end
 
   it { is_expected.to be_a_success }

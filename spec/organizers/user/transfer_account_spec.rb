@@ -7,8 +7,8 @@ RSpec.describe User::TransferAccount, type: :organizer do
 
   let(:params) do
     {
-      current_owner: current_owner,
-      target_user_email: target_user_email
+      current_owner:,
+      target_user_email:
     }
   end
 

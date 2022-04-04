@@ -9,7 +9,7 @@ class RestrictedTokenMagicLinksController < AuthenticatedUsersController
       )
 
       if organizer.success?
-        success_message(title: t('.success.title', target_email: target_email))
+        success_message(title: t('.success.title', target_email:))
       else
         error_message(title: t('.error.title'))
       end

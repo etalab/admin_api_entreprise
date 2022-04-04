@@ -6,7 +6,7 @@ class UserMailer < ApplicationMailer
     @datapass_signup_url = 'https://auth.api.gouv.fr/users/sign-up'
     subject = 'API Entreprise - Délégation d\'accès'
 
-    mail(to: @new_owner.email, subject: subject)
+    mail(to: @new_owner.email, subject:)
   end
 
   def notify_datapass_for_data_reconciliation(user)
@@ -15,6 +15,6 @@ class UserMailer < ApplicationMailer
     dest_address = 'contact@api.gouv.fr'
     subject = 'API Entreprise - Réconciliation de demandes d\'accès à un nouvel usager'
 
-    mail(to: dest_address, subject: subject)
+    mail(to: dest_address, subject:)
   end
 end

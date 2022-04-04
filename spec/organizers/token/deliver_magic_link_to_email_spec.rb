@@ -6,8 +6,8 @@ RSpec.describe Token::DeliverMagicLinkToEmail, type: :organizer do
   let(:token) { create(:jwt_api_entreprise) }
   let(:params) do
     {
-      token: token,
-      email: email
+      token:,
+      email:
     }
   end
 

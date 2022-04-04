@@ -1,15 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe DatapassWebhook::ArchivePreviousToken, type: :interactor do
-  subject { described_class.call(datapass_webhook_params.merge(authorization_request: authorization_request)) }
+  subject { described_class.call(datapass_webhook_params.merge(authorization_request:)) }
 
-  let(:authorization_request) { create(:authorization_request, previous_external_id: previous_external_id) }
-  let(:datapass_webhook_params) { build(:datapass_webhook, event: event) }
+  let(:authorization_request) { create(:authorization_request, previous_external_id:) }
+  let(:datapass_webhook_params) { build(:datapass_webhook, event:) }
 
   let(:jwt_api_entreprise) { create(:jwt_api_entreprise) }
 
   before do
-    create(:authorization_request, jwt_api_entreprise: jwt_api_entreprise, external_id: previous_external_id) if previous_external_id
+    create(:authorization_request, jwt_api_entreprise:, external_id: previous_external_id) if previous_external_id
   end
 
   context 'when event is validate_application or validate' do

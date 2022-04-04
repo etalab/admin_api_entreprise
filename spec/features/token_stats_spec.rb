@@ -19,7 +19,7 @@ RSpec.describe 'stats page for a token', type: :feature do
     let(:stubbed_request) do
       stub_request(:get, url).to_return({
         status: 200,
-        body: body
+        body:
       })
     end
 

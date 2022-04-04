@@ -7,15 +7,15 @@ class ApplicationController < ActionController::Base
   layout 'application'
 
   def error_message(title:, description: nil)
-    flash_message(:error, title: title, description: description)
+    flash_message(:error, title:, description:)
   end
 
   def success_message(title:, description: nil)
-    flash_message(:success, title: title, description: description)
+    flash_message(:success, title:, description:)
   end
 
   def info_message(title:, description: nil)
-    flash_message(:info, title: title, description: description)
+    flash_message(:info, title:, description:)
   end
 
   private

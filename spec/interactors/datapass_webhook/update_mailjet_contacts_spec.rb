@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
-  subject { described_class.call(authorization_request: authorization_request) }
+  subject { described_class.call(authorization_request:) }
 
-  let(:authorization_request) { create(:authorization_request, user: user) }
+  let(:authorization_request) { create(:authorization_request, user:) }
   let(:user) { create(:user, :with_full_name) }
 
   before do
@@ -38,7 +38,7 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
   end
 
   context 'with valid contacts' do
-    let(:authorization_request) { create(:authorization_request, :with_contacts, user: user) }
+    let(:authorization_request) { create(:authorization_request, :with_contacts, user:) }
 
     it 'updates authorization with all contacts' do
       expect(Mailjet::Contactslist_managemanycontacts).to receive(:create).with(

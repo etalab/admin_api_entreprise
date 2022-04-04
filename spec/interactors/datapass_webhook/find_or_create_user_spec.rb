@@ -6,7 +6,7 @@ RSpec.describe DatapassWebhook::FindOrCreateUser, type: :interactor do
   describe '.call' do
     subject { described_class.call(datapass_webhook_params) }
 
-    let(:datapass_webhook_params) { build(:datapass_webhook, demandeur_attributes: demandeur_attributes) }
+    let(:datapass_webhook_params) { build(:datapass_webhook, demandeur_attributes:) }
     let(:demandeur_attributes) do
       {
         email: generate(:email)

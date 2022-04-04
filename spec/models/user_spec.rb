@@ -95,7 +95,7 @@ RSpec.describe User do
     end
 
     context 'when email already exists' do
-      let!(:user) { create :user, email: email }
+      let!(:user) { create :user, email: }
 
       its(:id) { is_expected.to eq user.id }
       its(:email) { is_expected.to eq email }
