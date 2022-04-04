@@ -14,7 +14,7 @@ class User < ApplicationRecord
   scope :added_since_yesterday, -> { where('created_at > ?', 1.day.ago) }
 
   def self.find_or_initialize_by_email(email)
-    insensitive_find_by_email(email) || new(email: email)
+    insensitive_find_by_email(email) || new(email:)
   end
 
   def self.insensitive_find_by_email(email)
@@ -30,11 +30,11 @@ class User < ApplicationRecord
   end
 
   def contact_technique?
-    Contact.where(contact_type: 'tech', email: email).any?
+    Contact.where(contact_type: 'tech', email:).any?
   end
 
   def contact_metier?
-    Contact.where(contact_type: 'admin', email: email).any?
+    Contact.where(contact_type: 'admin', email:).any?
   end
 
   def full_name

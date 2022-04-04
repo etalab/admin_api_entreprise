@@ -6,7 +6,7 @@ RSpec.describe User::Login, type: :organizer do
   let(:params) do
     {
       oauth_api_gouv_email: user.email,
-      oauth_api_gouv_id: oauth_api_gouv_id
+      oauth_api_gouv_id:
     }
   end
 

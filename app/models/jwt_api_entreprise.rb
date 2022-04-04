@@ -67,8 +67,8 @@ class JwtAPIEntreprise < ApplicationRecord
       jti: id,
       roles: roles.pluck(:code),
       sub: intitule,
-      iat: iat,
-      version: version
+      iat:,
+      version:
     }
     # JWT is by design expired if exp is null
     payload[:exp] = exp unless exp.nil?

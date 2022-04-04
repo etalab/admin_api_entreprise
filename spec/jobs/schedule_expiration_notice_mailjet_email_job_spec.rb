@@ -39,7 +39,7 @@ RSpec.describe ScheduleExpirationNoticeMailjetEmailJob, type: :job do
 
       before do
         token.authorization_request.update!(
-          external_id: external_id
+          external_id:
         )
         token.authorization_request.contacts << contact
       end

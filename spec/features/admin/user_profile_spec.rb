@@ -97,14 +97,14 @@ RSpec.describe 'admin user profile', type: :feature do
     end
 
     it 'displays user archived tokens' do
-      archived_jwt = create(:jwt_api_entreprise, :archived, user: user)
+      archived_jwt = create(:jwt_api_entreprise, :archived, user:)
       subject
 
       expect(page).to have_css("input[value='#{archived_jwt.rehash}']")
     end
 
     it 'displays user blacklisted tokens' do
-      blacklisted_jwt = create(:jwt_api_entreprise, :blacklisted, user: user)
+      blacklisted_jwt = create(:jwt_api_entreprise, :blacklisted, user:)
       subject
 
       expect(page).to have_css("input[value='#{blacklisted_jwt.rehash}']")

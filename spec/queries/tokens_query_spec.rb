@@ -23,7 +23,7 @@ RSpec.describe TokensQuery, type: :query do
       Timecop.return
     end
 
-    subject(:results) { described_class.new.expiring_within_interval(interval_start: interval_start, interval_stop: interval_stop).results }
+    subject(:results) { described_class.new.expiring_within_interval(interval_start:, interval_stop:).results }
 
     let!(:token_expiring_within_interval)                 { create(:jwt_api_entreprise, exp: 7.days.from_now) }
     let!(:token_expiring_early_within_interval_start_day) { create(:jwt_api_entreprise, exp: interval_start.beginning_of_day) }

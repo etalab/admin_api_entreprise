@@ -36,7 +36,7 @@ RSpec.shared_examples 'it displays user owned token' do
   end
 
   it 'displays tokens access roles' do
-    token = create(:jwt_api_entreprise, :with_roles, user: user)
+    token = create(:jwt_api_entreprise, :with_roles, user:)
     roles = token.roles.pluck(:code)
     subject
 

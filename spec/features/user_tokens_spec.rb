@@ -21,14 +21,14 @@ RSpec.describe 'User JWT listing', type: :feature do
     it_behaves_like 'it displays user owned token'
 
     it 'does not display archived tokens' do
-      archived_jwt = create(:jwt_api_entreprise, :archived, user: user)
+      archived_jwt = create(:jwt_api_entreprise, :archived, user:)
       jwt_index
 
       expect(page).not_to have_css("input[value='#{archived_jwt.rehash}']")
     end
 
     it 'does not display blacklisted tokens' do
-      blacklisted_jwt = create(:jwt_api_entreprise, :blacklisted, user: user)
+      blacklisted_jwt = create(:jwt_api_entreprise, :blacklisted, user:)
       jwt_index
 
       expect(page).not_to have_css("input[value='#{blacklisted_jwt.rehash}']")

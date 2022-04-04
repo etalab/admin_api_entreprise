@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'token details page', type: :feature do
   let(:user) { create(:user, :with_jwt) }
-  let(:token) { create(:jwt_api_entreprise, user: user) }
+  let(:token) { create(:jwt_api_entreprise, user:) }
 
   before do
     login_as(user)
@@ -26,7 +26,7 @@ RSpec.describe 'token details page', type: :feature do
   end
 
   it 'displays tokens access roles' do
-    token = create(:jwt_api_entreprise, :with_roles, user: user)
+    token = create(:jwt_api_entreprise, :with_roles, user:)
     roles = token.roles.pluck(:code)
     visit token_path(token)
 

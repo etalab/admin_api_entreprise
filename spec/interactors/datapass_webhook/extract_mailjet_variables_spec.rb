@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe DatapassWebhook::ExtractMailjetVariables, type: :interactor do
-  subject { described_class.call(datapass_webhook_params.merge(authorization_request: authorization_request)) }
+  subject { described_class.call(datapass_webhook_params.merge(authorization_request:)) }
 
-  let(:datapass_webhook_params) { build(:datapass_webhook, event: event) }
+  let(:datapass_webhook_params) { build(:datapass_webhook, event:) }
   let(:authorization_request) { create(:authorization_request) }
 
   let(:event) { %w[created create].sample }
@@ -45,7 +45,7 @@ RSpec.describe DatapassWebhook::ExtractMailjetVariables, type: :interactor do
   end
 
   context 'when authorization request has a token' do
-    let!(:jwt_api_entreprise) { create(:jwt_api_entreprise, authorization_request: authorization_request) }
+    let!(:jwt_api_entreprise) { create(:jwt_api_entreprise, authorization_request:) }
 
     before do
       %w[
@@ -53,7 +53,7 @@ RSpec.describe DatapassWebhook::ExtractMailjetVariables, type: :interactor do
         entreprise
         liasse_fiscale
       ].each do |code|
-        jwt_api_entreprise.roles << create(:role, code: code)
+        jwt_api_entreprise.roles << create(:role, code:)
       end
 
       create(:role, code: 'etablissement')

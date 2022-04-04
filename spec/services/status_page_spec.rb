@@ -8,7 +8,7 @@ RSpec.describe StatusPage, type: :service do
         status: 200,
         body: {
           page: {
-            status: status
+            status:
           }
         }.to_json
       )

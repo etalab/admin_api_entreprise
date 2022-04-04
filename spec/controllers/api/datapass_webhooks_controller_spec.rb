@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe API::DatapassWebhooksController, type: :controller do
   describe '#create' do
     subject do
-      post :create, params: params
+      post :create, params:
     end
 
     let(:params) do
@@ -51,7 +51,7 @@ RSpec.describe API::DatapassWebhooksController, type: :controller do
 
         allow(DatapassWebhook).to receive(:call).and_return(
           OpenStruct.new(
-            token_id: token_id,
+            token_id:,
             success?: success
           )
         )

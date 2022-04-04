@@ -5,8 +5,8 @@ RSpec.describe 'user profile page', type: :feature do
 
   let(:user) { create(:user, :with_note) }
 
-  let(:invalid_authorization_request) { create(:authorization_request, user: user) }
-  let(:valid_authorization_request) { create(:authorization_request, :submitted, user: user) }
+  let(:invalid_authorization_request) { create(:authorization_request, user:) }
+  let(:valid_authorization_request) { create(:authorization_request, :submitted, user:) }
 
   context 'when the user is not authenticated' do
     it 'redirects to the login' do

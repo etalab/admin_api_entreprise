@@ -33,7 +33,7 @@ class Seeds
 
     create_authorization_request(
       intitule: 'Mairie de Bruxelles',
-      user: user,
+      user:,
       status: :refused,
       external_id: 69,
       first_submitted_at: 2.years.ago,
@@ -74,7 +74,7 @@ class Seeds
     ].map do |code|
       Role.create!(
         name: code.humanize,
-        code: code
+        code:
       )
     end
   end
@@ -84,11 +84,11 @@ class Seeds
   end
 
   def create_token(user, roles, authorization_request_params: {})
-    authorization_request = create_authorization_request(authorization_request_params.merge(user: user))
+    authorization_request = create_authorization_request(authorization_request_params.merge(user:))
 
     token = JwtAPIEntreprise.create!(
       JwtAPIEntreprise.default_create_params.merge(
-        authorization_request: authorization_request
+        authorization_request:
       )
     )
 

@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interactor do
-  subject { described_class.call(datapass_webhook_params.merge(user: user)) }
+  subject { described_class.call(datapass_webhook_params.merge(user:)) }
 
-  let(:datapass_webhook_params) { build(:datapass_webhook, fired_at: fired_at, authorization_request_attributes: { id: authorization_id, copied_from_enrollment_id: previous_authorization_id }) }
+  let(:datapass_webhook_params) { build(:datapass_webhook, fired_at:, authorization_request_attributes: { id: authorization_id, copied_from_enrollment_id: previous_authorization_id }) }
   let(:user) { create(:user) }
   let(:authorization_id) { rand(1..4000).to_s }
   let(:previous_authorization_id) { rand(4001..9001).to_s }
@@ -45,7 +45,7 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
     end
 
     context 'when it is the same user' do
-      let!(:authorization_request) { create(:authorization_request, external_id: authorization_id, user: user) }
+      let!(:authorization_request) { create(:authorization_request, external_id: authorization_id, user:) }
 
       it 'does not update user' do
         expect {
@@ -85,9 +85,9 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
   end
 
   context 'when event is send_application or submit' do
-    let(:datapass_webhook_params) { build(:datapass_webhook, event: %w[send_application submit].sample, fired_at: fired_at, authorization_request_attributes: { id: authorization_id }) }
+    let(:datapass_webhook_params) { build(:datapass_webhook, event: %w[send_application submit].sample, fired_at:, authorization_request_attributes: { id: authorization_id }) }
 
-    let!(:authorization_request) { create(:authorization_request, :with_contacts, external_id: authorization_id, first_submitted_at: first_submitted_at) }
+    let!(:authorization_request) { create(:authorization_request, :with_contacts, external_id: authorization_id, first_submitted_at:) }
 
     context 'when first_submitted_at is nil' do
       let(:first_submitted_at) { nil }
@@ -111,7 +111,7 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
   end
 
   context 'when event is validate_application or validate' do
-    let(:datapass_webhook_params) { build(:datapass_webhook, event: %w[validate_application validate].sample, fired_at: fired_at, authorization_request_attributes: { id: authorization_id }) }
+    let(:datapass_webhook_params) { build(:datapass_webhook, event: %w[validate_application validate].sample, fired_at:, authorization_request_attributes: { id: authorization_id }) }
 
     let!(:authorization_request) { create(:authorization_request, :with_contacts, external_id: authorization_id) }
 

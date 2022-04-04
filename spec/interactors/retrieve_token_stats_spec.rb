@@ -19,7 +19,7 @@ RSpec.describe RetrieveTokenStats do
       let(:stubbed_request) do
         stub_request(:get, url).to_return({
           status: 200,
-          body: body
+          body:
         })
       end
 

@@ -6,7 +6,7 @@ RSpec.describe 'Endpoints show', type: :feature do
   let(:endpoint) { Endpoint.find(uid) }
 
   it 'displays basic information, with attributes data' do
-    visit endpoint_path(uid: uid)
+    visit endpoint_path(uid:)
 
     expect(page).to have_content(endpoint.title)
 
@@ -30,7 +30,7 @@ RSpec.describe 'Endpoints show', type: :feature do
   describe 'actions' do
     describe 'click on example', js: true do
       it 'opens modal with example' do
-        visit endpoint_path(uid: uid)
+        visit endpoint_path(uid:)
 
         click_on 'example_link'
 
@@ -53,7 +53,7 @@ RSpec.describe 'Endpoints show', type: :feature do
 
     describe 'click on cgu', js: true do
       it 'opens modal with CGU content' do
-        visit endpoint_path(uid: uid)
+        visit endpoint_path(uid:)
 
         click_on 'cgu_link'
 
