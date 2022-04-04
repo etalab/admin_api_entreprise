@@ -15,7 +15,9 @@ FactoryBot.define do
 
     after(:build) do |jwt_api_entreprise, evaluator|
       if jwt_api_entreprise.authorization_request_id && jwt_api_entreprise.authorization_request.nil?
-        jwt_api_entreprise.authorization_request = build(:authorization_request, jwt_api_entreprise:)
+        jwt_api_entreprise.authorization_request = build(
+          :authorization_request, jwt_api_entreprise:, intitule: evaluator.intitule
+        )
       elsif jwt_api_entreprise.authorization_request_id
         jwt_api_entreprise.authorization_request.external_id = jwt_api_entreprise.authorization_request_id
       end

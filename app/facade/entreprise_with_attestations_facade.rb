@@ -16,11 +16,11 @@ class EntrepriseWithAttestationsFacade
   end
 
   def attestation_sociale_url
-    @attestation_sociale_url ||= @siade_client.attestations_sociales(siren: siren)['url']
+    @attestation_sociale_url ||= @siade_client.attestations_sociales(siren:)['url']
   end
 
   def attestation_fiscale_url
-    @attestation_fiscale_url ||= @siade_client.attestations_fiscales(siren: siren)['url']
+    @attestation_fiscale_url ||= @siade_client.attestations_fiscales(siren:)['url']
   end
 
   def entreprise

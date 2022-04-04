@@ -19,7 +19,7 @@ RSpec.describe Siade, type: :service do
   before { allow(token).to receive(:rehash).and_return('dummy token rehash') }
 
   describe '#entreprise', type: :request do
-    subject { described_class.new(token: token).entreprises(siret: siret) }
+    subject { described_class.new(token:).entreprises(siret:) }
 
     let(:endpoint_url) { "#{siade_url}v2/entreprises/#{siret}" }
 
@@ -51,7 +51,7 @@ RSpec.describe Siade, type: :service do
   end
 
   describe '#attestations_sociales', type: :request do
-    subject { described_class.new(token: token).attestations_sociales(siren: siren) }
+    subject { described_class.new(token:).attestations_sociales(siren:) }
 
     let(:endpoint_url) { "#{siade_url}v2/attestations_sociales_acoss/#{siren}" }
 
@@ -83,7 +83,7 @@ RSpec.describe Siade, type: :service do
   end
 
   describe '#attestations_fiscales', type: :request do
-    subject { described_class.new(token: token).attestations_fiscales(siren: siren) }
+    subject { described_class.new(token:).attestations_fiscales(siren:) }
 
     let(:endpoint_url) { "#{siade_url}v2/attestations_fiscales_dgfip/#{siren}" }
 
