@@ -17,7 +17,8 @@
     </p>
 
     <% if @jwt_roles_decorator.include_attestation_sociale? %>
-      <%= link_to @attestation_facade.attestation_sociale_url, { class: "fr-btn", target: "_blank" } do %>
+      <%= link_to @attestation_facade.attestation_sociale_url,
+        { class: "fr-btn", id: 'attestation-sociale-download', target: "_blank" } do %>
         <span class="fr-fi-download-line" aria-hidden="true"></span>
         &nbsp;
         <%= "#{t('.attestation_sociale')} (PDF)" %>
@@ -25,7 +26,8 @@
     <% end %>
 
     <% if @jwt_roles_decorator.include_attestation_fiscale? %>
-      <%= link_to @attestation_facade.attestation_fiscale_url, { class: "fr-btn", target: "_blank" } do %>
+      <%= link_to @attestation_facade.attestation_fiscale_url,
+        { class: "fr-btn", id: 'attestation-fiscale-download', target: "_blank" } do %>
         <span class="fr-fi-download-line" aria-hidden="true"></span>
         &nbsp;
         <%= "#{t('.attestation_fiscale')} (PDF)" %>
