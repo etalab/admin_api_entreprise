@@ -23,6 +23,10 @@ class JwtRolesDecorator
     attestations_roles.map(&:code).include? 'attestations_fiscales'
   end
 
+  def self.best_jwt_to_retrieve_attestations(jwts)
+    jwts.max_by { |jwt| new(jwt_id: jwt.id).attestations_roles }
+  end
+
   private
 
   def attestations_codes

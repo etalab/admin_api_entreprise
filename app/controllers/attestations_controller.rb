@@ -4,37 +4,31 @@ class AttestationsController < AuthenticatedUsersController
   def index
     @jwts = current_user.jwt_api_entreprise
 
-    @best_jwt = best_jwt_to_retrieve_attestations
+    @best_jwt = JwtRolesDecorator.best_jwt_to_retrieve_attestations(@jwts)
   end
 
   def new; end
 
   def search
-    try_search
-  rescue SiadeClientError => e
-    handle_error!(e)
-  end
-
-  private
-
-  def redirect_unless_authorized
-    redirect_to user_profile_path unless current_user.any_token_with_attestation_role?
-  end
-
-  def best_jwt_to_retrieve_attestations
-    return if @jwts.blank?
-
-    @jwts.max_by { |jwt| JwtRolesDecorator.new(jwt_id: jwt.id).attestations_roles }
-  end
-
-  def try_search
     @jwt_roles_decorator = JwtRolesDecorator.new(jwt_id: params[:jwt_id])
 
-    @attestation_facade = EntrepriseWithAttestationsFacade.new(jwt: @jwt_roles_decorator.jwt, siret: params[:siret])
+    siade_search
 
     respond_to do |format|
       format.turbo_stream
     end
+  end
+
+  private
+
+  def siade_search
+    @attestation_facade = EntrepriseWithAttestationsFacade.new(jwt: @jwt_roles_decorator.jwt, siret: params[:siret])
+  rescue SiadeClientError => e
+    handle_error!(e)
+  end
+
+  def redirect_unless_authorized
+    redirect_to user_profile_path unless current_user.any_token_with_attestation_role?
   end
 
   def handle_error!(error)
