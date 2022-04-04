@@ -7,7 +7,7 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1'
+gem 'rails', '~> 7.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use Puma as the app server
@@ -83,9 +83,6 @@ group :development do
   # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
   gem 'rack-mini-profiler', '~> 3.0'
   gem 'listen'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen'
   gem 'mina', '~> 1.2'
   gem 'rubocop', require: false
   gem 'rubocop-rails'
@@ -100,9 +97,8 @@ group :test do
   gem "cuprite"
   gem 'vcr'
   gem 'webmock'
-  gem 'spring-commands-rspec'
   gem 'rspec-collection_matchers'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '6.0.0rc1'
   gem 'rspec-its'
   gem 'simplecov', require: false
   gem 'simplecov-console', require: false
