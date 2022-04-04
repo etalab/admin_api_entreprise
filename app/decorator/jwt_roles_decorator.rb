@@ -2,17 +2,15 @@ class JwtRolesDecorator
   attr_reader :jwt
 
   def initialize(jwt_id:)
-    return if jwt_id.blank?
-
     @jwt = JwtAPIEntreprise.find(jwt_id)
   end
 
   def roles
-    @jwt&.roles
+    @jwt.roles
   end
 
   def attestations_roles
-    roles&.select { |r| attestations_codes.include? r.code }
+    roles.select { |r| attestations_codes.include? r.code }
   end
 
   def include_attestation_sociale?
