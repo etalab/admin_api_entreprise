@@ -134,34 +134,34 @@ RSpec.describe 'User can download attestations', type: :feature do
 
     context 'when user search an invalid siret' do
       before do
-        allow(siade_double).to receive(:entreprises).and_raise(SiadeClientError.new(msg: '422 Unprocessable Entity'))
+        allow(siade_double).to receive(:entreprises).and_raise(SiadeClientError.new(422, '422 Unprocessable Entity'))
         search
       end
 
       it 'fails with invalid message' do
-        expect(page).to have_content('422 Unprocessable Entity')
+        expect(page).to have_css('#error-422')
       end
     end
 
     context 'when user search a siret not found' do
       before do
-        allow(siade_double).to receive(:entreprises).and_raise(SiadeClientError.new(msg: '404 Not Found'))
+        allow(siade_double).to receive(:entreprises).and_raise(SiadeClientError.new(404, '404 Not Found'))
         search
       end
 
       it 'fails with not found message' do
-        expect(page).to have_content('404 Not Found')
+        expect(page).to have_css('#error-404')
       end
     end
 
     context 'when user is unauthorized' do
       before do
-        allow(siade_double).to receive(:entreprises).and_raise(SiadeClientError.new(msg: '401 Unauthorized'))
+        allow(siade_double).to receive(:entreprises).and_raise(SiadeClientError.new(401, '401 Unauthorized'))
         search
       end
 
       it 'fails with invalid message' do
-        expect(page).to have_content('401 Unauthorized')
+        expect(page).to have_css('#error-401')
       end
     end
   end

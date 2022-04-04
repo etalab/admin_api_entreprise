@@ -38,7 +38,10 @@ class AttestationsController < AuthenticatedUsersController
   end
 
   def handle_error!(error)
-    flash_message(:error, title: 'Erreur lors de la recherche', description: error.message)
+    flash_message(:error,
+      title: 'Erreur lors de la recherche',
+      description: I18n.t(".attestations.search.error.#{error.code}"),
+      id: "error-#{error.code}")
 
     redirect_to attestations_path
   end

@@ -41,7 +41,9 @@ RSpec.describe Siade, type: :service do
       end
 
       it 'raises SiadeClientError' do
-        expect { subject }.to raise_error(SiadeClientError).with_message('404 Not Found')
+        expect { subject }.to raise_error(
+          an_instance_of(SiadeClientError).and(having_attributes(code: 404, message: '404 Not Found'))
+        )
       end
     end
   end
@@ -71,7 +73,9 @@ RSpec.describe Siade, type: :service do
       end
 
       it 'raises SiadeClientError' do
-        expect { subject }.to raise_error(SiadeClientError).with_message('401 Unauthorized')
+        expect { subject }.to raise_error(
+          an_instance_of(SiadeClientError).and(having_attributes(code: 401, message: '401 Unauthorized'))
+        )
       end
     end
   end
@@ -101,7 +105,9 @@ RSpec.describe Siade, type: :service do
       end
 
       it 'raises SiadeClientError' do
-        expect { subject }.to raise_error(SiadeClientError).with_message('422 Unprocessable Entity')
+        expect { subject }.to raise_error(
+          an_instance_of(SiadeClientError).and(having_attributes(code: 422, message: '422 Unprocessable Entity'))
+        )
       end
     end
   end

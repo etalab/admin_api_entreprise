@@ -1,6 +1,10 @@
 class SiadeClientError < StandardError
-  def initialize(msg = 'Error with Siade client')
-    super
+  attr_reader :code
+
+  def initialize(code, msg = 'Error with Siade client')
+    @code = code
+
+    super(msg)
   end
 end
 
@@ -38,7 +42,7 @@ class Siade
 
     RestClient.get siade_url, siade_headers
   rescue RestClient::Exception => e
-    raise SiadeClientError, e.message
+    raise SiadeClientError.new(e.http_code, e.message)
   end
 
   def siade_params
