@@ -98,7 +98,7 @@ group :test do
   gem 'vcr'
   gem 'webmock'
   gem 'rspec-collection_matchers'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '6.0.0rc1'
   gem 'rspec-its'
   gem 'simplecov', require: false
   gem 'simplecov-console', require: false
