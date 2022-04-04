@@ -61,7 +61,7 @@ class JwtAPIEntreprise < ApplicationRecord
     }
   end
 
-  delegate :intitule, to: :authorization_request
+  delegate :intitule, :siret, to: :authorization_request
 
   private
 

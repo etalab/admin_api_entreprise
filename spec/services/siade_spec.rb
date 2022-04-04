@@ -3,12 +3,12 @@ require 'rails_helper'
 RSpec.describe Siade, type: :service do
   include_context 'with siade payloads'
 
-  let(:token_rehash) { 'dummy token rehash' }
+  let(:token) { create(:jwt_api_entreprise) }
   let(:siade_url) { Rails.application.credentials.siade_url }
   let(:siade_params) do
     {
       context: 'Admin API Entreprise',
-      recipient: '13002526500013',
+      recipient: 'dummy siret',
       object: 'Admin API Entreprise request from Attestations Downloader'
     }
   end
@@ -16,8 +16,10 @@ RSpec.describe Siade, type: :service do
   let(:siret) { siret_valid }
   let(:siren) { siren_valid }
 
+  before { allow(token).to receive(:rehash).and_return('dummy token rehash') }
+
   describe '#entreprise', type: :request do
-    subject { described_class.new(token_rehash: token_rehash).entreprises(siret: siret) }
+    subject { described_class.new(token: token).entreprises(siret: siret) }
 
     let(:endpoint_url) { "#{siade_url}v2/entreprises/#{siret}" }
 
@@ -49,7 +51,7 @@ RSpec.describe Siade, type: :service do
   end
 
   describe '#attestations_sociales', type: :request do
-    subject { described_class.new(token_rehash: token_rehash).attestations_sociales(siren: siren) }
+    subject { described_class.new(token: token).attestations_sociales(siren: siren) }
 
     let(:endpoint_url) { "#{siade_url}v2/attestations_sociales_acoss/#{siren}" }
 
@@ -81,7 +83,7 @@ RSpec.describe Siade, type: :service do
   end
 
   describe '#attestations_fiscales', type: :request do
-    subject { described_class.new(token_rehash: token_rehash).attestations_fiscales(siren: siren) }
+    subject { described_class.new(token: token).attestations_fiscales(siren: siren) }
 
     let(:endpoint_url) { "#{siade_url}v2/attestations_fiscales_dgfip/#{siren}" }
 

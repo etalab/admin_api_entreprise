@@ -9,10 +9,13 @@ class SiadeClientError < StandardError
 end
 
 class Siade
-  def initialize(token_rehash:)
-    token_rehash = File.read('config/apientreprise_test_token') if Rails.env.development?
-
-    @token_rehash = token_rehash
+  def initialize(token:)
+    @token = token
+    @token_rehash = if Rails.env.development?
+                      File.read('config/apientreprise_test_token')
+                    else
+                      token.rehash
+                    end
   end
 
   def entreprises(siret:)
@@ -62,7 +65,7 @@ class Siade
   end
 
   def recipient
-    siret_dinum
+    @token.siret || siret_dinum
   end
 
   def siret_dinum
