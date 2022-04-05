@@ -14,6 +14,10 @@ class UserPolicy < ApplicationPolicy
     admin? || current_user?
   end
 
+  def any_token_with_attestation_role?
+    jwt_user.jwt_api_entreprise.flat_map { |jwt| jwt.decorate.attestations_roles }.any?
+  end
+
   private
 
   def admin?

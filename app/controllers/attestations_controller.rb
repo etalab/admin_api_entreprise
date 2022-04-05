@@ -1,5 +1,5 @@
 class AttestationsController < AuthenticatedUsersController
-  before_action :redirect_unless_authorized
+  before_action :authorize!
 
   def index
     @jwts = current_user.jwt_api_entreprise
@@ -27,8 +27,8 @@ class AttestationsController < AuthenticatedUsersController
     handle_error!(e)
   end
 
-  def redirect_unless_authorized
-    redirect_to user_profile_path unless current_user.any_token_with_attestation_role?
+  def authorize!
+    authorize User, :any_token_with_attestation_role?
   end
 
   def handle_error!(error)
