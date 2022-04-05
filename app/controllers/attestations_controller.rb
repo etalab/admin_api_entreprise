@@ -4,13 +4,13 @@ class AttestationsController < AuthenticatedUsersController
   def index
     @jwts = current_user.jwt_api_entreprise
 
-    @best_jwt = JwtRolesDecorator.best_jwt_to_retrieve_attestations(@jwts)
+    @best_jwt = JwtAPIEntreprise.best_jwt_to_retrieve_attestations(@jwts)
   end
 
   def new; end
 
   def search
-    @jwt_roles_decorator = JwtRolesDecorator.new(jwt_id: params[:jwt_id])
+    @jwt = JwtAPIEntreprise.find(params[:jwt_id])
 
     siade_search
 
@@ -22,7 +22,7 @@ class AttestationsController < AuthenticatedUsersController
   private
 
   def siade_search
-    @attestation_facade = EntrepriseWithAttestationsFacade.new(jwt: @jwt_roles_decorator.jwt, siret: params[:siret])
+    @attestation_facade = EntrepriseWithAttestationsFacade.new(jwt: @jwt, siret: params[:siret])
   rescue SiadeClientError => e
     handle_error!(e)
   end

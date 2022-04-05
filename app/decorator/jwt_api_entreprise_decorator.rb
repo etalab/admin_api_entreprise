@@ -1,8 +1,6 @@
-class JwtRolesDecorator
-  attr_reader :jwt
-
-  def initialize(jwt_id:)
-    @jwt = JwtAPIEntreprise.find(jwt_id)
+class JwtAPIEntrepriseDecorator
+  def initialize(jwt)
+    @jwt = jwt
   end
 
   def roles
@@ -19,10 +17,6 @@ class JwtRolesDecorator
 
   def include_attestation_fiscale?
     attestations_roles.map(&:code).include? 'attestations_fiscales'
-  end
-
-  def self.best_jwt_to_retrieve_attestations(jwts)
-    jwts.max_by { |jwt| new(jwt_id: jwt.id).attestations_roles }
   end
 
   private

@@ -9,7 +9,7 @@ class EntrepriseWithAttestationsFacade
   def preload_available_endpoints(jwt)
     entreprise
 
-    jwt_roles = JwtRolesDecorator.new(jwt_id: jwt.id).roles
+    jwt_roles = jwt.decorate.roles
 
     attestation_sociale_url if jwt_roles.include? 'attestations_sociales'
     attestation_fiscale_url if jwt_roles.include? 'attestations_fiscales'
