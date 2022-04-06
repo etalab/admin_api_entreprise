@@ -129,7 +129,7 @@ end
 desc "Seeds database (only works in sandbox)"
 task :seeds => :environment do
   in_path(fetch(:current_path)) do
-    command %(bundle exec rails db:seed)
+    command %(RAILS_ENV=#{ENV['to']} bundle exec rails db:seed)
   end
 end
 

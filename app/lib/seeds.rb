@@ -44,14 +44,16 @@ class Seeds
   def flushdb
     raise 'Not in production!' if Rails.env.production?
 
-    [
-      User,
-      AuthorizationRequest,
-      JwtAPIEntreprise,
-      Contact
-    ].each do |model_klass|
-      model_klass.find_each do |model|
-        model.destroy
+    ActiveRecord::Base.connection.transaction do
+      [
+        User,
+        AuthorizationRequest,
+        JwtAPIEntreprise,
+        Contact
+      ].each do |model_klass|
+        model_klass.find_each do |model|
+          model.destroy
+        end
       end
     end
   end
