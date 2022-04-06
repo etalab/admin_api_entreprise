@@ -23,6 +23,10 @@
         &nbsp;
         <%= "#{t('.attestation_sociale')} (PDF)" %>
       <% end %>
+    <% else %>
+      <span class="fr-btn fr-btn--secondary center" disabled>
+        <%= t('.attestation_sociale') %> <br/> <%= t('.not_downloadable') %>
+      </span>
     <% end %>
 
     <% if @jwt.decorate.include_attestation_fiscale? %>
@@ -32,6 +36,10 @@
         &nbsp;
         <%= "#{t('.attestation_fiscale')} (PDF)" %>
       <% end %>
+    <% else %>
+      <span class="fr-btn fr-btn--secondary center" disabled>
+        <%= t('.attestation_fiscale') %> <br/> <%= t('.not_downloadable') %>
+      </span>
     <% end %>
   </div>
 <% end %>
