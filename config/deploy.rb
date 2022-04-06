@@ -109,6 +109,7 @@ task :deploy => :environment do
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
+    invoke :'reindex_algolia'
     invoke :cgu_to_pdf
     invoke :'deploy:cleanup'
 
@@ -118,7 +119,6 @@ task :deploy => :environment do
         command %{touch tmp/restart.txt}
         invoke :restart_sidekiq
         invoke :'passenger'
-        invoke :'reindex_algolia'
       end
     end
   end
