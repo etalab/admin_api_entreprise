@@ -31,6 +31,10 @@ class JwtAPIEntreprise < ApplicationRecord
     roles.pluck(:code)
   end
 
+  def expired?
+    exp < Time.zone.now.to_i
+  end
+
   def renewal_url
     "#{Rails.configuration.jwt_renewal_url}#{authorization_request.external_id}"
   end
