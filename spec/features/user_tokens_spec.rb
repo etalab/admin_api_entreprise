@@ -34,6 +34,13 @@ RSpec.describe 'User JWT listing', type: :feature do
       expect(page).not_to have_css("input[value='#{blacklisted_jwt.rehash}']")
     end
 
+    it 'does not display expired tokens' do
+      expired_jwt = create(:jwt_api_entreprise, exp: 1.day.ago, user:)
+      jwt_index
+
+      expect(page).not_to have_css("input[value='#{expired_jwt.rehash}']")
+    end
+
     it 'has no button to archive tokens' do
       jwt_index
 

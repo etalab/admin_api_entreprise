@@ -182,6 +182,24 @@ RSpec.describe JwtAPIEntreprise, type: :model do
     end
   end
 
+  describe '#expired?' do
+    context 'when not expired' do
+      let(:token) { create(:jwt_api_entreprise, exp: 1.day.from_now) }
+
+      it 'returns false' do
+        expect(token).not_to be_expired
+      end
+    end
+
+    context 'when expired' do
+      let(:token) { create(:jwt_api_entreprise, exp: 1.day.ago) }
+
+      it 'returns true' do
+        expect(token).to be_expired
+      end
+    end
+  end
+
   describe 'external URLs to DataPass' do
     let(:external_id) { jwt.authorization_request.external_id }
 

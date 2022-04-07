@@ -1,44 +1,19 @@
 class Seeds
   def perform
-    roles = create_roles
+    @roles = create_roles
 
-    user_email = 'user@yopmail.com'
-    user = create_user(
-      email: user_email,
-      phone_number: '0936656565',
-      first_name: 'Jean',
-      last_name: 'Dupont'
-    )
+    @user_email = 'user@yopmail.com'
 
-    create_user(
-      email: 'api-entreprise@yopmail.com',
-      phone_number: '0836656565',
-      admin: true
-    )
+    @user = create_main_user
 
-    token = create_token(user, roles.sample(2), authorization_request_params: {
-      intitule: 'Mairie de Lyon',
-      external_id: 51,
-      status: :validated,
-      first_submitted_at: 2.weeks.ago
-    })
-    create_contact(email: user_email, authorization_request: token.authorization_request, contact_type: 'admin')
+    create_admin
 
-    create_token(user, roles.sample(2), authorization_request_params: {
-      intitule: 'Mairie de Paris',
-      external_id: 42,
-      status: :validated,
-      first_submitted_at: 1.week.ago
-    })
-
-    create_authorization_request(
-      intitule: 'Mairie de Bruxelles',
-      user:,
-      status: :refused,
-      external_id: 69,
-      first_submitted_at: 2.years.ago,
-      validated_at: 2.years.ago + 1.week
-    )
+    create_token_with_contact
+    create_token_valid
+    create_token_archived
+    create_token_blacklisted
+    create_token_expired
+    create_authorization_refused
   end
 
   def flushdb
@@ -59,6 +34,83 @@ class Seeds
   end
 
   private
+
+  def create_main_user
+    create_user(
+      email: @user_email,
+      phone_number: '0936656565',
+      first_name: 'Jean',
+      last_name: 'Dupont'
+    )
+  end
+
+  def create_admin
+    create_user(
+      email: 'api-entreprise@yopmail.com',
+      phone_number: '0836656565',
+      admin: true
+    )
+  end
+
+  def create_token_with_contact
+    token = create_token(@user, @roles.sample(2), authorization_request_params: {
+      intitule: 'Mairie de Lyon',
+      external_id: 51,
+      status: :validated,
+      first_submitted_at: 2.weeks.ago
+    })
+    create_contact(email: @user_email, authorization_request: token.authorization_request, contact_type: 'admin')
+  end
+
+  def create_token_valid
+    create_token(@user, @roles.sample(2), authorization_request_params: {
+      intitule: 'Mairie de Lyon 2',
+      external_id: 52,
+      status: :validated,
+      first_submitted_at: 2.weeks.ago
+    })
+  end
+
+  def create_token_archived
+    create_token(@user, @roles.sample(2), token_params: { archived: true }, authorization_request_params: {
+      intitule: 'Mairie de Strasbourg',
+      external_id: 21,
+      status: :validated,
+      first_submitted_at: 1.week.ago
+    })
+  end
+
+  def create_token_blacklisted
+    create_token(@user, @roles.sample(2), token_params: { blacklisted: true }, authorization_request_params: {
+      intitule: 'Mairie de Paris',
+      external_id: 42,
+      status: :validated,
+      first_submitted_at: 1.week.ago
+    })
+  end
+
+  def create_token_expired
+    create_token(@user, @roles.sample(2),
+      token_params: { exp: 1.year.ago, created_at: 2.years.ago + 1.week },
+      authorization_request_params: {
+        intitule: 'Mairie de Montpellier',
+        external_id: 420,
+        status: :validated,
+        first_submitted_at: 2.years.ago,
+        validated_at: 2.years.ago + 1.week
+      })
+  end
+
+  def create_authorization_refused
+    create_authorization_request(
+      intitule: 'Mairie de Bruxelles',
+      user: @user,
+      status: :refused,
+      external_id: 69,
+      first_submitted_at: 2.years.ago,
+      validated_at: 2.years.ago + 1.week
+    )
+  end
 
   def create_user(params = {})
     User.create!(params)
@@ -85,13 +137,15 @@ class Seeds
     Contact.create!(params)
   end
 
-  def create_token(user, roles, authorization_request_params: {})
+  def create_token(user, roles, token_params: {}, authorization_request_params: {})
     authorization_request = create_authorization_request(authorization_request_params.merge(user:))
 
     token = JwtAPIEntreprise.create!(
-      JwtAPIEntreprise.default_create_params.merge(
-        authorization_request:
-      )
+      JwtAPIEntreprise.default_create_params
+        .merge(token_params)
+        .merge(
+          authorization_request:
+        )
     )
 
     token.roles = roles
