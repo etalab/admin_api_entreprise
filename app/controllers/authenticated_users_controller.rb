@@ -9,13 +9,15 @@ class AuthenticatedUsersController < ApplicationController
 
   def authenticate_user!
     unless user_signed_in?
-      error_message(title: t('sessions.unauthorized.error.title'))
+      error_message(title: t('sessions.unauthorized.signed_out.error.title'))
 
       redirect_to login_path
     end
   end
 
   def logged_user_not_authorized
+    error_message(title: t('sessions.unauthorized.signed_in.error.title'))
+
     redirect_to user_profile_path
   end
 end
