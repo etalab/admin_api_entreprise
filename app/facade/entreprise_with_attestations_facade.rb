@@ -32,7 +32,7 @@ class EntrepriseWithAttestationsFacade
   end
 
   def entreprise_payload
-    response = @siade_client.entreprises(siret: @siret)
+    response = @siade_client.entreprises(siren:)
 
     response['entreprise'].transform_keys(&:to_sym)
   end
