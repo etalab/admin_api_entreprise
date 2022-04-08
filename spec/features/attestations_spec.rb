@@ -154,7 +154,7 @@ RSpec.describe 'User can download attestations', type: :feature do
       end
     end
 
-    context 'when user is unauthorized' do
+    context 'when user choose a token which is unauthorized' do
       before do
         allow(siade_double).to receive(:entreprises).and_raise(SiadeClientError.new(401, '401 Unauthorized'))
         search

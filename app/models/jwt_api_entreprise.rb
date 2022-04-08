@@ -65,7 +65,7 @@ class JwtAPIEntreprise < ApplicationRecord
     JwtAPIEntrepriseDecorator.new(self)
   end
 
-  def self.best_jwt_to_retrieve_attestations(jwts)
+  def self.find_best_jwt_to_retrieve_attestations(jwts)
     jwts.max_by { |jwt| jwt.decorate.attestations_roles }
   end
 

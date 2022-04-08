@@ -43,7 +43,7 @@ class Siade
   def siade_request(endpoint)
     siade_url = [domain, endpoint, '?', siade_params].join
 
-    RestClient.get siade_url, siade_headers
+    RestClient.get(siade_url, siade_headers)
   rescue RestClient::Exception => e
     raise SiadeClientError.new(e.http_code, e.message)
   end
