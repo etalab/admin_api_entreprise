@@ -5,7 +5,6 @@ FactoryBot.define do
     sequence(:external_id) { |n| n.to_s }
     user { build(:user, :with_full_name) }
     status { 'draft' }
-    siret { 'dummy siret' }
 
     trait :without_external_id do
       external_id { nil }
