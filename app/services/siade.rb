@@ -18,8 +18,8 @@ class Siade
                     end
   end
 
-  def entreprises(siret:)
-    siade_result("v2/entreprises/#{siret}")
+  def entreprises(siren:)
+    siade_result("v2/entreprises/#{siren}")
   end
 
   def attestations_sociales(siren:)
