@@ -10,7 +10,6 @@ FactoryBot.define do
 
     transient do
       user { nil }
-      intitule { 'JWT' }
     end
 
     after(:build) do |jwt_api_entreprise, evaluator|
@@ -36,7 +35,6 @@ FactoryBot.define do
     trait :with_specific_roles do
       transient do
         specific_roles { ['entreprises'] }
-        intitule { 'JWT' }
       end
 
       roles do
