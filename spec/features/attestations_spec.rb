@@ -3,35 +3,6 @@ require 'rails_helper'
 RSpec.describe 'User attestations through tokens', type: :feature do
   include_context 'with siade payloads'
 
-  describe 'side menu' do
-    subject(:visit_profile) { visit user_profile_path }
-
-    before do
-      login_as(user)
-      visit_profile
-    end
-
-    context 'when user has no attestations role' do
-      let(:user) { create(:user) }
-
-      it 'hides menu item for attestations download' do
-        within('.authenticated-user-sidemenu') do
-          expect(page).not_to have_link('attestations-download')
-        end
-      end
-    end
-
-    context 'when user has attestations role' do
-      let(:user) { create :user, :with_jwt, roles: ['attestations_fiscales'] }
-
-      it 'shows menu item for attestations download' do
-        within('.authenticated-user-sidemenu') do
-          expect(page).to have_link('attestations-download', href: '/profile/attestations')
-        end
-      end
-    end
-  end
-
   describe 'token selection menu' do
     subject(:visit_attestations) { visit attestations_path }
 
