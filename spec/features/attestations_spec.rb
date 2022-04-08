@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'User can download attestations', type: :feature do
+RSpec.describe 'User attestations through tokens', type: :feature do
   include_context 'with siade payloads'
 
   describe 'side menu' do
@@ -32,7 +32,7 @@ RSpec.describe 'User can download attestations', type: :feature do
     end
   end
 
-  describe 'select menu' do
+  describe 'token selection menu' do
     subject(:visit_attestations) { visit attestations_path }
 
     let(:user) { create :user }
