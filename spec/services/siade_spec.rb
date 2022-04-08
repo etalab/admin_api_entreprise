@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Siade, type: :service do
   include_context 'with siade payloads'
 
-  let(:authorization_request) { create(:authorization_request, siret: 'dummy_siret')  }
+  let(:authorization_request) { create(:authorization_request, siret: 'dummy siret') }
   let(:token) { create(:jwt_api_entreprise, authorization_request:) }
   let(:siade_url) { Rails.application.credentials.siade_url }
   let(:siade_params) do
@@ -14,15 +14,14 @@ RSpec.describe Siade, type: :service do
     }
   end
   let(:siade_headers) { { Authorization: 'Bearer dummy token rehash' } }
-  let(:siret) { siret_valid }
   let(:siren) { siren_valid }
 
   before { allow(token).to receive(:rehash).and_return('dummy token rehash') }
 
   describe '#entreprise', type: :request do
-    subject { described_class.new(token:).entreprises(siret:) }
+    subject { described_class.new(token:).entreprises(siren:) }
 
-    let(:endpoint_url) { "#{siade_url}v2/entreprises/#{siret}" }
+    let(:endpoint_url) { "#{siade_url}v2/entreprises/#{siren}" }
 
     describe 'happy path' do
       before do
