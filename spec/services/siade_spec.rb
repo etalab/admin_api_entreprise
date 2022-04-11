@@ -21,7 +21,7 @@ RSpec.describe Siade, type: :service do
   describe '#entreprise', type: :request do
     subject { described_class.new(token:).entreprises(siren:) }
 
-    let(:endpoint_url) { "#{siade_url}v2/entreprises/#{siren}" }
+    let(:endpoint_url) { "#{siade_url}/v2/entreprises/#{siren}" }
 
     describe 'happy path' do
       before do
@@ -53,7 +53,7 @@ RSpec.describe Siade, type: :service do
   describe '#attestations_sociales', type: :request do
     subject { described_class.new(token:).attestations_sociales(siren:) }
 
-    let(:endpoint_url) { "#{siade_url}v2/attestations_sociales_acoss/#{siren}" }
+    let(:endpoint_url) { "#{siade_url}/v2/attestations_sociales_acoss/#{siren}" }
 
     describe 'happy path' do
       before do
@@ -85,7 +85,7 @@ RSpec.describe Siade, type: :service do
   describe '#attestations_fiscales', type: :request do
     subject { described_class.new(token:).attestations_fiscales(siren:) }
 
-    let(:endpoint_url) { "#{siade_url}v2/attestations_fiscales_dgfip/#{siren}" }
+    let(:endpoint_url) { "#{siade_url}/v2/attestations_fiscales_dgfip/#{siren}" }
 
     describe 'happy path' do
       before do

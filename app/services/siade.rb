@@ -41,15 +41,17 @@ class Siade
   end
 
   def siade_request(endpoint)
-    siade_url = [domain, endpoint, '?', siade_params].join
+    siade_uri = URI([domain, endpoint].join('/'))
 
-    RestClient.get(siade_url, siade_headers)
+    siade_uri.query = URI.encode_www_form(siade_params)
+
+    RestClient.get(siade_uri.to_s, siade_headers)
   rescue RestClient::Exception => e
     raise SiadeClientError.new(e.http_code, e.message)
   end
 
   def siade_params
-    ["context=#{context}", "recipient=#{recipient}", "object=#{object}"].join('&')
+    { context:, recipient:, object: }
   end
 
   def siade_headers
