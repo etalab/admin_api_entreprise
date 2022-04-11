@@ -1,11 +1,5 @@
-class JwtAPIEntrepriseDecorator
-  def initialize(jwt)
-    @jwt = jwt
-  end
-
-  def roles
-    @jwt.roles
-  end
+class JwtAPIEntrepriseDecorator < ApplicationDecorator
+  delegate_all
 
   def attestations_roles
     roles.select { |r| attestations_codes.include? r.code }

@@ -17,7 +17,7 @@
     </p>
 
     <div class="buttons-wrapper">
-      <% if @jwt.decorate.include_attestation_sociale? %>
+      <% if @jwt.include_attestation_sociale? %>
         <%= link_to @attestation_facade.attestation_sociale_url,
           { class: "fr-btn", id: 'attestation-sociale-download', target: "_blank" } do %>
           <span class="fr-fi-download-line" aria-hidden="true"></span>
@@ -30,7 +30,7 @@
         </span>
       <% end %>
 
-      <% if @jwt.decorate.include_attestation_fiscale? %>
+      <% if @jwt.include_attestation_fiscale? %>
         <%= link_to @attestation_facade.attestation_fiscale_url,
           { class: "fr-btn", id: 'attestation-fiscale-download', target: "_blank" } do %>
           <span class="fr-fi-download-line" aria-hidden="true"></span>

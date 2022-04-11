@@ -9,7 +9,7 @@ class EntrepriseWithAttestationsFacade
   def retrieve_data
     @entreprise = entreprise_result
 
-    jwt_role_codes = @jwt.decorate.roles.map(&:code)
+    jwt_role_codes = @jwt.roles.map(&:code)
 
     @attestation_sociale_url = attestation_sociale_result if jwt_role_codes.include? 'attestations_sociales'
     @attestation_fiscale_url = attestation_fiscale_result if jwt_role_codes.include? 'attestations_fiscales'

@@ -10,7 +10,7 @@ class AttestationsController < AuthenticatedUsersController
   def new; end
 
   def search
-    @jwt = JwtAPIEntreprise.find(params[:jwt_id])
+    @jwt = JwtAPIEntreprise.find(params[:jwt_id]).decorate
 
     siade_search
 
@@ -43,6 +43,7 @@ class AttestationsController < AuthenticatedUsersController
     redirect_to attestations_path
   end
 
+  # TODOOOOo
   def valid_param_siret
     siret = params[:siret].strip
 
