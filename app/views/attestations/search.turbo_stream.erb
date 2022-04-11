@@ -1,45 +1,47 @@
 <%= turbo_stream.replace "attestations-result" do %>
   <div class="fr-callout fr-mt-4w fr-text--regular" id="attestations-result">
     <p class="fr-callout__title">
-      <%= @attestation_facade.entreprise.raison_sociale %>
+      <%= @attestation_facade.entreprise_raison_sociale %>
     </p>
     <p>
       <strong><%= t('.company_type.label') %></strong>
-      <%= @attestation_facade.entreprise.forme_juridique %>
+      <%= @attestation_facade.entreprise_forme_juridique %>
     </p>
     <p>
       <strong><%= t('.company_category.label') %></strong>
-      <%= @attestation_facade.entreprise.categorie_entreprise %>
+      <%= @attestation_facade.categorie_entreprise %>
     </p>
     <p>
       <strong><%= t('.naf_code.label') %></strong>
-      <%= "#{@attestation_facade.entreprise.naf_entreprise} - #{@attestation_facade.entreprise.libelle_naf_entreprise}" %>
+      <%= @attestation_facade.entreprise_naf_full %>
     </p>
 
-    <% if @jwt.decorate.include_attestation_sociale? %>
-      <%= link_to @attestation_facade.attestation_sociale_url,
-        { class: "fr-btn", id: 'attestation-sociale-download', target: "_blank" } do %>
-        <span class="fr-fi-download-line" aria-hidden="true"></span>
-        &nbsp;
-        <%= t('.download_attestation_sociale_cta') %>
+    <div class="buttons-wrapper">
+      <% if @jwt.decorate.include_attestation_sociale? %>
+        <%= link_to @attestation_facade.attestation_sociale_url,
+          { class: "fr-btn", id: 'attestation-sociale-download', target: "_blank" } do %>
+          <span class="fr-fi-download-line" aria-hidden="true"></span>
+          &nbsp;
+          <%= t('.download_attestation_sociale_cta') %>
+        <% end %>
+      <% else %>
+        <span class="fr-btn fr-btn--secondary max-width-320 center" disabled>
+          <%= t('.attestation_sociale_not_downloadable') %>
+        </span>
       <% end %>
-    <% else %>
-      <span class="fr-btn fr-btn--secondary max-width-320 center" disabled>
-        <%= t('.attestation_sociale_not_downloadable') %>
-      </span>
-    <% end %>
 
-    <% if @jwt.decorate.include_attestation_fiscale? %>
-      <%= link_to @attestation_facade.attestation_fiscale_url,
-        { class: "fr-btn", id: 'attestation-fiscale-download', target: "_blank" } do %>
-        <span class="fr-fi-download-line" aria-hidden="true"></span>
-        &nbsp;
-        <%= t('.download_attestation_fiscale_cta') %>
+      <% if @jwt.decorate.include_attestation_fiscale? %>
+        <%= link_to @attestation_facade.attestation_fiscale_url,
+          { class: "fr-btn", id: 'attestation-fiscale-download', target: "_blank" } do %>
+          <span class="fr-fi-download-line" aria-hidden="true"></span>
+          &nbsp;
+          <%= t('.download_attestation_fiscale_cta') %>
+        <% end %>
+      <% else %>
+        <span class="fr-btn fr-btn--secondary max-width-320 center" disabled>
+          <%= t('.attestation_fiscale_not_downloadable') %>
+        </span>
       <% end %>
-    <% else %>
-      <span class="fr-btn fr-btn--secondary max-width-320 center" disabled>
-        <%= t('.attestation_fiscale_not_downloadable') %>
-      </span>
-    <% end %>
+    </div>
   </div>
 <% end %>

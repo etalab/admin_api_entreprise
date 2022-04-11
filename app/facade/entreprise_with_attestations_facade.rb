@@ -37,6 +37,13 @@ class EntrepriseWithAttestationsFacade
     response['entreprise'].transform_keys(&:to_sym)
   end
 
+  def entreprise_naf_full
+    "#{entreprise.naf_entreprise} - #{entreprise.libelle_naf_entreprise}"
+  end
+
+  delegate :raison_sociale, :forme_juridique, to: :entreprise, prefix: true
+  delegate :categorie_entreprise, to: :entreprise
+
   def siren
     @siret.first(9)
   end
