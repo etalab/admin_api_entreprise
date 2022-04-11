@@ -14,6 +14,7 @@ RSpec.describe Siade, type: :service do
     }
   end
   let(:siade_headers) { { Authorization: 'Bearer dummy token rehash' } }
+  let(:siade_error_body) { { errors: ['Siade error msg'] }.to_json }
   let(:siren) { siren_valid }
 
   before { allow(token).to receive(:rehash).and_return('dummy token rehash') }
@@ -39,12 +40,12 @@ RSpec.describe Siade, type: :service do
       before do
         stub_request(:get, endpoint_url)
           .with(query: siade_params, headers: siade_headers)
-          .to_return(status: 404)
+          .to_return(status: 404, body: siade_error_body)
       end
 
       it 'raises SiadeClientError' do
         expect { subject }.to raise_error(
-          an_instance_of(SiadeClientError).and(having_attributes(code: 404, message: '404 Not Found'))
+          an_instance_of(SiadeClientError).and(having_attributes(code: 404, message: 'Siade error msg'))
         )
       end
     end
@@ -71,12 +72,12 @@ RSpec.describe Siade, type: :service do
       before do
         stub_request(:get, endpoint_url)
           .with(query: siade_params, headers: siade_headers)
-          .to_return(status: 401)
+          .to_return(status: 401, body: siade_error_body)
       end
 
       it 'raises SiadeClientError' do
         expect { subject }.to raise_error(
-          an_instance_of(SiadeClientError).and(having_attributes(code: 401, message: '401 Unauthorized'))
+          an_instance_of(SiadeClientError).and(having_attributes(code: 401, message: 'Siade error msg'))
         )
       end
     end
@@ -103,12 +104,12 @@ RSpec.describe Siade, type: :service do
       before do
         stub_request(:get, endpoint_url)
           .with(query: siade_params, headers: siade_headers)
-          .to_return(status: 422)
+          .to_return(status: 422, body: siade_error_body)
       end
 
       it 'raises SiadeClientError' do
         expect { subject }.to raise_error(
-          an_instance_of(SiadeClientError).and(having_attributes(code: 422, message: '422 Unprocessable Entity'))
+          an_instance_of(SiadeClientError).and(having_attributes(code: 422, message: 'Siade error msg'))
         )
       end
     end

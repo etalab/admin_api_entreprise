@@ -54,6 +54,16 @@ RSpec.describe 'User attestations through tokens', type: :feature do
     let(:siret) { siret_valid }
     let(:token) { 'JWT with no roles' }
 
+    context 'when user doesnt fill the siret field' do
+      let(:siret) { ' ' }
+
+      before { search }
+
+      it 'fails with invalid message' do
+        expect(page).to have_css('#error-422')
+      end
+    end
+
     context 'when user search a valid siret' do
       let(:token) { 'JWT with roles: ["attestations_fiscales"]' }
 

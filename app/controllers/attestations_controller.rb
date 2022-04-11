@@ -22,7 +22,7 @@ class AttestationsController < AuthenticatedUsersController
   private
 
   def siade_search
-    @attestation_facade = EntrepriseWithAttestationsFacade.new(jwt: @jwt, siret: params[:siret])
+    @attestation_facade = EntrepriseWithAttestationsFacade.new(jwt: @jwt, siret: valid_param_siret)
   rescue SiadeClientError => e
     handle_error!(e)
   end
@@ -35,10 +35,18 @@ class AttestationsController < AuthenticatedUsersController
     flash_message(
       :error,
       title: 'Erreur lors de la recherche',
-      description: I18n.t(".attestations.search.error.#{error.code}"),
+      description: error.message,
       id: "error-#{error.code}"
     )
 
     redirect_to attestations_path
+  end
+
+  def valid_param_siret
+    siret = params[:siret].strip
+
+    raise SiadeClientError.new(422, 'Champ SIRET non rempli') if siret.blank?
+
+    siret
   end
 end

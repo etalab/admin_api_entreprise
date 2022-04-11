@@ -47,7 +47,7 @@ class Siade
 
     RestClient.get(siade_uri.to_s, siade_headers)
   rescue RestClient::Exception => e
-    raise SiadeClientError.new(e.http_code, e.message)
+    raise SiadeClientError.new(e.http_code, extract_error_msg(e))
   end
 
   def siade_params
@@ -76,5 +76,9 @@ class Siade
 
   def object
     'Admin API Entreprise request from Attestations Downloader'
+  end
+
+  def extract_error_msg(error)
+    JSON.parse(error.http_body)['errors'].first
   end
 end
