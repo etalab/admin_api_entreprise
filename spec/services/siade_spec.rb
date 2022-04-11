@@ -36,6 +36,16 @@ RSpec.describe Siade, type: :service do
       end
     end
 
+    context 'when called with empty string' do
+      let(:siren) { ' ' }
+
+      it 'raises SiadeClientError' do
+        expect { subject }.to raise_error(
+          an_instance_of(SiadeClientError).and(having_attributes(code: 422, message: 'Champ SIRET ou SIREN non rempli'))
+        )
+      end
+    end
+
     context 'when it is not found (404)' do
       before do
         stub_request(:get, endpoint_url)
@@ -68,6 +78,16 @@ RSpec.describe Siade, type: :service do
       end
     end
 
+    context 'when called with empty string' do
+      let(:siren) { ' ' }
+
+      it 'raises SiadeClientError' do
+        expect { subject }.to raise_error(
+          an_instance_of(SiadeClientError).and(having_attributes(code: 422, message: 'Champ SIRET ou SIREN non rempli'))
+        )
+      end
+    end
+
     context 'when token is unauthorized (401)' do
       before do
         stub_request(:get, endpoint_url)
@@ -97,6 +117,16 @@ RSpec.describe Siade, type: :service do
 
       it 'returns correct result' do
         expect(subject['url']).to eq('http://entreprise.api.gouv.fr/uploads/attestation_fiscale.pdf')
+      end
+    end
+
+    context 'when called with empty string' do
+      let(:siren) { '' }
+
+      it 'raises SiadeClientError' do
+        expect { subject }.to raise_error(
+          an_instance_of(SiadeClientError).and(having_attributes(code: 422, message: 'Champ SIRET ou SIREN non rempli'))
+        )
       end
     end
 

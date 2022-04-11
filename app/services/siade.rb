@@ -19,14 +19,20 @@ class Siade
   end
 
   def entreprises(siren:)
+    check_presence!(siren)
+
     siade_result("v2/entreprises/#{siren}")
   end
 
   def attestations_sociales(siren:)
+    check_presence!(siren)
+
     siade_result("v2/attestations_sociales_acoss/#{siren}")
   end
 
   def attestations_fiscales(siren:)
+    check_presence!(siren)
+
     siade_result("v2/attestations_fiscales_dgfip/#{siren}")
   end
 
@@ -80,5 +86,9 @@ class Siade
 
   def extract_error_msg(error)
     JSON.parse(error.http_body)['errors'].first
+  end
+
+  def check_presence!(siret_or_siren)
+    raise SiadeClientError.new(422, 'Champ SIRET ou SIREN non rempli') if siret_or_siren.blank?
   end
 end
