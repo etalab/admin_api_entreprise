@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe UserPolicy do
+RSpec.describe AttestationPolicy do
   subject { described_class }
 
-  permissions :any_token_with_attestation_role? do
+  permissions :any? do
     context 'when user doesnt have attestation roles' do
       let(:user) { create :user }
 

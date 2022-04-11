@@ -28,7 +28,7 @@ class AttestationsController < AuthenticatedUsersController
   end
 
   def authorize!
-    authorize User, :any_token_with_attestation_role?
+    authorize :attestation, :any?
   end
 
   def handle_error!(error)
