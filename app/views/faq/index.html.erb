@@ -28,7 +28,7 @@
           <div class="fr-sidemenu__inner">
             <div class="fr-collapse" id="fr-sidemenu-wrapper">
               <ul class="fr-sidemenu__list">
-                <% @faq_entries_grouped_by_entries.keys.each do |category_name| %>
+                <% @faq_entries_grouped_by_categories.keys.each do |category_name| %>
                   <%= render partial: "shared/sidemenu_list_item", locals: { path: faq_index_path(anchor: category_name.parameterize), link_name: category_name } %>
                 <% end %>
               </ul>
@@ -38,7 +38,7 @@
       </div>
 
       <div class="fr-col-12 fr-col-sm-8 fr-col-md-9">
-        <% @faq_entries_grouped_by_entries.each do |category_name, faq_entries| %>
+        <% @faq_entries_grouped_by_categories.each do |category_name, faq_entries| %>
           <h2 id="<%= category_name.parameterize %>" class="fr-mt-4w">
             <%= category_name %>
           </h2>
