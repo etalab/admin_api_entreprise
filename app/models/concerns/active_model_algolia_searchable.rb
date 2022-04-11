@@ -19,11 +19,17 @@ module ActiveModelAlgoliaSearchable
       return all if conditions.blank?
 
       all.select do |entry|
-        conditions.all? do |key, values|
-          Array.wrap(values).include?(entry.public_send(key))
+        conditions.all? do |attr, values|
+          values_includes_entry_attribute?(entry, attr, values)
         end
       end
     end
+
+    def self.values_includes_entry_attribute?(entry, attr, values)
+      Array.wrap(values).include?(entry.public_send(attr))
+    end
+
+    private_class_method :values_includes_entry_attribute?
   end
 
   def id
