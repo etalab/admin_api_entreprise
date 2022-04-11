@@ -55,50 +55,63 @@ document.addEventListener("turbo:load", function () {
         var query = event.results[0].query;
 
         event.results[0].hits.forEach(function (hit) {
-          var entry = document.querySelector(
-            "[data-algolia-search-with-accordion-hit='" + hit.objectID + "']"
+          entriesInResult = controller._handleHit(
+            controller,
+            query,
+            hit,
+            entriesInResult
           );
-          entriesInResult.push(entry);
-
-          entry
-            .querySelectorAll(
-              "[data-algolia-search-with-accordion-hit-attribute]"
-            )
-            .forEach(function (element) {
-              var attribute = element.getAttribute(
-                "data-algolia-search-with-accordion-hit-attribute"
-              );
-
-              if (
-                controller.hasAttributesToHighlightValue &&
-                controller.attributesToHighlightValue.includes(attribute)
-              ) {
-                element.innerHTML = instantsearch.highlight({
-                  attribute: attribute,
-                  hit: hit,
-                });
-              } else {
-                element.innerHTML = hit[attribute];
-              }
-            });
-
-          entry.classList.remove("fr-hidden");
-
-          if (query != "") {
-            controller._openEntry(entry);
-          }
         });
 
         controller._hideEntriesNotInResult(controller, entriesInResult);
 
         if (query == "") {
-          var allEntries = document.querySelectorAll(
-            "[data-algolia-search-with-accordion-hit]"
-          );
+          controller._closeAllEntries(controller);
+        }
+      }
 
-          allEntries.forEach(function (entry) {
-            controller._closeEntry(entry);
+      _handleHit(controller, query, hit, entriesInResult) {
+        var entry = document.querySelector(
+          "[data-algolia-search-with-accordion-hit='" + hit.objectID + "']"
+        );
+        entriesInResult.push(entry);
+
+        entry
+          .querySelectorAll(
+            "[data-algolia-search-with-accordion-hit-attribute]"
+          )
+          .forEach(function (element) {
+            controller._handleHitHighlightingAttribute(
+              controller,
+              hit,
+              element
+            );
           });
+
+        entry.classList.remove("fr-hidden");
+
+        if (query != "") {
+          controller._openEntry(entry);
+        }
+
+        return entriesInResult;
+      }
+
+      _handleHitHighlightingAttribute(controller, hit, element) {
+        var attribute = element.getAttribute(
+          "data-algolia-search-with-accordion-hit-attribute"
+        );
+
+        if (
+          controller.hasAttributesToHighlightValue &&
+          controller.attributesToHighlightValue.includes(attribute)
+        ) {
+          element.innerHTML = instantsearch.highlight({
+            attribute: attribute,
+            hit: hit,
+          });
+        } else {
+          element.innerHTML = hit[attribute];
         }
       }
 
@@ -113,6 +126,16 @@ document.addEventListener("turbo:load", function () {
 
             controller._closeEntry(entry);
           }
+        });
+      }
+
+      _closeAllEntries(controller) {
+        var allEntries = document.querySelectorAll(
+          "[data-algolia-search-with-accordion-hit]"
+        );
+
+        allEntries.forEach(function (entry) {
+          controller._closeEntry(entry);
         });
       }
 
