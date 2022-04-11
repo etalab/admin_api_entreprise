@@ -23,6 +23,7 @@ class AttestationsController < AuthenticatedUsersController
 
   def siade_search
     @attestation_facade = EntrepriseWithAttestationsFacade.new(jwt: @jwt, siret: valid_param_siret)
+    @attestation_facade.retrieve_data
   rescue SiadeClientError => e
     handle_error!(e)
   end

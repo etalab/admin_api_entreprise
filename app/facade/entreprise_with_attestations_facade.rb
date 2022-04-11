@@ -2,16 +2,14 @@ class EntrepriseWithAttestationsFacade
   attr_reader :entreprise, :attestation_sociale_url, :attestation_fiscale_url
 
   def initialize(jwt:, siret:)
+    @jwt = jwt
     @siret = siret
-    @siade_client = Siade.new(token: jwt)
-
-    preload_available_endpoints(jwt)
   end
 
-  def preload_available_endpoints(jwt)
+  def retrieve_data
     @entreprise = entreprise_result
 
-    jwt_role_codes = jwt.decorate.roles.map(&:code)
+    jwt_role_codes = @jwt.decorate.roles.map(&:code)
 
     @attestation_sociale_url = attestation_sociale_result if jwt_role_codes.include? 'attestations_sociales'
     @attestation_fiscale_url = attestation_fiscale_result if jwt_role_codes.include? 'attestations_fiscales'
@@ -35,17 +33,21 @@ class EntrepriseWithAttestationsFacade
   end
 
   def entreprise_payload
-    response = @siade_client.entreprises(siren:)
+    response = siade_client.entreprises(siren:)
 
     response['entreprise'].transform_keys(&:to_sym)
   end
 
   def attestation_sociale_result
-    @siade_client.attestations_sociales(siren:)['url']
+    siade_client.attestations_sociales(siren:)['url']
   end
 
   def attestation_fiscale_result
-    @siade_client.attestations_fiscales(siren:)['url']
+    siade_client.attestations_fiscales(siren:)['url']
+  end
+
+  def siade_client
+    Siade.new(token: @jwt)
   end
 
   def siren
