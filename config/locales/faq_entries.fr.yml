@@ -10,7 +10,7 @@ fr:
 
               Le token est **votre code secret** vous permettant d’utiliser l'API Entreprise. Pour le nommer, API Entreprise utilise les termes de "token", "jeton", "clé d'accès".
 
-              Si votre demande d’habilitation est validée, il vous est délivré dans votre [espace personnel](https://dashboard.entreprise.api.gouv.fr/profile).
+              Si votre demande d’habilitation est validée, il vous est délivré dans votre [espace personnel](<%= user_profile_path %>).
 
               **Cette clé est unique et privée** ; API Entreprise s'appuie sur un standard ouvert et normalisé de l’industrie : le Json Web Token (aka JWT) ([RFC 7519](https://datatracker.ietf.org/doc/html/rfc7519){:target="_blank"}). Ce jeton est autonome et permet de transmettre de façon sécurisée les informations d’authentifications nécessaires pour utiliser l’API. Ces jetons sont vérifiés et fiables car **signés numériquement avec une date d’expiration**.
 
@@ -23,13 +23,13 @@ fr:
               {:.fr-highlight}
               > ⚠️ C’est pourquoi, vous ne devez jamais copier-coller un token dans un moteur de recherche ou dans un e-mail. L’usage de votre token se fait uniquement dans votre logiciel métier sécurisé utilisé pour réaliser vos appels.
 
-              Pour transmettre votre jeton en toute sécurité, consultez cette autre [question de la FAQ](TODO).
+              Pour transmettre votre jeton en toute sécurité, consultez cette autre [question de la FAQ](<%= faq_index_path(anchor: 'comment-transmettre-le-jeton-d-acces-en-tout-securite') %>).
 
               #### Un token a une fin de vie
 
-              La durée de vie d’un token est limitée, sa date d’expiration est indiqué dans votre [espace personnel](https://dashboard.entreprise.api.gouv.fr/profile).
+              La durée de vie d’un token est limitée, sa date d’expiration est indiqué dans votre [espace personnel](<%= user_profile_path %>).
 
-              Le token peut également être supprimé s’il a été diffusé par mégarde. Le renouvellement d’un token est très facile et rapide. C’est pourquoi, si vous avez divulgué votre token par erreur, n’hésitez pas à écrire rapidement à support@entreprise.api.gouv.fr.
+              Le token peut également être supprimé s’il a été diffusé par mégarde. Le renouvellement d’un token est très facile et rapide. C’est pourquoi, si vous avez divulgué votre token par erreur, n’hésitez pas à écrire rapidement à [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr).
 
           - question: "Qu’est-ce qu’une API ?"
             answer: |+
@@ -47,7 +47,7 @@ fr:
             answer: |+
               API Entreprise **récupère pour vous les informations des entreprises et associations** auprès des différentes administrations et les restitue sous format standardisé :
 
-              => AJOUTER LE SCHEMA
+              ![Fonctionnement API Entreprise](<%= image_path('fonctionnement-api-entreprise.png') %>)
 
               API Entreprise répond à deux grands types d’usages :
 
@@ -63,7 +63,8 @@ fr:
                 > 💡 La création d’un formulaire pré-rempli est faite pour assister l’usager, celui-ci doit toujours pouvoir amender, rectifier ces mêmes informations sans difficultés.
                 > ☝️ Pourquoi passer par API Entreprise, qui nécessite une habilitation, si les données sont libres ? API Entreprise vous simplifie l’implémentation de cette aide à la saisie, en vous donnant accès à une information structurée, facilement intégrable dans votre produit.
 
-              API Entreprise facilite plusieurs types de démarches, pour en savoir plus, consultez nos [cas d'usage et leurs fiches pratiques](TODO).
+
+              API Entreprise facilite plusieurs types de démarches, pour en savoir plus, consultez nos [cas d'usage et leurs fiches pratiques](<%= root_path %>).
 
 
           - question: "Qu'est ce qu'API Entreprise change pour moi en tant qu'administration ?"
@@ -105,10 +106,10 @@ fr:
               - ❌ aux associations,
               - ❌ aux entreprises.
 
-              Il faut également être techniquement en mesure d'intégrer l'API Entreprise ([En savoir plus](TODO))
+              Il faut également être techniquement en mesure d'intégrer l'API Entreprise ([En savoir plus](<%= root_path %>))
               Pour vérifier votre éligibilité et faire une demande d'habilitation le cas échéant, suivez le lien suivant :
 
-              [VERIFIER SON ELIGIBILITE ET DEMANDER UN ACCES](TODO)
+              [VERIFIER SON ELIGIBILITE ET DEMANDER UN ACCES](<%= root_path %>)
 
               L’accès à l’API Entreprise est modéré et régulé par la DINUM, qui attribue des autorisations de récupération d’informations selon la nature des démarches à traiter (marchés publics, aides publiques,…).
 
@@ -131,7 +132,7 @@ fr:
                 La plupart des données disponibles sur API Entreprise sont protégées par des secrets. Vous assurez donc la protection de ces données et le respect des règles de confidentialité.
 
               Entre autres, le service doit empêcher l'accès aux données à quiconque n’ayant pas un niveau d’authentification suffisants. Leur accès est restreint aux seuls agents dûment habilités, dont les requêtes devront être tracées pour une durée de 36 mois.
-              [CONSULTER NOS CGU](/cgu)
+              [CONSULTER NOS CGU](<%= cgu_path %>)
 
           - question: "Quels sont les prérequis techniques pour utiliser l’API ?"
             answer: |+
@@ -146,7 +147,7 @@ fr:
               - vous avez une direction des systèmes d’information (DSI) qui peut intégrer des APIs ;
               - ou si vous travaillez ou vous vous apprêtez à travailler avec une équipe technique externe ou un éditeur de logiciel, qui doit être en mesure d’intégrer API Entreprise.
 
-              Cette équipe technique doit être en mesure de mettre en place les [fondamentaux techniques listés dans cette rubrique de la documentation technique](TODO).
+              Cette équipe technique doit être en mesure de mettre en place les [fondamentaux techniques listés dans cette rubrique de la documentation technique](<%= root_path %>).
 
               #### Prévoir les incidents et la résilience du service
 
@@ -168,11 +169,11 @@ fr:
 
               {:.fr-table}
 
-              | Éditeurs                                                                            |                                          Solution                                          |                     Cas d'usage                     |
-              | ----------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------: | :-------------------------------------------------: |
+              | Éditeurs                                                                            |                                          Solution                                                            |                     Cas d'usage                     |
+              | ----------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------: | :-------------------------------------------------: |
               | **AIFE** <br>(Agence pour l'Informatique Financière de l'État)<br> Agence publique  |                     [Service DUME](https://dume.chorus-pro.gouv.fr/#/){:target="_blank"}                     |                   Marchés publics                   |
               | **Achatpublic** <br> Entreprise privée                                              |                      [achatpublic.com](https://www.achatpublic.com/){:target="_blank"}                       |                   Marchés publics                   |
-              | **Achat Solutions** <br> Entreprise privée                                          |                    [achatpublic.com](https://www.achatsolutions.com/){:target="_blank"}                     |                   Marchés publics                   |
+              | **Achat Solutions** <br> Entreprise privée                                          |                    [achatpublic.com](https://www.achatsolutions.com/){:target="_blank"}                      |                   Marchés publics                   |
               | **Atexo** <br> Entreprise privée                                                    |                       [Place](https://www.marches-publics.gouv.fr/){:target="_blank"}                        |                   Marchés publics                   |
               | **AWS** <br> Entreprise privée                                                      |                       [AWS-achat](https://www.marches-publics.info){:target="_blank"}                        |                   Marchés publics                   |
               | **Atline Services** <br> Entreprise privée                                          |           [marchés-securises.fr](https://www.marches-securises.fr/entreprise/?){:target="_blank"}            |                   Marchés publics                   |
@@ -187,7 +188,7 @@ fr:
 
 
               {:.fr-highlight}
-              > ☝️ _Vous êtes éditeur de logiciel, proposez l'API Entreprise à vos clients mais ne figurez pas sur cette liste ?_ Écrivez nous à support@entreprise.api.gouv.fr
+              > ☝️ _Vous êtes éditeur de logiciel, proposez l'API Entreprise à vos clients mais ne figurez pas sur cette liste ?_ Écrivez nous à [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr)
 
 
 
@@ -214,15 +215,15 @@ fr:
               - **Le cas d'usage de votre demande**
 
                 {:.fr-highlight}
-                > ℹ️ Dans le cas où votre cas d'usage correspond aux [cas d'usages expliqués ici](TODO), vous pourrez cocher une case qui préremplira une partie du formulaire et vous permettra de gagner du temps et d'accélerer le temps d'instruction de votre dossier.
+                > ℹ️ Dans le cas où votre cas d'usage correspond aux [cas d'usages expliqués ici](<%= root_path %>), vous pourrez cocher une case qui préremplira une partie du formulaire et vous permettra de gagner du temps et d'accélerer le temps d'instruction de votre dossier.
               - **Le nom et une description précise de votre service**
                 Ce champ a pour objectif de nous aider à comprendre quel est l'objectif de votre service, qui l'utilisera, et à quoi serviront les données que vous nous demandez.
               - **La liste des données souhaitées**
 
                 {:.fr-highlight}
                 > ℹ️ Pour les identifier, vous pouvez vous aider :
-                >    - du [catalogue de données](../catalogue/). Il présente l'ensemble des endpoints disponibles accompagnés d'une documentation fonctionnelle et technique.
-                >   - des [cas d'usage](../cas_usage/) proposés par API Entreprise.
+                >   - du [catalogue de données](<%= endpoints_path %>). Il présente l'ensemble des endpoints disponibles accompagnés d'une documentation fonctionnelle et technique.
+                >   - des [cas d'usage](<%= root_path %>) proposés par API Entreprise.
                 > Nous y décrivons les données utiles. Si votre besoin correspond à l'un de ses cas d'usage, vous pourrez vous appuyez sur le formulaire pré-rempli adéquat.
 
               - **Le traitement des données personnelles**
@@ -253,7 +254,7 @@ fr:
                   {:.fr-highlight}
                   > ℹ️ Le contact métier et le contact technique peuvent être confondus, notamment si vous passez par un éditeur.
               - **L'acceptation des conditions d'utilisation API Entreprise**
-                Avant tout envoi de votre demande, vous devez **[accepter nos conditions générales d’utilisation](../cgu/)**.
+                Avant tout envoi de votre demande, vous devez **[accepter nos conditions générales d’utilisation](<%= cgu_path %>)**.
                 Nous vous invitons à les lire attentivement car une grande partie des données circulant par le biais d'API Entreprise sont sensibles. **Votre futur accès à l'API s'accompagne d'engagements**, notamment, entre autres, ceux de présenter les données uniquement aux agents habilités et de tracer l'accès de ces données.
 
           - question: "Je n'ai pas de nouvelles de ma demande d'habilitation"
@@ -284,10 +285,10 @@ fr:
         entries:
           - question: "Comment transmettre le jeton d'accès en tout sécurité ?"
             answer: |+
-              Actuellement, seule la personne ayant rempli la demande d'habilitation peut accéder au [tableau de bord](https://dashboard.entreprise.api.gouv.fr/login) et y récupérer le jeton d'accès. C'est pourquoi, il est fréquent que cette personne ait besoin ponctuellement de transmettre le jeton à une autre personne, notamment pour que l'équipe technique puisse intégrer l'API.
+              Actuellement, seule la personne ayant rempli la demande d'habilitation peut accéder au [tableau de bord](<%= user_profile_path %>) et y récupérer le jeton d'accès. C'est pourquoi, il est fréquent que cette personne ait besoin ponctuellement de transmettre le jeton à une autre personne, notamment pour que l'équipe technique puisse intégrer l'API.
 
               {:.fr-highlight}
-              > ⚠️ Comme expliqué [ici](TODO), votre token vous est propre, il ne faut pas surtout pas le copier/coller dans un e-mail.
+              > ⚠️ Comme expliqué [ici](<%= root_path %>), votre token vous est propre, il ne faut pas surtout pas le copier/coller dans un e-mail.
 
               Pour transmettre votre jeton, **utilisez la fonctionnalité prévue dans votre tableau de bord**. Cliquez sur le bouton "Transmettre le jeton" (blanc au contour bleu) situé juste en dessous de l'encadré du jeton. Une fenêtre s'ouvre alors, elle vous rappelle vos engagements, et vous permet d'indiquer une adresse e-mail. En cliquant sur "Envoyer", un courriel sera transmis à cette adresse, avec, à l'intérieur, **un lien d'une durée de 4 heures, qui permettra à l'utilisateur de récupérer le jeton sur le tableau de bord**.
 
@@ -333,7 +334,7 @@ fr:
             answer: |+
               Pour des **raisons de sécurité**, tous les jetons émis sont valables pour une **durée de 18 mois**. Au delà de ce délai, ils ne fonctionnent plus, et votre accès à l’API Entreprise est donc totalement arrêté.
 
-              En réalité, cette situation n’est pas censée arriver car API Entreprise a mis en place une [procédure simple de renouvellement de token](TODO).
+              En réalité, cette situation n’est pas censée arriver car API Entreprise a mis en place une [procédure simple de renouvellement de token](<%= root_path %>).
 
 
 
@@ -365,28 +366,28 @@ fr:
 
               Si l'incident n'est pas repertorié, et que le service API Entreprise semble soudainement rejeter toutes vos requêtes, il est probable que vous ayez effectué un trop grand nombre d'appels et que vous ayez été bannis momentanément.
 
-              En cas de dépassement de la [volumétrie autorisée](TODO), et pour des raisons de sécurité, le serveur ne répond plus pour ne pas être surchargé.
-              Si c’est le cas, votre application est bannie pour une durée fixe et non révocable de 12 heures. Si vous avez plusieurs jetons, tous seront donc bloqués pendant ce laps de temps. Pendant cette durée, le serveur ne répondra plus. Vous pouvez par contre vous rendre sur votre [tableau de bord](https://dashboard.entreprise.api.gouv.fr/login) et vérifier vos statistiques d'appels pour identifier si vous avez dépassé le volume maximal autorisé.
+              En cas de dépassement de la [volumétrie autorisée](<%= root_path %>), et pour des raisons de sécurité, le serveur ne répond plus pour ne pas être surchargé.
+              Si c’est le cas, votre application est bannie pour une durée fixe et non révocable de 12 heures. Si vous avez plusieurs jetons, tous seront donc bloqués pendant ce laps de temps. Pendant cette durée, le serveur ne répondra plus. Vous pouvez par contre vous rendre sur votre [tableau de bord](<%= user_profile_path %>) et vérifier vos statistiques d'appels pour identifier si vous avez dépassé le volume maximal autorisé.
 
               Au bout de ces 12 heures, vos accès sont automatiquement rétablis ; il est donc inutile d’écrire au support.
               Nous vous invitons à prendre les mesures nécessaires car le dépassement intervient généralement chez nos utilisateurs lorsque leur programme n’a pas été correctement configuré.
 
               **3. Contactez le support**
 
-              Si l'incident n'est pas déjà repertorié par API Entreprise et si vous n'avez pas dépassé la volumétrie autorisée, vous pouvez nous contacter sur support@entreprise.api.gouv.fr.
+              Si l'incident n'est pas déjà repertorié par API Entreprise et si vous n'avez pas dépassé la volumétrie autorisée, vous pouvez nous contacter sur [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr)
 
           - question: "J'ai dépassé la volumétrie, mon IP est bannie, comment faire ?"
             answer: |+
               En cas de non prise en compte des codes erreurs 429 ou en cas de dépassement de la limite de volumétrie globale, votre IP est temporairement bannie de nos serveurs pour une durée fixe et non révocable de 12h. Si vous avez plusieurs jetons, tous seront donc bloqués pendant ce laps de temps.
 
-              Les appels depuis une IP bannie ne renvoient pas de codes HTTP, le serveur ne répond tout simplement pas. Vous pouvez en revanche vérifier si vous avez dépassé ce seuil depuis votre [tableau de bord](https://dashboard.entreprise.api.gouv.fr/login).
+              Les appels depuis une IP bannie ne renvoient pas de codes HTTP, le serveur ne répond tout simplement pas. Vous pouvez en revanche vérifier si vous avez dépassé ce seuil depuis votre [tableau de bord](<%= user_profile_path %>).
 
               **Au bout de ces 12 heures, vos accès sont automatiquement rétablis ; il est donc inutile d’écrire au support**.
               Nous vous invitons à prendre les mesures nécessaires car le dépassement intervient généralement chez nos utilisateurs lorsque leur programme n’a pas été correctement configuré.
 
           - question: "J’ai besoin de plus de volumétrie, comment être whitelisté ?"
             answer: |+
-              Ce n’est pas possible ! **La [volumétrie indiquée](TODO) est le maximum possible** pour que nous puissions garantir la qualité du service à tous nos utilisateurs.
+              Ce n’est pas possible ! **La [volumétrie indiquée](<%= root_path %>) est le maximum possible** pour que nous puissions garantir la qualité du service à tous nos utilisateurs.
 
           - question: "Comment être averti des incidents et maintenances ?"
             answer: |+
@@ -394,14 +395,14 @@ fr:
 
           - question: "Quels sont les engagements de l’API Entreprise en termes de disponibilité ?"
             answer: |+
-              Comment indiqué dans les [conditions générales d'utilisation](TODO), la DINUM qui opère l'API Entreprise _"s'engage à ce que le service soit accessible à 99,5%"_. La disponibilité réelle du service API Entreprise était de TODO en TODO.
+              Comment indiqué dans les [conditions générales d'utilisation](<%= cgu_path %>), la DINUM qui opère l'API Entreprise _"s'engage à ce que le service soit accessible à 99,5%"_. La disponibilité réelle du service API Entreprise était de TODO en TODO.
 
               L’engagement de disponibilité _"porte sur le service API Entreprise et non pas sur les dispositifs d’échange sous-jacents"_ car ceux-ci _"dépendent d’entités sur lesquels la DINUM n’a pas d’autorité fonctionnelle ou hiérarchique"_. Cela signifie que l'engagement des 99,5% n'est pas applicable aux disponibilités des API en elles-même car celles-ci dépendent des fournisseurs de la donnée.
 
               Si l'API Entreprise ne peut pas s'engager formellement sur la disponibilité des API, elle fait toutefois un travail de fond pour :
 
               - accompagner ses partenaires et fournisseurs de données vers une meilleure mise à disposition des données ;
-              - rendre compte de la disponibilité des API au travers de sa [page de statuts](https://status.entreprise.api.gouv.fr/) et de sa [page de disponibilité](https://stats.uptimerobot.com/o717RFXxMM){:target="_blank"}.
+              - rendre compte de la disponibilité des API au travers de sa [page de statuts](https://status.entreprise.api.gouv.fr/){:target="_blank"} et de sa [page de disponibilité](https://stats.uptimerobot.com/o717RFXxMM){:target="_blank"}.
 
 
 
@@ -426,7 +427,7 @@ fr:
             answer: |+
               Le tableau de bord est un **espace uniquement disponible aux utilisateurs de l'API Entreprise**. Pour vous connecter au tableau de bord, il vous faut d'abord avoir obtenu une validation de votre demande d'habilitation.
 
-              Par ailleurs, **seule la personne ayant rempli le formulaire d’habilitation** à l’API Entreprise possède un compte donnant accès au [tableau de bord](https://dashboard.entreprise.api.gouv.fr/login). Si vous êtes cette personne, réferez-vous au cas n°1 suivant, sinon nous vous invitons à lire le cas n°2.
+              Par ailleurs, **seule la personne ayant rempli le formulaire d’habilitation** à l’API Entreprise possède un compte donnant accès au [tableau de bord](<%= user_profile_path %>). Si vous êtes cette personne, réferez-vous au cas n°1 suivant, sinon nous vous invitons à lire le cas n°2.
 
               #### Cas n°1
 
@@ -438,14 +439,14 @@ fr:
 
               **Je n’ai pas effectué la demande d’habilitation** : Pour accéder au tableau de bord, vous devez vous référer à la personne qui a effectué la demande d’habilitation.
 
-              _Vous faîtes partie du service technique et avez besoin du jeton d’accès car vous participez à l’intégration de l’API Entreprise ?_ Demandez au responsable du tableau de bord d’utiliser la fonctionnalité de transmission d'un lien d’accès temporaire au jeton. Pour en savoir plus, référez vous à la rubrique [Récupérer le jeton JWT 🔑](TODO) de la documentation technique.
+              _Vous faîtes partie du service technique et avez besoin du jeton d’accès car vous participez à l’intégration de l’API Entreprise ?_ Demandez au responsable du tableau de bord d’utiliser la fonctionnalité de transmission d'un lien d’accès temporaire au jeton. Pour en savoir plus, référez vous à la rubrique [Récupérer le jeton JWT 🔑](<%= root_path %>) de la documentation technique.
 
               _Dans certains cas spécifiques comme le départ du demandeur, un changement de poste, etc.,_ un transfert de compte peut être nécessaire.
               Une fonctionnalité est à disposition dans le tableau de bord. Cette opération nécessite l’accord explicite du demandeur et est instruite manuellement par nos services.
 
           - question: "Comment transférer mon compte à une autre personne ?"
             answer: |+
-              _Votre équipe évolue ? Vous quittez votre service ?_ Vous pouvez léguer votre compte à une autre personne de la même organisation. Pour cela **utilisez la fonctionnalité prévue à cet effet dans votre [tableau de bord](https://dashboard.entreprise.api.gouv.fr/login)**, onglet \"Compte utilisateur\". Vous y trouverez un bouton dédié \"Transférer mon compte\". En cliquant, une fenêtre s'ouvre et vous demande de renseigner l'adresse e-mail du destinaire.
+              _Votre équipe évolue ? Vous quittez votre service ?_ Vous pouvez léguer votre compte à une autre personne de la même organisation. Pour cela **utilisez la fonctionnalité prévue à cet effet dans votre [tableau de bord](<%= user_profile_path %>)**, onglet \"Compte utilisateur\". Vous y trouverez un bouton dédié \"Transférer mon compte\". En cliquant, une fenêtre s'ouvre et vous demande de renseigner l'adresse e-mail du destinaire.
 
               Le transfert du compte se fait manuellement par nos services et peut prendre quelques jours. (TODO contenu à vérifier)
 
@@ -464,7 +465,7 @@ fr:
         entries:
           - question: "J'aimerais rejoindre l'équipe, comment je postule ?"
             answer: |+
-              L’ensemble des offres disponibles pour rejoindre l’équipe API Entreprise se trouve sur le site [beta.gouv.fr à la page dédiée au recrutement](https://beta.gouv.fr/recrutement/).
+              L’ensemble des offres disponibles pour rejoindre l’équipe API Entreprise se trouve sur le site [beta.gouv.fr à la page dédiée au recrutement](https://beta.gouv.fr/recrutement/){:target="_blank"}.
 
               Vous y trouverez également les offres d’emploi postées par les différentes équipes mettant à disposition des outils au service de la circulation et l’exploitation des données ([Api.gouv.fr](https://api.gouv.fr/){:target="_blank"}, [Data.gouv.fr](https://www.data.gouv.fr/){:target="_blank"}, [Particulier.api.gouv.fr](https://api.gouv.fr/les-api/api-particulier){:target="_blank"}, [Geo.api.gouv.fr](https://geo.api.gouv.fr/){:target="_blank"}...).
 
@@ -484,7 +485,7 @@ fr:
               > ⚠️ **Ne partagez jamais votre jeton d'authentification dans votre demande de support !**
               > L'échange d'emails n'est pas un support de communication sécurisé et certaines APIs donnent accès à des données sensibles. Le cas échéant, nous serons obligés de supprimer votre jeton, et vous devrez faire une nouvelle demande.
 
-              Écrivez nous à support@entreprise.api.gouv.fr.
+              Écrivez nous à [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr).
 
       # - name: ""
       #   entries:
