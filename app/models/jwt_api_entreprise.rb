@@ -61,7 +61,11 @@ class JwtAPIEntreprise < ApplicationRecord
     }
   end
 
-  delegate :intitule, to: :authorization_request
+  def self.find_best_jwt_to_retrieve_attestations(jwts)
+    jwts.max_by { |jwt| jwt.decorate.attestations_roles }
+  end
+
+  delegate :intitule, :siret, to: :authorization_request
 
   private
 

@@ -10,15 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_03_181422) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_04_04_115858) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "access_logs", id: false, force: :cascade do |t|
-    t.datetime "timestamp"
+    t.datetime "timestamp", precision: nil
     t.string "action"
     t.string "api_version"
     t.string "host"
@@ -44,12 +43,13 @@ ActiveRecord::Schema.define(version: 2022_03_03_181422) do
     t.string "description"
     t.string "external_id"
     t.string "status"
-    t.datetime "last_update"
-    t.datetime "first_submitted_at"
-    t.datetime "validated_at"
-    t.datetime "created_at"
+    t.datetime "last_update", precision: nil
+    t.datetime "first_submitted_at", precision: nil
+    t.datetime "validated_at", precision: nil
+    t.datetime "created_at", precision: nil
     t.uuid "user_id", null: false
     t.string "previous_external_id"
+    t.string "siret"
     t.index ["external_id"], name: "index_authorization_requests_on_external_id", unique: true, where: "(external_id IS NOT NULL)"
   end
 
@@ -57,8 +57,8 @@ ActiveRecord::Schema.define(version: 2022_03_03_181422) do
     t.string "email", null: false
     t.string "phone_number"
     t.string "contact_type", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.uuid "authorization_request_id"
     t.string "first_name"
     t.string "last_name"
@@ -67,8 +67,8 @@ ActiveRecord::Schema.define(version: 2022_03_03_181422) do
 
   create_table "jwt_api_entreprises", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "iat"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "exp", null: false
     t.string "version"
     t.boolean "blacklisted", default: false
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 2022_03_03_181422) do
     t.string "authorization_request_id"
     t.boolean "access_request_survey_sent", default: false, null: false
     t.string "magic_link_token"
-    t.datetime "magic_link_issuance_date"
+    t.datetime "magic_link_issuance_date", precision: nil
     t.uuid "authorization_request_model_id", null: false
     t.index ["access_request_survey_sent"], name: "index_jwt_api_entreprises_on_access_request_survey_sent"
     t.index ["archived"], name: "index_jwt_api_entreprises_on_archived"
@@ -96,8 +96,8 @@ ActiveRecord::Schema.define(version: 2022_03_03_181422) do
 
   create_table "roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "code"
     t.index ["created_at"], name: "index_roles_on_created_at"
   end
@@ -105,12 +105,12 @@ ActiveRecord::Schema.define(version: 2022_03_03_181422) do
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email"
     t.string "context"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "cgu_agreement_date"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "cgu_agreement_date", precision: nil
     t.text "note", default: ""
     t.string "pwd_renewal_token"
-    t.datetime "pwd_renewal_token_sent_at"
+    t.datetime "pwd_renewal_token_sent_at", precision: nil
     t.string "oauth_api_gouv_id"
     t.boolean "admin", default: false
     t.boolean "tokens_newly_transfered", default: false

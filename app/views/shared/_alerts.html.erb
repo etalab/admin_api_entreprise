@@ -1,6 +1,6 @@
 <% %i[error info success].each do |kind| %>
   <% if flash[kind].present? %>
-    <div class="fr-alert fr-alert--<%= kind %> fr-mb-8v">
+    <div class="fr-alert fr-alert--<%= kind %> fr-mb-8v" id="<%= flash[kind]['id'] %>">
       <p class="fr-alert__title">
         <%= flash[kind]['title'] %>
       </p>

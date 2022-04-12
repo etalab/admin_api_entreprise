@@ -10,11 +10,14 @@ FactoryBot.define do
 
     transient do
       user { nil }
+      intitule { 'JWT' }
     end
 
     after(:build) do |jwt_api_entreprise, evaluator|
       if jwt_api_entreprise.authorization_request_id && jwt_api_entreprise.authorization_request.nil?
-        jwt_api_entreprise.authorization_request = build(:authorization_request, jwt_api_entreprise:)
+        jwt_api_entreprise.authorization_request = build(
+          :authorization_request, jwt_api_entreprise:, intitule: evaluator.intitule
+        )
       elsif jwt_api_entreprise.authorization_request_id
         jwt_api_entreprise.authorization_request.external_id = jwt_api_entreprise.authorization_request_id
       end
@@ -27,6 +30,17 @@ FactoryBot.define do
         [
           build(:role)
         ]
+      end
+    end
+
+    trait :with_specific_roles do
+      transient do
+        specific_roles { ['entreprises'] }
+        intitule { 'JWT' }
+      end
+
+      roles do
+        specific_roles.map { |role| build(:role, :with_specific_role, specific_role: role) }
       end
     end
 

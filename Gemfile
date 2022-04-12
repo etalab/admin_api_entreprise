@@ -30,6 +30,7 @@ gem 'bcrypt', '~> 3.1.17'
 gem 'sidekiq'
 gem 'sidekiq-cron'
 
+gem 'draper'
 gem 'jwt'
 gem 'mailjet'
 gem 'pundit'

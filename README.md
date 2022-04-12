@@ -82,6 +82,13 @@ http://v3-beta.entreprise.api.gouv.local:3000/
 http://dashboard.entreprise.api.gouv.local:3000/
 ```
 
+#### Stub des requêtes SIADE en developpement
+
+Pour la page `/profile/attestations`, en développement on appelle le staging de SIADE avec un stub du token de test,
+ceci pour simplifier les démos / intervenir sur l'interface plus facilement.
+
+Le résultat de la recherche est donc toujours le même (et constitué des fausses données renvoyées par le staging).
+
 ## Déploiements
 
 Effectuer la commande suivante pour déployer en production:

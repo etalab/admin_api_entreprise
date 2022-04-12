@@ -50,7 +50,7 @@ fr:
       toggle: "Menu"
       profil: "Compte utilisateur"
       tokens: "Jetons d'accès"
-
+      download_attestations: 'Télécharger attestations'
 
   pages:
     current_status:
@@ -75,8 +75,12 @@ fr:
         title: Utilisateur inconnu
         description: Vous ne possédez pas de compte associé à l'adresse e-mail que vous avez renseignée sur API Gouv, veuillez vous déconnectez de API Gouv et tester une nouvelle adresse.
     unauthorized:
-      error:
-        title: Veuillez vous connecter pour accéder à cette page.
+      signed_out:
+        error:
+          title: Veuillez vous connecter pour accéder à cette page.
+      signed_in:
+        error:
+          title: Vous n'avez pas les droits pour accéder à cette page.
 
   users:
     user:
@@ -89,6 +93,28 @@ fr:
         note:
           label: Notes sur l'organisation
         cta: Éditer la note
+
+  attestations:
+    index:
+      interface: "Interface d'appel"
+      description: "Récupérez les attestations sociales ou fiscales d'une entreprise ou d'une association, en entrant son numéro SIREN."
+      authorization_request_number: "Demande n°%{external_id} - %{intitule}"
+      search: 'Rechercher'
+      token:
+        label: "🔑 Jeton d'habilitation :"
+      siren_number:
+        label: 'Numéro de SIREN :'
+    search:
+      download_attestation_fiscale_cta: 'Attestation fiscale (PDF)'
+      download_attestation_sociale_cta: 'Attestation sociale (PDF)'
+      company_type:
+        label: 'Nature juridique :'
+      company_category:
+        label: "Catégorie d'entreprise :"
+      naf_code:
+        label: 'Code NAF :'
+      attestation_sociale_not_downloadable: "Attestation sociale non‑téléchargeable avec ce jeton"
+      attestation_fiscale_not_downloadable: 'Attestation fiscale non‑téléchargeable avec ce jeton'
 
   transfer_user_account:
     new:
