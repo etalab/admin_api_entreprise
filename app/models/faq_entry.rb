@@ -60,13 +60,7 @@ class FAQEntry
     slug
   end
 
-  # rubocop:disable Rails/OutputSafety
   def answer_markdownify
-    Kramdown::Document.new(
-      answer,
-      input: 'GFM',
-      parse_block_html: true
-    ).to_html.html_safe
+    MarkdownInterpolator.new(answer).perform
   end
-  # rubocop:enable Rails/OutputSafety
 end
