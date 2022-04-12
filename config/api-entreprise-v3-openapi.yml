@@ -858,17 +858,220 @@ paths:
                         example: '301028346'
                       type:
                         type: string
-                        example: entreprise
+                        example: liasses_fiscales
                         enum:
-                        - entreprise
+                        - liasses_fiscales
                       attributes:
                         type: object
-                        properties: {}
-                        required: []
+                        properties:
+                          obligations_fiscales:
+                            type: array
+                            title: Règles d’imposition applicables au résultat de
+                              l'unité légale (nommé obf en interne)
+                            description: Une entité légale peut posséder plusieurs
+                              règles d'impositions, notamment si celle-ci fait partie
+                              d'un groupe.
+                            items:
+                              type: object
+                              required:
+                              - id
+                              - code
+                              - libelle
+                              - reference
+                              - regime
+                              properties:
+                                id:
+                                  title: Identifiant interne dénommé OCFI de la DGFIP
+                                  description: 'Identifiant technique interne de la
+                                    DGFIP OCFI: Numéro d’OCcurrences FIscales, déterminé
+                                    par le siren et par les obligations fiscales'
+                                  type: string
+                                  example: '100209489259'
+                                code:
+                                  type: string
+                                  title: Code des règles d'imposition applicables
+                                    au siren
+                                  description: "Les valeurs possibles sont les suivantes:
+                                    \n \n - IS: Impôt sur les sociétés \n - BIC: Bénéfices
+                                    industriels et commerciaux \n - IS GROUPE: Impôt
+                                    sur les sociétés dû par le groupe \n - BA: Bénéfices
+                                    agricoles \n - BNC: Bénéfices non commerciaux"
+                                  example: IS
+                                  enum:
+                                  - IS
+                                  - BIC
+                                  - IS GROUPE
+                                  - BA
+                                  - BNC
+                                libelle:
+                                  type: string
+                                  title: Libellé des règles d'impositions applicables
+                                    à l'unité légale.
+                                  description: La liste exhaustive se trouve dans
+                                    la description du code.
+                                  example: Impôt sur les sociétés
+                                reference:
+                                  title: Référence d'Obligation Fiscale (ROF)
+                                  type: string
+                                  description: Il s'agit du code d'Obligation Fiscale
+                                    (OBF) suivi d'un numéro d'identifiant qui définit
+                                    et individualise les obligations fiscales de l'unité
+                                    légale en fonction de ses activités
+                                  enum:
+                                  - IS1
+                                  - IS2
+                                  - IS3
+                                  - ISGROUPE1
+                                  - ISGROUPE2
+                                  - ISGROUPE3
+                                  - BA1
+                                  - BA2
+                                  - BA3
+                                  - BNC1
+                                  - BNC2
+                                  - BNC3
+                                  - BIC1
+                                  - BIC2
+                                  - BIC3
+                                regime:
+                                  title: Régime d'imposition
+                                  type: string
+                                  description: Désigne les règles d’imposition du
+                                    résultat fiscal de l’entreprise obtenu du référentiel
+                                    des occurrences fiscales (R-OCFI)
+                          declarations:
+                            type: array
+                            items:
+                              type: object
+                              required:
+                              - numero_imprime
+                              - regime
+                              - date_declaration
+                              - date_fin_exercice
+                              - duree_exercice
+                              - millesime
+                              - donnees
+                              properties:
+                                numero_imprime:
+                                  title: Numéro d'imprimé
+                                  type: string
+                                  description: Numéro du formulaire de la liasse fiscale
+                                    souscrit par l’unité légale.
+                                  example: 2033A
+                                regime:
+                                  title: Régime d’imposition applicable au résultat
+                                    fiscal de l'unité légale
+                                  type: object
+                                  required:
+                                  - code
+                                  - libelle
+                                  properties:
+                                    code:
+                                      title: Code du régime d’imposition applicable
+                                        au résultat fiscal de l'unité légale
+                                      description: "Les valeurs possibles sont les
+                                        suivantes: \n \n - RN: Réel normal \n - RSI
+                                        ou RS: Réel simplifié FIXME: A CONFIRMER le
+                                        RS \n - RNMEMBRE: Réel normal groupe (groupe)
+                                        \n - RNGROUPE: Réel normal groupe (tête) FIXME:
+                                        Quel est la différence tête/groupe \n - DECC:
+                                        Déclaration contrôlée"
+                                      enum:
+                                      - RN
+                                      - RS
+                                      - RSI
+                                      - RNMEMBRE
+                                      - RNGROUPE
+                                      - DECC
+                                    libelle:
+                                      title: Libellé du régime d’imposition applicable
+                                        au résultat fiscal de l'unité légale.
+                                      description: La liste exhaustive se trouve dans
+                                        la description du code
+                                      type: string
+                                      example: Réel simplifié
+                                date_declaration:
+                                  title: Date de dépôt de la déclaration
+                                  type: string
+                                  description: " - Si télédéclaration : date de saisie
+                                    \n - Si dépôt papier : date de réception par les
+                                    Services des Impôts des Entreprises"
+                                  example: '2012-12-26'
+                                date_fin_exercice:
+                                  title: Date de fin d’exercice fiscal de l'unité
+                                    légale
+                                  type: string
+                                  description: Équivalent à la date de fin de la période
+                                    d'imposition
+                                  example: '2012-12-31'
+                                duree_exercice:
+                                  title: Durée de l'exercice en jours
+                                  type: number
+                                  description: "Durée de l’exercice fiscal calculée
+                                    à partir des dates de début et de fin de la période
+                                    d’imposition déclarées sur la déclaration souscrite
+                                    par l'unité légale. \n \n Généralement cette valeur
+                                    est de 365 jours, mais parfois 180 jours. Il y
+                                    a une obligation fiscale déclarative au 31/12
+                                    de chaque année même s’il s’agit d’un dépôt provisoire."
+                                  example: 365
+                                millesime:
+                                  title: Millesime
+                                  description: "Code composé de 6 caractères: \n -
+                                    4 caractères correspondant à l'année de création
+                                    ou modification du formulaire. Les valeurs possibles
+                                    vont de 2006 à l'année courante dès avril, l'année
+                                    précédente sinon. \n - 2 caractères correspondant
+                                    au numéro de version du formulaire, commençant
+                                    à 01"
+                                  example: '201701'
+                                donnees:
+                                  title: Données de l'imprimé
+                                  type: array
+                                  description: Chaque entrée du tableau correspondant
+                                    à couple code / valeur, spécifique au numéro d'imprimé
+                                    référencé à la clé `numero_imprime`
+                                  items:
+                                    type: object
+                                    required:
+                                    - code_nref
+                                    - valeurs
+                                    properties:
+                                      code_nref:
+                                        title: Code N-REF absolu permettant de faire
+                                          le lien avec le dictionnaire
+                                        type: string
+                                        example: '304651'
+                                      valeurs:
+                                        title: 'Valeurs associés à l''entrée '
+                                        description: Si une entrée de l'imprimé est
+                                          répétable, le tableau contient plusieurs
+                                          entrées et sont ordonnées en fonction de
+                                          l'indice de répétition.
+                                        type: array
+                                        minItems: 1
+                                        items:
+                                          type: string
+                                        example:
+                                        - '4245'
+                        required:
+                        - obligations_fiscales
+                        - declarations
+                      meta:
+                        type: object
+                        properties:
+                          internal_id_itip:
+                            title: Identifiant interne dénommé ITIP de la DGFIP
+                            description: 'Identifiant technique interne de la DGFIP
+                              ITIP: Identifiant Transversal Informatique de la Personne'
+                            example: '100004763104'
+                        required:
+                        - internal_id_itip
                     required:
                     - id
                     - type
                     - attributes
+                    - meta
                 required:
                 - data
         '502':
@@ -1198,7 +1401,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/fntp/cartes_professionnelle_travaux_publics/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/infogreffe/mandataires_sociaux/{siren}":
     get:
-      summary: Récupération des mandataires sociaux d'une entreprise
+      summary: Mandataires sociaux
       tags:
       - Informations générales
       parameters:
@@ -1308,7 +1511,7 @@ paths:
                         type:
                           title: Type de mandataire social
                           description: Ce champ permet de faire la distinction entre
-                            les personnes physiques et morales
+                            les personnes physiques et morales.
                           type: string
                           example: personne_morale
                           enum:
@@ -1319,94 +1522,106 @@ paths:
                           properties:
                             fonction:
                               title: Fonction au sein de l'entreprise
-                              description: Information disponible pour les personnes
-                                morales et physiques
+                              description: Ce champ décrit la fonction du mandataire
+                                social au sein de l'entreprise. Cette information
+                                est disponible pour les personnes morales et physiques.
                               type: string
                               example: COMMISSAIRE AUX COMPTES SUPPLEANT
                             nom:
                               title: Nom
-                              description: Information disponible uniquement pour
-                                une personne physique
+                              description: Nom du mandataire social. Ce champ est
+                                disponible uniquement pour une personne physique.
                               type: string
                               example: Henri
                               nullable: true
                             prenom:
                               title: Prénom
-                              description: Information disponible uniquement pour
-                                une personne physique
+                              description: Prénom du mandataire social. Ce champ est
+                                disponible uniquement pour une personne physique.
                               type: string
                               example: Martin
                               nullable: true
                             date_naissance:
                               title: Date de naissance
-                              description: Information disponible uniquement pour
-                                une personne physique
+                              description: Date de naissance du mandataire social.
+                                Ce champ est disponible uniquement pour une personne
+                                physique.
                               type: string
                               example: '1965-01-27'
                               nullable: true
                             date_naissance_timestamp:
                               title: Date de naissance (timestamp)
-                              description: Information disponible uniquement pour
-                                une personne physique
+                              description: Date de naissance délivrée au format timestamp.
+                                Ce champ est disponible uniquement pour une personne
+                                physique.
                               type: integer
                               example: -155523600
                               nullable: true
                             lieu_naissance:
                               title: Lieu de naissance
-                              description: Information disponible uniquement pour
-                                une personne physique
+                              description: Lieu de naissance du mandataire social.
+                                Ce champ est disponible uniquement pour une personne
+                                physique.
                               type: string
                               example: ROUBAIX
                               nullable: true
                             pays_naissance:
                               title: Pays de naissance
-                              description: Information disponible uniquement pour
-                                une personne physique
+                              description: Pays de naissance du mandataire social.
+                                Ce champ est disponible uniquement pour une personne
+                                physique.
                               type: string
                               example: FRANCE
                               nullable: true
                             code_pays_naissance:
-                              title: Code pays ISO 3166 Alpha 2
-                              description: Information disponible uniquement pour
-                                une personne physique
+                              title: Code pays ISO 3166 Alpha 2 du pays de naissance
+                              description: Code à deux lettres indiquant le pays de
+                                naissance du mandataire social, suivant la norme ISO
+                                3166 Alpha 2. Ce champ est disponible uniquement pour
+                                une personne physique.
                               type: string
                               example: FR
                               nullable: true
                             nationalite:
                               title: Nationalité de la personne physique
-                              description: Information disponible uniquement pour
-                                une personne physique
+                              description: Nationalité du mandataire social. Ce champ
+                                est disponible uniquement pour une personne physique.
                               type: string
                               example: FRANCAISE
                               nullable: true
                             code_nationalite:
                               title: Code pays ISO 3166 Alpha 2
-                              description: Information disponible uniquement pour
-                                une personne physique
+                              description: Code à deux lettres indiquant le pays de
+                                nationalité du mandataire social, suivant la norme
+                                ISO 3166 Alpha 2. Ce champ est disponible uniquement
+                                pour une personne physique.
                               type: string
                               example: FR
                               nullable: true
                             raison_sociale:
                               title: Raison sociale
-                              description: Information disponible uniquement pour
-                                une personne morale
+                              description: Raison sociale de la personne morale mandataire
+                                social. Ce champ est disponible uniquement pour une
+                                personne morale.
                               type: string
                               example: BCRH & ASSOCIES - SOCIETE A RESPONSABILITE
                                 LIMITEE A ASSOCIE UNIQUE
                               nullable: true
                             code_greffe:
                               title: Code du greffe de l'entreprise
-                              description: 'Information disponible uniquement pour
-                                une personne morale. Tous les code greffe sont disponibles
-                                ici : https://opendata.datainfogreffe.fr/explore/dataset/liste-des-greffes/table/'
+                              description: 'Code du greffe auquel la personne morale
+                                mandataire social est rattachée. Ce champ est disponible
+                                uniquement pour une personne morale. Tous les codes
+                                greffe sont disponibles ici : https://opendata.datainfogreffe.fr/explore/dataset/liste-des-greffes/table/'
                               type: string
                               example: '9201'
                               nullable: true
                             libelle_greffe:
                               title: Libellé du greffe de l'entreprise
-                              description: 'Information disponible uniquement pour
-                                une personne morale. Tous les libellés sont disponibles
-                                ici : https://opendata.datainfogreffe.fr/explore/dataset/liste-des-greffes/table/'
+                              description: 'Nom du greffe auquel la personne morale
+                                mandataire social est rattachée. Ce champ est disponible
+                                uniquement pour une personne morale. Tous les libellés
+                                sont disponibles ici : https://opendata.datainfogreffe.fr/explore/dataset/liste-des-greffes/table/'
                               type: string
                               example: NANTERRE
                               nullable: true
@@ -1421,19 +1636,19 @@ paths:
                     properties:
                       personnes_physiques_count:
                         title: Nombre de personnes physiques
-                        description: Nombre de personnes physiques parmis les mandataires
-                          sociaux
+                        description: Nombre de personnes physiques parmi les mandataires
+                          sociaux.
                         type: integer
                         example: 10
                       personnes_morales_count:
                         title: Nombre de personnes morales
-                        description: Nombre de personnes morales parmis les mandataires
-                          sociaux
+                        description: Nombre de personnes morales parmi les mandataires
+                          sociaux.
                         type: integer
                         example: 2
                       count:
-                        title: Nombre de mandataires sociaux
-                        description: Somme des personnes morales et physiques
+                        title: Nombre total de mandataires sociaux
+                        description: Somme des personnes morales et physiques.
                         type: integer
                         example: 12
                     required:
@@ -3146,7 +3361,7 @@ paths:
                             - nomenclature
                           tranche_effectif_salarie:
                             type: object
-                            title: Attributs de la tranche d'effectif salarié
+                            title: Tranche d'effectif salarié de l'établissement
                             properties:
                               code:
                                 title: Code effectif
@@ -3169,7 +3384,14 @@ paths:
                                   1 000 à 1 999 salariés \n - 51 : 2 000 à 4 999 salariés
                                   \n - 52 : 5 000 à 9 999 salariés \n - 53 : 10 000
                                   salariés et plus \n \n Plus d'informations dans
-                                  la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen"
+                                  la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen.
+                                  \n \n L'effectif mensuel exact de l'établissement
+                                  est disponible au travers de l'[API Effectifs -
+                                  URSSAF Caisse nationale](TODO). Si votre jeton contient
+                                  ce droit d'accès, nous vous recommandons d'utiliser
+                                  cette API. Ces données étant protégées, leur cadre
+                                  d'utilisation est différent de la tranche effectif
+                                  fournie par l'Insee, qui elle est une donnée publique."
                                 enum:
                                 - NN
                                 - '00'
@@ -3225,6 +3447,611 @@ paths:
                               ce cas, les informations obtenues ne doivent en aucun
                               cas être accessibles au grand public. \n \n Plus d'informations
                               sur les conditions de diffusion : LIEN TODO"
+                          unite_legale:
+                            type: object
+                            title: Unité légale de l'établissement
+                            properties:
+                              siret_siege_social:
+                                title: SIRET du siège social
+                                type: string
+                                example: '13002526500013'
+                              type:
+                                title: Type de personne
+                                type: string
+                                enum:
+                                - personne_physique
+                                - personne_morale
+                                example: personne_morale
+                                description: 'Indique si l''unité légale est une personne
+                                  morale ou une personne physique. Cette valeur est
+                                  déterminée à l''aide du code juridique : ''1000''
+                                  correspondant à une personne physique.'
+                              personne_morale_attributs:
+                                type: object
+                                title: Attributs de la personne morale
+                                description: Attributs associés à la personne morale.
+                                  Les valeurs sont à 'null' pour les personnes physiques.
+                                properties:
+                                  raison_sociale:
+                                    title: Raison sociale de l'unité légale
+                                    type: string
+                                    example: DINUM
+                                    nullable: true
+                                required:
+                                - raison_sociale
+                              personne_physique_attributs:
+                                type: object
+                                title: Attributs de la personne physique
+                                description: Attributs associés à la personne physique.
+                                  Les valeurs sont à 'null' pour les personnes morales.
+                                properties:
+                                  pseudonyme:
+                                    title: Pseudonyme
+                                    type: string
+                                    example: DJ Falcon
+                                    nullable: true
+                                    description: Le pseudonyme correspond au nom qu'une
+                                      personne utilise pour se désigner dans l'exercice
+                                      de son activité, généralement littéraire ou
+                                      artistique.
+                                  prenom_usuel:
+                                    title: Prénom usuel
+                                    type: string
+                                    example: Jean
+                                    nullable: true
+                                    description: Le prénom usuel est le prénom par
+                                      lequel une personne choisit de se faire appeler
+                                      dans la vie courante. Ce prénom fait partie
+                                      de ceux qui lui ont été donnés à sa naissance
+                                      et qui sont inscrits à l'état civil.
+                                  prenom_1:
+                                    title: Prénom numéro 1 déclaré
+                                    type: string
+                                    example: Jean
+                                    nullable: true
+                                  prenom_2:
+                                    title: Prénom numéro 2 déclaré
+                                    type: string
+                                    example: Jacques
+                                    nullable: true
+                                  prenom_3:
+                                    title: Prénom numéro 3 déclaré
+                                    type: string
+                                    example: Pierre
+                                    nullable: true
+                                  prenom_4:
+                                    title: Prénom numéro 4 déclaré
+                                    type: string
+                                    example: Paul
+                                    nullable: true
+                                  nom_usage:
+                                    title: Nom d'usage
+                                    type: string
+                                    example: Dupont
+                                    nullable: true
+                                    description: Nom que la personne physique a choisi
+                                      d'utiliser.
+                                  nom_naissance:
+                                    title: Nom de naissance
+                                    type: string
+                                    example: Dubois
+                                    nullable: true
+                                  sexe:
+                                    title: Genre
+                                    type: string
+                                    example: M
+                                    enum:
+                                    - M
+                                    - F
+                                    -
+                                    nullable: true
+                                    description: Caractère féminin ou masculin de
+                                      la personne physique. Cette valeur peut ne pas
+                                      être renseignée pour une personne physique.
+                                required:
+                                - pseudonyme
+                                - prenom_usuel
+                                - prenom_1
+                                - prenom_2
+                                - prenom_3
+                                - prenom_4
+                                - nom_usage
+                                - nom_naissance
+                                - sexe
+                              categorie_entreprise:
+                                title: Catégorie de l'unité légale
+                                type: string
+                                example: GE
+                                enum:
+                                - GE
+                                - ETI
+                                - PME
+                                -
+                                description: "Il s'agit d'une variable statistique
+                                  calculée par l'Insee. Elle ne peut prendre que 3
+                                  valeurs: \n \n - GE: Grande Entreprise \n - ETI:
+                                  Entreprise de Taille Intermédiaire \n - PME: Petite
+                                  ou Moyenne Entreprise \n \n Celle-ci peut-être 'null'
+                                  dans certains cas : quand il s’agit d’une unité
+                                  légale nouvellement créée, ou bien d’une unité légale
+                                  cessée, ou encore d’une unité légale hors champ
+                                  du calcul de la catégorie (unité légale agricole
+                                  ou ne faisant pas partie du système productif).
+                                  \n \n Définition de 'catégorie d'entreprise' par
+                                  l'Insee : https://www.insee.fr/fr/metadonnees/definition/c1057"
+                              numero_tva_intracommunautaire:
+                                title: Numéro de TVA intracommunautaire
+                                type: string
+                                example: FR07130025265
+                                description: "Le numéro de TVA intracommunautaire
+                                  est un numéro d’identification individuel attribué
+                                  aux entreprises assujetties à la TVA et domiciliées
+                                  au sein de l’Union européenne. Le numéro renvoyé
+                                  par l'API est calculé par API Entreprise à l'aide
+                                  du numéro de SIREN, cette donnée est donc théorique.
+                                  \n \n Dans le cas où l’établissement siège est à
+                                  l’étranger la valeur est systématiquement 'null'
+                                  \n \n Plus d'informations sur la méthode de calcul
+                                  : LIEN TODO"
+                              diffusable_commercialement:
+                                title: Diffusable commercialement
+                                type: boolean
+                                example: true
+                                description: "Indique si l'unité légale est : \n \n
+                                  - une unité légale diffusible : 'true' \n - une
+                                  unité légale non-diffusible : 'false'. Dans ce cas,
+                                  les informations obtenues ne doivent en aucun cas
+                                  être accessibles au grand public. \n \n Plus d'informations
+                                  sur les conditions de diffusion : LIEN TODO"
+                              forme_juridique:
+                                type: object
+                                title: Attributs de la forme juridique
+                                properties:
+                                  code:
+                                    title: Code de la forme juridique de l'unité légale.
+                                    type: string
+                                    example: '7120'
+                                    description: "Il existe plus de 300 catégories
+                                      juridiques, identifiables par un code spécifique
+                                      à quatre chiffres. Leur nomenclature comporte
+                                      3 niveaux. Le premier niveau de classement contient
+                                      9 grandes catégories identifiables avec le premier
+                                      chiffre du code : \n \n - 0 : Organisme de placement
+                                      collectif en valeurs mobilières sans personnalité
+                                      morale \n - 1 : Entrepreneur individuel. La
+                                      catégorie juridique des personnes physiques
+                                      est '1000'. \n - 2 : Groupement de droit privé
+                                      non doté de la personnalité morale \n - 3 :
+                                      Personne morale de droit étranger \n - 4 : Personne
+                                      morale de droit public soumise au droit commercial
+                                      \n - 5 : Société commerciale \n - 6 : Autre
+                                      personne morale immatriculée au RCS \n - 7 :
+                                      Personne morale et organisme soumis au droit
+                                      administratif \n - 8 : Organisme privé spécialisé
+                                      \n - 9 : Groupement de droit privé \n \n Nomenclature
+                                      exhaustive des codes fournie par l'Insee : https://www.insee.fr/fr/information/2028129"
+                                  libelle:
+                                    title: Libellé associé au code de la forme juridique
+                                      de l'unité légale.
+                                    type: string
+                                    example: Service central d'un ministère
+                                    description: "indique le libellé correspondant
+                                      au code juridique. Si le code ne correspond
+                                      à aucun libellé la valeur 'non référencé' est
+                                      utilisée. \n \n Nomenclature exhaustive fournie
+                                      par l'Insee : https://www.insee.fr/fr/information/2028129"
+                                required:
+                                - code
+                                - libelle
+                              activite_principale:
+                                title: Attributs de l'activité principale
+                                type: object
+                                properties:
+                                  code:
+                                    title: Code de l'activité principale (APE) de
+                                      l'unité légale
+                                    type: string
+                                    example: 8411Z
+                                    description: "Le code APE (activité principale
+                                      exercée) permet d'identifier la branche d'activité
+                                      principale. Il est attribué par l'Insee lors
+                                      de l'immatriculation ou la déclaration d'activité
+                                      de l'entreprise. Ce code de 4 chiffres + 1 lettre
+                                      est extrait de la nomenclature d'activité française
+                                      (NAF) de l'Insee. \n \n À noter qu'une entreprise
+                                      n'ayant pas encore de code APE peut se voir
+                                      affecter la valeur '00.00Z' de manière provisoire.
+                                      \n \n Plus d'informations métier : https://entreprendre.service-public.fr/vosdroits/F33050
+                                      Nomemclature d'activité française - NAF rév.2
+                                      de l'Insee : https://www.insee.fr/fr/information/2120875"
+                                  libelle:
+                                    title: Libellé associé au code APE
+                                    type: string
+                                    nullable: true
+                                    example: Administration publique générale
+                                    description: "Si le code n'est pas renseigné dans
+                                      la nomenclature 'Naf Rév2' (nomenclature en
+                                      vigueur), le libellé n'est pas renseigné ici.
+                                      Si le code ne correspond à aucun libellé au
+                                      sein de la nomenclature 'Naf Rév2', la valeur
+                                      'non référencé' est utilisée. \n \n Nomemclature
+                                      d'activité française - NAF rév.2 de l'Insee
+                                      : https://www.insee.fr/fr/information/2406147"
+                                  nomenclature:
+                                    title: Nomenclature associée au code
+                                    type: string
+                                    example: NAFRev2
+                                    description: Ce champ indique le nom de la nomenclature
+                                      associée au code APE.
+                                required:
+                                - code
+                                - libelle
+                                - nomenclature
+                              tranche_effectif_salarie:
+                                type: object
+                                title: Tranche d'effectif salarié de l'unité légale
+                                properties:
+                                  code:
+                                    type: string
+                                    nullable: true
+                                    example: '51'
+                                    description: "Le code effectif indique la tranche
+                                      d'effectif salarié de l'unité légale. Le nombre
+                                      de salarié est déterminé en fonction de l'effectif
+                                      de chacun des établissements de l'unité légale
+                                      : \n \n - NN : Unités non employeuses (pas de
+                                      salarié au cours de l'année de référence et
+                                      pas d'effectif au 31/12). Cette tranche peut
+                                      contenir quelques effectifs inconnus \n - 00
+                                      : 0 salarié (n'ayant pas d'effectif au 31/12
+                                      mais ayant employé des salariés au cours de
+                                      l'année de référence) \n - 01 : 1 ou 2 salariés
+                                      \n - 02 : 3 à 5 salariés \n - 03 : 6 à 9 salariés
+                                      \n - 11 : 10 à 19 salariés \n - 12 : 20 à 49
+                                      salariés \n - 21 : 50 à 99 salariés \n - 22
+                                      : 100 à 199 salariés \n - 31 : 200 à 249 salariés
+                                      \n - 32 : 250 à 499 salariés \n - 41 : 500 à
+                                      999 salariés \n - 42 : 1 000 à 1 999 salariés
+                                      \n - 51 : 2 000 à 4 999 salariés \n - 52 : 5
+                                      000 à 9 999 salariés \n - 53 : 10 000 salariés
+                                      et plus \n \n Plus d'informations dans la documentation
+                                      Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen.
+                                      \n \n L'effectif exact de l'entreprise, mensuel
+                                      et annuel, est disponible au travers de l'[API
+                                      Effectifs - URSSAF Caisse nationale](TODO).
+                                      Si votre jeton contient ce droit d'accès, nous
+                                      vous recommandons d'utiliser cette API. Ces
+                                      données étant protégées, leur cadre d'utilisation
+                                      est différent de la tranche effectif fournie
+                                      par l'Insee, qui elle est une donnée publique."
+                                    enum:
+                                    - NN
+                                    - '00'
+                                    - '01'
+                                    - '02'
+                                    - '03'
+                                    - '11'
+                                    - '12'
+                                    - '21'
+                                    - '22'
+                                    - '31'
+                                    - '32'
+                                    - '41'
+                                    - '42'
+                                    - '51'
+                                    - '52'
+                                    - '53'
+                                  intitule:
+                                    title: Intitulé associé au code effectif
+                                    type: string
+                                    nullable: true
+                                    example: 2 000 à 4 999 salariés
+                                  date_reference:
+                                    title: Date de référence de l'effectif
+                                    type: string
+                                    nullable: true
+                                    example: '2016'
+                                  de:
+                                    title: Seuil inférieur de la tranche effectif
+                                    type: integer
+                                    example: 2000
+                                    nullable: true
+                                  a:
+                                    title: Seuil supérieur de la tranche effectif
+                                    type: integer
+                                    example: 4999
+                                    nullable: true
+                                required:
+                                - code
+                                - intitule
+                                - date_reference
+                                - de
+                                - a
+                              etat_administratif:
+                                title: État administratif de l'unité légale
+                                type: string
+                                example: A
+                                enum:
+                                - A
+                                - C
+                                description: "Cette valeur décrit l'état administratif
+                                  de l'unité légale, qui peut être : \n \n - cessée.
+                                  Le passage à l'état « Cessée » découle de la prise
+                                  en compte d'une déclaration de cessation administrative.
+                                  Pour les personnes morales, cela correspond au dépôt
+                                  de la déclaration de disparition de la personne
+                                  morale. Pour les personnes physiques, cela correspond
+                                  soit à la prise en compte de la déclaration de cessation
+                                  d'activité déposée par l'exploitant soit au décès
+                                  de l'exploitant conformément à la réglementation.
+                                  \n - active. En dehors des cas explicités ci-dessus,
+                                  l'unité légale est toujours à l'état administratif
+                                  « Active ». \n \n Plus d'informations dans la documentation
+                                  Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifUniteLegale"
+                              date_cessation:
+                                title: Date de cessation de l'unité légale
+                                type: integer
+                                nullable: true
+                                example: 1634133818
+                                description: Cette valeur est renvoyée sous format
+                                  timestamp. Si l'entreprise est juridique active,
+                                  cette valeur est à 'null'.
+                              date_creation:
+                                title: Date de création de l'unité légale
+                                type: integer
+                                example: 1634103818
+                                description: "La date de création correspond à la
+                                  date qui figure dans les statuts de l'entreprise
+                                  qui sont déposés au centre de formalité des entreprises
+                                  (CFE) compétent. Cette valeur est renvoyée sous
+                                  format timestamp. \n \n Sauf pour les unités purgées,
+                                  la date de création n'est jamais à 'null'. Si elle
+                                  est non renseignée, elle sera au 01/01/1900. \n
+                                  \n Plus d'informations dans la documentation Insee
+                                  de l'API Sirene : https://www.sirene.fr/sirene/public/variable/dateCreationUniteLegale"
+                            required:
+                            - siret_siege_social
+                            - type
+                            - personne_morale_attributs
+                            - personne_physique_attributs
+                            - categorie_entreprise
+                            - numero_tva_intracommunautaire
+                            - diffusable_commercialement
+                            - forme_juridique
+                            - activite_principale
+                            - tranche_effectif_salarie
+                            - etat_administratif
+                            - date_cessation
+                            - date_creation
+                          adresse:
+                            type: object
+                            title: Adresse de l'établissement
+                            properties:
+                              numero_voie:
+                                title: Numéro dans la voie
+                                type: string
+                                example: '22'
+                              indice_repetition_voie:
+                                title: Indice de répétition du numéro dans la voie
+                                description: 'Plus d''informations dans la documentation
+                                  Insee de l''API Sirene : https://www.sirene.fr/sirene/public/variable/indrep'
+                                type: string
+                                nullable: true
+                                enum:
+                                - bis
+                                - ter
+                                - quarter
+                                - quinquies
+                                -
+                              type_voie:
+                                title: Type de la voie de localisation
+                                example: RUE
+                                description: "Le type de la voie de localisation est
+                                  indiquée en abrégé et en majuscules. L'information
+                                  n'est pas toujours renseignée. Pour certaines petites
+                                  communes, l'information n'existe pas. \n \n Plus
+                                  d'informations dans la documentation Insee de l'API
+                                  Sirene : https://www.sirene.fr/sirene/public/variable/typvoie"
+                                type: string
+                                nullable: true
+                                enum:
+                                - ALLÉE
+                                - AVENUE
+                                - BOULEVARD
+                                - CARREFOUR
+                                - CHEMIN
+                                - CHAUSSÉE
+                                - CITÉ
+                                - CORNICHE
+                                - COURS
+                                - DOMAINE
+                                - DESCENTE
+                                - ECART
+                                - ESPLANADE
+                                - FAUBOURG
+                                - GRANDE RUE
+                                - HAMEAU
+                                - HALLE
+                                - IMPASSE
+                                - LIEU-DIT
+                                - LOTISSEMENT
+                                - MARCHÉ
+                                - MONTÉE
+                                - PASSAGE
+                                - PLACE
+                                - PLAINE
+                                - PLATEAU
+                                - PROMENADE
+                                - PARVIS
+                                - QUARTIER
+                                - QUAI
+                                - RÉSIDENCE
+                                - RUELLE
+                                - ROCADE
+                                - ROND-POINT
+                                - ROUTE
+                                - RUE
+                                - SENTIER
+                                - SQUARE
+                                - TERRE-PLEIN
+                                - TRAVERSE
+                                - VILLA
+                                - VILLAGE
+                                -
+                              libelle_voie:
+                                title: Libellé de la voie
+                                example: DE LA PAIX
+                              complement_adresse:
+                                title: Complément d'adresse
+                                type: string
+                                description: Le complément d'adresse correspond à
+                                  des éléments situés à l'extérieur du bâtiment qui
+                                  permettent de compléter l'adresse (résidence, bâtiment,
+                                  entrée, etc..)
+                                example: ZAE SAINT GUENAULT
+                                nullable: true
+                              code_commune:
+                                title: Code commune
+                                description: "Le code commune désigne le code de la
+                                  commune de localisation de l'établissement. Le code
+                                  renvoyé correspond à la date de l'appel, ce qui
+                                  implique que toute modification du code commune
+                                  est repercutée sur l'ensemble des établissements
+                                  concernés, y compris ceux qui sont fermés. Cette
+                                  valeur est à 'null' pour les entreprises à l'étranger.
+                                  \n \n Les codes sont listés dans la table d'appartenance
+                                  géographique fournie par l'Insee et disponible ici:
+                                  https://www.insee.fr/fr/information/2028028"
+                                type: string
+                                example: '75112'
+                                nullable: true
+                              code_postal:
+                                title: Code postal
+                                example: '75016'
+                                type: string
+                              distribution_speciale:
+                                title: Distribution spéciale
+                                description: "La distribution spéciale reprend les
+                                  éléments particuliers qui accompagnent une adresse
+                                  de distribution spéciale, la modalité la plus connue
+                                  étant les adresses en 'CEDEX'. \n \n Plus d'informations
+                                  dans la documentation Insee de l'API Sirene : *
+                                  https://www.sirene.fr/sirene/public/variable/distributionSpecialeEtablissement
+                                  * https://www.sirene.fr/sirene/public/variable/l5-disp"
+                              code_cedex:
+                                title: Code cedex
+                                nullable: true
+                                description: 'Plus d''informations : https://fr.wikipedia.org/wiki/Courrier_d%27entreprise_%C3%A0_distribution_exceptionnelle'
+                                example: '75590'
+                              libelle_cedex:
+                                title: Libellé du code cedex
+                                type: string
+                                nullable: true
+                                example: PARIS CEDEX 12
+                                description: Ce champ indique le libellé correspondant
+                                  au code cedex de l'établissement. Si le code cedex
+                                  est à 'null', ce champ est également à 'null'.
+                              libelle_commune:
+                                title: Nom de la commune pour une adresse en France
+                                description: Cette valeur est à 'null' pour les établissements
+                                  à l'étranger.
+                                type: string
+                                example: PARIS 12
+                                nullable: true
+                              libelle_commune_etranger:
+                                title: Nom de la commune pour une adresse à l'étranger.
+                                description: Cette valeur est à 'null' pour les établissements
+                                  en France.
+                                type: string
+                                nullable: true
+                              code_pays_etranger:
+                                title: Code du pays pour les établissements situés
+                                  à l'étranger
+                                description: 'La nomenclature des codes pays se trouve
+                                  ici: https://www.insee.fr/fr/information/2028273'
+                                type: string
+                                example: '99132'
+                                nullable: true
+                              libelle_pays_etranger:
+                                title: Nom du pays pour les établissements situés
+                                  à l'étranger
+                                type: string
+                                nullable: true
+                                example: ROYAUME-UNI
+                              acheminement_postal:
+                                type: object
+                                title: Éléments constitutifs de l'adresse postale
+                                  pour son acheminement.
+                                description: Il ne s'agit pas d'un traitement RNVP
+                                  mais simplement d'une réorganisation des éléments
+                                  renvoyé par l'Insee pour faciliter l'affichage des
+                                  adresses postales
+                                properties:
+                                  l1:
+                                    title: Ligne 1
+                                    description: 'Si l''établissement correspond à
+                                      une personne morale: la dénomination sociale
+                                      de la personne morale. Le cas contraire: cette
+                                      variable est vide.'
+                                    example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
+                                  l2:
+                                    title: Ligne 2
+                                    description: 'Si l''établissement correspond à
+                                      une personne physique: concaténation du nom
+                                      et prénom'
+                                    example: JEAN MARIE DURAND
+                                  l3:
+                                    title: Ligne 3
+                                    description: Complément d'adresse comme décrit
+                                      dans la clé `complement_adresse`
+                                    example: ZAE SAINT GUENAULT
+                                  l4:
+                                    title: Ligne 4
+                                    description: Concaténation du numéro de voie,
+                                      d'indice de répétition, du type de voie et du
+                                      libellé de la voie
+                                    example: 51 BIS RUE DE LA PAIX
+                                  l5:
+                                    title: Ligne 5
+                                    description: Distribution spéciale comme décrit
+                                      dans la clé `distribution_speciale`
+                                    example: CS 72809
+                                  l6:
+                                    title: Ligne 6
+                                    description: 'Si le code cedex est existant: code
+                                      cedex accompagné de son libellé ; sinon, si
+                                      le pays est en France: code postal accompagné
+                                      de son libellé, sinon : libellé de la commune
+                                      de l''établissement situé à l''étranger'
+                                    example: 75256 PARIX CEDEX 12
+                                  l7:
+                                    title: Ligne 7
+                                    description: Pays de l'établissement
+                                    example: FRANCE
+                                required:
+                                - l1
+                                - l2
+                                - l3
+                                - l4
+                                - l5
+                                - l6
+                                - l7
+                            required:
+                            - numero_voie
+                            - indice_repetition_voie
+                            - type_voie
+                            - libelle_voie
+                            - complement_adresse
+                            - code_commune
+                            - code_postal
+                            - distribution_speciale
+                            - code_cedex
+                            - libelle_cedex
+                            - libelle_commune
+                            - libelle_commune_etranger
+                            - code_pays_etranger
+                            - libelle_pays_etranger
+                            - acheminement_postal
                           date_creation:
                             type: integer
                             example: 1634103818
@@ -3235,6 +4062,8 @@ paths:
                         - activite_principale
                         - tranche_effectif_salarie
                         - diffusable_commercialement
+                        - unite_legale
+                        - adresse
                         - date_creation
                       links:
                         type: object
@@ -3462,7 +4291,7 @@ paths:
                             - nomenclature
                           tranche_effectif_salarie:
                             type: object
-                            title: Attributs de la tranche d'effectif salarié
+                            title: Tranche d'effectif salarié de l'établissement
                             properties:
                               code:
                                 title: Code effectif
@@ -3485,7 +4314,14 @@ paths:
                                   1 000 à 1 999 salariés \n - 51 : 2 000 à 4 999 salariés
                                   \n - 52 : 5 000 à 9 999 salariés \n - 53 : 10 000
                                   salariés et plus \n \n Plus d'informations dans
-                                  la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen"
+                                  la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen.
+                                  \n \n L'effectif mensuel exact de l'établissement
+                                  est disponible au travers de l'[API Effectifs -
+                                  URSSAF Caisse nationale](TODO). Si votre jeton contient
+                                  ce droit d'accès, nous vous recommandons d'utiliser
+                                  cette API. Ces données étant protégées, leur cadre
+                                  d'utilisation est différent de la tranche effectif
+                                  fournie par l'Insee, qui elle est une donnée publique."
                                 enum:
                                 - NN
                                 - '00'
@@ -3540,6 +4376,611 @@ paths:
                               est toujours à 'true'. Pour récupérer des établissements
                               non-diffusibles, référez-vous à la documentation de
                               l'API /insee/etablissements/:siren
+                          unite_legale:
+                            type: object
+                            title: Unité légale de l'établissement
+                            properties:
+                              siret_siege_social:
+                                title: SIRET du siège social
+                                type: string
+                                example: '13002526500013'
+                              type:
+                                title: Type de personne
+                                type: string
+                                enum:
+                                - personne_physique
+                                - personne_morale
+                                example: personne_morale
+                                description: 'Indique si l''unité légale est une personne
+                                  morale ou une personne physique. Cette valeur est
+                                  déterminée à l''aide du code juridique : ''1000''
+                                  correspondant à une personne physique.'
+                              personne_morale_attributs:
+                                type: object
+                                title: Attributs de la personne morale
+                                description: Attributs associés à la personne morale.
+                                  Les valeurs sont à 'null' pour les personnes physiques.
+                                properties:
+                                  raison_sociale:
+                                    title: Raison sociale de l'unité légale
+                                    type: string
+                                    example: DINUM
+                                    nullable: true
+                                required:
+                                - raison_sociale
+                              personne_physique_attributs:
+                                type: object
+                                title: Attributs de la personne physique
+                                description: Attributs associés à la personne physique.
+                                  Les valeurs sont à 'null' pour les personnes morales.
+                                properties:
+                                  pseudonyme:
+                                    title: Pseudonyme
+                                    type: string
+                                    example: DJ Falcon
+                                    nullable: true
+                                    description: Le pseudonyme correspond au nom qu'une
+                                      personne utilise pour se désigner dans l'exercice
+                                      de son activité, généralement littéraire ou
+                                      artistique.
+                                  prenom_usuel:
+                                    title: Prénom usuel
+                                    type: string
+                                    example: Jean
+                                    nullable: true
+                                    description: Le prénom usuel est le prénom par
+                                      lequel une personne choisit de se faire appeler
+                                      dans la vie courante. Ce prénom fait partie
+                                      de ceux qui lui ont été donnés à sa naissance
+                                      et qui sont inscrits à l'état civil.
+                                  prenom_1:
+                                    title: Prénom numéro 1 déclaré
+                                    type: string
+                                    example: Jean
+                                    nullable: true
+                                  prenom_2:
+                                    title: Prénom numéro 2 déclaré
+                                    type: string
+                                    example: Jacques
+                                    nullable: true
+                                  prenom_3:
+                                    title: Prénom numéro 3 déclaré
+                                    type: string
+                                    example: Pierre
+                                    nullable: true
+                                  prenom_4:
+                                    title: Prénom numéro 4 déclaré
+                                    type: string
+                                    example: Paul
+                                    nullable: true
+                                  nom_usage:
+                                    title: Nom d'usage
+                                    type: string
+                                    example: Dupont
+                                    nullable: true
+                                    description: Nom que la personne physique a choisi
+                                      d'utiliser.
+                                  nom_naissance:
+                                    title: Nom de naissance
+                                    type: string
+                                    example: Dubois
+                                    nullable: true
+                                  sexe:
+                                    title: Genre
+                                    type: string
+                                    example: M
+                                    enum:
+                                    - M
+                                    - F
+                                    -
+                                    nullable: true
+                                    description: Caractère féminin ou masculin de
+                                      la personne physique. Cette valeur peut ne pas
+                                      être renseignée pour une personne physique.
+                                required:
+                                - pseudonyme
+                                - prenom_usuel
+                                - prenom_1
+                                - prenom_2
+                                - prenom_3
+                                - prenom_4
+                                - nom_usage
+                                - nom_naissance
+                                - sexe
+                              categorie_entreprise:
+                                title: Catégorie de l'unité légale
+                                type: string
+                                example: GE
+                                enum:
+                                - GE
+                                - ETI
+                                - PME
+                                -
+                                description: "Il s'agit d'une variable statistique
+                                  calculée par l'Insee. Elle ne peut prendre que 3
+                                  valeurs: \n \n - GE: Grande Entreprise \n - ETI:
+                                  Entreprise de Taille Intermédiaire \n - PME: Petite
+                                  ou Moyenne Entreprise \n \n Celle-ci peut-être 'null'
+                                  dans certains cas : quand il s’agit d’une unité
+                                  légale nouvellement créée, ou bien d’une unité légale
+                                  cessée, ou encore d’une unité légale hors champ
+                                  du calcul de la catégorie (unité légale agricole
+                                  ou ne faisant pas partie du système productif).
+                                  \n \n Définition de 'catégorie d'entreprise' par
+                                  l'Insee : https://www.insee.fr/fr/metadonnees/definition/c1057"
+                              numero_tva_intracommunautaire:
+                                title: Numéro de TVA intracommunautaire
+                                type: string
+                                example: FR07130025265
+                                description: "Le numéro de TVA intracommunautaire
+                                  est un numéro d’identification individuel attribué
+                                  aux entreprises assujetties à la TVA et domiciliées
+                                  au sein de l’Union européenne. Le numéro renvoyé
+                                  par l'API est calculé par API Entreprise à l'aide
+                                  du numéro de SIREN, cette donnée est donc théorique.
+                                  \n \n Dans le cas où l’établissement siège est à
+                                  l’étranger la valeur est systématiquement 'null'
+                                  \n \n Plus d'informations sur la méthode de calcul
+                                  : LIEN TODO"
+                              diffusable_commercialement:
+                                title: Diffusable commercialement
+                                type: boolean
+                                example: true
+                                description: "Indique si l'unité légale est : \n \n
+                                  - une unité légale diffusible : 'true' \n - une
+                                  unité légale non-diffusible : 'false'. Dans ce cas,
+                                  les informations obtenues ne doivent en aucun cas
+                                  être accessibles au grand public. \n \n Plus d'informations
+                                  sur les conditions de diffusion : LIEN TODO"
+                              forme_juridique:
+                                type: object
+                                title: Attributs de la forme juridique
+                                properties:
+                                  code:
+                                    title: Code de la forme juridique de l'unité légale.
+                                    type: string
+                                    example: '7120'
+                                    description: "Il existe plus de 300 catégories
+                                      juridiques, identifiables par un code spécifique
+                                      à quatre chiffres. Leur nomenclature comporte
+                                      3 niveaux. Le premier niveau de classement contient
+                                      9 grandes catégories identifiables avec le premier
+                                      chiffre du code : \n \n - 0 : Organisme de placement
+                                      collectif en valeurs mobilières sans personnalité
+                                      morale \n - 1 : Entrepreneur individuel. La
+                                      catégorie juridique des personnes physiques
+                                      est '1000'. \n - 2 : Groupement de droit privé
+                                      non doté de la personnalité morale \n - 3 :
+                                      Personne morale de droit étranger \n - 4 : Personne
+                                      morale de droit public soumise au droit commercial
+                                      \n - 5 : Société commerciale \n - 6 : Autre
+                                      personne morale immatriculée au RCS \n - 7 :
+                                      Personne morale et organisme soumis au droit
+                                      administratif \n - 8 : Organisme privé spécialisé
+                                      \n - 9 : Groupement de droit privé \n \n Nomenclature
+                                      exhaustive des codes fournie par l'Insee : https://www.insee.fr/fr/information/2028129"
+                                  libelle:
+                                    title: Libellé associé au code de la forme juridique
+                                      de l'unité légale.
+                                    type: string
+                                    example: Service central d'un ministère
+                                    description: "indique le libellé correspondant
+                                      au code juridique. Si le code ne correspond
+                                      à aucun libellé la valeur 'non référencé' est
+                                      utilisée. \n \n Nomenclature exhaustive fournie
+                                      par l'Insee : https://www.insee.fr/fr/information/2028129"
+                                required:
+                                - code
+                                - libelle
+                              activite_principale:
+                                title: Attributs de l'activité principale
+                                type: object
+                                properties:
+                                  code:
+                                    title: Code de l'activité principale (APE) de
+                                      l'unité légale
+                                    type: string
+                                    example: 8411Z
+                                    description: "Le code APE (activité principale
+                                      exercée) permet d'identifier la branche d'activité
+                                      principale. Il est attribué par l'Insee lors
+                                      de l'immatriculation ou la déclaration d'activité
+                                      de l'entreprise. Ce code de 4 chiffres + 1 lettre
+                                      est extrait de la nomenclature d'activité française
+                                      (NAF) de l'Insee. \n \n À noter qu'une entreprise
+                                      n'ayant pas encore de code APE peut se voir
+                                      affecter la valeur '00.00Z' de manière provisoire.
+                                      \n \n Plus d'informations métier : https://entreprendre.service-public.fr/vosdroits/F33050
+                                      Nomemclature d'activité française - NAF rév.2
+                                      de l'Insee : https://www.insee.fr/fr/information/2120875"
+                                  libelle:
+                                    title: Libellé associé au code APE
+                                    type: string
+                                    nullable: true
+                                    example: Administration publique générale
+                                    description: "Si le code n'est pas renseigné dans
+                                      la nomenclature 'Naf Rév2' (nomenclature en
+                                      vigueur), le libellé n'est pas renseigné ici.
+                                      Si le code ne correspond à aucun libellé au
+                                      sein de la nomenclature 'Naf Rév2', la valeur
+                                      'non référencé' est utilisée. \n \n Nomemclature
+                                      d'activité française - NAF rév.2 de l'Insee
+                                      : https://www.insee.fr/fr/information/2406147"
+                                  nomenclature:
+                                    title: Nomenclature associée au code
+                                    type: string
+                                    example: NAFRev2
+                                    description: Ce champ indique le nom de la nomenclature
+                                      associée au code APE.
+                                required:
+                                - code
+                                - libelle
+                                - nomenclature
+                              tranche_effectif_salarie:
+                                type: object
+                                title: Tranche d'effectif salarié de l'unité légale
+                                properties:
+                                  code:
+                                    type: string
+                                    nullable: true
+                                    example: '51'
+                                    description: "Le code effectif indique la tranche
+                                      d'effectif salarié de l'unité légale. Le nombre
+                                      de salarié est déterminé en fonction de l'effectif
+                                      de chacun des établissements de l'unité légale
+                                      : \n \n - NN : Unités non employeuses (pas de
+                                      salarié au cours de l'année de référence et
+                                      pas d'effectif au 31/12). Cette tranche peut
+                                      contenir quelques effectifs inconnus \n - 00
+                                      : 0 salarié (n'ayant pas d'effectif au 31/12
+                                      mais ayant employé des salariés au cours de
+                                      l'année de référence) \n - 01 : 1 ou 2 salariés
+                                      \n - 02 : 3 à 5 salariés \n - 03 : 6 à 9 salariés
+                                      \n - 11 : 10 à 19 salariés \n - 12 : 20 à 49
+                                      salariés \n - 21 : 50 à 99 salariés \n - 22
+                                      : 100 à 199 salariés \n - 31 : 200 à 249 salariés
+                                      \n - 32 : 250 à 499 salariés \n - 41 : 500 à
+                                      999 salariés \n - 42 : 1 000 à 1 999 salariés
+                                      \n - 51 : 2 000 à 4 999 salariés \n - 52 : 5
+                                      000 à 9 999 salariés \n - 53 : 10 000 salariés
+                                      et plus \n \n Plus d'informations dans la documentation
+                                      Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen.
+                                      \n \n L'effectif exact de l'entreprise, mensuel
+                                      et annuel, est disponible au travers de l'[API
+                                      Effectifs - URSSAF Caisse nationale](TODO).
+                                      Si votre jeton contient ce droit d'accès, nous
+                                      vous recommandons d'utiliser cette API. Ces
+                                      données étant protégées, leur cadre d'utilisation
+                                      est différent de la tranche effectif fournie
+                                      par l'Insee, qui elle est une donnée publique."
+                                    enum:
+                                    - NN
+                                    - '00'
+                                    - '01'
+                                    - '02'
+                                    - '03'
+                                    - '11'
+                                    - '12'
+                                    - '21'
+                                    - '22'
+                                    - '31'
+                                    - '32'
+                                    - '41'
+                                    - '42'
+                                    - '51'
+                                    - '52'
+                                    - '53'
+                                  intitule:
+                                    title: Intitulé associé au code effectif
+                                    type: string
+                                    nullable: true
+                                    example: 2 000 à 4 999 salariés
+                                  date_reference:
+                                    title: Date de référence de l'effectif
+                                    type: string
+                                    nullable: true
+                                    example: '2016'
+                                  de:
+                                    title: Seuil inférieur de la tranche effectif
+                                    type: integer
+                                    example: 2000
+                                    nullable: true
+                                  a:
+                                    title: Seuil supérieur de la tranche effectif
+                                    type: integer
+                                    example: 4999
+                                    nullable: true
+                                required:
+                                - code
+                                - intitule
+                                - date_reference
+                                - de
+                                - a
+                              etat_administratif:
+                                title: État administratif de l'unité légale
+                                type: string
+                                example: A
+                                enum:
+                                - A
+                                - C
+                                description: "Cette valeur décrit l'état administratif
+                                  de l'unité légale, qui peut être : \n \n - cessée.
+                                  Le passage à l'état « Cessée » découle de la prise
+                                  en compte d'une déclaration de cessation administrative.
+                                  Pour les personnes morales, cela correspond au dépôt
+                                  de la déclaration de disparition de la personne
+                                  morale. Pour les personnes physiques, cela correspond
+                                  soit à la prise en compte de la déclaration de cessation
+                                  d'activité déposée par l'exploitant soit au décès
+                                  de l'exploitant conformément à la réglementation.
+                                  \n - active. En dehors des cas explicités ci-dessus,
+                                  l'unité légale est toujours à l'état administratif
+                                  « Active ». \n \n Plus d'informations dans la documentation
+                                  Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifUniteLegale"
+                              date_cessation:
+                                title: Date de cessation de l'unité légale
+                                type: integer
+                                nullable: true
+                                example: 1634133818
+                                description: Cette valeur est renvoyée sous format
+                                  timestamp. Si l'entreprise est juridique active,
+                                  cette valeur est à 'null'.
+                              date_creation:
+                                title: Date de création de l'unité légale
+                                type: integer
+                                example: 1634103818
+                                description: "La date de création correspond à la
+                                  date qui figure dans les statuts de l'entreprise
+                                  qui sont déposés au centre de formalité des entreprises
+                                  (CFE) compétent. Cette valeur est renvoyée sous
+                                  format timestamp. \n \n Sauf pour les unités purgées,
+                                  la date de création n'est jamais à 'null'. Si elle
+                                  est non renseignée, elle sera au 01/01/1900. \n
+                                  \n Plus d'informations dans la documentation Insee
+                                  de l'API Sirene : https://www.sirene.fr/sirene/public/variable/dateCreationUniteLegale"
+                            required:
+                            - siret_siege_social
+                            - type
+                            - personne_morale_attributs
+                            - personne_physique_attributs
+                            - categorie_entreprise
+                            - numero_tva_intracommunautaire
+                            - diffusable_commercialement
+                            - forme_juridique
+                            - activite_principale
+                            - tranche_effectif_salarie
+                            - etat_administratif
+                            - date_cessation
+                            - date_creation
+                          adresse:
+                            type: object
+                            title: Adresse de l'établissement
+                            properties:
+                              numero_voie:
+                                title: Numéro dans la voie
+                                type: string
+                                example: '22'
+                              indice_repetition_voie:
+                                title: Indice de répétition du numéro dans la voie
+                                description: 'Plus d''informations dans la documentation
+                                  Insee de l''API Sirene : https://www.sirene.fr/sirene/public/variable/indrep'
+                                type: string
+                                nullable: true
+                                enum:
+                                - bis
+                                - ter
+                                - quarter
+                                - quinquies
+                                -
+                              type_voie:
+                                title: Type de la voie de localisation
+                                example: RUE
+                                description: "Le type de la voie de localisation est
+                                  indiquée en abrégé et en majuscules. L'information
+                                  n'est pas toujours renseignée. Pour certaines petites
+                                  communes, l'information n'existe pas. \n \n Plus
+                                  d'informations dans la documentation Insee de l'API
+                                  Sirene : https://www.sirene.fr/sirene/public/variable/typvoie"
+                                type: string
+                                nullable: true
+                                enum:
+                                - ALLÉE
+                                - AVENUE
+                                - BOULEVARD
+                                - CARREFOUR
+                                - CHEMIN
+                                - CHAUSSÉE
+                                - CITÉ
+                                - CORNICHE
+                                - COURS
+                                - DOMAINE
+                                - DESCENTE
+                                - ECART
+                                - ESPLANADE
+                                - FAUBOURG
+                                - GRANDE RUE
+                                - HAMEAU
+                                - HALLE
+                                - IMPASSE
+                                - LIEU-DIT
+                                - LOTISSEMENT
+                                - MARCHÉ
+                                - MONTÉE
+                                - PASSAGE
+                                - PLACE
+                                - PLAINE
+                                - PLATEAU
+                                - PROMENADE
+                                - PARVIS
+                                - QUARTIER
+                                - QUAI
+                                - RÉSIDENCE
+                                - RUELLE
+                                - ROCADE
+                                - ROND-POINT
+                                - ROUTE
+                                - RUE
+                                - SENTIER
+                                - SQUARE
+                                - TERRE-PLEIN
+                                - TRAVERSE
+                                - VILLA
+                                - VILLAGE
+                                -
+                              libelle_voie:
+                                title: Libellé de la voie
+                                example: DE LA PAIX
+                              complement_adresse:
+                                title: Complément d'adresse
+                                type: string
+                                description: Le complément d'adresse correspond à
+                                  des éléments situés à l'extérieur du bâtiment qui
+                                  permettent de compléter l'adresse (résidence, bâtiment,
+                                  entrée, etc..)
+                                example: ZAE SAINT GUENAULT
+                                nullable: true
+                              code_commune:
+                                title: Code commune
+                                description: "Le code commune désigne le code de la
+                                  commune de localisation de l'établissement. Le code
+                                  renvoyé correspond à la date de l'appel, ce qui
+                                  implique que toute modification du code commune
+                                  est repercutée sur l'ensemble des établissements
+                                  concernés, y compris ceux qui sont fermés. Cette
+                                  valeur est à 'null' pour les entreprises à l'étranger.
+                                  \n \n Les codes sont listés dans la table d'appartenance
+                                  géographique fournie par l'Insee et disponible ici:
+                                  https://www.insee.fr/fr/information/2028028"
+                                type: string
+                                example: '75112'
+                                nullable: true
+                              code_postal:
+                                title: Code postal
+                                example: '75016'
+                                type: string
+                              distribution_speciale:
+                                title: Distribution spéciale
+                                description: "La distribution spéciale reprend les
+                                  éléments particuliers qui accompagnent une adresse
+                                  de distribution spéciale, la modalité la plus connue
+                                  étant les adresses en 'CEDEX'. \n \n Plus d'informations
+                                  dans la documentation Insee de l'API Sirene : *
+                                  https://www.sirene.fr/sirene/public/variable/distributionSpecialeEtablissement
+                                  * https://www.sirene.fr/sirene/public/variable/l5-disp"
+                              code_cedex:
+                                title: Code cedex
+                                nullable: true
+                                description: 'Plus d''informations : https://fr.wikipedia.org/wiki/Courrier_d%27entreprise_%C3%A0_distribution_exceptionnelle'
+                                example: '75590'
+                              libelle_cedex:
+                                title: Libellé du code cedex
+                                type: string
+                                nullable: true
+                                example: PARIS CEDEX 12
+                                description: Ce champ indique le libellé correspondant
+                                  au code cedex de l'établissement. Si le code cedex
+                                  est à 'null', ce champ est également à 'null'.
+                              libelle_commune:
+                                title: Nom de la commune pour une adresse en France
+                                description: Cette valeur est à 'null' pour les établissements
+                                  à l'étranger.
+                                type: string
+                                example: PARIS 12
+                                nullable: true
+                              libelle_commune_etranger:
+                                title: Nom de la commune pour une adresse à l'étranger.
+                                description: Cette valeur est à 'null' pour les établissements
+                                  en France.
+                                type: string
+                                nullable: true
+                              code_pays_etranger:
+                                title: Code du pays pour les établissements situés
+                                  à l'étranger
+                                description: 'La nomenclature des codes pays se trouve
+                                  ici: https://www.insee.fr/fr/information/2028273'
+                                type: string
+                                example: '99132'
+                                nullable: true
+                              libelle_pays_etranger:
+                                title: Nom du pays pour les établissements situés
+                                  à l'étranger
+                                type: string
+                                nullable: true
+                                example: ROYAUME-UNI
+                              acheminement_postal:
+                                type: object
+                                title: Éléments constitutifs de l'adresse postale
+                                  pour son acheminement.
+                                description: Il ne s'agit pas d'un traitement RNVP
+                                  mais simplement d'une réorganisation des éléments
+                                  renvoyé par l'Insee pour faciliter l'affichage des
+                                  adresses postales
+                                properties:
+                                  l1:
+                                    title: Ligne 1
+                                    description: 'Si l''établissement correspond à
+                                      une personne morale: la dénomination sociale
+                                      de la personne morale. Le cas contraire: cette
+                                      variable est vide.'
+                                    example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
+                                  l2:
+                                    title: Ligne 2
+                                    description: 'Si l''établissement correspond à
+                                      une personne physique: concaténation du nom
+                                      et prénom'
+                                    example: JEAN MARIE DURAND
+                                  l3:
+                                    title: Ligne 3
+                                    description: Complément d'adresse comme décrit
+                                      dans la clé `complement_adresse`
+                                    example: ZAE SAINT GUENAULT
+                                  l4:
+                                    title: Ligne 4
+                                    description: Concaténation du numéro de voie,
+                                      d'indice de répétition, du type de voie et du
+                                      libellé de la voie
+                                    example: 51 BIS RUE DE LA PAIX
+                                  l5:
+                                    title: Ligne 5
+                                    description: Distribution spéciale comme décrit
+                                      dans la clé `distribution_speciale`
+                                    example: CS 72809
+                                  l6:
+                                    title: Ligne 6
+                                    description: 'Si le code cedex est existant: code
+                                      cedex accompagné de son libellé ; sinon, si
+                                      le pays est en France: code postal accompagné
+                                      de son libellé, sinon : libellé de la commune
+                                      de l''établissement situé à l''étranger'
+                                    example: 75256 PARIX CEDEX 12
+                                  l7:
+                                    title: Ligne 7
+                                    description: Pays de l'établissement
+                                    example: FRANCE
+                                required:
+                                - l1
+                                - l2
+                                - l3
+                                - l4
+                                - l5
+                                - l6
+                                - l7
+                            required:
+                            - numero_voie
+                            - indice_repetition_voie
+                            - type_voie
+                            - libelle_voie
+                            - complement_adresse
+                            - code_commune
+                            - code_postal
+                            - distribution_speciale
+                            - code_cedex
+                            - libelle_cedex
+                            - libelle_commune
+                            - libelle_commune_etranger
+                            - code_pays_etranger
+                            - libelle_pays_etranger
+                            - acheminement_postal
                           date_creation:
                             type: integer
                             example: 1634103818
@@ -3550,6 +4991,8 @@ paths:
                         - activite_principale
                         - tranche_effectif_salarie
                         - diffusable_commercialement
+                        - unite_legale
+                        - adresse
                         - date_creation
                       links:
                         type: object
@@ -3778,7 +5221,7 @@ paths:
                             - nomenclature
                           tranche_effectif_salarie:
                             type: object
-                            title: Attributs de la tranche d'effectif salarié
+                            title: Tranche d'effectif salarié de l'établissement
                             properties:
                               code:
                                 title: Code effectif
@@ -3801,7 +5244,14 @@ paths:
                                   1 000 à 1 999 salariés \n - 51 : 2 000 à 4 999 salariés
                                   \n - 52 : 5 000 à 9 999 salariés \n - 53 : 10 000
                                   salariés et plus \n \n Plus d'informations dans
-                                  la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen"
+                                  la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen.
+                                  \n \n L'effectif mensuel exact de l'établissement
+                                  est disponible au travers de l'[API Effectifs -
+                                  URSSAF Caisse nationale](TODO). Si votre jeton contient
+                                  ce droit d'accès, nous vous recommandons d'utiliser
+                                  cette API. Ces données étant protégées, leur cadre
+                                  d'utilisation est différent de la tranche effectif
+                                  fournie par l'Insee, qui elle est une donnée publique."
                                 enum:
                                 - NN
                                 - '00'
@@ -3856,6 +5306,611 @@ paths:
                               est toujours à 'true'. Pour récupérer des établissements
                               non-diffusibles, référez-vous à la documentation de
                               l'API /insee/etablissements/:siren
+                          unite_legale:
+                            type: object
+                            title: Unité légale de l'établissement
+                            properties:
+                              siret_siege_social:
+                                title: SIRET du siège social
+                                type: string
+                                example: '13002526500013'
+                              type:
+                                title: Type de personne
+                                type: string
+                                enum:
+                                - personne_physique
+                                - personne_morale
+                                example: personne_morale
+                                description: 'Indique si l''unité légale est une personne
+                                  morale ou une personne physique. Cette valeur est
+                                  déterminée à l''aide du code juridique : ''1000''
+                                  correspondant à une personne physique.'
+                              personne_morale_attributs:
+                                type: object
+                                title: Attributs de la personne morale
+                                description: Attributs associés à la personne morale.
+                                  Les valeurs sont à 'null' pour les personnes physiques.
+                                properties:
+                                  raison_sociale:
+                                    title: Raison sociale de l'unité légale
+                                    type: string
+                                    example: DINUM
+                                    nullable: true
+                                required:
+                                - raison_sociale
+                              personne_physique_attributs:
+                                type: object
+                                title: Attributs de la personne physique
+                                description: Attributs associés à la personne physique.
+                                  Les valeurs sont à 'null' pour les personnes morales.
+                                properties:
+                                  pseudonyme:
+                                    title: Pseudonyme
+                                    type: string
+                                    example: DJ Falcon
+                                    nullable: true
+                                    description: Le pseudonyme correspond au nom qu'une
+                                      personne utilise pour se désigner dans l'exercice
+                                      de son activité, généralement littéraire ou
+                                      artistique.
+                                  prenom_usuel:
+                                    title: Prénom usuel
+                                    type: string
+                                    example: Jean
+                                    nullable: true
+                                    description: Le prénom usuel est le prénom par
+                                      lequel une personne choisit de se faire appeler
+                                      dans la vie courante. Ce prénom fait partie
+                                      de ceux qui lui ont été donnés à sa naissance
+                                      et qui sont inscrits à l'état civil.
+                                  prenom_1:
+                                    title: Prénom numéro 1 déclaré
+                                    type: string
+                                    example: Jean
+                                    nullable: true
+                                  prenom_2:
+                                    title: Prénom numéro 2 déclaré
+                                    type: string
+                                    example: Jacques
+                                    nullable: true
+                                  prenom_3:
+                                    title: Prénom numéro 3 déclaré
+                                    type: string
+                                    example: Pierre
+                                    nullable: true
+                                  prenom_4:
+                                    title: Prénom numéro 4 déclaré
+                                    type: string
+                                    example: Paul
+                                    nullable: true
+                                  nom_usage:
+                                    title: Nom d'usage
+                                    type: string
+                                    example: Dupont
+                                    nullable: true
+                                    description: Nom que la personne physique a choisi
+                                      d'utiliser.
+                                  nom_naissance:
+                                    title: Nom de naissance
+                                    type: string
+                                    example: Dubois
+                                    nullable: true
+                                  sexe:
+                                    title: Genre
+                                    type: string
+                                    example: M
+                                    enum:
+                                    - M
+                                    - F
+                                    -
+                                    nullable: true
+                                    description: Caractère féminin ou masculin de
+                                      la personne physique. Cette valeur peut ne pas
+                                      être renseignée pour une personne physique.
+                                required:
+                                - pseudonyme
+                                - prenom_usuel
+                                - prenom_1
+                                - prenom_2
+                                - prenom_3
+                                - prenom_4
+                                - nom_usage
+                                - nom_naissance
+                                - sexe
+                              categorie_entreprise:
+                                title: Catégorie de l'unité légale
+                                type: string
+                                example: GE
+                                enum:
+                                - GE
+                                - ETI
+                                - PME
+                                -
+                                description: "Il s'agit d'une variable statistique
+                                  calculée par l'Insee. Elle ne peut prendre que 3
+                                  valeurs: \n \n - GE: Grande Entreprise \n - ETI:
+                                  Entreprise de Taille Intermédiaire \n - PME: Petite
+                                  ou Moyenne Entreprise \n \n Celle-ci peut-être 'null'
+                                  dans certains cas : quand il s’agit d’une unité
+                                  légale nouvellement créée, ou bien d’une unité légale
+                                  cessée, ou encore d’une unité légale hors champ
+                                  du calcul de la catégorie (unité légale agricole
+                                  ou ne faisant pas partie du système productif).
+                                  \n \n Définition de 'catégorie d'entreprise' par
+                                  l'Insee : https://www.insee.fr/fr/metadonnees/definition/c1057"
+                              numero_tva_intracommunautaire:
+                                title: Numéro de TVA intracommunautaire
+                                type: string
+                                example: FR07130025265
+                                description: "Le numéro de TVA intracommunautaire
+                                  est un numéro d’identification individuel attribué
+                                  aux entreprises assujetties à la TVA et domiciliées
+                                  au sein de l’Union européenne. Le numéro renvoyé
+                                  par l'API est calculé par API Entreprise à l'aide
+                                  du numéro de SIREN, cette donnée est donc théorique.
+                                  \n \n Dans le cas où l’établissement siège est à
+                                  l’étranger la valeur est systématiquement 'null'
+                                  \n \n Plus d'informations sur la méthode de calcul
+                                  : LIEN TODO"
+                              diffusable_commercialement:
+                                title: Diffusable commercialement
+                                type: boolean
+                                example: true
+                                description: "Indique si l'unité légale est : \n \n
+                                  - une unité légale diffusible : 'true' \n - une
+                                  unité légale non-diffusible : 'false'. Dans ce cas,
+                                  les informations obtenues ne doivent en aucun cas
+                                  être accessibles au grand public. \n \n Plus d'informations
+                                  sur les conditions de diffusion : LIEN TODO"
+                              forme_juridique:
+                                type: object
+                                title: Attributs de la forme juridique
+                                properties:
+                                  code:
+                                    title: Code de la forme juridique de l'unité légale.
+                                    type: string
+                                    example: '7120'
+                                    description: "Il existe plus de 300 catégories
+                                      juridiques, identifiables par un code spécifique
+                                      à quatre chiffres. Leur nomenclature comporte
+                                      3 niveaux. Le premier niveau de classement contient
+                                      9 grandes catégories identifiables avec le premier
+                                      chiffre du code : \n \n - 0 : Organisme de placement
+                                      collectif en valeurs mobilières sans personnalité
+                                      morale \n - 1 : Entrepreneur individuel. La
+                                      catégorie juridique des personnes physiques
+                                      est '1000'. \n - 2 : Groupement de droit privé
+                                      non doté de la personnalité morale \n - 3 :
+                                      Personne morale de droit étranger \n - 4 : Personne
+                                      morale de droit public soumise au droit commercial
+                                      \n - 5 : Société commerciale \n - 6 : Autre
+                                      personne morale immatriculée au RCS \n - 7 :
+                                      Personne morale et organisme soumis au droit
+                                      administratif \n - 8 : Organisme privé spécialisé
+                                      \n - 9 : Groupement de droit privé \n \n Nomenclature
+                                      exhaustive des codes fournie par l'Insee : https://www.insee.fr/fr/information/2028129"
+                                  libelle:
+                                    title: Libellé associé au code de la forme juridique
+                                      de l'unité légale.
+                                    type: string
+                                    example: Service central d'un ministère
+                                    description: "indique le libellé correspondant
+                                      au code juridique. Si le code ne correspond
+                                      à aucun libellé la valeur 'non référencé' est
+                                      utilisée. \n \n Nomenclature exhaustive fournie
+                                      par l'Insee : https://www.insee.fr/fr/information/2028129"
+                                required:
+                                - code
+                                - libelle
+                              activite_principale:
+                                title: Attributs de l'activité principale
+                                type: object
+                                properties:
+                                  code:
+                                    title: Code de l'activité principale (APE) de
+                                      l'unité légale
+                                    type: string
+                                    example: 8411Z
+                                    description: "Le code APE (activité principale
+                                      exercée) permet d'identifier la branche d'activité
+                                      principale. Il est attribué par l'Insee lors
+                                      de l'immatriculation ou la déclaration d'activité
+                                      de l'entreprise. Ce code de 4 chiffres + 1 lettre
+                                      est extrait de la nomenclature d'activité française
+                                      (NAF) de l'Insee. \n \n À noter qu'une entreprise
+                                      n'ayant pas encore de code APE peut se voir
+                                      affecter la valeur '00.00Z' de manière provisoire.
+                                      \n \n Plus d'informations métier : https://entreprendre.service-public.fr/vosdroits/F33050
+                                      Nomemclature d'activité française - NAF rév.2
+                                      de l'Insee : https://www.insee.fr/fr/information/2120875"
+                                  libelle:
+                                    title: Libellé associé au code APE
+                                    type: string
+                                    nullable: true
+                                    example: Administration publique générale
+                                    description: "Si le code n'est pas renseigné dans
+                                      la nomenclature 'Naf Rév2' (nomenclature en
+                                      vigueur), le libellé n'est pas renseigné ici.
+                                      Si le code ne correspond à aucun libellé au
+                                      sein de la nomenclature 'Naf Rév2', la valeur
+                                      'non référencé' est utilisée. \n \n Nomemclature
+                                      d'activité française - NAF rév.2 de l'Insee
+                                      : https://www.insee.fr/fr/information/2406147"
+                                  nomenclature:
+                                    title: Nomenclature associée au code
+                                    type: string
+                                    example: NAFRev2
+                                    description: Ce champ indique le nom de la nomenclature
+                                      associée au code APE.
+                                required:
+                                - code
+                                - libelle
+                                - nomenclature
+                              tranche_effectif_salarie:
+                                type: object
+                                title: Tranche d'effectif salarié de l'unité légale
+                                properties:
+                                  code:
+                                    type: string
+                                    nullable: true
+                                    example: '51'
+                                    description: "Le code effectif indique la tranche
+                                      d'effectif salarié de l'unité légale. Le nombre
+                                      de salarié est déterminé en fonction de l'effectif
+                                      de chacun des établissements de l'unité légale
+                                      : \n \n - NN : Unités non employeuses (pas de
+                                      salarié au cours de l'année de référence et
+                                      pas d'effectif au 31/12). Cette tranche peut
+                                      contenir quelques effectifs inconnus \n - 00
+                                      : 0 salarié (n'ayant pas d'effectif au 31/12
+                                      mais ayant employé des salariés au cours de
+                                      l'année de référence) \n - 01 : 1 ou 2 salariés
+                                      \n - 02 : 3 à 5 salariés \n - 03 : 6 à 9 salariés
+                                      \n - 11 : 10 à 19 salariés \n - 12 : 20 à 49
+                                      salariés \n - 21 : 50 à 99 salariés \n - 22
+                                      : 100 à 199 salariés \n - 31 : 200 à 249 salariés
+                                      \n - 32 : 250 à 499 salariés \n - 41 : 500 à
+                                      999 salariés \n - 42 : 1 000 à 1 999 salariés
+                                      \n - 51 : 2 000 à 4 999 salariés \n - 52 : 5
+                                      000 à 9 999 salariés \n - 53 : 10 000 salariés
+                                      et plus \n \n Plus d'informations dans la documentation
+                                      Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen.
+                                      \n \n L'effectif exact de l'entreprise, mensuel
+                                      et annuel, est disponible au travers de l'[API
+                                      Effectifs - URSSAF Caisse nationale](TODO).
+                                      Si votre jeton contient ce droit d'accès, nous
+                                      vous recommandons d'utiliser cette API. Ces
+                                      données étant protégées, leur cadre d'utilisation
+                                      est différent de la tranche effectif fournie
+                                      par l'Insee, qui elle est une donnée publique."
+                                    enum:
+                                    - NN
+                                    - '00'
+                                    - '01'
+                                    - '02'
+                                    - '03'
+                                    - '11'
+                                    - '12'
+                                    - '21'
+                                    - '22'
+                                    - '31'
+                                    - '32'
+                                    - '41'
+                                    - '42'
+                                    - '51'
+                                    - '52'
+                                    - '53'
+                                  intitule:
+                                    title: Intitulé associé au code effectif
+                                    type: string
+                                    nullable: true
+                                    example: 2 000 à 4 999 salariés
+                                  date_reference:
+                                    title: Date de référence de l'effectif
+                                    type: string
+                                    nullable: true
+                                    example: '2016'
+                                  de:
+                                    title: Seuil inférieur de la tranche effectif
+                                    type: integer
+                                    example: 2000
+                                    nullable: true
+                                  a:
+                                    title: Seuil supérieur de la tranche effectif
+                                    type: integer
+                                    example: 4999
+                                    nullable: true
+                                required:
+                                - code
+                                - intitule
+                                - date_reference
+                                - de
+                                - a
+                              etat_administratif:
+                                title: État administratif de l'unité légale
+                                type: string
+                                example: A
+                                enum:
+                                - A
+                                - C
+                                description: "Cette valeur décrit l'état administratif
+                                  de l'unité légale, qui peut être : \n \n - cessée.
+                                  Le passage à l'état « Cessée » découle de la prise
+                                  en compte d'une déclaration de cessation administrative.
+                                  Pour les personnes morales, cela correspond au dépôt
+                                  de la déclaration de disparition de la personne
+                                  morale. Pour les personnes physiques, cela correspond
+                                  soit à la prise en compte de la déclaration de cessation
+                                  d'activité déposée par l'exploitant soit au décès
+                                  de l'exploitant conformément à la réglementation.
+                                  \n - active. En dehors des cas explicités ci-dessus,
+                                  l'unité légale est toujours à l'état administratif
+                                  « Active ». \n \n Plus d'informations dans la documentation
+                                  Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifUniteLegale"
+                              date_cessation:
+                                title: Date de cessation de l'unité légale
+                                type: integer
+                                nullable: true
+                                example: 1634133818
+                                description: Cette valeur est renvoyée sous format
+                                  timestamp. Si l'entreprise est juridique active,
+                                  cette valeur est à 'null'.
+                              date_creation:
+                                title: Date de création de l'unité légale
+                                type: integer
+                                example: 1634103818
+                                description: "La date de création correspond à la
+                                  date qui figure dans les statuts de l'entreprise
+                                  qui sont déposés au centre de formalité des entreprises
+                                  (CFE) compétent. Cette valeur est renvoyée sous
+                                  format timestamp. \n \n Sauf pour les unités purgées,
+                                  la date de création n'est jamais à 'null'. Si elle
+                                  est non renseignée, elle sera au 01/01/1900. \n
+                                  \n Plus d'informations dans la documentation Insee
+                                  de l'API Sirene : https://www.sirene.fr/sirene/public/variable/dateCreationUniteLegale"
+                            required:
+                            - siret_siege_social
+                            - type
+                            - personne_morale_attributs
+                            - personne_physique_attributs
+                            - categorie_entreprise
+                            - numero_tva_intracommunautaire
+                            - diffusable_commercialement
+                            - forme_juridique
+                            - activite_principale
+                            - tranche_effectif_salarie
+                            - etat_administratif
+                            - date_cessation
+                            - date_creation
+                          adresse:
+                            type: object
+                            title: Adresse de l'établissement
+                            properties:
+                              numero_voie:
+                                title: Numéro dans la voie
+                                type: string
+                                example: '22'
+                              indice_repetition_voie:
+                                title: Indice de répétition du numéro dans la voie
+                                description: 'Plus d''informations dans la documentation
+                                  Insee de l''API Sirene : https://www.sirene.fr/sirene/public/variable/indrep'
+                                type: string
+                                nullable: true
+                                enum:
+                                - bis
+                                - ter
+                                - quarter
+                                - quinquies
+                                -
+                              type_voie:
+                                title: Type de la voie de localisation
+                                example: RUE
+                                description: "Le type de la voie de localisation est
+                                  indiquée en abrégé et en majuscules. L'information
+                                  n'est pas toujours renseignée. Pour certaines petites
+                                  communes, l'information n'existe pas. \n \n Plus
+                                  d'informations dans la documentation Insee de l'API
+                                  Sirene : https://www.sirene.fr/sirene/public/variable/typvoie"
+                                type: string
+                                nullable: true
+                                enum:
+                                - ALLÉE
+                                - AVENUE
+                                - BOULEVARD
+                                - CARREFOUR
+                                - CHEMIN
+                                - CHAUSSÉE
+                                - CITÉ
+                                - CORNICHE
+                                - COURS
+                                - DOMAINE
+                                - DESCENTE
+                                - ECART
+                                - ESPLANADE
+                                - FAUBOURG
+                                - GRANDE RUE
+                                - HAMEAU
+                                - HALLE
+                                - IMPASSE
+                                - LIEU-DIT
+                                - LOTISSEMENT
+                                - MARCHÉ
+                                - MONTÉE
+                                - PASSAGE
+                                - PLACE
+                                - PLAINE
+                                - PLATEAU
+                                - PROMENADE
+                                - PARVIS
+                                - QUARTIER
+                                - QUAI
+                                - RÉSIDENCE
+                                - RUELLE
+                                - ROCADE
+                                - ROND-POINT
+                                - ROUTE
+                                - RUE
+                                - SENTIER
+                                - SQUARE
+                                - TERRE-PLEIN
+                                - TRAVERSE
+                                - VILLA
+                                - VILLAGE
+                                -
+                              libelle_voie:
+                                title: Libellé de la voie
+                                example: DE LA PAIX
+                              complement_adresse:
+                                title: Complément d'adresse
+                                type: string
+                                description: Le complément d'adresse correspond à
+                                  des éléments situés à l'extérieur du bâtiment qui
+                                  permettent de compléter l'adresse (résidence, bâtiment,
+                                  entrée, etc..)
+                                example: ZAE SAINT GUENAULT
+                                nullable: true
+                              code_commune:
+                                title: Code commune
+                                description: "Le code commune désigne le code de la
+                                  commune de localisation de l'établissement. Le code
+                                  renvoyé correspond à la date de l'appel, ce qui
+                                  implique que toute modification du code commune
+                                  est repercutée sur l'ensemble des établissements
+                                  concernés, y compris ceux qui sont fermés. Cette
+                                  valeur est à 'null' pour les entreprises à l'étranger.
+                                  \n \n Les codes sont listés dans la table d'appartenance
+                                  géographique fournie par l'Insee et disponible ici:
+                                  https://www.insee.fr/fr/information/2028028"
+                                type: string
+                                example: '75112'
+                                nullable: true
+                              code_postal:
+                                title: Code postal
+                                example: '75016'
+                                type: string
+                              distribution_speciale:
+                                title: Distribution spéciale
+                                description: "La distribution spéciale reprend les
+                                  éléments particuliers qui accompagnent une adresse
+                                  de distribution spéciale, la modalité la plus connue
+                                  étant les adresses en 'CEDEX'. \n \n Plus d'informations
+                                  dans la documentation Insee de l'API Sirene : *
+                                  https://www.sirene.fr/sirene/public/variable/distributionSpecialeEtablissement
+                                  * https://www.sirene.fr/sirene/public/variable/l5-disp"
+                              code_cedex:
+                                title: Code cedex
+                                nullable: true
+                                description: 'Plus d''informations : https://fr.wikipedia.org/wiki/Courrier_d%27entreprise_%C3%A0_distribution_exceptionnelle'
+                                example: '75590'
+                              libelle_cedex:
+                                title: Libellé du code cedex
+                                type: string
+                                nullable: true
+                                example: PARIS CEDEX 12
+                                description: Ce champ indique le libellé correspondant
+                                  au code cedex de l'établissement. Si le code cedex
+                                  est à 'null', ce champ est également à 'null'.
+                              libelle_commune:
+                                title: Nom de la commune pour une adresse en France
+                                description: Cette valeur est à 'null' pour les établissements
+                                  à l'étranger.
+                                type: string
+                                example: PARIS 12
+                                nullable: true
+                              libelle_commune_etranger:
+                                title: Nom de la commune pour une adresse à l'étranger.
+                                description: Cette valeur est à 'null' pour les établissements
+                                  en France.
+                                type: string
+                                nullable: true
+                              code_pays_etranger:
+                                title: Code du pays pour les établissements situés
+                                  à l'étranger
+                                description: 'La nomenclature des codes pays se trouve
+                                  ici: https://www.insee.fr/fr/information/2028273'
+                                type: string
+                                example: '99132'
+                                nullable: true
+                              libelle_pays_etranger:
+                                title: Nom du pays pour les établissements situés
+                                  à l'étranger
+                                type: string
+                                nullable: true
+                                example: ROYAUME-UNI
+                              acheminement_postal:
+                                type: object
+                                title: Éléments constitutifs de l'adresse postale
+                                  pour son acheminement.
+                                description: Il ne s'agit pas d'un traitement RNVP
+                                  mais simplement d'une réorganisation des éléments
+                                  renvoyé par l'Insee pour faciliter l'affichage des
+                                  adresses postales
+                                properties:
+                                  l1:
+                                    title: Ligne 1
+                                    description: 'Si l''établissement correspond à
+                                      une personne morale: la dénomination sociale
+                                      de la personne morale. Le cas contraire: cette
+                                      variable est vide.'
+                                    example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
+                                  l2:
+                                    title: Ligne 2
+                                    description: 'Si l''établissement correspond à
+                                      une personne physique: concaténation du nom
+                                      et prénom'
+                                    example: JEAN MARIE DURAND
+                                  l3:
+                                    title: Ligne 3
+                                    description: Complément d'adresse comme décrit
+                                      dans la clé `complement_adresse`
+                                    example: ZAE SAINT GUENAULT
+                                  l4:
+                                    title: Ligne 4
+                                    description: Concaténation du numéro de voie,
+                                      d'indice de répétition, du type de voie et du
+                                      libellé de la voie
+                                    example: 51 BIS RUE DE LA PAIX
+                                  l5:
+                                    title: Ligne 5
+                                    description: Distribution spéciale comme décrit
+                                      dans la clé `distribution_speciale`
+                                    example: CS 72809
+                                  l6:
+                                    title: Ligne 6
+                                    description: 'Si le code cedex est existant: code
+                                      cedex accompagné de son libellé ; sinon, si
+                                      le pays est en France: code postal accompagné
+                                      de son libellé, sinon : libellé de la commune
+                                      de l''établissement situé à l''étranger'
+                                    example: 75256 PARIX CEDEX 12
+                                  l7:
+                                    title: Ligne 7
+                                    description: Pays de l'établissement
+                                    example: FRANCE
+                                required:
+                                - l1
+                                - l2
+                                - l3
+                                - l4
+                                - l5
+                                - l6
+                                - l7
+                            required:
+                            - numero_voie
+                            - indice_repetition_voie
+                            - type_voie
+                            - libelle_voie
+                            - complement_adresse
+                            - code_commune
+                            - code_postal
+                            - distribution_speciale
+                            - code_cedex
+                            - libelle_cedex
+                            - libelle_commune
+                            - libelle_commune_etranger
+                            - code_pays_etranger
+                            - libelle_pays_etranger
+                            - acheminement_postal
                           date_creation:
                             type: integer
                             example: 1634103818
@@ -3866,6 +5921,8 @@ paths:
                         - activite_principale
                         - tranche_effectif_salarie
                         - diffusable_commercialement
+                        - unite_legale
+                        - adresse
                         - date_creation
                       links:
                         type: object
@@ -4095,7 +6152,7 @@ paths:
                             - nomenclature
                           tranche_effectif_salarie:
                             type: object
-                            title: Attributs de la tranche d'effectif salarié
+                            title: Tranche d'effectif salarié de l'établissement
                             properties:
                               code:
                                 title: Code effectif
@@ -4118,7 +6175,14 @@ paths:
                                   1 000 à 1 999 salariés \n - 51 : 2 000 à 4 999 salariés
                                   \n - 52 : 5 000 à 9 999 salariés \n - 53 : 10 000
                                   salariés et plus \n \n Plus d'informations dans
-                                  la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen"
+                                  la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen.
+                                  \n \n L'effectif mensuel exact de l'établissement
+                                  est disponible au travers de l'[API Effectifs -
+                                  URSSAF Caisse nationale](TODO). Si votre jeton contient
+                                  ce droit d'accès, nous vous recommandons d'utiliser
+                                  cette API. Ces données étant protégées, leur cadre
+                                  d'utilisation est différent de la tranche effectif
+                                  fournie par l'Insee, qui elle est une donnée publique."
                                 enum:
                                 - NN
                                 - '00'
@@ -4174,6 +6238,611 @@ paths:
                               ce cas, les informations obtenues ne doivent en aucun
                               cas être accessibles au grand public. \n \n Plus d'informations
                               sur les conditions de diffusion : LIEN TODO"
+                          unite_legale:
+                            type: object
+                            title: Unité légale de l'établissement
+                            properties:
+                              siret_siege_social:
+                                title: SIRET du siège social
+                                type: string
+                                example: '13002526500013'
+                              type:
+                                title: Type de personne
+                                type: string
+                                enum:
+                                - personne_physique
+                                - personne_morale
+                                example: personne_morale
+                                description: 'Indique si l''unité légale est une personne
+                                  morale ou une personne physique. Cette valeur est
+                                  déterminée à l''aide du code juridique : ''1000''
+                                  correspondant à une personne physique.'
+                              personne_morale_attributs:
+                                type: object
+                                title: Attributs de la personne morale
+                                description: Attributs associés à la personne morale.
+                                  Les valeurs sont à 'null' pour les personnes physiques.
+                                properties:
+                                  raison_sociale:
+                                    title: Raison sociale de l'unité légale
+                                    type: string
+                                    example: DINUM
+                                    nullable: true
+                                required:
+                                - raison_sociale
+                              personne_physique_attributs:
+                                type: object
+                                title: Attributs de la personne physique
+                                description: Attributs associés à la personne physique.
+                                  Les valeurs sont à 'null' pour les personnes morales.
+                                properties:
+                                  pseudonyme:
+                                    title: Pseudonyme
+                                    type: string
+                                    example: DJ Falcon
+                                    nullable: true
+                                    description: Le pseudonyme correspond au nom qu'une
+                                      personne utilise pour se désigner dans l'exercice
+                                      de son activité, généralement littéraire ou
+                                      artistique.
+                                  prenom_usuel:
+                                    title: Prénom usuel
+                                    type: string
+                                    example: Jean
+                                    nullable: true
+                                    description: Le prénom usuel est le prénom par
+                                      lequel une personne choisit de se faire appeler
+                                      dans la vie courante. Ce prénom fait partie
+                                      de ceux qui lui ont été donnés à sa naissance
+                                      et qui sont inscrits à l'état civil.
+                                  prenom_1:
+                                    title: Prénom numéro 1 déclaré
+                                    type: string
+                                    example: Jean
+                                    nullable: true
+                                  prenom_2:
+                                    title: Prénom numéro 2 déclaré
+                                    type: string
+                                    example: Jacques
+                                    nullable: true
+                                  prenom_3:
+                                    title: Prénom numéro 3 déclaré
+                                    type: string
+                                    example: Pierre
+                                    nullable: true
+                                  prenom_4:
+                                    title: Prénom numéro 4 déclaré
+                                    type: string
+                                    example: Paul
+                                    nullable: true
+                                  nom_usage:
+                                    title: Nom d'usage
+                                    type: string
+                                    example: Dupont
+                                    nullable: true
+                                    description: Nom que la personne physique a choisi
+                                      d'utiliser.
+                                  nom_naissance:
+                                    title: Nom de naissance
+                                    type: string
+                                    example: Dubois
+                                    nullable: true
+                                  sexe:
+                                    title: Genre
+                                    type: string
+                                    example: M
+                                    enum:
+                                    - M
+                                    - F
+                                    -
+                                    nullable: true
+                                    description: Caractère féminin ou masculin de
+                                      la personne physique. Cette valeur peut ne pas
+                                      être renseignée pour une personne physique.
+                                required:
+                                - pseudonyme
+                                - prenom_usuel
+                                - prenom_1
+                                - prenom_2
+                                - prenom_3
+                                - prenom_4
+                                - nom_usage
+                                - nom_naissance
+                                - sexe
+                              categorie_entreprise:
+                                title: Catégorie de l'unité légale
+                                type: string
+                                example: GE
+                                enum:
+                                - GE
+                                - ETI
+                                - PME
+                                -
+                                description: "Il s'agit d'une variable statistique
+                                  calculée par l'Insee. Elle ne peut prendre que 3
+                                  valeurs: \n \n - GE: Grande Entreprise \n - ETI:
+                                  Entreprise de Taille Intermédiaire \n - PME: Petite
+                                  ou Moyenne Entreprise \n \n Celle-ci peut-être 'null'
+                                  dans certains cas : quand il s’agit d’une unité
+                                  légale nouvellement créée, ou bien d’une unité légale
+                                  cessée, ou encore d’une unité légale hors champ
+                                  du calcul de la catégorie (unité légale agricole
+                                  ou ne faisant pas partie du système productif).
+                                  \n \n Définition de 'catégorie d'entreprise' par
+                                  l'Insee : https://www.insee.fr/fr/metadonnees/definition/c1057"
+                              numero_tva_intracommunautaire:
+                                title: Numéro de TVA intracommunautaire
+                                type: string
+                                example: FR07130025265
+                                description: "Le numéro de TVA intracommunautaire
+                                  est un numéro d’identification individuel attribué
+                                  aux entreprises assujetties à la TVA et domiciliées
+                                  au sein de l’Union européenne. Le numéro renvoyé
+                                  par l'API est calculé par API Entreprise à l'aide
+                                  du numéro de SIREN, cette donnée est donc théorique.
+                                  \n \n Dans le cas où l’établissement siège est à
+                                  l’étranger la valeur est systématiquement 'null'
+                                  \n \n Plus d'informations sur la méthode de calcul
+                                  : LIEN TODO"
+                              diffusable_commercialement:
+                                title: Diffusable commercialement
+                                type: boolean
+                                example: true
+                                description: "Indique si l'unité légale est : \n \n
+                                  - une unité légale diffusible : 'true' \n - une
+                                  unité légale non-diffusible : 'false'. Dans ce cas,
+                                  les informations obtenues ne doivent en aucun cas
+                                  être accessibles au grand public. \n \n Plus d'informations
+                                  sur les conditions de diffusion : LIEN TODO"
+                              forme_juridique:
+                                type: object
+                                title: Attributs de la forme juridique
+                                properties:
+                                  code:
+                                    title: Code de la forme juridique de l'unité légale.
+                                    type: string
+                                    example: '7120'
+                                    description: "Il existe plus de 300 catégories
+                                      juridiques, identifiables par un code spécifique
+                                      à quatre chiffres. Leur nomenclature comporte
+                                      3 niveaux. Le premier niveau de classement contient
+                                      9 grandes catégories identifiables avec le premier
+                                      chiffre du code : \n \n - 0 : Organisme de placement
+                                      collectif en valeurs mobilières sans personnalité
+                                      morale \n - 1 : Entrepreneur individuel. La
+                                      catégorie juridique des personnes physiques
+                                      est '1000'. \n - 2 : Groupement de droit privé
+                                      non doté de la personnalité morale \n - 3 :
+                                      Personne morale de droit étranger \n - 4 : Personne
+                                      morale de droit public soumise au droit commercial
+                                      \n - 5 : Société commerciale \n - 6 : Autre
+                                      personne morale immatriculée au RCS \n - 7 :
+                                      Personne morale et organisme soumis au droit
+                                      administratif \n - 8 : Organisme privé spécialisé
+                                      \n - 9 : Groupement de droit privé \n \n Nomenclature
+                                      exhaustive des codes fournie par l'Insee : https://www.insee.fr/fr/information/2028129"
+                                  libelle:
+                                    title: Libellé associé au code de la forme juridique
+                                      de l'unité légale.
+                                    type: string
+                                    example: Service central d'un ministère
+                                    description: "indique le libellé correspondant
+                                      au code juridique. Si le code ne correspond
+                                      à aucun libellé la valeur 'non référencé' est
+                                      utilisée. \n \n Nomenclature exhaustive fournie
+                                      par l'Insee : https://www.insee.fr/fr/information/2028129"
+                                required:
+                                - code
+                                - libelle
+                              activite_principale:
+                                title: Attributs de l'activité principale
+                                type: object
+                                properties:
+                                  code:
+                                    title: Code de l'activité principale (APE) de
+                                      l'unité légale
+                                    type: string
+                                    example: 8411Z
+                                    description: "Le code APE (activité principale
+                                      exercée) permet d'identifier la branche d'activité
+                                      principale. Il est attribué par l'Insee lors
+                                      de l'immatriculation ou la déclaration d'activité
+                                      de l'entreprise. Ce code de 4 chiffres + 1 lettre
+                                      est extrait de la nomenclature d'activité française
+                                      (NAF) de l'Insee. \n \n À noter qu'une entreprise
+                                      n'ayant pas encore de code APE peut se voir
+                                      affecter la valeur '00.00Z' de manière provisoire.
+                                      \n \n Plus d'informations métier : https://entreprendre.service-public.fr/vosdroits/F33050
+                                      Nomemclature d'activité française - NAF rév.2
+                                      de l'Insee : https://www.insee.fr/fr/information/2120875"
+                                  libelle:
+                                    title: Libellé associé au code APE
+                                    type: string
+                                    nullable: true
+                                    example: Administration publique générale
+                                    description: "Si le code n'est pas renseigné dans
+                                      la nomenclature 'Naf Rév2' (nomenclature en
+                                      vigueur), le libellé n'est pas renseigné ici.
+                                      Si le code ne correspond à aucun libellé au
+                                      sein de la nomenclature 'Naf Rév2', la valeur
+                                      'non référencé' est utilisée. \n \n Nomemclature
+                                      d'activité française - NAF rév.2 de l'Insee
+                                      : https://www.insee.fr/fr/information/2406147"
+                                  nomenclature:
+                                    title: Nomenclature associée au code
+                                    type: string
+                                    example: NAFRev2
+                                    description: Ce champ indique le nom de la nomenclature
+                                      associée au code APE.
+                                required:
+                                - code
+                                - libelle
+                                - nomenclature
+                              tranche_effectif_salarie:
+                                type: object
+                                title: Tranche d'effectif salarié de l'unité légale
+                                properties:
+                                  code:
+                                    type: string
+                                    nullable: true
+                                    example: '51'
+                                    description: "Le code effectif indique la tranche
+                                      d'effectif salarié de l'unité légale. Le nombre
+                                      de salarié est déterminé en fonction de l'effectif
+                                      de chacun des établissements de l'unité légale
+                                      : \n \n - NN : Unités non employeuses (pas de
+                                      salarié au cours de l'année de référence et
+                                      pas d'effectif au 31/12). Cette tranche peut
+                                      contenir quelques effectifs inconnus \n - 00
+                                      : 0 salarié (n'ayant pas d'effectif au 31/12
+                                      mais ayant employé des salariés au cours de
+                                      l'année de référence) \n - 01 : 1 ou 2 salariés
+                                      \n - 02 : 3 à 5 salariés \n - 03 : 6 à 9 salariés
+                                      \n - 11 : 10 à 19 salariés \n - 12 : 20 à 49
+                                      salariés \n - 21 : 50 à 99 salariés \n - 22
+                                      : 100 à 199 salariés \n - 31 : 200 à 249 salariés
+                                      \n - 32 : 250 à 499 salariés \n - 41 : 500 à
+                                      999 salariés \n - 42 : 1 000 à 1 999 salariés
+                                      \n - 51 : 2 000 à 4 999 salariés \n - 52 : 5
+                                      000 à 9 999 salariés \n - 53 : 10 000 salariés
+                                      et plus \n \n Plus d'informations dans la documentation
+                                      Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen.
+                                      \n \n L'effectif exact de l'entreprise, mensuel
+                                      et annuel, est disponible au travers de l'[API
+                                      Effectifs - URSSAF Caisse nationale](TODO).
+                                      Si votre jeton contient ce droit d'accès, nous
+                                      vous recommandons d'utiliser cette API. Ces
+                                      données étant protégées, leur cadre d'utilisation
+                                      est différent de la tranche effectif fournie
+                                      par l'Insee, qui elle est une donnée publique."
+                                    enum:
+                                    - NN
+                                    - '00'
+                                    - '01'
+                                    - '02'
+                                    - '03'
+                                    - '11'
+                                    - '12'
+                                    - '21'
+                                    - '22'
+                                    - '31'
+                                    - '32'
+                                    - '41'
+                                    - '42'
+                                    - '51'
+                                    - '52'
+                                    - '53'
+                                  intitule:
+                                    title: Intitulé associé au code effectif
+                                    type: string
+                                    nullable: true
+                                    example: 2 000 à 4 999 salariés
+                                  date_reference:
+                                    title: Date de référence de l'effectif
+                                    type: string
+                                    nullable: true
+                                    example: '2016'
+                                  de:
+                                    title: Seuil inférieur de la tranche effectif
+                                    type: integer
+                                    example: 2000
+                                    nullable: true
+                                  a:
+                                    title: Seuil supérieur de la tranche effectif
+                                    type: integer
+                                    example: 4999
+                                    nullable: true
+                                required:
+                                - code
+                                - intitule
+                                - date_reference
+                                - de
+                                - a
+                              etat_administratif:
+                                title: État administratif de l'unité légale
+                                type: string
+                                example: A
+                                enum:
+                                - A
+                                - C
+                                description: "Cette valeur décrit l'état administratif
+                                  de l'unité légale, qui peut être : \n \n - cessée.
+                                  Le passage à l'état « Cessée » découle de la prise
+                                  en compte d'une déclaration de cessation administrative.
+                                  Pour les personnes morales, cela correspond au dépôt
+                                  de la déclaration de disparition de la personne
+                                  morale. Pour les personnes physiques, cela correspond
+                                  soit à la prise en compte de la déclaration de cessation
+                                  d'activité déposée par l'exploitant soit au décès
+                                  de l'exploitant conformément à la réglementation.
+                                  \n - active. En dehors des cas explicités ci-dessus,
+                                  l'unité légale est toujours à l'état administratif
+                                  « Active ». \n \n Plus d'informations dans la documentation
+                                  Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifUniteLegale"
+                              date_cessation:
+                                title: Date de cessation de l'unité légale
+                                type: integer
+                                nullable: true
+                                example: 1634133818
+                                description: Cette valeur est renvoyée sous format
+                                  timestamp. Si l'entreprise est juridique active,
+                                  cette valeur est à 'null'.
+                              date_creation:
+                                title: Date de création de l'unité légale
+                                type: integer
+                                example: 1634103818
+                                description: "La date de création correspond à la
+                                  date qui figure dans les statuts de l'entreprise
+                                  qui sont déposés au centre de formalité des entreprises
+                                  (CFE) compétent. Cette valeur est renvoyée sous
+                                  format timestamp. \n \n Sauf pour les unités purgées,
+                                  la date de création n'est jamais à 'null'. Si elle
+                                  est non renseignée, elle sera au 01/01/1900. \n
+                                  \n Plus d'informations dans la documentation Insee
+                                  de l'API Sirene : https://www.sirene.fr/sirene/public/variable/dateCreationUniteLegale"
+                            required:
+                            - siret_siege_social
+                            - type
+                            - personne_morale_attributs
+                            - personne_physique_attributs
+                            - categorie_entreprise
+                            - numero_tva_intracommunautaire
+                            - diffusable_commercialement
+                            - forme_juridique
+                            - activite_principale
+                            - tranche_effectif_salarie
+                            - etat_administratif
+                            - date_cessation
+                            - date_creation
+                          adresse:
+                            type: object
+                            title: Adresse de l'établissement
+                            properties:
+                              numero_voie:
+                                title: Numéro dans la voie
+                                type: string
+                                example: '22'
+                              indice_repetition_voie:
+                                title: Indice de répétition du numéro dans la voie
+                                description: 'Plus d''informations dans la documentation
+                                  Insee de l''API Sirene : https://www.sirene.fr/sirene/public/variable/indrep'
+                                type: string
+                                nullable: true
+                                enum:
+                                - bis
+                                - ter
+                                - quarter
+                                - quinquies
+                                -
+                              type_voie:
+                                title: Type de la voie de localisation
+                                example: RUE
+                                description: "Le type de la voie de localisation est
+                                  indiquée en abrégé et en majuscules. L'information
+                                  n'est pas toujours renseignée. Pour certaines petites
+                                  communes, l'information n'existe pas. \n \n Plus
+                                  d'informations dans la documentation Insee de l'API
+                                  Sirene : https://www.sirene.fr/sirene/public/variable/typvoie"
+                                type: string
+                                nullable: true
+                                enum:
+                                - ALLÉE
+                                - AVENUE
+                                - BOULEVARD
+                                - CARREFOUR
+                                - CHEMIN
+                                - CHAUSSÉE
+                                - CITÉ
+                                - CORNICHE
+                                - COURS
+                                - DOMAINE
+                                - DESCENTE
+                                - ECART
+                                - ESPLANADE
+                                - FAUBOURG
+                                - GRANDE RUE
+                                - HAMEAU
+                                - HALLE
+                                - IMPASSE
+                                - LIEU-DIT
+                                - LOTISSEMENT
+                                - MARCHÉ
+                                - MONTÉE
+                                - PASSAGE
+                                - PLACE
+                                - PLAINE
+                                - PLATEAU
+                                - PROMENADE
+                                - PARVIS
+                                - QUARTIER
+                                - QUAI
+                                - RÉSIDENCE
+                                - RUELLE
+                                - ROCADE
+                                - ROND-POINT
+                                - ROUTE
+                                - RUE
+                                - SENTIER
+                                - SQUARE
+                                - TERRE-PLEIN
+                                - TRAVERSE
+                                - VILLA
+                                - VILLAGE
+                                -
+                              libelle_voie:
+                                title: Libellé de la voie
+                                example: DE LA PAIX
+                              complement_adresse:
+                                title: Complément d'adresse
+                                type: string
+                                description: Le complément d'adresse correspond à
+                                  des éléments situés à l'extérieur du bâtiment qui
+                                  permettent de compléter l'adresse (résidence, bâtiment,
+                                  entrée, etc..)
+                                example: ZAE SAINT GUENAULT
+                                nullable: true
+                              code_commune:
+                                title: Code commune
+                                description: "Le code commune désigne le code de la
+                                  commune de localisation de l'établissement. Le code
+                                  renvoyé correspond à la date de l'appel, ce qui
+                                  implique que toute modification du code commune
+                                  est repercutée sur l'ensemble des établissements
+                                  concernés, y compris ceux qui sont fermés. Cette
+                                  valeur est à 'null' pour les entreprises à l'étranger.
+                                  \n \n Les codes sont listés dans la table d'appartenance
+                                  géographique fournie par l'Insee et disponible ici:
+                                  https://www.insee.fr/fr/information/2028028"
+                                type: string
+                                example: '75112'
+                                nullable: true
+                              code_postal:
+                                title: Code postal
+                                example: '75016'
+                                type: string
+                              distribution_speciale:
+                                title: Distribution spéciale
+                                description: "La distribution spéciale reprend les
+                                  éléments particuliers qui accompagnent une adresse
+                                  de distribution spéciale, la modalité la plus connue
+                                  étant les adresses en 'CEDEX'. \n \n Plus d'informations
+                                  dans la documentation Insee de l'API Sirene : *
+                                  https://www.sirene.fr/sirene/public/variable/distributionSpecialeEtablissement
+                                  * https://www.sirene.fr/sirene/public/variable/l5-disp"
+                              code_cedex:
+                                title: Code cedex
+                                nullable: true
+                                description: 'Plus d''informations : https://fr.wikipedia.org/wiki/Courrier_d%27entreprise_%C3%A0_distribution_exceptionnelle'
+                                example: '75590'
+                              libelle_cedex:
+                                title: Libellé du code cedex
+                                type: string
+                                nullable: true
+                                example: PARIS CEDEX 12
+                                description: Ce champ indique le libellé correspondant
+                                  au code cedex de l'établissement. Si le code cedex
+                                  est à 'null', ce champ est également à 'null'.
+                              libelle_commune:
+                                title: Nom de la commune pour une adresse en France
+                                description: Cette valeur est à 'null' pour les établissements
+                                  à l'étranger.
+                                type: string
+                                example: PARIS 12
+                                nullable: true
+                              libelle_commune_etranger:
+                                title: Nom de la commune pour une adresse à l'étranger.
+                                description: Cette valeur est à 'null' pour les établissements
+                                  en France.
+                                type: string
+                                nullable: true
+                              code_pays_etranger:
+                                title: Code du pays pour les établissements situés
+                                  à l'étranger
+                                description: 'La nomenclature des codes pays se trouve
+                                  ici: https://www.insee.fr/fr/information/2028273'
+                                type: string
+                                example: '99132'
+                                nullable: true
+                              libelle_pays_etranger:
+                                title: Nom du pays pour les établissements situés
+                                  à l'étranger
+                                type: string
+                                nullable: true
+                                example: ROYAUME-UNI
+                              acheminement_postal:
+                                type: object
+                                title: Éléments constitutifs de l'adresse postale
+                                  pour son acheminement.
+                                description: Il ne s'agit pas d'un traitement RNVP
+                                  mais simplement d'une réorganisation des éléments
+                                  renvoyé par l'Insee pour faciliter l'affichage des
+                                  adresses postales
+                                properties:
+                                  l1:
+                                    title: Ligne 1
+                                    description: 'Si l''établissement correspond à
+                                      une personne morale: la dénomination sociale
+                                      de la personne morale. Le cas contraire: cette
+                                      variable est vide.'
+                                    example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
+                                  l2:
+                                    title: Ligne 2
+                                    description: 'Si l''établissement correspond à
+                                      une personne physique: concaténation du nom
+                                      et prénom'
+                                    example: JEAN MARIE DURAND
+                                  l3:
+                                    title: Ligne 3
+                                    description: Complément d'adresse comme décrit
+                                      dans la clé `complement_adresse`
+                                    example: ZAE SAINT GUENAULT
+                                  l4:
+                                    title: Ligne 4
+                                    description: Concaténation du numéro de voie,
+                                      d'indice de répétition, du type de voie et du
+                                      libellé de la voie
+                                    example: 51 BIS RUE DE LA PAIX
+                                  l5:
+                                    title: Ligne 5
+                                    description: Distribution spéciale comme décrit
+                                      dans la clé `distribution_speciale`
+                                    example: CS 72809
+                                  l6:
+                                    title: Ligne 6
+                                    description: 'Si le code cedex est existant: code
+                                      cedex accompagné de son libellé ; sinon, si
+                                      le pays est en France: code postal accompagné
+                                      de son libellé, sinon : libellé de la commune
+                                      de l''établissement situé à l''étranger'
+                                    example: 75256 PARIX CEDEX 12
+                                  l7:
+                                    title: Ligne 7
+                                    description: Pays de l'établissement
+                                    example: FRANCE
+                                required:
+                                - l1
+                                - l2
+                                - l3
+                                - l4
+                                - l5
+                                - l6
+                                - l7
+                            required:
+                            - numero_voie
+                            - indice_repetition_voie
+                            - type_voie
+                            - libelle_voie
+                            - complement_adresse
+                            - code_commune
+                            - code_postal
+                            - distribution_speciale
+                            - code_cedex
+                            - libelle_cedex
+                            - libelle_commune
+                            - libelle_commune_etranger
+                            - code_pays_etranger
+                            - libelle_pays_etranger
+                            - acheminement_postal
                           date_creation:
                             type: integer
                             example: 1634103818
@@ -4184,6 +6853,8 @@ paths:
                         - activite_principale
                         - tranche_effectif_salarie
                         - diffusable_commercialement
+                        - unite_legale
+                        - adresse
                         - date_creation
                       links:
                         type: object
@@ -4573,17 +7244,17 @@ paths:
                             - nomenclature
                           tranche_effectif_salarie:
                             type: object
-                            title: Attributs de la tranche d'effectif salarié
+                            title: Tranche d'effectif salarié de l'unité légale
                             properties:
                               code:
                                 type: string
                                 nullable: true
                                 example: '51'
-                                description: "Le code effectif correspond à la tranche
-                                  d'effectif salarié de l'entreprise. Le nombre de
-                                  salarié est déterminé en fonction de l'effectif
-                                  de l'entreprise et de chacun de ses établissements
-                                  : \n \n - NN : Unités non employeuses (pas de salarié
+                                description: "Le code effectif indique la tranche
+                                  d'effectif salarié de l'unité légale. Le nombre
+                                  de salarié est déterminé en fonction de l'effectif
+                                  de chacun des établissements de l'unité légale :
+                                  \n \n - NN : Unités non employeuses (pas de salarié
                                   au cours de l'année de référence et pas d'effectif
                                   au 31/12). Cette tranche peut contenir quelques
                                   effectifs inconnus \n - 00 : 0 salarié (n'ayant
@@ -4598,7 +7269,15 @@ paths:
                                   : 2 000 à 4 999 salariés \n - 52 : 5 000 à 9 999
                                   salariés \n - 53 : 10 000 salariés et plus \n \n
                                   Plus d'informations dans la documentation Insee
-                                  de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen"
+                                  de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen.
+                                  \n \n L'effectif exact de l'entreprise, mensuel
+                                  et annuel, est disponible au travers de l'[API Effectifs
+                                  - URSSAF Caisse nationale](TODO). Si votre jeton
+                                  contient ce droit d'accès, nous vous recommandons
+                                  d'utiliser cette API. Ces données étant protégées,
+                                  leur cadre d'utilisation est différent de la tranche
+                                  effectif fournie par l'Insee, qui elle est une donnée
+                                  publique."
                                 enum:
                                 - NN
                                 - '00'
@@ -5091,17 +7770,17 @@ paths:
                             - nomenclature
                           tranche_effectif_salarie:
                             type: object
-                            title: Attributs de la tranche d'effectif salarié
+                            title: Tranche d'effectif salarié de l'unité légale
                             properties:
                               code:
                                 type: string
                                 nullable: true
                                 example: '51'
-                                description: "Le code effectif correspond à la tranche
-                                  d'effectif salarié de l'entreprise. Le nombre de
-                                  salarié est déterminé en fonction de l'effectif
-                                  de l'entreprise et de chacun de ses établissements
-                                  : \n \n - NN : Unités non employeuses (pas de salarié
+                                description: "Le code effectif indique la tranche
+                                  d'effectif salarié de l'unité légale. Le nombre
+                                  de salarié est déterminé en fonction de l'effectif
+                                  de chacun des établissements de l'unité légale :
+                                  \n \n - NN : Unités non employeuses (pas de salarié
                                   au cours de l'année de référence et pas d'effectif
                                   au 31/12). Cette tranche peut contenir quelques
                                   effectifs inconnus \n - 00 : 0 salarié (n'ayant
@@ -5116,7 +7795,15 @@ paths:
                                   : 2 000 à 4 999 salariés \n - 52 : 5 000 à 9 999
                                   salariés \n - 53 : 10 000 salariés et plus \n \n
                                   Plus d'informations dans la documentation Insee
-                                  de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen"
+                                  de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen.
+                                  \n \n L'effectif exact de l'entreprise, mensuel
+                                  et annuel, est disponible au travers de l'[API Effectifs
+                                  - URSSAF Caisse nationale](TODO). Si votre jeton
+                                  contient ce droit d'accès, nous vous recommandons
+                                  d'utiliser cette API. Ces données étant protégées,
+                                  leur cadre d'utilisation est différent de la tranche
+                                  effectif fournie par l'Insee, qui elle est une donnée
+                                  publique."
                                 enum:
                                 - NN
                                 - '00'
@@ -5900,6 +8587,155 @@ paths:
           curl -X GET \
             -H "Authorization: Bearer $token" \
             --url "https://entreprise.api.gouv.fr/v3/probtp/conformites_cotisations_retraite/13002526500013?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
+  "/v3/qualibat/certifications_batiment/{siret}":
+    get:
+      summary: Certificat de qualification bâtiment
+      tags:
+      - Certifications professionnelles
+      parameters:
+      - name: siret
+        in: path
+        description: Siret de l'établissement
+        examples:
+          siret_octo_technology:
+            value: '41816609600069'
+            summary: SIRET Octo Technology
+          siret_non_diffusible:
+            value: '00557246600026'
+            summary: SIRET établissement non diffusible
+          siret_agefiph:
+            value: '39332832300059'
+            summary: SIRET pour AGEFIPH
+          siret_msa:
+            value: '81104725700019'
+            summary: SIRET pour MSA
+          siret_probtp:
+            value: '43841606700017'
+            summary: SIRET pour ProBTP
+          siret_agence_bio:
+            value: '48311105000025'
+            summary: SIRET pour l'Agence Bio
+          siret_qualibat:
+            value: '78824266700020'
+            summary: SIRET pour Qualibat
+          siret_entrepreneur_individuel:
+            value: '38983993700015'
+            summary: SIRET d'un entrepreneur individuel (fermé)
+        required: true
+        schema:
+          type: string
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Obtenir le certificat Qualibat, apportant l’avis de l’association
+        sur la **qualification d’une entreprise dans le bâtiment**. Si vous cherchez
+        d'autres certificats de qualification, l'[endpoint certification RGE](#certificats_rge_ademe)
+        regroupe tous les certificats, dont les Qualibats.
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Certification trouvée
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '33592022900036'
+                      type:
+                        type: string
+                        example: document
+                        enum:
+                        - document
+                      attributes:
+                        type: object
+                        properties:
+                          document_url:
+                            type: string
+                            title: Lien vers la certification batiment Qualibat
+                            description: Ce document est automatiquement supprimé
+                              au bout de 3 mois.
+                            example: https://storage.entreprise.api.gouv.fr/siade/1635521735-1a675fc210d09e04604aabe5e93b452fb56865f5-certificat_qualibat.pdf
+                          expires_in:
+                            type: integer
+                            example: 7889238
+                            description: 'Nombre de secondes avant l''expiration de
+                              l''url associée à l''attribut document_url : cette durée
+                              correspond généralement à 3 mois.'
+                        required:
+                        - document_url
+                        - expires_in
+                    required:
+                    - id
+                    - type
+                    - attributes
+                required:
+                - data
+        '404':
+          description: Certification non trouvée
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/qualibat/certifications_batiment/13002526500013?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/rnm/entreprises/{siren}":
     get:
       summary: Données de référence d'une entreprise artisanale
