@@ -14,7 +14,6 @@ RSpec.describe Siade, type: :service do
     }
   end
   let(:siade_headers) { { Authorization: 'Bearer dummy token rehash' } }
-  let(:siade_error_body) { { errors: ['Siade error msg'] }.to_json }
   let(:siren) { siren_valid }
 
   before { allow(token).to receive(:rehash).and_return('dummy token rehash') }
@@ -50,7 +49,7 @@ RSpec.describe Siade, type: :service do
       before do
         stub_request(:get, endpoint_url)
           .with(query: siade_params, headers: siade_headers)
-          .to_return(status: 404, body: siade_error_body)
+          .to_return(status: 404, body: payload_error)
       end
 
       it 'raises SiadeClientError' do
@@ -92,7 +91,7 @@ RSpec.describe Siade, type: :service do
       before do
         stub_request(:get, endpoint_url)
           .with(query: siade_params, headers: siade_headers)
-          .to_return(status: 401, body: siade_error_body)
+          .to_return(status: 401, body: payload_error)
       end
 
       it 'raises SiadeClientError' do
@@ -134,7 +133,7 @@ RSpec.describe Siade, type: :service do
       before do
         stub_request(:get, endpoint_url)
           .with(query: siade_params, headers: siade_headers)
-          .to_return(status: 422, body: siade_error_body)
+          .to_return(status: 422, body: payload_error)
       end
 
       it 'raises SiadeClientError' do

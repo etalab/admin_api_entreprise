@@ -1,9 +1,9 @@
 class EntrepriseWithAttestationsFacade
-  attr_reader :entreprise, :attestation_sociale_url, :attestation_fiscale_url
+  attr_reader :siren, :entreprise, :attestation_sociale_url, :attestation_fiscale_url
 
-  def initialize(jwt:, siret:)
+  def initialize(jwt:, siren:)
     @jwt = jwt
-    @siret = siret
+    @siren = siren
   end
 
   def retrieve_data
@@ -48,9 +48,5 @@ class EntrepriseWithAttestationsFacade
 
   def siade_client
     @siade_client ||= Siade.new(token: @jwt)
-  end
-
-  def siren
-    @siret.first(9)
   end
 end

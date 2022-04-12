@@ -11,10 +11,10 @@ end
 class Siade
   def initialize(token:)
     @token = token
-    @token_rehash = if Rails.env.production?
-                      token.rehash
-                    else
+    @token_rehash = if Rails.env.development?
                       File.read('config/apientreprise_test_token')
+                    else
+                      token.rehash
                     end
   end
 

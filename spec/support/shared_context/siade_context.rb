@@ -1,4 +1,6 @@
 RSpec.shared_context 'with siade payloads' do
+  let(:payload_error) { { errors: ['Siade error msg'] }.to_json }
+
   let(:payload_entreprise) do
     {
       'entreprise' => {

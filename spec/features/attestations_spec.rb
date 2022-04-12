@@ -43,7 +43,7 @@ RSpec.describe 'User attestations through tokens', type: :feature do
       login_as(user)
       visit attestations_path
       select(token, from: 'token')
-      fill_in('search_siret', with: siret)
+      fill_in('search_siren', with: siren)
       click_button('search')
     end
 
@@ -51,10 +51,10 @@ RSpec.describe 'User attestations through tokens', type: :feature do
 
     let(:siade_double) { class_double('SiadeService') }
     let(:user) { create(:user, :with_jwt, roles: ['attestations_fiscales']) }
-    let(:siret) { siret_valid }
+    let(:siren) { siren_valid }
     let(:token) { 'JWT with no roles' }
 
-    context 'when user search a valid siret' do
+    context 'when user search a valid siren' do
       let(:token) { 'JWT with roles: ["attestations_fiscales"]' }
 
       before do
@@ -103,7 +103,7 @@ RSpec.describe 'User attestations through tokens', type: :feature do
       end
     end
 
-    context 'when user search an invalid siret' do
+    context 'when user search an invalid siren' do
       before do
         allow(siade_double).to receive(:entreprises).and_raise(SiadeClientError.new(422, '422 Unprocessable Entity'))
         search
@@ -114,7 +114,7 @@ RSpec.describe 'User attestations through tokens', type: :feature do
       end
     end
 
-    context 'when user search a siret not found' do
+    context 'when user search a siren not found' do
       before do
         allow(siade_double).to receive(:entreprises).and_raise(SiadeClientError.new(404, '404 Not Found'))
         search
