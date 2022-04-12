@@ -22,7 +22,7 @@ class AttestationsController < AuthenticatedUsersController
   private
 
   def siade_search
-    @attestation_facade = EntrepriseWithAttestationsFacade.new(jwt: @jwt, siret: params[:siret].strip)
+    @attestation_facade = EntrepriseWithAttestationsFacade.new(jwt: @jwt, siret: siret_no_whitespaces)
     @attestation_facade.retrieve_data
   rescue SiadeClientError => e
     handle_error!(e)
@@ -41,5 +41,9 @@ class AttestationsController < AuthenticatedUsersController
     )
 
     redirect_to attestations_path
+  end
+
+  def siret_no_whitespaces
+    params[:siret].split.join
   end
 end
