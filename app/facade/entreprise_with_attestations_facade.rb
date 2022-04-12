@@ -47,7 +47,7 @@ class EntrepriseWithAttestationsFacade
   end
 
   def siade_client
-    Siade.new(token: @jwt)
+    @siade_client ||= Siade.new(token: @jwt)
   end
 
   def siren
