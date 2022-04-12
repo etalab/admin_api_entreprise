@@ -1,4 +1,6 @@
-# Wordings globaux
+# Wordings
+
+## Wordings globaux (templates, vues...)
 
 La gestion des wordings des templates et layouts se fait à travers les fichiers i18n,
 présent dans [`config/locales/`](../config/locales/).
@@ -25,4 +27,79 @@ Et au sein de la vue, pour retrouver le `title` ci-dessus:
 
 ```html
 <h1><%= t('.title') %></h1>
+```
+
+## Page/wordings FAQ
+
+Les wordings de la FAQ globale se trouvent dans le fichier
+[`config/locales/faq_entries.fr.yml`](../config/locales/faq_entries.fr.yml)
+
+Pour chaque entrée, la clé `answer` est traduite du markdown au HTML (le
+markdown supporté est le [Github Flavored
+Markdown](https://github.github.com/gfm/))
+
+Par défaut la page affiche directement les résultats de Algolia, si vous voulez,
+en développement, afficher directement le texte que vous modifiez, ajouter à
+l'url `?disable_search`.
+
+Niveau éléments graphiques DSFR, une cheatsheet (des exemples sont aussi
+disponibles dans le fichier de locale):
+
+- Les tableaux
+
+  ```md
+  {:.fr-table}
+  | Header 1 | Header 2 |
+  | -------- | -------- |
+  | Value 11 | Value 12 |
+  | Value 21 | Value 22 |
+  ```
+
+- Les mise en exergues
+
+  ```md
+  {:.fr-highlight}
+
+  > Texte
+
+  {:.fr-highlight--caution}
+
+  > Texte qui exige de l'attention
+
+  {:.fr-highlight--example}
+
+  > Texte de type exemple
+  ```
+
+- Les liens externes (qui ajoute le picto)
+
+  ```md
+  [Lien externe](https://www.google.fr}{:target="_blank"})
+  ```
+
+De plus, il est possible d'utiliser les helpers de routes et d'images avec de
+l'interpolation ERB.
+
+Pour les routes:
+
+```md
+Le lien du profile: [Profile](<%= user_profile_path %>)
+```
+
+La liste des urls sont disponibles en tapant la commande `rails routes`.
+
+Pour les images:
+
+```md
+![Description image](<%= image_path('loading.gif') %>)
+```
+
+Le `'loading.gif'` doit être le chemin vers une image valide (ie dans
+`app/assets/images`)
+
+A noter qu'il est aussi possible d'utiliser du ruby dans la vue (même si ce
+n'est pas du tout recommandé):
+
+```md
+Il y a en ce moment <%= User.count %> d'inscrits
 ```

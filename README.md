@@ -181,7 +181,7 @@ produits pour itérer sur le site (que ce soit en terme de contenu ou fonctionne
   - [Utilisation des modals avec Turbo](docs/tech-modal-turbo.md)
   - [Utilisation d'Algolia](docs/tech-algolia.md)
 - Contenu
-  - [Gestion des wordings globaux (layouts, templates)](docs/wordings.md)
+  - [Gestion des wordings (layouts, templates, FAQ)](docs/wordings.md)
   - [Ajout d'un nouvel endpoint dans le catalogue](docs/endpoint.md)
 
 ## Access logs
