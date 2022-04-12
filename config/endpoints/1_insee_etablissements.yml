@@ -6,9 +6,7 @@
     description: "**Type de données :**
     \n
     \n
-    Cette API délivre les information générales d'un établissement, diffusible ou non-diffusible.
-    \n
-    Pour obtenir l'adresse d'un établissement, utiliser l'API `sirene/etablissements/{siret}/adresse`.
+    Cette API délivre les informations générales d'un établissement et de son unité légale inscrits au répertoire Sirene, qu'ils soient diffusibles ou non-diffusibles.
     \n
     \n
     **Établissements concernés :**
@@ -100,16 +98,10 @@
     description: "**Type de données :**
     \n
     \n
-    Cette API délivre les information générales d'un établissement, inscrit au répertoire Sirene et diffusibles commercialement.
-    \n
-    Pour obtenir l'adresse d'un établissement diffusible, utiliser l'API `sirene/etablissements/diffusibles/{siret}/adresse`.
+    Cette API délivre les informations générales d'un établissement et de son unité légale inscrits au répertoire Sirene, uniquement diffusables commercialement.
     \n
     \n
-    ⚠️ Elle ne concerne pas :
-    \n
-    * les établissements non-diffusibles, leur adresse est appelable avec l'API `sirene/etablissements/diffusibles/{siret}` ;
-    \n
-    * les adresses des établissements diffusibles, appelables avec l'API `/sirene/etablissements/diffusibles` ;
+    ⚠️ Elle ne concerne pas les établissements non-diffusibles, appelables avec l'API `sirene/etablissements/diffusibles/{siret}` ;
     \n
     \n
     **Établissements concernés :**
