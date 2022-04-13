@@ -31,6 +31,7 @@ gem 'sidekiq'
 gem 'sidekiq-cron'
 
 gem 'draper'
+gem 'ip_anonymizer'
 gem 'jwt'
 gem 'mailjet'
 gem 'pundit'
