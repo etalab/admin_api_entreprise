@@ -190,11 +190,17 @@ document.addEventListener("turbo:load", function () {
       }
 
       _credentials() {
-        var credentials = document.querySelector("body");
+        var nodeContainerWithAlgoliaCredentials = document.querySelector(
+          "body"
+        );
 
         return [
-          credentials.getAttribute("data-algolia-application-id"),
-          credentials.getAttribute("data-algolia-search-key"),
+          nodeContainerWithAlgoliaCredentials.getAttribute(
+            "data-algolia-application-id"
+          ),
+          nodeContainerWithAlgoliaCredentials.getAttribute(
+            "data-algolia-search-key"
+          ),
         ];
       }
     }
