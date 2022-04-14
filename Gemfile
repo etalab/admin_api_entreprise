@@ -63,6 +63,8 @@ gem 'sentry-rails'
 
 gem 'kramdown-parser-gfm'
 
+gem "algoliasearch-rails"
+
 group :development, :test do
   gem 'awesome_print'
   gem 'colorize'

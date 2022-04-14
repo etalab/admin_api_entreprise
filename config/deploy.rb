@@ -109,6 +109,7 @@ task :deploy => :environment do
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
+    invoke :'reindex_algolia'
     invoke :cgu_to_pdf
     invoke :'deploy:cleanup'
 
@@ -133,6 +134,10 @@ task :seeds => :environment do
   end
 end
 
+task :reindex_algolia do
+  comment 'Reindex Algolia models'.green
+  command %{RAILS_ENV=#{ENV['to']} bundle exec rake algolia:reindex}
+end
 
 task :restart_sidekiq do
   comment 'Restarting Sidekiq (reloads code)'.green

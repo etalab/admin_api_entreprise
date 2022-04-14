@@ -48,6 +48,8 @@ Rails.application.routes.draw do
   get 'endpoints/*uid/example', as: :endpoint_example, to: 'endpoints#example'
   get 'endpoints/*uid', as: :endpoint, to: 'endpoints#show'
 
+  resources :faq, only: %i[index]
+
   get '/developers/openapi', to: 'pages#redoc'
 
   namespace :admin do
