@@ -1,7 +1,7 @@
 # Algolia
 
 Certains modèles sont indexés sur Algolia, ce qui permet d'avoir de la recherche
-à moindre coup (sur du contenu de tout façon statique / open-source).
+à moindre coup (sur du contenu de toute façon statique / open-source).
 
 C'est le cas des entrées de FAQ (`FAQEntry`)
 
@@ -14,9 +14,12 @@ Le backend n'a pas été encore implémenté, seul le frontend est expliqué ici
 
 ## Configuration / credentials
 
-L'environnement de production a ses propres clés, et développement/test aussi.
-Ceux-ci sont dans le fichier de credentials. Étant donné que ce ne sont pas des
-données critiques, elles sont accessibles directement.
+L'environnement de production a ses propres clés, ainsi que développement/test.
+
+Les clés de développement/test se trouvent dans le fichier de credentials, qui
+est accessible par tout le monde étant donné que la clé de chiffrage est
+versionnée: ceci n'est pas un souci car les données et le projet Algolia ne sont
+clairement pas critique et limité à une version d'essai (non payante).
 
 ## Implémentation frontend
 
