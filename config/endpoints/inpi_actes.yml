@@ -1,0 +1,41 @@
+---
+- uid: 'inpi/actes'
+  path: '/v3/inpi/actes/{siren}'
+  # Position au sein de l'index
+  position: 140
+  perimeter:
+    description: "**Type de données :**
+    \n
+    \n
+    Tous les actes établis par les greffes depuis 1993 sont transmis par cet endpoint. 
+Ce qui représente environ 25 millions d’actes. Ces actes, doucments au format PDF, comportent des informations générales, 
+des informations sur le capital social et sa répartition, 
+ou encore des informations sur les associés et tout ce qui est relatif à l’administration de la société.
+    \n
+    \n
+    ℹ️ Dans le cas où un acte est manquant, l'INPI peut essayer de numériser le document qui fait défaut.
+    \n
+    \n
+    **Fraicheur de la donnée :**
+    \n
+    \n
+    Théoriquement, les actes sont transmis à l’INPI 
+par le greffe dans un délai de 24h."
+    entities:
+      - associations
+      - entreprises
+  # Texte libre
+  call_id: "SIREN"
+  # La liste des clés disponible est stockée dans la locale `providers` du fichier providers.fr.yml
+  providers:
+    - 'inpi'
+  # Ne peut être que public ou protected
+  opening: public
+  # Texte libre, cette donnée est affichée sur la page du endpoint
+  use_cases:
+    - Aides publiques
+    - Marchés publics
+    - Préremplissage d'un formulaire
+    - Détection de la fraude
+  parameters:
+    - Numéro de SIREN de la personne physique ou morale recherchée.
