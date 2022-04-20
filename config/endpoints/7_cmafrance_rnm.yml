@@ -1,0 +1,122 @@
+---
+- uid: 'cma_france/rnm'
+  path: '/v3/rnm/entreprises/{siren}'
+  position: 140
+  perimeter:
+    description: "**Type de données&nbsp;:**
+    \n
+    \n
+    Cette API délivre des informations de référence fournies par la Chambre des Métiers et de l’Artisanat France (CMA France)
+ concernant les entreprises artisanales telles que&nbsp;:
+    \n
+    \n
+    - des informations générales et juridiques (nom de l’entreprise, personne physique/morale, forme juridique, effectif, l’origine du fond de commerce, activité permanente/saisonnière, activité ambulante, code du centre de formalité des entreprises (CFE) ayant fait l’inscription et les déclarations, s’il y en a, relatives à un redressement judiciaire ou une liquidation.)
+    \n   
+    - le type d’activité de l’entreprise (code NAFA et secteur d’activité (NAR)) ;
+    \n
+    - des informations géographiques, notamment l’adresse ;
+    \n
+    - des informations sur les dirigeants ;
+    \n   
+    - les dates clés (immatriculation, radiation, début d’activité …)
+    \n    
+    - des informations en cas de double immatriculation ;
+    \n    
+    - des informations spécifiques au RNM (identifiants, dates d’import et date de mise à jour des données) ;
+    \n
+    \n
+    Ces données sont également disponibles en [API publique et libre d’accès sur api.gouv.fr](https://api.gouv.fr/les-api/api_rnm}{:target="_blank"}).
+    \n
+    \n
+    **Entreprises concernées&nbsp;:**
+    \n
+    \n
+    Cette API couvre toutes les entreprises enregistrées au répertoire national des métiers (RNM).
+    \n
+    \n
+    Sont obligatoirement immatriculées au répertoire des métiers&nbsp;:
+    \n
+    \n
+    - ✅ les entreprises individuelles et les sociétés qui n’emploient pas plus de dix salariés et exercent à titre principal ou secondaire une activité artisanale de production, de transformation, de réparation ou de prestation de service figurant en annexe du décret du 2 avril 1998.
+    \n
+    - ✅ Les personnes qui exercent l’activité de fabrication de plats à consommer sur place peuvent également être immatriculées au répertoire des métiers.
+    \n
+    \n
+    Peuvent être immatriculées au RNM&nbsp;:
+    \n
+    \n
+    - ✅ les entreprises qui dépassent le seuil de dix salariés si leur dirigeant peut se prévaloir de la qualité d’artisan, d’artisan d’art ou de maitre artisan.
+    \n
+    \n
+    **Fraicheur de la donnée&nbsp;:**
+    \n
+    \n
+    "
+    entities:
+      - entreprises
+  call_id: "SIREN"
+  providers:
+    - 'cma'
+  opening: public
+  use_cases:
+    - Aides publiques
+    - Marchés publics
+    - Préremplissage d'un formulaire
+    - Détection de la fraude
+  parameters:
+    - Numéro de SIREN de l'entreprise
+  faq:  
+    - q: "Quelles sont les sources des données de conventions collectives de de cette API ?"
+      a: "\n
+      \n
+      ##### Du côté de l'entreprise
+      \n
+      \n
+      Parmi les événements qui surviennent dans la vie d'une entreprise artisanale, 
+certains d'entre eux doivent être obligatoirement déclarés par l'entreprise à sa chambre de commerce et d'artisanat, 
+c'est à dire son centre de formalité des entreprises.
+      **Généralement**, étant donné que toute modification du répertoire implique des coûts, 
+**l'entreprise met à jour l'ensemble de ses données**.
+      \n
+      \n
+      Voici la liste des évènements qui impliquent obligatoirement une déclaration : 
+      \n
+      \n
+      - Changement d’adresse ;
+      \n
+      - changement de nom commercial ;
+      \n
+      - changement d’enseigne ;
+      \n
+      - modification d’activité(s) de l’entreprise ;
+      \n
+      - mise en location gérance, mention de conjoint collaborateur ;
+      \n
+      - ouverture ou fermeture d’un établissement ;
+      \n
+      - changement de la forme juridique ; 
+      \n
+      - changement de dirigeant ;
+      \n
+      - dissolution de la société ;
+      \n
+      - cessation temporaire ou totale d’activité ;
+      \n
+      - régularisation d'immatriculation pour les micro-entrepreneurs.
+      \n
+      \n
+      Il est à noter que **l'entrepreneur n'a pas d'obligation légale à déclarer un changement d'effectif**. 
+De fait, l'actualisation de cette donnée dépend donc du bon vouloir de l'entrepreneur à revérifier tous les champs du formulaire 
+au moment de sa déclaration d'un événement dit obligatoire.
+      \n
+      \n
+      ##### Du côté de la réponse JSON
+      \n
+      \n
+      La fraîcheur des données communiquées par cette API correspond à la date de mise à jour faite dans le RNM 
+suite aux nouvelles informations déclarées par l'entrepreneur. Cette date est indiquée par la clé `rnm_date_mise_a_jour` dans la réponse JSON.
+      Dans le cas où il n'y a pas encore eu de changement répertorié, la date d'import `rnm_date_import` fait alors référence.
+      \n
+      \n
+      ⚠️ La fraicheur des données d'effectifs `effectif_salarie` et `effectif_apprenti` est à 
+prendre avec vigilance puisque leur mise à jour n'est pas obligatoire."
