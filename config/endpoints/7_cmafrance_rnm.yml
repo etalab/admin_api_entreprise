@@ -120,3 +120,84 @@ suite aux nouvelles informations déclarées par l'entrepreneur. Cette date est 
       \n
       ⚠️ La fraicheur des données d'effectifs `effectif_salarie` et `effectif_apprenti` est à 
 prendre avec vigilance puisque leur mise à jour n'est pas obligatoire."
+    - q: "Qu'est ce que les codes NAFA, NAR 4 et NAR 20 ?"
+      a: "
+      ###### Le code NAFA
+      \n
+      \n
+      Le code NAFA est un identifiant permettant de naviguer dans la Nomenclature d'Activités Françaises de l'Artisanat qui décrit les activités artisanales. 
+Il est composé de six caractères, quatre chiffres et deux lettres. 
+Les cinq premiers caractères sont ceux de l'Activité Principale de l'Entreprise (APE) 
+et correspondent au code NAF. La lettre située en sixième position permet de préciser le contenu du poste NAFA par rapport à la classe NAF.
+      \n
+      \n
+      **Pour en savoir plus :**
+      \n
+      \n
+      La [page dédiée du Ministère de l'économie, des finances et de la relance](https://www.entreprises.gouv.fr/fr/commerce-et-artisanat/la-nomenclature-d-activites-francaise-de-l-artisanat}{:target="_blank"}) détaille les lois ayant défini cette nomenclature. Vous y trouverez également plus d'informations sur le lien entre code NAF et NAFA.<br />
+      CMA France propose un [registre de la nomenclature](http://nafa.apcma.fr/jlbweb/jlbWeb?html=NAFA/accueil}{:target="_blank"}), qui donne un descriptif précis de chaque activité.
+      \n
+      \n
+      ###### Les codes NAR 4 et 20
+      \n
+      \n
+      Les codes NAR sont issus des Nomenclatures Artisanales Regroupées. Ils permettent de connaître le secteur d'activité de l'entreprise artisanale.
+      \n
+      Le numéro associé correspond au degré de précision en nombre de secteurs.
+      La NAR 4 comprend quatre secteurs d'activités, qui regroupent les vingt secteurs plus précis de la NAR 20.
+      \n
+      \n
+      **Pour en savoir plus :**
+      \n
+      \n
+      - Le site de CMA France tient un [registre de tous les codes NAFA](http://nafa.apcma.fr/jlbweb/jlbWeb?html=NAFA/accueil}{:target="_blank"}), accompagné des codes NAR 4 et 20, et même des code NAR 8 et 80.
+      \n
+      - Une [liste (non-officielle)](https://entreprise.api.gouv.fr/assets/pdf/liste-nar.pdf}{:target="_blank"}) est consultable."
+    - q: "Quelles sont les différents types de déclarations renvoyées ?"
+      a: "La clé `declaration_procedures` permet d'obtenir différents types de déclarations&nbsp;:
+      \n
+      \n
+      - les déclarations de **cessation des paiements** et les décisions intervenues dans les **procédures de règlement judiciaire et de liquidation des biens** en application de la [loi n° 67-563 du 13 juillet 1967](https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000006398426/1980-05-13/}{:target="_blank"}) ;
+      \n
+      - les déclarations intervenues dans les procédures ouvertes en application de l'ordonnance n° 67-820 du 23 septembre 1967 tendant à faciliter le **redressement économique et financier** ;
+      \n
+      - les déclarations de **cessation des paiements** et les décisions suivantes intervenues dans les procédures de **redressement** ou de **liquidation judiciaires** des entreprises ouvertes avant le 1er janvier 2006 en application du code de commerce ;
+      \n
+      - les déclarations intervenues dans les procédures de **sauvegarde**, de **redressement judiciaire** ou de **liquidation judiciaire** ouvertes à compter du 1er janvier 2006.
+      \n
+      \n"
+    - q: "Quelle est la distinciton entre un nom de naissance, d'usage ou un pseudonyme ?"
+      a: "La réponse JSON vous délivre plusieurs types de noms et prénoms du dirigeant. 
+      \n
+      \n
+      ##### Le nom de naissance
+      \n
+      \n
+      La clé `dirigeant_nom_de_naissance` délivre le nom de famille **donné à la personne le jour de la déclaration de sa naissance**.
+      Ce peut être soit le nom du père, soit le nom de la mère, soit leurs deux noms accolés dans l'ordre choisi par eux dans la limite d'un nom de famille pour chacun d'eux (Article 311-21 du code civil). C'est aussi le nom qui figure au registre de l'état civil. Cette législation est récente et a pris effet au 1er septembre 2003.
+      Ce nom **peut être différent du nom de famille** (qui n'est pas donné par l'API) dans le cas où la personne à demander un changement de nom.
+      \n
+      \n
+      ##### Le nom d'usage
+      \n
+      \n
+      La clé `dirigeant_nom_usage` indique le nom que la personne a **choisi d'utiliser dans la vie quotidienne**.
+      Toutefois, ne sont autorisées que **trois formes de noms d'usage**&nbsp;:
+      \n
+      \n
+      - un double nom composé du nom de famille de la personne et du nom du parent qui n'a pas transmis son nom à la naissance.
+      \n
+      - un double nom composé du nom de famille de la personne et du nom de la personne avec qui elle est mariée.
+      \n
+      - le nom de la personne avec qui la personne est mariée, ce nom peut alors aussi être dénommé "nom marital".
+      \n
+      \n
+      Le nom d'usage **ne figure ni à l'état civil ni sur le livret de famille** ; il peut figurer sur la carte d'identité ou le passeport. Les administrations se doivent de l'utiliser si cela est demandé par la personne.
+      \n
+      \n
+      ##### Le pseudonyme
+      \n
+      \n
+      La clé `dirigeant_pseudonyme` indique le **nom d'emprunt utilisé dans l'exercice de son activité** par le dirigeant pour se désigner, généralement littéraire ou artistique. Le pseudonyme ne correspond pas à un changement de nom, et son choix doit remplir certaines conditions. Il ne doit pas porter atteinte à l'ordre public et il ne doit pas permettre à la personne de s'approprier la renommée ou la parenté d'une personne tiers.
+      Le pseudonyme peut être protégé en étant déposé sous la forme d'une marque à l'INPI."
+
