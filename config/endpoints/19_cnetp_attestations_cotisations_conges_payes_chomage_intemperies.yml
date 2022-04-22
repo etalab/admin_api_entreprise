@@ -1,0 +1,79 @@
+---
+- uid: 'cnetp/attestations_cotisations_conges_payes_chomage_intemperies'
+  path: '/v3/cnetp/attestations_cotisations_conges_payes_chomage_intemperies/{siren}'
+  position: 140
+  perimeter:
+    description: "**Type de données&nbsp;:**
+    \n
+    \n
+    Cette API permet d'obtenir au format PDF une attestation délivrée à l’entreprise sous réserve que celle-ci :
+    \n
+    \n
+    - soit à jour de ses déclarations exigibles servant à l’assiette des cotisations de congés payés et des cotisations de chômage-intempéries ;
+    \n
+    - soit à jour du paiement des cotisations citées.
+    \n
+    \n
+    **Établissements concernés&nbsp;:**
+    \n
+    \n
+    Cette API couvre l’ensemble des entreprises exerçant une ou plusieurs activités entrant 
+dans le champ d’application des conventions collectives nationales étendues des Travaux Publics et du Bâtiment :
+    \n
+    \n
+    - ✅ Convention Collective Nationale des Ouvriers des Travaux Publics du 15 décembre 1992 (étendue par arrêté du 27 mai 1993) ;
+    \n
+    - ✅ Convention Collective Nationale des ETAM des Travaux Publics du 12 juillet 2006 (étendue par arrêté du 28 juin 2007)
+    \n
+    - ✅ Convention Collective Nationale des Cadres des Travaux Publics du 20 novembre 2015 (étendue par arrêté du 5 juin 2020).
+    \n
+    \n
+    Toutes les attestations sont disponibles pour les entreprises en situation régulière 
+❌ sauf pour celles qui règlent les cotisations dues à la CNETP à l’URSSAF dans le cadre du Titre Emploi Service Entreprise (TESE).
+    \n
+    \n
+    **Pour en savoir plus sur les entreprises concernées&nbsp;:**
+    \n
+    \n
+    - le [site de la CNETP](https://www.cnetp.org/category/affiliation/}{:target="_blank"}) est une source d'information ;
+    - l’[article D.3141-12 du code du travail](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000020572124/}{:target="_blank"}) 
+définit les entreprises qui sont tenues d’adhérer auprès d’une Caisse de Congés Payés du BTP&nbsp;: 
+&laquo;Dans les entreprises exerçant une ou plusieurs activités entrant dans le champ d’application des conventions collectives 
+nationales étendues du bâtiment et des travaux publics, le service des congés est assuré, sur la base de celles-ci, par des 
+caisses constituées à cet effet.&raquo;"
+    entities:
+      - entreprises
+  call_id: "SIREN"
+  providers:
+    - 'cnetp'
+  opening: protected
+  use_cases:
+    - Aides publiques
+    - Marchés publics
+    - Détection de la fraude
+  parameters:
+    - Numéro de SIREN de l'entreprise
+  faq:  
+    - q: "L'api ne renvoie pas de pièce, peut-on considérer que l'entreprise n'est pas à jour ?"
+      a: "Non, dans certains cas nous ne pouvons pas récupérer l’attestation. 
+Notamment, certaines entreprises règlent leurs cotisations dues à la CNETP à l’URSAFF 
+(dans le cadre du TESE) ; leurs attestations ne sont pas accessibles depuis cette API."
+    - q: "Comment utiliser ces données protégées ?"
+      a: "##### Les attestations de la CNETP, protégées au titre du secret des affaires
+      \n
+      \n
+      Dans le cadre d’un marché public, les attestations de Marché ont pour objet de prouver à l’acheteur public 
+que le candidat a satisfait à ses obligations fiscales et sociales. Il en est ainsi des attestations de marchés délivrées 
+par la CNETP aux entreprises de Travaux Publics.
+      \n
+      \n
+      Or, **conformément au code de la commande publique, l’acheteur public ne peut communiquer les informations protégées** 
+dont il a eu connaissance lors de la procédure de passation et notamment celles dont la divulgation violerait le secret des affaires.
+C’est pourquoi, les attestations délivrées par la CNETP constituent des données protégées et non publiques.
+      \n
+      \n
+      ##### Des informations à ne pas divulguer
+      \n
+      \n
+      En utilisant cette API, vous vous engagez à n’utiliser ces informations que dans le cadre strict de vos missions de service public, 
+**à ne pas les rediffuser ni les divulguer auprès de tiers non autorisés**."
