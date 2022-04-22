@@ -1,0 +1,83 @@
+---
+- uid: 'qualibat/certifications_batiment'
+  path: '/v3/qualibat/certifications_batiment/{siret}'
+  position: 140
+  perimeter:
+    description: "**Type de données&nbsp;:**
+    \n
+    \n
+    Cette API délivre le certificat Qualibat de l'entreprise au format PDF, comportant de nombreuses informations.
+    \n
+    \n
+    #### Des informations sur l'entreprise :
+    \n
+    \n
+    - raison sociale ;
+    \n
+    - coordonnées ;
+    \n
+    - nom et fonction des dirigeants responsables ;
+    \n
+    - date de création ;
+    \n
+    - forme juridique ;
+    \n
+    - montant du capital social ;
+    \n
+    - numéro de registre de commerce ou de répertoire des métiers ;
+    \n
+    - code NACE ;
+    \n
+    - numéro d’affiliation à la caisse de congés payés ;
+    \n
+    - compagnies d’assurances ;
+    \n
+    - régularité de la situation fiscale et sociale ; 
+    \n
+    - effectif ;
+    \n
+    - classement dans une catégorie d’entreprise ;
+    \n
+    - chiffre d’affaires hors taxes.
+    \n
+    \n
+    #### Des informations sur la qualification&nbsp;:
+    \n
+    \n
+    - code à quatre chiffre de la capacité technique reconnue à l’entreprise dans une des 9 activités détaillées sur le [site Qualibat](https://www.qualibat.com/nomenclature/}{:target="_blank"});
+    \n
+    - titre de cette capacité ;
+    \n
+    - niveau de technicité ;
+    \n
+    - classification partielle : les moyens humains dont dispose l’entreprise dans l’activité pour laquelle elle est qualifiée sont précisés.
+    \n
+    - date d’attribution : date à laquelle la qualification a été attribuée ou dernièrement renouvellée ;
+    \n
+    - date d’échéance : date d’expiration de validité de la qualification ;
+    \n
+    - système qualité : dans la mesure où l’entreprise a mis en place une démarche qualité certifiée par QUALIBAT, 
+    la certification de son système qualité est mentionnée en annexe.
+    \n
+    \n
+    #### Des informations liées au certificat&nbsp;:
+    \n
+    \n
+    - millésime ;
+    - durée de validité ;
+    - numéro d'identification du certificat.
+    \n
+    \n
+    [Source : Qualibat](https://www.qualibat.com/}{:target="_blank"})"
+    entities:
+      - associations
+      - entreprises
+  # Texte libre
+  call_id: "SIRET"
+  providers:
+    - 'qualibat'
+  opening: public
+  use_cases:
+    - Marchés publics
+  parameters:
+    - Numéro de SIRET de l'établissement
