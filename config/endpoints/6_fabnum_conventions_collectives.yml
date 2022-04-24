@@ -6,17 +6,17 @@
     description: "**Type de données&nbsp;:**
     \n
     \n
-    Cette API délivre la liste des différentes conventions de l’établissement.
+    Cette API délivre la liste des différentes conventions de l&apos;établissement.
     Les caractéristiques suivantes sont données&nbsp;:
     \n
     \n
     - le titre et le titre court de la convention ;
     \n
-    - l’état en vigueur étendu ou non de la convention ;
+    - l&apos;état en vigueur étendu ou non de la convention ;
     \n
     - son identifiant IDCC, numéro à 4 chiffres ;
     \n
-    - l’URL Légifrance du texte en vigueur.
+    - l&apos;URL Légifrance du texte en vigueur.
     \n
     \n
     **Établissements concernés&nbsp;:**
@@ -24,19 +24,17 @@
     \n
     Les liens entre les établissements et les conventions collectives sont issues de la déclaration sociale nominative (DSN), le périmètre est donc restreint aux ✅ établissements ayant déclaré des salariés et ayant une convention.
     \n
-    ❌ Les sociétés unipersonnelles dont le gérant est assimilé salarié ne ressortent pas au travers de l’API, même si la société en question est rattachée à une convention collective.
+    ❌ Les sociétés unipersonnelles dont le gérant est assimilé salarié ne ressortent pas au travers de l&apos;API, même si la société en question est rattachée à une convention collective.
     \n
     \n
     **Fraicheur de la donnée&nbsp;:**
     \n
     \n
-    ⚠️ La fréquence de mise à jour d'une des sources de données de cette API, le fichier fournie par la DARES, n’est pas précisée."
+    ⚠️ La fréquence de mise à jour d&apos;une des sources de données de cette API, le fichier fournie par la DARES, n’est pas précisée."
     entities:
       - associations
       - entreprises
-  # Texte libre
   call_id: "SIREN"
-  # La liste des clés disponible est stockée dans la locale `providers` du fichier providers.fr.yml
   providers:
     - 'Fabrique numérique des ministères sociaux'
   opening: public
@@ -44,15 +42,15 @@
     - Aides publiques
     - Marchés publics
   parameters:
-    - Numéro de SIRET de l'établissement
+    - Numéro de SIRET de l&apos;établissement
   faq:  
     - q: "Quelles sont les sources des données de conventions collectives de de cette API ?"
       a: "Cette API est fournie par la fabrique numérique des ministères sociaux 
-      qui s’appuie sur plusieurs sources de données&nbsp;:
+      qui s&apos;appuie sur plusieurs sources de données&nbsp;:
       \n
       \n
-      - les données d’affiliation des établissements d’entreprise aux conventions sont **issues de la [DARES](https://dares.travail-emploi.gouv.fr/}{:target="_blank"})**, 
-direction d’études et statistiques du Ministère du Travail, publiées sur sur [data.gouv.fr](https://www.data.gouv.fr/fr/datasets/liste-des-conventions-collectives-par-entreprise-siret/}{:target="_blank"}) ;
+      - les données d&apos;affiliation des établissements d&apos;entreprise aux conventions sont **issues de la [DARES](https://dares.travail-emploi.gouv.fr/}{:target="_blank"})**, 
+direction d&apos;études et statistiques du Ministère du Travail, publiées sur sur [data.gouv.fr](https://www.data.gouv.fr/fr/datasets/liste-des-conventions-collectives-par-entreprise-siret/}{:target="_blank"}) ;
       \n
       - Les informations relatives aux conventions collectives (numéro identifiant, titre, lien vers le texte légal, …) 
 sont issues de la base [KALI](https://www.data.gouv.fr/fr/datasets/kali-conventions-collectives-nationales/}{:target="_blank"}) **diffusée par la [DILA](https://www.dila.premier-ministre.gouv.fr/}{:target="_blank"})**, direction de l’information légale et administrative.
