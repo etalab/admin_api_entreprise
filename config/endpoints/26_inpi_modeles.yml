@@ -1,0 +1,35 @@
+---
+- uid: 'inpi/modeles'
+  path: '/v3/inpi/modeles/{siren}'
+  position: 140
+  perimeter:
+    description: "**Type de données&nbsp;:**
+    \n
+    \n
+    Cette API délivre le nombre de modèles déposés par l'entreprise, et pour lesquels le SIREN était précisé. 
+L'INPI indique qu'environ 50% des dépôts de dessins & modèles France effectués sont rattachés à un SIREN. 
+Les modèles déposés au niveau international, à l'OMPI, ne sont pas renvoyés par cette API car le taux de sirenage est de 0%.
+    \n
+    \n
+    Une liste des derniers modèles déposés est également renvoyée, et permet d'obtenir, entre autres, les informations suivantes&nbsp;:
+    \n
+    \n
+    - le titre du modèle et le numéro national sous lequel le modèle est enregistré ;
+    \n
+    - la date de dépôt et la date de publication ;
+    \n
+    - le nom de l'entité ayant déposé le modèle ; 
+    \n
+    - le nombre de vues du modèle."
+    entities:
+      - associations
+      - entreprises
+  # Texte libre
+  call_id: "SIREN"
+  providers:
+    - 'inpi'
+  opening: public
+  use_cases:
+    - Marchés publics
+  parameters:
+    - Numéro de SIREN de l'unité légale
