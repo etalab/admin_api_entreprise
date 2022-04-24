@@ -1,0 +1,33 @@
+---
+- uid: 'inpi/brevets'
+  path: '/v3/inpi/brevets/{siren}'
+  position: 140
+  perimeter:
+    description: "**Type de données&nbsp;:**
+    \n
+    \n
+    Cette API délivre le nombre de brevets France et brevets Europe déposés par l'entreprise, et pour lesquels le SIREN était précisé. 
+L'INPI indique qu'environ 80% des demandes de brevets publiées ces vingt dernières années sont rattachées à un SIREN.
+    \n
+    \n
+    Une liste des derniers brevets déposés est également renvoyée, et permet d'obtenir les informations suivantes&nbsp;:
+    \n
+    \n
+    - le titre du brevet ;
+    \n
+    - le numéro de publication ;
+    \n
+    - les dates de dépôt et de publication."
+    entities:
+      - associations
+      - entreprises
+  # Texte libre
+  call_id: "SIREN"
+  # La liste des clés disponible est stockée dans la locale `providers` du fichier providers.fr.yml
+  providers:
+    - 'inpi'
+  opening: public
+  use_cases:
+    - Marchés publics
+  parameters:
+    - Numéro de SIREN de l'unité légale
