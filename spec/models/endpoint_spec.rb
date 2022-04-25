@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe Endpoint, type: :model do
   describe '.all' do
     subject { described_class.all }
@@ -29,11 +31,11 @@ RSpec.describe Endpoint, type: :model do
       its(:attributes) { is_expected.to be_an_instance_of(Hash) }
       its(:attributes) { is_expected.to have_key('date_creation') }
 
-      its(:links) { is_expected.to be_an_instance_of(Hash) }
-      its(:links) { is_expected.to have_key('siege_social') }
+      its(:root_links) { is_expected.to be_an_instance_of(Hash) }
+      its(:root_links) { is_expected.to have_key('siege_social') }
 
-      its(:meta) { is_expected.to be_an_instance_of(Hash) }
-      its(:meta) { is_expected.to have_key('date_derniere_mise_a_jour') }
+      its(:root_meta) { is_expected.to be_an_instance_of(Hash) }
+      its(:root_meta) { is_expected.to have_key('date_derniere_mise_a_jour') }
 
       its(:collection?) { is_expected.to be false }
     end
