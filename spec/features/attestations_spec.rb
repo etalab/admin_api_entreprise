@@ -49,7 +49,7 @@ RSpec.describe 'User attestations through tokens', type: :feature do
 
     before { allow(Siade).to receive(:new).and_return(siade_double) }
 
-    let(:siade_double) { class_double('SiadeService') }
+    let(:siade_double) { instance_double(Siade) }
     let(:user) { create(:user, :with_jwt, roles: ['attestations_fiscales']) }
     let(:siren) { siren_valid }
     let(:token) { 'JWT with no roles' }
