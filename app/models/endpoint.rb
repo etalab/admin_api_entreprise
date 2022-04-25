@@ -49,16 +49,8 @@ class Endpoint
     @redoc_anchor ||= "tag/#{tag_for_redoc}/paths/#{path_for_redoc}/get"
   end
 
-  def links
-    @links ||= extract_properties_from_schema('links')
-  end
-
   def root_links
     @root_links ||= extract_root_properties_from_schema('links')
-  end
-
-  def meta
-    @meta ||= extract_properties_from_schema('meta')
   end
 
   def root_meta

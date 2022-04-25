@@ -94,35 +94,13 @@
         <% end %>
       </div>
 
-      <% if @endpoint.links.any? %>
-        <h4 id="donnees_liens" class="fr-mt-md-5w">
-          <%= t('.links.title') %>
-        </h4>
-
-        <div class="fr-pb-3w">
-          <%= t('.links.description') %>
-        </div>
-
-        <div class="keep-within-block-mobile">
-          <% @endpoint.links.each do |key, properties| %>
-            <%=
-              render partial: 'property', locals: {
-                key: key,
-                kind: 'link',
-                properties: properties
-              }
-            %>
-          <% end %>
-        </div>
-      <% end %>
-
       <% if @endpoint.root_links.any? %>
         <h4 id="donnees_racine_liens" class="fr-mt-md-5w">
           <%= t('.root_links.title') %>
         </h4>
 
         <div class="fr-pb-3w">
-          <%= t('.links.description') %>
+          <%= t('.root_links.description') %>
         </div>
 
         <div class="keep-within-block-mobile">
@@ -138,35 +116,13 @@
         </div>
       <% end %>
 
-      <% if @endpoint.meta.any? %>
-        <h4 id="donnees_metadonnes" class="fr-mt-md-5w">
-          <%= t('.meta.title') %>
-        </h4>
-
-        <div class="fr-pb-3w">
-          <%= t('.meta.description') %>
-        </div>
-
-        <div class="keep-within-block-mobile">
-          <% @endpoint.meta.each do |key, properties| %>
-            <%=
-              render partial: 'property', locals: {
-                key: key,
-                kind: 'meta',
-                properties: properties
-              }
-            %>
-          <% end %>
-        </div>
-      <% end %>
-
       <% if @endpoint.root_meta.any? %>
         <h4 id="donnees_racine_metadonnes" class="fr-mt-md-5w">
           <%= t('.root_meta.title') %>
         </h4>
 
         <div class="fr-pb-3w">
-          <%= t('.meta.description') %>
+          <%= t('.root_meta.description') %>
         </div>
 
         <div class="keep-within-block-mobile">

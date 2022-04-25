@@ -35,7 +35,7 @@ RSpec.describe 'Endpoints show', type: :feature do
         click_on 'example_link'
 
         within('#main-modal-content') do
-          expect(page).to have_content('"type": "entreprise"')
+          expect(page).to have_content('"raison_sociale": "DINUM"')
         end
       end
 
