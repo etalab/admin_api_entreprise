@@ -42,7 +42,7 @@ class Endpoint
   end
 
   def attributes
-    @attributes ||= extract_properties_from_schema('attributes')
+    @attributes ||= extract_data_from_schema
   end
 
   def redoc_anchor
@@ -80,6 +80,13 @@ class Endpoint
   end
 
   private
+
+  def extract_data_from_schema
+    properties_path = %w[properties data properties]
+    properties_path.insert(2, 'items') if collection?
+
+    response_schema.dig(*properties_path) || {}
+  end
 
   def extract_properties_from_schema(name)
     properties_path = ['properties', 'data', 'properties', name]
