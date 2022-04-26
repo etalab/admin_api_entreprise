@@ -1,6 +1,6 @@
 class AddCachedFieldToAccessLogs < ActiveRecord::Migration[7.0]
   def up
-    add_column :access_logs, :cached, :boolean, default: false
+    add_column :access_logs, :cached, :boolean
 
     execute <<-SQL
       DROP VIEW access_logs_view;

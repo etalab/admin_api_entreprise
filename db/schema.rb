@@ -31,7 +31,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_25_161454) do
     t.string "source"
     t.jsonb "params", default: "{}"
     t.uuid "jwt_api_entreprise_id"
-    t.boolean "cached", default: false
+    t.boolean "cached"
     t.index "((params ->> 'recipient'::text))", name: "index_access_logs_on_params_recipient", using: :gin
     t.index "((params ->> 'siren'::text))", name: "index_access_logs_on_params_siren", using: :gin
     t.index "((params ->> 'siret'::text))", name: "index_access_logs_on_params_siret", using: :gin
