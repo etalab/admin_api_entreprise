@@ -127,6 +127,21 @@
           <% end %>
         </div>
       <% end %>
+      
+      <h3 id="questionsreponses" class="fr-mt-md-5w">
+         <%= t('.questionsreponses.title') %>
+      </h3>
+  
+      <div class="fr-accordions-group">
+        <section class="fr-accordion">
+           <h3 class="fr-accordion__title">
+           <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106">TODO intitulé question</button>
+           </h3>
+           <div class="fr-collapse" id="accordion-106">
+           <!-- TODO réponses -->
+           </div>
+         </section>
+      </div>
 
       <h3 id="cgu" class="fr-mt-md-5w">
         <%= t('.cgu.title') %>
@@ -171,21 +186,6 @@
       </p>
     </div>
   
-    <h3 id="questionsreponses" class="fr-mt-md-5w">
-        <%= t('.questionsreponses.title') %>
-    </h3>
-  
-    <div class="fr-accordions-group">
-    <section class="fr-accordion">
-        <h3 class="fr-accordion__title">
-           <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106">TODO intitulé question</button>
-        </h3>
-        <div class="fr-collapse" id="accordion-106">
-        <!-- TODO réponses -->
-        </div>
-    </section>
-    </div>
-      
 
     <div class="fr-col-md-<%= 12 - layout_main_bloc %>">
       <%= render partial: 'use_cases', locals: { id: 'use_cases_desktop', extra_classes: 'fr-hidden fr-displayed-md' } %>
