@@ -4,26 +4,28 @@
   <div class="fr-col-6 fr-p-2w">
     <div class="fr-card fr-card--horizontal fr-card--no-arrow token-card" id="<%= dom_id(@contact) %>">
       <div class="fr-card__body">
-        <h4 class="fr-card__title">
-          <%= t(".subtitle_#{@contact.contact_type}") %>
-        </h4>
+        <div class="fr-card__content">
+          <h4 class="fr-card__title">
+            <%= t(".subtitle_#{@contact.contact_type}") %>
+          </h4>
 
-        <div class="fr-card__desc">
-          <%= form_with model: [:admin, @contact], id: dom_id(@contact, :edit), method: :patch do |form| %>
-            <%= form.label :email, t('.email'), class: 'fr-label' %>
-            <%= form.email_field :email, class: 'fr-input' %>
-            <%= form.label :phone_number, t('.phone_number'), class: 'fr-label' %>
-            <%= form.text_field :phone_number, class: 'fr-input' %>
-            <%= form.hidden_field :contact_type %>
+          <div class="fr-card__desc">
+            <%= form_with model: [:admin, @contact], id: dom_id(@contact, :edit), method: :patch do |form| %>
+              <%= form.label :email, t('.email'), class: 'fr-label' %>
+              <%= form.email_field :email, class: 'fr-input' %>
+              <%= form.label :phone_number, t('.phone_number'), class: 'fr-label' %>
+              <%= form.text_field :phone_number, class: 'fr-input' %>
+              <%= form.hidden_field :contact_type %>
 
-            <div class="actions">
-              <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left">
-                <li>
-                  <%= form.submit t('.cta'), class: 'fr-btn' %>
-                </li>
-              </ul>
-            </div>
-          <% end %>
+              <div class="actions">
+                <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left">
+                  <li>
+                    <%= form.submit t('.cta'), class: 'fr-btn' %>
+                  </li>
+                </ul>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>

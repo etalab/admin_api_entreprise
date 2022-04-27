@@ -3,24 +3,26 @@
     <div class="fr-col-12 fr-pb-2w">
       <div class="fr-card fr-card--horizontal fr-card--no-arrow">
         <div class="fr-card__body">
-          <h4 class="fr-card__title">
-            <%= t('.title', title: @token.intitule) %>
+          <div class="fr-card__content">
+            <h4 class="fr-card__title">
+              <%= t('.title', title: @token.intitule) %>
 
-            <span class="fr-text--sm fr-m-0 pull-right">
-              <% if current_user_admin? %>
-                <%= link_to t('.links.user_tokens'), admin_user_path(@token.user), id: :user_tokens_link, class: %w(fr-link fr-link--sm fr-fi-arrow-right-line fr-link--icon-right) %>
-              <% else %>
-                <%= link_to t('.links.user_tokens'), user_tokens_path, id: :user_tokens_link, class: %w(fr-link fr-link--sm fr-fi-arrow-right-line fr-link--icon-right) %>
-              <% end %>
-            </span>
-          </h4>
+              <span class="fr-text--sm fr-m-0 pull-right">
+                <% if current_user_admin? %>
+                  <%= link_to t('.links.user_tokens'), admin_user_path(@token.user), id: :user_tokens_link, class: %w(fr-link fr-link--sm fr-fi-arrow-right-line fr-link--icon-right) %>
+                <% else %>
+                  <%= link_to t('.links.user_tokens'), user_tokens_path, id: :user_tokens_link, class: %w(fr-link fr-link--sm fr-fi-arrow-right-line fr-link--icon-right) %>
+                <% end %>
+              </span>
+            </h4>
 
-          <div class="fr-card__desc">
-            <ul>
-              <li>
-                <span><%= t('.details.internal_id', id: @token.id) %></span>
-              </li>
-            </ul>
+            <div class="fr-card__desc">
+              <ul>
+                <li>
+                  <span><%= t('.details.internal_id', id: @token.id) %></span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
