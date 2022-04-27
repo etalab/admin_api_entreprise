@@ -3,24 +3,24 @@
   path: '/v3/infogreffe/mandataires_sociaux/{siren}'
   position: 110
   perimeter:
-    description: "**Type de données&nbsp;:**
+    description: "###### Type de données&nbsp;:
     \n
     \n
     Cette API délivre tous les mandataires sociaux de l&apos;entreprise&nbsp;:
     \n
     \n
-    * S&apos;il s&apos;agit de personnes morales, le numéro de SIREN, la raison sociale et le nom du greffe seront précisés ;
+    * S&apos;il s&apos;agit de personnes morales : le numéro de SIREN, la raison sociale et le nom du greffe seront précisés ;
     \n
-    * S&apos;il s&apos;agit de personne physiques, le nom, le prénom, la date de naissance, ainsi que le lieu de naissance de la personne physique seront indiqués ;
+    * S&apos;il s&apos;agit de personnes physiques : le nom, le prénom, la date de naissance, ainsi que le lieu de naissance de la personne physique seront indiqués ;
     \n
     * La fonction du mandataire social au sein de l&apos;entreprise, par exemple, \"Président\" est également spécifiée.
     \n
     \n
-    **Entreprises concernées&nbsp;:**
+    ###### Entreprises concernées&nbsp;:
     \n
     \n
     Toutes les entreprises inscrites au registre du commerce et des sociétés (RCS) sont concernées.
-    Il s&apos;agit des entreprises ayant une activité commerciale, plus d&apos;informations à ce sujet sur [le site du ministère de l&apos;économie](https://www.economie.gouv.fr/entreprises/registre-commerce-societes-rcs)"
+    Il s&apos;agit des entreprises ayant une activité commerciale. Pour plus de détails, consulter [le site du ministère de l&apos;économie](https://www.economie.gouv.fr/entreprises/registre-commerce-societes-rcs)"
     entities:
       - entreprises
   call_id: "SIREN"
@@ -28,7 +28,7 @@
     - 'infogreffe'
   opening: protected
   use_cases:
-    - Aides publiques
     - Marchés publics
+    - Aides publiques
   parameters:
-    - Numéro de SIREN de l&apos;entreprise recherchée
+    - Numéro de SIREN de l'unité légale

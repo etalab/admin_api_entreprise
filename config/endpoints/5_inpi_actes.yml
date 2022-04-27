@@ -3,23 +3,28 @@
   path: '/v3/inpi/actes/{siren}'
   position: 160
   perimeter:
-    description: "**Type de données&nbsp;:**
+    description: "###### Type de données&nbsp;:
     \n
     \n
-    Tous les actes établis par les greffes depuis 1993 sont transmis par cet endpoint. 
-Ce qui représente environ 25 millions d’actes. Ces actes, fournis au format PDF, comportent : 
-- des informations générales ; 
-- des informations sur le capital social et sa répartition ; 
-- des informations sur les associés et tout ce qui est relatif à l’administration de la société.
+    Tous les actes établis par les greffes depuis 1993 sont transmis. 
+Ce qui représente environ 25 millions d’actes. Ces actes, fournis au format PDF, comportent&nbsp;: 
     \n
     \n
-    ℹ️ Dans le cas où un acte est manquant, l&apos;INPI peut essayer de numériser le document qui fait défaut.
+    - des informations générales, telles que la nature de l&apos;archive, la date de dépôt en greffe, et le code greffe  ; 
+    \n
+    - des informations sur le capital social et sa répartition ;
+    \n
+    - des informations sur les associés et tout ce qui est relatif à l’administration de la société.
     \n
     \n
-    **Fraicheur de la donnée&nbsp;:**
+    ℹ️ Dans le cas où un acte est manquant, si celui-ci est postérieur à 1993, l&apos;INPI peut essayer de numériser le document qui fait défaut. 
+Envoyez-nous votre demande détaillée en passant par le [support](https://entreprise.api.gouv.fr/support/}{:target=\"_blank\"})
     \n
     \n
-    Théoriquement, les actes sont transmis à l’INPI par le greffe dans un délai de 24h."
+    ###### Fraicheur de la donnée&nbsp;:
+    \n
+    \n
+    Théoriquement, les actes sont transmis à l&apos;INPI par le greffe dans un délai de 24h."
     entities:
       - associations
       - entreprises
@@ -28,9 +33,9 @@ Ce qui représente environ 25 millions d’actes. Ces actes, fournis au format P
     - 'inpi'
   opening: public
   use_cases:
-    - Aides publiques
     - Marchés publics
-    - Préremplissage d&apos;un formulaire
+    - Aides publiques
+    - Préremplissage d'un formulaire
     - Détection de la fraude
   parameters:
-    - Numéro de SIREN de la personne physique ou morale recherchée.
+    - Numéro de SIREN de l'unité légale.

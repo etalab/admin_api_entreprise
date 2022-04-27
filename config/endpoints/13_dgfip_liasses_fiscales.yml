@@ -3,23 +3,20 @@
   path: '/v3/dgfip/liasses_fiscales/declarations/{year}/{siren}'
   position: 240
   perimeter:
-    description: "**Type de données&nbsp;:**
+    description: "###### Type de données&nbsp;:
     \n
     \n
-    Cette API délivre la liste des différentes conventions de l’établissement.
-    Les caractéristiques suivantes sont données&nbsp;:
+    Cette API délivre les liasses fiscales d&apos;une entreprise pour l'année renseignée. Pour chaque liasse fiscale, les informations suivantes sont transmises&nbsp;:
     \n
     \n
-    - le titre et le titre court de la convention ;
+    - Les règles d'imposition applicables à l'entreprise&nbsp;; 
     \n
-    - l’état en vigueur étendu ou non de la convention ;
+    - Des informations sur le formulaire complêté par l'entreprise&nbsp;, à l'origine des données transmises;
     \n
-    - son identifiant IDCC, numéro à 4 chiffres ;
-    \n
-    - l’URL Légifrance du texte en vigueur.
+    - Les données.
     \n
     \n
-    **Établissements concernés&nbsp;:**
+    ###### Établissements concernés&nbsp;:
     \n
     \n
     Cette API délivre les liasses fiscales des entreprises&nbsp;:
@@ -35,15 +32,15 @@
     - ✅ aux bénéfices agricoles (BA)*.
     \n
     \n
-    *selon les règles des régimes réels normal ou simplifié.
+    *selon les règles des régimes réels, normal ou simplifié.
     \n
     \n
-    ℹ️ Les entreprises anciennement aux forfaits BIC/BNC/BA , désormais ❌ régimes micro-BIC, micro-BNC 
-et micro-BA ne déposent pas de déclaration de résultat mais des éléments spécifiques dans la déclaration 2042C
- qui relève de d’impôt sur le revenu et ne sont donc pas dans le périmètre de cet endpoint.
+    ❌ Les entreprises anciennement aux forfaits BIC/BNC/BA, désormais régimes micro-BIC, micro-BNC 
+et micro-BA ne déposent pas de déclarations de résultat mais des éléments spécifiques dans la déclaration 2042C
+qui relève de d’impôt sur le revenu et ne sont donc pas dans le périmètre de cette API.
     \n
     \n
-    **Fraicheur de la donnée&nbsp;:**
+    ###### Fraicheur de la donnée&nbsp;:
     \n
     \n
     Les déclarations de résultat sont disponibles à compter du lendemain de la date de dépôt (J+1) 
@@ -54,7 +51,7 @@ et trois jours plus tard (J+3) si le dépôt intervient une veille de week-end.
 qui clôturent à la fin de l’année civile.
     \n
     \n
-    En cas d’exercice à cheval, la date limite de dépôt est positionnée exactement 3 mois après la date de clôture de l’exercice déclaré."
+    En cas d’exercice à cheval, la date limite de dépôt est positionnée exactement trois mois après la date de clôture de l’exercice déclaré."
     entities:
       - entreprises
   call_id: "SIREN"
@@ -64,7 +61,7 @@ qui clôturent à la fin de l’année civile.
   use_cases:
     - Détection de la fraude
   parameters:
-    - Numéro de SIREN de l&apos;entreprise
+    - Numéro de SIREN de l'entreprise
   faq:  
     - q: "Comment distinguer l&apos;imprimé rectificatif de l&apos;initial ?"
       a: "Il peut arriver que pour un même exercice il y ait plusieurs fois le même imprimé&nbps;; 

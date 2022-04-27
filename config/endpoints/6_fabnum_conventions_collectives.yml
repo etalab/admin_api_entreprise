@@ -3,50 +3,49 @@
   path: '/v3/fabrique_numerique_ministeres_sociaux/conventions_collectives/{siret}'
   position: 170
   perimeter:
-    description: "**Type de données&nbsp;:**
+    description: "###### Type de données&nbsp;:
     \n
     \n
     Cette API délivre la liste des différentes conventions de l&apos;établissement.
-    Les caractéristiques suivantes sont données&nbsp;:
+Les caractéristiques suivantes sont transmises&nbsp;:
     \n
     \n
-    - le titre et le titre court de la convention ;
+    - le titre, long et court de la convention ;
     \n
-    - l&apos;état en vigueur étendu ou non de la convention ;
+    - l&apos;état de la convention, étendu ou non, c'est-à-dire si la convention est applicable à tous les employeurs de la branche ou uniquement aux signataires ;
     \n
-    - son identifiant IDCC, numéro à 4 chiffres ;
+    - l&apos;identifiant IDCC, numéro à 4 chiffres ;
     \n
     - l&apos;URL Légifrance du texte en vigueur.
     \n
     \n
-    **Établissements concernés&nbsp;:**
+    ###### Établissements concernés&nbsp;:
     \n
     \n
-    Les liens entre les établissements et les conventions collectives sont issues de la déclaration sociale nominative (DSN), le périmètre est donc restreint aux ✅ établissements ayant déclaré des salariés et ayant une convention.
+    Les liens entre les établissements et les conventions collectives sont issues de la déclaration sociale nominative (DSN), le périmètre est donc restreint aux ✅&nbsp;établissements ayant déclaré des salariés et ayant une convention.
     \n
-    ❌ Les sociétés unipersonnelles dont le gérant est assimilé salarié ne ressortent pas au travers de l&apos;API, même si la société en question est rattachée à une convention collective.
-    \n
-    \n
-    **Fraicheur de la donnée&nbsp;:**
+    ❌ Les sociétés unipersonnelles dont le gérant est assimilé salarié ne sont pas concernées par cette API, même si la société en question est rattachée à une convention collective.
     \n
     \n
-    ⚠️ La fréquence de mise à jour d&apos;une des sources de données de cette API, le fichier fournie par la DARES, n’est pas précisée."
+    ###### Fraicheur de la donnée&nbsp;:
+    \n
+    \n
+    ⚠️ La fréquence de mise à jour du fichier fourni par la DARES (une des deux sources de cette API) n&apos;est pas précisée."
     entities:
       - associations
       - entreprises
-  call_id: "SIREN"
+  call_id: "SIRET"
   providers:
     - 'fabsocial'
   opening: public
   use_cases:
-    - Aides publiques
     - Marchés publics
+    - Aides publiques
   parameters:
     - Numéro de SIRET de l&apos;établissement
   faq:
-    - q: "Quelles sont les sources des données de conventions collectives de de cette API ?"
-      a: "Cette API est fournie par la fabrique numérique des ministères sociaux
-      qui s&apos;appuie sur plusieurs sources de données&nbsp;:
+    - q: "Quelles sont les sources de données de cette API ?"
+      a: "Cette API est fournie par la fabrique numérique des ministères sociaux qui s&apos;appuie sur plusieurs sources de données&nbsp;:
       \n
       \n
       - les données d&apos;affiliation des établissements d&apos;entreprise aux conventions sont **issues de la [DARES](https://dares.travail-emploi.gouv.fr/}{:target=\"_blank\"})**,

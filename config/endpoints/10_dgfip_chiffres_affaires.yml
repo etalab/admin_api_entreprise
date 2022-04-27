@@ -9,7 +9,7 @@
     Seuls les trois derniers exercices sont renvoyés.
     \n
     Ceux-ci ne sont pas forcément les exercices des trois dernières années car il peut y avoir plusieurs exercices dans une même année. Le nombre d’exercices renvoyés varie de 1 à 3.
-    Les exercices renvoyés sont listés les uns après les autres, le premier étant le plus récent.
+    Les exercices renvoyés sont listés les uns après les autres, le premier étant le plus récent des trois.
     \n
     \n
     Pour chaque exercice, le chiffre d’affaire en euros et la date de fin de l’exercice sont transmis.
@@ -19,7 +19,7 @@
     \n
     \n
     Sont disponibles uniquement les chiffres d&apos;affaires des **entreprises qui
-vérifient les deux conditions** suivantes&nbps;:
+vérifient les deux conditions** suivantes&nbsp;:
     \n
     \n
     - ✅ être **soumises à l&apos;impôt sur les sociétés** selon les règles des régimes d&apos;imposition réels, normal ou simplifié ;
@@ -27,10 +27,10 @@ vérifient les deux conditions** suivantes&nbps;:
     - ✅ avoir **transmis ses comptes annuels** aux greffes.
     \n
     \n
-    Les micro-entrepreneurs ne sont pas soumis à l&apos;IS mais à l&apos;IR ; leurs chiffres d&apos;affaires ne sont donc pas disponibles via API Entreprise."
+    ❌ Les micro-entrepreneurs ne sont pas soumis à l&apos;IS mais à l&apos;IR ; leurs chiffres d&apos;affaires ne sont donc pas disponibles via API Entreprise."
     entities:
       - entreprises
-  call_id: "SIRET"
+  call_id: "SIREN"
   providers:
     - 'dgfip'
   opening: protected
@@ -38,7 +38,7 @@ vérifient les deux conditions** suivantes&nbps;:
     - Aides publiques
     - Marchés publics
   parameters:
-    - Numéro de SIRET de l&apos;établissement
+    - Numéro de SIREN de l'entreprise
   faq:
     - q: "Quelle est la définition du chiffre d&apos;affaires transmis ?"
       a: "###### Le cas du régime réel normal
