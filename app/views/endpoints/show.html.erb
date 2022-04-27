@@ -52,25 +52,15 @@
         <%= t('.data.title') %>
       </h3>
 
-      <div>
-        <%= t("endpoint.opening.#{@endpoint.opening}.name", raise: true) %>
-      </div>
-
       <div class="fr-my-2w">
-        <a href="#cgu" class="fr-btn fr-btn--secondary fr-btn--icon-right fr-fi-arrow-down-line">
-          Conditions d'utilisation des données de cette API
-        </a>
-
-        <br />
-
         <a href="<%= endpoint_example_path(uid: @endpoint.uid) %>" id="example_link" class="fr-btn fr-btn--secondary fr-fi-eye-line fr-btn--icon-left fr-mt-2w" aria-controls="main-modal" data-fr-opened="false" data-turbo-frame="main-modal-content">
           Voir un exemple de réponse
         </a>
       </div>
 
-      <h4 id="donnees_attributs" class="fr-mt-md-5w">
+      <h6 id="donnees_attributs" class="fr-mt-md-5w">
         <%= t('.attributes.title') %>
-      </h4>
+      </h6>
 
       <div class="keep-within-block-mobile">
         <% if @endpoint.collection? %>
@@ -141,10 +131,18 @@
       <h3 id="cgu" class="fr-mt-md-5w">
         <%= t('.cgu.title') %>
       </h3>
+      
+      <h6 class="fr-mt-md-5w">
+        <%= t('.cgu.endpoint.opening.title') %>
+      </h6>
+      
+      <div>
+        <%= t("endpoint.opening.#{@endpoint.opening}.name", raise: true) %>
+      </div>
 
-      <h5 class="fr-mt-md-5w">
+      <h6 class="fr-mt-md-5w">
         <%= t('.cgu.main_title') %>
-      </h5>
+      </h6>
 
       <p>
         Cette API et l’utilisation de ses données est soumise aux CGU générales d’API Entreprise, dont voici les principaux éléments auxquels vous vous engagez :
