@@ -74,7 +74,7 @@ disponibles dans le fichier de locale):
 - Les liens externes (qui ajoute le picto)
 
   ```md
-  [Lien externe](https://www.google.fr}{:target="_blank"})
+  [Lien externe](https://www.google.fr}{:target=\"_blank\"})
   ```
 
 De plus, il est possible d'utiliser les helpers de routes et d'images avec de
