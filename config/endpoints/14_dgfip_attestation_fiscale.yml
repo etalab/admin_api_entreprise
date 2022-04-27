@@ -6,7 +6,11 @@
     description: "###### Type de données&nbsp;:
     \n
     \n
-    Cette API délivre l&apos;attestation de régularité fiscale au format PDF. 
+    Cette API délivre l&apos;attestation de régularité fiscale d'une entreprise, au format PDF.
+    \n
+    \n
+    L'attestation est délivrée si l'entreprise est en règle de ses obligations déclaratives et de paiement d&apos;IS et de TVA.
+    Les sociétés bénéficiant d’un plan de règlement, redressement, sauvegarde ou conciliation ainsi que les sociétés ayant formulé un recours contentieux assorti d’un sursis de paiement ne peuvent pas se voir délivrer une attestation fiscale.
     \n
     \n
     ###### Entreprises concernées&nbsp;:
@@ -38,14 +42,7 @@
     > \n
     > Une attestation peut être renvoyée en cas d'appel d&apos;une entreprise \"fille\", mais cette attestation ne sera pas valable car incomplète. En effet, il manquera les informations de la société \"mère\".
     > Il est de votre ressort de vérifier si l&apos;entreprise est membre ou non d&apos;un groupe de sociétés imposé selon le régime fiscal d&apos;intégration visé à l&apos;[article 223 A du CGI](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000042340402/).
-    > afin de ne pas utiliser une attestation qui ne serait pas valable. Deux API spécifiques à ces sociétés seront bientôt disponibles.
-    \n
-    \n
-    ###### Conditions de délivrance de l&apos;attestation :
-    \n
-    \n
-    L&apos;attestation est délivrée si les obligations déclaratives et de paiement d&apos;IS et de TVA de la société sont en règle.
-    Les sociétés bénéficiant d’un plan de règlement, redressement, sauvegarde ou conciliation ainsi que les sociétés ayant formulé un recours contentieux assorti d’un sursis de paiement ne peuvent pas se voir délivrer une attestation fiscale."
+    > afin de ne pas utiliser une attestation qui ne serait pas valable. Deux API spécifiques à ces sociétés seront bientôt disponibles."
     entities:
       - entreprises
   call_id: "SIREN"
