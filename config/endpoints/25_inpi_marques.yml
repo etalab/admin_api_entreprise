@@ -1,0 +1,35 @@
+---
+- uid: 'inpi/marques'
+  path: '/v3/inpi/marques/{siren}'
+  position: 140
+  perimeter:
+    description: "**Type de données&nbsp;:**
+    \n
+    \n
+    Cette API délivre le nombre de marques déposées par l&apos;entreprise, et pour lesquelles le SIREN était précisé. 
+L&apos;INPI indique qu&apos;environ 60% des dépôts de marques France effectués sont rattachés à un SIREN. 
+Les marques déposées au niveau européen ou international ne sont pas renvoyées par cette API car le taux de sirenage de ces dépôts est de 0%.
+    \n
+    \n
+    Une liste des dernières marques déposée est également renvoyée, et permet d&apos;obtenir les informations suivantes&nbsp;:
+    \n
+    \n
+    - le nom de la marque ;
+    \n
+    - le statut du dépôt et de la marque (demande déposée, publiée, non publiée, totalement rejetée ou irrecevable après publication ; marque enregistrée, renouvelée, ayant fait l&apos;objet d&apos;une renonciation totale, ayant fait l&apos;objet d&apos;un retrait total, annulée ou expirée ; renouvellement demandé) ;
+    \n
+    - le nom du déposant ou du titulaire ; 
+    \n
+    - la clef associée au dépôt."
+    entities:
+      - associations
+      - entreprises
+  # Texte libre
+  call_id: "SIREN"
+  providers:
+    - 'inpi'
+  opening: public
+  use_cases:
+    - Marchés publics
+  parameters:
+    - Numéro de SIREN de l&apos;unité légale

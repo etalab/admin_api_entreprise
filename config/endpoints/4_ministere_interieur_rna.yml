@@ -1,0 +1,29 @@
+---
+- uid: 'ministere_interieur/rna'
+  path: '/v3/mi/associations/{siret_or_rna}'
+  # Position au sein de l'index
+  position: 130
+  perimeter:
+    description: "**Type de données&nbsp;:**
+    \n
+    \n
+    Informations déclarées par l&apos;association en préfecture.
+    \n
+    \n
+    **Associations concernées&nbsp;:**
+    \n
+    \n
+    Toutes les associations inscrites au répertoire national des associations (RNA)."
+    entities:
+      - associations
+  call_id: "SIRET / RNA"
+  providers:
+    - 'mi'
+  opening: public
+  use_cases:
+    - Aides publiques
+    - Marchés publics
+    - Préremplissage d&apos;un formulaire
+    - Détection de la fraude
+  parameters:
+    - Numéro de SIRET ou numéro RNA de l’association
