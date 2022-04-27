@@ -3,7 +3,7 @@
   position: 145
   path: '/v3/insee/sirene/etablissements/{siret}/adresse'
   perimeter:
-    description: "**Type de données&nbsp;:**
+    description: "###### Type de données&nbsp;:
     \n
     \n
     Cette API délivre l&apos;adresse d&apos;un établissement, diffusible ou non-diffusible.
@@ -11,7 +11,7 @@
     ⚠️ Pour obtenir les informations générales d&apos;un établissement, utiliser l&apos;API `sirene/etablissements`.
     \n
     \n
-    **Établissements concernés&nbsp;:**
+    ###### Établissements concernés&nbsp;:
     \n
     \n
     Tous les établissements des unité légales suivantes sont disponibles&nbsp;:
@@ -35,7 +35,7 @@
     Leur diffusion à d&apos;autres administrations n&apos;est donc pas prévue.
     \n
     \n
-    **Périmètre géographique&nbsp;:**
+    ###### Périmètre géographique&nbsp;:
     \n
     \n
     La base Sirene concerne les établissements implantés en métropole, dans les DOM et dans les collectivités d&apos;Outre-Mer de Saint-Pierre-et-Miquelon, Saint-Barthélémy et Saint-Martin.
@@ -44,27 +44,27 @@
     ⚠️ Pour la Nouvelle-Calédonie, la Polynésie française, et Wallis-et-Futuna, seul le secteur public administratif, de l&apos;État ou des communes est répertorié ; ❌ les entreprises ne sont donc pas disponibles.
     \n
     \n
-    **Fraicheur de la donnée&nbsp;:**
+    ###### Fraicheur de la donnée&nbsp;:
     \n
     \n
     La mise a jour des données est faite quotidiennement entre 0h et 3h à l&apos;INSEE.<br>
     \n
     \n
-    **Pour en savoir plus&nbsp;:**
+    ###### Pour en savoir plus&nbsp;:
     \n
     \n
-    [Contexte juridique du Répertoire National d&apos;identification des entreprises et des établissements](https://www.legifrance.gouv.fr/affichCode.do;jsessionid=134EFA0EE7BDCA89C2D6B31E02C48430.tplgfr30s_3?idSectionTA=LEGISCTA000006178890&cidTexte=LEGITEXT000005634379&dateTexte=20100904)"
+    [Contexte juridique du répertoire national d&apos;identification des entreprises et des établissements](https://www.legifrance.gouv.fr/affichCode.do;jsessionid=134EFA0EE7BDCA89C2D6B31E02C48430.tplgfr30s_3?idSectionTA=LEGISCTA000006178890&cidTexte=LEGITEXT000005634379&dateTexte=20100904)"
     entities:
     - etablissements_entreprises
     - etablissements_associations
   opening: protected
   call_id: &insee_unites_legales_call_id SIRET
   parameters: &insee_unites_legales_parameters
-    - Numéro de SIRET de l&apos;établissement
+    - Numéro de SIRET de l'établissement
   use_cases: &insee_unites_legales_use_cases
     - Aides publiques
     - Marchés publics
-    - Préremplissage d&apos;un formulaire
+    - Préremplissage d'un formulaire
     - Détection de la fraude
   providers: &insee_unites_legales_providers
     - 'insee'
@@ -94,7 +94,7 @@
   position: 140
   path: '/v3/insee/sirene/etablissements/diffusibles/{siret}/adresse'
   perimeter:
-    description: "**Type de données&nbsp;:**
+    description: "###### Type de données&nbsp;:
     \n
     \n
     Cette API délivre l&apos;adresse d&apos;un établissement, inscrits au répertoire Sirene et diffusibles commercialement.
@@ -106,7 +106,7 @@
     * les informations générales des établissements, appelables avec les API `/sirene/etablissements` et `/sirene/etablissements/diffusibles` ;
     \n
     \n
-    **Établissements concernés&nbsp;:**
+    ###### Établissements concernés&nbsp;:
     \n
     \n
     Les établissements des unités légales suivantes sont disponibles&nbsp;:
@@ -128,7 +128,7 @@
     * ❌ Les établissements des unités légales dîtes \"non-diffusibles\", c&apos;est-à-dire n&apos;ayant pas donné leur accord pour que leurs informations soient publiques et utilisées à des fins commerciales ne sont pas appelables par cette API.
     \n
     \n
-    **Périmètre géographique&nbsp;:**
+    ###### Périmètre géographique&nbsp;:
     \n
     \n
     La base Sirene concerne les établissements implantés en métropole, dans les DOM et dans les collectivités d&apos;Outre-Mer de Saint-Pierre-et-Miquelon, Saint-Barthélémy et Saint-Martin.
@@ -137,16 +137,16 @@
     ⚠️ Pour la Nouvelle-Calédonie, la Polynésie française, et Wallis-et-Futuna, seul le secteur public administratif, de l&apos;État ou des communes est répertorié ; ❌ les entreprises ne sont donc pas disponibles.
     \n
     \n
-    **Fraicheur de la donnée&nbsp;:**
+    ###### Fraicheur de la donnée&nbsp;:
     \n
     \n
     La mise a jour des données est faite quotidiennement entre 0h et 3h à l&apos;INSEE.<br>
     \n
     \n
-    **Pour en savoir plus&nbsp;:**
+    ###### Pour en savoir plus&nbsp;:
     \n
     \n
-    [Contexte juridique du Répertoire National d&apos;identification des entreprises et des établissements](https://www.legifrance.gouv.fr/affichCode.do;jsessionid=134EFA0EE7BDCA89C2D6B31E02C48430.tplgfr30s_3?idSectionTA=LEGISCTA000006178890&cidTexte=LEGITEXT000005634379&dateTexte=20100904)"
+    [Contexte juridique du répertoire national d&apos;identification des entreprises et des établissements](https://www.legifrance.gouv.fr/affichCode.do;jsessionid=134EFA0EE7BDCA89C2D6B31E02C48430.tplgfr30s_3?idSectionTA=LEGISCTA000006178890&cidTexte=LEGITEXT000005634379&dateTexte=20100904)"
     entities:
     - entreprises
     - associations
