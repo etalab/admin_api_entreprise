@@ -4,14 +4,7 @@
   path: '/v3/dgfip/attestations_fiscales/{siren}'
   perimeter:
     description: "
-    **Entreprises concernées :**
-    \n
-    \n
-    Cette API ne concerne pas **❌ les sociétés \"filles\" appartenant à un groupe de société**.
-    \n
-    ⚠️ Une attestation pourrait toutefois être renvoyée si vous utilisez le SIREN d&apos;une entreprise \"fille\". Cette attestation ne sera pas valable car incomplète ; en effet, il manquera les informations concernant la société \"mère\".
-    Il est de votre ressort de vérifier si l&apos;entreprise est membre ou non d&apos;un groupe de sociétés imposé selon le régime fiscal d&apos;intégration visé à l&apos;[article 223 A du CGI](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000042340402/).
-    afin de ne pas utiliser une attestation qui ne serait pas valable. Deux API spécifiques à ces sociétés seront bientôt disponibles.
+    ###### Entreprises concernées&nbsp;:
     \n
     \n
     L&apos;attestation de régularité fiscale est **limitée aux ✅ entreprises soumises 
@@ -35,11 +28,19 @@
     * ❌ groupements passibles de l&apos;impôt sur le revenu (entrepreneurs individuels).
     \n
     \n
-    **Conditions de délivrance de l&apos;attestation :**
+    {:.fr-highlight--caution}
+    > ** ⚠️ Cette API n'est pas fiable pour ❌ les sociétés \"filles\" appartenant à un groupe de société**.
+    > \n
+    > Une attestation peut être renvoyée en cas d'appel d&apos;une entreprise \"fille\", mais cette attestation ne sera pas valable car incomplète. En effet, il manquera les informations de la société \"mère\".
+    > Il est de votre ressort de vérifier si l&apos;entreprise est membre ou non d&apos;un groupe de sociétés imposé selon le régime fiscal d&apos;intégration visé à l&apos;[article 223 A du CGI](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000042340402/).
+    > afin de ne pas utiliser une attestation qui ne serait pas valable. Deux API spécifiques à ces sociétés seront bientôt disponibles.
+    \n
+    \n
+    ###### Conditions de délivrance de l&apos;attestation :
     \n
     \n
     L&apos;attestation est délivrée si les obligations déclaratives et de paiement d&apos;IS et de TVA de la société sont en règle.
-    Ainsi, les sociétés bénéficiant d’un plan de règlement, redressement, sauvegarde ou conciliation ainsi que les sociétés ayant formulé un recours contentieux assorti d’un sursis de paiement ne peuvent pas se voir délivrer une attestation fiscale."
+    Les sociétés bénéficiant d’un plan de règlement, redressement, sauvegarde ou conciliation ainsi que les sociétés ayant formulé un recours contentieux assorti d’un sursis de paiement ne peuvent pas se voir délivrer une attestation fiscale."
     entities:
       - entreprises
   call_id: "SIREN"
@@ -47,11 +48,11 @@
   providers:
     - 'dgfip'
   use_cases:
-    - Aides publiques
     - Marchés publics
+    - Aides publiques
     - Détection de la fraude
   parameters:
-    - Numéro de SIREN de la personne morale recherchée
+    - Numéro de SIREN de l'entreprise
   faq:
     - q: "Quelles obligations fiscales sont prises en compte ?" 
       a: "L&apos;attestation concerne seulement :
