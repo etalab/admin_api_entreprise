@@ -3,49 +3,56 @@
   position: 260
   path: '/v3/acoss/attestations_sociales/{siren}'
   perimeter:
-    description: "**Entreprises concernées&nbsp;:**
+    description: "###### Type de données&nbsp;:
+    \n
+    \n
+    Cette API délivre l&apos;attestation de vigileance au format PDF. 
+    \n
+    \n
+    ###### Entreprises concernées&nbsp;:
     \n
     \n
     ✅ Toutes les entreprises sont concernées, y compris les micro-entreprises.
     \n
     \n
-    **Conditions de délivrance de lattestation&nbsp;:**
+    ###### Conditions de délivrance de l&apos;attestation&nbsp;:
     \n
     \n
-    L’attestation est délivrée si l&apos;entreprise&nbps;:
+    L&apos;attestation est délivrée si l&apos;entreprise&nbps;:
     \n
     \n
-    * s’est acquitée des cotisations et contributions dues à leur date normale d’exigibilité ;
+    - s&apos;est acquitée des cotisations et contributions dues à leur date normale d&apos;exigibilité ;
     \n
-    * a souscrit un plan d’apurement des cotisations et contributions restant dues, qu’elle respecte ;
+    - a souscrit un plan d&apos;apurement (planification des remboursements) des cotisations et contributions restant dues, qu&apos;elle respecte ;
     \n
-    * s’est acquitée des cotisations et contributions dues, mais n’est pas à jour par ailleurs dans le paiement des majorations et pénalités ;
+    - s&apos;est acquitée des cotisations et contributions dues, mais n&apos;est pas à jour dans le paiement des majorations et pénalités ;
     \n
-    * ne s’est pas acquittée des cotisations et contributions dues mais en conteste le montant par recours contentieux.
-    \n
-    \n
-    Le cadre précis de délivrance de l’attestation est expliqué sur le [site de l’URSSAF](https://www.urssaf.fr/portail/home/employeur/declarer-et-payer/obtenir-une-attestation/attestation-de-vigilance.html).
+    - ne s&apos;est pas acquittée des cotisations et contributions dues mais en conteste le montant par recours contentieux.
     \n
     \n
-    ℹ️ Depuis 2021, la contribution annuelle de l’OETH (Obligation d’Emploi de Travailleur Handicapé), fait partie des contribution dues pour obtenir l&apos;attestation.
-Cette compétence était auparavant attribuée à l’AGEFIPH."
+    Le cadre précis de délivrance de l&apos;attestation est expliqué sur le [site de l&apos;URSSAF](https://www.urssaf.fr/portail/home/employeur/declarer-et-payer/obtenir-une-attestation/attestation-de-vigilance.html).
+    \n
+    \n
+    {:.fr-highlight}
+    > ℹ️ Depuis 2021, la contribution annuelle de l&apos;OETH (Obligation d&apos;Emploi de Travailleur Handicapé), fait partie des contribution dues pour obtenir l&apos;attestation.
+    > Cette compétence était auparavant attribuée à l&apos;AGEFIPH."
     entities:
       - entreprises
   opening: protected
   call_id: "SIREN"
   parameters:
-    - Numéro de SIREN de la personne physique ou morale recherchée
+    - Numéro de SIREN de l'entreprise
   use_cases:
-    - Aides publiques
     - Marchés publics
+    - Aides publiques
     - Détection de la fraude
   providers:
     - 'acoss'
   faq:
-    - q: "Combien de temps est valide l’attestation de vigilance ?"
-      a: "L’attestation de vigilance est valide 6 mois à compter de la dernière date de période analysée. Celle-ci dépend de la situation
+    - q: "Combien de temps est valide l&apos;attestation de vigilance ?"
+      a: "L&apos;attestation de vigilance est valide 6 mois à compter de la dernière date de période analysée. Celle-ci dépend de la situation
 de chaque entreprise et de la dernière déclaration enregistrée dans le système."
 
-    - q: "L’API ne renvoie pas de pièce, peut-on considérer que l&apos;entreprise n&apos;est pas à jour ?"
-      a: "Non, dans certain cas, l&apos;API ne peut pas délivrer l’attestation, cela ne signifie pas
-que l’entreprise n’est pas à jour."
+    - q: "L&apos;API ne renvoie pas de pièce, peut-on considérer que l&apos;entreprise n&apos;est pas à jour ?"
+      a: "Non, dans certain cas, l&apos;API ne peut pas délivrer l&apos;attestation, cela ne signifie pas
+que l&apos;entreprise n&apos;est pas à jour."
