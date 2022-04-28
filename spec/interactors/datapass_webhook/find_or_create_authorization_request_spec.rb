@@ -69,7 +69,7 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
     it { is_expected.to be_a_success }
     it { expect(subject.authorization_request).to an_instance_of(AuthorizationRequest) }
 
-    it 'creates a new authorization request with attributes, contacts and linked to user' do
+    it 'creates a new authorization request with attributes (including siret), contacts and linked to user' do
       expect {
         subject
       }.to change { user.reload.authorization_requests.count }.by(1)
@@ -77,6 +77,7 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
       authorization_request = user.authorization_requests.last
 
       expect(authorization_request.intitule).to eq(datapass_webhook_params['data']['pass']['intitule'])
+      expect(authorization_request.siret).to eq(datapass_webhook_params['data']['pass']['siret'])
       expect(authorization_request.previous_external_id).to eq(datapass_webhook_params['data']['pass']['copied_from_enrollment_id'])
       expect(authorization_request.contacts.count).to eq(2)
       expect(authorization_request.contact_technique.email).to match(/technique\d+@/)
