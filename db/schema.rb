@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_27_143341) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_28_125337) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pgcrypto"
@@ -32,11 +32,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_27_143341) do
     t.jsonb "params", default: "{}"
     t.uuid "jwt_api_entreprise_id"
     t.boolean "cached"
+    t.index "((params ->> 'context'::text))", name: "index_access_logs_on_params_context", using: :gin
+    t.index "((params ->> 'id'::text))", name: "index_access_logs_on_params_id", using: :gin
+    t.index "((params ->> 'non_diffusables'::text))", name: "index_access_logs_on_params_non_diffusables", using: :gin
+    t.index "((params ->> 'object'::text))", name: "index_access_logs_on_params_object", using: :gin
     t.index "((params ->> 'recipient'::text))", name: "index_access_logs_on_params_recipient", using: :gin
     t.index "((params ->> 'siren'::text))", name: "index_access_logs_on_params_siren", using: :gin
     t.index "((params ->> 'siret'::text))", name: "index_access_logs_on_params_siret", using: :gin
     t.index "((params ->> 'siret_or_eori'::text))", name: "index_access_logs_on_params_siret_or_eori", using: :gin
+    t.index ["controller"], name: "index_access_logs_on_controller"
+    t.index ["duration"], name: "index_access_logs_on_duration"
+    t.index ["ip"], name: "index_access_logs_on_ip"
     t.index ["jwt_api_entreprise_id"], name: "index_access_logs_on_jwt_api_entreprise_id", where: "(jwt_api_entreprise_id IS NOT NULL)"
+    t.index ["source"], name: "index_access_logs_on_source"
+    t.index ["status"], name: "index_access_logs_on_status"
+    t.index ["timestamp"], name: "index_access_logs_on_timestamp"
   end
 
   create_table "authorization_requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
