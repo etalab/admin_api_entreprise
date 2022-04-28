@@ -33,10 +33,6 @@ FactoryBot.define do
       tokens_newly_transfered { true }
     end
 
-    trait :admin do
-      admin { true }
-    end
-
     trait :added_since_yesterday do
       created_at { Faker::Time.between(from: 1.day.ago + 1, to: Time.current) }
     end

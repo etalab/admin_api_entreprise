@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  self.ignored_columns = %w[admin]
+
   include RandomToken
 
   has_many :authorization_requests, dependent: :destroy

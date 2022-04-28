@@ -52,20 +52,6 @@ Rails.application.routes.draw do
 
   get '/developers/openapi', to: 'pages#redoc'
 
-  namespace :admin do
-    get '/private_metrics' => 'private_metrics#index'
-
-    resources :users, only: %i[index show update]
-    resources :tokens, only: %i[index show] do
-      member do
-        patch :archive
-        patch :blacklist
-      end
-    end
-
-    resources :contacts, only: %i[edit update]
-  end
-
   get '/mentions', to: 'pages#mentions'
   get '/cgu', to: 'pages#cgu'
   get '/current_status', to: 'pages#current_status'

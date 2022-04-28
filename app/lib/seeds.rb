@@ -6,8 +6,6 @@ class Seeds
 
     @user = create_main_user
 
-    create_admin
-
     create_token_with_contact
     create_token_valid
     create_token_archived
@@ -41,14 +39,6 @@ class Seeds
       phone_number: '0936656565',
       first_name: 'Jean',
       last_name: 'Dupont'
-    )
-  end
-
-  def create_admin
-    create_user(
-      email: 'api-entreprise@yopmail.com',
-      phone_number: '0836656565',
-      admin: true
     )
   end
 

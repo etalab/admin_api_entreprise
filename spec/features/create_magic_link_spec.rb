@@ -67,21 +67,6 @@ RSpec.describe 'create a magic link', type: :feature do
     end
   end
 
-  context 'when the current user is an admin' do
-    subject do
-      visit admin_token_path(token)
-      within('#' + dom_id(token, :magic_link)) do
-        fill_in 'email', with: email
-        click_button
-      end
-    end
-
-    let(:user) { create(:user, :admin) }
-    let(:email) { 'valid@email.com' }
-
-    it_behaves_like 'it creates a magic link'
-  end
-
   describe 'with javascript actived', js: true do
     let(:user) { create(:user, :with_jwt) }
     let(:token) { user.jwt_api_entreprise.sample }
