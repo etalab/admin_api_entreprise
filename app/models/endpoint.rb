@@ -8,7 +8,6 @@ class Endpoint
     :providers,
     :perimeter,
     :use_cases,
-    :faq,
     :opening
 
   def self.all
@@ -69,6 +68,19 @@ class Endpoint
 
   def collection?
     response_schema['properties']['data']['type'] == 'array'
+  end
+
+  def faq
+    @faq || []
+  end
+
+  def faq=(faq)
+    @faq = faq.map do |faq_entry|
+      {
+        'question' => faq_entry['q'],
+        'answer' => MarkdownInterpolator.new(faq_entry['a']).perform
+      }
+    end
   end
 
   private
