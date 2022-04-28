@@ -7,7 +7,7 @@ require 'mina/rbenv'  # for rbenv support. (https://rbenv.org)
 require 'securerandom'
 
 ENV['to'] ||= 'sandbox'
-%w[sandbox staging production].include?(ENV['to']) || raise("target environment (#{ENV['to']}) not in the list")
+%w[sandbox production].include?(ENV['to']) || raise("target environment (#{ENV['to']}) not in the list")
 
 print "Deploy to #{ENV['to']}\n".green
 
@@ -28,8 +28,6 @@ branch = ENV['branch'] ||
   begin
     case ENV['to']
     when 'production'
-      'master'
-    when 'staging'
       'master'
     when 'sandbox'
       'develop'

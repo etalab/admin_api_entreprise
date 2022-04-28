@@ -19,7 +19,6 @@ RSpec.describe 'Datapass webhook config format', type: :acceptance do
       test
       production
       sandbox
-      staging
     ].each do |env|
       yaml_config[env].each do |event, config|
         next if config['emails'].blank?
