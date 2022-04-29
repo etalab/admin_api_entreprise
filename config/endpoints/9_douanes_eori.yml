@@ -50,15 +50,20 @@ Si le numéro EORI n&apos;est plus actif, cela signifie que l&apos;entreprise n&
     - Numéro EORI de l'entreprise ou son SIRET si elle est immatriculée en France
   faq:
     - q: "À quoi ressemble un numéro EORI ?"
-      a: "Pour les entreprises françaises ayant fait leur demande de numéro EORI auprès des douanes française celui-ci est FR+SIRET (par exemple : FR16002307300010).
+      a: "Pour les entreprises françaises ayant fait leur demande de numéro EORI auprès des douanes françaises, sa composition est FR + Numéro de SIRET : 
+      {:.fr-highlight--example}
+      > par exemple : `FR16002307300010`
       \n
       \n
-      Sinon le numéro est composé de deux lettres du pays émetteur suivi d’un code ou d’un numéro unique dans cet État membre (par exemple : ES12345678)."
+      Dans les autres cas, le numéro est composé des deux lettres du pays émetteur suivi d’un code ou d’un numéro unique dans cet État membre : 
+      {:.fr-highlight--example}
+      > par exemple : `ES12345678`"
     - q: "Je ne connais pas le numéro EORI de l&apos;entreprise"
-      a: "Vous pouvez appeler cette API avec le SIRET de l’entreprise, si celle-ci a effectuée sa demande d’attribution de numéro EORI en France nous la trouverons.
+      a: "Vous pouvez **appeler cette entreprise avec son numéro de SIRET**, si celle-ci a effectuée sa demande d’attribution de numéro EORI en France nous la trouverons.
       \n
       \n
       Cependant si cette entreprise a fait sa demande d’attribution de numéro EORI dans un autre pays membre de l’Union Européenne, il vous faudra demander ce numéro directement à l’entreprise. Il n’existe aucun moyen de trouver ce numéro.
       \n
       \n
-      ⚠️ Si vous ne savez pas si l’entreprise française a effectué son immatriculation en France, une réponse négative de l’endpoint peut être un faux négatif."
+      {:.fr-highlight--caution}
+      > ⚠️ Si vous ne savez pas si l’entreprise française a effectué son immatriculation en France, une réponse négative de l'API n'est pas fiable car il peut s'agir d'un faux négatif."
