@@ -37,11 +37,6 @@ FactoryBot.define do
       admin { true }
     end
 
-    trait :known_api_gouv_user do
-      oauth_api_gouv_id { '5037' } # Hard coded ID in VCR's cassette
-      email { 'alexandre.depablo@data.gouv.fr' }
-    end
-
     trait :added_since_yesterday do
       created_at { Faker::Time.between(from: 1.day.ago + 1, to: Time.current) }
     end

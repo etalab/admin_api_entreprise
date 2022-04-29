@@ -12,8 +12,8 @@
 # the additional setup, and require it from the spec files that actually need
 # it.
 
-require 'vcr_helper'
 require 'rspec/retry'
+require 'webmock/rspec'
 require 'pundit/rspec'
 
 # Configuration for simplecov
@@ -128,4 +128,26 @@ RSpec.configure do |config|
   # test failures related to randomization by passing the same `--seed` value
   # as the one that triggered the failure.
   Kernel.srand config.seed
+
+  config.before(:all) do
+    WebMock.disable_net_connect!(allow_localhost: true)
+  end
+
+  config.before do
+    stub_request(:get, 'https://entreprise.api.gouv.fr/v3/openapi.yaml').and_return(
+      status: 200,
+      body: File.read(Rails.root.join('config/api-entreprise-v3-openapi.yml'))
+    )
+  end
+
+  config.before(:each, type: :feature) do
+    stub_request(:get, 'https://status.entreprise.api.gouv.fr/summary.json').and_return(
+      status: 200,
+      body: {
+        page: {
+          status: :up
+        }
+      }.to_json
+    )
+  end
 end

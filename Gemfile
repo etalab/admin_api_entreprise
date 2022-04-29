@@ -99,7 +99,6 @@ end
 group :test do
   gem 'capybara', '>= 3.26'
   gem "cuprite"
-  gem 'vcr'
   gem 'webmock'
   gem 'rspec-collection_matchers'
   gem 'rspec-rails', '6.0.0rc1'
