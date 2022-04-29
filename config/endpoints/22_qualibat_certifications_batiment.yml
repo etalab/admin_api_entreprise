@@ -3,48 +3,41 @@
   path: '/v3/qualibat/certifications_batiment/{siret}'
   position: 330
   perimeter:
-    description: "###### Type de données&nbsp;:
-    \n
-    \n
-    Cette API délivre le certificat Qualibat de l&apos;entreprise au format PDF, comportant de nombreuses informations.
+    entity_type_description: "Toutes les entreprises et les artisans du bâtiment ayant obtenu le label de fiabilité Qualibat."
+    entities:
+      - associations
+      - entreprises
+  call_id: "SIRET"
+  providers:
+    - 'qualibat'
+  data:
+    description: "Cette API délivre le certificat Qualibat de l&apos;entreprise au format PDF, comportant de nombreuses informations.
     \n
     \n
     **Des informations sur l&apos;établissement&nbsp;:**
     \n
     \n
-    - raison sociale ;
+    - raison sociale, date de création, forme juridique, code NACE et capital social ; 
     \n
-    - coordonnées ;
+    - adresse et coordonnées de l@apos;entreprise ;
     \n
     - nom et fonction des dirigeants responsables ;
     \n
-    - date de création ;
-    \n
-    - forme juridique ;
-    \n
-    - montant du capital social ;
-    \n
-    - numéro de registre de commerce ou de répertoire des métiers ;
-    \n
-    - code NACE ;
+    - registre de commerce ou de répertoire des métiers auquel l&apos;entreprise est rattachée ;
     \n
     - numéro d&apos;affiliation à la caisse de congés payés ;
     \n
-    - compagnies d&apos;assurances ;
-    \n
     - régularité de la situation fiscale et sociale ;
     \n
-    - effectif ;
+    - assurances responsabilité civile et travaux ;
     \n
-    - classement dans une catégorie d&apos;entreprise ;
-    \n
-    - chiffre d&apos;affaires hors taxes.
+    - effectif moyen et chiffre d&apos;affaires hors taxes.
     \n
     \n
     **Des informations sur la qualification&nbsp;:**
     \n
     \n
-    - code à quatre chiffre de la capacité technique reconnue à l&apos;entreprise dans une des 9 activités détaillées sur le [site Qualibat](https://www.qualibat.com/nomenclature/}{:target=\"_blank\"});
+    - code à quatre chiffres de la capacité technique reconnue à l&apos;entreprise dans une des 9 activités détaillées sur le [site Qualibat](https://www.qualibat.com/nomenclature/}{:target=\"_blank\"});
     \n
     - titre de cette capacité ;
     \n
@@ -70,19 +63,7 @@
     - numéro d&apos;identification du certificat.
     \n
     \n
-    [Source : Qualibat](https://www.qualibat.com/){:target=\"_blank\"})
-    \n
-    \n
-    ###### Entreprises concernées&nbsp;:
-    \n
-    \n
-    Toutes les entreprises et les artisans du bâtiment ayant le label de fiabilité Qualibat."
-    entities:
-      - associations
-      - entreprises
-  call_id: "SIRET"
-  providers:
-    - 'qualibat'
+    [**Source&nbsp;: Qualibat**](https://www.qualibat.com/){:target=\"_blank\"})"
   opening: public
   use_cases:
     - Marchés publics

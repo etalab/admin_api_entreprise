@@ -3,23 +3,7 @@
   path: '/v3/dgfip/liasses_fiscales/declarations/{year}/{siren}'
   position: 240
   perimeter:
-    description: "###### Type de données&nbsp;:
-    \n
-    \n
-    Cette API délivre les liasses fiscales d&apos;une entreprise pour l'année renseignée. Pour chaque liasse fiscale, les informations suivantes sont transmises&nbsp;:
-    \n
-    \n
-    - Les règles d'imposition applicables à l'entreprise&nbsp;; 
-    \n
-    - Des informations sur le formulaire complêté par l'entreprise&nbsp;, à l'origine des données transmises;
-    \n
-    - Les données.
-    \n
-    \n
-    ###### Établissements concernés&nbsp;:
-    \n
-    \n
-    Cette API délivre les liasses fiscales des entreprises&nbsp;:
+    entity_type_description: "Cette API délivre les liasses fiscales des entreprises&nbsp;:
     \n
     - ✅ soumises à l’impôt sur les sociétés (IS)* ;
     \n
@@ -37,13 +21,8 @@
     \n
     ❌ Les entreprises anciennement aux forfaits BIC/BNC/BA, désormais régimes micro-BIC, micro-BNC 
 et micro-BA ne déposent pas de déclarations de résultat mais des éléments spécifiques dans la déclaration 2042C
-qui relève de d’impôt sur le revenu et ne sont donc pas dans le périmètre de cette API.
-    \n
-    \n
-    ###### Fraicheur de la donnée&nbsp;:
-    \n
-    \n
-    Les déclarations de résultat sont disponibles à compter du lendemain de la date de dépôt (J+1) 
+qui relève de d’impôt sur le revenu et ne sont donc pas dans le périmètre de cette API."
+    updating_rules_description: "Les déclarations de résultat sont disponibles à compter du lendemain de la date de dépôt (J+1) 
 et trois jours plus tard (J+3) si le dépôt intervient une veille de week-end.
     \n
     \n
@@ -57,6 +36,15 @@ qui clôturent à la fin de l’année civile.
   call_id: "SIREN"
   providers:
     - 'dgfip'
+  data: 
+    description: "Cette API délivre les liasses fiscales d&apos;une entreprise pour l'année renseignée. Pour chaque liasse fiscale, les informations suivantes sont transmises&nbsp;:
+    \n
+    \n
+    - Les règles d'imposition applicables à l'entreprise&nbsp;; 
+    \n
+    - Des informations sur le formulaire complêté par l'entreprise&nbsp;, à l'origine des données transmises;
+    \n
+    - Les données de la déclaration."
   opening: protected
   use_cases:
     - Détection de la fraude

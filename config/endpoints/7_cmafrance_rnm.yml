@@ -3,37 +3,11 @@
   path: '/v3/rnm/entreprises/{siren}'
   position: 180
   perimeter:
-    description: "###### Type de données&nbsp;:
+    description: "Les informations sur les entreprises artisanales fournies par cette API sont également disponibles en [API publique et libre d&apos;accès sur api.gouv.fr](https://api.gouv.fr/les-api/api_rnm}{:target=\"_blank\"})."
+    updating_rules_description: "Cette API couvre toutes les entreprises enregistrées au répertoire national des métiers (RNM).
     \n
     \n
-    Cette API délivre des informations de référence sur les entreprises artisanales, données fournies par la Chambre des Métiers et de l&apos;Artisanat France (CMA France), telles que&nbsp;:
-    \n
-    \n
-    - des informations générales et juridiques, telles que le nom de l&apos;entreprise, s&apos;il s&apos;agit personne physique ou morale, sa forme juridique, son effectif et l&apos;origine du fond de commerce ;
-    \n
-    - des données définissant le type d&apos;activité de l&apos;entreprise, telles que le code NAFA, le secteur d&apos;activité (NAR), et l&apos;indication si l&apos;activité est permanente ou saisonnière et/ou ambulante ;
-    \n
-    - des informations géographiques, notamment l&apos;adresse ;
-    \n
-    - des informations sur les dirigeants ;
-    \n
-    - les dates clés (immatriculation, radiation, début d&apos;activité …) ainsi que le code du centre de formalité des entreprises (CFE) ;
-    \n
-    - des informations en cas de double immatriculation ;
-    \n
-    - des informations spécifiques au RNM (identifiants, dates d&apos;import et date de mise à jour des données) ;
-    \n
-    \n
-    Ces données sont également disponibles en [API publique et libre d&apos;accès sur api.gouv.fr](https://api.gouv.fr/les-api/api_rnm}{:target=\"_blank\"}).
-    \n
-    \n
-    ###### Entreprises concernées&nbsp;:
-    \n
-    \n
-    Cette API couvre toutes les entreprises enregistrées au répertoire national des métiers (RNM).
-    \n
-    \n
-    Sont obligatoirement immatriculées au répertoire des métiers&nbsp;:
+    **Sont obligatoirement immatriculées** au répertoire des métiers&nbsp;:
     \n
     \n
     - ✅ les entreprises individuelles et les sociétés qui n&apos;emploient pas plus de dix salariés et exercent à titre principal ou secondaire une activité artisanale de production, de transformation, de réparation ou de prestation de service figurant en [annexe du décret du 2 avril 1998](https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000021964896/2009-02-02/}{:target=\"_blank\"}).
@@ -41,22 +15,15 @@
     - ✅ Les personnes qui exercent l&apos;activité de fabrication de plats à consommer sur place peuvent également être immatriculées au répertoire des métiers.
     \n
     \n
-    Peuvent être immatriculées au RNM&nbsp;:
-    \n
-    \n
-    - ✅ les entreprises qui dépassent le seuil de dix salariés si leur dirigeant peut se prévaloir de la qualité d&apos;artisan, d&apos;artisan d&apos;art ou de maitre artisan.
-    \n
-    \n
-    ###### Fraicheur de la donnée&nbsp;:
-    \n
-    \n
-    La fraîcheur des données de cette API correspond à la date de mise à jour faite du répertoire RNM 
+    **Peuvent être immatriculées** au RNM, ✅ les entreprises qui dépassent le seuil de dix salariés si leur dirigeant peut se prévaloir de la qualité d&apos;artisan, d&apos;artisan d&apos;art ou de maitre artisan."
+    updating_rules_description: "La fraîcheur des données de cette API correspond à la date de mise à jour faite du répertoire RNM 
 suite aux nouvelles informations déclarées par l&apos;entrepreneur. Cette date est indiquée dans l&apos;API par la clé `rnm_date_mise_a_jour`. 
-Dans le cas où il n&apos;y a pas encore eu de changement répertorié, la date d&apos;import `rnm_date_import` fait alors référence.
+    \n
+    Dans le cas où il n&apos;y a pas encore eu de changement répertorié, la date d&apos;import `rnm_date_import` fait alors référence.
     \n
     \n
     {:.fr-highlight--caution}
-    > ⚠️ Cependant, les dates ci-dessus ne garantissent pas la fraicheur de toutes les données renvoyées, car leur mise à jour n&apos;est pas obligatoire.
+    > ⚠️ Cependant, les dates ci-dessus ne garantissent pas l'actualisation de toutes les données renvoyées, car leur mise à jour n&apos;est pas obligatoire.
     > Les données d&apos;effectifs `effectif_salarie` et `effectif_apprenti` sont notamment à prendre avec vigilance car elles peuvent dater de la première déclaration.
     \n
     \n
@@ -94,6 +61,23 @@ au moment de sa déclaration d&apos;un événement dit obligatoire. Néanmoins, 
   call_id: "SIREN"
   providers:
     - 'cma'
+  data: 
+    description: "Cette API délivre des informations de référence sur les entreprises artisanales, données fournies par la Chambre des Métiers et de l&apos;Artisanat France (CMA France), telles que&nbsp;:
+    \n
+    \n
+    - des informations générales et juridiques, telles que le nom de l&apos;entreprise, s&apos;il s&apos;agit personne physique ou morale, sa forme juridique, son effectif et l&apos;origine du fond de commerce ;
+    \n
+    - des données définissant le type d&apos;activité de l&apos;entreprise, telles que le code NAFA, le secteur d&apos;activité (NAR), et l&apos;indication si l&apos;activité est permanente ou saisonnière et/ou ambulante ;
+    \n
+    - des informations géographiques, notamment l&apos;adresse ;
+    \n
+    - des informations sur les dirigeants ;
+    \n
+    - les dates clés (immatriculation, radiation, début d&apos;activité …) ainsi que le code du centre de formalité des entreprises (CFE) ;
+    \n
+    - des informations en cas de double immatriculation ;
+    \n
+    - des informations spécifiques au RNM (identifiants, dates d&apos;import et date de mise à jour des données)."
   opening: public
   use_cases:
     - Marchés publics

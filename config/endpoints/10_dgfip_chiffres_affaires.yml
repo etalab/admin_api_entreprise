@@ -3,23 +3,7 @@
   path: '/v3/dgfip/chiffres_affaires/{siret}'
   position: 210
   perimeter:
-    description: "###### Type de données&nbsp;:
-    \n
-    \n
-    Seuls les trois derniers exercices sont renvoyés.
-    \n
-    Ceux-ci ne sont pas forcément les exercices des trois dernières années car il peut y avoir plusieurs exercices dans une même année. Le nombre d’exercices renvoyés varie de 1 à 3.
-    Les exercices renvoyés sont listés les uns après les autres, le premier étant le plus récent des trois.
-    \n
-    \n
-    Pour chaque exercice, le chiffre d’affaire en euros et la date de fin de l’exercice sont transmis.
-    \n
-    \n
-    ###### Établissements concernés&nbsp;:
-    \n
-    \n
-    Sont disponibles uniquement les chiffres d&apos;affaires des **entreprises qui
-vérifient les deux conditions** suivantes&nbsp;:
+    entity_type_description: "Seuls les chiffres d&apos;affaires des **entreprises qui vérifient les deux conditions** suivantes, sont disponibles:
     \n
     \n
     - ✅ être **soumises à l&apos;impôt sur les sociétés** selon les règles des régimes d&apos;imposition réels, normal ou simplifié ;
@@ -33,6 +17,14 @@ vérifient les deux conditions** suivantes&nbsp;:
   call_id: "SIREN"
   providers:
     - 'dgfip'
+  data:
+    description: "Cette API retourne uniquement les trois derniers exercices.
+    \n
+    Ceux-ci ne sont pas forcément les exercices des trois dernières années car il peut y avoir plusieurs exercices dans une même année. Le nombre d’exercices renvoyés varie de 1 à 3.
+    Les exercices renvoyés sont listés les uns après les autres, le premier étant le plus récent des trois.
+    \n
+    \n
+    Pour chaque exercice, le chiffre d’affaire en euros et la date de fin de l’exercice sont transmis."
   opening: protected
   use_cases:
     - Aides publiques

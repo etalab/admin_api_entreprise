@@ -3,24 +3,10 @@
   path: '/v3/inpi/marques/{siren}'
   position: 360
   perimeter:
-    description: "###### Type de données&nbsp;:
-    \n
-    \n
-    Cette API délivre le nombre de marques déposées par l&apos;entreprise, et pour lesquelles le SIREN était précisé lors du dépôt. 
-L&apos;INPI indique qu&apos;environ 60% des dépôts de marques France effectués sont rattachés à un SIREN. 
-Les marques déposées au niveau européen ou international ne sont pas renvoyées par cette API car le taux de sirenage de ces dépôts est de 0%.
-    \n
-    \n
-    Une liste des dernières marques déposée est également renvoyée, et permet d&apos;obtenir les informations suivantes&nbsp;:
-    \n
-    \n
-    - le nom de la marque ;
-    \n
-    - le statut du dépôt et de la marque (demande déposée, publiée, non publiée, totalement rejetée ou irrecevable après publication ; marque enregistrée, renouvelée, ayant fait l&apos;objet d&apos;une renonciation totale, ayant fait l&apos;objet d&apos;un retrait total, annulée ou expirée ; renouvellement demandé) ;
-    \n
-    - le nom du déposant ou du titulaire ; 
-    \n
-    - la clef associée au dépôt."
+    entity_type_description: "Seuls les marques pour lesquelles un SIREN a été indiqué par le déposant sont disponibles.
+L&apos;INPI indique qu&apos;environ 60% des dépôts de marques France effectués sont rattachés à un SIREN."
+    geographical_scope_description: "Seules les marques déposées au niveau français sont disponibles. 
+Les marques déposées au niveau européen ou international ne sont pas renvoyées par cette API car le taux de sirenage de ces dépôts est de 0%."
     entities:
       - associations
       - entreprises
@@ -28,6 +14,21 @@ Les marques déposées au niveau européen ou international ne sont pas renvoyé
   call_id: "SIREN"
   providers:
     - 'inpi'
+  data: 
+    description: "Cette API délivre&nbsp;:
+    \n
+    \n
+    - le **nombre de marques déposées** par l&apos;entreprise, pour lesquelles le SIREN était précisé lors du dépôt.
+    \n
+    - Une **liste des dernières marques déposées** est également renvoyée, et permet d&apos;obtenir les informations suivantes&nbsp;:
+    \n
+    \t* le nom de la marque ;
+    \n
+    \t* le statut du dépôt et de la marque (demande déposée, publiée, non publiée, totalement rejetée ou irrecevable après publication ; marque enregistrée, renouvelée, ayant fait l&apos;objet d&apos;une renonciation totale, ayant fait l&apos;objet d&apos;un retrait total, annulée ou expirée ; renouvellement demandé) ;
+    \n
+    \t* le nom du déposant ou du titulaire ; 
+    \n
+    \t* la clef associée au dépôt."
   opening: public
   use_cases:
     - Marchés publics

@@ -3,10 +3,7 @@
   position: 260
   path: '/v3/acoss/attestations_sociales/{siren}'
   perimeter:
-    description: "###### Type de données&nbsp;:
-    \n
-    \n
-    Cette API délivre l&apos;attestation de vigilance, au format PDF. 
+    entity_type_description: "✅ Toutes les entreprises sont concernées, y compris les micro-entreprises.
     \n
     \n
     L&apos;attestation est délivrée si l&apos;entreprise&nbsp;:
@@ -26,13 +23,7 @@
     \n
     {:.fr-highlight}
     > ℹ️ Depuis 2021, la contribution annuelle de l&apos;OETH (Obligation d&apos;Emploi de Travailleur Handicapé), fait partie des contribution dues pour obtenir l&apos;attestation.
-    > Cette compétence était auparavant attribuée à l&apos;AGEFIPH.
-    \n
-    \n
-    ###### Entreprises concernées&nbsp;:
-    \n
-    \n
-    ✅ Toutes les entreprises sont concernées, y compris les micro-entreprises."
+    > Cette compétence était auparavant attribuée à l&apos;AGEFIPH."
     entities:
       - entreprises
   opening: protected
@@ -45,6 +36,8 @@
     - Détection de la fraude
   providers:
     - 'acoss'
+  data:
+    description: "Cette API délivre l&apos;attestation de vigilance, au format PDF."
   faq:
     - q: "Combien de temps est valide l&apos;attestation de vigilance ?"
       a: "L&apos;attestation de vigilance est valide 6 mois à compter de la dernière date de période analysée. Celle-ci dépend de la situation
