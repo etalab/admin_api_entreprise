@@ -3,22 +3,22 @@
   position: 125
   path: '/v3/insee/sirene/etablissements/{siret}'
   perimeter:
-    description: "**Type de données&nbsp;:**
+    description: "###### Type de données&nbsp;:
     \n
     \n
     Cette API délivre les informations générales d&apos;un établissement et de son unité légale inscrits au répertoire Sirene, qu&apos;ils soient diffusibles ou non-diffusibles.
     \n
     \n
-    **Établissements concernés&nbsp;:**
+    ###### Établissements concernés&nbsp;:
     \n
     \n
     Tous les établissements des unité légales suivantes sont disponibles&nbsp;:
     \n
-    * ✅ les établissements des personnes morales de droit privé (les entreprises). Toutes les entreprises immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RCM) figurent dans la base Sirene ;
+    - ✅ les établissements des personnes morales de droit privé (les entreprises). Toutes les entreprises immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RCM) figurent dans la base Sirene ;
     \n
-    * ✅ les établissements des personnes morales de droit public : les institutions et services de l&apos;État et les collectivités territoriales ;
+    - ✅ les établissements des personnes morales de droit public : les institutions et services de l&apos;État et les collectivités territoriales ;
     \n
-    * ✅ les établissements des associations ayant, en plus de leur numéro RNA, un numéro de SIREN/SIRET délivré lorsqu&apos;elles :
+    - ✅ les établissements des associations ayant, en plus de leur numéro RNA, un numéro de SIREN/SIRET délivré lorsqu&apos;elles :
     \n
     \t* emploient du personnel salarié ;
     \n
@@ -26,14 +26,14 @@
     \n
     \t* ont demandé ou bénéficient de transferts financiers publics.
     \n
-    * ✅ Les établissements des organismes publics ou privés et les entreprises étrangères qui ont une représentation ou une activité en France.
+    - ✅ Les établissements des organismes publics ou privés et les entreprises étrangères qui ont une représentation ou une activité en France.
     \n
     \n
     Cas particulier&nbsp;: Les établissements de gestion de paye de la fonction publique sont bien présents dans la base Sirene mais ont été immatriculés pour les seuls besoins de certaines administrations (les impôts, les URSSAF, la DGCP …). 
     Leur diffusion à d&apos;autres administrations n&apos;est donc pas prévue.
     \n
     \n
-    **Périmètre géographique&nbsp;:**
+    ###### Périmètre géographique&nbsp;:
     \n
     \n
     La base Sirene concerne les établissements implantés en métropole, dans les DOM et dans les collectivités d&apos;Outre-Mer de Saint-Pierre-et-Miquelon, Saint-Barthélémy et Saint-Martin.
@@ -42,13 +42,13 @@
     ⚠️ Pour la Nouvelle-Calédonie, la Polynésie française, et Wallis-et-Futuna, seul le secteur public administratif, de l&apos;État ou des communes est répertorié ; ❌ les entreprises ne sont donc pas disponibles.
     \n
     \n
-    **Fraicheur de la donnée&nbsp;:**
+    ###### Fraicheur de la donnée&nbsp;:
     \n
     \n
     La mise à jour des données est faite quotidiennement entre 0h et 3h à l&apos;INSEE.<br>
     \n
     \n
-    **Pour en savoir plus&nbsp;:**
+    ###### Pour en savoir plus&nbsp;:
     \n
     \n
     [Contexte juridique du Répertoire National d&apos;identification des entreprises et des établissements](https://www.legifrance.gouv.fr/affichCode.do;jsessionid=134EFA0EE7BDCA89C2D6B31E02C48430.tplgfr30s_3?idSectionTA=LEGISCTA000006178890&cidTexte=LEGITEXT000005634379&dateTexte=20100904)"
@@ -60,8 +60,8 @@
   parameters: &insee_unites_legales_parameters
     - Numéro de SIRET de l&apos;établissement
   use_cases: &insee_unites_legales_use_cases
-    - Aides publiques
     - Marchés publics
+    - Aides publiques
     - Préremplissage d&apos;un formulaire
     - Détection de la fraude
   providers: &insee_unites_legales_providers
@@ -69,33 +69,38 @@
   faq:  
     - q: "Qu&apos;est-ce que l&apos;état administratif d&apos;un établissement ?"
       a: "L&apos;état administratif d&apos;un établissement a deux modalités : actif ou fermé. 
+      \n
+      \n
       Lors de son inscription au répertoire Sirene, un établissement est, sauf exception, à l&apos;état \"actif\". 
       Le passage à l&apos;état \"fermé\" découle de la prise en compte d&apos;une déclaration de fermeture. 
+      \n
       Un établissement fermé peut être rouvert."
     - q: "Qu&apos;est-ce qu&apos;un \"non-diffusible\" ?"
       a: "Parmi les entités présentes dans le répertoire Sirene, certaines, très majoritairement
       des personnes physiques, ont explicitement demandé de ne pas figurer en diffusion commerciale, 
       en vertu de l&apos;[article A123-96 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031043097/). 
+      \n
       Cela signifie qu&apos;elles donnent accord de la diffusion de leur données uniquement à des organismes habilités 
       et à des administrations. **De fait, leurs données ne sont pas publiques**.
       \n
       \n
-      ℹ️ Les unités de la Défense Nationale font également partie des \"non-diffusibles\" mais ne sont accessibles 
+      ℹ️ Les unités de la Défense nationale font également partie des \"non-diffusibles\" mais ne sont accessibles 
       que sur autorisation du Ministère de la Défense, conformément à l&apos;[article A123-96 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031043097/)."
     - q: "Comment utiliser les informations des établissements \"non-diffusibles\" ?"
-      a: "En utilisant cette API, vous vous engagez à tenir compte du statut de diffusion le plus récent de l&apos;entité appelée. 
+      a: "En utilisant cette API, vous vous engagez à **tenir compte du statut de diffusion le plus récent** de l&apos;entité appelée. 
       Dans le cas où l&apos;entité est indiquée comme \"non-diffusible\", vous vous engagez à n&apos;utiliser leurs informations que dans le cadre strict 
       de vos missions de service public, à ne pas les rediffuser ni les divulguer auprès de tiers non autorisés.
       \n
       \n
-      ⚠️ Vous ne pouvez pas donc pas faire usage de ces données pour du pré-remplissage. 
-      Il vous est par contre possible d&apos;indiquer aux entreprises qu&apos;elles peuvent modifier leur statut, 
-      même provisoirement, auprès de l&apos;INSEE à l&apos;adresse suivante : [https://statut-diffusion-sirene.insee.fr](https://statut-diffusion-sirene.insee.fr)."
+      {:.fr-highlight--caution}
+      > ⚠️ **Vous ne pouvez pas donc pas faire usage des données d'une entité \"non-diffusible\ pour du pré-remplissage.** 
+      {:.fr-highlight}
+      > Il vous est par contre possible d'indiquer à l'entité \"non-diffusible\ qu&apos;elle peut modifier son statut, même provisoirement, auprès de l&apos;Insee à l&apos;adresse suivante : [https://statut-diffusion-sirene.insee.fr](https://statut-diffusion-sirene.insee.fr}{:target=\"_blank\"})."
 - uid: 'insee/etablissements_diffusibles'
   position: 120
   path: '/v3/insee/sirene/etablissements/diffusibles/{siret}'
   perimeter:
-    description: "**Type de données&nbsp;:**
+    description: "###### Type de données&nbsp;:
     \n
     \n
     Cette API délivre les informations générales d&apos;un établissement et de son unité légale inscrits au répertoire Sirene, uniquement diffusables commercialement.
@@ -104,16 +109,16 @@
     ⚠️ Elle ne concerne pas les établissements \"non-diffusibles\", appelables avec l&apos;API `sirene/etablissements/diffusibles/{siret}` ;
     \n
     \n
-    **Établissements concernés&nbsp;:**
+    ###### Établissements concernés&nbsp;:
     \n
     \n
     Les établissements des unités légales suivantes sont disponibles :
     \n
-    * ✅ les établissements des personnes morales de droit privé (les entreprises). Toutes les entreprises immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RCM) figurent dans la base Sirene ;
+    - ✅ les établissements des personnes morales de droit privé (les entreprises). Toutes les entreprises immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RCM) figurent dans la base Sirene ;
     \n
-    * ✅ les établissements des personnes morales de droit public : les institutions et services de l&apos;État et les collectivités territoriales ;
+    - ✅ les établissements des personnes morales de droit public : les institutions et services de l&apos;État et les collectivités territoriales ;
     \n
-    * ✅ les établissements des associations ayant, en plus de leur numéro RNA, un numéro de SIREN/SIRET délivré lorsqu&apos;elles :
+    - ✅ les établissements des associations ayant, en plus de leur numéro RNA, un numéro de SIREN/SIRET délivré lorsqu&apos;elles :
     \n
     \t* emploient du personnel salarié ;
     \n
@@ -121,11 +126,12 @@
     \n
     \t* ont demandé ou bénéficient de transferts financiers publics.
     \n
-    * ✅ Les établissements des organismes publics ou privés et les entreprises étrangères qui ont une représentation ou une activité en France.
+    - ✅ Les établissements des organismes publics ou privés et les entreprises étrangères qui ont une représentation ou une activité en France.
     \n
-    * ❌ Les établissements des unités légales dîtes \"non-diffusibles\", c&apos;est-à-dire n&apos;ayant pas donné leur accord pour que leurs informations soient publiques et utilisées à des fins commerciales ne sont pas appelables par cette API.
+    - ❌ Les établissements des unités légales dîtes \"non-diffusibles\", c&apos;est-à-dire n&apos;ayant pas donné leur accord pour que leurs informations soient publiques et utilisées à des fins commerciales ne sont pas appelables par cette API.
     \n
-    **Périmètre géographique&nbsp;:**
+    \n
+    ###### Périmètre géographique&nbsp;:
     \n
     \n
     La base Sirene concerne les établissements implantés en métropole, dans les DOM et dans les collectivités d&apos;Outre-Mer de Sain-Pierre-et-Miquelon, Saint-Barthélémy et Saint-Martin.
@@ -134,13 +140,13 @@
     ⚠️ Pour la Nouvelle-Calédonie, la Polynésie française, et Wallis-et-Futuna, seul le secteur public administratif, de l&apos;État ou des communes est répertorié ; ❌ les entreprises ne sont donc pas disponibles.
     \n
     \n
-    **Fraicheur de la donnée&nbsp;:**
+    ###### Fraicheur de la donnée&nbsp;:
     \n
     \n
     La mise à jour des données est faite quotidiennement entre 0h et 3h à l&apos;INSEE.<br>
     \n
     \n
-    **Pour en savoir plus&nbsp;:**
+    ###### Pour en savoir plus&nbsp;:
     \n
     \n
     [Contexte juridique du Répertoire National d&apos;identification des entreprises et des établissements](https://www.legifrance.gouv.fr/affichCode.do;jsessionid=134EFA0EE7BDCA89C2D6B31E02C48430.tplgfr30s_3?idSectionTA=LEGISCTA000006178890&cidTexte=LEGITEXT000005634379&dateTexte=20100904)"
@@ -154,7 +160,10 @@
   providers: *insee_unites_legales_providers
   faq:  
     - q: "Qu&apos;est-ce que l&apos;état administratif d&apos;un établissement ?"
-      a: "L&apos;état administratif d&apos;un établissement a deux modalités : \"actif\" ou \"fermé\". 
+      a: "L&apos;état administratif d&apos;un établissement a deux modalités : \"actif\" ou \"fermé\".
+      \n
+      \n
       Lors de son inscription au répertoire Sirene, un établissement est, sauf exception, à l&apos;état \"actif\". 
       Le passage à l&apos;état \"fermé\" découle de la prise en compte d&apos;une déclaration de fermeture. 
+      \n
       Un établissement \"fermé\" peut être rouvert."

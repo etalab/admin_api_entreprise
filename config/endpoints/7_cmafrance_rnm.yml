@@ -47,7 +47,7 @@
     - ✅ les entreprises qui dépassent le seuil de dix salariés si leur dirigeant peut se prévaloir de la qualité d&apos;artisan, d&apos;artisan d&apos;art ou de maitre artisan.
     \n
     \n
-    ###### Fraicheur de la donnée&nbsp;:**
+    ###### Fraicheur de la donnée&nbsp;:
     \n
     \n
     La fraîcheur des données de cette API correspond à la date de mise à jour faite du répertoire RNM 
@@ -104,8 +104,7 @@ au moment de sa déclaration d&apos;un événement dit obligatoire. Néanmoins, 
     - Numéro de SIREN de l'entreprise
   faq:
     - q: "Qu&apos;est ce que les codes NAFA, NAR 4 et NAR 20 ?"
-      a: "
-      ###### Le code NAFA
+      a: "###### Le code NAFA
       \n
       \n
       Le code NAFA est un identifiant permettant de naviguer dans la Nomenclature d&apos;Activités Françaises de l&apos;Artisanat qui décrit les activités artisanales.
@@ -117,8 +116,9 @@ et correspondent au code NAF. La lettre située en sixième position permet de p
       **Pour en savoir plus :**
       \n
       \n
-      La [page dédiée du Ministère de l&apos;économie, des finances et de la relance](https://www.entreprises.gouv.fr/fr/commerce-et-artisanat/la-nomenclature-d-activites-francaise-de-l-artisanat}{:target=\"_blank\"}) détaille les lois ayant défini cette nomenclature. Vous y trouverez également plus d&apos;informations sur le lien entre code NAF et NAFA.<br />
-      CMA France propose un [registre de la nomenclature](http://nafa.apcma.fr/jlbweb/jlbWeb?html=NAFA/accueil}{:target=\"_blank\"}), qui donne un descriptif précis de chaque activité.
+      - La [page dédiée du Ministère de l&apos;économie, des finances et de la relance](https://www.entreprises.gouv.fr/fr/commerce-et-artisanat/la-nomenclature-d-activites-francaise-de-l-artisanat}{:target=\"_blank\"}) détaille les règles ayant défini cette nomenclature. Vous y trouverez également plus d&apos;informations sur le lien entre code NAF et NAFA.<br />
+      \n
+      - CMA France propose un [registre de la nomenclature](http://nafa.apcma.fr/jlbweb/jlbWeb?html=NAFA/accueil}{:target=\"_blank\"}), qui donne un descriptif précis de chaque activité.
       \n
       \n
       ###### Les codes NAR 4 et 20
@@ -150,15 +150,25 @@ et correspondent au code NAF. La lettre située en sixième position permet de p
       \n
       \n"
     - q: "Quelle est la distinciton entre un nom de naissance, d&apos;usage ou un pseudonyme ?"
-      a: "La réponse JSON vous délivre plusieurs types de noms et prénoms du dirigeant.
+      a: "Cette API délivre plusieurs types de noms et prénoms du dirigeant.
       \n
       \n
       ##### Le nom de naissance
       \n
       \n
       La clé `dirigeant_nom_de_naissance` délivre le nom de famille **donné à la personne le jour de la déclaration de sa naissance**.
-      Ce peut être soit le nom du père, soit le nom de la mère, soit leurs deux noms accolés dans l&apos;ordre choisi par eux dans la limite d&apos;un nom de famille pour chacun d&apos;eux (Article 311-21 du code civil). C&apos;est aussi le nom qui figure au registre de l&apos;état civil. Cette législation est récente et a pris effet au 1er septembre 2003.
-      Ce nom **peut être différent du nom de famille** (qui n&apos;est pas donné par l&apos;API) dans le cas où la personne à demander un changement de nom.
+      Ce peut être :
+      \n
+      \n
+      - soit le nom du père, 
+      \n
+      - soit le nom de la mère,
+      \n
+      - soit leurs deux noms accolés dans l&apos;ordre choisi par eux dans la limite d&apos;un nom de famille pour chacun d&apos;eux (Article 311-21 du code civil). 
+      \n
+      \n
+      Le nom de naissance est aussi le nom qui figure au registre de l&apos;état civil. Cette législation est récente et a pris effet au 1er septembre 2003.
+      ⚠️ Ce nom **peut être différent du nom de famille** (qui n&apos;est pas donné par l&apos;API) dans le cas où la personne a demandé un changement de nom.
       \n
       \n
       ##### Le nom d&apos;usage
@@ -181,6 +191,9 @@ et correspondent au code NAF. La lettre située en sixième position permet de p
       ##### Le pseudonyme
       \n
       \n
-      La clé `dirigeant_pseudonyme` indique le **nom d&apos;emprunt utilisé dans l&apos;exercice de son activité** par le dirigeant pour se désigner, généralement littéraire ou artistique. Le pseudonyme ne correspond pas à un changement de nom, et son choix doit remplir certaines conditions. Il ne doit pas porter atteinte à l&apos;ordre public et il ne doit pas permettre à la personne de s&apos;approprier la renommée ou la parenté d&apos;une personne tiers.
+      La clé `dirigeant_pseudonyme` indique le **nom d&apos;emprunt utilisé par le dirigeant pour se désigner dans l&apos;exercice de son activité**, généralement littéraire ou artistique. 
+      \n
+      \n
+      Le pseudonyme ne correspond pas à un changement de nom, et son choix doit remplir certaines conditions. Il ne doit pas porter atteinte à l&apos;ordre public et il ne doit pas permettre à la personne de s&apos;approprier la renommée ou la parenté d&apos;une personne tiers.
       Le pseudonyme peut être protégé en étant déposé sous la forme d&apos;une marque à l&apos;INPI."
 

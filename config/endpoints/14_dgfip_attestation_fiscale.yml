@@ -38,7 +38,7 @@
     \n
     \n
     {:.fr-highlight--caution}
-    > ** ⚠️ Cette API n'est pas fiable pour ❌ les sociétés \"filles\" appartenant à un groupe de société**.
+    > **⚠️ Cette API n'est pas fiable pour ❌ les sociétés \"filles\" appartenant à un groupe de société**.
     > \n
     > Une attestation peut être renvoyée en cas d'appel d&apos;une entreprise \"fille\", mais cette attestation ne sera pas valable car incomplète. En effet, il manquera les informations de la société \"mère\".
     > Il est de votre ressort de vérifier si l&apos;entreprise est membre ou non d&apos;un groupe de sociétés imposé selon le régime fiscal d&apos;intégration visé à l&apos;[article 223 A du CGI](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000042340402/).
@@ -57,7 +57,7 @@
     - Numéro de SIREN de l'entreprise
   faq:
     - q: "Quelles obligations fiscales sont prises en compte ?" 
-      a: "L&apos;attestation concerne seulement :
+      a: "L&apos;attestation prend en compte&nbsp;:
       \n
       \n
       * ✅ la taxe sur la valeur ajoutée (TVA) ;
@@ -80,8 +80,8 @@
       Plus d&apos;informations disponibles dans le [BOFIP - Dispositions juridiques communes - Attestation de régularité fiscale.](https://bofip.impots.gouv.fr/bofip/8485-PGP.html/identifiant%3DBOI-DJC-ARF-20161207)
       "
     - q: "L&apos;attestation délivrée n&apos;est pas signée, comment s&apos;assurer de son authenticité ?" 
-      a: "L&apos;attestation de régularité fiscale délivrée est une version dématérialisée. Toutes les données délivrées par API Entreprise sont certifiées
-car prise à la source ; dans ce cas précis, directement auprès de la DGFIP. Par ailleurs, le numéro de délivrance indiqué sur le PDF
+      a: "L&apos;attestation de régularité fiscale délivrée est une version dématérialisée. **Toutes les données délivrées par API Entreprise sont certifiées
+car prise à la source** ; dans ce cas précis, directement auprès de la DGFIP. Par ailleurs, le numéro de délivrance indiqué sur le PDF
 est unique et permet de s&apos;assurer de l&apos;authenticité du document. 
       \n
       \n
@@ -92,18 +92,19 @@ est unique et permet de s&apos;assurer de l&apos;authenticité du document.
     - q: "Quelle est la date de délivrance de l&apos;attestation ?" 
       a: "Théoriquement, l&apos;attestation de régularité fiscale peut être obtenue tout au long de l&apos;année 
 et apprécie la situation de l&apos;entreprise au dernier jour du mois précédant la demande de délivrance de l&apos;attestation.
-En pratique, les dates de délivrance des attestations obtenues sur API Entreprise varient."
+      \n
+      En pratique, les dates de délivrance des attestations obtenues sur API Entreprise varient."
     - q: "Pourquoi l&apos;attestation délivrée par cette API n&apos;est pas valable pour une entreprise filiale d&apos;un groupe de sociétés ?"
       a: "Une société fille doit fournir deux attestations pour justifier de sa situation fiscale&nbsp;: 
       \n
       \n
-      * sa propore attestation, justifiant de ses propres obligations, 
+      * sa propre attestation, justifiant de ses propres obligations, 
       à savoir le dépôt des déclarations de résultats et de TVA, ainsi que le paiement de la TVA ;
       \n
       * l&apos;attestation de régularité fiscale de la société mère du groupe, qui confirme le paiement de l&apos;impôt sur les société.
       \n
       \n
-      Cette API ne permet d&apos;entrer le numéro de SIREN de la société mère. Par conséquent, elle ne délivre que la partie concernant la société fille. Ce qui est insuffisant.
+      Cette API ne permet pas d&apos;entrer le numéro de SIREN de la société mère. Par conséquent, elle ne délivre que la partie concernant la société fille. Ce qui est insuffisant.
       Une API dédiée sera bientôt disponible.
       \n
       \n
@@ -115,5 +116,5 @@ En pratique, les dates de délivrance des attestations obtenues sur API Entrepri
       \n
       \n
       De plus, si une entreprise se voit refuser la délivrance de l’attestation pour cause de carence de ses déclarations 
-      ou de ses paiements, cette non délivrance n’est pas définitive pour toute l’année N. 
+      ou de ses paiements, cette non-délivrance n’est pas définitive pour toute l’année N. 
       Si ensuite elle régularise sa situation pour les années N-1 et antérieures, alors l’attestation de régularité lui sera délivrée."
