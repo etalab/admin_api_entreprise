@@ -7,36 +7,6 @@ RSpec.describe JwtAPIEntreprise, type: :model do
     expect(build(:jwt_api_entreprise)).to be_valid
   end
 
-  describe 'db_columns' do
-    it { is_expected.to have_db_column(:id).of_type(:uuid) }
-    it { is_expected.to have_db_column(:iat).of_type(:integer) }
-    it { is_expected.to have_db_column(:created_at).of_type(:datetime) }
-    it { is_expected.to have_db_column(:updated_at).of_type(:datetime) }
-    it { is_expected.to have_db_column(:exp).of_type(:integer) }
-    it { is_expected.to have_db_column(:version).of_type(:string) }
-    it { is_expected.to have_db_column(:blacklisted).of_type(:boolean).with_options(default: false) }
-    it { is_expected.to have_db_column(:archived).of_type(:boolean).with_options(default: false) }
-    it { is_expected.to have_db_column(:days_left_notification_sent).of_type(:json).with_options(default: []) }
-    it { is_expected.to have_db_column(:authorization_request_id).of_type(:string) }
-    it { is_expected.to have_db_column(:magic_link_token).of_type(:string).with_options(default: nil) }
-    it { is_expected.to have_db_column(:magic_link_issuance_date).of_type(:datetime).with_options(default: nil) }
-  end
-
-  describe 'db_indexes' do
-    it { is_expected.to have_db_index(:archived) }
-    it { is_expected.to have_db_index(:created_at) }
-    it { is_expected.to have_db_index(:blacklisted) }
-    it { is_expected.to have_db_index(:exp) }
-    it { is_expected.to have_db_index(:iat) }
-    it { is_expected.to have_db_index(:magic_link_token) }
-  end
-
-  describe 'relationships' do
-    it { is_expected.to have_one(:user) }
-    it { is_expected.to have_many(:contacts) }
-    it { is_expected.to have_and_belong_to_many(:roles) }
-  end
-
   describe '#generate_magic_link_token' do
     let(:jwt) { create(:jwt_api_entreprise) }
 

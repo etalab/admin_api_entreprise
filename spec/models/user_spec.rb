@@ -1,34 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe User do
-  let(:user) { create :user, :with_jwt }
+  let(:user) { create(:user) }
 
-  describe 'db_columns' do
-    it { is_expected.to have_db_column(:id).of_type(:uuid) }
-    it { is_expected.to have_db_column(:email).of_type(:string) }
-    it { is_expected.to have_db_column(:oauth_api_gouv_id).of_type(:string) }
-    it { is_expected.to have_db_column(:context).of_type(:string) }
-    it { is_expected.to have_db_column(:cgu_agreement_date).of_type(:datetime) }
-    it { is_expected.to have_db_column(:note).of_type(:text).with_options(default: '') }
-    it { is_expected.to have_db_column(:pwd_renewal_token).of_type(:string).with_options(default: nil) }
-    it { is_expected.to have_db_column(:admin).of_type(:boolean).with_options(default: false) }
-    it { is_expected.to have_db_column(:tokens_newly_transfered).of_type(:boolean).with_options(default: false) }
-  end
-
-  describe 'db_indexes' do
-    it { is_expected.to have_db_index(:created_at) }
-  end
-
-  describe 'relationships' do
-    it { is_expected.to have_many(:jwt_api_entreprise) }
-    it { is_expected.to have_many(:roles).through(:jwt_api_entreprise) }
-    it { is_expected.to have_many(:contacts) }
+  it 'has valid factories' do
+    expect(build(:user)).to be_valid
   end
 
   describe 'constraints' do
     describe '#email' do
-      it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
-      it { is_expected.to validate_presence_of(:email) }
       it { is_expected.to allow_value('valid@email.com').for(:email) }
       it { is_expected.not_to allow_value('not an email').for(:email) }
     end
