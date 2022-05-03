@@ -38,9 +38,9 @@
 
   <div class="fr-grid-row">
     <div class="fr-col-md-<%= layout_main_bloc %> fr-col-12 fr-pt-2w fr-mt-md-0 fr-pr-md-2w fr-pr-0">
-      <h3 id="perimetre">
+      <h2 id="perimetre">
         <%= t('.perimeter.title') %>
-      </h3>
+      </h2>
       <% if @endpoint.perimeter['description'].present? %>
         <div>
           <%= markdown_to_html(@endpoint.perimeter['description']) %>
@@ -74,7 +74,7 @@
         </div>
       <% end %>
       <% if @endpoint.perimeter['know_more_description'].present? %>
-        <h6 id="perimetre_en_savoir_plus">
+        <h6 class="fr-mb-1w fr-mt-3w" id="perimetre_en_savoir_plus">
           <%= t('.perimeter.know_more_title') %>
         </h6>
 
@@ -87,9 +87,9 @@
       <%= render partial: 'details', locals: { id: 'use_cases_mobile', extra_classes: 'fr-mb-3w fr-hidden-md' } %>
 
       <% if @endpoint.data.present? && @endpoint.data['description'].present? %>
-        <h3 id="donnees" class="fr-mt-md-5w">
+        <h2 id="donnees" class="fr-mt-md-5w">
           <%= t('.data.title') %>
-        </h3>
+        </h2>
 
         <div>
           <%= markdown_to_html(@endpoint.data['description']) %>
@@ -102,7 +102,7 @@
         </a>
       </div>
 
-      <h6 id="donnees_attributs" class="fr-mt-md-5w">
+      <h6 id="donnees_attributs" class="fr-mb-1w fr-mt-3w">
         <%= t('.attributes.title') %>
       </h6>
 
@@ -129,9 +129,9 @@
       </div>
 
       <% if @endpoint.root_links.any? %>
-        <h4 id="donnees_racine_liens" class="fr-mt-md-5w">
+        <h6 id="donnees_racine_liens" class="fr-mb-1w fr-mt-3w">
           <%= t('.root_links.title') %>
-        </h4>
+        </h6>
 
         <div class="fr-pb-3w">
           <%= t('.root_links.description') %>
@@ -151,9 +151,9 @@
       <% end %>
 
       <% if @endpoint.root_meta.any? %>
-        <h4 id="donnees_racine_metadonnes" class="fr-mt-md-5w">
+        <h6 id="donnees_racine_metadonnes" class="fr-mb-1w fr-mt-3w">
           <%= t('.root_meta.title') %>
-        </h4>
+        </h6>
 
         <div class="fr-pb-3w">
           <%= t('.root_meta.description') %>
@@ -173,9 +173,9 @@
       <% end %>
 
       <% if @endpoint.faq.any? %>
-        <h3 id="faq" class="fr-mt-md-5w">
+        <h2 id="faq" class="fr-mt-md-5w">
           <%= t('.faq.title') %>
-        </h3>
+        </h2>
 
         <div class="fr-accordions-group">
           <% @endpoint.faq.each_with_index do |faq_entry, index| %>
@@ -196,11 +196,11 @@
         </div>
       <% end %>
 
-      <h3 id="cgu" class="fr-mt-md-5w">
+      <h2 id="cgu" class="fr-mt-md-5w">
         <%= t('.cgu.title') %>
-      </h3>
+      </h2>
 
-      <h6 class="fr-mt-md-5w">
+      <h6 class="fr-mb-1w fr-mt-3w">
         <%= t('.cgu.main_title_opening') %>
       </h6>
 
@@ -208,7 +208,7 @@
         <%= t("endpoint.opening.#{@endpoint.opening}.name", raise: true) %>
       </div>
 
-      <h6 class="fr-mt-md-5w">
+      <h6 class="fr-mb-1w fr-mt-3w">
         <%= t('.cgu.main_title') %>
       </h6>
 
