@@ -45,7 +45,7 @@ l'url `?disable_search`.
 Niveau éléments graphiques DSFR, une cheatsheet (des exemples sont aussi
 disponibles dans le fichier de locale):
 
-- Les tableaux
+### Les tableaux
 
   ```md
   {:.fr-table}
@@ -55,7 +55,7 @@ disponibles dans le fichier de locale):
   | Value 21 | Value 22 |
   ```
 
-- Les mise en exergues
+### Les mise en exergues
 
   ```md
   {:.fr-highlight}
@@ -71,7 +71,7 @@ disponibles dans le fichier de locale):
   > Texte de type exemple
   ```
 
-- Les liens externes (qui ajoute le picto)
+### Les liens externes (qui ajoute le picto)
 
   ```md
   [Lien externe](https://www.google.fr}{:target=\"_blank\"})
@@ -80,15 +80,23 @@ disponibles dans le fichier de locale):
 De plus, il est possible d'utiliser les helpers de routes et d'images avec de
 l'interpolation ERB.
 
-Pour les routes:
+### Les routes:
 
 ```md
 Le lien du profile: [Profile](<%= user_profile_path %>)
 ```
 
-La liste des urls sont disponibles en tapant la commande `rails routes`.
+La liste des urls sont disponibles en tapant la commande `rails routes` ou depuis ce fichier : https://gist.github.com/skelz0r/48f3f6f4be8356f37e79368cfaa6e4f6
 
-Pour les images:
+#### Route vers les fiches métiers :
+
+Exemple de la fiche métier de l'endpoint unités légales de l'insee :
+
+```md
+Le lien du profile: [Fiche métier "Données de référence d'une unité légale diffusible"](<%= endpoint_path(uid(.insee/unites_legales_diffusibles) %>)
+```
+
+### Les images:
 
 ```md
 ![Description image](<%= image_path('loading.gif') %>)
@@ -96,6 +104,8 @@ Pour les images:
 
 Le `'loading.gif'` doit être le chemin vers une image valide (ie dans
 `app/assets/images`)
+
+### Utilisation Ruby
 
 A noter qu'il est aussi possible d'utiliser du ruby dans la vue (même si ce
 n'est pas du tout recommandé):
