@@ -5,7 +5,7 @@
   perimeter:
     description: "Cette API délivre les information générales d&apos;un siège social, dont l&apos;unité légale, \"diffusible\" ou \"non-diffusible\", est inscrite au répertoire Sirene.
     \n
-    Pour obtenir l&apos;adresse du siège social, utiliser l&apos;API `sirene/etablissements/{siret}/adresse`."
+    Pour obtenir l&apos;adresse du siège social, utiliser l&apos;API [`sirene/etablissements/:siret/adresse`](<%= endpoint_path(uid: 'insee/adresse_etablissements')."
     entity_type_description: "Tous les sièges sociaux des unité légales suivantes sont disponibles&nbsp;:
     \n
     * ✅ les sièges sociaux des personnes morales de droit privé (les entreprises). Toutes les entreprises immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RCM) figurent dans la base Sirene ;
@@ -89,14 +89,12 @@
     description: "
     Cette API délivre les information générales d&apos;un siège social, dont l&apos;unité légale est inscrite au répertoire Sirene et \"diffusible\" commercialement.
     \n
-    Pour obtenir l&apos;adresse du siège social, utiliser l&apos;API `sirene/etablissements/diffusibles/{siret}/adresse`.
     \n
+    ⚠️ **Elle ne concerne pas :**
     \n
-    ⚠️ Elle ne concerne pas :
+    - les sièges sociaux des unité légales \"non-diffusibles\", appelables avec l&apos;API [`unites_legales/:siren/siege_social`](<%= endpoint_path(uid: 'insee/siege_social') ;
     \n
-    - les sièges sociaux des unité légales \"non-diffusibles\", appelable avec l&apos;API `sirene/unites_legales/diffusibles/{siret}/siege_social` ;
-    \n
-    - les adresses des sièges sociaux, appelables, avec le SIRET de l&apos;établissement, par l&apos;API `/sirene/etablissements/diffusibles/{siret}/adresse`."
+    - les adresses des sièges sociaux, appelables, avec le SIRET de l&apos;établissement, par l&apos;API [`sirene/etablissements/diffusibles/:siret/adresse`](<%= endpoint_path(uid: 'insee/adresse_etablissements_diffusibles')."
     entity_type_description: "Les sièges sociaux des unités légales suivantes sont disponibles :
     \n
     - ✅ les sièges sociaux des personnes morales de droit privé (les entreprises). Toutes les entreprises immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RCM) figurent dans la base Sirene ;
