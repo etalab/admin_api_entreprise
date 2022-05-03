@@ -93,7 +93,7 @@ La liste des urls sont disponibles en tapant la commande `rails routes` ou depui
 Exemple de la fiche métier de l'endpoint unités légales de l'insee :
 
 ```md
-Le lien du profile: [Fiche métier "Données de référence d'une unité légale diffusible"](<%= endpoint_path(uid(.insee/unites_legales_diffusibles) %>)
+Le lien du profile: [Fiche métier "Données de référence d'une unité légale diffusible"](<%= endpoint_path(uid: 'insee/unites_legales_diffusibles') %>)
 ```
 
 ### Les images:
