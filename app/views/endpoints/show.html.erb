@@ -86,11 +86,11 @@
       <%= render partial: 'use_cases', locals: { id: 'use_cases_mobile', extra_classes: 'fr-hidden-md' } %>
       <%= render partial: 'details', locals: { id: 'use_cases_mobile', extra_classes: 'fr-mb-3w fr-hidden-md' } %>
 
-      <% if @endpoint.data.present? && @endpoint.data['description'].present? %>
-        <h2 id="donnees" class="fr-mt-md-5w">
-          <%= t('.data.title') %>
-        </h2>
+      <h2 id="donnees" class="fr-mt-md-5w">
+        <%= t('.data.title') %>
+      </h2>
 
+      <% if @endpoint.data.present? && @endpoint.data['description'].present? %>
         <div>
           <%= markdown_to_html(@endpoint.data['description']) %>
         </div>
