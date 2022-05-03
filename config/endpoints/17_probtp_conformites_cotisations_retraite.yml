@@ -3,21 +3,14 @@
   path: '/v3/probtp/attestations_cotisations_retraite/{siret}'
   position: 280
   perimeter:
-    description: "###### Type de données&nbsp;:
-    \n
-    \n
-    Cette API délivre l&apos;attestation PROBTP au format PDF permettant de savoir si l&apos;entreprise est à jour de ses cotisations retraite à la Protection Sociale du Bâtiment et des Travaux publics (PROBTP).
-    \n
-    \n
-    ###### Établissements concernés&nbsp;:
-    \n
-    \n
-    ✅ Entreprises du secteur du bâtiment et des travaux publics."
+    entity_type_description: "✅ Entreprises du secteur du bâtiment et des travaux publics."
     entities:
       - entreprises
   call_id: "SIRET"
   providers:
     - 'probtp'
+  data:
+    description: "Cette API délivre l&apos;attestation PROBTP au format PDF permettant de savoir si l&apos;entreprise est à jour de ses cotisations retraite à la Protection Sociale du Bâtiment et des Travaux publics (PROBTP)."
   opening: protected
   use_cases:
     - Marchés publics

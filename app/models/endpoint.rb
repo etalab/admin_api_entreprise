@@ -7,6 +7,7 @@ class Endpoint
     :parameters,
     :providers,
     :perimeter,
+    :data,
     :use_cases,
     :opening
 

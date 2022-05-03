@@ -3,21 +3,7 @@
   path: '/v3/cnetp/attestations_cotisations_conges_payes_chomage_intemperies/{siren}'
   position: 300
   perimeter:
-    description: "###### Type de données&nbsp;:
-    \n
-    \n
-    Cette API permet d&apos;obtenir au format PDF une attestation délivrée à l&apos;entreprise sous réserve que celle-ci&nbsp;:
-    \n
-    \n
-    - soit à jour de ses déclarations de cotisations congés payés et chômage-intempéries ;
-    \n
-    - soit à jour du paiement des cotisations citées.
-    \n
-    \n
-    ###### Établissements concernés&nbsp;:
-    \n
-    \n
-    Cette API couvre l&apos;ensemble des entreprises exerçant une ou plusieurs activités entrant
+    entity_type_description: "Cette API couvre l&apos;ensemble des entreprises exerçant une ou plusieurs activités entrant
 dans le champ d&apos;application des conventions collectives nationales étendues des Travaux Publics et du Bâtiment :
     \n
     \n
@@ -29,12 +15,8 @@ dans le champ d&apos;application des conventions collectives nationales étendue
     \n
     \n
     Toutes les attestations sont disponibles pour les entreprises en situation régulière
-❌ sauf pour celles qui règlent les cotisations dues à la CNETP au travers de l’URSSAF dans le cadre du Titre Emploi Service Entreprise (TESE).
-    \n
-    \n
-    ###### Pour en savoir plus sur les entreprises concernées&nbsp;:
-    \n
-    \n
+❌ sauf pour celles qui règlent les cotisations dues à la CNETP au travers de l’URSSAF dans le cadre du Titre Emploi Service Entreprise (TESE)."
+    know_more_description: "
     - le [site de la CNETP](https://www.cnetp.org/category/affiliation/}{:target=\"_blank\"}) est une source d&apos;information ;
     \n
     - l&apos;[article D.3141-12 du code du travail](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000020572124/}{:target=\"_blank\"})
@@ -47,6 +29,8 @@ caisses constituées à cet effet._&nbsp;&raquo;"
   call_id: "SIREN"
   providers:
     - 'cnetp'
+  data:
+    description: "Cette API permet d&apos;obtenir au format PDF une attestation délivrée à l&apos;entreprise sous réserve que celle-ci&nbsp; soit à jour de ses déclarations et du paiement de cotisations congés payés et chômage-intempéries."
   opening: protected
   use_cases:
     - Marchés publics

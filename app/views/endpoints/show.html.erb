@@ -41,16 +41,60 @@
       <h3 id="perimetre">
         <%= t('.perimeter.title') %>
       </h3>
-      <div>
-        <%= markdown_to_html(@endpoint.perimeter['description']) %>
-      </div>
+      <% if @endpoint.perimeter['description'].present? %>
+        <div>
+          <%= markdown_to_html(@endpoint.perimeter['description']) %>
+        </div>
+      <% end %>
+      <% if @endpoint.perimeter['entity_type_description'].present? %>
+        <h6 id="perimetre_entites_concernees">
+          <%= t('.perimeter.entity_type_title') %>
+        </h6>
+
+        <div>
+          <%= markdown_to_html(@endpoint.perimeter['entity_type_description']) %>
+        </div>
+      <% end %>
+      <% if @endpoint.perimeter['geographical_scope_description'].present? %>
+        <h6 id="perimetre_geographique">
+          <%= t('.perimeter.geographical_scope_title') %>
+        </h6>
+
+        <div>
+          <%= markdown_to_html(@endpoint.perimeter['geographical_scope_description']) %>
+        </div>
+      <% end %>
+      <% if @endpoint.perimeter['updating_rules_description'].present? %>
+        <h6 id="perimetre_regles_mise_a_jour">
+          <%= t('.perimeter.updating_rules_title') %>
+        </h6>
+
+        <div>
+          <%= markdown_to_html(@endpoint.perimeter['updating_rules_description']) %>
+        </div>
+      <% end %>
+      <% if @endpoint.perimeter['know_more_description'].present? %>
+        <h6 id="perimetre_en_savoir_plus">
+          <%= t('.perimeter.know_more_title') %>
+        </h6>
+
+        <div>
+          <%= markdown_to_html(@endpoint.perimeter['know_more_description']) %>
+        </div>
+      <% end %>
 
       <%= render partial: 'use_cases', locals: { id: 'use_cases_mobile', extra_classes: 'fr-hidden-md' } %>
       <%= render partial: 'details', locals: { id: 'use_cases_mobile', extra_classes: 'fr-mb-3w fr-hidden-md' } %>
 
-      <h3 id="donnees" class="fr-mt-md-5w">
-        <%= t('.data.title') %>
-      </h3>
+      <% if @endpoint.data.present? && @endpoint.data['description'].present? %>
+        <h3 id="donnees" class="fr-mt-md-5w">
+          <%= t('.data.title') %>
+        </h3>
+
+        <div>
+          <%= markdown_to_html(@endpoint.data['description']) %>
+        </div>
+      <% end %>
 
       <div class="fr-my-2w">
         <a href="<%= endpoint_example_path(uid: @endpoint.uid) %>" id="example_link" class="fr-btn fr-btn--secondary fr-fi-eye-line fr-btn--icon-left fr-mt-2w" aria-controls="main-modal" data-fr-opened="false" data-turbo-frame="main-modal-content">
