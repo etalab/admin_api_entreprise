@@ -1,0 +1,36 @@
+---
+- uid: 'ademe/certifications_rge'
+  path: '/v3/ademe/etablissements/{siret}/certification_rge'
+  position: 320
+  perimeter:
+    entity_type_description: |+
+      Entreprises dans le secteur de la **rénovation énergétique labellisées RGE** par l'ADEME.
+
+      **95% des entreprises en base chez l'ADEME** sont disponibles au travers de cette API. 5% des entreprises sont manquantes car les connexions auprès des organismes de certifications (_Qualit'EnR, Qualifelec, …_) ne sont pas toutes en place.
+
+      Le label RGE ( " Reconnu Garant de l'Environnement " ) est délivré à une entreprise qui remplit certains critères lors de la réalisation de  travaux d'économie d'énergie dans les logements (isolation des murs ou de la toiture, installation d'un équipement utilisant  une énergie renouvelable, etc.). Il s'agit d'un dispositif reconnu par l'État.
+    entities:
+      - entreprises
+  call_id: "SIRET"
+  providers:
+    - 'infogreffe'
+  data:
+    description: |+
+      Cette API délivre :
+      - le nom de la qualification de l'entreprise et les domaines concernés ;
+      - le nom du certificat délivré ;
+      - l'attestation au format PDF.
+  faq:
+    - q: Quels sont les différents types de certifications ?
+      a: |+
+        - _Qualit'EnR_ pour les installations d'équipements valorisant les énergies renouvelables.
+        - _Qualifelec_ pour les travaux électriques en matière d'efficacité énergétique et/ou d'installation des énergies renouvelables.
+        - _RGE Eco-artisan_ pour des prestations de conseil dans le domaine de la performance énergétique, par le biais d'une évaluation thermique ou des travaux d'efficacité énergétique.
+        - _Qualibat_ pour des travaux liés à la performance énergétique (construction ou rénovation).
+        - _Céquami_ délivre des certifications à des professionnels à même de proposer des travaux de rénovation lourde dans le cadre d'une rénovation énergétique globale du logement.
+        - _Certibat_ délivre des certifications aux professionnels du bâtiment en mesure de réaliser des offres globales de rénovation énergétique
+  opening: public
+  use_cases:
+    - Marchés publics
+  parameters:
+    - Numéro de SIRET de l'établissement
