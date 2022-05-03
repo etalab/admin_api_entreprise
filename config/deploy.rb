@@ -107,7 +107,9 @@ task :deploy => :environment do
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
-    invoke :'reindex_algolia'
+    if ENV['to'] == 'production'
+      invoke :'reindex_algolia'
+    end
     invoke :cgu_to_pdf
     invoke :'deploy:cleanup'
 
