@@ -1,21 +1,20 @@
 <div id="<%= "property_#{kind}_#{key}" %>" class="attribute fr-mb-3w">
   <div class="fr-mb-1w">
-    <div class="fr-tag">
+    <div class="fr-tag fr-text--bold">
       <%= properties['title'] || key.humanize %>
     </div>
     <% if properties['example'] %>
-      <br class="fr-hidden-md" />
 
-      <span class="fr-ml-2w fr-ml-md-0">
+      <span class="fr-ml-2w fr-ml-md-0 fr-text--regular fr-text--alt">
         <%= t('.example.label') %>
-        <code><%= properties['example'] %></code>
+        <%= properties['example'] %>
       </span>
     <% end %>
   </div>
 
   <div class="fr-pl-2w">
     <% if properties['description'] %>
-      <div class="description">
+      <div class="description fr-highlight--beige-gris-galet fr-text--sm">
         <%= simple_format(properties['description'], {}, wrapper_tag: 'div') %>
       </div>
     <% end %>
