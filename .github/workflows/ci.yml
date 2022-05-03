@@ -79,12 +79,6 @@ jobs:
           PGPASSWORD="${{ env.POSTGRES_PASSWORD }}" psql -h ${{ env.POSTGRES_HOST}} -U ${{ env.POSTGRES_USER }} -d ${{ env.POSTGRES_DB }} --command 'CREATE EXTENSION IF NOT EXISTS pgcrypto;'
           bundler exec rails db:schema:load RAILS_ENV=test
 
-      - name: Reindex Algolia model
-        run: |
-          if [ `git branch --show-current` = "develop" ] ; then
-            RAILS_ENV=test bundle exec rake algolia:reindex
-          fi
-
       - name: Run tests
         run: bundle exec rspec
 
