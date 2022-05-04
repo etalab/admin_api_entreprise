@@ -200,9 +200,9 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir l’attestation de cotisation des congés payés et chômage
-        intempéries d’une entreprise, délivrée par la Caisse Nationale des Entrepreneurs
-        de Travaux Publics (CNETP).
+      description: Attestation de cotisations, délivrée par la Caisse nationale des
+        entrepreneurs de travaux publics (CNETP), attestant le respect des obligations
+        relatives aux congés payés et au chômage-intempéries.
       responses:
         '403':
           description: Accès interdit
@@ -318,10 +318,11 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: |
-        Accéder au statut de l’immatriculation des entreprises de la base des douanes. L'appel se fait par numéro EORI ou SIRET :
-        - Appel par numéro EORI: fonctionne pour toutes les entreprises
-        - Appel par SIRET: fonctionne uniquement pour les entreprises ayant fait leur immatriculation EORI en France. Une entreprise immatriculée dans un autre pays européen renverra toujours un négatif.
+      description: 'État du numéro EORI (Economic Operator Registration and Identification)
+        d''une entreprise permettant de vérifier celle-ci est immatriculée auprès
+        des douanes dans le cadre de l’import/export en Union Européenne.
+
+        '
       responses:
         '403':
           description: Accès interdit
@@ -567,6 +568,9 @@ paths:
           curl -X GET \
             -H "Authorization: Bearer $token" \
             --url "https://entreprise.api.gouv.fr/v3/dgfip/attestations_fiscales/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
+      x-maintenances:
+        from_hour: '01:00'
+        to_hour: '02:00'
   "/v3/dgfip/chiffres_affaires/{siret}":
     get:
       summary: Chiffre d'affaires
@@ -701,6 +705,9 @@ paths:
           curl -X GET \
             -H "Authorization: Bearer $token" \
             --url "https://entreprise.api.gouv.fr/v3/dgfip/chiffres_affaires/13002526500013?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
+      x-maintenances:
+        from_hour: '01:00'
+        to_hour: '02:00'
   "/v3/dgfip/liasses_fiscales/declarations/{year}/{siren}":
     get:
       summary: Liasses fiscales
@@ -997,6 +1004,9 @@ paths:
           curl -X GET \
             -H "Authorization: Bearer $token" \
             --url "https://entreprise.api.gouv.fr/v3/dgfip/liasses_fiscales/declarations/2019/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
+      x-maintenances:
+        from_hour: '01:00'
+        to_hour: '02:00'
   "/v3/fabrique_numerique_ministeres_sociaux/conventions_collectives/{siret}":
     get:
       summary: Conventions collectives
@@ -1066,9 +1076,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Connaître les conventions collectives d’un établissement et obtenir
-        des informations telles que l’identifiant de la convention et le lien vers
-        le texte en vigueur.
+      description: Conventions collectives d’un établissement (identifiant de la convention,
+        lien vers les textes en vigueur, etc.)
       responses:
         '403':
           description: Accès interdit
@@ -1177,7 +1186,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/fabrique_numerique_ministeres_sociaux/conventions_collectives/13002526500013?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/fntp/cartes_professionnelle_travaux_publics/{siren}":
     get:
-      summary: Carte professionnelle de travaux publics
+      summary: Carte professionnelle travaux publics
       tags:
       - Attestations sociales et fiscales
       parameters:
@@ -1218,8 +1227,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Récupérer la carte professionnelle d’entrepreneur de travaux publics,
-        délivrée à une entreprise de travaux publics en règle de ses obligations sociales,
+      description: Carte professionnelle d'entrepreneur de travaux publics, délivrée
+        à une entreprise de travaux publics en règle de ses obligations sociales,
         administratives et juridiques.
       responses:
         '403':
@@ -1613,11 +1622,10 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: |
-        Obtenir les métadonnées associées aux actes d’une entreprise issus des greffes et archivés à l’Institut national de propriété industrielle (INPI).
-        Ces actes comportent des informations générales, des informations sur le capital social et sa répartition, ou encore des informations sur les associés et tout ce qui est relatif à l’administration de la société.
+      description: 'Actes d’une entreprise issus des greffes et archivés à l’Institut
+        national de propriété industrielle (INPI).
 
-        Cet API renvoie uniquement des métadonnées sur les actes, dont l’identifiant d’accès au fichier de téléchargement de l’Acte et du fichier de métadonnées associé. Pour récupérer les actes eux-mêmes, il faut utiliser l'API /inpi/actes/{siren}/documents.
+        '
       responses:
         '403':
           description: Accès interdit
@@ -1701,7 +1709,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/inpi/actes/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/inpi/brevets/{siren}":
     get:
-      summary: Derniers brevets
+      summary: Brevets déposés
       tags:
       - Propriété intellectuelle
       parameters:
@@ -1742,14 +1750,11 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: |
-        Derniers brevets déposés par l'entreprise et nombre total de brevets.
-        Cet endpoint appelle les informations à partir d’un SIREN. Le SIREN étant une information facultative lors du dépôt de dossier à l’INPI, le taux de sirénage est donc incomplet.
+      description: 'Nombre total des brevets déposés par l''entreprise (lorsque le
+        SIREN a été spécifié) ainsi que des informations sur les brevets les plus
+        récents.
 
-        Taux de sirénage des déposants (sur personnes morales FR) pour les brevets France et brevets Europe est d'environ 80% sur les demandes de brevets publiées ces 20 dernières années ;
-        \n
-        ℹ️ Pour information, seule la raison sociale compte lors du dépôt pour une personne morale.
-        \n
+        '
       responses:
         '403':
           description: Accès interdit
@@ -1954,7 +1959,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/inpi/brevets/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/inpi/marques/{siren}":
     get:
-      summary: Marques
+      summary: Marques déposées
       tags:
       - Propriété intellectuelle
       parameters:
@@ -1995,15 +2000,11 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: |
-        Marques déposées par l'entreprise:
-        Cet endpoint appelle les informations à partir d’un SIREN. Le SIREN étant une information facultative lors du dépôt de dossier à l’INPI, le taux de sirénage est donc incomplet.
+      description: 'Nombre total des marques déposées par l''entreprise (lorsque le
+        SIREN a été spécifié) ainsi que des informations sur les marques les plus
+        récentes.
 
-        Taux de sirénage des déposants (sur personnes morales FR) :
-
-        *Marques France : 60% ;
-        *Marques européennes : 0 % (marques déposées à l’EUIPO) ;
-        *Marques internationales : 0% (marques déposées à l’OMPI) ;
+        '
       responses:
         '403':
           description: Accès interdit
@@ -2110,7 +2111,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/inpi/marques/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/inpi/modeles/{siren}":
     get:
-      summary: Modeles
+      summary: Modèles déposés
       tags:
       - Propriété intellectuelle
       parameters:
@@ -2151,14 +2152,11 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: |
-        Modèles déposés par l'entreprise:
-        Cet endpoint appelle les informations à partir d’un SIREN. Le SIREN étant une information facultative lors du dépôt de dossier à l’INPI, le taux de sirénage est donc incomplet.
+      description: 'Nombre total des modèles déposés par l''entreprise (lorsque le
+        SIREN a été spécifié) ainsi que des informations sur les modèles les plus
+        récents.
 
-        Taux de sirénage des déposants (sur personnes morales FR) :
-
-        * Dessins & Modèles France : 50% ;
-        * Dessins & Modèles internationaux : 0% (dessins & modèles déposés à l’OMPI).
+        '
       responses:
         '403':
           description: Accès interdit
@@ -3856,12 +3854,6 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
-        '451':
-          description: Indisponible pour des raisons légales
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/UnavailableForLegalReasons"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -7553,12 +7545,6 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/NotFound"
-        '451':
-          description: Indisponible pour des raisons légales
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/UnavailableForLegalReasons"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -7566,9 +7552,9 @@ paths:
           curl -X GET \
             -H "Authorization: Bearer $token" \
             --url "https://entreprise.api.gouv.fr/v3/insee/sirene/unites_legales/diffusibles/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
-  "/v3/mi/associations/{siret_or_rna}":
+  "/v3/mi/associations/{siret_or_rna}/documents":
     get:
-      summary: Informations déclaratives d'une association
+      summary: Divers documents d'une association
       tags:
       - Informations générales
       parameters:
@@ -7617,8 +7603,159 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir les informations déclarées par une association à la préfecture
-        et issues du Répertoire National des Associations (RNA).
+      description: Divers documents administratifs en PDF tels que les statuts, le
+        récépissé de déclaration de création, la liste des dirigeants...
+      responses:
+        '403':
+          description: Accès interdit
+        '200':
+          description: Document Association found
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        timestamp:
+                          example: '1631182730'
+                          description: Date du dépot du document au format timestamp
+                            UNIX
+                          type: string
+                        url:
+                          example: https://storage.entreprise.api.gouv.fr/siade/1635505765-5cd08405e4163c9f7713447829aeef7284c3283d-document_asso.pdf
+                          description: L'URL du fichier
+                          type: string
+                        expires_in:
+                          title: Nombre de secondes avant expiration du lien URL
+                          type: integer
+                        errors:
+                          title: Détail de l'erreur survenue au traitement du fichier
+                            (URL fourni par le fournisseur de données invalide, fichier
+                            corrompu, ...)
+                          type: array
+                          items:
+                            type: string
+                      required:
+                      - timestamp
+                      - url
+                      - expires_in
+                      - errors
+                    required:
+                    - id
+                    - type
+                    - attributes
+                  meta:
+                    type: object
+                    properties:
+                      nombre_documents:
+                        example: 1
+                        description: Le nombre total de documents disponibles
+                        type: integer
+                      nombre_documents_deficients:
+                        example: 0
+                        description: Le nombre de documents ignorés car déficients
+                          (indisponibles, PDF invalide etc...)
+                        type: integer
+                    required:
+                    - nombre_documents
+                    - nombre_documents_deficients
+                required:
+                - data
+                - meta
+        '404':
+          description: Association not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UnprocessableEntity"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/mi/associations/13002526500013/documents?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
+  "/v3/mi/associations/{siret_or_rna}":
+    get:
+      summary: Données du RNA d'une association
+      tags:
+      - Informations générales
+      parameters:
+      - name: siret_or_rna
+        in: path
+        description: Siret de l'association ou le numéro RNA
+        examples:
+          openstreetmap_france:
+            value: W751212517
+            summary: ID RNA Openstreetmap France
+          croix_rouge:
+            value: '77567227221138'
+            summary: SIRET de la Croix-Rouge France
+        required: true
+        schema:
+          type: string
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Informations issues du répertoire national des associations (RNA),
+        telles que la date de création, l’adresse du siège et les dirigeants.
       responses:
         '403':
           description: Accès interdit
@@ -7784,7 +7921,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/mi/associations/13002526500013?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/msa/conformites_cotisations/{siret}":
     get:
-      summary: Status des cotisations de sécurité sociale agricole
+      summary: Conformité cotisations de sécurité sociale agricole
       tags:
       - Attestations sociales et fiscales
       parameters:
@@ -7851,8 +7988,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Savoir si une entreprise est à jour de ses cotisations sociales
-        auprès de la sécurité sociale agricole (MSA).
+      description: Statut des cotisations sociales d'une entreprise indiquant si elle
+        est en règle auprès de la sécurité sociale agricole (MSA).
       responses:
         '403':
           description: Accès interdit
@@ -7887,7 +8024,7 @@ paths:
                       status:
                         type: string
                         title: Status
-                        description: "Détermine le status des cotisations, les valeurs
+                        description: "Détermine le statut des cotisations, les valeurs
                           possibles: \n \n * up_to_date : l'entreprise est à jour
                           de ses cotisations \n * outdated : l'entreprise n'est pas
                           à jour de ses cotisations \n * under_investigation : l'entreprise
@@ -8132,7 +8269,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/opqibi/certifications_ingenierie/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/probtp/attestations_cotisations_retraite/{siret}":
     get:
-      summary: Cotisations retraite bâtiment
+      summary: Conformité cotisations retraite bâtiment
       tags:
       - Attestations sociales et fiscales
       parameters:
@@ -8199,8 +8336,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir l’attestation de l’entreprise (si celle-ci est éligible)
-        auprès de la Protection Sociale du Bâtiment et des Travaux publics (PROBTP)
+      description: Attestation délivrée par la Protection sociale du bâtiment et des
+        travaux publics (PROBTP), indiquant que l'entreprise est à jour de ses cotisations.
       responses:
         '403':
           description: Accès interdit
@@ -8367,7 +8504,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/probtp/conformites_cotisations_retraite/13002526500013?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/qualibat/certifications_batiment/{siret}":
     get:
-      summary: Certificat de qualification bâtiment
+      summary: Certification Qualibat
       tags:
       - Certifications professionnelles
       parameters:
@@ -8434,10 +8571,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir le certificat Qualibat, apportant l’avis de l’association
-        sur la **qualification d’une entreprise dans le bâtiment**. Si vous cherchez
-        d'autres certificats de qualification, l'[endpoint certification RGE](#certificats_rge_ademe)
-        regroupe tous les certificats, dont les Qualibats.
+      description: Certificat délivré par l'association Qualibat, attestant de la
+        **qualification d’une entreprise dans le bâtiment**.
       responses:
         '403':
           description: Accès interdit
@@ -8501,7 +8636,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/qualibat/certifications_batiment/13002526500013?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/rnm/entreprises/{siren}":
     get:
-      summary: Données de référence d'une entreprise artisanale
+      summary: Données du RNM d'une entreprise artisanale
       tags:
       - Informations générales
       parameters:
@@ -8569,8 +8704,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir les informations concernant une entité enregistrée au Répertoire
-        National des Métiers (RNM)
+      description: Informations de référence d'une entreprise artisanale enregistrée
+        au répertoire national des métiers (RNM)
       responses:
         '403':
           description: Accès interdit
@@ -8685,25 +8820,6 @@ components:
               detail:
                 type: string
                 example: Le siret ou siren indiqué n'est pas correctement formaté.
-            required:
-            - title
-            - detail
-      required:
-      - errors
-    UnavailableForLegalReasons:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              title:
-                type: string
-                example: Indisponible pour des raisons légales
-              detail:
-                type: string
-                example: Cette entité n'est accessible par aucun organisme.
             required:
             - title
             - detail
