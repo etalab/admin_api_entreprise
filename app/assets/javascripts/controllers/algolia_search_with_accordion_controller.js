@@ -165,6 +165,12 @@ document.addEventListener("turbo:load", function () {
 
       _configureSearchBox(search) {
         search.addWidget(
+          instantsearch.widgets.configure({
+            hitsPerPage: 1000,
+          })
+        );
+
+        search.addWidget(
           instantsearch.widgets.searchBox({
             container: this.searchBoxTarget,
             autofocus: true,
