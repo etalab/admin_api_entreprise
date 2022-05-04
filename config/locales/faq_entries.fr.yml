@@ -8,66 +8,68 @@ fr:
             answer: |+
               #### Le token, une clé unique et privée
 
-              Le token est **votre code secret** vous permettant d’utiliser l'API Entreprise. Pour le nommer, API Entreprise utilise les termes de "token", "jeton", "clé d'accès".
+              Le token est **votre code secret** vous permettant d’utiliser l'API Entreprise. Pour le nommer, API Entreprise utilise les termes de \"_token_\", \"_jeton_\" ou \"_clé d'accès_\".
 
-              Si votre demande d’habilitation est validée, il vous est délivré dans votre [espace personnel](<%= user_profile_path %>).
+              Si votre demande d’habilitation à l'API Entreprise est validée, ce jeton vous est délivré dans votre [espace personnel](<%= user_profile_path %>).
 
-              **Cette clé est unique et privée** ; API Entreprise s'appuie sur un standard ouvert et normalisé de l’industrie : le Json Web Token (aka JWT) ([RFC 7519](https://datatracker.ietf.org/doc/html/rfc7519){:target="_blank"}). Ce jeton est autonome et permet de transmettre de façon sécurisée les informations d’authentifications nécessaires pour utiliser l’API. Ces jetons sont vérifiés et fiables car **signés numériquement avec une date d’expiration**.
+              **Cette clé est unique et privée**. API Entreprise s'appuie sur un standard ouvert et normalisé de l’industrie : le _Json Web Token_ (aka JWT) ([RFC 7519](https://datatracker.ietf.org/doc/html/rfc7519){:target="_blank"}). Ce jeton est autonome et permet de transmettre de façon sécurisée les informations d’authentification nécessaires pour utiliser l’API. Ces jetons sont vérifiés et fiables car **signés numériquement avec une date d’expiration de 18 mois**.
 
               #### Ne jamais divulguer votre jeton
 
               Votre token vous est propre, il ne faut pas le diffuser.
 
-              Un peu comme votre clé d’appartement, vous ne l’envoyez pas par la poste car il y a un risque que celle-ci soit interceptée par une personne mal intentionnée.
+              Comme une clé d’appartement que vous n'enverriez pas par la poste ; vous ne transmettez pas votre jeton par e-mail car il y a un risque que celui-ci soit intercepté par une personne mal intentionnée.
 
-              {:.fr-highlight}
-              > ⚠️ C’est pourquoi, vous ne devez jamais copier-coller un token dans un moteur de recherche ou dans un e-mail. L’usage de votre token se fait uniquement dans votre logiciel métier sécurisé utilisé pour réaliser vos appels.
+              {:.fr-highlight--caution}
+              > ⚠️ Vous ne devez **jamais copier-coller un token dans un moteur de recherche ou dans un e-mail**. L’usage de votre token se fait uniquement dans votre logiciel métier sécurisé utilisé pour réaliser vos appels.
 
               Pour transmettre votre jeton en toute sécurité, consultez cette autre [question de la FAQ](<%= faq_index_path(anchor: 'comment-transmettre-le-jeton-d-acces-en-tout-securite') %>).
 
               #### Un token a une fin de vie
 
-              La durée de vie d’un token est limitée, sa date d’expiration est indiqué dans votre [espace personnel](<%= user_profile_path %>).
+              La durée de vie d’un token est limitée, elle est de **18 mois**. La date d’expiration de votre jeton est indiquée dans votre [espace personnel](<%= user_profile_path %>).
 
-              Le token peut également être supprimé s’il a été diffusé par mégarde. Le renouvellement d’un token est très facile et rapide. C’est pourquoi, si vous avez divulgué votre token par erreur, n’hésitez pas à écrire rapidement à [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr).
+              Un token peut également être supprimé s’il a été diffusé par mégarde. Le renouvellement d’un token est très facile et rapide. C’est pourquoi, si vous avez divulgué votre token par erreur, n’hésitez pas à écrire rapidement à [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr).
 
           - question: "Qu’est-ce qu’une API ?"
             answer: |+
-              À gros traits, une API c'est un tuyau informatique dans lequel circule des informations.
+              À gros trait, une API est un tuyau informatique dans lequel circule des informations.
 
-              Une API permet d’**agir sur des ressources** contenues dans un autre système d’information, **sans soi-même avoir la main sur ce système d’information**.
+              Plus précisemment, une API permet d’**agir sur des ressources** contenues dans un autre système d’information, **sans soi-même avoir la main sur ce système d’information**.
 
               Dans le cas d’API Entreprise, les ressources sont des informations sur les entreprises et les associations, et l’action est une consultation.
 
               {:.fr-highlight}
-              > ℹ️ Cette [page d'API.gouv.fr](https://api.gouv.fr/guides/api-definition){:target="_blank"} vulgarise un peu plus ce qu'est une API et met à votre disposition un démonstrateur.
+              > ℹ️ Cette [page d'API.gouv.fr](https://api.gouv.fr/guides/api-definition){:target="_blank"} explique ce qu'est une API et met à votre disposition un démonstrateur.
 
 
           - question: "Qu'est-ce que l'API Entreprise ? À quoi sert-elle ?"
             answer: |+
-              API Entreprise **récupère pour vous les informations des entreprises et associations** auprès des différentes administrations et les restitue sous format standardisé :
+              API Entreprise **récupère pour vous les informations des entreprises et associations** auprès des différentes administrations et les restitue sous format standardisé.
 
               ![Fonctionnement API Entreprise](<%= image_path('fonctionnement-api-entreprise.png') %>)
 
-              API Entreprise répond à deux grands types d’usages :
+              API Entreprise répond à deux catégories d’utilisation :
 
               - L’**obtention d’une donnée en back office par un agent habilité**
 
-                {:.fr-highlight}
-                > Une fois intégrée, l’API entreprise vous permet d'afficher des informations sur les entreprises et les associations directement dans les interfaces et applications de vos agents habilités.
+                {:.fr-highlight--example}
+                > Une fois intégrée, l’API entreprise vous permet d'afficher **directement dans les interfaces et applications de vos agents habilités**, des informations sur les entreprises et les associations.
 
               - Le **pré-remplissage d’un formulaire** à destination du public ;
 
-                {:.fr-highlight}
-                > L'API Entreprise vous permet de mettre en place, avec les API diffusant de la donnée publique, une aide à la saisie pour vous usagers. Ces derniers renseignent leurs numéros de SIRET ou SIREN, le formulaire est alors pré-rempli des champs disponibles par l'API.
+                {:.fr-highlight--example}
+                > L'API Entreprise vous permet de mettre en place, avec les API diffusant de la donnée publique, une **aide à la saisie pour vous usagers**. Ces derniers renseignent leur numéro de SIRET/SIREN, le formulaire est alors pré-rempli par le contenu disponible par l'API.
+                > 
                 > 💡 La création d’un formulaire pré-rempli est faite pour assister l’usager, celui-ci doit toujours pouvoir amender, rectifier ces mêmes informations sans difficultés.
+                >
                 > ☝️ Pourquoi passer par API Entreprise, qui nécessite une habilitation, si les données sont libres ? API Entreprise vous simplifie l’implémentation de cette aide à la saisie, en vous donnant accès à une information structurée, facilement intégrable dans votre produit.
 
 
               API Entreprise facilite plusieurs types de démarches, pour en savoir plus, consultez nos [cas d'usage et leurs fiches pratiques](<%= root_path %>).
 
 
-          - question: "Qu'est ce qu'API Entreprise change pour moi en tant qu'administration ?"
+          - question: "En quoi API Entreprise facilite mon quotidien en tant qu'agent de de l'administration ?"
             answer: |+
               En intégrant la brique API Entreprise dans votre système d’information ou votre site internet :
 
@@ -78,7 +80,10 @@ fr:
               API Entreprise, c'est **une seule API, pour plusieurs données, de plusieurs fournisseurs différents**.
 
               {:.fr-highlight}
-              > 💡 Sans API Entreprise, vous devez trouver et demander les APIs dont vous avez besoin auprès des différentes administrations. D'une part, la recherche peut être difficile, d'autre part, l'implémentation est plus complexe : Vous devez comprendre plusieurs systèmes techniques, générer plusieurs mots de passe, utiliser plusieurs clé d'accès et collaborer avec plusieurs contacts techniques et métiers. Ce travail, l'API Entreprise le fait pour vous.
+              > 💡 Sans API Entreprise, vous devez trouver et demander les API dont vous avez besoin auprès des différentes administrations. 
+              > D'une part, la recherche peut être difficile, d'autre part, l'implémentation est plus complexe : Vous devez comprendre plusieurs systèmes techniques, générer plusieurs mots de passe, utiliser plusieurs clé d'accès et collaborer avec plusieurs contacts techniques et métiers. 
+              >
+              > Ce travail, l'API Entreprise le fait pour vous.
 
 
 
@@ -98,7 +103,7 @@ fr:
             answer: |+
               L’API Entreprise est réservée :
 
-              - aux  ✅ acteurs publics investis d’une mission de service public : les administrations, leurs opérateurs et les collectivités, les acteurs de santé, etc.
+              - aux  ✅ **acteurs publics investis d’une mission de service public** : les administrations, leurs opérateurs et les collectivités, les acteurs de santé, etc.
               - à leurs prestataires privés qui peuvent être destinataires des informations techniques permettant l’usage de l’API mais en aucun cas des données elles-même.
 
               Même si elle a pour objectif de simplifier leurs démarches, l’API Entreprise ne s’adresse pas :
@@ -107,9 +112,9 @@ fr:
               - ❌ aux entreprises.
 
               Il faut également être techniquement en mesure d'intégrer l'API Entreprise ([En savoir plus](<%= root_path %>))
-              Pour vérifier votre éligibilité et faire une demande d'habilitation le cas échéant, suivez le lien suivant :
-
-              [VERIFIER SON ELIGIBILITE ET DEMANDER UN ACCES](<%= root_path %>)
+              **Pour vérifier votre éligibilité et faire une demande d'habilitation le cas échéant, suivez le lien suivant :**
+              
+              [Vérifier son éligibilité](https://api.gouv.fr/les-api/api-entreprise/demande-acces}{:target=\"_blank\"}){:.fr-btn fr-btn--secondary}
 
               L’accès à l’API Entreprise est modéré et régulé par la DINUM, qui attribue des autorisations de récupération d’informations selon la nature des démarches à traiter (marchés publics, aides publiques,…).
 
@@ -144,17 +149,17 @@ fr:
 
               Vous êtes techniquement en mesure de démarrer avec API Entreprise si :
 
-              - vous avez une direction des systèmes d’information (DSI) qui peut intégrer des APIs ;
-              - ou si vous travaillez ou vous vous apprêtez à travailler avec une équipe technique externe ou un éditeur de logiciel, qui doit être en mesure d’intégrer API Entreprise.
+              - vous avez une **direction des systèmes d’information (DSI)** qui peut intégrer des APIs ;
+              - ou si vous travaillez ou vous vous apprêtez à travailler avec une **équipe technique externe ou un éditeur de logiciel**, qui doit être en mesure d’intégrer API Entreprise.
 
-              Cette équipe technique doit être en mesure de mettre en place les [fondamentaux techniques listés dans cette rubrique de la documentation technique](<%= root_path %>).
+              Cette équipe technique doit être en mesure de mettre en place les [**fondamentaux techniques** listés dans cette rubrique de la documentation technique](<%= root_path %>).
 
               #### Prévoir les incidents et la résilience du service
 
               Il se peut qu’un incident survienne chez API Entreprise, chez un fournisseur de données ou même chez vous. Votre logiciel doit vous permettre de fonctionner de manière dégradée :
 
-              - si vous proposez une fonction de pré-remplissage à vos utilisateurs et que le service est à l’arrêt, prévoyez un fonctionnement sans pré-remplissage.
-              - en cas d’utilisation de justificatifs, prévoyez de permettre à vos usagers de pouvoir transmettre un document par eux-même.
+              - si vous proposez une fonction de pré-remplissage à vos utilisateurs et que le service est à l’arrêt, **prévoyez un fonctionnement sans pré-remplissage**.
+              - en cas d’utilisation de justificatifs, **prévoyez de permettre à vos usagers de pouvoir transmettre un document par eux-même**.
 
               {:.fr-highlight}
               > ℹ️ Le [Dîtes-le-nous une fois](https://www.numerique.gouv.fr/services/guichet-dites-le-nous-une-fois/){:target="_blank"} ne doit pas bloquer les usagers en cas d’incidents techniques : vos usagers préfèreront toujours vous redonner leurs informations plutôt que de ne pas pouvoir utiliser votre service.
@@ -163,8 +168,6 @@ fr:
           - question: "Je recherche un éditeur proposant l’API Entreprise"
             answer: |+
               _Vous êtes un acteur public et recherchez un éditeur de logiciel pour intégrer et utiliser l'API Entreprise ?_
-              API Entreprise n'a pas de légitimité à vous recommander une structure plus qu'une autre.
-
               Voici la liste des éditeurs de logiciel qui intègrent déjà l'API Entreprise :
 
               {:.fr-table}
@@ -180,7 +183,7 @@ fr:
               | **Dematis** <br> Entreprise privée                                                  |                 [e-marchespublics.com](https://www.e-marchespublics.com/){:target="_blank"}                  |                   Marchés publics                   |
               | **Entr'ouvert** <br> coopérative                                                    | [entrouvert.com](https://www.entrouvert.com) <br> [Publik](https://publik.entrouvert.com/){:target="_blank"} |                   Marchés publics                   |
               | **E-attestation** <br> entreprise privée                                            |                     [E-attestations](https://www.e-attestations.com/){:target="_blank"}                      |         Marchés publics et aides publiques          |
-              | **Klekoon** <br> Entreprise privée                                                  |                          [klekoon.com](https://www.klekoon.com/){:target="_blank"}                           |                        TODO                         |
+              | **Klekoon** <br> Entreprise privée                                                  |                          [klekoon.com](https://www.klekoon.com/){:target="_blank"}                           |                   Marchés publics                         |
               | **MGDIS** <br> Entreprise privée                                                    |    [Portail des aides](https://www.mgdis.fr/nos-solutions/pilotage-des-aides-versees/){:target="_blank"}     |                   Aides publiques                   |
               | **Provigis** <br> Entreprise privée                                                 |   [Provigis plateforme](https://www.provigis.com/connexion-plateforme-donneur-dordres/){:target="_blank"}    | Marchés publics et Gestion des titulaires du marché |
               | **Smart Public** <br>Entreprise privée                                              |                        [Smart Public](https://www.smartpublic.fr/){:target="_blank"}                         |                        TODO                         |
