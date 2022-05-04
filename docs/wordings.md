@@ -70,8 +70,21 @@ disponibles dans le fichier de locale):
 
   > Texte de type exemple
   ```
+  
+### Les boutons
 
-### Les liens externes (qui ajoute le picto)
+Bouton primaire bleu du DSFR : 
+
+  ```md
+  [Texte du Bouton](https://www.google.fr}{:target=\"_blank\"}){:.fr-btn}
+  ```
+ Bouton secondaire blanc contour bleu du DSFR : 
+
+  ```md
+  [Texte du Bouton](https://www.google.fr}{:target=\"_blank\"}){:.fr-btn fr-btn--secondary}
+  ```
+
+### Les liens externes (qui ajoute le picto externe)
 
   ```md
   [Lien externe](https://www.google.fr}{:target=\"_blank\"})
