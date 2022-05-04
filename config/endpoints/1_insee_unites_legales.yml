@@ -8,15 +8,14 @@
     \n
     ⚠️ **Elle ne concerne pas&nbsp;:**
     \n
-    * les établissements, appelables avec les API [`sirene/etablissements`](<%= endpoint_path(uid: 'insee/etablissements') %>) 
-et [`sirene/etablissements/diffusibles`](<%= endpoint_path(uid: 'insee/etablissements_diffusibles') %>);
+    * les établissements, appelables avec [cette API pour les \"diffusibles\"](<%= endpoint_path(uid: 'insee/etablissements') %>) 
+et [cette API pour tous les établissements, y compris les \"non-diffusibles\"](<%= endpoint_path(uid: 'insee/etablissements_diffusibles') %>);
     \n
-    * l&apos;adresse des établissements de l&apos;unité légale, appelables avec les API [`sirene/etablissements/:siret/adresse`](<%= endpoint_path(uid: 'insee/adresse_etablissements') 
-et [`sirene/etablissements/diffusibles/:siret/adresse`](<%= endpoint_path(uid: 'insee/adresse_etablissements_diffusibles') ;
+    * l&apos;adresse des établissements de l&apos;unité légale, appelables avec [cette API pour les \"diffusibles\"](<%= endpoint_path(uid: 'insee/adresse_etablissements_diffusibles') %>)  et [cette API pour tous les établissements, y compris les \"non-diffusibles\"](<%= endpoint_path(uid: 'insee/adresse_etablissements') %>) ;
     \n
-    * les mandataires sociaux, appelables avec l&apos;API [`infogreffe/mandataires_sociaux`](<%= endpoint_path(uid: 'infogreffe/mandataires_sociaux').
+    * les mandataires sociaux, appelables avec [cette API](<%= endpoint_path(uid: 'infogreffe/mandataires_sociaux') %>) .
     \n
-    * les informations détaillées du siège social, appelables avec les API [`unites_legales/diffusibles/:siren/siege_social`](<%= endpoint_path(uid: 'insee/siege_social_diffusibles') et [`unites_legales/:siren/siege_social`](<%= endpoint_path(uid: 'insee/siege_social')."
+    * les informations détaillées du siège social, appelables [cette API pour les \"diffusibles\"](<%= endpoint_path(uid: 'insee/siege_social_diffusibles') %>) et [cette API pour tous les sièges sociaux, y compris les \"non-diffusibles\"](<%= endpoint_path(uid: 'insee/siege_social') %>)."
     entity_type_description: "Toutes les unités légales suivantes sont présentes&nbsp;:
     \n
     * ✅ les personnes morales de droit privé : les entreprises. Toutes les entreprises immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RCM) figurent dans la base Sirene ;
@@ -117,21 +116,21 @@ et [`sirene/etablissements/diffusibles/:siret/adresse`](<%= endpoint_path(uid: '
   path: '/v3/insee/sirene/unites_legales/diffusibles/{siren}'
   position: 100
   perimeter:
-    description: "Cette API délivre les informations de référence concernant les unités légales inscrites au répertoire Sirene et diffusibles commercialement.
+    description: "Cette API délivre les informations de référence concernant les unités légales inscrites au répertoire Sirene et \"diffusibles\" commercialement.
     \n
     ⚠️ Elle ne concerne pas&nbsp;:
     \n
-    * les unités légales \"non-diffusibles\", appelables avec l&apos;API [`sirene/unites_legales`](<%= endpoint_path(uid: 'insee/unites_legales') %>) ;
+    * les unités légales \"non-diffusibles\", appelables avec [cette API](<%= endpoint_path(uid: 'insee/unites_legales') %>) ;
     \n
-    * les établissements, appelables avec les API [`sirene/etablissements`](<%= endpoint_path(uid: 'insee/etablissements') %>) 
-et [`sirene/etablissements/diffusibles`](<%= endpoint_path(uid: 'insee/etablissements_diffusibles') %>);
+    * les établissements, appelables avec [cette API pour les \"diffusibles\"](<%= endpoint_path(uid: 'insee/etablissements') %>) 
+et [cette API pour tous les établissements, y compris les \"non-diffusibles\"](<%= endpoint_path(uid: 'insee/etablissements_diffusibles') %>);
     \n
-    * l&apos;adresse des établissements de l&apos;unité légale, appelables avec les API [`sirene/etablissements/:siret/adresse`](<%= endpoint_path(uid: 'insee/adresse_etablissements') 
-et [`sirene/etablissements/diffusibles/:siret/adresse`](<%= endpoint_path(uid: 'insee/adresse_etablissements_diffusibles') ;
+     \n
+    * l&apos;adresse des établissements de l&apos;unité légale, appelables avec [cette API pour les \"diffusibles\"](<%= endpoint_path(uid: 'insee/adresse_etablissements_diffusibles') %>)  et [cette API pour tous les établissements, y compris les \"non-diffusibles\"](<%= endpoint_path(uid: 'insee/adresse_etablissements') %>) ;
     \n
-    * les mandataires sociaux, appelables avec l&apos;API [`infogreffe/mandataires_sociaux`](<%= endpoint_path(uid: 'infogreffe/mandataires_sociaux').
+    * les mandataires sociaux, appelables avec [cette API](<%= endpoint_path(uid: 'infogreffe/mandataires_sociaux') %>) .
     \n
-    * les informations détaillées du siège social, appelables avec les API [`unites_legales/diffusibles/:siren/siege_social`](<%= endpoint_path(uid: 'insee/siege_social_diffusibles') et [`unites_legales/:siren/siege_social`](<%= endpoint_path(uid: 'insee/siege_social')."
+    * les informations détaillées du siège social, appelables avec [cette API pour les \"diffusibles\"](<%= endpoint_path(uid: 'insee/siege_social_diffusibles') %>) et [cette API pour tous les sièges sociaux, y compris les \"non-diffusibles\"](<%= endpoint_path(uid: 'insee/siege_social') %>)."
     entity_type_description: "Uniquement les unités dîtes \"diffusibles\", c&apos;est-à-dire ayant donné leur accord pour que leurs informations soient publiques et utilisées à des fins commerciales.
     \n
     * ✅ les personnes morales de droit privé : les entreprises. Toutes les entreprises immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RCM) figurent dans la base Sirene ;
