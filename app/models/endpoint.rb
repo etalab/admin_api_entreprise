@@ -62,6 +62,30 @@ class Endpoint
                          OpenAPISchemaToExample.new(response_schema).perform
   end
 
+  def custom_provider_errors
+    @custom_provider_errors ||= error_examples('502').reject do |error_payload|
+      %w[
+        000
+        051
+        052
+        053
+        054
+        055
+      ].include?(error_payload['code'][2..])
+    end
+  end
+
+  def error_examples(http_code)
+    http_code_response = open_api_definition['responses'][http_code]
+
+    return [] if http_code_response.blank?
+    return [] if http_code_response['content'].blank?
+
+    http_code_response['content']['application/json']['examples'].values.map { |example_schema_payload|
+      example_schema_payload['value']['errors']
+    }.flatten
+  end
+
   def collection_types
     @collection_types ||= response_schema
       .dig('properties', 'data', 'items', 'properties', 'type') || {}
