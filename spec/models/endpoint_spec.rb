@@ -47,10 +47,10 @@ RSpec.describe Endpoint, type: :model do
         it 'contains error payload' do
           element = subject.first
 
-          expect(element['errors'][0]).to be_present
-          expect(element['errors'][0]).to have_key('title')
-          expect(element['errors'][0]).to have_key('detail')
-          expect(element['errors'][0]).to have_key('code')
+          expect(element).to be_present
+          expect(element).to have_key('title')
+          expect(element).to have_key('detail')
+          expect(element).to have_key('code')
         end
       end
     end

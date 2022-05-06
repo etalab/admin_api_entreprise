@@ -27,6 +27,28 @@ RSpec.describe 'Endpoints show', type: :feature do
     end
   end
 
+  describe 'provider errors' do
+    before do
+      visit endpoint_path(uid:)
+    end
+
+    context 'with an endpoint which has no custom provider error' do
+      let(:uid) { 'fabrique_numerique_ministeres_sociaux/conventions_collectives' }
+
+      it 'does not display errors part' do
+        expect(page).not_to have_css('#erreurs')
+      end
+    end
+
+    context 'with an endpoint which has custom provider error' do
+      let(:uid) { 'urssaf/attestation_vigilance' }
+
+      it 'displays errors part' do
+        expect(page).to have_css('#erreurs')
+      end
+    end
+  end
+
   describe 'actions' do
     describe 'click on example', js: true do
       it 'opens modal with example' do
