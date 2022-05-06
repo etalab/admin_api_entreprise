@@ -58,7 +58,7 @@ RSpec.describe 'Endpoints show', type: :feature do
         click_on 'cgu_link'
 
         within('#main-modal-content') do
-          expect(page).to have_content('Conditions Générales')
+          expect(page).to have_content('Conditions générales')
         end
       end
     end
