@@ -28,8 +28,16 @@ class OpenAPIDefinition
   end
 
   def open_api_definition_content
-    URI.open('https://entreprise.api.gouv.fr/v3/openapi.yaml').read
+    URI.open(open_api_definition_url).read
   rescue StandardError
     File.read(Rails.root.join('config/api-entreprise-v3-openapi.yml'))
+  end
+
+  def open_api_definition_url
+    if Rails.env.sandbox?
+      'https://sandbox.entreprise.api.gouv.fr/v3/openapi.yaml'
+    else
+      'https://entreprise.api.gouv.fr/v3/openapi.yaml'
+    end
   end
 end
