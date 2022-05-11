@@ -14,7 +14,6 @@ class ContactsController < AuthenticatedUsersController
   private
 
   def access_to_contacts?
-    current_user == @token.user ||
-      current_user.admin?
+    current_user == @token.user
   end
 end

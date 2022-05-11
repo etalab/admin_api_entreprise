@@ -52,19 +52,4 @@ RSpec.describe 'token contacts page', type: :feature do
       end
     end
   end
-
-  describe 'connected as an admin' do
-    let(:user) { create(:user, :admin) }
-    let(:token) do
-      jwt = create(:jwt_api_entreprise)
-      jwt.authorization_request.contacts << [contact_tech, contact_business]
-      jwt
-    end
-
-    it_behaves_like 'it displays contacts data'
-
-    it 'has a button to update the contact data' do
-      expect(page).to have_button(dom_id(contact_tech, :edit_button))
-    end
-  end
 end

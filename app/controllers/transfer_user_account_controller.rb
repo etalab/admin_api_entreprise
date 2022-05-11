@@ -34,7 +34,7 @@ class TransferUserAccountController < AuthenticatedUsersController
   end
 
   def can_transfer?
-    return true if current_user.id == @user.id || current_user.admin?
+    return true if current_user.id == @user.id
 
     head :forbidden
 

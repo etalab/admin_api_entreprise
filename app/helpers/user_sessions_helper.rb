@@ -11,21 +11,13 @@ module UserSessionsHelper
     !current_user.nil?
   end
 
-  def current_user_admin?
-    user_signed_in? && current_user.admin?
-  end
-
   def sign_in_and_redirect(user)
     session[:current_user_id] = user.id
     redirect_current_user_to_homepage
   end
 
   def redirect_current_user_to_homepage
-    if current_user.admin?
-      redirect_to admin_users_path
-    else
-      redirect_to user_profile_path
-    end
+    redirect_to user_profile_path
   end
 
   def logout_user

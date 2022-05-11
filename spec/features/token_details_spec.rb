@@ -64,30 +64,4 @@ RSpec.describe 'token details page', type: :feature do
       expect(page).not_to have_button(dom_id(token, :blacklist_button))
     end
   end
-
-  context 'when connected as an admin' do
-    let(:user) { create(:user, :admin) }
-
-    it 'has button to archive tokens' do
-      expect(page).to have_button(dom_id(token, :archive_button))
-    end
-
-    it 'has button to blacklist tokens' do
-      expect(page).to have_button(dom_id(token, :blacklist_button))
-    end
-  end
-
-  describe 'when requested from another user that does not own the token' do
-    before do
-      another_user = create(:user)
-      login_as(another_user)
-      visit token_path(token)
-    end
-
-    it_behaves_like 'display alert', :error
-
-    it 'redirects to the user profile' do
-      expect(page).to have_current_path(user_profile_path)
-    end
-  end
 end

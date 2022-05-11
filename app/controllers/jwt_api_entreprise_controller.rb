@@ -36,7 +36,6 @@ class JwtAPIEntrepriseController < AuthenticatedUsersController
   end
 
   def access_allowed_for_current_user?
-    current_user == @token.user ||
-      current_user.admin?
+    current_user == @token.user
   end
 end

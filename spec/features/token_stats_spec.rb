@@ -4,7 +4,6 @@ RSpec.describe 'stats page for a token', type: :feature do
   subject { visit token_stats_path(token) }
 
   let(:user) { create(:user, :with_jwt) }
-  let(:admin) { create(:user, :admin) }
   let(:token) { user.jwt_api_entreprise.take }
 
   before do
@@ -28,18 +27,6 @@ RSpec.describe 'stats page for a token', type: :feature do
         subject
 
         expect(page).to have_link(href: user_tokens_path)
-      end
-    end
-
-    context 'when connected as an admin' do
-      before do
-        login_as(admin)
-      end
-
-      it 'has a link back to the list of tokens' do
-        subject
-
-        expect(page).to have_link(href: admin_user_path(token.user))
       end
     end
 
