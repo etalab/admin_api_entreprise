@@ -1,11 +1,11 @@
 ---
 - uid: 'inpi/marques'
-  path: '/v3/inpi/marques/{siren}'
+  path: '/v3/inpi/unites_legales/{siren}/marques'
   position: 360
   perimeter:
     entity_type_description: "Seuls les marques pour lesquelles un SIREN a été indiqué par le déposant sont disponibles.
 L&apos;INPI indique qu&apos;environ 60% des dépôts de marques France effectués sont rattachés à un SIREN."
-    geographical_scope_description: "Seules les marques déposées au niveau français sont disponibles. 
+    geographical_scope_description: "Seules les marques déposées au niveau français sont disponibles.
 Les marques déposées au niveau européen ou international ne sont pas renvoyées par cette API car le taux de sirenage de ces dépôts est de 0%."
     entities:
       - associations
@@ -14,7 +14,7 @@ Les marques déposées au niveau européen ou international ne sont pas renvoyé
   call_id: "SIREN"
   providers:
     - 'inpi'
-  data: 
+  data:
     description: "Cette API délivre&nbsp;:
     \n
     \n
@@ -26,7 +26,7 @@ Les marques déposées au niveau européen ou international ne sont pas renvoyé
     \n
     \t* le statut du dépôt et de la marque (demande déposée, publiée, non publiée, totalement rejetée ou irrecevable après publication ; marque enregistrée, renouvelée, ayant fait l&apos;objet d&apos;une renonciation totale, ayant fait l&apos;objet d&apos;un retrait total, annulée ou expirée ; renouvellement demandé) ;
     \n
-    \t* le nom du déposant ou du titulaire ; 
+    \t* le nom du déposant ou du titulaire ;
     \n
     \t* la clef associée au dépôt."
   opening: public

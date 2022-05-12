@@ -1,6 +1,6 @@
 ---
 - uid: 'dgfip/liasses_fiscales'
-  path: '/v3/dgfip/liasses_fiscales/declarations/{year}/{siren}'
+  path: '/v3/dgfip/unites_legales/{siren}/liasses_fiscales/{year}'
   position: 240
   perimeter:
     entity_type_description: "Cette API délivre les liasses fiscales des entreprises&nbsp;:
@@ -19,14 +19,14 @@
     *selon les règles des régimes réels, normal ou simplifié.
     \n
     \n
-    ❌ Les entreprises anciennement aux forfaits BIC/BNC/BA, désormais régimes micro-BIC, micro-BNC 
+    ❌ Les entreprises anciennement aux forfaits BIC/BNC/BA, désormais régimes micro-BIC, micro-BNC
 et micro-BA ne déposent pas de déclarations de résultat mais des éléments spécifiques dans la déclaration 2042C
 qui relève de d’impôt sur le revenu et ne sont donc pas dans le périmètre de cette API."
-    updating_rules_description: "Les déclarations de résultat sont disponibles à compter du lendemain de la date de dépôt (J+1) 
+    updating_rules_description: "Les déclarations de résultat sont disponibles à compter du lendemain de la date de dépôt (J+1)
 et trois jours plus tard (J+3) si le dépôt intervient une veille de week-end.
     \n
     \n
-    La date limite de dépôt des déclarations de résultat est fixée au 2ème jour ouvré qui suit le 1er mai pour les entreprises 
+    La date limite de dépôt des déclarations de résultat est fixée au 2ème jour ouvré qui suit le 1er mai pour les entreprises
 qui clôturent à la fin de l’année civile.
     \n
     \n
@@ -36,11 +36,11 @@ qui clôturent à la fin de l’année civile.
   call_id: "SIREN"
   providers:
     - 'dgfip'
-  data: 
+  data:
     description: "Cette API délivre les liasses fiscales d&apos;une entreprise pour l'année renseignée. Pour chaque liasse fiscale, les informations suivantes sont transmises&nbsp;:
     \n
     \n
-    - Les règles d'imposition applicables à l'entreprise&nbsp;; 
+    - Les règles d'imposition applicables à l'entreprise&nbsp;;
     \n
     - Des informations sur le formulaire complêté par l'entreprise&nbsp;, à l'origine des données transmises;
     \n
@@ -50,15 +50,15 @@ qui clôturent à la fin de l’année civile.
     - Détection de la fraude
   parameters:
     - Numéro de SIREN de l'entreprise
-  faq:  
+  faq:
     - q: "Comment distinguer l&apos;imprimé rectificatif de l&apos;initial ?"
-      a: "Il peut arriver que pour un même exercice il y ait plusieurs fois le même imprimé&nbsp;; 
+      a: "Il peut arriver que pour un même exercice il y ait plusieurs fois le même imprimé&nbsp;;
 il s&apos;agit de corrections qui ont été apportées par une déclaration ultérieure.
       \n
       \n
       Les déclarations dans la réponse (.json) de l'API sont triées de l&apos;imprimé le plus récent au plus ancien. Ainsi **le premier imprimé est toujours le plus récent**.
       \n
       \n
-      Par ailleurs, les deux imprimés auront toujours la même `date_declaration` qui correspond 
-à la date du correctif. Celle-ci ne vous permet donc pas de distinguer l&apos;imprimé rectificatif de 
+      Par ailleurs, les deux imprimés auront toujours la même `date_declaration` qui correspond
+à la date du correctif. Celle-ci ne vous permet donc pas de distinguer l&apos;imprimé rectificatif de
 l&apos;imprimé initial, pour lequel il n&apos;est pas possible de connaître la date de déclaration."

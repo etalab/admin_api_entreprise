@@ -1,6 +1,6 @@
 ---
 - uid: 'cma_france/rnm'
-  path: '/v3/rnm/entreprises/{siren}'
+  path: '/v3/cma_france/rnm/unites_legales/{siren}'
   position: 180
   perimeter:
     description: "Les informations sur les entreprises artisanales fournies par cette API sont également disponibles en [API publique et libre d&apos;accès sur api.gouv.fr](https://api.gouv.fr/les-api/api_rnm}{:target=\"_blank\"})."
@@ -16,8 +16,8 @@
     \n
     \n
     **Peuvent être immatriculées** au RNM, ✅ les entreprises qui dépassent le seuil de dix salariés si leur dirigeant peut se prévaloir de la qualité d&apos;artisan, d&apos;artisan d&apos;art ou de maitre artisan."
-    updating_rules_description: "La fraîcheur des données de cette API correspond à la date de mise à jour faite du répertoire RNM 
-suite aux nouvelles informations déclarées par l&apos;entrepreneur. Cette date est indiquée dans l&apos;API par la clé `rnm_date_mise_a_jour`. 
+    updating_rules_description: "La fraîcheur des données de cette API correspond à la date de mise à jour faite du répertoire RNM
+suite aux nouvelles informations déclarées par l&apos;entrepreneur. Cette date est indiquée dans l&apos;API par la clé `rnm_date_mise_a_jour`.
     \n
     Dans le cas où il n&apos;y a pas encore eu de changement répertorié, la date d&apos;import `rnm_date_import` fait alors référence.
     \n
@@ -61,7 +61,7 @@ au moment de sa déclaration d&apos;un événement dit obligatoire. Néanmoins, 
   call_id: "SIREN"
   providers:
     - 'cma'
-  data: 
+  data:
     description: "Cette API délivre des informations de référence sur les entreprises artisanales, données fournies par la Chambre des Métiers et de l&apos;Artisanat France (CMA France), telles que&nbsp;:
     \n
     \n
@@ -144,11 +144,11 @@ et correspondent au code NAF. La lettre située en sixième position permet de p
       Ce peut être :
       \n
       \n
-      - soit le nom du père, 
+      - soit le nom du père,
       \n
       - soit le nom de la mère,
       \n
-      - soit leurs deux noms accolés dans l&apos;ordre choisi par eux dans la limite d&apos;un nom de famille pour chacun d&apos;eux (Article 311-21 du code civil). 
+      - soit leurs deux noms accolés dans l&apos;ordre choisi par eux dans la limite d&apos;un nom de famille pour chacun d&apos;eux (Article 311-21 du code civil).
       \n
       \n
       Le nom de naissance est aussi le nom qui figure au registre de l&apos;état civil. Cette législation est récente et a pris effet au 1er septembre 2003.
@@ -175,7 +175,7 @@ et correspondent au code NAF. La lettre située en sixième position permet de p
       ##### Le pseudonyme
       \n
       \n
-      La clé `dirigeant_pseudonyme` indique le **nom d&apos;emprunt utilisé par le dirigeant pour se désigner dans l&apos;exercice de son activité**, généralement littéraire ou artistique. 
+      La clé `dirigeant_pseudonyme` indique le **nom d&apos;emprunt utilisé par le dirigeant pour se désigner dans l&apos;exercice de son activité**, généralement littéraire ou artistique.
       \n
       \n
       Le pseudonyme ne correspond pas à un changement de nom, et son choix doit remplir certaines conditions. Il ne doit pas porter atteinte à l&apos;ordre public et il ne doit pas permettre à la personne de s&apos;approprier la renommée ou la parenté d&apos;une personne tiers.

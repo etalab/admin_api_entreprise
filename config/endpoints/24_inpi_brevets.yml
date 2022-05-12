@@ -1,6 +1,6 @@
 ---
 - uid: 'inpi/brevets'
-  path: '/v3/inpi/brevets/{siren}'
+  path: '/v3/inpi/unites_legales/{siren}/brevets'
   position: 350
   perimeter:
     entity_type_description: "Seuls les brevets pour lesquels un SIREN a été indiqué par le déposant sont disponibles.
@@ -12,11 +12,11 @@ L&apos;INPI indique qu&apos;environ 80% des demandes de brevets publiées ces vi
   call_id: "SIREN"
   providers:
     - 'inpi'
-  data: 
-    description: "Cette API délivre : 
+  data:
+    description: "Cette API délivre :
     \n
     \n
-    - le **nombre de brevets déposés** par l&apos;entreprise, pour lesquels le SIREN était précisé dans le dépôt. 
+    - le **nombre de brevets déposés** par l&apos;entreprise, pour lesquels le SIREN était précisé dans le dépôt.
     \n
     - Une **liste des derniers brevets** déposés est également renvoyée, et permet d&apos;obtenir les informations suivantes&nbsp;:
     \n

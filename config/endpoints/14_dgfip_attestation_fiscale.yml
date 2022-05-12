@@ -1,9 +1,9 @@
 ---
 - uid: 'dgfip/attestations_fiscales'
   position: 250
-  path: '/v3/dgfip/attestations_fiscales/{siren}'
+  path: '/v3/dgfip/unites_legales/{siren}/attestation_fiscale'
   perimeter:
-    entity_type_description: "L&apos;attestation de régularité fiscale est **limitée aux ✅ entreprises soumises 
+    entity_type_description: "L&apos;attestation de régularité fiscale est **limitée aux ✅ entreprises soumises
 à l&apos;impôt sur les sociétés (IS)**, à l&apos;exclusion des&nbsp;:
     \n
     \n
@@ -40,7 +40,7 @@
   opening: protected
   providers:
     - 'dgfip'
-  data: 
+  data:
     description: "Cette API délivre l&apos;attestation de régularité fiscale d'une entreprise, au format PDF."
   use_cases:
     - Marchés publics
@@ -49,7 +49,7 @@
   parameters:
     - Numéro de SIREN de l'entreprise
   faq:
-    - q: "Quelles obligations fiscales sont prises en compte ?" 
+    - q: "Quelles obligations fiscales sont prises en compte ?"
       a: "L&apos;attestation prend en compte&nbsp;:
       \n
       \n
@@ -58,7 +58,7 @@
       * ✅ l&apos;impôt sur les sociétés (IS).
       \n
       \n
-      L&apos;attestation ne concerne pas&nbsp;: 
+      L&apos;attestation ne concerne pas&nbsp;:
       \n
       \n
       * ❌ la contribution économique territoriale (CET) ;
@@ -72,26 +72,26 @@
       \n
       Plus d&apos;informations disponibles dans le [BOFIP - Dispositions juridiques communes - Attestation de régularité fiscale.](https://bofip.impots.gouv.fr/bofip/8485-PGP.html/identifiant%3DBOI-DJC-ARF-20161207)
       "
-    - q: "L&apos;attestation délivrée n&apos;est pas signée, comment s&apos;assurer de son authenticité ?" 
+    - q: "L&apos;attestation délivrée n&apos;est pas signée, comment s&apos;assurer de son authenticité ?"
       a: "L&apos;attestation de régularité fiscale délivrée est une version dématérialisée. **Toutes les données délivrées par API Entreprise sont certifiées
 car prise à la source** ; dans ce cas précis, directement auprès de la DGFIP. Par ailleurs, le numéro de délivrance indiqué sur le PDF
-est unique et permet de s&apos;assurer de l&apos;authenticité du document. 
+est unique et permet de s&apos;assurer de l&apos;authenticité du document.
       \n
       \n
       **Cette attestation à la même valeur juridique qu&apos;une attestation signée par les services des impôts concernés**.
       \n
       \n
       Plus d&apos;informations disponibles dans le [BOFIP - Dispositions juridiques communes - Attestation de régularité fiscale](https://bofip.impots.gouv.fr/bofip/8485-PGP.html/identifiant%3DBOI-DJC-ARF-20161207)."
-    - q: "Quelle est la date de délivrance de l&apos;attestation ?" 
-      a: "Théoriquement, l&apos;attestation de régularité fiscale peut être obtenue tout au long de l&apos;année 
+    - q: "Quelle est la date de délivrance de l&apos;attestation ?"
+      a: "Théoriquement, l&apos;attestation de régularité fiscale peut être obtenue tout au long de l&apos;année
 et apprécie la situation de l&apos;entreprise au dernier jour du mois précédant la demande de délivrance de l&apos;attestation.
       \n
       En pratique, les dates de délivrance des attestations obtenues sur API Entreprise varient."
     - q: "Pourquoi l&apos;attestation délivrée par cette API n&apos;est pas valable pour une entreprise filiale d&apos;un groupe de sociétés ?"
-      a: "Une société fille doit fournir deux attestations pour justifier de sa situation fiscale&nbsp;: 
+      a: "Une société fille doit fournir deux attestations pour justifier de sa situation fiscale&nbsp;:
       \n
       \n
-      * sa propre attestation, justifiant de ses propres obligations, 
+      * sa propre attestation, justifiant de ses propres obligations,
       à savoir le dépôt des déclarations de résultats et de TVA, ainsi que le paiement de la TVA ;
       \n
       * l&apos;attestation de régularité fiscale de la société mère du groupe, qui confirme le paiement de l&apos;impôt sur les société.
@@ -103,11 +103,11 @@ et apprécie la situation de l&apos;entreprise au dernier jour du mois précéda
       \n
       Plus d&apos;informations disponibles dans le [BOFIP - Dispositions juridiques communes - Attestation de régularité fiscale](https://bofip.impots.gouv.fr/bofip/8485-PGP.html/identifiant%3DBOI-DJC-ARF-20161207)."
     - q: "L’api ne renvoie pas de pièce, cela signifie-t&apos;il que l’entreprise n’est pas à jour ?"
-      a: "Non, dans certains cas particuliers, l&apos;API ne peut pas renvoyer l’attestation. 
-      Cela ne veut pas dire que l’entreprise n’est pas à jour. Il faut se rapprocher de l’entreprise pour 
+      a: "Non, dans certains cas particuliers, l&apos;API ne peut pas renvoyer l’attestation.
+      Cela ne veut pas dire que l’entreprise n’est pas à jour. Il faut se rapprocher de l’entreprise pour
       lui demander la pièce directement.
       \n
       \n
-      De plus, si une entreprise se voit refuser la délivrance de l’attestation pour cause de carence de ses déclarations 
-      ou de ses paiements, cette non-délivrance n’est pas définitive pour toute l’année N. 
+      De plus, si une entreprise se voit refuser la délivrance de l’attestation pour cause de carence de ses déclarations
+      ou de ses paiements, cette non-délivrance n’est pas définitive pour toute l’année N.
       Si ensuite elle régularise sa situation pour les années N-1 et antérieures, alors l’attestation de régularité lui sera délivrée."
