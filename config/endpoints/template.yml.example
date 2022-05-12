@@ -4,7 +4,17 @@
   # Position au sein de l'index
   position: 501
   perimeter:
-    description: "Une description exhaustive du périmètre utilisée dans la fiche détaillée. Le markdown GFM est supporté ici."
+    description: |+
+      Une description exhaustive du périmètre utilisée dans la fiche détaillée. Le markdown GFM est supporté ici.
+    entity_type_description: |+
+      Une description exhaustive des types d'entité renvoyés par le endpoint dans la fiche détaillée. Le markdown GFM est supporté ici.
+    geographical_scope_description:  |+
+      Une description exhaustive du scope géographique dans la fiche détaillée. Le markdown GFM est supporté ici.
+    updating_rules_description: |+
+      Les règles de mise à jour de la donnée dans al fiche détaillée. Le markdown GFM est supporté ici.
+    know_more_description: |+
+      Lien optionnel pour en savoir plus sur la donnée. Le markdown GFM est supporté ici.
+
     # La liste des clés disponible est stockée dans le fichier endpoint.fr.yml
     entities:
       - entreprises
@@ -14,6 +24,9 @@
   # La liste des clés disponible est stockée dans la locale `providers` du fichier providers.fr.yml
   providers:
     - 'insee'
+  data:
+    description: |+
+      Décrit le type / format des données délivrée par l'API. Le markdown GFM est supporté ici.
   # Ne peut être que public ou protected
   opening: protected
   # Texte libre, cette donnée est affichée sur la page du endpoint
@@ -24,3 +37,7 @@
   # Texte libre, cette donnée est affichée sur la page du endpoint
   parameters:
     - Numéro de SIREN de la personne physique ou morale recherchée
+  faq:
+    - q: "Question ?"
+      a: |+
+        Réponse à la question. Le markdown GFM est supporté ici.
