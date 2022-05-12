@@ -3,7 +3,8 @@
   path: '/v3/qualibat/etablissements/{siret}/certification_batiment'
   position: 330
   perimeter:
-    entity_type_description: "Toutes les entreprises et les artisans du bâtiment ayant obtenu le label de fiabilité Qualibat."
+    entity_type_description: |+
+      Toutes les entreprises et les artisans du bâtiment ayant obtenu le label de fiabilité Qualibat.
     entities:
       - associations
       - entreprises
@@ -11,59 +12,34 @@
   providers:
     - 'qualibat'
   data:
-    description: "Cette API délivre le certificat Qualibat de l&apos;entreprise au format PDF, comportant de nombreuses informations.
-    \n
-    \n
-    **Des informations sur l&apos;établissement&nbsp;:**
-    \n
-    \n
-    - raison sociale, date de création, forme juridique, code NACE et capital social ;
-    \n
-    - adresse et coordonnées de l@apos;entreprise ;
-    \n
-    - nom et fonction des dirigeants responsables ;
-    \n
-    - registre de commerce ou de répertoire des métiers auquel l&apos;entreprise est rattachée ;
-    \n
-    - numéro d&apos;affiliation à la caisse de congés payés ;
-    \n
-    - régularité de la situation fiscale et sociale ;
-    \n
-    - assurances responsabilité civile et travaux ;
-    \n
-    - effectif moyen et chiffre d&apos;affaires hors taxes.
-    \n
-    \n
-    **Des informations sur la qualification&nbsp;:**
-    \n
-    \n
-    - code à quatre chiffres de la capacité technique reconnue à l&apos;entreprise dans une des 9 activités détaillées sur le [site Qualibat](https://www.qualibat.com/nomenclature/}{:target=\"_blank\"});
-    \n
-    - titre de cette capacité ;
-    \n
-    - niveau de technicité ;
-    \n
-    - classification partielle : les moyens humains dont dispose l&apos;entreprise dans l&apos;activité pour laquelle elle est qualifiée sont précisés.
-    \n
-    - date d&apos;attribution : date à laquelle la qualification a été attribuée ou dernièrement renouvellée ;
-    \n
-    - date d&apos;échéance : date d&apos;expiration de validité de la qualification ;
-    \n
-    - système qualité : dans la mesure où l&apos;entreprise a mis en place une démarche qualité certifiée par QUALIBAT,
-    la certification de son système qualité est mentionnée en annexe.
-    \n
-    \n
-    **Des informations liées au certificat&nbsp;:**
-    \n
-    \n
-    - millésime ;
-    \n
-    - durée de validité ;
-    \n
-    - numéro d&apos;identification du certificat.
-    \n
-    \n
-    [**Source&nbsp;: Qualibat**](https://www.qualibat.com/){:target=\"_blank\"})"
+    description: |+
+      Cette API délivre le certificat Qualibat de l'entreprise au format PDF, comportant de nombreuses informations.
+
+      **Des informations sur l'établissement :**
+      - raison sociale, date de création, forme juridique, code NACE et capital social ;
+      - adresse et coordonnées de l@apos;entreprise ;
+      - nom et fonction des dirigeants responsables ;
+      - registre de commerce ou de répertoire des métiers auquel l'entreprise est rattachée ;
+      - numéro d'affiliation à la caisse de congés payés ;
+      - régularité de la situation fiscale et sociale ;
+      - assurances responsabilité civile et travaux ;
+      - effectif moyen et chiffre d'affaires hors taxes.
+
+      **Des informations sur la qualification :**
+      - code à quatre chiffres de la capacité technique reconnue à l'entreprise dans une des 9 activités détaillées sur le [site Qualibat](https://www.qualibat.com/nomenclature/){:target="_blank"});
+      - titre de cette capacité ;
+      - niveau de technicité ;
+      - classification partielle : les moyens humains dont dispose l'entreprise dans l'activité pour laquelle elle est qualifiée sont précisés.
+      - date d'attribution : date à laquelle la qualification a été attribuée ou dernièrement renouvellée ;
+      - date d'échéance : date d'expiration de validité de la qualification ;
+      - système qualité : dans la mesure où l'entreprise a mis en place une démarche qualité certifiée par QUALIBAT, la certification de son système qualité est mentionnée en annexe.
+
+      **Des informations liées au certificat :**
+      - millésime ;
+      - durée de validité ;
+      - numéro d'identification du certificat.
+
+      [**Source : Qualibat**](https://www.qualibat.com/){:target="_blank"}
   opening: public
   use_cases:
     - Marchés publics

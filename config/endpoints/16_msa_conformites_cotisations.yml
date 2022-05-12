@@ -3,15 +3,12 @@
   path: '/v3/msa/etablissements/{siret}/conformite_cotisations'
   position: 270
   perimeter:
-    entity_type_description: "Sont éligibles à la MSA les entreprises de&nbsp;:
-    \n
-    - l&apos;agriculture ;
-    \n
-    - l&apos;élevage ;
-    \n
-    - la pèche ;
-    \n
-    - le forestier."
+    entity_type_description: |+
+      Sont éligibles à la MSA les entreprises de&nbsp;:
+      - l'agriculture ;
+      - l'élevage ;
+      - la pèche ;
+      - le forestier.
     entities:
       - associations
       - entreprises
@@ -19,20 +16,17 @@
   providers:
     - 'msa'
   data:
-    description: "Cette API indique si l&apos;entreprise est à jour de ses cotisations sociales auprès de la MSA. Il existe donc trois situations possibles pour une entreprise&nbsp;:
-    \n
-    \n
-    - L&apos;entreprise est à jour de ses cotisations sociales auprès de la MSA ;
-    \n
-    - L&apos;entreprise n’est pas à jour de ses cotisations sociales ;
-    \n
-    - La régularité de l&apos;entreprise est inconnue. Une analyse est à effectuer par un agent caisse de la MSA pour savoir si le débiteur est à jour ou pas.
-Ce cas particulier intervient sur un laps de temps limité.
-    \n
-    \n
-    {:.fr-highlight}
-    ℹ️ Depuis 2021, la conformité n&apos;est délivrée que si la contribution annuelle de l&apos;OETH (Obligation d’Emploi de Travailleur Handicapé)
-a été acquittée par l&apos;entreprise. Cette compétence était auparavant attribuée à l&apos;AGEFIPH."
+    description: |+
+      Cette API indique si l'entreprise est à jour de ses cotisations sociales auprès de la MSA. Il existe donc trois situations possibles pour une entreprise :
+      - L'entreprise est à jour de ses cotisations sociales auprès de la MSA ;
+      - L'entreprise n’est pas à jour de ses cotisations sociales ;
+      - La régularité de l'entreprise est inconnue. Une analyse est à effectuer par un agent caisse de la MSA pour savoir si le débiteur est à jour ou pas.
+        Ce cas particulier intervient sur un laps de temps limité.
+
+
+      {:.fr-highlight}
+      ℹ️ Depuis 2021, la conformité n'est délivrée que si la contribution annuelle de l'OETH (Obligation d’Emploi de Travailleur Handicapé) a été acquittée par l'entreprise. Cette compétence était auparavant attribuée à l'AGEFIPH.
+
   opening: protected
   use_cases:
     - Marchés publics

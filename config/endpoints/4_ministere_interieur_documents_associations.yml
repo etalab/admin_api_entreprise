@@ -3,27 +3,24 @@
   path: '/v3/ministere_interieur/rna/associations/{siret_or_rna}/documents'
   position: 155
   perimeter:
-    entity_type_description: "Uniquement des associations"
+    entity_type_description: |+
+      Uniquement des associations
     entities:
       - associations
   call_id: "SIRET / RNA"
   providers:
     - 'mi'
   data:
-    description: "Cette API indique le nombre de documents à télécharger, l’URL d’accès, le type et la date des documents.
-    \n
-    \n
-    Les documents transmis peuvent être&nbsp;:
-    \n
-    \n
-    - des récipissés de déclaration de création, de modification, et/ou de dissolution ;
-    \n
-    - les statuts de l&apos;association ;
-    \n
-    - la liste des personnes habilitées à représenter l'association.
-    \n
-    \n
-    ⚠️ Le type et le nombre de documents délivrés varient selon l'association."
+    description: |+
+      Cette API indique le nombre de documents à télécharger, l’URL d’accès, le type et la date des documents.
+
+      Les documents transmis peuvent être&nbsp;:
+      - des récipissés de déclaration de création, de modification, et/ou de dissolution ;
+      - les statuts de l'association ;
+      - la liste des personnes habilitées à représenter l'association.
+
+      ⚠️ Le type et le nombre de documents délivrés varient selon l'association.
+
   opening: public
   use_cases:
     - Marchés publics
