@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Token, type: :model do
-  let(:jwt) { create(:token) }
+  let(:jwt) { create(:token, uid_particulier: 'dummy uuid') }
 
   it 'has valid factories' do
     expect(build(:token)).to be_valid
@@ -130,6 +130,10 @@ RSpec.describe Token, type: :model do
         jwt_scopes = jwt.scopes.pluck(:code)
 
         expect(payload.fetch(:scopes)).to eq(jwt_scopes)
+      end
+
+      it 'contains its UUID from API Particulier into the "uid_particulier" key' do
+        expect(payload.fetch(:uid_particulier)).to eq(jwt.uid_particulier)
       end
 
       describe 'expiration date' do

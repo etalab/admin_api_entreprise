@@ -75,6 +75,7 @@ class Token < ApplicationRecord
       jti: id,
       scopes: scopes.pluck(:code),
       sub: intitule,
+      uid_particulier:,
       iat:,
       version:
     }
