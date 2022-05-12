@@ -1,6 +1,7 @@
 class Seeds
   def perform
-    @scopes = create_scopes
+    @scopes_entreprise = create_scopes_entreprise
+    @scopes_particulier = create_scopes_particulier
 
     @user_email = 'user@yopmail.com'
 
@@ -43,7 +44,7 @@ class Seeds
   end
 
   def create_token_with_contact
-    token = create_token(@user, @scopes.sample(2), authorization_request_params: {
+    token = create_token(@user, @scopes_entreprise.sample(2), authorization_request_params: {
       intitule: 'Mairie de Lyon',
       external_id: 51,
       status: :validated,
@@ -53,7 +54,7 @@ class Seeds
   end
 
   def create_token_valid
-    create_token(@user, @scopes.sample(2), authorization_request_params: {
+    create_token(@user, @scopes_entreprise.sample(2), authorization_request_params: {
       intitule: 'Mairie de Lyon 2',
       external_id: 52,
       status: :validated,
@@ -62,7 +63,7 @@ class Seeds
   end
 
   def create_token_archived
-    create_token(@user, @scopes.sample(2), token_params: { archived: true }, authorization_request_params: {
+    create_token(@user, @scopes_entreprise.sample(2), token_params: { archived: true }, authorization_request_params: {
       intitule: 'Mairie de Strasbourg',
       external_id: 21,
       status: :validated,
@@ -71,7 +72,7 @@ class Seeds
   end
 
   def create_token_blacklisted
-    create_token(@user, @scopes.sample(2), token_params: { blacklisted: true }, authorization_request_params: {
+    create_token(@user, @scopes_entreprise.sample(2), token_params: { blacklisted: true }, authorization_request_params: {
       intitule: 'Mairie de Paris',
       external_id: 42,
       status: :validated,
@@ -80,7 +81,7 @@ class Seeds
   end
 
   def create_token_expired
-    create_token(@user, @scopes.sample(2),
+    create_token(@user, @scopes_entreprise.sample(2),
       token_params: { exp: 1.year.ago, created_at: 2.years.ago + 1.week },
       authorization_request_params: {
         intitule: 'Mairie de Montpellier',
@@ -104,11 +105,6 @@ class Seeds
 
   def create_user(params = {})
     User.create!(params)
-  end
-
-  def create_scopes
-    create_scopes_entreprise
-    create_scopes_particulier
   end
 
   def create_scopes_particulier
@@ -159,7 +155,7 @@ class Seeds
         )
     )
 
-    token.scopes = scopes
+    token.update(scopes:)
 
     token
   end
