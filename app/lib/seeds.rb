@@ -107,6 +107,26 @@ class Seeds
   end
 
   def create_scopes
+    create_scopes_entreprise
+    create_scopes_particulier
+  end
+
+  def create_scopes_particulier
+    %w[
+      dgfip_declarant1_nom
+      cnaf_allocataires
+      pole_emploi_identite
+      mesri_identifiant
+    ].map do |code|
+      Scope.create!(
+        name: code.humanize,
+        api: :particulier,
+        code:
+      )
+    end
+  end
+
+  def create_scopes_entreprise
     %w[
       entreprises
       attestations_fiscales
@@ -118,6 +138,7 @@ class Seeds
     ].map do |code|
       Scope.create!(
         name: code.humanize,
+        api: :entreprise,
         code:
       )
     end

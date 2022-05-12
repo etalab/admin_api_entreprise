@@ -3,6 +3,9 @@ class Scope < ApplicationRecord
 
   scope :available, -> { where.not(code: Scope.internal_scope_codes) }
 
+  validates :api, inclusion: { in: %w[entreprise particulier] }
+  validates :name, :code, presence: true
+
   def self.internal_scope_codes
     %w[
       uptime
