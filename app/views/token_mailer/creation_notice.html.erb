@@ -12,8 +12,8 @@
 
     <p>Ce token possède les droits d'accès suivants :</p>
     <ul>
-      <% @jwt.roles.each do |role| %>
-        <li><%= role.name %></li>
+      <% @jwt.scopes.each do |scope| %>
+        <li><%= scope.name %></li>
       <% end %>
     </ul>
 

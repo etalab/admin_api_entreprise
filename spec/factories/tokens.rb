@@ -25,22 +25,22 @@ FactoryBot.define do
       token.authorization_request.user = evaluator.user if evaluator.user
     end
 
-    trait :with_roles do
-      roles do
+    trait :with_scopes do
+      scopes do
         [
-          build(:role)
+          build(:scope)
         ]
       end
     end
 
-    trait :with_specific_roles do
+    trait :with_specific_scopes do
       transient do
-        specific_roles { ['entreprises'] }
+        specific_scopes { ['entreprises'] }
         intitule { 'JWT' }
       end
 
-      roles do
-        specific_roles.map { |role| build(:role, :with_specific_role, specific_role: role) }
+      scopes do
+        specific_scopes.map { |scope| build(:scope, :with_specific_scope, specific_scope: scope) }
       end
     end
 

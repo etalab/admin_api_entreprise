@@ -6,7 +6,7 @@ class DatapassWebhook::CreateJwtToken < ApplicationInteractor
     token = create_jwt_token
 
     if token.persisted?
-      affect_roles(token)
+      affect_scopes(token)
       context.token_id = token.id
     else
       context.fail!(message: 'Fail to create token')
@@ -23,15 +23,15 @@ class DatapassWebhook::CreateJwtToken < ApplicationInteractor
     )
   end
 
-  def affect_roles(token)
-    token.roles = Role.where(code: roles)
+  def affect_scopes(token)
+    token.scopes = Scope.where(code: scopes)
   end
 
   def token_already_exists?
     context.authorization_request.token.present?
   end
 
-  def roles
+  def scopes
     context.data['pass']['scopes'].map { |code, bool|
       code if bool
     }.compact

@@ -7,8 +7,8 @@ Vous pouvez le récupérer en suivant ce lien :
 <%= @url_to_jwt %>
 
 Ce token possède les droits d'accès suivants :
-<% @jwt.roles.each do |role| %>
-  - <%= role.name %>
+<% @jwt.scopes.each do |scope| %>
+  - <%= scope.name %>
 <% end %>
 
 N'oubliez pas, vous pouvez consulter les statistiques d'utilisations propre à ce jeton en temps réel. Voici les statistiques actuellement disponibles:

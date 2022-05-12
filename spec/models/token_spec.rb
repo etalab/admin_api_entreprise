@@ -126,10 +126,10 @@ RSpec.describe Token, type: :model do
         expect(payload.fetch(:iat)).to eq(jwt.iat)
       end
 
-      it 'contains all its access roles into the "roles" key' do
-        jwt_roles = jwt.roles.pluck(:code)
+      it 'contains all its access scopes into the "scopes" key' do
+        jwt_scopes = jwt.scopes.pluck(:code)
 
-        expect(payload.fetch(:roles)).to eq(jwt_roles)
+        expect(payload.fetch(:scopes)).to eq(jwt_scopes)
       end
 
       describe 'expiration date' do

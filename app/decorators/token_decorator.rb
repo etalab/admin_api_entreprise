@@ -1,16 +1,16 @@
 class TokenDecorator < ApplicationDecorator
   delegate_all
 
-  def attestations_roles
-    roles.select { |r| attestations_codes.include? r.code }
+  def attestations_scopes
+    scopes.select { |r| attestations_codes.include? r.code }
   end
 
   def include_attestation_sociale?
-    attestations_roles.map(&:code).include? 'attestations_sociales'
+    attestations_scopes.map(&:code).include? 'attestations_sociales'
   end
 
   def include_attestation_fiscale?
-    attestations_roles.map(&:code).include? 'attestations_fiscales'
+    attestations_scopes.map(&:code).include? 'attestations_fiscales'
   end
 
   private

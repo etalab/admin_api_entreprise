@@ -1,6 +1,6 @@
 class Seeds
   def perform
-    @roles = create_roles
+    @scopes = create_scopes
 
     @user_email = 'user@yopmail.com'
 
@@ -43,7 +43,7 @@ class Seeds
   end
 
   def create_token_with_contact
-    token = create_token(@user, @roles.sample(2), authorization_request_params: {
+    token = create_token(@user, @scopes.sample(2), authorization_request_params: {
       intitule: 'Mairie de Lyon',
       external_id: 51,
       status: :validated,
@@ -53,7 +53,7 @@ class Seeds
   end
 
   def create_token_valid
-    create_token(@user, @roles.sample(2), authorization_request_params: {
+    create_token(@user, @scopes.sample(2), authorization_request_params: {
       intitule: 'Mairie de Lyon 2',
       external_id: 52,
       status: :validated,
@@ -62,7 +62,7 @@ class Seeds
   end
 
   def create_token_archived
-    create_token(@user, @roles.sample(2), token_params: { archived: true }, authorization_request_params: {
+    create_token(@user, @scopes.sample(2), token_params: { archived: true }, authorization_request_params: {
       intitule: 'Mairie de Strasbourg',
       external_id: 21,
       status: :validated,
@@ -71,7 +71,7 @@ class Seeds
   end
 
   def create_token_blacklisted
-    create_token(@user, @roles.sample(2), token_params: { blacklisted: true }, authorization_request_params: {
+    create_token(@user, @scopes.sample(2), token_params: { blacklisted: true }, authorization_request_params: {
       intitule: 'Mairie de Paris',
       external_id: 42,
       status: :validated,
@@ -80,7 +80,7 @@ class Seeds
   end
 
   def create_token_expired
-    create_token(@user, @roles.sample(2),
+    create_token(@user, @scopes.sample(2),
       token_params: { exp: 1.year.ago, created_at: 2.years.ago + 1.week },
       authorization_request_params: {
         intitule: 'Mairie de Montpellier',
@@ -106,7 +106,7 @@ class Seeds
     User.create!(params)
   end
 
-  def create_roles
+  def create_scopes
     %w[
       entreprises
       attestations_fiscales
@@ -116,7 +116,7 @@ class Seeds
       probtp
       etablissements
     ].map do |code|
-      Role.create!(
+      Scope.create!(
         name: code.humanize,
         code:
       )
@@ -127,7 +127,7 @@ class Seeds
     Contact.create!(params)
   end
 
-  def create_token(user, roles, token_params: {}, authorization_request_params: {})
+  def create_token(user, scopes, token_params: {}, authorization_request_params: {})
     authorization_request = create_authorization_request(authorization_request_params.merge(user:))
 
     token = Token.create!(
@@ -138,7 +138,7 @@ class Seeds
         )
     )
 
-    token.roles = roles
+    token.scopes = scopes
 
     token
   end

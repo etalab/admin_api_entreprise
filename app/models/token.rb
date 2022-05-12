@@ -13,7 +13,7 @@ class Token < ApplicationRecord
 
   has_one :user, through: :authorization_request
   has_many :contacts, through: :authorization_request
-  has_and_belongs_to_many :roles
+  has_and_belongs_to_many :scopes
 
   scope :not_blacklisted, -> { where(blacklisted: false) }
   scope :issued_in_last_seven_days, -> { where(created_at: 3.weeks.ago..1.week.ago) }
@@ -27,8 +27,8 @@ class Token < ApplicationRecord
     AccessToken.create(token_payload)
   end
 
-  def access_roles
-    roles.pluck(:code)
+  def access_scopes
+    scopes.pluck(:code)
   end
 
   def expired?
@@ -62,7 +62,7 @@ class Token < ApplicationRecord
   end
 
   def self.find_best_jwt_to_retrieve_attestations(jwts)
-    jwts.max_by { |jwt| jwt.decorate.attestations_roles }
+    jwts.max_by { |jwt| jwt.decorate.attestations_scopes }
   end
 
   delegate :intitule, :siret, to: :authorization_request
@@ -73,7 +73,7 @@ class Token < ApplicationRecord
     payload = {
       uid: user ? user.id : nil,
       jti: id,
-      roles: roles.pluck(:code),
+      scopes: scopes.pluck(:code),
       sub: intitule,
       iat:,
       version:

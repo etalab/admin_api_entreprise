@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_many :authorization_requests, dependent: :destroy
   has_many :token, through: :authorization_requests
   has_many :contacts, through: :authorization_requests
-  has_many :roles, through: :token
+  has_many :scopes, through: :token
 
   validates :email,
     presence: true,

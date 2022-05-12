@@ -6,12 +6,12 @@ class AttestationPolicy < ApplicationPolicy
   end
 
   def any?
-    any_token_with_attestation_roles?
+    any_token_with_attestation_scopes?
   end
 
   private
 
-  def any_token_with_attestation_roles?
-    user.token.flat_map { |jwt| jwt.decorate.attestations_roles }.any?
+  def any_token_with_attestation_scopes?
+    user.token.flat_map { |jwt| jwt.decorate.attestations_scopes }.any?
   end
 end

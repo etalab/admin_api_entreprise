@@ -35,12 +35,12 @@ RSpec.shared_examples 'it displays user owned token' do
     end
   end
 
-  it 'displays tokens access roles' do
-    token = create(:token, :with_roles, user:)
-    roles = token.roles.pluck(:code)
+  it 'displays tokens access scopes' do
+    token = create(:token, :with_scopes, user:)
+    scopes = token.scopes.pluck(:code)
     subject
 
-    expect(page).to have_content(*roles)
+    expect(page).to have_content(*scopes)
   end
 
   it 'has a button to create a magic link' do
