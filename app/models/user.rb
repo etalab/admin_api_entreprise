@@ -4,9 +4,9 @@ class User < ApplicationRecord
   include RandomToken
 
   has_many :authorization_requests, dependent: :destroy
-  has_many :jwt_api_entreprise, through: :authorization_requests
+  has_many :token, through: :authorization_requests
   has_many :contacts, through: :authorization_requests
-  has_many :roles, through: :jwt_api_entreprise
+  has_many :roles, through: :token
 
   validates :email,
     presence: true,

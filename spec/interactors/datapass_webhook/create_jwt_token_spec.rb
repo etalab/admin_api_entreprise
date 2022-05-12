@@ -29,7 +29,7 @@ RSpec.describe DatapassWebhook::CreateJwtToken, type: :interactor do
     it 'does not create a new jwt token' do
       expect {
         subject
-      }.not_to change { JwtAPIEntreprise.count }
+      }.not_to change { Token.count }
     end
   end
 
@@ -43,9 +43,9 @@ RSpec.describe DatapassWebhook::CreateJwtToken, type: :interactor do
     it 'creates a new jwt token with valid attributes and roles' do
       expect {
         subject
-      }.to change { JwtAPIEntreprise.count }
+      }.to change { Token.count }
 
-      token = JwtAPIEntreprise.last
+      token = Token.last
 
       expect(token.authorization_request).to eq(authorization_request)
       expect(token.exp).to eq(18.months.from_now.to_i)

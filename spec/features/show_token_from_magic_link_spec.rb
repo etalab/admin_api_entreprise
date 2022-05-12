@@ -18,7 +18,7 @@ RSpec.describe 'show token from magic link', type: :feature do
   end
 
   context 'when the magic link token exists' do
-    let!(:jwt) { create(:jwt_api_entreprise, :with_magic_link) }
+    let!(:jwt) { create(:token, :with_magic_link) }
     let(:magic_token) { jwt.magic_link_token }
 
     context 'when the magic token is still active' do

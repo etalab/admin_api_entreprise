@@ -1,4 +1,4 @@
-class JwtAPIEntreprisePolicy < ApplicationPolicy
+class TokenPolicy < ApplicationPolicy
   attr_reader :jwt_user
 
   def initialize(jwt_user, jwt_record)

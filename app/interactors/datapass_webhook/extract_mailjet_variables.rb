@@ -59,11 +59,11 @@ class DatapassWebhook::ExtractMailjetVariables < ApplicationInteractor
   end
 
   def token_present?
-    authorization_request.jwt_api_entreprise.present?
+    authorization_request.token.present?
   end
 
   def token_roles
-    @token_roles ||= authorization_request.jwt_api_entreprise.roles.pluck(:code)
+    @token_roles ||= authorization_request.token.roles.pluck(:code)
   end
 
   def events_from_instructor

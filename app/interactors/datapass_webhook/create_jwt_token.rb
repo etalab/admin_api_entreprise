@@ -16,8 +16,8 @@ class DatapassWebhook::CreateJwtToken < ApplicationInteractor
   private
 
   def create_jwt_token
-    authorization_request.create_jwt_api_entreprise(
-      JwtAPIEntreprise.default_create_params.merge(
+    authorization_request.create_token(
+      Token.default_create_params.merge(
         authorization_request_id: authorization_request.external_id
       )
     )
@@ -28,7 +28,7 @@ class DatapassWebhook::CreateJwtToken < ApplicationInteractor
   end
 
   def token_already_exists?
-    context.authorization_request.jwt_api_entreprise.present?
+    context.authorization_request.token.present?
   end
 
   def roles

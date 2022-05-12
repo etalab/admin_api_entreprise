@@ -22,7 +22,7 @@ RSpec.describe 'User attestations through tokens', type: :feature do
     context 'when user has tokens with attestation roles' do
       let(:user) { create(:user, :with_jwt, roles: %w[attestations_sociales attestations_fiscales]) }
       let(:id_selected_jwt) { find('select#token').value }
-      let(:roles_selected_jwt) { JwtAPIEntreprise.find(id_selected_jwt).roles }
+      let(:roles_selected_jwt) { Token.find(id_selected_jwt).roles }
 
       it 'has a select list' do
         expect(page).to have_select('token')

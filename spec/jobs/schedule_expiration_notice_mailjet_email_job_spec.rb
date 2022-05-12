@@ -10,7 +10,7 @@ RSpec.describe ScheduleExpirationNoticeMailjetEmailJob, type: :job do
     end
 
     let(:expires_in) { 90 }
-    let(:token) { create(:jwt_api_entreprise) }
+    let(:token) { create(:token) }
     let(:token_id) { token.id }
 
     context 'when token id is not found' do

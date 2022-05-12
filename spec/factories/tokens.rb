@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :jwt_api_entreprise do
+  factory :token do
     iat { Time.zone.now.to_i }
     exp { 18.months.from_now.to_i }
     archived { false }
@@ -13,16 +13,16 @@ FactoryBot.define do
       intitule { 'JWT' }
     end
 
-    after(:build) do |jwt_api_entreprise, evaluator|
-      if jwt_api_entreprise.authorization_request_id && jwt_api_entreprise.authorization_request.nil?
-        jwt_api_entreprise.authorization_request = build(
-          :authorization_request, jwt_api_entreprise:, intitule: evaluator.intitule
+    after(:build) do |token, evaluator|
+      if token.authorization_request_id && token.authorization_request.nil?
+        token.authorization_request = build(
+          :authorization_request, token:, intitule: evaluator.intitule
         )
-      elsif jwt_api_entreprise.authorization_request_id
-        jwt_api_entreprise.authorization_request.external_id = jwt_api_entreprise.authorization_request_id
+      elsif token.authorization_request_id
+        token.authorization_request.external_id = token.authorization_request_id
       end
 
-      jwt_api_entreprise.authorization_request.user = evaluator.user if evaluator.user
+      token.authorization_request.user = evaluator.user if evaluator.user
     end
 
     trait :with_roles do

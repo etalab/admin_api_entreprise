@@ -21,23 +21,23 @@ RSpec.describe User::TransferAccount, type: :organizer do
       it { is_expected.to be_a_success }
 
       it 'gives the token ownership to the new user' do
-        transfered_jwt_ids = current_owner.jwt_api_entreprise_ids
+        transfered_jwt_ids = current_owner.token_ids
         subject
 
-        expect(target_user.jwt_api_entreprise_ids).to include(*transfered_jwt_ids)
+        expect(target_user.token_ids).to include(*transfered_jwt_ids)
       end
 
       it 'keeps the existing tokens of the target user' do
-        existing_tokens_id = target_user.jwt_api_entreprise_ids
+        existing_tokens_id = target_user.token_ids
         subject
 
-        expect(target_user.jwt_api_entreprise_ids).to include(*existing_tokens_id)
+        expect(target_user.token_ids).to include(*existing_tokens_id)
       end
 
       it 'removes all token ownership from the previous user' do
         subject
 
-        expect(current_owner.reload.jwt_api_entreprise).to be_empty
+        expect(current_owner.reload.token).to be_empty
       end
 
       it 'notifies the new owner by email' do
@@ -67,17 +67,17 @@ RSpec.describe User::TransferAccount, type: :organizer do
       it { is_expected.to be_success }
 
       it 'gives the token ownership to the new user' do
-        transfered_jwt_ids = current_owner.jwt_api_entreprise_ids
+        transfered_jwt_ids = current_owner.token_ids
         subject
         target_user = User.find_by_email(target_user_email)
 
-        expect(target_user.jwt_api_entreprise_ids).to contain_exactly(*transfered_jwt_ids)
+        expect(target_user.token_ids).to contain_exactly(*transfered_jwt_ids)
       end
 
       it 'removes token ownership of the previous user' do
         subject
 
-        expect(current_owner.reload.jwt_api_entreprise).to be_empty
+        expect(current_owner.reload.token).to be_empty
       end
 
       it 'sends a notification email for account creation' do
@@ -116,7 +116,7 @@ RSpec.describe User::TransferAccount, type: :organizer do
     end
 
     it 'does not transfer any tokens' do
-      expect { subject }.not_to change(current_owner.jwt_api_entreprise, :count)
+      expect { subject }.not_to change(current_owner.token, :count)
     end
 
     it 'does not send email notification' do

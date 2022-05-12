@@ -1,13 +1,13 @@
-class JwtAPIEntrepriseController < AuthenticatedUsersController
+class TokenController < AuthenticatedUsersController
   def index
-    @tokens = current_user.jwt_api_entreprise
+    @tokens = current_user.token
       .unexpired
       .not_blacklisted
       .where(archived: false)
   end
 
   def show
-    @token = JwtAPIEntreprise.find(params[:id])
+    @token = Token.find(params[:id])
 
     unless access_allowed_for_current_user?
       error_message(title: t('.error.title'))

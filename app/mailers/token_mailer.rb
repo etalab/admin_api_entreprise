@@ -1,4 +1,4 @@
-class JwtAPIEntrepriseMailer < ApplicationMailer
+class TokenMailer < ApplicationMailer
   def magic_link(recipient, jwt)
     @jwt = jwt
     @magic_link_url = Rails.configuration.jwt_magic_link_url + jwt.magic_link_token

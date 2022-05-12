@@ -1,5 +1,5 @@
 class Role < ApplicationRecord
-  has_and_belongs_to_many :jwt_api_entreprise
+  has_and_belongs_to_many :token
 
   scope :available, -> { where.not(code: Role.internal_role_codes) }
 

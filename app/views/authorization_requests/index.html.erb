@@ -41,7 +41,7 @@
             </td>
 
             <td>
-              <% if token = authorization_request.jwt_api_entreprise %>
+              <% if token = authorization_request.token %>
                 <% if token.expired? %>
                   <%= link_to t('.table.token.expired'), token_path(token), class: %w(fr-tag fr-tag--sm fr-tag--purple-glycine fr-fi-arrow-right-line), data: { turbo_frame: '_top' } %>
                 <% elsif token.blacklisted? %>

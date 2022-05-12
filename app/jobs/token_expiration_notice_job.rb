@@ -1,4 +1,4 @@
-class JwtAPIEntrepriseExpirationNoticeJob < ApplicationJob
+class TokenExpirationNoticeJob < ApplicationJob
   queue_as :default
 
   def perform(*_args)

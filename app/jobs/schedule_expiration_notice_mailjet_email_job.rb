@@ -7,7 +7,7 @@ class ScheduleExpirationNoticeMailjetEmailJob < ApplicationJob
   def perform(jwt_id, expires_in)
     return if expiration_in_to_mailjet_template_id(expires_in).nil?
 
-    token = JwtAPIEntreprise.find_by(id: jwt_id)
+    token = Token.find_by(id: jwt_id)
     return if token.nil? || token.authorization_request.nil?
 
     deliver_mailjet_email(

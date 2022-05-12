@@ -45,7 +45,7 @@ RSpec.describe DatapassWebhook::ExtractMailjetVariables, type: :interactor do
   end
 
   context 'when authorization request has a token' do
-    let!(:jwt_api_entreprise) { create(:jwt_api_entreprise, authorization_request:) }
+    let!(:token) { create(:token, authorization_request:) }
 
     before do
       %w[
@@ -53,7 +53,7 @@ RSpec.describe DatapassWebhook::ExtractMailjetVariables, type: :interactor do
         entreprise
         liasse_fiscale
       ].each do |code|
-        jwt_api_entreprise.roles << create(:role, code:)
+        token.roles << create(:role, code:)
       end
 
       create(:role, code: 'etablissement')

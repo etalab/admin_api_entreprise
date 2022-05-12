@@ -1,4 +1,4 @@
-class JwtAPIEntreprise < ApplicationRecord
+class Token < ApplicationRecord
   self.ignored_columns = %w[
     user_id
     access_request_survey_sent

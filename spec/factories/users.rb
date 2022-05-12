@@ -48,31 +48,31 @@ FactoryBot.define do
 
       after(:create) do |u, evaluator|
         create(
-          :jwt_api_entreprise,
+          :token,
           :with_specific_roles,
           specific_roles: evaluator.roles,
           user: u,
           intitule: "JWT with roles: #{evaluator.roles}"
         )
-        create(:jwt_api_entreprise, :with_contacts, user: u, intitule: 'JWT with no roles')
+        create(:token, :with_contacts, user: u, intitule: 'JWT with no roles')
       end
     end
 
     trait :with_blacklisted_jwt do
       after(:create) do |u|
-        create(:jwt_api_entreprise, :blacklisted, user: u)
+        create(:token, :blacklisted, user: u)
       end
     end
 
     trait :with_archived_jwt do
       after(:create) do |u|
-        create(:jwt_api_entreprise, :archived, user: u)
+        create(:token, :archived, user: u)
       end
     end
 
     trait :with_expired_jwt do
       after(:create) do |u|
-        create(:jwt_api_entreprise, :expired, user: u)
+        create(:token, :expired, user: u)
       end
     end
   end

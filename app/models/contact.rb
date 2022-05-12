@@ -1,10 +1,10 @@
 class Contact < ApplicationRecord
   self.ignored_columns = %w[
-    jwt_api_entreprise_id
+    token_id
   ]
 
   belongs_to :authorization_request
-  has_one :jwt_api_entreprise, through: :authorization_request
+  has_one :token, through: :authorization_request
 
   validates :email, presence: true, format: { with: /#{EMAIL_FORMAT_REGEX}/ }
   validates :contact_type, presence: true, inclusion: { in: %w[admin tech other] }
@@ -15,10 +15,10 @@ class Contact < ApplicationRecord
 
   scope :not_expired, lambda {
     joins(
-      :jwt_api_entreprise
+      :token
     ).where(
       authorization_request: {
-        jwt_api_entreprises: {
+        tokens: {
           blacklisted: false,
           archived: false
         }
@@ -26,5 +26,5 @@ class Contact < ApplicationRecord
     )
   }
 
-  scope :with_token, -> { Contact.joins(authorization_request: :jwt_api_entreprise) }
+  scope :with_token, -> { Contact.joins(authorization_request: :token) }
 end

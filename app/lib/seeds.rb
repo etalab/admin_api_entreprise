@@ -21,7 +21,7 @@ class Seeds
       [
         User,
         AuthorizationRequest,
-        JwtAPIEntreprise,
+        Token,
         Contact
       ].each do |model_klass|
         model_klass.find_each do |model|
@@ -130,8 +130,8 @@ class Seeds
   def create_token(user, roles, token_params: {}, authorization_request_params: {})
     authorization_request = create_authorization_request(authorization_request_params.merge(user:))
 
-    token = JwtAPIEntreprise.create!(
-      JwtAPIEntreprise.default_create_params
+    token = Token.create!(
+      Token.default_create_params
         .merge(token_params)
         .merge(
           authorization_request:

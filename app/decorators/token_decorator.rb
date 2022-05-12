@@ -1,4 +1,4 @@
-class JwtAPIEntrepriseDecorator < ApplicationDecorator
+class TokenDecorator < ApplicationDecorator
   delegate_all
 
   def attestations_roles

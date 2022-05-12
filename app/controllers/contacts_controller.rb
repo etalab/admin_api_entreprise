@@ -1,6 +1,6 @@
 class ContactsController < AuthenticatedUsersController
   def index
-    @token = JwtAPIEntreprise.includes(:contacts).find(params[:id])
+    @token = Token.includes(:contacts).find(params[:id])
 
     if access_to_contacts?
       @contacts = @token.contacts

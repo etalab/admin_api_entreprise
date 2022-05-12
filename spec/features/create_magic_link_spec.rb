@@ -9,7 +9,7 @@ RSpec.describe 'create a magic link', type: :feature do
     end
   end
 
-  let(:token) { create(:jwt_api_entreprise) }
+  let(:token) { create(:token) }
 
   before { login_as(user) }
 
@@ -57,7 +57,7 @@ RSpec.describe 'create a magic link', type: :feature do
 
     it 'does not send the magic link email' do
       expect { subject }
-        .not_to have_enqueued_mail(JwtAPIEntrepriseMailer, :magic_link)
+        .not_to have_enqueued_mail(TokenMailer, :magic_link)
     end
 
     it 'returns an error' do
@@ -69,7 +69,7 @@ RSpec.describe 'create a magic link', type: :feature do
 
   describe 'with javascript actived', js: true do
     let(:user) { create(:user, :with_jwt) }
-    let(:token) { user.jwt_api_entreprise.sample }
+    let(:token) { user.token.sample }
 
     it 'works' do
       visit user_tokens_path

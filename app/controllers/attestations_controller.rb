@@ -2,15 +2,15 @@ class AttestationsController < AuthenticatedUsersController
   before_action :authorize!
 
   def index
-    @jwts = current_user.jwt_api_entreprise
+    @jwts = current_user.token
 
-    @best_jwt = JwtAPIEntreprise.find_best_jwt_to_retrieve_attestations(@jwts)
+    @best_jwt = Token.find_best_jwt_to_retrieve_attestations(@jwts)
   end
 
   def new; end
 
   def search
-    @jwt = JwtAPIEntreprise.find(params[:jwt_id]).decorate
+    @jwt = Token.find(params[:jwt_id]).decorate
 
     siade_search
 

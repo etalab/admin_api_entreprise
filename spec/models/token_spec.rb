@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe JwtAPIEntreprise, type: :model do
-  let(:jwt) { create(:jwt_api_entreprise) }
+RSpec.describe Token, type: :model do
+  let(:jwt) { create(:token) }
 
   it 'has valid factories' do
-    expect(build(:jwt_api_entreprise)).to be_valid
+    expect(build(:token)).to be_valid
   end
 
   describe '#generate_magic_link_token' do
-    let(:jwt) { create(:jwt_api_entreprise) }
+    let(:jwt) { create(:token) }
 
     it 'generates a random string for the :magic_link_token attribute' do
       jwt.update(magic_link_token: nil)
@@ -32,7 +32,7 @@ RSpec.describe JwtAPIEntreprise, type: :model do
   describe '.issued_in_last_seven_days' do
     subject { described_class }
 
-    let!(:token) { create(:jwt_api_entreprise, datetime_of_issue) }
+    let!(:token) { create(:token, datetime_of_issue) }
 
     context 'when the token was issued up to maximum 6 days ago' do
       let(:datetime_of_issue) { :less_than_seven_days_ago }
@@ -50,8 +50,8 @@ RSpec.describe JwtAPIEntreprise, type: :model do
   describe '.unexpired' do
     subject { described_class.unexpired }
 
-    let!(:expired_jwt) { create_list(:jwt_api_entreprise, 2, :expired) }
-    let!(:unexpired_jwt) { create_list(:jwt_api_entreprise, 2) }
+    let!(:expired_jwt) { create_list(:token, 2, :expired) }
+    let!(:unexpired_jwt) { create_list(:token, 2) }
 
     it 'returns unexpired tokens' do
       expect(subject).to include(*unexpired_jwt)
@@ -63,10 +63,10 @@ RSpec.describe JwtAPIEntreprise, type: :model do
   end
 
   describe 'scopes' do
-    let!(:active) { create_list(:jwt_api_entreprise, 2) }
-    let!(:archived) { create_list(:jwt_api_entreprise, 2, :archived) }
-    let!(:blacklisted) { create_list(:jwt_api_entreprise, 2, :blacklisted) }
-    let!(:archived_and_blacklisted) { create_list(:jwt_api_entreprise, 2, :blacklisted, :archived) }
+    let!(:active) { create_list(:token, 2) }
+    let!(:archived) { create_list(:token, 2, :archived) }
+    let!(:blacklisted) { create_list(:token, 2, :blacklisted) }
+    let!(:archived_and_blacklisted) { create_list(:token, 2, :blacklisted, :archived) }
 
     describe '.active' do
       subject { described_class.active }
@@ -154,7 +154,7 @@ RSpec.describe JwtAPIEntreprise, type: :model do
 
   describe '#expired?' do
     context 'when not expired' do
-      let(:token) { create(:jwt_api_entreprise, exp: 1.day.from_now) }
+      let(:token) { create(:token, exp: 1.day.from_now) }
 
       it 'returns false' do
         expect(token).not_to be_expired
@@ -162,7 +162,7 @@ RSpec.describe JwtAPIEntreprise, type: :model do
     end
 
     context 'when expired' do
-      let(:token) { create(:jwt_api_entreprise, exp: 1.day.ago) }
+      let(:token) { create(:token, exp: 1.day.ago) }
 
       it 'returns true' do
         expect(token).to be_expired
@@ -193,7 +193,7 @@ RSpec.describe JwtAPIEntreprise, type: :model do
   describe '#user_and_contacts_email' do
     subject { jwt.user_and_contacts_email }
 
-    let(:jwt) { create(:jwt_api_entreprise, :with_contacts) }
+    let(:jwt) { create(:token, :with_contacts) }
 
     it 'contains the jwt owner\'s email (account owner)' do
       user_email = jwt.user.email

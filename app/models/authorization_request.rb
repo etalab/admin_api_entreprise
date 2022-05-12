@@ -2,7 +2,7 @@ class AuthorizationRequest < ApplicationRecord
   validates :user, presence: true
 
   belongs_to :user
-  has_one :jwt_api_entreprise, required: false, foreign_key: 'authorization_request_model_id'
+  has_one :token, required: false, foreign_key: 'authorization_request_model_id'
 
   validates :external_id, uniqueness: true, allow_blank: true
 

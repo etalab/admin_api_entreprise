@@ -30,7 +30,7 @@ RSpec.describe 'token contacts page', type: :feature do
 
     context 'when accessing his own data' do
       let(:token) do
-        jwt = create(:jwt_api_entreprise, user:)
+        jwt = create(:token, user:)
         jwt.authorization_request.contacts << [contact_tech, contact_business]
         jwt
       end
@@ -43,7 +43,7 @@ RSpec.describe 'token contacts page', type: :feature do
     end
 
     context 'when accessing another user data' do
-      let(:token) { create(:jwt_api_entreprise) }
+      let(:token) { create(:token) }
 
       it_behaves_like 'display alert', :error
 

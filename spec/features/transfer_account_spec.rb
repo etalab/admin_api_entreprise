@@ -25,10 +25,10 @@ RSpec.describe 'transfer user account ownership', type: :feature, js: true do
     it_behaves_like 'display alert', :error
 
     it 'does not transfer any tokens' do
-      user_tokens_id = user.jwt_api_entreprise.pluck(:id)
+      user_tokens_id = user.token.pluck(:id)
       subject
 
-      expect(user.jwt_api_entreprise.reload.pluck(:id))
+      expect(user.token.reload.pluck(:id))
         .to contain_exactly(*user_tokens_id)
     end
   end

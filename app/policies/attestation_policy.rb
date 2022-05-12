@@ -12,6 +12,6 @@ class AttestationPolicy < ApplicationPolicy
   private
 
   def any_token_with_attestation_roles?
-    user.jwt_api_entreprise.flat_map { |jwt| jwt.decorate.attestations_roles }.any?
+    user.token.flat_map { |jwt| jwt.decorate.attestations_roles }.any?
   end
 end

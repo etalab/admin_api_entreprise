@@ -7,7 +7,7 @@ class Token::RetrieveFromMagicLink < ApplicationInteractor
   private
 
   def retrieve_jwt_from_magic_token
-    context.jwt = JwtAPIEntreprise.find_by(magic_link_token: context.magic_token)
+    context.jwt = Token.find_by(magic_link_token: context.magic_token)
     fail!('invalid_magic_link', 'warn') unless context.jwt
   end
 

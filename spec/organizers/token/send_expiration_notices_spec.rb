@@ -5,9 +5,9 @@ RSpec.describe Token::SendExpirationNotices, type: :organizer do
     subject { described_class.call(expire_in: days) }
 
     let(:days) { 90 }
-    let!(:jwt_1) { create(:jwt_api_entreprise, :expiring_within_3_month) }
-    let!(:jwt_2) { create(:jwt_api_entreprise, :expiring_within_3_month) }
-    let!(:jwt_3) { create(:jwt_api_entreprise, :expiring_in_1_year) }
+    let!(:jwt_1) { create(:token, :expiring_within_3_month) }
+    let!(:jwt_2) { create(:token, :expiring_within_3_month) }
+    let!(:jwt_3) { create(:token, :expiring_in_1_year) }
 
     it { is_expected.to be_success }
 
@@ -28,7 +28,7 @@ RSpec.describe Token::SendExpirationNotices, type: :organizer do
     end
 
     it 'does not call the mailer for archived JWTs' do
-      archived_jwt = create(:jwt_api_entreprise, :expiring_within_3_month, archived: true)
+      archived_jwt = create(:token, :expiring_within_3_month, archived: true)
       # Expectations for sent notifications are needed, otherwise the code runs against the "dumb" double
       expect(ScheduleExpirationNoticeMailjetEmailJob).to receive(:perform_later).with(jwt_1, days).and_call_original
       expect(ScheduleExpirationNoticeMailjetEmailJob).to receive(:perform_later).with(jwt_2, days).and_call_original
@@ -38,7 +38,7 @@ RSpec.describe Token::SendExpirationNotices, type: :organizer do
     end
 
     it 'does not call the mailer for blacklisted JWTs' do
-      blacklisted_jwt = create(:jwt_api_entreprise, :expiring_within_3_month, blacklisted: true)
+      blacklisted_jwt = create(:token, :expiring_within_3_month, blacklisted: true)
       # Expectations for sent notifications are needed, otherwise the code runs against the "dumb" double
       expect(ScheduleExpirationNoticeMailjetEmailJob).to receive(:perform_later).with(jwt_1, days).and_call_original
       expect(ScheduleExpirationNoticeMailjetEmailJob).to receive(:perform_later).with(jwt_2, days).and_call_original

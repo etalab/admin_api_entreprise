@@ -4,7 +4,7 @@ RSpec.describe 'stats page for a token', type: :feature do
   subject { visit token_stats_path(token) }
 
   let(:user) { create(:user, :with_jwt) }
-  let(:token) { user.jwt_api_entreprise.take }
+  let(:token) { user.token.take }
 
   before do
     login_as(user)

@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe JwtAPIEntrepriseMailer, type: :mailer do
+RSpec.describe TokenMailer, type: :mailer do
   describe '#magic_link' do
     subject(:mailer) { described_class.magic_link(email, jwt) }
 
     let(:email) { 'muchemail@wow.com' }
-    let(:jwt) { create(:jwt_api_entreprise, :with_magic_link) }
+    let(:jwt) { create(:token, :with_magic_link) }
 
     its(:subject) { is_expected.to eq('API Entreprise - Lien d\'accès à votre jeton !') }
     its(:from) { is_expected.to include(Rails.configuration.emails_sender_address) }

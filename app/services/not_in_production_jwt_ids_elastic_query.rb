@@ -1,7 +1,7 @@
 class NotInProductionJwtIdsElasticQuery
   def perform
     if Rails.env.development?
-      [UsersQuery.new.with_token.results.first.jwt_api_entreprise.first.id]
+      [UsersQuery.new.with_token.results.first.token.first.id]
     else
       $elastic.search(body: json_query, size: 0)
         .dig('aggregations', 'production-delayed-jti', 'buckets').map { |bucket| bucket['key'] }
