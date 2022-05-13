@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_27_143341) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_11_122740) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pgcrypto"
@@ -36,7 +36,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_27_143341) do
     t.index "((params ->> 'siren'::text))", name: "index_access_logs_on_params_siren", using: :gin
     t.index "((params ->> 'siret'::text))", name: "index_access_logs_on_params_siret", using: :gin
     t.index "((params ->> 'siret_or_eori'::text))", name: "index_access_logs_on_params_siret_or_eori", using: :gin
+    t.index "date_trunc('day'::text, \"timestamp\")", name: "index_access_logs_on_timestamp_day"
+    t.index "date_trunc('hour'::text, \"timestamp\")", name: "index_access_logs_on_timestamp_hour"
+    t.index "date_trunc('month'::text, \"timestamp\")", name: "index_access_logs_on_timestamp_month"
+    t.index "date_trunc('week'::text, \"timestamp\")", name: "index_access_logs_on_timestamp_week"
+    t.index ["controller"], name: "index_access_logs_on_controller"
     t.index ["jwt_api_entreprise_id"], name: "index_access_logs_on_jwt_api_entreprise_id", where: "(jwt_api_entreprise_id IS NOT NULL)"
+    t.index ["status"], name: "index_access_logs_on_status"
+    t.index ["timestamp"], name: "index_access_logs_on_timestamp"
   end
 
   create_table "authorization_requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -123,4 +130,30 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_27_143341) do
     t.index ["pwd_renewal_token"], name: "index_users_on_pwd_renewal_token"
   end
 
+
+  create_view "access_logs_view", sql_definition: <<-SQL
+      SELECT timezone('Europe/Paris'::text, timezone('UTC'::text, access_logs."timestamp")) AS "timestamp",
+      access_logs.action,
+      access_logs.api_version,
+      access_logs.host,
+      access_logs.method,
+      access_logs.path,
+      access_logs.route,
+      access_logs.controller,
+      access_logs.duration,
+      access_logs.status,
+      access_logs.ip,
+      access_logs.source,
+      access_logs.jwt_api_entreprise_id,
+      btrim(((access_logs.params -> 'siren'::text))::text, '"'::text) AS param_siren,
+      btrim(((access_logs.params -> 'siret'::text))::text, '"'::text) AS param_siret,
+      btrim(((access_logs.params -> 'id'::text))::text, '"'::text) AS param_id,
+      btrim(((access_logs.params -> 'object'::text))::text, '"'::text) AS param_object,
+      btrim(((access_logs.params -> 'context'::text))::text, '"'::text) AS param_context,
+      btrim(((access_logs.params -> 'recipient'::text))::text, '"'::text) AS param_recipient,
+      btrim(((access_logs.params -> 'mois'::text))::text, '"'::text) AS param_mois,
+      btrim(((access_logs.params -> 'annee'::text))::text, '"'::text) AS param_annee,
+      btrim(((access_logs.params -> 'non_diffusables'::text))::text, '"'::text) AS param_non_diffusables
+     FROM access_logs;
+  SQL
 end

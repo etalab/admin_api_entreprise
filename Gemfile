@@ -65,6 +65,8 @@ gem 'kramdown-parser-gfm'
 
 gem "algoliasearch-rails"
 
+gem "scenic"
+
 group :development, :test do
   gem 'awesome_print'
   gem 'colorize'
