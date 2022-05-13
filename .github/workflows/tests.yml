@@ -39,16 +39,8 @@ jobs:
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
 
-      # - name: Setup tmate session (for debugging purpose)
-      #   uses: mxschmitt/action-tmate@v2
-
       - name: Install postgres client #and imagemagick
         run: sudo apt-get install libpq-dev #imagemagick
-
-      # - name: Authorize PDF manipulation for imagemagick
-      #   run: |
-      #     sudo grep -v PDF /etc/ImageMagick-6/policy.xml > policy.xml
-      #     sudo cp policy.xml /etc/ImageMagick-6/policy.xml
 
       - name: Cache Gems
         uses: actions/cache@v1
@@ -63,9 +55,6 @@ jobs:
           gem install bundler
           bundle config path vendor/bundle
           bundler install --jobs 4 --retry 3
-
-      - name: Lint with rubocop
-        run: bundle exec rubocop
 
       - name: Create database
         env:
@@ -92,3 +81,4 @@ jobs:
 
             exit 0
           fi
+

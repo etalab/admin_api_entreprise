@@ -1,0 +1,20 @@
+env:
+  RUBY_VERSION: 3.1.2
+
+name: Security
+
+on: [push]
+
+jobs:
+  security:
+    name: Brakeman (Static security)
+    if: "${{ github.actor != 'dependabot[bot]' }}"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Brakeman
+        uses: devmasx/brakeman-linter-action@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
