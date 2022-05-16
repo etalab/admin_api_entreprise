@@ -66,7 +66,7 @@ RSpec.configure do |config|
   config.include FeatureHelper, type: :feature
 
   config.around(:each, js: true) do |example|
-    example.run_with_retry retry: 3
+    example.run_with_retry retry: example.metadata[:retry] || 3
   end
 end
 

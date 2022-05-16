@@ -8,7 +8,7 @@ RSpec.describe 'FAQ & Support', type: :feature do
   end
 
   describe 'search', js: true do
-    it 'works and highlight text' do
+    it 'works and highlight text', retry: 1 do
       visit faq_index_path
 
       expect(page).not_to have_css('.search-highlight')
