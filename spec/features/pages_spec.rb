@@ -19,11 +19,13 @@ RSpec.describe 'Simple pages', type: :feature do
 
   describe 'developers redoc page', js: true do
     it 'works and displays openapi container' do
-      expect {
-        visit developers_openapi_path
-      }.not_to raise_error
+      Capybara.using_wait_time 5 do
+        expect {
+          visit developers_openapi_path
+        }.not_to raise_error
 
-      expect(page).to have_content('siret')
+        expect(page).to have_content('siret')
+      end
     end
   end
 end
