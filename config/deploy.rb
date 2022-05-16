@@ -68,12 +68,7 @@ set :shared_files, fetch(:shared_files, []).push(
 )
 
 def samhain_db_update
-  samhain_listfile = "/tmp/listfile-#{SecureRandom.hex(48)}"
-
-  comment %{Updating Samhain signature database}
-  command %{find "/var/www/admin_apientreprise_#{ENV['to']}" >#{samhain_listfile}}
-  command %{sudo /usr/local/sbin/update-samhain-db.sh #{samhain_listfile}}
-  command %{rm -f #{samhain_listfile}}
+  command %{sudo /usr/local/sbin/update-samhain-db.sh "/var/www/admin_apientreprise_#{ENV['to']}"}
 end
 
 # This task is the environment that is loaded for all remote run commands, such as
