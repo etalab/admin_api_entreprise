@@ -59,6 +59,6 @@ et
 ## Ressources
 
 - [Dépôt algolia/algoliasearch-rails](https://github.com/algolia/algoliasearch-rails)
-- [Controller Stimulus `algolia-search-with-accordion`](../app/assets/javascripts/controllers/algolia_search_controller.js)
+- [Controller Stimulus `algolia-search-with-accordion`](../app/assets/javascripts/controllers/algolia_search_with_accordion_controller.js)
 - [Documentation d'InstantSearch](https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/js/)
 - [API Reference InstantSearch.js](https://www.algolia.com/doc/api-reference/widgets/js/)
