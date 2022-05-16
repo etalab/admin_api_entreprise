@@ -9,6 +9,8 @@ RSpec.describe 'FAQ & Support', type: :feature do
 
   describe 'search', js: true do
     it 'works and highlight text', retry: 1 do
+      pending 'Waiting for Algolia quota reset' if Time.zone.today < Date.new(2022, 5, 29)
+
       visit faq_index_path
 
       expect(page).not_to have_css('.search-highlight')
