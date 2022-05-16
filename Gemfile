@@ -67,6 +67,8 @@ gem "algoliasearch-rails"
 
 gem "scenic"
 
+gem "strscan", "3.0.1"
+
 group :development, :test do
   gem 'awesome_print'
   gem 'colorize'
