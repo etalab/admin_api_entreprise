@@ -3683,7 +3683,831 @@ paths:
           curl -X GET \
             -H "Authorization: Bearer $token" \
             --url "https://entreprise.api.gouv.fr/v3/fntp/unites_legales/130025265/carte_professionnelle_travaux_publics?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
-  "/v3/infogreffe/unites_legales/{siren}/mandataires_sociaux":
+  "/v3/infogreffe/rcs/unites_legales/{siren}/extrait_kbis":
+    get:
+      summary: Extrait RCS
+      tags:
+      - Informations générales
+      parameters:
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      - name: siren
+        in: path
+        description: Siren de l'entreprise
+        examples:
+          siren_octo_technology:
+            value: '418166096'
+            summary: SIREN Octo Technology
+          siren_non_diffusible:
+            value: '005572466'
+            summary: SIREN entreprise non diffusible
+          siren_artisant:
+            value: '301123626'
+            summary: SIREN entreprise artisanale
+          siren_fntp:
+            value: '339379984'
+            summary: SIREN pour FNTP
+          siren_cnetp:
+            value: '542036207'
+            summary: SIREN pour CNETP
+          siren_opqibi:
+            value: '515228211'
+            summary: SIREN pour OPQIBI
+          siren_entrepreneur_individuel:
+            value: '389839937'
+            summary: SIREN d'un entrepeneur individuel (cessé)
+          siren_marques_brevets_modeles:
+            value: '542065479'
+            summary: SIREN d'une entreprise ayant des marques, brevets et modèles
+              (INPI)
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Obtenir un extrait des données présentes dans le RCS, registre
+        du commerce et des sociétés ; dont les observations qui permettent de savoir
+        si une entreprise est en redressement judiciaire.
+      responses:
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                old_token_error:
+                  value:
+                    errors:
+                    - code: '00102'
+                      title: Format de jeton plus supporté
+                      detail: Vous avez utilisé un token à l'ancien format. Ce format
+                        n'est plus supporté depuis avril 2019. Vous devez refaire
+                        une demande à API Entreprise, un guide est disponible sur
+                        https://entreprise.api.gouv.fr/demander_un_acces/
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Format de jeton plus supporté
+                  description: Vous avez utilisé un token à l'ancien format. Ce format
+                    n'est plus supporté depuis avril 2019. Vous devez refaire une
+                    demande à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/demander_un_acces/
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                        à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/doc/#renouvellement-token.
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                    à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/doc/#renouvellement-token.
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://dashboard.entreprise.api.gouv.fr/profile'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://dashboard.entreprise.api.gouv.fr/profile'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '403':
+          description: Accès interdit
+          content:
+            application/json:
+              examples:
+                insufficient_privileges_error:
+                  value:
+                    errors:
+                    - code: '00100'
+                      title: Privilèges insuffisants
+                      detail: Votre token est valide mais vos privilèges sont insuffisants.
+                        Listez vos privilèges grâce à un GET sur /v2/privileges?token=VOTRE_TOKEN
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Privilèges insuffisants
+                  description: Votre token est valide mais vos privilèges sont insuffisants.
+                    Listez vos privilèges grâce à un GET sur /v2/privileges?token=VOTRE_TOKEN
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '200':
+          description: Entreprise trouvée (personne physique)
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      date_extrait:
+                        type: string
+                        title: Date d'extrait
+                        example: '1999-06-11'
+                        nullable: true
+                      date_immatriculation:
+                        type: string
+                        title: Date d'immatriculation au RCS
+                        description: À compter de cette date, les sociétés jouissent
+                          de la personnalité morale. Cette date d'immatriculation
+                          n'est pas la même que celle délivrée par l'INSEE. Elle ne
+                          correspond pas non plus à la date du début d'activité.
+                        example: '1998-07-12'
+                        nullable: true
+                      mandataires_sociaux:
+                        title: Mandataires sociaux
+                        description: Liste des mandataires sociaux d'une société inscrite
+                          au RCS, délivrée par Infogreffe. Certaines informations
+                          telles que la date de naissance ont été omises, vous pouvez
+                          les obtenir en appelant l'endpoint /infogreffe/mandataires_sociaux/
+                        type: array
+                        items:
+                          required:
+                          - fonction
+                          properties:
+                            numero_identification:
+                              title: Numéro d'identification
+                              description: Ce champ est uniquement disponible pour
+                                une personne morale.
+                              type: string
+                              example: '784824153'
+                            type:
+                              title: Type de mandataire social
+                              description: Ce champ permet de faire la distinction
+                                entre les personnes physiques et morales.
+                              type: string
+                              example: personne_morale
+                              enum:
+                              - personne_morale
+                              - personne_physique
+                            fonction:
+                              title: Fonction au sein de l'entreprise
+                              description: Ce champ décrit la fonction du mandataire
+                                social au sein de l'entreprise. Cette information
+                                est disponible pour les personnes morales et physiques.
+                              type: string
+                              example: COMMISSAIRE AUX COMPTES SUPPLEANT
+                            nom:
+                              title: Nom
+                              description: Nom du mandataire social. Ce champ est
+                                disponible uniquement pour une personne physique.
+                              type: string
+                              example: Henri
+                              nullable: true
+                            prenom:
+                              title: Prénom
+                              description: Prénom du mandataire social. Ce champ est
+                                disponible uniquement pour une personne physique.
+                              type: string
+                              example: Martin
+                              nullable: true
+                            date_naissance:
+                              title: Date de naissance (mois/année)
+                              description: Date de naissance du mandataire social
+                                (seulement le mois et l'année). Ce champ est disponible
+                                uniquement pour une personne physique.
+                              type: string
+                              example: 1965-01
+                              nullable: true
+                            raison_sociale:
+                              title: Raison sociale
+                              description: Raison sociale de la personne morale mandataire
+                                social. Ce champ est disponible uniquement pour une
+                                personne morale.
+                              type: string
+                              example: BCRH & ASSOCIES - SOCIETE A RESPONSABILITE
+                                LIMITEE A ASSOCIE UNIQUE
+                              nullable: true
+                      observations:
+                        type: array
+                        title: Ensemble des observations du greffier
+                        items:
+                          type: object
+                          properties:
+                            numero:
+                              type: string
+                              title: Numéro de l'observation
+                              example: '123456'
+                            libelle:
+                              type: string
+                              title: Libellé de l'observation
+                              example: LA SOCIETE NE CONSERVE AUCUNE ACTIVITE A SON
+                                ANCIEN SIEGE
+                            date:
+                              type: string
+                              title: Date de l'observation
+                              example: '2000-01-01'
+                      nom_commercial:
+                        type: string
+                        title: Nom commercial
+                        example: DECATHLON
+                        nullable: true
+                      adresse_siege:
+                        type: object
+                        title: Adresse de l'établissement siège
+                        properties:
+                          nom_postal:
+                            type: string
+                            title: Nom postal
+                            nullable: true
+                          numero:
+                            type: string
+                            title: Numéro rue
+                            nullable: true
+                          type:
+                            type: string
+                            title: Type
+                            nullable: true
+                          voie:
+                            type: string
+                            title: Nom de la voie
+                            nullable: true
+                          ligne_1:
+                            type: string
+                            title: Ligne 1 adresse
+                            nullable: true
+                          ligne_2:
+                            type: string
+                            title: Ligne 2 adresse
+                            nullable: true
+                          localite:
+                            type: string
+                            title: Localité
+                            nullable: true
+                          code_postal:
+                            type: string
+                            title: Code postal
+                            nullable: true
+                          bureau_distributeur:
+                            type: string
+                            title: Bureau distributeur
+                            nullable: true
+                          pays:
+                            type: string
+                            title: Pays
+                            nullable: true
+                        required:
+                        - nom_postal
+                        - numero
+                        - type
+                        - voie
+                        - ligne_1
+                        - ligne_2
+                        - localite
+                        - code_postal
+                        - bureau_distributeur
+                        - pays
+                      etablissement_principal:
+                        type: object
+                        title: Informations sur l'établissement principal
+                        properties:
+                          adresse:
+                            type: object
+                            title: Adresse de l'établissement siège
+                            properties:
+                              nom_postal:
+                                type: string
+                                title: Nom postal
+                                nullable: true
+                              numero:
+                                type: string
+                                title: Numéro rue
+                                nullable: true
+                              type:
+                                type: string
+                                title: Type
+                                nullable: true
+                              voie:
+                                type: string
+                                title: Nom de la voie
+                                nullable: true
+                              ligne_1:
+                                type: string
+                                title: Ligne 1 adresse
+                                nullable: true
+                              ligne_2:
+                                type: string
+                                title: Ligne 2 adresse
+                                nullable: true
+                              localite:
+                                type: string
+                                title: Localité
+                                nullable: true
+                              code_postal:
+                                type: string
+                                title: Code postal
+                                nullable: true
+                              bureau_distributeur:
+                                type: string
+                                title: Bureau distributeur
+                                nullable: true
+                              pays:
+                                type: string
+                                title: Pays
+                                nullable: true
+                            required:
+                            - nom_postal
+                            - numero
+                            - type
+                            - voie
+                            - ligne_1
+                            - ligne_2
+                            - localite
+                            - code_postal
+                            - bureau_distributeur
+                            - pays
+                          activite:
+                            type: string
+                            title: Activité de l'établissement principal
+                            nullable: true
+                          origine_fonds:
+                            type: string
+                            title: Origine des fonds
+                            description: Origine des fonds de l'entreprise
+                            example: CREATION
+                            nullable: true
+                          mode_exploitation:
+                            type: string
+                            title: Mode d'exploitation
+                            description: Mode d'exploitation de l'entreprise
+                            example: EXPLOITATION DIRECTE
+                            nullable: true
+                          code_ape:
+                            type: string
+                            title: Code APE
+                            description: Code APE représentant l'activité de l'entreprise
+                            example: 6420Z
+                        required:
+                        - adresse
+                        - activite
+                        - origine_fonds
+                        - mode_exploitation
+                        - code_ape
+                      capital:
+                        type: object
+                        title: Capital de l'entreprise
+                        properties:
+                          montant:
+                            type: number
+                            title: Montant du capital
+                            description: Montant du capital de création de l'entreprise
+                            example: 50123.6
+                            nullable: true
+                          devise:
+                            type: string
+                            title: Devise
+                            description: Devise du capital de création de l'entreprise
+                            example: EUROS
+                            nullable: true
+                          code_devise:
+                            type: string
+                            title: Code devise
+                            description: Code de la devise du capital de création
+                              de l'entreprise
+                            example: EUR
+                            nullable: true
+                        required:
+                        - montant
+                        - devise
+                        - code_devise
+                      greffe:
+                        type: object
+                        title: Greffe
+                        description: Informations sur le greffe
+                        properties:
+                          valeur:
+                            type: string
+                            title: Greffe
+                            description: Nom du greffe en charge de l'entreprise
+                            example: COLMAR
+                          code:
+                            type: string
+                            title: Code greffe
+                            description: Code du greffe en charge de l'entreprise
+                            example: '6851'
+                        required:
+                        - valeur
+                        - code
+                      personne_physique:
+                        type: object
+                        title: Personne physique
+                        description: Informations sur l'entreprise dans le cas où
+                          l'entreprise est une personne physique. Les champs sont
+                          vides si l'entreprise est une personne morale.
+                        properties:
+                          adresse:
+                            type: object
+                            title: Adresse de l'établissement siège
+                            properties:
+                              nom_postal:
+                                type: string
+                                title: Nom postal
+                                nullable: true
+                              numero:
+                                type: string
+                                title: Numéro rue
+                                nullable: true
+                              type:
+                                type: string
+                                title: Type
+                                nullable: true
+                              voie:
+                                type: string
+                                title: Nom de la voie
+                                nullable: true
+                              ligne_1:
+                                type: string
+                                title: Ligne 1 adresse
+                                nullable: true
+                              ligne_2:
+                                type: string
+                                title: Ligne 2 adresse
+                                nullable: true
+                              localite:
+                                type: string
+                                title: Localité
+                                nullable: true
+                              code_postal:
+                                type: string
+                                title: Code postal
+                                nullable: true
+                              bureau_distributeur:
+                                type: string
+                                title: Bureau distributeur
+                                nullable: true
+                              pays:
+                                type: string
+                                title: Pays
+                                nullable: true
+                            required:
+                            - nom_postal
+                            - numero
+                            - type
+                            - voie
+                            - ligne_1
+                            - ligne_2
+                            - localite
+                            - code_postal
+                            - bureau_distributeur
+                            - pays
+                          nationalite:
+                            type: object
+                            title: Nationalité
+                            description: Nationalité de la personne physique
+                            properties:
+                              valeur:
+                                type: string
+                                title: Nationalité (valeur)
+                                description: Nationalité de la personne physique
+                                example: FRANÇAISE
+                                nullable: true
+                              code:
+                                type: string
+                                title: Code Pays
+                                description: Code pays de la nationalité de la personne
+                                  physique
+                                example: FR
+                                nullable: true
+                            required:
+                            - valeur
+                            - code
+                          nom:
+                            type: string
+                            title: Nom
+                            description: Nom de la personne physique
+                            example: MARTIN
+                            nullable: true
+                          prenom:
+                            type: string
+                            title: Prénom
+                            description: Prénom de la personne physique
+                            example: JEAN-MARIE
+                            nullable: true
+                          naissance:
+                            type: object
+                            title: Naissance
+                            description: Informations de naissance de la personne
+                              physique (lieu, date, pays)
+                            properties:
+                              pays:
+                                type: object
+                                title: Pays de naissance
+                                description: Pays de naissance de la personne physique
+                                properties:
+                                  valeur:
+                                    type: string
+                                    title: Pays de naissance (valeur)
+                                    description: Pays de naissance de la personne
+                                      physique
+                                    example: FRANCE
+                                    nullable: true
+                                  code:
+                                    type: string
+                                    title: Code Pays de naissance
+                                    description: Code du pays de naissance de la personne
+                                      physique
+                                    example: FR
+                                    nullable: true
+                                required:
+                                - valeur
+                                - code
+                              date:
+                                type: string
+                                title: Date de naissance
+                                description: Date de naissance de la personne physique
+                                example: '1972-01-30'
+                                nullable: true
+                              lieu:
+                                type: string
+                                title: Lieu de naissance
+                                description: Lieu de naissance de la personne physique
+                                example: MONTPELLIER
+                                nullable: true
+                            required:
+                            - pays
+                            - date
+                            - lieu
+                        required:
+                        - adresse
+                        - nationalite
+                        - nom
+                        - prenom
+                        - naissance
+                      personne_morale:
+                        type: object
+                        title: Personne morale
+                        description: Informations sur l'entreprise dans le cas où
+                          l'entreprise est une personne morale. Les champs sont vides
+                          si l'entreprise est une personne physique.
+                        properties:
+                          forme_juridique:
+                            type: object
+                            title: Forme juridique
+                            description: Forme juridique de la personne morale
+                            properties:
+                              valeur:
+                                type: string
+                                title: Forme juridique (valeur)
+                                example: SOCIETE PAR ACTIONS SIMPLIFIEES
+                                nullable: true
+                              code:
+                                type: string
+                                title: Code forme juridique
+                                description: Code représentant la forme juridique
+                                  de l'entreprise. Attention, la nomenclature est
+                                  différente de celle de l'INSEE.
+                                example: SASh
+                                nullable: true
+                            required:
+                            - valeur
+                            - code
+                          denomination:
+                            type: string
+                            title: Dénomination de la personne morale
+                            example: 2X INVEST
+                            nullable: true
+                          date_cloture_exercice_comptable:
+                            type: string
+                            title: Date de cloture de l'exercice comptable
+                            description: Date (mois et jour) dans l'année où l'exercice
+                              comptable de l'entreprise est clôturé
+                            example: 02-24
+                            nullable: true
+                          date_fin_de_vie:
+                            type: string
+                            title: Date de fin de vie de l'entreprise
+                            description: Date à laquelle l'entreprise cesse d'exister,
+                              sauf potentiel renouvellement. Correspond souvent à
+                              la date de création + 100 ans.
+                            example: '2075-05-18'
+                            nullable: true
+                        required:
+                        - forme_juridique
+                        - denomination
+                        - date_cloture_exercice_comptable
+                        - date_fin_de_vie
+                    required:
+                    - date_extrait
+                    - date_immatriculation
+                    - mandataires_sociaux
+                    - observations
+                    - nom_commercial
+                    - adresse_siege
+                    - etablissement_principal
+                    - capital
+                    - greffe
+                    - personne_physique
+                    - personne_morale
+                required:
+                - data
+                - links
+                - meta
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                unprocessable_entity_error_siren_error:
+                  value:
+                    errors:
+                    - code: '00301'
+                      title: Entité non traitable
+                      detail: Le numéro de siren n'est pas correctement formatté
+                      source:
+                        parameter: siren
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le numéro de siren n'est pas correctement formatté
+                missing_mandatory_params_context_error:
+                  value:
+                    errors:
+                    - code: '00201'
+                      title: Entité non traitable
+                      detail: Le paramètre context est obligatoire
+                      source:
+                        parameter: context
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre context est obligatoire
+                missing_mandatory_params_object_error:
+                  value:
+                    errors:
+                    - code: '00202'
+                      title: Entité non traitable
+                      detail: Le paramètre object est obligatoire
+                      source:
+                        parameter: object
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre object est obligatoire
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Non trouvée
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '502':
+          description: Erreur du fournisseur
+          content:
+            application/json:
+              examples:
+                unknown_error:
+                  value:
+                    errors:
+                    - code: '02000'
+                      title: Erreur inconnue
+                      detail: Mauvaise réponse envoyée par le fournisseur de données
+                      source:
+                      meta:
+                        provider: Infogreffe
+                  summary: Erreur inconnue
+                  description: Mauvaise réponse envoyée par le fournisseur de données
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '504':
+          description: Erreur d'intermédiaire
+          content:
+            application/json:
+              examples:
+                timeout_error:
+                  value:
+                    errors:
+                    - code: '02002'
+                      title: Intermédiaire hors-délai
+                      detail: Temps d’attente d’une réponse du fournisseur de données
+                        écoulé.
+                      source:
+                      meta:
+                        provider: Infogreffe
+                  summary: Intermédiaire hors-délai
+                  description: Temps d’attente d’une réponse du fournisseur de données
+                    écoulé.
+                provider_unavailable_error:
+                  value:
+                    errors:
+                    - code: '02001'
+                      title: Service non disponible
+                      detail: Service du fournisseur de données temporairement indisponible
+                        ou en maintenance.
+                      source:
+                      meta:
+                        provider: Infogreffe
+                  summary: Service non disponible
+                  description: Service du fournisseur de données temporairement indisponible
+                    ou en maintenance.
+                network_error:
+                  value:
+                    errors:
+                    - code: '00501'
+                      title: Erreur réseau
+                      detail: Problème de connexion au serveur distant. L'erreur peut
+                        venir soit du fournisseur, soit de API Entreprise
+                      source:
+                      meta: {}
+                  summary: Erreur réseau
+                  description: Problème de connexion au serveur distant. L'erreur
+                    peut venir soit du fournisseur, soit de API Entreprise
+                dns_resolution_error:
+                  value:
+                    errors:
+                    - code: '02004'
+                      title: Erreur de résolution DNS
+                      detail: Problème de résolution DNS de l'adresse du serveur
+                      source:
+                      meta:
+                        provider: Infogreffe
+                  summary: Erreur de résolution DNS
+                  description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/infogreffe/rcs/unites_legales/130025265/extrait_kbis?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
+  "/v3/infogreffe/rcs/unites_legales/{siren}/mandataires_sociaux":
     get:
       summary: Mandataires sociaux
       tags:
@@ -4169,7 +4993,7 @@ paths:
         source: |-
           curl -X GET \
             -H "Authorization: Bearer $token" \
-            --url "https://entreprise.api.gouv.fr/v3/infogreffe/unites_legales/130025265/mandataires_sociaux?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
+            --url "https://entreprise.api.gouv.fr/v3/infogreffe/rcs/unites_legales/130025265/mandataires_sociaux?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/inpi/unites_legales/{siren}/actes":
     get:
       summary: Actes
