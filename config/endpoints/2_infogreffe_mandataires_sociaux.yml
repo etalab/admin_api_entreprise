@@ -3,22 +3,20 @@
   path: '/v3/infogreffe/unites_legales/{siren}/mandataires_sociaux'
   position: 110
   perimeter:
-    entity_type_description: "Toutes les entreprises inscrites au registre du commerce et des sociétés (RCS) sont concernées.
-Il s&apos;agit des entreprises ayant une activité commerciale. Pour plus de détails, consulter [le site du ministère de l&apos;économie](https://www.economie.gouv.fr/entreprises/registre-commerce-societes-rcs)"
+    entity_type_description: |+
+      Toutes les entreprises inscrites au registre du commerce et des sociétés (RCS) sont concernées.
+      Il s'agit des entreprises ayant une activité commerciale. Pour plus de détails, consulter [le site du ministère de l'économie](https://www.economie.gouv.fr/entreprises/registre-commerce-societes-rcs){:target="_blank"}
     entities:
       - entreprises
   call_id: "SIREN"
   providers:
     - 'infogreffe'
   data:
-    description: "Cette API délivre tous les mandataires sociaux de l&apos;entreprise&nbsp;:
-    \n
-    \n
-    - S&apos;il s&apos;agit de personnes morales : le numéro de SIREN, la raison sociale et le nom du greffe seront précisés ;
-    \n
-    - S&apos;il s&apos;agit de personnes physiques : le nom, le prénom, la date de naissance, ainsi que le lieu de naissance de la personne physique seront indiqués ;
-    \n
-    La fonction du mandataire social au sein de l&apos;entreprise, par exemple, \"Président\" est également spécifiée."
+    description: |+
+      Cette API délivre tous les mandataires sociaux de l'entreprise :
+      - S'il s'agit de personnes morales : le numéro de SIREN, la raison sociale et le nom du greffe seront précisés ;
+      - S'il s'agit de personnes physiques : le nom, le prénom, la date de naissance, ainsi que le lieu de naissance de la personne physique seront indiqués ;
+        La fonction du mandataire social au sein de l'entreprise, par exemple, "Président" est également spécifiée.
   opening: protected
   use_cases:
     - Marchés publics

@@ -1,26 +1,22 @@
 ---
 - uid: 'ministere_interieur/rna'
   path: '/v3/ministere_interieur/rna/associations/{siret_or_rna}'
-  # Position au sein de l'index
   position: 150
   perimeter:
-    entity_type_description: "Toutes les associations inscrites au répertoire national des associations (RNA)."
+    entity_type_description: |+
+      Toutes les associations inscrites au répertoire national des associations (RNA).
     entities:
       - associations
   call_id: "SIRET / RNA"
   providers:
     - 'mi'
   data:
-    description: "Informations déclarées par l&apos;association en Préfecture, entre autres&nbsp;:
-    \n
-    \n
-    - le titre de l'association, et une description courte de ses activités ;
-    \n
-    - les dates de dépôt du dossier de création de l'association à la Préfecture et de publication au Journal Officiel si elle a eu lieu ;
-    \n
-    - l'adresse du siège social ;
-    \n
-    - des informations sur les dirigeants."
+    description: |+
+      Informations déclarées par l'association en Préfecture, entre autres&nbsp;:
+      - le titre de l'association, et une description courte de ses activités ;
+      - les dates de dépôt du dossier de création de l'association à la Préfecture et de publication au Journal Officiel si elle a eu lieu ;
+      - l'adresse du siège social ;
+      - des informations sur les dirigeants.
   opening: public
   use_cases:
     - Marchés publics
