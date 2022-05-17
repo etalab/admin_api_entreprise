@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     end
   end
 
-  root to: redirect('/login')
+  root to: redirect('/home')
 
   # Authentication
   get '/login', to: 'sessions#new'
@@ -52,6 +52,7 @@ Rails.application.routes.draw do
 
   get '/developers/openapi', to: 'pages#redoc'
 
+  get '/home', to: 'pages#home'
   get '/mentions', to: 'pages#mentions'
   get '/cgu', to: 'pages#cgu'
   get '/current_status', to: 'pages#current_status'

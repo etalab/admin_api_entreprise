@@ -7,6 +7,8 @@ class PagesController < ApplicationController
     end
   end
 
+  def home; end
+
   def mentions; end
 
   def cgu; end
