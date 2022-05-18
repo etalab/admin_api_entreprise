@@ -36,6 +36,11 @@ Concernant le js:
    });
    ```
 
+Concernant les icônes:
+
+1. Remplacer le fichier `app/assets/stylesheets/dsfr-utility.css` par le fichier `dist/utility/utility.css`
+2. Remplacer le dossier `app/assets/icons` par le dossier `dist/icons`
+
 ## Règles
 
 - Essayez au maximum d'utiliser le design système
