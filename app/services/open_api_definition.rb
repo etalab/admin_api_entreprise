@@ -27,11 +27,14 @@ class OpenAPIDefinition
     @backend = YAML.safe_load(open_api_definition_content)
   end
 
+  # rubocop:disable Security/Open
   def open_api_definition_content
     URI.open(open_api_definition_url).read
-  rescue StandardError
+  rescue StandardError => e
+    Sentry.capture_exception(e)
     File.read(Rails.root.join('config/api-entreprise-v3-openapi.yml'))
   end
+  # rubocop:enable Security/Open
 
   def open_api_definition_url
     if Rails.env.sandbox?
