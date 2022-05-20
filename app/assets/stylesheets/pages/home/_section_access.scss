@@ -12,6 +12,7 @@
   }
 
   .infos-left {
+    max-width: 70%;
     flex-direction: column;
 
     .info {
@@ -44,11 +45,20 @@
   }
 
   .cards-right {
-    .fr-card:first-child {
+    display: flex;
+    flex-direction: column;
+
+    .fr-card {
+      @media (min-width: 992px) {
+        max-width: 300px;
+      }
+    }
+
+    .fr-card:first-of-type {
       background-color: var(--blue-france-925-125) !important;
     }
 
-    .fr-card:last-child {
+    .fr-card:last-of-type {
       background-color: var(--grey-925-125) !important;
     }
   }
