@@ -9,7 +9,9 @@ class PagesController < ApplicationController
     end
   end
 
-  def home; end
+  def home
+    @providers = Endpoint.all.map(&:providers).flatten.uniq
+  end
 
   def mentions; end
 
