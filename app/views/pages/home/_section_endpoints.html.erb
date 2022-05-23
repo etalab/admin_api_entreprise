@@ -1,0 +1,11 @@
+<section id="section-endpoints" class="fr-container--fluid fr-p-5w">
+  <h3>De nombreuses données sur les entreprises et associations :</h3>
+  <div class="fr-grid-row">
+    <% @endpoints.sample(3).each_with_index do |endpoint| %>
+      <div class="fr-grid-card-row-inner fr-col-xs-12 fr-col-md-4">
+        <%= render endpoint %>
+      </div>
+    <% end %>
+  </div>
+  <button class="fr-btn fr-m-1w ">Consulter le catalogue des données&nbsp;<span class="fr-icon-arrow-right-line" aria-hidden="true" /></button>
+</section>
