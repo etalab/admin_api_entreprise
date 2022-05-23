@@ -67,7 +67,7 @@ gem "algoliasearch-rails"
 
 gem "scenic"
 
-gem "strscan", "3.0.1"
+gem "strscan", "3.0.3"
 
 group :development, :test do
   gem 'awesome_print'
