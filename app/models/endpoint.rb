@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 class Endpoint
   include ActiveModel::Model
 
@@ -144,3 +145,4 @@ class Endpoint
     @open_api_definition ||= OpenAPIDefinition.get(path)
   end
 end
+# rubocop:enable Metrics/ClassLength
