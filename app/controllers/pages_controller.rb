@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  layout 'container_fluid', only: :home
+  layout 'no_container', only: :home
 
   def current_status
     @current_status = StatusPage.new.current_status
