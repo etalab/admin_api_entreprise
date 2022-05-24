@@ -1,20 +1,5 @@
 #homepage #section-access {
-  display: flex;
-  flex-direction: column;
-
-  @media (min-width: 576px) {
-    padding: 50px;
-  }
-
-  @media(min-width: 992px) {
-    flex-direction: row;
-    align-items: center;
-  }
-
   .infos-left {
-    max-width: 70%;
-    flex-direction: column;
-
     .info {
       display: flex;
       flex-direction: column;
@@ -45,24 +30,13 @@
   }
 
   .cards-right {
-    display: flex;
-    flex-direction: column;
-
-    .fr-card {
-      @media (min-width: 992px) {
-        max-width: 300px;
-      }
-    }
-
-    .fr-card:first-of-type {
+    .fr-grid-row:first-child .fr-card {
       background-color: var(--blue-france-925-125) !important;
     }
 
-    .fr-card:last-of-type {
+    .fr-grid-row:last-child .fr-card {
       background-color: var(--grey-925-125) !important;
     }
   }
 }
-
-
 
