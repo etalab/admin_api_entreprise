@@ -38,6 +38,21 @@ RSpec.describe Endpoint, type: :model do
       its(:root_meta) { is_expected.to have_key('date_derniere_mise_a_jour') }
 
       its(:collection?) { is_expected.to be false }
+
+      describe '#error_examples' do
+        subject { described_class.find(uid).error_examples('401') }
+
+        it { is_expected.to be_an_instance_of(Array) }
+
+        it 'contains error payload' do
+          element = subject.first
+
+          expect(element).to be_present
+          expect(element).to have_key('title')
+          expect(element).to have_key('detail')
+          expect(element).to have_key('code')
+        end
+      end
     end
 
     context 'with collection uid' do
