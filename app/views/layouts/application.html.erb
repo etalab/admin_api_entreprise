@@ -25,10 +25,23 @@
   >
     <%= render partial: 'shared/header' %>
 
-    <% if content_for?(:no_container) %>
-      <%= yield(:no_container) %>
+    <% if content_for?(:container_fluid) %>
+      <div class="fr-container--fluid fr-mb-5w fr-mt-5w">
+        <%= render partial: 'shared/alerts' %>
+
+        <%= yield(:container_fluid) %>
+      </div>
     <% else %>
-      <%= render partial: 'shared/containerized_body' %>
+      <div class="fr-container fr-mb-5w fr-mt-5w">
+        <%= render partial: 'shared/alerts' %>
+
+        <% if content_for?(:body) %>
+          <%= yield(:body) %>
+        <% else %>
+          <%= yield %>
+        <% end %>
+      </div>
+
     <% end %>
 
     <%= render partial: 'shared/footer' %>
