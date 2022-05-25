@@ -5,15 +5,15 @@
   perimeter:
     entity_type_description: |+
       Cette API couvre l'ensemble des entreprises exerçant une ou plusieurs activités entrant dans le champ d'application des conventions collectives nationales étendues des Travaux Publics et du Bâtiment :
-      - ✅ Convention Collective Nationale des Ouvriers des Travaux Publics du 15 décembre 1992 (étendue par arrêté du 27 mai 1993) ;
-      - ✅ Convention Collective Nationale des ETAM des Travaux Publics du 12 juillet 2006 (étendue par arrêté du 28 juin 2007) ;
-      - ✅ Convention Collective Nationale des Cadres des Travaux Publics du 20 novembre 2015 (étendue par arrêté du 5 juin 2020).
+      - ✅ Convention collective nationale des ouvriers des travaux publics du 15 décembre 1992 (étendue par arrêté du 27 mai 1993) ;
+      - ✅ Convention collective nationale des ETAM des travaux publics du 12 juillet 2006 (étendue par arrêté du 28 juin 2007) ;
+      - ✅ Convention collective nationale des cadres des travaux publics du 20 novembre 2015 (étendue par arrêté du 5 juin 2020).
 
       Toutes les attestations sont disponibles pour les entreprises en situation régulière ❌ sauf pour celles qui règlent les cotisations dues à la CNETP au travers de l’URSSAF dans le cadre du Titre Emploi Service Entreprise (TESE).
     know_more_description: |+
       - le [site de la CNETP](https://www.cnetp.org/category/affiliation/){:target="_blank"} est une source d'information ;
       - l'[article D.3141-12 du code du travail](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000020572124/){:target="_blank"} définit les entreprises qui sont tenues d’adhérer auprès d'une Caisse de Congés Payés du BTP ;
-        _Dans les entreprises exerçant une ou plusieurs activités entrant dans le champ d'application des conventions collectives nationales étendues du bâtiment et des travaux publics, le service des congés est assuré, sur la base de celles-ci, par des caisses constituées à cet effet.
+        Dans les entreprises exerçant une ou plusieurs activités entrant dans le champ d'application des conventions collectives nationales étendues du bâtiment et des travaux publics, le service des congés est assuré, sur la base de celles-ci, par des caisses constituées à cet effet.
     entities:
       - entreprises
   call_id: "SIREN"
@@ -30,19 +30,6 @@
   parameters:
     - Numéro de SIREN de l'entreprise
   faq:
-    - q: L'api ne renvoie pas de pièce, peut-on considérer que l'entreprise n'est pas à jour ?
+    - q: L'API ne renvoie pas de pièce, peut-on considérer que l'entreprise n'est pas à jour ?
       a: |+
         Non, dans certains cas nous ne pouvons pas récupérer l’attestation. Notamment, cette API ne permet de récupérer les attestations des entreprises réglant leurs cotisations à la CNETP au travers de l'URSSAF (dans le cadre du TESE).
-    - q: Comment utiliser ces données protégées ?
-      a: |+
-        **Les attestations de la CNETP sont protégées au titre du secret des affaires**
-
-        Dans le cadre d'un marché public, les attestations ont pour objet de prouver à l'acheteur public que le candidat a satisfait à ses obligations fiscales et sociales. Il en est ainsi des attestations de marchés délivrées par la CNETP aux entreprises de Travaux Publics.
-
-        Or, **conformément au code de la commande publique, l'acheteur public ne peut communiquer les informations protégées** dont il a eu connaissance lors de la procédure de passation et notamment celles dont la divulgation violerait le secret des affaires.
-
-        C’est pourquoi, les attestations délivrées par la CNETP constituent des **données protégées** et non publiques.
-
-        **Des informations à ne pas divulguer :**
-
-        En utilisant cette API, vous vous engagez à n'utiliser ces informations que dans le cadre strict de vos missions de service public, **à ne pas les rediffuser ni les divulguer auprès de tiers non autorisés**.
