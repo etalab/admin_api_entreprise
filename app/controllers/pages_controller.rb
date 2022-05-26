@@ -14,6 +14,8 @@ class PagesController < ApplicationController
     @providers = @endpoints.map(&:providers).flatten.uniq
   end
 
+  def developers; end
+
   def mentions; end
 
   def cgu; end

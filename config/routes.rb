@@ -54,6 +54,7 @@ Rails.application.routes.draw do
   get '/developers/openapi', to: 'pages#redoc'
 
   get '/home', to: 'pages#home'
+  get '/developers', to: 'pages#developers'
   get '/mentions', to: 'pages#mentions'
   get '/cgu', to: 'pages#cgu'
   get '/current_status', to: 'pages#current_status'
