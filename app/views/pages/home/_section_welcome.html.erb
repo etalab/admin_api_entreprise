@@ -5,7 +5,11 @@
     des entreprises et des associations !
   </h1>
 
-  <a href="/endpoints" class="fr-btn fr-m-1w">Je consulte les données disponibles&nbsp;<span class="fr-icon-arrow-right-line" aria-hidden="true" /></a>
+  <%= link_to endpoints_path, class: "fr-btn fr-m-1w" do %>
+    Je consulte les données disponibles&nbsp;<span class="fr-icon-arrow-right-line" aria-hidden="true" />
+  <% end %>
 
-  <a href="/developers#guide-integration" class="fr-btn fr-btn--secondary fr-m-1w">J'intègre l'API&nbsp;<span class="fr-icon-settings-5-line fr-fi--md" aria-hidden="true" /></a>
+  <%= link_to developers_path(anchor: 'guide-integration'), class: "fr-btn fr-btn--secondary fr-m-1w" do %>
+    J'intègre l'API&nbsp;<span class="fr-icon-settings-5-line fr-fi--md" aria-hidden="true" />
+  <% end %>
 </section>
