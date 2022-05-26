@@ -8,7 +8,8 @@
       - ✅ être **soumises à l'impôt sur les sociétés** selon les règles des régimes d'imposition réels, normal ou simplifié ;
       - ✅ avoir **transmis ses comptes annuels** aux greffes.
 
-      ❌ Les micro-entrepreneurs ne sont pas soumis à l'IS mais à l'IR ; leurs chiffres d'affaires ne sont donc pas disponibles via API Entreprise.
+      ❌ Les entreprises aux régimes micro-BIC, micro-BNC et micro-BA (micro-entrepreneurs) ne sont pas concernées par cette API. En effet, elles ne sont pas soumises à l'impôt sur les sociétés mais relèvent de l’impôt sur le revenu.
+
     entities:
       - entreprises
   call_id: "SIREN"
@@ -16,12 +17,12 @@
     - 'dgfip'
   data:
     description: |+
-      Cette API retourne uniquement les trois derniers exercices.
+      Cette API retourne **jusqu'à trois exercices, les plus récents**.
 
-      Ceux-ci ne sont pas forcément les exercices des trois dernières années car il peut y avoir plusieurs exercices dans une même année. Le nombre d’exercices renvoyés varie de 1 à 3.
+      Ceux-ci ne sont pas forcément les exercices des trois dernières années car il peut y avoir plusieurs exercices dans une même année. 
       Les exercices renvoyés sont listés les uns après les autres, le premier étant le plus récent des trois.
 
-      Pour chaque exercice, le chiffre d’affaire en euros et la date de fin de l’exercice sont transmis.
+      Pour chaque exercice, le chiffre d’affaires en euros et la date de fin de l’exercice sont transmis.
   opening: protected
   use_cases:
     - Aides publiques
