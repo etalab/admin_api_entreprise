@@ -4,11 +4,16 @@
   position: 270
   perimeter:
     entity_type_description: |+
-      Sont éligibles à la MSA les entreprises de&nbsp;:
-      - l'agriculture ;
-      - l'élevage ;
-      - la pèche ;
-      - le forestier.
+      ✅ Les entreprises relevant du régime agricole, de la MSA et donc concernées par cette API sont les suivantes : 
+      - les exploitations de culture, d'élevage, de dressage ;
+      - les entreprises de travaux agricoles ;
+      - les entreprises de travaux forestiers ;
+      - les établissements de conchyliculture et de pisciculture ; 
+      - les activités de pêche maritime à pied professionnelles, sauf pour celles qui relèvent du régime social des marins.
+      
+      ℹ️ La description précise des entreprises dont les cotisations sont recouvrées par la MSA est disponible dans les [articles L722-1 à L722-7 du Code rural et de la pêche maritime](https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006071367/LEGISCTA000006183040/2022-05-26/){:target="_blank"}.
+      
+      ❌ Les entreprises qui relèvent du régime général ou d'autres régimes sociaux ne sont pas concernées par cette API.
     entities:
       - associations
       - entreprises
@@ -24,8 +29,9 @@
         Ce cas particulier intervient sur un laps de temps limité.
 
 
+
       {:.fr-highlight}
-      ℹ️ Depuis 2021, la conformité n'est délivrée que si la contribution annuelle de l'OETH (Obligation d’Emploi de Travailleur Handicapé) a été acquittée par l'entreprise. Cette compétence était auparavant attribuée à l'AGEFIPH.
+      Depuis 2021, la conformité n'est délivrée que si la contribution annuelle de l'OETH (Obligation d’Emploi de Travailleur Handicapé) a été acquittée par l'entreprise. Cette compétence était auparavant attribuée à l'AGEFIPH.
 
   opening: protected
   use_cases:
