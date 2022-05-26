@@ -14,6 +14,9 @@
       ℹ️ La description précise des entreprises dont les cotisations sont recouvrées par la MSA est disponible dans les [articles L722-1 à L722-7 du Code rural et de la pêche maritime](https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006071367/LEGISCTA000006183040/2022-05-26/){:target="_blank"}.
       
       ❌ Les entreprises qui relèvent du régime général ou d'autres régimes sociaux ne sont pas concernées par cette API.
+      
+    updating_rules_description: |+
+      Cette API interroge en direct l'Administration des systèmes d'information des organismes sociaux (MSA URSSAF). Les données transmises sont donc à jour, en **temps réél**, des dernières informations connues par la MSA.
     entities:
       - associations
       - entreprises
@@ -25,9 +28,8 @@
       Cette API indique si l'entreprise est à jour de ses cotisations sociales auprès de la MSA. Il existe donc trois situations possibles pour une entreprise :
       - L'entreprise est à jour de ses cotisations sociales auprès de la MSA ;
       - L'entreprise n’est pas à jour de ses cotisations sociales ;
-      - La régularité de l'entreprise est inconnue. Une analyse est à effectuer par un agent caisse de la MSA pour savoir si le débiteur est à jour ou pas.
-        Ce cas particulier intervient sur un laps de temps limité.
-
+      - La régularité de l'entreprise est inconnue. Une analyse est à effectuer par un agent caisse de la MSA pour savoir si le débiteur est à jour ou pas. Il vous faudra relancer un appel ultérieurement, le temps que l'agent analyse la situation et la mette à jour dans le système d'information.
+       
 
 
       {:.fr-highlight}
