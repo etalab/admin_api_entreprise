@@ -10,8 +10,8 @@ class PagesController < ApplicationController
   end
 
   def home
-    @endpoints = Endpoint.all
-    @providers = @endpoints.map(&:providers).flatten.uniq
+    @endpoints_sample = Endpoint.all.sample(3)
+    @providers = Provider.all
   end
 
   def developers; end
