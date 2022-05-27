@@ -3,9 +3,9 @@
     <div class="fr-grid-row">
       <div class="left-info fr-col-xl-8 fr-col-12 fr-pt-5w padding-left-container">
         <div class="left-info--text">
-          <h4>Comment obtenir un accès ?</h4>
-          <p class="fr-text--lg">Seules les entités administratives sont éligibles ✅.<br />Les éditeurs de solutions logicielles à destination des administrations peuvent également l’être.</p>
-          <a href="#" class="fr-link" target="_blank" rel="noopener">Vérifier son éligibilité et demander un accès</a>
+          <h4><%= t('.title') %></h4>
+          <p class="fr-text--lg"><%= t('.description').html_safe %></p>
+          <a href="#" class="fr-link" target="_blank" rel="noopener"><%= t('.check_eligibity') %></a>
         </div>
 
         <div class="left-info--cards fr-col-12 fr-grid-row">
@@ -13,9 +13,9 @@
             <div class="fr-card__body">
               <div class="fr-card__content">
                 <h4 class="fr-card__title">
-                  <%= link_to "Conditions détaillées d'utilisation du service", cgu_path %>
+                  <%= link_to t('.cgu_link'), cgu_path %>
                 </h4>
-                <p class="fr-card__desc">Votre administration est-elle éligible ? Quels sont les prérequis techniques ? Quels sont vos engagements ?</p>
+                <p class="fr-card__desc"><%= t('.cgu_description') %></p>
               </div>
             </div>
           </div>
@@ -24,9 +24,9 @@
             <div class="fr-card__body">
               <div class="fr-card__content">
                 <h4 class="fr-card__title">
-                  <a href="https://annuaire-entreprises.data.gouv.fr/" target="_blank" rel="noopener">Vous n’êtes pas une administration ?</a>
+                  <a href="https://annuaire-entreprises.data.gouv.fr/" target="_blank" rel="noopener"><%= t('.annuaire_data_link') %></a>
                 </h4>
-                <p class="fr-card__desc">Retrouvez certaines informations sur les entreprises et les associations sur un autre site&nbsp;: l’Annuaire des entreprises.</p>
+                <p class="fr-card__desc"><%= t('.annuaire_data_description').html_safe %></p>
               </div>
             </div>
           </div>
@@ -35,16 +35,16 @@
 
       <div class="right-info fr-background-default-white fr-col-xl-4 fr-col-12 fr-p-6w padding-right-container">
         <div class="info-container">
-          <h4>Accéder à mon compte et aux jetons 🔑</h4>
-          <p>Votre demande d’accès à l’API Entreprise a été acceptée par notre pôle juridique, connectez-vous pour&nbsp;:</p>
+          <h4><%= t('.access_account_title') %></h4>
+          <p><%= t('.access_account_description').html_safe %></p>
           <ul class="fr-mb-3w">
-            <li>Récupérer et renouveler les <strong>jetons d’accès</strong> ;</li>
-            <li>Consulter les <strong>statistiques d’utilisation</strong> ;</li>
-            <li><strong>Personnaliser le contenu du site</strong> API Entreprise en fonction de vos habilitations.</li>
+            <li><%= t('.access_account_list_token').html_safe %></li>
+            <li><%= t('.access_account_list_stats').html_safe %></li>
+            <li><%= t('.access_account_list_content').html_safe %></li>
           </ul>
 
           <%= link_to login_path, class: "fr-btn" do %>
-            Se connecter&nbsp;<span class="fr-icon-arrow-right-line" aria-hidden="true" />
+            <%= t('.connect') %>&nbsp;<span class="fr-icon-arrow-right-line" aria-hidden="true" />
           <% end %>
         </div>
       </div>

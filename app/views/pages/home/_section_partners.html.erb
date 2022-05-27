@@ -1,8 +1,8 @@
 <section id="section-partners" class="fr-p-6w">
   <div class="fr-container">
     <div class="fr-grid-row provider-container">
-      <h3 class="fr-ml-2v fr-col-12">Ils partagent les données au travers d’API Entreprise :</h3>
-      <p class="fr-ml-2v fr-col-12">Découvrez les API de chaque fournisseur de données.</p>
+      <h3 class="fr-ml-2v fr-col-12"><%= t('.title').html_safe %></h3>
+      <p class="fr-ml-2v fr-col-12"><%= t('.subtitle') %></p>
 
       <div class="providers center">
         <% @providers.each do |provider| %>
@@ -15,10 +15,10 @@
 
       <div class="buttons fr-mt-3w">
         <%= link_to endpoints_path, class: "fr-btn fr-m-1w" do %>
-          Consulter toutes les API&nbsp;<span class="fr-icon-arrow-right-line" aria-hidden="true" />
+          <%= t('.link_endpoints') %>&nbsp;<span class="fr-icon-arrow-right-line" aria-hidden="true" />
         <% end %>
 
-        <button class="fr-btn fr-btn--secondary fr-m-1w" disabled>Proposer une nouvelle API</button>
+        <button class="fr-btn fr-btn--secondary fr-m-1w" disabled><%= t('.link_new_api') %></button>
       </div>
     </div>
   </div>

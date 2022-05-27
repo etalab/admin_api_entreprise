@@ -2,7 +2,7 @@
   <div class="fr-container">
 
     <div class="fr-grid-row">
-      <h3>De nombreuses données sur les entreprises et associations :</h3>
+      <h3><%= t('.title').html_safe %></h3>
       <% @endpoints_sample.each_with_index do |endpoint| %>
       <div class="fr-grid-card-row-inner fr-col-xs-12 fr-col-md-4">
         <%= render endpoint %>
@@ -12,7 +12,7 @@
 
     <div class="buttons">
       <%= link_to endpoints_path, class: "fr-btn fr-m-1w" do %>
-        Consulter le catalogue des données&nbsp;<span class="fr-icon-arrow-right-line" aria-hidden="true"/>
+        <%= t('.link_endpoints') %>&nbsp;<span class="fr-icon-arrow-right-line" aria-hidden="true"/>
       <% end %>
     </div>
   </div>
