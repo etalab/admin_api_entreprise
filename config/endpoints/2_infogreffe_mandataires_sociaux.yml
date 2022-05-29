@@ -4,10 +4,11 @@
   position: 110
   perimeter:
     entity_type_description: |+
-      Toutes les entreprises inscrites au registre du commerce et des sociétés (RCS) sont concernées.
+      Cette API concerne ✅ **toutes les entreprises inscrites au registre du commerce et des sociétés** (RCS).
+      
       Il s'agit des entreprises ayant une activité commerciale. Pour plus de détails, consulter [le site du ministère de l'économie](https://www.economie.gouv.fr/entreprises/registre-commerce-societes-rcs){:target="_blank"}
     updating_rules_description: |+
-      Les données sont mises à jour en temps réel avec les greffes. La donnée est donc la plus récente possible, _modulo_ le temps de saisie nécessaire pour les greffiers.
+      Les données sont **mises à jour en temps réel** avec les greffes. La donnée est donc la plus récente possible, _modulo_ le temps de saisie nécessaire pour les greffiers.
     entities:
       - entreprises
   call_id: "SIREN"
@@ -15,11 +16,9 @@
     - 'infogreffe'
   data:
     description: |+
-      Cette API délivre tous les mandataires sociaux de l'entreprise :
+      Cette API délivre **tous les mandataires sociaux  et leur fonction** au sein de l'entreprise&nbsp;:
       - S'il s'agit de personnes morales : le numéro de SIREN, la raison sociale et le nom du greffe seront précisés ;
-      - S'il s'agit de personnes physiques : le nom, le prénom, la date de naissance, ainsi que le lieu de naissance de la personne physique seront indiqués ;
-
-      La fonction du mandataire social au sein de l'entreprise, par exemple, "Président" est également spécifiée.
+      - S'il s'agit de personnes physiques : le nom, le prénom, la date de naissance, ainsi que le lieu de naissance de la personne physique seront indiqués.
   opening: protected
   use_cases:
     - Marchés publics
