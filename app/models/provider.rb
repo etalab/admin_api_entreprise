@@ -4,7 +4,7 @@ class Provider
   attr_accessor :slug, :name
 
   def self.all
-    I18n.t('.providers').map do |slug, name|
+    I18n.t('providers').map do |slug, name|
       new(slug:, name:)
     end
   end
