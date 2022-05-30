@@ -3,7 +3,7 @@
   position: 145
   path: '/v3/insee/sirene/etablissements/{siret}/adresse'
   perimeter:
-   entity_type_description: |+
+    entity_type_description: |+
       Cette API concerne les établissements inscrits au répertoire Sirene, qu'ils soient "diffusibles" ou "non-diffusibles" :
       - ✅ les établissements des personnes morales de droit privé : **les entreprises** dont toutes celles immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RCM) figurent dans la base Sirene ;
       - ✅ les établissements des personnes morales de droit public : les **institutions et services de l'État** et les collectivités territoriales ;
@@ -42,13 +42,13 @@
     - 'insee'
   data:
     description: &insee_adresse_etablissement_data_description |+
-    Cette API délivre les informations de localisation d'un établissement, dont les éléments constitutifs de l'**adresse postale**.
+      Cette API délivre les informations de localisation d'un établissement, dont les éléments constitutifs de l'**adresse postale**.
   faq:
-    - q: &insee_adresse_etablissement_faq_q1 "Les adresses délivrées respectent-elles la norme postale ?"
+    - q: &insee_adresse_etablissement_faq_q1 Les adresses délivrées respectent-elles la norme postale ?
       a: &insee_adresse_etablissement_faq_a1 |+
         Depuis 2018, l'INSEE ne fournit plus d'adresse au format normé RNVP (Restructuration, Normalisation et Validation Postale), nous opérons donc une reconstruction de l'adresse à partir des champs disponibles dans leur nouvelle API ; **cette reconstruction n'est en aucun cas un traitement RNVP**, des différences minimes résultant de l'arrêt du RNVP peuvent être constatées.
 
-    - q: &insee_adresse_etablissement_faq_q2 "Qu'est-ce qu'un "non-diffusibles" ?"
+    - q: &insee_adresse_etablissement_faq_q2 Qu'est-ce qu'un "non-diffusibles" ?
       a: &insee_adresse_etablissement_faq_a2 |+
         Parmi les entités présentes dans le répertoire Sirene, certaines, très majoritairement des personnes physiques, ont explicitement demandé de ne pas figurer en diffusion commerciale, en vertu de l'[article A123-96 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031043097/){:target="_blank"}.
 
@@ -57,7 +57,7 @@
         ℹ️ Les unités de la Défense nationale font également partie des "non-diffusibles" mais ne sont accessibles que sur autorisation du Ministère de la Défense, conformément à l'[article A123-96 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031043097/){:target="_blank"}
 
 
-    - q: &insee_adresse_etablissement_faq_q3 "Comment utiliser l'adresse des établissements "non-diffusibles" ?"
+    - q: &insee_adresse_etablissement_faq_q3 Comment utiliser l'adresse des établissements "non-diffusibles" ?
       a: &insee_adresse_etablissement_faq_a3 |+
         En utilisant cette API, vous vous engagez à **tenir compte du statut de diffusion le plus récent** de l'entité appelée.
 
@@ -72,8 +72,8 @@
   position: 140
   path: '/v3/insee/sirene/etablissements/diffusibles/{siret}/adresse'
   perimeter:
-     entity_type_description: |+
-     
+    entity_type_description: |+
+
       Cette API concerne les établissements inscrits au répertoire Sirene et "diffusibles" commercialement :
       - ✅ les établissements des personnes morales de droit privé : **les entreprises** dont toutes celles immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RCM) figurent dans la base Sirene ;
       - ✅ les établissements des personnes morales de droit public : les **institutions et services de l'État** et les collectivités territoriales ;
@@ -100,14 +100,14 @@
   call_id: *insee_adresse_etablissement_call_id
   providers: *insee_adresse_etablissement_providers
   data:
-    description: *insee_adresse_etablissement_data_description  
+    description: *insee_adresse_etablissement_data_description
   faq:
     - q: *insee_adresse_etablissement_faq_q1
       a: *insee_adresse_etablissement_faq_a1
-      
+
     - q: *insee_adresse_etablissement_faq_q2
-      a: *insee_adresse_etablissement_faq_a2    
-      
+      a: *insee_adresse_etablissement_faq_a2
+
     - q: *insee_adresse_etablissement_faq_q3
       a: *insee_adresse_etablissement_faq_a3
 
