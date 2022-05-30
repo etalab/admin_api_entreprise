@@ -1,0 +1,14 @@
+<section class="center fr-pt-8w fr-pb-8w">
+  <h1 class="fr-text--regular">
+    <span class="fr-text--bold"><%= t('.title_start') %></span>
+    <%= t('.title_end').html_safe %>
+  </h1>
+
+  <%= link_to endpoints_path, class: "fr-btn fr-m-1w" do %>
+    <%= t('.button_endpoints') %>&nbsp;<span class="fr-icon-arrow-right-line" aria-hidden="true" />
+  <% end %>
+
+  <%= link_to developers_path(anchor: 'guide-integration'), class: "fr-btn fr-btn--secondary fr-m-1w" do %>
+    <%= t('.button_developers') %>&nbsp;<span class="fr-icon-settings-5-line fr-fi--md" aria-hidden="true" />
+  <% end %>
+</section>

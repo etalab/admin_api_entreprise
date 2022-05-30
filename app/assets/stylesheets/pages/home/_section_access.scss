@@ -1,0 +1,42 @@
+#homepage #section-access {
+  .infos-left {
+    .info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      align-content: center;
+      text-align: center;
+
+      @media (min-width: 576px) {
+        flex-direction: row;
+        text-align: start;
+        margin: auto;
+      }
+
+      &--icon {
+        @media (min-width: 576px) {
+          margin: 25px;
+          position: relative;
+          top: -20px;
+        }
+      }
+
+      &--text {
+        h5 {
+          margin-bottom: 5px;
+        }
+      }
+    }
+  }
+
+  .cards-right {
+    .fr-card:first-of-type {
+      background-color: var(--blue-france-925-125) !important;
+    }
+
+    .fr-card:last-of-type {
+      background-color: var(--grey-925-125) !important;
+    }
+  }
+}
+

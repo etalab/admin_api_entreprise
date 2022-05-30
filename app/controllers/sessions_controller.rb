@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
 
   def destroy
     logout_user
-    redirect_to root_path
+    redirect_to login_path
   end
 
   def failure
