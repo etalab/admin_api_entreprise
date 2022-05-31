@@ -4,14 +4,20 @@
   path: '/v3/insee/sirene/etablissements/{siret}/adresse'
   perimeter:
     entity_type_description: |+
-      Cette API concerne les établissements inscrits au répertoire Sirene, qu'ils soient "diffusibles" ou "non-diffusibles" :
-      - ✅ les établissements des personnes morales de droit privé : **les entreprises** dont toutes celles immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RCM) figurent dans la base Sirene ;
-      - ✅ les établissements des personnes morales de droit public : les **institutions et services de l'État** et les collectivités territoriales ;
+      Cette API concerne les établissements inscrits au répertoire Sirene, qu'ils soient **"diffusibles" ou "non-diffusibles"** :
+      - ✅ les établissements des personnes morales de droit privé : **les entreprises et les entrepreneurs individuels**, dont toutes celles et ceux immatriculés au registre du commerce et des sociétés (RCS) et/ou au répertoire des métiers (RCM) ;
       - ✅ les établissements des **associations ayant un numéro de SIRET** délivré lorsqu'elles :
         * emploient du personnel salarié ;
         * sont soumises à la TVA ;
         * ont demandé ou bénéficient de transferts financiers publics.
+      - ✅ les établissements des personnes morales de droit public : les **institutions et services de l'État** et les collectivités territoriales ;
       - ✅ Les établissements des organismes publics ou privés et les entreprises étrangères qui ont une représentation ou une activité en France.
+      
+      
+      {:.fr-highlight}
+      ✅ Depuis janvier 2022, les loueurs de meublés non professionnels (LMNP) et les particuliers employeurs, à l'exception des cas mentionnés au [2° de l'Article R123-220 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000030783425/2022-05-31/){:target="_blank"}, ont l'obligation d'être inscrits au répertoire Sirene.
+      Cette modification intervient suite au [Décret n° 2021-1500 du 17 novembre 2021](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000044340276){:target="_blank"}. 
+
 
       ❌ Les établissements de gestion de paye de la fonction publique, bien que présents dans la base Sirene, ne sont pas concernés par cette API. Ils ont été immatriculés pour les seuls besoins de certaines administrations (les impôts, les URSSAF, la DGCP …).
       Leur diffusion à d'autres administrations n'est donc pas prévue.
@@ -25,7 +31,7 @@
     updating_rules_description: &insee_adresse_etablissement_updating_rules_description |+
       La mise a jour des données est faite **quotidiennement entre 0h et 3h** à l'Insee.
     know_more_description: &insee_adresse_etablissement_know_more_description |+
-      [Contexte juridique du répertoire national d'identification des entreprises et des établissements](https://www.legifrance.gouv.fr/affichCode.do;jsessionid=134EFA0EE7BDCA89C2D6B31E02C48430.tplgfr30s_3?idSectionTA=LEGISCTA000006178890&cidTexte=LEGITEXT000005634379&dateTexte=20100904){:target="_blank"}
+      L'[article R123-220 du Code du commerce](https://www.legifrance.gouv.fr/affichCode.do;jsessionid=134EFA0EE7BDCA89C2D6B31E02C48430.tplgfr30s_3?idSectionTA=LEGISCTA000006178890&cidTexte=LEGITEXT000005634379&dateTexte=20100904){:target="_blank"} liste les entités tenues d'être inclues dans le répertoire Sirene par l'Insee.
     entities:
     - etablissements_entreprises
     - etablissements_associations
@@ -74,14 +80,20 @@
   perimeter:
     entity_type_description: |+
 
-      Cette API concerne les établissements inscrits au répertoire Sirene et "diffusibles" commercialement :
-      - ✅ les établissements des personnes morales de droit privé : **les entreprises** dont toutes celles immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RCM) figurent dans la base Sirene ;
-      - ✅ les établissements des personnes morales de droit public : les **institutions et services de l'État** et les collectivités territoriales ;
+      Cette API concerne les établissements inscrits au répertoire Sirene et **"diffusibles" commercialement** :
+      - ✅ les établissements des personnes morales de droit privé : **les entreprises et les entrepreneurs individuels**, dont toutes celles et ceux immatriculés au registre du commerce et des sociétés (RCS) et/ou au répertoire des métiers (RCM) ;
       - ✅ les établissements des **associations ayant un numéro de SIRET** délivré lorsqu'elles :
         * emploient du personnel salarié ;
         * sont soumises à la TVA ;
         * ont demandé ou bénéficient de transferts financiers publics.
+      - ✅ les établissements des personnes morales de droit public : les **institutions et services de l'État** et les collectivités territoriales ;
       - ✅ Les établissements des organismes publics ou privés et les entreprises étrangères qui ont une représentation ou une activité en France.
+
+
+      {:.fr-highlight}
+      ✅ Depuis janvier 2022, les loueurs de meublés non professionnels (LMNP) et les particuliers employeurs, à l'exception des cas mentionnés au [2° de l'Article R123-220 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000030783425/2022-05-31/){:target="_blank"}, ont l'obligation d'être inscrits au répertoire Sirene.
+      Cette modification intervient suite au [Décret n° 2021-1500 du 17 novembre 2021](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000044340276){:target="_blank"}. 
+
 
       ❌ Les établissements de gestion de paye de la fonction publique, bien que présents dans la base Sirene, ne sont pas concernés par cette API. Ils ont été immatriculés pour les seuls besoins de certaines administrations (les impôts, les URSSAF, la DGCP …).
       Leur diffusion à d'autres administrations n'est donc pas prévue.

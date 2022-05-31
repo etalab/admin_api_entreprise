@@ -15,7 +15,7 @@ RSpec.describe AvailableEndpoints, type: :service do
       it { is_expected.to have_key('path') }
 
       it 'is ordered by position' do
-        expect(subject['uid']).to eq('insee/unites_legales_diffusibles')
+        expect(subject['uid']).to eq('insee/etablissements_diffusibles')
       end
     end
   end
