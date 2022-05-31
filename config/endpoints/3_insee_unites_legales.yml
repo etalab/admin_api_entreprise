@@ -1,18 +1,18 @@
 ---
 - uid: 'insee/unites_legales'
   path: '/v3/insee/sirene/unites_legales/{siren}'
-  position: 105
+  position: 125
   perimeter:
     description: |+
     entity_type_description: |+
-      Cette API concerne les unités légales inscrites au répertoire Sirene, qu'elles soient "diffusibles" ou "non-diffusibles" :
+      Cette API concerne les unités légales inscrites au répertoire Sirene, qu'elles soient **"diffusibles" ou "non-diffusibles"** :
       - ✅ les personnes morales de droit privé : les **entreprises** dont toutes celles immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RCM) figurent dans la base Sirene ;
-      - ✅ les personnes morales de droit public : les **institutions et services de l'État** et les collectivités territoriales ;
-      - ✅ les entrepreneurs individuels exerçant de manière indépendante une profession non salariée (exemple : un commerçant, un médecin), ayant fait une déclaration d'activité.
-      - ✅ les **associations ayant un numéro de SIREN** délivré lorsqu'elles :
+      - ✅ les **entrepreneurs individuels** exerçant de manière indépendante une profession non salariée (exemple : un commerçant, un médecin), ayant fait une déclaration d'activité ;
+      - ✅ les **associations ayant un numéro de SIREN**, délivré lorsqu'elles :
         * emploient du personnel salarié ;
         * sont soumises à la TVA ;
         * ont demandé ou bénéficient de transferts financiers publics.
+      - ✅ les personnes morales de droit public : les **institutions et services de l'État** et les collectivités territoriales ;
       - ✅ Les organismes publics ou privés et les entreprises étrangères qui ont une représentation ou une activité en France.
 
       ❌ Les particuliers employeurs ne font pas partie de la base Sirene.
@@ -46,7 +46,7 @@
     description: &insee_unites_legales_data_description |+
       Cette API délivre **uniquement les informations de référence des unités légales**.
 
-    Pour obtenir : |+
+    Pour obtenir :
       - les informations des établissements, utilisez [cette API pour les "diffusibles"](<%= endpoint_path(uid: 'insee/etablissements') %>) et [cette API pour tous les établissements, y compris les \"non-diffusibles\"](<%= endpoint_path(uid: 'insee/etablissements_diffusibles') %>) ;
       - l'adresse des établissements, [cette API pour les "diffusibles"](<%= endpoint_path(uid: 'insee/adresse_etablissements_diffusibles') %>) et [cette API pour tous les établissements, y compris les "non-diffusibles"](<%= endpoint_path(uid: 'insee/adresse_etablissements') %>) ;
       - les mandataires sociaux, [cette API](<%= endpoint_path(uid: 'infogreffe/mandataires_sociaux') %>) .
@@ -104,17 +104,17 @@
 
 - uid: 'insee/unites_legales_diffusibles'
   path: '/v3/insee/sirene/unites_legales/diffusibles/{siren}'
-  position: 100
+  position: 120
   perimeter:
     entity_type_description: |+
-      Cette API concerne les unités légales inscrites au répertoire Sirene et "diffusibles" commercialement :
-      - ✅ les personnes morales de droit privé : les **entreprises** dont toutes celles immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RCM) figurent dans la base Sirene ;
-      - ✅ les personnes morales de droit public : les **institutions et services de l'État** et les collectivités territoriales ;
-      - ✅ les entrepreneurs individuels exerçant de manière indépendante une profession non salariée (exemple : un commerçant, un médecin), ayant fait une déclaration d'activité.
-      - ✅ les **associations ayant un numéro de SIREN** délivré lorsqu'elles :
+      Cette API concerne les unités légales inscrites au répertoire Sirene et **"diffusibles" commercialement** :
+      - ✅ les personnes morales de droit privé : les **entreprises**, dont toutes celles immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RCM) figurent dans la base Sirene ;
+      - ✅ les **entrepreneurs individuels** exerçant de manière indépendante une profession non salariée (exemple : un commerçant, un médecin), ayant fait une déclaration d'activité ;
+      - ✅ les **associations ayant un numéro de SIREN**, délivré lorsqu'elles :
         * emploient du personnel salarié ;
         * sont soumises à la TVA ;
         * ont demandé ou bénéficient de transferts financiers publics.
+      - ✅ les personnes morales de droit public : les **institutions et services de l'État** et les collectivités territoriales ;
       - ✅ Les organismes publics ou privés et les entreprises étrangères qui ont une représentation ou une activité en France.
 
       ❌ Les particuliers employeurs ne font pas partie de la base Sirene ;
