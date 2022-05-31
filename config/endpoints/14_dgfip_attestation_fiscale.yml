@@ -20,7 +20,7 @@
       > Une attestation peut être renvoyée en cas d'appel d'une entreprise "fille", mais cette attestation ne sera pas valable car incomplète. En effet, il manquera les informations de la société "mère".
       > Il est de votre ressort de vérifier si l'entreprise est membre ou non d'un groupe de sociétés imposé selon le régime fiscal d'intégration visé à l'[article 223 A du CGI](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000042340402/){:target="_blank"} afin de ne pas utiliser une attestation qui ne serait pas valable. Deux API spécifiques à ces sociétés seront bientôt disponibles.
 
-      L'attestation est **délivrée si l'entreprise est en règle de ses obligations** déclaratives et de paiement d'IS et de TVA.
+      L'attestation est **délivrée ✅ si l'entreprise est en règle de ses obligations** déclaratives et de paiement d'IS et de TVA.
       Les sociétés bénéficiant d’un plan de règlement, redressement, sauvegarde ou conciliation ainsi que les sociétés ayant formulé un recours contentieux assorti d’un sursis de paiement ne peuvent pas se voir délivrer une attestation fiscale.
     entities:
       - entreprises
@@ -37,6 +37,17 @@
   parameters:
     - Numéro de SIREN de l'entreprise
   faq:
+    - q: L’api ne renvoie pas de pièce, cela signifie-t'il que l’entreprise n’est pas à jour ?
+      a: |+
+        Non, dans certains cas particuliers, l'API ne peut pas renvoyer l’attestation.
+        Cela ne veut pas dire que l’entreprise n’est pas à jour. Il faut se rapprocher de l’entreprise pour lui demander la pièce directement.
+
+        De plus, si une entreprise se voit refuser la délivrance de l’attestation pour cause de carence de ses déclarations
+        ou de ses paiements, cette non-délivrance n’est pas définitive pour toute l’année N.
+        Si ensuite elle régularise sa situation pour les années N-1 et antérieures, alors l’attestation de régularité lui sera délivrée.
+
+
+
     - q: Quelles obligations fiscales sont prises en compte ?
       a: |+
         L'attestation prend en compte :
@@ -81,14 +92,3 @@
         Une API dédiée sera bientôt disponible.
 
         Plus d'informations disponibles dans le [BOFIP - Dispositions juridiques communes - Attestation de régularité fiscale](https://bofip.impots.gouv.fr/bofip/8485-PGP.html/identifiant%3DBOI-DJC-ARF-20161207){:target="_blank"}.
-
-
-
-    - q: L’api ne renvoie pas de pièce, cela signifie-t'il que l’entreprise n’est pas à jour ?
-      a: |+
-        Non, dans certains cas particuliers, l'API ne peut pas renvoyer l’attestation.
-        Cela ne veut pas dire que l’entreprise n’est pas à jour. Il faut se rapprocher de l’entreprise pour lui demander la pièce directement.
-
-        De plus, si une entreprise se voit refuser la délivrance de l’attestation pour cause de carence de ses déclarations
-        ou de ses paiements, cette non-délivrance n’est pas définitive pour toute l’année N.
-        Si ensuite elle régularise sa situation pour les années N-1 et antérieures, alors l’attestation de régularité lui sera délivrée.

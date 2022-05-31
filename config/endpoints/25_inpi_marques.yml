@@ -4,10 +4,12 @@
   position: 360
   perimeter:
     entity_type_description: |+
-      Seuls les marques pour lesquelles un SIREN a été indiqué par le déposant sont disponibles. L'INPI indique qu'environ 60% des dépôts de marques France effectués sont rattachés à un SIREN.
+      Cette API délivre ✅ uniquement les marques pour lesquelles un SIREN était précisé par l'entreprise lors du dépôt. L'INPI indique qu'environ 60% des dépôts, effectués au niveau français, sont rattachés à un SIREN.
     geographical_scope_description: |+
-      Seules les marques déposées au niveau français sont disponibles.
-      Les marques déposées au niveau européen ou international ne sont pas renvoyées par cette API car le taux de sirenage de ces dépôts est de 0%.
+      ✅ Seules les marques (avec SIREN) déposées au niveau français depuis 1976 sont disponibles.
+      ❌ Les marques déposées au niveau européen ou international ne sont pas renvoyées par cette API car le taux de sirenage de ces dépôts est de 0%.
+    updating_rules_description: |+
+      La mise a jour des données est faite une fois par semaine, le vendredi.
     entities:
       - associations
       - entreprises
@@ -18,11 +20,12 @@
     description: |+
       Cette API délivre :
       - le **nombre de marques déposées** par l'entreprise, pour lesquelles le SIREN était précisé lors du dépôt.
-      - Une **liste des dernières marques déposées** est également renvoyée, et permet d'obtenir les informations suivantes :
+      - Une **liste des 5 marques déposées** est également renvoyée, et permet d'obtenir les informations suivantes :
         * le nom de la marque ;
         * le statut du dépôt et de la marque (demande déposée, publiée, non publiée, totalement rejetée ou irrecevable après publication ; marque enregistrée, renouvelée, ayant fait l'objet d'une renonciation totale, ayant fait l'objet d'un retrait total, annulée ou expirée ; renouvellement demandé) ;
         * le nom du déposant ou du titulaire ;
         * la clef associée au dépôt.
+      Il vous est possible d'augmenter ou de réduire le nombre de marques pour lesquelles les informations sont renvoyées, en paramétrant la requête avec un nombre entre 1 et 20.
   opening: public
   use_cases:
     - Marchés publics

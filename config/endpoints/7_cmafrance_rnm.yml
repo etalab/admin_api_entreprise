@@ -4,23 +4,19 @@
   position: 180
   perimeter:
     description: |+
-      Les informations sur les entreprises artisanales fournies par cette API sont également disponibles en [API publique et libre d'accès sur api.gouv.fr](https://api.gouv.fr/les-api/api_rnm){:target="_blank"}).
+      Les informations sur les entreprises artisanales fournies par cette API sont également disponibles en [API publique et libre d'accès sur api.gouv.fr](https://api.gouv.fr/les-api/api_rnm){:target="_blank"}.
+    entity_type_description: |+
+      Cette API couvre toutes les entreprises enregistrées au répertoire national des métiers (RNM):
+      - **Sont obligatoirement immatriculées** au répertoire des métiers ✅ les entreprises individuelles ou les sociétés qui emploient moins de onze salariés et exercent à titre principal ou secondaire une activité artisanale de production, de transformation, de réparation ou de prestation de service figurant en [annexe du décret du 2 avril 1998](https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000021964896/2009-02-02/){:target="_blank"}).
+      - **Peuvent être immatriculées** au RNM, ✅ les entreprises qui dépassent le seuil de dix salariés si leur dirigeant peut se prévaloir de la qualité d'artisan, d'artisan d'art ou de maitre artisan.
     updating_rules_description: |+
-      Cette API couvre toutes les entreprises enregistrées au répertoire national des métiers (RNM).
+      La fraîcheur des données de cette API correspond à la date de mise à jour du répertoire RNM par les nouvelles déclarations de l'entrepreneur.
 
-      **Sont obligatoirement immatriculées** au répertoire des métiers :
-      - ✅ les entreprises individuelles et les sociétés qui n'emploient pas plus de dix salariés et exercent à titre principal ou secondaire une activité artisanale de production, de transformation, de réparation ou de prestation de service figurant en [annexe du décret du 2 avril 1998](https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000021964896/2009-02-02/){:target="_blank"}).
-      - ✅ Les personnes qui exercent l'activité de fabrication de plats à consommer sur place peuvent également être immatriculées au répertoire des métiers.
-
-      **Peuvent être immatriculées** au RNM, ✅ les entreprises qui dépassent le seuil de dix salariés si leur dirigeant peut se prévaloir de la qualité d'artisan, d'artisan d'art ou de maitre artisan.
-    updating_rules_description: |+
-      La fraîcheur des données de cette API correspond à la date de mise à jour faite du répertoire RNM suite aux nouvelles informations déclarées par l'entrepreneur. Cette date est indiquée dans l'API par la clé `rnm_date_mise_a_jour`.
-
-      Dans le cas où il n'y a pas encore eu de changement répertorié, la date d'import `rnm_date_import` fait alors référence.
+      Dans le cas où il n'y a pas encore eu de changement répertorié, la date d'import fait alors référence.
 
       {:.fr-highlight.fr-highlight--caution}
-      > ⚠️ Cependant, les dates ci-dessus ne garantissent pas l'actualisation de toutes les données renvoyées, car leur mise à jour n'est pas obligatoire.
-      > Les données d'effectifs `effectif_salarie` et `effectif_apprenti` sont notamment à prendre avec vigilance car elles peuvent dater de la première déclaration.
+      > ⚠️ Cependant, la date de mise à jour ne garantit pas que toutes les données ont été actualisées à cette période. Leur mise à jour n'est en effet pas toujours obligatoire.
+      > Les données d'effectifs salariés et apprentis sont notamment à prendre avec vigilance car elles peuvent dater de la première déclaration.
 
       **Liste des évènements qui doivent être obligatoirement déclarés :**
       - changement d'adresse ;
@@ -35,8 +31,8 @@
       - cessation temporaire ou totale d'activité ;
       - régularisation d'immatriculation pour les micro-entrepreneurs.
 
-      Il est à noter que **l'entrepreneur n'a pas d'obligation légale à déclarer un changement d'effectif**.
-      De fait, l'actualisation de cette donnée dépend donc du bon vouloir de l'entrepreneur à revérifier tous les champs du formulaire au moment de sa déclaration d'un événement dit obligatoire. Néanmoins, **généralement**, étant donné que toute modification du répertoire implique des coûts, **l'entreprise met à jour l'ensemble de ses données**.
+      **L'entrepreneur n'a pas d'obligation légale à déclarer un changement d'effectif**.
+      De fait, l'actualisation de cette donnée dépend du bon vouloir de l'entrepreneur à revérifier tous les champs du formulaire au moment de la déclaration d'un changement. **Généralement**, étant donné que toute modification du répertoire implique des coûts, **l'entreprise met à jour l'ensemble de ses données**.
     entities:
       - entreprises
   call_id: "SIREN"
@@ -45,11 +41,11 @@
   data:
     description: |+
       Cette API délivre des informations de référence sur les entreprises artisanales, données fournies par la Chambre des Métiers et de l'Artisanat France (CMA France), telles que :
-      - des informations générales et juridiques, telles que le nom de l'entreprise, s'il s'agit personne physique ou morale, sa forme juridique, son effectif et l'origine du fond de commerce ;
-      - des données définissant le type d'activité de l'entreprise, telles que le code NAFA, le secteur d'activité (NAR), et l'indication si l'activité est permanente ou saisonnière et/ou ambulante ;
-      - des informations géographiques, notamment l'adresse ;
-      - des informations sur les dirigeants ;
-      - les dates clés (immatriculation, radiation, début d'activité …) ainsi que le code du centre de formalité des entreprises (CFE) ;
+      - des **informations générales et juridiques**, telles que le nom de l'entreprise, le statut personne physique ou morale, la forme juridique, l'effectif et l'origine du fond de commerce ;
+      - des données définissant le **type d'activité** de l'entreprise, telles que le code NAFA, le secteur d'activité (NAR), et l'indication si l'activité est permanente ou saisonnière et/ou ambulante ;
+      - des **informations géographiques**, notamment l'adresse ;
+      - des informations sur les **dirigeants** ;
+      - les **dates clés** (immatriculation, radiation, début d'activité …) ainsi que le code du centre de formalité des entreprises (CFE) ;
       - des informations en cas de double immatriculation ;
       - des informations spécifiques au RNM (identifiants, dates d'import et date de mise à jour des données).
   opening: public

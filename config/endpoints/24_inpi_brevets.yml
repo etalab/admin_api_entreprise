@@ -4,9 +4,13 @@
   position: 350
   perimeter:
     entity_type_description: |+
-      Seuls les brevets pour lesquels un SIREN a été indiqué par le déposant sont disponibles. L'INPI indique qu'environ 80% des demandes de brevets publiées ces vingt dernières années sont rattachées à un SIREN.
+      Cette API délivre ✅ uniquement les brevets pour lesquels un SIREN était précisé par l'entreprise lors du dépôt. L'INPI indique qu'environ 80% des demandes de brevets publiées au niveau français et européen ces vingt dernières années sont rattachées à un SIREN.
     geographical_scope_description: |+
-      Les brevets France et Europe sont disponibles.
+      ✅ Les brevets (avec SIREN) déposés au **niveau français depuis 1902** ;
+      ✅ Les brevets (avec SIREN) déposés au **niveau européen à partir de 1978**, soit depuis l'origine, et publiés par l'OEB (Office européen des brevets) ;
+      ❌ Les brevets déposés au niveau international ne sont pas renvoyés par cette API car le taux de sirenage de ces dépôts est de 0%.
+    updating_rules_description: |+
+      La mise a jour des données est faite une fois par semaine, le vendredi.
     entities:
       - associations
       - entreprises
@@ -17,11 +21,12 @@
     description: |+
       Cette API délivre :
       - le **nombre de brevets déposés** par l'entreprise, pour lesquels le SIREN était précisé dans le dépôt.
-      - Une **liste des derniers brevets** déposés est également renvoyée, et permet d'obtenir les informations suivantes :
+      - Une **liste des 5 derniers brevets** déposés est également renvoyée, et permet d'obtenir les informations suivantes :
         * le titre du brevet ;
         * le numéro du brevet et le code de la zone géographique liés à l'organisation où le brevet a été déposé ;
         * le code de la catégorie du brevet ;
         * les dates de dépôt et de publication.
+      Il vous est possible d'augmenter ou de réduire le nombre de brevets pour lesquels les informations sont renvoyées, en paramétrant la requête avec un nombre entre 1 et 20.
   opening: public
   use_cases:
     - Marchés publics
