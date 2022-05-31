@@ -109,6 +109,12 @@ Exemple de la fiche métier de l'endpoint unités légales de l'insee :
 Le lien du profile: [Fiche métier "Données de référence d'une unité légale diffusible"](<%= endpoint_path(uid: 'insee/unites_legales_diffusibles') %>)
 ```
 
+#### Route une question précise de la FAQ :
+
+```md
+[Exemple de lien vers une ancre de la FAQ](<%= faq_index_path(anchor: 'quelles-sont-les-conditions-d-eligibilite') %>)
+```
+
 ### Les images:
 
 ```md
