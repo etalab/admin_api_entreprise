@@ -1,36 +1,65 @@
+@use 'developers/menu'
+@use 'developers/banner'
+
 #developers {
-  .banner {
-    background-color: #d1dad8;
-
-    .links {
-      display: flex;
-      flex-direction: column;
-
-      a {
-        background-image: unset;
-      }
-    }
-  }
-
   .card-swagger {
     background-color: var(--blue-france-925-125);
-    max-height: 250px;
+    max-height: 200px;
 
     @media(min-width: 1440px) {
       max-width: 300px;
+      max-height: 250px;
 
       position: absolute;
-      right: 100px;
-      top: 460px;
+      right: 300px;
+      top: 420px;
     }
   }
 
-  .title-anchor {
-    display: flex;
-    align-items: center;
-    margin: 20px;
+  .documentation {
+    padding-top: 6em;
+
+    &--title {
+      display: flex;
+      align-items: center;
+      padding-bottom: 2em;
+    }
+
     * {
       margin: 5px;
+    }
+
+    @media(min-width: 992px) {
+      margin-left: 50px;
+      max-width: 750px;
+    }
+
+    @media(min-width: 1440px) {
+      margin-left: 120px;
+      max-width: 800px;
+    }
+
+    @media(min-width: 1750px) {
+      max-width: 900px;
+    }
+
+    &--text {
+      @media(min-width: 576px) {
+        margin-left: 50px;
+      }
+    }
+
+    .prerequisites {
+      list-style-type: none;
+      padding: 0;
+
+      li::before {
+        content: "✅ ";
+      }
+
+      li {
+        margin-bottom: 1em;
+      }
     }
   }
 }

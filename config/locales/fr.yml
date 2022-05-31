@@ -370,3 +370,16 @@ fr:
       introduction_title: Introduction
       introduction_subtitle: Prérequis
       introduction_description: Voici la liste des fondamentaux techniques à mettre en place pour le bon fonctionnement de l’API Entreprise&nbsp;:&nbsp;
+      list_prerequisites_https: Gérer la mise à jour des protocoles de sécurité HTTPS ;
+      list_prerequisites_update: Anticiper la mise à jour du logiciel métier ;
+      list_prerequisites_version: Avoir une version de langage récente. API Entreprise ne fonctionne qu’avec Java 1.8 minimum (pour la gestion des certificats de +1024 bit, du TLS 1.2 minimum et des suites cryptographiques - ciphers) ;
+      list_prerequisites_whitelist: Prévoir de whitelister l’adresse IP du service API Entreprise si votre réseau est derrière un pare-feu. En effet, l’API Entreprise est accessible depuis internet.
+      list_prerequisites_costs: Anticiper les coûts de maintenance qui s’ajouteront aux coûts de mise en place.
+      list_prerequisites_authority: S’assurer que nos Autorités de Certification (AC) pour les certificats SSL sont autorisées par vos systèmes.
+      list_prerequisites_cors: Le CORS (CORS -Cross Origin Ressource Sharing) n'est pas autorisé. API Entreprise étant un service mettant à disposition des données souvent protégées par des secrets, le CORS n'est pas autorisé car il permet d'interroger directement API Entreprise depuis un site ou une application web. Cela implique que le token d'accès soit présent dans le code source du site web en question, et donc soit disponible au public. Si vous souhaitez mettre à disposition les données API Entreprise depuis un navigateur, <strong>il vous faut mettre en place un système de proxy</strong> pour ne pas appeler directement nos APIs.
+
+
+
+
+
+

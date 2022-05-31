@@ -1,39 +1,26 @@
-<div id="developers" class="fr-grid-row">
-  <div class="fr-col-lg-4 fr-col-xl-4">
-    <%= render 'pages/developers/menu' %>
-  </div>
+<div id="developers" class="fr-container--fluid">
+  <div class="fr-grid-row">
+    <div class="fr-col">
+      <%= render 'pages/developers/menu' %>
+    </div>
 
-  <div class="fr-col-lg-8 fr-col-xl-8">
-    <%= render 'pages/developers/banner' %>
-  </div>
+    <div class="fr-col-xs-12 fr-col-sm-12 fr-col-md-9 fr-col-lg-9 fr-col-xl-9">
+      <%= render 'pages/developers/banner' %>
 
 
-  <div class="card-swagger fr-card fr-enlarge-link">
-    <div class="fr-card__body">
-      <div class="fr-card__content">
-        <h4 class="fr-card__title">
-          <%= link_to t('.card_swagger_link'), endpoints_path %>
-        </h4>
-        <p class="fr-card__desc"><%= t('.card_swagger_description').html_safe %></p>
+      <div class="fr-col-xs-12 fr-col-sm-12 card-swagger fr-card fr-enlarge-link">
+        <div class="fr-card__body">
+          <div class="fr-card__content">
+            <h4 class="fr-card__title">
+              <%= link_to t('.card_swagger_link'), endpoints_path %>
+            </h4>
+            <p class="fr-card__desc"><%= t('.card_swagger_description').html_safe %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="documentation">
       </div>
     </div>
   </div>
-
-  <section id="introduction">
-    <div class='title-anchor'>
-      <button onclick="copyAnchor('introduction')" class="copy-link fr-icon-links-line"></button>
-      <h2><%= t('.introduction_title') %></h2>
-    </div>
-    <h3><%= t('.introduction_subtitle') %></h3>
-    <p><%= t('.introduction_description').html_safe %></p>
-    <ul>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-    </ul>
-  </section>
 </div>
