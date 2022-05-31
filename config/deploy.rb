@@ -4,7 +4,6 @@ require 'mina/git'
 require 'colorize'
 require 'mina/rbenv'  # for rbenv support. (https://rbenv.org)
 # require 'mina/rvm'    # for rvm support. (https://rvm.io)
-require 'securerandom'
 
 ENV['to'] ||= 'sandbox'
 %w[sandbox production].include?(ENV['to']) || raise("target environment (#{ENV['to']}) not in the list")
@@ -38,7 +37,6 @@ set :branch, branch
 ensure!(:branch)
 
 # Optional settings:
-set :user, 'deploy'          # Username in the server to SSH to.
 set :port, 22           # SSH port number.
 set :forward_agent, true     # SSH forward_agent.
 
@@ -67,7 +65,7 @@ set :shared_files, fetch(:shared_files, []).push(
   "config/environments/#{ENV['to']}.rb"
 )
 
-def samhain_db_update
+task :samhain_db_update do
   command %{sudo /usr/local/sbin/update-samhain-db.sh "/var/www/admin_apientreprise_#{ENV['to']}"}
 end
 
@@ -87,7 +85,8 @@ end
 # All paths in `shared_dirs` and `shared_paths` will be created on their own.
 task :setup do
   # command %{rbenv install 2.3.0 --skip-existing}
-  samhain_db_update
+  invoke :'ownership'
+  invoke :'samhain_db_update'
 end
 
 desc "Deploys the current version to the server."
@@ -107,6 +106,7 @@ task :deploy => :environment do
     end
     invoke :cgu_to_pdf
     invoke :'deploy:cleanup'
+    invoke :'ownership'
 
     on :launch do
       in_path(fetch(:current_path)) do
@@ -117,7 +117,7 @@ task :deploy => :environment do
       end
     end
   end
-  samhain_db_update
+  invoke :'samhain_db_update'
   # you can use `run :local` to run tasks on local machine before of after the deploy scripts
   # run(:local){ say 'done' }
 end
@@ -144,7 +144,7 @@ task :passenger do
   command %{
     if (sudo passenger-status | grep admin_apientreprise_#{ENV['to']}) > /dev/null
     then
-      passenger-config restart-app /var/www/admin_apientreprise_#{ENV['to']}/current
+      sudo passenger-config restart-app /var/www/admin_apientreprise_#{ENV['to']}/current
     else
       echo 'Skipping: no Passenger app found (will be automatically loaded)'
     fi}
@@ -153,6 +153,10 @@ end
 task :cgu_to_pdf do
   comment 'Generating PDF version of CGU'.green
   command %(pandoc app/views/pages/cgu.html.erb -o public/cgu.pdf --pdf-engine=xelatex)
+end
+
+task :ownership do
+  command %{sudo chown -R deploy /var/www/admin_apientreprise_#{ENV['to']}}
 end
 
 # For help in making your deploy script, see the Mina documentation:
