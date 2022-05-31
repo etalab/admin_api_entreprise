@@ -7,7 +7,6 @@
     entity_type_description: |+
       Cette API concerne les unités légales inscrites au répertoire Sirene, qu'elles soient **"diffusibles" ou "non-diffusibles"** :
       - ✅ les personnes morales de droit privé : les **entreprises** dont toutes celles immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RCM) figurent dans la base Sirene ;
-      - ✅ les **entrepreneurs individuels** exerçant de manière indépendante une profession non salariée (exemple : un commerçant, un médecin), ayant fait une déclaration d'activité ;
       - ✅ les **associations ayant un numéro de SIREN**, délivré lorsqu'elles :
         * emploient du personnel salarié ;
         * sont soumises à la TVA ;
@@ -15,8 +14,10 @@
       - ✅ les personnes morales de droit public : les **institutions et services de l'État** et les collectivités territoriales ;
       - ✅ Les organismes publics ou privés et les entreprises étrangères qui ont une représentation ou une activité en France.
 
-      ❌ Les particuliers employeurs ne font pas partie de la base Sirene.
-
+      {:.fr-highlight}
+      ✅ Depuis janvier 2022, les loueurs de meublés non professionnels (LMNP) et les particuliers employeurs, à l'exception des cas mentionnés au [2° de l'Article R123-220 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000030783425/2022-05-31/){:target="_blank"}, ont l'obligation d'être inscrits au répertoire Sirene.
+      Cette modification intervient suite au [Décret n° 2021-1500 du 17 novembre 2021](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000044340276){:target="_blank"}. 
+      
     geographical_scope_description: &insee_unites_legales_geographical_scope_description |+
       La base Sirene concerne les unités implantées en métropole, dans les DOM et dans les collectivités d'Outre-Mer de Saint-Pierre-et-Miquelon, Saint-Barthélémy et Saint-Martin.
 
@@ -27,7 +28,7 @@
       La mise a jour des données est **faite quotidiennement entre 0h et 3h** à l'INSEE.
 
     know_more_description: &insee_unites_legales_know_more_description |+
-      [Contexte juridique du Répertoire National d'identification des entreprises et des établissements](https://www.legifrance.gouv.fr/affichCode.do;jsessionid=134EFA0EE7BDCA89C2D6B31E02C48430.tplgfr30s_3?idSectionTA=LEGISCTA000006178890&cidTexte=LEGITEXT000005634379&dateTexte=20100904){:target="_blank"}
+      L'[article R123-220 du Code du commerce](https://www.legifrance.gouv.fr/affichCode.do;jsessionid=134EFA0EE7BDCA89C2D6B31E02C48430.tplgfr30s_3?idSectionTA=LEGISCTA000006178890&cidTexte=LEGITEXT000005634379&dateTexte=20100904){:target="_blank"} liste les entités tenues d'être inclues dans le répertoire Sirene par l'Insee.
     entities:
       - entreprises_diffusibles
       - associations
@@ -109,7 +110,6 @@
     entity_type_description: |+
       Cette API concerne les unités légales inscrites au répertoire Sirene et **"diffusibles" commercialement** :
       - ✅ les personnes morales de droit privé : les **entreprises**, dont toutes celles immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RCM) figurent dans la base Sirene ;
-      - ✅ les **entrepreneurs individuels** exerçant de manière indépendante une profession non salariée (exemple : un commerçant, un médecin), ayant fait une déclaration d'activité ;
       - ✅ les **associations ayant un numéro de SIREN**, délivré lorsqu'elles :
         * emploient du personnel salarié ;
         * sont soumises à la TVA ;
@@ -117,7 +117,9 @@
       - ✅ les personnes morales de droit public : les **institutions et services de l'État** et les collectivités territoriales ;
       - ✅ Les organismes publics ou privés et les entreprises étrangères qui ont une représentation ou une activité en France.
 
-      ❌ Les particuliers employeurs ne font pas partie de la base Sirene ;
+      {:.fr-highlight}
+      ✅ Depuis janvier 2022, les loueurs de meublés non professionnels (LMNP) et les particuliers employeurs, à l'exception des cas mentionnés au [2° de l'Article R123-220 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000030783425/2022-05-31/){:target="_blank"}, ont l'obligation d'être inscrits au répertoire Sirene.
+      Cette modification intervient suite au [Décret n° 2021-1500 du 17 novembre 2021](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000044340276){:target="_blank"}. 
 
       ❌ **Les unités légales "non-diffusibles" ne sont pas concernées par cette API**, leurs informations sont appelables avec [cette API](<%= endpoint_path(uid: 'insee/unites_legales') %>).
 
