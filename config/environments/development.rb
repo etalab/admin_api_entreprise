@@ -1,8 +1,7 @@
 require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
-    config.hosts << "dashboard.entreprise.api.gouv.local"
-    config.hosts << "v3-beta.entreprise.api.gouv.local"
+  config.hosts << /.*\.localtest\.me/
 
   # Settings specified here will take precedence over those in config/application.rb.
 
