@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     end
   end
 
-  root to: redirect('/login'), as: :dashboard_root, constraints: { subdomain: 'dashboard' }
+  root to: redirect('/login'), as: :dashboard_root, constraints: { subdomain: 'dashboard.entreprise.api' }
   root to: 'pages#home'
 
   # Authentication
