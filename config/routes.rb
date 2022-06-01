@@ -12,8 +12,8 @@ Rails.application.routes.draw do
     end
   end
 
-  root to: 'pages#home'
   root to: redirect('/login'), as: :dashboard_root, constraints: { subdomain: 'dashboard' }
+  root to: 'pages#home'
 
   # Authentication
   get '/login', to: 'sessions#new'
