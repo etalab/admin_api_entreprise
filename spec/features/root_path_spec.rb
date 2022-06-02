@@ -7,6 +7,10 @@ RSpec.describe 'Root path', type: :feature do
     Capybara.app_host = "http://#{host}"
   end
 
+  after do
+    Capybara.app_host = nil
+  end
+
   context 'when sudomain is dashboard.entreprise.api' do
     let(:host) { 'dashboard.entreprise.api.localhost.me' }
 
