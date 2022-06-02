@@ -14,7 +14,9 @@ class PagesController < ApplicationController
     @providers = Provider.all
   end
 
-  def developers; end
+  def developers
+    @doc_developers = File.read('config/doc/developpeurs.md')
+  end
 
   def mentions; end
 
