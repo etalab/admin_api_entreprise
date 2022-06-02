@@ -1,5 +1,6 @@
 @use 'developers/menu'
 @use 'developers/banner'
+@use '../components/markdown_to_html'
 
 #developers {
   .card-swagger {
@@ -12,21 +13,31 @@
 
       position: absolute;
       right: 300px;
-      top: 420px;
+      top: 320px;
     }
   }
 
   .documentation {
-    padding-top: 6em;
 
-    &--title {
-      display: flex;
-      align-items: center;
-      padding-bottom: 2em;
+    padding-top: 24px;
+    padding-bottom: 24px;
+
+    @media(min-width: 575px) {
+      padding-top: 48px;
+      padding-bottom: 48px;
     }
 
-    * {
-      margin: 5px;
+    @media(min-width: 1440px) {
+      padding-top: 96px;
+      padding-bottom: 96px;
+    }
+
+    margin-left: 10px;
+    margin-right: 10px;
+
+    @media(min-width: 992px) {
+      margin-left: 50px;
+      max-width: 750px;
     }
 
     @media(min-width: 992px) {
@@ -41,25 +52,6 @@
 
     @media(min-width: 1750px) {
       max-width: 900px;
-    }
-
-    &--text {
-      @media(min-width: 576px) {
-        margin-left: 50px;
-      }
-    }
-
-    .prerequisites {
-      list-style-type: none;
-      padding: 0;
-
-      li::before {
-        content: "✅ ";
-      }
-
-      li {
-        margin-bottom: 1em;
-      }
     }
   }
 }
