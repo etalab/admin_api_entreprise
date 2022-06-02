@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_11_122740) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_19_142159) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pgcrypto"
@@ -144,6 +144,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_11_122740) do
       access_logs.status,
       access_logs.ip,
       access_logs.source,
+      access_logs.cached,
       access_logs.jwt_api_entreprise_id,
       btrim(((access_logs.params -> 'siren'::text))::text, '"'::text) AS param_siren,
       btrim(((access_logs.params -> 'siret'::text))::text, '"'::text) AS param_siret,
