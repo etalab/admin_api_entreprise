@@ -23,10 +23,10 @@
     margin-bottom: 8px;
   }
 
-
   td {
     border: 1px solid;
     padding: 5px;
+    overflow: auto;
   }
 
   pre {
@@ -34,12 +34,14 @@
   }
 
   code {
+    display: block;
     overflow: auto;
-    display: inline-block;
     width: 100%;
+  }
 
-    @media(max-width: 575px) {
-      max-width: 33vw;
-    }
+  table {
+    width: 100%;
+    overflow: auto;
+    table-layout: fixed;
   }
 }
