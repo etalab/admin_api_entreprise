@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Token, type: :model do
-  let(:jwt) { create(:token, uid_particulier: 'dummy uuid') }
+  let(:jwt) { create(:token) }
 
   it 'has valid factories' do
     expect(build(:token)).to be_valid
@@ -132,10 +132,6 @@ RSpec.describe Token, type: :model do
         expect(payload.fetch(:scopes)).to eq(jwt_scopes)
       end
 
-      it 'contains its UUID from API Particulier into the "uid_particulier" key' do
-        expect(payload.fetch(:uid_particulier)).to eq(jwt.uid_particulier)
-      end
-
       describe 'expiration date' do
         it 'contains its expiration date into the "exp" key when not nil' do
           expect(payload.fetch(:exp)).to eq(jwt.exp)
@@ -152,6 +148,20 @@ RSpec.describe Token, type: :model do
       it 'contains the payload version' do
         expect(payload.fetch(:version)).not_to be_nil
         expect(payload.fetch(:version)).to eq(jwt.version)
+      end
+
+      describe 'extra_info' do
+        it 'does not include extra_info when empty' do
+          expect(payload).not_to have_key(:extra_info)
+        end
+
+        context 'when the token has extra_info' do
+          let(:token) { create(:token, extra_info: { dummy_key: 'dummy value' }).rehash }
+
+          it 'include API Particulier UUID in extra_info' do
+            expect(payload.dig(:extra_info, :dummy_key)).to eq('dummy value')
+          end
+        end
       end
     end
   end

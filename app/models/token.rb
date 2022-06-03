@@ -75,12 +75,12 @@ class Token < ApplicationRecord
       jti: id,
       scopes: scopes.pluck(:code),
       sub: intitule,
-      uid_particulier:,
+      extra_info:,
       iat:,
       version:
     }
     # JWT is by design expired if exp is null
     payload[:exp] = exp unless exp.nil?
-    payload
+    payload.compact
   end
 end
