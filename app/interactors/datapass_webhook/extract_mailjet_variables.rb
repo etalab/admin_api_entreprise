@@ -3,7 +3,7 @@ class DatapassWebhook::ExtractMailjetVariables < ApplicationInteractor
     context.mailjet_variables = build_common_mailjet_variables
 
     add_instructors_variables if event_from_instructor?
-    add_token_scopes if token_present?
+    add_token_roles if token_present?
   end
 
   private
@@ -52,9 +52,9 @@ class DatapassWebhook::ExtractMailjetVariables < ApplicationInteractor
     events_from_instructor.include?(context.event)
   end
 
-  def add_token_scopes
+  def add_token_roles
     available_scope_codes.each do |scope|
-      context.mailjet_variables["token_scope_#{scope}"] = token_scopes.include?(scope).to_s
+      context.mailjet_variables["token_role_#{scope}"] = token_roles.include?(scope).to_s
     end
   end
 
@@ -62,8 +62,8 @@ class DatapassWebhook::ExtractMailjetVariables < ApplicationInteractor
     authorization_request.token.present?
   end
 
-  def token_scopes
-    @token_scopes ||= authorization_request.token.scopes.pluck(:code)
+  def token_roles
+    @token_roles ||= authorization_request.token.scopes.pluck(:code)
   end
 
   def events_from_instructor
