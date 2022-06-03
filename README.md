@@ -20,7 +20,7 @@ installer les paquets et importer les tables de la base de données :
 Optionnel: Ajouter dans votre fichier `/etc/hosts`
 
 ```
-127.0.0.1 dashboard.entreprise.api.gouv.local v3-beta.entreprise.api.gouv.local
+127.0.0.1 v3-beta.localtest.me
 ```
 
 Ceci permet d'afficher les 2 versions du site (temporaire le temps que la
