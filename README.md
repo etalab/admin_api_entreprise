@@ -17,16 +17,6 @@ installer les paquets et importer les tables de la base de données :
 ./bin/install.sh
 ```
 
-Optionnel: Ajouter dans votre fichier `/etc/hosts`
-
-```
-127.0.0.1 v3-beta.localtest.me
-```
-
-Ceci permet d'afficher les 2 versions du site (temporaire le temps que la
-version 3 de l'API soit publique). Plus d'infos dans la partie Développement
-ci-dessous.
-
 ## Tests
 
 Pour faire tourner les tests, un navigateur headless est necessaire (au moins
@@ -77,9 +67,7 @@ Vous pouvez accéder ensuite accéder au site via les adresses suivantes:
 # Affiche le site dashboard par défaut
 http://localhost:3000/
 # Pour visualiser le site v3
-http://v3-beta.entreprise.api.gouv.local:3000/
-# Pour visualiser le site dashboard
-http://dashboard.entreprise.api.gouv.local:3000/
+http://v3-beta.localtest.me:3000/
 ```
 
 #### Stub des requêtes SIADE en developpement
