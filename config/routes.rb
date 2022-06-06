@@ -60,6 +60,7 @@ Rails.application.routes.draw do
 
   get '/home', to: 'pages#home'
   get '/developers', to: 'pages#developers'
+  get '/guide-migration', to: 'pages#guide_migration'
   get '/mentions', to: 'pages#mentions'
   get '/cgu', to: 'pages#cgu'
   get '/current_status', to: 'pages#current_status'
