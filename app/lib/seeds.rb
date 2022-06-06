@@ -108,34 +108,25 @@ class Seeds
   end
 
   def create_scopes_particulier
-    %w[
-      dgfip_declarant1_nom
-      cnaf_allocataires
-      pole_emploi_identite
-      mesri_identifiant
-    ].map do |code|
+    YAML
+      .load_file(Rails.root.join('config/data/scopes/particulier.yml'))
+      .map do |scope|
       Scope.create!(
-        name: code.humanize,
-        api: :particulier,
-        code:
+        code: scope['code'],
+        name: scope['name'],
+        api: :particulier
       )
     end
   end
 
   def create_scopes_entreprise
-    %w[
-      entreprises
-      attestations_fiscales
-      attestations_sociales
-      actes_inpi
-      associations
-      probtp
-      etablissements
-    ].map do |code|
+    YAML
+      .load_file(Rails.root.join('config/data/scopes/particulier.yml'))
+      .map do |scope|
       Scope.create!(
-        name: code.humanize,
-        api: :entreprise,
-        code:
+        code: scope['code'],
+        name: scope['name'],
+        api: :entreprise
       )
     end
   end
