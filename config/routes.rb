@@ -3,7 +3,8 @@ Rails.application.routes.draw do
 
   require 'sidekiq/web'
   require 'sidekiq/cron/web'
-  mount Sidekiq::Web => '/api/admin/sidekiq'
+
+  mount Sidekiq::Web => '/sidekiq'
 
   namespace :api do
     scope '/admin' do
