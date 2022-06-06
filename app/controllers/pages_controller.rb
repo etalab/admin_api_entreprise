@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  layout 'no_container', only: %i[home developers]
+  layout 'no_container', only: %i[home developers guide_migration]
 
   def current_status
     @current_status = StatusPage.new.current_status
@@ -16,6 +16,10 @@ class PagesController < ApplicationController
 
   def developers
     @doc_developers = File.read('config/doc/developpeurs.md')
+  end
+
+  def guide_migration
+    @doc_migration = File.read('config/doc/guide-migration.md')
   end
 
   def mentions; end
