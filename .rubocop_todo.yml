@@ -237,8 +237,8 @@ Rails/DynamicFindBy:
 # Include: app/models/**/*.rb
 Rails/HasAndBelongsToMany:
   Exclude:
-    - 'app/models/jwt_api_entreprise.rb'
-    - 'app/models/role.rb'
+    - 'app/models/token.rb'
+    - 'app/models/scope.rb'
 
 # Offense count: 3
 # Configuration parameters: Include.
@@ -253,7 +253,7 @@ Rails/HasManyOrHasOneDependent:
 Rails/InverseOf:
   Exclude:
     - 'app/models/authorization_request.rb'
-    - 'app/models/jwt_api_entreprise.rb'
+    - 'app/models/token.rb'
 
 # Offense count: 2
 Rails/OutputSafety:
@@ -272,7 +272,6 @@ Rails/PluralizationGrammar:
 Rails/RedundantPresenceValidationOnBelongsTo:
   Exclude:
     - 'app/models/authorization_request.rb'
-    - 'app/models/jwt_api_entreprise.rb'
 
 # Offense count: 2
 # Configuration parameters: ForbiddenMethods, AllowedMethods.
@@ -300,7 +299,6 @@ Rails/TimeZone:
 Rails/UnusedIgnoredColumns:
   Exclude:
     - 'app/models/contact.rb'
-    - 'app/models/jwt_api_entreprise.rb'
 
 # Offense count: 24
 # Cop supports --auto-correct.
@@ -339,7 +337,6 @@ Style/GuardClause:
   Exclude:
     - 'app/controllers/admin/tokens_controller.rb'
     - 'app/controllers/authenticated_users_controller.rb'
-    - 'app/controllers/jwt_api_entreprise_controller.rb'
 
 # Offense count: 2
 Style/MultilineBlockChain:

@@ -1,13 +1,9 @@
 class Token < ApplicationRecord
-  self.ignored_columns = %w[
-    user_id
-    access_request_survey_sent
-  ]
+  self.ignored_columns = %w[access_request_survey_sent]
 
   include RandomToken
 
   belongs_to :authorization_request, foreign_key: 'authorization_request_model_id'
-  validates :authorization_request, presence: true
   validates :exp, presence: true
   validate :scopes_must_belong_to_only_one_api
 
@@ -22,7 +18,6 @@ class Token < ApplicationRecord
   scope :active, -> { where(blacklisted: false, archived: false) }
   scope :archived, -> { where(blacklisted: false, archived: true) }
   scope :blacklisted, -> { where(blacklisted: true) }
-
 
   def rehash
     AccessToken.create(token_payload)

@@ -9,10 +9,10 @@ class TokenController < AuthenticatedUsersController
   def show
     @token = Token.find(params[:id])
 
-    unless access_allowed_for_current_user?
-      error_message(title: t('.error.title'))
-      redirect_current_user_to_homepage
-    end
+    return if access_allowed_for_current_user?
+
+    error_message(title: t('.error.title'))
+    redirect_current_user_to_homepage
   end
 
   def stats
