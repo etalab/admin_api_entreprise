@@ -1,0 +1,88 @@
+<div id="cas-usages" class="fr-container--fluid">
+  <div class="banner fr-pt-5w fr-pb-8w">
+    <div class="fr-container">
+      <h1><%= t('.title') %></h1>
+
+      <p><%= t('.description').html_safe %></p>
+    </div>
+  </div>
+
+  <div class="content fr-container fr-mt-5w fr-mb-5w">
+    <div class="fr-card fr-enlarge-link">
+      <div class="fr-card__body">
+        <div class="fr-card__content">
+          <h4 class="fr-card__title">
+            <%= link_to t('.cards.marche_public.title'), developers_path %>
+          </h4>
+          <p class="fr-card__desc fr-text--lead"><%= t('.cards.marche_public.description') %></p>
+        </div>
+      </div>
+      <div class="fr-card__header">
+        <div class="fr-card__img">
+          <%= image_tag("pictos/marches-publics.svg", class: %w(card-image fr-responsive-img), alt: "Marchés publics") %>
+        </div>
+      </div>
+    </div>
+
+    <div class="fr-card fr-enlarge-link">
+      <div class="fr-card__body">
+        <div class="fr-card__content">
+          <h4 class="fr-card__title">
+            <%= link_to t('.cards.subventions.title'), developers_path %>
+          </h4>
+          <p class="fr-card__desc fr-text--lead"><%= t('.cards.subventions.description') %></p>
+        </div>
+      </div>
+      <div class="fr-card__header">
+        <div class="fr-card__img">
+          <%= image_tag("pictos/subventions.svg", class: %w(card-image fr-responsive-img), alt: "Subventions") %>
+        </div>
+      </div>
+    </div>
+
+    <div class="fr-card fr-enlarge-link">
+      <div class="fr-card__body">
+        <div class="fr-card__content">
+          <h4 class="fr-card__title">
+            <%= link_to t('.cards.fraud.title'), developers_path %>
+          </h4>
+          <p class="fr-card__desc fr-text--lead"><%= t('.cards.fraud.description') %></p>
+        </div>
+      </div>
+      <div class="fr-card__header">
+        <div class="fr-card__img">
+          <%= image_tag("pictos/detection-fraude.svg", class: %w(card-image fr-responsive-img), alt: "Détection fraude") %>
+        </div>
+      </div>
+    </div>
+
+    <div class="fr-card fr-enlarge-link">
+      <div class="fr-card__body">
+        <div class="fr-card__content">
+          <h4 class="fr-card__title">
+            <%= link_to t('.cards.form.title'), developers_path %>
+          </h4>
+          <p class="fr-card__desc fr-text--lead"><%= t('.cards.form.description') %></p>
+        </div>
+      </div>
+      <div class="fr-card__header">
+        <div class="fr-card__img">
+          <%= image_tag("pictos/formulaire.svg", class: %w(card-image fr-responsive-img), alt: "Préremplissage public") %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="newsletter fr-background-default-white fr-pt-10v">
+    <div class="fr-container">
+      <div class="text fr-mb-5v fr-col-md-9 fr-col-lg-9 fr-col-xl-9 fr-col-xs-12 fr-col-sm-12">
+        <h2><%= t('.newsletter.title')%></h2>
+        <p><%= t('.newsletter.description')%></p>
+      </div>
+
+      <div class="button-container">
+        <%= link_to t('.newsletter.button'), developers_path, class: %w(fr-btn fr-mb-10v) %>
+      </div>
+    </div>
+  </div>
+</div>

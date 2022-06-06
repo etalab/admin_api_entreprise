@@ -11,6 +11,8 @@ module ActiveLinks
       Rails.application.routes.recognize_path(current_path)[:controller] == 'endpoints'
     when 'developer'
       current_path.starts_with?('/developpeurs')
+    when 'cas_usages'
+      current_path.starts_with?('/cas_usages')
     else
       false
     end
