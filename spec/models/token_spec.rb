@@ -221,4 +221,21 @@ RSpec.describe Token, type: :model do
       expect(subject).to include(*contacts_emails)
     end
   end
+
+  describe '#valid' do
+    it 'is invalid with scopes from different API' do
+      jwt = build(:token)
+      jwt.scopes << [
+        create(:scope, api: :particulier),
+        create(:scope, api: :entreprise)
+      ]
+      expect(jwt).not_to be_valid
+    end
+
+    it 'is valid with API Particulier scopes' do
+      jwt = build(:token)
+      jwt.scopes << create_list(:scope, 2, api: :particulier)
+      expect(jwt).to be_valid
+    end
+  end
 end

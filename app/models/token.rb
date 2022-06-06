@@ -8,8 +8,8 @@ class Token < ApplicationRecord
 
   belongs_to :authorization_request, foreign_key: 'authorization_request_model_id'
   validates :authorization_request, presence: true
-
   validates :exp, presence: true
+  validate :scopes_must_belong_to_only_one_api
 
   has_one :user, through: :authorization_request
   has_many :contacts, through: :authorization_request
@@ -22,6 +22,7 @@ class Token < ApplicationRecord
   scope :active, -> { where(blacklisted: false, archived: false) }
   scope :archived, -> { where(blacklisted: false, archived: true) }
   scope :blacklisted, -> { where(blacklisted: true) }
+
 
   def rehash
     AccessToken.create(token_payload)
@@ -82,5 +83,11 @@ class Token < ApplicationRecord
     # JWT is by design expired if exp is null
     payload[:exp] = exp unless exp.nil?
     payload.compact
+  end
+
+  def scopes_must_belong_to_only_one_api
+    return unless scopes.map(&:api).uniq.size > 1
+
+    errors.add(:scopes, 'Token can only have scopes from one API')
   end
 end
