@@ -1,7 +1,3 @@
-# Guide de migration
-
-## 🚀 Guide de migration V.2 > V.3
-
 Ce guide liste l’**ensemble des changements effectués entre la version 3 de l’API Entreprise et la version 2**, et vous livre les **éléments nécessaires pour effectuer la migration**.
 Les évolutions présentées ici ont été guidées par trois objectifs :
 - assurer une meilleure sécurité de la donnée des fournisseurs ;
