@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_19_142159) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_07_155825) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pgcrypto"
@@ -30,7 +30,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_142159) do
     t.string "ip"
     t.string "source"
     t.jsonb "params", default: "{}"
-    t.uuid "jwt_api_entreprise_id"
+    t.uuid "token_id"
     t.boolean "cached"
     t.index "((params ->> 'recipient'::text))", name: "index_access_logs_on_params_recipient", using: :gin
     t.index "((params ->> 'siren'::text))", name: "index_access_logs_on_params_siren", using: :gin
@@ -41,9 +41,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_142159) do
     t.index "date_trunc('month'::text, \"timestamp\")", name: "index_access_logs_on_timestamp_month"
     t.index "date_trunc('week'::text, \"timestamp\")", name: "index_access_logs_on_timestamp_week"
     t.index ["controller"], name: "index_access_logs_on_controller"
-    t.index ["jwt_api_entreprise_id"], name: "index_access_logs_on_jwt_api_entreprise_id", where: "(jwt_api_entreprise_id IS NOT NULL)"
     t.index ["status"], name: "index_access_logs_on_status"
     t.index ["timestamp"], name: "index_access_logs_on_timestamp"
+    t.index ["token_id"], name: "index_access_logs_on_token_id", where: "(token_id IS NOT NULL)"
   end
 
   create_table "authorization_requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -73,7 +73,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_142159) do
     t.index ["created_at"], name: "index_contacts_on_created_at"
   end
 
-  create_table "jwt_api_entreprises", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "scopes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.string "code", null: false
+    t.text "api", null: false
+    t.index ["created_at"], name: "index_scopes_on_created_at"
+  end
+
+  create_table "scopes_tokens", id: false, force: :cascade do |t|
+    t.uuid "token_id", null: false
+    t.uuid "scope_id", null: false
+  end
+
+  create_table "tokens", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "iat"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -88,26 +102,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_142159) do
     t.string "magic_link_token"
     t.datetime "magic_link_issuance_date", precision: nil
     t.uuid "authorization_request_model_id", null: false
-    t.index ["access_request_survey_sent"], name: "index_jwt_api_entreprises_on_access_request_survey_sent"
-    t.index ["archived"], name: "index_jwt_api_entreprises_on_archived"
-    t.index ["blacklisted"], name: "index_jwt_api_entreprises_on_blacklisted"
-    t.index ["created_at"], name: "index_jwt_api_entreprises_on_created_at"
-    t.index ["exp"], name: "index_jwt_api_entreprises_on_exp"
-    t.index ["iat"], name: "index_jwt_api_entreprises_on_iat"
-    t.index ["magic_link_token"], name: "index_jwt_api_entreprises_on_magic_link_token", unique: true
-  end
-
-  create_table "jwt_api_entreprises_roles", id: false, force: :cascade do |t|
-    t.uuid "jwt_api_entreprise_id", null: false
-    t.uuid "role_id", null: false
-  end
-
-  create_table "roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.string "code"
-    t.index ["created_at"], name: "index_roles_on_created_at"
+    t.json "extra_info"
+    t.index ["access_request_survey_sent"], name: "index_tokens_on_access_request_survey_sent"
+    t.index ["archived"], name: "index_tokens_on_archived"
+    t.index ["blacklisted"], name: "index_tokens_on_blacklisted"
+    t.index ["created_at"], name: "index_tokens_on_created_at"
+    t.index ["exp"], name: "index_tokens_on_exp"
+    t.index ["iat"], name: "index_tokens_on_iat"
+    t.index ["magic_link_token"], name: "index_tokens_on_magic_link_token", unique: true
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -145,7 +147,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_142159) do
       access_logs.ip,
       access_logs.source,
       access_logs.cached,
-      access_logs.jwt_api_entreprise_id,
+      access_logs.token_id,
       btrim(((access_logs.params -> 'siren'::text))::text, '"'::text) AS param_siren,
       btrim(((access_logs.params -> 'siret'::text))::text, '"'::text) AS param_siret,
       btrim(((access_logs.params -> 'id'::text))::text, '"'::text) AS param_id,
