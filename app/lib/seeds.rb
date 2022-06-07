@@ -121,7 +121,7 @@ class Seeds
 
   def create_scopes_entreprise
     YAML
-      .load_file(Rails.root.join('config/data/scopes/particulier.yml'))
+      .load_file(Rails.root.join('config/data/scopes/entreprise.yml'))
       .map do |scope|
       Scope.create!(
         code: scope['code'],

@@ -5,6 +5,7 @@ FactoryBot.define do
     archived { false }
     version { '1.0' }
     days_left_notification_sent { [] }
+    extra_info { {} }
 
     sequence(:authorization_request_id) { |n| "1234#{n}" }
 

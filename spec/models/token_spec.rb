@@ -151,8 +151,9 @@ RSpec.describe Token, type: :model do
       end
 
       describe 'extra_info' do
-        it 'does not include extra_info when empty' do
-          expect(payload).not_to have_key(:extra_info)
+        it 'include empty hash when extra_info is empty' do
+          expect(payload[:extra_info]).to be_a(Hash)
+          expect(payload[:extra_info]).to be_a_empty
         end
 
         context 'when the token has extra_info' do

@@ -14,16 +14,20 @@ RSpec.describe Scope do
   end
 
   describe 'data/scopes/*.yml' do
-    it 'validates scopes for API Particulier' do
-      scopes = YAML.load_file(Rails.root.join('config/data/scopes/particulier.yml'))
-      expect(scopes).to all have_key('code')
-      expect(scopes).to all have_key('name')
+    describe 'Scopes for API Particulier' do
+      subject(:scopes) { YAML.load_file(Rails.root.join('config/data/scopes/particulier.yml')) }
+
+      it { is_expected.to all have_key('code') }
+      it { is_expected.to all have_key('name') }
+      it { is_expected.to have_at_least(1).item }
     end
 
-    it 'validates scopes for API Entreprise' do
-      scopes = YAML.load_file(Rails.root.join('config/data/scopes/entreprise.yml'))
-      expect(scopes).to all have_key('code')
-      expect(scopes).to all have_key('name')
+    describe 'Scopes for API Entreprise' do
+      subject(:scopes) { YAML.load_file(Rails.root.join('config/data/scopes/entreprise.yml')) }
+
+      it { is_expected.to all have_key('code') }
+      it { is_expected.to all have_key('name') }
+      it { is_expected.to have_at_least(1).item }
     end
   end
 end

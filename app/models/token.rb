@@ -77,7 +77,7 @@ class Token < ApplicationRecord
     }
     # JWT is by design expired if exp is null
     payload[:exp] = exp unless exp.nil?
-    payload.compact
+    payload
   end
 
   def scopes_must_belong_to_only_one_api
