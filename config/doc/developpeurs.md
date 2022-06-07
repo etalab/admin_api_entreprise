@@ -1,6 +1,3 @@
-
-# Espace développeur 🛠
-
 ## Introduction
 
 ## Prérequis
