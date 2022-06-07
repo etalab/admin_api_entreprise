@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ $# -eq 1 ] ; then
+  user=$1
+fi
+
 current_branch=$(git branch --show-current)
 
 git stash && \
@@ -7,7 +11,7 @@ git stash && \
   git fetch origin &&
   git pull origin master && \
   bundle install && \
-  bundle exec rake deploy to=production && \
+  bundle exec rake deploy to=production user=$user && \
   git tag releases/$(date +"%Y-%m-%d--%H-%M") master && \
   git push --tags && \
   git checkout $current_branch && \

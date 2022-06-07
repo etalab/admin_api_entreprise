@@ -85,17 +85,23 @@ Effectuer la commande suivante pour déployer en production:
 ./bin/deploy
 ```
 
-Il est possible de déployer une branche (develop par défaut) en faisant un flushdb / seed sur la machine frontale en sandbox
+Par défaut, Mina utilise l'username du système pour déployer. Il est possible de passer un username custom au script :
+
+```
+./bin/deploy myusername
+```
+
+En sandbox, il est possible de déployer une branche (develop par défaut) en faisant un flushdb / seed sur la machine frontale
 avec la commande suivante:
 
 ```
 ./bin/deploy-sandbox
 ```
 
-Dans le cas d'un test sur sandbox avec la branche `features/whatever`
+L'username peut être passé en second argument. Exemple dans le cas d'un test sur sandbox avec la branche `features/whatever` :
 
 ```
-bundle exec mina deploy domain=dashboard.entreprise.api.gouv.fr branch=features/whatever to=sandbox
+./bin/deploy-sandbox features/whatever myusername
 ```
 
 ## Ajout de credentials via rails:credentials
