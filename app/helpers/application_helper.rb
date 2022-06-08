@@ -15,8 +15,9 @@ module ApplicationHelper
     end
   end
 
-  def site_v3?
-    request.subdomain.split('.')[0] == 'v3-beta'
+  def main_site?
+    request.subdomain.split('.')[0] == 'v3-beta' ||
+      request.host.start_with?('entreprise.api.gouv')
   end
 
   def markdown_to_html(content)
