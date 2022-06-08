@@ -4,15 +4,15 @@
   path: '/v3/dgfip/unites_legales/{siren}/attestation_fiscale'
   perimeter:
     entity_type_description: |+
-      L'attestation de régularité fiscale est **limitée aux ✅ entreprises soumises à l'impôt sur les sociétés (IS)**, à l'exclusion des :
-      * ❌ bénéfices industriels et commerciaux (BIC) ;
-      * ❌ bénéfices non commerciaux (BNC) ;
-      * ❌ bénéfices agricoles (BA).
+      Cette API délivre uniquement les attestations fiscales des **✅ entreprises soumises à l'impôt sur les sociétés (IS)**. 
 
-      Sont aussi exclues, les :
-      * ❌ entreprises individuelles ;
-      * ❌ sociétés de personnes ;
-      * ❌ groupements passibles de l'impôt sur le revenu (entrepreneurs individuels).
+      L'API ne permet pas de récupérer les attestations fiscales : 
+      - ❌ des entreprises qui relèvent de l'impôt sur le revenu (IR), les entreprises individuelles sont donc notamment exclues ;
+      - ❌ des sociétés ayant été créées durant l'année en cours ;
+      - ❌ des sociétés bénéficiant d’un plan de règlement, redressement, sauvegarde ou conciliation ainsi que les sociétés ayant formulé un recours contentieux assorti d’un sursis de paiement.
+
+      {:.fr-highlight}
+      Pour ces dernières entreprises, l'obtention d'une attestation fiscale est possible en transmettant le [formulaire n° 3666](https://www.impots.gouv.fr/formulaire/3666-sd/attestation-de-regularite-fiscale){:target="_blank"} à leur service des impôts des entreprises. Ces entreprises ne peuvent pas bénéficier du service en ligne disponible sur le site [www.impots.gouv.fr](www.impots.gouv.fr){:target="_blank"}, conformément au [bulletin officiel des impôts du 7 décembre 2016 référencé BOI-DJC-ARF-20161207](https://bofip.impots.gouv.fr/bofip/8485-PGP.html/identifiant%3DBOI-DJC-ARF-20161207){:target="_blank"}.
 
       {:.fr-highlight.fr-highlight--caution}
       > **⚠️ Cette API n'est pas fiable pour ❌ les sociétés "filles" appartenant à un groupe de société**.
@@ -20,16 +20,13 @@
       > Une attestation peut être renvoyée en cas d'appel d'une entreprise "fille", mais cette attestation ne sera pas valable car incomplète. En effet, il manquera les informations de la société "mère".
       > Il est de votre ressort de vérifier si l'entreprise est membre ou non d'un groupe de sociétés imposé selon le régime fiscal d'intégration visé à l'[article 223 A du CGI](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000042340402/){:target="_blank"} afin de ne pas utiliser une attestation qui ne serait pas valable. Deux API spécifiques à ces sociétés seront bientôt disponibles.
 
-      L'attestation est **délivrée ✅ si l'entreprise est en règle de ses obligations** déclaratives et de paiement d'IS et de TVA.
-      Les sociétés bénéficiant d’un plan de règlement, redressement, sauvegarde ou conciliation ainsi que les sociétés ayant formulé un recours contentieux assorti d’un sursis de paiement ne peuvent pas se voir délivrer une attestation fiscale.
-    entities:
-      - entreprises
   call_id: "SIREN"
   opening: protected
   providers:
     - 'dgfip'
   data:
-    description: "Cette API délivre l'attestation de régularité fiscale d'une entreprise, au format PDF."
+    description: "Cette API délivre l'attestation de régularité fiscale d'une entreprise, au format PDF.
+    L'attestation est **délivrée ✅ si l'entreprise est en règle de ses obligations** déclaratives et de paiement d'IS et de TVA."
   use_cases:
     - Marchés publics
     - Aides publiques
