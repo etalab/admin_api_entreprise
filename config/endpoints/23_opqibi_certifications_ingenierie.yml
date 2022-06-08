@@ -1,0 +1,59 @@
+---
+- uid: 'opqibi/qualifications_ingenierie'
+  path: '/v3/opqibi/qualifications_ingenierie'
+  position: 340
+  perimeter:
+    entity_type_description: |+
+      ✅ **Toutes les unités légales, ayant l'ingénierie comme activité principale ou accessoire**, et qui ont été certifiées par l'[OPQIBI](https://www.opqibi.com/){:target="_blank"}. Ce qui représente environ 2000 structures en 2020.
+    entities:
+      - associations
+      - entreprises
+  call_id: "SIREN"
+  providers:
+    - 'inpi'
+  data:
+    description: |+
+      Cette API délivre :
+      - les informations générales du certificat OPQIBI** dont notamment les dates de délivrance et de validité ;
+      - le détail des **qualifications** et qualifications probatoires de l’entreprise, dont notamment le code de la qualification, son nom et sa définition, le statut “RGE Études" initié par l'ADEME s’il est reconnu, et les dates de validité.
+
+      {:.fr-highlight}
+      > **Une entreprise certifiée OPQIBI possède au moins une qualification ou une qualification probatoire.**
+      > Une qualification **atteste de la capacité d’une entreprise d’ingénierie à réaliser une prestation déterminée**. Elle est attribuée sur la base de critères légaux, administratifs, juridiques, financiers et techniques (moyens (humains, matériels, méthodologiques) et références).
+      > Une qualification probatoire est attribuée à une entreprise nouvellement créée ou en cours de diversification qui ne dispose pas encore de référence ou en nombre insuffisant mais satisfait aux critères légaux, administratifs, juridiques et moyens.
+
+  opening: public
+  use_cases:
+    - Marchés publics
+    - Aides publiques
+  parameters:
+    - Numéro de SIREN de l'unité légale.
+  faq:
+    - q: Quelle structure est éligible à une qualification OPQIBI ?
+      a: |+
+        Toute structure ayant l’ingénierie comme activité principale ou accessoire peut postuler à une qualification de l'OPQIBI :
+        - qu'elle soit ou non adhérente à un syndicat professionnel,
+        - qu'elle soit de création récente ou ancienne
+        - quelle que soit sa taille,
+        - quelle que soit sa forme juridique
+        - quel que soit son code d'activité,
+        - qu'elle exerce des activités d'ingénierie à titre principal ou accessoire,
+        - qu'elle soit indépendante ou filiale de structure privée ou publique,
+        - qu'elle soit ou non issue d'une profession réglementée,
+        - qu'elle soit française ou étrangère.
+
+        **Source: [Opqibi.fr, rubrique "Qui peut se faire qualifie ?"](https://www.opqibi.com/page/qui-peut-se-faire-qualifier){:target="_blank"}.**
+
+    - q: Quelles durées de validité pour le certificat et les qualifications ?
+      a: |+
+        - Un certificat est valable 1 an ;
+        - Une qualification est valable 4 ans sous réserve de 3 contrôles annuels ;
+        - Une qualification probatoire est valable 1 an.
+
+        **Source: [Opqibi.fr, rubrique "Validité et suivi"](https://www.opqibi.com/page/validite-et-suivi){:target="_blank"}.**
+
+    - q: Certificat OPQIBI et commande publique
+      a: |+
+        Depuis mars 2019, les acheteurs publics sont mesure d'exiger « _des certificats de qualification professionnelle établis par des organismes indépendants_ » ([Arrêté du 22 mars 2019, article 3, alinéa 1-12°](https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000038320850){:target="_blank"}).
+
+        **Source: [Opqibi.fr, rubrique "Certificats OPQIBI et marché publics"](https://www.opqibi.com/page/certificats-opqibi-et-marche-publics){:target="_blank"}.**
