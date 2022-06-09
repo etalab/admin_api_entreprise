@@ -29,6 +29,7 @@ class FAQEntry
   def self.all
     I18n.t('faq.categories').each_with_object([]) do |category, array|
       entries = category[:entries].map do |entry|
+        binding.pry
         new(
           entry.merge(
             category: category[:name]
