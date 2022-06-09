@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe 'User JWT listing', type: :feature do
-  subject(:jwt_index) { visit user_tokens_path }
+  subject(:token_index) { visit user_tokens_path }
 
-  let(:user) { create(:user, :with_jwt) }
+  let(:user) { create(:user, :with_token) }
 
   context 'when the user is not authenticated' do
     it 'redirects to the login' do
-      jwt_index
+      token_index
 
       expect(page).to have_current_path(login_path, ignore_query: true)
     end
@@ -16,41 +16,41 @@ RSpec.describe 'User JWT listing', type: :feature do
   context 'when the user is authenticated' do
     before { login_as(user) }
 
-    let(:jwt) { user.token.take }
+    let(:token) { user.token.take }
 
     it_behaves_like 'it displays user owned token'
 
     it 'does not display archived tokens' do
-      archived_jwt = create(:token, :archived, user:)
-      jwt_index
+      archived_token = create(:token, :archived, user:)
+      token_index
 
-      expect(page).not_to have_css("input[value='#{archived_jwt.rehash}']")
+      expect(page).not_to have_css("input[value='#{archived_token.rehash}']")
     end
 
     it 'does not display blacklisted tokens' do
-      blacklisted_jwt = create(:token, :blacklisted, user:)
-      jwt_index
+      blacklisted_token = create(:token, :blacklisted, user:)
+      token_index
 
-      expect(page).not_to have_css("input[value='#{blacklisted_jwt.rehash}']")
+      expect(page).not_to have_css("input[value='#{blacklisted_token.rehash}']")
     end
 
     it 'does not display expired tokens' do
-      expired_jwt = create(:token, exp: 1.day.ago, user:)
-      jwt_index
+      expired_token = create(:token, exp: 1.day.ago, user:)
+      token_index
 
-      expect(page).not_to have_css("input[value='#{expired_jwt.rehash}']")
+      expect(page).not_to have_css("input[value='#{expired_token.rehash}']")
     end
 
     it 'has no button to archive tokens' do
-      jwt_index
+      token_index
 
-      expect(page).not_to have_button(dom_id(jwt, :archive_button))
+      expect(page).not_to have_button(dom_id(token, :archive_button))
     end
 
     it 'has no button to blacklist tokens' do
-      jwt_index
+      token_index
 
-      expect(page).not_to have_button(dom_id(jwt, :blacklist_button))
+      expect(page).not_to have_button(dom_id(token, :blacklist_button))
     end
   end
 end

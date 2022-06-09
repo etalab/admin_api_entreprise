@@ -2,15 +2,15 @@ class AttestationsController < AuthenticatedUsersController
   before_action :authorize!
 
   def index
-    @jwts = current_user.token
+    @tokens = current_user.token
 
-    @best_jwt = Token.find_best_jwt_to_retrieve_attestations(@jwts)
+    @best_token = Token.find_best_token_to_retrieve_attestations(@tokens)
   end
 
   def new; end
 
   def search
-    @jwt = Token.find(params[:jwt_id]).decorate
+    @token = Token.find(params[:token_id]).decorate
 
     siade_search
 
@@ -22,7 +22,7 @@ class AttestationsController < AuthenticatedUsersController
   private
 
   def siade_search
-    @attestation_facade = EntrepriseWithAttestationsFacade.new(jwt: @jwt, siren: siren_no_whitespaces)
+    @attestation_facade = EntrepriseWithAttestationsFacade.new(token: @token, siren: siren_no_whitespaces)
     @attestation_facade.retrieve_data
   rescue SiadeClientError => e
     handle_error!(e)

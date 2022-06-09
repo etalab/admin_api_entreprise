@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe User::TransferAccount, type: :organizer do
   subject { described_class.call(params) }
 
-  let!(:current_owner) { create(:user, :with_jwt) }
+  let!(:current_owner) { create(:user, :with_token) }
 
   let(:params) do
     {
@@ -21,10 +21,10 @@ RSpec.describe User::TransferAccount, type: :organizer do
       it { is_expected.to be_a_success }
 
       it 'gives the token ownership to the new user' do
-        transfered_jwt_ids = current_owner.token_ids
+        transfered_token_ids = current_owner.token_ids
         subject
 
-        expect(target_user.token_ids).to include(*transfered_jwt_ids)
+        expect(target_user.token_ids).to include(*transfered_token_ids)
       end
 
       it 'keeps the existing tokens of the target user' do
@@ -67,11 +67,11 @@ RSpec.describe User::TransferAccount, type: :organizer do
       it { is_expected.to be_success }
 
       it 'gives the token ownership to the new user' do
-        transfered_jwt_ids = current_owner.token_ids
+        transfered_token_ids = current_owner.token_ids
         subject
         target_user = User.find_by_email(target_user_email)
 
-        expect(target_user.token_ids).to contain_exactly(*transfered_jwt_ids)
+        expect(target_user.token_ids).to contain_exactly(*transfered_token_ids)
       end
 
       it 'removes token ownership of the previous user' do

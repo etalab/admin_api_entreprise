@@ -1,7 +1,7 @@
 class TokenMailer < ApplicationMailer
-  def magic_link(recipient, jwt)
-    @jwt = jwt
-    @magic_link_url = Rails.configuration.jwt_magic_link_url + jwt.magic_link_token
+  def magic_link(recipient, token)
+    @token = token
+    @magic_link_url = Rails.configuration.token_magic_link_url + token.magic_link_token
     subject = 'API Entreprise - Lien d\'accès à votre jeton !'
 
     mail(to: recipient, subject:)

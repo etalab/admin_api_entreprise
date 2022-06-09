@@ -68,7 +68,7 @@ RSpec.describe 'create a magic link', type: :feature do
   end
 
   describe 'with javascript actived', js: true do
-    let(:user) { create(:user, :with_jwt) }
+    let(:user) { create(:user, :with_token) }
     let(:token) { user.token.sample }
 
     it 'works' do

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'token details page', type: :feature do
-  let(:user) { create(:user, :with_jwt) }
+  let(:user) { create(:user, :with_token) }
   let(:token) { create(:token, user:) }
 
   before do

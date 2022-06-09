@@ -59,7 +59,7 @@ RSpec.describe UserMailer, type: :mailer do
   describe '#notify_datapass_for_data_reconciliation' do
     subject { described_class.notify_datapass_for_data_reconciliation(user) }
 
-    let(:user) { create(:user, :with_jwt) }
+    let(:user) { create(:user, :with_token) }
 
     its(:subject) { is_expected.to eq('API Entreprise - Réconciliation de demandes d\'accès à un nouvel usager') }
     its(:to) { is_expected.to eq(['contact@api.gouv.fr']) }

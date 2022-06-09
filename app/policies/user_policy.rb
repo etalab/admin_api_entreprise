@@ -1,8 +1,8 @@
 class UserPolicy < ApplicationPolicy
-  attr_reader :jwt_user
+  attr_reader :token_user
 
-  def initialize(jwt_user, user_record)
-    @jwt_user = jwt_user
+  def initialize(token_user, user_record)
+    @token_user = token_user
     @user_record = user_record
   end
 
@@ -17,6 +17,6 @@ class UserPolicy < ApplicationPolicy
   private
 
   def current_user?
-    jwt_user.id == @user_record.id
+    token_user.id == @user_record.id
   end
 end

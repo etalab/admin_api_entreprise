@@ -14,6 +14,6 @@ class AuthorizationRequest < ApplicationRecord
   scope :submitted_at_least_once, -> { where.not(first_submitted_at: nil) }
 
   def url
-    "#{Rails.configuration.jwt_authorization_request_url}#{external_id}"
+    "#{Rails.configuration.token_authorization_request_url}#{external_id}"
   end
 end

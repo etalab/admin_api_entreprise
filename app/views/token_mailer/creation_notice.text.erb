@@ -4,10 +4,10 @@ Un nouveau token est disponible dans votre espace client.
 
 Vous pouvez le récupérer en suivant ce lien :
 
-<%= @url_to_jwt %>
+<%= @url_to_token %>
 
 Ce token possède les droits d'accès suivants :
-<% @jwt.scopes.each do |scope| %>
+<% @token.scopes.each do |scope| %>
   - <%= scope.name %>
 <% end %>
 
@@ -19,7 +19,7 @@ N'oubliez pas, vous pouvez consulter les statistiques d'utilisations propre à c
 
   Si vous avez besoin d'un nouveau token contactez-nous : <%= mail_to(Rails.configuration.emails_sender_address) %>
 
-Vous recevez cet email car vous êtes renseigné parmi les contacts pour le compte <%= @jwt.user.email %>. Les accès se font uniquement à partir de cette adresse email.
+Vous recevez cet email car vous êtes renseigné parmi les contacts pour le compte <%= @token.user.email %>. Les accès se font uniquement à partir de cette adresse email.
 
 Cordialement,
 L'équipe API Entreprise

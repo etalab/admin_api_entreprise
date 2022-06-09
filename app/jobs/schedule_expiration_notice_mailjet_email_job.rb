@@ -4,10 +4,10 @@ class ScheduleExpirationNoticeMailjetEmailJob < ApplicationJob
 
   queue_as :default
 
-  def perform(jwt_id, expires_in)
+  def perform(token_id, expires_in)
     return if expiration_in_to_mailjet_template_id(expires_in).nil?
 
-    token = Token.find_by(id: jwt_id)
+    token = Token.find_by(id: token_id)
     return if token.nil? || token.authorization_request.nil?
 
     deliver_mailjet_email(

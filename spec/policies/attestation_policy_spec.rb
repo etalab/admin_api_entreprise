@@ -11,7 +11,7 @@ RSpec.describe AttestationPolicy do
     end
 
     context 'when user has attestation scope' do
-      let(:user) { create :user, :with_jwt, scopes: ['attestations_fiscales'] }
+      let(:user) { create :user, :with_token, scopes: ['attestations_fiscales'] }
 
       it { is_expected.to permit(user) }
     end

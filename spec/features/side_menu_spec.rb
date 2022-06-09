@@ -20,7 +20,7 @@ RSpec.describe 'Navigation side menu', type: :feature do
     end
 
     context 'when user has attestations scope' do
-      let(:user) { create :user, :with_jwt, scopes: ['attestations_fiscales'] }
+      let(:user) { create :user, :with_token, scopes: ['attestations_fiscales'] }
 
       it 'shows menu item for attestations download' do
         within('.authenticated-user-sidemenu') do

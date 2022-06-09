@@ -26,7 +26,7 @@ RSpec.describe DatapassWebhook::CreateJwtToken, type: :interactor do
 
     it { is_expected.to be_a_success }
 
-    it 'does not create a new jwt token' do
+    it 'does not create a new token token' do
       expect {
         subject
       }.not_to change { Token.count }
@@ -40,7 +40,7 @@ RSpec.describe DatapassWebhook::CreateJwtToken, type: :interactor do
 
     it { expect(subject.token_id).to be_present }
 
-    it 'creates a new jwt token with valid attributes and scopes' do
+    it 'creates a new token token with valid attributes and scopes' do
       expect {
         subject
       }.to change { Token.count }

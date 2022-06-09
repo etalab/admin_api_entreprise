@@ -32,7 +32,7 @@ class Token < ApplicationRecord
   end
 
   def renewal_url
-    "#{Rails.configuration.jwt_renewal_url}#{authorization_request.external_id}"
+    "#{Rails.configuration.token_renewal_url}#{authorization_request.external_id}"
   end
 
   delegate :url, to: :authorization_request, prefix: true
@@ -57,8 +57,8 @@ class Token < ApplicationRecord
     }
   end
 
-  def self.find_best_jwt_to_retrieve_attestations(jwts)
-    jwts.max_by { |jwt| jwt.decorate.attestations_scopes }
+  def self.find_best_token_to_retrieve_attestations(tokens)
+    tokens.max_by { |token| token.decorate.attestations_scopes }
   end
 
   delegate :intitule, :siret, to: :authorization_request

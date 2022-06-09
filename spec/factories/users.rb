@@ -41,7 +41,7 @@ FactoryBot.define do
       created_at { Faker::Time.between(from: 10.years.ago, to: 1.day.ago) }
     end
 
-    trait :with_jwt do
+    trait :with_token do
       transient do
         scopes { ['entreprises'] }
       end
@@ -58,19 +58,19 @@ FactoryBot.define do
       end
     end
 
-    trait :with_blacklisted_jwt do
+    trait :with_blacklisted_token do
       after(:create) do |u|
         create(:token, :blacklisted, user: u)
       end
     end
 
-    trait :with_archived_jwt do
+    trait :with_archived_token do
       after(:create) do |u|
         create(:token, :archived, user: u)
       end
     end
 
-    trait :with_expired_jwt do
+    trait :with_expired_token do
       after(:create) do |u|
         create(:token, :expired, user: u)
       end

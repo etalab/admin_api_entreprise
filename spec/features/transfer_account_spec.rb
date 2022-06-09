@@ -15,7 +15,7 @@ RSpec.describe 'transfer user account ownership', type: :feature, js: true do
     end
   end
 
-  let(:user) { create(:user, :with_jwt) }
+  let(:user) { create(:user, :with_token) }
   let(:form_dom_id) { '#transfer_account' }
   let(:email) { 'valid@email.com' }
 

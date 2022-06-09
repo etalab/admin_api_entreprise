@@ -12,15 +12,15 @@
               <div class="fr-select-group">
                 <label><%= t('.token.label') %></label>
                 <%= select_tag(
-                  :jwt_id,
+                  :token_id,
                   options_for_select(
-                    @jwts.map do |jwt|
+                    @tokens.map do |token|
                       [
-                        t('.authorization_request_number', external_id: jwt.authorization_request.external_id, intitule: jwt.authorization_request.intitule),
-                        jwt.id
+                        t('.authorization_request_number', external_id: token.authorization_request.external_id, intitule: token.authorization_request.intitule),
+                        token.id
                       ]
                     end,
-                    @best_jwt&.id
+                    @best_token&.id
                   ),
                   { class: "fr-select fr-mt-2w", id: "token" }
                 ) %>

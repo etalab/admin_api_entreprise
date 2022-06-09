@@ -20,16 +20,16 @@ RSpec.describe 'User attestations through tokens', type: :feature do
     end
 
     context 'when user has tokens with attestation scopes' do
-      let(:user) { create(:user, :with_jwt, scopes: %w[attestations_sociales attestations_fiscales]) }
-      let(:id_selected_jwt) { find('select#token').value }
-      let(:scopes_selected_jwt) { Token.find(id_selected_jwt).scopes }
+      let(:user) { create(:user, :with_token, scopes: %w[attestations_sociales attestations_fiscales]) }
+      let(:id_selected_token) { find('select#token').value }
+      let(:scopes_selected_token) { Token.find(id_selected_token).scopes }
 
       it 'has a select list' do
         expect(page).to have_select('token')
       end
 
       it 'automatically select token with the most permissions' do
-        expect(scopes_selected_jwt.count).to eq(2)
+        expect(scopes_selected_token.count).to eq(2)
       end
 
       it 'select list has 2 options' do
@@ -50,7 +50,7 @@ RSpec.describe 'User attestations through tokens', type: :feature do
     before { allow(Siade).to receive(:new).and_return(siade_double) }
 
     let(:siade_double) { instance_double(Siade) }
-    let(:user) { create(:user, :with_jwt, scopes: ['attestations_fiscales']) }
+    let(:user) { create(:user, :with_token, scopes: ['attestations_fiscales']) }
     let(:siren) { siren_valid }
     let(:token) { 'JWT with no scopes' }
 
@@ -89,7 +89,7 @@ RSpec.describe 'User attestations through tokens', type: :feature do
 
       context 'when selected token have two attestation scopes' do
         let(:user) do
-          create :user, :with_jwt, scopes: %w[attestations_sociales attestations_fiscales]
+          create :user, :with_token, scopes: %w[attestations_sociales attestations_fiscales]
         end
 
         let(:token) { 'JWT with scopes: ["attestations_sociales", "attestations_fiscales"]' }

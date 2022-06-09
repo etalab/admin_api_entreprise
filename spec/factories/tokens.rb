@@ -76,27 +76,27 @@ FactoryBot.define do
     trait :blacklisted do
       blacklisted { true }
 
-      after(:create) do |jwt|
-        create(:contact, :business, authorization_request: jwt.authorization_request)
-        create(:contact, :tech, authorization_request: jwt.authorization_request)
+      after(:create) do |token|
+        create(:contact, :business, authorization_request: token.authorization_request)
+        create(:contact, :tech, authorization_request: token.authorization_request)
       end
     end
 
     trait :archived do
       archived { true }
 
-      after(:create) do |jwt|
-        create(:contact, :business, authorization_request: jwt.authorization_request)
-        create(:contact, :tech, authorization_request: jwt.authorization_request)
+      after(:create) do |token|
+        create(:contact, :business, authorization_request: token.authorization_request)
+        create(:contact, :tech, authorization_request: token.authorization_request)
       end
     end
 
     trait :with_contacts do
-      after(:create) do |jwt|
-        create(:contact, :business, authorization_request: jwt.authorization_request)
-        create(:contact, :business, authorization_request: jwt.authorization_request)
-        create(:contact, :tech, authorization_request: jwt.authorization_request)
-        create(:contact, :other, authorization_request: jwt.authorization_request)
+      after(:create) do |token|
+        create(:contact, :business, authorization_request: token.authorization_request)
+        create(:contact, :business, authorization_request: token.authorization_request)
+        create(:contact, :tech, authorization_request: token.authorization_request)
+        create(:contact, :other, authorization_request: token.authorization_request)
       end
     end
 

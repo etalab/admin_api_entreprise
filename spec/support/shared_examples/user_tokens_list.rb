@@ -4,8 +4,8 @@ RSpec.shared_examples 'it displays user owned token' do
   it 'lists the user\'s active tokens' do
     subject
 
-    user.token.each do |jwt|
-      expect(page).to have_css("input[value='#{jwt.rehash}']")
+    user.token.each do |token|
+      expect(page).to have_css("input[value='#{token.rehash}']")
     end
   end
 
@@ -30,8 +30,8 @@ RSpec.shared_examples 'it displays user owned token' do
   it 'has a button to copy active tokens hash to clipboard' do
     subject
 
-    user.token.each do |jwt|
-      expect(page).to have_css("##{dom_id(jwt, :copy_button)}")
+    user.token.each do |token|
+      expect(page).to have_css("##{dom_id(token, :copy_button)}")
     end
   end
 
@@ -46,48 +46,48 @@ RSpec.shared_examples 'it displays user owned token' do
   it 'has a button to create a magic link' do
     subject
 
-    user.token.each do |jwt|
-      expect(page).to have_button(dom_id(jwt, :modal_button))
+    user.token.each do |token|
+      expect(page).to have_button(dom_id(token, :modal_button))
     end
   end
 
   it 'has a link for token renewal' do
     subject
 
-    user.token.each do |jwt|
-      expect(page).to have_link(dom_id(jwt, :renew))
+    user.token.each do |token|
+      expect(page).to have_link(dom_id(token, :renew))
     end
   end
 
   it 'has a link to authorization request' do
     subject
 
-    user.token.each do |jwt|
-      expect(page).to have_link(href: jwt.authorization_request_url)
+    user.token.each do |token|
+      expect(page).to have_link(href: token.authorization_request_url)
     end
   end
 
   it 'has a link to access token stats' do
     subject
 
-    user.token.each do |jwt|
-      expect(page).to have_link(href: token_stats_path(jwt))
+    user.token.each do |token|
+      expect(page).to have_link(href: token_stats_path(token))
     end
   end
 
   it 'does not list other users tokens' do
-    another_user = create(:user, :with_jwt)
+    another_user = create(:user, :with_token)
     subject
 
-    another_user.token.each do |jwt|
-      expect(page).not_to have_css("input[value='#{jwt.rehash}']")
+    another_user.token.each do |token|
+      expect(page).not_to have_css("input[value='#{token.rehash}']")
     end
   end
 
   it 'does not display expired tokens' do
-    expired_jwt = create(:token, :expired)
+    expired_token = create(:token, :expired)
     subject
 
-    expect(page).not_to have_css("input[value='#{expired_jwt.rehash}']")
+    expect(page).not_to have_css("input[value='#{expired_token.rehash}']")
   end
 end
