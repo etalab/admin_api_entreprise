@@ -52,9 +52,9 @@ FactoryBot.define do
           :with_specific_scopes,
           specific_scopes: evaluator.scopes,
           user: u,
-          intitule: "JWT with scopes: #{evaluator.scopes}"
+          intitule: "Token with scopes: #{evaluator.scopes}"
         )
-        create(:token, :with_contacts, user: u, intitule: 'JWT with no scopes')
+        create(:token, :with_contacts, user: u, intitule: 'Token with no scopes')
       end
     end
 

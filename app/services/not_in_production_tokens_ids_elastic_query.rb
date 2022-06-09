@@ -1,4 +1,4 @@
-class NotInProductionJwtIdsElasticQuery
+class NotInProductionTokensIdsElasticQuery
   def perform
     if Rails.env.development?
       [UsersQuery.new.with_token.results.first.token.first.id]

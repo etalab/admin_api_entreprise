@@ -75,7 +75,7 @@ RSpec.describe UserMailer, type: :mailer do
       expect(subject.text_part.decoded).to include(user.oauth_api_gouv_id.to_s)
     end
 
-    it 'contains the user\'s JWT requests ID' do
+    it 'contains the user\'s authorization requests ID' do
       authorization_requests_ids = user.token.pluck(:authorization_request_id)
       authorization_requests_ids.map!(&:to_i)
 

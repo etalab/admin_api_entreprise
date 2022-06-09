@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'User JWT listing', type: :feature do
+RSpec.describe 'User token listing', type: :feature do
   subject(:token_index) { visit user_tokens_path }
 
   let(:user) { create(:user, :with_token) }

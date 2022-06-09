@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe DatapassWebhook::CreateJwtToken, type: :interactor do
+RSpec.describe DatapassWebhook::CreateToken, type: :interactor do
   subject { described_class.call(datapass_webhook_params.merge(authorization_request:)) }
 
   let(:authorization_request) { create(:authorization_request) }

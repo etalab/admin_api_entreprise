@@ -11,7 +11,7 @@ FactoryBot.define do
 
     transient do
       user { nil }
-      intitule { 'JWT' }
+      intitule { 'Token' }
     end
 
     after(:build) do |token, evaluator|
@@ -37,7 +37,7 @@ FactoryBot.define do
     trait :with_specific_scopes do
       transient do
         specific_scopes { ['entreprises'] }
-        intitule { 'JWT' }
+        intitule { 'Token' }
       end
 
       scopes do

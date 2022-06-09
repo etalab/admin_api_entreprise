@@ -52,10 +52,10 @@ RSpec.describe 'User attestations through tokens', type: :feature do
     let(:siade_double) { instance_double(Siade) }
     let(:user) { create(:user, :with_token, scopes: ['attestations_fiscales']) }
     let(:siren) { siren_valid }
-    let(:token) { 'JWT with no scopes' }
+    let(:token) { 'Token with no scopes' }
 
     context 'when user search a valid siren' do
-      let(:token) { 'JWT with scopes: ["attestations_fiscales"]' }
+      let(:token) { 'Token with scopes: ["attestations_fiscales"]' }
 
       before do
         allow(siade_double).to receive(:entreprises).and_return(payload_entreprise)
@@ -69,7 +69,7 @@ RSpec.describe 'User attestations through tokens', type: :feature do
       end
 
       context 'when selected token have no attestation scopes' do
-        let(:token) { 'JWT with no scopes' }
+        let(:token) { 'Token with no scopes' }
 
         it 'doesnt show attestations download links' do
           expect(page).not_to have_link('attestation-sociale-download')
@@ -78,7 +78,7 @@ RSpec.describe 'User attestations through tokens', type: :feature do
       end
 
       context 'when selected token have one attestation scope' do
-        let(:token) { 'JWT with scopes: ["attestations_fiscales"]' }
+        let(:token) { 'Token with scopes: ["attestations_fiscales"]' }
 
         it 'shows link to download this attestation only, not the other' do
           expect(page).not_to have_link('attestation-sociale-download')
@@ -92,7 +92,7 @@ RSpec.describe 'User attestations through tokens', type: :feature do
           create :user, :with_token, scopes: %w[attestations_sociales attestations_fiscales]
         end
 
-        let(:token) { 'JWT with scopes: ["attestations_sociales", "attestations_fiscales"]' }
+        let(:token) { 'Token with scopes: ["attestations_sociales", "attestations_fiscales"]' }
 
         it 'shows both links to download attestations' do
           expect(page).to have_link('attestation-sociale-download',

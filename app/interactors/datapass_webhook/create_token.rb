@@ -1,4 +1,4 @@
-class DatapassWebhook::CreateJwtToken < ApplicationInteractor
+class DatapassWebhook::CreateToken < ApplicationInteractor
   def call
     return if %w[validate_application validate].exclude?(context.event)
     return if token_already_exists?

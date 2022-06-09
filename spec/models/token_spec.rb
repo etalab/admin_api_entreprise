@@ -103,7 +103,7 @@ RSpec.describe Token, type: :model do
       expect(jwt).to match(/\A([a-zA-Z0-9_-]+\.){2}([a-zA-Z0-9_-]+)?\z/)
     end
 
-    describe 'generated JWT payload' do
+    describe 'generated token payload' do
       let(:payload) do
         base64_payload = jwt.split('.')[1]
         payload = Base64.urlsafe_decode64(base64_payload)
@@ -137,7 +137,7 @@ RSpec.describe Token, type: :model do
           expect(payload.fetch(:exp)).to eq(token.exp)
         end
 
-        # ex: Watchdoge JWT for ping has no expiration date
+        # ex: Watchdoge token for ping has no expiration date
         it 'does not set exp field when expiration date is nil' do
           token.exp = nil
 

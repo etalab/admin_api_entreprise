@@ -4,7 +4,7 @@ RSpec.describe TokenExpirationNoticeJob do
   subject { described_class.perform_now }
 
   shared_examples 'sending expiration notices' do |nb_days|
-    it "sends notifications for JWT expiration in #{nb_days} days" do
+    it "sends notifications for token expiration in #{nb_days} days" do
       notifier_spy = class_spy(Token::SendExpirationNotices)
       stub_const('Token::SendExpirationNotices', notifier_spy)
 

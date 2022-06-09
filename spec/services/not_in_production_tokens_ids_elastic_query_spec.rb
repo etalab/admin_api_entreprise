@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe NotInProductionJwtIdsElasticQuery, type: :service do
+RSpec.describe NotInProductionTokensIdsElasticQuery, type: :service do
   subject(:results) { described_class.new.perform }
 
   let(:production_delayed_token_1) { 'ab375719-986e-48b0-9bbb-d45fe9343cc3' }
