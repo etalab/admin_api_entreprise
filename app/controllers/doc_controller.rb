@@ -1,5 +1,5 @@
 class DocController < ApplicationController
-  layout 'no_container', only: %i[index guide_migration]
+  layout 'no_container', only: %i[developers guide_migration]
 
   def developers
     @developers_entries = DocEntry.developers
