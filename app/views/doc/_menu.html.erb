@@ -3,9 +3,9 @@
     <button class="fr-sidemenu__btn" aria-controls="fr-sidemenu-wrapper" aria-expanded="false">Dans cette rubrique</button>
     <div class="fr-collapse" id="fr-sidemenu-wrapper">
       <ul class="fr-sidemenu__list">
-        <%= @developer_entries.each do |entry| %>
+        <% @doc_entries.each do |entry| %>
           <li class="fr-sidemenu__item">
-            <a class="fr-sidemenu__link" href="#introduction" target="_self"><%= %></a>
+            <a class="fr-sidemenu__link" href="#introduction" target="_self"><%= entry.title %></a>
           </li>
         <% end %>
       </ul>
