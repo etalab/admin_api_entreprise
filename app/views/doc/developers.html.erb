@@ -20,7 +20,8 @@
 
       <div class="documentation doc_markdown_to_html">
         <% @developers_entries.each do |entry| %>
-            <%= raw entry.markdownify %>
+          <h2><%= entry.title %></h2>
+          <%= raw entry.content_markdownify %>
         <% end %>
       </div>
     </div>

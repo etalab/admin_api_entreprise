@@ -3,85 +3,11 @@
     <button class="fr-sidemenu__btn" aria-controls="fr-sidemenu-wrapper" aria-expanded="false">Dans cette rubrique</button>
     <div class="fr-collapse" id="fr-sidemenu-wrapper">
       <ul class="fr-sidemenu__list">
-        <li class="fr-sidemenu__item">
-          <a class="fr-sidemenu__link" href="#introduction" target="_self">Introduction</a>
-        </li>
-
-        <li class="fr-sidemenu__item">
-          <a class="fr-sidemenu__link" href="#prérequis" target="_self">Prérequis</a>
-        </li>
-
-        <li class="fr-sidemenu__item">
-          <button class="fr-sidemenu__btn" aria-expanded="false" aria-controls="fr-sidemenu-item-0">Spécifications générales de l’API Entreprise</button>
-          <div class="fr-collapse" id="fr-sidemenu-item-0">
-            <ul class="fr-sidemenu__list">
-
-              <li class="fr-sidemenu__item">
-                <a class="fr-sidemenu__link" href="#volumétrie" target="_self">Volumétrie</a>
-              </li>
-
-              <li class="fr-sidemenu__item">
-                <a class="fr-sidemenu__link" href="#timeout" target="_self">Timeout</a>
-              </li>
-
-              <li class="fr-sidemenu__item">
-                <a class="fr-sidemenu__link" href="#certificats-ssl" target="_self">Certificats SSL</a>
-              </li>
-
-              <li class="fr-sidemenu__item">
-                <a class="fr-sidemenu__link" href="#code-https-et-gestion-des-erreurs" target="_self">Code HTTPS et gestion des erreurs</a>
-              </li>
-
-              <li class="fr-sidemenu__item">
-                <a class="fr-sidemenu__link" href="#paramtres-dappel-et-traabilit" target="_self">Paramètres d’appel et traçabilité</a>
-              </li>
-
-              <li class="fr-sidemenu__item">
-                <a class="fr-sidemenu__link" href="#compatibilit-ascendante-et-versionnage" target="_self">Compatibilité ascendante et versionnage</a>
-              </li>
-
-              <li class="fr-sidemenu__item">
-                <a class="fr-sidemenu__link" href="#monitorer-la-disponibilit-des-api" target="_self">Monitorer la disponibilité des API</a>
-              </li>
-
-              <li class="fr-sidemenu__item">
-                <a class="fr-sidemenu__link" href="#retrouver-les-droits-dun-jwt" target="_self">Retrouver les droits d’un JWT</a>
-              </li>
-            </ul>
-          </div>
-        </li>
-
-        <li class="fr-sidemenu__item">
-          <button class="fr-sidemenu__btn" aria-expanded="false" aria-controls="fr-sidemenu-item-3">🧰 Kit de mise en production</button>
-          <div class="fr-collapse" id="fr-sidemenu-item-3">
-
-            <ul class="fr-sidemenu__list">
-              <li class="fr-sidemenu__item">
-                <a class="fr-sidemenu__link" href="#rcuprer-le-jeton-jwt-" target="_self">Récupérer le jeton JWT&nbsp;🔑</a>
-              </li>
-
-              <li class="fr-sidemenu__item">
-                <a class="fr-sidemenu__link" href="#faire-sa-premire-requte" target="_self">Faire sa première requête</a>
-              </li>
-
-              <li class="fr-sidemenu__item">
-                <a class="fr-sidemenu__link" href="#configurer-le-logiciel-mtier" target="_self">Configurer le logiciel métier</a>
-              </li>
-            </ul>
-          </div>
-        </li>
-
-        <li class="fr-sidemenu__item">
-          <a class="fr-sidemenu__link" href="#spcifications-techniques-de-chaque-api--swagger" target="_self">Spécifications techniques de chaque API & Swagger</a>
-        </li>
-
-        <li class="fr-sidemenu__item">
-          <a class="fr-sidemenu__link" href="#rupture-de-service-incidents-et-maintenances" target="_self">Rupture de service, incidents et maintenances</a>
-        </li>
-
-        <li class="fr-sidemenu__item">
-          <a class="fr-sidemenu__link" href="#renouvellement-du-jwt-" target="_self">Renouvellement du JWT&nbsp;🔑</a>
-        </li>
+        <%= @developer_entries.each do |entry| %>
+          <li class="fr-sidemenu__item">
+            <a class="fr-sidemenu__link" href="#introduction" target="_self"><%= %></a>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>
