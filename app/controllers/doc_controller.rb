@@ -4,12 +4,12 @@ class DocController < ApplicationController
   def developers
     @doc_entries = DocEntry.developers
 
-    render 'doc'
+    render 'index'
   end
 
   def guide_migration
     @doc_entries = DocEntry.guide_migration
 
-    render 'doc'
+    render 'index'
   end
 end
