@@ -1,7 +1,6 @@
 env:
   CI: true
   COVERAGE: true
-  RUBY_VERSION: 3.1.2
 
 name: CI
 on: [push]
@@ -16,9 +15,14 @@ jobs:
           POSTGRES_USER: admin_apientreprise
           POSTGRES_PASSWORD: wow*verysecret
           POSTGRES_DB: admin_apientreprise_test
+          POSTGRES_PORT: 5432
         ports:
           - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
       redis:
         image: redis
@@ -32,41 +36,26 @@ jobs:
         run: echo "$GITHUB_CONTEXT"
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ${{ env.RUBY_VERSION }}
+          bundler-cache: true
 
       - name: Install postgres client #and imagemagick
         run: sudo apt-get install libpq-dev #imagemagick
 
-      - name: Cache Gems
-        uses: actions/cache@v1
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-1-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-1-
-
-      - name: Bundle install
-        run: |
-          gem install bundler
-          bundle config path vendor/bundle
-          bundler install --jobs 4 --retry 3
-
-      - name: Create database
+      - name: Create database users
         env:
           POSTGRES_USER: admin_apientreprise
-          POSTGRES_PASSWORD: wow*verysecret
           POSTGRES_DB: admin_apientreprise_test
-          POSTGRES_HOST: localhost
-          POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
+          PGPASSWORD: wow*verysecret
         run: |
-          bundler exec rails db:create RAILS_ENV=test
-          PGPASSWORD="${{ env.POSTGRES_PASSWORD }}" psql -h ${{ env.POSTGRES_HOST}} -U ${{ env.POSTGRES_USER }} -d ${{ env.POSTGRES_DB }} --command 'CREATE EXTENSION IF NOT EXISTS pgcrypto;'
-          bundler exec rails db:schema:load RAILS_ENV=test
+          psql -h localhost -U ${{ env.POSTGRES_USER }} -d ${{ env.POSTGRES_DB }} -f `pwd`/postgresql_setup.txt
+
+      - name: Create database
+        run: bundle exec rails db:create db:schema:load RAILS_ENV=test
 
       - name: Run tests
         run: bundle exec rspec
