@@ -19,7 +19,9 @@
     <%= t('.technical_specifications.title') %>
   </h5>
 
-  <%= link_to t('.technical_specifications.cta'), developers_openapi_path(anchor: @endpoint.redoc_anchor), data: { turbo: false }, class: %(fr-btn fr-btn--icon-right fr-fi-arrow-right-line) %>
+  <% if @endpoint.implemented? %>
+    <%= link_to t('.technical_specifications.cta'), developers_openapi_path(anchor: @endpoint.redoc_anchor), data: { turbo: false }, class: %(fr-btn fr-btn--icon-right fr-fi-arrow-right-line) %>
+  <% end %>
 
   <!-- <h5 class="fr&#45;mt&#45;3w"> -->
   <!--   <%= t('.availability.title') %> -->

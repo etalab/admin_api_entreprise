@@ -1,0 +1,32 @@
+fr:
+  missing_endpoints:
+    /v3/agence_bio/certifications_bio:
+      title: 'Certification en BIO'
+      description: 'Connaître les certifications biologiques en cours d’une entreprise ou d’une association.'
+      disclaimer: &generic_disclaimer |+
+        <div class="fr-alert fr-alert--error">
+          <p class="fr-alert__title">
+            Ce endpoint n'est actuellement pas implémenté sur la v3
+          </p>
+          <p>
+            Les développements sont en cours et devrait être terminés dans le semaines qui suivent.
+          </p>
+        </div>
+        <br />
+        <hr />
+        <br />
+
+    /v3/urssaf/effectifs:
+      title: "Effectifs d'une entreprise"
+      description: "Connaître les effectifs mensuels ou annuels d’une entreprise ou d’un établissement"
+      disclaimer: *generic_disclaimer
+
+    /v3/inpi/unites_legales/{siren}/comptes_annuels_rncs:
+      title: "Bilans annuels"
+      description: "Obtenir les comptes annuels d’une entreprise tels que transmis par les greffes"
+      disclaimer: *generic_disclaimer
+
+    /v3/banque_de_france/bilans:
+      title: "3 derniers bilans annuels"
+      description: "Obtenir les trois derniers bilans d’une entreprise détenus par la Banque de France."
+      disclaimer: *generic_disclaimer
