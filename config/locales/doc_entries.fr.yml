@@ -209,7 +209,6 @@ fr:
 
             | API V.2  | API V.3 correspondantes |
             | :--- | :--- |
-
             | **API [Données de référence d'une entité - INSEE](https://entreprise.api.gouv.fr/catalogue/#a-entreprises)<br /> Sans** l'option d'appel des "non-diffusibles" |  |
             | Données concernant les unités légales "diffusibles".  | API **Données de référence d'une unité légale diffusible** <br /> `v3/insee/sirene/unites_legales/diffusibles/{siren}`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'insee/unites_legales_diffusibles') %>) <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1insee~1sirene~1unites_legales~1diffusibles~1%7Bsiren%7D/get') %>)<br /> <br />🎁 *Nouvelle donnée disponible :* Sexe des personnes physiques.|
             | Données concernant les mandataires sociaux de l'entreprise.   | API **Mandataires sociaux** <br /> `v3/infogreffe/mandataires_sociaux/{siren}`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'infogreffe/mandataires_sociaux') %>) <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1infogreffe~1mandataires_sociaux~1%7Bsiren%7D/get') %>)<br /> <br />🎁 *Nouvelle donnée disponible :* Lieu de naissance des mandataires sociaux.|
@@ -239,39 +238,39 @@ fr:
 
             | API V.2  | API V.3 correspondante |
             | :--- | :--- |
-                | **API [Extrait RCS - Infogreffe](https://entreprise.api.gouv.fr/catalogue/#a-extraits_rcs_infogreffe)** | API **Extrait RCS** <br /> `/v3/infogreffe/rcs/unites_legales/{siren}/extrait_kbis`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'infogreffe/rcs/extrait') %>) <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1infogreffe~1rcs~1unites_legales~1{siren}~1extrait_kbis/get') %>) |
+            | **API [Extrait RCS - Infogreffe](https://entreprise.api.gouv.fr/catalogue/#a-extraits_rcs_infogreffe)** | API **Extrait RCS** <br /> `/v3/infogreffe/rcs/unites_legales/{siren}/extrait_kbis`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'infogreffe/rcs/extrait') %>) <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1infogreffe~1rcs~1unites_legales~1{siren}~1extrait_kbis/get') %>) |
 
 
             ### V.2 - Informations déclaratives d’une association - Ministère de l'Intérieur <a name="v2/associations"></a>
 
             | API V.2  | API V.3 correspondante |
             | :--- | :--- |
-                | **API [Informations déclaratives d’une association - Ministère de l'Intérieur](https://entreprise.api.gouv.fr/catalogue/#a-associations)** | API **Données du RNA d'une association** <br /> `/v3/ministere_interieur/rna/associations/{siret_or_rna}`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'ministere_interieur/rna') %>) <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1ministere_interieur~1rna~1associations~1{siret_or_rna}/get') %>) |
+            | **API [Informations déclaratives d’une association - Ministère de l'Intérieur](https://entreprise.api.gouv.fr/catalogue/#a-associations)** | API **Données du RNA d'une association** <br /> `/v3/ministere_interieur/rna/associations/{siret_or_rna}`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'ministere_interieur/rna') %>) <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1ministere_interieur~1rna~1associations~1{siret_or_rna}/get') %>) |
 
             ### V.2 - Divers documents d'une association - Ministère de l'Intérieur <a name="v2/doc-associations"></a>
 
             | API V.2  | API V.3 correspondante |
             | :--- | :--- |
-                | **API [Divers documents d'une association - Ministère de l'Intérieur](https://entreprise.api.gouv.fr/catalogue/#a-documents_associations)** | API **Divers documents d'une association** <br /> `/v3/ministere_interieur/rna/associations/{siret_or_rna}/documents`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'ministere_interieur/documents_associations') %>) <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1ministere_interieur~1rna~1associations~1{siret_or_rna}~1documents/get') %>) |
+            | **API [Divers documents d'une association - Ministère de l'Intérieur](https://entreprise.api.gouv.fr/catalogue/#a-documents_associations)** | API **Divers documents d'une association** <br /> `/v3/ministere_interieur/rna/associations/{siret_or_rna}/documents`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'ministere_interieur/documents_associations') %>) <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1ministere_interieur~1rna~1associations~1{siret_or_rna}~1documents/get') %>) |
 
             ### V.2 - Actes - INPI <a name="v2/actes"></a>
 
             | API V.2  | API V.3 correspondante |
             | :--- | :--- |
-                | **API [Actes - INPI](https://entreprise.api.gouv.fr/catalogue/#a-actes_inpi)** | API **Actes** <br /> `/v3/inpi/unites_legales/{siren}/actes`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'inpi/actes') %>) <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1inpi~1unites_legales~1{siren}~1actes/get') %> |
+            | **API [Actes - INPI](https://entreprise.api.gouv.fr/catalogue/#a-actes_inpi)** | API **Actes** <br /> `/v3/inpi/unites_legales/{siren}/actes`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'inpi/actes') %>) <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1inpi~1unites_legales~1{siren}~1actes/get') %> |
 
             ### V.2 - Conventions collectives - Fabrique numérique des Ministères sociaux <a name="v2/conventions-collectives"></a>
 
             | API V.2  | API V.3 correspondante |
             | :--- | :--- |
-                | **API [Conventions collectives - Fabrique numérique des Ministères sociaux](https://entreprise.api.gouv.fr/catalogue/#a-conventions_collectives)** | API **Conventions collectives** <br /> `/v3/fabrique_numerique_ministeres_sociaux/etablissements/{siret}/conventions_collectives`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'fabrique_numerique_ministeres_sociaux/conventions_collectives') %>) <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1fabrique_numerique_ministeres_sociaux~1etablissements~1{siret}~1conventions_collectives/get') %>) |
+            | **API [Conventions collectives - Fabrique numérique des Ministères sociaux](https://entreprise.api.gouv.fr/catalogue/#a-conventions_collectives)** | API **Conventions collectives** <br /> `/v3/fabrique_numerique_ministeres_sociaux/etablissements/{siret}/conventions_collectives`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'fabrique_numerique_ministeres_sociaux/conventions_collectives') %>) <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1fabrique_numerique_ministeres_sociaux~1etablissements~1{siret}~1conventions_collectives/get') %>) |
 
 
             ### V.2 - Données de référence d'une entreprise artisanale - CMA France <a name="v2/entreprises-artisanales"></a>
 
             | API V.2  | API V.3 correspondante |
             | :--- | :--- |
-                | **API [Données de référence d'une entreprise artisanale - CMA France](https://entreprise.api.gouv.fr/catalogue/#a-entreprises_artisanales_cma)** | API **Données du RNM d'une entreprise artisanale** <br /> `/v3/cma_france/rnm/unites_legales/{siren}`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'cma_france/rnm') %>) <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1cma_france~1rnm~1unites_legales~1{siren}/get') %>) |
+            | **API [Données de référence d'une entreprise artisanale - CMA France](https://entreprise.api.gouv.fr/catalogue/#a-entreprises_artisanales_cma)** | API **Données du RNM d'une entreprise artisanale** <br /> `/v3/cma_france/rnm/unites_legales/{siren}`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'cma_france/rnm') %>) <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1cma_france~1rnm~1unites_legales~1{siren}/get') %>) |
 
 
             ### V.2 - Effectifs d'une entreprise - URSSAF <a name="v2/effectifs"></a>
