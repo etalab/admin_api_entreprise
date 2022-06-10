@@ -1,0 +1,37 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "07fae2d4252059a81faea9dde2ff4ca02fa10098961a0b203e11cfbc19a78e57",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/endpoints/show.html.erb",
+      "line": 42,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Endpoint.find(params[:uid]).open_api_definition[\"disclaimer\"]",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "EndpointsController",
+          "method": "show",
+          "line": 9,
+          "file": "app/controllers/endpoints_controller.rb",
+          "rendered": {
+            "name": "endpoints/show",
+            "file": "app/views/endpoints/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "endpoints/show"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "note": ""
+    }
+  ],
+  "updated": "2022-06-10 20:00:03 +0200",
+  "brakeman_version": "5.2.3"
+}

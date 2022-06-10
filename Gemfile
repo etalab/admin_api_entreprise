@@ -79,6 +79,7 @@ group :development, :test do
   gem 'timecop'
   gem 'rack_session_access'
   gem 'i18n-tasks'
+  gem 'brakeman'
 end
 
 group :development do

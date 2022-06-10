@@ -38,6 +38,15 @@ bin/rspec
 guard
 ```
 
+### Static security
+
+[brakeman](https://github.com/presidentbeef/brakeman) est installé. Vous pouvez
+l'utiliser en lançant la commande suivante:
+
+```sh
+./bin/brakeman
+```
+
 ### Développement
 
 Vous pouvez importer des données afin d'avoir un site qui ne soit pas vide:
