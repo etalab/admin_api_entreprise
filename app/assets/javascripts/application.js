@@ -2,7 +2,4 @@
 //= require_tree ./controllers
 //= require_tree .
 
-//= require chartkick
-//= require Chart.bundle
-
 //= require utils/table_search

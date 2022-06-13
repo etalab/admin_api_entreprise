@@ -42,9 +42,6 @@ gem 'elasticsearch', '= 7.10.1'
 
 gem 'pastel'
 
-# Nice charts
-gem 'chartkick'
-
 gem 'rails-i18n','~> 7.0.3'
 
 # Use Active Storage variant
