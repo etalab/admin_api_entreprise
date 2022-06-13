@@ -6,4 +6,3 @@
 //= require Chart.bundle
 
 //= require utils/table_search
-//= require utils/copy_anchor
