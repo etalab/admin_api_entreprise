@@ -1,5 +1,5 @@
 class Scope < ApplicationRecord
-  has_and_belongs_to_many :token
+  has_and_belongs_to_many :tokens
 
   scope :available, -> { where.not(code: Scope.internal_scope_codes) }
 

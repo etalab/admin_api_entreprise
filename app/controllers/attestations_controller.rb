@@ -2,7 +2,7 @@ class AttestationsController < AuthenticatedUsersController
   before_action :authorize!
 
   def index
-    @tokens = current_user.token
+    @tokens = current_user.tokens
 
     @best_token = Token.find_best_token_to_retrieve_attestations(@tokens)
   end

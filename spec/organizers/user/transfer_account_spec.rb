@@ -37,7 +37,7 @@ RSpec.describe User::TransferAccount, type: :organizer do
       it 'removes all token ownership from the previous user' do
         subject
 
-        expect(current_owner.reload.token).to be_empty
+        expect(current_owner.reload.tokens).to be_empty
       end
 
       it 'notifies the new owner by email' do
@@ -77,7 +77,7 @@ RSpec.describe User::TransferAccount, type: :organizer do
       it 'removes token ownership of the previous user' do
         subject
 
-        expect(current_owner.reload.token).to be_empty
+        expect(current_owner.reload.tokens).to be_empty
       end
 
       it 'sends a notification email for account creation' do
@@ -116,7 +116,7 @@ RSpec.describe User::TransferAccount, type: :organizer do
     end
 
     it 'does not transfer any tokens' do
-      expect { subject }.not_to change(current_owner.token, :count)
+      expect { subject }.not_to change(current_owner.tokens, :count)
     end
 
     it 'does not send email notification' do

@@ -69,7 +69,7 @@ RSpec.describe 'create a magic link', type: :feature do
 
   describe 'with javascript actived', js: true do
     let(:user) { create(:user, :with_token) }
-    let(:token) { user.token.sample }
+    let(:token) { user.tokens.sample }
 
     it 'works' do
       visit user_tokens_path

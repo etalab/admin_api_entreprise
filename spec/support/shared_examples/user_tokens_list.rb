@@ -1,10 +1,10 @@
 RSpec.shared_examples 'it displays user owned token' do
-  let(:example_token) { user.token.take }
+  let(:example_token) { user.tokens.take }
 
   it 'lists the user\'s active tokens' do
     subject
 
-    user.token.each do |token|
+    user.tokens.each do |token|
       expect(page).to have_css("input[value='#{token.rehash}']")
     end
   end
@@ -30,7 +30,7 @@ RSpec.shared_examples 'it displays user owned token' do
   it 'has a button to copy active tokens hash to clipboard' do
     subject
 
-    user.token.each do |token|
+    user.tokens.each do |token|
       expect(page).to have_css("##{dom_id(token, :copy_button)}")
     end
   end
@@ -46,7 +46,7 @@ RSpec.shared_examples 'it displays user owned token' do
   it 'has a button to create a magic link' do
     subject
 
-    user.token.each do |token|
+    user.tokens.each do |token|
       expect(page).to have_button(dom_id(token, :modal_button))
     end
   end
@@ -54,7 +54,7 @@ RSpec.shared_examples 'it displays user owned token' do
   it 'has a link for token renewal' do
     subject
 
-    user.token.each do |token|
+    user.tokens.each do |token|
       expect(page).to have_link(dom_id(token, :renew))
     end
   end
@@ -62,7 +62,7 @@ RSpec.shared_examples 'it displays user owned token' do
   it 'has a link to authorization request' do
     subject
 
-    user.token.each do |token|
+    user.tokens.each do |token|
       expect(page).to have_link(href: token.authorization_request_url)
     end
   end
@@ -70,7 +70,7 @@ RSpec.shared_examples 'it displays user owned token' do
   it 'has a link to access token stats' do
     subject
 
-    user.token.each do |token|
+    user.tokens.each do |token|
       expect(page).to have_link(href: token_stats_path(token))
     end
   end
@@ -79,7 +79,7 @@ RSpec.shared_examples 'it displays user owned token' do
     another_user = create(:user, :with_token)
     subject
 
-    another_user.token.each do |token|
+    another_user.tokens.each do |token|
       expect(page).not_to have_css("input[value='#{token.rehash}']")
     end
   end

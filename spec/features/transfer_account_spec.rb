@@ -25,10 +25,10 @@ RSpec.describe 'transfer user account ownership', type: :feature, js: true do
     it_behaves_like 'display alert', :error
 
     it 'does not transfer any tokens' do
-      user_tokens_id = user.token.pluck(:id)
+      user_tokens_id = user.tokens.pluck(:id)
       subject
 
-      expect(user.token.reload.pluck(:id))
+      expect(user.tokens.reload.pluck(:id))
         .to contain_exactly(*user_tokens_id)
     end
   end

@@ -76,7 +76,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'contains the user\'s authorization requests ID' do
-      authorization_requests_ids = user.token.pluck(:authorization_request_id)
+      authorization_requests_ids = user.tokens.pluck(:authorization_request_id)
       authorization_requests_ids.map!(&:to_i)
 
       expect(subject.html_part.decoded).to include(authorization_requests_ids.to_s)

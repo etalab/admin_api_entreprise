@@ -16,7 +16,7 @@ RSpec.describe 'User token listing', type: :feature do
   context 'when the user is authenticated' do
     before { login_as(user) }
 
-    let(:token) { user.token.take }
+    let(:token) { user.tokens.take }
 
     it_behaves_like 'it displays user owned token'
 

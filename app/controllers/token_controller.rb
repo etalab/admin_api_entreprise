@@ -1,6 +1,6 @@
 class TokenController < AuthenticatedUsersController
   def index
-    @tokens = current_user.token
+    @tokens = current_user.tokens
       .unexpired
       .not_blacklisted
       .where(archived: false)
