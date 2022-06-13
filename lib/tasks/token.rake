@@ -2,7 +2,7 @@ namespace :token do
   desc 'Blacklist a token (and create a new one)'
 
   task :blacklist, [:token_id] => :environment do |_, args|
-    token = JwtAPIEntreprise.find(args.token_id)
+    token = Token.find(args.token_id)
 
     if token.blacklisted?
       puts 'Token already blacklisted'
