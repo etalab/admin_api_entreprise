@@ -146,7 +146,7 @@ class Seeds
         )
     )
 
-    token.update(scopes:)
+    token.update!(scopes:)
 
     token
   end

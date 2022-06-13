@@ -22,7 +22,7 @@ class RetrieveTokenStats < ApplicationInteractor
   end
 
   def stats_url
-    "https://dashboard.entreprise.api.gouv.fr/api/watchdoge/stats/token_usage/#{context.token_id}"
+    "https://dashboard.entreprise.api.gouv.fr/api/watchdoge/stats/jwt_usage/#{context.token_id}"
   end
 
   def format_stats_data!

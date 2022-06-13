@@ -1,8 +1,4 @@
 class Contact < ApplicationRecord
-  self.ignored_columns = %w[
-    token_id
-  ]
-
   belongs_to :authorization_request
   has_one :token, through: :authorization_request
 
