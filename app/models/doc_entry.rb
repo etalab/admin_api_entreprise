@@ -17,6 +17,10 @@ class DocEntry
     I18n.t('doc_entries.sections.guide_migration').map { |entry| new(title: entry[:title], content: entry[:content]) }
   end
 
+  def anchor
+    title.parameterize
+  end
+
   def content_markdownify
     MarkdownInterpolator.new(content).perform
   end
