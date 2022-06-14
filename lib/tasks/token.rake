@@ -10,6 +10,7 @@ namespace :token do
     end
 
     copy = token.dup
+    copy.iat = Time.zone.now.to_i
     copy.roles = token.roles
     copy.save
 
