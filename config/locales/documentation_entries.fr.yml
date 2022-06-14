@@ -26,7 +26,7 @@ fr:
             Des clients sont disponibles gratuitement. API Entreprise utilise pour ses propres tests le client Insomnia. Le plus connu sur le marché est Postman.
             Une fois le client installé, vous pouvez directement intégrer notre fichier Swagger/OpenAPI dedans.
 
-            ### 2. Votre numéro de SIRET obligatoire dans le `recipient`
+            ### 2. Votre numéro de SIRET obligatoire dans le recipient
 
             **🚀 Avec la V.3 :** Le paramètre obligatoire `recipient` de l’URL d’appel devra obligatoirement être complété par votre numéro de SIRET.
 
@@ -99,7 +99,9 @@ fr:
 
             **🧰 Comment ?**
             Renseigner directement le numéro de la version voulue dans l’URL, au même endroit qu’avant, par exemple :
-            `https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/:siret`
+            ```
+            https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/:siret
+            ```
 
             ### 6. Un seul fournisseur et un seul type de données par API
 
@@ -466,6 +468,7 @@ fr:
             | `RateLimit-Remaining` |Le **nombre d'appels restants** durant la période courante d'une minute. | Nombre |
             | `RateLimit-Reset` |La **fin de la période** courante. | Timestamp |
 
+            {:.fr-highlight.fr-highlight--example}
             >**Exemple&nbsp;:**
             >Considérons un endpoint ayant une limite de 50 appels /minute.
             >Vous faîtes un premier appel à 10h00 pile, et effectuez un second appel 20 secondes plus tard, puis un troisième 10 secondes plus tard, vous aurez les valeurs suivantes :
@@ -500,6 +503,7 @@ fr:
             Les appels depuis une IP bannie ne renvoient pas de codes HTTP, le serveur ne répond tout simplement pas.
             Vous pouvez en revanche vérifier si vous avez dépassé ce seuil depuis votre tableau de bord.
 
+            {:.fr-highlight}
             > ℹ️ Au bout de ces 12 heures, vos accès sont automatiquement rétablis ; **il est donc inutile d'écrire au support**.
 
             Nous vous invitons à prendre les mesures nécessaires car le dépassement intervient généralement chez nos utilisateurs lorsque leur programme n'a pas été correctement configuré.
@@ -539,7 +543,7 @@ fr:
             <summary>
             👀 Consulter la liste des codes HTTPS et leur signification.
             </summary>
-            ###### En cas de succès, le code HTTP commence par 2 :
+            ##### En cas de succès, le code HTTP commence par 2 :
 
             {:.fr-table}
             | Code HTTPS                                       |      Signification                 |
@@ -547,7 +551,7 @@ fr:
             |`200` | **Tout va bien.**|
             |`206` | **Réponse incomplète** - La requête a fonctionné mais un des fournisseurs de données a renvoyé une erreur ou une réponse incomplète. Les valeurs concernées dans le JSON contiennent le message : “Donnée indisponible”.|
 
-            ###### En cas d’échec, si l’erreur vient de votre côté, le code HTTP commence par 4 :
+            ##### En cas d’échec, si l’erreur vient de votre côté, le code HTTP commence par 4 :
 
             {:.fr-table}
             | Code HTTP                       |      Signification                     |
@@ -600,6 +604,7 @@ fr:
             API Entreprise vous permet d’accéder à des données protégées. C’est pourquoi, dans un **objectif de traçabilité**, nous vous demandons de renseigner dans chacune de vos requêtes, **non seulement un jeton d’accès**, mais aussi certaines informations qualifiant votre requête.
 
 
+            {:.fr-highlight.fr-highlight--caution}
             > ⚠️ **Ces paramètres sont obligatoires**. Les appels ne comportant pas ces paramètres sont rejetés, et un code erreur vous est renvoyé.
 
 
@@ -620,7 +625,7 @@ fr:
             - d'ajouter de nouvelles informations sans forcer nos utilisateurs à monter de version ;
             - de continuer de garantir la continuité des API dans le temps.
 
-            {:.fr-highlight.fr-highlight--example}
+            {:.fr-highlight}
             📩 Une techlettre annoncera systématiquement les nouvelles évolutions. Vous pouvez vous abonner [ici](TODO).
 
 
@@ -773,14 +778,14 @@ fr:
 
             > **Exemple de réponse JSON :**
             >```
-            >      {
-            >        "privileges": [
-            >          "attestations_agefiph",
-            >          [...]
-            >          "actes_bilans_inpi"
-            >        ]
-            >      }
-            >     ```
+            >{
+            >  "privileges": [
+            >    "attestations_agefiph",
+            >    [...]
+            >    "actes_bilans_inpi"
+            >  ]
+            >}
+            > ```
 
             La réponse JSON renvoie la liste des API autorisées. Retrouvez-leurs spéciifications techniques dans le [Swagger](TODO).
 
@@ -807,6 +812,7 @@ fr:
             Utilisez l'[environnement de production documenté (_Swagger_)](https://api.gouv.fr/documentation/api-entreprise), disponible sur api.gouv.fr.
             Il permet, à l'aide d'un token d'authentification valide 🔑, d'effectuer directement depuis le navigateur des tests de l'API. Les données confidentielles restent bien protégées. Vous y trouverez aussi la spécification technique téléchargeable sous format YAML afin de pouvoir accélérer le développement de vos outils d'interfaçage avec API Entreprise.
 
+            {:.fr-highlight.fr-highlight--caution}
             > ⚠️ Attention, pour rappel, vous ne devez jamais copier-coller un token dans la barre de recherche classique d'un moteur de recherche ou dans un e-mail. Pour récupérer votre jeton de façon sécurisée, consultez cette [rubrique](TODO).
 
 
@@ -835,14 +841,14 @@ fr:
             Une fois que vous avez fait un premier appel, celui-ci est **répertorié** dans votre tableau de bord, en passant par [la liste de tous vos tokens](https://dashboard.entreprise.api.gouv.fr/me/tokens), et en cliquant sur "Voir les statistiques".
 
             ### Configurer le logiciel métier
-        - title: Spécifications techniques de chaque API & Swagger
-          content: a venir
+
+            Documentation en construction&nbsp;🚧
 
         - title: Rupture de service, incidents et maintenances
           content: |+
             Le service ne répond plus, consultez [cette rubrique de notre FAQ](TODO).
 
-            Pour être informé des différentes indisponibilités, [abonnez-vous aux notificiations par e-mail depuis notre page de statuts](https://status.entreprise.api.gouv.fr/subscribe/email).
+            Pour être informé des différentes indisponibilités, [abonnez-vous aux notifications par e-mail depuis notre page de statuts](https://status.entreprise.api.gouv.fr/subscribe/email).
 
         - title: Renouvellement du JWT 🔑
           content: Pour comprendre comment renouveler votre jeton, consultez [cette rubrique de notre FAQ](TODO).
