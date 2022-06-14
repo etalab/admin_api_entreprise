@@ -62,23 +62,23 @@ disponibles dans le fichier de locale):
 
   > Texte
 
-  {:.fr-highlight--caution}
+  {:.fr-highlight.fr-highlight--caution}
 
   > Texte qui exige de l'attention
 
-  {:.fr-highlight--example}
+  {:.fr-highlight.fr-highlight--example}
 
   > Texte de type exemple
   ```
-  
+
 ### Les boutons
 
-Bouton primaire bleu du DSFR : 
+Bouton primaire bleu du DSFR :
 
   ```md
   [Texte du Bouton](https://www.google.fr}{:target=\"_blank\"}){:.fr-btn}
   ```
- Bouton secondaire blanc contour bleu du DSFR : 
+ Bouton secondaire blanc contour bleu du DSFR :
 
   ```md
   [Texte du Bouton](https://www.google.fr}{:target=\"_blank\"}){:.fr-btn fr-btn--secondary}
