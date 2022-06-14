@@ -15,7 +15,7 @@ RSpec.describe 'User attestations through tokens', type: :feature do
 
     context 'when user has no token with attestation roles' do
       it 'redirect to profile' do
-        expect(page).to have_current_path('/profile')
+        expect(page).to have_current_path(user_profile_path)
       end
     end
 
