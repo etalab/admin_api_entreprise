@@ -4,10 +4,7 @@ namespace :token do
   task :blacklist, [:token_id] => :environment do |_, args|
     token = Token.find(args.token_id)
 
-    if token.blacklisted?
-      puts 'Token already blacklisted'
-      fail
-    end
+    fail 'Token already blacklisted' if token.blacklisted?
 
     copy = token.dup
     copy.iat = Time.zone.now.to_i
