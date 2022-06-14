@@ -1,0 +1,26 @@
+<div class="banner fr-pt-10v fr-pb-10v">
+  <h1><%= t(".#{action_name}.title").html_safe %></h1>
+  <div class="fr-search-bar fr-search-bar--lg fr-mb-8v" id="search-2" role="search">
+    <label class="fr-label" for="search-787-input">
+      <%= t('.search') %>
+    </label>
+    <input class="fr-input" placeholder="Rechercher" type="search" id="search-787-input" name="search-787-input">
+    <button class="fr-btn">
+      <%= t('.search') %>
+    </button>
+  </div>
+
+  <div class="links">
+    <% if action_name == 'developers' %>
+      <a class="fr-link fr-text--lg fr-m-2v" href="#specifications-generales-de-l-api-entreprise"><%= t('.link_specs') %>&nbsp;<span class="fr-icon-arrow-down-line" aria-hidden="true"></span></a>
+      <a class="fr-link fr-text--lg fr-m-2v" href="#kit-de-mise-en-production"><%= t('.link_kit') %>&nbsp;<span class="fr-icon-arrow-down-line" aria-hidden="true"></span></a>
+      <%= link_to t(".link_migration"), guide_migration_path, class: "fr-link fr-text--lg fr-m-2v"%>
+    <% end %>
+
+    <% if action_name == 'guide_migration' %>
+      <%= link_to developers_path, class: "fr-link fr-text--lg fr-m-2v" do %>
+        <span class="fr-icon-arrow-go-back-line" aria-hidden="true"></span>&nbsp;<%= t(".link_return") %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

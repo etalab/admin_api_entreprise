@@ -46,3 +46,4 @@ Concernant les icônes:
 - Essayez au maximum d'utiliser le design système
 - Les breakpoints sont exclusivement basé sur des `md` => on n'utilise pas de
   `fr-col-lg-*`, seulement des `fr-col-md-*` si on veut faire du responsive
+- Les blocks de code doivent être contenus dans des balises `<pre>`, mais pas dans le cas de code inline.

@@ -1,0 +1,31 @@
+<div id="documentation" class="fr-container--fluid fr-mb-1v">
+  <div class="fr-grid-row">
+    <div class="fr-col-12 fr-col-sm-12 fr-col-md-3 fr-col-lg-3 fr-col-xl-3">
+      <%= render 'menu' %>
+    </div>
+
+    <div class="fr-col-12 fr-col-sm-12 fr-col-md-9 fr-col-lg-9 fr-col-xl-9 fr-background-default-white">
+      <%= render 'banner' %>
+
+      <% if action_name == 'developers' %>
+        <div class="fr-col-12 fr-col-sm-12 card-swagger fr-card fr-enlarge-link">
+          <div class="fr-card__body">
+            <div class="fr-card__content">
+              <h4 class="fr-card__title">
+                <%= link_to t('.card_swagger_link'), endpoints_path %>
+              </h4>
+              <p class="fr-card__desc"><%= t('.card_swagger_description').html_safe %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="documentation doc_markdown_to_html">
+        <% @documentation_entries.each do |entry| %>
+          <h2 id="<%= entry.anchor %>"><%= entry.title %></h2>
+          <%= raw entry.content_markdownify %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
