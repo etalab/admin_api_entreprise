@@ -1,0 +1,31 @@
+---
+- uid: 'banque_de_france/bilans'
+  path: '/v3/banque_de_france/bilans'
+  position: 220
+  perimeter:
+    entity_type_description: |+
+      Cette API concerne uniquement les entreprises réalisant un **chiffre d’affaire supérieur à 750 000 euros** et ayant **_a minima_ trois bilans**
+       Même si la Banque de France connaît un ou deux bilans de l'entreprise, ces derniers ne seront pas transmis.
+    entities:
+      - entreprises
+  call_id: "SIREN"
+  providers:
+    - 'bdf'
+  data:
+    description: |+
+      Cette API délivre les bilans dont la date d’arrêté est comprise entre le mois en cours [MM/AAAA] et 4 ans en arrière [MM+1/AAAA-4].
+
+      {:.fr-highlight--example}
+      > Par exemple pour un appel le 17 janvier 2022, les bilans retenus ont une date d’arrêt comprise entre le 1er février 2018 et le 17 janvier 2022.
+
+      Les trois bilans de la Banque de France sont listés les uns après les autres, le premier étant le plus récent. Chacun d’eux est accompagné d’informations en partie tirées :
+      - des bilans (passif de l’entreprise - liasse 2051) ;
+      - des comptes de résultat (liasse 2052 et liasse 2053) ;
+      - de l’annexe 2057 concernant l’état des échéances des créances et des dettes à la clôture de l’exercice.
+
+      La Banque de France délivre également une évolution des montants de l’exercice concerné avec l’année N-1, quand les durées d’exercices sont identiques.
+  opening: public
+  use_cases:
+    - Détection de la fraude
+  parameters:
+    - Numéro de SIREN de l'unité légale.

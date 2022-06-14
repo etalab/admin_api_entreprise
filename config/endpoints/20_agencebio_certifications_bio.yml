@@ -1,0 +1,51 @@
+---
+- uid: 'agence_bio/certifications_bio'
+  path: '/v3/agence_bio/certifications_bio'
+  position: 160
+  perimeter:
+    entity_type_description: |+
+      Cette API concerne 95% des **entreprises et associations (ayant un numéro de SIRET) certifiées en BIO**.
+
+      ❌ **Environ 5% des certificats ne sont pas accessibles** car les liaisons informatiques avec certains organismes de certification n'ont pas encore été mises en place.
+
+      Aujourd'hui, l'API permet d'accéder aux certificats d'une douzaine d'organismes certificateurs, dont la liste exhaustive est disponible sur le [site de l'Agence Bio](https://www.agencebio.org/profil/pages-communes__trashed/les-organismes-certificateurs-en-france/){:target="_blank"}.
+      Parmi eux, on retrouve : Ecocert, Certipaq, Bureau Veritas, Certisud, Certis, Alpes contrôles, Qualisud, Control Union, Ocacia, Afnor, Eurofins et Terrae.
+
+      En ce qui concerne les organismes suivants : _Ecocert, Bureau Veritas, Certipaq, Alpes controles, Certis et Control Union_, ✅ **100% des certificats sont transmis**.
+    updating_rules_description: |+
+      Les données sont transmises toutes les semaines par les organismes certificateurs. Certains transmettent même une partie des données quotidiennement mais il est difficile de garantir les certificats concernés.
+      De fait, il est donc recommandé de considérer que l'**actualisation des données est hebdomadaire**.
+    entities:
+
+      - associations
+      - entreprises
+  call_id: "SIREN"
+  providers:
+    - 'agencebio'
+  data:
+    description: |+
+      Cette API délivre :
+      - des **informations générales sur l’opérateur**, c'est-à-dire l’entreprise ou l’association certifiée, telles que sa raison sociale, son numéro BIO et ses adresses postales ;
+      - la **liste des activités et des produits certifiés** ;
+      - des **informations sur les différents certificats** (état de la certification, nom de l’organisme, dates clés)
+      - l'**URL pour accéder à la page de téléchargement** du certificat.
+
+      {:.fr-highlight}
+      > ℹ️ L’accès aux certificats n’est pas direct comme pour les autres endpoints API Entreprise. Les documents sont accessibles en suivant le lien transmis, permettant de se rendre sur la page HTML de l’organisme certificateur, sur laquelle il est possible de télécharger le certificat.
+  opening: public
+  use_cases:
+    - Aides publiques
+  parameters:
+    - Numéro de SIREN de l'unité légale.
+  faq:
+    - q: L'état de la certification est une information certifiée, qu'en est-il pour la liste des produits ?
+      a: |+
+        En effet, ✅ l’**état de la certification transmis par l'API fait foi**. Il permet de savoir si l’entité est bien certifiée et cette information est autant fiable que le certificat PDF lui-même.
+
+        Dans le cas de la **liste des produits certifiés, ✅ l'information fait foi également**, sauf dans les cas suivants :
+        - ❌ pour l'organisme certificateur _Certis_, la liste transmise est une déclaration de l'entreprise ou l'association concernée, elle n'est pas issue directement des contrôles des organismes certificateurs ;
+        - ❌ lorsque l'entreprise ou l'association est certifiée pour la première fois, les données transmises sont d'abord déclaratives, et ne deviendront fiables qu'une fois le premier contrôle réalisé par l'organisme certificateur et le premier certificat délivré.
+    - q: Il n'y a aucun lien pour télécharger le certificat, est-ce normal ?
+      a: |+
+        Oui, car le certificat au format PDF n’est actuellement pas disponible pour tous les opérateurs, **5% des certificats ne sont pas accessibles** car les liaisons informatiques avec certains organismes de certification n'ont pas encore été mises en place.
+        Pour les six organismes certificateurs suivants :_Ecocert, Bureau Veritas, Certipaq, Alpes controles, Certis et Control Union_, la transmission des certificats est de 100%.

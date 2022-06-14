@@ -1,0 +1,50 @@
+---
+- uid: 'inpi/comptes_annuels_rncs'
+  path: '/v3/inpi/unites_legales/{siren}/comptes_annuels_rncs'
+  position: 220
+  perimeter:
+    entity_type_description: |+
+      ✅ **Toutes les unités légales déposant leurs comptes annuels auprès des greffes** des tribunaux de commerce (TC),
+      tribunaux d’instance des départements du Bas-Rhin, du Haut-Rhin et de la Moselle (TI),
+      tribunaux mixtes de commerce des départements et régions d'outre-mer (TMC).
+
+      ❌ Les sociétés en micro-BNC et micro-BIC ne sont pas concernées par cette API.
+    updating_rules_description: |+
+      En théorie, les comptes annuels au format PDF sont transmis à l'INPI par le greffe **24h après leur dépôt**.
+      Les données du bilan mises à disposition sous forme XML nécessitent un délai plus long de deux semaines.
+    entities:
+      - associations
+      - entreprises
+  call_id: "SIREN"
+  providers:
+    - 'inpi'
+  data:
+    description: |+
+      Cette API délivre les **comptes annuels, publics et confidentiels, déposés depuis le 1er janvier 2017,**.
+      Les comptes annuels permettent d'accéder aux données relatives aux bilans (actif/passif), comptes de résultat, immobilisations, amortissements et provisions. Ils sont issus du registre national du commerce et des sociétés (RNCS).
+
+      La réponse se compose :
+      - d’une URL permettant de télécharger une archive ZIP contenant les **comptes annuels au format PDF** de l’entité appelée ;
+      - de la **liste des bilans**, accompagnés de leurs **informations génériques** (identifiant du fichier dans l’archive téléchargée, le code greffe, les dates de dépôt et clôture, la nature de l’archive, son degré de confidentialité, et le numéro de gestion.)
+
+
+      {:.fr-highlight}
+      > API Entreprise vous permet d'accéder à des données protégées : les comptes annuels confidentiels, qui représentent environ 45% des bilans déposés.
+  opening: public
+  use_cases:
+    - Marchés publics
+    - Aides publiques
+    - Détection de la fraude
+  parameters:
+    - Numéro de SIREN de l'unité légale.
+  faq:
+    - q: Comment utiliser les bilans confidentiels et partiellement confidentiels ?
+      a: |+
+        Certaines entreprises (PME) décident de ne pas publier leurs comptes annuels. Elles ont toutefois l’obligation de les déposer. Leurs bilans sont donc présents à l’INPI et cette API permet d’y accéder.
+
+        **Lorsque le bilan est totalement confidentiel** : vous vous engagez à n’utiliser ces informations que dans le cadre strict de vos missions de service public, à ne pas les rediffuser ni les divulguer auprès de tiers non autorisés.
+
+        **Lorsque le bilan est partiellement confidentiel** : Cela signifie qu’une partie du document est confidentielle et que l’autre est publique. Depuis 2019, l’INPI a rendu les PDF séparables, ce qui permet aux personnes n’ayant pas d’habilitation spécifique de télécharger les informations publiques disponibles.
+        Toutefois, dans le cadre de l’utilisation de l’API Entreprise, les bilans partiellement confidentiels de l’INPI sont à traiter comme les bilans confidentiels puisque la distinction n’est pas faite entre données publiques et secrètes.
+
+

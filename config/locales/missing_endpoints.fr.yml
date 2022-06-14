@@ -1,0 +1,39 @@
+fr:
+  missing_endpoints:
+    /v3/agence_bio/certifications_bio:
+      title: &title 'Certification en BIO'
+      summary: *title
+      description: 'Connaître les certifications biologiques en cours d’une entreprise ou d’une association.'
+      disclaimer: &generic_disclaimer |+
+        <div class="fr-alert fr-alert--error">
+          <p class="fr-alert__title">
+            Cette API n'est pas encore implémentée en V.3.
+          </p>
+          <p>
+            ⚙️ Les développements sont en cours et devraient être terminés dans les semaines à venir.
+          </p>
+          <p>
+          📖 La documentation de la V.2 est toujours disponible à <a href="https://v2.entreprise.api.gouv.fr/catalogue/" target="_blank">cette adresse</a>.
+          </p>
+        </div>
+        <br />
+        <hr />
+        <br />
+
+    /v3/urssaf/effectifs:
+      title: &title "Effectifs d'une entreprise"
+      summary: *title
+      description: "Connaître les effectifs mensuels ou annuels d’une entreprise ou d’un établissement"
+      disclaimer: *generic_disclaimer
+
+    /v3/inpi/unites_legales/{siren}/comptes_annuels_rncs:
+      title: &title "Bilans annuels"
+      summary: *title
+      description: "Obtenir les comptes annuels d’une entreprise tels que transmis par les greffes"
+      disclaimer: *generic_disclaimer
+
+    /v3/banque_de_france/bilans:
+      title: &title "3 derniers bilans annuels"
+      summary: *title
+      description: "Obtenir les trois derniers bilans d’une entreprise détenus par la Banque de France."
+      disclaimer: *generic_disclaimer

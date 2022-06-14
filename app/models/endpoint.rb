@@ -12,6 +12,11 @@ class Endpoint
     :use_cases,
     :opening
 
+  def initialize(params)
+    super(params)
+    load_dummy_definition! if open_api_definition.blank?
+  end
+
   def self.all
     AvailableEndpoints.all.map do |endpoint|
       new(endpoint)
@@ -109,6 +114,23 @@ class Endpoint
     end
   end
 
+  def open_api_definition
+    @open_api_definition ||= OpenAPIDefinition.get(path)
+  end
+
+  def load_dummy_definition!
+    @open_api_definition = I18n.t("missing_endpoints.#{path}").stringify_keys
+    @dummy_definition = true
+  end
+
+  def dummy?
+    @dummy_definition
+  end
+
+  def implemented?
+    !dummy?
+  end
+
   private
 
   def extract_data_from_schema
@@ -139,10 +161,6 @@ class Endpoint
 
   def path_for_redoc
     path.gsub('/', '~1')
-  end
-
-  def open_api_definition
-    @open_api_definition ||= OpenAPIDefinition.get(path)
   end
 end
 # rubocop:enable Metrics/ClassLength
