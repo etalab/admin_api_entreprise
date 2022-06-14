@@ -533,10 +533,12 @@ fr:
 
             API Entreprise a harmonisé les codes erreur de l’ensemble des fournisseurs de données, en s'appuyant sur le protocole HTTP, afin de vous en simplifier la compréhension.
 
+            {:.fr-details}
             <details>
 
-            <summary>👀 Consulter la liste des codes HTTPS et leur signification.</summary>
-
+            <summary>
+            👀 Consulter la liste des codes HTTPS et leur signification.
+            </summary>
             ###### En cas de succès, le code HTTP commence par 2 :
 
             {:.fr-table}
@@ -618,7 +620,8 @@ fr:
             - d'ajouter de nouvelles informations sans forcer nos utilisateurs à monter de version ;
             - de continuer de garantir la continuité des API dans le temps.
 
-            > 📩 Une techlettre annoncera systématiquement les nouvelles évolutions. Vous pouvez vous abonner [ici](TODO).
+            {:.fr-highlight.fr-highlight--example}
+            📩 Une techlettre annoncera systématiquement les nouvelles évolutions. Vous pouvez vous abonner [ici](TODO).
 
 
             ### Monitorer la disponibilité des API
@@ -633,7 +636,6 @@ fr:
             ```
             https://entreprise.api.gouv.fr/watchdoge/dashboard/current_status
             ```
-
 
             > **Exemple de réponse JSON :**
             >
@@ -678,30 +680,31 @@ fr:
             Pour appeler l'API concernant l'endpoint et la période voulue, référez-vous à la suite de cet article ⤵️
 
 
-            > **Exemple de réponse JSON :**
-            >```
-            >      {
-            >        "endpoint": "api/v3/entreprises_restored",
-            >        "days_availability": {
-            >          "2020-04-13": {
-            >            "total": 12615,
-            >            "404": 9,
-            >            "502": 0,
-            >            "503": 0,
-            >            "504": 0
-            >          },
-            >          "2020-04-14": {
-            >            "total": 44677,
-            >            "404": 25,
-            >            "502": 0,
-            >            "503": 16,
-            >            "504": 0
-            >          }
-            >        },
-            >        "total_availability": 99.96,
-            >        "last_week_availability": 100.0
-            >      }
-            >      ```
+            {:.fr-highlight--example}
+             **Exemple de réponse JSON :**
+            ```
+                {
+                  "endpoint": "api/v3/entreprises_restored",
+                  "days_availability": {
+                    "2020-04-13": {
+                      "total": 12615,
+                      "404": 9,
+                      "502": 0,
+                      "503": 0,
+                      "504": 0
+                    },
+                    "2020-04-14": {
+                      "total": 44677,
+                      "404": 25,
+                      "502": 0,
+                      "503": 16,
+                      "504": 0
+                    }
+                  },
+                  "total_availability": 99.96,
+                  "last_week_availability": 100.0
+                }
+              ```
 
 
             ###### Nomenclature des paramètres de la requête HTTP :
