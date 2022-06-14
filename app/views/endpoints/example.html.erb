@@ -4,8 +4,10 @@
       <%= t('.title') %>
     </h3>
 
-    <div class="keep-within-block code-block">
-      <code><%= JSON.pretty_generate(@endpoint.example_payload) %></code>
+    <div class="keep-within-block">
+      <pre>
+        <code><%= JSON.pretty_generate(@endpoint.example_payload) %></code>
+      </pre>
     </div>
   </div>
 </turbo-frame>
