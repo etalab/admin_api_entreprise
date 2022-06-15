@@ -1,10 +1,12 @@
 <div id="<%= "property_#{kind}_#{key}" %>" class="attribute fr-mb-3w">
   <div class="fr-mb-1w">
-    <div class="fr-tag fr-text--bold">
-      <%= properties['title'] || key.humanize %>
-    </div>
-    <% if properties['example'] %>
+    <% if kind != 'array' %>
+      <div class="fr-tag fr-text--bold">
+        <%= properties['title'] || key.humanize %>
+      </div>
+    <% end %>
 
+    <% if properties['example'] %>
       <span class="fr-ml-2w fr-ml-md-0 fr-text--regular fr-text--alt">
         <%= t('.example.label') %>
         <%= properties['example'] %>
@@ -30,6 +32,20 @@
             }
           %>
         <% end %>
+      </div>
+    <% elsif properties['type'] == 'array' %>
+      <div class="sub-properties fr-mt-1w">
+        <div class="fr-text--xs">
+          <%= t('.array.label') %>
+        </div>
+
+        <%=
+          render partial: 'property', locals: {
+            key: "items_#{key}",
+            kind: 'array',
+            properties: properties['items']
+          }
+        %>
       </div>
     <% end %>
   </div>
