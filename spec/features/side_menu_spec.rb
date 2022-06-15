@@ -24,7 +24,7 @@ RSpec.describe 'Navigation side menu', type: :feature do
 
       it 'shows menu item for attestations download' do
         within('.authenticated-user-sidemenu') do
-          expect(page).to have_link('attestations-download', href: '/profile/attestations')
+          expect(page).to have_link('attestations-download', href: attestations_path)
         end
       end
     end
