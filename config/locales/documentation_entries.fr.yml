@@ -322,7 +322,7 @@ fr:
             {:.fr-table}
             | API V.2  | API V.3 correspondante |
             | :--- | :--- |
-            | **API [3 derniers bilans annuels - Banque de France](https://v2.entreprise.api.gouv.fr/catalogue/#a-bilans_entreprises_bdf){:target="_blank"}** |  API **Trois derniers bilans annuels** <br /> <br /> [📖 Fiche métier](<%= endpoint_path(uid: 'bdf/bilans_annuels') %>){:target="_blank"} <br /> ⚙️ Swagger prochainement disponible  |
+            | **API [3 derniers bilans annuels - Banque de France](https://v2.entreprise.api.gouv.fr/catalogue/#a-bilans_entreprises_bdf){:target="_blank"}** |  API **Trois derniers bilans annuels** <br /> <br /> [📖 Fiche métier](<%= endpoint_path(uid: 'banque_de_france/bilans') %>){:target="_blank"} <br /> ⚙️ Swagger prochainement disponible  |
 
 
             ### V.2 - Déclarations de résulats - DGFIP <a name="v2/liasses-fiscales"></a>
@@ -345,14 +345,14 @@ fr:
             {:.fr-table}
             | API V.2  | API V.3 correspondante |
             | :--- | :--- |
-            | **API [Attestation de vigilance - ACOSS](https://v2.entreprise.api.gouv.fr/catalogue/#a-attestations_sociales_acoss){:target="_blank"}** | API **Attestation de vigilance - URSSAF Caisse nationale** <br /> `v3/urssaf/unites_legales/{siren}/attestation_vigilance`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'urssaf/attestation_sociale') %>){:target="_blank"} <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Attestations-sociales-et-fiscales/paths/~1v3~1urssaf~1unites_legales~1{siren}~1attestation_vigilance/get') %>){:target="_blank"} |
+            | **API [Attestation de vigilance - ACOSS](https://v2.entreprise.api.gouv.fr/catalogue/#a-attestations_sociales_acoss){:target="_blank"}** | API **Attestation de vigilance - URSSAF Caisse nationale** <br /> `v3/urssaf/unites_legales/{siren}/attestation_vigilance`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'urssaf/attestation_vigilance') %>){:target="_blank"} <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Attestations-sociales-et-fiscales/paths/~1v3~1urssaf~1unites_legales~1{siren}~1attestation_vigilance/get') %>){:target="_blank"} |
 
             ### V.2 - Conformité emploi des travailleurs handicapés - Agefiph <a name="v2/conformite-emploi-handicapes"></a>
 
             {:.fr-table}
             | API V.2  | API V.3 correspondante |
             | :--- | :--- |
-            | **API [Conformité emploi des travailleurs handicapés - Agefiph](https://v2.entreprise.api.gouv.fr/catalogue/#a-attestations_agefiph){:target="_blank"}** | ❌ Ressource supprimée en V3 - *Depuis 2021, la contribution annuelle de l’OETH (Obligation d’Emploi de Travailleur Handicapé) relève de l'URSSAF et non plus de l'Agefiph*. <br /> <br /> La conformité à l'OETH est donc désormais incluse dans l'[API attestation de vigileance - URSSAF](<%= endpoint_path(uid: 'urssaf/attestation_sociale') %>){:target="_blank"} ou dans l'[API conformité cotisations de sécurité sociale agricole - MSA](<%= endpoint_path(uid: 'msa/conformites_cotisations') %>){:target="_blank"} pour les entreprises relevant du régime agricole. |
+            | **API [Conformité emploi des travailleurs handicapés - Agefiph](https://v2.entreprise.api.gouv.fr/catalogue/#a-attestations_agefiph){:target="_blank"}** | ❌ Ressource supprimée en V3 - *Depuis 2021, la contribution annuelle de l’OETH (Obligation d’Emploi de Travailleur Handicapé) relève de l'URSSAF et non plus de l'Agefiph*. <br /> <br /> La conformité à l'OETH est donc désormais incluse dans l'[API attestation de vigileance - URSSAF](<%= endpoint_path(uid: 'urssaf/attestation_vigilance') %>){:target="_blank"} ou dans l'[API conformité cotisations de sécurité sociale agricole - MSA](<%= endpoint_path(uid: 'msa/conformites_cotisations') %>){:target="_blank"} pour les entreprises relevant du régime agricole. |
 
             ### V.2 - Cotisations de sécurité agricole - MSA <a name="v2/cotis-secu-agricole"></a>
 
@@ -388,7 +388,7 @@ fr:
             {:.fr-table}
             | API V.2  | API V.3 correspondante |
             | :--- | :--- |
-            | **API [Certification en BIO - Agence BIO](https://v2.entreprise.api.gouv.fr/catalogue/#a-certificats_agence_bio){:target="_blank"}** |  API **Certifications en BIO** <br /> <br /> [📖 Fiche métier](<%= endpoint_path(uid: 'agencebio/certifications_bio') %>){:target="_blank"} <br /> ⚙️ Swagger prochainement disponible  |
+            | **API [Certification en BIO - Agence BIO](https://v2.entreprise.api.gouv.fr/catalogue/#a-certificats_agence_bio){:target="_blank"}** |  API **Certifications en BIO** <br /> <br /> [📖 Fiche métier](<%= endpoint_path(uid: 'agence_bio/certifications_bio') %>){:target="_blank"} <br /> ⚙️ Swagger prochainement disponible  |
 
 
             ### V.2 - Certification RGE - ADEME <a name="v2/rge-ademe"></a>
@@ -410,7 +410,7 @@ fr:
             {:.fr-table}
             | API V.2  | API V.3 correspondante |
             | :--- | :--- |
-            | **API [Certification de qualification d'ingénierie - OPQIBI](https://v2.entreprise.api.gouv.fr/catalogue/#a-certificats_opqibi){:target="_blank"}** |  API **Certification d'ingénierie OPQIBI** <br /> <br /> [📖 Fiche métier](<%= endpoint_path(uid: 'opqibi/certifications_ingenierie') %>){:target="_blank"} <br /> ⚙️ Swagger prochainement disponible  |
+            | **API [Certification de qualification d'ingénierie - OPQIBI](https://v2.entreprise.api.gouv.fr/catalogue/#a-certificats_opqibi){:target="_blank"}** |  API **Certification d'ingénierie OPQIBI** <br /> <br /> [📖 Fiche métier](<%= endpoint_path(uid: 'opqibi/qualifications_ingenierie') %>){:target="_blank"} <br /> ⚙️ Swagger prochainement disponible  |
 
             ### V.2 - Brevets, modèles et marques déposés - INPI <a name="v2/brevet-modeles-marques"></a>
 
@@ -418,9 +418,9 @@ fr:
             | API V.2  | API V.3 correspondantes |
             | :--- | :--- |
             | **API [Brevets, modèles et marques déposés - INPI](https://v2.entreprise.api.gouv.fr/catalogue/#a-extraits_courts_inpi){:target="_blank"}** | |
-            | Données des brevets | API **Brevets déposés** <br /> `v3/inpi/unites_legales/{siren}/brevets`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'infogreffe/rcs/extrait') %>){:target="_blank"} <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Propriete-intellectuelle/paths/~1v3~1inpi~1unites_legales~1{siren}~1brevets/get') %>){:target="_blank"} |
-            | Données des dessins & modèles | API **Modèles déposés** <br /> `v3/inpi/unites_legales/{siren}/modeles`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'infogreffe/rcs/extrait') %>){:target="_blank"} <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Propriete-intellectuelle/paths/~1v3~1inpi~1unites_legales~1{siren}~1modeles/get') %>){:target="_blank"} |
-            | Données des marques | API **Marques déposées** <br /> `v3/inpi/unites_legales/{siren}/marques`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'infogreffe/rcs/extrait') %>){:target="_blank"} <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Propriete-intellectuelle/paths/~1v3~1inpi~1unites_legales~1{siren}~1marques/get') %>){:target="_blank"} |
+            | Données des brevets | API **Brevets déposés** <br /> `v3/inpi/unites_legales/{siren}/brevets`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'inpi/brevets') %>){:target="_blank"} <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Propriete-intellectuelle/paths/~1v3~1inpi~1unites_legales~1{siren}~1brevets/get') %>){:target="_blank"} |
+            | Données des dessins & modèles | API **Modèles déposés** <br /> `v3/inpi/unites_legales/{siren}/modeles`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'inpi/modeles') %>){:target="_blank"} <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Propriete-intellectuelle/paths/~1v3~1inpi~1unites_legales~1{siren}~1modeles/get') %>){:target="_blank"} |
+            | Données des marques | API **Marques déposées** <br /> `v3/inpi/unites_legales/{siren}/marques`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'inpi/marques') %>){:target="_blank"} <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Propriete-intellectuelle/paths/~1v3~1inpi~1unites_legales~1{siren}~1marques/get') %>){:target="_blank"} |
 
       developers:
         - title: Prérequis techniques
