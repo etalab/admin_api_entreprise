@@ -417,23 +417,23 @@ fr:
             | Données des marques | API **Marques déposées** <br /> `v3/inpi/unites_legales/{siren}/marques`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'infogreffe/rcs/extrait') %>) <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Propriete-intellectuelle/paths/~1v3~1inpi~1unites_legales~1{siren}~1marques/get') %>) |
 
       developers:
-        - title: Prérequis
+        - title: Prérequis techniques
           content: |+
-            Voici la liste des fondamentaux techniques à mettre en place pour le bon fonctionnement de l’API Entreprise&nbsp;:&nbsp;
+            Voici la liste des **fondamentaux techniques à mettre en place pour le bon fonctionnement de l’API Entreprise**&nbsp;:&nbsp;
 
-            - ✅ Être en mesure de gérer le protocole HTTPS ;
+            - ☑️ Être en mesure de gérer le protocole HTTPS ;
 
-            - ✅ Avoir une version de langage récente. Si vous utilisez Java, une version >= 1.8 est nécessaire (pour la gestion des certificats de +1024 bit, du TLS 1.2 minimum et des suites cryptographiques - ciphers) ;
+            - ☑️ Avoir une version de langage récente. Si vous utilisez Java, une version >= 1.8 est nécessaire (pour la gestion des certificats de +1024 bit, du TLS 1.2 minimum et des suites cryptographiques - ciphers) ;
 
-            - ✅ S’assurer que nos Autorités de Certification (AC) pour les certificats SSL sont autorisées par vos systèmes ;
+            - ☑️ S’assurer que nos Autorités de Certification (AC) pour les certificats SSL sont autorisées par vos systèmes ;
 
-            - ✅ L'API Entreprise est uniquement accessible par internet. Si vous avez un pare-feu, il faut donc prévoir de whitelister l'adresse IP du service API Entreprise ;
+            - ☑️ L'API Entreprise est uniquement accessible par internet. Si vous avez un pare-feu, il faut donc prévoir de whitelister l'adresse IP du service API Entreprise ;
 
-            - ✅ Il est interdit d'interroger l'API Entreprise depuis un site web en front-end, car le jeton d'accès serait alors divulgué. Il vous faut donc interroger nos API depuis une application en back-end. Nous n'autoriserons pas le CORS (CORS - Cross Origin Ressource Sharing) ;
+            - ☑️ Il est interdit d'interroger l'API Entreprise depuis un site web en front-end, car le jeton d'accès serait alors divulgué. Il vous faut donc interroger nos API depuis une application en back-end. Nous n'autoriserons pas le CORS (CORS - Cross Origin Ressource Sharing) ;
 
-            - ✅ Prévoir non seulement les coûts de développement mais également les coûts de maintenance ;
+            - ☑️ Prévoir non seulement les coûts de développement mais également les coûts de maintenance ;
 
-            - ✅ Être en capacité de gérer les mises à jour de l'API Entreprise.
+            - ☑️ Être en capacité de gérer les mises à jour de l'API Entreprise.
 
         - title: Spécifications générales de l'API Entreprise
           content: |+
@@ -443,19 +443,16 @@ fr:
 
             Les limites de volumétrie sur API Entreprise se décomposent en deux règles principales&nbsp;:&nbsp;
 
-            - Un plafond général par IP de 1000 requêtes/minute.
+            - **Un plafond général par IP de 1000 requêtes/minute**.
 
-            - Une volumétrie par jeton par groupe d’endpoints&nbsp;:&nbsp;
-            - 1er groupe&nbsp;:&nbsp;Les endpoints renvoyant du JSON constituent un premier groupe. Vous pouvez effectuer jusqu’à 250 requêtes/min/jeton sur ce groupe.
-            - 2ème groupe&nbsp;:&nbsp;Les endpoints transmettant des documents constituent un autre groupe. La volumétrie maximale d’appel concernant ce groupe est de 50 requêtes/min/jeton.
-            - Exceptions&nbsp;:&nbsp;Certains endpoints échappent à cette règle et présentent une volumétrie spécifique par endpoint&nbsp;:&nbsp;
-            - L’[attestation fiscale de la DGFIP](TODO)&nbsp;:&nbsp;5 requêtes/min/jeton ;
-            - Les [actes de l’INPI](TODO)&nbsp;:&nbsp;5 requêtes/min/jeton ;
-            - Les [bilans de l’INPI](TODO)&nbsp;:&nbsp;5 requêtes/min/jeton ;
-            - Les [effectifs de l’URSSAF](TODO)&nbsp;:&nbsp;250 requêtes/min/jeton ;
-            - La [conformité des travailleurs handicapés de l’Agefiph](TODO)&nbsp;:&nbsp;250 requêtes/min/jeton.
-
-            Pour vous assurer de la volumétrie d’un endpoint en particulier, vous pouvez consulter la partie “disponibilité” de sa documentation dans le [catalogue de données](TODO).
+            - **Une volumétrie par jeton par groupe d’endpoints&nbsp;:&nbsp**;
+                  - **1er groupe**&nbsp;:&nbsp;Les endpoints renvoyant du JSON constituent un premier groupe. Vous pouvez effectuer jusqu’à 250 requêtes/min/jeton sur ce groupe.
+                  - **2ème groupe**&nbsp;:&nbsp;Les endpoints transmettant des documents constituent un autre groupe. La volumétrie maximale d’appel concernant ce groupe est de 50 requêtes/min/jeton.
+                  - **Exceptions**&nbsp;:&nbsp;Certains endpoints échappent à cette règle et présentent une volumétrie spécifique par endpoint&nbsp;:&nbsp;
+                          - L’[attestation fiscale de la DGFIP](<%= developers_openapi_path(anchor: 'tag/Attestations-sociales-et-fiscales/paths/~1v3~1dgfip~1unites_legales~1{siren}~1attestation_fiscale/get') %>)&nbsp;:&nbsp;5 requêtes/min/jeton ;
+                          - Les [actes de l’INPI](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1inpi~1unites_legales~1{siren}~1actes/get') %>)&nbsp;:&nbsp;5 requêtes/min/jeton ;
+                          - Les [comptes annuels du RNCS de l’INPI](<%= endpoint_path(uid: 'inpi/comptes_annuels_rncs') %>)&nbsp;:&nbsp;5 requêtes/min/jeton ;
+                          - Les [effectifs de l’URSSAF](<%= endpoint_path(uid: 'urssaf/effectifs') %>)&nbsp;:&nbsp;250 requêtes/min/jeton ;
 
             #### Informations actionnables et alertes
 
