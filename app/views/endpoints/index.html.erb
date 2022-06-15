@@ -1,17 +1,44 @@
-<h1>
-  <%= t('.title') %>
-</h1>
+<div id="catalogue" class="fr-container--fluid fr-mb-1v">
+  <div class="fr-grid-row">
+    <div class="fr-col-12 fr-mb-5v fr-background-default-white">
+      <div class="fr-grid-row banner-container">
+        <div class="fr-col-12 fr-col-offset-sm-1 fr-col-sm-10">
+          <div class="banner fr-pt-10v fr-pb-10v">
+            <h1>
+              <%= t('.title') %>
+            </h1>
 
-<% @endpoints.each_with_index do |endpoint, index| %>
-  <% if index % 3 == 0 %>
-    <div class="fr-grid-card-row-outer">
-  <% end %>
+            <div class="fr-search-bar fr-search-bar--lg fr-mb-8v" id="catalogue-search" role="search">
+              <label class="fr-label" for="catalogue-search-input">
+                <%= t('.search') %>
+              </label>
 
-  <div class="fr-grid-card-row-inner fr-col-xs-12 fr-col-md-4">
-    <%= render endpoint %>
-  </div>
+              <input class="fr-input" placeholder="Rechercher" type="search" id="catalogue-search-input" name="catalogue-search-input">
 
-  <% if index % 3 == 2 %>
+              <button class="fr-btn">
+                <%= t('.search') %>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  <% end %>
-<% end %>
+
+    <div class="fr-col-12 fr-col-offset-sm-1 fr-col-sm-10">
+      <% @endpoints.each_with_index do |endpoint, index| %>
+        <% if index % 3 == 0 %>
+          <div class="fr-grid-card-row-outer">
+        <% end %>
+
+        <div class="fr-grid-card-row-inner fr-col-xs-12 fr-col-md-4">
+          <%= render endpoint %>
+        </div>
+
+        <% if index % 3 == 2 %>
+          </div>
+        <% end %>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>

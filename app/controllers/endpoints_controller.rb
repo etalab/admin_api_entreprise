@@ -1,4 +1,6 @@
 class EndpointsController < ApplicationController
+  layout 'no_container', only: %i[index]
+
   before_action :extract_endpoint, except: :index
 
   def index
