@@ -1,62 +1,64 @@
-<article id="<%= dom_id(endpoint) %>" data-algolia-search-catalogue-hit="<%= dom_id(endpoint) %>" class="endpoint-card fr-grid-card">
-  <header class="fr-grid-row fr-grid-row--gutters fr-grid-row--start">
-    <div class="fr-col-8">
-      <h3 class="fr-h5" data-algolia-search-catalogue-hit-attribute="title">
-        <%= endpoint.title %>
-      </h3>
-    </div>
+<div class="fr-col-xs-12 fr-col-md-4 fr-p-2v" id="<%= dom_id(endpoint) %>" data-algolia-search-catalogue-hit="<%= dom_id(endpoint) %>">
+  <article class="endpoint-card fr-grid-card">
+    <header class="fr-grid-row fr-grid-row--gutters fr-grid-row--start">
+      <div class="fr-col-8">
+        <h3 class="fr-h5" data-algolia-search-catalogue-hit-attribute="title">
+          <%= endpoint.title %>
+        </h3>
+      </div>
 
-    <div class="fr-col-4">
-      <% endpoint.providers.each do |provider| %>
-        <%= image_tag("providers/#{provider}.png", class: %w(provider)) %>
+      <div class="fr-col-4">
+        <% endpoint.providers.each do |provider| %>
+          <%= image_tag("providers/#{provider}.png", class: %w(provider)) %>
+        <% end %>
+      </div>
+    </header>
+
+    <section class="body">
+      <div class="description fr-text--sm fr-mb-0" data-algolia-search-catalogue-hit-attribute="description">
+        <%= endpoint.description %>
+      </div>
+
+      <% if endpoint.perimeter['entities'].present? %>
+        <ul class="list-unstyled fr-pl-0 fr-mt-2w">
+          <% endpoint.perimeter['entities'].each do |perimeter_entity| %>
+            <li>
+              <%= icon(t("endpoint.perimeter.entities.#{perimeter_entity}.icon", raise: true)) %>
+
+              <strong class="fr-pl-1w">
+                <%= t("endpoint.perimeter.entities.#{perimeter_entity}.name", raise: true) %>
+              </strong>
+            </li>
+          <% end %>
+        </ul>
       <% end %>
-    </div>
-  </header>
+    </section>
 
-  <section class="body">
-    <div class="description fr-text--sm fr-mb-0" data-algolia-search-catalogue-hit-attribute="description">
-      <%= endpoint.description %>
-    </div>
+    <section class="metadata">
+      <ul class="list-unstyled">
+        <li>
+          <%= icon(t("endpoint.opening.#{endpoint.opening}.icon", raise: true)) %>
+          <%= t("endpoint.opening.#{endpoint.opening}.name", raise: true) %>
+        </li>
 
-    <% if endpoint.perimeter['entities'].present? %>
-      <ul class="list-unstyled fr-pl-0 fr-mt-2w">
-        <% endpoint.perimeter['entities'].each do |perimeter_entity| %>
+        <li>
+          <strong>Identifiant d'appel :</strong> <%= endpoint.call_id %>
+        </li>
+      </ul>
+    </section>
+
+    <footer>
+      <ul class="fr-btns-group fr-btns-group--right fr-btns-group--inline-md fr-mt-1w">
+        <% if endpoint.implemented? %>
           <li>
-            <%= icon(t("endpoint.perimeter.entities.#{perimeter_entity}.icon", raise: true)) %>
-
-            <strong class="fr-pl-1w">
-              <%= t("endpoint.perimeter.entities.#{perimeter_entity}.name", raise: true) %>
-            </strong>
+            <%= link_to t('.cta.swagger'), developers_openapi_path(anchor: endpoint.redoc_anchor), data: { turbo: false }, class: %(fr-btn fr-btn--secondary) %>
           </li>
         <% end %>
-      </ul>
-    <% end %>
-  </section>
 
-  <section class="metadata">
-    <ul class="list-unstyled">
-      <li>
-        <%= icon(t("endpoint.opening.#{endpoint.opening}.icon", raise: true)) %>
-        <%= t("endpoint.opening.#{endpoint.opening}.name", raise: true) %>
-      </li>
-
-      <li>
-        <strong>Identifiant d'appel :</strong> <%= endpoint.call_id %>
-      </li>
-    </ul>
-  </section>
-
-  <footer>
-    <ul class="fr-btns-group fr-btns-group--right fr-btns-group--inline-md fr-mt-1w">
-      <% if endpoint.implemented? %>
         <li>
-          <%= link_to t('.cta.swagger'), developers_openapi_path(anchor: endpoint.redoc_anchor), data: { turbo: false }, class: %(fr-btn fr-btn--secondary) %>
+          <%= link_to t('.cta.documentation'), endpoint_path(uid: endpoint.uid), class: %(fr-btn) %>
         </li>
-      <% end %>
-
-      <li>
-        <%= link_to t('.cta.documentation'), endpoint_path(uid: endpoint.uid), class: %(fr-btn) %>
-      </li>
-    </ul>
-  </footer>
-</article>
+      </ul>
+    </footer>
+  </article>
+</div>

@@ -27,19 +27,8 @@
     </div>
 
     <div class="fr-col-12 fr-col-offset-sm-1 fr-col-sm-10">
-      <% @endpoints.each_with_index do |endpoint, index| %>
-        <% if index % 3 == 0 %>
-          <div class="fr-grid-card-row-outer">
-        <% end %>
-
-        <div class="fr-grid-card-row-inner fr-col-xs-12 fr-col-md-4">
-          <%= render endpoint %>
-        </div>
-
-        <% if index % 3 == 2 %>
-          </div>
-        <% end %>
-      <% end %>
+      <div class="fr-grid-row">
+        <%= render @endpoints %>
       </div>
     </div>
   </div>
