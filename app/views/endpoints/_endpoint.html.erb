@@ -1,7 +1,7 @@
-<article id="<%= dom_id(endpoint) %>" class="endpoint-card fr-grid-card">
+<article id="<%= dom_id(endpoint) %>" data-algolia-search-catalogue-hit="<%= dom_id(endpoint) %>" class="endpoint-card fr-grid-card">
   <header class="fr-grid-row fr-grid-row--gutters fr-grid-row--start">
     <div class="fr-col-8">
-      <h3 class="fr-h5">
+      <h3 class="fr-h5" data-algolia-search-catalogue-hit-attribute="title">
         <%= endpoint.title %>
       </h3>
     </div>
@@ -14,14 +14,9 @@
   </header>
 
   <section class="body">
-    <%=
-      simple_format(
-        endpoint.description, {
-          class: %w(description fr-text--sm fr-mb-0)
-        },
-        wrapper_tag: 'div'
-      )
-    %>
+    <div class="description fr-text--sm fr-mb-0" data-algolia-search-catalogue-hit-attribute="description">
+      <%= endpoint.description %>
+    </div>
 
     <% if endpoint.perimeter['entities'].present? %>
       <ul class="list-unstyled fr-pl-0 fr-mt-2w">
