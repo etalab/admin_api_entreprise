@@ -29,8 +29,8 @@ Rails.application.routes.draw do
 
   get '/compte/demandes', to: 'authorization_requests#index', as: :authorization_requests
 
-  get '/compte/telecharger-attestations', to: 'attestations#index', as: :attestations
-  post '/compte/telecharger-attestations/rechercher-siret', to: 'attestations#search', as: :search_attestations
+  get '/compte/telecharcher-documents', to: 'attestations#index', as: :attestations
+  post '/compte/telecharcher-documents/rechercher-siret', to: 'attestations#search', as: :search_attestations
 
   get '/compte/jetons', to: 'jwt_api_entreprise#index', as: :user_tokens
   post '/compte/jetons/:id/partager', to: 'restricted_token_magic_links#create', as: :token_create_magic_link
