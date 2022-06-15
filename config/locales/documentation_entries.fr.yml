@@ -6,6 +6,7 @@ fr:
         - title: Introduction
           content: |+
             **Ce guide liste les changements effectués entre la version 2 de l’API Entreprise et la version 3, et vous livre les éléments nécessaires pour effectuer la migration**.
+            
             Les évolutions présentées ici ont été guidées par trois objectifs&nbsp;:&nbsp;
             - assurer une meilleure sécurité de la donnée des fournisseurs ;
             - normaliser les formats pour faciliter la compréhension et l’industrialisation ;
@@ -15,36 +16,41 @@ fr:
             ### 1. Jeton d'accès à paramétrer dans le header
 
             **🚀 Avec la V.3 :** Le jeton est à paramétrer uniquement dans le header de l’appel.
-            > Avant : Le jeton JWT pouvait être un paramètre de l’URL d’appel (query parameter).
+            
+            {:.fr-highlight.fr-highlight--example}
+            > **Avant** : Le jeton JWT pouvait être un paramètre de l’URL d’appel (query parameter).
 
             **🤔 Pourquoi ?**
             - Respecter les standards de sécurité ;
             - Garantir que le token ne sera pas utilisé dans un navigateur.
 
             **🧰 Comment ?**
-            Utiliser un client REST API pour tester les API pendant le développement.
+            Utilisez un client REST API pour tester les API pendant le développement.
             Des clients sont disponibles gratuitement. API Entreprise utilise pour ses propres tests le client Insomnia. Le plus connu sur le marché est Postman.
-            Une fois le client installé, vous pouvez directement intégrer notre fichier Swagger/OpenAPI dedans.
+            Une fois le client installé, vous pouvez directement intégrer notre fichier [Swagger/OpenAPI](<%= developers_openapi_path %>){:target="_blank"} dedans.
 
-            ### 2. Votre numéro de SIRET obligatoire dans le recipient
+            ### 2. Votre numéro de SIRET obligatoire dans le "recipient"
 
             **🚀 Avec la V.3 :** Le paramètre obligatoire `recipient` de l’URL d’appel devra obligatoirement être complété par votre numéro de SIRET.
 
-            > Avant : Ce paramètre obligatoire n’était pas contraint en termes de syntaxe.
+            {:.fr-highlight.fr-highlight--example}
+            > **Avant** : Ce paramètre obligatoire n’était pas contraint en termes de syntaxe.
 
             **🤔 Pourquoi ?**
             - Pour garantir la traçabilité de l’appel jusqu’au bénéficiaire ayant obtenu l’habilitation à appeler l’API Entreprise et respecter nos engagements auprès des fournisseurs de données ;
             - Nous avions trop d’utilisateurs inscrivant le numéro de SIRET ou RNA de l’entreprise/association recherchée.
 
-            **⚠️ Cas particulier :**
-            _Vous êtes un éditeur ?_ Ce n’est pas votre numéro de SIRET mais celui de votre client public (qui a effectué la demande d’habilitation) qu’il s’agira de renseigner.
+            {:.fr-highlight.fr-highlight--caution}
+            > **⚠️ Cas particulier**, _vous êtes un éditeur ?_
+            > Ce n’est pas votre numéro de SIRET mais celui de votre client public qu’il s’agira de renseigner. API Entreprise doit pouvoir tracer pour quelle entité publique l'appel a été passé.
 
             ### 3. Codes erreurs spécifiques à chaque situation, actionnables et documentés
 
             **🚀 Avec la V.3 :** Tous les codes erreur HTTPS sont accompagnés de codes plus précis, spécifiques à chaque situation d’erreur. Une explication en toutes lettres est également donnée dans la payload. Enfin, dans certains cas, une métadonnée actionnable est disponible.
+            
             Dans l’exemple ci-dessous, la clé `retry_in` permet de relancer un appel après le nombre de secondes indiquées.
 
-            ###### Exemple de Payload d’un code HTTP 502 :
+            ###### Exemple de _payload_ d’un code HTTP 502 :
             ```
             {
                 "errors": [
@@ -63,7 +69,8 @@ fr:
                 ]
             }
             ```
-
+            
+            {:.fr-highlight.fr-highlight--example}
             > Avant : Seul le code HTTP standard vous était fourni. Il pouvait correspondre à de nombreuses situations.
             > ###### Exemple de payload d’un code HTTP 502 :
             > ```
@@ -81,7 +88,7 @@ fr:
 
             **🧰 Comment ?**
             Utiliser les libellés pour comprendre l’erreur rencontrée, voire automatiser votre logiciel en fonction du code.
-            La [liste de tous les codes erreurs spécifiques (environ 80)](TODO) sera ajoutée progressivement au Swagger ainsi qu’à la documentation technique générale.
+            La liste de tous les codes erreurs spécifiques (environ 80) est disponible dans le [Swagger](<%= developers_openapi_path %>){:target="_blank"}. La gestion des erreurs et l'explication des codes retours est détaillée dans la [documentation technique générale](<%= developers_path(anchor: 'code-https-et-gestion-des-erreurs') %>){:target="_blank"}.
 
             ### 4. Volumétrie indiquée dans le header et actionnable
 
@@ -89,9 +96,11 @@ fr:
 
             ### 5. Gestion des évolutions futures
 
-            **🚀 Avec la V.3 :** Toutes les API pourront évoluer indépendamment les unes des autres. Les anciennes versions resteront toujours disponibles. Le numéro de version devient donc un paramètre de l’appel et non plus une valeur fixe pour toutes les API. 📩 Une infolettre annoncera systématiquement les nouvelles évolutions.
-
-            > Avant : L’évolution d’un endpoint exigeait la montée en version de toute l’API.
+            **🚀 Avec la V.3 :** Toutes les API pourront évoluer indépendamment les unes des autres. Les anciennes versions resteront toujours disponibles. Le numéro de version devient donc un paramètre de l’appel et non plus une valeur fixe pour toutes les API. 
+            📩 Une infolettre annoncera systématiquement les nouvelles évolutions.
+            
+            {:.fr-highlight.fr-highlight--example}
+            > **Avant** : L’évolution d’un endpoint exigeait la montée en version de toute l’API.
 
             **🤔 Pourquoi ?**
             - Permettre l’ajout de nouvelles informations sans forcer les fournisseurs de service à monter de version ;
@@ -107,26 +116,22 @@ fr:
 
             **🚀 Avec la V.3 :** Chaque API appelle un seul et unique fournisseur de données.
 
-            Il n’existe plus d’API à contenu multiple, comme celui de l’INSEE, leurs informations ont été découpées en plusieurs API.
-
-            > Avant : Certaines API appelaient deux fournisseurs à la fois. Certaines API regroupaient de très nombreuses informations différentes.
-
-            ###### Exemple :
-            L’API V.2 “Données de référence d'un établissement - `/etablissements`” est coupée en 2 API dans la V3 :
-            - Donnée de référence d'un établissement [diffusible](https://v3-beta.entreprise.api.gouv.fr/endpoints/insee/etablissements_diffusibles) ou [tous les établissements y compris les non-diffibles](https://v3-beta.entreprise.api.gouv.fr/endpoints/insee/etablissements) (Fournisseur : INSEE) ;
-            - Les mandataires sociaux (Fournisseur&nbsp;:&nbsp;Infogreffe).
-
-            L'API V.3 vous permet également de retrouver directement les données d'un établissement siège, à partir du Siren d'une unité légale, avec l'[API Siège social](https://v3-beta.entreprise.api.gouv.fr/endpoints/insee/siege_social).
+            Il n’existe plus d’API à contenu multiple, comme celle de l’INSEE/Infogreffe, les informations des différents fournisseurs ont été séparées.
+            
+            {:.fr-highlight.fr-highlight--example}
+            > **Avant** : Certaines API appelaient deux fournisseurs à la fois. Certaines API regroupaient de très nombreuses informations différentes.
 
             **🤔 Pourquoi ?**
-            - Accélérer le temps de réponse des API, car il y a moins d’appels externes ;
+            - Faciliter la compréhension métier des données transmises ;
             - Réduire le nombre d’erreurs car le périmètre de la donnée disponible est plus explicite ;
-            - Faciliter la compréhension métier des données transmises.
+            - Accélérer le temps de réponse des API, car il y a moins d’appels externes ;
 
             **🧰 Comment ?**
-            Utiliser la [table de correspondance](#table-correspondance) pour identifier les nouvelles API.
+            Utiliser la table de correspondance pour identifier les API en version 3, qui correspondent à celle en version 2 :
+            
+            [Table de correspondance<br />des API v.2 > v.3](<%= guide_migration_path(anchor: 'table-de-correspondance-v2--v3-') %>){:target="_blank"}{:.fr-btn fr-btn--secondary}
 
-            ### 7. Les payloads de réponses normalisées et enrichies
+            ### 7. Les payloads normalisées et enrichies
 
             **🚀 Avec la V.3 :** La payload de réponse est enrichie de métadonnées actionnables, inscrites dans les clés `links` et `meta`. Son format est également normalisé à l’aide de la convention JSON API, avec l’ajout d’un identifiant et d’une description de la donnée renvoyée en début de payload.
 
@@ -147,8 +152,9 @@ fr:
               }
             }
             ```
-
-            > Avant : La structure de la payload n’était pas normalisée ni conventionnée ; elle ne contenait aucune information  explicitant la nature de la réponse. Les liens permettant d’appeler une autre API n’étaient pas disponibles.
+            
+            {:.fr-highlight.fr-highlight--example}
+            > **Avant** : La structure de la payload n’était pas normalisée ni conventionnée ; elle ne contenait aucune information  explicitant la nature de la réponse. Les liens permettant d’appeler une autre API n’étaient pas disponibles.
             > ###### Architecture de la payload V.2 :
             > ```
             > {
