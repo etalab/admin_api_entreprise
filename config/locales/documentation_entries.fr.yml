@@ -133,22 +133,18 @@ fr:
 
             ### 7. Les payloads normalisées et enrichies
 
-            **🚀 Avec la V.3 :** La payload de réponse est enrichie de métadonnées actionnables, inscrites dans les clés `links` et `meta`. Son format est également normalisé à l’aide de la convention JSON API, avec l’ajout d’un identifiant et d’une description de la donnée renvoyée en début de payload.
-
-            Les clés `links` renvoient des URL d’appel prêtes à l’emploi permettant d’obtenir des informations supplémentaires. Par exemple, dans l’API renvoyant les données sur une entité légale, un lien est ajouté pour appeler l’API du siège social.
+            **🚀 Avec la V.3 :** La payload de réponse est normalisée est composée systématiquement de 3 clés :
+            - `data`, qui regroupe l'ensemble des données de la ou les ressources (si c'est une ressource seule, la données est un **objet** `json`, si c'est une collection, la données est un **tableau** `json`) ;
+            - `links`, qui donne des liens vers d'autres endpoints relatifs à cette ressource, liens qui peuvent être utilisés par vos logiciels pour relancer un appel ;
+            - `meta`, qui regroupe des metadonnées liées à API Entreprise ou au fournisseur de données.
+            
 
             ###### Architecture de la payload V.3 :
             ```
             {
-            “data” : {
-                       id” : “...................”
-                “type” : “...............”,
-                “attributes” : {
-                    LES DONNÉES  },
-                “links” :  {
-                    … },
-                “meta” : {
-                    … }
+            “data” : { … },
+            “links” :  { … },
+            “meta” : { … }
               }
             }
             ```
