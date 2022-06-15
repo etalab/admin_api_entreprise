@@ -11,15 +11,17 @@ class Endpoint
     :perimeter,
     :data,
     :use_cases,
+    :keywords,
     :opening
 
   algoliasearch_active_model do
-    attributes :title, :description, :providers
+    attributes :title, :description, :providers, :keywords
 
     searchableAttributes %w[
       title
       description
       providers
+      keywords
     ]
   end
 
