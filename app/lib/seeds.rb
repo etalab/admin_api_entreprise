@@ -1,6 +1,7 @@
 class Seeds
   def perform
-    @roles = create_roles
+    @scopes_entreprise = create_scopes_entreprise
+    @scopes_particulier = create_scopes_particulier
 
     @user_email = 'user@yopmail.com'
 
@@ -21,7 +22,7 @@ class Seeds
       [
         User,
         AuthorizationRequest,
-        JwtAPIEntreprise,
+        Token,
         Contact
       ].each do |model_klass|
         model_klass.find_each do |model|
@@ -43,7 +44,7 @@ class Seeds
   end
 
   def create_token_with_contact
-    token = create_token(@user, @roles.sample(2), authorization_request_params: {
+    token = create_token(@user, @scopes_entreprise.sample(2), authorization_request_params: {
       intitule: 'Mairie de Lyon',
       external_id: 51,
       status: :validated,
@@ -53,7 +54,7 @@ class Seeds
   end
 
   def create_token_valid
-    create_token(@user, @roles.sample(2), authorization_request_params: {
+    create_token(@user, @scopes_entreprise.sample(2), authorization_request_params: {
       intitule: 'Mairie de Lyon 2',
       external_id: 52,
       status: :validated,
@@ -62,7 +63,7 @@ class Seeds
   end
 
   def create_token_archived
-    create_token(@user, @roles.sample(2), token_params: { archived: true }, authorization_request_params: {
+    create_token(@user, @scopes_entreprise.sample(2), token_params: { archived: true }, authorization_request_params: {
       intitule: 'Mairie de Strasbourg',
       external_id: 21,
       status: :validated,
@@ -71,7 +72,7 @@ class Seeds
   end
 
   def create_token_blacklisted
-    create_token(@user, @roles.sample(2), token_params: { blacklisted: true }, authorization_request_params: {
+    create_token(@user, @scopes_entreprise.sample(2), token_params: { blacklisted: true }, authorization_request_params: {
       intitule: 'Mairie de Paris',
       external_id: 42,
       status: :validated,
@@ -80,7 +81,7 @@ class Seeds
   end
 
   def create_token_expired
-    create_token(@user, @roles.sample(2),
+    create_token(@user, @scopes_entreprise.sample(2),
       token_params: { exp: 1.year.ago, created_at: 2.years.ago + 1.week },
       authorization_request_params: {
         intitule: 'Mairie de Montpellier',
@@ -106,19 +107,26 @@ class Seeds
     User.create!(params)
   end
 
-  def create_roles
-    %w[
-      entreprises
-      attestations_fiscales
-      attestations_sociales
-      actes_inpi
-      associations
-      probtp
-      etablissements
-    ].map do |code|
-      Role.create!(
-        name: code.humanize,
-        code:
+  def create_scopes_particulier
+    YAML
+      .load_file(Rails.root.join('config/data/scopes/particulier.yml'))
+      .map do |scope|
+      Scope.create!(
+        code: scope['code'],
+        name: scope['name'],
+        api: :particulier
+      )
+    end
+  end
+
+  def create_scopes_entreprise
+    YAML
+      .load_file(Rails.root.join('config/data/scopes/entreprise.yml'))
+      .map do |scope|
+      Scope.create!(
+        code: scope['code'],
+        name: scope['name'],
+        api: :entreprise
       )
     end
   end
@@ -127,18 +135,18 @@ class Seeds
     Contact.create!(params)
   end
 
-  def create_token(user, roles, token_params: {}, authorization_request_params: {})
+  def create_token(user, scopes, token_params: {}, authorization_request_params: {})
     authorization_request = create_authorization_request(authorization_request_params.merge(user:))
 
-    token = JwtAPIEntreprise.create!(
-      JwtAPIEntreprise.default_create_params
+    token = Token.create!(
+      Token.default_create_params
         .merge(token_params)
         .merge(
           authorization_request:
         )
     )
 
-    token.roles = roles
+    token.update!(scopes:)
 
     token
   end

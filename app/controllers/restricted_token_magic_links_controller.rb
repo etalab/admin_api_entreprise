@@ -1,6 +1,6 @@
 class RestrictedTokenMagicLinksController < AuthenticatedUsersController
   def create
-    @token = JwtAPIEntreprise.find(params[:id])
+    @token = Token.find(params[:id])
 
     if access_allowed_for_current_user?
       organizer = Token::DeliverMagicLinkToEmail.call(

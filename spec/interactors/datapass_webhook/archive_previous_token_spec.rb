@@ -6,10 +6,10 @@ RSpec.describe DatapassWebhook::ArchivePreviousToken, type: :interactor do
   let(:authorization_request) { create(:authorization_request, previous_external_id:) }
   let(:datapass_webhook_params) { build(:datapass_webhook, event:) }
 
-  let(:jwt_api_entreprise) { create(:jwt_api_entreprise) }
+  let(:token) { create(:token) }
 
   before do
-    create(:authorization_request, jwt_api_entreprise:, external_id: previous_external_id) if previous_external_id
+    create(:authorization_request, token:, external_id: previous_external_id) if previous_external_id
   end
 
   context 'when event is validate_application or validate' do
@@ -21,7 +21,7 @@ RSpec.describe DatapassWebhook::ArchivePreviousToken, type: :interactor do
       it 'archives previous token' do
         expect {
           subject
-        }.to change { jwt_api_entreprise.reload.archived }.to(true)
+        }.to change { token.reload.archived }.to(true)
       end
     end
 
@@ -31,7 +31,7 @@ RSpec.describe DatapassWebhook::ArchivePreviousToken, type: :interactor do
       it 'does nothing' do
         expect {
           subject
-        }.not_to change { JwtAPIEntreprise.where(archived: true).count }
+        }.not_to change { Token.where(archived: true).count }
       end
     end
   end
@@ -45,7 +45,7 @@ RSpec.describe DatapassWebhook::ArchivePreviousToken, type: :interactor do
       it 'does nothing' do
         expect {
           subject
-        }.not_to change { JwtAPIEntreprise.where(archived: true).count }
+        }.not_to change { Token.where(archived: true).count }
       end
     end
   end

@@ -4,13 +4,13 @@ RSpec.describe RetrieveTokenStats do
   subject { described_class.call(token_id: token.id) }
 
   context 'when the token does not exist' do
-    let(:token) { build(:jwt_api_entreprise) }
+    let(:token) { build(:token) }
 
     it { is_expected.to be_a_failure }
   end
 
   context 'when the token exists' do
-    let(:token) { create(:jwt_api_entreprise) }
+    let(:token) { create(:token) }
 
     context 'when backend for stats works' do
       let(:url) { "https://dashboard.entreprise.api.gouv.fr/api/watchdoge/stats/jwt_usage/#{token.id}" }

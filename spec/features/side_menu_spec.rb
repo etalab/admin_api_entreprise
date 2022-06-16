@@ -9,7 +9,7 @@ RSpec.describe 'Navigation side menu', type: :feature do
   end
 
   describe 'attestation tab' do
-    context 'when user has no attestations role' do
+    context 'when user has no attestations scope' do
       let(:user) { create(:user) }
 
       it 'hides menu item for attestations download' do
@@ -19,8 +19,8 @@ RSpec.describe 'Navigation side menu', type: :feature do
       end
     end
 
-    context 'when user has attestations role' do
-      let(:user) { create :user, :with_jwt, roles: ['attestations_fiscales'] }
+    context 'when user has attestations scope' do
+      let(:user) { create :user, :with_token, scopes: ['attestations_fiscales'] }
 
       it 'shows menu item for attestations download' do
         within('.authenticated-user-sidemenu') do

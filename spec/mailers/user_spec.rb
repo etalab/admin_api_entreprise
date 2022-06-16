@@ -59,7 +59,7 @@ RSpec.describe UserMailer, type: :mailer do
   describe '#notify_datapass_for_data_reconciliation' do
     subject { described_class.notify_datapass_for_data_reconciliation(user) }
 
-    let(:user) { create(:user, :with_jwt) }
+    let(:user) { create(:user, :with_token) }
 
     its(:subject) { is_expected.to eq('API Entreprise - Réconciliation de demandes d\'accès à un nouvel usager') }
     its(:to) { is_expected.to eq(['contact@api.gouv.fr']) }
@@ -75,8 +75,8 @@ RSpec.describe UserMailer, type: :mailer do
       expect(subject.text_part.decoded).to include(user.oauth_api_gouv_id.to_s)
     end
 
-    it 'contains the user\'s JWT requests ID' do
-      authorization_requests_ids = user.jwt_api_entreprise.pluck(:authorization_request_id)
+    it 'contains the user\'s authorization requests ID' do
+      authorization_requests_ids = user.tokens.pluck(:authorization_request_id)
       authorization_requests_ids.map!(&:to_i)
 
       expect(subject.html_part.decoded).to include(authorization_requests_ids.to_s)

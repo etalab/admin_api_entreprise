@@ -7,8 +7,8 @@ RSpec.describe Token::RetrieveFromMagicLink do
     { magic_token: }
   end
 
-  let!(:jwt) { create(:jwt_api_entreprise, :with_magic_link) }
-  let(:magic_token) { jwt.magic_link_token }
+  let!(:token) { create(:token, :with_magic_link) }
+  let(:magic_token) { token.magic_link_token }
 
   context 'when the magic token is not provided' do
     before { params.delete(:magic_token) }
@@ -33,6 +33,6 @@ RSpec.describe Token::RetrieveFromMagicLink do
   context 'when the magic token is valid' do
     it { is_expected.to be_a_success }
 
-    its([:jwt]) { is_expected.to eq(jwt) }
+    its([:token]) { is_expected.to eq(token) }
   end
 end

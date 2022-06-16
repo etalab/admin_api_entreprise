@@ -23,7 +23,7 @@ RSpec.describe DatapassWebhook::ExtractMailjetVariables, type: :interactor do
     expect(subject.mailjet_variables['demandeur_last_name']).to eq(authorization_request.user.last_name)
     expect(subject.mailjet_variables['demandeur_email']).to eq(authorization_request.user.email)
 
-    expect(subject.mailjet_variables['token_roles']).to be_nil
+    expect(subject.mailjet_variables['token_scopes']).to be_nil
   end
 
   context 'when event is from an instructor' do
@@ -45,7 +45,7 @@ RSpec.describe DatapassWebhook::ExtractMailjetVariables, type: :interactor do
   end
 
   context 'when authorization request has a token' do
-    let!(:jwt_api_entreprise) { create(:jwt_api_entreprise, authorization_request:) }
+    let!(:token) { create(:token, authorization_request:) }
 
     before do
       %w[
@@ -53,13 +53,13 @@ RSpec.describe DatapassWebhook::ExtractMailjetVariables, type: :interactor do
         entreprise
         liasse_fiscale
       ].each do |code|
-        jwt_api_entreprise.roles << create(:role, code:)
+        token.scopes << create(:scope, code:)
       end
 
-      create(:role, code: 'etablissement')
+      create(:scope, code: 'etablissement')
     end
 
-    it 'sets token_roles with these values, excluding uptime' do
+    it 'sets token_scopes with these values, excluding uptime' do
       expect(subject.mailjet_variables['token_role_uptime']).to be_nil
       expect(subject.mailjet_variables['token_role_entreprise']).to eq 'true'
       expect(subject.mailjet_variables['token_role_liasse_fiscale']).to eq 'true'

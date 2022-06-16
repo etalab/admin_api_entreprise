@@ -17,7 +17,7 @@ class DatapassWebhook::ArchivePreviousToken < ApplicationInteractor
     @previous_token ||= begin
       previous_authorization_request = AuthorizationRequest.find_by(external_id: context.authorization_request.previous_external_id)
 
-      previous_authorization_request.try(:jwt_api_entreprise)
+      previous_authorization_request.try(:token)
     end
   end
 end
