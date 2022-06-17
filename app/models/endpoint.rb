@@ -1,6 +1,7 @@
 # rubocop:disable Metrics/ClassLength
 class Endpoint
   include ActiveModel::Model
+  include ActiveModelAlgoliaSearchable
 
   attr_accessor :uid,
     :path,
@@ -10,7 +11,19 @@ class Endpoint
     :perimeter,
     :data,
     :use_cases,
+    :keywords,
     :opening
+
+  algoliasearch_active_model do
+    attributes :title, :description, :providers, :keywords
+
+    searchableAttributes %w[
+      title
+      description
+      providers
+      keywords
+    ]
+  end
 
   def initialize(params)
     super(params)

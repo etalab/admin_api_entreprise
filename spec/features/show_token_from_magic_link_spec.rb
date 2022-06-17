@@ -18,21 +18,21 @@ RSpec.describe 'show token from magic link', type: :feature do
   end
 
   context 'when the magic link token exists' do
-    let!(:jwt) { create(:jwt_api_entreprise, :with_magic_link) }
-    let(:magic_token) { jwt.magic_link_token }
+    let!(:token) { create(:token, :with_magic_link) }
+    let(:magic_token) { token.magic_link_token }
 
     context 'when the magic token is still active' do
       it 'shows the token details' do
         subject
 
-        expect(page).to have_css("input[value='#{jwt.rehash}']")
+        expect(page).to have_css("input[value='#{token.rehash}']")
       end
 
       it_behaves_like 'display alert', :info
 
       it 'displays the expiration time of the magic link' do
         subject
-        expiration_time = distance_of_time_in_words(Time.zone.now, jwt.magic_link_issuance_date + 4.hours)
+        expiration_time = distance_of_time_in_words(Time.zone.now, token.magic_link_issuance_date + 4.hours)
 
         expect(page).to have_content(expiration_time)
       end
@@ -40,31 +40,31 @@ RSpec.describe 'show token from magic link', type: :feature do
       it 'has a button to copy the token hash' do
         subject
 
-        expect(page).to have_css('#' + dom_id(jwt, :copy_button))
+        expect(page).to have_css('#' + dom_id(token, :copy_button))
       end
 
       it 'does not show the token renewal button' do
         subject
 
-        expect(page).not_to have_button(dom_id(jwt, :renew))
+        expect(page).not_to have_button(dom_id(token, :renew))
       end
 
       it 'does not show the link to the associated authorization request' do
         subject
 
-        expect(page).not_to have_link(href: jwt.authorization_request_url)
+        expect(page).not_to have_link(href: token.authorization_request_url)
       end
 
       it 'does not show the links to the token contacts' do
         subject
 
-        expect(page).not_to have_link(href: token_contacts_path(jwt))
+        expect(page).not_to have_link(href: token_contacts_path(token))
       end
 
       it 'does not allow the magic link creation' do
         subject
 
-        expect(page).not_to have_button(dom_id(jwt, :modal_button))
+        expect(page).not_to have_button(dom_id(token, :modal_button))
       end
     end
 

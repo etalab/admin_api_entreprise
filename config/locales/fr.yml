@@ -122,7 +122,7 @@ fr:
       error:
         title: Quelque chose s'est mal passé. Veuillez envoyer un e-mail à support@entreprises.api.gouv.fr
 
-  jwt_api_entreprise:
+  token:
     index:
       title:
         zero: "Jetons d'accès"
@@ -132,7 +132,7 @@ fr:
     show:
       error:
         title: Accès au jeton non autorisé
-    jwt_api_entreprise:
+    token:
       title: "Cadre d'utilisation : %{intitule}"
       links:
         datapass: Demande d'accès initiale (N° %{id})
@@ -233,6 +233,9 @@ fr:
   endpoints:
     index:
       title: "Catalogue des données"
+      search:
+        label: 'certificat, INSEE, association...'
+        button: 'Rechercher'
     endpoint:
       cta:
         documentation: "Documentation"
@@ -290,6 +293,8 @@ fr:
         title: "Spécifications techniques"
         cta: "Consulter le swagger"
     property:
+      array:
+        label: "Cette propriété contient 1 ou plusieurs éléments ayant les spécifications suivantes :"
       example:
         label: 'ex:'
   faq:
@@ -310,7 +315,7 @@ Elle est propulsée par <a href='https://github.com/Redocly/redoc' target='_blan
 < br/> Pour les spécifications générales de l'API, consultez [cette rubrique de la page développeurs](<%= developers_path %>){:target="_blank"}."
     home:
       section_welcome:
-        title_start: Administrations,  gagnez du temps
+        title_start: Administrations, gagnez du temps
         title_end: <br>dans le traitement des dossiers 🗂<br>des entreprises et des associations&nbsp;!
         button_endpoints: Je consulte les données disponibles
         button_developers: J'intègre l'API
@@ -377,3 +382,5 @@ Elle est propulsée par <a href='https://github.com/Redocly/redoc' target='_blan
       link_kit: 🚀 Kit de mise en production
       link_migration: 📋 Guide de migration V.2 > V.3
       link_return: Retour à la documentation technique&nbsp;🛠
+  mailer:
+    magic_link_subject: API Entreprise - Lien d'accès à votre jeton !

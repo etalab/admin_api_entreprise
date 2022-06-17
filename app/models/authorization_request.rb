@@ -2,7 +2,7 @@ class AuthorizationRequest < ApplicationRecord
   validates :user, presence: true
 
   belongs_to :user
-  has_one :jwt_api_entreprise, required: false, foreign_key: 'authorization_request_model_id'
+  has_one :token, required: false, foreign_key: 'authorization_request_model_id'
 
   validates :external_id, uniqueness: true, allow_blank: true
 
@@ -14,6 +14,6 @@ class AuthorizationRequest < ApplicationRecord
   scope :submitted_at_least_once, -> { where.not(first_submitted_at: nil) }
 
   def url
-    "#{Rails.configuration.jwt_authorization_request_url}#{external_id}"
+    "#{Rails.configuration.token_authorization_request_url}#{external_id}"
   end
 end

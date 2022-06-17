@@ -6,13 +6,13 @@ FactoryBot.define do
     authorization_request
 
     transient do
-      jwt_api_entreprise { nil }
+      token { nil }
     end
 
     after(:build) do |contact, evaluator|
-      if evaluator.jwt_api_entreprise
-        contact.authorization_request = evaluator.jwt_api_entreprise.authorization_request
-        contact.authorization_request.user = evaluator.jwt_api_entreprise.user
+      if evaluator.token
+        contact.authorization_request = evaluator.token.authorization_request
+        contact.authorization_request.user = evaluator.token.user
       end
     end
 

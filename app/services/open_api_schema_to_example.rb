@@ -16,13 +16,13 @@ class OpenAPISchemaToExample
         self.class.new(value).perform
       end
     when 'string'
-      extract_value(schema, 'dummy')
+      extract_value(schema, 'lorem')
     when 'integer'
       extract_value(schema, rand(50))
     when 'boolean'
       extract_value(schema, true)
     else
-      'FIXME'
+      'ipsum'
     end
   end
 

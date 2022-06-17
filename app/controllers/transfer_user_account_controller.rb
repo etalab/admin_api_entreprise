@@ -1,7 +1,4 @@
 class TransferUserAccountController < AuthenticatedUsersController
-  before_action :retrieve_user
-  before_action :can_transfer?, only: :create
-
   def new; end
 
   def create
@@ -24,20 +21,8 @@ class TransferUserAccountController < AuthenticatedUsersController
 
   def transfer_account_params
     {
-      current_owner: @user,
+      current_owner: current_user,
       target_user_email: params[:email]
     }
-  end
-
-  def retrieve_user
-    @user = User.find(params[:user_id])
-  end
-
-  def can_transfer?
-    return true if current_user.id == @user.id
-
-    head :forbidden
-
-    false
   end
 end

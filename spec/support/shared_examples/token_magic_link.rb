@@ -3,7 +3,7 @@ RSpec.shared_examples 'it creates a magic link' do
 
   it 'sends the email magic link' do
     expect { subject }
-      .to have_enqueued_mail(JwtAPIEntrepriseMailer, :magic_link)
+      .to have_enqueued_mail(TokenMailer, :magic_link)
       .with(email, token)
   end
 
@@ -30,6 +30,6 @@ RSpec.shared_examples 'it aborts magic link' do
 
   it 'does not send the magic link email' do
     expect { subject }
-      .not_to have_enqueued_mail(JwtAPIEntrepriseMailer, :magic_link)
+      .not_to have_enqueued_mail(TokenMailer, :magic_link)
   end
 end

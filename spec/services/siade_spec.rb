@@ -4,7 +4,7 @@ RSpec.describe Siade, type: :service do
   include_context 'with siade payloads'
 
   let(:authorization_request) { create(:authorization_request, siret: 'dummy siret') }
-  let(:token) { create(:jwt_api_entreprise, authorization_request:) }
+  let(:token) { create(:token, authorization_request:) }
   let(:siade_url) { Rails.application.credentials.siade_url }
   let(:siade_params) do
     {

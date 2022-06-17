@@ -13,23 +13,23 @@ RSpec.describe 'User attestations through tokens', type: :feature do
       visit_attestations
     end
 
-    context 'when user has no token with attestation roles' do
+    context 'when user has no token with attestation scopes' do
       it 'redirect to profile' do
-        expect(page).to have_current_path('/profile')
+        expect(page).to have_current_path(user_profile_path)
       end
     end
 
-    context 'when user has tokens with attestation roles' do
-      let(:user) { create(:user, :with_jwt, roles: %w[attestations_sociales attestations_fiscales]) }
-      let(:id_selected_jwt) { find('select#token').value }
-      let(:roles_selected_jwt) { JwtAPIEntreprise.find(id_selected_jwt).roles }
+    context 'when user has tokens with attestation scopes' do
+      let(:user) { create(:user, :with_token, scopes: %w[attestations_sociales attestations_fiscales]) }
+      let(:id_selected_token) { find('select#token').value }
+      let(:scopes_selected_token) { Token.find(id_selected_token).scopes }
 
       it 'has a select list' do
         expect(page).to have_select('token')
       end
 
       it 'automatically select token with the most permissions' do
-        expect(roles_selected_jwt.count).to eq(2)
+        expect(scopes_selected_token.count).to eq(2)
       end
 
       it 'select list has 2 options' do
@@ -50,12 +50,12 @@ RSpec.describe 'User attestations through tokens', type: :feature do
     before { allow(Siade).to receive(:new).and_return(siade_double) }
 
     let(:siade_double) { instance_double(Siade) }
-    let(:user) { create(:user, :with_jwt, roles: ['attestations_fiscales']) }
+    let(:user) { create(:user, :with_token, scopes: ['attestations_fiscales']) }
     let(:siren) { siren_valid }
-    let(:token) { 'JWT with no roles' }
+    let(:token) { 'Token with no scopes' }
 
     context 'when user search a valid siren' do
-      let(:token) { 'JWT with roles: ["attestations_fiscales"]' }
+      let(:token) { 'Token with scopes: ["attestations_fiscales"]' }
 
       before do
         allow(siade_double).to receive(:entreprises).and_return(payload_entreprise)
@@ -68,8 +68,8 @@ RSpec.describe 'User attestations through tokens', type: :feature do
         expect(page).to have_content('dummy name')
       end
 
-      context 'when selected token have no attestation roles' do
-        let(:token) { 'JWT with no roles' }
+      context 'when selected token have no attestation scopes' do
+        let(:token) { 'Token with no scopes' }
 
         it 'doesnt show attestations download links' do
           expect(page).not_to have_link('attestation-sociale-download')
@@ -77,8 +77,8 @@ RSpec.describe 'User attestations through tokens', type: :feature do
         end
       end
 
-      context 'when selected token have one attestation role' do
-        let(:token) { 'JWT with roles: ["attestations_fiscales"]' }
+      context 'when selected token have one attestation scope' do
+        let(:token) { 'Token with scopes: ["attestations_fiscales"]' }
 
         it 'shows link to download this attestation only, not the other' do
           expect(page).not_to have_link('attestation-sociale-download')
@@ -87,12 +87,12 @@ RSpec.describe 'User attestations through tokens', type: :feature do
         end
       end
 
-      context 'when selected token have two attestation roles' do
+      context 'when selected token have two attestation scopes' do
         let(:user) do
-          create :user, :with_jwt, roles: %w[attestations_sociales attestations_fiscales]
+          create :user, :with_token, scopes: %w[attestations_sociales attestations_fiscales]
         end
 
-        let(:token) { 'JWT with roles: ["attestations_sociales", "attestations_fiscales"]' }
+        let(:token) { 'Token with scopes: ["attestations_sociales", "attestations_fiscales"]' }
 
         it 'shows both links to download attestations' do
           expect(page).to have_link('attestation-sociale-download',

@@ -15,7 +15,7 @@ RSpec.describe 'transfer user account ownership', type: :feature, js: true do
     end
   end
 
-  let(:user) { create(:user, :with_jwt) }
+  let(:user) { create(:user, :with_token) }
   let(:form_dom_id) { '#transfer_account' }
   let(:email) { 'valid@email.com' }
 
@@ -25,10 +25,10 @@ RSpec.describe 'transfer user account ownership', type: :feature, js: true do
     it_behaves_like 'display alert', :error
 
     it 'does not transfer any tokens' do
-      user_tokens_id = user.jwt_api_entreprise.pluck(:id)
+      user_tokens_id = user.tokens.pluck(:id)
       subject
 
-      expect(user.jwt_api_entreprise.reload.pluck(:id))
+      expect(user.tokens.reload.pluck(:id))
         .to contain_exactly(*user_tokens_id)
     end
   end
@@ -41,29 +41,5 @@ RSpec.describe 'transfer user account ownership', type: :feature, js: true do
 
   context 'when the provided email address is valid' do
     it_behaves_like 'it succeeds the user account transfer'
-  end
-
-  describe 'transfering another user account', js: false do
-    subject do
-      page.driver.post(user_transfer_account_index_path(user_id: another_user.id), params: {
-        email: 'hackerman@email.fr'
-      })
-    end
-
-    let(:another_user) { create(:user) }
-
-    it 'does not transfer any tokens' do
-      user_tokens_id = user.jwt_api_entreprise.pluck(:id)
-      subject
-
-      expect(user.jwt_api_entreprise.reload.pluck(:id))
-        .to contain_exactly(*user_tokens_id)
-    end
-
-    it 'returns an error' do
-      subject
-
-      expect(page.driver.status_code).to eq(403)
-    end
   end
 end

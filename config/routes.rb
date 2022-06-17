@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-
   require 'sidekiq/web'
   require 'sidekiq/cron/web'
 
@@ -17,53 +15,47 @@ Rails.application.routes.draw do
     end
   end
 
-  root to: redirect('/login'), as: :dashboard_root, constraints: { subdomain: 'dashboard.entreprise.api' }
+  root to: redirect('/compte/se-connecter'), as: :dashboard_root, constraints: { subdomain: 'dashboard.entreprise.api' }
   root to: 'pages#home'
 
-  # Authentication
-  get '/login', to: 'sessions#new'
-  delete '/logout', to: 'sessions#destroy'
+  get '/compte/se-connecter', to: 'sessions#new', as: :login
+  delete '/compte/deconnexion', to: 'sessions#destroy', as: :logout
+
   post '/auth/api_gouv', as: :login_api_gouv
   match '/auth/api_gouv/callback', to: 'sessions#create', via: [:get, :post]
   get '/auth/failure', to: 'sessions#failure'
 
-  get '/profile', to: 'users#profile', as: :user_profile
-  get '/profile/tokens', to: 'jwt_api_entreprise#index', as: :user_tokens
+  get '/compte', to: 'users#profile', as: :user_profile
 
-  scope :profile do
-    resources :attestations, only: %i[index new] do
-      collection do
-        post :search
-      end
-    end
-  end
+  get '/compte/demandes', to: 'authorization_requests#index', as: :authorization_requests
 
-  post 'tokens/:id/create_magic_link', to: 'restricted_token_magic_links#create', as: :token_create_magic_link
-  get 'tokens/:id/stats', to: 'jwt_api_entreprise#stats', as: :token_stats
-  get 'tokens/:id', to: 'jwt_api_entreprise#show', as: :token
-  get 'tokens/:id/contacts', to: 'contacts#index', as: :token_contacts
-  get '/public/tokens/:token', to: 'public_token_magic_links#show', as: :token_show_magic_link
+  get '/compte/telecharcher-documents', to: 'attestations#index', as: :attestations
+  post '/compte/telecharcher-documents/rechercher-siret', to: 'attestations#search', as: :search_attestations
 
-  resources :users, only: [] do
-    resources :transfer_account, only: [:new, :create], controller: :transfer_user_account
-  end
+  get '/compte/jetons', to: 'token#index', as: :user_tokens
+  post '/compte/jetons/:id/partager', to: 'restricted_token_magic_links#create', as: :token_create_magic_link
+  get '/compte/jetons/:id/stats', to: 'token#stats', as: :token_stats
+  get '/compte/jetons/:id', to: 'token#show', as: :token
+  get '/compte/jetons/:id/contacts', to: 'contacts#index', as: :token_contacts
 
-  resources :authorization_requests, only: :index
+  get 'public/jetons/:token', to: 'public_token_magic_links#show', as: :token_show_magic_link
 
-  resources :endpoints, only: %i[index]
-  get 'endpoints/*uid/example', as: :endpoint_example, to: 'endpoints#example'
-  get 'endpoints/*uid', as: :endpoint, to: 'endpoints#show'
+  get '/compte/transferer', to: 'transfer_user_account#new', as: :transfer_account
+  post '/compte/transferer', to: 'transfer_user_account#create'
 
-  resources :faq, only: %i[index]
+  get '/catalogue', as: :endpoints, to: 'endpoints#index'
+  get '/catalogue/*uid/exemple', as: :endpoint_example, to: 'endpoints#example'
+  get '/catalogue/*uid', as: :endpoint, to: 'endpoints#show'
 
-  get '/developers/openapi', to: 'pages#redoc'
+  get '/faq', to: 'faq#index', as: :faq_index
 
-  get '/home', to: 'pages#home'
-  get '/developers', to: 'documentation#developers'
-  get '/guide-migration', to: 'documentation#guide_migration'
-  get '/mentions', to: 'pages#mentions'
-  get '/cgu', to: 'pages#cgu'
-  get '/current_status', to: 'pages#current_status'
+  get '/developpeurs', to: 'documentation#developers', as: :developers
+  get '/developpeurs/guide-migration', to: 'documentation#guide_migration', as: :guide_migration
+  get '/developpeurs/openapi', to: 'pages#redoc', as: :developers_openapi
 
+  get '/apis/status', to: 'pages#current_status', as: :current_status
   get '/v3/openapi.yaml', to: ->(env) { [200, {}, [OpenAPIDefinition.instance.open_api_definition_content]] }, as: :openapi_definition
+
+  get '/mentions-legales', to: 'pages#mentions', as: :mentions
+  get '/cgu', to: 'pages#cgu', as: :cgu
 end

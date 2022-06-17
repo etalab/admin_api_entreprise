@@ -2,7 +2,7 @@ require 'open-uri'
 
 class RetrieveTokenStats < ApplicationInteractor
   def call
-    context.token = JwtAPIEntreprise.find(context.token_id)
+    context.token = Token.find(context.token_id)
     retrieve_stats!
     format_stats_data!
   rescue ActiveRecord::RecordNotFound

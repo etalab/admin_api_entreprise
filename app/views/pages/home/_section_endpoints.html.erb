@@ -3,11 +3,8 @@
 
     <div class="fr-grid-row">
       <h3><%= t('.title').html_safe %></h3>
-      <% @endpoints_sample.each_with_index do |endpoint| %>
-      <div class="fr-grid-card-row-inner fr-col-xs-12 fr-col-md-4">
-        <%= render endpoint %>
-      </div>
-      <% end %>
+
+      <%= render @endpoints_sample %>
     </div>
 
     <div class="buttons">

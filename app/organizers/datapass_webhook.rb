@@ -1,7 +1,7 @@
 class DatapassWebhook < ApplicationOrganizer
   organize ::DatapassWebhook::FindOrCreateUser,
     ::DatapassWebhook::FindOrCreateAuthorizationRequest,
-    ::DatapassWebhook::CreateJwtToken,
+    ::DatapassWebhook::CreateToken,
     ::DatapassWebhook::ArchivePreviousToken,
     ::DatapassWebhook::UpdateMailjetContacts,
     ::DatapassWebhook::ExtractMailjetVariables,
