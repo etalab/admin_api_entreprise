@@ -6,7 +6,7 @@ fr:
         - title: Introduction
           content: |+
             **Ce guide liste les changements effectués entre la version 2 de l’API Entreprise et la version 3, et vous livre les éléments nécessaires pour effectuer la migration**.
-            
+
             Les évolutions présentées ici ont été guidées par trois objectifs&nbsp;:&nbsp;
             - assurer une meilleure sécurité de la donnée des fournisseurs ;
             - normaliser les formats pour faciliter la compréhension et l’industrialisation ;
@@ -16,7 +16,7 @@ fr:
             ### 1. Jeton d'accès à paramétrer dans le header
 
             **🚀 Avec la V.3 :** Le jeton est à paramétrer uniquement dans le header de l’appel.
-            
+
             {:.fr-highlight.fr-highlight--example}
             > **Avant** : Le jeton JWT pouvait être un paramètre de l’URL d’appel (query parameter).
 
@@ -47,7 +47,7 @@ fr:
             ### 3. Codes erreurs spécifiques à chaque situation, actionnables et documentés
 
             **🚀 Avec la V.3 :** Tous les codes erreur HTTPS sont accompagnés de codes plus précis, spécifiques à chaque situation d’erreur. Une explication en toutes lettres est également donnée dans la payload. Enfin, dans certains cas, une métadonnée actionnable est disponible.
-            
+
             Dans l’exemple ci-dessous, la clé `retry_in` permet de relancer un appel après le nombre de secondes indiquées.
 
             ###### Exemple de _payload_ d’un code HTTP 502 :
@@ -69,7 +69,7 @@ fr:
                 ]
             }
             ```
-            
+
             {:.fr-highlight.fr-highlight--example}
             > Avant : Seul le code HTTP standard vous était fourni. Il pouvait correspondre à de nombreuses situations.
             > ###### Exemple de payload d’un code HTTP 502 :
@@ -96,9 +96,9 @@ fr:
 
             ### 5. Gestion des évolutions futures
 
-            **🚀 Avec la V.3 :** Toutes les API pourront évoluer indépendamment les unes des autres. Les anciennes versions resteront toujours disponibles. Le numéro de version devient donc un paramètre de l’appel et non plus une valeur fixe pour toutes les API. 
+            **🚀 Avec la V.3 :** Toutes les API pourront évoluer indépendamment les unes des autres. Les anciennes versions resteront toujours disponibles. Le numéro de version devient donc un paramètre de l’appel et non plus une valeur fixe pour toutes les API.
             📩 Une infolettre annoncera systématiquement les nouvelles évolutions.
-            
+
             {:.fr-highlight.fr-highlight--example}
             > **Avant** : L’évolution d’un endpoint exigeait la montée en version de toute l’API.
 
@@ -117,7 +117,7 @@ fr:
             **🚀 Avec la V.3 :** Chaque API appelle un seul et unique fournisseur de données.
 
             Il n’existe plus d’API à contenu multiple, comme celle de l’INSEE/Infogreffe, les informations des différents fournisseurs ont été séparées.
-            
+
             {:.fr-highlight.fr-highlight--example}
             > **Avant** : Certaines API appelaient deux fournisseurs à la fois. Certaines API regroupaient de très nombreuses informations différentes.
 
@@ -128,7 +128,7 @@ fr:
 
             **🧰 Comment ?**
             Utiliser la table de correspondance pour identifier les API en version 3, qui correspondent à celle en version 2 :
-            
+
             [Table de correspondance<br />des API v.2 > v.3](<%= guide_migration_path(anchor: 'table-de-correspondance-v2--v3-') %>){:target="_blank"}{:.fr-btn fr-btn--secondary}
 
             ### 7. Les payloads normalisées et enrichies
@@ -137,7 +137,7 @@ fr:
             - `data`, qui regroupe l'ensemble des données de la ou les ressources (si c'est une ressource seule, la données est un **objet** `json`, si c'est une collection, la données est un **tableau** `json`) ;
             - `links`, qui donne des liens vers d'autres endpoints relatifs à cette ressource, liens qui peuvent être utilisés par vos logiciels pour relancer un appel ;
             - `meta`, qui regroupe des metadonnées liées à API Entreprise ou au fournisseur de données.
-            
+
 
             ###### Architecture de la payload V.3 :
             ```
@@ -148,7 +148,7 @@ fr:
               }
             }
             ```
-            
+
             {:.fr-highlight.fr-highlight--example}
             > **Avant** : La structure de la payload n’était pas normalisée ni conventionnée ; elle ne contenait aucune information  explicitant la nature de la réponse. Les liens permettant d’appeler une autre API n’étaient pas disponibles.
             > ###### Architecture de la payload V.2 :
@@ -457,11 +457,11 @@ fr:
                           - Les [effectifs de l’URSSAF](<%= endpoint_path(uid: 'urssaf/effectifs') %>)&nbsp;:&nbsp;250 requêtes/min/jeton ;
 
             #### Informations volumétrie dans le header
-            
+
             ##### Pour toutes les réponses :
 
             Dans toutes les réponses de nos API, le header vous transmet des informations sur la volumétrie :
-            
+
             {:.fr-table}
             | Champs du header    |   Signification    |     Format           |
             |:------------------------------|:------------------|:------------:|
@@ -532,8 +532,8 @@ fr:
             ### Gérer les erreurs - codes HTTPS
 
             #### Un code standard HTTPS pour catégoriser le statut de l'appel
-            Toutes les réponse de l’API Entreprise sont envoyées avec un code HTTPS. **Ces codes permettent de se renseigner sur le statut de l’appel**, et sont harmonisés pour l'ensemble des API quelque soir le fournisseur de données. 
-            Pour en savoir plus sur les codes HTTPS, cet article de [Wikipedia](https://fr.wikipedia.org/wiki/Liste_des_codes_HTTP){:target="_blank"}) constitue une bonne base explicative.
+            Toutes les réponse de l’API Entreprise sont envoyées avec un code HTTPS. **Ces codes permettent de se renseigner sur le statut de l’appel**, et sont harmonisés pour l'ensemble des API quelque soir le fournisseur de données.
+            Pour en savoir plus sur les codes HTTPS, cet article de [Wikipedia](https://fr.wikipedia.org/wiki/Liste_des_codes_HTTP){:target="_blank"} constitue une bonne base explicative.
 
             {:.fr-details}
             <details>
@@ -600,8 +600,8 @@ fr:
 
             Retrouvez tous les codes erreurs pour chaque endpoint dans [notre swagger, partie "Response samples"](<%= developers_openapi_path %>){:target="_blank"}.
             La liste des codes spécifiques à chaque endpoint y est disponible.
-            
-            
+
+
             ### Renseigner les paramètres d'appel et de traçabilité
 
             API Entreprise vous permet d’accéder à des données protégées. C’est pourquoi, dans un **objectif de traçabilité**, nous vous demandons de renseigner dans chacune de vos requêtes, non seulement un jeton d’accès, mais aussi **certaines informations qualifiant votre requête**.
@@ -620,13 +620,13 @@ fr:
             |`&recipient=BénéficaireDeL'Appel`|**Bénéficiaire de l'appel** <br>SIRET de l'administration destinatrice des données.
             |`&object= RaisonDeL'AppelOuIdentifiant`|**La raison de l'appel** <br> ou l'identifiant de la procédure. <br> L'identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l'essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l'appel. En effet, vous devez pouvoir justifier de la raison d'un appel auprès du fournisseur de données. <br> Description courte (< 50 caractères).
 
-            ### Changer de version 
+            ### Changer de version
 
-            Depuis la version 3 de l'API Entreprise, toutes les API peuvent évoluer indépendamment les unes des autres. Les anciennes versions (à partir de la V.3) restent donc toujours disponibles. 
+            Depuis la version 3 de l'API Entreprise, toutes les API peuvent évoluer indépendamment les unes des autres. Les anciennes versions (à partir de la V.3) restent donc toujours disponibles.
             Depuis la version 3, le numéro de version est un paramètre de l’appel et non plus une valeur fixe pour toutes les API comme en version 1 et 2 (Les versions 1 et 2 sont définitivement dépréciées, la version 1 étant déjà fermée et **la version 2 fermant le 30 juin 2023**).
-            
+
             >_Exemple d'utilisation du paramètre d'appel de version :_
-            > Imaginons l'API documents, cette API est disponible en v.3 et une nouvelle version est sortie, la v.4. 
+            > Imaginons l'API documents, cette API est disponible en v.3 et une nouvelle version est sortie, la v.4.
             > Pour appeler la version souhaitée, il vous faudra directement inscrire le numéro de la version dans l'URL : `https://entreprise.api.gouv.fr/v3/...` pour la V.3 ou `https://entreprise.api.gouv.fr/v4/...` pour la V.4.
 
             {:.fr-highlight}
@@ -634,8 +634,8 @@ fr:
 
 
             ### Monitorer la disponibilité des API
-            
-            Pour vous informer de la disponibilité de nos API : 
+
+            Pour vous informer de la disponibilité de nos API :
             - vous pouvez retrouver tous les incidents et opérations de maintenance directement depuis notre [page de statut](https://status.entreprise.api.gouv.fr/){:target="_blank"}, cette page est complétée manuellement par nos services ;
             - vous pourrez bientôt utiliser nos API de monitoring (⚙️ développements en cours).
 
@@ -672,7 +672,7 @@ fr:
             ### Récupérer le jeton JWT 🔑
 
             Seule la personne ayant fait la demande d'habilitation a accès au token, au travers du [compte utilisateur API Entreprise](<%= user_tokens_path %>){:target="_blank"}.
-            
+
             - _Si vous avez réalisé la demande d'habilitation_, vous pouvez **récupérer vos tokens ou jetons d'accès directement depuis votre [compte](<%= user_tokens_path %>){:target="_blank"}**.
 
             - _Si vous n'avez pas réalisé la demande d'habilitation mais que vous êtes la personne en charge d'intégrer l'API Entreprise_, **la personne ayant effectué la demande d'habilitation peut vous transmettre le token de façon sécurisée depuis son [compte](<%= user_tokens_path %>){:target="_blank"}**, en cliquant sur le bouton _"Transmettre le jeton à mon équipe technique"_. Vous recevrez alors, **par e-mail, un lien d'une durée de 4 heures** vous donnant accès au jeton.
@@ -724,12 +724,12 @@ fr:
         - title: Incidents et maintenances 🚧
           content: |+
             ### Que faire en cas de rupture de service ?
-            
+
             Le service ne répond plus ? consultez [cette rubrique de notre FAQ](<%= faq_index_path(anchor: 'rupture-de-service') %>){:target="_blank"}.
 
             ### Être informé des ruptures de service
-            
+
             Pour être informé des différentes indisponibilités, [abonnez-vous aux notifications par e-mail depuis notre page de statut](https://status.entreprise.api.gouv.fr/subscribe/email){:target="_blank"}.
 
         - title: Renouvellement du JWT 🔑
-          content: Pour comprendre comment renouveler votre jeton, consultez [cette rubrique de notre FAQ](<%= faq_index_path(anchor: 'jetons-d-acces'){:target="_blank"}.
+          content: Pour comprendre comment renouveler votre jeton, consultez [cette rubrique de notre FAQ](<%= faq_index_path(anchor: 'jetons-d-acces') %>){:target="_blank"}.
