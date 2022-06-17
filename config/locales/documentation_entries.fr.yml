@@ -502,7 +502,7 @@ fr:
             En cas de non prise en compte des codes erreurs `429` ou en cas de dépassement de la limite de volumétrie globale, **votre IP sera temporairement bannie de nos serveurs pour une durée fixe et non révocable de 12h**. Si vous avez plusieurs jetons, tous seront donc bloqués pendant ce laps de temps.
 
             Les appels depuis une IP bannie ne renvoient pas de codes HTTP, le serveur ne répond tout simplement pas.
-            Vous pouvez en revanche vérifier si vous avez dépassé ce seuil depuis votre [tableau de bord](<%= user_tokens_path %>){:target="_blank"}.
+            Vous pouvez en revanche vérifier si vous avez dépassé ce seuil depuis votre [compte utilisateur](<%= user_tokens_path %>){:target="_blank"}.
 
             {:.fr-highlight}
             > ℹ️ Au bout de ces 12 heures, vos accès sont automatiquement rétablis ; **il est donc inutile d'écrire au support**.
@@ -567,8 +567,8 @@ fr:
             {:.fr-table}
             | Code HTTP                        |      Signification                     |
             |----------------------------------|----------------------------------------|
-            |`500` | **Erreur interne à API Entreprise** – Une erreur interne du serveur d’API Entreprise est survenue. [Consultez votre tableau de bord](<%= user_tokens_path %>){:target="_blank"}, l’historique de l’incident devrait y être affiché ; ainsi que les actions à venir.
-            |`502` | **Erreur interne fournisseur** – Une erreur interne du serveur du ou des fournisseurs est survenue. [Consultez votre tableau de bord](<%= user_tokens_path %>){:target="_blank"}, l’historique de l’incident devrait y être affiché ; ainsi que les actions à venir.
+            |`500` | **Erreur interne à API Entreprise** – Une erreur interne du serveur d’API Entreprise est survenue. [Consultez votre compte utilisateur](<%= user_tokens_path %>){:target="_blank"}, l’historique de l’incident devrait y être affiché ; ainsi que les actions à venir.
+            |`502` | **Erreur interne fournisseur** – Une erreur interne du serveur du ou des fournisseurs est survenue. [Consultez votre compte utilisateur](<%= user_tokens_path %>){:target="_blank"}, l’historique de l’incident devrait y être affiché ; ainsi que les actions à venir.
             |`503` | **Service non disponible** – Le service est temporairement indisponible ou en maintenance. Pour connaître l’historique de disponibilité et les incidents type de l’endpoint, vous pouvez [consulter le catalogue de données](../catalogue/).
             |`504` | **Intermédiaire hors délai** – Le(s) producteur(s) de données ont mis trop de temps à répondre. Notre temps d’attente, nous permettant de ne pas immobiliser le serveur sur un appel sans réponse, est fixé à 10 secondes et a été dépassé.|
 
@@ -671,14 +671,14 @@ fr:
           content: |+
             ### Récupérer le jeton JWT 🔑
 
-            Seule la personne ayant fait la demande d'habilitation a accès au token, au travers du [tableau de bord](<%= user_tokens_path %>){:target="_blank"}.
+            Seule la personne ayant fait la demande d'habilitation a accès au token, au travers du [compte utilisateur API Entreprise](<%= user_tokens_path %>){:target="_blank"}.
             
-            - _Si vous avez réalisé la demande d'habilitation_, vous pouvez **récupérer vos tokens ou jetons d'accès directement depuis votre [tableau de bord](<%= user_tokens_path %>){:target="_blank"}**.
+            - _Si vous avez réalisé la demande d'habilitation_, vous pouvez **récupérer vos tokens ou jetons d'accès directement depuis votre [compte](<%= user_tokens_path %>){:target="_blank"}**.
 
-            - _Si vous n'avez pas réalisé la demande d'habilitation mais que vous êtes la personne en charge d'intégrer l'API Entreprise_, **la personne ayant effectué la demande d'habilitation peut vous transmettre le token de façon sécurisée depuis son [tableau de bord](<%= user_tokens_path %>){:target="_blank"}**, en cliquant sur le bouton _"Transmettre le jeton à mon équipe technique"_. Vous recevrez alors, **par e-mail, un lien d'une durée de 4 heures** vous donnant accès au jeton.
+            - _Si vous n'avez pas réalisé la demande d'habilitation mais que vous êtes la personne en charge d'intégrer l'API Entreprise_, **la personne ayant effectué la demande d'habilitation peut vous transmettre le token de façon sécurisée depuis son [compte](<%= user_tokens_path %>){:target="_blank"}**, en cliquant sur le bouton _"Transmettre le jeton à mon équipe technique"_. Vous recevrez alors, **par e-mail, un lien d'une durée de 4 heures** vous donnant accès au jeton.
 
             {:.fr-highlight.fr-highlight--caution}
-            > ⚠️ L'utilisation de cette fonctionnalité du tableau de bord doit avoir pour unique objectif la transmission sécurisée de la clé aux services techniques qui intégreront l'API Entreprise. **Le jeton JWT ne doit jamais être transmis par e-mail.**
+            > ⚠️ L'utilisation de cette fonctionnalité du compte utilisateur doit avoir pour unique objectif la transmission sécurisée de la clé aux services techniques qui intégreront l'API Entreprise. **Le jeton JWT ne doit jamais être transmis par e-mail.**
 
             ### Faire sa première requête
 
@@ -713,9 +713,9 @@ fr:
             |**Votre jeton d'accès**| à renseigner 📝|`?token=JetonD'Habilitation`|
             |**Des paramètres de traçabilité**| à renseigner 📝| `&context=CadreDeLaRequête`<br> ℹ️ Plus d'informations disponibles dans la partie [Instruire les paramètres de traçabilité](TODO){:target="_blank"}|
 
-            #### Constatez votre première trace d’appel depuis le tableau de bord
+            #### Constatez votre première trace d’appel depuis le compte utilisateur
 
-            Une fois que vous avez fait un premier appel, celui-ci est **répertorié** dans votre tableau de bord, en passant par [la liste de tous vos tokens](https://dashboard.entreprise.api.gouv.fr/me/tokens), et en cliquant sur "Voir les statistiques".
+            Une fois que vous avez fait un premier appel, celui-ci est **répertorié** dans votre compte utilisateur, en passant par [la liste de tous vos tokens](https://dashboard.entreprise.api.gouv.fr/me/tokens), et en cliquant sur "Voir les statistiques".
 
             ### Configurer le logiciel métier
 
