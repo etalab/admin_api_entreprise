@@ -9,13 +9,10 @@
 <div class="fr-mt-5w" id="redoc_container">
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/redoc@latest/bundles/redoc.standalone.js">
-</script>
-
 <script>
-  var uri = '<%= openapi_definition_path %>';
+  function initRedoc() {
+    var uri = '<%= openapi_definition_path %>';
 
-  document.addEventListener("turbo:load", function () {
     Redoc.init(
       uri,
       {
@@ -26,5 +23,16 @@
       },
       document.getElementById('redoc_container')
     )
-  });
+  }
+
+  var redocScript = document.createElement("script");
+
+  redocScript.src = "https://cdn.jsdelivr.net/npm/redoc@latest/bundles/redoc.standalone.js";
+
+  redocScript.onload = function () {
+    initRedoc();
+  };
+
+  document.documentElement.firstChild.appendChild(redocScript);
 </script>
+
