@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe 'token tasks', type: :rake do
   include_context 'when using rake mute tasks'
 
-  before { Rails.application.load_tasks }
+  let(:task_name) { 'token:blacklist' }
 
   describe 'token:blacklist' do
     subject(:run_task) do
-      Rake::Task['token:blacklist'].invoke(token_to_blacklist.id)
+      Rake::Task[task_name].invoke(token_to_blacklist.id)
     end
 
     let!(:token_to_blacklist) { create :token, :with_scopes }
