@@ -1,4 +1,4 @@
-RSpec.shared_context 'mute rake tasks' do
+RSpec.shared_context 'when using rake mute tasks' do
   let(:original_stderr) { $stderr }
   let(:original_stdout) { $stdout }
 
