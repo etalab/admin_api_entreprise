@@ -156,3 +156,15 @@ RSpec/NamedSubject:
 
 RSpec/RepeatedDescription:
   Enabled: false
+
+RSpec/DescribeClass:
+  IgnoredMetadata:
+    type:
+      - request
+      - controller
+      - feature
+      - rake
+
+RSpec/ExpectOutput:
+  Exclude:
+    - 'spec/support/shared_context/mute_rake_tasks.rb'

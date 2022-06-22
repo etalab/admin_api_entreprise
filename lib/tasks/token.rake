@@ -11,7 +11,7 @@ namespace :token do
 
     copy = token.dup
     copy.iat = Time.zone.now.to_i
-    copy.roles = token.roles
+    copy.scopes = token.scopes
     copy.save
 
     token.update(blacklisted: true)
