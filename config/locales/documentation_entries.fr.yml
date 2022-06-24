@@ -3,7 +3,8 @@ fr:
   documentation_entries:
     sections:
       guide_migration:
-        - title: Introduction
+        - anchor: 'introduction'
+          title: Introduction
           content: |+
             **Ce guide liste les changements effectués entre la version 2 de l’API Entreprise et la version 3, et vous livre les éléments nécessaires pour effectuer la migration**.
 
@@ -11,7 +12,8 @@ fr:
             - assurer une meilleure sécurité de la donnée des fournisseurs ;
             - normaliser les formats pour faciliter la compréhension et l’industrialisation ;
             - clarifier, documenter les réponses et les rendre actionnables par vos logiciels.
-        - title: Évolutions générales
+        - anchor: 'evolutions-generales'
+          title: Évolutions générales
           content: |+
             ### 1. Jeton d'accès à paramétrer dans le header
 
@@ -164,7 +166,8 @@ fr:
             - Permettre la connexion entre les API grâce à l’ajout des liens URL.
 
 
-        - title: Table de correspondance V.2 > V.3
+        - anchor: 'table-de-correspondance-v-2-v-3'
+          title: Table de correspondance V.2 > V.3
           content: |+
             Cette partie du guide de migration permet de trouver la correspondance de chaque API de la V.2 avec les API de la V3&nbsp;:&nbsp;
 
@@ -419,7 +422,8 @@ fr:
             | Données des marques | API **Marques déposées** <br /> `v3/inpi/unites_legales/{siren}/marques`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'inpi/marques') %>){:target="_blank"} <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Propriete-intellectuelle/paths/~1v3~1inpi~1unites_legales~1{siren}~1marques/get') %>){:target="_blank"} |
 
       developers:
-        - title: Prérequis techniques
+        - anchor: 'prerequis-techniques'
+          title: Prérequis techniques
           content: |+
             Voici la liste des **fondamentaux techniques à mettre en place pour le bon fonctionnement de l’API Entreprise**&nbsp;:&nbsp;
 
@@ -437,7 +441,8 @@ fr:
 
             - ☑️ Être en capacité de gérer les mises à jour de l'API Entreprise.
 
-        - title: Spécifications générales 🎛
+        - anchor: 'specifications-generales'
+          title: Spécifications générales 🎛
           content: |+
             ### Respecter la volumétrie
 
@@ -667,7 +672,8 @@ fr:
 
             La réponse JSON renvoie la liste des API autorisées. Retrouvez-leurs spéciifications techniques dans le [Swagger](TODO).
 
-        - title: Kit de mise en production 🚀
+        - anchor: 'kit-de-mise-en-production'
+          title: Kit de mise en production 🚀
           content: |+
             ### Récupérer le jeton JWT 🔑
 
@@ -731,7 +737,8 @@ fr:
 
             Pour être informé des différentes indisponibilités, [abonnez-vous aux notifications par e-mail depuis notre page de statut](https://status.entreprise.api.gouv.fr/subscribe/email){:target="_blank"}.
 
-        - title: Renouvellement du JWT 🔑
+        - anchor: 'renouvellement-du-jwt'
+          title: Renouvellement du JWT 🔑
           content: >-
             Pour comprendre comment renouveler votre jeton, consultez [cette rubrique de notre FAQ](<%= faq_index_path(anchor: 'jetons-d-acces') %>){:target="_blank"}.
 
