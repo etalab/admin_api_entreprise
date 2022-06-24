@@ -5,7 +5,7 @@
       <ul class="fr-sidemenu__list">
         <% @documentation_entries.each do |entry| %>
           <li class="fr-sidemenu__item">
-            <a class="fr-sidemenu__link" href="#<%= entry.anchor %>" target="_self"><%= entry.title %></a>
+            <a class="fr-sidemenu__link" href="#<%= entry.anchor %>" target="_self"><%= entry.title.html_safe %></a>
           </li>
         <% end %>
 
