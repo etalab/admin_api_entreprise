@@ -1,5 +1,5 @@
 namespace :token do
-  desc 'Blacklist a token (and create a new one)'
+  desc "Blacklist a token (and create a new one) token:blacklist\\['UUID'\\]"
 
   task :blacklist, [:token_id] => :environment do |_, args|
     token = Token.find(args.token_id)

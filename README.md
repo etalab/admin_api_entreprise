@@ -193,3 +193,22 @@ Afin de faire des tests en local des données de tests sont disponibles :
 ```shell
 sudo -u postgres psql -f db/seed_access_logs.txt
 ```
+
+## Outils de production
+
+Il y a plusieurs scripts utiles pour faire des manipulations en production pour des usages bien précis.
+
+Ils sont rangés dans `lib/tasks/`. À ce jour il y en a 2 :
+
+- `user:transfer_account` : afin de transférer un compte entre deux emails
+- `token:blacklist` : afin de blacklister un jeton qui aurait été envoyé par email et en créer un nouveau
+
+Les tâches ont des descriptions visible avec `bundle exec rake -D user:transfer_account` par exemple.
+
+Exemple de commande :
+
+```shell
+# les backslash '\' sont malheureusement nécessaire sinon ils sont interprété par ZSH
+# il ne faut pas mettre d'espace après la virgule entre les variables qui sont entre crochets
+bundle exec rake user:transfer_account\['current@user.com','new@user.com'\]
+```
