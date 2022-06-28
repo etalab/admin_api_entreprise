@@ -43,6 +43,24 @@
     - Détection de la fraude
   providers: &insee_unites_legales_providers
     - 'insee'
+  keywords: &insee_unites_legales_keywords
+    - 'activité'
+    - 'naf'
+    - 'ape'
+    - 'identité'
+    - 'identification'
+    - 'état'
+    - 'effectif'
+    - 'raison sociale'
+    - 'nom'
+    - 'numéro tva'
+    - 'forme juridique'
+    - 'cessation'
+    - 'création'
+    - 'remplissage'
+    - 'fraude'
+    - 'aides'
+    - 'marchés'
   data:
     description: &insee_unites_legales_data_description |+
       Cette API délivre **uniquement les informations de référence des unités légales**.
@@ -136,6 +154,7 @@
   parameters: *insee_unites_legales_parameters
   call_id: *insee_unites_legales_call_id
   providers: *insee_unites_legales_providers
+  keywords: *insee_unites_legales_keywords
   data:
     description: *insee_unites_legales_data_description
   faq:
