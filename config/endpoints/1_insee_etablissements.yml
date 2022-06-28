@@ -46,6 +46,31 @@
     - Détection de la fraude
   providers: &insee_etablissements_providers
     - 'insee'
+  keywords: &insee_etablissements_keywords
+    - 'activité'
+    - 'naf'
+    - 'ape'
+    - 'identité'
+    - 'identification'
+    - 'état'
+    - 'effectif'
+    - 'raison sociale'
+    - 'nom'
+    - 'numéro tva'
+    - 'forme juridique'
+    - 'localisation'
+    - 'emplacement'
+    - 'adresse'
+    - 'commune'
+    - 'région'
+    - 'pays'
+    - 'cedex'
+    - 'cessation'
+    - 'création'
+    - 'remplissage'
+    - 'fraude'
+    - 'aides'
+    - 'marchés'
   data:
     description: &insee_etablissement_data_description |+
       À partir du numéro de SIRET de l'établissement, cette API délivre les **informations générales de celui-ci** et les **informations générales de l'unité légale** à laquelle l'établissement est rattaché.
@@ -116,6 +141,7 @@
   parameters: *insee_etablissements_parameters
   call_id: *insee_etablissements_call_id
   providers: *insee_etablissements_providers
+  keywords: *insee_etablissements_keywords
   data:
     description: *insee_etablissement_data_description
   faq:
