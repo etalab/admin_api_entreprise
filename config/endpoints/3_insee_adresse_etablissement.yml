@@ -46,6 +46,19 @@
     - Détection de la fraude
   providers: &insee_adresse_etablissement_providers
     - 'insee'
+  keywords: &insee_adresse_etablissement_keywords
+    - 'localisation'
+    - 'emplacement'
+    - 'adresse'
+    - 'commune'
+    - 'région'
+    - 'pays'
+    - 'cedex'
+    - 'voie'
+    - 'remplissage'
+    - 'fraude'
+    - 'aides'
+    - 'marchés'
   data:
     description: &insee_adresse_etablissement_data_description |+
       Cette API délivre les informations de localisation d'un établissement, dont les éléments constitutifs de l'**adresse postale**.
@@ -111,6 +124,7 @@
   parameters: *insee_adresse_etablissement_parameters
   call_id: *insee_adresse_etablissement_call_id
   providers: *insee_adresse_etablissement_providers
+  keywords: *insee_adresse_etablissement_keywords
   data:
     description: *insee_adresse_etablissement_data_description
   faq:
