@@ -10,7 +10,7 @@ module ActiveLinks
     when 'catalogue'
       Rails.application.routes.recognize_path(current_path)[:controller] == 'endpoints'
     when 'developer'
-      current_path.starts_with?('/developer')
+      current_path.starts_with?('/developpeurs')
     else
       false
     end
