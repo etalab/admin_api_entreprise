@@ -63,10 +63,6 @@ document.addEventListener("turbo:load", function () {
         });
 
         controller._hideEntriesNotInResult(entriesInResult);
-
-        if (query == "") {
-          controller._closeAllEntries(controller);
-        }
       }
 
       _handleHit(controller, hit, entriesInResult) {
@@ -130,6 +126,15 @@ document.addEventListener("turbo:load", function () {
         allEntries.forEach(function (entry) {
           controller._closeEntry(entry);
         });
+      }
+
+      _closeEntry(entry) {
+        controller._toggleEntry(entry, 'display:none');
+      }
+
+      _toggleEntry(entry, value) {
+        entry
+          .setAttribute("style", value);
       }
 
       _configureHighlights(search) {
