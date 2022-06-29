@@ -1,11 +1,16 @@
-module ActiveModelAlgoliaSearchable
-  extend ActiveSupport::Concern
+class ApplicationAlgoliaSearchableActiveModel
+  include ActiveModel::Model
 
-  included do
-    private_class_method :values_includes_entry_attribute?
+  def self.inherited(base)
+    base.extend ClassMethods
+    base.include AlgoliaSearch
+
+    base.class_eval do
+      private_class_method :values_includes_entry_attribute?
+    end
   end
 
-  class_methods do
+  module ClassMethods
     def algoliasearch_active_model(options = {}, &)
       algoliasearch(options.merge(id: :dom_id), &)
     end

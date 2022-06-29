@@ -3,11 +3,7 @@
 require 'kramdown'
 require 'kramdown-parser-gfm'
 
-class FAQEntry
-  include ActiveModel::Model
-  include AlgoliaSearch
-  include ActiveModelAlgoliaSearchable
-
+class FAQEntry < ApplicationAlgoliaSearchableActiveModel
   attr_accessor :question,
     :answer,
     :category,
