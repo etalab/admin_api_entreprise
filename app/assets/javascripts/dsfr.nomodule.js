@@ -1,7 +1,6 @@
 /*! DSFR v1.5.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
-document.addEventListener("turbo:load", function () {
-(function () {
+var dsFr = (function () {
   'use strict';
 
   var State = function State () {
@@ -4522,5 +4521,8 @@ document.addEventListener("turbo:load", function () {
   api$1.internals.legacy.setLegacy();
 
 })();
-});
 //# sourceMappingURL=dsfr.nomodule.js.map
+
+['turbo:render', 'turbo:load'].forEach(function(e) {
+  document.addEventListener(e, dsfr);
+});
