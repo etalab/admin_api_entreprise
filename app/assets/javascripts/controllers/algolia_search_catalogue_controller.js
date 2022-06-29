@@ -63,10 +63,6 @@ document.addEventListener("turbo:load", function () {
         });
 
         controller._hideEntriesNotInResult(entriesInResult);
-
-        if (query == "") {
-          controller._closeAllEntries(controller);
-        }
       }
 
       _handleHit(controller, hit, entriesInResult) {
@@ -119,16 +115,6 @@ document.addEventListener("turbo:load", function () {
           if (!entriesInResult.includes(entry)) {
             entry.classList.add("fr-hidden");
           }
-        });
-      }
-
-      _closeAllEntries(controller) {
-        var allEntries = document.querySelectorAll(
-          "[data-algolia-search-catalogue-hit]"
-        );
-
-        allEntries.forEach(function (entry) {
-          controller._closeEntry(entry);
         });
       }
 
