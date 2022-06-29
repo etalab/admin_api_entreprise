@@ -1,21 +1,24 @@
 module ActiveModelAlgoliaSearchable
   extend ActiveSupport::Concern
-  include AlgoliaSearch
 
   included do
-    def self.algoliasearch_active_model(options = {}, &)
+    private_class_method :values_includes_entry_attribute?
+  end
+
+  class_methods do
+    def algoliasearch_active_model(options = {}, &)
       algoliasearch(options.merge(id: :dom_id), &)
     end
 
-    def self.all
+    def all
       fail NotImplementedError
     end
 
-    def self.unscoped
+    def unscoped
       yield
     end
 
-    def self.where(conditions = {})
+    def where(conditions = {})
       return all if conditions.blank?
 
       all.select do |entry|
@@ -25,11 +28,9 @@ module ActiveModelAlgoliaSearchable
       end
     end
 
-    def self.values_includes_entry_attribute?(entry, attr, values)
+    def values_includes_entry_attribute?(entry, attr, values)
       Array.wrap(values).include?(entry.public_send(attr))
     end
-
-    private_class_method :values_includes_entry_attribute?
   end
 
   def id
