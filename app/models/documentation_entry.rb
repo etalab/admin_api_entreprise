@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class DocumentationEntry
+  include ActiveModel::Model
+
   attr_accessor :section, :title, :content, :anchor
 
   def self.developers
