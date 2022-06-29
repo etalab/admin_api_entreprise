@@ -46,6 +46,33 @@
     - Détection de la fraude
   providers: &insee_siege_social_providers
     - 'insee'
+  keywords: &insee_siege_social_keywords
+    - 'activité'
+    - 'naf'
+    - 'ape'
+    - 'identité'
+    - 'identification'
+    - 'état'
+    - 'effectif'
+    - 'raison sociale'
+    - 'nom'
+    - 'numéro tva'
+    - 'forme juridique'
+    - 'localisation'
+    - 'emplacement'
+    - 'adresse'
+    - 'commune'
+    - 'région'
+    - 'pays'
+    - 'cedex'
+    - 'cessation'
+    - 'clôture'
+    - 'création'
+    - 'siège'
+    - 'remplissage'
+    - 'fraude'
+    - 'aides'
+    - 'marchés'
   data:
     description: &insee_siege_social_providers_data_description |+
       Cette API délivre les **informations générales d'un siège social à partir du numéro de SIREN de son unité légale**.
@@ -121,6 +148,7 @@
   parameters: *insee_siege_social_parameters
   call_id: *insee_siege_social_call_id
   providers: *insee_siege_social_providers
+  keywords: *insee_siege_social_keywords
   data:
     description: *insee_siege_social_providers_data_description
   faq:
