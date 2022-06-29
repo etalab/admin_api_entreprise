@@ -42,6 +42,6 @@ module AdminApientreprise
     config.action_mailer.deliver_later_queue_name = :default
     config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
 
-    config.assets.prefix = '/api/admin/assets'
+    config.assets.prefix = '/assets'
   end
 end
