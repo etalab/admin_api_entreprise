@@ -1,9 +1,5 @@
 # rubocop:disable Metrics/ClassLength
-class Endpoint
-  include ActiveModel::Model
-  include AlgoliaSearch
-  include ActiveModelAlgoliaSearchable
-
+class Endpoint < ApplicationAlgoliaSearchableActiveModel
   attr_accessor :uid,
     :path,
     :call_id,
