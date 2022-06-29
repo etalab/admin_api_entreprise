@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DocumentationEntry < ApplicationAlgoliaSearchableActiveModel
+class DocumentationEntry
   attr_accessor :section, :title, :content, :anchor
 
   def self.developers

@@ -1,7 +1,7 @@
 namespace :algolia do
   desc 'Reindex models on Algolia'
   task reindex: :environment do
-    Rails.application.eager_load! unless Rails.env.production?
+    Rails.application.eager_load!
 
     algolia_models = ApplicationAlgoliaSearchableActiveModel.descendants
     algolia_models.each(&:reindex)
