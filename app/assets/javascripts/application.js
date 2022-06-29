@@ -3,3 +3,4 @@
 //= require_tree .
 
 //= require utils/table_search
+//= require utils/copy_anchor
