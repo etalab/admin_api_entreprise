@@ -43,6 +43,6 @@ module AdminApientreprise
     config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
 
     config.assets.prefix = '/assets'
-    config.assets.version = 'v2'
+    config.assets.version = 'v3'
   end
 end
