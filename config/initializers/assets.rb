@@ -12,4 +12,8 @@ Rails.application.config.assets.version = '1.0'
 
 # application.js was not precompiled for some reason. might be a misconfig issue.
 # useful to add stubbed (non-global) javascript assets
-Rails.application.config.assets.precompile += %w( application.js utils/generate_anchor_icons.js )
+Rails.application.config.assets.precompile += %w(
+  application.js
+  utils/generate_anchor_icons.js
+  utils/auto_open_accordeon.js
+)
