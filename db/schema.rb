@@ -134,7 +134,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_07_155825) do
 
 
   create_view "access_logs_view", sql_definition: <<-SQL
-      SELECT timezone('Europe/Paris'::text, timezone('UTC'::text, access_logs."timestamp")) AS "timestamp",
+      SELECT access_logs.timestamp,
       access_logs.action,
       access_logs.api_version,
       access_logs.host,
