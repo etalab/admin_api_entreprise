@@ -292,14 +292,17 @@ fr:
           - question: "Comment transmettre le jeton d’accès en tout sécurité ?"
             answer: |+
               Actuellement, seule la personne ayant rempli la demande d’habilitation peut accéder au [compte utilisateur](<%= user_profile_path %>) et y récupérer le jeton d’accès. C’est pourquoi, il est fréquent que cette personne ait besoin ponctuellement de transmettre le jeton à une autre personne, notamment pour que l’équipe technique puisse intégrer l’API.
-
-              {:.fr-highlight.fr-highlight--caution}
-              > ⚠️ Comme expliqué [ici](<%= root_path %>), votre token vous est propre, il ne faut pas surtout pas le copier/coller dans un e-mail.
-
-              **Pour transmettre votre jeton, utilisez la fonctionnalité prévue dans votre compte utilisateur sur API Entreprise** :
+              ⚠️ Comme expliqué [ici](<%= root_path %>), votre token vous est propre, il ne faut pas surtout pas le copier/coller dans un e-mail.
+             
+              **Pour transmettre votre jeton, vous devez utiliser la fonctionnalité prévue dans votre compte utilisateur sur API Entreprise** :
               - Cliquez sur le bouton "Transmettre le jeton" (blanc au contour bleu) situé juste en dessous de l’encadré du jeton.
               - Une fenêtre s’ouvre alors, elle vous rappelle vos engagements, et vous permet d’indiquer une adresse e-mail.
               - En cliquant sur "Envoyer", un courriel sera transmis à cette adresse, avec, à l’intérieur, **un lien d’une durée de 4 heures, qui permettra à l’utilisateur de récupérer le jeton**.
+
+              {:.fr-highlight.fr-highlight--caution}
+              > ⚠️ Vous êtes responsable de votre clé d'accès au titre des engagements pris au moment de votre habilitation en signant nos <a href="https://entreprise.api.gouv.fr/cgu/">CGU</a>. L'utilisation de la fonctionnalité "Transmettre le jeton" a pour objectif de sécuriser l'envoi de votre jeton aux services techniques qui intègreront l'API Entreprise. Vous ne devez pas divulguer cet accès à des tiers non-habilités.
+              
+              Si vous avez divulgué votre jeton par erreur, le renouvellement d’un jeton est très facile et rapide. Écrivez rapidement à <a href="mailto:support@entreprise.api.gouv.fr">support@entreprise.api.gouv.fr</a>.
 
           - question: "Comment renouveler mon jeton arrivant à expiration ?"
             answer: |+
