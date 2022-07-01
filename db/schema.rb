@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_01_093059) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_01_093060) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "access_logs", id: false, force: :cascade do |t|
-    t.datetime "timestamp", precision: nil
+    t.timestamptz "timestamp"
     t.string "action"
     t.string "api_version"
     t.string "host"
@@ -36,10 +36,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_01_093059) do
     t.index "((params ->> 'siren'::text))", name: "index_access_logs_on_params_siren", using: :gin
     t.index "((params ->> 'siret'::text))", name: "index_access_logs_on_params_siret", using: :gin
     t.index "((params ->> 'siret_or_eori'::text))", name: "index_access_logs_on_params_siret_or_eori", using: :gin
-    t.index "date_trunc('day'::text, \"timestamp\")", name: "index_access_logs_on_timestamp_day"
-    t.index "date_trunc('hour'::text, \"timestamp\")", name: "index_access_logs_on_timestamp_hour"
-    t.index "date_trunc('month'::text, \"timestamp\")", name: "index_access_logs_on_timestamp_month"
-    t.index "date_trunc('week'::text, \"timestamp\")", name: "index_access_logs_on_timestamp_week"
+    t.index "date_trunc('day'::text, timezone('Europe/Paris'::text, \"timestamp\"))", name: "index_access_logs_on_timestamp_day"
+    t.index "date_trunc('hour'::text, timezone('Europe/Paris'::text, \"timestamp\"))", name: "index_access_logs_on_timestamp_hour"
+    t.index "date_trunc('month'::text, timezone('Europe/Paris'::text, \"timestamp\"))", name: "index_access_logs_on_timestamp_month"
+    t.index "date_trunc('week'::text, timezone('Europe/Paris'::text, \"timestamp\"))", name: "index_access_logs_on_timestamp_week"
     t.index ["controller"], name: "index_access_logs_on_controller"
     t.index ["status"], name: "index_access_logs_on_status"
     t.index ["timestamp"], name: "index_access_logs_on_timestamp"
