@@ -6,22 +6,29 @@
   <body>
     <p>Bonjour et bienvenue,</p>
 
-    <p>L'accès au compte utilisateur API Entreprise vient de vous être transféré par <%= @old_owner.email %>.</p>
-
+    <p><%= @old_owner.email %> propose de vous transférer la responsabilité du compte utilisateur API Entreprise de votre organisation. Ce compte vous permettra d'accéder aux jetons (tokens) API Entreprise, à leurs statistiques d'utilisation et à l'interface de téléchargement des attestations si vos jetons sont pourvus de ces droits.</p>
+    
     <% if @new_owner.oauth_api_gouv_id.nil? %>
       <p>
-      Vous devez au préalable vous créer un <%= link_to 'compte DataPass', @datapass_signup_url %> pour accéder à votre espace API Entreprise. Il est impératif de renseigner les informations suivantes afin d'éviter des erreurs de réconciliation à votre première connexion :
+      La poursuite des étapes suivantes entrainera le transfert du compte et toute connexion à l'espace utilisateur de votre part vaudra acceptation de nos <a href="https://entreprise.api.gouv.fr/cgu">CGU</a>.
+      </p>  
+      <p>
+      Pour accéder à l'espace utilisateur API Entreprise, vous devez au préalable vous créer un <%= link_to 'compte DataPass', @datapass_signup_url %>. Il est impératif de renseigner les informations suivantes afin d'éviter des erreurs de réconciliation à votre première connexion :
       </p>
       <ul>
         <li>adresse email : <%= @new_owner.email %></li>
         <li>siret de votre organisation : <%= @new_owner.context %></li>
       </ul>
     <% else %>
-      <p>Vos identifiants de compte DataPass associés à votre adresse e-mail <%= @new_owner.email %> vous seront demandés pour accéder à votre compte utilisateur API Entreprise.</p>
+      <p>
+       Votre compte DataPass associé à votre adresse e-mail <%= @new_owner.email %> vous permettra d'accéder au compte API Entreprise. Toute connexion à cet espace utilisateur de votre part vaut acceptation de nos <a href="https://entreprise.api.gouv.fr/cgu">CGU</a>.
+      </p>
     <% end %>
-
-    <p>Vous pourrez alors accéder aux jetons votre organisation, connectez-vous simplement à l'<%= link_to 'espace utilisateur API Entreprise', @login_url %> en utilisant vos identifiants DataPass.</p>
-
+    <p>Le transfert définitif de la responsabilité du compte nécessite une validation manuelle de nos services et peut prendre quelques jours.</p>
+    <p>Vous pourrez ensuite accéder à l'<%= link_to 'espace utilisateur API Entreprise de votre organisation', @login_url %> en utilisant vos identifiants DataPass.</p>
+    
+    <p>Vous ne souhaitez pas prendre la responsabilité du compte actuellement détenu par <%= @old_owner.email %> ou avez des interrogations ? Vous pouvez nous écrire par retour de mail.
+    
     <p>Cordialement,</p>
     <p>L'équipe API Entreprise</p>
   </body>
