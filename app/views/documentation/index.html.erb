@@ -22,7 +22,7 @@
 
       <div class="documentation doc_markdown_to_html">
         <% @documentation_entries.each do |entry| %>
-          <h2 id="<%= entry.anchor %>"><%= entry.title %></h2>
+          <h2 id="<%= entry.anchor %>"><%= entry&.title.html_safe %></h2>
           <%= raw entry.content_markdownify %>
         <% end %>
       </div>
