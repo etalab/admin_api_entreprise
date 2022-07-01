@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_01_093060) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_01_142311) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pgcrypto"
@@ -36,13 +36,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_01_093060) do
     t.index "((params ->> 'siren'::text))", name: "index_access_logs_on_params_siren", using: :gin
     t.index "((params ->> 'siret'::text))", name: "index_access_logs_on_params_siret", using: :gin
     t.index "((params ->> 'siret_or_eori'::text))", name: "index_access_logs_on_params_siret_or_eori", using: :gin
-    t.index "date_trunc('day'::text, timezone('Europe/Paris'::text, \"timestamp\"))", name: "index_access_logs_on_timestamp_day"
-    t.index "date_trunc('hour'::text, timezone('Europe/Paris'::text, \"timestamp\"))", name: "index_access_logs_on_timestamp_hour"
-    t.index "date_trunc('month'::text, timezone('Europe/Paris'::text, \"timestamp\"))", name: "index_access_logs_on_timestamp_month"
-    t.index "date_trunc('week'::text, timezone('Europe/Paris'::text, \"timestamp\"))", name: "index_access_logs_on_timestamp_week"
+    t.index "date_trunc('day'::text, timezone('Europe/Paris'::text, \"timestamp\"))", name: "index_access_logs_on_timestamp_day", using: :brin
+    t.index "date_trunc('hour'::text, timezone('Europe/Paris'::text, \"timestamp\"))", name: "index_access_logs_on_timestamp_hour", using: :brin
+    t.index "date_trunc('month'::text, timezone('Europe/Paris'::text, \"timestamp\"))", name: "index_access_logs_on_timestamp_month", using: :brin
+    t.index "date_trunc('week'::text, timezone('Europe/Paris'::text, \"timestamp\"))", name: "index_access_logs_on_timestamp_week", using: :brin
     t.index ["controller"], name: "index_access_logs_on_controller"
     t.index ["status"], name: "index_access_logs_on_status"
-    t.index ["timestamp"], name: "index_access_logs_on_timestamp"
+    t.index ["timestamp"], name: "index_access_logs_on_timestamp", using: :brin
     t.index ["token_id"], name: "index_access_logs_on_token_id", where: "(token_id IS NOT NULL)"
   end
 
