@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_07_155825) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_01_093059) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pgcrypto"
@@ -134,7 +134,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_07_155825) do
 
 
   create_view "access_logs_view", sql_definition: <<-SQL
-      SELECT access_logs.timestamp,
+      SELECT access_logs."timestamp",
       access_logs.action,
       access_logs.api_version,
       access_logs.host,
