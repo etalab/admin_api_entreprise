@@ -1,0 +1,5 @@
+INSERT INTO access_logs
+  (timestamp, action, api_version, host, method, path, route, controller, duration, status, ip, source, params, token_id)
+VALUES
+('2022-03-03T00:40:49.205','show','v2','production1','GET','/v2/entreprises/123456789','api/v2/entreprises_restored#show','api/v2/entreprises_restored','879.289978','200','11.22.33.44','siade_production_production1.entreprise.api.gouv.fr','{"siren": "123456789", "token": "[FILTERED]", "object": "standard time log", "context": "dummy context", "recipient": "999999999"}'::jsonb,'184193d2-0b16-4e6c-bf5d-0903e08467d3'),
+('2022-07-01T15:40:49.205','show','v2','production1','GET','/v2/etablissements/12345678900011','api/v2/etablissements_restored#show','api/v2/etablissements_restored','279.289978','200','11.22.33.44','siade_production_production1.entreprise.api.gouv.fr','{"siret": "12345678900011", "token": "[FILTErRED]", "object": "daylight saving time log", "context": "dummy context", "recipient": "999999999"}'::jsonb,'184193d2-0b16-4e6c-bf5d-0903e08467d3');
