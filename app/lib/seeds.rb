@@ -13,6 +13,7 @@ class Seeds
     create_token_blacklisted
     create_token_expired
     create_authorization_refused
+    create_access_logs
   end
 
   def flushdb
@@ -153,5 +154,10 @@ class Seeds
 
   def create_authorization_request(params = {})
     AuthorizationRequest.create!(params)
+  end
+
+  def create_access_logs
+    sql = File.read(Rails.root.join('db/seed_access_logs.sql'))
+    ActiveRecord::Base.connection.execute(sql)
   end
 end
