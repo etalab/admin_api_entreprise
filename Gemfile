@@ -42,7 +42,7 @@ gem 'elasticsearch', '= 7.10.1'
 
 gem 'pastel'
 
-gem 'rails-i18n','~> 7.0.3'
+gem 'rails-i18n','~> 7.0.5'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
