@@ -18,5 +18,7 @@ class PagesController < ApplicationController
 
   def cgu; end
 
+  def accessibility; end
+
   def redoc; end
 end

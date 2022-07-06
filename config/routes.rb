@@ -58,4 +58,5 @@ Rails.application.routes.draw do
 
   get '/mentions-legales', to: 'pages#mentions', as: :mentions
   get '/cgu', to: 'pages#cgu', as: :cgu
+  get '/accessibilite', to: 'pages#accessibility', as: :accessibilite
 end
