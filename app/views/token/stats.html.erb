@@ -8,7 +8,7 @@
               <%= t('.title', title: @token.intitule) %>
 
               <span class="fr-text--sm fr-m-0 pull-right">
-                <%= link_to t('.links.user_tokens'), user_tokens_path, id: :user_tokens_link, class: %w(fr-link fr-link--sm fr-fi-arrow-right-line fr-link--icon-right) %>
+                <%= link_to t('.links.user_tokens'), user_tokens_path, id: :user_tokens_link, class: %w(fr-link fr-link--sm fr-icon-arrow-right-line fr-link--icon-right) %>
               </span>
             </h4>
 
@@ -31,7 +31,7 @@
         <ul class="fr-tabs__list" role="tablist" aria-label="stats-for-period-tabs">
           <% %i[last_10_minutes last_30_hours last_8_days].each_with_index do |period, index| %>
             <li role="presentation">
-              <button id=<%= "tabpanel-#{period}" %> class="fr-tabs__tab fr-fi-checkbox-line fr-tabs__tab--icon-left" tabindex="<%= index == 0 ? '0' : '-1' %>" role="tab" aria-selected="<%= (@period == period) ? "true" : "false" %>" aria-controls="<%= "tabpanel-#{period}-panel" %>">
+              <button id=<%= "tabpanel-#{period}" %> class="fr-tabs__tab fr-icon-checkbox-line fr-tabs__tab--icon-left" tabindex="<%= index == 0 ? '0' : '-1' %>" role="tab" aria-selected="<%= (@period == period) ? "true" : "false" %>" aria-controls="<%= "tabpanel-#{period}-panel" %>">
                 <%= t(".tabs.#{period}") %>
               </button>
             </li>

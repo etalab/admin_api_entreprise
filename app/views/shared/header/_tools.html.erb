@@ -1,7 +1,7 @@
 <div class="fr-header__tools-links">
   <ul class="fr-links-group">
     <li>
-      <a class="fr-link fr-fi-<%= t('.links.faq_contact.icon') %>" href="<%= faq_index_path %>" #target="_blank">
+      <a class="fr-link fr-icon-<%= t('.links.faq_contact.icon') %>" href="<%= faq_index_path %>" #target="_blank">
         <%= t('.links.faq_contact.title') %>
       </a>
     </li>
@@ -15,19 +15,19 @@
     </li>
     <% if user_signed_in? %>
       <li>
-        <a class="fr-link fr-fi-<%= t('.links.user_connected.icon') %>" href="<%= user_profile_path %>">
+        <a class="fr-link fr-icon-<%= t('.links.user_connected.icon') %>" href="<%= user_profile_path %>">
           <%= current_user.full_name %>
         </a>
       </li>
       <li>
-        <a class="fr-link fr-fi-<%= t('.links.sign_out.icon') %>" id="logout_button" href="<%= logout_path %>" target="_self" data-method="delete">
+        <a class="fr-link fr-icon-<%= t('.links.sign_out.icon') %>" id="logout_button" href="<%= logout_path %>" target="_self" data-method="delete">
           <%= t('.links.sign_out.title') %>
         </a>
       </li>
     <% else %>
       <li>
         <%= form_with(url: login_api_gouv_path, method: :post, data: { turbo: false }) do |f| %>
-          <%= f.button t('.links.sign_in.title'), class: "fr-link fr-fi-#{t('.links.sign_in.icon')}", id: 'login_header' %>
+          <%= f.button t('.links.sign_in.title'), class: "fr-link fr-icon-#{t('.links.sign_in.icon')}", id: 'login_header' %>
         <% end %>
       </li>
     <% end %>

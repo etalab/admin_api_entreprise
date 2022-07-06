@@ -43,13 +43,13 @@
             <td>
               <% if token = authorization_request.token %>
                 <% if token.expired? %>
-                  <%= link_to t('.table.token.expired'), token_path(token), class: %w(fr-tag fr-tag--sm fr-tag--purple-glycine fr-fi-arrow-right-line), data: { turbo_frame: '_top' } %>
+                  <%= link_to t('.table.token.expired'), token_path(token), class: %w(fr-tag fr-tag--sm fr-tag--purple-glycine fr-icon-arrow-right-line), data: { turbo_frame: '_top' } %>
                 <% elsif token.blacklisted? %>
-                  <%= link_to t('.table.token.blacklisted'), token_path(token), class: %w(fr-tag fr-tag--sm fr-tag--purple-glycine fr-fi-arrow-right-line), data: { turbo_frame: '_top' } %>
+                  <%= link_to t('.table.token.blacklisted'), token_path(token), class: %w(fr-tag fr-tag--sm fr-tag--purple-glycine fr-icon-arrow-right-line), data: { turbo_frame: '_top' } %>
                 <% elsif token.archived? %>
-                  <%= link_to t('.table.token.archived'), token_path(token), class: %w(fr-tag fr-tag--sm fr-fi-arrow-right-line), data: { turbo_frame: '_top' } %>
+                  <%= link_to t('.table.token.archived'), token_path(token), class: %w(fr-tag fr-tag--sm fr-icon-arrow-right-line), data: { turbo_frame: '_top' } %>
                 <% else %>
-                  <%= link_to t('.table.token.active'), token_path(token), class: %w(fr-tag fr-tag--sm fr-tag--green-emeraude fr-fi-arrow-right-line), data: { turbo_frame: '_top' } %>
+                  <%= link_to t('.table.token.active'), token_path(token), class: %w(fr-tag fr-tag--sm fr-tag--green-emeraude fr-icon-arrow-right-line), data: { turbo_frame: '_top' } %>
                 <% end %>
               <% end %>
             </td>

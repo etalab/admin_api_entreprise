@@ -105,7 +105,7 @@
         <% end %>
 
         <div class="fr-my-2w">
-          <a href="<%= endpoint_example_path(uid: @endpoint.uid) %>" id="example_link" class="fr-btn fr-btn--secondary fr-fi-eye-line fr-btn--icon-left fr-mt-2w" aria-controls="main-modal" data-fr-opened="false" data-turbo-frame="main-modal-content">
+          <a href="<%= endpoint_example_path(uid: @endpoint.uid) %>" id="example_link" class="fr-btn fr-btn--secondary fr-icon-eye-line fr-btn--icon-left fr-mt-2w" aria-controls="main-modal" data-fr-opened="false" data-turbo-frame="main-modal-content">
             Voir un exemple de réponse
           </a>
         </div>
@@ -244,7 +244,7 @@
           <br />
           <br />
 
-          <%= link_to t('.cgu.cta'), cgu_path, id: 'cgu_link', class: %w(fr-btn fr-btn--secondary fr-btn--icon-right fr-fi-eye-line), data: { turbo_frame: 'main-modal-content', 'fr-opened': 'false' }, 'aria-controls': 'main-modal' %>
+          <%= link_to t('.cgu.cta'), cgu_path, id: 'cgu_link', class: %w(fr-btn fr-btn--secondary fr-btn--icon-right fr-icon-eye-line), data: { turbo_frame: 'main-modal-content', 'fr-opened': 'false' }, 'aria-controls': 'main-modal' %>
         </p>
 
         <% if @endpoint.custom_provider_errors.any? %>
