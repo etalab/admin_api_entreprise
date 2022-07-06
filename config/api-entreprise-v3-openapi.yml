@@ -434,7 +434,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/urssaf/unites_legales/130025265/attestation_vigilance?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/ademe/etablissements/{siret}/certification_rge":
     get:
-      summary: Certificat RGE
+      summary: Certification RGE
       tags:
       - Certifications professionnelles
       parameters:
@@ -508,9 +508,8 @@ paths:
           type: number
       security:
       - jwt_bearer_token: []
-      description: Obtenir les certifications RGE (Reconnu Garant de l'Environnement)
-        d'un établissement. Seules les certifications valides à la date du jour sont
-        renvoyées.
+      description: Certifications RGE (Reconnu Garant de l'Environnement), d'un établissement,
+        délivrée par l'Ademe.
       responses:
         '401':
           description: Non autorisé
@@ -1305,6 +1304,9 @@ paths:
           curl -X GET \
             -H "Authorization: Bearer $token" \
             --url "https://entreprise.api.gouv.fr/v3/cnetp/unites_legales/130025265/attestation_cotisations_conges_payes_chomage_intemperies?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
+      x-maintenances:
+        from_hour: '06:00'
+        to_hour: '06:30'
   "/v3/douanes/etablissements/{siret_or_eori}/immatriculations_eori":
     get:
       summary: Immatriculation EORI
@@ -1359,9 +1361,9 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: 'État du numéro EORI (Economic Operator Registration and Identification)
-        d''une entreprise permettant de vérifier celle-ci est immatriculée auprès
-        des douanes dans le cadre de l’import/export en Union Européenne.
+      description: 'État du numéro EORI d''une entreprise indiquant si celle-ci est
+        immatriculée auprès des douanes dans le cadre de l’import/export en Union
+        Européenne.
 
         '
       responses:
@@ -3004,8 +3006,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Conventions collectives d’un établissement (identifiant de la convention,
-        lien vers les textes en vigueur, etc.)
+      description: Identifiants des conventions collectives d’un établissement et
+        lien vers les textes en vigueur.
       responses:
         '401':
           description: Non autorisé
@@ -3361,8 +3363,8 @@ paths:
       security:
       - jwt_bearer_token: []
       description: Carte professionnelle d'entrepreneur de travaux publics, délivrée
-        à une entreprise de travaux publics en règle de ses obligations sociales,
-        administratives et juridiques.
+        à une entreprise en règle de ses obligations sociales, administratives et
+        juridiques.
       responses:
         '401':
           description: Non autorisé
@@ -3753,9 +3755,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Obtenir un extrait des données présentes dans le RCS, registre
-        du commerce et des sociétés ; dont les observations qui permettent de savoir
-        si une entreprise est en redressement judiciaire.
+      description: Extrait d'une partie des données du registre du commerce et des
+        sociétés (RCS) ; ainsi que les commentaires laissés par les greffiers.
       responses:
         '401':
           description: Non autorisé
@@ -5037,8 +5038,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: 'Actes d’une entreprise issus des greffes et archivés à l’Institut
-        national de propriété industrielle (INPI).
+      description: 'Actes issus des greffes et archivés à l’Institut national de propriété
+        industrielle (Inpi).
 
         '
       responses:
@@ -5368,11 +5369,17 @@ paths:
         required: true
         schema:
           type: string
+      - name: limit
+        in: query
+        description: Limite le nombre de résultats retournés. Valeur entre 1 et 20
+          (Défaut 5)
+        example: 10
+        schema:
+          type: number
       security:
       - jwt_bearer_token: []
-      description: 'Nombre total des brevets déposés par l''entreprise (lorsque le
-        SIREN a été spécifié) ainsi que des informations sur les brevets les plus
-        récents.
+      description: 'Nombre de brevets déposés par l''entreprise (lorsque le SIREN
+        a été spécifié) et informations sur les brevets les plus récents.
 
         '
       responses:
@@ -5823,11 +5830,17 @@ paths:
         required: true
         schema:
           type: string
+      - name: limit
+        in: query
+        description: Limite le nombre de résultats retournés. Valeur entre 1 et 20
+          (Défaut 5)
+        example: 10
+        schema:
+          type: number
       security:
       - jwt_bearer_token: []
-      description: 'Nombre total des marques déposées par l''entreprise (lorsque le
-        SIREN a été spécifié) ainsi que des informations sur les marques les plus
-        récentes.
+      description: 'Nombre de marques déposées par l''entreprise (lorsque le SIREN
+        a été spécifié) et informations sur les marques les plus récentes.
 
         '
       responses:
@@ -6180,11 +6193,17 @@ paths:
         required: true
         schema:
           type: string
+      - name: limit
+        in: query
+        description: Limite le nombre de résultats retournés. Valeur entre 1 et 20
+          (Défaut 5)
+        example: 10
+        schema:
+          type: number
       security:
       - jwt_bearer_token: []
-      description: 'Nombre total des modèles déposés par l''entreprise (lorsque le
-        SIREN a été spécifié) ainsi que des informations sur les modèles les plus
-        récents.
+      description: 'Nombre de modèles déposés par l''entreprise (lorsque le SIREN
+        a été spécifié) et informations sur les modèles les plus récents.
 
         '
       responses:
@@ -6518,7 +6537,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/inpi/unites_legales/130025265/modeles?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/insee/sirene/etablissements/{siret}/adresse":
     get:
-      summary: Adresse de l'établissement
+      summary: Adresse établissement
       tags:
       - Informations générales
       parameters:
@@ -7065,7 +7084,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/13002526500013/adresse?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/insee/sirene/etablissements/diffusibles/{siret}/adresse":
     get:
-      summary: Adresse d'un établissement diffusible
+      summary: Adresse établissement diffusible
       tags:
       - Informations générales
       parameters:
@@ -7132,7 +7151,7 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Adresse d'un établissement diffusible inscrit au répertoire Sirene."
+      description: Adresse d'un établissement diffusible inscrit au répertoire Sirene.
       responses:
         '401':
           description: Non autorisé
@@ -7611,7 +7630,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/diffusibles/13002526500013/adresse?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/insee/sirene/etablissements/{siret}":
     get:
-      summary: Données de référence d'un établissement
+      summary: Données établissement
       tags:
       - Informations générales
       parameters:
@@ -8077,19 +8096,6 @@ paths:
                               agricole ou ne faisant pas partie du système productif).
                               \n \n Définition de 'catégorie d'entreprise' par l'Insee
                               : https://www.insee.fr/fr/metadonnees/definition/c1057"
-                          numero_tva_intracommunautaire:
-                            title: Numéro de TVA intracommunautaire
-                            type: string
-                            example: FR07130025265
-                            description: "Le numéro de TVA intracommunautaire est
-                              un numéro d’identification individuel attribué aux entreprises
-                              assujetties à la TVA et domiciliées au sein de l’Union
-                              européenne. Le numéro renvoyé par l'API est calculé
-                              par API Entreprise à l'aide du numéro de SIREN, cette
-                              donnée est donc théorique. \n \n Dans le cas où l’établissement
-                              siège est à l’étranger la valeur est systématiquement
-                              'null' \n \n Plus d'informations sur la méthode de calcul
-                              : LIEN TODO"
                           diffusable_commercialement:
                             title: Diffusable commercialement
                             type: boolean
@@ -8307,7 +8313,6 @@ paths:
                         - personne_morale_attributs
                         - personne_physique_attributs
                         - categorie_entreprise
-                        - numero_tva_intracommunautaire
                         - diffusable_commercialement
                         - forme_juridique
                         - activite_principale
@@ -8713,7 +8718,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/13002526500013?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/insee/sirene/etablissements/diffusibles/{siret}":
     get:
-      summary: Données de référence d'un établissement diffusible
+      summary: Données établissement diffusible
       tags:
       - Informations générales
       parameters:
@@ -9178,19 +9183,6 @@ paths:
                               agricole ou ne faisant pas partie du système productif).
                               \n \n Définition de 'catégorie d'entreprise' par l'Insee
                               : https://www.insee.fr/fr/metadonnees/definition/c1057"
-                          numero_tva_intracommunautaire:
-                            title: Numéro de TVA intracommunautaire
-                            type: string
-                            example: FR07130025265
-                            description: "Le numéro de TVA intracommunautaire est
-                              un numéro d’identification individuel attribué aux entreprises
-                              assujetties à la TVA et domiciliées au sein de l’Union
-                              européenne. Le numéro renvoyé par l'API est calculé
-                              par API Entreprise à l'aide du numéro de SIREN, cette
-                              donnée est donc théorique. \n \n Dans le cas où l’établissement
-                              siège est à l’étranger la valeur est systématiquement
-                              'null' \n \n Plus d'informations sur la méthode de calcul
-                              : LIEN TODO"
                           diffusable_commercialement:
                             title: Diffusable commercialement
                             type: boolean
@@ -9408,7 +9400,6 @@ paths:
                         - personne_morale_attributs
                         - personne_physique_attributs
                         - categorie_entreprise
-                        - numero_tva_intracommunautaire
                         - diffusable_commercialement
                         - forme_juridique
                         - activite_principale
@@ -9814,7 +9805,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/diffusibles/13002526500013?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/insee/sirene/unites_legales/diffusibles/{siren}/siege_social":
     get:
-      summary: Données d'un siège social diffusible
+      summary: Données siège social diffusible
       tags:
       - Informations générales
       parameters:
@@ -10280,19 +10271,6 @@ paths:
                               agricole ou ne faisant pas partie du système productif).
                               \n \n Définition de 'catégorie d'entreprise' par l'Insee
                               : https://www.insee.fr/fr/metadonnees/definition/c1057"
-                          numero_tva_intracommunautaire:
-                            title: Numéro de TVA intracommunautaire
-                            type: string
-                            example: FR07130025265
-                            description: "Le numéro de TVA intracommunautaire est
-                              un numéro d’identification individuel attribué aux entreprises
-                              assujetties à la TVA et domiciliées au sein de l’Union
-                              européenne. Le numéro renvoyé par l'API est calculé
-                              par API Entreprise à l'aide du numéro de SIREN, cette
-                              donnée est donc théorique. \n \n Dans le cas où l’établissement
-                              siège est à l’étranger la valeur est systématiquement
-                              'null' \n \n Plus d'informations sur la méthode de calcul
-                              : LIEN TODO"
                           diffusable_commercialement:
                             title: Diffusable commercialement
                             type: boolean
@@ -10510,7 +10488,6 @@ paths:
                         - personne_morale_attributs
                         - personne_physique_attributs
                         - categorie_entreprise
-                        - numero_tva_intracommunautaire
                         - diffusable_commercialement
                         - forme_juridique
                         - activite_principale
@@ -10916,7 +10893,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/insee/sirene/unites_legales/diffusibles/130025265/siege_social?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/insee/sirene/unites_legales/{siren}/siege_social":
     get:
-      summary: Données d'un siège social
+      summary: Données siège social
       tags:
       - Informations générales
       parameters:
@@ -11384,19 +11361,6 @@ paths:
                               agricole ou ne faisant pas partie du système productif).
                               \n \n Définition de 'catégorie d'entreprise' par l'Insee
                               : https://www.insee.fr/fr/metadonnees/definition/c1057"
-                          numero_tva_intracommunautaire:
-                            title: Numéro de TVA intracommunautaire
-                            type: string
-                            example: FR07130025265
-                            description: "Le numéro de TVA intracommunautaire est
-                              un numéro d’identification individuel attribué aux entreprises
-                              assujetties à la TVA et domiciliées au sein de l’Union
-                              européenne. Le numéro renvoyé par l'API est calculé
-                              par API Entreprise à l'aide du numéro de SIREN, cette
-                              donnée est donc théorique. \n \n Dans le cas où l’établissement
-                              siège est à l’étranger la valeur est systématiquement
-                              'null' \n \n Plus d'informations sur la méthode de calcul
-                              : LIEN TODO"
                           diffusable_commercialement:
                             title: Diffusable commercialement
                             type: boolean
@@ -11614,7 +11578,6 @@ paths:
                         - personne_morale_attributs
                         - personne_physique_attributs
                         - categorie_entreprise
-                        - numero_tva_intracommunautaire
                         - diffusable_commercialement
                         - forme_juridique
                         - activite_principale
@@ -12020,7 +11983,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/insee/sirene/unites_legales/130025265/siege_social?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/insee/sirene/unites_legales/{siren}":
     get:
-      summary: Données de référence d'une unité légale
+      summary: Données unité légale
       tags:
       - Informations générales
       parameters:
@@ -12326,18 +12289,6 @@ paths:
                           (unité légale agricole ou ne faisant pas partie du système
                           productif). \n \n Définition de 'catégorie d'entreprise'
                           par l'Insee : https://www.insee.fr/fr/metadonnees/definition/c1057"
-                      numero_tva_intracommunautaire:
-                        title: Numéro de TVA intracommunautaire
-                        type: string
-                        example: FR07130025265
-                        description: "Le numéro de TVA intracommunautaire est un numéro
-                          d’identification individuel attribué aux entreprises assujetties
-                          à la TVA et domiciliées au sein de l’Union européenne. Le
-                          numéro renvoyé par l'API est calculé par API Entreprise
-                          à l'aide du numéro de SIREN, cette donnée est donc théorique.
-                          \n \n Dans le cas où l’établissement siège est à l’étranger
-                          la valeur est systématiquement 'null' \n \n Plus d'informations
-                          sur la méthode de calcul : LIEN TODO"
                       diffusable_commercialement:
                         title: Diffusable commercialement
                         type: boolean
@@ -12546,7 +12497,6 @@ paths:
                     - personne_morale_attributs
                     - personne_physique_attributs
                     - categorie_entreprise
-                    - numero_tva_intracommunautaire
                     - diffusable_commercialement
                     - forme_juridique
                     - activite_principale
@@ -12730,7 +12680,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/insee/sirene/unites_legales/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/insee/sirene/unites_legales/diffusibles/{siren}":
     get:
-      summary: Données de référence d'une unité légale diffusible
+      summary: Données unité légale diffusible
       tags:
       - Informations générales
       parameters:
@@ -13035,18 +12985,6 @@ paths:
                           (unité légale agricole ou ne faisant pas partie du système
                           productif). \n \n Définition de 'catégorie d'entreprise'
                           par l'Insee : https://www.insee.fr/fr/metadonnees/definition/c1057"
-                      numero_tva_intracommunautaire:
-                        title: Numéro de TVA intracommunautaire
-                        type: string
-                        example: FR07130025265
-                        description: "Le numéro de TVA intracommunautaire est un numéro
-                          d’identification individuel attribué aux entreprises assujetties
-                          à la TVA et domiciliées au sein de l’Union européenne. Le
-                          numéro renvoyé par l'API est calculé par API Entreprise
-                          à l'aide du numéro de SIREN, cette donnée est donc théorique.
-                          \n \n Dans le cas où l’établissement siège est à l’étranger
-                          la valeur est systématiquement 'null' \n \n Plus d'informations
-                          sur la méthode de calcul : LIEN TODO"
                       diffusable_commercialement:
                         title: Diffusible commercialement
                         type: boolean
@@ -13257,7 +13195,6 @@ paths:
                     - personne_morale_attributs
                     - personne_physique_attributs
                     - categorie_entreprise
-                    - numero_tva_intracommunautaire
                     - diffusable_commercialement
                     - forme_juridique
                     - activite_principale
@@ -13614,9 +13551,11 @@ paths:
                           example: https://storage.entreprise.api.gouv.fr/siade/1635505765-5cd08405e4163c9f7713447829aeef7284c3283d-document_asso.pdf
                           description: L'URL du fichier
                           type: string
+                          nullable: true
                         expires_in:
                           title: Nombre de secondes avant expiration du lien URL
                           type: integer
+                          nullable: true
                         errors:
                           title: Détail de l'erreur survenue au traitement du fichier
                             (URL fourni par le fournisseur de données invalide, fichier
@@ -14028,6 +13967,7 @@ paths:
                       siret_siege_social:
                         type: string
                         example: '77571979202650'
+                        nullable: true
                       date_creation:
                         type: string
                         example: '1955-01-01'
@@ -14602,7 +14542,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/msa/etablissements/13002526500013/conformite_cotisations?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/opqibi/unites_legales/{siren}/certification_ingenierie":
     get:
-      summary: Certifications Ingénierie
+      summary: Certification d'ingénierie OPQIBI
       tags:
       - Certifications professionnelles
       parameters:
@@ -14643,16 +14583,10 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: |
-        Ce certificat permet de connaitre les qualifications et les qualifications probatoires qu’une entreprise maitrise.
+      description: 'Certification délivrée par l''association OPQIBI, attestant des
+        différentes qualifications d''ingénierie d''une unité légale.
 
-        Au 31 décembre 2019, l’OPQIBI compte 1962 entreprises qualifiées.
-
-        Une qualification atteste de la capacité d’une entreprise d’ingénierie à réaliser une prestation déterminée. Elle est attribuée sur la base de critères légaux, administratifs, juridiques, financiers et techniques (moyens (humains, matériels, méthodologiques) et références).
-
-        Une qualification probatoire est attribuée à une entreprise nouvellement créée ou en cours de diversification qui ne dispose pas encore de référence ou en nombre insuffisant mais satisfait aux critères légaux, administratifs, juridiques et moyens.
-
-        Une entreprise possède au moins une qualification ou une qualification probatoire.
+        '
       responses:
         '401':
           description: Non autorisé
@@ -15413,7 +15347,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/probtp/etablissements/13002526500013/attestation_cotisations_retraite?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/probtp/etablissements/{siret}/conformite_cotisations_retraite":
     get:
-      summary: Conformités vis-à-vis des cotisations retraites
+      summary: Conformités des cotisations retraites
       tags:
       - Attestations sociales et fiscales
       parameters:
@@ -15455,7 +15389,7 @@ paths:
       security:
       - jwt_bearer_token: []
       description: Savoir si une entreprise est à jour de ses cotisations retraite
-        à la Protection Sociale du Bâtiment et des Travaux publics (PROBTP)
+        à la Protection Sociale du Bâtiment et des Travaux publics (PROBTP).
       responses:
         '401':
           description: Non autorisé
@@ -15788,8 +15722,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Certificat délivré par l'association Qualibat, attestant de la
-        **qualification d’une entreprise dans le bâtiment**.
+      description: Certification délivrée par l'association Qualibat, attestant de
+        la qualification d’une entreprise dans le bâtiment.
       responses:
         '401':
           description: Non autorisé
@@ -16181,7 +16115,7 @@ paths:
       security:
       - jwt_bearer_token: []
       description: Informations de référence d'une entreprise artisanale enregistrée
-        au répertoire national des métiers (RNM)
+        au répertoire national des métiers (RNM).
       responses:
         '401':
           description: Non autorisé
