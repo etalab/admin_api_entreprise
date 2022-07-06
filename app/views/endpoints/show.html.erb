@@ -8,6 +8,10 @@
     <div class="fr-col-md-<%= layout_main_bloc %> fr-col-12">
       <p class="fr-text--lead fr-mt-md-2w">
         <%= @endpoint.description %>
+
+        <% if @endpoint.extra_description.present? %>
+          <%= markdown_to_html(@endpoint.extra_description) %>
+        <% end %>
       </p>
     </div>
 
