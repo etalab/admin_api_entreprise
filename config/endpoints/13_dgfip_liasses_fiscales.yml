@@ -2,6 +2,10 @@
 - uid: 'dgfip/liasses_fiscales'
   path: '/v3/dgfip/unites_legales/{siren}/liasses_fiscales/{year}'
   position: 240
+  extra_description: |+
+    {:.fr-alert.fr-alert--error}
+    Cette API est encore en travaux: le dictionnaire sera intégré directement dans les liasses pour éviter d'avoir à appeler 2 API comme sur la V.2.
+
   perimeter:
     entity_type_description: |+
       Cette API délivre les liasses fiscales des entreprises :
@@ -54,7 +58,7 @@
         Pour un même exercice, il y a parfois plusieurs fois le même imprimé : il s'agit de corrections qui ont été apportées par une déclaration ultérieure.
 
         Les déclarations dans la réponse JSON de l'API sont alors triées de l'imprimé le plus récent au plus ancien. Ainsi **le premier imprimé est toujours le plus récent**.
-        
-        
+
+
         {:.fr-highlight.fr-highlight--caution}
-        > La date de déclaration ne vous permet donc pas de distinguer l'imprimé rectificatif de l'imprimé initial car les deux imprimés ont toujours la même date de déclaration. Celle-ci correspond à la date du correctif. 
+        > La date de déclaration ne vous permet donc pas de distinguer l'imprimé rectificatif de l'imprimé initial car les deux imprimés ont toujours la même date de déclaration. Celle-ci correspond à la date du correctif.
