@@ -6,6 +6,7 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
     :parameters,
     :providers,
     :perimeter,
+    :extra_description,
     :data,
     :use_cases,
     :keywords,
