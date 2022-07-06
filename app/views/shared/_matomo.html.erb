@@ -1,0 +1,19 @@
+<% if Rails.application.credentials.matomo_site_id.present? %>
+  <script type="text/javascript">
+    var _paq = window._paq = window._paq || [];
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+
+    var matomo = (function() {
+      var u="//stats.data.gouv.fr/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+          _paq.push(['setSiteId', '<%= Rails.application.credentials.matomo_site_id %>']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+
+    ['turbo:render', 'turbo:load'].forEach(function(e) {
+      document.addEventListener(e, matomo);
+    });
+  </script>
+<% end %>

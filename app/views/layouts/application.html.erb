@@ -23,6 +23,7 @@
     data-algolia-application-id="<%= Rails.application.credentials.algolia_application_id %>"
     data-algolia-search-key="<%= Rails.application.credentials.algolia_search_api_key %>"
   >
+    <%= render partial: 'shared/matomo' %>
     <%= render partial: 'shared/header' %>
 
     <% if content_for?(:no_container) %>
@@ -33,6 +34,5 @@
 
     <%= render partial: 'shared/footer' %>
     <%= render partial: 'shared/modal' %>
-    <%= piwik_tracking_tag %>
   </body>
 </html>

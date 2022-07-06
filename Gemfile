@@ -68,8 +68,6 @@ gem "strscan", "3.0.1"
 
 gem 'listen'
 
-gem "piwik_analytics", "~> 1.0.1"
-
 group :development, :test do
   gem 'awesome_print'
   gem 'colorize'
