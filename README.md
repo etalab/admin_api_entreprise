@@ -17,6 +17,23 @@ installer les paquets et importer les tables de la base de données :
 ./bin/install.sh
 ```
 
+### Via Docker
+
+Installer `Docker` et `docker-compose` (sur Mac tout est
+[ici](https://docs.docker.com/desktop/mac/install/))
+
+Puis:
+
+```sh
+docker-compose up --build
+```
+
+Et pour setup la db:
+
+```sh
+docker-compose exec -e RAILS_ENV=development -e POSTGRES_HOST=db web bundle exec rails db:seed:replant
+```
+
 ## Tests
 
 Pour faire tourner les tests, un navigateur headless est necessaire (au moins
@@ -64,6 +81,8 @@ Dans le cas d'API entreprise, les 2 comptes suivants sont disponibles :
 - user@yopmail.com / user@yopmail.com -> utilisateur normal
 - api-entreprise@yopmail.com / api-entreprise@yopmail.com -> utilisateur admin
 
+### Sans Docker
+
 Pour lancer le server:
 
 ```sh
@@ -77,6 +96,20 @@ Vous pouvez accéder ensuite accéder au site via les adresses suivantes:
 http://localhost:3000/
 # Pour visualiser le site v3
 http://v3-beta.localtest.me:3000/
+```
+
+### Avec Docker
+
+Pour lancer le server:
+
+```sh
+docker-compose up
+```
+
+Vous pouvez accéder ensuite accéder au site via le'adresse suivante:
+
+```
+http://localhost:5000/
 ```
 
 #### Stub des requêtes SIADE en developpement
