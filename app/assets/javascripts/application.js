@@ -3,5 +3,4 @@
 //= require_tree .
 
 //= require utils/table_search
-//= stub utils/generate_anchor_icons
-//= stub utils/auto_open_accordeon
+//= require utils/auto_open_accordeon

@@ -2,6 +2,11 @@ window.addEventListener('load', function() {
   init()
 
   function init() {
+    const accordeons = document.getElementsByClassName('fr-accordion')
+
+    if (accordeons.length == 0)
+      return
+
     if (window.location.hash) {
       const hash = window.location.hash
 
@@ -15,9 +20,8 @@ window.addEventListener('load', function() {
     if (target) {
       const accordeon = target.querySelector('.fr-accordion__btn')
 
-      accordeon.setAttribute('aria-expanded', 'true');
-
       setTimeout(function() {
+        accordeon.setAttribute('aria-expanded', 'true');
         target.scrollIntoView()
       }, 100);
     }
