@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   helper AlgoliaQueryHelper
+
   layout 'no_container', only: %i[home]
 
   def current_status
