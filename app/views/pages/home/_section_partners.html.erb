@@ -4,12 +4,12 @@
       <h3 class="fr-ml-2v fr-col-12"><%= t('.title').html_safe %></h3>
       <p class="fr-ml-2v fr-col-12"><%= t('.subtitle') %></p>
 
-      <div class="providers center">
+      <div class="providers">
         <% @providers.each do |provider| %>
-        <div class="card-provider fr-m-2v fr-pt-2w fr-pr-2w fr-pl-2w">
-          <%= image_tag("providers/#{provider.slug}.png") %>
-          <h5 class="fr-pt-1v fr-pb-1v"><%= provider.name %></h5>
-        </div>
+          <a href="<%= endpoints_with_provider_query_filter_path(provider) %>" target="_blank" class="card-provider fr-m-2v fr-pt-2w fr-pr-2w fr-pl-2w">
+            <%= image_tag("providers/#{provider.slug}.png") %>
+            <h5 class="fr-pt-1v fr-pb-1v center"><%= provider.name %></h5>
+          </a>
         <% end %>
       </div>
 
