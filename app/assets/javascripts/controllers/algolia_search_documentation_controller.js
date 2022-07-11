@@ -6,6 +6,7 @@ document.addEventListener("turbo:load", function () {
       static values = {
         index: String,
         attributesToHighlight: Array,
+        category: String
       };
 
       connect() {
@@ -18,6 +19,9 @@ document.addEventListener("turbo:load", function () {
         if (this.hasAttributesToHighlightValue) {
           this._configureHighlights(search);
         }
+
+        this._configureFacetFilters(search, `category:${this.categoryValue}`)
+
         this._configureSearchBox(search);
 
         search.start();
@@ -66,6 +70,7 @@ document.addEventListener("turbo:load", function () {
       }
 
       _handleHit(controller, hit, entriesInResult) {
+
         var entry = document.querySelector(
           "[data-algolia-search-documentation-hit='" + hit.objectID + "']"
         );
@@ -128,10 +133,18 @@ document.addEventListener("turbo:load", function () {
         );
       }
 
+      _configureFacetFilters(search, facetFilter) {
+        search.addWidget(
+          instantsearch.widgets.configure({
+            facetFilters: [facetFilter]
+          })
+        )
+      }
+
       _configureSearchBox(search) {
         search.addWidget(
           instantsearch.widgets.configure({
-            hitsPerPage: 1000,
+            hitsPerPage: 1000
           })
         );
 
@@ -171,7 +184,7 @@ document.addEventListener("turbo:load", function () {
           ),
           nodeContainerWithAlgoliaCredentials.getAttribute(
             "data-algolia-search-key"
-          ),
+          )
         ];
       }
     }
