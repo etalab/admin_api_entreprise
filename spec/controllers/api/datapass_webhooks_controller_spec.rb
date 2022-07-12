@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe API::DatapassWebhooksController, type: :controller do
-  describe '#create' do
+  describe '#api_entreprise' do
     subject do
-      post :create, params:
+      post :api_entreprise, params:
     end
 
     let(:params) do
@@ -26,8 +26,8 @@ RSpec.describe API::DatapassWebhooksController, type: :controller do
         allow_any_instance_of(HubSignature).to receive(:valid?).and_return(false)
       end
 
-      it 'does not call DatapassWebhook' do
-        expect(DatapassWebhook).not_to receive(:call)
+      it 'does not call DatapassWebhook::APIEntreprise' do
+        expect(DatapassWebhook::APIEntreprise).not_to receive(:call)
 
         subject
       end
@@ -49,7 +49,7 @@ RSpec.describe API::DatapassWebhooksController, type: :controller do
       before do
         allow_any_instance_of(HubSignature).to receive(:valid?).and_return(true)
 
-        allow(DatapassWebhook).to receive(:call).and_return(
+        allow(DatapassWebhook::APIEntreprise).to receive(:call).and_return(
           OpenStruct.new(
             token_id:,
             success?: success
@@ -57,13 +57,13 @@ RSpec.describe API::DatapassWebhooksController, type: :controller do
         )
       end
 
-      it 'calls DatapassWebhook' do
-        expect(DatapassWebhook).to receive(:call)
+      it 'calls DatapassWebhook::APIEntreprise' do
+        expect(DatapassWebhook::APIEntreprise).to receive(:call)
 
         subject
       end
 
-      context 'when DatapassWebhook succeed' do
+      context 'when DatapassWebhook::APIEntreprise succeed' do
         let(:success) { true }
 
         it 'renders 200' do
@@ -93,7 +93,7 @@ RSpec.describe API::DatapassWebhooksController, type: :controller do
         end
       end
 
-      context 'when DatapassWebhook fails' do
+      context 'when DatapassWebhook::APIEntreprise fails' do
         let(:success) { false }
 
         it 'renders 422' do

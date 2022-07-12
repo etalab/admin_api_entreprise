@@ -10,8 +10,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     scope '/admin' do
-      # datapass webhook
-      post '/datapass/webhook' => 'datapass_webhooks#create'
+      post '/datapass/webhook' => 'datapass_webhooks#api_entreprise'
+      post '/datapass/api_entreprise/webhook' => 'datapass_webhooks#api_entreprise'
     end
   end
 

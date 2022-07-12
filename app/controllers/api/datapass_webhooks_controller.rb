@@ -1,8 +1,8 @@
 class API::DatapassWebhooksController < APIController
   before_action :verify_hub_signature!
 
-  def create
-    result = DatapassWebhook.call(**datapass_webhook_params)
+  def api_entreprise
+    result = DatapassWebhook::APIEntreprise.call(**datapass_webhook_params)
 
     if result.success?
       handle_success(result)
