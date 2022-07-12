@@ -30,8 +30,21 @@
   data:
     description: |+
       Cette API délivre :
-      - un **extrait des données** présentes dans le registre du commerce et des sociétés. ⚠️ Il ne s’agit donc pas de la totalité des données présentes sur le Kbis mais d’une partie succincte ;
+      - un **extrait des données** présentes dans le registre du commerce et des sociétés. ⚠️ Cette API n'est pas une réplique exacte d'un Kbis, même si la majorité des données sont présentes.
       - **tous les commentaires laissés par les greffiers**. Ces observations concernent, entre autres, les changements de capital, les transferts de siège, les fusions, les redressements et liquidations judiciaires (si la donnée est publique).
+
+      **Liste des données présentes dans le K-bis et qui ne figurent pas dans cette API&nbsp;:** 
+
+      | Donnée présente dans le K-bis              |   Équivalence sur API Entreprise              |
+      |:-------------------------------------------|:-----------------------------------------------|
+      | Activités principales de l'entreprise      |   Cette API délivre uniquement les activités de l'établissement principal (Code APE et libellé)         |
+      | Informations sur les mandataires sociaux   |   L'information délivrée par cette API est partielle, pour obtenir l'exhaustivité des données disponibles sur les mandataires sociaux, dont le lieu de naissance, nous vous recommandons d'interroger l'[API Mandataires sociaux - Infogreffe](<%= endpoint_path(uid: '/infogreffe/mandataires_sociaux') %>).    |
+      | Date de commencement de l'activité         |   ❌ Cette date n'est pas disponible sur API Entreprise. Une autre date, la date de création de l'établissement est accessible depuis l'[API Établissements - Insee](<%= endpoint_path(uid: '/insee/etablissements') %>).    |
+      | Référence des autorisations obligatoires pour les professions réglementées     |   ❌ Ces informations ne sont pas disponibles sur API Entreprise      |
+      | Capital variable (minimum)<br/>_donnée parfois disponible sur le K-Bis_    |   ❌ Cette information n'est pas disponible sur API Entreprise.<br/>Le capital, tout court, est néanmoins disponible.      |
+      | Date de clôture du 1er exercice social <br/>_donnée parfois disponible sur le K-Bis_    |   ❌ Cette information n'est pas disponible sur API Entreprise.<br/>La date de clôture de l'exercice social est toutefois disponible.   |
+      
+      
   opening: public
   use_cases:
     - Marchés publics
