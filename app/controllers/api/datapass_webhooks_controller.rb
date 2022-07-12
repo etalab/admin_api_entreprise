@@ -2,7 +2,17 @@ class API::DatapassWebhooksController < APIController
   before_action :verify_hub_signature!
 
   def api_entreprise
-    result = DatapassWebhook::APIEntreprise.call(**datapass_webhook_params)
+    handle_api('api_entreprise')
+  end
+
+  def api_particulier
+    handle_api('api_particulier')
+  end
+
+  private
+
+  def handle_api(kind)
+    result = DatapassWebhook.const_get(kind.classify).call(**datapass_webhook_params)
 
     if result.success?
       handle_success(result)
@@ -10,8 +20,6 @@ class API::DatapassWebhooksController < APIController
       render json: {}, status: :unprocessable_entity
     end
   end
-
-  private
 
   def handle_success(result)
     if event == 'validate_application'

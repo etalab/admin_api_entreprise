@@ -1,22 +1,22 @@
 require 'rails_helper'
 
 RSpec.describe API::DatapassWebhooksController, type: :controller do
+  let(:params) do
+    {
+      'event' => event,
+      'model_type' => 'Pass',
+      'fired_at' => Time.now.to_i.to_s,
+      'data' => {
+        'pass' => {
+          'id' => '9001'
+        }
+      }
+    }
+  end
+
   describe '#api_entreprise' do
     subject do
       post :api_entreprise, params:
-    end
-
-    let(:params) do
-      {
-        'event' => event,
-        'model_type' => 'Pass',
-        'fired_at' => Time.now.to_i.to_s,
-        'data' => {
-          'pass' => {
-            'id' => '9001'
-          }
-        }
-      }
     end
 
     let(:event) { 'refused' }
@@ -100,6 +100,45 @@ RSpec.describe API::DatapassWebhooksController, type: :controller do
           subject
 
           expect(response.code).to eq('422')
+        end
+      end
+    end
+  end
+
+  describe '#api_particulier' do
+    subject do
+      post :api_particulier, params:
+    end
+
+    describe 'happy path, on validation' do
+      let(:event) { 'validate_application' }
+      let(:token_id) { 'token id' }
+      let(:success) { true }
+
+      before do
+        allow_any_instance_of(HubSignature).to receive(:valid?).and_return(true)
+
+        allow(DatapassWebhook::APIParticulier).to receive(:call).and_return(
+          OpenStruct.new(
+            token_id:,
+            success?: true
+          )
+        )
+      end
+
+      it 'renders 200' do
+        subject
+
+        expect(response.code).to eq('200')
+      end
+
+      context 'when event is validate_application' do
+        let(:event) { 'validate_application' }
+
+        it 'renders a json with a token id' do
+          subject
+
+          expect(JSON.parse(response.body)['token_id']).to eq(token_id)
         end
       end
     end
