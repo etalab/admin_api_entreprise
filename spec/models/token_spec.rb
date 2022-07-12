@@ -29,6 +29,14 @@ RSpec.describe Token, type: :model do
     end
   end
 
+  describe '#api' do
+    subject { token.api }
+
+    let(:token) { create(:token, :api_entreprise_scopes) }
+
+    it { is_expected.to eq('entreprise') }
+  end
+
   describe '.issued_in_last_seven_days' do
     subject { described_class }
 
