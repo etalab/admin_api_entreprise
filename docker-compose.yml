@@ -2,8 +2,6 @@ version: '3'
 services:
   db:
     image: postgres:12.4
-    ports:
-      - "5432:5432"
     environment:
       - POSTGRES_USER=admin_apientreprise
       - POSTGRES_PASSWORD=wow*verysecret
@@ -14,8 +12,6 @@ services:
   redis:
     image: 'redis:6.0-alpine'
     command: redis-server
-    ports:
-      - '6379:6379'
   web:
     build: .
     command: bin/rails server --port 5000 --binding 0.0.0.0
