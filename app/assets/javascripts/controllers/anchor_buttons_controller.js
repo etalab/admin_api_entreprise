@@ -11,7 +11,7 @@ document.addEventListener("turbo:load", function () {
     "anchor-buttons",
     class extends window.StimulusController {
 
-      connect() {
+      initialize() {
         const bigTitles = document.querySelectorAll("h1, h2, h3, section")
         let controller = this
 
