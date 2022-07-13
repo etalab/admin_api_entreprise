@@ -1,8 +1,9 @@
-function copyAnchor(anchor) {
+function copyAnchor(self) {
   const pageURLNoAnchor = document.URL.replace(/#.*$/, "")
-  const pageURLWithAnchor = pageURLNoAnchor + '#' + anchor
+  const pageURLWithAnchor = pageURLNoAnchor + '#' + self.id
 
   navigator.clipboard.writeText(pageURLWithAnchor)
+    .then(addTooltip(self.id, 'Lien copié !'));
 }
 
 document.addEventListener("turbo:load", function () {
@@ -32,11 +33,12 @@ document.addEventListener("turbo:load", function () {
 
       _buildAnchorCopyButton(id) {
         const anchorCopyButton = document.createElement('span');
-        const copyFunctionString = `copyAnchor("${id}");`
 
         anchorCopyButton.classList.add('fr-icon-links-line', 'fr-copy-anchor-btn');
+        anchorCopyButton.setAttribute('id', `button-anchor-${id}`)
         anchorCopyButton.setAttribute('aria-hidden', 'true');
 
+        const copyFunctionString = `copyAnchor(this);`
         anchorCopyButton.setAttribute("onclick", copyFunctionString);
 
         return anchorCopyButton;
