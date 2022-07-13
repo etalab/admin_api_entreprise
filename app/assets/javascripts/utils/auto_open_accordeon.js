@@ -20,10 +20,12 @@ window.addEventListener('load', function() {
     if (target) {
       const accordeon = target.querySelector('.fr-accordion__btn')
 
-      setTimeout(function() {
-        accordeon.setAttribute('aria-expanded', 'true');
-        target.scrollIntoView()
-      }, 100);
+      if (accordeon) {
+        setTimeout(function() {
+          accordeon.setAttribute('aria-expanded', 'true');
+          target.scrollIntoView()
+        }, 100);
+      }
     }
   }
 })
