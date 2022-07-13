@@ -50,6 +50,10 @@ class StatusPage
   end
 
   def redis
-    @redis ||= Redis.new(host: 'localhost', post: 6379, db: 0)
+    @redis ||= Redis.new(host: redis_host, post: 6379, db: 0)
+  end
+
+  def redis_host
+    ENV.fetch('REDIS_HOST') { 'localhost' }
   end
 end

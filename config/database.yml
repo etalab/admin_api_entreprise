@@ -25,7 +25,7 @@ default: &default
 
 development:
   <<: *default
-  host: localhost
+  host: <%= ENV.fetch("POSTGRES_HOST") { 'localhost' } %>
   database: admin_apientreprise_development
 
   # The specified database role being used to connect to postgres.
