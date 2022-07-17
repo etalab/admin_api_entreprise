@@ -10,10 +10,12 @@
   </div>
 
   <ul class="fr-tags-group fr-mt-2w">
-    <% @endpoint.use_cases.each do |use_case| %>
-      <li class="fr-mb-1w fr-tag">
-        <%= use_case %>
-      </li>
+    <% if @endpoint.use_cases %>
+      <% @endpoint.use_cases.each do |use_case| %>
+        <li class="fr-mb-1w fr-tag">
+          <%= use_case %>
+        </li>
+      <% end %>
     <% end %>
   </ul>
 </div>
