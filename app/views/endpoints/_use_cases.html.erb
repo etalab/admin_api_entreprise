@@ -1,21 +1,39 @@
 <% extra_classes ||= '' %>
 
 <div class="details <%= extra_classes %>">
-  <h3 id="<%= id %>">
-    <%= t('.title') %>
-  </h3>
+  <% if @endpoint.use_cases %>
+    <h3 id="<%= id %>">
+      <%= t('.main.title') %>
+    </h3>
 
-  <div>
-    <%= t('.description') %>
-  </div>
+    <div>
+      <%= t('.main.description') %>
+    </div>
 
-  <ul class="fr-tags-group fr-mt-2w">
-    <% if @endpoint.use_cases %>
+    <ul class="fr-tags-group fr-mt-2w">
       <% @endpoint.use_cases.each do |use_case| %>
         <li class="fr-mb-1w fr-tag">
           <%= use_case %>
         </li>
       <% end %>
-    <% end %>
-  </ul>
+    </ul>
+  <% end %>
+
+  <% if @endpoint.use_cases_optional %>
+    <h3 id="optional_<%= id %>">
+      <%= t('.optional.title') %>
+    </h3>
+
+    <div>
+      <%= t('.optional.description') %>
+    </div>
+
+    <ul class="fr-tags-group fr-mt-2w">
+      <% @endpoint.use_cases_optional.each do |use_case| %>
+        <li class="fr-mb-1w fr-tag">
+          <%= use_case %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
 </div>
