@@ -14,13 +14,15 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
     :opening
 
   algoliasearch_active_model do
-    attributes :title, :description, :providers, :keywords
+    attributes :title, :description, :providers, :keywords, :use_cases, :use_cases_optional
 
     searchableAttributes %w[
       title
       description
       providers
       keywords
+      use_cases
+      use_cases_optional
     ]
   end
 
