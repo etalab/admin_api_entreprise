@@ -1,5 +1,5 @@
 <div id="documentation" class="fr-container--fluid fr-mb-1v">
-  <div class="fr-grid-row" <%= params[:disable_search].blank? ? 'data-controller=algolia-search-documentation' : '' %> data-algolia-search-documentation-index-value="DocumentationEntry" data-algolia-search-documentation-attributes-to-highlight-value='["title", "content_markdownify"]' data-algolia-search-documentation-category-value="<%= controller.action_name %>" >
+  <div class="fr-grid-row" <%= params[:disable_search].blank? ? 'data-controller=algolia-search-documentation' : '' %> data-algolia-search-documentation-index-value='["DocumentationEntry", "DocumentationEntrySection"]' data-algolia-search-documentation-attributes-to-highlight-value='["title", "introduction_markdown", "subtitle", "content_markdown"]' data-algolia-search-documentation-page-value="<%= controller.action_name %>" >
     <div class="fr-col-12 fr-col-sm-12 fr-col-md-3 fr-col-lg-3 fr-col-xl-3">
       <%= render 'menu' %>
     </div>
@@ -24,12 +24,24 @@
         <% @documentation_entries.each do |entry| %>
           <div data-algolia-search-documentation-hit="<%= dom_id(entry) %>" id="<%= entry.id %>">
             <h2 data-algolia-search-documentation-hit-attribute="title" id="<%= entry.anchor %>">
-              <%= entry&.title.html_safe %>
+              <%= entry.title.html_safe %>
             </h2>
-            <div data-algolia-search-documentation-hit-attribute="content_markdownify" id="<%= dom_id(entry, :content) %>">
-              <%= raw entry.content_markdownify %>
-            </div>
+            <% if entry.introduction %>
+              <p data-algolia-search-documentation-hit-attribute="introduction_markdown" >
+                <%= entry.introduction_markdown.html_safe %>
+              </p>
+            <% end %>
           </div>
+          <% entry.sections.each do |section| %>
+            <div data-algolia-search-documentation-hit="<%= dom_id(section) %>" id="<%= section.id %>">
+              <h3 data-algolia-search-documentation-hit-attribute="subtitle" id="<%= section.subtitle_anchor %>">
+                <%= section.subtitle.html_safe %>
+              </h3>
+              <div data-algolia-search-documentation-hit-attribute="content_markdown" id="<%= dom_id(section, :content) %>">
+                <%= section.content_markdown.html_safe %>
+              </div>
+            </div>
+          <% end %>
         <% end %>
       </div>
     </div>

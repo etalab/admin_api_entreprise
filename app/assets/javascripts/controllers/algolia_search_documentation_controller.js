@@ -4,9 +4,9 @@ document.addEventListener("turbo:load", function () {
     class extends window.StimulusController {
       static targets = ["searchBox"];
       static values = {
-        index: String,
+        index: Array,
         attributesToHighlight: Array,
-        category: String
+        page: String
       };
 
       connect() {
@@ -16,11 +16,13 @@ document.addEventListener("turbo:load", function () {
 
         var search = this._createInstantSearchInstance();
 
+        this._addSecondSearch(search);
+
         if (this.hasAttributesToHighlightValue) {
           this._configureHighlights(search);
         }
 
-        this._configureFacetFilters(search, `category:${this.categoryValue}`)
+        this._configureFacetFilters(search, `page:${this.pageValue}`)
 
         this._configureSearchBox(search);
 
@@ -48,17 +50,25 @@ document.addEventListener("turbo:load", function () {
         };
 
         return window.instantsearch({
-          indexName: this.indexValue,
+          indexName: this.indexValue[1],
           searchClient,
           routing: true,
         });
+      }
+
+      _addSecondSearch(search) {
+        search.addWidgets([
+          instantsearch.widgets.index({ indexName: this.indexValue[0] })
+        ]);
       }
 
       _updateResults(controller, event) {
         var entriesInResult = [];
         var query = event.results[0].query;
 
-        event.results[0].hits.forEach(function (hit) {
+        var hits = event.results[0].hits.concat(event.results[1].hits)
+
+        hits.forEach(function (hit) {
           entriesInResult = controller._handleHit(
             controller,
             hit,
@@ -70,7 +80,6 @@ document.addEventListener("turbo:load", function () {
       }
 
       _handleHit(controller, hit, entriesInResult) {
-
         var entry = document.querySelector(
           "[data-algolia-search-documentation-hit='" + hit.objectID + "']"
         );

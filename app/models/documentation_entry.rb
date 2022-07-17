@@ -3,19 +3,19 @@
 class DocumentationEntry < ApplicationAlgoliaSearchableActiveModel
   include ActiveModel::Model
 
-  attr_accessor :section, :title, :content, :anchor, :category
+  attr_accessor :title, :introduction, :sections, :anchor, :page
 
   algoliasearch_active_model do
-    attributes :section, :title, :content_markdownify, :category
+    attributes :title, :introduction_markdown, :sections, :page
 
     searchableAttributes %w[
-      section
       title
-      content_markdownify
+      introduction_markdown
+      sections
     ]
 
     attributesForFaceting %w[
-      category
+      page
     ]
   end
 
@@ -28,18 +28,26 @@ class DocumentationEntry < ApplicationAlgoliaSearchableActiveModel
   end
 
   def self.developers
-    I18n.t('documentation_entries.sections.developers').map do |entry|
-      new(title: entry[:title], content: entry[:content], anchor: entry[:anchor], category: 'developers')
-    end
+    build_from_yaml('developers')
   end
 
   def self.guide_migration
-    I18n.t('documentation_entries.sections.guide_migration').map do |entry|
-      new(title: entry[:title], content: entry[:content], anchor: entry[:anchor], category: 'guide_migration')
+    build_from_yaml('guide_migration')
+  end
+
+  def self.build_from_yaml(page)
+    I18n.t("documentation_entries.pages.#{page}").map do |entry|
+      new(
+        title: entry[:title],
+        introduction: entry[:introduction] || '',
+        sections: entry[:sections]&.map { |section| DocumentationEntrySection.new(section, page) } || [],
+        anchor: entry[:anchor],
+        page:
+      )
     end
   end
 
-  def content_markdownify
-    MarkdownInterpolator.new(content).perform
+  def introduction_markdown
+    MarkdownInterpolator.new(introduction).perform
   end
 end
