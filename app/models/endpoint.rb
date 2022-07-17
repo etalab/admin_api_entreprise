@@ -9,6 +9,7 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
     :extra_description,
     :data,
     :use_cases,
+    :use_cases_optional,
     :keywords,
     :opening
 
