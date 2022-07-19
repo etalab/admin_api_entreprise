@@ -9,10 +9,11 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
 
   namespace :api do
+    post '/datapass/api_entreprise/webhook' => 'datapass_webhooks#api_entreprise'
+    post '/datapass/api_particulier/webhook' => 'datapass_webhooks#api_particulier'
+
     scope '/admin' do
       post '/datapass/webhook' => 'datapass_webhooks#api_entreprise'
-      post '/datapass/api_entreprise/webhook' => 'datapass_webhooks#api_entreprise'
-      post '/datapass/api_particulier/webhook' => 'datapass_webhooks#api_particulier'
     end
   end
 
