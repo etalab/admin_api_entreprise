@@ -1,11 +1,19 @@
 <div class="fr-header__menu fr-modal" id="modal-header-menu" aria-labelledby="fr-btn-menu-mobile-1">
+  <div class="fr-notice fr-notice--info">
+    <div class="fr-container">
+      <div class="fr-notice__body">
+        <p class="fr-notice__title">
+          <%= t('.banner_migration', date: OpenBureauDate.new.next_date_with_time).html_safe %>
+        </p>
+      </div>
+    </div>
+  </div>
   <div class="fr-container">
     <button class="fr-link--close fr-link" aria-controls="modal-header-menu">
       Fermer
     </button>
 
     <div class="fr-header__menu-links"></div>
-
     <% if main_site? %>
       <nav class="fr-nav" id="navigation-header-menu" role="navigation" aria-label="Menu principal">
         <ul class="fr-nav__list">
