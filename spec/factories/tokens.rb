@@ -108,5 +108,15 @@ FactoryBot.define do
       magic_link_token { 'mUchmaGicWOW' }
       magic_link_issuance_date { Time.zone.now }
     end
+
+    trait :api_entreprise_scopes do
+      transient do
+        scopes_count { 1 }
+      end
+
+      scopes do
+        build_list(:scope, scopes_count, api: :entreprise)
+      end
+    end
   end
 end

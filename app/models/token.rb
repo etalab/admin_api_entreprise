@@ -49,6 +49,10 @@ class Token < ApplicationRecord
     )
   end
 
+  def api
+    scopes.first.api
+  end
+
   def self.default_create_params
     {
       iat: Time.zone.now.to_i,
