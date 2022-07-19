@@ -12,6 +12,7 @@ FactoryBot.define do
     end
 
     transient do
+      extra_data { {} }
       demandeur_attributes { nil }
       authorization_request_attributes { nil }
     end
@@ -26,6 +27,8 @@ FactoryBot.define do
 
         datapass_webhook['data']['pass']['team_members'] << build(:datapass_webhook_team_member_model, evaluator.demandeur_attributes.merge(type: 'demandeur'))
       end
+
+      datapass_webhook['data'].merge!(evaluator.extra_data)
     end
   end
 
