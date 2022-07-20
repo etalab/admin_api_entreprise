@@ -1,6 +1,6 @@
 function copyAnchor(self) {
   const pageURLNoAnchor = document.URL.replace(/#.*$/, "")
-  const pageURLWithAnchor = pageURLNoAnchor + '#' + self.id
+  const pageURLWithAnchor = pageURLNoAnchor + '#' + self.id.replace('button-anchor-', '')
 
   navigator.clipboard.writeText(pageURLWithAnchor)
     .then(addTooltip(self.id, 'Lien copié !'));
