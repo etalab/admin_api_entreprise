@@ -10,9 +10,12 @@ document.addEventListener("turbo:load", function () {
   window.Stimulus.register(
     "anchor-buttons",
     class extends window.StimulusController {
+      static values = {
+        tags: Array
+      }
 
       initialize() {
-        const bigTitles = document.querySelectorAll("h1, h2, h3, section")
+        const bigTitles = document.querySelectorAll(this.tagsValue)
         let controller = this
 
         bigTitles.forEach(function(title) {

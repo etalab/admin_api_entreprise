@@ -37,7 +37,7 @@
         </nav>
       </div>
 
-      <div class="fr-col-12 fr-col-sm-8 fr-col-md-9" data-controller='anchor-buttons'>
+      <div class="fr-col-12 fr-col-sm-8 fr-col-md-9" data-controller="anchor-buttons" data-anchor-buttons-tags-value='["h1", "h2", "h3", "section"]'>
         <% @faq_entries_grouped_by_categories.each do |category_name, faq_entries| %>
           <h2 id="<%= category_name.parameterize %>" class="fr-mt-4w">
             <%= category_name %>
@@ -64,4 +64,3 @@
     </div>
   </div>
 </div>
-
