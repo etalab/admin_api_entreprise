@@ -27,14 +27,8 @@ Concernant le CSS:
 
 Concernant le js:
 
-1. Remplacer le fichier `app/assets/javascripts/dsfr.nomodule.js` par le fichier
+1. Remplacer le fichier `app/assets/javascripts/dsfr.module.js` par le fichier
    du même nom dans `dist/dsfr`
-2. Wrapper l'ensemble du code dans le callback suivant:
-   ```js
-   document.addEventListener("turbo:load", function () {
-     // Le code ici
-   });
-   ```
 
 Concernant les icônes:
 
