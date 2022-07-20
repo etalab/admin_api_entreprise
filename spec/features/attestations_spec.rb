@@ -148,5 +148,29 @@ RSpec.describe 'User attestations through tokens', type: :feature do
         expect(page).to have_css('#error-401')
       end
     end
+
+    context 'when siren errors on attestation sociale' do
+      let(:token) { 'Token with scopes: ["attestations_fiscales"]' }
+
+      before do
+        allow(siade_double).to receive(:entreprises).and_return(payload_entreprise)
+        allow(siade_double).to receive(:attestations_fiscales).and_return(payload_attestation_fiscale)
+        allow(siade_double).to receive(:attestations_sociales).and_raise(SiadeClientError.new(401, '401 Unauthorized'))
+        search
+      end
+
+      it 'regression test: allows to download attestation fiscale' do
+        expect(page).to have_link('attestation-fiscale-download',
+          href: 'http://entreprise.api.gouv.fr/uploads/attestation_fiscale.pdf')
+      end
+
+      it 'shows error' do
+        expect(page).to have_css('#error-401')
+      end
+
+      it 'doesnt allow to download attestation sociale' do
+        expect(page).not_to have_link('attestation-sociale-download')
+      end
+    end
   end
 end
