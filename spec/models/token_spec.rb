@@ -32,7 +32,7 @@ RSpec.describe Token, type: :model do
   describe '#api' do
     subject { token.api }
 
-    let(:token) { create(:token, :api_entreprise_scopes) }
+    let(:token) { create(:token, :api_entreprise) }
 
     it { is_expected.to eq('entreprise') }
   end

@@ -109,7 +109,7 @@ FactoryBot.define do
       magic_link_issuance_date { Time.zone.now }
     end
 
-    trait :api_entreprise_scopes do
+    trait :api_entreprise do
       transient do
         scopes_count { 1 }
       end
