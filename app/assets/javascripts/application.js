@@ -3,3 +3,5 @@
 //= require_tree .
 
 //= require utils/table_search
+//= require utils/auto_open_accordeon
+//= require utils/tooltip
