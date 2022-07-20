@@ -118,5 +118,15 @@ FactoryBot.define do
         build_list(:scope, scopes_count, api: :entreprise)
       end
     end
+
+    trait :api_particulier do
+      transient do
+        scopes_count { 1 }
+      end
+
+      scopes do
+        build_list(:scope, scopes_count, api: :particulier)
+      end
+    end
   end
 end

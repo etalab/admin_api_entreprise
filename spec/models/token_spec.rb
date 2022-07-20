@@ -7,6 +7,15 @@ RSpec.describe Token, type: :model do
     expect(build(:token)).to be_valid
   end
 
+  describe '.valid_for scope' do
+    subject { described_class.valid_for('entreprise') }
+
+    let!(:api_entreprise_token) { create(:token, :api_entreprise, scopes_count: 2) }
+    let!(:api_particulier_token) { create(:token, :api_particulier, scopes_count: 2) }
+
+    it { is_expected.to contain_exactly(api_entreprise_token) }
+  end
+
   describe '#generate_magic_link_token' do
     let(:token) { create(:token) }
 
