@@ -1,9 +1,6 @@
 class TokenController < AuthenticatedUsersController
   def index
-    @tokens = current_user.tokens
-      .unexpired
-      .not_blacklisted
-      .where(archived: false)
+    @tokens = current_user.tokens.valid_for('entreprise')
   end
 
   def show
