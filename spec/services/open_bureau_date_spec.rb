@@ -2,22 +2,26 @@ require 'rails_helper'
 
 RSpec.describe OpenBureauDate, type: :service do
   describe '#next' do
-    subject { described_class.new.next_date }
+    subject { described_class.new.next_date.to_s }
 
-    before do
-      Timecop.freeze(Date.new(2021, 9, 10))
+    context 'when date is the third tuesday of the month' do
+      before do
+        Timecop.freeze(Date.new(2021, 9, 10))
+      end
+
+      let(:next_date) { Date.new(2021, 9, 21) }
+
+      it { is_expected.to eq(next_date.to_s) }
     end
 
-    it { is_expected.to eq('21/09/2021') }
-  end
+    context 'when date is the first tuesday of the month' do
+      before do
+        Timecop.freeze(Date.new(2021, 9, 1))
+      end
 
-  describe '#next_with_time' do
-    subject { described_class.new.next_date_with_time }
+      let(:next_date) { Date.new(2021, 9, 7) }
 
-    before do
-      Timecop.freeze(Date.new(2023, 12, 30))
+      it { is_expected.to eq(next_date.to_s) }
     end
-
-    it { is_expected.to eq('02/01/2024 à 10 heures') }
   end
 end

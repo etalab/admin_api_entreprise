@@ -3,7 +3,7 @@
     <div class="fr-container">
       <div class="fr-notice__body">
         <p class="fr-notice__title">
-          <%= t('.banner_migration', date: OpenBureauDate.new.next_date_with_time).html_safe %>
+          <%= t('.banner_migration', date: OpenBureauDate.new.next_date.strftime('%d/%m/%Y')).html_safe %>
         </p>
       </div>
     </div>
