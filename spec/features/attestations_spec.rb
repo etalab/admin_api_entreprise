@@ -3,13 +3,18 @@ require 'rails_helper'
 RSpec.describe 'User attestations through tokens', type: :feature do
   include_context 'with siade payloads'
 
+  let(:invalid_token_intitule) { 'Token with another scope' }
+  let(:api_entreprise_scope) { create(:scope, name: 'whatever', code: 'whatever', api: 'entreprise') }
+
   describe 'token selection menu' do
     subject(:visit_attestations) { visit attestations_path }
 
-    let(:user) { create :user }
+    let(:user) { create(:user) }
 
     before do
       login_as(user)
+      create(:token, user:, scopes: [api_entreprise_scope], intitule: invalid_token_intitule)
+
       visit_attestations
     end
 
@@ -32,7 +37,7 @@ RSpec.describe 'User attestations through tokens', type: :feature do
         expect(scopes_selected_token.count).to eq(2)
       end
 
-      it 'select list has 2 options' do
+      it 'has 2 options, which are tokens linked to api entreprise' do
         expect(page.all('select#token option').count).to eq(2)
       end
     end
@@ -47,12 +52,14 @@ RSpec.describe 'User attestations through tokens', type: :feature do
       click_button('search')
     end
 
-    before { allow(Siade).to receive(:new).and_return(siade_double) }
+    before do
+      allow(Siade).to receive(:new).and_return(siade_double)
+      create(:token, user:, scopes: [api_entreprise_scope], intitule: invalid_token_intitule)
+    end
 
     let(:siade_double) { instance_double(Siade) }
     let(:user) { create(:user, :with_token, scopes: ['attestations_fiscales']) }
     let(:siren) { siren_valid }
-    let(:token) { 'Token with no scopes' }
 
     context 'when user search a valid siren' do
       let(:token) { 'Token with scopes: ["attestations_fiscales"]' }
@@ -69,7 +76,7 @@ RSpec.describe 'User attestations through tokens', type: :feature do
       end
 
       context 'when selected token have no attestation scopes' do
-        let(:token) { 'Token with no scopes' }
+        let(:token) { invalid_token_intitule }
 
         it 'doesnt show attestations download links' do
           expect(page).not_to have_link('attestation-sociale-download')
@@ -104,6 +111,8 @@ RSpec.describe 'User attestations through tokens', type: :feature do
     end
 
     context 'when user search an invalid siren' do
+      let(:token) { invalid_token_intitule }
+
       before do
         allow(siade_double).to receive(:entreprises).and_raise(SiadeClientError.new(422, '422 Unprocessable Entity'))
         search
@@ -115,6 +124,8 @@ RSpec.describe 'User attestations through tokens', type: :feature do
     end
 
     context 'when user search a siren not found' do
+      let(:token) { invalid_token_intitule }
+
       before do
         allow(siade_double).to receive(:entreprises).and_raise(SiadeClientError.new(404, '404 Not Found'))
         search
@@ -126,6 +137,8 @@ RSpec.describe 'User attestations through tokens', type: :feature do
     end
 
     context 'when user choose a token which is unauthorized' do
+      let(:token) { invalid_token_intitule }
+
       before do
         allow(siade_double).to receive(:entreprises).and_raise(SiadeClientError.new(401, '401 Unauthorized'))
         search

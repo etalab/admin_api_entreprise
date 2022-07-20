@@ -54,7 +54,6 @@ FactoryBot.define do
           user: u,
           intitule: "Token with scopes: #{evaluator.scopes}"
         )
-        create(:token, :with_contacts, user: u, intitule: 'Token with no scopes')
       end
     end
 

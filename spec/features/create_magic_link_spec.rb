@@ -9,7 +9,7 @@ RSpec.describe 'create a magic link', type: :feature do
     end
   end
 
-  let(:token) { create(:token) }
+  let(:token) { create(:token, :api_entreprise) }
 
   before { login_as(user) }
 
