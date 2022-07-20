@@ -1,19 +1,53 @@
 # frozen_string_literal: true
 
-class DocumentationEntry
+class DocumentationEntry < ApplicationAlgoliaSearchableActiveModel
   include ActiveModel::Model
 
-  attr_accessor :section, :title, :content, :anchor
+  attr_accessor :title, :introduction, :sections, :anchor, :page
+
+  algoliasearch_active_model do
+    attributes :title, :introduction_markdown, :sections, :page
+
+    searchableAttributes %w[
+      title
+      introduction_markdown
+      sections
+    ]
+
+    attributesForFaceting %w[
+      page
+    ]
+  end
+
+  def self.all
+    developers + guide_migration
+  end
+
+  def id
+    anchor
+  end
 
   def self.developers
-    I18n.t('documentation_entries.sections.developers').map { |entry| new(title: entry[:title], content: entry[:content], anchor: entry[:anchor]) }
+    build_from_yaml('developers')
   end
 
   def self.guide_migration
-    I18n.t('documentation_entries.sections.guide_migration').map { |entry| new(title: entry[:title], content: entry[:content], anchor: entry[:anchor]) }
+    build_from_yaml('guide_migration')
   end
 
-  def content_markdownify
-    MarkdownInterpolator.new(content).perform
+  def self.build_from_yaml(page)
+    I18n.t("documentation_entries.pages.#{page}").map do |entry|
+      new(
+        title: entry[:title],
+        introduction: entry[:introduction] || '',
+        sections: entry[:sections]&.map { |section| DocumentationEntrySection.new(section, page) } || [],
+        anchor: entry[:anchor],
+        page:
+      )
+    end
+  end
+
+  def introduction_markdown
+    MarkdownInterpolator.new(introduction).perform
   end
 end
