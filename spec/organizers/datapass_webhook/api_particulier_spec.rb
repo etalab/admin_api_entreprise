@@ -5,7 +5,13 @@ require 'rails_helper'
 RSpec.describe DatapassWebhook::APIParticulier, type: :interactor do
   subject { described_class.call(datapass_webhook_params) }
 
-  let(:datapass_webhook_params) { build(:datapass_webhook, event: 'validate_application', authorization_request_attributes: { scopes: { 'cnaf_quotient_familial' => true } }, extra_data: { 'external_token_id' => legacy_token_id }) }
+  let(:datapass_webhook_params) { build(:datapass_webhook, event: 'validate_application', authorization_request_attributes: { scopes: { 'cnaf_quotient_familial' => true }, team_members: team_members_payload }, extra_data: { 'external_token_id' => legacy_token_id }) }
+  let(:team_members_payload) do
+    [
+      build(:datapass_webhook_team_member_model, type: 'demandeur'),
+      build(:datapass_webhook_team_member_model, type: 'responsable_technique')
+    ]
+  end
   let(:legacy_token_id) { 'over-9000' }
 
   before do

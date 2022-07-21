@@ -19,8 +19,11 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
   end
 
   def create_or_update_contact(from_kind, to_kind)
-    contact = context.authorization_request.public_send("contact_#{to_kind}") || context.authorization_request.public_send("build_contact_#{to_kind}")
     contact_payload = contact_payload_for(from_kind)
+
+    return if contact_payload.blank?
+
+    contact = context.authorization_request.public_send("contact_#{to_kind}") || context.authorization_request.public_send("build_contact_#{to_kind}")
 
     contact.assign_attributes(
       last_name: contact_payload['family_name'],
