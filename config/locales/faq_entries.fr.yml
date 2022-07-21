@@ -375,7 +375,7 @@ fr:
 
               Si l'incident n'est pas repertorié, et que le service API Entreprise semble soudainement rejeter toutes vos requêtes, il est probable que vous ayez effectué un trop grand nombre d'appels et que vous ayez été bannis momentanément.
 
-              En cas de dépassement de la [volumétrie autorisée](<%= root_path %>), et pour des raisons de sécurité, le serveur ne répond plus pour ne pas être surchargé.
+              En cas de dépassement de la [volumétrie autorisée](<%= developers_path(anchor: 'respecter-la-volumétrie') %>), et pour des raisons de sécurité, le serveur ne répond plus pour ne pas être surchargé.
               Si c’est le cas, votre application est bannie pour une durée fixe et non révocable de 12 heures. Si vous avez plusieurs jetons, tous seront donc bloqués pendant ce laps de temps. Pendant cette durée, le serveur ne répondra plus. Vous pouvez par contre vous rendre sur votre [compte utilisateur API Entreprise](<%= user_profile_path %>) et vérifier vos statistiques d'appels pour identifier si vous avez dépassé le volume maximal autorisé.
 
               Au bout de ces 12 heures, vos accès sont automatiquement rétablis ; il est donc inutile d’écrire au support.
@@ -396,7 +396,7 @@ fr:
 
           - question: "J’ai besoin de plus de volumétrie, comment être whitelisté ?"
             answer: |+
-              Ce n’est pas possible ! **La [volumétrie indiquée](<%= root_path %>) est le maximum possible** pour que nous puissions garantir la qualité du service à tous nos utilisateurs.
+              Ce n’est pas possible ! **La [volumétrie indiquée](<%= developers_path(anchor: 'respecter-la-volumétrie') %>) est le maximum possible** pour que nous puissions garantir la qualité du service à tous nos utilisateurs.
 
           - question: "Comment être averti des incidents et maintenances ?"
             answer: |+
