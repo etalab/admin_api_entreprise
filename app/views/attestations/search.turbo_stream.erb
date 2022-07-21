@@ -1,3 +1,7 @@
+<%= turbo_stream.replace "alerts" do %>
+  <%= render partial: 'shared/alerts' %>
+<% end %>
+
 <%= turbo_stream.replace "attestations-result" do %>
   <div class="fr-callout fr-mt-4w fr-text--regular" id="attestations-result">
     <p class="fr-callout__title">
@@ -19,26 +23,26 @@
     <div class="buttons-wrapper">
       <% if @token.include_attestation_sociale? %>
         <%= link_to @attestation_facade.attestation_sociale_url,
-          { class: "fr-btn", id: 'attestation-sociale-download', target: "_blank" } do %>
+          { class: "fr-btn fr-m-1w", id: 'attestation-sociale-download', target: "_blank" } do %>
           <span class="fr-icon-download-line" aria-hidden="true"></span>
           &nbsp;
           <%= t('.download_attestation_sociale_cta') %>
         <% end %>
       <% else %>
-        <span class="fr-btn fr-btn--secondary cta-button-disabled center" disabled>
+        <span class="fr-btn fr-m-1w fr-btn--secondary cta-button-disabled center" disabled>
           <%= t('.attestation_sociale_not_downloadable') %>
         </span>
       <% end %>
 
       <% if @token.include_attestation_fiscale? %>
         <%= link_to @attestation_facade.attestation_fiscale_url,
-          { class: "fr-btn", id: 'attestation-fiscale-download', target: "_blank" } do %>
+          { class: "fr-btn fr-m-1w", id: 'attestation-fiscale-download', target: "_blank" } do %>
           <span class="fr-icon-download-line" aria-hidden="true"></span>
           &nbsp;
           <%= t('.download_attestation_fiscale_cta') %>
         <% end %>
       <% else %>
-        <span class="fr-btn fr-btn--secondary cta-button-disabled center" disabled>
+        <span class="fr-btn fr-m-1w fr-btn--secondary cta-button-disabled center" disabled>
           <%= t('.attestation_fiscale_not_downloadable') %>
         </span>
       <% end %>
