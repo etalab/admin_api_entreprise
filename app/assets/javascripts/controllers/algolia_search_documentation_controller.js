@@ -25,6 +25,7 @@ document.addEventListener("turbo:load", function () {
         this._configureFacetFilters(search, `page:${this.pageValue}`)
 
         this._configureSearchBox(search);
+        this._addAutoScrollIfAnchorIsPresent(search);
 
         search.start();
       }
@@ -54,6 +55,28 @@ document.addEventListener("turbo:load", function () {
           searchClient,
           routing: true,
         });
+      }
+
+      _addAutoScrollIfAnchorIsPresent(search) {
+        document.algoliaSearchDocumentationAutoScrollSetup = false;
+
+        search.on('render', function() {
+          if (document.algoliaSearchDocumentationAutoScrollSetup)
+            return
+          else
+            document.algoliaSearchDocumentationAutoScrollSetup = true
+
+          if (window.location.hash) {
+            const hash = window.location.hash
+            const target = document.getElementById(decodeURIComponent(hash.substring(1)))
+
+            if (target) {
+              setTimeout(function() {
+                target.scrollIntoView()
+              }, 100);
+            }
+          }
+        })
       }
 
       _addSecondSearch(search) {
