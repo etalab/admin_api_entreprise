@@ -23,8 +23,8 @@ document.addEventListener("turbo:load", function () {
         })
       };
 
-      addAnchorCopyButton(title) {
-        if (!title || !title.id)
+      addAnchorCopyButton(title, controller) {
+        if (!title || !title.id || controller._anchorExist(title.id))
           return
 
         const anchorCopyButton = this._buildAnchorCopyButton(title.id);
@@ -33,6 +33,10 @@ document.addEventListener("turbo:load", function () {
       };
 
       // private
+
+      _anchorExist(id) {
+        return document.getElementById(`button-anchor-${id}`) != null;
+      }
 
       _buildAnchorCopyButton(id) {
         const anchorCopyButton = document.createElement('span');
