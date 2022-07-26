@@ -64,8 +64,6 @@ gem "algoliasearch-rails"
 
 gem "scenic"
 
-gem "strscan", "3.0.4"
-
 gem 'listen'
 
 group :development, :test do
