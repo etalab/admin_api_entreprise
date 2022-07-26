@@ -1,4 +1,4 @@
-['turbo:render', 'turbo:load'].forEach(function(e) {
+['turbo:load'].forEach(function(e) {
   document.addEventListener(e, function() {
     initAutoOpenAccordeon()
 
@@ -24,11 +24,11 @@
         if (accordeon) {
           setTimeout(function() {
             accordeon.setAttribute('aria-expanded', 'true');
-          }, 100);
+          }, 500);
 
           setTimeout(function() {
             target.scrollIntoView()
-          }, 300);
+          }, 800);
         }
       }
     }
