@@ -40,6 +40,12 @@ RSpec.describe Token::DeliverMagicLinkToEmail, type: :organizer do
     end
   end
 
+  context 'with an email which exists in database' do
+    let(:email) { create(:user).email }
+
+    it { is_expected.to be_success }
+  end
+
   context 'with an invalid email address' do
     let(:email) { 'not an email' }
 
