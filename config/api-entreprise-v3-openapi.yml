@@ -623,170 +623,174 @@ paths:
                     items:
                       type: object
                       properties:
-                        url:
-                          title: URL Certificat
-                          description: URL de téléchargement du certificat
-                          type: string
-                          example: https://www.qualypso.fr/download_file.php?id=545cf132-b12f-445d-bcde-56a5b235b1d0
-                        nom_certificat:
-                          title: Nom du certificat
-                          description: libéllé du certificat
-                          type: string
-                          example: Qualisol CESI
-                        domaine:
-                          title: Domaine de travaux
-                          description: Domaine des travaux sur lesquelles porte la
-                            qualification du certificat
-                          type: string
-                          enum:
-                          - Fenêtres, volets, portes extérieures 2020
-                          - Isolation du toit 2020
-                          - Isolation des murs et planchers bas 2020
-                          - Chaudière condensation ou micro-cogénération gaz ou fioul
-                            2020
-                          - 'Equipements électriques hors ENR : chauffage, eau chaude,
-                            éclairage 2020'
-                          - Isolation par l'intérieur des murs ou rampants de toitures  ou
-                            plafonds
-                          - Isolation des combles perdus
-                          - 'Pompe à chaleur : chauffage'
-                          - Fenêtres, volets, portes donnant sur l'extérieur
-                          - Isolation des planchers bas
-                          - Chaudière condensation ou micro-cogénération gaz ou fioul
-                          - Ventilation 2020
-                          - Poêle ou insert bois
-                          - Isolation des murs par l'extérieur
-                          - Radiateurs électriques, dont régulation.
-                          - Chauffe-Eau Thermodynamique
-                          - Isolation des toitures terrasses ou des toitures par l'extérieur
-                          - Fenêtres de toit
-                          - Chaudière bois
-                          - Pompe à chaleur et/ou Chauffe-eau thermodynamique 2020
-                          - Architecte
-                          - Chauffage et/ou eau chaude solaire
-                          - Panneaux solaires photovoltaïques
-                          - Ventilation mécanique
-                          - Chauffage et/ou eau chaude au bois 2020
-                          - Audit énergétique
-                          - Panneaux photovoltaïques 2020
-                          - Etude thermique reglementaire
-                          - Chauffage et/ou eau chaude solaire 2020
-                          - Projet complet de rénovation
-                          - Etude solaire photovoltaïque
-                          - Etude bois énergie
-                          - Etude forage géothermique
-                          - Etude solaire thermique
-                          - Etude système technique bâtiment
-                          - Etude eclairage
-                          - Forage géothermique
-                          - Etude ACV
-                          - Inconnu
-                          - Non renseigné
-                          - Etude enveloppe du bâtiment
-                          - Commisionnement
-                        meta_domaine:
-                          title: Méta domaine
-                          description: Le Méta domaine explicite le contexte de la
-                            qualification du certificat
-                          type: string
-                          example: anciens domaines avant 2021
-                          enum:
-                          - anciens domaines avant 2021
-                          - Travaux d'efficacité énergétique
-                          - Installations d'énergies renouvelables
-                          - Rénovation globale
-                          - Etudes énergétiques
-                          - Inconnu
-                          - Non renseigné
-                        qualification:
-                          title: Qualification
-                          description: Informations sur la qualification du présent
-                            certificat
+                        data:
                           type: object
                           properties:
-                            code:
-                              title: Code qualification
-                              description: Code de la qualification du présent certificat
+                            url:
+                              title: URL Certificat
+                              description: URL de téléchargement du certificat
                               type: string
-                              example: '32'
-                            nom:
-                              title: Nom qualification
-                              description: Nom de la qualification du présent certificat
+                              example: https://www.qualypso.fr/download_file.php?id=545cf132-b12f-445d-bcde-56a5b235b1d0
+                            nom_certificat:
+                              title: Nom du certificat
+                              description: libéllé du certificat
                               type: string
-                              example: QualiPV Elec - Pose de générateur photovoltaïque
-                                raccordé au réseau (32)
+                              example: Qualisol CESI
+                            domaine:
+                              title: Domaine de travaux
+                              description: Domaine des travaux sur lesquelles porte
+                                la qualification du certificat
+                              type: string
+                              enum:
+                              - Fenêtres, volets, portes extérieures 2020
+                              - Isolation du toit 2020
+                              - Isolation des murs et planchers bas 2020
+                              - Chaudière condensation ou micro-cogénération gaz ou
+                                fioul 2020
+                              - 'Equipements électriques hors ENR : chauffage, eau
+                                chaude, éclairage 2020'
+                              - Isolation par l'intérieur des murs ou rampants de
+                                toitures  ou plafonds
+                              - Isolation des combles perdus
+                              - 'Pompe à chaleur : chauffage'
+                              - Fenêtres, volets, portes donnant sur l'extérieur
+                              - Isolation des planchers bas
+                              - Chaudière condensation ou micro-cogénération gaz ou
+                                fioul
+                              - Ventilation 2020
+                              - Poêle ou insert bois
+                              - Isolation des murs par l'extérieur
+                              - Radiateurs électriques, dont régulation.
+                              - Chauffe-Eau Thermodynamique
+                              - Isolation des toitures terrasses ou des toitures par
+                                l'extérieur
+                              - Fenêtres de toit
+                              - Chaudière bois
+                              - Pompe à chaleur et/ou Chauffe-eau thermodynamique
+                                2020
+                              - Architecte
+                              - Chauffage et/ou eau chaude solaire
+                              - Panneaux solaires photovoltaïques
+                              - Ventilation mécanique
+                              - Chauffage et/ou eau chaude au bois 2020
+                              - Audit énergétique
+                              - Panneaux photovoltaïques 2020
+                              - Etude thermique reglementaire
+                              - Chauffage et/ou eau chaude solaire 2020
+                              - Projet complet de rénovation
+                              - Etude solaire photovoltaïque
+                              - Etude bois énergie
+                              - Etude forage géothermique
+                              - Etude solaire thermique
+                              - Etude système technique bâtiment
+                              - Etude eclairage
+                              - Forage géothermique
+                              - Etude ACV
+                              - Inconnu
+                              - Non renseigné
+                              - Etude enveloppe du bâtiment
+                              - Commisionnement
+                            meta_domaine:
+                              title: Méta domaine
+                              description: Le Méta domaine explicite le contexte de
+                                la qualification du certificat
+                              type: string
+                              example: anciens domaines avant 2021
+                              enum:
+                              - anciens domaines avant 2021
+                              - Travaux d'efficacité énergétique
+                              - Installations d'énergies renouvelables
+                              - Rénovation globale
+                              - Etudes énergétiques
+                              - Inconnu
+                              - Non renseigné
+                            qualification:
+                              title: Qualification
+                              description: Informations sur la qualification du présent
+                                certificat
+                              type: object
+                              properties:
+                                code:
+                                  title: Code qualification
+                                  description: Code de la qualification du présent
+                                    certificat
+                                  type: string
+                                  example: '32'
+                                nom:
+                                  title: Nom qualification
+                                  description: Nom de la qualification du présent
+                                    certificat
+                                  type: string
+                                  example: QualiPV Elec - Pose de générateur photovoltaïque
+                                    raccordé au réseau (32)
+                              required:
+                              - code
+                              - nom
+                            organisme:
+                              title: Organisme de certification
+                              description: Organisme ayant délivré le certificat
+                              type: string
+                              example: qualibat
+                              enum:
+                              - Non renseigné
+                              - qualibat
+                              - qualitenr
+                              - cnoa
+                              - opqibi
+                              - qualifelec
+                              - cequami
+                              - certibat
+                              - afnor
+                              - Inconnu
+                            date_attribution:
+                              title: Date d'attribution
+                              description: Date à laquelle a été attribué le certificat
+                              type: string
+                              example: '2020-12-24'
+                            date_expiration:
+                              title: Date d'expiration
+                              description: Date à laquelle le présent certificat expire
+                              type: string
+                              example: '2025-08-01'
+                            meta:
+                              title: Informations ADEME
+                              description: informations sur l'enregistrement de ce
+                                certificat dans la base ADEME
+                              type: object
+                              properties:
+                                internal_id:
+                                  title: Identifiant interne
+                                  description: Identifiant unique du certificat dans
+                                    la base ADEME
+                                  type: string
+                                  example: Q112379-8611M12D10-2017-03-23
+                                updated_at:
+                                  title: Date de mise à jour
+                                  description: Date à laquelle cette information à
+                                    été mise à jour dans la base ADEME
+                                  type: string
+                                  example: '2021-02-25'
+                                archived:
+                                  title: Archivé
+                                  description: Indique si le présent certificat est
+                                    archivé dans la base ADEME et donc invalide. "True"
+                                    signifie archivé donc invalide.
+                                  type: boolean
+                                  example: false
+                              required:
+                              - internal_id
+                              - updated_at
+                              - archived
                           required:
-                          - code
-                          - nom
-                        organisme:
-                          title: Organisme de certification
-                          description: Organisme ayant délivré le certificat
-                          type: string
-                          example: qualibat
-                          enum:
-                          - Non renseigné
-                          - qualibat
-                          - qualitenr
-                          - cnoa
-                          - opqibi
-                          - qualifelec
-                          - cequami
-                          - certibat
-                          - afnor
-                          - Inconnu
-                        date_attribution:
-                          title: Date d'attribution
-                          description: Date à laquelle a été attribué le certificat
-                          type: string
-                          example: '2020-12-24'
-                        date_expiration:
-                          title: Date d'expiration
-                          description: Date à laquelle le présent certificat expire
-                          type: string
-                          example: '2025-08-01'
-                        meta:
-                          title: Informations ADEME
-                          description: informations sur l'enregistrement de ce certificat
-                            dans la base ADEME
-                          type: object
-                          properties:
-                            internal_id:
-                              title: Identifiant interne
-                              description: Identifiant unique du certificat dans la
-                                base ADEME
-                              type: string
-                              example: Q112379-8611M12D10-2017-03-23
-                            updated_at:
-                              title: Date de mise à jour
-                              description: Date à laquelle cette information à été
-                                mise à jour dans la base ADEME
-                              type: string
-                              example: '2021-02-25'
-                            archived:
-                              title: Archivé
-                              description: Indique si le présent certificat est archivé
-                                dans la base ADEME et donc invalide. "True" signifie
-                                archivé donc invalide.
-                              type: boolean
-                              example: false
-                          required:
-                          - internal_id
-                          - updated_at
-                          - archived
-                      required:
-                      - url
-                      - nom_certificat
-                      - domaine
-                      - meta_domaine
-                      - qualification
-                      - organisme
-                      - date_attribution
-                      - date_expiration
-                      - meta
-                    required:
-                    - id
-                    - type
-                    - attributes
+                          - url
+                          - nom_certificat
+                          - domaine
+                          - meta_domaine
+                          - qualification
+                          - organisme
+                          - date_attribution
+                          - date_expiration
+                          - meta
                 required:
                 - data
         '422':
@@ -2264,21 +2268,20 @@ paths:
                     items:
                       type: object
                       properties:
-                        chiffre_affaires:
-                          title: Chiffre d'affaires en euros
-                          type: number
-                          example: 900001
-                        date_fin_exercice:
-                          title: Date de fin de l'exercice
-                          type: string
-                          example: '2015-12-01'
-                      required:
-                      - chiffre_affaires
-                      - date_fin_exercice
-                    required:
-                    - id
-                    - type
-                    - attributes
+                        data:
+                          type: object
+                          properties:
+                            chiffre_affaires:
+                              title: Chiffre d'affaires en euros
+                              type: number
+                              example: 900001
+                            date_fin_exercice:
+                              title: Date de fin de l'exercice
+                              type: string
+                              example: '2015-12-01'
+                          required:
+                          - chiffre_affaires
+                          - date_fin_exercice
                 required:
                 - data
         '404':
@@ -3121,64 +3124,64 @@ paths:
                     items:
                       type: object
                       properties:
-                        titre:
-                          type: string
-                          description: Titre historique de la convention collective
-                          example: Convention collective nationale des bureaux d'études
-                            techniques, des cabinets d'ingénieurs-conseils et des
-                            sociétés de conseils du 15 décembre 1987.
-                        titre_court:
-                          type: string
-                          description: Titre abrégé / d'usage
-                          example: Bureaux d'études techniques, cabinets d'ingénieurs-conseils
-                            et sociétés de conseils
-                        numero_idcc:
-                          type: numeric
-                          description: Numéro IDCC
-                          example: 1486
-                        active:
-                          type: boolean
-                          description: Détermine si la convention est toujours active
-                          example: true
-                        etat:
-                          type: string
-                          enum:
-                          - vigueur
-                          - vigueur_etendue
-                          description: État de la convention. Si celle-ci est en vigueur
-                            elle est seulement obligatoire pour les signataires. Si
-                            celle-ci est en vigueur étendue, elle est obligatoire
-                            pour tous les employeurs de la branche.
-                          example: vigueur_etendue
-                        synonymes:
-                          type: array
-                          description: Liste de synonymes connus de la convention
-                          items:
-                            type: string
-                          example:
-                          - syntec
-                        url:
-                          type: string
-                          description: Lien vers le texte en vigueur de la convention
-                            collective sur Legifrance
-                          example: https://www.legifrance.gouv.fr/affichIDCC.do?idConvention=KALICONT000005635173
-                        date_publication:
-                          type: string
-                          description: Date de la dernière mise à jour de la convention
-                          example: '1988-01-01'
-                      required:
-                      - titre
-                      - titre_court
-                      - numero_idcc
-                      - active
-                      - etat
-                      - synonymes
-                      - url
-                      - date_publication
-                    required:
-                    - id
-                    - type
-                    - attributes
+                        data:
+                          type: object
+                          properties:
+                            titre:
+                              type: string
+                              description: Titre historique de la convention collective
+                              example: Convention collective nationale des bureaux
+                                d'études techniques, des cabinets d'ingénieurs-conseils
+                                et des sociétés de conseils du 15 décembre 1987.
+                            titre_court:
+                              type: string
+                              description: Titre abrégé / d'usage
+                              example: Bureaux d'études techniques, cabinets d'ingénieurs-conseils
+                                et sociétés de conseils
+                            numero_idcc:
+                              type: numeric
+                              description: Numéro IDCC
+                              example: 1486
+                            active:
+                              type: boolean
+                              description: Détermine si la convention est toujours
+                                active
+                              example: true
+                            etat:
+                              type: string
+                              enum:
+                              - vigueur
+                              - vigueur_etendue
+                              description: État de la convention. Si celle-ci est
+                                en vigueur elle est seulement obligatoire pour les
+                                signataires. Si celle-ci est en vigueur étendue, elle
+                                est obligatoire pour tous les employeurs de la branche.
+                              example: vigueur_etendue
+                            synonymes:
+                              type: array
+                              description: Liste de synonymes connus de la convention
+                              items:
+                                type: string
+                              example:
+                              - syntec
+                            url:
+                              type: string
+                              description: Lien vers le texte en vigueur de la convention
+                                collective sur Legifrance
+                              example: https://www.legifrance.gouv.fr/affichIDCC.do?idConvention=KALICONT000005635173
+                            date_publication:
+                              type: string
+                              description: Date de la dernière mise à jour de la convention
+                              example: '1988-01-01'
+                          required:
+                          - titre
+                          - titre_court
+                          - numero_idcc
+                          - active
+                          - etat
+                          - synonymes
+                          - url
+                          - date_publication
                 required:
                 - data
         '422':
@@ -3870,24 +3873,27 @@ paths:
                     properties:
                       date_extrait:
                         type: string
-                        title: Date d'extrait
-                        example: '1999-06-11'
+                        title: Date de l'extrait
+                        description: Il s'agit de la date d'émission de l'extrait
+                          RCS.
+                        example: '2022-07-11'
                         nullable: true
                       date_immatriculation:
                         type: string
                         title: Date d'immatriculation au RCS
-                        description: À compter de cette date, les sociétés jouissent
+                        description: Il s'agit du jour d'immatriculation de l'entreprise
+                          au RCS. À compter de cette date, les sociétés jouissent
                           de la personnalité morale. Cette date d'immatriculation
-                          n'est pas la même que celle délivrée par l'INSEE. Elle ne
+                          n'est pas la même que celle délivrée par l'Insee. Elle ne
                           correspond pas non plus à la date du début d'activité.
                         example: '1998-07-12'
                         nullable: true
                       mandataires_sociaux:
                         title: Mandataires sociaux
                         description: Liste des mandataires sociaux d'une société inscrite
-                          au RCS, délivrée par Infogreffe. Certaines informations
-                          telles que la date de naissance ont été omises, vous pouvez
-                          les obtenir en appelant l'endpoint /infogreffe/mandataires_sociaux/
+                          au RCS. Certaines informations telles que la date de naissance
+                          complète ne figurent pas dans cette API. Pour plus d'exhaustivité,
+                          appeler l'API Mandataires sociaux - Infogreffe.
                         type: array
                         items:
                           required:
@@ -3930,10 +3936,10 @@ paths:
                               example: Martin
                               nullable: true
                             date_naissance:
-                              title: Date de naissance (mois/année)
-                              description: Date de naissance du mandataire social
-                                (seulement le mois et l'année). Ce champ est disponible
-                                uniquement pour une personne physique.
+                              title: Mois et année de naissance
+                              description: Mois et année de naissance du mandataire
+                                social. Ce champ est disponible uniquement pour une
+                                personne physique.
                               type: string
                               example: 1965-01
                               nullable: true
@@ -3949,6 +3955,8 @@ paths:
                       observations:
                         type: array
                         title: Ensemble des observations du greffier
+                        description: Ce champ regroupe tous les messages laissés par
+                          le greffier et inscrits dans les observations.
                         items:
                           type: object
                           properties:
@@ -3970,120 +3978,10 @@ paths:
                         title: Nom commercial
                         example: DECATHLON
                         nullable: true
-                      adresse_siege:
-                        type: object
-                        title: Adresse de l'établissement siège
-                        properties:
-                          nom_postal:
-                            type: string
-                            title: Nom postal
-                            nullable: true
-                          numero:
-                            type: string
-                            title: Numéro rue
-                            nullable: true
-                          type:
-                            type: string
-                            title: Type
-                            nullable: true
-                          voie:
-                            type: string
-                            title: Nom de la voie
-                            nullable: true
-                          ligne_1:
-                            type: string
-                            title: Ligne 1 adresse
-                            nullable: true
-                          ligne_2:
-                            type: string
-                            title: Ligne 2 adresse
-                            nullable: true
-                          localite:
-                            type: string
-                            title: Localité
-                            nullable: true
-                          code_postal:
-                            type: string
-                            title: Code postal
-                            nullable: true
-                          bureau_distributeur:
-                            type: string
-                            title: Bureau distributeur
-                            nullable: true
-                          pays:
-                            type: string
-                            title: Pays
-                            nullable: true
-                        required:
-                        - nom_postal
-                        - numero
-                        - type
-                        - voie
-                        - ligne_1
-                        - ligne_2
-                        - localite
-                        - code_postal
-                        - bureau_distributeur
-                        - pays
                       etablissement_principal:
                         type: object
-                        title: Informations sur l'établissement principal
+                        title: Informations de l'établissement principal
                         properties:
-                          adresse:
-                            type: object
-                            title: Adresse de l'établissement siège
-                            properties:
-                              nom_postal:
-                                type: string
-                                title: Nom postal
-                                nullable: true
-                              numero:
-                                type: string
-                                title: Numéro rue
-                                nullable: true
-                              type:
-                                type: string
-                                title: Type
-                                nullable: true
-                              voie:
-                                type: string
-                                title: Nom de la voie
-                                nullable: true
-                              ligne_1:
-                                type: string
-                                title: Ligne 1 adresse
-                                nullable: true
-                              ligne_2:
-                                type: string
-                                title: Ligne 2 adresse
-                                nullable: true
-                              localite:
-                                type: string
-                                title: Localité
-                                nullable: true
-                              code_postal:
-                                type: string
-                                title: Code postal
-                                nullable: true
-                              bureau_distributeur:
-                                type: string
-                                title: Bureau distributeur
-                                nullable: true
-                              pays:
-                                type: string
-                                title: Pays
-                                nullable: true
-                            required:
-                            - nom_postal
-                            - numero
-                            - type
-                            - voie
-                            - ligne_1
-                            - ligne_2
-                            - localite
-                            - code_postal
-                            - bureau_distributeur
-                            - pays
                           activite:
                             type: string
                             title: Activité de l'établissement principal
@@ -4103,10 +4001,19 @@ paths:
                           code_ape:
                             type: string
                             title: Code APE
-                            description: Code APE représentant l'activité de l'entreprise
+                            description: "Le code APE (activité principale exercée)
+                              permet d'identifier la branche d'activité principale.
+                              Il est attribué par l'Insee lors de l'immatriculation
+                              ou la déclaration d'activité de l'entreprise. Ce code
+                              de 4 chiffres + 1 lettre est extrait de la nomenclature
+                              d'activité française (NAF) de l'Insee. \n \n À noter
+                              qu'une entreprise n'ayant pas encore de code APE peut
+                              se voir affecter la valeur '00.00Z' de manière provisoire.
+                              \n \n Plus d'informations métier : https://entreprendre.service-public.fr/vosdroits/F33050
+                              Nomemclature d'activité française - NAF rév.2 de l'Insee
+                              : https://www.insee.fr/fr/information/2120875"
                             example: 6420Z
                         required:
-                        - adresse
                         - activite
                         - origine_fonds
                         - mode_exploitation
@@ -4118,20 +4025,20 @@ paths:
                           montant:
                             type: number
                             title: Montant du capital
-                            description: Montant du capital de création de l'entreprise
+                            description: Montant du capital de création de l'entreprise.
                             example: 50123.6
                             nullable: true
                           devise:
                             type: string
                             title: Devise
-                            description: Devise du capital de création de l'entreprise
+                            description: Devise du capital de création de l'entreprise.
                             example: EUROS
                             nullable: true
                           code_devise:
                             type: string
                             title: Code devise
                             description: Code de la devise du capital de création
-                              de l'entreprise
+                              de l'entreprise.
                             example: EUR
                             nullable: true
                         required:
@@ -4141,17 +4048,17 @@ paths:
                       greffe:
                         type: object
                         title: Greffe
-                        description: Informations sur le greffe
+                        description: Informations sur le greffe.
                         properties:
                           valeur:
                             type: string
-                            title: Greffe
-                            description: Nom du greffe en charge de l'entreprise
+                            title: Libellé du greffe
+                            description: Nom du greffe en charge de l'entreprise.
                             example: COLMAR
                           code:
                             type: string
                             title: Code greffe
-                            description: Code du greffe en charge de l'entreprise
+                            description: Code du greffe en charge de l'entreprise.
                             example: '6851'
                         required:
                         - valeur
@@ -4159,29 +4066,41 @@ paths:
                       personne_physique:
                         type: object
                         title: Personne physique
-                        description: Informations sur l'entreprise dans le cas où
-                          l'entreprise est une personne physique. Les champs sont
-                          vides si l'entreprise est une personne morale.
+                        description: Informations sur l'entreprise s'il s'agit d'une
+                          personne physique. Les champs sont vides si l'entreprise
+                          est une personne morale.
                         properties:
                           adresse:
                             type: object
-                            title: Adresse de l'établissement siège
+                            title: Adresse
+                            description: L'adresse transmise par Infogreffe est renvoyée
+                              sous différents formats, utilisant parfois le champ
+                              «nom postal», parfois les champs «ligne 1» et «ligne
+                              2», ou encore au travers des champs «numéro de la voie»
+                              + «type de la voie» + «nom de la voie». Pour obtenir
+                              l'adresse du siège ou l'établissement principal, nous
+                              vous recommandons fortement de faire appel à l'API Adresse
+                              établissement - Insee.
                             properties:
                               nom_postal:
                                 type: string
                                 title: Nom postal
+                                example: 22 RUE DE LA PAIX
                                 nullable: true
                               numero:
                                 type: string
-                                title: Numéro rue
+                                title: Numéro de voie
+                                example: '22'
                                 nullable: true
                               type:
                                 type: string
                                 title: Type
+                                example: RUE
                                 nullable: true
                               voie:
                                 type: string
                                 title: Nom de la voie
+                                example: DE LA PAIX
                                 nullable: true
                               ligne_1:
                                 type: string
@@ -4198,6 +4117,7 @@ paths:
                               code_postal:
                                 type: string
                                 title: Code postal
+                                example: 75016"
                                 nullable: true
                               bureau_distributeur:
                                 type: string
@@ -4206,6 +4126,7 @@ paths:
                               pays:
                                 type: string
                                 title: Pays
+                                example: FRANCE
                                 nullable: true
                             required:
                             - nom_postal
@@ -4221,19 +4142,19 @@ paths:
                           nationalite:
                             type: object
                             title: Nationalité
-                            description: Nationalité de la personne physique
+                            description: Nationalité de la personne physique.
                             properties:
                               valeur:
                                 type: string
-                                title: Nationalité (valeur)
-                                description: Nationalité de la personne physique
+                                title: Nationalité
+                                description: Nationalité de la personne physique.
                                 example: FRANÇAISE
                                 nullable: true
                               code:
                                 type: string
                                 title: Code Pays
                                 description: Code pays de la nationalité de la personne
-                                  physique
+                                  physique.
                                 example: FR
                                 nullable: true
                             required:
@@ -4242,13 +4163,13 @@ paths:
                           nom:
                             type: string
                             title: Nom
-                            description: Nom de la personne physique
+                            description: Nom de la personne physique.
                             example: MARTIN
                             nullable: true
                           prenom:
                             type: string
                             title: Prénom
-                            description: Prénom de la personne physique
+                            description: Prénom de la personne physique.
                             example: JEAN-MARIE
                             nullable: true
                           naissance:
@@ -4264,14 +4185,14 @@ paths:
                                 properties:
                                   valeur:
                                     type: string
-                                    title: Pays de naissance (valeur)
-                                    description: Pays de naissance de la personne
+                                    title: Libellé du pays de naissance
+                                    description: Nom du pays de naissance de la personne
                                       physique
                                     example: FRANCE
                                     nullable: true
                                   code:
                                     type: string
-                                    title: Code Pays de naissance
+                                    title: Code du pays de naissance
                                     description: Code du pays de naissance de la personne
                                       physique
                                     example: FR
@@ -4304,9 +4225,9 @@ paths:
                       personne_morale:
                         type: object
                         title: Personne morale
-                        description: Informations sur l'entreprise dans le cas où
-                          l'entreprise est une personne morale. Les champs sont vides
-                          si l'entreprise est une personne physique.
+                        description: Informations sur l'entreprise s'il s'agit d'une
+                          personne morale. Les champs sont vides si l'entreprise est
+                          une personne physique.
                         properties:
                           forme_juridique:
                             type: object
@@ -4315,7 +4236,7 @@ paths:
                             properties:
                               valeur:
                                 type: string
-                                title: Forme juridique (valeur)
+                                title: Libellé de la forme juridique
                                 example: SOCIETE PAR ACTIONS SIMPLIFIEES
                                 nullable: true
                               code:
@@ -4331,19 +4252,19 @@ paths:
                             - code
                           denomination:
                             type: string
-                            title: Dénomination de la personne morale
+                            title: Dénomination ou raison sociale de la personne morale
                             example: 2X INVEST
                             nullable: true
                           date_cloture_exercice_comptable:
                             type: string
-                            title: Date de cloture de l'exercice comptable
-                            description: Date (mois et jour) dans l'année où l'exercice
-                              comptable de l'entreprise est clôturé
+                            title: Date de clôture de l'exercice social
+                            description: Mois et jour de l'année où l'exercice comptable
+                              de l'entreprise est clôturé.
                             example: 02-24
                             nullable: true
                           date_fin_de_vie:
                             type: string
-                            title: Date de fin de vie de l'entreprise
+                            title: Durée de la personne morale
                             description: Date à laquelle l'entreprise cesse d'exister,
                               sauf potentiel renouvellement. Correspond souvent à
                               la date de création + 100 ans.
@@ -4360,7 +4281,6 @@ paths:
                     - mandataires_sociaux
                     - observations
                     - nom_commercial
-                    - adresse_siege
                     - etablissement_principal
                     - capital
                     - greffe
@@ -4693,119 +4613,122 @@ paths:
                     items:
                       type: object
                       properties:
-                        numero_identification:
-                          title: Numéro d'identification
-                          description: Ce champ est uniquement disponible pour une
-                            personne morale.
-                          type: string
-                          example: '784824153'
-                        fonction:
-                          title: Fonction au sein de l'entreprise
-                          description: Ce champ décrit la fonction du mandataire social
-                            au sein de l'entreprise. Cette information est disponible
-                            pour les personnes morales et physiques.
-                          type: string
-                          example: COMMISSAIRE AUX COMPTES SUPPLEANT
-                        nom:
-                          title: Nom
-                          description: Nom du mandataire social. Ce champ est disponible
-                            uniquement pour une personne physique.
-                          type: string
-                          example: Henri
-                          nullable: true
-                        prenom:
-                          title: Prénom
-                          description: Prénom du mandataire social. Ce champ est disponible
-                            uniquement pour une personne physique.
-                          type: string
-                          example: Martin
-                          nullable: true
-                        date_naissance:
-                          title: Date de naissance
-                          description: Date de naissance du mandataire social. Ce
-                            champ est disponible uniquement pour une personne physique.
-                          type: string
-                          example: '1965-01-27'
-                          nullable: true
-                        date_naissance_timestamp:
-                          title: Date de naissance (timestamp)
-                          description: Date de naissance délivrée au format timestamp.
-                            Ce champ est disponible uniquement pour une personne physique.
-                          type: integer
-                          example: -155523600
-                          nullable: true
-                        lieu_naissance:
-                          title: Lieu de naissance
-                          description: Lieu de naissance du mandataire social. Ce
-                            champ est disponible uniquement pour une personne physique.
-                          type: string
-                          example: ROUBAIX
-                          nullable: true
-                        pays_naissance:
-                          title: Pays de naissance
-                          description: Pays de naissance du mandataire social. Ce
-                            champ est disponible uniquement pour une personne physique.
-                          type: string
-                          example: FRANCE
-                          nullable: true
-                        code_pays_naissance:
-                          title: Code pays ISO 3166 Alpha 2 du pays de naissance
-                          description: Code à deux lettres indiquant le pays de naissance
-                            du mandataire social, suivant la norme ISO 3166 Alpha
-                            2. Ce champ est disponible uniquement pour une personne
-                            physique.
-                          type: string
-                          example: FR
-                          nullable: true
-                        nationalite:
-                          title: Nationalité de la personne physique
-                          description: Nationalité du mandataire social. Ce champ
-                            est disponible uniquement pour une personne physique.
-                          type: string
-                          example: FRANCAISE
-                          nullable: true
-                        code_nationalite:
-                          title: Code pays ISO 3166 Alpha 2
-                          description: Code à deux lettres indiquant le pays de nationalité
-                            du mandataire social, suivant la norme ISO 3166 Alpha
-                            2. Ce champ est disponible uniquement pour une personne
-                            physique.
-                          type: string
-                          example: FR
-                          nullable: true
-                        raison_sociale:
-                          title: Raison sociale
-                          description: Raison sociale de la personne morale mandataire
-                            social. Ce champ est disponible uniquement pour une personne
-                            morale.
-                          type: string
-                          example: BCRH & ASSOCIES - SOCIETE A RESPONSABILITE LIMITEE
-                            A ASSOCIE UNIQUE
-                          nullable: true
-                        code_greffe:
-                          title: Code du greffe de l'entreprise
-                          description: 'Code du greffe auquel la personne morale mandataire
-                            social est rattachée. Ce champ est disponible uniquement
-                            pour une personne morale. Tous les codes greffe sont disponibles
-                            ici : https://opendata.datainfogreffe.fr/explore/dataset/liste-des-greffes/table/'
-                          type: string
-                          example: '9201'
-                          nullable: true
-                        libelle_greffe:
-                          title: Libellé du greffe de l'entreprise
-                          description: 'Nom du greffe auquel la personne morale mandataire
-                            social est rattachée. Ce champ est disponible uniquement
-                            pour une personne morale. Tous les libellés sont disponibles
-                            ici : https://opendata.datainfogreffe.fr/explore/dataset/liste-des-greffes/table/'
-                          type: string
-                          example: NANTERRE
-                          nullable: true
-                      required:
-                      - fonction
-                    required:
-                    - id
-                    - type
-                    - attributes
+                        data:
+                          type: object
+                          properties:
+                            numero_identification:
+                              title: Numéro d'identification
+                              description: Ce champ est uniquement disponible pour
+                                une personne morale.
+                              type: string
+                              example: '784824153'
+                            fonction:
+                              title: Fonction au sein de l'entreprise
+                              description: Ce champ décrit la fonction du mandataire
+                                social au sein de l'entreprise. Cette information
+                                est disponible pour les personnes morales et physiques.
+                              type: string
+                              example: COMMISSAIRE AUX COMPTES SUPPLEANT
+                            nom:
+                              title: Nom
+                              description: Nom du mandataire social. Ce champ est
+                                disponible uniquement pour une personne physique.
+                              type: string
+                              example: Henri
+                              nullable: true
+                            prenom:
+                              title: Prénom
+                              description: Prénom du mandataire social. Ce champ est
+                                disponible uniquement pour une personne physique.
+                              type: string
+                              example: Martin
+                              nullable: true
+                            date_naissance:
+                              title: Date de naissance
+                              description: Date de naissance du mandataire social.
+                                Ce champ est disponible uniquement pour une personne
+                                physique.
+                              type: string
+                              example: '1965-01-27'
+                              nullable: true
+                            date_naissance_timestamp:
+                              title: Date de naissance (timestamp)
+                              description: Date de naissance délivrée au format timestamp.
+                                Ce champ est disponible uniquement pour une personne
+                                physique.
+                              type: integer
+                              example: -155523600
+                              nullable: true
+                            lieu_naissance:
+                              title: Lieu de naissance
+                              description: Lieu de naissance du mandataire social.
+                                Ce champ est disponible uniquement pour une personne
+                                physique.
+                              type: string
+                              example: ROUBAIX
+                              nullable: true
+                            pays_naissance:
+                              title: Pays de naissance
+                              description: Pays de naissance du mandataire social.
+                                Ce champ est disponible uniquement pour une personne
+                                physique.
+                              type: string
+                              example: FRANCE
+                              nullable: true
+                            code_pays_naissance:
+                              title: Code pays ISO 3166 Alpha 2 du pays de naissance
+                              description: Code à deux lettres indiquant le pays de
+                                naissance du mandataire social, suivant la norme ISO
+                                3166 Alpha 2. Ce champ est disponible uniquement pour
+                                une personne physique.
+                              type: string
+                              example: FR
+                              nullable: true
+                            nationalite:
+                              title: Nationalité de la personne physique
+                              description: Nationalité du mandataire social. Ce champ
+                                est disponible uniquement pour une personne physique.
+                              type: string
+                              example: FRANCAISE
+                              nullable: true
+                            code_nationalite:
+                              title: Code pays ISO 3166 Alpha 2
+                              description: Code à deux lettres indiquant le pays de
+                                nationalité du mandataire social, suivant la norme
+                                ISO 3166 Alpha 2. Ce champ est disponible uniquement
+                                pour une personne physique.
+                              type: string
+                              example: FR
+                              nullable: true
+                            raison_sociale:
+                              title: Raison sociale
+                              description: Raison sociale de la personne morale mandataire
+                                social. Ce champ est disponible uniquement pour une
+                                personne morale.
+                              type: string
+                              example: BCRH & ASSOCIES - SOCIETE A RESPONSABILITE
+                                LIMITEE A ASSOCIE UNIQUE
+                              nullable: true
+                            code_greffe:
+                              title: Code du greffe de l'entreprise
+                              description: 'Code du greffe auquel la personne morale
+                                mandataire social est rattachée. Ce champ est disponible
+                                uniquement pour une personne morale. Tous les codes
+                                greffe sont disponibles ici : https://opendata.datainfogreffe.fr/explore/dataset/liste-des-greffes/table/'
+                              type: string
+                              example: '9201'
+                              nullable: true
+                            libelle_greffe:
+                              title: Libellé du greffe de l'entreprise
+                              description: 'Nom du greffe auquel la personne morale
+                                mandataire social est rattachée. Ce champ est disponible
+                                uniquement pour une personne morale. Tous les libellés
+                                sont disponibles ici : https://opendata.datainfogreffe.fr/explore/dataset/liste-des-greffes/table/'
+                              type: string
+                              example: NANTERRE
+                              nullable: true
+                          required:
+                          - fonction
                   meta:
                     type: object
                     properties:
@@ -5155,39 +5078,40 @@ paths:
                     items:
                       type: object
                       properties:
-                        siren:
-                          title: Numéro Siren
-                          description: Numéro SIREN de l'entreprise concernée par
-                            l'acte
-                          type: string
-                          example: '788242667'
-                        code_greffe:
-                          title: Code greffe
-                          description: Code identifiant du greffe ayant traité l'acte
-                          type: number
-                          example: 5752
-                        date_depot:
-                          title: Date dépot
-                          description: Date à laquelle a été déposé l'acte
-                          type: string
-                          example: '2017-06-16'
-                        nature_archive:
-                          title: Nature de l'archive de l'acte
-                          description: 'Chaîne de caractères contenant une ou plusieurs
-                            lettres séparées par un tiret, explicitant de quelle(s)
-                            catégories d''archives l''acte provient: A (actes de sociétés)
-                            R (ordonnances) et P (actes de personnes physiques)'
-                          type: string
-                          example: A-R
-                      required:
-                      - siren
-                      - code_greffe
-                      - date_depot
-                      - nature_archive
-                    required:
-                    - id
-                    - type
-                    - attributes
+                        data:
+                          type: object
+                          properties:
+                            siren:
+                              title: Numéro Siren
+                              description: Numéro SIREN de l'entreprise concernée
+                                par l'acte
+                              type: string
+                              example: '788242667'
+                            code_greffe:
+                              title: Code greffe
+                              description: Code identifiant du greffe ayant traité
+                                l'acte
+                              type: number
+                              example: 5752
+                            date_depot:
+                              title: Date dépot
+                              description: Date à laquelle a été déposé l'acte
+                              type: string
+                              example: '2017-06-16'
+                            nature_archive:
+                              title: Nature de l'archive de l'acte
+                              description: 'Chaîne de caractères contenant une ou
+                                plusieurs lettres séparées par un tiret, explicitant
+                                de quelle(s) catégories d''archives l''acte provient:
+                                A (actes de sociétés) R (ordonnances) et P (actes
+                                de personnes physiques)'
+                              type: string
+                              example: A-R
+                          required:
+                          - siren
+                          - code_greffe
+                          - date_depot
+                          - nature_archive
                 required:
                 - data
         '422':
@@ -5495,160 +5419,159 @@ paths:
                     items:
                       type: object
                       properties:
-                        numero_publication:
-                          title: Numéro de publication
-                          description: Numéro de publication du brevet, constitué
-                            du code zone + numéro du brevet + catégorie de publication
-                          type: string
-                          example: FR3110115A1
-                        titre:
-                          title: Titre
-                          description: Titre du brevet
-                          type: string
-                          example: DETERMINATION DE PARAMETRES D&apos;UN MODELE DYNAMIQUE
-                            POUR UNE CELLULE ELECTROCHIMIQUE DE BATTERIE
-                        date_publication:
-                          title: Date de publication
-                          description: Date de publication du brevet
-                          type: string
-                          format: date
-                          example: '2017-06-16'
-                        date_depot:
-                          title: Date de dépot
-                          description: Date de dépot du brevet
-                          type: string
-                          format: date
-                          example: '2015-12-14'
-                        code_zone:
-                          description: |
-                            Code de deux lettres représentant la zone géographique où le brevet a été déposé, en fonction
-                            de l'organisation qui a enregistré le brevet.
-                          type: string
-                          example: FR
-                          enum:
-                          - AL
-                          - AP
-                          - AR
-                          - AT
-                          - AU
-                          - BA
-                          - BE
-                          - BG
-                          - BR
-                          - CA
-                          - CH
-                          - CL
-                          - CN
-                          - CO
-                          - CR
-                          - CS
-                          - CU
-                          - CY
-                          - CZ
-                          - DD
-                          - DE
-                          - DK
-                          - DZ
-                          - EA
-                          - EC
-                          - EE
-                          - EG
-                          - EP
-                          - ES
-                          - FI
-                          - FR
-                          - GB
-                          - GC
-                          - GE
-                          - GR
-                          - GT
-                          - HK
-                          - HR
-                          - HU
-                          - ID
-                          - IE
-                          - IL
-                          - IN
-                          - IS
-                          - IT
-                          - JP
-                          - KE
-                          - KR
-                          - LI
-                          - LT
-                          - LU
-                          - LV
-                          - MA
-                          - MC
-                          - MD
-                          - ME
-                          - MK
-                          - MN
-                          - MT
-                          - MW
-                          - MX
-                          - MY
-                          - NC
-                          - NI
-                          - NL
-                          - false
-                          - NZ
-                          - OA
-                          - PA
-                          - PE
-                          - PH
-                          - PL
-                          - PT
-                          - RO
-                          - RS
-                          - RU
-                          - SE
-                          - SG
-                          - SI
-                          - SK
-                          - SM
-                          - SU
-                          - SV
-                          - TJ
-                          - TR
-                          - TT
-                          - TW
-                          - UA
-                          - US
-                          - UY
-                          - VN
-                          - WO
-                          - YU
-                          - ZA
-                          - ZM
-                          - ZW
-                          -
-                        numero_brevet:
-                          title: Numéro du brevet
-                          description: 'Numéro du brevet dans l''organisation ou il
-                            a été déposé (déterminée par le code de zone)
+                        data:
+                          type: object
+                          properties:
+                            numero_publication:
+                              title: Numéro de publication
+                              description: Numéro de publication du brevet, constitué
+                                du code zone + numéro du brevet + catégorie de publication
+                              type: string
+                              example: FR3110115A1
+                            titre:
+                              title: Titre
+                              description: Titre du brevet
+                              type: string
+                              example: DETERMINATION DE PARAMETRES D&apos;UN MODELE
+                                DYNAMIQUE POUR UNE CELLULE ELECTROCHIMIQUE DE BATTERIE
+                            date_publication:
+                              title: Date de publication
+                              description: Date de publication du brevet
+                              type: string
+                              format: date
+                              example: '2017-06-16'
+                            date_depot:
+                              title: Date de dépot
+                              description: Date de dépot du brevet
+                              type: string
+                              format: date
+                              example: '2015-12-14'
+                            code_zone:
+                              description: |
+                                Code de deux lettres représentant la zone géographique où le brevet a été déposé, en fonction
+                                de l'organisation qui a enregistré le brevet.
+                              type: string
+                              example: FR
+                              enum:
+                              - AL
+                              - AP
+                              - AR
+                              - AT
+                              - AU
+                              - BA
+                              - BE
+                              - BG
+                              - BR
+                              - CA
+                              - CH
+                              - CL
+                              - CN
+                              - CO
+                              - CR
+                              - CS
+                              - CU
+                              - CY
+                              - CZ
+                              - DD
+                              - DE
+                              - DK
+                              - DZ
+                              - EA
+                              - EC
+                              - EE
+                              - EG
+                              - EP
+                              - ES
+                              - FI
+                              - FR
+                              - GB
+                              - GC
+                              - GE
+                              - GR
+                              - GT
+                              - HK
+                              - HR
+                              - HU
+                              - ID
+                              - IE
+                              - IL
+                              - IN
+                              - IS
+                              - IT
+                              - JP
+                              - KE
+                              - KR
+                              - LI
+                              - LT
+                              - LU
+                              - LV
+                              - MA
+                              - MC
+                              - MD
+                              - ME
+                              - MK
+                              - MN
+                              - MT
+                              - MW
+                              - MX
+                              - MY
+                              - NC
+                              - NI
+                              - NL
+                              - false
+                              - NZ
+                              - OA
+                              - PA
+                              - PE
+                              - PH
+                              - PL
+                              - PT
+                              - RO
+                              - RS
+                              - RU
+                              - SE
+                              - SG
+                              - SI
+                              - SK
+                              - SM
+                              - SU
+                              - SV
+                              - TJ
+                              - TR
+                              - TT
+                              - TW
+                              - UA
+                              - US
+                              - UY
+                              - VN
+                              - WO
+                              - YU
+                              - ZA
+                              - ZM
+                              - ZW
+                              -
+                            numero_brevet:
+                              title: Numéro du brevet
+                              description: 'Numéro du brevet dans l''organisation
+                                ou il a été déposé (déterminée par le code de zone)
 
-                            '
-                          type: string
-                          example: '3110115'
-                        categorie_publication:
-                          title: Catégorie
-                          description: 'Code représentant la catégorie du brevet (ex:
-                            A1 pour une demande de brevet,'
-                          type: string
-                          example: A1
-                      required:
-                      - numero_publication
-                      - titre
-                      - date_publication
-                      - date_depot
-                      - code_zone
-                      - numero_brevet
-                      - categorie_publication
-                    required:
-                    - id
-                    - type
-                    - attributes
+                                '
+                              type: string
+                              example: '3110115'
+                            categorie_publication:
+                              title: Catégorie
+                              description: 'Code représentant la catégorie du brevet
+                                (ex: A1 pour une demande de brevet,'
+                              type: string
+                              example: A1
+                          required:
+                          - numero_publication
+                          - titre
+                          - date_publication
+                          - date_depot
+                          - code_zone
+                          - numero_brevet
+                          - categorie_publication
                 required:
                 - data
         '422':
@@ -5956,41 +5879,50 @@ paths:
                     items:
                       type: object
                       properties:
-                        numero_application:
-                          title: Numéro d'identification
-                          type: string
-                          example: '4313464'
-                        nom:
-                          title: Nom
-                          type: string
-                          example: DISTRIGO PARTS DISTRIBUTION
-                          nullable: true
-                        status:
-                          title: Statut
-                          type: string
-                          example: Marque enregistrée
-                          enum:
-                          - Demande déposée
-                          - Demande publiée
-                          - Demande non publiée
-                          - Demande irrecevable après publication
-                          - Marque enregistrée
-                          - Renouvellement demandé
-                          - Marque renouvelée
-                          - Demande totalement rejetée
-                          - Marque ayant fait l'objet d'une renonciation totale
-                          - Marque ayant fait l'objet d'un retrait total
-                          - Marque annulée
-                          - Marque expirée
-                        depositaire:
-                          title: Dépositaire
-                          description: Nom de déposant ou titulaire
-                          type: string
-                          example: PEUGEOT CITROËN AUTOMOBILES SA, Société anonyme
-                        clef:
-                          title: Clef
-                          type: string
-                          example: FMARK|4313464
+                        data:
+                          type: object
+                          properties:
+                            numero_application:
+                              title: Numéro d'identification
+                              type: string
+                              example: '4313464'
+                            nom:
+                              title: Nom
+                              type: string
+                              example: DISTRIGO PARTS DISTRIBUTION
+                              nullable: true
+                            status:
+                              title: Statut
+                              type: string
+                              example: Marque enregistrée
+                              enum:
+                              - Demande déposée
+                              - Demande publiée
+                              - Demande non publiée
+                              - Demande irrecevable après publication
+                              - Marque enregistrée
+                              - Renouvellement demandé
+                              - Marque renouvelée
+                              - Demande totalement rejetée
+                              - Marque ayant fait l'objet d'une renonciation totale
+                              - Marque ayant fait l'objet d'un retrait total
+                              - Marque annulée
+                              - Marque expirée
+                            depositaire:
+                              title: Dépositaire
+                              description: Nom de déposant ou titulaire
+                              type: string
+                              example: PEUGEOT CITROËN AUTOMOBILES SA, Société anonyme
+                            clef:
+                              title: Clef
+                              type: string
+                              example: FMARK|4313464
+                          required:
+                          - numero_application
+                          - nom
+                          - status
+                          - depositaire
+                          - clef
                         links:
                           type: object
                           properties:
@@ -6001,17 +5933,6 @@ paths:
                                 de marque, au format XML.
                           required:
                           - notice
-                      required:
-                      - numero_application
-                      - nom
-                      - status
-                      - depositaire
-                      - clef
-                    required:
-                    - id
-                    - type
-                    - attributes
-                    - links
                 required:
                 - data
         '422':
@@ -6319,57 +6240,72 @@ paths:
                     items:
                       type: object
                       properties:
-                        document_id:
-                          title: Identifiant
-                          description: 'Identifiant du modèle dans la base de l''INPI,
-                            constitué du code de l''office de dépôt (ex: FR), du numéro
-                            national de dépôt (ex: 20203928) et du numéro de référence
-                            (ex: 001) '
-                          type: string
-                          example: FR20203928-001
-                        numero_depot:
-                          title: Numéro national de dépôt
-                          description: Numéro national sous lequel le modèle est enregistré.
-                          type: string
-                          example: '20203928'
-                        titre:
-                          title: Titre
-                          description: Titre du modèle.
-                          type: string
-                          example: Véhicule automobile, vues de détails
-                        total_representations:
-                          title: Représentations totales
-                          description: Nombre de représentations (vues) du modèle
-                          type: number
-                          example: 7
-                        deposant:
-                          title: Déposant
-                          description: Nom de l'entité ayant déposé le modèle.
-                          type: string
-                          example: PSA AUTOMOBILES, SA
-                        date_depot:
-                          title: Date de dépôt
-                          description: Date à laquelle le modèle a été déposé pour
-                            publication
-                          type: string
-                          example: '2015-12-14'
-                        date_publication:
-                          title: Date de publication
-                          description: Date de publication du modèle
-                          type: string
-                          example: '2015-12-14'
-                        classe:
-                          title: Code de classification
-                          description: Code de classification du modèle, sur 4 chiffres
-                          type: string
-                          example: '2606'
-                        reference:
-                          title: Numéro de réference
-                          description: Numéro de référence du modèle par entité, sur
-                            trois chiffres. Le premier modèle d'une entité est numéroté
-                            001, le second 002, etc.
-                          type: string
-                          example: '001'
+                        data:
+                          type: object
+                          properties:
+                            document_id:
+                              title: Identifiant
+                              description: 'Identifiant du modèle dans la base de
+                                l''INPI, constitué du code de l''office de dépôt (ex:
+                                FR), du numéro national de dépôt (ex: 20203928) et
+                                du numéro de référence (ex: 001) '
+                              type: string
+                              example: FR20203928-001
+                            numero_depot:
+                              title: Numéro national de dépôt
+                              description: Numéro national sous lequel le modèle est
+                                enregistré.
+                              type: string
+                              example: '20203928'
+                            titre:
+                              title: Titre
+                              description: Titre du modèle.
+                              type: string
+                              example: Véhicule automobile, vues de détails
+                            total_representations:
+                              title: Représentations totales
+                              description: Nombre de représentations (vues) du modèle
+                              type: number
+                              example: 7
+                            deposant:
+                              title: Déposant
+                              description: Nom de l'entité ayant déposé le modèle.
+                              type: string
+                              example: PSA AUTOMOBILES, SA
+                            date_depot:
+                              title: Date de dépôt
+                              description: Date à laquelle le modèle a été déposé
+                                pour publication
+                              type: string
+                              example: '2015-12-14'
+                            date_publication:
+                              title: Date de publication
+                              description: Date de publication du modèle
+                              type: string
+                              example: '2015-12-14'
+                            classe:
+                              title: Code de classification
+                              description: Code de classification du modèle, sur 4
+                                chiffres
+                              type: string
+                              example: '2606'
+                            reference:
+                              title: Numéro de réference
+                              description: Numéro de référence du modèle par entité,
+                                sur trois chiffres. Le premier modèle d'une entité
+                                est numéroté 001, le second 002, etc.
+                              type: string
+                              example: '001'
+                          required:
+                          - document_id
+                          - numero_depot
+                          - titre
+                          - total_representations
+                          - deposant
+                          - date_depot
+                          - date_publication
+                          - classe
+                          - reference
                         links:
                           type: object
                           properties:
@@ -6380,21 +6316,6 @@ paths:
                                 de modèle, au format XML
                           required:
                           - notice
-                      required:
-                      - document_id
-                      - numero_depot
-                      - titre
-                      - total_representations
-                      - deposant
-                      - date_depot
-                      - date_publication
-                      - classe
-                      - reference
-                    required:
-                    - id
-                    - type
-                    - attributes
-                    - links
                 required:
                 - data
         '422':
@@ -13542,36 +13463,35 @@ paths:
                     items:
                       type: object
                       properties:
-                        timestamp:
-                          example: '1631182730'
-                          description: Date du dépot du document au format timestamp
-                            UNIX
-                          type: string
-                        url:
-                          example: https://storage.entreprise.api.gouv.fr/siade/1635505765-5cd08405e4163c9f7713447829aeef7284c3283d-document_asso.pdf
-                          description: L'URL du fichier
-                          type: string
-                          nullable: true
-                        expires_in:
-                          title: Nombre de secondes avant expiration du lien URL
-                          type: integer
-                          nullable: true
-                        errors:
-                          title: Détail de l'erreur survenue au traitement du fichier
-                            (URL fourni par le fournisseur de données invalide, fichier
-                            corrompu, ...)
-                          type: array
-                          items:
-                            type: string
-                      required:
-                      - timestamp
-                      - url
-                      - expires_in
-                      - errors
-                    required:
-                    - id
-                    - type
-                    - attributes
+                        data:
+                          type: object
+                          properties:
+                            timestamp:
+                              example: '1631182730'
+                              description: Date du dépot du document au format timestamp
+                                UNIX
+                              type: string
+                            url:
+                              example: https://storage.entreprise.api.gouv.fr/siade/1635505765-5cd08405e4163c9f7713447829aeef7284c3283d-document_asso.pdf
+                              description: L'URL du fichier
+                              type: string
+                              nullable: true
+                            expires_in:
+                              title: Nombre de secondes avant expiration du lien URL
+                              type: integer
+                              nullable: true
+                            errors:
+                              title: Détail de l'erreur survenue au traitement du
+                                fichier (URL fourni par le fournisseur de données
+                                invalide, fichier corrompu, ...)
+                              type: array
+                              items:
+                                type: string
+                          required:
+                          - timestamp
+                          - url
+                          - expires_in
+                          - errors
                   meta:
                     type: object
                     properties:
