@@ -4,7 +4,8 @@
   path: '/v3/urssaf/unites_legales/{siren}/attestation_vigilance'
   perimeter:
     entity_type_description: |+
-      ✅ **Toutes les entreprises sont concernées**, y compris les micro-entreprises.
+      ✅ **Presque toutes les catégories d'entreprises sont concernées**, y compris les micro-entreprises.
+      ❌ Liste des catégories non-concernées à venir.
 
       L'attestation est délivrée si l'entreprise :
       - s'est acquittée des cotisations et contributions dues à leur date normale d'exigibilité ;
@@ -18,6 +19,14 @@
       > Depuis 2021, la contribution annuelle de l'OETH (Obligation d'Emploi de Travailleur Handicapé), fait partie des contribution dues pour obtenir l'attestation.
       > Cette compétence était auparavant attribuée à l'AGEFIPH.
 
+      geographical_scope_description: |+
+      ✅ Couverture géographique à 100%.
+      
+      updating_rules_description: |+
+      Cette API est branchée directement sur le service informatique métier de l'URSSAF. Les données sont donc **mises à jour en temps réel** et l'information transmise est donc telle que connue à date par l'administration.
+      
+      Lorsque la situation d'une entreprise n'est pas connue ou doit être revérifiée par les services de l'URSSAF, le temps de traitement du dossier est variable. La vérification n'est pas toujours automatique et peut demander l'intervention d'un agent de l'URSSAF, dit gestionnaire.
+      
     entities:
       - entreprises
   opening: protected
@@ -44,7 +53,9 @@
   faq:
     - q: Combien de temps est valide l'attestation de vigilance ?
       a: |+
-        L'attestation de vigilance est valide 6 mois à compter de la dernière date de période analysée. Celle-ci dépend de la situation de chaque entreprise et de la dernière déclaration enregistrée dans le système.
+        L'attestation de vigilance est **valide 6 mois à compter de la dernière date de période analysée**. Cette date est indiquée sur l'attestation. 
+        
+        L'API transmet des attestations dont la date de période analysée est inférieure à 3 mois. Les attestations transmises sur API Entreprise ont donc **une durée de validité d'au moins 3 mois**.
 
     - q: L'API ne renvoie pas de pièce, peut-on considérer que l'entreprise n'est pas à jour ?
       a: |+
