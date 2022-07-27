@@ -233,13 +233,11 @@ fr:
                 {:.fr-highlight}
                 > **Le numéro de TVA intracommunautaire n'est plus délivré en V.3**
                 > Nous avons appris récemment que certaines entreprises ont des numéros de TVA qui ne respectent aucune nomenclature, nous avons donc décidé de ne plus renvoyer la valeur calculée par API Entreprise car nous n'avons pas la possibilité de repérer ces exceptions.
-                > Pour rappel, en V.2, nous calculions la valeur à l'aide du numéro de SIREN (la méthode de calcul se trouvant ici: [https://fr.wikipedia.org/wiki/Code_Insee](https://fr.wikipedia.org/wiki/Code_Insee){:target="_blank"} ). Nous précisions alors que cette valeur était à titre indicatif 
-car une entreprise peut avoir un numéro de TVA étranger, même si son siège est en France (il suffit historiquement que l'un de ses établissements ne soit pas en France par exemple).
+                > Pour rappel, en V.2, nous calculions la valeur à l'aide du numéro de SIREN (la méthode de calcul se trouvant ici: [https://fr.wikipedia.org/wiki/Code_Insee](https://fr.wikipedia.org/wiki/Code_Insee){:target="_blank"} ). Nous précisions alors que cette valeur était à titre indicatif car une entreprise peut avoir un numéro de TVA étranger, même si son siège est en France (il suffit historiquement que l'un de ses établissements ne soit pas en France par exemple).
 
                 {:.fr-highlight}
                 > **Le champ booléen `dirigeant` des mandataires sociaux retiré en V.3 car non-effectif**
-                > En V.2, parmi les informations relatives aux mandataires sociaux, API Entreprise semblait transmettre une information sur le statut dirigeant ou non du mandataire social.
-Cette information n'était pas effective car toujours à `true`. Nous avons donc retiré ce champ inutile de l'[API V.3 Mandataires sociaux](<%= endpoint_path(uid: 'infogreffe/mandataires_sociaux') %>){:target="_blank"}.
+                > En V.2, parmi les informations relatives aux mandataires sociaux, API Entreprise semblait transmettre une information sur le statut dirigeant ou non du mandataire social. Cette information n'était pas effective car toujours à `true`. Nous avons donc retiré ce champ inutile de l'[API V.3 Mandataires sociaux](<%= endpoint_path(uid: 'infogreffe/mandataires_sociaux') %>){:target="_blank"}.
                 > Pour connaître les rôles des mandataires sociaux, vous pouvez vous aider du champ `fonction` qui renvoie des valeurs telles que "PRESIDENT", "DIRECTEUR GENERALE".  
 
             - subtitle: V.2 - Données de référence d'un établissement - INSEE
