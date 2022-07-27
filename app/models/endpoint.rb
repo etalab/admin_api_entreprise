@@ -150,6 +150,8 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
   def extract_data_from_schema
     properties_path = %w[properties data properties]
     properties_path.insert(2, 'items') if collection?
+    properties_path.insert(-1, 'data') if collection?
+    properties_path.insert(-1, 'properties') if collection?
 
     response_schema.dig(*properties_path) || {}
   end
