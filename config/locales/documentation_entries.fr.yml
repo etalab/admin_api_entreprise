@@ -231,10 +231,10 @@ fr:
                 | Adresse du siège social d´une unité légale, qu´elle soit "diffusible" ou non. | API **Adresse établissement** <br /> `v3/insee/sirene/etablissements/{siret}/adresse`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'insee/adresse_etablissements') %>){:target="_blank"} <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1insee~1sirene~1etablissements~1{siret}~1adresse/get') %>){:target="_blank"}|
                 
                 {:.fr-highlight}
-                > **Le numéro de TVA intracommunautaire n'est plus délivré en V.3
-                > En V.2, nous calculions la valeur à l'aide du numéro de SIREN (la méthode de calcul se trouve ici: https://fr.wikipedia.org/wiki/Code_Insee ). Nous précisions alors que cette valeur était à titre indicatif 
+                > **Le numéro de TVA intracommunautaire n'est plus délivré en V.3**
+                > Nous avons appris récemment que certaines entreprises ont des numéros de TVA qui ne respectent aucune nomenclature, nous avons donc décidé de ne plus renvoyer la valeur calculée par API Entreprise car nous n'avons pas la possibilité de repérer ces exceptions.
+                > Pour rappel, en V.2, nous calculions la valeur à l'aide du numéro de SIREN (la méthode de calcul se trouvant ici: https://fr.wikipedia.org/wiki/Code_Insee ). Nous précisions alors que cette valeur était à titre indicatif 
 car une entreprise peut avoir un numéro de TVA étranger, même si son siège est en France (il suffit historiquement que l'un de ses établissements ne soit pas en France par exemple).
-Cependant, nous avons appris récemment que certaines entreprises ont des numéros de TVA qui ne respectent aucune nomenclature, nous avons donc décidé de ne plus renvoyer cette valeur car nous n'avons pas la possibilité de repérer ces exceptions.
 
 
             - subtitle: V.2 - Données de référence d'un établissement - INSEE
