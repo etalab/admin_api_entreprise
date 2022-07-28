@@ -22,6 +22,8 @@ set :domain, ENV['domain']
 set :deploy_to, "/var/www/admin_apientreprise_#{ENV['to']}"
 set :rails_env, ENV['to']
 set :repository, 'https://github.com/etalab/admin_api_entreprise.git'
+set :app_owner, "deploy"
+set :app_group, "webapp"
 
 branch = ENV['branch'] ||
   begin
@@ -65,8 +67,15 @@ set :shared_files, fetch(:shared_files, []).push(
   "config/environments/#{ENV['to']}.rb"
 )
 
+namespace :bundle do
+  task :install do
+    desc 'Allow group write and set setGID bit on gems folders.'
+    command %{sudo chmod u+rwx-s,g+rwxs,o= "#{fetch(:bundle_path)}"/ruby/*/gems/*}
+  end
+end
+
 task :samhain_db_update do
-  command %{sudo /usr/local/sbin/update-samhain-db.sh "/var/www/admin_apientreprise_#{ENV['to']}"}
+  command %{sudo /usr/local/sbin/update-samhain-db.sh "#{fetch(:deploy_to)}"}
 end
 
 # This task is the environment that is loaded for all remote run commands, such as
@@ -144,7 +153,7 @@ task :passenger do
   command %{
     if (sudo passenger-status | grep admin_apientreprise_#{ENV['to']}) > /dev/null
     then
-      sudo passenger-config restart-app /var/www/admin_apientreprise_#{ENV['to']}/current
+      sudo passenger-config restart-app #{fetch(:deploy_to)}/current
     else
       echo 'Skipping: no Passenger app found (will be automatically loaded)'
     fi}
@@ -156,7 +165,7 @@ task :cgu_to_pdf do
 end
 
 task :ownership do
-  command %{sudo chown -R deploy /var/www/admin_apientreprise_#{ENV['to']}}
+  command %{sudo chown -R #{fetch(:app_owner)}:#{fetch(:app_group)} "#{fetch(:deploy_to)}"}
 end
 
 # For help in making your deploy script, see the Mina documentation:
