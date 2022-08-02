@@ -108,7 +108,7 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
 
   def collection_types
     @collection_types ||= response_schema
-      .dig('properties', 'data', 'items', 'properties', 'type') || {}
+      .dig('properties', 'data', 'items', 'properties', 'data', 'properties', 'type') || {}
   end
 
   def collection?
