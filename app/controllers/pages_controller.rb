@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   helper AlgoliaQueryHelper
 
-  layout 'no_container', only: %i[home cas_usages]
+  layout 'no_container', only: %i[home cas_usages cas_usage]
 
   def current_status
     @current_status = StatusPage.new.current_status
@@ -19,6 +19,12 @@ class PagesController < ApplicationController
   def developers; end
 
   def cas_usages; end
+
+  def cas_usage
+    @cas_usage_name = request.original_url.split('/').last
+
+    @cas_usage = I18n.t("cas_usages.#{@cas_usage_name}")
+  end
 
   def mentions; end
 

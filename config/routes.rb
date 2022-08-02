@@ -54,6 +54,10 @@ Rails.application.routes.draw do
   get '/developpeurs/guide-migration', to: 'documentation#guide_migration', as: :guide_migration
   get '/developpeurs/openapi', to: 'pages#redoc', as: :developers_openapi
   get '/cas_usages', to: 'pages#cas_usages'
+  get '/cas_usages/marches_publics', to: 'pages#cas_usage'
+  get '/cas_usages/subventions', to: 'pages#cas_usage'
+  get '/cas_usages/fraude', to: 'pages#cas_usage'
+  get '/cas_usages/formulaire', to: 'pages#cas_usage'
 
   get '/apis/status', to: 'pages#current_status', as: :current_status
   get '/v3/openapi.yaml', to: ->(env) { [200, {}, [OpenAPIDefinition.instance.open_api_definition_content]] }, as: :openapi_definition

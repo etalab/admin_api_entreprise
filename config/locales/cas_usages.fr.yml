@@ -1,0 +1,440 @@
+---
+fr:
+  cas_usages:
+    marches_publics:
+      introduction:
+        title: Faciliter la candidature, l’instruction et le suivi des marchés publics
+        content: |
+          API Entreprise met à disposition des API pour les administrations publiant des appels d’offre. Les données obtenues permettent de simplifier les **démarches de candidature des entreprises et associations**, faciliter l’**instruction des dossiers** et le **suivi des prestataires**.
+
+      role:
+        title: Le rôle d’API Entreprise
+        content: |+
+          #### Une simplification des démarches, pour tous
+          L’API Entreprise facilite&nbsp;:&nbsp;
+          - le **dépôt des candidatures** 📥 par les entreprises et associations, en pré-remplissant leur formulaire de demande une fois qu’elles ont entré leur numéro de SIRET ou RNA ;
+          - la **construction du dossier 🗂 et le travail de l’organisation publique instructrice 🔎** en récupérant les justificatifs nécessaires à l’instruction, sans les réclamer aux entreprises et associations demandeuses.
+          - le **suivi des prestataires**, en permettant une mise à jour des documents, telle que l'attestation de vigileance.
+
+          #### Ce que cela change pour vous, administrations
+          En intégrant la brique API Entreprise dans votre système d’information ou votre site internet&nbsp;:&nbsp;
+          - Vous **accédez facilement aux données** de l’INSEE, la DGFiP, l’URSSAF, etc. ;
+          - Vous n’avez **plus besoin de demander et re-demander certains justificatifs** aux entreprises ;
+          - Vous n’avez pas de vérification supplémentaire à réaliser car les **informations sont certifiées**.
+
+      apis:
+        title: Les API utiles pour les marchés publics
+        content: |+
+          **Retrouvez ci-dessous la liste de toutes les API de l’API Entreprise.**
+          Celles utiles pour ce cas d’usage des marchés publics sont indiquées par une coche verte ✅.
+          Pour certaines API, l’utilité est à étudier ⏺. Pour d’autres, l’utilité n’est pas avérée ❌
+
+          [Voir directement toutes les API utiles dans le catalogue avec leur documentation](TODO link avec picto flèche vers la droite)
+
+          #### Informations générales
+
+          {:.fr-table}
+          | Données et endpoints 	| Producteur 	| Utilité| Format 	| Ouverture 	| Documentation	|
+          |--|:--:|:--:|:--:|:--:|:--:|
+          | **Données de référence<br>d'une entreprise** 	<br>`entreprises` | INSEE & Infogreffe 	| ✅ 	|  JSON 	| publiques et protégées	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#entreprises){:target="_blank"}  	|
+          | **Données de référence<br>d'un établissement** <br>	`etablissements` | INSEE 	| ✅ 	|  JSON 	| publiques et protégées	| 	[Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#etablissements){:target="_blank"}|
+          | **Extrait  RCS** <br> `extraits_rcs_infogreffe` 	| Infogreffe 	|  ✅ 	|  JSON 	| publiques 	|  [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#extraits_rcs_infogreffe){:target="_blank"}	|
+          | **Données déclaratives<br>d'une association** <br> `associations`	| Ministère de l'Intérieur 	| ✅ 	 | JSON 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#associations){:target="_blank"} 	|
+          | **Divers documents<br>d'une association** <br> `documents_associations`  	| Ministère de l'Intérieur 	| ✅ 	| PDF 	| publiques 	|  [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#documents_associations){:target="_blank"}	|
+          | **Données de référence d'une entreprise artisanale**<br> `entreprises_artisanales_cma` 	| CMA France 	|  ✅ 	|  JSON 	| publiques 	|  	[Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#a-entreprises_artisanales_cma){:target="_blank"} |
+          | **Actes**<br> `actes_inpi` 	| INPI 	|  ✅ 	|  ZIP (PDF et XML) 	| publiques 	|  	[Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#actes_inpi){:target="_blank"} |
+          | **Conventions collectives** <br> `conventions_collectives` 	| Fabrique numérique des Ministères Sociaux 	|  ✅ 	|  JSON 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#conventions_collectives){:target="_blank"} 	|
+          | **Effectif d'une entreprise** <br> `effectifs_..._acoss_covid` 	| URSSAF Caisse nationale 	|  ✅ 	|  JSON 	| protégées 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#a-effectifs_..._acoss_covid){:target="_blank"} 	|
+          | **Immatriculation EORI** <br> `eori_douanes` 	| Douanes 	|  ✅ 	|  JSON 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#a-eori_douanes){:target="_blank"} 	|
+
+
+          #### Informations financières
+
+          {:.fr-table}
+          | Données et endpoints	| Producteur 	| Utilité 	| Format 	| Ouverture 	|  Documentation	|
+          |-|:-:|:-:|:-:|:-:|:-:|
+          | **Chiffre d'affaires**<br>`exercices` 	| DGFIP 	| ✅ 	|  JSON 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#exercices){:target="_blank"} 	|
+          | **Bilans annuels**<br>`bilans_inpi` 	| INPI 	|  ✅ 	| ZIP (PDF et XML) 	| publiques et protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#bilans_inpi){:target="_blank"} 	|
+          | **3 derniers bilans annuels**<br>`bilans_entreprises_bdf` 	| Banque de France 	| ❌ 	|  JSON 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#bilans_entreprises_bdf){:target="_blank"} 	|
+          | **Déclarations de résultat**<br>`liasses_fiscales_dgfip` 	| DGFIP 	| ❌ 	| JSON 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#liasses_fiscales_dgfip){:target="_blank"} 	|
+
+          #### Attestations sociales et fiscales
+
+          {:.fr-table}
+          | Données et endpoints 	| Producteur 	| Utilité	| Format 	| Ouverture 	| Documentation 	|
+          |-|:-:|:-:|:-:|:-:|:-:|
+          | **Attestation fiscale**<br>`attestations_fiscales_dgfip` 	| DGFIP 	| ✅ 	| PDF 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#attestations_fiscales_dgfip){:target="_blank"} 	|
+          | **Attestation de vigilance**<br>`attestations_sociales_acoss` 	| URSSAF Caisse nationale 	| ✅ 	|  PDF 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#attestations_sociales_acoss){:target="_blank"} 	|
+          | **Conformité emploi des travailleurs handicapés**<br>`attestations_agefiph` 	| AGEFIPH 	|  ✅	| JSON 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#attestations_agefiph){:target="_blank"} 	|
+          | **Cotisations de sécurité sociale agricole**<br>`cotisations_msa` 	| MSA 	|  ✅	| JSON 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#cotisations_msa){:target="_blank"} 	|
+          | **Cotisations retraite bâtiment**<br>`cotisation_retraite_probtp` 	| PROBTP 	|  ✅	|  JSON 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#cotisation_retraite_probtp){:target="_blank"} 	|
+          | **Carte professionnelle travaux publics**<br>`cartes_professionnelles_fntp` 	| FNTP 	|  ✅	|PDF 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#cartes_professionnelles_fntp){:target="_blank"} 	|
+          | **Cotisations congés payés & chômage intempéries**<br>`certificats_cnetp` 	| CNETP 	|  ✅	|  PDF 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#certificats_cnetp){:target="_blank"} 	|
+
+
+          #### Certificats professionnels
+
+          {:.fr-table}
+          | Données et endpoints 	| Producteur 	| Utilité| Format 	| Ouverture 	|  Documentation	|
+          |--|:-:|:-:|:-:|:-:|:-:|
+          | **Certification en BIO**<br>`certificats_agence_bio` 	| Agence BIO 	|  ✅	| JSON	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#a-certificats_agence_bio){:target="_blank"} 	|
+          | **Certification RGE**<br>`certificats_rge_ademe` 	| ADEME 	|  ✅	| JSON et PDF 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#certificats_rge_ademe){:target="_blank"} 	|
+          | **Certification de qualification bâtiment**<br>`certificats_qualibat` 	| Qualibat 	|  ✅	| PDF 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#certificats_qualibat){:target="_blank"} 	|
+          | **Certification de qualification d'ingénierie**<br>`certificats_opqibi` 	| OPQIBI 	|  ✅	|JSON 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#certificats_opqibi){:target="_blank"} 	|
+
+
+          #### Propriété intellectuelle
+
+          {:.fr-table}
+          | Données et endpoints 	| Producteur 	| Utilité	| Format 	| Ouverture 	|  Documentation	|
+          |--|:-:|:-:|:-:|:-:|:-:|
+          | **Brevets, modèles et marques déposées**<br>`extraits_courts_inpi` 	| INPI  	|  ✅ | JSON 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#extraits_courts_inpi){:target="_blank"} 	|
+
+      users:
+        title: Ils utilisent l’API Entreprise
+        content: |+
+          Ils utilisent déjà l’API Entreprise pour faciliter la candidature et l’instruction des marchés publics&nbsp;:&nbsp;
+
+          ##### Des communes et intercommunalités
+          Communauté d’agglomération du Territoire de la Côte Ouest, communauté de Communes du Grand-Langres, communauté Intercommunale du Nord de La Réunion, communauté urbaine du Grand Reims, commune de Corbeil-Essonnes, commune de Marseille.
+
+          ##### Des métropôles
+          Bordeaux Métropole, eurométropole de Strasbourg, métropole Aix-Marseille-Provence, métropole du Grand Nancy, Nantes Métropole.
+
+          ##### 18 départements
+          Ain, Bouches-du-Rhône, Drôme, Eure, Loire-Atlantique, Meuse.
+
+          ##### 15 régions
+          Aquitaine, Auvergne-Rhône-Alpes, Centre-Val de Loire, Grand Est, Nouvelle-Aquitaine, Occitanie, Pays de la Loire.
+
+          ##### Des administrations centrales
+          Agence pour l’informatique financière de l’État, Direction des achats de l’État.
+
+          ##### Des groupements d’intérêt publics
+          Groupement d’Intérêt Public Maximilien, iMSA, Samusocial de Paris, Territoires Numériques – BFC.
+
+          ##### Des opérateurs
+          Aéroport Marseille Provence, agence publique pour l’immobilier de la justice, centre de coopération internationale en recherche agronomique pour le développement, centre Hospitalier Universitaire de Montpellier, centre national de la fonction publique territoriale, centre national de la recherche scientifique, établissement public territorial de bassin Seine Grands Lacs, port autonome de Strasbourg, URSSAF Pays de la Loire.
+
+          ##### Parfois au travers d’un éditeur de logiciel :
+
+          {:.fr-table}
+          | Éditeurs et services connectés à l'API Entreprise        |     type d'entité  |    Profil acheteur ou service        |
+          |------------------------|:-------------------------------------------:|:-------------------------------------------:|
+          |    AIFE <br>(Agence pour l'Informatique Financière de l'État)       |  agence publique | [Service DUME](https://dume.chorus-pro.gouv.fr/#/){:target="_blank"} |
+          |    Achatpublic    | entreprise privée |[achatpublic.com](https://www.achatpublic.com/){:target="_blank"}  |
+          |    Atexo                 | entreprise privée | [Place](https://www.marches-publics.gouv.fr/){:target="_blank"}     |
+          |    AWS                   |    entreprise privée |    [AWS-achat](https://www.marches-publics.info){:target="_blank"}  |
+          |    Atline Services                   |    entreprise privée |    [marchés-securises.fr](https://www.marches-securises.fr/entreprise/?){:target="_blank"}|
+          |    Dematis               |     entreprise privée |       [e-marchespublics.com](https://www.e-marchespublics.com/){:target="_blank"}                                |
+          |    Entr'ouvert               |     coopérative |       [entrouvert.com](https://www.entrouvert.com){:target="_blank"}                                |
+          |    E-attestation              |  entreprise privée |       [E-attestations](https://www.e-attestations.com/){:target="_blank"}                                |
+          |    Klekoon          | entreprise privée |     [klekoon.com](https://www.klekoon.com/){:target="_blank"}                                        |
+          |    Provigis              |    entreprise privée |     [Provigis plateforme](https://www.provigis.com/connexion-plateforme-donneur-dordres/){:target="_blank"}                                     |
+          |    Territoires numériques               |    groupement d'intérêt public Bourgogne Franche-Comté |     [Pack commande publique](https://www.ternum-bfc.fr/services/pack-commande-publique){:target="_blank"}                                     |
+
+          Vous êtes un éditeur proposant une solution pour les marchés publics et ne figurez pas sur cette liste ? Veuillez nous contacter à cette adresse mail : [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr).
+
+    subventions:
+      introduction:
+        title: Faciliter dépôt et l'instruction des aides et subventions publiques
+        content: |
+          API Entreprise met à disposition des API pour les administrations proposant des aides publiques. Les données obtenues permettent de simplifier le **dépôt des demandes** et de faciliter l’**instruction des dossiers**.
+      role:
+        title: Le rôle d’API Entreprise
+        content: |+
+          #### Une simplification des démarches, pour tous
+
+          L’API Entreprise facilite&nbsp;:&nbsp;
+          - le **dépôt des demandes** 📥 par les entreprises et associations, en pré-remplissant leur formulaire une fois qu’elles ont entré leur numéro de SIRET ou RNA ;
+          - la **construction du dossier 🗂 et le travail de l’organisation publique instructrice 🔎** en récupérant les justificatifs nécessaires à l’instruction, sans les réclamer aux entreprises et associations demandeuses.
+
+          #### Ce que cela change pour vous, administrations
+
+          En intégrant la brique API Entreprise dans votre système d’information ou votre site internet&nbsp;:&nbsp;
+          - Vous **accédez facilement aux données** de l’INSEE, la DGFiP, l’URSSAF, etc. ;
+          - Vous n’avez **plus besoin de demander certains justificatifs** aux entreprises ;
+          - Vous n’avez pas de vérification supplémentaire à réaliser car les **informations sont certifiées**.
+      apis:
+        title: Les API utiles pour les demandes d'aides et subventions
+        content: |+
+          **Retrouvez ci-dessous la liste de toutes les API de l’API Entreprise.**
+          Celles utiles pour ce cas d’usage des aides et subventions sont indiquées par une coche verte ✅.
+          Pour certaines API, l’utilité est à étudier ⏺. Pour d’autres, l’utilité n’est pas avérée ❌
+
+          [Voir directement toutes les API utiles dans le catalogue avec leur documentation](TODO link avec picto flèche vers la droite)
+
+
+          #### Informations générales
+
+          {:.fr-table}
+          | Données et endpoints 	| Producteur 	| Utilité| Format 	| Ouverture 	| Documentation	|
+          |-|:-:|:-:|:-:|:-:|:-:|
+          | **Données de référence<br>d'une entreprise** 	<br>`entreprises` | INSEE & Infogreffe 	| ✅ 	|  JSON 	| publiques et protégées	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#entreprises){:target="_blank"}  	|
+          | **Données de référence<br>d'un établissement** <br>	`etablissements` | INSEE 	| ✅ 	|  JSON 	| publiques et protégées	| 	[Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#etablissements){:target="_blank"}|
+          | **Extrait  RCS** <br> `extraits_rcs_infogreffe` 	| Infogreffe 	|  ✅ 	|  JSON 	| publiques 	|  [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#extraits_rcs_infogreffe){:target="_blank"}	|
+          | **Données déclaratives<br>d'une association** <br> `associations`	| Ministère de l'Intérieur 	| ✅ 	 | JSON 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#associations){:target="_blank"} 	|
+          | **Divers documents<br>d'une association** <br> `documents_associations`  	| Ministère de l'Intérieur 	| ✅ 	| PDF 	| publiques 	|  [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#documents_associations){:target="_blank"}	|
+          | **Données de référence d'une entreprise artisanale**<br> `entreprises_artisanales_cma` 	| CMA France 	|  ✅ 	|  JSON 	| publiques 	|  	[Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#a-entreprises_artisanales_cma){:target="_blank"} |
+          | **Actes**<br> `actes_inpi` 	| INPI 	|  ⏺ 	|  ZIP (PDF et XML) 	| publiques 	|  	[Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#actes_inpi){:target="_blank"} |
+          | **Conventions collectives** <br> `conventions_collectives` 	| Fabrique numérique des Ministères Sociaux 	|  ⏺ 	|  JSON 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#conventions_collectives){:target="_blank"} 	|
+          | **Effectif d'une entreprise** <br> `effectifs_..._acoss_covid` 	| URSSAF Caisse nationale 	|  ⏺ 	|  JSON 	| protégées 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#a-effectifs_..._acoss_covid){:target="_blank"} 	|
+          | **Immatriculation EORI** <br> `eori_douanes` 	| Douanes 	|  ⏺ 	|  JSON 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#a-eori_douanes){:target="_blank"} 	|
+
+
+          #### Informations financières
+
+          {:.fr-table}
+          | Données et endpoints	| Producteur 	| Utilité 	| Format 	| Ouverture 	|  Documentation	|
+          |-|:-:|:-:|:-:|:-:|:-:|
+          | **Chiffre d'affaires**<br>`exercices` 	| DGFIP 	| ✅ 	|  JSON 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#exercices){:target="_blank"} 	|
+          | **Bilans annuels**<br>`bilans_inpi` 	| INPI 	|  ⏺ 	| ZIP (PDF et XML) 	| publiques et protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#bilans_inpi){:target="_blank"} 	|
+          | **3 derniers bilans annuels**<br>`bilans_entreprises_bdf` 	| Banque de France 	| ❌ 	|  JSON 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#bilans_entreprises_bdf){:target="_blank"} 	|
+          | **Déclarations de résultat**<br>`liasses_fiscales_dgfip` 	| DGFIP 	| ❌ 	| JSON 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#liasses_fiscales_dgfip){:target="_blank"} 	|
+
+          #### Attestations sociales et fiscales
+
+          {:.fr-table}
+          | Données et endpoints 	| Producteur 	| Utilité	| Format 	| Ouverture 	| Documentation 	|
+          |-|:-:|:-:|:-:|:-:|:-:|
+          | **Attestation fiscale**<br>`attestations_fiscales_dgfip` 	| DGFIP 	| ✅ 	| PDF 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#attestations_fiscales_dgfip){:target="_blank"} 	|
+          | **Attestation de vigilance**<br>`attestations_sociales_acoss` 	| URSSAF Caisse nationale 	| ✅ 	|  PDF 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#attestations_sociales_acoss){:target="_blank"} 	|
+          | **Conformité emploi des travailleurs handicapés**<br>`attestations_agefiph` 	| AGEFIPH 	|  ⏺	| JSON 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#attestations_agefiph){:target="_blank"} 	|
+          | **Cotisations de sécurité sociale agricole**<br>`cotisations_msa` 	| MSA 	|  ⏺	| JSON 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#cotisations_msa){:target="_blank"} 	|
+          | **Cotisations retraite bâtiment**<br>`cotisation_retraite_probtp` 	| PROBTP 	|  ⏺	|  JSON 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#cotisation_retraite_probtp){:target="_blank"} 	|
+          | **Carte professionnelle travaux publics**<br>`cartes_professionnelles_fntp` 	| FNTP 	|  ⏺	|PDF 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#cartes_professionnelles_fntp){:target="_blank"} 	|
+          | **Cotisations congés payés & chômage intempéries**<br>`certificats_cnetp` 	| CNETP 	|  ⏺	|  PDF 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#certificats_cnetp){:target="_blank"} 	|
+
+          #### Certificats professionnels
+
+          {:.fr-table}
+          | Données et endpoints 	| Producteur 	| Utilité| Format 	| Ouverture 	|  Documentation	|
+          |-|:-:|:-:|:-:|:-:|:-:|
+          | **Certification en BIO**<br>`certificats_agence_bio` 	| Agence BIO 	|  ⏺	| JSON	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#a-certificats_agence_bio){:target="_blank"} 	|
+          | **Certification RGE**<br>`certificats_rge_ademe` 	| ADEME 	|  ⏺	| JSON et PDF 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#certificats_rge_ademe){:target="_blank"} 	|
+          | **Certification de qualification bâtiment**<br>`certificats_qualibat` 	| Qualibat 	|  ⏺	| PDF 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#certificats_qualibat){:target="_blank"} 	|
+          | **Certification de qualification d'ingénierie**<br>`certificats_opqibi` 	| OPQIBI 	|  ⏺	|JSON 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#certificats_opqibi){:target="_blank"} 	|
+
+          #### Propriété intellectuelle
+
+          {:.fr-table}
+          | Données et endpoints 	| Producteur 	| Utilité	| Format 	| Ouverture 	|  Documentation	|
+          |-|:-:|:-:|:-:|:-:|:-:|
+          | **Brevets, modèles et marques déposées**<br>`extraits_courts_inpi` 	| INPI  	|  ⏺ | JSON 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#extraits_courts_inpi){:target="_blank"} 	|
+      users:
+        title: Ils utilisent l’API Entreprise
+        content: |+
+          ##### Des communes et intercommunalités
+          Alsace collectivité européene, Corbas, Les Sables-D’olonne, Saint Chamond, Venissieux, communauté d’agglomération Chauny-Tergnier-La Fère, communaute urbaine d’Arras, Grand Poitiers communaute urbaine.
+
+          ##### Des métropôles
+          Grenoble-Alpes-Métropole, Grand Lyon.
+
+          ##### Des départements
+          Drôme, Finistère, Isère, Vaucluse.
+
+          ##### Des régions
+          Bourgogne-Franche-Comte, Bretagne, Centre-Val de Loire, Île-de-France, Normandie, Nouvelle-Aquitaine, Réunion.
+
+
+          ##### Parfois au travers d’un éditeur de logiciel :
+
+          {:.fr-table}
+          | Éditeurs connectés à l'API Entreprise        |     Type d'entité  |    Service ou solution     |
+          |------------------------|:-------------------------------------------:|:-------------------------------------------:|
+          |    ATEXO  |  entreprise privée | [Local Trust SUB](http://www.atexo.com/){:target="_blank"}|
+          |    Entr'ouvert  |  coopérative | [Publik](https://publik.entrouvert.com/){:target="_blank"}<br> logiciel libre|
+          |    E-attestation              |  entreprise privée |       [E-attestations](https://www.e-attestations.com/){:target="_blank"}                                |
+          |    MGDIS   | entreprise privée |[Portail des aides](https://www.mgdis.fr/nos-solutions/pilotage-des-aides-versees/){:target="_blank"}  |
+
+          Vous êtes un éditeur proposant une solution pour les aides et subventions publiques et ne figurez pas sur cette liste ? Veuillez nous contacter à cette adresse mail : [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr).
+    fraude:
+      introduction:
+        title: Simplifier les procédures de détection de la fraude
+        content: |
+          API Entreprise met à disposition des API pour les administrations ayant pour mission de détecter la fraude, qu'elle soit financière ou sociale. Les données obtenues permettent de **faciliter et d'accélérer le traitement des dossiers d'enquête**, en limitant les sollicitations des entreprises et associations.
+      role:
+        title: Le rôle d’API Entreprise
+        content: |+
+          #### Une simplification des démarches, pour tous
+
+          L’API Entreprise facilite :
+          - la **constitution du dossier d'enquête 🗂 et le travail des enquêteurs 🔎** en récupérant les justificatifs nécessaires à l’instruction, sans les réclamer aux entreprises et associations demandeuses.
+          - le **ciblage des entités à contrôler** et dans le respect des procédures contradictoires.
+
+          #### Ce que cela change pour vous, administrations
+
+          En intégrant la brique API Entreprise dans votre système d’information ou votre site internet :
+          - Vous **accédez facilement aux données** de la DGFiP, de l’URSSAF, etc. ;
+          - Vous **accédez et exploitez plus rapidement aux informations** sociales, économiques et financières des entités surveillées ;
+          - Vous n’avez pas de vérification supplémentaire à réaliser car les **informations sont certifiées**.
+      apis:
+        title: Les API utiles pour la détection de la fraude
+        content: |+
+          **Retrouvez ci-dessous la liste de toutes les API de l’API Entreprise.**
+          Celles utiles pour ce cas d’usage de détection de la fraude sont indiquées par une coche verte ✅.
+          Pour certaines API, l’utilité est à étudier ⏺. Pour d’autres, l’utilité n’est pas avérée ❌
+
+          [Voir directement toutes les API utiles dans le catalogue avec leur documentation](TODO link avec picto flèche vers la droite)
+
+
+          #### Informations générales
+
+          {:.fr-table}
+          | Données et endpoints 	| Producteur 	| Utilité| Format 	| Ouverture 	| Documentation	|
+          |-|:-:|:-:|:-:|:-:|:-:|
+          | **Données de référence<br>d'une entreprise** 	<br>`entreprises` | INSEE & Infogreffe 	| ✅ 	|  JSON 	| publiques et protégées	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#entreprises){:target="_blank"}  	|
+          | **Données de référence<br>d'un établissement** <br>	`etablissements` | INSEE 	| ✅ 	|  JSON 	| publiques et protégées	| 	[Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#etablissements){:target="_blank"}|
+          | **Extrait  RCS** <br> `extraits_rcs_infogreffe` 	| Infogreffe 	|  ✅ 	|  JSON 	| publiques 	|  [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#extraits_rcs_infogreffe){:target="_blank"}	|
+          | **Données déclaratives<br>d'une association** <br> `associations`	| Ministère de l'Intérieur 	| ⏺ 	 | JSON 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#associations){:target="_blank"} 	|
+          | **Divers documents<br>d'une association** <br> `documents_associations`  	| Ministère de l'Intérieur 	| ⏺ 	| PDF 	| publiques 	|  [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#documents_associations){:target="_blank"}	|
+          | **Données de référence d'une entreprise artisanale**<br> `entreprises_artisanales_cma` 	| CMA France 	|  ⏺ 	|  JSON 	| publiques 	|  	[Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#a-entreprises_artisanales_cma){:target="_blank"} |
+          | **Actes**<br> `actes_inpi` 	| INPI 	|  ✅ 	|  ZIP (PDF et XML) 	| publiques 	|  	[Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#actes_inpi){:target="_blank"} |
+          | **Conventions collectives** <br> `conventions_collectives` 	| Fabrique numérique des Ministères Sociaux 	|  ⏺ 	|  JSON 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#conventions_collectives){:target="_blank"} 	|
+          | **Effectif d'une entreprise** <br> `effectifs_..._acoss_covid` 	| URSSAF Caisse nationale 	|  ✅ 	|  JSON 	| protégées 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#a-effectifs_..._acoss_covid){:target="_blank"} 	|
+          | **Immatriculation EORI** <br> `eori_douanes` 	| Douanes 	|  ✅ 	|  JSON 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#a-eori_douanes){:target="_blank"} 	|
+
+          #### Informations financières
+
+          {:.fr-table}
+          | Données et endpoints	| Producteur 	| Utilité 	| Format 	| Ouverture 	|  Documentation	|
+          |-|:-:|:-:|:-:|:-:|:-:|
+          | **Chiffre d'affaires**<br>`exercices` 	| DGFIP 	| ✅ 	|  JSON 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#exercices){:target="_blank"} 	|
+          | **Bilans annuels**<br>`bilans_inpi` 	| INPI 	|  ✅ 	| ZIP (PDF et XML) 	| publiques et protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#bilans_inpi){:target="_blank"} 	|
+          | **3 derniers bilans annuels**<br>`bilans_entreprises_bdf` 	| Banque de France 	| ✅ 	|  JSON 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#bilans_entreprises_bdf){:target="_blank"} 	|
+          | **Déclarations de résultat**<br>`liasses_fiscales_dgfip` 	| DGFIP 	| ✅ 	| JSON 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#liasses_fiscales_dgfip){:target="_blank"} 	|
+
+          #### Attestations sociales et fiscales
+
+          {:.fr-table}
+          | Données et endpoints 	| Producteur 	| Utilité	| Format 	| Ouverture 	| Documentation 	|
+          |-|:-:|:-:|:-:|:-:|:-:|
+          | **Attestation fiscale* <br>`attestations_fiscales_dgfip` 	| DGFIP 	| ✅ 	| PDF 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#attestations_fiscales_dgfip){:target="_blank"} 	|
+          | **Attestation de vigilance**<br>`attestations_sociales_acoss` 	| URSSAF Caisse nationale 	| ✅ 	|  PDF 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#attestations_sociales_acoss){:target="_blank"} 	|
+          | **Conformité emploi des travailleurs handicapés**<br>`attestations_agefiph` 	| AGEFIPH 	|  ⏺	| JSON 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#attestations_agefiph){:target="_blank"} 	|
+          | **Cotisations de sécurité sociale agricole**<br>`cotisations_msa` 	| MSA 	|  ⏺	| JSON 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#cotisations_msa){:target="_blank"} 	|
+          | **Cotisations retraite bâtiment**<br>`cotisation_retraite_probtp` 	| PROBTP 	|  ⏺	|  JSON 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#cotisation_retraite_probtp){:target="_blank"} 	|
+          | **Carte professionnelle travaux publics**<br>`cartes_professionnelles_fntp` 	| FNTP 	|  ⏺	|PDF 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#cartes_professionnelles_fntp){:target="_blank"} 	|
+          | **Cotisations congés payés & chômage intempéries**<br>`certificats_cnetp` 	| CNETP 	|  ⏺	|  PDF 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#certificats_cnetp){:target="_blank"} 	|
+
+          #### Certificats professionnels
+
+          {:.fr-table}
+          | Données et endpoints 	| Producteur 	| Utilité| Format 	| Ouverture 	|  Documentation	|
+          |-|:-:|:-:|:-:|:-:|:-:|
+          | **Certification en BIO**<br>`certificats_agence_bio` 	| Agence BIO 	|  ⏺	| JSON	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#a-certificats_agence_bio){:target="_blank"} 	|
+          | **Certification RGE**<br>`certificats_rge_ademe` 	| ADEME 	|  ⏺	| JSON et PDF 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#certificats_rge_ademe){:target="_blank"} 	|
+          | **Certification de qualification bâtiment**<br>`certificats_qualibat` 	| Qualibat 	|  ⏺	| PDF 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#certificats_qualibat){:target="_blank"} 	|
+          | **Certification de qualification d'ingénierie**<br>`certificats_opqibi` 	| OPQIBI 	|  ⏺	|JSON 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#certificats_opqibi){:target="_blank"} 	|
+
+          #### Propriété intellectuelle
+
+          {:.fr-table}
+          | Données et endpoints 	| Producteur 	| Utilité	| Format 	| Ouverture 	|  Documentation	|
+          |-|:-:|:-:|:-:|:-:|:-|
+          | **Brevets, modèles et marques déposées**<br>`extraits_courts_inpi` 	| INPI  	|  ⏺ | JSON 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#extraits_courts_inpi){:target="_blank"} 	|
+      users:
+        title: Ils utilisent l’API Entreprise
+        content: |+
+          La **Direction des Achats de l'État** (DAE), et la **Direction générale de la concurrence, de la consommation et de la répression des fraudes** (DGCCRF), utilisent déjà l'API Entreprise pour simplifier leurs procédures de détection de la fraude.
+    formulaire:
+      introduction:
+        title: Préremplir un formulaire à partir d’un Siret/RNA
+        content: |
+          API Entreprise met à disposition des API pour les administrations demandant aux entreprises et associations de remplir un formulaire. En inscrivant leur numéro de Siret ou RNA, le formulaire est **préremli automatiquement** des données connues.
+      role:
+        title: Le rôle d’API Entreprise
+        content: |+
+          #### Une simplification des démarches, pour tous
+
+          L’API Entreprise facilite :
+          - les **démarches** 📥 des entreprises et associations, en pré-remplissant leur formulaire de demande une fois qu’elles ont entré leur numéro de SIRET ou RNA ;
+          - la **personnalisation des informations demandées** 🎨 en permettant aux systèmes d’informations des administrations de distinguer leurs utilisateurs grâce aux données fournies, telle que la catégorie juridique ou la tranche de l'effectif par exemple.
+
+          #### Ce que cela change pour vous, administrations
+
+          En intégrant la brique API Entreprise dans votre système d’information ou votre site internet :
+          - Vous **accélérez les procédures pour vos utilisateurs** en leur évitant de rechercher des informations que l’administration connaît déjà ;
+          - Vous éviter les erreurs de frappe et donc une vérification supplémentaire car **les informations données par API Entreprise sont certifiées**.
+      apis:
+        title: Les API utiles pour les marchés publics
+        content: |+
+          **Retrouvez ci-dessous la liste de toutes les API de l’API Entreprise.**
+          Celles utiles pour le préremplissage de formulaire sont indiquées par une coche verte ✅.
+          Pour certaines API, l’utilité est à étudier ⏺. Pour d’autres, l’utilité n’est pas avérée ❌
+
+          [Voir directement toutes les API utiles dans le catalogue avec leur documentation](TODO link avec picto flèche vers la droite)
+
+          #### Informations générales
+
+          {:.fr-table}
+          | Données et endpoints 	| Producteur 	| Utilité |Format 	| Ouverture 	| Documentation	|
+          |-|:-:|:-:|:-:|:-:|:-:|
+          | **Données de référence<br>d'une entreprise** 	<br>`entreprises` | INSEE & Infogreffe  | ✅<br>❌ sans l'option  "non-diffusibles"	|  JSON 	| publiques et protégées	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#entreprises){:target="_blank"}  	|
+          | **Données de référence<br>d'un établissement** <br>	`etablissements` | INSEE	| ✅<br>❌ sans l'option  "non-diffusibles"| JSON 	| publiques et protégées	| 	[Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#etablissements){:target="_blank"}|
+          | **Extrait  RCS** <br> `extraits_rcs_infogreffe` 	| Infogreffe 	|	❌ |  JSON 	| publiques 	|  [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#extraits_rcs_infogreffe){:target="_blank"}	|
+          | **Données déclaratives<br>d'une association** <br> `associations`	| Ministère de l'Intérieur	| ✅	 | JSON 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#associations){:target="_blank"} 	|
+          | **Divers documents<br>d'une association** <br> `documents_associations`  	| Ministère de l'Intérieur 	| ❌<br> *format inadapté*	| PDF 	| publiques 	|  [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#documents_associations){:target="_blank"}	|
+          | **Données de référence d'une entreprise artisanale**<br> `entreprises_artisanales_cma` 	| CMA France |  ✅ 	|JSON 	| publiques 	|  	[Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#a-entreprises_artisanales_cma){:target="_blank"} |
+          | **Actes**<br> `actes_inpi` 	| INPI | ❌<br> *format inadapté*	| ZIP (PDF et XML) 	| publiques 	|  	[Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#actes_inpi){:target="_blank"} |
+          | **Conventions collectives** <br> `conventions_collectives` 	| Fabrique numérique des Ministères Sociaux 	| ⏺ 	| JSON 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#conventions_collectives){:target="_blank"} 	|
+          | **Effectif d'une entreprise** <br> `effectifs_..._acoss_covid` 	| URSSAF Caisse nationale	|❌ |  JSON 	| protégées 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#a-effectifs_..._acoss_covid){:target="_blank"} 	|
+          | **Immatriculation EORI** <br> `eori_douanes` 	| Douanes 	|❌ |  JSON 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#a-eori_douanes){:target="_blank"} 	|
+
+
+          #### Informations financières
+
+          {:.fr-table}
+          | Données et endpoints	| Producteur | Utilité 	| Format 	| Ouverture 	|  Documentation	|
+          |-|:-:|:-:|:-:|:-:|:-:|
+          | **Chiffre d'affaires**<br>`exercices` 	| DGFIP | ❌	|  JSON 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#exercices){:target="_blank"} 	|
+          | **Bilans annuels**<br>`bilans_inpi` 	| INPI  | ❌	| ZIP (PDF et XML) 	| publiques et protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#bilans_inpi){:target="_blank"} 	|
+          | **3 derniers bilans annuels**<br>`bilans_entreprises_bdf` 	| Banque de France | ❌	|  JSON 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#bilans_entreprises_bdf){:target="_blank"} 	|
+          | **Déclarations de résultat**<br>`liasses_fiscales_dgfip` 	| DGFIP | ❌	| JSON 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#liasses_fiscales_dgfip){:target="_blank"} 	|
+
+
+          #### Attestations sociales et fiscales
+
+          {:.fr-table}
+          | Données et endpoints 	| Producteur | Utilité 	| Format 	| Ouverture 	| Documentation 	|
+          |-|:-:|:-:|:-:|:-:|:-:|
+          | **Attestation fiscale**<br>`attestations_fiscales_dgfip` 	| DGFIP  | ❌	| PDF 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#attestations_fiscales_dgfip){:target="_blank"} 	|
+          | **Attestation de vigilance**<br>`attestations_sociales_acoss` 	| URSSAF Caisse nationale  | ❌|  PDF 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#attestations_sociales_acoss){:target="_blank"} 	|
+          | **Conformité emploi des travailleurs handicapés**<br>`attestations_agefiph` 	| AGEFIPH 	| ❌| JSON 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#attestations_agefiph){:target="_blank"} 	|
+          | **Cotisations de sécurité sociale agricole**<br>`cotisations_msa` 	| MSA | ❌	| JSON 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#cotisations_msa){:target="_blank"} 	|
+          | **Cotisations retraite bâtiment**<br>`cotisation_retraite_probtp` 	| PROBTP 	| ❌	|  JSON 	| protégées 🔐 | ❌	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#cotisation_retraite_probtp){:target="_blank"} 	|
+          | **Carte professionnelle travaux publics**<br>`cartes_professionnelles_fntp` 	| FNTP 	|  ❌<br> *format inadapté* |PDF 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#cartes_professionnelles_fntp){:target="_blank"} 	|
+          | **Cotisations congés payés & chômage intempéries**<br>`certificats_cnetp` 	| CNETP | ❌<br> *format inadapté* 	|  PDF 	| protégées 🔐 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#certificats_cnetp){:target="_blank"} 	|
+
+          #### Certificats professionnels
+
+          {:.fr-table}
+          | Données et endpoints 	| Producteur | Utilité | Format 	| Ouverture 	|  Documentation	|
+          |-|:-:|:-:|:-:|:-:|:-:|
+          | **Certification en BIO**<br>`certificats_agence_bio` 	| Agence BIO 	| ⏺		| JSON	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#a-certificats_agence_bio){:target="_blank"} 	|
+          | **Certification RGE**<br>`certificats_rge_ademe` 	| ADEME 	|  ⏺	| JSON et PDF 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#certificats_rge_ademe){:target="_blank"} 	|
+          | **Certification de qualification bâtiment**<br>`certificats_qualibat` 	| Qualibat |  ❌<br> *format inadapté* | PDF 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#certificats_qualibat){:target="_blank"} 	|
+          | **Certification de qualification d'ingénierie**<br>`certificats_opqibi` 	| OPQIBI |⏺	| JSON 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#certificats_opqibi){:target="_blank"} 	|
+
+          #### Propriété intellectuelle
+
+          {:.fr-table}
+          | Données et endpoints 	| Producteur| Utilité | Format 	| Ouverture 	|  Documentation	|
+          |-|:-:|:-:|:-:|:-:|:-:|
+          | **Brevets, modèles et marques déposées**<br>`extraits_courts_inpi` 	| INPI | ⏺	| JSON 	| publiques 	| [Lien vers la documentation](https://entreprise.api.gouv.fr/catalogue/#extraits_courts_inpi){:target="_blank"} 	|
+      users:
+        title: Ils utilisent l’API Entreprise
+        content: |+
+          Ils utilisent déjà l’API Entreprise pour faciliter le préremplissage de formulaires&nbsp;:nbsp;
+
+          ##### Des communes et intercommunalités
+          La communauté de communes de Vaison Ventoux propose une [carte aux professionnels permettant d’accéder aux déchetteries de son territoire](http://www.vaison-ventoux.fr/cadre-de-vie-solidarite/dechets/l-acces-a-la-carte-de-dechetterie-pour-les-professionnels.htm). Le formulaire accessible sous connexion sécurisée FranceConnect, est directement pré-rempli des informations disponibles par API Entreprise.
+
+          ##### Des administrations centrales
+          ANCT (Agence nationale de la cohésion des territoires), DINUM (Direction interministérielle du numérique) ;
+
+          ##### Des groupements d’intérêt publics
+          Groupement d’Intérêt Public Maximilien, iMSA, Samusocial de Paris, Territoires Numériques – BFC.
+
+          ##### Des opérateurs
+          BPI France financement, Agence nationale pour la gestion des déchets radioactifs, CNIL (Commission Nationale de l’Informatique et des Libertés), CCI France.

@@ -1,0 +1,41 @@
+<div id="cas-usage" class="fr-container--fluid">
+  <div class="banner">
+  </div>
+  <div class="fr-container">
+    <section class="introduction fr-grid-row fr-background-default-white">
+      <div class="introduction_image fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-2 fr-col-xl-2">
+        <%= image_tag("home/pictos/#{@cas_usage_name}.svg", alt: @cas_usage_name) %>
+      </div>
+      <div class="introduction_text fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-10 fr-col-xl-10">
+        <label class="introduction_text--label"><%= t('.label') %></label>
+        <h2 class="introduction_text--title"><%= @cas_usage[:introduction][:title] %></h2>
+        <div class="introduction_text--content"><%= markdown_to_html(@cas_usage[:introduction][:content]) %></div>
+        <div class="introduction_text--links">
+          <%= link_to t('.link_access') %><span class="icon fr-icon-arrow-down-line fr-mr-3w" aria-hidden="true"></span>
+          <%= link_to t('.link_list_api') %><span class="icon fr-icon-arrow-down-line" aria-hidden="true"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="role">
+      <h3 class=role--title"><%= @cas_usage[:role][:title] %></h3>
+      <div class=role--content"><%= markdown_to_html(@cas_usage[:role][:content]) %></div>
+    </section>
+
+    <section class="apis fr-background-default-white">
+      <h3 class=apis--title"><%= @cas_usage[:apis][:title] %></h3>
+      <div class=apis--content"><%= markdown_to_html(@cas_usage[:apis][:content]) %></div>
+    </section>
+
+    <section class="users">
+      <h3 class=users--title"><%= @cas_usage[:users][:title] %></h3>
+      <div class=users--content"><%= markdown_to_html(@cas_usage[:users][:content]) %></div>
+    </section>
+
+    <section class="request_access fr-background-default-white">
+      <h3 class=request_access--title"><%= t('.request_access.title') %></h3>
+      <div class=request_access--content"><%= t('.request_access.description') %></div>
+      <a class="fr-btn"><%= t('.request_access.link')%></a>
+    </section>
+  </div>
+</div>
