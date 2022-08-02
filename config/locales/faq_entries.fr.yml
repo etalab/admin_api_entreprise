@@ -110,7 +110,7 @@ fr:
               - ❌ aux associations,
               - ❌ aux entreprises.
 
-              Il faut également être techniquement en mesure d’intégrer l’API Entreprise ([En savoir plus](<%= root_path %>))
+              Il faut également être techniquement en mesure d’intégrer l’API Entreprise, le détail des prérequis techniques est listé dans la [rubrique de l'espace développeur](<%= developers_path(anchor: 'prerequis-techniques') %>)
               **Pour vérifier votre éligibilité et faire une demande d’habilitation le cas échéant, suivez le lien suivant :**
 
               [Vérifier son éligibilité](https://api.gouv.fr/les-api/api-entreprise/demande-acces}{:target=\"_blank\"}){:.fr-btn fr-btn--secondary}
@@ -152,7 +152,7 @@ fr:
               - vous avez une **direction des systèmes d’information (DSI)** qui peut intégrer des APIs ;
               - ou si vous travaillez ou vous vous apprêtez à travailler avec une **équipe technique externe ou un éditeur de logiciel**, qui doit être en mesure d’intégrer API Entreprise.
 
-              Cette équipe technique doit être en mesure de mettre en place les [**fondamentaux techniques** listés dans cette rubrique de la documentation technique](<%= root_path %>).
+              Cette équipe technique doit être en mesure de mettre en place les [**fondamentaux techniques** listés dans cette rubrique de l'espace développeur](<%= developers_path(anchor: 'prerequis-techniques') %>).
 
               #### Prévoir les incidents et la résilience du service
 
@@ -292,7 +292,7 @@ fr:
           - question: "Comment transmettre le jeton d’accès en tout sécurité ?"
             answer: |+
               Actuellement, seule la personne ayant rempli la demande d’habilitation peut accéder au [compte utilisateur](<%= user_profile_path %>) et y récupérer le jeton d’accès. C’est pourquoi, il est fréquent que cette personne ait besoin ponctuellement de transmettre le jeton à une autre personne, notamment pour que l’équipe technique puisse intégrer l’API.
-              ⚠️ Comme expliqué [ici](<%= root_path %>), votre token vous est propre, il ne faut pas surtout pas le copier/coller dans un e-mail.
+              ⚠️ Comme expliqué [ici](<%= faq_index_path(anchor: 'qu-est-ce-qu-un-token-ou-jeton') %>), votre token vous est propre, il ne faut pas surtout pas le copier/coller dans un e-mail.
              
               **Pour transmettre votre jeton, vous devez utiliser la fonctionnalité prévue dans votre compte utilisateur sur API Entreprise** :
               - Cliquez sur le bouton "Transmettre le jeton" (blanc au contour bleu) situé juste en dessous de l’encadré du jeton.
@@ -346,7 +346,7 @@ fr:
             answer: |+
               Pour des **raisons de sécurité**, tous les jetons émis sont valables pour une **durée de 18 mois**. Au delà de ce délai, ils ne fonctionnent plus, et votre accès à l’API Entreprise est donc totalement arrêté.
 
-              En réalité, cette situation n’est pas censée arriver car API Entreprise a mis en place une [procédure simple de renouvellement de token](<%= root_path %>).
+              En réalité, cette situation n’est pas censée arriver car API Entreprise a mis en place une [procédure simple de renouvellement de token](<%= faq_index_path(anchor: 'comment-renouveler-mon-jeton-arrivant-a-expiration') %>).
 
 
 
@@ -451,7 +451,7 @@ fr:
 
               **Je n’ai pas effectué la demande d’habilitation** : Pour accéder à l'espace utilisateur, vous devez vous référer à la personne qui a effectué la demande d’habilitation.
 
-              _Vous faîtes partie du service technique et avez besoin du jeton d’accès car vous participez à l’intégration de l’API Entreprise ?_ Demandez au responsable du compte d’utiliser la fonctionnalité de transmission d'un lien d’accès temporaire au jeton. Pour en savoir plus, référez vous à la rubrique [Récupérer le jeton JWT 🔑](<%= root_path %>) de la documentation technique.
+              _Vous faîtes partie du service technique et avez besoin du jeton d’accès car vous participez à l’intégration de l’API Entreprise ?_ Demandez au responsable du compte d’utiliser la fonctionnalité de transmission d'un lien d’accès temporaire au jeton. Pour en savoir plus, référez vous à la rubrique [Récupérer le jeton JWT 🔑](<%= developers_path(anchor: 'récupérer-le-jeton-jwt') %>) de la documentation technique.
 
               _Dans certains cas spécifiques comme le départ du demandeur, un changement de poste, etc.,_ un transfert de compte peut être nécessaire.
               Une fonctionnalité est à disposition dans l'[espace utilisateur](<%= user_profile_path %>), onglet \"Compte utilisateur\". Cette opération nécessite l’accord explicite du demandeur et est instruite manuellement par nos services.
