@@ -1,16 +1,21 @@
-Bonjour,
+Bonjour et bienvenue,
 
-L'accès au dashboard API Entreprise vient de vous être octroyé par <%= @old_owner.email %>.
+<%= @old_owner.email %> propose de vous transférer la responsabilité du compte utilisateur API Entreprise de votre organisation. Ce compte vous permettra d'accéder aux jetons (tokens) API Entreprise, à leurs statistiques d'utilisation et à l'interface de téléchargement des attestations si vos jetons sont pourvus de ces droits.
 
 <% if @new_owner.oauth_api_gouv_id.nil? %>
-  Vous devez au préalable vous créer un compte API Gouv (<%= @datapass_signup_url %>) pour accéder à votre espace client API Entreprise. Il est impératif de renseigner les informations suivantes afin d'éviter des erreurs de réconciliation à votre première connexion :
+ La poursuite des étapes suivantes entrainera le transfert du compte et toute connexion à l'espace utilisateur de votre part vaudra acceptation de nos CGU, consultables à l'adresse https://entreprise.api.gouv.fr/cgu.
+ 
+Pour accéder à l'espace utilisateur API Entreprise, vous devez au préalable vous créer un compte DataPass (<%= @datapass_signup_url %>). Il est impératif de renseigner les informations suivantes afin d'éviter des erreurs de réconciliation à votre première connexion :
   - adresse email : <%= @new_owner.email %>
   - siret de votre organisation : <%= @new_owner.context %>
 <% else %>
-  Vos identifiants de compte API Gouv associés à votre addresse email <%= @new_owner.email %> vous seront demandés pour accéder à votre espace client API Entreprise.
+  Votre compte DataPass associé à votre adresse e-mail <%= @new_owner.email %> vous permettra d'accéder au compte API Entreprise. Toute connexion à l'espace utilisateur de votre part vaudra acceptation de nos CGU, consultables à l'adresse https://entreprise.api.gouv.fr/cgu.
 <% end %>
 
-Vous pouvez alors accéder aux jetons votre organisation : connectez-vous simplement au dashboard (<%= @login_url %>) en utilisant vos identifiants API Gouv.
+Le transfert définitif de la responsabilité du compte nécessite une validation manuelle de nos services et peut prendre quelques jours.
+Vous pourrez ensuite accéder à l'espace utilisateur API Entreprise de votre organisation, (<%= @login_url %>) en utilisant vos identifiants DataPass.
+  
+Vous ne souhaitez pas prendre la responsabilité du compte actuellement détenu par <%= @old_owner.email %> ou avez des interrogations ? Vous pouvez nous écrire par retour de mail.
 
 Cordialement,
 L'équipe API Entreprise
