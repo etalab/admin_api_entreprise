@@ -1,0 +1,12 @@
+<div class="newsletter fr-background-default-white fr-pt-10v">
+  <% if container %><div class="fr-container"><% end %>
+    <div class="text fr-mb-5v fr-col-md-9 fr-col-lg-9 fr-col-xl-9 fr-col-xs-12 fr-col-sm-12">
+      <h2><%= t('.title')%></h2>
+      <p><%= t('.description')%></p>
+    </div>
+
+    <div class="button-container">
+      <%= link_to t('.button'), root_path(anchor: 'newsletter-title'), class: %w(fr-btn fr-mb-10v) %>
+    </div>
+  <% if container %></div><% end %>
+</div>

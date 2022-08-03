@@ -35,7 +35,9 @@
     <section class="request_access fr-background-default-white">
       <h3 id="request-access" class=request_access--title"><%= t('.request_access.title') %></h3>
       <div class=request_access--content"><%= t('.request_access.description') %></div>
-      <a class="fr-btn"><%= t('.request_access.link')%></a>
+      <a href="<%= @cas_usage[:link_datapass] %>" class="fr-btn fr-mt-10v"><%= t('.request_access.link')%></a>
     </section>
+
+    <section class="fr-background-default-white"><%= render partial: 'pages/cas_usage/newsletter', locals: {container: false} %></section>
   </div>
 </div>
