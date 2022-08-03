@@ -1,14 +1,14 @@
 <div id="cas-usage" class="fr-container--fluid">
-  <div class="banner">
-  </div>
-  <div class="fr-container">
+  <div class="banner"></div>
+
+  <div class="fr-container doc_markdown_to_html">
     <section class="introduction fr-grid-row fr-background-default-white">
       <div class="introduction_image fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-2 fr-col-xl-2">
         <%= image_tag("home/pictos/#{@cas_usage_name}.svg", alt: @cas_usage_name) %>
       </div>
       <div class="introduction_text fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-10 fr-col-xl-10">
         <label class="introduction_text--label"><%= t('.label') %></label>
-        <h2 class="introduction_text--title"><%= @cas_usage[:introduction][:title] %></h2>
+        <h2 class="introduction_text--title fr-mt-1v"><%= @cas_usage[:introduction][:title] %></h2>
         <div class="introduction_text--content"><%= markdown_to_html(@cas_usage[:introduction][:content]) %></div>
         <div class="introduction_text--links">
           <%= link_to t('.link_access') %><span class="icon fr-icon-arrow-down-line fr-mr-3w" aria-hidden="true"></span>
