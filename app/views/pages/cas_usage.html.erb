@@ -38,6 +38,12 @@
       <a href="<%= @cas_usage[:link_datapass] %>" class="fr-btn fr-mt-10v"><%= t('.request_access.link')%></a>
     </section>
 
-    <section class="fr-background-default-white"><%= render partial: 'pages/cas_usage/newsletter', locals: {container: false} %></section>
+    <section class="other-use-cases">
+      <%= render partial: 'pages/cas_usage/others', locals: {current_use_case: @cas_usage_name} %>
+    </section>
+
+    <section class="fr-background-default-white">
+      <%= render partial: 'pages/cas_usage/newsletter', locals: {container: false} %>
+    </section>
   </div>
 </div>
