@@ -17,7 +17,7 @@
       </div>
     </section>
 
-    <section class="role">
+    <section class="role fr-background-grey">
       <h3 class=role--title" id="<%= @cas_usage[:role][:anchor] %>"><%= @cas_usage[:role][:title] %></h3>
       <div class=role--content"><%= markdown_to_html(@cas_usage[:role][:content]) %></div>
     </section>
@@ -27,7 +27,7 @@
       <div class=apis--content"><%= markdown_to_html(@cas_usage[:apis][:content]) %></div>
     </section>
 
-    <section class="users">
+    <section class="users fr-background-grey">
       <h3 class=users--title" id="<%= @cas_usage[:users][:anchor] %>"><%= @cas_usage[:users][:title] %></h3>
       <div class=users--content"><%= markdown_to_html(@cas_usage[:users][:content]) %></div>
     </section>
@@ -38,7 +38,7 @@
       <a href="<%= @cas_usage[:link_datapass] %>" class="fr-btn fr-mt-10v"><%= t('.request_access.link')%></a>
     </section>
 
-    <section class="other-use-cases">
+    <section class="other-use-cases fr-background-grey">
       <%= render partial: 'pages/cas_usage/others', locals: {current_use_case: @cas_usage_name} %>
     </section>
   </div>
