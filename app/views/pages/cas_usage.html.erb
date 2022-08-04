@@ -11,8 +11,8 @@
         <h2 class="introduction_text--title fr-mt-1v"><%= @cas_usage[:introduction][:title] %></h2>
         <div class="introduction_text--content"><%= markdown_to_html(@cas_usage[:introduction][:content]) %></div>
         <div class="introduction_text--links">
-          <%= link_to t('.link_access') %><span class="icon fr-icon-arrow-down-line fr-mr-3w" aria-hidden="true"></span>
-          <%= link_to t('.link_list_api') %><span class="icon fr-icon-arrow-down-line" aria-hidden="true"></span>
+          <%= link_to t('.link_access'), anchor: 'request-access' %><span class="icon fr-icon-arrow-down-line fr-mr-3w" aria-hidden="true"></span>
+          <%= link_to t('.link_list_api'), anchor: @cas_usage[:apis][:anchor] %><span class="icon fr-icon-arrow-down-line" aria-hidden="true"></span>
         </div>
       </div>
     </section>
