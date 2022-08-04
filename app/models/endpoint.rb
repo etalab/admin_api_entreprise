@@ -146,6 +146,10 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
     !dummy?
   end
 
+  def provider_names
+    providers_as_records.map(&:name).join(' & ')
+  end
+
   private
 
   def extract_data_from_schema
@@ -180,6 +184,10 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
 
   def path_for_redoc
     path.gsub('/', '~1')
+  end
+
+  def providers_as_records
+    Provider.all.select { |provider| providers.include? provider.slug }
   end
 end
 # rubocop:enable Metrics/ClassLength

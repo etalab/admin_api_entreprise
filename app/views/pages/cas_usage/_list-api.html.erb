@@ -16,11 +16,8 @@
       <% Endpoint.all.each do |endpoint| %>
         <tr>
           <td>
-            <% endpoint.providers.map do |provider| %>
-              <strong><%= t("providers.#{provider}") %></strong>
-            <% end.join(' & ') %><br/>
+            <strong><%= endpoint.provider_names %></strong><br/>
             <%= endpoint.title %><br/>
-            <code><%= endpoint.path %></code>
           </td>
           <td>
             <% if endpoint.use_cases&.include?(@cas_usage_name) %>
