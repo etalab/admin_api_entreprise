@@ -2,7 +2,7 @@
 <div class="use_cases">
   <% ["marches_publics", "subventions", "formulaire", "fraude"].reject { |item| item == current_use_case }.each do |use_case| %>
     <div class="use_case fr-mt-4v">
-      <%= image_tag("home/pictos/#{use_case}.svg", alt: use_case) %>
+      <%= image_tag("cas_usages/pictos/#{use_case}.svg", alt: use_case) %>
       <h4><%= t(".#{use_case}.title") %></h4>
       <p><%= t(".#{use_case}.description") %></p>
       <%= link_to t('.link'), polymorphic_url([:cas_usages, use_case.to_sym]), class: "fr-btn fr-btn--secondary" %>
