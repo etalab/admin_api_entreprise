@@ -10,6 +10,7 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
     :data,
     :use_cases,
     :use_cases_optional,
+    :use_cases_info,
     :keywords,
     :opening
 
@@ -172,6 +173,8 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
   end
 
   def tag_for_redoc
+    return unless open_api_definition['tags']
+
     open_api_definition['tags'].first.parameterize(separator: '-').capitalize
   end
 

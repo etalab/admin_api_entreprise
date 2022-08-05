@@ -4,7 +4,7 @@
   <div class="fr-container doc_markdown_to_html" data-controller="anchor-buttons" data-anchor-buttons-tags-value='["h2", "h3", "h4", "section"]'>
     <section class="introduction fr-grid-row fr-background-default-white">
       <div class="introduction_image fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-2 fr-col-xl-2">
-        <%= image_tag("home/pictos/#{@cas_usage_name}.svg", alt: @cas_usage_name) %>
+        <%= image_tag("home/pictos/#{@cas_usage_tag}.svg", alt: @cas_usage_tag) %>
       </div>
       <div class="introduction_text fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-10 fr-col-xl-10">
         <label class="introduction_text--label"><%= t('.label') %></label>
@@ -12,7 +12,7 @@
         <div class="introduction_text--content"><%= markdown_to_html(@cas_usage[:introduction][:content]) %></div>
         <div class="introduction_text--links">
           <%= link_to t('.link_access'), anchor: 'request-access' %><span class="icon fr-icon-arrow-down-line fr-mr-3w" aria-hidden="true"></span>
-          <%= link_to t('.link_list_api'), anchor: @cas_usage[:apis][:anchor] %><span class="icon fr-icon-arrow-down-line" aria-hidden="true"></span>
+          <%= link_to t('.link_list_api'), anchor: 'list-api' %><span class="icon fr-icon-arrow-down-line" aria-hidden="true"></span>
         </div>
       </div>
     </section>
@@ -22,9 +22,8 @@
       <div class=role--content"><%= markdown_to_html(@cas_usage[:role][:content]) %></div>
     </section>
 
-    <section class="apis fr-background-default-white">
-      <h3 class=apis--title" id="<%= @cas_usage[:apis][:anchor] %>"><%= @cas_usage[:apis][:title] %></h3>
-      <div class=apis--content"><%= markdown_to_html(@cas_usage[:apis][:content]) %></div>
+    <section class="fr-background-default-white">
+      <%= render partial: 'pages/cas_usage/list-api', locals: {current_use_case: @cas_usage_tag} %>
     </section>
 
     <section class="users fr-background-grey">
@@ -39,7 +38,7 @@
     </section>
 
     <section class="other-use-cases fr-background-grey">
-      <%= render partial: 'pages/cas_usage/others', locals: {current_use_case: @cas_usage_name} %>
+      <%= render partial: 'pages/cas_usage/others', locals: {current_use_case: @cas_usage_tag} %>
     </section>
   </div>
 </div>

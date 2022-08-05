@@ -1,0 +1,48 @@
+<h3 id="list-api"><%= t('.title') %></h3>
+
+<div id="table-api" class="fr-table">
+  <table>
+    <caption><%= @cas_usage_name %></caption>
+    <thead>
+      <tr>
+        <th scope="col"><%= t('.col_endpoint') %></th>
+        <th scope="col"><%= t('.col_useful') %></th>
+        <th scope="col"><%= t('.col_opening') %></th>
+        <th scope="col"><%= t('.col_links') %></th>
+        <th scope="col"><%= t('.col_comments') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% Endpoint.all.each do |endpoint| %>
+        <tr>
+          <td>
+            <% endpoint.providers.map do |provider| %>
+              <strong><%= t("providers.#{provider}") %></strong>
+            <% end.join(' & ') %><br/>
+            <%= endpoint.title %><br/>
+            <code><%= endpoint.path %></code>
+          </td>
+          <td>
+            <% if endpoint.use_cases&.include?(@cas_usage_name) %>
+              ✅
+            <% elsif endpoint.use_cases_optional&.include?(@cas_usage_name) %>
+              ⏺
+            <% else %>
+              ❌
+            <% end %>
+          </td>
+          <td>
+            <%= t("endpoint.opening.#{endpoint.opening}.name") %>
+          </td>
+          <td>
+            <%= link_to t('.documentation'), "#{endpoints_path}/#{endpoint.uid}" %>
+            <%= link_to t('.swagger'), "#{developers_openapi_path}##{endpoint.redoc_anchor}" %>
+          </td>
+          <td>
+            <%= endpoint.use_cases_info %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

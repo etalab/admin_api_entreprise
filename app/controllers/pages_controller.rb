@@ -21,9 +21,9 @@ class PagesController < ApplicationController
   def cas_usages; end
 
   def cas_usage
-    @cas_usage_name = request.original_url.split('/').last
-
-    @cas_usage = I18n.t("cas_usages.#{@cas_usage_name}")
+    @cas_usage_tag = request.original_url.split('/').last
+    @cas_usage_name = cas_usage_tag_to_name[@cas_usage_tag.to_sym]
+    @cas_usage = I18n.t("cas_usages.#{@cas_usage_tag}")
   end
 
   def mentions; end
@@ -33,4 +33,15 @@ class PagesController < ApplicationController
   def accessibility; end
 
   def redoc; end
+
+  private
+
+  def cas_usage_tag_to_name
+    {
+      marches_publics: 'Marchés publics',
+      subventions: 'Aides publiques',
+      fraude: 'Détection de la fraude',
+      formulaire: "Préremplissage d'un formulaire"
+    }
+  end
 end
