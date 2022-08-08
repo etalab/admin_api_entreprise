@@ -57,7 +57,7 @@ RSpec.describe 'Endpoints show', type: :feature do
         click_on 'example_link'
 
         within('#main-modal-content') do
-          expect(page).to have_content('"raison_sociale": "DINUM"')
+          expect(page).to have_content('"sigle": "DINUM"')
         end
       end
 
