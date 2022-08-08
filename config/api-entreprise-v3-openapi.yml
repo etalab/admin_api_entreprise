@@ -7940,6 +7940,17 @@ paths:
                           informations obtenues ne doivent en aucun cas être accessibles
                           au grand public. \n \n Plus d'informations sur les conditions
                           de diffusion : LIEN TODO"
+                      enseigne:
+                        title: Enseigne de l'établissement
+                        type: string
+                        nullable: true
+                        description: "L'enseigne est l'appellation désignant l'emplacement
+                          ou le local dans lequel est exercée l'activité. Un établissement
+                          peut posséder une enseigne, plusieurs enseignes ou aucune.
+                          \n \n Cette variable est la concaténation séparée par des
+                          virgules des 3 champs \"renvoyés\" par l'Insee. Plus d'informations
+                          ici: https://www.sirene.fr/sirene/public/variable/enseigne1Etablissement"
+                        example: Coiff Land, CoiffureLand
                       unite_legale:
                         type: object
                         title: Unité légale de l'établissement
@@ -7968,10 +7979,16 @@ paths:
                               raison_sociale:
                                 title: Raison sociale de l'unité légale
                                 type: string
+                                example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
+                                nullable: true
+                              sigle:
+                                title: Sigle de l'unité légale
+                                type: string
                                 example: DINUM
                                 nullable: true
                             required:
                             - raison_sociale
+                            - sigle
                           personne_physique_attributs:
                             type: object
                             title: Attributs de la personne physique
@@ -8526,6 +8543,7 @@ paths:
                     - activite_principale
                     - tranche_effectif_salarie
                     - diffusable_commercialement
+                    - enseigne
                     - unite_legale
                     - adresse
                     - date_creation
@@ -9027,6 +9045,17 @@ paths:
                           est toujours à 'true'. Pour récupérer des établissements
                           non-diffusibles, référez-vous à la documentation de l'API
                           /insee/etablissements/:siren
+                      enseigne:
+                        title: Enseigne de l'établissement
+                        type: string
+                        nullable: true
+                        description: "L'enseigne est l'appellation désignant l'emplacement
+                          ou le local dans lequel est exercée l'activité. Un établissement
+                          peut posséder une enseigne, plusieurs enseignes ou aucune.
+                          \n \n Cette variable est la concaténation séparée par des
+                          virgules des 3 champs \"renvoyés\" par l'Insee. Plus d'informations
+                          ici: https://www.sirene.fr/sirene/public/variable/enseigne1Etablissement"
+                        example: Coiff Land, CoiffureLand
                       unite_legale:
                         type: object
                         title: Unité légale de l'établissement
@@ -9055,10 +9084,16 @@ paths:
                               raison_sociale:
                                 title: Raison sociale de l'unité légale
                                 type: string
+                                example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
+                                nullable: true
+                              sigle:
+                                title: Sigle de l'unité légale
+                                type: string
                                 example: DINUM
                                 nullable: true
                             required:
                             - raison_sociale
+                            - sigle
                           personne_physique_attributs:
                             type: object
                             title: Attributs de la personne physique
@@ -9613,6 +9648,7 @@ paths:
                     - activite_principale
                     - tranche_effectif_salarie
                     - diffusable_commercialement
+                    - enseigne
                     - unite_legale
                     - adresse
                     - date_creation
@@ -10115,6 +10151,17 @@ paths:
                           est toujours à 'true'. Pour récupérer des établissements
                           non-diffusibles, référez-vous à la documentation de l'API
                           /insee/etablissements/:siren
+                      enseigne:
+                        title: Enseigne de l'établissement
+                        type: string
+                        nullable: true
+                        description: "L'enseigne est l'appellation désignant l'emplacement
+                          ou le local dans lequel est exercée l'activité. Un établissement
+                          peut posséder une enseigne, plusieurs enseignes ou aucune.
+                          \n \n Cette variable est la concaténation séparée par des
+                          virgules des 3 champs \"renvoyés\" par l'Insee. Plus d'informations
+                          ici: https://www.sirene.fr/sirene/public/variable/enseigne1Etablissement"
+                        example: Coiff Land, CoiffureLand
                       unite_legale:
                         type: object
                         title: Unité légale de l'établissement
@@ -10143,10 +10190,16 @@ paths:
                               raison_sociale:
                                 title: Raison sociale de l'unité légale
                                 type: string
+                                example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
+                                nullable: true
+                              sigle:
+                                title: Sigle de l'unité légale
+                                type: string
                                 example: DINUM
                                 nullable: true
                             required:
                             - raison_sociale
+                            - sigle
                           personne_physique_attributs:
                             type: object
                             title: Attributs de la personne physique
@@ -10701,6 +10754,7 @@ paths:
                     - activite_principale
                     - tranche_effectif_salarie
                     - diffusable_commercialement
+                    - enseigne
                     - unite_legale
                     - adresse
                     - date_creation
@@ -11205,6 +11259,17 @@ paths:
                           informations obtenues ne doivent en aucun cas être accessibles
                           au grand public. \n \n Plus d'informations sur les conditions
                           de diffusion : LIEN TODO"
+                      enseigne:
+                        title: Enseigne de l'établissement
+                        type: string
+                        nullable: true
+                        description: "L'enseigne est l'appellation désignant l'emplacement
+                          ou le local dans lequel est exercée l'activité. Un établissement
+                          peut posséder une enseigne, plusieurs enseignes ou aucune.
+                          \n \n Cette variable est la concaténation séparée par des
+                          virgules des 3 champs \"renvoyés\" par l'Insee. Plus d'informations
+                          ici: https://www.sirene.fr/sirene/public/variable/enseigne1Etablissement"
+                        example: Coiff Land, CoiffureLand
                       unite_legale:
                         type: object
                         title: Unité légale de l'établissement
@@ -11233,10 +11298,16 @@ paths:
                               raison_sociale:
                                 title: Raison sociale de l'unité légale
                                 type: string
+                                example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
+                                nullable: true
+                              sigle:
+                                title: Sigle de l'unité légale
+                                type: string
                                 example: DINUM
                                 nullable: true
                             required:
                             - raison_sociale
+                            - sigle
                           personne_physique_attributs:
                             type: object
                             title: Attributs de la personne physique
@@ -11791,6 +11862,7 @@ paths:
                     - activite_principale
                     - tranche_effectif_salarie
                     - diffusable_commercialement
+                    - enseigne
                     - unite_legale
                     - adresse
                     - date_creation
@@ -12163,10 +12235,16 @@ paths:
                           raison_sociale:
                             title: Raison sociale de l'unité légale
                             type: string
+                            example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
+                            nullable: true
+                          sigle:
+                            title: Sigle de l'unité légale
+                            type: string
                             example: DINUM
                             nullable: true
                         required:
                         - raison_sociale
+                        - sigle
                       personne_physique_attributs:
                         type: object
                         title: Attributs de la personne physique
@@ -12859,10 +12937,16 @@ paths:
                           raison_sociale:
                             title: Raison sociale de l'unité légale
                             type: string
+                            example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
+                            nullable: true
+                          sigle:
+                            title: Sigle de l'unité légale
+                            type: string
                             example: DINUM
                             nullable: true
                         required:
                         - raison_sociale
+                        - sigle
                       personne_physique_attributs:
                         type: object
                         title: Attributs de la personne physique
