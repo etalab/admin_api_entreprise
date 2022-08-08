@@ -19,7 +19,7 @@
       <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
         <div class="fr-col-md-5 fr-col-12 logos">
           <% @endpoint.providers.each do |provider| %>
-            <%= image_tag("providers/#{provider}.png") %>
+            <%= image_tag("providers/#{provider.uid}.png") %>
           <% end %>
         </div>
 
@@ -30,7 +30,7 @@
 
           <h5>
             <% @endpoint.providers.map do |provider| %>
-              <%= t("providers.#{provider}") %>
+              <%= t("providers.#{provider.uid}") %>
             <% end.join(' & ') %>
           </h5>
         </div>

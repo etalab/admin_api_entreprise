@@ -4,7 +4,7 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
     :path,
     :call_id,
     :parameters,
-    :providers,
+    :provider_uids,
     :perimeter,
     :extra_description,
     :data,
@@ -15,12 +15,12 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
     :opening
 
   algoliasearch_active_model do
-    attributes :title, :description, :providers, :keywords, :use_cases, :use_cases_optional
+    attributes :title, :description, :provider_uids, :keywords, :use_cases, :use_cases_optional
 
     searchableAttributes %w[
       title
       description
-      providers
+      provider_uids
       keywords
       use_cases
       use_cases_optional
@@ -146,8 +146,8 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
     !dummy?
   end
 
-  def provider_names
-    providers_as_records.map(&:name).join(' & ')
+  def providers
+    Provider.filter_by_uid(provider_uids)
   end
 
   private
@@ -184,10 +184,6 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
 
   def path_for_redoc
     path.gsub('/', '~1')
-  end
-
-  def providers_as_records
-    Provider.all.select { |provider| providers.include? provider.slug }
   end
 end
 # rubocop:enable Metrics/ClassLength

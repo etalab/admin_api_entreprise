@@ -16,7 +16,7 @@
       <% Endpoint.all.each do |endpoint| %>
         <tr>
           <td>
-            <strong><%= endpoint.provider_names %></strong><br/>
+            <strong><%= endpoint.providers.map(&:name).join(' & ') %></strong><br/>
             <%= endpoint.title %><br/>
           </td>
           <td>
