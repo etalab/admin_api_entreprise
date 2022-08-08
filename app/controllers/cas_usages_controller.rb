@@ -6,19 +6,10 @@ class CasUsagesController < ApplicationController
   def index; end
 
   def show
-    @cas_usage_tag = request.original_url.split('/').last
-    @cas_usage_name = cas_usage_tag_to_name[@cas_usage_tag.to_sym]
-    @cas_usage = I18n.t("cas_usages.#{@cas_usage_tag}")
-  end
-
-  private
-
-  def cas_usage_tag_to_name
-    {
-      marches_publics: 'Marchés publics',
-      subventions: 'Aides publiques',
-      fraude: 'Détection de la fraude',
-      formulaire: "Préremplissage d'un formulaire"
-    }
+    @cas_usage_tag = params[:uid]
+    @cas_usage_name = I18n.t("cas_usages_entries.#{@cas_usage_tag}.name", raise: true)
+    @data = I18n.t("cas_usages_entries.#{@cas_usage_tag}", raise: true)
+  rescue I18n::MissingTranslationData
+    redirect_to root_path
   end
 end
