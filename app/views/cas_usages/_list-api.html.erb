@@ -9,7 +9,7 @@
         <th scope="col"><%= t('.col_useful').html_safe %></th>
         <th scope="col"><%= t('.col_opening') %></th>
         <th scope="col"><%= t('.col_links') %></th>
-        <th scope="col"><%= t('.col_comments') %></th>
+        <th scope="col"><%= t('.col_comments').html_safe %></th>
       </tr>
     </thead>
     <tbody>
@@ -24,8 +24,10 @@
             ✅
             <% elsif endpoint.use_cases_optional&.include?(@data[:name]) %>
             *️⃣
-            <% else %>
+            <% elsif endpoint.use_cases_forbidden&.include?(@data[:name]) %>
             ❌
+            <% else %>
+            -
             <% end %>
           </td>
           <td>
