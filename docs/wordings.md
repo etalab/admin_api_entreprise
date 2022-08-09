@@ -43,8 +43,8 @@ fr:
     marches_publics:
       name: 'Marchés publics'
       comments_endpoints:
-        - "insee/etablissements_diffusibles": "commentaire à afficher"
-        - "inpi/modeles": "commentaire à afficher"
+        "insee/etablissements_diffusibles": "commentaire à afficher"
+        "inpi/modeles": "commentaire à afficher"
 ```
 
 ## Page/wordings FAQ

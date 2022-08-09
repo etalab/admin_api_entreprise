@@ -2,7 +2,7 @@
 
 <div id="table-api" class="fr-table">
   <table>
-    <caption><%= @cas_usage_name %></caption>
+    <caption><%= @data[:name] %></caption>
     <thead>
       <tr>
         <th scope="col"><%= t('.col_endpoint') %></th>
@@ -20,9 +20,9 @@
             <%= endpoint.title %><br />
           </td>
           <td>
-            <% if endpoint.use_cases&.include?(@cas_usage_name) %>
+            <% if endpoint.use_cases&.include?(@data[:name]) %>
             ✅
-            <% elsif endpoint.use_cases_optional&.include?(@cas_usage_name) %>
+            <% elsif endpoint.use_cases_optional&.include?(@data[:name]) %>
             *️⃣
             <% else %>
             ❌
@@ -37,7 +37,7 @@
             <%= link_to t('.swagger'), "#{developers_openapi_path}##{endpoint.redoc_anchor}" %>
           </td>
           <td>
-            <%= @data[:comments_endpoints]&.select{|element| element.keys[0] == endpoint.uid.to_sym}&.first.try(:[], endpoint.uid.to_sym) %>
+            <%= @data[:comments_endpoints].try(:[], endpoint.uid.to_sym) %>
           </td>
         </tr>
       <% end %>
