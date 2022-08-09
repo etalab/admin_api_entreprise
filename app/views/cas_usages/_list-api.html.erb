@@ -6,7 +6,7 @@
     <thead>
       <tr>
         <th scope="col"><%= t('.col_endpoint') %></th>
-        <th scope="col"><%= t('.col_useful') %></th>
+        <th scope="col"><%= t('.col_useful').html_safe %></th>
         <th scope="col"><%= t('.col_opening') %></th>
         <th scope="col"><%= t('.col_links') %></th>
         <th scope="col"><%= t('.col_comments') %></th>
@@ -36,7 +36,7 @@
             <%= link_to t('.swagger'), "#{developers_openapi_path}##{endpoint.redoc_anchor}" %>
           </td>
           <td>
-            <%= @data[:comments_endpoints].select{|element| element.keys[0] == endpoint.uid.to_sym}.first.try(:[], endpoint.uid.to_sym) %>
+            <%= @data[:comments_endpoints]&.select{|element| element.keys[0] == endpoint.uid.to_sym}&.first.try(:[], endpoint.uid.to_sym) %>
           </td>
         </tr>
       <% end %>
