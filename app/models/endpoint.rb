@@ -10,7 +10,7 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
     :data,
     :use_cases,
     :use_cases_optional,
-    :use_cases_info,
+    :use_cases_forbidden,
     :keywords,
     :opening
 

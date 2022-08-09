@@ -20,6 +20,8 @@ module ApplicationHelper
   end
 
   def markdown_to_html(content)
+    return unless content
+
     content_tag(:div, class: %(markdown-wrapper)) do
       MarkdownInterpolator.new(content).perform.html_safe
     end

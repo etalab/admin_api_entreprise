@@ -9,7 +9,7 @@
         <th scope="col"><%= t('.col_useful').html_safe %></th>
         <th scope="col"><%= t('.col_opening') %></th>
         <th scope="col"><%= t('.col_links') %></th>
-        <th scope="col"><%= t('.col_comments').html_safe %></th>
+        <th scope="col"><%= t('.col_comments') %></th>
       </tr>
     </thead>
     <tbody>
@@ -39,7 +39,7 @@
             <%= link_to t('.swagger'), "#{developers_openapi_path}##{endpoint.redoc_anchor}" %>
           </td>
           <td>
-            <%= @data[:comments_endpoints].try(:[], endpoint.uid.to_sym) %>
+            <%= markdown_to_html(@data[:comments_endpoints].try(:[], endpoint.uid.to_sym)) %>
           </td>
         </tr>
       <% end %>
