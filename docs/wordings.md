@@ -29,6 +29,24 @@ Et au sein de la vue, pour retrouver le `title` ci-dessus:
 <h1><%= t('.title') %></h1>
 ```
 
+## Cas d'usages
+
+Il est possible de rajouter des cas d'usage en ajoutant une nouvelle entrée au fichier `config/locales/cas_usages_entries.fr.yml`, en respectant l'architecture du fichier.
+
+Les listes d'APIs utiles (présente sur chaque page de cas d'usage) est renseignée depuis les clefs "use_cases" et "use_cases_optional" dans les fichiers endpoint correspondants.
+
+La colonne pour commentaire dans cette liste se remplit depuis la fiche cas d'usage avec la structure suivante:
+
+```
+fr:
+  cas_usages_entries:
+    marches_publics:
+      name: 'Marchés publics'
+      comments_endpoints:
+        - "insee/etablissements_diffusibles": "commentaire à afficher"
+        - "inpi/modeles": "commentaire à afficher"
+```
+
 ## Page/wordings FAQ
 
 Les wordings de la FAQ globale se trouvent dans le fichier

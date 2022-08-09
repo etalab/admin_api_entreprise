@@ -16,16 +16,16 @@
       <% Endpoint.all.each do |endpoint| %>
         <tr>
           <td>
-            <strong><%= endpoint.providers.map(&:name).join(' & ') %></strong><br/>
-            <%= endpoint.title %><br/>
+            <strong><%= endpoint.providers.map(&:name).join(' & ') %></strong><br />
+            <%= endpoint.title %><br />
           </td>
           <td>
             <% if endpoint.use_cases&.include?(@cas_usage_name) %>
-              ✅
+            ✅
             <% elsif endpoint.use_cases_optional&.include?(@cas_usage_name) %>
-              ☑️
+            ☑️
             <% else %>
-              ❌
+            ❌
             <% end %>
           </td>
           <td>
@@ -36,7 +36,7 @@
             <%= link_to t('.swagger'), "#{developers_openapi_path}##{endpoint.redoc_anchor}" %>
           </td>
           <td>
-            <%= endpoint.use_cases_info %>
+            <%= @data[:comments_endpoints].select{|element| element.keys[0] == endpoint.uid.to_sym}.first.try(:[], endpoint.uid.to_sym) %>
           </td>
         </tr>
       <% end %>
