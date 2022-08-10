@@ -4,25 +4,25 @@ fr:
     marches_publics:
       name: 'Marchés publics'
       comments_endpoints:
-        "insee/etablissements_diffusibles": "Pour un affichage en backoffice utilisé par un agent habilité, préférer l'API \"Données établissement\" qui permet aussi d'accéder aux \"non-diffusibles\". <br>Pour du **pré-remplissage de formulaire** à destination des opérateurs économiques, cette API est appropriée car la donnée est publique."
-        "insee/etablissements": "**API à privilégier parmi les API Insee, car regroupe les infos de l'établissement et de son unité légale :** Nom commercial, dénomination sociale, nom et prénom personne physique, adresse de l'établissement, forme juridique unité légale, catégorie unité légale (micro, TPE/PME), tranche d'effectif salarié unité légale."
-        "insee/unites_legales_diffusibles": "_Données spécifiques unité légale._ Pour un affichage en backoffice utilisé par un agent habilité, préférer l'API \"Données unité légale\" qui permet aussi d'accéder aux \"non-diffusibles\". <br/>Pour du pré-remplissage de formulaire à destination des opérateurs économiques, cette API est appropriée car la donnée est publique."
-        "insee/unites_legales": "_Données spécifiques unité légale._"
-        "insee/siege_social_diffusibles": "_Données du siège social à partir du SIREN de l'unité légale_. Pour un affichage en backoffice utilisé par un agent habilité, préférer l'API \"Données siège social\" qui permet aussi d'accéder aux \"non-diffusibles\". <br>Pour du pré-remplissage de formulaire à destination des opérateurs économiques, cette API est appropriée car la donnée est publique."
-        "insee/siege_social": "_Données du siège social à partir du SIREN de l'unité légale._"
-        "insee/adresse_diffusibles": "_Adresse établissement uniquement_. Pour un affichage en backoffice utilisé par un agent habilité, préférer l'API \"Données adresse\" qui permet aussi d'accéder aux \"non-diffusibles\". <br>Pour du pré-remplissage de formulaire à destination des opérateurs économiques, cette API est appropriée car la donnée est publique."
-        "insee/adresse": "_Adresse établissement uniquement_."
+        "insee/etablissements_diffusibles": "Comme toutes les données Insee indiquées \"diffusibles\", cette API est appropriée pour du **pré-remplissage de formulaire** à destination des opérateurs économiques car la donnée est publique. <br>Pour un usage en backoffice par un agent habilité, utiliser l'API \"Données établissement\" qui permet aussi d'accéder aux \"non-diffusibles\"."
+        "insee/etablissements": "**💡API à privilégier parmi les API Insee, car regroupe les infos de l'établissement et de son unité légale :** Nom commercial, dénomination sociale, nom et prénom personne physique, adresse de l'établissement&nbsp;; forme juridique, catégorie, (micro, TPE/PME) et tranche d'effectif salarié de l'unité légale."
+        "insee/unites_legales_diffusibles": "_Données spécifiques à l'unité légale \"diffusibles\"_."
+        "insee/unites_legales": "_Données spécifiques à l'unité légale_.<br>💡Si vous avez aussi besoin des données de l'établissement. Ces données sont également distribuées par l'API \"Données établissement\"."
+        "insee/siege_social_diffusibles": "_Données du siège social_, uniquement les \"diffusibles\"."
+        "insee/siege_social": "_Données du siège social_.<br>💡Permet de **retrouver les infos du siège social**, à partir du SIREN de l'unité légale."
+        "insee/adresse_diffusibles": "_Adresse de l'établissement_. ."
+        "insee/adresse": "_Adresse de l'établissement_.<br>💡Si vous avez aussi besoin des données de l'établissement. L'adresse est également distribuées par l'API \"Données établissement\"."
         "infogreffe/mandataires_sociaux": ""
         "infogreffe/rcs/extrait": ""
-        "ministere_interieur/rna": "_Utile si l'opérateur économique est une **association**._ Nom de l'association, adresse"
+        "ministere_interieur/rna": "_Utile si l'opérateur économique est une **association**._<br>Nom de l'association, adresse"
         "ministere_interieur/documents_associations": "_Utile si l'opérateur économique est une association._"
         "inpi/actes": "Actes détenus par les greffes. Utiles pour se renseigner sur l'**historique de l'entreprise**."
-        "fabrique_numerique_ministeres_sociaux/conventions_collectives": "Exemple d'usage spécifique : Vérifier si la reprise du personnel est obligatoire lorsque l'entreprise est attributaire du marché."
-        "cma_france/rnm": "_Utile si l'opérateur économique est une **entrepise artisanale**._ Dénomination sociale, forme juridique, effectif salarié, date d'immatriculation au RNM, adresse."
-        "urssaf/effectifs": "La tranche de l'effectif salarié est appelable avec l'API Données établissements de l'Insee, et l'effectif d'une entreprise artisanale avec l'API Données du RNM de la CMA."
-        "douanes/immatriculation_eori": "Exemple d'usage spécifique : Vérifier l'immatriculation auprès des douanes d'un attributaire de marché étranger."
-        "dgfip/chiffres_affaires": "Vérification de la **capacité économique et financière**. Chiffre d'affaires des trois dernières années."
-        "inpi/comptes_annuels_rncs": "Vérification de la **capacité économique et financière**."
+        "fabrique_numerique_ministeres_sociaux/conventions_collectives": "_Exemple d'usage spécifique_&nbsp;: **Vérifier si la reprise du personnel est obligatoire** lorsque l'entreprise est attributaire du marché."
+        "cma_france/rnm": "_Utile si l'opérateur économique est une **entrepise artisanale**._<br>Dénomination sociale, forme juridique, effectif salarié, date d'immatriculation au RNM, adresse."
+        "urssaf/effectifs": "_Cette API n'est pas nécessaire dans le cadre des marchés publics_.<br>💡La tranche de l'effectif salarié est appelable avec l'API \"Données établissements - Insee\", et l'effectif d'une entreprise artisanale avec l'API \"Données du RNM - CMA\"."
+        "douanes/immatriculation_eori": "_Exemple d'usage spécifique_&nbsp;: **Vérifier l'immatriculation auprès des douanes d'un attributaire de marché étranger**."
+        "dgfip/chiffres_affaires": "Vérifier de la **capacité économique et financière**. Chiffre d'affaires des trois dernières années."
+        "inpi/comptes_annuels_rncs": "Vérifier de la **capacité économique et financière**."
         "banque_de_france/bilans": "_Donnée sensible non-nécessaire._"
         "dgfip/liasses_fiscales": "_Donnée sensible non-nécessaire._"
         "attestations_fiscales": ""
@@ -31,17 +31,17 @@ fr:
         "probtp/conformites_cotisations_retraite": "MP travaux publics"
         "fntp/carte_professionnelle_travaux_public": "MP travaux publics"
         "cnetp/attestations_cotisations_conges_payes_chomage_intemperies": "_MP travaux publics_"
-        "agence_bio/certifications_bio": "MP fournitures et services / achats publics durables"
-        "ademe/certifications_rge": "MP travaux publics / achats publics durables / certification d'une aptitude professionnelle"
-        "qualibat/certifications_batiment": "MP travaux publics / certification d'une aptitude professionnelle."
-        "opqibi/qualifications_ingenierie": "MP travaux publics / certification d'une aptitude professionnelle."
-        "inpi/brevets": "Exemple d'usage spécifique : Déterminer si une entreprise est bien la seule à détenir une technologie afin de **justifier une non mise en concurrence**."
+        "agence_bio/certifications_bio": "MP fournitures et services<br>Achats publics durables"
+        "ademe/certifications_rge": "MP travaux publics<br>Achats publics durables<br>Certifier d'une **aptitude professionnelle**."
+        "qualibat/certifications_batiment": "MP travaux publics<br>Certifier d'une **aptitude professionnelle**."
+        "opqibi/qualifications_ingenierie": "MP travaux publics<br>Certifier d'une **aptitude professionnelle**."
+        "inpi/brevets": "_Exemple d'usage spécifique_&nbsp;: Déterminer si une entreprise est bien la seule à détenir une technologie afin de **justifier une non mise en concurrence**."
         "inpi/marques": ""
         "inpi/modeles": ""
       introduction:
         title: Faciliter la candidature, l’instruction et le suivi des marchés publics
         content: |
-          API Entreprise met à disposition des API pour les administrations publiant des appels d’offre. Les données obtenues permettent de simplifier les **démarches de candidature des entreprises et associations**, faciliter l’**instruction des dossiers** et le **suivi des prestataires**.
+          API Entreprise propose aux administrations et collectivités des API utiles dans le cadre des marchés publics. Les données obtenues permettent de simplifier les **démarches de candidature des entreprises et associations**, faciliter l’**instruction des dossiers** et le **suivi des prestataires**.
 
       role:
         title: Le rôle d’API Entreprise
@@ -51,13 +51,13 @@ fr:
           L’API Entreprise facilite&nbsp;:&nbsp;
           - le **dépôt des candidatures** 📥 par les entreprises et associations, en pré-remplissant leur formulaire de demande une fois qu’elles ont entré leur numéro de SIRET ou RNA ;
           - la **construction du dossier 🗂 et le travail de l’organisation publique instructrice 🔎** en récupérant les justificatifs nécessaires à l’instruction, sans les réclamer aux entreprises et associations demandeuses.
-          - le **suivi des prestataires**, en permettant une mise à jour automatique des documents, telle que l'attestation de vigileance.
+          - le **suivi des prestataires**, en permettant une mise à jour automatique des documents, telle que l'attestation de vigilance.
 
           #### Ce que cela change pour vous, administrations
           En intégrant la brique API Entreprise dans votre système d’information ou votre site internet&nbsp;:&nbsp;
-          - Vous **accédez facilement aux données** de l’Insee, la DGFIP, l’URSSAF, etc. ;
-          - Vous n’avez **plus besoin de demander et re-demander certains justificatifs** aux entreprises ;
-          - Vous n’avez pas de vérification supplémentaire à réaliser car les **informations sont certifiées**.
+          - ✅ Vous **accédez facilement aux données** de l’Insee, la DGFIP, l’URSSAF, etc. ;
+          - ✅ Vous n’avez **plus besoin de demander et re-demander certains justificatifs** aux entreprises ;
+          - ✅ Vous n’avez pas de vérification supplémentaire à réaliser car les **informations sont certifiées**.
 
       users:
         title: Ils utilisent l’API Entreprise
