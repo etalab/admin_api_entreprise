@@ -7,16 +7,16 @@ fr:
         "insee/etablissements_diffusibles": "Comme toutes les données Insee indiquées \"diffusibles\", cette API est appropriée pour du **pré-remplissage de formulaire** à destination des opérateurs économiques car la donnée est publique. <br>Pour un usage en backoffice par un agent habilité, utiliser l'API \"Données établissement\" qui permet aussi d'accéder aux \"non-diffusibles\"."
         "insee/etablissements": "**💡API à privilégier parmi les API Insee, car regroupe les infos de l'établissement et de son unité légale :** Nom commercial, dénomination sociale, nom et prénom personne physique, adresse de l'établissement&nbsp;; forme juridique, catégorie, (micro, TPE/PME) et tranche d'effectif salarié de l'unité légale."
         "insee/unites_legales_diffusibles": "_Données spécifiques à l'unité légale \"diffusibles\"_."
-        "insee/unites_legales": "_Données spécifiques à l'unité légale_.<br>💡Si vous avez aussi besoin des données de l'établissement. Ces données sont également distribuées par l'API \"Données établissement\"."
+        "insee/unites_legales": "_Données spécifiques à l'unité légale_.<br>💡Si vous avez également besoin des données de l'établissement, ces données sont aussi distribuées par l'API \"Données établissement\"."
         "insee/siege_social_diffusibles": "_Données du siège social_, uniquement les \"diffusibles\"."
         "insee/siege_social": "_Données du siège social_.<br>💡Permet de **retrouver les infos du siège social**, à partir du SIREN de l'unité légale."
-        "insee/adresse_diffusibles": "_Adresse de l'établissement_. ."
-        "insee/adresse": "_Adresse de l'établissement_.<br>💡Si vous avez aussi besoin des données de l'établissement. L'adresse est également distribuées par l'API \"Données établissement\"."
+        "insee/adresse_diffusibles": "_Adresse de l'établissement_."
+        "insee/adresse": "_Adresse de l'établissement_.<br>💡Si vous avez également besoin des données de l'établissement. L'adresse est aussi distribuée par l'API \"Données établissement\"."
         "infogreffe/mandataires_sociaux": ""
         "infogreffe/rcs/extrait": ""
         "ministere_interieur/rna": "_Utile si l'opérateur économique est une **association**._<br>Nom de l'association, adresse"
         "ministere_interieur/documents_associations": "_Utile si l'opérateur économique est une association._"
-        "inpi/actes": "Actes détenus par les greffes. Utiles pour se renseigner sur l'**historique de l'entreprise**."
+        "inpi/actes": "Actes détenus par les greffes. Utiles pour se renseigner sur l'**historique de l'unité légale**."
         "fabrique_numerique_ministeres_sociaux/conventions_collectives": "_Exemple d'usage spécifique_&nbsp;: **Vérifier si la reprise du personnel est obligatoire** lorsque l'entreprise est attributaire du marché."
         "cma_france/rnm": "_Utile si l'opérateur économique est une **entrepise artisanale**._<br>Dénomination sociale, forme juridique, effectif salarié, date d'immatriculation au RNM, adresse."
         "urssaf/effectifs": "_Cette API n'est pas nécessaire dans le cadre des marchés publics_.<br>💡La tranche de l'effectif salarié est appelable avec l'API \"Données établissements - Insee\", et l'effectif d'une entreprise artisanale avec l'API \"Données du RNM - CMA\"."
@@ -69,7 +69,7 @@ fr:
           Communauté d’agglomération du Territoire de la Côte Ouest, communauté de Communes du Grand-Langres, communauté Intercommunale du Nord de La Réunion, communauté urbaine du Grand Reims, commune de Corbeil-Essonnes, commune de Marseille.
 
           ##### Des métropôles
-          Bordeaux Métropole, eurométropole de Strasbourg, métropole Aix-Marseille-Provence, métropole du Grand Nancy, Nantes Métropole.
+          Bordeaux Métropole, Eurométropole de Strasbourg, Métropole Aix-Marseille-Provence, Métropole du Grand Nancy, Nantes Métropole.
 
           ##### 18 départements
           Ain, Bouches-du-Rhône, Drôme, Eure, Loire-Atlantique, Meuse.
@@ -84,12 +84,12 @@ fr:
           Groupement d’Intérêt Public Maximilien, iMSA, Samusocial de Paris, Territoires Numériques – BFC.
 
           ##### Des opérateurs
-          Aéroport Marseille Provence, agence publique pour l’immobilier de la justice, centre de coopération internationale en recherche agronomique pour le développement, centre Hospitalier Universitaire de Montpellier, centre national de la fonction publique territoriale, centre national de la recherche scientifique, établissement public territorial de bassin Seine Grands Lacs, port autonome de Strasbourg, URSSAF Pays de la Loire.
+          Aéroport Marseille Provence, Agence publique pour l’immobilier de la justice, Centre de coopération internationale en recherche agronomique pour le développement, Centre Hospitalier Universitaire de Montpellier, Centre national de la fonction publique territoriale, Centre national de la recherche scientifique, Établissement public territorial de bassin Seine Grands Lacs, Port autonome de Strasbourg, URSSAF Pays de la Loire.
 
           ##### Parfois au travers d’un éditeur de logiciel :
-
+          
           {:.fr-table}
-          | Éditeurs                                                                            |                                          Solution                                                                            |                     Cas d'usage                                                                                                      |
+          | Éditeurs ayant intégré l'API Entreprise                                                                           |                                          Solution                                                                            |                     Cas d'usage                                                                                                      |
           | ----------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------: |
           | **AIFE** <br>(Agence pour l’Informatique Financière de l’État)<br> Agence publique  |                     [Service DUME](https://dume.chorus-pro.gouv.fr/#/){:target="_blank"}                                     |                   Marchés publics                                                                                                    |
           | **Achat Public** <br> Entreprise privée                                             |                          [achatpublic.com](https://www.achatpublic.com/){:target="_blank"}                                   |                   Marchés publics<br>_Dépôt et instruction des candidatures_                                                         |
@@ -99,24 +99,59 @@ fr:
           | **Atline Services** <br> Entreprise privée                                          |                            [marchés-securises.fr](https://www.marches-securises.fr/entreprise/?){:target="_blank"}           |                   Marchés publics<br>_Dépôt et instruction des candidatures_<br> et _Contrôle de conformité du titulaire du marché_  |
           | **AWS** <br> Entreprise privée,<br>_filiale du groupe Achat solutions_              |                       [AWS-achat](https://www.marches-publics.info){:target="_blank"}                                        |                   Marchés publics<br>_Dépôt et instruction des candidatures_<br> et _Contrôle de conformité du titulaire du marché_  |
           | **Dematis** <br> Entreprise privée                                                  |                 [e-marchespublics.com](https://www.e-marchespublics.com/){:target="_blank"}                                  |                   Marchés publics<br>_Dépôt et instruction des candidatures_                                                         |
-          | **E-attestation** <br> entreprise privée                                            |                     [E-attestations](https://www.e-attestations.com/){:target="_blank"}                                      |                   Marchés publics<br>_Contrôle de conformité du titulaire du marché_                                                 |
-          | **Entr’ouvert** <br> coopérative                                                    | [entrouvert.com](https://www.entrouvert.com) <br> [Publik](https://publik.entrouvert.com/){:target="_blank"}                 |                   Portail de démarches en ligne                                                                                      |
+          | **E-attestation** <br> Entreprise privée                                            |                     [E-attestations](https://www.e-attestations.com/){:target="_blank"}                                      |                   Marchés publics<br>_Contrôle de conformité du titulaire du marché_                                                 |
+          | **Entr’ouvert** <br> Coopérative                                                    | [entrouvert.com](https://www.entrouvert.com) <br> [Publik](https://publik.entrouvert.com/){:target="_blank"}                 |                   Portail de démarches en ligne                                                                                      |
           | **Klekoon** <br> Entreprise privée                                                  |                          [klekoon.com](https://www.klekoon.com/){:target="_blank"}                                           |                   Marchés publics<br>_Dépôt et instruction des candidatures_                                                         |
           | **Maximilien** <br> Groupement d’intérêt public                                     |                          [Maximilien](https://www.maximilien.fr/){:target="_blank"}                                          |                   Marchés publics<br>_Dépôt et instruction des candidatures_<br> et _Contrôle de conformité du titulaire du marché_  |
-          | **Megalis Bretagne** <br> Syndicat mixte                                            |      [Salle des marchés publics - Mégalis Bretagne](https://www.megalis.bretagne.bzh){:target="_blank"}                      |                   Marchés publics<br>_Dépôt et instruction des candidatures_                                                         |
+          | **Megalis Bretagne** <br> Syndicat mixte                                            |      [Salle des marchés publics](https://www.megalis.bretagne.bzh){:target="_blank"}                      |                   Marchés publics<br>_Dépôt et instruction des candidatures_                                                         |
           | **Provigis** <br> Entreprise privée                                                 |   [Provigis plateforme](https://www.provigis.com/connexion-plateforme-donneur-dordres/){:target="_blank"}                    |                   Marchés publics<br>_Dépôt et instruction des candidatures_<br> et _Contrôle de conformité du titulaire du marché_  |
           | **Smart Global Governance** <br> Entreprise privée                                  |                       [Smart Global Governance](https://www.smartglobalgovernance.com/fr/decouvrir-la-plateforme/){:target="_blank"} |           Marchés publics<br>_Gestion des risques_                                                                           |
           | **Solution Attestations** <br> Entreprise privée                                    |                       [solution-attestations.com](https://solution-attestations.com/){:target="_blank"}                      |                   Marchés publics<br>_Contrôle de conformité du titulaire du marché_                                                 |
 
-          Vous êtes un éditeur proposant une solution pour les marchés publics et ne figurez pas sur cette liste ? Veuillez nous contacter à cette adresse mail : [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr).
+          _Vous êtes un éditeur de logiciel proposant une solution pour les marchés publics et ne figurez pas sur cette liste ?_ Veuillez nous contacter à cette adresse e-mail : [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr).
       link_datapass: "https://datapass.api.gouv.fr/api-entreprise?demarche=marches_publics"
 
     subventions:
       name: 'Aides publiques'
+      comments_endpoints:
+        "insee/etablissements_diffusibles": "Comme toutes les données Insee indiquées \"diffusibles\", cette API est appropriée pour du **pré-remplissage de formulaire** à destination des demandeurs car la donnée est publique. <br>Pour un usage en backoffice par un agent habilité, utiliser l'API \"Données établissement\" qui permet aussi d'accéder aux \"non-diffusibles\"."
+        "insee/etablissements": "**💡API à privilégier parmi les API Insee, car regroupe les infos de l'établissement et de son unité légale.**"
+        "insee/unites_legales_diffusibles": "_Données spécifiques à l'unité légale \"diffusibles\"_."
+        "insee/unites_legales": "_Données spécifiques à l'unité légale_.<br>💡Si vous avez également besoin des données de l'établissement. Ces données sont aussi distribuées par l'API \"Données établissement\"."
+        "insee/siege_social_diffusibles": "_Données du siège social_, uniquement les \"diffusibles\"."
+        "insee/siege_social": "_Données du siège social_.<br>💡Permet de **retrouver les infos du siège social**, à partir du SIREN de l'unité légale."
+        "insee/adresse_diffusibles": "_Adresse de l'établissement_."
+        "insee/adresse": "_Adresse de l'établissement_.<br>💡Si vous avez également besoin des données de l'établissement. L'adresse est aussi distribuée par l'API \"Données établissement\"."
+        "infogreffe/mandataires_sociaux": ""
+        "infogreffe/rcs/extrait": ""
+        "ministere_interieur/rna": "_Utile pour les subventions._"
+        "ministere_interieur/documents_associations": "_Utile pour les subventions._"
+        "inpi/actes": "Actes détenus par les greffes. Utiles pour se renseigner sur l'**historique de l'unité légale**."
+        "fabrique_numerique_ministeres_sociaux/conventions_collectives": ""
+        "cma_france/rnm": "_Utile si le demandeur est une **entrepise artisanale**._"
+        "urssaf/effectifs": "_Effectif précis_.<br>💡L'API \"Données établissements - Insee\" délivre la tranche de l'effectif salarié. Si une fourchette est suffisante, préférer cette API. <br>Pour l'effectif d'une entreprise artisanale, utiliser l'API \"Données du RNM - CMA\"."
+        "douanes/immatriculation_eori": ""
+        "dgfip/chiffres_affaires": ""
+        "inpi/comptes_annuels_rncs": ""
+        "banque_de_france/bilans": "_Donnée sensible non-nécessaire._"
+        "dgfip/liasses_fiscales": "_Donnée sensible non-nécessaire._"
+        "attestations_fiscales": ""
+        "urssaf/attestation_vigilance": ""
+        "msa/conformites_cotisations": ""
+        "probtp/conformites_cotisations_retraite": ""
+        "fntp/carte_professionnelle_travaux_public": ""
+        "cnetp/attestations_cotisations_conges_payes_chomage_intemperies": ""
+        "agence_bio/certifications_bio": ""
+        "ademe/certifications_rge": ""
+        "qualibat/certifications_batiment": ""
+        "opqibi/qualifications_ingenierie": ""
+        "inpi/brevets": ""
+        "inpi/marques": ""
+        "inpi/modeles": ""
       introduction:
         title: Faciliter dépôt et l'instruction des aides et subventions publiques
         content: |
-          API Entreprise met à disposition des API pour les administrations proposant des aides publiques. Les données obtenues permettent de simplifier le **dépôt des demandes** et de faciliter l’**instruction des dossiers**.
+          API Entreprise propose aux administrations et collectivités des API utiles dans le cadre de la délivrance d'aides et subventions publiques. Les données obtenues permettent de simplifier le **dépôt des demandes** et de faciliter l’**instruction des dossiers**.
       role:
         title: Le rôle d’API Entreprise
         anchor: 'role-api-entreprise'
@@ -130,15 +165,15 @@ fr:
           #### Ce que cela change pour vous, administrations
 
           En intégrant la brique API Entreprise dans votre système d’information ou votre site internet&nbsp;:&nbsp;
-          - Vous **accédez facilement aux données** de l’Insee, la DGFIP, l’URSSAF, etc. ;
-          - Vous n’avez **plus besoin de demander certains justificatifs** aux entreprises ;
-          - Vous n’avez pas de vérification supplémentaire à réaliser car les **informations sont certifiées**.
+          - ✅ Vous **accédez facilement aux données** de l’Insee, la DGFIP, l’URSSAF, etc. ;
+          - ✅ Vous n’avez **plus besoin de demander certains justificatifs** aux entreprises ;
+          - ✅ Vous n’avez pas de vérification supplémentaire à réaliser car les **informations sont certifiées**.
       users:
         title: Ils utilisent l’API Entreprise
         anchor: 'users'
         content: |+
           ##### Des communes et intercommunalités
-          Alsace collectivité européene, Corbas, Les Sables-D’olonne, Saint Chamond, Venissieux, communauté d’agglomération Chauny-Tergnier-La Fère, communaute urbaine d’Arras, Grand Poitiers communaute urbaine.
+          Alsace collectivité européene, Corbas, Les Sables-D’olonne, Saint Chamond, Venissieux, Communauté d’agglomération Chauny-Tergnier-La Fère, Communauté urbaine d’Arras, Grand Poitiers communauté urbaine.
 
           ##### Des métropôles
           Grenoble-Alpes-Métropole, Grand Lyon.
@@ -153,20 +188,14 @@ fr:
           ##### Parfois au travers d’un éditeur de logiciel :
 
           {:.fr-table}
-          | Éditeurs connectés à l'API Entreprise        |     Type d'entité  |    Service ou solution     |
-          |------------------------|:-------------------------------------------:|:-------------------------------------------:|
-          |    ATEXO  |  entreprise privée | [Local Trust SUB](http://www.atexo.com/){:target="_blank"}|
-          |    Entr'ouvert  |  coopérative | [Publik](https://publik.entrouvert.com/){:target="_blank"}<br> logiciel libre|
-          |    E-attestation              |  entreprise privée |       [E-attestations](https://www.e-attestations.com/){:target="_blank"}                                |
-          |    MGDIS   | entreprise privée |[Portail des aides](https://www.mgdis.fr/nos-solutions/pilotage-des-aides-versees/){:target="_blank"}  |
-          | Éditeurs                                                                            |                                          Solution                                                                            |                     Cas d'usage                       |
+          | Éditeurs ayant intégré l'API Entreprise                                             |                                          Solution                                                                            |                     Cas d'usage                       |
           | ----------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------:|
           | **Atexo** <br> Entreprise privée                                                    | [Local Trust Sub](https://www.atexo.com/solutions/solutions-subventions-et-aides-individuelles/){:target="_blank"}           |    Aides & subventions publiques                      |
           | **Axyus** <br> Entreprise privée                                                    |                             [Axuys](https://www.axyus.com/){:target="_blank"}                                                |                   Aides & subventions publiques       |
-          | **Entr’ouvert** <br> coopérative                                                    | [entrouvert.com](https://www.entrouvert.com) <br> [Publik](https://publik.entrouvert.com/){:target="_blank"}                 |                   Portail de démarches en ligne       |
+          | **Entr’ouvert** <br> Coopérative                                                    | [entrouvert.com](https://www.entrouvert.com) <br> [Publik](https://publik.entrouvert.com/){:target="_blank"}                 |                   Portail de démarches en ligne       |
           | **MGDIS** <br> Entreprise privée                                                    |    [Portail des aides](https://www.mgdis.fr/nos-solutions/pilotage-des-aides-versees/){:target="_blank"}                     |                   Aides & subventions publiques       |
 
-          Vous êtes un éditeur proposant une solution pour les aides et subventions publiques et ne figurez pas sur cette liste ? Veuillez nous contacter à cette adresse mail : [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr).
+          _Vous êtes un éditeur proposant une solution pour les aides et subventions publiques et ne figurez pas sur cette liste ?_ Veuillez nous contacter à cette adresse e-mail : [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr).
       link_datapass: "https://datapass.api.gouv.fr/api-entreprise?demarche=aides_publiques"
 
     fraude:
