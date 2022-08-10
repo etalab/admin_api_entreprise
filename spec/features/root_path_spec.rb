@@ -22,7 +22,7 @@ RSpec.describe 'Root path', type: :feature do
   end
 
   context 'when subdomain is not dashboard.entreprise.api' do
-    let(:host) { 'whatever.localhost.me' }
+    let(:host) { 'entreprise.api.localhost.me' }
 
     it 'renders homepage' do
       visit_root_path
