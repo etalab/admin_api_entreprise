@@ -4,22 +4,23 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
     :path,
     :call_id,
     :parameters,
-    :providers,
+    :provider_uids,
     :perimeter,
     :extra_description,
     :data,
     :use_cases,
     :use_cases_optional,
+    :use_cases_forbidden,
     :keywords,
     :opening
 
   algoliasearch_active_model do
-    attributes :title, :description, :providers, :keywords, :use_cases, :use_cases_optional
+    attributes :title, :description, :provider_uids, :keywords, :use_cases, :use_cases_optional
 
     searchableAttributes %w[
       title
       description
-      providers
+      provider_uids
       keywords
       use_cases
       use_cases_optional
@@ -145,6 +146,10 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
     !dummy?
   end
 
+  def providers
+    Provider.filter_by_uid(provider_uids)
+  end
+
   private
 
   def extract_data_from_schema
@@ -172,6 +177,8 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
   end
 
   def tag_for_redoc
+    return unless open_api_definition['tags']
+
     open_api_definition['tags'].first.parameterize(separator: '-').capitalize
   end
 

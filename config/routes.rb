@@ -50,10 +50,11 @@ Rails.application.routes.draw do
   get '/catalogue/*uid', as: :endpoint, to: 'endpoints#show'
 
   get '/faq', to: 'faq#index', as: :faq_index
-
   get '/developpeurs', to: 'documentation#developers', as: :developers
   get '/developpeurs/guide-migration', to: 'documentation#guide_migration', as: :guide_migration
   get '/developpeurs/openapi', to: 'pages#redoc', as: :developers_openapi
+  get '/cas_usages', to: 'cas_usages#index'
+  get '/cas_usages/:uid', to: 'cas_usages#show', as: :cas_usage
 
   get '/apis/status', to: 'pages#current_status', as: :current_status
   get '/v3/openapi.yaml', to: ->(env) { [200, {}, [OpenAPIDefinition.instance.open_api_definition_content]] }, as: :openapi_definition

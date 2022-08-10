@@ -36,11 +36,13 @@
   call_id: &insee_unites_legales_call_id SIREN
   parameters: &insee_unites_legales_parameters
     - Numéro de SIREN de l'unité légale
-  use_cases:
+  use_cases_optional:
     - Marchés publics
     - Aides publiques
     - Détection de la fraude
-  providers: &insee_unites_legales_providers
+  use_cases_forbidden:
+    - Préremplissage d'un formulaire
+  provider_uids: &insee_unites_legales_provider_uids
     - 'insee'
   keywords: &insee_unites_legales_keywords
     - 'activité'
@@ -151,13 +153,14 @@
     - associations
   opening: public
   use_cases:
-    - Marchés publics
-    - Aides publiques
     - Détection de la fraude
     - Préremplissage d'un formulaire
+  use_cases_optional:
+    - Marchés publics
+    - Aides publiques
   parameters: *insee_unites_legales_parameters
   call_id: *insee_unites_legales_call_id
-  providers: *insee_unites_legales_providers
+  provider_uids: *insee_unites_legales_provider_uids
   keywords: *insee_unites_legales_keywords
   data:
     description: *insee_unites_legales_data_description

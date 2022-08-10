@@ -39,11 +39,13 @@
   call_id: &insee_adresse_etablissement_call_id SIRET
   parameters: &insee_adresse_etablissement_parameters
     - Numéro de SIRET de l'établissement
-  use_cases:
+  use_cases_optional:
     - Marchés publics
     - Aides publiques
     - Détection de la fraude
-  providers: &insee_adresse_etablissement_providers
+  use_cases_forbidden:
+    - Préremplissage d'un formulaire
+  provider_uids: &insee_adresse_etablissement_provider_uids
     - 'insee'
   keywords: &insee_adresse_etablissement_keywords
     - 'localisation'
@@ -120,13 +122,14 @@
     - associations
   opening: public
   use_cases:
+    - Préremplissage d'un formulaire
+  use_cases_optional:
     - Marchés publics
     - Aides publiques
     - Détection de la fraude
-    - Préremplissage d'un formulaire
   parameters: *insee_adresse_etablissement_parameters
   call_id: *insee_adresse_etablissement_call_id
-  providers: *insee_adresse_etablissement_providers
+  provider_uids: *insee_adresse_etablissement_provider_uids
   keywords: *insee_adresse_etablissement_keywords
   data:
     description: *insee_adresse_etablissement_data_description

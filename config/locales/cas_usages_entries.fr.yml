@@ -1,0 +1,278 @@
+---
+fr:
+  cas_usages_entries:
+    marches_publics:
+      name: 'Marchés publics'
+      comments_endpoints:
+        "insee/etablissements_diffusibles": "Comme toutes les données Insee indiquées \"diffusibles\", cette API est appropriée pour du **pré-remplissage de formulaire** à destination des opérateurs économiques car la donnée est publique. <br>Pour un usage en backoffice par un agent habilité, utiliser l'API \"Données établissement\" qui permet aussi d'accéder aux \"non-diffusibles\"."
+        "insee/etablissements": "**💡API à privilégier parmi les API Insee, car regroupe les infos de l'établissement et de son unité légale :** Nom commercial, dénomination sociale, nom et prénom personne physique, adresse de l'établissement&nbsp;; forme juridique, catégorie, (micro, TPE/PME) et tranche d'effectif salarié de l'unité légale."
+        "insee/unites_legales_diffusibles": "_Données spécifiques à l'unité légale \"diffusibles\"_."
+        "insee/unites_legales": "_Données spécifiques à l'unité légale_.<br>💡Si vous avez également besoin des données de l'établissement, ces données sont aussi distribuées par l'API \"Données établissement\"."
+        "insee/siege_social_diffusibles": "_Données du siège social_, uniquement les \"diffusibles\"."
+        "insee/siege_social": "_Données du siège social_.<br>💡Permet de **retrouver les infos du siège social**, à partir du SIREN de l'unité légale."
+        "insee/adresse_diffusibles": "_Adresse de l'établissement_."
+        "insee/adresse": "_Adresse de l'établissement_.<br>💡Si vous avez également besoin des données de l'établissement. L'adresse est aussi distribuée par l'API \"Données établissement\"."
+        "infogreffe/mandataires_sociaux": ""
+        "infogreffe/rcs/extrait": ""
+        "ministere_interieur/rna": "_Utile si l'opérateur économique est une **association**._<br>Nom de l'association, adresse"
+        "ministere_interieur/documents_associations": "_Utile si l'opérateur économique est une association._"
+        "inpi/actes": "Actes détenus par les greffes. Utiles pour se renseigner sur l'**historique de l'unité légale**."
+        "fabrique_numerique_ministeres_sociaux/conventions_collectives": "_Exemple d'usage spécifique_&nbsp;: **Vérifier si la reprise du personnel est obligatoire** lorsque l'entreprise est attributaire du marché."
+        "cma_france/rnm": "_Utile si l'opérateur économique est une **entrepise artisanale**._<br>Dénomination sociale, forme juridique, effectif salarié, date d'immatriculation au RNM, adresse."
+        "urssaf/effectifs": "_Cette API n'est pas nécessaire dans le cadre des marchés publics_.<br>💡La tranche de l'effectif salarié est appelable avec l'API \"Données établissements - Insee\", et l'effectif d'une entreprise artisanale avec l'API \"Données du RNM - CMA\"."
+        "douanes/immatriculation_eori": "_Exemple d'usage spécifique_&nbsp;: **Vérifier l'immatriculation auprès des douanes d'un attributaire de marché étranger**."
+        "dgfip/chiffres_affaires": "Vérifier de la **capacité économique et financière**. Chiffre d'affaires des trois dernières années."
+        "inpi/comptes_annuels_rncs": "Vérifier de la **capacité économique et financière**."
+        "banque_de_france/bilans": "_Donnée sensible non-nécessaire._"
+        "dgfip/liasses_fiscales": "_Donnée sensible non-nécessaire._"
+        "attestations_fiscales": ""
+        "urssaf/attestation_vigilance": ""
+        "msa/conformites_cotisations": ""
+        "probtp/conformites_cotisations_retraite": "MP travaux publics"
+        "fntp/carte_professionnelle_travaux_public": "MP travaux publics"
+        "cnetp/attestations_cotisations_conges_payes_chomage_intemperies": "_MP travaux publics_"
+        "agence_bio/certifications_bio": "MP fournitures et services<br>Achats publics durables"
+        "ademe/certifications_rge": "MP travaux publics<br>Achats publics durables<br>Certifier d'une **aptitude professionnelle**."
+        "qualibat/certifications_batiment": "MP travaux publics<br>Certifier d'une **aptitude professionnelle**."
+        "opqibi/qualifications_ingenierie": "MP travaux publics<br>Certifier d'une **aptitude professionnelle**."
+        "inpi/brevets": "_Exemple d'usage spécifique_&nbsp;: Déterminer si une entreprise est bien la seule à détenir une technologie afin de **justifier une non mise en concurrence**."
+        "inpi/marques": ""
+        "inpi/modeles": ""
+      introduction:
+        title: Faciliter la candidature, l’instruction et le suivi des marchés publics
+        content: |
+          API Entreprise propose aux administrations et collectivités des API utiles dans le cadre des marchés publics. Les données obtenues permettent de simplifier les **démarches de candidature des entreprises et associations**, faciliter l’**instruction des dossiers** et le **suivi des prestataires**.
+
+      role:
+        title: Le rôle d’API Entreprise
+        anchor: 'role-api-entreprise'
+        content: |+
+          #### Une simplification des démarches, pour tous
+          L’API Entreprise facilite&nbsp;:&nbsp;
+          - le **dépôt des candidatures** 📥 par les entreprises et associations, en pré-remplissant leur formulaire de demande une fois qu’elles ont entré leur numéro de SIRET ou RNA ;
+          - la **construction du dossier 🗂 et le travail de l’organisation publique instructrice 🔎** en récupérant les justificatifs nécessaires à l’instruction, sans les réclamer aux entreprises et associations demandeuses.
+          - le **suivi des prestataires**, en permettant une mise à jour automatique des documents, telle que l'attestation de vigilance.
+
+          #### Ce que cela change pour vous, administrations
+          En intégrant la brique API Entreprise dans votre système d’information ou votre site internet&nbsp;:&nbsp;
+          - ✅ Vous **accédez facilement aux données** de l’Insee, la DGFIP, l’URSSAF, etc. ;
+          - ✅ Vous n’avez **plus besoin de demander et re-demander certains justificatifs** aux entreprises ;
+          - ✅ Vous n’avez pas de vérification supplémentaire à réaliser car les **informations sont certifiées**.
+
+      users:
+        title: Ils utilisent l’API Entreprise
+        anchor: 'users'
+        content: |+
+          Ils utilisent déjà l’API Entreprise pour faciliter la candidature et l’instruction des marchés publics&nbsp;:&nbsp;
+
+          ##### Des communes et intercommunalités
+          Communauté d’agglomération du Territoire de la Côte Ouest, communauté de Communes du Grand-Langres, communauté Intercommunale du Nord de La Réunion, communauté urbaine du Grand Reims, commune de Corbeil-Essonnes, commune de Marseille.
+
+          ##### Des métropôles
+          Bordeaux Métropole, Eurométropole de Strasbourg, Métropole Aix-Marseille-Provence, Métropole du Grand Nancy, Nantes Métropole.
+
+          ##### 18 départements
+          Ain, Bouches-du-Rhône, Drôme, Eure, Loire-Atlantique, Meuse.
+
+          ##### 15 régions
+          Aquitaine, Auvergne-Rhône-Alpes, Centre-Val de Loire, Grand Est, Nouvelle-Aquitaine, Occitanie, Pays de la Loire.
+
+          ##### Des administrations centrales
+          Agence pour l’informatique financière de l’État, Direction des achats de l’État.
+
+          ##### Des groupements d’intérêt publics
+          Groupement d’Intérêt Public Maximilien, iMSA, Samusocial de Paris, Territoires Numériques – BFC.
+
+          ##### Des opérateurs
+          Aéroport Marseille Provence, Agence publique pour l’immobilier de la justice, Centre de coopération internationale en recherche agronomique pour le développement, Centre Hospitalier Universitaire de Montpellier, Centre national de la fonction publique territoriale, Centre national de la recherche scientifique, Établissement public territorial de bassin Seine Grands Lacs, Port autonome de Strasbourg, URSSAF Pays de la Loire.
+
+          ##### Parfois au travers d’un éditeur de logiciel :
+
+          {:.fr-table}
+          | Éditeurs ayant intégré l'API Entreprise                                                                           |                                          Solution                                                                            |                     Cas d'usage                                                                                                      |
+          | ----------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------: |
+          | **AIFE** <br>(Agence pour l’Informatique Financière de l’État)<br> Agence publique  |                     [Service DUME](https://dume.chorus-pro.gouv.fr/#/){:target="_blank"}                                     |                   Marchés publics                                                                                                    |
+          | **Achat Public** <br> Entreprise privée                                             |                          [achatpublic.com](https://www.achatpublic.com/){:target="_blank"}                                   |                   Marchés publics<br>_Dépôt et instruction des candidatures_                                                         |
+          | **Actradis** <br> Entreprise privée                                                 |                      [actradis.fr](https://www.actradis.fr/){:target="_blank"}                                               |                   Marchés publics<br>_Contrôle de conformité du titulaire du marché_                                                 |
+          | **Arnia**<br> Groupement d’intérêt public Bourgogne Franche-Comté                   |    [Pack commande publique](https://www.ternum-bfc.fr/services/pack-commande-publique){:target="_blank"}                     |                   Marchés publics<br>_Dépôt et instruction des candidatures_                                                         |
+          | **Atexo** <br> Entreprise privée                                                    |[Local Trust Marchés Publics](https://www.atexo.com/solutions/solutions-achats-et-marches-publics/){:target="_blank"}         |                   Marchés publics<br>_Dépôt et instruction des candidatures_                                                         |
+          | **Atline Services** <br> Entreprise privée                                          |                            [marchés-securises.fr](https://www.marches-securises.fr/entreprise/?){:target="_blank"}           |                   Marchés publics<br>_Dépôt et instruction des candidatures_<br> et _Contrôle de conformité du titulaire du marché_  |
+          | **AWS** <br> Entreprise privée,<br>_filiale du groupe Achat solutions_              |                       [AWS-achat](https://www.marches-publics.info){:target="_blank"}                                        |                   Marchés publics<br>_Dépôt et instruction des candidatures_<br> et _Contrôle de conformité du titulaire du marché_  |
+          | **Dematis** <br> Entreprise privée                                                  |                 [e-marchespublics.com](https://www.e-marchespublics.com/){:target="_blank"}                                  |                   Marchés publics<br>_Dépôt et instruction des candidatures_                                                         |
+          | **E-attestation** <br> Entreprise privée                                            |                     [E-attestations](https://www.e-attestations.com/){:target="_blank"}                                      |                   Marchés publics<br>_Contrôle de conformité du titulaire du marché_                                                 |
+          | **Entr’ouvert** <br> Coopérative                                                    | [entrouvert.com](https://www.entrouvert.com) <br> [Publik](https://publik.entrouvert.com/){:target="_blank"}                 |                   Portail de démarches en ligne                                                                                      |
+          | **Klekoon** <br> Entreprise privée                                                  |                          [klekoon.com](https://www.klekoon.com/){:target="_blank"}                                           |                   Marchés publics<br>_Dépôt et instruction des candidatures_                                                         |
+          | **Maximilien** <br> Groupement d’intérêt public                                     |                          [Maximilien](https://www.maximilien.fr/){:target="_blank"}                                          |                   Marchés publics<br>_Dépôt et instruction des candidatures_<br> et _Contrôle de conformité du titulaire du marché_  |
+          | **Megalis Bretagne** <br> Syndicat mixte                                            |      [Salle des marchés publics](https://www.megalis.bretagne.bzh){:target="_blank"}                      |                   Marchés publics<br>_Dépôt et instruction des candidatures_                                                         |
+          | **Provigis** <br> Entreprise privée                                                 |   [Provigis plateforme](https://www.provigis.com/connexion-plateforme-donneur-dordres/){:target="_blank"}                    |                   Marchés publics<br>_Dépôt et instruction des candidatures_<br> et _Contrôle de conformité du titulaire du marché_  |
+          | **Smart Global Governance** <br> Entreprise privée                                  |                       [Smart Global Governance](https://www.smartglobalgovernance.com/fr/decouvrir-la-plateforme/){:target="_blank"} |           Marchés publics<br>_Gestion des risques_                                                                           |
+          | **Solution Attestations** <br> Entreprise privée                                    |                       [solution-attestations.com](https://solution-attestations.com/){:target="_blank"}                      |                   Marchés publics<br>_Contrôle de conformité du titulaire du marché_                                                 |
+
+          _Vous êtes un éditeur de logiciel proposant une solution pour les marchés publics et ne figurez pas sur cette liste ?_ Veuillez nous contacter à cette adresse e-mail : [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr).
+      link_datapass: "https://datapass.api.gouv.fr/api-entreprise?demarche=marches_publics"
+
+    subventions:
+      name: 'Aides publiques'
+      comments_endpoints:
+        "insee/etablissements_diffusibles": "Comme toutes les données Insee indiquées \"diffusibles\", cette API est appropriée pour du **pré-remplissage de formulaire** à destination des demandeurs car la donnée est publique. <br>Pour un usage en backoffice par un agent habilité, utiliser l'API \"Données établissement\" qui permet aussi d'accéder aux \"non-diffusibles\"."
+        "insee/etablissements": "**💡API à privilégier parmi les API Insee, car regroupe les infos de l'établissement et de son unité légale.**"
+        "insee/unites_legales_diffusibles": "_Données spécifiques à l'unité légale \"diffusibles\"_."
+        "insee/unites_legales": "_Données spécifiques à l'unité légale_.<br>💡Si vous avez également besoin des données de l'établissement. Ces données sont aussi distribuées par l'API \"Données établissement\"."
+        "insee/siege_social_diffusibles": "_Données du siège social_, uniquement les \"diffusibles\"."
+        "insee/siege_social": "_Données du siège social_.<br>💡Permet de **retrouver les infos du siège social**, à partir du SIREN de l'unité légale."
+        "insee/adresse_diffusibles": "_Adresse de l'établissement_."
+        "insee/adresse": "_Adresse de l'établissement_.<br>💡Si vous avez également besoin des données de l'établissement. L'adresse est aussi distribuée par l'API \"Données établissement\"."
+        "infogreffe/mandataires_sociaux": ""
+        "infogreffe/rcs/extrait": ""
+        "ministere_interieur/rna": "_Utile pour les subventions._"
+        "ministere_interieur/documents_associations": "_Utile pour les subventions._"
+        "inpi/actes": "Actes détenus par les greffes. Utiles pour se renseigner sur l'**historique de l'unité légale**."
+        "fabrique_numerique_ministeres_sociaux/conventions_collectives": ""
+        "cma_france/rnm": "_Utile si le demandeur est une **entrepise artisanale**._"
+        "urssaf/effectifs": "_Effectif précis_.<br>💡L'API \"Données établissements - Insee\" délivre la tranche de l'effectif salarié. Si une fourchette est suffisante, préférer cette API. <br>Pour l'effectif d'une entreprise artisanale, utiliser l'API \"Données du RNM - CMA\"."
+        "douanes/immatriculation_eori": ""
+        "dgfip/chiffres_affaires": ""
+        "inpi/comptes_annuels_rncs": ""
+        "banque_de_france/bilans": "_Donnée sensible non-nécessaire._"
+        "dgfip/liasses_fiscales": "_Donnée sensible non-nécessaire._"
+        "attestations_fiscales": ""
+        "urssaf/attestation_vigilance": ""
+        "msa/conformites_cotisations": ""
+        "probtp/conformites_cotisations_retraite": ""
+        "fntp/carte_professionnelle_travaux_public": ""
+        "cnetp/attestations_cotisations_conges_payes_chomage_intemperies": ""
+        "agence_bio/certifications_bio": ""
+        "ademe/certifications_rge": ""
+        "qualibat/certifications_batiment": ""
+        "opqibi/qualifications_ingenierie": ""
+        "inpi/brevets": ""
+        "inpi/marques": ""
+        "inpi/modeles": ""
+      introduction:
+        title: Faciliter dépôt et l'instruction des aides et subventions publiques
+        content: |
+          API Entreprise propose aux administrations et collectivités des API utiles dans le cadre de la délivrance d'aides et subventions publiques. Les données obtenues permettent de simplifier le **dépôt des demandes** et de faciliter l’**instruction des dossiers**.
+      role:
+        title: Le rôle d’API Entreprise
+        anchor: 'role-api-entreprise'
+        content: |+
+          #### Une simplification des démarches, pour tous
+
+          L’API Entreprise facilite&nbsp;:&nbsp;
+          - le **dépôt des demandes** 📥 par les entreprises et associations, en pré-remplissant leur formulaire une fois qu’elles ont entré leur numéro de SIRET ou RNA ;
+          - la **construction du dossier 🗂 et le travail de l’organisation publique instructrice 🔎** en récupérant les justificatifs nécessaires à l’instruction, sans les réclamer aux entreprises et associations demandeuses.
+
+          #### Ce que cela change pour vous, administrations
+
+          En intégrant la brique API Entreprise dans votre système d’information ou votre site internet&nbsp;:&nbsp;
+          - ✅ Vous **accédez facilement aux données** de l’Insee, la DGFIP, l’URSSAF, etc. ;
+          - ✅ Vous n’avez **plus besoin de demander certains justificatifs** aux entreprises ;
+          - ✅ Vous n’avez pas de vérification supplémentaire à réaliser car les **informations sont certifiées**.
+      users:
+        title: Ils utilisent l’API Entreprise
+        anchor: 'users'
+        content: |+
+          ##### Des communes et intercommunalités
+          Alsace collectivité européene, Corbas, Les Sables-D’olonne, Saint Chamond, Venissieux, Communauté d’agglomération Chauny-Tergnier-La Fère, Communauté urbaine d’Arras, Grand Poitiers communauté urbaine.
+
+          ##### Des métropôles
+          Grenoble-Alpes-Métropole, Grand Lyon.
+
+          ##### Des départements
+          Drôme, Finistère, Isère, Vaucluse.
+
+          ##### Des régions
+          Bourgogne-Franche-Comte, Bretagne, Centre-Val de Loire, Île-de-France, Normandie, Nouvelle-Aquitaine, Réunion.
+
+
+          ##### Parfois au travers d’un éditeur de logiciel :
+
+          {:.fr-table}
+          | Éditeurs ayant intégré l'API Entreprise                                             |                                          Solution                                                                            |                     Cas d'usage                       |
+          | ----------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------:|
+          | **Atexo** <br> Entreprise privée                                                    | [Local Trust Sub](https://www.atexo.com/solutions/solutions-subventions-et-aides-individuelles/){:target="_blank"}           |    Aides & subventions publiques                      |
+          | **Axyus** <br> Entreprise privée                                                    |                             [Axuys](https://www.axyus.com/){:target="_blank"}                                                |                   Aides & subventions publiques       |
+          | **Entr’ouvert** <br> Coopérative                                                    | [entrouvert.com](https://www.entrouvert.com) <br> [Publik](https://publik.entrouvert.com/){:target="_blank"}                 |                   Portail de démarches en ligne       |
+          | **MGDIS** <br> Entreprise privée                                                    |    [Portail des aides](https://www.mgdis.fr/nos-solutions/pilotage-des-aides-versees/){:target="_blank"}                     |                   Aides & subventions publiques       |
+
+          _Vous êtes un éditeur proposant une solution pour les aides et subventions publiques et ne figurez pas sur cette liste ?_ Veuillez nous contacter à cette adresse e-mail : [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr).
+      link_datapass: "https://datapass.api.gouv.fr/api-entreprise?demarche=aides_publiques"
+
+    fraude:
+      name: 'Détection de la fraude'
+      introduction:
+        title: Simplifier les procédures de détection de la fraude
+        content: |
+          API Entreprise propose des API aux administrations ayant pour mission de détecter la fraude, qu'elle soit financière ou sociale. Les données obtenues permettent de **faciliter et d'accélérer le traitement des dossiers d'enquête**, en limitant les sollicitations des entreprises et associations.
+      role:
+        title: Le rôle d’API Entreprise
+        anchor: 'role-api-entreprise'
+        content: |+
+          #### Une simplification des démarches, pour tous
+
+          L’API Entreprise facilite :
+          - la **constitution du dossier d'enquête 🗂 et le travail des enquêteurs 🔎** en récupérant les justificatifs nécessaires à l’instruction, sans les réclamer aux entreprises et associations.
+          - le **ciblage des entités à contrôler**, dans le respect des procédures contradictoires.
+
+          #### Ce que cela change pour vous, administrations
+
+          En intégrant la brique API Entreprise dans votre système d’information ou votre site internet :
+          - ✅ Vous **accédez facilement aux données** de la DGFIP, de l’URSSAF, etc. ;
+          - ✅ Vous **accédez et exploitez plus rapidement aux informations** sociales, économiques et financières des entités surveillées ;
+          - ✅ Vous n’avez pas de vérification supplémentaire à réaliser car les **informations sont certifiées**.
+      users:
+        title: Ils utilisent l’API Entreprise
+        anchor: 'users'
+        content: |+
+          La **Direction des Achats de l'État** (DAE), et la **Direction générale de la concurrence, de la consommation et de la répression des fraudes** (DGCCRF), utilisent déjà l'API Entreprise pour simplifier leurs procédures de détection de la fraude.
+      link_datapass: "https://datapass.api.gouv.fr/api-entreprise?demarche=detection_fraude"
+
+    formulaire:
+      name: "Préremplissage d'un formulaire"
+      introduction:
+        title: Préremplir un formulaire à partir d’un SIRET, SIREN ou RNA
+        content: |
+          API Entreprise propose des API aux administrations et collectivités ayant des démarches en ligne à destination des entreprises et associations. En inscrivant leur numéro de Siret ou RNA, le formulaire de la démarche est **prérempli automatiquement** des données connues.
+      role:
+        title: Le rôle d’API Entreprise
+        anchor: 'role-api-entreprise'
+        content: |+
+          #### Une simplification des démarches, pour tous
+
+          L’API Entreprise facilite :
+          - les **démarches** 📥 des entreprises et associations, en pré-remplissant leur formulaire de demande une fois qu’elles ont entré leur numéro de SIRET, de SIREN ou RNA ;
+          - la **personnalisation des informations demandées** 🎨 en permettant aux systèmes d’informations des administrations de distinguer leurs utilisateurs grâce aux données fournies, telle que la catégorie juridique ou la tranche de l'effectif par exemple.
+
+          #### Ce que cela change pour vous, administrations
+
+          En intégrant la brique API Entreprise dans votre système d’information ou votre site internet :
+          - ✅ Vous **accélérez les procédures pour vos utilisateurs** en leur évitant de rechercher des informations que l’administration connaît déjà ;
+          - ✅ Vous éviter les erreurs de frappe et donc une vérification supplémentaire car **les informations données par API Entreprise sont certifiées**.
+      users:
+        title: Ils utilisent l’API Entreprise
+        anchor: 'users'
+        content: |+
+          Ils utilisent déjà l’API Entreprise pour faciliter le préremplissage de formulaires&nbsp;:nbsp;
+
+          ##### Des communes et intercommunalités
+          La communauté de communes de Vaison Ventoux propose une [carte aux professionnels permettant d’accéder aux déchetteries de son territoire](http://www.vaison-ventoux.fr/cadre-de-vie-solidarite/dechets/l-acces-a-la-carte-de-dechetterie-pour-les-professionnels.htm). Le formulaire accessible sous connexion sécurisée FranceConnect, est directement pré-rempli des informations disponibles par API Entreprise.
+
+          ##### Des administrations centrales
+          ANCT (Agence nationale de la cohésion des territoires), DINUM (Direction interministérielle du numérique) ;
+
+          ##### Des groupements d’intérêt publics
+          Groupement d’Intérêt Public Maximilien, iMSA, Samusocial de Paris, Territoires Numériques – BFC.
+
+          ##### Des opérateurs
+          BPI France financement, Agence nationale pour la gestion des déchets radioactifs, CNIL (Commission Nationale de l’Informatique et des Libertés), CCI France.
+
+          ##### Parfois au travers d’un éditeur de logiciel :
+
+          {:.fr-table}
+          | Éditeurs ayant intégré l'API Entreprise                                             |                                          Solution                                                                            |                     Cas d'usage                       |
+          | ----------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------:|
+          | **Entr’ouvert** <br> Coopérative                                                    | [entrouvert.com](https://www.entrouvert.com) <br> [Publik](https://publik.entrouvert.com/){:target="_blank"}                 |                   Portail de démarches en ligne       |
+          | **Les éditeurs proposant des solutions pour les aides et subventions publiques      |                    [Consulter la liste des éditeurs](<%= cas_usage_path(uid: 'subventions', anchor: 'users') %>)                    |  Formulaires pour les aides et subventions publiques  |
+          | **Les éditeurs proposant des solutions pour les marchés publics                     |                    [Consulter la liste des éditeurs](<%= cas_usage_path(uid: 'marches_publics', anchor: 'users') %>)                |         Formulaires pour les marchés publics          |
+
+      link_datapass: "https://datapass.api.gouv.fr/api-entreprise?demarche=preremplissage"

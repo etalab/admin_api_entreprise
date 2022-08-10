@@ -30,7 +30,7 @@
     entities:
       - entreprises
   call_id: "SIREN"
-  providers:
+  provider_uids:
     - 'dgfip'
   keywords:
     - 'finances'
@@ -50,6 +50,10 @@
   opening: protected
   use_cases:
     - Détection de la fraude
+  use_cases_forbidden:
+    - Marchés publics
+    - Aides publiques
+    - Préremplissage d'un formulaire
   parameters:
     - Numéro de SIREN de l'entreprise
   faq:
