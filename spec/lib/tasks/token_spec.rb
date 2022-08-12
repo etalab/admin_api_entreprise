@@ -19,7 +19,7 @@ RSpec.describe 'token tasks', type: :rake do
 
       new_token = Token.last
       expect(new_token).not_to be(token_to_blacklist)
-      expect(Time.zone.at(new_token.iat)).to be_within(1.second).of Time.zone.now
+      expect(Time.zone.at(new_token.iat)).to be_within(5.seconds).of Time.zone.now
 
       expect(Token.last.scopes).to eq(token_to_blacklist.scopes)
     end
