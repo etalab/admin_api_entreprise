@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   post '/compte/jetons/:id/partager', to: 'restricted_token_magic_links#create', as: :token_create_magic_link
   get '/compte/jetons/:id/stats', to: 'token#stats', as: :token_stats
   get '/compte/jetons/:id', to: 'token#show', as: :token
+  get '/compte/jetons/:id/renew', to: 'token#renew', as: :token_renew
   get '/compte/jetons/:id/contacts', to: 'contacts#index', as: :token_contacts
 
   get 'public/jetons/:token', to: 'public_token_magic_links#show', as: :token_show_magic_link

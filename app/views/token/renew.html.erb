@@ -1,0 +1,8 @@
+<turbo-frame id="main-modal-content">
+  <div class="fr-container--fluid fr-mb-6w fr-ml-4w fr-mr-4w">
+    <h2><span class="fr-fi--lg fr-icon-arrow-right-line" aria-hidden="true"></span><%= t('.title') %></h2>
+    <p><%= t('.description') %></p>
+
+    <%= link_to t('.continue'), @token.renewal_url, id: dom_id(@token, :renew), class: %w(fr-btn fr-col-offset-md-8 fr-col-offset-lg-9) %>
+  </div>
+</turbo-frame>

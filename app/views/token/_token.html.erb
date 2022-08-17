@@ -66,7 +66,9 @@
               </li>
               <li>
                 <% if token.authorization_request %>
-                  <%= link_to t('.actions.renew'), token.renewal_url, id: dom_id(token, :renew), class: %w(fr-btn) %>
+                  <a href="<%= token_renew_path(token) %>" class="fr-btn" data-turbo-frame="main-modal-content" data-fr-opened="false" aria-controls="main-modal">
+                    <%= t('.actions.renew') %>
+                  </a>
                 <% end %>
               </li>
             <% end %>

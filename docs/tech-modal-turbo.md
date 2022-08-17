@@ -9,7 +9,7 @@ Mettre un lien qui trigger une action rendant une vue, vue que l'on veut
 mettre dans la modale, de la manière suivante:
 
 ```
-<a href="link" data-turbo-frame="main-modal-content" aria-controls="main-modal">
+<a href="link" data-turbo-frame="main-modal-content" data-fr-opened="false" aria-controls="main-modal">
   Link
 </a>
 ```
