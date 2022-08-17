@@ -64,7 +64,7 @@ RSpec.describe 'User token listing', type: :feature do
       subject
 
       user.tokens.each do |token|
-        expect(page).to have_link(dom_id(token, :renew))
+        expect(page).to have_link(href: token_renew_path(token))
       end
     end
 
