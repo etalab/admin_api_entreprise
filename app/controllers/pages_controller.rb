@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   helper AlgoliaQueryHelper
 
-  layout 'no_container', only: %i[home]
+  layout :page_layout
 
   def current_status
     @current_status = StatusPage.new.current_status
@@ -16,6 +16,8 @@ class PagesController < ApplicationController
     @providers = Provider.all
   end
 
+  def newsletter; end
+
   def mentions; end
 
   def cgu; end
@@ -23,4 +25,15 @@ class PagesController < ApplicationController
   def accessibility; end
 
   def redoc; end
+
+  private
+
+  def page_layout
+    case action_name
+    when 'home'
+      'no_container'
+    when 'newsletter'
+      'no_newsletter_banner'
+    end
+  end
 end

@@ -60,6 +60,7 @@ Rails.application.routes.draw do
   get '/apis/status', to: 'pages#current_status', as: :current_status
   get '/v3/openapi.yaml', to: ->(env) { [200, {}, [OpenAPIDefinition.instance.open_api_definition_content]] }, as: :openapi_definition
 
+  get '/infolettre', to: 'pages#newsletter', as: :newsletter
   get '/mentions-legales', to: 'pages#mentions', as: :mentions
   get '/cgu', to: 'pages#cgu', as: :cgu
   get '/accessibilite', to: 'pages#accessibility', as: :accessibilite
