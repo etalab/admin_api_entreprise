@@ -229,7 +229,7 @@ fr:
                 | Données concernant les mandataires sociaux de l'entreprise.   | API **Mandataires sociaux** <br /> `v3/infogreffe/mandataires_sociaux/{siren}`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'infogreffe/mandataires_sociaux') %>){:target="_blank"} <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1infogreffe~1rcs~1unites_legales~1{siren}~1mandataires_sociaux/get') %>){:target="_blank"}<br /> <br />🎁 *Nouvelle donnée disponible :* Lieu de naissance des mandataires sociaux.|
                 | Données concernant le siège social d'une unité légale, qu'elle soit "diffusible" ou non.  | API **Données siège social** <br /> `v3/insee/sirene/unites_legales/{siren}/siege`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'insee/siege_social') %>){:target="_blank"} <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1insee~1sirene~1unites_legales~1{siren}~1siege_social/get') %>){:target="_blank"}|
                 | Adresse du siège social d´une unité légale, qu´elle soit "diffusible" ou non. | API **Adresse établissement** <br /> `v3/insee/sirene/etablissements/{siret}/adresse`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'insee/adresse_etablissements') %>){:target="_blank"} <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1insee~1sirene~1etablissements~1{siret}~1adresse/get') %>){:target="_blank"}|
-                
+
                 {:.fr-highlight}
                 > **Le numéro de TVA intracommunautaire n'est plus délivré en V.3**
                 > Nous avons appris récemment que certaines entreprises ont des numéros de TVA qui ne respectent aucune nomenclature, nous avons donc décidé de ne plus renvoyer la valeur calculée par API Entreprise car nous n'avons pas la possibilité de repérer ces exceptions.
@@ -238,7 +238,7 @@ fr:
                 {:.fr-highlight}
                 > **Le champ booléen `dirigeant` des mandataires sociaux retiré en V.3 car non-effectif**
                 > En V.2, parmi les informations relatives aux mandataires sociaux, API Entreprise semblait transmettre une information sur le statut dirigeant ou non du mandataire social. Cette information n'était pas effective car toujours à `true`. Nous avons donc retiré ce champ inutile de l'[API V.3 Mandataires sociaux](<%= endpoint_path(uid: 'infogreffe/mandataires_sociaux') %>){:target="_blank"}.
-                > Pour connaître les rôles des mandataires sociaux, vous pouvez vous aider du champ `fonction` qui renvoie des valeurs telles que "PRESIDENT", "DIRECTEUR GENERALE".  
+                > Pour connaître les rôles des mandataires sociaux, vous pouvez vous aider du champ `fonction` qui renvoie des valeurs telles que "PRESIDENT", "DIRECTEUR GENERALE".
 
             - subtitle: V.2 - Données de référence d'un établissement - INSEE
               subtitle_anchor: 'v2---données-de-référence-dun-établissement---insee-'
@@ -681,7 +681,7 @@ fr:
                 > Pour appeler la version souhaitée, il vous faudra directement inscrire le numéro de la version dans l'URL : `https://entreprise.api.gouv.fr/v3/...` pour la V.3 ou `https://entreprise.api.gouv.fr/v4/...` pour la V.4.
 
                 {:.fr-highlight}
-                📩 Une lettre d'information annonce systématiquement les nouvelles évolutions. Vous pouvez vous abonner [ici](<%= root_path(anchor: 'newsletter-title') %>).
+                📩 Une lettre d'information annonce systématiquement les nouvelles évolutions. Vous pouvez vous abonner [ici](<%= newsletter_path %>).
 
 
             - subtitle: Monitorer la disponibilité des API
