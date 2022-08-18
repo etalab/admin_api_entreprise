@@ -26,6 +26,10 @@ class TokenController < AuthenticatedUsersController
     end
   end
 
+  def renew
+    @token = Token.find(params[:id])
+  end
+
   private
 
   def period_to_display

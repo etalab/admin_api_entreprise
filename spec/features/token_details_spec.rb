@@ -47,7 +47,7 @@ RSpec.describe 'token details page', type: :feature do
 
   context 'when the token has an authorization request' do
     it 'has a link for token renewal' do
-      expect(page).to have_link(dom_id(token, :renew))
+      expect(page).to have_link(href: token_renew_path(token))
     end
 
     it 'has a link to authorization request' do
