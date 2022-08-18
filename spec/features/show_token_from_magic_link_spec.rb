@@ -52,7 +52,7 @@ RSpec.describe 'show token from magic link', type: :feature do
       it 'does not show the link to the associated authorization request' do
         subject
 
-        expect(page).not_to have_link(href: token.authorization_request_url)
+        expect(page).not_to have_link(href: datapass_authorization_request_url(token.authorization_request))
       end
 
       it 'does not show the links to the token contacts' do

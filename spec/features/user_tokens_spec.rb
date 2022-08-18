@@ -72,7 +72,7 @@ RSpec.describe 'User token listing', type: :feature do
       subject
 
       user.tokens.each do |token|
-        expect(page).to have_link(href: token.authorization_request_url)
+        expect(page).to have_link(href: datapass_authorization_request_url(token.authorization_request))
       end
     end
 
