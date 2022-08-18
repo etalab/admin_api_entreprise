@@ -29,40 +29,12 @@
       },
       "user_input": null,
       "confidence": "High",
-      "note": ""
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 4,
-      "fingerprint": "100bf44ab1c136779c3cf5c97600e021f4c206028db6d33d01781727a199bb2b",
-      "check_name": "LinkToHref",
-      "message": "Potentially unsafe model attribute in `link_to` href",
-      "file": "app/views/token/renew.html.erb",
-      "line": 6,
-      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
-      "code": "link_to(t(\".continue\"), Token.find(params[:id]).renewal_url, :id => dom_id(Token.find(params[:id]), :renew), :class => ([\"fr-btn\", \"fr-col-offset-md-8\", \"fr-col-offset-lg-9\"]))",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "TokenController",
-          "method": "renew",
-          "line": 31,
-          "file": "app/controllers/token_controller.rb",
-          "rendered": {
-            "name": "token/renew",
-            "file": "app/views/token/renew.html.erb"
-          }
-        }
+      "cwe_id": [
+        79
       ],
-      "location": {
-        "type": "template",
-        "template": "token/renew"
-      },
-      "user_input": "Token.find(params[:id]).renewal_url",
-      "confidence": "Weak",
       "note": ""
     }
   ],
-  "updated": "2022-08-17 12:10:04 +0200",
-  "brakeman_version": "5.2.3"
+  "updated": "2022-08-18 13:24:00 +0200",
+  "brakeman_version": "5.3.1"
 }
