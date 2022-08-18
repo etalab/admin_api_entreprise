@@ -33,12 +33,6 @@ class Token < ApplicationRecord
     exp < Time.zone.now.to_i
   end
 
-  def renewal_url
-    "#{Rails.configuration.token_renewal_url}#{authorization_request.external_id}"
-  end
-
-  delegate :url, to: :authorization_request, prefix: true
-
   def user_and_contacts_email
     Set[*contacts.pluck(:email)] << user.email
   end

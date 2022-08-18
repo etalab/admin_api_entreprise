@@ -27,7 +27,10 @@
             </td>
 
             <td>
-              <%= link_to t('.table.external_url', external_id: authorization_request.external_id), authorization_request.url, target: '_blank' %>
+              <%= link_to t('.table.external_url',
+                    external_id: authorization_request.external_id),
+                    datapass_authorization_request_url(authorization_request),
+                    target: '_blank' %>
             </td>
 
             <td>
