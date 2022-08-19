@@ -1,5 +1,5 @@
 function copyAnchor(self) {
-  const pageURLNoAnchor = document.URL.replace(/#.*$/, "")
+  const pageURLNoAnchor = document.URL.replace(/\?.*$/, "").replace(/#.*$/, "")
   const pageURLWithAnchor = pageURLNoAnchor + '#' + self.id.replace('button-anchor-', '')
 
   navigator.clipboard.writeText(pageURLWithAnchor)
