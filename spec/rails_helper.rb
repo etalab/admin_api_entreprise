@@ -56,7 +56,6 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  config.include ApplicationHelper
   # Include factory_bot methods into test suite
   config.include FactoryBot::Syntax::Methods
 
@@ -65,6 +64,7 @@ RSpec.configure do |config|
   # Include helpers / support accurately for each spec type
   config.include SpecsHelper
   config.include FeatureHelper, type: :feature
+  config.include ExternalUrlHelper, type: :feature
 
   config.around(:each, js: true) do |example|
     example.run_with_retry retry: example.metadata[:retry] || 3

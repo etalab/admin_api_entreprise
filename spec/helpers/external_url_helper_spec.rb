@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ApplicationHelper, type: :helper do
+RSpec.describe ExternalUrlHelper, type: :helper do
   describe 'external URLs to DataPass' do
     let(:token) { create(:token) }
     let(:external_id) { token.authorization_request.external_id }
