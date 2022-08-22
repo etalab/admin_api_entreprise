@@ -12,8 +12,4 @@ class AuthorizationRequest < ApplicationRecord
   has_one :contact_metier, -> { where(contact_type: 'admin') }, class_name: 'Contact'
 
   scope :submitted_at_least_once, -> { where.not(first_submitted_at: nil) }
-
-  def url
-    "#{Rails.configuration.token_authorization_request_url}#{external_id}"
-  end
 end

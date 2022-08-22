@@ -7,7 +7,11 @@
         <% if user_signed_in? %>
           <span class="fr-text--sm fr-m-0 pull-right">
             <% if token.authorization_request %>
-              <%= link_to t('.links.datapass', id: token.authorization_request.external_id), token.authorization_request_url, target: '_blank', id: :authorization_request_link, class: %w(fr-link fr-link--sm) %>
+              <%= link_to t('.links.datapass',
+                    id: token.authorization_request.external_id),
+                    datapass_authorization_request_url(token.authorization_request),
+                    target: '_blank',
+                    id: :authorization_request_link, class: %w(fr-link fr-link--sm) %>
             <% end %>
             <%= link_to t('.links.stats'), token_stats_path(token), id: dom_id(token, :stats_link), class: %w(fr-link fr-link--sm fr-icon-arrow-right-line fr-link--icon-right) %>
             <%= link_to t('.links.contacts'), token_contacts_path(token), id: dom_id(token, :contacts_link), class: %w(fr-link fr-link--sm fr-icon-arrow-right-line fr-link--icon-right) %>

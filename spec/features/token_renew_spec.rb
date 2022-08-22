@@ -9,7 +9,7 @@ RSpec.describe 'token renew page', type: :feature do
     visit token_renew_path(token)
   end
 
-  it 'displays tokens intitules' do
-    expect(page).to have_link(href: token.renewal_url)
+  it 'displays tokens datapass renew link' do
+    expect(page).to have_link(href: datapass_renewal_url(token.authorization_request))
   end
 end

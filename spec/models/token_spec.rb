@@ -202,26 +202,6 @@ RSpec.describe Token, type: :model do
     end
   end
 
-  describe 'external URLs to DataPass' do
-    let(:external_id) { token.authorization_request.external_id }
-
-    describe '#renewal_url' do
-      it 'returns the DataPass\' renewal form URL' do
-        url = Rails.configuration.token_renewal_url + external_id
-
-        expect(token.renewal_url).to eq(url)
-      end
-    end
-
-    describe '#authorization_request_url' do
-      it 'returns the DataPass\' authorization request URL' do
-        url = Rails.configuration.token_authorization_request_url + external_id
-
-        expect(token.authorization_request_url).to eq(url)
-      end
-    end
-  end
-
   describe '#user_and_contacts_email' do
     subject { token.user_and_contacts_email }
 
