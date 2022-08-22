@@ -1,5 +1,5 @@
 function copyAnchor(self) {
-  const pageURLNoAnchor = document.URL.replace(/#.*$/, "")
+  const pageURLNoAnchor = document.URL.replace(/\?.*$/, "").replace(/#.*$/, "")
   const pageURLWithAnchor = pageURLNoAnchor + '#' + self.id.replace('button-anchor-', '')
 
   navigator.clipboard.writeText(pageURLWithAnchor)
@@ -15,13 +15,17 @@ document.addEventListener("turbo:load", function () {
       }
 
       initialize() {
+        this.addAllAnchorCopyButtons();
+      };
+
+      addAllAnchorCopyButtons() {
         const bigTitles = document.querySelectorAll(this.tagsValue)
         let controller = this
 
         bigTitles.forEach(function(title) {
           controller.addAnchorCopyButton(title, controller);
         })
-      };
+      }
 
       addAnchorCopyButton(title, controller) {
         if (!title || !title.id || controller._anchorExist(title.id))
