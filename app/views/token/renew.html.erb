@@ -3,6 +3,6 @@
     <h2><span class="fr-fi--lg fr-icon-arrow-right-line" aria-hidden="true"></span><%= t('.title') %></h2>
     <p><%= t('.description') %></p>
 
-    <%= link_to t('.continue'), datapass_renewal_url(@token), id: dom_id(@token, :renew), class: %w(fr-btn fr-col-offset-md-8 fr-col-offset-lg-9) %>
+    <%= link_to t('.continue'), datapass_renewal_url(@token.authorization_request), id: dom_id(@token, :renew), class: %w(fr-btn fr-col-offset-md-8 fr-col-offset-lg-9) %>
   </div>
 </turbo-frame>
