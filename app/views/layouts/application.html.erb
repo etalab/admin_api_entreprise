@@ -28,11 +28,16 @@
 
     <% if content_for?(:no_container) %>
       <%= yield(:no_container) %>
+    <% elsif content_for?(:no_newsletter_banner) %>
+      <%= yield(:no_newsletter_banner) %>
     <% else %>
       <%= render partial: 'shared/containerized_body' %>
     <% end %>
 
-    <%= render partial: 'shared/newsletter' %>
+    <% unless content_for?(:no_newsletter_banner) %>
+      <%= render partial: 'shared/newsletter_banner' %>
+    <% end %>
+
     <%= render partial: 'shared/footer' %>
     <%= render partial: 'shared/modal' %>
     <%= render partial: 'shared/tooltip' %>
