@@ -17,6 +17,14 @@ RSpec.describe 'Simple pages', type: :feature do
     end
   end
 
+  describe 'infolettre' do
+    it 'works' do
+      expect {
+        visit newsletter_path
+      }.not_to raise_error
+    end
+  end
+
   describe 'developers redoc page', js: true do
     it 'works and displays openapi container' do
       Capybara.using_wait_time 5 do
