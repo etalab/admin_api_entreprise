@@ -24,7 +24,7 @@ class FAQEntry < ApplicationAlgoliaSearchableActiveModel
   end
 
   def self.all
-    I18n.t('faq.categories').each_with_object([]) do |category, array|
+    I18n.t('api_entreprise.faq.categories').each_with_object([]) do |category, array|
       entries = category[:entries].map do |entry|
         new(
           entry.merge(

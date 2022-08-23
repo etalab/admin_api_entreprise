@@ -1,0 +1,11 @@
+<h3><%= t('.title').html_safe %></h3>
+<div class="use_cases">
+  <% I18n.t('api_entreprise.cas_usages_entries', raise: true).keys.reject { |item| item == current_use_case }.each do |use_case| %>
+    <div class="use_case fr-mt-4v">
+      <%= image_tag("api_entreprise/cas_usages/pictos/#{use_case}.svg", alt: use_case) %>
+      <h4><%= t(".#{use_case}.title") %></h4>
+      <p><%= t(".#{use_case}.description") %></p>
+      <%= link_to t('.link'), cas_usage_path(use_case), class: "fr-btn fr-btn--secondary" %>
+    </div>
+  <% end %>
+</div>
