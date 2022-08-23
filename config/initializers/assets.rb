@@ -13,4 +13,7 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w(
   api_entreprise.scss
   api_entreprise.js
+
+  api_particulier.scss
+  api_particulier.js
 )

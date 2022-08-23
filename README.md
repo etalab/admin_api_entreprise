@@ -98,6 +98,8 @@ Vous pouvez accéder ensuite accéder au site via les adresses suivantes:
 http://dashboard.entreprise.api.localtest.me:3000/
 # Pour visualiser le site d'API Entreprise
 http://entreprise.api.localtest.me:3000/
+# Pour visualiser le site d'API Particulier
+http://particulier.api.localtest.me:3000/
 ```
 
 ### Avec Docker
@@ -115,9 +117,11 @@ Vous pouvez accéder ensuite accéder au site via le'adresse suivante:
 http://dashboard.entreprise.api.localtest.me:5000/
 # Pour visualiser le site d'API Entreprise
 http://entreprise.api.localtest.me:5000/
+# Pour visualiser le site d'API Particulier
+http://particulier.api.localtest.me:5000/
 ```
 
-#### Stub des requêtes SIADE en developpement
+#### (API Entreprise) Stub des requêtes SIADE en developpement
 
 Pour la page `/profile/attestations`, en développement on appelle le staging de SIADE avec un stub du token de test,
 ceci pour simplifier les démos / intervenir sur l'interface plus facilement.

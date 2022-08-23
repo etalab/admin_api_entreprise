@@ -1,0 +1,43 @@
+<footer class="fr-footer" role="contentinfo" id="footer">
+  <div class="fr-container">
+    <div class="fr-footer__body">
+      <div class="fr-footer__brand fr-enlarge-link">
+        <a href="/" title="Retour à l’accueil">
+          <p class="fr-logo" title="république française">
+          République
+          <br />Française
+          </p>
+        </a>
+      </div>
+      <div class="fr-footer__content">
+        <p class="fr-footer__content-desc">
+          <%= t('.tagline').html_safe %>
+        </p>
+        <ul class="fr-footer__content-list">
+          <% t('.external_links').each do |external_link| %>
+            <li class="fr-footer__content-item">
+              <a class="fr-footer__content-link" href="https://<%= external_link %>">
+                <%= external_link %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="fr-footer__bottom">
+      <ul class="fr-footer__bottom-list">
+        <li class="fr-footer__bottom-item">
+          <a class="fr-footer__bottom-link" href="#">Accessibilité: non conforme</a>
+        </li>
+        <li class="fr-footer__bottom-item">
+          <a class="fr-footer__bottom-link" href="https://api.gouv.fr/resources/CGU%20API%20Particulier.pdf">Mentions légales</a>
+        </li>
+      </ul>
+      <div class="fr-footer__bottom-copy">
+        <p>
+        Sauf mention contraire, tous les textes de ce site sont sous <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md" target="_blank">licence etalab-2.0</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>

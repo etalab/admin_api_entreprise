@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
 
   draw(:api_entreprise)
+  draw(:api_particulier)
 end

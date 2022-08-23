@@ -143,6 +143,11 @@ RSpec.configure do |config|
     Capybara.app_host = 'http://entreprise.api.localtest.me'
   end
 
+  config.before(type: :feature, app: :api_particulier) do
+    default_url_options[:host] = 'http://particulier.api.localtest.me'
+    Capybara.app_host = 'http://particulier.api.localtest.me'
+  end
+
   config.before do
     stub_request(:get, 'https://entreprise.api.gouv.fr/v3/openapi.yaml').and_return(
       status: 200,
