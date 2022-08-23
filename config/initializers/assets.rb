@@ -10,4 +10,7 @@ Rails.application.config.assets.version = '1.0'
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 
-Rails.application.config.assets.precompile += %w(application.js) # application.js was not precompiled for some reason. might be a misconfig issue.
+Rails.application.config.assets.precompile += %w(
+  api_entreprise.scss
+  api_entreprise.js
+)
