@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Simple pages', type: :feature do
+RSpec.describe 'Simple pages', type: :feature, app: :api_entreprise do
   describe 'mentions' do
     it 'works' do
       expect {

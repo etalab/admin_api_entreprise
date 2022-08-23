@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Cas usages pages', type: :feature do
+RSpec.describe 'Cas usages pages', type: :feature, app: :api_entreprise do
   describe 'index' do
     it 'works' do
       expect {

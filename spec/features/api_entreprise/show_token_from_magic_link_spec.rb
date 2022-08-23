@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'show token from magic link', type: :feature do
+RSpec.describe 'show token from magic link', type: :feature, app: :api_entreprise do
   subject do
     visit token_show_magic_link_path(token: magic_token)
   end
@@ -40,7 +40,7 @@ RSpec.describe 'show token from magic link', type: :feature do
       it 'has a button to copy the token hash' do
         subject
 
-        expect(page).to have_css('#' + dom_id(token, :copy_button))
+        expect(page).to have_css("##{dom_id(token, :copy_button)}")
       end
 
       it 'does not show the token renewal button' do

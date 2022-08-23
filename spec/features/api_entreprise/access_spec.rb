@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'page access', type: :feature do
+RSpec.describe 'page access', type: :feature, app: :api_entreprise do
   context 'when the user is not logged in' do
     it 'can access the login page' do
       visit login_path

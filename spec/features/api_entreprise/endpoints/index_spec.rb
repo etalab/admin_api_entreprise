@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Endpoints index', type: :feature do
+RSpec.describe 'Endpoints index', type: :feature, app: :api_entreprise do
   let(:sample_endpoint) { Endpoint.all.first }
 
   it 'displays endpoints with basic info and link to show' do

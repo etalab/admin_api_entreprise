@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'User attestations through tokens', type: :feature do
+RSpec.describe 'User attestations through tokens', type: :feature, app: :api_entreprise do
   include_context 'with siade payloads'
 
   let(:invalid_token_intitule) { 'Token with another scope' }

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'log out', type: :feature do
+RSpec.describe 'log out', type: :feature, app: :api_entreprise do
   subject do
     visit user_profile_path
     click_link 'logout_button'

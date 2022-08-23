@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Navigation side menu', type: :feature do
+RSpec.describe 'Navigation side menu', type: :feature, app: :api_entreprise do
   subject(:visit_profile) { visit user_profile_path }
 
   before do

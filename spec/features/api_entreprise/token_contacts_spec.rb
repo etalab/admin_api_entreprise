@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'token contacts page', type: :feature do
+RSpec.describe 'token contacts page', type: :feature, app: :api_entreprise do
   let(:contact_tech) { create(:contact, :tech) }
   let(:contact_business) { create(:contact, :business) }
 

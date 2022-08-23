@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe 'create a magic link', type: :feature do
+RSpec.describe 'create a magic link', type: :feature, app: :api_entreprise do
   subject do
     visit user_tokens_path
-    within('#' + dom_id(token, :magic_link)) do
+    within("##{dom_id(token, :magic_link)}") do
       fill_in 'email', with: email
       click_button
     end
@@ -73,9 +73,9 @@ RSpec.describe 'create a magic link', type: :feature do
 
     it 'works' do
       visit user_tokens_path
-      expect(page).not_to have_css('#' + dom_id(token, :magic_link))
+      expect(page).not_to have_css("##{dom_id(token, :magic_link)}")
       click_on dom_id(token, :modal_button)
-      expect(page).to have_css('#' + dom_id(token, :magic_link))
+      expect(page).to have_css("##{dom_id(token, :magic_link)}")
     end
   end
 end

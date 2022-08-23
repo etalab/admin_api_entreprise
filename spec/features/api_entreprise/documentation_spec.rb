@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Documentation pages', type: :feature do
+RSpec.describe 'Documentation pages', type: :feature, app: :api_entreprise do
   describe 'developers' do
     it 'works' do
       expect {

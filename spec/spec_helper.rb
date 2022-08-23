@@ -135,8 +135,11 @@ RSpec.configure do |config|
 
   config.before(type: :feature) do
     Capybara.current_session.driver.reset!
-    default_url_options[:host] = 'http://entreprise.api.localtest.me'
     Capybara.always_include_port = true
+  end
+
+  config.before(type: :feature, app: :api_entreprise) do
+    default_url_options[:host] = 'http://entreprise.api.localtest.me'
     Capybara.app_host = 'http://entreprise.api.localtest.me'
   end
 
@@ -147,7 +150,7 @@ RSpec.configure do |config|
     )
   end
 
-  config.before(:each, type: :feature) do
+  config.before(:each, type: :feature, app: :api_entreprise) do
     stub_request(:get, 'https://status.entreprise.api.gouv.fr/summary.json').and_return(
       status: 200,
       body: {
