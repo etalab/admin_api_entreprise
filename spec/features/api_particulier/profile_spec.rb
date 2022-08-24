@@ -1,0 +1,51 @@
+RSpec.describe 'API Particulier: profile spec', type: :feature, app: :api_particulier do
+  subject(:go_to_profile) { visit api_particulier_user_profile_path }
+
+  let(:user) { create(:user) }
+
+  context 'when user is not authenticated' do
+    it 'redirects to the login' do
+      go_to_profile
+
+      expect(page).to have_current_path(api_particulier_login_path, ignore_query: true)
+    end
+  end
+
+  context 'when user is authenticated' do
+    before do
+      login_as(user)
+    end
+
+    context 'when user has no token' do
+      it 'displays no token disclaimer' do
+        go_to_profile
+
+        expect(page).to have_css('#no_token_disclaimer')
+      end
+    end
+
+    context 'when user has at least one token' do
+      let!(:token) { create(:token, user:, scopes:) }
+
+      context 'when this token is for API Entreprise' do
+        let(:scopes) { create_list(:scope, 1, api: 'entreprise') }
+
+        it 'displays no token disclaimer' do
+          go_to_profile
+
+          expect(page).to have_css('#no_token_disclaimer')
+        end
+      end
+
+      context 'when this token is for API Particulier' do
+        let(:scopes) { create_list(:scope, 1, api: 'particulier') }
+
+        it 'display this token' do
+          go_to_profile
+
+          expect(page).to have_css("##{dom_id(token)}")
+        end
+      end
+    end
+  end
+end

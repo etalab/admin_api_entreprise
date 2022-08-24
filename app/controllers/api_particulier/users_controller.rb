@@ -1,3 +1,5 @@
 class APIParticulier::UsersController < APIParticulier::AuthenticatedUsersController
-  def profile; end
+  def profile
+    @tokens = current_user.tokens.valid_for('particulier')
+  end
 end

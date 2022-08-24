@@ -1,1 +1,11 @@
-Hello <%= current_user.full_name %>
+<h3>
+  <%= t('.title', count: @tokens.count) %>
+</h3>
+
+<% if @tokens.any? %>
+  <%= render @tokens %>
+<% else %>
+  <p id="no_token_disclaimer">
+    <%= t('.no_token_disclaimer', user_email: current_user.email).html_safe %>
+  </p>
+<% end %>
