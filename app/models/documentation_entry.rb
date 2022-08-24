@@ -36,7 +36,7 @@ class DocumentationEntry < ApplicationAlgoliaSearchableActiveModel
   end
 
   def self.build_from_yaml(page)
-    I18n.t("documentation_entries.pages.#{page}").map do |entry|
+    I18n.t("api_entreprise.documentation_entries.pages.#{page}").map do |entry|
       new(
         title: entry[:title],
         introduction: entry[:introduction] || '',

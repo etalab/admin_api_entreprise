@@ -160,8 +160,8 @@ task :passenger do
 end
 
 task :cgu_to_pdf do
-  comment 'Generating PDF version of CGU'.green
-  command %(pandoc app/views/pages/cgu.html.erb -o public/cgu.pdf --pdf-engine=xelatex)
+  comment 'Generating PDF version of API Entreprise CGU'.green
+  command %(pandoc app/views/api_entreprise/pages/cgu.html.erb -o public/cgu.pdf --pdf-engine=xelatex)
 end
 
 task :ownership do

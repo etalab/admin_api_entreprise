@@ -6,8 +6,6 @@ class ApplicationController < ActionController::Base
 
   helper ActiveLinks
 
-  layout 'application'
-
   def error_message(title:, description: nil, id: nil)
     flash_message(:error, title:, description:, id:)
   end

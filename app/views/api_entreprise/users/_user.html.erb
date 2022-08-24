@@ -1,0 +1,61 @@
+<div id="user_details">
+  <h1>
+    <%= t('.title') %>
+  </h1>
+
+  <div class="main-content">
+    <h3>
+      <%= @user.full_name %>
+
+      <% if @user.demandeur? %>
+        <span class="fr-tag">
+          <%= t('.demandeur') %>
+        </span>
+      <% end %>
+
+      <% if @user.contact_metier? %>
+        <span class="fr-tag">
+          <%= t('.contact_metier') %>
+        </span>
+      <% end %>
+
+      <% if @user.contact_technique? %>
+        <span class="fr-tag">
+          <%= t('.contact_technique') %>
+        </span>
+      <% end %>
+    </h3>
+
+    <div class="fr-grid-row">
+      <div class="fr-col-6">
+        <ul class="list-unstyled user-general-infos">
+          <li>
+            <%= icon('fr-icon-mail-line') %>
+            <%= @user.email %>
+          </li>
+          <li>
+            <%= icon('ri-phone-line') %>
+            <%= @user.phone_number || t('.no_phone_number') %>
+          </li>
+        </ul>
+      </div>
+      <div class="fr-col-6">
+        <p class="center fr-m-1w">
+          <%= t('.transfer_account.disclaimer') %>
+
+          <br />
+          <br />
+
+          <a id="transfer_account_button" href="<%= transfer_account_path %>" data-turbo-frame="main-modal-content" class="fr-btn fr-btn--secondary fr-btn--icon-left" data-fr-opened="false" aria-controls="main-modal">
+            <span class="ri-user-shared-line"></span>
+            <%= t('.transfer_account.cta') %>
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <turbo-frame class="fr-mt-5w" id="authorization_requests" src="<%= authorization_requests_path %>">
+      <%= render partial: 'shared/loader' %>
+    </turbo-frame>
+  </div>
+</div>

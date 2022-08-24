@@ -72,8 +72,7 @@ Metrics/AbcSize:
 # Configuration parameters: CountComments, Max, CountAsOne, ExcludedMethods, IgnoredMethods.
 Metrics/MethodLength:
   Exclude:
-    - 'app/controllers/admin/private_metrics_controller.rb'
-    - 'app/controllers/restricted_token_magic_links_controller.rb'
+    - 'app/controllers/api_entreprise/restricted_token_magic_links_controller.rb'
     - 'app/interactors/application_interactor.rb'
     - 'app/interactors/datapass_webhook/extract_mailjet_variables.rb'
     - 'app/interactors/datapass_webhook/find_or_create_authorization_request.rb'
@@ -112,8 +111,7 @@ Naming/VariableNumber:
 RSpec/AnyInstance:
   Exclude:
     - 'spec/controllers/api/datapass_webhooks_controller_spec.rb'
-    - 'spec/features/private_metrics_spec.rb'
-    - 'spec/features/status_header_spec.rb'
+    - 'spec/features/api_entreprise/status_header_spec.rb'
     - 'spec/queries/tokens_query_spec.rb'
     - 'spec/queries/users_query_spec.rb'
 
@@ -128,7 +126,7 @@ RSpec/Capybara/CurrentPathExpectation:
 # Prefixes: when, with, without
 RSpec/ContextWording:
   Exclude:
-    - 'spec/features/token_stats_spec.rb'
+    - 'spec/features/api_entreprise/token_stats_spec.rb'
     - 'spec/lib/access_token_spec.rb'
 
 # Offense count: 1
@@ -179,8 +177,7 @@ RSpec/LeadingSubject:
 # Offense count: 19
 RSpec/LetSetup:
   Exclude:
-    - 'spec/features/private_metrics_spec.rb'
-    - 'spec/features/signin_process_spec.rb'
+    - 'spec/features/api_entreprise/signin_process_spec.rb'
     - 'spec/models/contact_spec.rb'
     - 'spec/queries/tokens_query_spec.rb'
     - 'spec/queries/users_query_spec.rb'
@@ -194,12 +191,7 @@ RSpec/MissingExampleGroupArgument:
 # Configuration parameters: Max.
 RSpec/NestedGroups:
   Exclude:
-    - 'spec/features/token_stats_spec.rb'
-
-# Offense count: 2
-RSpec/RepeatedExample:
-  Exclude:
-    - 'spec/features/admin/token_index_spec.rb'
+    - 'spec/features/api_entreprise/token_stats_spec.rb'
 
 # Offense count: 30
 # Cop supports --auto-correct.
@@ -335,8 +327,7 @@ Style/ClassAndModuleChildren:
 # Configuration parameters: MinBodyLength.
 Style/GuardClause:
   Exclude:
-    - 'app/controllers/admin/tokens_controller.rb'
-    - 'app/controllers/authenticated_users_controller.rb'
+    - 'app/controllers/api_entreprise/authenticated_users_controller.rb'
 
 # Offense count: 2
 Style/MultilineBlockChain:

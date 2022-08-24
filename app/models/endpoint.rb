@@ -134,7 +134,7 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
   end
 
   def load_dummy_definition!
-    @open_api_definition = I18n.t("missing_endpoints.#{path}").stringify_keys
+    @open_api_definition = I18n.t("api_entreprise.missing_endpoints.#{path}").stringify_keys
     @dummy_definition = true
   end
 

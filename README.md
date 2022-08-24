@@ -10,6 +10,8 @@
 
 ## Install
 
+### Sans Docker
+
 Il suffit de lancer la commande suivante pour configurer la base de données,
 installer les paquets et importer les tables de la base de données :
 
@@ -17,7 +19,7 @@ installer les paquets et importer les tables de la base de données :
 ./bin/install.sh
 ```
 
-### Via Docker
+### Avec Docker
 
 Installer `Docker` et `docker-compose` (sur Mac tout est
 [ici](https://docs.docker.com/desktop/mac/install/))
@@ -39,7 +41,7 @@ docker-compose exec -e RAILS_ENV=development -e POSTGRES_HOST=db web bundle exec
 Pour faire tourner les tests, un navigateur headless est necessaire (au moins
 sous linux).
 
-```
+```sh
 sudo apt install chromium-browser
 ```
 
@@ -76,7 +78,7 @@ En local et sandbox, la connexion s'effectue sur `auth-test.api.gouv.fr` qui est
 de données de fixtures (disponible
 [ici](https://github.com/betagouv/api-auth/blob/master/scripts/fixtures.sql))
 
-Dans le cas d'API entreprise, les 2 comptes suivants sont disponibles :
+Les 2 comptes suivants sont disponibles :
 
 - user@yopmail.com / user@yopmail.com -> utilisateur normal
 - api-entreprise@yopmail.com / api-entreprise@yopmail.com -> utilisateur admin
@@ -92,10 +94,12 @@ Pour lancer le server:
 Vous pouvez accéder ensuite accéder au site via les adresses suivantes:
 
 ```
-# Affiche le site dashboard par défaut
-http://localhost:3000/
-# Pour visualiser le site v3
-http://v3-beta.localtest.me:3000/
+# Affiche le site dashboard d'API Entreprise par défaut
+http://dashboard.entreprise.api.localtest.me:3000/
+# Pour visualiser le site d'API Entreprise
+http://entreprise.api.localtest.me:3000/
+# Pour visualiser le site d'API Particulier
+http://particulier.api.localtest.me:3000/
 ```
 
 ### Avec Docker
@@ -109,10 +113,15 @@ docker-compose up
 Vous pouvez accéder ensuite accéder au site via le'adresse suivante:
 
 ```
-http://localhost:5000/
+# Affiche le site dashboard d'API Entreprise par défaut
+http://dashboard.entreprise.api.localtest.me:5000/
+# Pour visualiser le site d'API Entreprise
+http://entreprise.api.localtest.me:5000/
+# Pour visualiser le site d'API Particulier
+http://particulier.api.localtest.me:5000/
 ```
 
-#### Stub des requêtes SIADE en developpement
+#### (API Entreprise) Stub des requêtes SIADE en developpement
 
 Pour la page `/profile/attestations`, en développement on appelle le staging de SIADE avec un stub du token de test,
 ceci pour simplifier les démos / intervenir sur l'interface plus facilement.
@@ -167,25 +176,15 @@ Pour rappel, la commande d'édition:
 rails credentials:edit
 ```
 
-### Droit administrateur
-
-Le comptes administrateurs sont individuels il faudra vous rajouter manuellement :
-
-1. créer un [compte API Gouv](https://auth.api.gouv.fr/users/sign-up) avec votre
-   adresse email ;
-2. renseigner cette adresse email dans les fichiers de secrets encryptés pour
-   les différents environnements (`config/credentials/sandbox.yml.enc`,
-   `config/credentials/production.yml.enc`) ;
-3. lancer la tâche rake `lib/tasks/db_seed/create_admins.rake` sur les
-   environnements de production.
-
 ### Premier déploiement
 
 Après le premier déploiement sur une machine : la BDD est vide, les
 administrateurs n'existent pas, aucun rôle, etc
 
-    RAILS_ENV=staging bundle exec rake db_seed:create_admins
-    RAILS_ENV=staging bundle exec rake db_seed:scopes
+```sh
+RAILS_ENV=staging bundle exec rake db_seed:create_admins
+RAILS_ENV=staging bundle exec rake db_seed:scopes
+```
 
 ### Paramètres d'environnements
 

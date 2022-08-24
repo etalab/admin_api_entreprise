@@ -3,29 +3,29 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
-      "fingerprint": "07fae2d4252059a81faea9dde2ff4ca02fa10098961a0b203e11cfbc19a78e57",
+      "fingerprint": "2cf2d9ead63a11e6e040c8f2dfdb0ca05edacca7575c284d6db0832aa8f52d8f",
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
-      "file": "app/views/endpoints/show.html.erb",
+      "file": "app/views/api_entreprise/endpoints/show.html.erb",
       "line": 46,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
       "code": "Endpoint.find(params[:uid]).open_api_definition[\"disclaimer\"]",
       "render_path": [
         {
           "type": "controller",
-          "class": "EndpointsController",
+          "class": "APIEntreprise::EndpointsController",
           "method": "show",
           "line": 11,
-          "file": "app/controllers/endpoints_controller.rb",
+          "file": "app/controllers/api_entreprise/endpoints_controller.rb",
           "rendered": {
-            "name": "endpoints/show",
-            "file": "app/views/endpoints/show.html.erb"
+            "name": "api_entreprise/endpoints/show",
+            "file": "app/views/api_entreprise/endpoints/show.html.erb"
           }
         }
       ],
       "location": {
         "type": "template",
-        "template": "endpoints/show"
+        "template": "api_entreprise/endpoints/show"
       },
       "user_input": null,
       "confidence": "High",
@@ -35,6 +35,6 @@
       "note": ""
     }
   ],
-  "updated": "2022-08-18 13:24:00 +0200",
+  "updated": "2022-08-23 15:03:50 +0200",
   "brakeman_version": "5.3.1"
 }

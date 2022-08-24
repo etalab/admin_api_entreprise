@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr" data-fr-scheme="light">
+  <head>
+    <title><%= t('.title') %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <%= render partial: 'shared/favicons' %>
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'api_particulier', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'api_particulier', 'data-turbolinks-track': 'reload' %>
+    <%= yield :head %>
+    <%= javascript_include_tag "turbo", type: "module" %>
+
+    <%= render partial: 'shared/common_head_scripts' %>
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <%# <%= render partial: 'shared/matomo' %>
+    <%= render partial: 'shared/api_particulier/header' %>
+
+    <div class="fr-container fr-mb-5w fr-mt-5w">
+      <turbo-frame id="alerts">
+        <%= render partial: 'shared/alerts' %>
+      </turbo-frame>
+
+      <% if content_for?(:body) %>
+        <%= yield(:body) %>
+      <% else %>
+        <%= yield %>
+      <% end %>
+    </div>
+
+    <%= render partial: 'shared/api_particulier/footer' %>
+  </body>
+</html>

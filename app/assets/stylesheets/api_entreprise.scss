@@ -1,0 +1,35 @@
+/*
+ *= require dsfr-fonts
+ *= require dsfr
+ *= require dsfr-extensions
+ *= require dsfr-utility
+ *= require commons
+ *= require_self
+ *= require_tree ./components
+ *= require_tree ./api_entreprise/pages
+ *= require ./api_entreprise/shame
+ */
+
+.search-highlight {
+  background-color: rgba(255, 255, 154, 0.637);
+}
+
+.authenticated-user .main-content {
+  background-color: var(--w);
+  padding: 20px;
+}
+
+@media (max-width: 48em) {
+  .authenticated-user-sidemenu {
+    margin-top: -2.5rem !important;
+    margin-bottom: 2.5rem !important
+  }
+}
+
+#navigation-header-menu {
+  @media (min-width: 992px) {
+    li:last-of-type {
+      margin-left: auto;
+    }
+  }
+}

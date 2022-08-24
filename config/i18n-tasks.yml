@@ -15,10 +15,13 @@ data:
 
   # Locale files or `File.find` patterns where translations are read from:
   read:
+    - config/locales/**/*.%{locale}.yml
+    - config/locales/**/%{locale}.yml
+    - config/locales/*.%{locale}.yml
+    - config/locales/%{locale}.yml
     ## Default:
     # - config/locales/%{locale}.yml
     ## More files:
-    # - config/locales/**/*.%{locale}.yml
 
   # Locale files to write new keys to, based on a list of key pattern => file rules. Matched from top to bottom:
   # `i18n-tasks normalize -p` will force move the keys according to these rules
@@ -93,24 +96,20 @@ search:
 
 ## Do not consider these keys missing:
 ignore_missing:
-  - 'faq.categories'
-  - 'providers'
-  - 'documentation_entries.pages.developers'
-  - 'documentation_entries.pages.guide_migration'
-  - 'cas_usages_entries'
+  - 'api_entreprise.faq.categories'
+  - 'api_entreprise.providers'
+  - 'api_entreprise.documentation_entries.pages.developers'
+  - 'api_entreprise.documentation_entries.pages.guide_migration'
 # - 'errors.messages.{accepted,blank,invalid,too_short,too_long}'
 # - '{devise,simple_form}.*'
 
 ## Consider these keys used:
 ignore_unused:
-  - 'providers.*'
   - 'time.*'
   - 'datetime.*'
-  - 'yes'
-  - 'no'
-  - 'admin.tokens.{archive,blacklist}.alert'
-  - 'contacts.contact.subtitle_admin'
-  - 'contacts.contact.subtitle_tech'
+  - 'api_entreprise.missing_endpoints.*'
+  - 'api_entreprise.cas_usages_entries.*'
+  - 'api_entreprise.contacts.contact.subtitle_*'
 # - 'activerecord.attributes.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'

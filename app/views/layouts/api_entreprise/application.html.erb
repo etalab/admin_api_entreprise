@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr" data-fr-scheme="light">
+  <head>
+    <title><%= t('.title') %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <%= render partial: 'shared/favicons' %>
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'api_entreprise', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'api_entreprise', 'data-turbolinks-track': 'reload' %>
+    <%= yield :head %>
+    <%= javascript_include_tag "turbo", type: "module" %>
+
+    <%= render partial: 'shared/common_head_scripts' %>
+    <%= render partial: 'shared/api_entreprise/head_scripts' %>
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  </head>
+
+  <body
+    data-algolia-application-id="<%= Rails.application.credentials.algolia_application_id %>"
+    data-algolia-search-key="<%= Rails.application.credentials.algolia_search_api_key %>"
+  >
+    <%= render partial: 'shared/matomo' %>
+    <%= render partial: 'shared/api_entreprise/header' %>
+
+    <% if content_for?(:no_container) %>
+      <%= yield(:no_container) %>
+    <% elsif content_for?(:no_newsletter_banner) %>
+      <%= yield(:no_newsletter_banner) %>
+    <% else %>
+      <%= render partial: 'shared/api_entreprise/containerized_body' %>
+    <% end %>
+
+    <% unless content_for?(:no_newsletter_banner) %>
+      <%= render partial: 'shared/api_entreprise/newsletter_banner' %>
+    <% end %>
+
+    <%= render partial: 'shared/api_entreprise/footer' %>
+    <%= render partial: 'shared/modal' %>
+    <%= render partial: 'shared/tooltip' %>
+  </body>
+</html>

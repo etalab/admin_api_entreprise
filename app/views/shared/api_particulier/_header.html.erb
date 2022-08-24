@@ -1,0 +1,38 @@
+<header role="banner" class="fr-header">
+  <div class="fr-header__body">
+    <div class="fr-container">
+      <div class="fr-header__body-row">
+        <div class="fr-header__brand fr-enlarge-link">
+          <div class="fr-header__brand-top">
+            <div class="fr-header__logo">
+              <p class="fr-logo">
+              République
+              <br>Française
+              </p>
+            </div>
+            <div class="fr-header__navbar">
+              <button class="fr-btn--menu fr-btn" data-fr-opened="false" aria-controls="modal-header-menu" aria-haspopup="menu" title="Menu" id="fr-btn-menu-mobile-1">
+                Menu
+              </button>
+            </div>
+          </div>
+
+          <div class="fr-header__service">
+            <a href="/" title="Accueil - <%= t('.title') %>">
+              <p class="fr-header__service-title">
+                <%= t('.title') %>
+              </p>
+              <p class="fr-header__service-tagline">
+                <%= t('.tagline').html_safe %>
+              </p>
+            </a>
+          </div>
+
+        </div>
+        <div class="fr-header__tools">
+          <%= render partial: 'shared/api_particulier/header/tools' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
