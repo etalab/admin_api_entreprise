@@ -15,7 +15,6 @@ constraints(APIEntrepriseDomainConstraint.new) do
     get '/compte/se-connecter', to: 'sessions#new', as: :login
     delete '/compte/deconnexion', to: 'sessions#destroy', as: :logout
 
-    post '/auth/api_gouv', as: :login_api_gouv
     match '/auth/api_gouv/callback', to: 'sessions#create', via: [:get, :post]
     get '/auth/failure', to: 'sessions#failure'
 
