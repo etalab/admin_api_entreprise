@@ -4,7 +4,7 @@ class APIEntreprise::SessionsController < APIEntrepriseController
   end
 
   def create
-    login = User::Login.call(login_params)
+    login = APIEntreprise::User::Login.call(login_params)
 
     if login.success?
       sign_in_and_redirect(login.user)

@@ -14,7 +14,7 @@ RSpec.describe 'user tasks', type: :rake do
     let(:target_user_email) { 'new_owner@email.com' }
 
     it 'transfer account to new user' do
-      expect(User::TransferAccount).to receive(:call)
+      expect(APIEntreprise::User::TransferAccount).to receive(:call)
         .with(current_owner:, target_user_email:)
         .and_call_original
 
