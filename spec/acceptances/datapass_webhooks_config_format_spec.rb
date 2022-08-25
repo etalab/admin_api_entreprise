@@ -42,7 +42,7 @@ RSpec.describe 'Datapass webhook config format', type: :acceptance do
 
             email_config[kind].each do |to_recipient|
               contact = to_recipient.split('.').reduce(OpenStruct.new(authorization_request: dummy_authorization_request)) do |object, method|
-                object = object.public_send(method)
+                object.public_send(method)
               end
 
               expect(contact).to respond_to(:email)
