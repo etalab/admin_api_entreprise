@@ -71,7 +71,7 @@ RSpec.describe 'stats page for a token', type: :feature, app: :api_entreprise do
             click_on("tabpanel-#{period}")
           end
 
-          context 'for the last 10 minutes period' do
+          describe 'for the last 10 minutes period' do
             let(:period) { 'last_10_minutes' }
 
             it 'displays the corresponding period (no stats for 10mn in fixtures file)' do
@@ -87,7 +87,7 @@ RSpec.describe 'stats page for a token', type: :feature, app: :api_entreprise do
             end
           end
 
-          context 'for the last 30 hours period' do
+          describe 'for the last 30 hours period' do
             let(:period) { 'last_30_hours' }
 
             it 'displays the corresponding period (no stats for 30h in fixtures file)' do
