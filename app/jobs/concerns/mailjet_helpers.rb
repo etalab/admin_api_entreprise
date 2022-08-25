@@ -5,7 +5,7 @@ module MailjetHelpers
     )
   end
 
-  def set_mailjet_context_for_sentry(mailjet_exception)
+  def affect_mailjet_context_for_sentry(mailjet_exception)
     Sentry.set_context(
       'mailjet error',
       build_mailjet_error_context(mailjet_exception)

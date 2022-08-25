@@ -15,7 +15,7 @@ class ScheduleAuthorizationRequestMailjetEmailJob < ApplicationJob
       build_message(mailjet_attributes.stringify_keys)
     )
   rescue Mailjet::ApiError => e
-    set_mailjet_context_for_sentry(e)
+    affect_mailjet_context_for_sentry(e)
     raise
   end
 
