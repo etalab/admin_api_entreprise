@@ -43,9 +43,9 @@ class DatapassWebhook::ExtractMailjetVariables < ApplicationInteractor
   end
 
   def latest_authorization_request_event
-    context.data['pass']['events'].sort { |event1, event2|
+    context.data['pass']['events'].min do |event1, event2|
       DateTime.parse(event2['created_at']).to_i <=> DateTime.parse(event1['created_at']).to_i
-    }.first
+    end
   end
 
   def event_from_instructor?

@@ -8,11 +8,11 @@ class APIEntreprise::AuthenticatedUsersController < APIEntrepriseController
   private
 
   def authenticate_user!
-    unless user_signed_in?
-      error_message(title: t('api_entreprise.sessions.unauthorized.signed_out.error.title'))
+    return if user_signed_in?
 
-      redirect_to login_path
-    end
+    error_message(title: t('api_entreprise.sessions.unauthorized.signed_out.error.title'))
+
+    redirect_to login_path
   end
 
   def logged_user_not_authorized

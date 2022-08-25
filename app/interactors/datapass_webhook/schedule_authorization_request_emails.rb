@@ -44,7 +44,7 @@ class DatapassWebhook::ScheduleAuthorizationRequestEmails < ApplicationInteracto
 
     user_strings_to_eval.map do |user_string_to_eval|
       contact = user_string_to_eval.split('.').reduce(context) do |object, method|
-        object = object.public_send(method)
+        object.public_send(method)
       end
 
       {
@@ -61,7 +61,7 @@ class DatapassWebhook::ScheduleAuthorizationRequestEmails < ApplicationInteracto
   end
 
   def extract_when_time(when_time)
-    Chronic.parse(when_time) || Time.now
+    Chronic.parse(when_time) || Time.zone.now
   end
 
   def datapass_webhooks_config_for_event

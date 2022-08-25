@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Seeds do
   describe '#perform' do
-    subject { Seeds.new.perform }
+    subject { described_class.new.perform }
 
     it 'does not raise error' do
       expect {
@@ -12,7 +12,7 @@ RSpec.describe Seeds do
   end
 
   describe '#flushdb' do
-    subject { Seeds.new.flushdb }
+    subject { described_class.new.flushdb }
 
     it 'does not raise error' do
       expect {

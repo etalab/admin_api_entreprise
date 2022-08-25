@@ -23,7 +23,7 @@ RSpec.describe API::DatapassWebhooksController, type: :controller do
 
     context 'without a valid hub signature' do
       before do
-        allow_any_instance_of(HubSignature).to receive(:valid?).and_return(false)
+        allow_any_instance_of(HubSignature).to receive(:valid?).and_return(false) # rubocop:todo RSpec/AnyInstance
       end
 
       it 'does not call DatapassWebhook::APIEntreprise' do
@@ -47,7 +47,7 @@ RSpec.describe API::DatapassWebhooksController, type: :controller do
       let(:success) { true }
 
       before do
-        allow_any_instance_of(HubSignature).to receive(:valid?).and_return(true)
+        allow_any_instance_of(HubSignature).to receive(:valid?).and_return(true) # rubocop:todo RSpec/AnyInstance
 
         allow(DatapassWebhook::APIEntreprise).to receive(:call).and_return(
           OpenStruct.new(
@@ -116,7 +116,7 @@ RSpec.describe API::DatapassWebhooksController, type: :controller do
       let(:success) { true }
 
       before do
-        allow_any_instance_of(HubSignature).to receive(:valid?).and_return(true)
+        allow_any_instance_of(HubSignature).to receive(:valid?).and_return(true) # rubocop:todo RSpec/AnyInstance
 
         allow(DatapassWebhook::APIParticulier).to receive(:call).and_return(
           OpenStruct.new(

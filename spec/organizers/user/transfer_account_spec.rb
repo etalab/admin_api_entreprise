@@ -69,7 +69,7 @@ RSpec.describe User::TransferAccount, type: :organizer do
       it 'gives the token ownership to the new user' do
         transfered_token_ids = current_owner.token_ids
         subject
-        target_user = User.find_by_email(target_user_email)
+        target_user = User.find_by(email: target_user_email)
 
         expect(target_user.token_ids).to contain_exactly(*transfered_token_ids)
       end

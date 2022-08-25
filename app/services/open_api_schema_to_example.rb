@@ -5,7 +5,7 @@ class OpenAPISchemaToExample
     @schema = schema
   end
 
-  def perform
+  def perform # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
     case schema['type']
     when 'array'
       [

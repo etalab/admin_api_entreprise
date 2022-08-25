@@ -41,7 +41,7 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
   def self.find(uid)
     available_endpoint = AvailableEndpoints.find(uid)
 
-    raise not_found(uid) unless available_endpoint.present?
+    raise not_found(uid) if available_endpoint.blank?
 
     new(available_endpoint)
   end

@@ -29,7 +29,7 @@ RSpec.describe DatapassWebhook::CreateToken, type: :interactor do
     it 'does not create a new token token' do
       expect {
         subject
-      }.not_to change { Token.count }
+      }.not_to change(Token, :count)
     end
   end
 
@@ -43,7 +43,7 @@ RSpec.describe DatapassWebhook::CreateToken, type: :interactor do
     it 'creates a new token token with valid attributes and scopes' do
       expect {
         subject
-      }.to change { Token.count }
+      }.to change(Token, :count)
 
       token = Token.last
 
