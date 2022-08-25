@@ -28,8 +28,8 @@ class AvailableEndpoints
   def load_backend
     @backend = endpoints_files.inject([]) { |array, endpoint_file|
       array.concat(YAML.safe_load(File.read(endpoint_file), aliases: true))
-    }.sort { |e1, e2|
-      order_by_position(e1, e2)
+    }.sort { |endpoint1, endpoint2|
+      order_by_position(endpoint1, endpoint2)
     }.map do |endpoint|
       endpoint.except('position')
     end
@@ -39,7 +39,7 @@ class AvailableEndpoints
     Dir["#{Rails.root.join('config/endpoints/')}*.yml"]
   end
 
-  def order_by_position(e1, e2)
-    (e1['position'] || 900_001) <=> (e2['position'] || 900_001)
+  def order_by_position(endpoint1, endpoint2)
+    (endpoint1['position'] || 900_001) <=> (endpoint2['position'] || 900_001)
   end
 end
