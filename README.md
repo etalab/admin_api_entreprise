@@ -182,7 +182,6 @@ Après le premier déploiement sur une machine : la BDD est vide, les
 administrateurs n'existent pas, aucun rôle, etc
 
 ```sh
-RAILS_ENV=staging bundle exec rake db_seed:create_admins
 RAILS_ENV=staging bundle exec rake db_seed:scopes
 ```
 
