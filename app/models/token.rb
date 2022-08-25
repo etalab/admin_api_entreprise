@@ -3,7 +3,7 @@ class Token < ApplicationRecord
 
   include RandomToken
 
-  belongs_to :authorization_request, foreign_key: 'authorization_request_model_id'
+  belongs_to :authorization_request, foreign_key: 'authorization_request_model_id', inverse_of: :token
   validates :exp, presence: true
   validate :scopes_must_belong_to_only_one_api
 
