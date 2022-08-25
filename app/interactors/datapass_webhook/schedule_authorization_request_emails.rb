@@ -44,7 +44,7 @@ class DatapassWebhook::ScheduleAuthorizationRequestEmails < ApplicationInteracto
 
     user_strings_to_eval.map do |user_string_to_eval|
       contact = user_string_to_eval.split('.').reduce(context) do |object, method|
-        object = object.public_send(method)
+        object.public_send(method)
       end
 
       {
