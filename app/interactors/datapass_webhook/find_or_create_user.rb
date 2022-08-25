@@ -1,5 +1,5 @@
 class DatapassWebhook::FindOrCreateUser < ApplicationInteractor
-  def call
+  def call # rubocop:todo Metrics/AbcSize
     context.user = User.find_or_initialize_by_email(user_attributes['email'])
     context.user.assign_attributes(user_attributes_to_assign)
 

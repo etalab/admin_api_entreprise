@@ -19,7 +19,7 @@ class DatapassWebhook::UpdateMailjetContacts < ApplicationInteractor
     end
   end
 
-  def mailjet_payload_for(kind)
+  def mailjet_payload_for(kind) # rubocop:todo Metrics/AbcSize
     contact = authorization_request.send(kind)
 
     return if contact.nil?

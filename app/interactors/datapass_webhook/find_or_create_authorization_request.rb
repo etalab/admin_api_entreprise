@@ -1,5 +1,5 @@
 class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
-  def call
+  def call # rubocop:todo Metrics/AbcSize
     context.authorization_request = AuthorizationRequest.find_or_initialize_by(external_id: context.data['pass']['id'])
     context.authorization_request.assign_attributes(authorization_request_attributes)
 

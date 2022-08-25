@@ -25,7 +25,7 @@ class RetrieveTokenStats < ApplicationInteractor
     "https://dashboard.entreprise.api.gouv.fr/api/watchdoge/stats/jwt_usage/#{context.token_id}"
   end
 
-  def format_stats_data!
+  def format_stats_data! # rubocop:todo Metrics/AbcSize
     context.stats = {
       last_10_minutes: context.raw_stats[:apis_usage][:last_10_minutes][:by_endpoint],
       last_30_hours: context.raw_stats[:apis_usage][:last_30_hours][:by_endpoint],

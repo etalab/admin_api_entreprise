@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Status header', type: :feature, app: :api_entreprise, js: true do
   before do
-    allow_any_instance_of(StatusPage).to receive(:current_status).and_return(:up)
+    allow_any_instance_of(StatusPage).to receive(:current_status).and_return(:up) # rubocop:todo RSpec/AnyInstance
   end
 
   it 'displays status on home page' do
