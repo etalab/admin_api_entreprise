@@ -14,7 +14,7 @@ RSpec.describe AccessToken do
     end
 
     it 'raises error on invalid token' do
-      expect { described_class.decode(token + 'a') }
+      expect { described_class.decode("#{token}a") }
         .to raise_error JWT::VerificationError
     end
   end

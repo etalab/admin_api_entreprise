@@ -26,9 +26,7 @@ class Seeds
         Token,
         Contact
       ].each do |model_klass|
-        model_klass.find_each do |model|
-          model.destroy
-        end
+        model_klass.find_each(&:destroy)
       end
     end
   end

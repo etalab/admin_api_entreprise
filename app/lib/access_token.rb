@@ -32,7 +32,7 @@ class AccessToken
            JWT::InvalidIssuerError,
            JWT::ExpiredSignature => e
 
-      Rails.logger.error('ID Token verification error: ' + e.message)
+      Rails.logger.error("ID Token verification error: #{e.message}")
       nil
     end
   end

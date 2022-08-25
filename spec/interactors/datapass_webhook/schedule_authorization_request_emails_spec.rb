@@ -58,7 +58,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
             }
           ]
         )
-      ).at(Time.now)
+      ).at(Time.zone.now)
 
       expect(ScheduleAuthorizationRequestMailjetEmailJob).to have_been_enqueued.exactly(:once).with(
         authorization_request.id,
@@ -119,7 +119,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
               }
             ]
           )
-        ).at(Time.now)
+        ).at(Time.zone.now)
 
         expect(ScheduleAuthorizationRequestMailjetEmailJob).to have_been_enqueued.exactly(:once).with(
           authorization_request.id,
@@ -143,7 +143,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
               }
             ]
           )
-        ).at(Time.now)
+        ).at(Time.zone.now)
       end
     end
 
@@ -172,7 +172,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
               }
             ]
           )
-        ).at(Time.now)
+        ).at(Time.zone.now)
       end
     end
   end

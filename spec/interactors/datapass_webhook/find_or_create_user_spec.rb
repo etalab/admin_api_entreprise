@@ -20,7 +20,7 @@ RSpec.describe DatapassWebhook::FindOrCreateUser, type: :interactor do
       it 'creates a new user with valid attributes' do
         expect {
           subject
-        }.to change { User.count }.by(1)
+        }.to change(User, :count).by(1)
 
         user = User.last
 
@@ -41,7 +41,7 @@ RSpec.describe DatapassWebhook::FindOrCreateUser, type: :interactor do
       it 'does not create a new user' do
         expect {
           subject
-        }.not_to change { User.count }
+        }.not_to change(User, :count)
       end
 
       it 'updates existing user with attributes' do

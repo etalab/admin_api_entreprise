@@ -6,7 +6,7 @@ RSpec.describe Contact do
   end
 
   describe '.not_expired scope' do
-    subject { Contact.not_expired }
+    subject { described_class.not_expired }
 
     let!(:valid_contact) { create(:contact, token: create(:token, blacklisted: false, archived: false)) }
     let!(:invalid_contact) { create(:contact, token: create(:token, blacklisted: false, archived: true)) }

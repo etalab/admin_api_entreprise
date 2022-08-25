@@ -61,7 +61,7 @@ class DatapassWebhook::ScheduleAuthorizationRequestEmails < ApplicationInteracto
   end
 
   def extract_when_time(when_time)
-    Chronic.parse(when_time) || Time.now
+    Chronic.parse(when_time) || Time.zone.now
   end
 
   def datapass_webhooks_config_for_event

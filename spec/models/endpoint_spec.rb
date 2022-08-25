@@ -9,7 +9,7 @@ RSpec.describe Endpoint, type: :model do
     describe 'an element' do
       subject { described_class.all.first }
 
-      it { is_expected.to be_an_instance_of(Endpoint) }
+      it { is_expected.to be_an_instance_of(described_class) }
     end
   end
 
@@ -19,7 +19,7 @@ RSpec.describe Endpoint, type: :model do
     context 'with valid uid' do
       let(:uid) { example_uid }
 
-      it { is_expected.to be_an_instance_of(Endpoint) }
+      it { is_expected.to be_an_instance_of(described_class) }
 
       its(:uid) { is_expected.to eq(uid) }
       its(:path) { is_expected.to eq('/v3/insee/sirene/unites_legales/{siren}') }
@@ -58,7 +58,7 @@ RSpec.describe Endpoint, type: :model do
     context 'with collection uid' do
       let(:uid) { example_collection_uid }
 
-      it { is_expected.to be_an_instance_of(Endpoint) }
+      it { is_expected.to be_an_instance_of(described_class) }
 
       its(:attributes) { is_expected.to be_an_instance_of(Hash) }
       its(:attributes) { is_expected.to have_key('fonction') }

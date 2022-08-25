@@ -1,6 +1,4 @@
 class AuthorizationRequest < ApplicationRecord
-  validates :user, presence: true
-
   belongs_to :user
   has_one :token, required: false, foreign_key: 'authorization_request_model_id'
 
