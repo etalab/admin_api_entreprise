@@ -1,18 +1,11 @@
 class Seeds
   def perform
-    @scopes_entreprise = create_scopes_entreprise
-    @scopes_particulier = create_scopes_particulier
-
     @user_email = 'user@yopmail.com'
-
     @user = create_main_user
 
-    create_token_with_contact
-    create_token_valid
-    create_token_archived
-    create_token_blacklisted
-    create_token_expired
-    create_authorization_refused
+    create_data_for_api_entreprise
+    create_data_for_api_particulier
+
     create_access_logs
   end
 
@@ -33,6 +26,23 @@ class Seeds
 
   private
 
+  def create_data_for_api_entreprise
+    @scopes_entreprise = create_scopes_entreprise
+
+    create_api_entreprise_token_with_contact
+    create_api_entreprise_token_valid
+    create_api_entreprise_token_archived
+    create_api_entreprise_token_blacklisted
+    create_api_entreprise_token_expired
+    create_api_entreprise_authorization_refused
+  end
+
+  def create_data_for_api_particulier
+    @scopes_particulier = create_scopes_particulier
+
+    create_api_particulier_token_valid
+  end
+
   def create_main_user
     create_user(
       email: @user_email,
@@ -42,64 +52,73 @@ class Seeds
     )
   end
 
-  def create_token_with_contact
+  def create_api_entreprise_token_with_contact
     token = create_token(@user, @scopes_entreprise.sample(2), authorization_request_params: {
       intitule: 'Mairie de Lyon',
-      external_id: 51,
+      external_id: 101,
       status: :validated,
       first_submitted_at: 2.weeks.ago
     })
     create_contact(email: @user_email, authorization_request: token.authorization_request, contact_type: 'admin')
   end
 
-  def create_token_valid
+  def create_api_entreprise_token_valid
     create_token(@user, @scopes_entreprise.sample(2), authorization_request_params: {
       intitule: 'Mairie de Lyon 2',
-      external_id: 52,
+      external_id: 102,
       status: :validated,
       first_submitted_at: 2.weeks.ago
     })
   end
 
-  def create_token_archived
+  def create_api_entreprise_token_archived
     create_token(@user, @scopes_entreprise.sample(2), token_params: { archived: true }, authorization_request_params: {
       intitule: 'Mairie de Strasbourg',
-      external_id: 21,
+      external_id: 103,
       status: :validated,
       first_submitted_at: 1.week.ago
     })
   end
 
-  def create_token_blacklisted
+  def create_api_entreprise_token_blacklisted
     create_token(@user, @scopes_entreprise.sample(2), token_params: { blacklisted: true }, authorization_request_params: {
       intitule: 'Mairie de Paris',
-      external_id: 42,
+      external_id: 104,
       status: :validated,
       first_submitted_at: 1.week.ago
     })
   end
 
-  def create_token_expired
+  def create_api_entreprise_token_expired
     create_token(@user, @scopes_entreprise.sample(2),
       token_params: { exp: 1.year.ago, created_at: 2.years.ago + 1.week },
       authorization_request_params: {
         intitule: 'Mairie de Montpellier',
-        external_id: 420,
+        external_id: 105,
         status: :validated,
         first_submitted_at: 2.years.ago,
         validated_at: 2.years.ago + 1.week
       })
   end
 
-  def create_authorization_refused
+  def create_api_entreprise_authorization_refused
     create_authorization_request(
       intitule: 'Mairie de Bruxelles',
       user: @user,
       status: :refused,
-      external_id: 69,
+      external_id: 106,
       first_submitted_at: 2.years.ago,
       validated_at: 2.years.ago + 1.week
     )
+  end
+
+  def create_api_particulier_token_valid
+    create_token(@user, @scopes_particulier, authorization_request_params: {
+      intitule: 'Mairie de Bordeaux',
+      external_id: 201,
+      status: :validated,
+      first_submitted_at: 2.weeks.ago
+    })
   end
 
   def create_user(params = {})

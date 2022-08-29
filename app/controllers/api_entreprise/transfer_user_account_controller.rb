@@ -2,7 +2,7 @@ class APIEntreprise::TransferUserAccountController < APIEntreprise::Authenticate
   def new; end
 
   def create
-    transfer = User::TransferAccount.call(transfer_account_params)
+    transfer = APIEntreprise::User::TransferAccount.call(transfer_account_params)
 
     if transfer.success?
       success_message(title: t('.success.title'))

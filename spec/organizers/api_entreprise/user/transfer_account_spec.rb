@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe User::TransferAccount, type: :organizer do
+RSpec.describe APIEntreprise::User::TransferAccount, type: :organizer do
   subject { described_class.call(params) }
 
   let!(:current_owner) { create(:user, :with_token) }

@@ -1,0 +1,3 @@
+class APIParticulier::AuthenticatedUsersController < APIParticulierController
+  include AuthenticatedUserManagement
+end

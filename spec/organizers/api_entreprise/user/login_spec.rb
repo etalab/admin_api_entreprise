@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe User::Login, type: :organizer do
+RSpec.describe APIEntreprise::User::Login, type: :organizer do
   subject(:sync!) { described_class.call(params) }
 
   let(:params) do

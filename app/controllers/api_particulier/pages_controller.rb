@@ -1,3 +1,5 @@
 class APIParticulier::PagesController < APIParticulierController
-  def home; end
+  def home
+    redirect_to api_particulier_login_path
+  end
 end
