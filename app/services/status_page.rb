@@ -50,7 +50,7 @@ class StatusPage
   end
 
   def redis
-    @redis ||= Redis.new(host: redis_host, post: 6379, db: 0)
+    @redis ||= Redis.new(host: redis_host, port: 6379, db: 0)
   end
 
   def redis_host
