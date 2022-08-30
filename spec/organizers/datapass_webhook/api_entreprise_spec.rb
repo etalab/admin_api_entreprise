@@ -31,14 +31,13 @@ RSpec.describe DatapassWebhook::APIEntreprise, type: :interactor do
     }.to change(AuthorizationRequest, :count).by(1)
   end
 
-  it 'creates token for API Entreprise and stores id in token_id', retry: 3 do
+  it 'creates token for API Entreprise and stores id in token_id' do
     expect {
       subject
     }.to change(Token, :count).by(1)
 
-    token = Token.last
+    token = Token.find(subject.token_id)
 
-    expect(subject.token_id).to eq(token.id)
     expect(token.api).to eq('entreprise')
   end
 
