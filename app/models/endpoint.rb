@@ -29,7 +29,7 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
 
   def initialize(params)
     super(params)
-    load_dummy_definition! if open_api_definition.blank?
+    load_dummy_definition! if open_api_definition.blank? || response_schema.blank?
   end
 
   def self.all
@@ -173,7 +173,11 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
   end
 
   def response_schema
-    open_api_definition['responses']['200']['content']['application/json']['schema']
+    ok_response = open_api_definition['responses']['200']
+
+    return if ok_response.blank?
+
+    ok_response['content']['application/json']['schema']
   end
 
   def tag_for_redoc
