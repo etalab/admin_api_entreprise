@@ -1,10 +1,10 @@
 class APIEntreprise::EndpointsController < APIEntrepriseController
-  layout 'api_entreprise/no_container', only: %i[index]
-
   before_action :extract_endpoint, except: :index
 
   def index
     @endpoints = Endpoint.all
+
+    render 'index', layout: 'api_entreprise/no_container'
   end
 
   def show; end
