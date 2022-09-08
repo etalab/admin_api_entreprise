@@ -1,9 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe 'FAQ & Support', type: :feature, app: :api_entreprise do
-  it 'displays entries' do
+  before do
     visit faq_index_path
+  end
 
+  it 'displays entries' do
     expect(page).to have_css('.faq-entry', count: FAQEntry.all.count)
+  end
+
+  it 'has a button to copy anchors on titles', js: true do
+    FAQEntry.all do |entry|
+      expect(page).to have_css("#button-anchor-#{entry.category.parameterize}"),
+        "Missing button copy-anchor on #{entry.category}"
+    end
   end
 end
