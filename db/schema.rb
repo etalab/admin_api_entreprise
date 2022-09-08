@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_01_142311) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_08_134459) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pgcrypto"
@@ -58,6 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_01_142311) do
     t.uuid "user_id", null: false
     t.string "previous_external_id"
     t.string "siret"
+    t.string "api"
     t.index ["external_id"], name: "index_authorization_requests_on_external_id", unique: true, where: "(external_id IS NOT NULL)"
   end
 
