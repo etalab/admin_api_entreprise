@@ -1,5 +1,9 @@
 module DatapassWebhook
   class APIEntreprise < ApplicationOrganizer
+    before do
+      context.api = 'entreprise'
+    end
+
     organize ::DatapassWebhook::FindOrCreateUser,
       ::DatapassWebhook::FindOrCreateAuthorizationRequest,
       ::DatapassWebhook::CreateToken,

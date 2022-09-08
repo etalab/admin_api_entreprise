@@ -26,10 +26,12 @@ RSpec.describe DatapassWebhook::APIParticulier, type: :interactor do
     }.to change(User, :count).by(1)
   end
 
-  it 'creates an authorization request' do
+  it 'creates an authorization request with particulier api' do
     expect {
       subject
     }.to change(AuthorizationRequest, :count).by(1)
+
+    expect(subject.authorization_request.api).to eq('particulier')
   end
 
   it 'creates token for API Particulier, with legacy token id in extra infos' do
