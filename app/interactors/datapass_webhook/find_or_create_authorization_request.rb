@@ -43,7 +43,8 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
       'siret'
     ).merge(authorization_request_attributes_for_current_event).merge(
       'last_update' => fired_at_as_datetime,
-      'previous_external_id' => context.data['pass']['copied_from_enrollment_id']
+      'previous_external_id' => context.data['pass']['copied_from_enrollment_id'],
+      'api' => context.api
     )
   end
 

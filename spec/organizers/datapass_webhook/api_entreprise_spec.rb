@@ -25,10 +25,12 @@ RSpec.describe DatapassWebhook::APIEntreprise, type: :interactor do
     }.to change(User, :count).by(1)
   end
 
-  it 'creates an authorization request' do
+  it 'creates an authorization request with entreprise api' do
     expect {
       subject
     }.to change(AuthorizationRequest, :count).by(1)
+
+    expect(subject.authorization_request.api).to eq('entreprise')
   end
 
   it 'creates token for API Entreprise and stores id in token_id' do

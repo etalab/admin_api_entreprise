@@ -6,6 +6,8 @@ module DatapassWebhook
           'legacy_token_id' => context.data['external_token_id']
         }
       }
+
+      context.api = 'particulier'
     end
 
     organize ::DatapassWebhook::FindOrCreateUser,
