@@ -33,8 +33,12 @@ docker-compose up --build
 Et pour setup la db:
 
 ```sh
-docker-compose exec -e RAILS_ENV=development -e POSTGRES_HOST=db web bundle exec rails db:seed:replant
+docker-compose exec -e RAILS_ENV=development -e POSTGRES_HOST=db web bundle exec rails db:schema:load db:schema:load
+docker-compose exec -e RAILS_ENV=development -e POSTGRES_HOST=db web bundle exec rails db:schema:load db:seed:replant
 ```
+
+P.S: la première commande se termine en erreur parfois, mais le schéma est
+bien loadé. Il n'est donc pas possible de chaîner les commandes.
 
 ## Tests
 
