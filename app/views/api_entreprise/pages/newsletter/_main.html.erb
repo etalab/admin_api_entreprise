@@ -1,16 +1,18 @@
 <section id="section-newsletter" class="fr-background-default-white fr-pt-6w">
   <div class="fr-container">
-    <div class="fr-grid-row">
-      <div class="fr-col-xs-12 fr-col-sm-12 fr-col-md-6 fr-col-lg-6 fr-col-xl-6">
-        <h3 class="fr-col-offset-1" id="newsletter-title"><%= t('.title').html_safe %></h3>
+    <% if action_name == 'home' %>
+      <div class="fr-grid-row">
+        <div class="fr-col-xs-12 fr-col-sm-12 fr-col-md-6 fr-col-lg-6 fr-col-xl-6">
+          <h3 id="newsletter-title"><%= t('.title').html_safe %></h3>
+        </div>
       </div>
-    </div>
+    <% end %>
     <div class="fr-grid-row">
       <div class="fr-col-xs-12 fr-col-sm-12 fr-col-md-6 fr-col-lg-6 fr-col-xl-6">
-        <h4 class="fr-mb-0 fr-col-offset-1"><%= t('.newsletter_title').html_safe %></h4>
+        <h4 class="fr-mb-0"><%= t('.newsletter_title').html_safe %></h4>
         <iframe class="mj-w-res-iframe" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" height="450px" src="https://app.mailjet.com/widget/iframe/zR1/Npe" width="100%"></iframe>
       </div>
-      <div class="fr-col-xs-12 fr-col-sm-12 fr-col-md-5 fr-col-lg-5 fr-col-xl-5 fr-col-offset-1">
+      <div class="fr-col-xs-12 fr-col-sm-12 fr-col-md-5 fr-col-lg-5 fr-col-xl-5">
         <h4><%= t('.operations_title').html_safe %></h4>
         <p><%= t('.operations_description').html_safe %></p>
         <a href="https://status.entreprise.api.gouv.fr/subscribe/email" class="fr-btn fr-btn--secondary fr-mb-8v" target="_blank"><%= t('.operations_button') %></a>
