@@ -26,11 +26,9 @@
             <h2 data-algolia-search-documentation-hit-attribute="title" id="<%= entry.anchor %>">
               <%= entry.title.html_safe %>
             </h2>
-            <% if entry.introduction %>
-              <p data-algolia-search-documentation-hit-attribute="introduction_markdown" >
-                <%= entry.introduction_markdown.html_safe %>
-              </p>
-            <% end %>
+            <p data-algolia-search-documentation-hit-attribute="introduction_markdown" >
+              <%= params[:disable_search].blank? ? nil : entry.introduction_markdown.html_safe %>
+            </p>
           </div>
           <% entry.sections.each do |section| %>
             <div data-algolia-search-documentation-hit="<%= dom_id(section) %>" id="<%= section.id %>">
