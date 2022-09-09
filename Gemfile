@@ -75,7 +75,6 @@ group :development, :test do
   gem 'pry-rails'
   gem 'unindent'
   gem 'guard-rspec'
-  gem 'faker'
   gem 'timecop'
   gem 'rack_session_access'
   gem 'i18n-tasks'
