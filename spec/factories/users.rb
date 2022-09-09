@@ -34,11 +34,11 @@ FactoryBot.define do
     end
 
     trait :added_since_yesterday do
-      created_at { Faker::Time.between(from: 1.day.ago + 1, to: Time.current) }
+      created_at { 12.hours.ago }
     end
 
     trait :not_added_since_yesterday do
-      created_at { Faker::Time.between(from: 10.years.ago, to: 1.day.ago) }
+      created_at { 2.days.ago }
     end
 
     trait :with_token do

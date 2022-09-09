@@ -54,7 +54,7 @@ FactoryBot.define do
     end
 
     trait :less_than_seven_days_ago do
-      created_at { Faker::Time.backward(days: 6) }
+      created_at { 6.days.ago }
     end
 
     trait :seven_days_ago do
@@ -62,7 +62,7 @@ FactoryBot.define do
     end
 
     trait :expiring_within_3_month do
-      exp { Faker::Time.forward(days: 88) }
+      exp { 88.days.from_now }
     end
 
     trait :expiring_in_1_year do
@@ -101,7 +101,7 @@ FactoryBot.define do
     end
 
     trait :expired do
-      exp { Faker::Time.between(from: 20.months.ago, to: 19.months.ago).to_i }
+      exp { 20.months.ago.to_i }
     end
 
     trait :with_magic_link do
