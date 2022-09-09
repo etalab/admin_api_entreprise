@@ -27,9 +27,9 @@
               <%= entry.title.html_safe %>
             </h2>
             <% if entry.introduction %>
-              <p data-algolia-search-documentation-hit-attribute="introduction_markdown" >
+              <div data-algolia-search-documentation-hit-attribute="introduction_markdown" >
                 <%= entry.introduction_markdown.html_safe %>
-              </p>
+              </div>
             <% end %>
           </div>
           <% entry.sections.each do |section| %>
