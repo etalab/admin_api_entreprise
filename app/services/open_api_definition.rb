@@ -32,7 +32,7 @@ class OpenAPIDefinition
     URI.open(open_api_definition_url).read
   rescue StandardError => e
     Sentry.capture_exception(e)
-    File.read(Rails.root.join('config/api-entreprise-v3-openapi.yml'))
+    Rails.root.join('config/api-entreprise-v3-openapi.yml').read
   end
   # rubocop:enable Security/Open
 

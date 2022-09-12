@@ -174,7 +174,7 @@ class Seeds
   end
 
   def create_access_logs
-    sql = File.read(Rails.root.join('db/seed_access_logs.sql'))
+    sql = Rails.root.join('db/seed_access_logs.sql').read
     ActiveRecord::Base.connection.execute(sql)
   end
 end
