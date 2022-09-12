@@ -13,7 +13,7 @@ RSpec.describe 'stats page for a token', type: :feature, app: :api_entreprise do
 
   context 'when backend for stats works' do
     let(:url) { "https://dashboard.entreprise.api.gouv.fr/api/watchdoge/stats/jwt_usage/#{token.id}" }
-    let(:body) { File.read(Rails.root.join('spec/fixtures/watchdoge_token_stats.json')) }
+    let(:body) { Rails.root.join('spec/fixtures/watchdoge_token_stats.json').read }
 
     let(:stubbed_request) do
       stub_request(:get, url).to_return({

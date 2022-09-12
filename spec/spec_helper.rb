@@ -151,7 +151,7 @@ RSpec.configure do |config|
   config.before do
     stub_request(:get, 'https://entreprise.api.gouv.fr/v3/openapi.yaml').and_return(
       status: 200,
-      body: File.read(Rails.root.join('config/api-entreprise-v3-openapi.yml'))
+      body: Rails.root.join('config/api-entreprise-v3-openapi.yml').read
     )
   end
 

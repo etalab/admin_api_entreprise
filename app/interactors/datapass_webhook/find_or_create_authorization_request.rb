@@ -8,7 +8,7 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
 
     return if context.authorization_request.save
 
-    fail!('Authorization request not valid', 'error', context.authorization_request.errors.to_h)
+    fail!('Authorization request not valid', 'error', context.authorization_request.errors.to_hash)
   end
 
   private

@@ -5,7 +5,7 @@ class DatapassWebhook::FindOrCreateUser < ApplicationInteractor
 
     return if context.user.save
 
-    fail!('User not valid', 'error', context.user.errors.to_h)
+    fail!('User not valid', 'error', context.user.errors.to_hash)
   end
 
   private
