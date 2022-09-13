@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'the signin process', type: :feature, app: :api_particulier do
   subject do
-    visit '/'
+    visit '/compte'
 
     click_on 'login_header'
   end
