@@ -45,9 +45,7 @@ class Token < ApplicationRecord
     )
   end
 
-  def api
-    scopes.first.api
-  end
+  delegate :api, to: :authorization_request
 
   def self.default_create_params
     {

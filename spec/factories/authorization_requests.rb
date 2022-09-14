@@ -5,6 +5,11 @@ FactoryBot.define do
     sequence(:external_id, &:to_s)
     user { build(:user, :with_full_name) }
     status { 'draft' }
+    api { 'entreprise' }
+
+    after(:build) do |authorization_request|
+      authorization_request.api = authorization_request.token.scopes.first.api if authorization_request.token.present? && authorization_request.token.scopes.any?
+    end
 
     trait :without_external_id do
       external_id { nil }

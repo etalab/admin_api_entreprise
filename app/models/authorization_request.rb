@@ -9,7 +9,7 @@ class AuthorizationRequest < ApplicationRecord
 
   validates :external_id, uniqueness: true, allow_blank: true
 
-  validates :api, inclusion: { in: %w[entreprise particulier] }, allow_blank: true
+  validates :api, inclusion: { in: %w[entreprise particulier] }
 
   has_many :contacts, dependent: :destroy_async
 
