@@ -13,14 +13,7 @@ class Seeds
     raise 'Not in production!' if Rails.env.production?
 
     ActiveRecord::Base.connection.transaction do
-      [
-        User,
-        AuthorizationRequest,
-        Token,
-        Contact
-      ].each do |model_klass|
-        model_klass.find_each(&:destroy)
-      end
+      (ApplicationRecord.descendants - [AccessLog]).each(&:delete_all)
     end
   end
 
