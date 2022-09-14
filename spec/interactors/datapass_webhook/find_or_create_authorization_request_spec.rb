@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interactor do
-  subject { described_class.call(datapass_webhook_params.merge(user:)) }
+  subject { described_class.call(datapass_webhook_params.merge(user:, api: 'entreprise')) }
 
   let(:datapass_webhook_params) { build(:datapass_webhook, fired_at:, authorization_request_attributes: { id: authorization_id, copied_from_enrollment_id: previous_authorization_id }) }
   let(:user) { create(:user) }
