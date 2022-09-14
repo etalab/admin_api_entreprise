@@ -96,6 +96,7 @@ class Seeds
         intitule: 'Mairie de Montpellier',
         external_id: 105,
         status: :validated,
+        api: 'entreprise',
         first_submitted_at: 2.years.ago,
         validated_at: 2.years.ago + 1.week
       })
@@ -105,6 +106,7 @@ class Seeds
     create_authorization_request(
       intitule: 'Mairie de Bruxelles',
       user: @user,
+      api: 'entreprise',
       status: :refused,
       external_id: 106,
       first_submitted_at: 2.years.ago,
@@ -154,7 +156,8 @@ class Seeds
   end
 
   def create_token(user, scopes, token_params: {}, authorization_request_params: {})
-    authorization_request = create_authorization_request(authorization_request_params.merge(user:))
+    api = scopes.first.api
+    authorization_request = create_authorization_request(authorization_request_params.merge(user:, api:))
 
     token = Token.create!(
       Token.default_create_params
