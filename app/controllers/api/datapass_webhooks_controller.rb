@@ -1,4 +1,5 @@
 class API::DatapassWebhooksController < APIController
+  before_action :track_payload_through_sentry
   before_action :verify_hub_signature!
 
   def api_entreprise
@@ -42,6 +43,20 @@ class API::DatapassWebhooksController < APIController
 
   def event
     params[:event]
+  end
+
+  def track_payload_through_sentry
+    Sentry.set_context(
+      'DataPass webhook incoming payload',
+      payload: {
+        datapass_id: params[:data][:pass][:id],
+        event:
+      }
+    )
+    Sentry.capture_message(
+      'DataPass Incoming Payload',
+      level: 'info'
+    )
   end
 
   def verify_hub_signature!
