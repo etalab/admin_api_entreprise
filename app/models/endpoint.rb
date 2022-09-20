@@ -4,6 +4,7 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
     :path,
     :call_id,
     :parameters,
+    :format,
     :provider_uids,
     :perimeter,
     :extra_description,

@@ -39,6 +39,8 @@
   call_id: &insee_etablissements_call_id SIRET
   parameters: &insee_etablissements_parameters
     - Numéro de SIRET de l'établissement
+  format: &insee_etablissements_format
+    - Donnée structurée JSON 
   use_cases:
     - Marchés publics
     - Aides publiques
@@ -144,6 +146,7 @@
     - Préremplissage d'un formulaire
     - Marchés publics
     - Aides publiques
+  format: *insee_etablissements_format
   parameters: *insee_etablissements_parameters
   call_id: *insee_etablissements_call_id
   provider_uids: *insee_etablissements_provider_uids
