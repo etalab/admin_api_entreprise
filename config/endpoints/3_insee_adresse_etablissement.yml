@@ -39,6 +39,11 @@
   call_id: &insee_adresse_etablissement_call_id SIRET
   parameters: &insee_adresse_etablissement_parameters
     - Numéro de SIRET de l'établissement
+  format: &insee_adresse_etablissement_format
+    - Donnée structurée JSON 
+  availability: 
+    opening_time: &insee_adresse_etablissement_opening_time
+      7jours/7 et 24h/24 
   use_cases_optional:
     - Marchés publics
     - Aides publiques
@@ -121,6 +126,9 @@
     - entreprises
     - associations
   opening: public
+  format: *insee_adresse_etablissement_format
+  availability: 
+    opening_time: *insee_adresse_etablissement_opening_time
   use_cases:
     - Préremplissage d'un formulaire
   use_cases_optional:

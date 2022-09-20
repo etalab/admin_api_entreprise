@@ -36,6 +36,11 @@
   call_id: &insee_unites_legales_call_id SIREN
   parameters: &insee_unites_legales_parameters
     - Numéro de SIREN de l'unité légale
+  format: &insee_unites_legales_format
+    - Donnée structurée JSON 
+  availability: 
+    opening_time: &insee_unites_legales_opening_time
+      7jours/7 et 24h/24 
   use_cases_optional:
     - Marchés publics
     - Aides publiques
@@ -152,6 +157,9 @@
     - entreprises
     - associations
   opening: public
+  format: *insee_unites_legales_format
+  availability: 
+    opening_time: *insee_unites_legales_opening_time
   use_cases:
     - Détection de la fraude
     - Préremplissage d'un formulaire
