@@ -4,21 +4,18 @@
   path: '/v3/urssaf/unites_legales/{siren}/attestation_vigilance'
   perimeter:
     entity_type_description: |+
-      Cette API délivre les attestations de vigilance des entreprises suivantes :
+  
       - ✅ les entreprises et associations du régime général ;
       - ✅ les très grandes entreprises ;
       - ✅ les professions libérales (certaines n'ont pas de SIREN et ne seront donc pas trouvées par l'API) ;
       - ✅ les micro-entrepreneurs de type "profession libérale" ;
       - ✅ les firmes étrangères ;
       - ✅ les administrations et collectivités territoriales.
+      <br />
 
-      Ne sont pas concernées par l'API car ne sont pas appelables avec le numéro de SIREN :
-      - ❌ les micro-entrepreneurs qui ne sont pas en profession libérale ;
-      - ❌ les artisans-commerçants.
-
-      Ne sont pas concernées par l'API car ont des déclarations apériodiques :
-      - ❌ les entreprises utilisant le titre-emploi-service (TESE) ;
-      - ❌ les associations et fondations utilisant le chèque-emploi associatif (CEA).
+      **Ne sont pas concernées par l'API&nbsp;:**
+      - ❌ les micro-entrepreneurs qui ne sont pas en profession libérale et ❌ les artisans-commerçants. _Ces deux catégories ne sont pas appelables avec un numéro de SIREN_ ;
+      - ❌ les entreprises utilisant le titre-emploi-service (TESE) et ❌ les associations et fondations utilisant le chèque-emploi associatif (CEA). _Ces deux catégories ne sont pas appelables car elles ont des déclarations apériodiques_.
 
     geographical_scope_description: |+
        - ✅ France métropolitaine ;
