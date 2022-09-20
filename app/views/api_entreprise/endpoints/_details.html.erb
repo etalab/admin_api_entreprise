@@ -25,6 +25,17 @@
     </div>
   <% end %>
 
+  <h6 class="fr-pt-2w fr-mb-1v">
+    <%= t('.availability.title') %>
+  </h6>
+  <a class="fr-pt-1v fr-link" href="https://status.entreprise.api.gouv.fr" target="_blank">
+    <%= t('.availability.link') %>
+  </a>
+  <div class="fr-pt-2w">
+    <%= t('.availability.opening_time.title') %> <%= markdown_to_html(@endpoint.availability['opening_time']) %>
+  </div>
+
+
   <h5 class="fr-pt-2w">
     <%= t('.technical_specifications.title') %>
   </h5>
