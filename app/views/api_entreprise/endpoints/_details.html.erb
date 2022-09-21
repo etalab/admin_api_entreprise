@@ -1,13 +1,23 @@
 <% extra_classes ||= '' %>
 
 <div class="use-cases <%= extra_classes %>">
-  <h3 id="<%= id %>">
+  <h3 class="fr-mb-2v" id="<%= id %>">
     <%= t('.title') %>
   </h3>
 
-  <h5>
+  <h6 class="fr-pt-2w fr-mb-1v">
+    <%= t('.format.title') %>
+  </h6>
+
+  <% @endpoint.format.each do |format| %>
+    <div>
+      <%= format %>
+    </div>
+  <% end %>
+
+  <h6 class="fr-pt-2w fr-mb-1v">
     <%= t('.parameters.title', count: @endpoint.parameters.count) %>
-  </h5>
+  </h6>
 
   <% @endpoint.parameters.each do |parameter| %>
     <div>
@@ -15,11 +25,20 @@
     </div>
   <% end %>
 
+  <h6 class="fr-pt-2w fr-mb-1v">
+    <%= t('.availability.title') %>
+  </h6>
+  <a class="fr-pt-1v fr-link" alt="API Entreprise Status Page" href="https://status.entreprise.api.gouv.fr" target="_blank">
+    <%= t('.availability.link') %>
+  </a>
+  <div class="fr-pt-2w">
+    <span class="fr-text--bold"> <%= t('.availability.opening_time.title') %> </span><%= markdown_to_html(@endpoint.availability['opening_time']) %>
+  </div>
+
+  <% if @endpoint.implemented? %>
   <h5 class="fr-pt-2w">
     <%= t('.technical_specifications.title') %>
   </h5>
-
-  <% if @endpoint.implemented? %>
     <%= link_to t('.technical_specifications.cta'), developers_openapi_path(anchor: @endpoint.redoc_anchor), data: { turbo: false }, class: %(fr-btn fr-btn--icon-right fr-icon-arrow-right-line) %>
   <% end %>
 
