@@ -33,7 +33,9 @@ class Seeds
   def create_data_for_api_particulier
     @scopes_particulier = create_scopes_particulier
 
-    create_api_particulier_token_valid
+    token = create_api_particulier_token_valid
+
+    Token::CreateMagicLink.call(token:)
   end
 
   def create_main_user
