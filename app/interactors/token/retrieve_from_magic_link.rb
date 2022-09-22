@@ -12,7 +12,11 @@ class Token::RetrieveFromMagicLink < ApplicationInteractor
   end
 
   def magic_link_expired?
-    expiration_time = context.token.magic_link_issuance_date + 4.hours
+    expiration_time = context.token.magic_link_issuance_date + expiration_offset
     Time.zone.now >= expiration_time
+  end
+
+  def expiration_offset
+    context.expiration_offset || 4.hours
   end
 end
