@@ -132,6 +132,11 @@ Le lien du profile: [Fiche métier "Données de référence d'une unité légale
 ```md
 [Exemple de lien vers une ancre de la FAQ](<%= faq_index_path(anchor: 'quelles-sont-les-conditions-d-eligibilite') %>)
 ```
+#### Route vers fiche cas d'usage :
+
+```md
+[Cas d'usage aides et subventions publiques](<%= cas_usage_path('subventions') %>)
+```
 
 ### Les images:
 
