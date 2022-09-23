@@ -8,11 +8,11 @@ fr:
           "insee/etablissements_diffusibles": "Comme toutes les données Insee indiquées \"diffusibles\", cette API est appropriée pour du **pré-remplissage de formulaire** à destination des opérateurs économiques car la donnée est publique. <br>Pour un usage en backoffice par un agent habilité, utiliser l'API \"Données établissement\" qui permet aussi d'accéder aux \"non-diffusibles\"."
           "insee/etablissements": "**💡API à privilégier parmi les API Insee, car regroupe les infos de l'établissement et de son unité légale :** Nom commercial, dénomination sociale, nom et prénom personne physique, adresse de l'établissement&nbsp;; forme juridique, catégorie, (micro, TPE/PME) et tranche d'effectif salarié de l'unité légale."
           "insee/unites_legales_diffusibles": "_Données spécifiques à l'unité légale \"diffusibles\"_."
-          "insee/unites_legales": "_Données spécifiques à l'unité légale_.<br>💡Si vous avez également besoin des données de l'établissement, ces données sont aussi distribuées par l'API \"Données établissement\"."
+          "insee/unites_legales": "_Données spécifiques à l'unité légale_.<br>💡 Ces données sont aussi distribuées par l'API \"Données établissement\"."
           "insee/siege_social_diffusibles": "_Données du siège social_, uniquement les \"diffusibles\"."
           "insee/siege_social": "_Données du siège social_.<br>💡Permet de **retrouver les infos du siège social**, à partir du SIREN de l'unité légale."
           "insee/adresse_diffusibles": "_Adresse de l'établissement_."
-          "insee/adresse": "_Adresse de l'établissement_.<br>💡Si vous avez également besoin des données de l'établissement. L'adresse est aussi distribuée par l'API \"Données établissement\"."
+          "insee/adresse": "_Adresse de l'établissement_.<br>💡 L'adresse est aussi distribuée par l'API \"Données établissement\"."
           "infogreffe/mandataires_sociaux": ""
           "infogreffe/rcs/extrait": ""
           "ministere_interieur/rna": "_Utile si l'opérateur économique est une **association**._<br>Nom de l'association, adresse"
@@ -118,11 +118,11 @@ fr:
           "insee/etablissements_diffusibles": "Comme toutes les données Insee indiquées \"diffusibles\", cette API est appropriée pour du **pré-remplissage de formulaire** à destination des demandeurs car la donnée est publique. <br>Pour un usage en backoffice par un agent habilité, utiliser l'API \"Données établissement\" qui permet aussi d'accéder aux \"non-diffusibles\"."
           "insee/etablissements": "**💡API à privilégier parmi les API Insee, car regroupe les infos de l'établissement et de son unité légale.**"
           "insee/unites_legales_diffusibles": "_Données spécifiques à l'unité légale \"diffusibles\"_."
-          "insee/unites_legales": "_Données spécifiques à l'unité légale_.<br>💡Si vous avez également besoin des données de l'établissement. Ces données sont aussi distribuées par l'API \"Données établissement\"."
+          "insee/unites_legales": "_Données spécifiques à l'unité légale_.<br>💡 Ces données sont aussi distribuées par l'API \"Données établissement\"."
           "insee/siege_social_diffusibles": "_Données du siège social_, uniquement les \"diffusibles\"."
           "insee/siege_social": "_Données du siège social_.<br>💡Permet de **retrouver les infos du siège social**, à partir du SIREN de l'unité légale."
           "insee/adresse_diffusibles": "_Adresse de l'établissement_."
-          "insee/adresse": "_Adresse de l'établissement_.<br>💡Si vous avez également besoin des données de l'établissement. L'adresse est aussi distribuée par l'API \"Données établissement\"."
+          "insee/adresse": "_Adresse de l'établissement_.<br>💡 L'adresse est aussi distribuée par l'API \"Données établissement\"."
           "infogreffe/mandataires_sociaux": ""
           "infogreffe/rcs/extrait": ""
           "ministere_interieur/rna": "_Utile pour les subventions._"
@@ -279,7 +279,42 @@ fr:
         link_datapass: "https://datapass.api.gouv.fr/api-entreprise?demarche=preremplissage"
 
       portail_gru:
-        name: 'Portail de gestion relation usager'
+        name: 'Portail gestion relation usager'
+        comments_endpoints:
+          "insee/etablissements_diffusibles": "Permet de pré-remplir les informations d'identité d'un établissement inscrit au répertoire Sirene.<br /><br />Comme toutes les données Insee indiquées \"diffusibles\", cette API est appropriée pour le cas d'usage **portail de gestion relation usager** car la donnée est publique."
+          "insee/etablissements": ""
+          "insee/unites_legales_diffusibles": "_Données publiques spécifiques à l'unité légale_.<br>💡 Ces données sont aussi distribuées par l'API \"Données établissements diffusibles\"."
+          "insee/unites_legales": ""
+          "insee/siege_social_diffusibles": "_Données du siège social_.<br>💡Permet de **retrouver les infos du siège social** d'un établissement diffusible, à partir du SIREN de l'unité légale."
+          "insee/siege_social": ""
+          "insee/adresse_diffusibles": "_Adresse d'un établissement diffusible_.<br>💡 L'adresse est également distribuée par l'API \"Données établissements\"."
+          "insee/adresse": ""
+          "infogreffe/mandataires_sociaux": ""
+          "infogreffe/rcs/extrait": ""
+          "ministere_interieur/rna": "Permet de pré-remplir les informations d'identité d'une association."
+          "ministere_interieur/documents_associations": ""
+          "inpi/actes": ""
+          "fabrique_numerique_ministeres_sociaux/conventions_collectives": ""
+          "cma_france/rnm": "Permet de pré-remplir les informations d'identité d'une entreprise artisanale."
+          "urssaf/effectifs": ""
+          "douanes/immatriculation_eori": ""
+          "dgfip/chiffres_affaires": ""
+          "inpi/comptes_annuels_rncs": ""
+          "banque_de_france/bilans": ""
+          "dgfip/liasses_fiscales": ""
+          "attestations_fiscales": ""
+          "urssaf/attestation_vigilance": ""
+          "msa/conformites_cotisations": ""
+          "probtp/conformites_cotisations_retraite": ""
+          "fntp/carte_professionnelle_travaux_public": ""
+          "cnetp/attestations_cotisations_conges_payes_chomage_intemperies": ""
+          "agence_bio/certifications_bio": ""
+          "ademe/certifications_rge": ""
+          "qualibat/certifications_batiment": ""
+          "opqibi/qualifications_ingenierie": ""
+          "inpi/brevets": ""
+          "inpi/marques": ""
+          "inpi/modeles": ""
         introduction:
           title: Simplifier les démarches sur votre Portail de gestion relation usager (GRU)
           content: |
@@ -325,4 +360,7 @@ fr:
       
 
             _Vous êtes un éditeur proposant une solution de portail de gestion relation usager et ne figurez pas sur cette liste ?_ Veuillez nous contacter à cette adresse e-mail : [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr).
-        link_datapass: "https://datapass.api.gouv.fr/api-entreprise?demarche=portail_gru"
+
+        request_access:
+          link_datapass: "https://datapass.api.gouv.fr/api-entreprise?demarche=portail_gru"
+
