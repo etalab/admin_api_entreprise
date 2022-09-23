@@ -3,7 +3,7 @@
     <div class="fr-container">
       <h1><%= t('.title') %></h1>
 
-      <p><%= t('.description').html_safe %></p>
+      <p class="fr-text--lead"><%= t('.description').html_safe %></p>
     </div>
   </div>
 
@@ -12,10 +12,10 @@
       <div class="fr-card fr-enlarge-link">
         <div class="fr-card__body">
           <div class="fr-card__content">
-            <h4 class="fr-card__title">
+            <h2 class="fr-card__title fr-h5">
               <%= link_to t(".cards.#{cas_usage_key}.title"), cas_usage_path(cas_usage_key) %>
-            </h4>
-            <p class="fr-card__desc fr-text--lead"><%= t(".cards.#{cas_usage_key}.description") %></p>
+            </h2>
+            <p class="fr-card__desc fr-text--lg"><%= t(".cards.#{cas_usage_key}.description") %></p>
           </div>
         </div>
         <div class="fr-card__header">
