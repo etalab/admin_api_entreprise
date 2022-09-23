@@ -4,7 +4,9 @@ RSpec.describe Token::RetrieveFromMagicLink do
   subject { described_class.call(params) }
 
   let(:params) do
-    { magic_token: }
+    {
+      magic_token:
+    }
   end
 
   let!(:token) { create(:token, :with_magic_link) }
@@ -28,6 +30,23 @@ RSpec.describe Token::RetrieveFromMagicLink do
         expect(subject).to be_a_failure
       end
     end
+  end
+
+  context 'when there is an expiration_offset defined' do
+    let(:params) do
+      {
+        magic_token:,
+        expiration_offset: 12.hours
+      }
+    end
+
+    it 'is a success' do
+      Timecop.freeze(6.hours.from_now) do
+        expect(subject).to be_a_success
+      end
+    end
+
+    its([:token]) { is_expected.to eq(token) }
   end
 
   context 'when the magic token is valid' do
