@@ -54,7 +54,7 @@ fr:
             - la **construction du dossier 🗂 et le travail de l’organisation publique instructrice 🔎** en récupérant les justificatifs nécessaires à l’instruction, sans les réclamer aux entreprises et associations demandeuses.
             - le **suivi des prestataires**, en permettant une mise à jour automatique des documents, telle que l'attestation de vigilance.
 
-            #### Ce que cela change pour vous, administrations
+            #### Ce que cela change pour vous, administrations et collectivités
             En intégrant la brique API Entreprise dans votre système d’information ou votre site internet&nbsp;:&nbsp;
             - ✅ Vous **accédez facilement aux données** de l’Insee, la DGFIP, l’URSSAF, etc. ;
             - ✅ Vous n’avez **plus besoin de demander et re-demander certains justificatifs** aux entreprises ;
@@ -150,7 +150,7 @@ fr:
           "inpi/marques": ""
           "inpi/modeles": ""
         introduction:
-          title: Faciliter dépôt et l'instruction des aides et subventions publiques
+          title: Faciliter le dépôt et l'instruction des aides et subventions publiques
           content: |
             API Entreprise propose aux administrations et collectivités des API utiles dans le cadre de la délivrance d'aides et subventions publiques. Les données obtenues permettent de simplifier le **dépôt des demandes** et de faciliter l’**instruction des dossiers**.
         role:
@@ -163,7 +163,7 @@ fr:
             - le **dépôt des demandes** 📥 par les entreprises et associations, en pré-remplissant leur formulaire une fois qu’elles ont entré leur numéro de SIRET ou RNA ;
             - la **construction du dossier 🗂 et le travail de l’organisation publique instructrice 🔎** en récupérant les justificatifs nécessaires à l’instruction, sans les réclamer aux entreprises et associations demandeuses.
 
-            #### Ce que cela change pour vous, administrations
+            #### Ce que cela change pour vous, administrations et collectivités
 
             En intégrant la brique API Entreprise dans votre système d’information ou votre site internet&nbsp;:&nbsp;
             - ✅ Vous **accédez facilement aux données** de l’Insee, la DGFIP, l’URSSAF, etc. ;
@@ -244,7 +244,7 @@ fr:
             - les **démarches** 📥 des entreprises et associations, en pré-remplissant leur formulaire de demande une fois qu’elles ont entré leur numéro de SIRET, de SIREN ou RNA ;
             - la **personnalisation des informations demandées** 🎨 en permettant aux systèmes d’informations des administrations de distinguer leurs utilisateurs grâce aux données fournies, telle que la catégorie juridique ou la tranche de l'effectif par exemple.
 
-            #### Ce que cela change pour vous, administrations
+            #### Ce que cela change pour vous, administrations et collectivités
 
             En intégrant la brique API Entreprise dans votre système d’information ou votre site internet :
             - ✅ Vous **accélérez les procédures pour vos utilisateurs** en leur évitant de rechercher des informations que l’administration connaît déjà ;
@@ -277,3 +277,52 @@ fr:
             | **Les éditeurs proposant des solutions pour les marchés publics                     |                    [Consulter la liste des éditeurs](<%= cas_usage_path(uid: 'marches_publics', anchor: 'users') %>)                |         Formulaires pour les marchés publics          |
 
         link_datapass: "https://datapass.api.gouv.fr/api-entreprise?demarche=preremplissage"
+
+      portail_gru:
+        name: 'Portail de gestion relation usager'
+        introduction:
+          title: Simplifier les démarches sur votre Portail de gestion relation usager (GRU)
+          content: |
+            API Entreprise propose des API aux administrations et collectivités ayant un portail de relation usager (GRU) ou citoyen (GRC) qui concerne les entreprises et les associations. L'API permet, à partir de l'identifiant RNA ou du numéro de SIRET, de personnaliser l'expérience en ligne, et de pré-remplir les champs des démarches en ligne, dans la logique du dîtes-le nous une fois.
+        role:
+          title: Le rôle d’API Entreprise
+          anchor: 'role-api-entreprise'
+          content: |+
+            #### Une simplification des démarches, pour tous
+
+            L’API Entreprise facilite les démarches en ligne des entreprises et associations sur votre portail, en **pré-remplissant directement les données administratives demandées 📝, si celles-ci sont publiques et ouvertes 🔓**.
+            
+            {:.fr-highlight}
+            **Si votre portail propose d'autres services, tels que la délivrance d'aides et subventions publiques ou encore un espace de candidature aux marchés publics** et que vous souhaitez accéder à des données administratives protégées pour instruire les dossiers, il vous faudra demander une habilitation supplémentaire par cas d'usage. 
+            En savoir plus sur le [cas d'usage aides et subventions publiques](<%= cas_usage_path('subventions') %>) et le [cas d'usage marchés publics](<%= cas_usage_path('marches_publics') %>).
+
+            #### Ce que cela change pour vous, administrations et collectivités
+
+            En intégrant la brique API Entreprise dans votre site internet :
+            - ✅ Vous **accédez facilement aux données publiques** de l'Insee, d'Infogreffe, de l'Inpi ... ;
+            - ✅ Vous **augmentez le pourcentage des démarches effectuées jusqu'au bout (taux de converion)** car vous faîtes gagner du temps à l'usager ;
+            - ✅ Vous n’avez pas de vérification supplémentaire à réaliser car les **informations sont certifiées**.
+        users:
+          title: Ils utilisent l’API Entreprise
+          anchor: 'users'
+          content: |+
+            ##### Des communes et intercommunalités
+
+            Le [portail en ligne de la ville de Chambéry](https://simplici.chambery.fr/) illustre l'utilisation de l'API Entreprise dans le cadre de plateforme de démarches à desitnation des entreprises et des associations.
+
+            ##### Des régions
+
+            Le [portail GRU de la Région Réunion](https://demarches.cr-reunion.fr/) est un bon exemple de plateforme en ligne proposant également la délivrance d'aides et subventions publiques. 
+
+            L'accès à l'API entreprise nous permet de faire des contrôles lors de la création de la demande par l'usager (contrôle existence SIREN/SIRET, récupération adresse, ...) et nous permet d'afficher à nos agents des aides à l'instruction (différences entres données fournies par l'usager et les données remontées par l'API: code NAF, dénomination, taille de l'entreprise, ...).
+
+            ##### Parfois au travers d’un éditeur de logiciel :
+
+            {:.fr-table}
+            | Éditeurs ayant intégré l'API Entreprise                                             |                                          Solution                                                                            |                     Cas d'usage                       |
+            | ----------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------:|
+            | **Entr’ouvert** <br> Coopérative                                                    | [entrouvert.com](https://www.entrouvert.com) <br> [Publik](https://publik.entrouvert.com/){:target="_blank"}                 |                   Portail de démarches en ligne       |
+      
+
+            _Vous êtes un éditeur proposant une solution de portail de gestion relation usager et ne figurez pas sur cette liste ?_ Veuillez nous contacter à cette adresse e-mail : [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr).
+        link_datapass: "https://datapass.api.gouv.fr/api-entreprise?demarche=portail_gru"
