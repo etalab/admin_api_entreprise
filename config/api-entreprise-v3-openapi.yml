@@ -57,6 +57,13 @@ paths:
         required: true
         schema:
           type: string
+      - name: Cache-Control
+        in: header
+        description: Si cette valeur est fixée à "no-cache", le système de cache est
+          alors ignoré et la donnée est directement récupérée depuis le fournisseur
+          de données.
+        schema:
+          type: string
       - name: context
         in: query
         description: |-
@@ -178,6 +185,22 @@ paths:
         '200':
           description: Entreprise found
           headers:
+            X-Response-Cached:
+              schema:
+                type: boolean
+                example: true
+                enum:
+                - true
+                - false
+                default: false
+              description: Indique si la réponse a été caché.
+            X-Cache-Expires-in:
+              schema:
+                type: numeric
+                nullable: true
+                example: 9001
+              description: Secondes avant que le cache n'expire. Si le cache est vide,
+                ce header est vide (mais présent).
             RateLimit-Limit:
               schema:
                 type: integer
@@ -345,6 +368,19 @@ paths:
                       meta: {}
                   summary: Fichier renvoyé par le fournisseur de données non valide
                   description: Le fichier n'est pas au format attendu
+                une_demande_d_analyse_est_deja_en_cours_de_traitement_04502:
+                  value:
+                    errors:
+                    - code: '04502'
+                      title: Une demande d'analyse est déjà en cours de traitement
+                      detail: Une demande d'analyse du dossier de l'entreprise a déjà
+                        été demandée, cela prend au maximum 2 jours.
+                      source:
+                      meta:
+                        provider: ACOSS
+                  summary: Une demande d'analyse est déjà en cours de traitement
+                  description: Une demande d'analyse du dossier de l'entreprise a
+                    déjà été demandée, cela prend au maximum 2 jours.
                 analyse_de_la_situation_du_compte_en_cours_04501:
                   value:
                     errors:
@@ -361,6 +397,19 @@ paths:
                   description: La situation de l'entreprise requiert une analyse manuelle
                     d'un agent de l'URSSAF. Une demande d'analyse vient d'être envoyée,
                     cela prend au maximum 2 jours.
+                attestation_de_vigilance_non_delivree_04503:
+                  value:
+                    errors:
+                    - code: '04503'
+                      title: Attestation de vigilance non délivrée
+                      detail: La situation du compte ne permet pas de délivrer l'attestation
+                        de vigilance demandée, contactez directement l'entreprise.
+                      source:
+                      meta:
+                        provider: ACOSS
+                  summary: Attestation de vigilance non délivrée
+                  description: La situation du compte ne permet pas de délivrer l'attestation
+                    de vigilance demandée, contactez directement l'entreprise.
               schema:
                 "$ref": "#/components/schemas/Error"
         '404':
@@ -1719,6 +1768,13 @@ paths:
         required: true
         schema:
           type: string
+      - name: Cache-Control
+        in: header
+        description: Si cette valeur est fixée à "no-cache", le système de cache est
+          alors ignoré et la donnée est directement récupérée depuis le fournisseur
+          de données.
+        schema:
+          type: string
       - name: context
         in: query
         description: |-
@@ -1840,6 +1896,22 @@ paths:
         '200':
           description: Attestation fiscale trouvée
           headers:
+            X-Response-Cached:
+              schema:
+                type: boolean
+                example: true
+                enum:
+                - true
+                - false
+                default: false
+              description: Indique si la réponse a été caché.
+            X-Cache-Expires-in:
+              schema:
+                type: numeric
+                nullable: true
+                example: 9001
+              description: Secondes avant que le cache n'expire. Si le cache est vide,
+                ce header est vide (mais présent).
             RateLimit-Limit:
               schema:
                 type: integer
@@ -2473,9 +2545,9 @@ paths:
           type: integer
       security:
       - jwt_bearer_token: []
-      description: Informations renseignées dans les liasses fiscales, issues des
-        déclarations de résultat d’une entreprise auprès de la Direction générale
-        des finances publiques (DGFIP).
+      description: 'Fonctionnalité non implémenté pour le moment. Cette API est encore
+        en travaux: le dictionnaire sera intégré directement dans les liasses pour
+        éviter d’avoir à appeler 2 API comme sur la V.2.'
       responses:
         '401':
           description: Non autorisé
@@ -2559,8 +2631,8 @@ paths:
                     Listez vos privilèges grâce à un GET sur /v2/privileges?token=VOTRE_TOKEN
               schema:
                 "$ref": "#/components/schemas/Error"
-        '200':
-          description: Entreprise trouvée
+        '501':
+          description: Fonctionnalité non implémenté
           headers:
             RateLimit-Limit:
               schema:
@@ -2579,357 +2651,6 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: object
-                    properties:
-                      obligations_fiscales:
-                        type: array
-                        title: Règles d’imposition applicables au résultat de l'unité
-                          légale (nommé obf en interne)
-                        description: Une entité légale peut posséder plusieurs règles
-                          d'impositions, notamment si celle-ci fait partie d'un groupe.
-                        items:
-                          type: object
-                          required:
-                          - id
-                          - code
-                          - libelle
-                          - reference
-                          - regime
-                          properties:
-                            id:
-                              title: Identifiant interne dénommé OCFI de la DGFIP
-                              description: 'Identifiant technique interne de la DGFIP
-                                OCFI: Numéro d’OCcurrences FIscales, déterminé par
-                                le siren et par les obligations fiscales'
-                              type: string
-                              example: '100209489259'
-                            code:
-                              type: string
-                              title: Code des règles d'imposition applicables au siren
-                              description: "Les valeurs possibles sont les suivantes:
-                                \n \n - IS: Impôt sur les sociétés \n - BIC: Bénéfices
-                                industriels et commerciaux \n - IS GROUPE: Impôt sur
-                                les sociétés dû par le groupe \n - BA: Bénéfices agricoles
-                                \n - BNC: Bénéfices non commerciaux"
-                              example: IS
-                              enum:
-                              - IS
-                              - BIC
-                              - IS GROUPE
-                              - BA
-                              - BNC
-                            libelle:
-                              type: string
-                              title: Libellé des règles d'impositions applicables
-                                à l'unité légale.
-                              description: La liste exhaustive se trouve dans la description
-                                du code.
-                              example: Impôt sur les sociétés
-                            reference:
-                              title: Référence d'Obligation Fiscale (ROF)
-                              type: string
-                              description: Il s'agit du code d'Obligation Fiscale
-                                (OBF) suivi d'un numéro d'identifiant qui définit
-                                et individualise les obligations fiscales de l'unité
-                                légale en fonction de ses activités
-                              enum:
-                              - IS1
-                              - IS2
-                              - IS3
-                              - ISGROUPE1
-                              - ISGROUPE2
-                              - ISGROUPE3
-                              - BA1
-                              - BA2
-                              - BA3
-                              - BNC1
-                              - BNC2
-                              - BNC3
-                              - BIC1
-                              - BIC2
-                              - BIC3
-                            regime:
-                              title: Régime d'imposition
-                              type: string
-                              description: Désigne les règles d’imposition du résultat
-                                fiscal de l’entreprise obtenu du référentiel des occurrences
-                                fiscales (R-OCFI)
-                      declarations:
-                        type: array
-                        items:
-                          type: object
-                          required:
-                          - numero_imprime
-                          - regime
-                          - date_declaration
-                          - date_fin_exercice
-                          - duree_exercice
-                          - millesime
-                          - donnees
-                          properties:
-                            numero_imprime:
-                              title: Numéro d'imprimé
-                              type: string
-                              description: Numéro du formulaire de la liasse fiscale
-                                souscrit par l’unité légale.
-                              example: 2033A
-                            regime:
-                              title: Régime d’imposition applicable au résultat fiscal
-                                de l'unité légale
-                              type: object
-                              required:
-                              - code
-                              - libelle
-                              properties:
-                                code:
-                                  title: Code du régime d’imposition applicable au
-                                    résultat fiscal de l'unité légale
-                                  description: "Les valeurs possibles sont les suivantes:
-                                    \n \n - RN: Réel normal \n - RSI ou RS: Réel simplifié
-                                    FIXME: A CONFIRMER le RS \n - RNMEMBRE: Réel normal
-                                    groupe (groupe) \n - RNGROUPE: Réel normal groupe
-                                    (tête) FIXME: Quel est la différence tête/groupe
-                                    \n - DECC: Déclaration contrôlée"
-                                  enum:
-                                  - RN
-                                  - RS
-                                  - RSI
-                                  - RNMEMBRE
-                                  - RNGROUPE
-                                  - DECC
-                                libelle:
-                                  title: Libellé du régime d’imposition applicable
-                                    au résultat fiscal de l'unité légale.
-                                  description: La liste exhaustive se trouve dans
-                                    la description du code
-                                  type: string
-                                  example: Réel simplifié
-                            date_declaration:
-                              title: Date de dépôt de la déclaration
-                              type: string
-                              description: " - Si télédéclaration : date de saisie
-                                \n - Si dépôt papier : date de réception par les Services
-                                des Impôts des Entreprises"
-                              example: '2012-12-26'
-                            date_fin_exercice:
-                              title: Date de fin d’exercice fiscal de l'unité légale
-                              type: string
-                              description: Équivalent à la date de fin de la période
-                                d'imposition
-                              example: '2012-12-31'
-                            duree_exercice:
-                              title: Durée de l'exercice en jours
-                              type: number
-                              description: "Durée de l’exercice fiscal calculée à
-                                partir des dates de début et de fin de la période
-                                d’imposition déclarées sur la déclaration souscrite
-                                par l'unité légale. \n \n Généralement cette valeur
-                                est de 365 jours, mais parfois 180 jours. Il y a une
-                                obligation fiscale déclarative au 31/12 de chaque
-                                année même s’il s’agit d’un dépôt provisoire."
-                              example: 365
-                            millesime:
-                              title: Millesime
-                              description: "Code composé de 6 caractères: \n - 4 caractères
-                                correspondant à l'année de création ou modification
-                                du formulaire. Les valeurs possibles vont de 2006
-                                à l'année courante dès avril, l'année précédente sinon.
-                                \n - 2 caractères correspondant au numéro de version
-                                du formulaire, commençant à 01"
-                              example: '201701'
-                            donnees:
-                              title: Données de l'imprimé
-                              type: array
-                              description: Chaque entrée du tableau correspondant
-                                à couple code / valeur, spécifique au numéro d'imprimé
-                                référencé à la clé `numero_imprime`
-                              items:
-                                type: object
-                                required:
-                                - code_nref
-                                - valeurs
-                                properties:
-                                  code_nref:
-                                    title: Code N-REF absolu permettant de faire le
-                                      lien avec le dictionnaire
-                                    type: string
-                                    example: '304651'
-                                  valeurs:
-                                    title: 'Valeurs associés à l''entrée '
-                                    description: Si une entrée de l'imprimé est répétable,
-                                      le tableau contient plusieurs entrées et sont
-                                      ordonnées en fonction de l'indice de répétition.
-                                    type: array
-                                    minItems: 1
-                                    items:
-                                      type: string
-                                    example:
-                                    - '4245'
-                    required:
-                    - obligations_fiscales
-                    - declarations
-                  meta:
-                    type: object
-                    properties:
-                      internal_id_itip:
-                        title: Identifiant interne dénommé ITIP de la DGFIP
-                        description: 'Identifiant technique interne de la DGFIP ITIP:
-                          Identifiant Transversal Informatique de la Personne'
-                        example: '100004763104'
-                    required:
-                    - internal_id_itip
-                required:
-                - data
-                - links
-                - meta
-        '422':
-          description: Paramètre(s) invalide(s)
-          content:
-            application/json:
-              examples:
-                unprocessable_entity_error_siren_error:
-                  value:
-                    errors:
-                    - code: '00301'
-                      title: Entité non traitable
-                      detail: Le numéro de siren n'est pas correctement formatté
-                      source:
-                        parameter: siren
-                      meta: {}
-                  summary: Entité non traitable
-                  description: Le numéro de siren n'est pas correctement formatté
-                missing_mandatory_params_context_error:
-                  value:
-                    errors:
-                    - code: '00201'
-                      title: Entité non traitable
-                      detail: Le paramètre context est obligatoire
-                      source:
-                        parameter: context
-                      meta: {}
-                  summary: Entité non traitable
-                  description: Le paramètre context est obligatoire
-                missing_mandatory_params_object_error:
-                  value:
-                    errors:
-                    - code: '00202'
-                      title: Entité non traitable
-                      detail: Le paramètre object est obligatoire
-                      source:
-                        parameter: object
-                      meta: {}
-                  summary: Entité non traitable
-                  description: Le paramètre object est obligatoire
-                missing_mandatory_params_recipient_error:
-                  value:
-                    errors:
-                    - code: '00203'
-                      title: Entité non traitable
-                      detail: Le paramètre recipient est obligatoire
-                      source:
-                        parameter: recipient
-                      meta: {}
-                  summary: Entité non traitable
-                  description: Le paramètre recipient est obligatoire
-              schema:
-                "$ref": "#/components/schemas/Error"
-        '502':
-          description: Erreur du fournisseur
-          content:
-            application/json:
-              examples:
-                unknown_error:
-                  value:
-                    errors:
-                    - code: '03000'
-                      title: Erreur inconnue
-                      detail: Mauvaise réponse envoyée par le fournisseur de données
-                      source:
-                      meta:
-                        provider: DGFIP
-                  summary: Erreur inconnue
-                  description: Mauvaise réponse envoyée par le fournisseur de données
-                potentielle_ressource_non_trouvee_03501:
-                  value:
-                    errors:
-                    - code: '03501'
-                      title: Potentielle ressource non trouvée
-                      detail: Le serveur a renvoyé une erreur interne, mais cela peut
-                        aussi indiquer que le siret ou siren renseigné n'existe pas,
-                        n'est pas connu, n'est pas en règle de ses obligations fiscales
-                        ou ne comporte aucune information pour cet appel.
-                      source:
-                      meta:
-                        provider: DGFIP
-                  summary: Potentielle ressource non trouvée
-                  description: Le serveur a renvoyé une erreur interne, mais cela
-                    peut aussi indiquer que le siret ou siren renseigné n'existe pas,
-                    n'est pas connu, n'est pas en règle de ses obligations fiscales
-                    ou ne comporte aucune information pour cet appel.
-              schema:
-                "$ref": "#/components/schemas/Error"
-        '504':
-          description: Erreur d'intermédiaire
-          content:
-            application/json:
-              examples:
-                timeout_error:
-                  value:
-                    errors:
-                    - code: '03002'
-                      title: Intermédiaire hors-délai
-                      detail: Temps d’attente d’une réponse du fournisseur de données
-                        écoulé.
-                      source:
-                      meta:
-                        provider: DGFIP
-                  summary: Intermédiaire hors-délai
-                  description: Temps d’attente d’une réponse du fournisseur de données
-                    écoulé.
-                provider_unavailable_error:
-                  value:
-                    errors:
-                    - code: '03001'
-                      title: Service non disponible
-                      detail: Service du fournisseur de données temporairement indisponible
-                        ou en maintenance.
-                      source:
-                      meta:
-                        provider: DGFIP
-                  summary: Service non disponible
-                  description: Service du fournisseur de données temporairement indisponible
-                    ou en maintenance.
-                network_error:
-                  value:
-                    errors:
-                    - code: '00501'
-                      title: Erreur réseau
-                      detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
-                      source:
-                      meta: {}
-                  summary: Erreur réseau
-                  description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
-                dns_resolution_error:
-                  value:
-                    errors:
-                    - code: '03004'
-                      title: Erreur de résolution DNS
-                      detail: Problème de résolution DNS de l'adresse du serveur
-                      source:
-                      meta:
-                        provider: DGFIP
-                  summary: Erreur de résolution DNS
-                  description: Problème de résolution DNS de l'adresse du serveur
-              schema:
-                "$ref": "#/components/schemas/Error"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
