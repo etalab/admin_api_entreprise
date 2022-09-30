@@ -2,11 +2,11 @@ module TagColorHelper
   def user_type_tag_color(user_type)
     case user_type
     when 'administrations'
-      'green-emeraude'
+      'pink-tuile'
     when 'collectivités'
-      'green-menthe'
+      'pink-macaron'
     when 'éditeurs de logiciels'
-      'orange-terre-battue'
+      'green-archipel'
     else
       'brown-cafe-creme'
     end
