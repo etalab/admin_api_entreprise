@@ -18,9 +18,9 @@
             <p class="fr-card__desc fr-text--lg"><%= t(".cards.#{cas_usage_key}.description") %></p>
             <div class="fr-card__start">
               <ul class="fr-badges-group">
-                  <li>
-                      <p class="fr-badge fr-badge--sm fr-badge--green-emeraude"><%= t(".cards.#{cas_usage_key}.user_type") %></p>
-                  </li>
+                <% I18n.t("api_entreprise.cas_usages_entries.#{cas_usage_key}.user_types").each do |user_type| %>
+                  <li class="fr-m-0-5v"><p class="fr-badge fr-badge--sm fr-badge--<%= user_type_tag_color(user_type) %>"><%= user_type %></p></li>
+                <% end %>
               </ul>
             </div>
           </div>

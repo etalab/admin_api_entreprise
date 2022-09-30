@@ -4,6 +4,10 @@ fr:
     cas_usages_entries:
       marches_publics:
         name: 'Marchés publics'
+        user_types:
+          - administrations
+          - collectivités
+          - éditeurs de logiciels
         comments_endpoints:
           "insee/etablissements_diffusibles": "Comme toutes les données Insee indiquées \"diffusibles\", cette API est appropriée pour du **pré-remplissage de formulaire** à destination des opérateurs économiques car la donnée est publique. <br>Pour un usage en backoffice par un agent habilité, utiliser l'API \"Données établissement\" qui permet aussi d'accéder aux \"non-diffusibles\"."
           "insee/etablissements": "**💡API à privilégier parmi les API Insee, car regroupe les infos de l'établissement et de son unité légale :** Nom commercial, dénomination sociale, nom et prénom personne physique, adresse de l'établissement&nbsp;; forme juridique, catégorie, (micro, TPE/PME) et tranche d'effectif salarié de l'unité légale."
@@ -110,11 +114,14 @@ fr:
             | **Solution Attestations** <br> Entreprise privée                                    |                       [solution-attestations.com](https://solution-attestations.com/){:target="_blank"}                      |                   Marchés publics<br>_Contrôle de conformité du titulaire du marché_                                                 |
 
             _Vous êtes un éditeur de logiciel proposant une solution pour les marchés publics et ne figurez pas sur cette liste ?_ Veuillez nous contacter à cette adresse e-mail : [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr).
-        request_access:      
+        request_access:
           link_datapass: "https://datapass.api.gouv.fr/api-entreprise?demarche=marches_publics"
 
       subventions:
         name: 'Aides publiques'
+        user_types:
+          - administrations
+          - collectivités
         comments_endpoints:
           "insee/etablissements_diffusibles": "Comme toutes les données Insee indiquées \"diffusibles\", cette API est appropriée pour du **pré-remplissage de formulaire** à destination des demandeurs car la donnée est publique. <br>Pour un usage en backoffice par un agent habilité, utiliser l'API \"Données établissement\" qui permet aussi d'accéder aux \"non-diffusibles\"."
           "insee/etablissements": "**💡API à privilégier parmi les API Insee, car regroupe les infos de l'établissement et de son unité légale.**"
@@ -198,11 +205,13 @@ fr:
             | **MGDIS** <br> Entreprise privée                                                    |    [Portail des aides](https://www.mgdis.fr/nos-solutions/pilotage-des-aides-versees/){:target="_blank"}                     |                   Aides & subventions publiques       |
 
             _Vous êtes un éditeur proposant une solution pour les aides et subventions publiques et ne figurez pas sur cette liste ?_ Veuillez nous contacter à cette adresse e-mail : [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr).
-        request_access:      
+        request_access:
           link_datapass: "https://datapass.api.gouv.fr/api-entreprise?demarche=aides_publiques"
 
       fraude:
         name: 'Détection de la fraude'
+        user_types:
+          - administrations
         introduction:
           title: Simplifier les procédures de détection de la fraude
           content: |
@@ -233,6 +242,9 @@ fr:
 
       formulaire:
         name: "Préremplissage d'un formulaire"
+        user_types:
+          - administrations
+          - collectivités
         introduction:
           title: Préremplir un formulaire à partir d’un SIRET, SIREN ou RNA
           content: |
@@ -283,6 +295,9 @@ fr:
 
       portail_gru:
         name: 'Portail gestion relation usager'
+        user_types:
+          - administrations
+          - collectivités
         comments_endpoints:
           "insee/etablissements_diffusibles": "Permet de pré-remplir les informations d'identité d'un établissement inscrit au répertoire Sirene.<br /><br />Comme toutes les données Insee indiquées \"diffusibles\", cette API est appropriée pour le cas d'usage **portail de gestion relation usager** car la donnée est publique."
           "insee/etablissements": ""
@@ -329,9 +344,9 @@ fr:
             #### Une simplification des démarches, pour tous
 
             L’API Entreprise facilite les démarches en ligne des entreprises et associations sur votre portail, en **pré-remplissant directement les données administratives demandées 📝, si celles-ci sont publiques et ouvertes 🔓**.
-            
+
             {:.fr-highlight}
-            **Si votre portail propose d'autres services, tels que la délivrance d'aides et subventions publiques ou encore un espace de candidature aux marchés publics** et que vous souhaitez accéder à des données administratives protégées pour instruire les dossiers, il vous faudra demander une habilitation supplémentaire par cas d'usage. 
+            **Si votre portail propose d'autres services, tels que la délivrance d'aides et subventions publiques ou encore un espace de candidature aux marchés publics** et que vous souhaitez accéder à des données administratives protégées pour instruire les dossiers, il vous faudra demander une habilitation supplémentaire par cas d'usage.
             En savoir plus sur le [cas d'usage aides et subventions publiques](<%= cas_usage_path('subventions') %>) et le [cas d'usage marchés publics](<%= cas_usage_path('marches_publics') %>).
 
             #### Ce que cela change pour vous, administrations et collectivités
@@ -350,7 +365,7 @@ fr:
 
             ##### Des régions
 
-            Le [portail GRU de la Région Réunion](https://demarches.cr-reunion.fr/){:target="_blank"} est un bon exemple de plateforme en ligne proposant également la délivrance d'aides et subventions publiques. 
+            Le [portail GRU de la Région Réunion](https://demarches.cr-reunion.fr/){:target="_blank"} est un bon exemple de plateforme en ligne proposant également la délivrance d'aides et subventions publiques.
 
             L'accès à l'API entreprise nous permet de faire des contrôles lors de la création de la demande par l'usager (contrôle existence SIREN/SIRET, récupération adresse, ...) et nous permet d'afficher à nos agents des aides à l'instruction (différences entres données fournies par l'usager et les données remontées par l'API: code NAF, dénomination, taille de l'entreprise, ...).
 
@@ -360,7 +375,7 @@ fr:
             | Éditeurs ayant intégré l'API Entreprise                                             |                                          Solution                                                                            |                     Cas d'usage                       |
             | ----------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------:|
             | **Entr’ouvert** <br> Coopérative                                                    | [entrouvert.com](https://www.entrouvert.com) <br> [Publik](https://publik.entrouvert.com/){:target="_blank"}                 |                   Portail de démarches en ligne       |
-      
+
 
             _Vous êtes un éditeur proposant une solution de portail de gestion relation usager et ne figurez pas sur cette liste ?_ Veuillez nous contacter à cette adresse e-mail : [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr).
 
