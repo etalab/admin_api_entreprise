@@ -22,7 +22,8 @@
       <div class=role--content"><%= markdown_to_html(@data[:role][:content]) %></div>
     </section>
 
-    <section class="fr-background-default-white">
+    <section class="list_api fr-background-default-white">
+      <h3 id="link_list_api"><%= t('.link_list_api') %></h3>
       <%= render partial: 'api_entreprise/cas_usages/list-api', locals: {current_use_case: params[:uid]} %>
     </section>
 
