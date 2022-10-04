@@ -117,7 +117,7 @@ l'interpolation ERB.
 Le lien du profile: [Profile](<%= user_profile_path %>)
 ```
 
-La liste des urls sont disponibles en tapant la commande `rails routes` ou depuis ce fichier : https://gist.github.com/skelz0r/48f3f6f4be8356f37e79368cfaa6e4f6
+La liste des urls sont disponibles en tapant la commande `rails routes` ou depuis ce fichier : [https://gist.github.com/skelz0r/48f3f6f4be8356f37e79368cfaa6e4f6](https://gist.github.com/Samuelfaure/fbaec88bca51aaa5d5af8d5ad5a273de)
 
 #### Route vers les fiches métiers :
 
