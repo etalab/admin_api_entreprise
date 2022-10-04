@@ -6,8 +6,8 @@
         <th scope="col"><%= t('.col_endpoint') %></th>
         <th scope="col"><%= t('.col_useful').html_safe %></th>
         <th scope="col"><%= t('.col_opening') %></th>
-        <th scope="col"><%= t('.col_links') %></th>
         <th scope="col"><%= t('.col_comments') %></th>
+        <th scope="col"><%= t('.col_links') %></th>
       </tr>
     </thead>
     <tbody>
@@ -33,11 +33,11 @@
             <%= t("api_entreprise.endpoint.opening.#{endpoint.opening}.name") %>
           </td>
           <td>
-            <%= link_to t('.documentation'), "#{endpoints_path}/#{endpoint.uid}" %><br/>
-            <%= link_to t('.swagger'), "#{developers_openapi_path}##{endpoint.redoc_anchor}" %>
+            <%= markdown_to_html(@data[:comments_endpoints].try(:[], endpoint.uid.to_sym)) %>
           </td>
           <td>
-            <%= markdown_to_html(@data[:comments_endpoints].try(:[], endpoint.uid.to_sym)) %>
+            <%= link_to t('.documentation'), "#{endpoints_path}/#{endpoint.uid}" %><br/>
+            <%= link_to t('.swagger'), "#{developers_openapi_path}##{endpoint.redoc_anchor}" %>
           </td>
         </tr>
       <% end %>
