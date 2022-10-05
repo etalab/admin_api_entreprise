@@ -14,8 +14,8 @@ fr:
           "insee/unites_legales": "_Données spécifiques à l'unité légale_.<br>💡 Ces données sont aussi distribuées par l'API \"Données établissement\"."
           "insee/siege_social_diffusibles": "_Données du siège social_, uniquement les \"diffusibles\"."
           "insee/siege_social": "_Données du siège social_.<br>💡Permet de **retrouver les infos du siège social**, à partir du SIREN de l'unité légale."
-          "insee/adresse_diffusibles": "_Adresse de l'établissement_."
-          "insee/adresse": "_Adresse de l'établissement_.<br>💡 L'adresse est aussi distribuée par l'API \"Données établissement\"."
+          "insee/adresse_etablissements_diffusibles": ""
+          "insee/adresse_etablissements": ""
           "infogreffe/mandataires_sociaux": ""
           "infogreffe/rcs/extrait": ""
           "ministere_interieur/rna": "_Utile si l'opérateur économique est une **association**._<br>Nom de l'association, adresse"
@@ -129,8 +129,8 @@ fr:
           "insee/unites_legales": "_Données spécifiques à l'unité légale_.<br>💡 Ces données sont aussi distribuées par l'API \"Données établissement\"."
           "insee/siege_social_diffusibles": "_Données du siège social_, uniquement les \"diffusibles\"."
           "insee/siege_social": "_Données du siège social_.<br>💡Permet de **retrouver les infos du siège social**, à partir du SIREN de l'unité légale."
-          "insee/adresse_diffusibles": "_Adresse de l'établissement_."
-          "insee/adresse": "_Adresse de l'établissement_.<br>💡 L'adresse est aussi distribuée par l'API \"Données établissement\"."
+          "insee/adresse_etablissements_diffusibles": ""
+          "insee/adresse_etablissements": ""
           "infogreffe/mandataires_sociaux": ""
           "infogreffe/rcs/extrait": ""
           "ministere_interieur/rna": "_Utile pour les subventions._"
@@ -249,6 +249,41 @@ fr:
         user_types:
           - administrations
           - collectivités
+        comments_endpoints:
+          "insee/etablissements_diffusibles": "Pré-remplir les informations d'un **établissement, à partir de son numéro de SIRET**."
+          "insee/etablissements": ""
+          "insee/unites_legales_diffusibles": "💡 _Ces données sont aussi distribuées par l'API \"Données établissements diffusibles\"_."
+          "insee/unites_legales": ""
+          "insee/siege_social_diffusibles": "💡 **Retrouver les infos du siège social** d'un établissement diffusible, à partir du SIREN de l'unité légale."
+          "insee/siege_social": ""
+          "insee/adresse_etablissements_diffusibles": "💡 _Vous avez seulement besoin de remplir proprement les champs d'une adresse postale, à partir d'un SIRET ? Utilisez cette API dédiée_."
+          "insee/adresse_etablissements": ""
+          "infogreffe/mandataires_sociaux": ""
+          "infogreffe/rcs/extrait": "Pré-remplir presque toutes les informations contenues dans un **Kbis**."
+          "ministere_interieur/rna": "Pré-remplir les informations d'identité d'une **association, à partir de son RNA ou SIRET**."
+          "ministere_interieur/documents_associations": ""
+          "inpi/actes": ""
+          "fabrique_numerique_ministeres_sociaux/conventions_collectives": ""
+          "cma_france/rnm": "Pré-remplir les informations d'identité d'une **entreprise artisanale, à partir de son SIREN**."
+          "urssaf/effectifs": ""
+          "douanes/immatriculation_eori": ""
+          "dgfip/chiffres_affaires": ""
+          "inpi/comptes_annuels_rncs": ""
+          "banque_de_france/bilans": ""
+          "dgfip/liasses_fiscales": ""
+          "attestations_fiscales": ""
+          "urssaf/attestation_vigilance": ""
+          "msa/conformites_cotisations": ""
+          "probtp/conformites_cotisations_retraite": ""
+          "fntp/carte_professionnelle_travaux_public": ""
+          "cnetp/attestations_cotisations_conges_payes_chomage_intemperies": ""
+          "agence_bio/certifications_bio": ""
+          "ademe/certifications_rge": ""
+          "qualibat/certifications_batiment": ""
+          "opqibi/qualifications_ingenierie": ""
+          "inpi/brevets": ""
+          "inpi/marques": ""
+          "inpi/modeles": ""
         introduction:
           title: Préremplir un formulaire à partir d’un SIRET, SIREN ou RNA
           content: |
@@ -269,7 +304,11 @@ fr:
             - ✅ Vous **accélérez les procédures pour vos utilisateurs** en leur évitant de rechercher des informations que l’administration connaît déjà ;
             - ✅ Vous éviter les erreurs de frappe et donc une vérification supplémentaire car **les informations données par API Entreprise sont certifiées**.
         list_api:
-          content: null
+          content: |+
+            Pour ce cas d'usage, **seules les données publiques sont accessibles**. En effet, le pré-remplissage d'une démarche se fait en ligne, sans authentification.
+            
+            {:.fr-highlight}
+            Si vous souhaitez accéder à des données protégées pour aider vos agents à instruire des dossiers de subventions, d'aides ou de marchés publics, il vous faudra faire une demande complémentaire par cas d'usage.<br>En savoir plus sur les différents [cas d'usages API Entreprise](<%= cas_usages_path %>)
         users:
           title: Ils utilisent l’API Entreprise
           anchor: 'users'
@@ -305,21 +344,21 @@ fr:
           - administrations
           - collectivités
         comments_endpoints:
-          "insee/etablissements_diffusibles": "Permet de pré-remplir les informations d'identité d'un établissement inscrit au répertoire Sirene.<br /><br />Comme toutes les données Insee indiquées \"diffusibles\", cette API est appropriée pour le cas d'usage **portail de gestion relation usager car la donnée est publique**."
+          "insee/etablissements_diffusibles": "Pré-remplir les informations d'un **établissement, à partir de son numéro de SIRET**."
           "insee/etablissements": ""
-          "insee/unites_legales_diffusibles": "_Données des unités légales dont les données sont publiques_.<br>💡 Ces données sont aussi distribuées par l'API \"Données établissements diffusibles\"."
+          "insee/unites_legales_diffusibles": "💡 _Ces données sont aussi distribuées par l'API \"Données établissements diffusibles\"_."
           "insee/unites_legales": ""
-          "insee/siege_social_diffusibles": "_Données d'un siège social_ dont les données sont publiques.<br>💡Permet de **retrouver les infos du siège social** d'un établissement diffusible, à partir du SIREN de l'unité légale."
+          "insee/siege_social_diffusibles": "💡 **Retrouver les infos du siège social** d'un établissement diffusible, à partir du SIREN de l'unité légale."
           "insee/siege_social": ""
-          "insee/adresse_diffusibles": "_Adresse d'un établissement_ dont les données sont publiques.<br>💡 L'adresse est également distribuée par l'API \"Données établissements\"."
-          "insee/adresse": ""
+          "insee/adresse_etablissements_diffusibles": ""
+          "insee/adresse_etablissements": ""
           "infogreffe/mandataires_sociaux": ""
-          "infogreffe/rcs/extrait": ""
-          "ministere_interieur/rna": "Permet de pré-remplir les informations d'identité d'une association."
+          "infogreffe/rcs/extrait": "Pré-remplir presque toutes les informations contenues dans un **Kbis**."
+          "ministere_interieur/rna": "Pré-remplir les informations d'identité d'une **association, à partir de son RNA ou SIRET**."
           "ministere_interieur/documents_associations": ""
           "inpi/actes": ""
           "fabrique_numerique_ministeres_sociaux/conventions_collectives": ""
-          "cma_france/rnm": "Permet de pré-remplir les informations d'identité d'une entreprise artisanale."
+          "cma_france/rnm": "Pré-remplir les informations d'identité d'une **entreprise artisanale, à partir de son SIREN**."
           "urssaf/effectifs": ""
           "douanes/immatriculation_eori": ""
           "dgfip/chiffres_affaires": ""
@@ -363,7 +402,10 @@ fr:
             - ✅ Vous n’avez pas de vérification supplémentaire à réaliser car les **informations sont certifiées**.
         list_api:
           content: |+
-            L'utilisation de l'API Entreprise pour le cas d'usage des portails GRU et GRC étant de pré-remplir les démarches, **seules les données publiques** sont accessibles.
+            Pour ce cas d'usage, **seules les données publiques sont accessibles**. En effet, le pré-remplissage d'une démarche sur un portail GRU se fait en ligne, sans authentification.
+            
+            {:.fr-highlight}
+            Si vous souhaitez accéder à des données protégées pour aider vos agents à instruire des dossiers de subventions, d'aides ou de marchés publics, il vous faudra faire une demande complémentaire par cas d'usage.<br>En savoir plus sur les différents [cas d'usages API Entreprise](<%= cas_usages_path %>)
         users:
           title: Ils utilisent l’API Entreprise
           anchor: 'users'
@@ -398,21 +440,21 @@ fr:
         user_types:
           - éditeurs de logiciels
         comments_endpoints:
-          "insee/etablissements_diffusibles": "Utile pour du pré-remplissage"
-          "insee/etablissements": "**API principale pour récupérer les données de l'Insee**, les autres API Insee étant ciblées sur un périmètre plus restreint, par exemple les adresses pour `Insee/adresse`"
-          "insee/unites_legales_diffusibles": "Utile pour du pré-remplissage"
+          "insee/etablissements_diffusibles": "Pré-remplir des démarches en ligne sans authentification de l'usager."
+          "insee/etablissements": "**API principale pour récupérer les données de l'Insee**, les autres API Insee étant ciblées sur un périmètre plus restreint, par exemple les adresses pour `Insee/adresse_etablissements`"
+          "insee/unites_legales_diffusibles": "Pré-remplir des démarches en ligne sans authentification de l'usager."
           "insee/unites_legales": ""
-          "insee/siege_social_diffusibles": "Utile pour du pré-remplissage"
+          "insee/siege_social_diffusibles": "Pré-remplir des démarches en ligne sans authentification de l'usager."
           "insee/siege_social": ""
-          "insee/adresse_diffusibles": "Utile pour du pré-remplissage"
-          "insee/adresse": ""
+          "insee/adresse_etablissements_diffusibles": "Pré-remplir des démarches en ligne sans authentification de l'usager."
+          "insee/adresse_etablissements": ""
           "infogreffe/mandataires_sociaux": ""
           "infogreffe/rcs/extrait": ""
-          "ministere_interieur/rna": "Utile pour du pré-remplissage"
+          "ministere_interieur/rna": "Pré-remplir des démarches en ligne sans authentification de l'usager."
           "ministere_interieur/documents_associations": ""
           "inpi/actes": ""
           "fabrique_numerique_ministeres_sociaux/conventions_collectives": ""
-          "cma_france/rnm": "Utile pour du pré-remplissage"
+          "cma_france/rnm": "Pré-remplir des démarches en ligne sans authentification de l'usager."
           "urssaf/effectifs": "_Donnée sensible_. ⚠️ Le cadre légal précis de vos utilisateurs sera indispensable pour accéder à cette donnée."
           "douanes/immatriculation_eori": ""
           "dgfip/chiffres_affaires": ""
