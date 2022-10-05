@@ -1,15 +1,14 @@
-<h3 id="list-api"><%= t('.title') %></h3>
-
-<div id="table-api" class="fr-table">
+<div id="table-api" class="fr-table fr-table--no-caption">
   <table>
-    <caption><%= @data[:name] %></caption>
+  <caption>Liste des données utiles pour le cas d'usage <%= @data[:name] %></caption>
     <thead>
       <tr>
         <th scope="col"><%= t('.col_endpoint') %></th>
         <th scope="col"><%= t('.col_useful').html_safe %></th>
         <th scope="col"><%= t('.col_opening') %></th>
-        <th scope="col"><%= t('.col_links') %></th>
+        <th scope="col"><%= t('.col_call_id') %></th>
         <th scope="col"><%= t('.col_comments') %></th>
+        <th scope="col"><%= t('.col_links') %></th>
       </tr>
     </thead>
     <tbody>
@@ -35,11 +34,15 @@
             <%= t("api_entreprise.endpoint.opening.#{endpoint.opening}.name") %>
           </td>
           <td>
-            <%= link_to t('.documentation'), "#{endpoints_path}/#{endpoint.uid}" %><br/>
-            <%= link_to t('.swagger'), "#{developers_openapi_path}##{endpoint.redoc_anchor}" %>
+            <%= icon(t("api_entreprise.endpoint.call_id.#{endpoint.call_id}.icon", raise: true)) rescue nil %>
+            <%= t("api_entreprise.endpoint.call_id.#{endpoint.call_id}") %>
           </td>
           <td>
             <%= markdown_to_html(@data[:comments_endpoints].try(:[], endpoint.uid.to_sym)) %>
+          </td>
+          <td>
+            <%= link_to t('.documentation'), "#{endpoints_path}/#{endpoint.uid}" %><br/>
+            <%= link_to t('.swagger'), "#{developers_openapi_path}##{endpoint.redoc_anchor}" %>
           </td>
         </tr>
       <% end %>

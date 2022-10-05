@@ -22,7 +22,9 @@
       <div class=role--content"><%= markdown_to_html(@data[:role][:content]) %></div>
     </section>
 
-    <section class="fr-background-default-white">
+    <section class="list_api fr-background-default-white">
+      <h3 id="list-api"><%= t('.link_list_api') %><span class="fr-ml-2v fr-text--light">"<%= @data[:name] %>"</span></h3>
+      <div class=list_api--content"><%= markdown_to_html(@data[:list_api][:content]) %></div>
       <%= render partial: 'api_entreprise/cas_usages/list-api', locals: {current_use_case: params[:uid]} %>
     </section>
 
@@ -33,8 +35,9 @@
 
     <section class="request_access fr-background-default-white">
       <h3 id="request-access" class=request_access--title"><%= t('.request_access.title') %></h3>
-      <div class=request_access--content"><%= t('.request_access.description') %></div>
-      <a href="<%= @data[:link_datapass] %>" class="fr-btn fr-mt-10v"><%= t('.request_access.link')%></a>
+      <div class=request_access--content"><p class="fr-text--lg fr-mb-0-5v"><%= t('.request_access.description') %></p></div>
+      <a href="<%= @data[:link_datapass] %>" class="fr-btn fr-mt-10v fr-mb-4w"><%= t('.request_access.link')%><span class="fr-text--bold fr-ml-1v"><%= @data[:name] %></span></a>
+      <div class=request_access--content"><%= markdown_to_html(@data[:request_access][:content]) %></div>
     </section>
 
     <section class="other-use-cases fr-background-grey">
