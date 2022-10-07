@@ -36,7 +36,7 @@
     <section class="request_access fr-background-default-white">
       <h3 id="request-access" class=request_access--title"><%= t('.request_access.title') %></h3>
       <div class=request_access--content"><p class="fr-text--lg fr-mb-0-5v"><%= t('.request_access.description') %></p></div>
-      <a href="<%= @data[:link_datapass] %>" class="fr-btn fr-mt-10v fr-mb-4w"><%= t('.request_access.link')%><span class="fr-text--bold fr-ml-1v"><%= @data[:name] %></span></a>
+      <a href="<%= @data[:request_access][:link_datapass] %>" class="fr-btn fr-mt-10v fr-mb-4w" target='_blank'><%= t('.request_access.link')%><span class="fr-text--bold fr-ml-1v"><%= @data[:name] %></span></a>
       <div class=request_access--content"><%= markdown_to_html(@data[:request_access][:content]) %></div>
     </section>
 
