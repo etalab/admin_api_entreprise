@@ -12,6 +12,8 @@ class Seeds
   def flushdb
     raise 'Not in production!' if Rails.env.production?
 
+    load_all_models!
+
     ActiveRecord::Base.connection.transaction do
       (ApplicationRecord.descendants - [AccessLog]).each(&:delete_all)
     end
@@ -174,5 +176,9 @@ class Seeds
   def create_access_logs
     sql = Rails.root.join('db/seed_access_logs.sql').read
     ActiveRecord::Base.connection.execute(sql)
+  end
+
+  def load_all_models!
+    Dir[Rails.root.join('app/models/**/*.rb')].each { |f| require f }
   end
 end
