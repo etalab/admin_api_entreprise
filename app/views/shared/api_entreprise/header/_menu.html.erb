@@ -1,5 +1,5 @@
 <div class="fr-header__menu fr-modal" id="modal-header-menu" aria-labelledby="fr-btn-menu-mobile-1">
-  
+
   <div class="fr-container">
     <button class="fr-link--close fr-link" aria-controls="modal-header-menu">
       Fermer
@@ -37,18 +37,17 @@
     <% end %>
   </div>
 
-    <div class="fr-notice fr-notice--info">
-      <div class="fr-container">
-        <div class="fr-notice__body">
-          <p class="fr-notice__title fr-text--regular">
+  <div class="fr-notice fr-notice--info">
+    <div class="fr-container">
+      <div class="fr-notice__body">
+        <p class="fr-notice__title fr-text--regular">
           <% if action_name == 'developers' || action_name == 'guide_migration' %>
-            <%= t('.banner_tech_migration', date: OpenBureauDate.new.next_date.strftime('%d/%m/%Y')).html_safe %>
-            <% else %>
-            <%= t('.banner_migration', date: OpenBureauDate.new.next_date.strftime('%d/%m/%Y')).html_safe %>
-            <% end %>
-          </p>
-        </div>
+            <%= t('.banner.tech_migration', date: OpenBureauDate.new.next_date.strftime('%d/%m/%Y')).html_safe %>
+          <% else %>
+            <%= t('.banner.default', date: OpenBureauDate.new.next_date.strftime('%d/%m/%Y')).html_safe %>
+          <% end %>
+        </p>
       </div>
-
+    </div>
   </div>
 </div>
