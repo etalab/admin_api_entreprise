@@ -31,7 +31,7 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
 
   def initialize(params)
     super(params)
-    load_dummy_definition! if open_api_definition.blank? || response_schema.blank?
+    load_dummy_definition! if open_api_definition.blank? || response_schema.blank? || force_dummy_load?
   end
 
   def self.all
@@ -142,6 +142,12 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
 
   def dummy?
     @dummy_definition
+  end
+
+  def force_dummy_load?
+    %w[
+      /v3/inpi/unites_legales/{siren}/actes
+    ].include?(path)
   end
 
   def implemented?
