@@ -36,15 +36,19 @@
       </nav>
     <% end %>
   </div>
-    <% if action_name == 'developers' || action_name == 'guide_migration' || action_name == 'endpoints' %>
+
     <div class="fr-notice fr-notice--info">
       <div class="fr-container">
         <div class="fr-notice__body">
-          <p class="fr-notice__title">
+          <p class="fr-notice__title fr-text--regular">
+          <% if action_name == 'developers' || action_name == 'guide_migration' %>
+            <%= t('.banner_tech_migration', date: OpenBureauDate.new.next_date.strftime('%d/%m/%Y')).html_safe %>
+            <% else %>
             <%= t('.banner_migration', date: OpenBureauDate.new.next_date.strftime('%d/%m/%Y')).html_safe %>
+            <% end %>
           </p>
         </div>
       </div>
-    <% end %>
+
   </div>
 </div>
