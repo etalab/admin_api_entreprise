@@ -1,0 +1,54 @@
+---
+- uid: 'commission_europeenne/numero_tva'
+  path: '/v3/european_commission/unites_legales/{siren}/numero_tva'
+  # Position au sein de l'index
+  position: 165
+  perimeter:
+    entity_type_description: |+
+      Cette API concerne uniquement les **✅ unités légales ayant un numéro de TVA intracommunautaire français**.
+      ❌ Cette API ne délivre pas les numéros de TVA d'un autre pays européen.
+
+      Une unité légale répertoriée en France peut ne pas avoir de numéro de TVA français si son siège était historiquement à l'étranger et avait commencé à déclarer ses impôts dans ce pays. Dans ce cas, l'unité légale garde le numéro de TVA qui lui a été délivré par ce pays européen. Ce numéro de TVA n'est alors pas délivré par cette API.
+    updating_rules_description: |+
+      Les numéros de TVA sont délivrés et vérifés **en temps réel**.
+    know_more_description: |+
+      - [Site officiel de la Commission Européenne sur le service VIES](https://ec.europa.eu/taxation_customs/vies/#/vat-validation){:target="_blank"}
+      - [Définition d'un Numéro de TVA intracommunautaire par Service-Public.fr](https://entreprendre.service-public.fr/vosdroits/F23570){:target="_blank"}
+    entities:
+      - entreprises
+  call_id: "SIREN"
+  provider_uids:
+    - 'commission_europeenne'
+  keywords: []
+  format:
+    - Donnée structurée JSON
+  availability:
+    opening_time:
+      7jours/7 et 24h/24
+  data:
+    description: |+
+      Cette API **génère le numéro de TVA** d'une unité légale à partir de son numéro de SIREN et **vérifie** auprès du [service VIES de la Commission Européenne](https://ec.europa.eu/taxation_customs/vies/#/vat-validation) que celui-ci est valide.
+
+      
+      **⚠️ Si l'API ne retourne pas de numéro de TVA**, cela ne veut pas dire que l'unité légale n'a pas de numéro de TVA. En effet, celle-ci peut avoir un numéro de TVA non français.
+  opening: public
+  # Texte libre, cette donnée est affichée sur la page du endpoint
+  use_cases_optional:
+    - Préremplissage d'un formulaire
+    - Portail gestion relation usager
+  use_cases_forbidden:
+  use_cases:
+    - Marchés publics
+  # Texte libre, cette donnée est affichée sur la page du endpoint
+  parameters:
+    - Numéro de SIREN de l'unité légale
+  faq:
+    - q: "Pourquoi l'API renvoie une erreur alors que j'ai pu récupérer un numéro de TVA sur un site tiers ?"
+      a: |+
+        Dans la majorité des cas, il est assez simple de déduire le numéro de TVA à partir du numéro de SIREN. C'est pourquoi, beaucoup de sites tiers effectuent ce calcul et **affichent le potentiel numéro de TVA, sans effectuer de vérification**. De fait, dans certains cas, le numéro de TVA que ces sites tiers proposent est faux.
+        
+        Dans le cas où l'API Entreprise ne délivre pas de numéro de TVA (erreur de type 404 - entité non-trouvée) pour un SIREN dont vous avez obtenu le numéro de TVA par un site tiers, **il est fort probable que ce numéro de TVA est invalide**. En effet, l'API Entreprise effectue une vérification auprès du site officiel de la Commission Européenne sur le service VIES.
+        
+        {:.fr-highlight}
+        Si vous avez un doute, vous pouvez vérifier vous-même le numéro de TVA à partir du [service VIES](https://ec.europa.eu/taxation_customs/vies/#/vat-validation){:target="_blank"}.
+ 
