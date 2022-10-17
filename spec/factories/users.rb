@@ -44,16 +44,19 @@ FactoryBot.define do
     trait :with_token do
       transient do
         scopes { ['entreprises'] }
+        tokens_amount { 1 }
       end
 
       after(:create) do |u, evaluator|
-        create(
-          :token,
-          :with_specific_scopes,
-          specific_scopes: evaluator.scopes,
-          user: u,
-          intitule: "Token with scopes: #{evaluator.scopes}"
-        )
+        evaluator.tokens_amount.times do
+          create(
+            :token,
+            :with_specific_scopes,
+            specific_scopes: evaluator.scopes,
+            user: u,
+            intitule: "Token with scopes: #{evaluator.scopes}"
+          )
+        end
       end
     end
 
