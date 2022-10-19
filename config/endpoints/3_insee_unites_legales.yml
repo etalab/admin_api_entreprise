@@ -130,6 +130,11 @@
 
         {:.fr-highlight}
         > Il vous est par contre possible d'indiquer à l'unité légale "non-diffusible" qu'elle peut modifier son statut, même provisoirement, auprès de l'Insee à l'adresse suivante : [https://statut-diffusion-sirene.insee.fr](https://statut-diffusion-sirene.insee.fr}{:target="_blank"}).
+    - q: &insee_unites_legales_faq_q4 Le numéro de TVA intracommunataire disponible en V.2.n'est plus disponible en V.3, où puis-je le trouver ?
+      a: &insee_unites_legales_faq_a4 |+
+        Lors de la conception de la V.3 de l'API Entreprise, nous avons décidé de ne plus délivrer le numéro de TVA intracommunautaire par le biais de l'API de l'Insee car cette donnée ne provient pas de ce fournisseur. Cette donnée était et est calculée par l'API Entreprise à partir du numéro de SIREN. 
+
+        **Une [API spécifique est maintenant disponible en V.3](<%= endpoint_path(uid: 'commission_europeenne/numero_tva') %>)** et permet de connaître le numéro intracommunautaire français d'une unité légale. Cette API effectue une vérification auprès du service compétent de la Commission européenne.
 
 - uid: 'insee/unites_legales_diffusibles'
   path: '/v3/insee/sirene/unites_legales/diffusibles/{siren}'
@@ -180,3 +185,5 @@
       a: *insee_unites_legales_faq_a2
     - q: *insee_unites_legales_faq_q3
       a: *insee_unites_legales_faq_a3
+    - q: *insee_unites_legales_faq_q4
+      a: *insee_unites_legales_faq_a4
