@@ -3052,7 +3052,7 @@ paths:
         to_hour: '02:00'
   "/v3/european_commission/unites_legales/{siren}/numero_tva":
     get:
-      summary: Récupération du numéro de TVA
+      summary: N°TVA intracommunautaire français
       tags:
       - Informations générales
       parameters:
@@ -3093,7 +3093,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Récupération du numéro du TVA à partir d'un numéro de siren.
+      description: Numéro de TVA intracommunautaire français, vérifié auprès de la
+        Commission européenne.
       responses:
         '401':
           description: Non autorisé
@@ -3186,11 +3187,11 @@ paths:
                     type: object
                     properties:
                       tva_number:
-                        title: Numéro de TVA intracommunautaire
-                        description: Ce numéro de TVA est extrait du numéro de siren
+                        title: Numéro de TVA intracommunautaire français
+                        description: Ce numéro de TVA est extrait du numéro de SIREN,
                           à l'aide de la règle de calcul du numéro de TVA, et validé
-                          auprès du service VIES. Ce numéro de TVA est forcément un
-                          numéro de TVA français.
+                          auprès du service VIES de la Commission européenne. Ce numéro
+                          de TVA est forcément un numéro de TVA français.
                         example: FR48672039971
                     required:
                     - tva_number
