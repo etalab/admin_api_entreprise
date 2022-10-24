@@ -1,4 +1,4 @@
-RSpec.describe 'API Particulier: token details', type: :feature, app: :api_particulier do
+RSpec.describe 'API Particulier: token details', app: :api_particulier do
   subject(:go_to_profile) { visit api_particulier_user_profile_path }
 
   let(:user) { create(:user) }

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'user profile page', type: :feature, app: :api_entreprise do
+RSpec.describe 'user profile page', app: :api_entreprise do
   subject(:show_profile) { visit user_profile_path }
 
   let(:user) { create(:user, :with_note) }

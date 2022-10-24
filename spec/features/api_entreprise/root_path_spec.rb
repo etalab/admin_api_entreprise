@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Root path', type: :feature, app: :api_entreprise do
+RSpec.describe 'Root path', app: :api_entreprise do
   subject(:visit_root_path) { visit root_path }
 
   before do

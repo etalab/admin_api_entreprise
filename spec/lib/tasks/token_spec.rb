@@ -10,7 +10,7 @@ RSpec.describe 'token tasks', type: :rake do
       Rake::Task[task_name].invoke(token_to_blacklist.id)
     end
 
-    let!(:token_to_blacklist) { create :token, :with_scopes }
+    let!(:token_to_blacklist) { create(:token, :with_scopes) }
 
     it 'creates a duplicated token' do
       expect { run_task }.to change(Token, :count).by(1)

@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  self.ignored_columns = %w[admin]
+  self.ignored_columns += %w[admin]
 
   include RandomToken
 

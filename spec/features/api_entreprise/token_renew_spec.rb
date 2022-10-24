@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'token renew page', type: :feature, app: :api_entreprise do
+RSpec.describe 'token renew page', app: :api_entreprise do
   let(:user) { create(:user, :with_token) }
   let(:token) { create(:token, user:) }
 

@@ -1,4 +1,4 @@
-RSpec.describe 'show token from magic link', type: :feature, app: :api_particulier do
+RSpec.describe 'show token from magic link', app: :api_particulier do
   subject do
     visit api_particulier_token_show_magic_link_path(token: magic_token)
   end

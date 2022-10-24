@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Token, type: :model do
+RSpec.describe Token do
   let(:token) { create(:token) }
 
   it 'has valid factories' do

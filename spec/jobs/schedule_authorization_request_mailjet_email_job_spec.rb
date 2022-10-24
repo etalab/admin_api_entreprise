@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob, type: :job do
+RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob do
   describe '#perform' do
     subject do
       described_class.perform_now(

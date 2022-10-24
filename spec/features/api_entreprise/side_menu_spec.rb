@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Navigation side menu', type: :feature, app: :api_entreprise do
+RSpec.describe 'Navigation side menu', app: :api_entreprise do
   subject(:visit_profile) { visit user_profile_path }
 
   before do
@@ -20,7 +20,7 @@ RSpec.describe 'Navigation side menu', type: :feature, app: :api_entreprise do
     end
 
     context 'when user has attestations scope' do
-      let(:user) { create :user, :with_token, scopes: ['attestations_fiscales'] }
+      let(:user) { create(:user, :with_token, scopes: ['attestations_fiscales']) }
 
       it 'shows menu item for attestations download' do
         within('.authenticated-user-sidemenu') do

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe FAQEntry, type: :model do
+RSpec.describe FAQEntry do
   describe '.all' do
     subject(:faq_entries) { described_class.all }
 

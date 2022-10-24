@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe TokenMailer, type: :mailer do
+RSpec.describe TokenMailer do
   describe '#magic_link' do
     subject(:mailer) { described_class.magic_link(email, token) }
 

@@ -1,5 +1,5 @@
 class Token < ApplicationRecord
-  self.ignored_columns = %w[access_request_survey_sent]
+  self.ignored_columns += %w[access_request_survey_sent]
 
   include RandomToken
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Provider, type: :model do
+RSpec.describe Provider do
   describe '.all' do
     subject { described_class.all }
 

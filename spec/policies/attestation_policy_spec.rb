@@ -5,13 +5,13 @@ RSpec.describe AttestationPolicy do
 
   permissions :any? do
     context 'when user doesnt have attestation scopes' do
-      let(:user) { create :user }
+      let(:user) { create(:user) }
 
       it { is_expected.not_to permit(user) }
     end
 
     context 'when user has attestation scope' do
-      let(:user) { create :user, :with_token, scopes: ['attestations_fiscales'] }
+      let(:user) { create(:user, :with_token, scopes: ['attestations_fiscales']) }
 
       it { is_expected.to permit(user) }
     end

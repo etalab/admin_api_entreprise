@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'create a magic link', type: :feature, app: :api_entreprise do
+RSpec.describe 'create a magic link', app: :api_entreprise do
   subject do
     visit user_tokens_path
     within("##{dom_id(token, :magic_link)}") do
@@ -71,7 +71,7 @@ RSpec.describe 'create a magic link', type: :feature, app: :api_entreprise do
     let(:user) { create(:user, :with_token) }
     let(:token) { user.tokens.sample }
 
-    it 'works' do
+    it 'displays modal on click' do
       visit user_tokens_path
       expect(page).not_to have_css("##{dom_id(token, :magic_link)}")
       click_on dom_id(token, :modal_button)

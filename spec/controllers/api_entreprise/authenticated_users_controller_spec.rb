@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe APIEntreprise::AuthenticatedUsersController, type: :controller do
+RSpec.describe APIEntreprise::AuthenticatedUsersController do
   controller do
     def index
       render head: :ok
