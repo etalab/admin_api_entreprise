@@ -11,7 +11,7 @@ RSpec.describe Contact do
     let!(:valid_contact) { create(:contact, token: create(:token, blacklisted: false, archived: false)) }
     let!(:invalid_contact) { create(:contact, token: create(:token, blacklisted: false, archived: true)) }
 
-    it 'works' do
+    it 'renders valid content' do
       expect(subject.count).to eq(1)
       expect(subject).to include(valid_contact)
     end

@@ -10,7 +10,7 @@ RSpec.describe 'user tasks', type: :rake do
       Rake::Task[task_name].invoke(current_owner.email, target_user_email)
     end
 
-    let!(:current_owner) { create :user, :with_token }
+    let!(:current_owner) { create(:user, :with_token) }
     let(:target_user_email) { 'new_owner@email.com' }
 
     it 'transfer account to new user' do

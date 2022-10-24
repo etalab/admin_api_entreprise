@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Endpoints show', type: :feature, app: :api_entreprise do
+RSpec.describe 'Endpoints show', app: :api_entreprise do
   let(:uid) { example_uid }
 
   let(:endpoint) { Endpoint.find(uid) }

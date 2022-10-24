@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe 'Simple pages', type: :feature, app: :api_entreprise do
+RSpec.describe 'Simple pages', app: :api_entreprise do
   describe 'mentions' do
-    it 'works' do
+    it 'does not raise error' do
       expect {
         visit mentions_path
       }.not_to raise_error
@@ -10,7 +10,7 @@ RSpec.describe 'Simple pages', type: :feature, app: :api_entreprise do
   end
 
   describe 'cgu' do
-    it 'works' do
+    it 'does not raise error' do
       expect {
         visit cgu_path
       }.not_to raise_error
@@ -18,7 +18,7 @@ RSpec.describe 'Simple pages', type: :feature, app: :api_entreprise do
   end
 
   describe 'infolettre' do
-    it 'works' do
+    it 'does not raise error' do
       expect {
         visit newsletter_path
       }.not_to raise_error

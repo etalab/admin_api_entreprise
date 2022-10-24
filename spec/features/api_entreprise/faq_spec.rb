@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'FAQ & Support', type: :feature, app: :api_entreprise do
+RSpec.describe 'FAQ & Support', app: :api_entreprise do
   before do
     visit faq_index_path
   end

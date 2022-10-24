@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'User token listing', type: :feature, app: :api_entreprise do
+RSpec.describe 'User token listing', app: :api_entreprise do
   subject(:token_index) { visit user_tokens_path }
 
   let(:user) { create(:user, :with_token) }

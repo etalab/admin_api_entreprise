@@ -4,7 +4,7 @@ class NotInProductionTokensIdsElasticQuery
       [UsersQuery.new.with_token.results.first.token.first.id]
     else
       $elastic.search(body: json_query, size: 0)
-        .dig('aggregations', 'production-delayed-jti', 'buckets').map { |bucket| bucket['key'] }
+        .dig('aggregations', 'production-delayed-jti', 'buckets').pluck('key')
     end
   end
 

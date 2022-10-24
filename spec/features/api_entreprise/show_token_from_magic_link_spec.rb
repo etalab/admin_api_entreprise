@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'show token from magic link', type: :feature, app: :api_entreprise do
+RSpec.describe 'show token from magic link', app: :api_entreprise do
   subject do
     visit token_show_magic_link_path(token: magic_token)
   end

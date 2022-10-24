@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'stats page for a token', type: :feature, app: :api_entreprise do
+RSpec.describe 'stats page for a token', app: :api_entreprise do
   subject { visit token_stats_path(token) }
 
   let(:user) { create(:user, :with_token) }

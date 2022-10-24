@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Documentation pages', type: :feature, app: :api_entreprise do
+RSpec.describe 'Documentation pages', app: :api_entreprise do
   describe 'developers' do
-    it 'works' do
+    it 'does not raise error' do
       expect {
         visit developers_path
       }.not_to raise_error
@@ -12,7 +12,7 @@ RSpec.describe 'Documentation pages', type: :feature, app: :api_entreprise do
   end
 
   describe 'guide migration' do
-    it 'works' do
+    it 'does not raise error' do
       expect {
         visit guide_migration_path
       }.not_to raise_error

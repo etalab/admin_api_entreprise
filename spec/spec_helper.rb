@@ -155,7 +155,7 @@ RSpec.configure do |config|
     )
   end
 
-  config.before(:each, type: :feature, app: :api_entreprise) do
+  config.before(:each, app: :api_entreprise, type: :feature) do
     stub_request(:get, 'https://status.entreprise.api.gouv.fr/summary.json').and_return(
       status: 200,
       body: {

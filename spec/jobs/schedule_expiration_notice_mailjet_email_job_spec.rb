@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ScheduleExpirationNoticeMailjetEmailJob, type: :job do
+RSpec.describe ScheduleExpirationNoticeMailjetEmailJob do
   describe '#perform' do
     subject do
       described_class.perform_now(

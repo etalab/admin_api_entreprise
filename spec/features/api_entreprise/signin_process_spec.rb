@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'the signin process', type: :feature, app: :api_entreprise do
+RSpec.describe 'the signin process', app: :api_entreprise do
   subject do
     visit login_path
     click_on 'login'

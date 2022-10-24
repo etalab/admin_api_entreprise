@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe API::DatapassWebhooksController, type: :controller do
+RSpec.describe API::DatapassWebhooksController do
   let(:params) do
     {
       'event' => event,
