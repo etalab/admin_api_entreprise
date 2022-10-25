@@ -5,6 +5,7 @@ class Seeds
 
     create_data_for_api_entreprise
     create_data_for_api_particulier
+    create_data_shared
 
     create_access_logs
   end
@@ -35,9 +36,11 @@ class Seeds
   def create_data_for_api_particulier
     @scopes_particulier = create_scopes_particulier
 
-    token = create_api_particulier_token_valid
+    create_api_particulier_token_valid
+  end
 
-    Token::CreateMagicLink.call(token:)
+  def create_data_shared
+    create_magic_link
   end
 
   def create_main_user
@@ -47,6 +50,10 @@ class Seeds
       first_name: 'Jean',
       last_name: 'Dupont'
     )
+  end
+
+  def create_magic_link
+    MagicLink.new(email: @user.email)
   end
 
   def create_api_entreprise_token_with_contact
