@@ -61,6 +61,9 @@ production: &production
         condition_on_authorization: 'editor_authorization_request'
         to:
           - 'authorization_request.user'
+        cc:
+          - 'authorization_request.contact_technique'
+          - 'authorization_request.contact_metier'
 
       - id: '3090261'
         condition_on_authorization: 'not_editor_and_all_contacts_have_the_same_email?'
