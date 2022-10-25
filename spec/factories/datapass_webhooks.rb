@@ -15,10 +15,13 @@ FactoryBot.define do
       extra_data { {} }
       demandeur_attributes { nil }
       authorization_request_attributes { nil }
+      demarche { nil }
     end
 
     after(:build) do |datapass_webhook, evaluator|
       datapass_webhook['data']['pass'] = build(:datapass_webhook_pass_model, evaluator.authorization_request_attributes) if evaluator.authorization_request_attributes
+
+      datapass_webhook['data']['pass']['demarche'] = evaluator.demarche
 
       if evaluator.demandeur_attributes
         datapass_webhook['data']['pass']['team_members'].reject! do |team_member_model|
@@ -38,6 +41,7 @@ FactoryBot.define do
     sequence(:id, &:to_s)
     intitule { 'intitule from webhook' }
     description { 'description from webhook' }
+    demarche { nil }
     status { 'sent' }
     copied_from_enrollment_id { nil }
     siret { '13002526500013' }
