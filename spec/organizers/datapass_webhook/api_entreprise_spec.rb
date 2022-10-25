@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe DatapassWebhook::APIEntreprise, type: :interactor do
   subject { described_class.call(datapass_webhook_params) }
 
-  let(:datapass_webhook_params) { build(:datapass_webhook, event: 'validate_application', authorization_request_attributes: { copied_from_enrollment_id: previous_enrollment_id }) }
+  let(:datapass_webhook_params) { build(:datapass_webhook, event: 'validate_application', demarche: 'editeurs', authorization_request_attributes: { copied_from_enrollment_id: previous_enrollment_id }) }
   let(:previous_enrollment_id) { rand(9001).to_s }
   let(:token) { create(:token) }
 
@@ -25,12 +25,13 @@ RSpec.describe DatapassWebhook::APIEntreprise, type: :interactor do
     }.to change(User, :count).by(1)
   end
 
-  it 'creates an authorization request with entreprise api' do
+  it 'creates an authorization request with entreprise api and demarche' do
     expect {
       subject
     }.to change(AuthorizationRequest, :count).by(1)
 
     expect(subject.authorization_request.api).to eq('entreprise')
+    expect(subject.authorization_request.demarche).to eq('editeurs')
   end
 
   it 'creates token for API Entreprise and stores id in token_id' do

@@ -39,6 +39,7 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
     context.data['pass'].slice(
       'intitule',
       'description',
+      'demarche',
       'status',
       'siret'
     ).merge(authorization_request_attributes_for_current_event).merge(
