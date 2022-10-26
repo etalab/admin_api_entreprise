@@ -5,6 +5,6 @@ class TokenMailer < ApplicationMailer
     to = magic_link.email
     subject = t('.subject')
 
-    mail(to: recipient, subject:)
+    mail(to:, subject:)
   end
 end

@@ -1,5 +1,8 @@
 class Token::CreateMagicLink < ApplicationInteractor
   def call
-    context.token.generate_magic_link_token
+    context.magic_link = MagicLink.create(
+      email: context.email,
+      expiration_offset: context.expiration_offset
+    )
   end
 end

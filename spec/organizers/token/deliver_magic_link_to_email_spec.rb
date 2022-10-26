@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe Token::DeliverMagicLinkToEmail, type: :organizer do
   subject { described_class.call(params) }
 
-  let(:token) { create(:token) }
   let(:params) do
     {
-      token:,
       email:
     }
   end
+
+  let(:new_magic_link) { MagicLink.find_by(email:) }
 
   context 'with a valid email address' do
     let(:email) { 'valid@email.com' }
@@ -19,23 +19,22 @@ RSpec.describe Token::DeliverMagicLinkToEmail, type: :organizer do
     it 'queues the magic link email' do
       expect { subject }
         .to have_enqueued_mail(TokenMailer, :magic_link)
-        .with(email, token)
+        .with(new_magic_link)
     end
 
-    it 'saves a magic token' do
+    it 'saves a magic random token' do
       subject
-      token.reload
 
-      expect(token.magic_link_token).to match(/\A[0-9a-f]{20}\z/)
+      expect(new_magic_link.random_token).to match(/\A[0-9a-f]{20}\z/)
     end
 
     it 'saves the issuance date of the magic token' do
       creation_time = Time.zone.now
+
       Timecop.freeze(creation_time) do
         subject
-        token.reload
 
-        expect(token.magic_link_issuance_date.to_i).to eq(creation_time.to_i)
+        expect(new_magic_link.created_at.to_i).to eq(creation_time.to_i)
       end
     end
   end

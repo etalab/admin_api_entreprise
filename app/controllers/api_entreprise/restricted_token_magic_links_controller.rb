@@ -4,8 +4,8 @@ class APIEntreprise::RestrictedTokenMagicLinksController < APIEntreprise::Authen
 
     if access_allowed_for_current_user?
       organizer = Token::DeliverMagicLinkToEmail.call(
-        token: @token,
-        email: target_email
+        email: target_email,
+        expiration_offset: 4.hours
       )
 
       if organizer.success?
