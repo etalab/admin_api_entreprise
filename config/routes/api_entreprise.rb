@@ -48,6 +48,8 @@ constraints(APIEntrepriseDomainConstraint.new) do
     get '/cas_usages', to: 'cas_usages#index'
     get '/cas_usages/:uid', to: 'cas_usages#show', as: :cas_usage
 
+    get '/blog/:id', to: 'blog_posts#show', as: :blog_post
+
     get '/apis/status', to: 'pages#current_status', as: :current_status
     get '/v3/openapi.yaml', to: ->(env) { [200, {}, [OpenAPIDefinition.instance.open_api_definition_content]] }, as: :openapi_definition
 
