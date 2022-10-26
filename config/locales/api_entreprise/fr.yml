@@ -216,8 +216,12 @@ fr:
     public_token_magic_links:
       show:
         error:
-          title: Une erreur est survenue à la récupération du jeton.
-          description: Le jeton est peut-être invalide ou le lien a expiré (les liens ont une durée de vie de 4 heures). Veuillez re-demander un accès à votre responsable de compte.
+          expired:
+            title: Lien magique expiré
+            description: Le lien d'accès au jeton a expiré. Les liens magiques ont une durée de vie comprise entre 4 et 24 heures selon les situations. Veuillez redemander un accès à votre responsable de compte.
+          unknown:
+            title: Une erreur est survenue à la récupération du jeton.
+            description: Le jeton demandé n'a pas été trouvé. Veuillez contacter le support&nbsp;:&nbsp;support@entreprise.api.gouv.fr
         disclaimer:
           title: Durée de validité du lien
           description: Cette page contient votre jeton d'accès à API Entreprise et ne doit en aucun cas être partagée avec un tiers non habilité ! Ce lien expirera dans %{expiration_time}.

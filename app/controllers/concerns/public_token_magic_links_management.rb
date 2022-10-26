@@ -2,19 +2,30 @@ module PublicTokenMagicLinksManagement
   extend ActiveSupport::Concern
 
   def show
-    retrieve_token = Token::RetrieveFromMagicLink.call(magic_token: params[:token], expiration_offset:)
+    @magic_link = MagicLink.find_by(random_token:)
 
-    if retrieve_token.success?
-      @token = retrieve_token.token
-    else
-      error_message(title: t("#{namespace}.public_token_magic_links.show.error.title"), description: t("#{namespace}.public_token_magic_links.show.error.description"))
-      redirect_to login_path
-    end
+    handle_errors!
   end
 
   protected
 
-  def expiration_offset
-    nil
+  def random_token
+    params[:token]
+  end
+
+  def handle_errors!
+    if @magic_link.blank?
+      handle_error!('unknown')
+    elsif @magic_link.expired?
+      handle_error!('expired')
+    end
+  end
+
+  def handle_error!(error_type)
+    error_message(
+      title: t("#{namespace}.public_token_magic_links.show.error.#{error_type}.title"),
+      description: t("#{namespace}.public_token_magic_links.show.error.#{error_type}.description")
+    )
+    redirect_to login_path
   end
 end

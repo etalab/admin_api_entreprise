@@ -1,12 +1,12 @@
 <div class="fr-alert fr-alert--info fr-mb-8v">
   <p class="fr-alert__title"><%= t('.disclaimer.title') %></p>
   <p>
-  <%= t('.disclaimer.description', expiration_time: distance_of_time_in_words(Time.zone.now, @token.magic_link_issuance_date + 4.hours)) %>
+  <%= t('.disclaimer.description', expiration_time: distance_of_time_in_words(Time.zone.now, @magic_link.expiration_time)) %>
   </p>
 </div>
 
 <div class="fr-grid-row">
   <div class="fr-col-12 fr-pb-2w">
-    <%= render @token %>
+    <%= render @magic_link.tokens %>
   </div>
 </div>
