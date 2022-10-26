@@ -24,19 +24,19 @@ RSpec.describe TokensAssociatedToEmailQuery do
       let(:tokens) { [contact_1.token, contact_2.token] }
 
       context 'when API is not provided' do
-        it { is_expected.to eq(token_list) }
+        it { is_expected.to contain_exactly(*token_list) }
       end
 
       context 'when API Particulier' do
         let(:api) { :particulier }
 
-        it { is_expected.to eq(token_list_particulier) }
+        it { is_expected.to contain_exactly(*token_list_particulier) }
       end
 
       context 'when API Entreprise' do
         let(:api) { :entreprise }
 
-        it { is_expected.to eq(token_list_particulier) }
+        it { is_expected.to contain_exactly(*token_list_particulier) }
       end
     end
 
@@ -55,19 +55,19 @@ RSpec.describe TokensAssociatedToEmailQuery do
       let(:tokens) { user.tokens.to_a }
 
       context 'when API is not provided' do
-        it { is_expected.to eq(token_list) }
+        it { is_expected.to contain_exactly(*token_list) }
       end
 
       context 'when API Particulier' do
         let(:api) { :particulier }
 
-        it { is_expected.to eq(token_list_particulier) }
+        it { is_expected.to contain_exactly(*token_list_particulier) }
       end
 
       context 'when API Entreprise' do
         let(:api) { :entreprise }
 
-        it { is_expected.to eq(token_list_entreprise) }
+        it { is_expected.to contain_exactly(*token_list_entreprise) }
       end
     end
 
@@ -85,19 +85,19 @@ RSpec.describe TokensAssociatedToEmailQuery do
       let(:tokens) { user.tokens.to_a + [contact.token] }
 
       context 'when API is not provided' do
-        it { is_expected.to eq(token_list) }
+        it { is_expected.to contain_exactly(*token_list) }
       end
 
       context 'when API Particulier' do
         let(:api) { :particulier }
 
-        it { is_expected.to eq(token_list_particulier) }
+        it { is_expected.to contain_exactly(*token_list_particulier) }
       end
 
       context 'when API Entreprise' do
         let(:api) { :entreprise }
 
-        it { is_expected.to eq(token_list_entreprise) }
+        it { is_expected.to contain_exactly(*token_list_entreprise) }
       end
     end
 
