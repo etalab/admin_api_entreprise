@@ -721,14 +721,26 @@ fr:
               - subtitle: Tester l'API en préproduction
                 subtitle_anchor: 'tester-api-preproduction'
                 content: |+
-                  Depuis le swagger de l'API Entreprise, **testez l'API sans avoir besoin d'un jeton d'habilitation**.
-                  Ce bac à sable retourne de fausses données structurées de la même façon que pour l'API en production.
+                  L'API Entreprise est **testable avec un jeton accessible à tous depuis notre environnement de staging**. Ce bac à sable retourne des données fictives.
                   
-                  **L'environnement de staging est disponible à cette adresse : [https://staging.entreprise.api.gouv.fr](https://staging.entreprise.api.gouv.fr){:target="_blank"}** en utilisant ce jeton : 
-                  ```
-                  eyJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiIzMGU2ODQ1OC0wMjlhLTQ2YTAtYWJiMi03ZTA4ZGVlMDAxM2UiLCJqdGkiOiIwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDAiLCJyb2xlcyI6WyJjZXJ0aWZpY2F0X3JnZV9hZGVtZSIsIm1zYV9jb3Rpc2F0aW9ucyIsImVudHJlcHJpc2UiLCJleHRyYWl0X3JjcyIsImNlcnRpZmljYXRfb3BxaWJpIiwiYXNzb2NpYXRpb25zIiwiZXRhYmxpc3NlbWVudCIsImV0YWJsaXNzZW1lbnRzIiwiZm50cF9jYXJ0ZV9wcm8iLCJxdWFsaWJhdCIsImVudHJlcHJpc2VfYXJ0aXNhbmFsZSIsImNlcnRpZmljYXRfY25ldHAiLCJlb3JpX2RvdWFuZXMiLCJwcm9idHAiLCJhY3Rlc19pbnBpIiwiZXh0cmFpdF9jb3VydF9pbnBpIiwiYXR0ZXN0YXRpb25zX3NvY2lhbGVzIiwibGlhc3NlX2Zpc2NhbGUiLCJhdHRlc3RhdGlvbnNfZmlzY2FsZXMiLCJleGVyY2ljZXMiLCJjb252ZW50aW9uc19jb2xsZWN0aXZlcyIsInVwdGltZSIsImJpbGFuc19pbnBpIiwiZG9jdW1lbnRzX2Fzc29jaWF0aW9uIiwiYWlkZXNfY292aWRfZWZmZWN0aWZzIiwiY2VydGlmaWNhdF9hZ2VuY2VfYmlvIiwiZW50cmVwcmlzZXMiLCJiaWxhbnNfZW50cmVwcmlzZV9iZGYiLCJwcml2aWxlZ2VzIiwiYXR0ZXN0YXRpb25zX2FnZWZpcGgiLCJleHRyYWl0c19yY3MiLCJlbnRyZXByaXNlc19hcnRpc2FuYWxlcyJdLCJzdWIiOiJzdGFnaW5nIGRldmVsb3BtZW50IiwiaWF0IjoxNjU2NTkzNjYxLCJ2ZXJzaW9uIjoiMS4wIiwiZXhwIjoxNjU5MTg1NjYxfQ.wO55RVpIxYLKCH9EMXKoG3fkHfVQivGOExHs93xF-eE
-                  ```
-                  
+                  Pour utiliser l'environnement de test, plusieurs moyens sont possibles : 
+                  * **Utilisez l'interface disponible depuis [API.gouv](https://api.gouv.fr/documentation/api-entreprise){:target="_blank"}** :
+                      1. Copiez le jeton de test disponible dans les premiers paragraphes de la page. 
+                      2. Sélectionnez _"https://staging.entreprise.api.gouv.fr - Environnement de staging"_ dans le menu déroulant situé un peu plus bas du jeton de test, à gauche. 
+                      3. Cliquez sur le bouton à droite _"Authorize"_, et entrez le jeton de test dans le champ _"Value"_ de la modale qui s'est ouverte ; validez en cliquant sur _"Authorize"_. L'environnement de test est configuré, fermez la modale. 
+                      4. Pour terminer, pour chacune des API, un bouton _"Try it out"_ vous permet de pré-remplir les paramètres d'appel avec différents exemples. Appuyez sur _"Execute"_ pour obtenir les différentes réponses possibles.
+
+                  * **Utilisez un logiciel de type _Postman_ à partir du fichier OpenAPI :** 
+                      1. Téléchargez le fichier OpenAPI de l'API Entreprise depuis la [page de swagger](<%= developers_openapi_path %>), avec le bouton "Download" situé en début de page.
+                      2. Importer ce fichier dans un logiciel de test de type "Postman" ou "Newman".
+                      3. Configurez votre environnement avec l'url de l'environnement de staging `https://staging.entreprise.api.gouv.fr`. 
+                      API Entreprise ne recommande pas un logiciel plus qu'un autre, de nombreux tutoriels sont disponibles sur internet.
+
+                  * **Interrogez le staging depuis votre terminal avec une ligne de commande :**
+                      1. Rendez-vous sur la [documentation swagger du site API Entreprise](<%= developers_openapi_path %>), copiez le jeton de staging disponible en début de page.
+                      2. Dans la partie _"Request samples"_ disponible pour chaque API dans le swagger, recopiez les lignes de commandes proposées débutant par `curl -X GET` en remplaçant `$token` par le jeton de test et en veillant à ajouter `staging` au début de l'URL : `https://staging.entreprise.api.gouv.fr/v3/...`
+                      3. Lancez cette ligne de commande dans votre terminal.
+                    
               - subtitle: Récupérer le jeton JWT&nbsp;🔑
                 subtitle_anchor: 'récupérer-le-jeton-jwt'
                 content: |+
