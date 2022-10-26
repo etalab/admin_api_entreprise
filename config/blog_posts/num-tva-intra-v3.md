@@ -7,7 +7,7 @@ Mercredi 26 octobre 2022 - Publication
 {:.fr-highlight}
 **Qu'est qu'un numéro de TVA intracommunautaire ?**
 Le numéro de TVA intracommunautaire est un identifiant unique attribué aux entreprises concernées par la TVA et domiciliées au sein de l'Union européenne. Le numéro est délivré par l'administration fiscale du pays de domiciliation de l'entreprise au moment de son immatriculation ou de sa déclaration d'activité. La structure du numéro est différente selon les pays de l'UE.
-*Pour en savoir plus :* [Entreprendre.service-public.fr](https://entreprendre.service-public.fr/vosdroits/F23570){:target="_blank"} et [Economie.gouv.fr](https://www.economie.gouv.fr/entreprises/activite-entreprise-numero-tva-intracommunautaire){:target="_blank"}.
+*Pour en savoir plus :* [entreprendre.service-public.fr](https://entreprendre.service-public.fr/vosdroits/F23570){:target="_blank"} et [economie.gouv.fr](https://www.economie.gouv.fr/entreprises/activite-entreprise-numero-tva-intracommunautaire){:target="_blank"}.
 
 <br>
 
