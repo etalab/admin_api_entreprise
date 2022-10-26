@@ -22,7 +22,8 @@ Le catalogue de l'API Entreprise s'est enrichi d'une nouvelle [API N°TVA intrac
 
 Contrairement à l'information auparavant délivrée en version 2, le numéro de TVA intracomunautaire délivré par cette API est **certifié car vérifié auprès du [site officiel de la Commission Européenne](https://ec.europa.eu/taxation_customs/vies/#/vat-validation){:target="_blank"}**.
 
-Dans la majorité des cas, il est assez simple de déduire le numéro de TVA à partir du numéro de SIREN. En effet, la structure d'un numéro de TVA français est constitué du code FR et de 11 chiffres (une clé informatique déductible de 2 chiffres suivie du numéro SIREN de l'entreprise). Mais comme vu précédemment, toutes les entreprises inscrites au répertoire SIREN assujetties à la TVA n'ont pas forcément un numéro français. C'est pourquoi, il est indispensable de **vérifier systématiquement** le numéro calculé.
+Dans la majorité des cas, il est assez simple de déduire le numéro de TVA à partir du numéro de SIREN. Il existe en effet une règle de calcul (détaillée dans cet [article Wikipédia](https://fr.wikipedia.org/wiki/Code_Insee#Num%C3%A9ro_de_TVA_intracommunautaire)) ; de fait, la structure d'un numéro de TVA français est toujours constituée du code FR et de 11 chiffres (une clé informatique déductible de 2 chiffres suivie du numéro SIREN de l'entreprise). 
+En revanche, comme expliqué précédemment, toutes les entreprises inscrites au répertoire Sirene et assujetties à la TVA n'ont pas forcément un numéro français. C'est pourquoi, il est indispensable de **vérifier systématiquement** le numéro calculé.
 
 Lors de la conception de la V.3, API Entreprise a décidé de ne plus délivrer le numéro de TVA intracommunautaire par le biais de l'API de l'Insee car cette donnée ne provient pas de ce fournisseur. De plus, en version 2, le numéro de TVA délivré n'était pas vérifié auprès du service VIES de la Commission européenne.
 
