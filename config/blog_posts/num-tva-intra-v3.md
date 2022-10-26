@@ -1,4 +1,4 @@
-Le mercredi 26 octobre 2022 - Blogpost
+Mercredi 26 octobre 2022 - Publication
 
 # Obtenez le N°TVA intracommunautaire français d'une entreprise à partir de son SIREN
 
