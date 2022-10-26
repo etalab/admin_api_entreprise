@@ -208,6 +208,7 @@ Ci-dessous les diverses rubriques principalement à destination des métiers /
 produits pour itérer sur le site (que ce soit en terme de contenu ou fonctionnel)
 
 - [Gestion des webhooks DataPass](docs/webhooks.md)
+- [Blog posts](docs/blog_posts.md)
 - [Design (CSS and stuff)](docs/design.md)
 - Technique
   - [Utilisation des modals avec Turbo](docs/tech-modal-turbo.md)
