@@ -44,5 +44,5 @@ Dans le cadre des candidatures aux marchés publics, le numéro de TVA intracomm
 
 Collectivités, administrations centrales, **quelles sont les démarches où vous demandez à une entreprise inscrite au répertoire Sirene de vous fournir son numéro de TVA français ?**
 
-[Partagez-nous vos cas d'usage](https://FEEDME){:.fr-btn fr-btn--secondary}
+[Partagez-nous vos cas d'usage](https://form.typeform.com/to/MXv9b011){:.fr-btn fr-btn--secondary}
 
