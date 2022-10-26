@@ -33,7 +33,7 @@ L'API Entreprise ne peut pas délivrer le numéro de TVA d'une entreprise si cel
 {:.fr-highlight.fr-highlight--caution}
 Cette impossibilité est également valable pour tous les sites tiers : **aucun site n'est en mesure de déduire un numéro de TVA étranger avec un SIREN**. 
 
-⚠️ Dans le cas où l’API Entreprise ne délivre pas de numéro de TVA pour un SIREN alors que vous l'avez obtenu par un site tiers, il est fort probable que ce numéro de TVA est invalide. 
+⚠️ Dans le cas où l’API Entreprise ne délivre pas de numéro de TVA pour un SIREN alors que vous l'avez obtenu par un site tiers, il est fort probable que ce numéro de TVA soit invalide. 
 Si vous avez un doute, vous pouvez vérifier vous-même le numéro de TVA à partir du [service VIES](https://ec.europa.eu/taxation_customs/vies/#/vat-validation){:target="_blank"}.
 
 ## Cas d'usages
