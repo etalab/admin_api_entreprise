@@ -1,7 +1,12 @@
+require 'rails_helper'
+
 RSpec.describe 'show token from magic link', app: :api_particulier do
   subject do
     visit api_particulier_token_show_magic_link_path(token: magic_token)
   end
+
+  let!(:user) { create(:user, :with_token, tokens_amount: 2, email:) }
+  let(:email) { 'any-email@data.gouv.fr' }
 
   context 'when the magic link token does not exist' do
     let(:magic_token) { 'wrong-token' }
@@ -16,20 +21,29 @@ RSpec.describe 'show token from magic link', app: :api_particulier do
   end
 
   context 'when the magic link token exists' do
-    let!(:token) { create(:token, :with_magic_link) }
-    let(:magic_token) { token.magic_link_token }
+    let!(:magic_link) { create(:magic_link, email:) }
+    let(:magic_token) { magic_link.random_token }
+    let(:tokens) { magic_link.tokens }
 
     context 'when the magic token is still active' do
-      it 'shows the token details' do
-        subject
-
-        expect(page).to have_css("input[value='#{token.rehash}']")
+      it 'has the right number of tokens' do
+        expect(tokens.count).to eq(2)
       end
 
-      it 'has a button to copy the token hash' do
+      it 'shows the tokens details' do
         subject
 
-        expect(page).to have_css("##{dom_id(token, :copy_button)}")
+        tokens.each do |token|
+          expect(page).to have_css("input[value='#{token.rehash}']")
+        end
+      end
+
+      it 'has a button to copy the tokens hashes' do
+        subject
+
+        tokens.each do |token|
+          expect(page).to have_css("##{dom_id(token, :copy_button)}")
+        end
       end
     end
 
