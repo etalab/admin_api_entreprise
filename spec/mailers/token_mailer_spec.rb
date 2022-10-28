@@ -13,8 +13,8 @@ RSpec.describe TokenMailer do
     its(:to) { is_expected.to contain_exactly(email) }
 
     it 'contains the magic link to the token' do
-      expect(subject.html_part.decoded).to include(magic_link.url)
-      expect(subject.text_part.decoded).to include(magic_link.url)
+      expect(subject.html_part.decoded).to include(magic_link_url)
+      expect(subject.text_part.decoded).to include(magic_link_url)
     end
   end
 end

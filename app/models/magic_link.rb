@@ -7,7 +7,7 @@ class MagicLink < ApplicationRecord
   before_create :generate_random_token
 
   def generate_random_token
-    self.random_token = random_token_for(:random_token)
+    self.random_token ||= random_token_for(:random_token)
   end
 
   def tokens(api: nil)

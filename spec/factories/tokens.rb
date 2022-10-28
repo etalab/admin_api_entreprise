@@ -104,6 +104,12 @@ FactoryBot.define do
       exp { 20.months.ago.to_i }
     end
 
+    trait :with_magic_link do
+      after(:create) do |token|
+        create(:magic_link, email: token.user.email)
+      end
+    end
+
     trait :api_entreprise do
       transient do
         scopes_count { 1 }

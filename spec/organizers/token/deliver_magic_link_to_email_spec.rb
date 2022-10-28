@@ -27,16 +27,6 @@ RSpec.describe Token::DeliverMagicLinkToEmail, type: :organizer do
 
       expect(new_magic_link.random_token).to match(/\A[0-9a-f]{20}\z/)
     end
-
-    it 'saves the issuance date of the magic token' do
-      creation_time = Time.zone.now
-
-      Timecop.freeze(creation_time) do
-        subject
-
-        expect(new_magic_link.created_at.to_i).to eq(creation_time.to_i)
-      end
-    end
   end
 
   context 'with an email which exists in database' do
