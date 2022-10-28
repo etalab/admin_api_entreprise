@@ -379,9 +379,9 @@ fr:
           "inpi/marques": ""
           "inpi/modeles": ""
         introduction:
-          title: Simplifier les démarches sur votre Portail de gestion relation usager (GRU)
+          title: Simplifiez vos démarches entreprises & associations sur votre portail de gestion relation usager (GRU) grâce à API Entreprise !
           content: |
-            API Entreprise propose des API aux administrations et collectivités ayant un portail de relation usager (GRU) ou citoyen (GRC) qui concerne les entreprises et les associations. L'API permet, à partir de l'identifiant RNA ou du numéro de SIRET, de personnaliser l'expérience en ligne, et de pré-remplir les champs des démarches en ligne, dans la logique du dîtes-le nous une fois.
+            Administrations et collectivités, API Entreprise propose l’accès direct aux données entreprises & associations. À partir de l'identifiant RNA ou du numéro de SIRET, vous personnalisez l'expérience en ligne car les champs sont automatiquement pré-remplis.
         role:
           title: Le rôle d’API Entreprise
           anchor: 'role-api-entreprise'
@@ -391,34 +391,35 @@ fr:
             L’API Entreprise facilite les démarches en ligne des entreprises et associations sur votre portail, en **pré-remplissant directement les données administratives connues par l'API Entreprise 📝 et ouvertes 🔓**.
 
             {:.fr-highlight}
-            **Si votre portail propose d'autres services, tels que la délivrance d'aides et subventions publiques ou encore un espace de candidature aux marchés publics** et que vous souhaitez accéder à des données administratives protégées pour instruire les dossiers, il vous faudra demander une habilitation supplémentaire par cas d'usage.
-            En savoir plus sur le [cas d'usage aides et subventions publiques](<%= cas_usage_path(uid: 'subventions') %>) et le [cas d'usage marchés publics](<%= cas_usage_path(uid: 'marches_publics') %>).
+            **Si votre portail propose d'autres services, tels que la délivrance d'aides et subventions publiques* et que vous souhaitez accéder à des données administratives protégées pour instruire les dossiers, il vous faudra demander une habilitation supplémentaire par cas d'usage.
+            En savoir plus sur le [cas d'usage aides et subventions publiques](<%= cas_usage_path(uid: 'subventions') %>) et les [autres cas d'usages](<%= cas_usages_path %>).
 
             #### Ce que cela change pour vous, administrations et collectivités
 
             En intégrant la brique API Entreprise dans votre site internet :
             - ✅ Vous **accédez facilement aux données publiques** de l'Insee, d'Infogreffe, de l'Inpi ... ;
-            - ✅ Vous **augmentez le pourcentage des démarches effectuées jusqu'au bout (taux de converion)** car vous faîtes gagner du temps à l'usager ;
+            - ✅ Vous **augmentez le pourcentage des démarches finalisées** car vous faîtes gagner du temps à l'usager ;
             - ✅ Vous n’avez pas de vérification supplémentaire à réaliser car les **informations sont certifiées**.
         list_api:
           content: |+
             Pour ce cas d'usage, **seules les données publiques sont accessibles**. En effet, le pré-remplissage d'une démarche sur un portail GRU se fait en ligne, sans authentification.
             
             {:.fr-highlight}
-            Si vous souhaitez accéder à des données protégées pour aider vos agents à instruire des dossiers de subventions, d'aides ou de marchés publics, il vous faudra faire une demande complémentaire par cas d'usage.<br>En savoir plus sur les différents [cas d'usages API Entreprise](<%= cas_usages_path %>)
+            Si vous souhaitez accéder à des données protégées pour aider vos agents à instruire des dossiers de subventions, d'aides ou d'autres démarches, il vous faudra faire une demande complémentaire par cas d'usage.<br>En savoir plus sur les différents [cas d'usages API Entreprise](<%= cas_usages_path %>)
         users:
           title: Ils utilisent l’API Entreprise
           anchor: 'users'
           content: |+
             ##### Des communes et intercommunalités
 
-            Le [portail en ligne de la ville de Chambéry](https://simplici.chambery.fr/){:target="_blank"} illustre l'utilisation de l'API Entreprise dans le cadre de plateforme de démarches à destination des entreprises et des associations.
+            Le [portail en ligne de la ville de Chambéry](https://simplici.chambery.fr/){:target="_blank"} : une plateforme de démarches à destination des entreprises et des associations.
 
             ##### Des régions
 
-            Le [portail GRU de la Région Réunion](https://demarches.cr-reunion.fr/){:target="_blank"} est un bon exemple de plateforme en ligne proposant également la délivrance d'aides et subventions publiques.
+            Le [portail GRU de la Région Réunion](https://demarches.cr-reunion.fr/){:target="_blank"} : une plateforme en ligne qui propose également la délivrance d'aides et subventions publiques.
 
-            L'accès à l'API entreprise nous permet de faire des contrôles lors de la création de la demande par l'usager (contrôle existence SIREN/SIRET, récupération adresse, ...) et nous permet d'afficher à nos agents des aides à l'instruction (différences entres données fournies par l'usager et les données remontées par l'API: code NAF, dénomination, taille de l'entreprise, ...).
+            {:.fr-highlight.fr-highlight--example.fr-text--regular.fr-text--alt.fr-text--lg}
+            "_L'accès à l'API entreprise nous permet de faire des contrôles lors de la création de la demande par l'usager (contrôle existence SIREN/SIRET, récupération adresse, ...) et nous permet d'afficher à nos agents des aides à l'instruction (différences entres données fournies par l'usager et les données remontées par l'API: code NAF, dénomination, taille de l'entreprise, ...)._"
 
             ##### Parfois au travers d’un éditeur de logiciel :
 
@@ -432,9 +433,9 @@ fr:
 
         request_access:
           link_datapass: "https://datapass.api.gouv.fr/api-entreprise"
-          content: "**Si votre portail propose d'autres services, tels que la délivrance d'aides et subventions publiques ou encore un espace de candidature aux marchés publics** et que vous souhaitez accéder à des données administratives protégées pour instruire les dossiers, il vous faut faire plusieurs demandes d'habilitation, une par cas d'usage.
+          content: "**Si vous souhaitez accéder à des données administratives protégées pour instruire des démarches**, il vous faudra faire une demande d'habilitation par cas d'usage, en plus de celle-ci, car elle ne vous donne accès qu'à de la donnée publique.
 
-            Afin d'accéder aux formulaires spécifiques, consultez [la fiche pratique \"aides et subventions publiques\"](<%= cas_usage_path(uid: 'subventions') %>) et [la fiche pratique \"marchés publics\"](<%= cas_usage_path(uid: 'marches_publics') %>)."
+            Afin d'accéder aux formulaires spécifiques, consultez [la fiche pratique \"aides et subventions publiques\"](<%= cas_usage_path(uid: 'subventions') %>) et [les autres cas d'usages](<%= cas_usages_path %>)."
       editeur:
         name: 'Accès spécifique éditeurs de logiciels'
         user_types:
