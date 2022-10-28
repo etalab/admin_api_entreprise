@@ -479,6 +479,9 @@ fr:
               - ☑️ Il est interdit d'interroger l'API Entreprise depuis un site web en front-end, car le jeton d'accès serait alors divulgué. Il vous faut donc interroger nos API depuis une application en back-end. Nous n'autoriserons pas le CORS (CORS - Cross Origin Ressource Sharing) ;
               - ☑️ Prévoir non seulement les coûts de développement mais également les coûts de maintenance ;
               - ☑️ Être en capacité de gérer les mises à jour de l'API Entreprise.
+              
+              <br>
+              💡 Pour mieux comprendre l'API Entreprise avant de demander un accès, **vous pouvez utiliser [notre environnement de test](<%= developers_path(anchor: 'tester-api-preproduction') %>)**.
 
           - anchor: 'specifications-generales'
             title: Spécifications générales&nbsp;🎛
@@ -583,12 +586,6 @@ fr:
                   Toutes les réponse de l’API Entreprise sont envoyées avec un code HTTPS. **Ces codes permettent de se renseigner sur le statut de l’appel**, et sont harmonisés pour l'ensemble des API quelque soir le fournisseur de données.
                   Pour en savoir plus sur les codes HTTPS, cet article de [Wikipedia](https://fr.wikipedia.org/wiki/Liste_des_codes_HTTP){:target="_blank"} constitue une bonne base explicative.
 
-                  {:.fr-details}
-                  <details>
-
-                  <summary>
-                  👀 Consulter la liste des codes HTTPS et leur signification.
-                  </summary>
                   ##### En cas de succès, le code HTTP commence par 2 :
 
                   {:.fr-table}
@@ -620,7 +617,6 @@ fr:
                   |`503` | **Service non disponible** – Le service est temporairement indisponible ou en maintenance. Pour connaître l’historique de disponibilité et les incidents type de l’endpoint, vous pouvez [consulter le catalogue de données](../catalogue/).
                   |`504` | **Intermédiaire hors délai** – Le(s) producteur(s) de données ont mis trop de temps à répondre. Notre temps d’attente, nous permettant de ne pas immobiliser le serveur sur un appel sans réponse, est fixé à 10 secondes et a été dépassé.|
 
-                  </details>
 
                   #### Un code supplémentaire pour préciser l'erreur et enclencher une action
 
@@ -665,9 +661,9 @@ fr:
                   {:.fr-table}
                   | Paramètre                                                  |      Information à renseigner           |
                   |:----------------------------------------------------------:|-----------------------------------------|
-                  |`&context=CadreDeLaRequête`|**Cadre de la requête** <br>Par exemple : aides publiques, marchés publics ou gestion d'un référentiel tiers utilisé pour tel type d'application*.*
-                  |`&recipient=BénéficaireDeL'Appel`|**Bénéficiaire de l'appel** <br>SIRET de l'administration destinatrice des données.
-                  |`&object= RaisonDeL'AppelOuIdentifiant`|**La raison de l'appel** <br> ou l'identifiant de la procédure. <br> L'identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l'essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l'appel. En effet, vous devez pouvoir justifier de la raison d'un appel auprès du fournisseur de données. <br> Description courte (< 50 caractères).
+                  |`&context=CadreDeLaRequête`|**Le cadre de la requête** <br><br>Par exemple : aides publiques, marchés publics ou gestion d'un référentiel tiers utilisé pour tel type d'application*.*
+                  |`&recipient=BénéficaireDeL'Appel`|**Le bénéficiaire de l'appel** <br><br>Ce paramètre permet la traçabilité de l'appel et doit correspondre au _SIRET de l'organisation publique habilitée à utiliser la donnée_. <br><br>Si vous êtes une collectivité ou une administration, ce paramètre doit donc être votre numéro de SIRET. Si vous êtes un éditeur, il s'agit du SIRET de l'organisation publique cliente demandant la donnée.
+                  |`&object= RaisonDeL'AppelOuIdentifiant`|**La raison de l'appel** <br> ou l'identifiant de la procédure. <br><br> L'identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l'essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l'appel. En effet, vous devez pouvoir justifier de la raison d'un appel auprès du fournisseur de données. <br> Description courte (< 50 caractères).
 
               - subtitle: Changer de version
                 subtitle_anchor: 'changer-de-version'
@@ -722,6 +718,29 @@ fr:
           - anchor: 'kit-de-mise-en-production'
             title: Kit de mise en production&nbsp;🚀
             sections:
+              - subtitle: Tester l'API en préproduction
+                subtitle_anchor: 'tester-api-preproduction'
+                content: |+
+                  L'API Entreprise est **testable avec un jeton accessible à tous depuis notre environnement de staging**. Ce bac à sable retourne des données fictives.
+                  
+                  Pour utiliser l'environnement de test, plusieurs moyens sont possibles : 
+                  * **Utilisez l'interface disponible depuis [API.gouv](https://api.gouv.fr/documentation/api-entreprise){:target="_blank"}** :
+                      1. Copiez le jeton de test disponible dans les premiers paragraphes de la page. 
+                      2. Sélectionnez _"https://staging.entreprise.api.gouv.fr - Environnement de staging"_ dans le menu déroulant situé un peu plus bas du jeton de test, à gauche. 
+                      3. Cliquez sur le bouton à droite _"Authorize"_, et entrez le jeton de test dans le champ _"Value"_ de la modale qui s'est ouverte ; validez en cliquant sur _"Authorize"_. L'environnement de test est configuré, fermez la modale. 
+                      4. Pour terminer, pour chacune des API, un bouton _"Try it out"_ vous permet de pré-remplir les paramètres d'appel avec différents exemples. Appuyez sur _"Execute"_ pour obtenir les différentes réponses possibles.
+
+                  * **Utilisez un logiciel de type _Postman_ à partir du fichier OpenAPI :** 
+                      1. Téléchargez le fichier OpenAPI de l'API Entreprise depuis la [page de swagger](<%= developers_openapi_path %>), avec le bouton "Download" situé en début de page.
+                      2. Importer ce fichier dans un logiciel de test de type _Postman_.
+                      3. Configurez votre environnement avec l'url de l'environnement de staging `https://staging.entreprise.api.gouv.fr`. 
+                      API Entreprise ne recommande pas un logiciel plus qu'un autre, de nombreux tutoriels sont disponibles sur internet.
+
+                  * **Interrogez le staging depuis votre terminal avec une ligne de commande :**
+                      1. Rendez-vous sur la [documentation swagger du site API Entreprise](<%= developers_openapi_path %>), copiez le jeton de staging disponible en début de page.
+                      2. Dans la partie _"Request samples"_ disponible pour chaque API dans le swagger, recopiez les lignes de commandes proposées débutant par `curl -X GET` en remplaçant `$token` par le jeton de test et en veillant à ajouter `staging` au début de l'URL : `https://staging.entreprise.api.gouv.fr/v3/...`
+                      3. Lancez cette ligne de commande dans votre terminal.
+                    
               - subtitle: Récupérer le jeton JWT&nbsp;🔑
                 subtitle_anchor: 'récupérer-le-jeton-jwt'
                 content: |+
@@ -741,7 +760,7 @@ fr:
 
                   Après avoir récupéré votre jeton, vous pouvez faire un premier appel de test.
 
-                  Utilisez l'[environnement de production documenté (_Swagger_)](https://api.gouv.fr/documentation/api-entreprise), disponible sur api.gouv.fr.
+                  Utilisez l'[environnement de production documenté (_Swagger_)](https://api.gouv.fr/documentation/api-entreprise}{:target="_blank"}), disponible sur api.gouv.fr.
                   Il permet, à l'aide d'un token d'authentification valide 🔑, d'effectuer directement depuis le navigateur des tests de l'API. Les données confidentielles restent bien protégées. Vous y trouverez aussi la spécification technique téléchargeable sous format YAML afin de pouvoir accélérer le développement de vos outils d'interfaçage avec API Entreprise.
 
                   {:.fr-highlight.fr-highlight--caution}
