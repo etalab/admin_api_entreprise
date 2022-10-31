@@ -101,7 +101,7 @@ group :test do
   gem "cuprite"
   gem 'webmock'
   gem 'rspec-collection_matchers'
-  gem 'rspec-rails', '6.0.0'
+  gem 'rspec-rails', '6.0.1'
   gem 'rspec-its'
   gem 'simplecov', require: false
   gem 'simplecov-console', require: false
