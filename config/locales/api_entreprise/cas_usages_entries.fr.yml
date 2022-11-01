@@ -45,7 +45,7 @@ fr:
         introduction:
           title: Facilitez la candidature, l’instruction et le suivi des marchés publics !
           content: |
-            Administrations et collectivités, API Entreprise propose l'accès direct aux données entreprises & associations utiles dans le cadre des marchés publics,  pour  simplifier les **dépôts de candidature**, faciliter l'**instruction des dossiers** et le **suivi des prestataires**.
+            Administrations et collectivités, API Entreprise propose l'accès direct aux données entreprises & associations utiles dans le cadre des marchés publics, pour  simplifier les **dépôts de candidature**, faciliter l'**instruction des dossiers** et le **suivi des prestataires**.
 
         role:
           title: Le rôle d’API Entreprise
@@ -355,7 +355,122 @@ fr:
           link_datapass: "https://datapass.api.gouv.fr/api-entreprise?demarche=preremplissage"
 
       portail_gru:
-        name: 'Portail gestion relation usager'
+        name: 'Portail gestion relation usager (Pré-remplissage)'
+        user_types:
+          - administrations
+          - collectivités
+        comments_endpoints:
+          "insee/etablissements_diffusibles": "Pré-remplir les informations d'un **établissement, à partir de son numéro de SIRET**."
+          "insee/etablissements": ""
+          "insee/unites_legales_diffusibles": "💡 _Ces données sont aussi distribuées par l'API \"Données établissements diffusibles\"_."
+          "insee/unites_legales": ""
+          "insee/siege_social_diffusibles": "💡 **Retrouver les infos du siège social** d'un établissement diffusible, à partir du SIREN de l'unité légale."
+          "insee/siege_social": ""
+          "insee/adresse_etablissements_diffusibles": ""
+          "insee/adresse_etablissements": ""
+          "infogreffe/mandataires_sociaux": ""
+          "infogreffe/rcs/extrait": "Pré-remplir presque toutes les informations contenues dans un **Kbis**."
+          "ministere_interieur/rna": "Pré-remplir les informations d'identité d'une **association, à partir de son RNA ou SIRET**."
+          "ministere_interieur/documents_associations": ""
+          "inpi/actes": ""
+          "fabrique_numerique_ministeres_sociaux/conventions_collectives": ""
+          "cma_france/rnm": "Pré-remplir les informations d'identité d'une **entreprise artisanale, à partir de son SIREN**."
+          "urssaf/effectifs": ""
+          "douanes/immatriculation_eori": ""
+          "dgfip/chiffres_affaires": ""
+          "inpi/comptes_annuels_rncs": ""
+          "banque_de_france/bilans": ""
+          "dgfip/liasses_fiscales": ""
+          "attestations_fiscales": ""
+          "urssaf/attestation_vigilance": ""
+          "msa/conformites_cotisations": ""
+          "probtp/conformites_cotisations_retraite": ""
+          "fntp/carte_professionnelle_travaux_public": ""
+          "cnetp/attestations_cotisations_conges_payes_chomage_intemperies": ""
+          "agence_bio/certifications_bio": ""
+          "ademe/certifications_rge": ""
+          "qualibat/certifications_batiment": ""
+          "opqibi/qualifications_ingenierie": ""
+          "inpi/brevets": ""
+          "inpi/marques": ""
+          "inpi/modeles": ""
+        introduction:
+          title: Simplifiez vos démarches entreprises & associations sur votre portail de gestion relation usager (GRU) grâce à API Entreprise !
+          content: |
+            Administrations et collectivités, API Entreprise propose l’accès direct aux données entreprises & associations. À partir de l'identifiant RNA ou du numéro de SIRET, vous personnalisez l'expérience en ligne car les champs sont automatiquement pré-remplis.
+        role:
+          title: Une simplification des démarches
+          anchor: 'role-api-entreprise'
+          content: |+
+            L’API Entreprise facilite les démarches en ligne des entreprises et associations sur votre portail, en **pré-remplissant directement les données administratives connues par l'API Entreprise 📝 et ouvertes 🔓**.
+
+            Administrations et collectivités, en intégrant la brique API Entreprise dans votre site internet :
+            - ✅ Vous **accédez facilement aux données publiques** de l'Insee, d'Infogreffe, de l'Inpi ... ;
+            - ✅ Vous **augmentez le pourcentage des démarches finalisées** car vous faîtes gagner du temps à l'usager ;
+            - ✅ Vous n’avez pas de vérification supplémentaire à réaliser car les **informations sont certifiées**.    
+        use_case_examples:
+          title: Exemples d'usage
+          anchor: 'use_case_examples'
+          content: |+
+            #### Une entreprise effectue une démarche sur votre portail GRU connecté à API Entreprise&nbsp;:
+
+            1. Elle entre son numéro de SIRET :
+
+            ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/cas_usages/pictos/use_case_examples/portail-gru-use_case_example_1a.png') %>){:width="600px"}
+
+            2. Les informations administratives la concernant sont pré-remplies automatiquement, _seulement de la donnée publique_. Elle les corrige si besoin et poursuit sa démarche :
+
+            ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/cas_usages/pictos/use_case_examples/portail-gru-use_case_example_1b.png') %>){:width="600px"}
+
+            **Un exemple avec Emma, agricultrice :** 
+
+            {:.fr-highlight.fr-highlight--example.fr-text--regular.fr-text--alt.fr-text--lg}
+            _Emma a besoin d'un emplacement sur le marché de sa ville pour vendre sa production. Elle s'est rendue sur le portail informatique de la commune, a selectionné la démarche, entré son numéro de SIRET. Toutes les informations générales de son entreprise ont été automatiquement pré-remplies. Elle n'a pas eu besoin de chercher._ 
+            _Pour l'instant, Emma a dû télécharger son attestation MSA et son Kbis par elle-même, mais sa commune va bientôt connecter son système d'information en backoffice pour ne plus avoir à les lui demander._
+
+            #### Dans le cas d'une association&nbsp;:
+
+            Le fonctionnement est identique. Si l'association n'a pas de numéro de SIRET, il est possible d'entrer un numéro RNA. Les informations automatiquement pré-remplies seront alors moins exhaustives.
+           
+        list_api:
+          content: |+
+            Pour ce cas d'usage, **seules les données publiques sont accessibles**. En effet, le pré-remplissage d'une démarche sur un portail GRU se fait en ligne, sans authentification.
+            
+            {:.fr-highlight}
+            Si vous souhaitez accéder à des données protégées pour aider vos agents à instruire des dossiers de subventions, d'aides ou d'autres démarches, il vous faudra faire une demande complémentaire par cas d'usage.<br>En savoir plus sur le [cas d'usage aides et subventions publiques](<%= cas_usage_path(uid: 'subventions') %>) et les [autres cas d'usages](<%= cas_usages_path %>).
+
+        users:
+          title: Ils utilisent l’API Entreprise
+          anchor: 'users'
+          content: |+
+            ##### Des communes et intercommunalités
+
+            Le [portail en ligne de la ville de Chambéry](https://simplici.chambery.fr/){:target="_blank"} : une plateforme de démarches à destination des entreprises et des associations.
+
+            ##### Des régions
+
+            Le [portail GRU de la Région Réunion](https://demarches.cr-reunion.fr/){:target="_blank"} : une plateforme en ligne qui propose également la délivrance d'aides et subventions publiques.
+
+            {:.fr-highlight.fr-highlight--example.fr-text--regular.fr-text--alt.fr-text--lg}
+            "_L'accès à l'API entreprise nous permet de faire des contrôles lors de la création de la demande par l'usager (contrôle existence SIREN/SIRET, récupération adresse, ...) et nous permet d'afficher à nos agents des aides à l'instruction (différences entres données fournies par l'usager et les données remontées par l'API: code NAF, dénomination, taille de l'entreprise, ...)._"
+
+            ##### Parfois au travers d’un éditeur de logiciel :
+
+            {:.fr-table}
+            | Éditeurs ayant intégré l'API Entreprise                                             |                                          Solution                                                                            |                     Cas d'usage                       |
+            | ----------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------:|
+            | **Entr’ouvert** <br> Coopérative                                                    | [entrouvert.com](https://www.entrouvert.com) <br> [Publik](https://publik.entrouvert.com/){:target="_blank"}                 |                   Portail de démarches en ligne       |
+
+
+            _Vous êtes un éditeur proposant une solution de portail de gestion relation usager et ne figurez pas sur cette liste ?_ Veuillez nous contacter à cette adresse e-mail : [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr).
+
+        request_access:
+          link_datapass: "https://datapass.api.gouv.fr/api-entreprise"
+          content: "**Si vous souhaitez accéder à des données administratives protégées pour instruire des démarches**, il vous faudra faire une demande d'habilitation par cas d'usage, en plus de celle-ci, car elle ne vous donne accès qu'à de la donnée publique.
+
+            Afin d'accéder aux formulaires spécifiques, consultez [la fiche pratique \"aides et subventions publiques\"](<%= cas_usage_path(uid: 'subventions') %>) et [les autres cas d'usages](<%= cas_usages_path %>)."
+      portail_gru_instruction:
+        name: 'Portail gestion relation usager (Instruction des démarches)'
         user_types:
           - administrations
           - collectivités
