@@ -12,10 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <% Endpoint
-          .all
-          .reject { |endpoint| endpoint.use_cases_forbidden&.include?(@data[:name]) }
-          .each do |endpoint| %>
+      <% Endpoint.without_forbidden_use_case(@data[:name]).each do |endpoint| %>
         <tr>
           <td>
             <strong><%= endpoint.providers.map(&:name).join(' & ') %></strong><br />
