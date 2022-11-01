@@ -12,7 +12,10 @@
       </tr>
     </thead>
     <tbody>
-      <% Endpoint.all.each do |endpoint| %>
+      <% Endpoint
+          .all
+          .reject { |endpoint| endpoint.use_cases_forbidden&.include?(@data[:name]) }
+          .each do |endpoint| %>
         <tr>
           <td>
             <strong><%= endpoint.providers.map(&:name).join(' & ') %></strong><br />
@@ -23,8 +26,6 @@
             ✅
             <% elsif endpoint.use_cases_optional&.include?(@data[:name]) %>
             *️⃣
-            <% elsif endpoint.use_cases_forbidden&.include?(@data[:name]) %>
-            ❌
             <% else %>
             -
             <% end %>
