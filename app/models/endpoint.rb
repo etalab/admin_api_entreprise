@@ -52,6 +52,10 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
     ActiveRecord::RecordNotFound.new("uid '#{uid}' does not exist in AvailableEndpoints", self, :uid, uid)
   end
 
+  def self.without_forbidden_use_case(use_case)
+    all.reject { |endpoint| endpoint.use_cases_forbidden&.include?(use_case) }
+  end
+
   def id
     @id ||= uid.gsub('/', '_')
   end
