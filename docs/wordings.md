@@ -147,6 +147,11 @@ Le lien du profile: [Fiche métier "Données de référence d'une unité légale
 Le `'loading.gif'` doit être le chemin vers une image valide (ie dans
 `app/assets/images`)
 
+Pour gérer la taille de l'image, je peux ajouter une largeur et/ou une hauteur :
+```md
+![Description image](<%= image_path('loading.gif') %>){:width="600px"}
+```
+
 ### Utilisation Ruby
 
 A noter qu'il est aussi possible d'utiliser du ruby dans la vue (même si ce
