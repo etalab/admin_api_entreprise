@@ -23,18 +23,38 @@ RSpec.describe 'show token from magic link', app: :api_entreprise do
   context 'when the magic link token exists' do
     let!(:magic_link) { create(:magic_link, email:) }
     let(:magic_token) { magic_link.random_token }
-    let(:tokens) { magic_link.tokens }
+    let(:tokens) { magic_link.tokens_from_email }
 
     context 'when the magic token is still active' do
-      it 'has the right number of tokens' do
-        expect(tokens.count).to eq(2)
+      context 'when it is linked to one token' do
+        let(:token_linked) { create(:token) }
+
+        before { magic_link.update!(token_id: token_linked.id) }
+
+        it 'shows the linked token details' do
+          subject
+
+          expect(page).to have_css("input[value='#{token_linked.rehash}']")
+        end
+
+        it 'doesnt show the details for other tokens' do
+          subject
+
+          expect(page).not_to have_css("input[value='#{tokens.first.rehash}']")
+        end
       end
 
-      it 'shows the tokens details' do
-        subject
+      context 'when it is not linked to one token' do
+        it 'has the right number of tokens' do
+          expect(tokens.count).to eq(2)
+        end
 
-        tokens.each do |token|
-          expect(page).to have_css("input[value='#{token.rehash}']")
+        it 'shows the tokens details' do
+          subject
+
+          tokens.each do |token|
+            expect(page).to have_css("input[value='#{token.rehash}']")
+          end
         end
       end
 

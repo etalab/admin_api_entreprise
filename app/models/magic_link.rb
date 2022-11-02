@@ -3,6 +3,7 @@ class MagicLink < ApplicationRecord
 
   validates :email, presence: true, format: { with: /#{EMAIL_FORMAT_REGEX}/ }
   attribute :expires_at, default: -> { 4.hours.from_now }
+  belongs_to :token, optional: true
 
   before_create :generate_random_token
 
@@ -10,7 +11,13 @@ class MagicLink < ApplicationRecord
     self.random_token ||= random_token_for(:random_token)
   end
 
-  def tokens(api: nil)
+  def public_token_or_tokens(api: nil)
+    return token if token.present?
+
+    tokens_from_email(api:)
+  end
+
+  def tokens_from_email(api: nil)
     TokensAssociatedToEmailQuery.new(email:, api:).call
   end
 

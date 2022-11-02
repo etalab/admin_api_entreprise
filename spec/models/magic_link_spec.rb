@@ -29,22 +29,33 @@ RSpec.describe MagicLink do
     end
   end
 
-  describe '#tokens' do
-    subject { described_class.new(email:).tokens(api: :particulier) }
+  describe '#public_token_or_tokens' do
+    context 'when Magic Link belongs to one token' do
+      subject(:magic_link) { described_class.new(email:, token:).public_token_or_tokens }
 
-    let(:service_instance) { instance_double(TokensAssociatedToEmailQuery) }
+      let(:token) { create(:token) }
 
-    before do
-      allow(TokensAssociatedToEmailQuery)
-        .to receive(:new)
-        .with(email: magic_link.email, api: :particulier)
-        .and_return(service_instance)
+      it { is_expected.to eq(token) }
     end
 
-    it 'calls appropriate service' do
-      expect(service_instance).to receive(:call)
+    context 'when Magic Link does not belongs to one token' do
+      subject { described_class.new(email:).public_token_or_tokens(api:) }
 
-      subject
+      let(:service_instance) { instance_double(TokensAssociatedToEmailQuery) }
+      let(:api) { :particulier }
+
+      before do
+        allow(TokensAssociatedToEmailQuery)
+          .to receive(:new)
+          .with(email: magic_link.email, api: :particulier)
+          .and_return(service_instance)
+      end
+
+      it 'calls appropriate service' do
+        expect(service_instance).to receive(:call)
+
+        subject
+      end
     end
   end
 

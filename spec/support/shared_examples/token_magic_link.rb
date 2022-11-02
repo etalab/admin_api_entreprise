@@ -1,10 +1,12 @@
 RSpec.shared_examples 'it creates a magic link' do
   it_behaves_like 'display alert', :success
 
+  let(:new_magic_link) { MagicLink.find_by(email:) }
+
   it 'sends the email magic link' do
     expect { subject }
       .to have_enqueued_mail(TokenMailer, :magic_link)
-      .with(an_instance_of(MagicLink))
+      .with(new_magic_link)
   end
 
   describe 'new magic link' do
@@ -12,13 +14,16 @@ RSpec.shared_examples 'it creates a magic link' do
       expect { subject }.to change(MagicLink, :count).by(1)
     end
 
-    it 'saves the issuance date of the magic token' do
-      creation_time = Time.zone.now
-      Timecop.freeze(creation_time) do
-        subject
+    it 'saves the an expiration delay on the magic link' do
+      subject
 
-        expect(new_magic_link.created_at.to_i).to eq(creation_time.to_i)
-      end
+      expect(new_magic_link.expires_at).to be_within(10.seconds).of(4.hours.from_now)
+    end
+
+    it 'saves the token_id in the magic link' do
+      subject
+
+      expect(new_magic_link.token).to eq(token)
     end
   end
 end
