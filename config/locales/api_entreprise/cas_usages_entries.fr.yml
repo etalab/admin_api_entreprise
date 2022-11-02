@@ -442,7 +442,7 @@ fr:
             Pour ce cas d'usage, **seules les données publiques sont accessibles**. En effet, le pré-remplissage d'une démarche sur un portail GRU se fait en ligne, sans authentification.
             
             {:.fr-highlight}
-            Si vous souhaitez accéder à des données protégées pour aider vos agents à instruire les démarches du portail ou des dossiers d'aides & subventions, il vous faudra faire une demande complémentaire.<br>En savoir plus sur le [cas d'usage portail GRU - Instruction des démarches](<%= cas_usage_path(uid: 'portail_gru_instruction') %>) et le [cas d'usage aides et subventions publiques](<%= cas_usage_path(uid: 'subventions') %>).
+            **Si vous souhaitez accéder à des données protégées pour aider vos agents à instruire les démarches du portail** ou des dossiers d'aides & subventions, il vous faudra faire une demande complémentaire.<br>En savoir plus sur le [cas d'usage portail GRU - Instruction des démarches](<%= cas_usage_path(uid: 'portail_gru_instruction') %>) et le [cas d'usage aides et subventions publiques](<%= cas_usage_path(uid: 'subventions') %>).
 
         users:
           title: Ils utilisent l’API Entreprise
@@ -471,9 +471,10 @@ fr:
 
         request_access:
           link_datapass: "https://datapass.api.gouv.fr/api-entreprise"
-          content: "**Si vous souhaitez accéder à des données administratives protégées pour instruire des démarches**, il vous faudra faire une demande d'habilitation par cas d'usage, en plus de celle-ci, car elle ne vous donne accès qu'à de la donnée publique.
+          content: "**Si vous souhaitez accéder à des données protégées pour aider vos agents à instruire les démarches du portail** ou des dossiers d'aides & subventions, il vous faudra faire des demandes d'habilitation différentes car celle-ci ne vous donne accès qu'à de la donnée publique.
 
-            Afin d'accéder aux formulaires spécifiques, consultez [la fiche pratique \"aides et subventions publiques\"](<%= cas_usage_path(uid: 'subventions') %>) et [les autres cas d'usages](<%= cas_usages_path %>)."
+            Afin d'accéder aux formulaires spécifiques, consultez la fiche pratique du [cas d'usage portail GRU - Instruction des démarches](<%= cas_usage_path(uid: 'portail_gru_instruction') %>) et du [cas d'usage aides et subventions publiques](<%= cas_usage_path(uid: 'subventions') %>)."
+
       portail_gru_instruction:
         name: 'Portail GRU - Instruction des démarches'
         user_types:
@@ -576,6 +577,9 @@ fr:
         list_api:
           content: |+
             **Seules les données publiques devront être utilisées pour du pré-remplissage**. Les données protégées seront mise à disposition pour l'instruction aux agents habilités en _backoffice_.
+
+            {:.fr-highlight}
+            **Si votre portail est uniquement dédié aux demandes d'aides & subventions** et que vous souhaitez accéder à de la donnée protégée pour instruire les dossiers, nous vous recommandons le [cas d'usage aides et subventions publiques](<%= cas_usage_path(uid: 'subventions') %>).
         users:
           title: Ils utilisent l’API Entreprise
           anchor: 'users'
@@ -603,9 +607,7 @@ fr:
 
         request_access:
           link_datapass: "https://datapass.api.gouv.fr/api-entreprise"
-          content: "**Si vous souhaitez accéder à des données administratives protégées pour instruire des démarches**, il vous faudra faire une demande d'habilitation par cas d'usage, en plus de celle-ci, car elle ne vous donne accès qu'à de la donnée publique.
-
-            Afin d'accéder aux formulaires spécifiques, consultez [la fiche pratique \"aides et subventions publiques\"](<%= cas_usage_path(uid: 'subventions') %>) et [les autres cas d'usages](<%= cas_usages_path %>)."
+          content: null
       editeur:
         name: 'Accès spécifique éditeurs de logiciels'
         user_types:
