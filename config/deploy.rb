@@ -22,8 +22,6 @@ set :domain, ENV['domain']
 set :deploy_to, "/var/www/admin_apientreprise_#{ENV['to']}"
 set :rails_env, ENV['to']
 set :repository, 'https://github.com/etalab/admin_api_entreprise.git'
-set :app_owner, "deploy"
-set :app_group, "webapp"
 
 branch = ENV['branch'] ||
   begin
@@ -67,13 +65,6 @@ set :shared_files, fetch(:shared_files, []).push(
   "config/environments/#{ENV['to']}.rb"
 )
 
-namespace :bundle do
-  task :install do
-    desc 'Allow group write and set setGID bit on gems folders.'
-    command %{sudo chmod u+rwx-s,g+rwxs,o= "#{fetch(:bundle_path)}"/ruby/*/gems/*}
-  end
-end
-
 task :samhain_db_update do
   command %{sudo /usr/local/sbin/update-samhain-db.sh "#{fetch(:deploy_to)}"}
 end
@@ -94,7 +85,6 @@ end
 # All paths in `shared_dirs` and `shared_paths` will be created on their own.
 task :setup do
   # command %{rbenv install 2.3.0 --skip-existing}
-  invoke :'ownership'
   invoke :'samhain_db_update'
 end
 
@@ -115,7 +105,6 @@ task :deploy => :environment do
     end
     invoke :cgu_to_pdf
     invoke :'deploy:cleanup'
-    invoke :'ownership'
 
     on :launch do
       in_path(fetch(:current_path)) do
@@ -162,10 +151,6 @@ end
 task :cgu_to_pdf do
   comment 'Generating PDF version of API Entreprise CGU'.green
   command %(pandoc app/views/api_entreprise/pages/cgu.html.erb -o public/cgu.pdf --pdf-engine=xelatex)
-end
-
-task :ownership do
-  command %{sudo chown -R #{fetch(:app_owner)}:#{fetch(:app_group)} "#{fetch(:deploy_to)}"}
 end
 
 # For help in making your deploy script, see the Mina documentation:
