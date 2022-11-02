@@ -22,9 +22,9 @@ RSpec.describe MagicLink do
   end
 
   describe 'defaults' do
-    describe '#expiration_offset' do
+    describe '#expires_at' do
       it 'defaults to 4 hours' do
-        expect(magic_link.expiration_offset).to eq(4.hours)
+        expect(magic_link.expires_at).to be_within(10.seconds).of(4.hours.from_now)
       end
     end
   end
@@ -48,16 +48,8 @@ RSpec.describe MagicLink do
     end
   end
 
-  describe '#expiration_time' do
-    let(:magic_link) { create(:magic_link, expiration_offset: 6.hours) }
-
-    it 'equals creation time + offset' do
-      expect(magic_link.expiration_time).to be_within(10.seconds).of(DateTime.now + 6.hours)
-    end
-  end
-
   describe '#expired?' do
-    let(:magic_link) { create(:magic_link, expiration_offset: 1.hour) }
+    let(:magic_link) { create(:magic_link, expires_at: 1.hour.from_now) }
 
     context 'when expired' do
       before do

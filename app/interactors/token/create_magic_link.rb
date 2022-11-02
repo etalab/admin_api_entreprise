@@ -2,7 +2,7 @@ class Token::CreateMagicLink < ApplicationInteractor
   def call
     context.magic_link = MagicLink.create(
       email: context.email,
-      expiration_offset: context.expiration_offset
+      expires_at: context.expires_at || 4.hours.from_now
     )
   end
 end

@@ -2,7 +2,7 @@ class MagicLink < ApplicationRecord
   include RandomToken
 
   validates :email, presence: true, format: { with: /#{EMAIL_FORMAT_REGEX}/ }
-  attribute :expiration_offset, default: -> { 4.hours.to_i }
+  attribute :expires_at, default: -> { 4.hours.from_now }
 
   before_create :generate_random_token
 
@@ -14,11 +14,7 @@ class MagicLink < ApplicationRecord
     TokensAssociatedToEmailQuery.new(email:, api:).call
   end
 
-  def expiration_time
-    created_at.to_time + expiration_offset
-  end
-
   def expired?
-    Time.zone.now >= expiration_time
+    Time.zone.now >= expires_at
   end
 end
