@@ -412,26 +412,31 @@ fr:
           title: Exemples d'usage
           anchor: 'use_case_examples'
           content: |+
-            #### Une entreprise effectue une démarche sur votre portail GRU connecté à API Entreprise&nbsp;:
+            #### Une entreprise ou une association effectue une démarche sur votre portail GRU connecté à API Entreprise&nbsp;:
 
-            1. Elle entre son numéro de SIRET :
+            1. **Elle renseigne son identifiant** (Siret ou RNA) :
+               ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/cas_usages/pictos/use_case_examples/portail-gru-use_case_example_1a.png') %>){:width="600px"}
 
-            ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/cas_usages/pictos/use_case_examples/portail-gru-use_case_example_1a.png') %>){:width="600px"}
+               {:.fr-highlight.fr-highlight--example}
+               ⚙️ Un appel à l'API Entreprise est effectué.
 
-            2. Les informations administratives la concernant sont pré-remplies automatiquement, _seulement de la donnée publique_. Elle les corrige si besoin et poursuit sa démarche :
 
-            ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/cas_usages/pictos/use_case_examples/portail-gru-use_case_example_1b.png') %>){:width="600px"}
+            2. **Les informations administratives la concernant sont pré-remplies automatiquement**. Elle les corrige si besoin et poursuit sa démarche :
+               ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/cas_usages/pictos/use_case_examples/portail-gru-use_case_example_1b.png') %>){:width="600px"}
 
-            **Un exemple avec Emma, agricultrice :** 
+               {:.fr-highlight.fr-highlight--example}
+               ⚙️ À partir du format structuré (.json) transmis par l'API Entreprise, vous choisissez la façon d'afficher l'information sur votre site. 
+               ⚠️ Seule de la donnée ouverte peut être pré-remplie. Les données protégées ne doivent jamais être accessibles depuis le site public de votre portail.
 
-            {:.fr-highlight.fr-highlight--example.fr-text--regular.fr-text--alt.fr-text--lg}
-            _Emma a besoin d'un emplacement sur le marché de sa ville pour vendre sa production. Elle s'est rendue sur le portail informatique de la commune, a selectionné la démarche, entré son numéro de SIRET. Toutes les informations générales de son entreprise ont été automatiquement pré-remplies. Elle n'a pas eu besoin de chercher._ 
-            _Pour l'instant, Emma a dû télécharger son attestation MSA et son Kbis par elle-même, mais sa commune va bientôt connecter son système d'information en backoffice pour ne plus avoir à les lui demander._
+            #### Un exemple avec Laurent, mandataire d'une association : 
 
-            #### Dans le cas d'une association&nbsp;:
+            {:.fr-text--regular.fr-text--alt.fr-text--lg}
+            _Laurent a besoin d'inscrire son association dans le ficher associatif municipal_ pour réserver une salle à la maison des associations. Laurent se rend sur le portail informatique de sa commune, il selectionne la démarche "J'inscris ma structure dans le fichier associatif municipal". En début de formulaire, il renseigne son numéro RNA. Le formulaire est automatiquement pré-rempli des informations de l'association : _la forme juridique, la date de création, les activités, le statut d'utilité publique, l'adresse ou encore la tranche de l'effectif_... Tout a déjà été rempli. Laurent vérifie qu'il n'y a pas d'erreur, et envoie sa demande.
 
-            Le fonctionnement est identique. Si l'association n'a pas de numéro de SIRET, il est possible d'entrer un numéro RNA. Les informations automatiquement pré-remplies seront alors moins exhaustives.
-           
+            {:.fr-text--regular.fr-text--alt.fr-text--lg}
+            La demande est traitée de façon automatique car toutes les données nécessaires proviennent de l'API Entreprise et sont certifiées. Quelques secondes après l'envoi de sa demande, Laurent reçoit un e-mail lui confirmant que son association est inscrite au registre, et qu'il a désormais accès à l'outil de réservation de salle.
+
+
         list_api:
           content: |+
             Pour ce cas d'usage, **seules les données publiques sont accessibles**. En effet, le pré-remplissage d'une démarche sur un portail GRU se fait en ligne, sans authentification.
@@ -528,40 +533,49 @@ fr:
           title: Exemples d'usage
           anchor: 'use_case_examples'
           content: |+
-            #### Une entreprise effectue une démarche sur votre portail GRU connecté à API Entreprise&nbsp;:
+            #### Une entreprise ou une association effectue une démarche sur votre portail GRU connecté à API Entreprise&nbsp;:
 
-            1. Elle entre son numéro de SIRET :
+            1. **Elle renseigne son identifiant** (Siret ou RNA) :
+               ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/cas_usages/pictos/use_case_examples/portail-gru-use_case_example_1a.png') %>){:width="600px"}
 
-            ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/cas_usages/pictos/use_case_examples/portail-gru-use_case_example_1a.png') %>){:width="600px"}
+               {:.fr-highlight.fr-highlight--example}
+               ⚙️ Un appel à l'API Entreprise est effectué.
 
-            2. Les informations administratives la concernant sont pré-remplies automatiquement, _seulement de la donnée publique_. Elle les corrige si besoin et poursuit sa démarche :
 
-            ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/cas_usages/pictos/use_case_examples/portail-gru-use_case_example_1b.png') %>){:width="600px"}
+            2. **Les informations administratives la concernant sont pré-remplies automatiquement**. Elle les corrige si besoin et poursuit sa démarche :
+               ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/cas_usages/pictos/use_case_examples/portail-gru-use_case_example_1b.png') %>){:width="600px"}
 
-            3. Avant d'envoyer sa demande, une liste des justificatifs nécessaires lui est présentée. Les documents déjà disponibles par API n'ont pas besoin d'être téléchargé : 
+               {:.fr-highlight.fr-highlight--example}
+               ⚙️ À partir du format structuré (.json) transmis par l'API Entreprise, vous choisissez la façon d'afficher l'information sur votre site. 
+               ⚠️ Seule de la donnée ouverte peut être pré-remplie. Les données protégées ne doivent jamais être accessibles depuis le site public de votre portail.
 
-            4. La demande a été réceptionnée par l'instructeur. 
+            3. **Avant d'envoyer sa demande, une liste des justificatifs nécessaires pour valider la démarche est présentée**. Les documents déjà disponibles par API Entreprise n'ont pas besoin d'être téléchargés : 
+               ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/cas_usages/pictos/use_case_examples/portail-gru-use_case_example_1c.png') %>){:width="600px"}
 
-            {:.fr-highlight}
-            Le cas d'usage Portail GRU - Pré-remplissage est suffisant si vous n'avez besoin que des étapes 1 et 2.
+               {:.fr-highlight.fr-highlight--example}
+               💡 Quand la donnée est indisponible dans API Entreprise, permettez le dépôt des documents manquants pour simplifier le parcours de vos usagers. 
 
-            **Un exemple avec Emma, agricultrice :** 
+            4. **La demande est réceptionnée par l'instructeur, toutes les informations et justificatifs sont regroupées dans un même espace**. L'instructeur n'a pas à vérifier les données issues de l'API Entreprise car elles sont certifiées.
+               ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/cas_usages/pictos/use_case_examples/portail-gru-use_case_example_1d.png') %>){:width="600px"}
 
-            {:.fr-highlight.fr-highlight--example.fr-text--regular.fr-text--alt.fr-text--lg}
-            _Emma a besoin d'un emplacement sur le marché de sa ville pour vendre sa production. Elle s'est rendue sur le portail informatique de la commune, a selectionné la démarche, entré son numéro de SIRET. Toutes les informations générales de son entreprise ont été automatiquement pré-remplies. Elle n'a pas eu besoin de chercher._ 
-            _Pour l'instant, Emma a dû télécharger son attestation MSA et son Kbis par elle-même, mais sa commune va bientôt connecter son système d'information en backoffice pour ne plus avoir à les lui demander._
+            
+            Le cas d'usage [Portail GRU - Pré-remplissage](<%= cas_usage_path(uid: 'portail_gru') %>) est suffisant si vous n'avez besoin que des étapes 1 et 2.
 
-            #### Dans le cas d'une association&nbsp;:
+            #### Un exemple avec Camille, agricultrice et Nicolas, agent territorial : 
 
-            Le fonctionnement est identique. Si l'association n'a pas de numéro de SIRET, il est possible d'entrer un numéro RNA. Les informations automatiquement pré-remplies seront alors moins exhaustives.
-           
+            {:.fr-text--regular.fr-text--alt.fr-text--lg}
+            _Camille a besoin d'un emplacement sur le marché de sa ville pour vendre sa production_. Elle s'est rendue sur le portail informatique de la commune, a selectionné la démarche, entré son numéro de Siret. Toutes les informations publiques de son entreprise ont été automatiquement pré-remplies, elle peut les modifier si elle repère une erreur. 
+
+            {:.fr-text--regular.fr-text--alt.fr-text--lg}
+            À l'étape suivante, Camille n'aura à fournir qu'un seul justificatif sur les cinq requis. En effet, le portail de sa commune lui fait savoir que les quatre autres documents ont déjà été récupérés auprès des administrations compétentes. Camille n'aura pas besoin de chercher ces documents dans ses dossiers ou de se rendre sur différents sites pour les retrouver. En ce qui concerne le document manquant, Camille n'est pas bloquée dans sa démarche, elle peut l'ajouter dans le formulaire. Elle envoit sa demande.
+
+            {:.fr-text--regular.fr-text--alt.fr-text--lg}
+            _Nicolas est agent dans la commune de Camille et chargé d'instruire les demandes des entreprises et associations_. Depuis son espace instructeur, il est habilité à traiter les démarches à et manipuler des informations protégées.
+            Nicolas vient de recevoir la démarche de Camille. Depuis la fiche entreprise de l'usagère, il voit d'un coup d'oeil que l'ensemble des données et documents nécessaires pour la démarche sont présents. Il n'a pas besoin de vérifier l'existence du numéro de Siret de Camille, ni de vérifier l'absence de faute de frappe dans l'adresse postale. En plus, sur les cinq documents transmis, quatre proviennent de l'API Entreprise, ils sont certifiés. 
+            Nicolas vérifie donc l'unique document transmis par Camille. Tout est en ordre, il valide la demande d'emplacement de marché.     
         list_api:
           content: |+
-            Pour ce cas d'usage, **seules les données publiques sont accessibles**. En effet, le pré-remplissage d'une démarche sur un portail GRU se fait en ligne, sans authentification.
-            
-            {:.fr-highlight}
-            Si vous souhaitez accéder à des données protégées pour aider vos agents à instruire des dossiers de subventions, d'aides ou d'autres démarches, il vous faudra faire une demande complémentaire par cas d'usage.<br>En savoir plus sur le [cas d'usage aides et subventions publiques](<%= cas_usage_path(uid: 'subventions') %>) et les [autres cas d'usages](<%= cas_usages_path %>).
-
+            **Seules les données publiques devront être utilisées pour du pré-remplissage**. Les données protégées seront mise à disposition pour l'instruction aux agents habilités en _backoffice_.
         users:
           title: Ils utilisent l’API Entreprise
           anchor: 'users'
