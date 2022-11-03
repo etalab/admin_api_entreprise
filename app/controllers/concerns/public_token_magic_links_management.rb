@@ -18,7 +18,7 @@ module PublicTokenMagicLinksManagement
       handle_error!('unknown')
     elsif @magic_link.expired?
       handle_error!('expired')
-    elsif @magic_link.public_token_or_tokens.blank?
+    elsif @magic_link.tokens.blank?
       handle_error!('missing')
     end
   end

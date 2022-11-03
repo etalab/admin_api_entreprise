@@ -29,17 +29,17 @@ RSpec.describe MagicLink do
     end
   end
 
-  describe '#public_token_or_tokens' do
+  describe '#tokens' do
     context 'when Magic Link belongs to one token' do
-      subject(:magic_link) { described_class.new(email:, token:).public_token_or_tokens }
+      subject(:magic_link) { described_class.new(email:, token:).tokens }
 
       let(:token) { create(:token) }
 
-      it { is_expected.to eq(token) }
+      it { is_expected.to eq([token]) }
     end
 
     context 'when Magic Link does not belongs to one token' do
-      subject { described_class.new(email:).public_token_or_tokens(api:) }
+      subject { described_class.new(email:).tokens(api:) }
 
       let(:service_instance) { instance_double(TokensAssociatedToEmailQuery) }
       let(:api) { :particulier }

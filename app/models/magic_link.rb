@@ -11,10 +11,10 @@ class MagicLink < ApplicationRecord
     self.random_token ||= random_token_for(:random_token)
   end
 
-  def public_token_or_tokens(api: nil)
-    return token if token.present?
+  def tokens(api: nil)
+    return [token] if token.present?
 
-    tokens_from_email(api:)
+    tokens_from_email(api:).to_a
   end
 
   def tokens_from_email(api: nil)
