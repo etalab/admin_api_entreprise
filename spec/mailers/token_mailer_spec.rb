@@ -5,7 +5,7 @@ RSpec.describe TokenMailer do
     subject(:mailer) { described_class.magic_link(magic_link) }
 
     let(:magic_link) { create(:magic_link, email:) }
-    let(:magic_link_url) { Rails.configuration.token_magic_link_url + magic_link.random_token }
+    let(:magic_link_url) { Rails.configuration.token_magic_link_url + magic_link.access_token }
     let(:email) { 'muchemail@wow.com' }
 
     its(:subject) { is_expected.to eq('API Entreprise - Lien d\'accès à votre jeton !') }

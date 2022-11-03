@@ -7,10 +7,10 @@ class MagicLink < ApplicationRecord
   attribute :expires_at, default: -> { DEFAULT_EXPIRATION_DELAY.from_now }
   belongs_to :token, optional: true
 
-  before_create :generate_random_token
+  before_create :generate_access_token
 
-  def generate_random_token
-    self.random_token ||= random_token_for(:random_token)
+  def generate_access_token
+    self.access_token ||= access_token_for(:access_token)
   end
 
   def tokens(api: nil)

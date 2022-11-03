@@ -9,9 +9,9 @@ RSpec.describe MagicLink do
     expect(build(:magic_link)).to be_valid
   end
 
-  it 'generates random_token' do
-    expect(magic_link.random_token).to be_a(String)
-    expect(magic_link.random_token).not_to be_nil
+  it 'generates access_token' do
+    expect(magic_link.access_token).to be_a(String)
+    expect(magic_link.access_token).not_to be_nil
   end
 
   describe 'validations' do

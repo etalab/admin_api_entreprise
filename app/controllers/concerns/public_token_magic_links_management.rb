@@ -2,14 +2,14 @@ module PublicTokenMagicLinksManagement
   extend ActiveSupport::Concern
 
   def show
-    @magic_link = MagicLink.find_by(random_token:)
+    @magic_link = MagicLink.find_by(access_token:)
 
     handle_errors!
   end
 
   protected
 
-  def random_token
+  def access_token
     params[:token]
   end
 

@@ -25,7 +25,7 @@ RSpec.describe Token::DeliverMagicLinkToEmail, type: :organizer do
     it 'saves a magic random token' do
       subject
 
-      expect(new_magic_link.random_token).to match(/\A[0-9a-f]{20}\z/)
+      expect(new_magic_link.access_token).to match(/\A[0-9a-f]{20}\z/)
     end
   end
 

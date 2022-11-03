@@ -1,7 +1,7 @@
 module RandomToken
   private
 
-  def random_token_for(attr)
+  def access_token_for(attr)
     constraint = {}
     loop do
       token = SecureRandom.hex(10)
