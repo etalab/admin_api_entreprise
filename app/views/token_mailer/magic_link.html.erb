@@ -6,9 +6,9 @@
   <body>
     <p>Bonjour,</p>
 
-    <p>Un lien vers votre ou vos jeton(s) d'accès vient d'être généré à votre intention. Vous pouvez accéder à ce jeton via le lien <%= link_to('suivant', @magic_link_url) %></p>
+    <p> <%= link_to('suivant', @magic_link_url) %> <%= t('.link_description', count: @tokens.count) %></p>
 
-    <p>Ce lien est temporaire. Il est valable pour une durée de 4 heures pour une connection API Entreprise, ou 24h pour une connection API Particulier.</p>
+    <p>Ce lien est temporaire. Il est valable jusqu'au <%= @expires_at %></p>
     <p>Cordialement,</p>
     <p>L'équipe API Entreprise</p>
   </body>
