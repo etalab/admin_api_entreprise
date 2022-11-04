@@ -2,11 +2,12 @@ require 'rails_helper'
 
 RSpec.describe TokenMailer do
   describe '#magic_link' do
-    subject(:mailer) { described_class.magic_link(magic_link) }
+    subject(:mailer) { described_class.magic_link(magic_link, host) }
 
     let(:magic_link) { create(:magic_link, email:) }
-    let(:magic_link_url) { Rails.configuration.token_magic_link_url + magic_link.access_token }
+    let(:magic_link_url) { '' }
     let(:email) { 'muchemail@wow.com' }
+    let(:host) { 'https://cooldomain.gouv.fr' }
 
     its(:subject) { is_expected.to eq('API Entreprise - Lien d\'accès à votre jeton !') }
     its(:from) { is_expected.to include(Rails.configuration.emails_sender_address) }
