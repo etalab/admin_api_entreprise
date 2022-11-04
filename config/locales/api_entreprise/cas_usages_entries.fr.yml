@@ -72,8 +72,8 @@ fr:
             {:.fr-text--lead}
             Ce tableau dresse la liste des API indispensables ou utiles pour ce cas d'usage. Utilisez-le pour compléter votre de demande d'habilitation. 
 
-            Les données **✅ indispensables seront précochées** par défaut dans le formulaire d'accès. 
-            Les données ***️⃣ utiles** seront à cocher par vos soins si votre cas d'usage le justifie.
+            Les API **<span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> indispensables seront précochées** par défaut dans le formulaire d'accès. 
+            Les API **️<span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span> utiles** seront à cocher par vos soins si votre cas d'usage le justifie.
 
             {:.fr-highlight.fr-highlight--caution}
             Lors de votre demande d'habilitation, **vous vous engagez à ne demander que les données strictement nécessaires** à la réalisation de la démarche administrative. Consulter [nos conditions générales d'utilisation](<%= cgu_path %>){:target="_blank"}.
@@ -200,8 +200,8 @@ fr:
             {:.fr-text--lead}
             Ce tableau dresse la liste des API indispensables ou utiles pour ce cas d'usage. Utilisez-le pour compléter votre de demande d'habilitation. 
 
-            Les données **✅ indispensables seront précochées** par défaut dans le formulaire d'accès. 
-            Les données ***️⃣ utiles** seront à cocher par vos soins si votre cas d'usage le justifie.
+            Les API **<span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> indispensables seront précochées** par défaut dans le formulaire d'accès. 
+            Les API **️<span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span> utiles** seront à cocher par vos soins si votre cas d'usage le justifie.
 
             {:.fr-highlight.fr-highlight--caution}
             Lors de votre demande d'habilitation, **vous vous engagez à ne demander que les données strictement nécessaires** à la réalisation de la démarche administrative. Consulter [nos conditions générales d'utilisation](<%= cgu_path %>){:target="_blank"}.
@@ -270,8 +270,8 @@ fr:
             {:.fr-text--lead}
             Ce tableau dresse la liste des API indispensables ou utiles pour ce cas d'usage. Utilisez-le pour compléter votre de demande d'habilitation. 
 
-            Les données **✅ indispensables seront précochées** par défaut dans le formulaire d'accès. 
-            Les données ***️⃣ utiles** seront à cocher par vos soins si votre cas d'usage le justifie.
+            Les API **<span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> indispensables seront précochées** par défaut dans le formulaire d'accès. 
+            Les API **️<span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span> utiles** seront à cocher par vos soins si votre cas d'usage le justifie.
 
             {:.fr-highlight.fr-highlight--caution}
             Lors de votre demande d'habilitation, **vous vous engagez à ne demander que les données strictement nécessaires** à la réalisation de la démarche administrative. Consulter [nos conditions générales d'utilisation](<%= cgu_path %>){:target="_blank"}.
@@ -327,7 +327,7 @@ fr:
           title: Préremplir un formulaire à partir d’un SIRET, SIREN ou RNA
           content: |
             {:.fr-text--lead}
-            API Entreprise propose des API aux administrations et collectivités ayant des démarches en ligne à destination des entreprises et associations. En inscrivant leur numéro de Siret ou RNA, le formulaire de la démarche est **prérempli automatiquement** des données connues.
+            API Entreprise propose des API aux administrations et collectivités ayant des démarches en ligne à destination des entreprises et associations. En inscrivant leur numéro de Siret ou RNA, le formulaire de la démarche est **prérempli automatiquement** des données ouvertes connues.
         role:
           title: Le rôle d’API Entreprise
           anchor: 'role-api-entreprise'
@@ -349,10 +349,11 @@ fr:
           content: null
         list_api:
           content: |+
-            Pour ce cas d'usage, **seules les données publiques sont accessibles**. En effet, le pré-remplissage d'une démarche se fait en ligne, sans authentification.
-            
-            {:.fr-highlight}
-            Si vous souhaitez accéder à des données protégées pour aider vos agents à instruire des dossiers de subventions, d'aides ou de marchés publics, il vous faudra faire une demande complémentaire par cas d'usage.<br>En savoir plus sur les différents [cas d'usages API Entreprise](<%= cas_usages_path %>)
+            {:.fr-text--lead}
+            Ce tableau dresse la liste des API utiles pour ce cas d'usage. Utilisez-le pour compléter votre de demande d'habilitation. **Seules les données publiques sont accessibles** car il n'est pas possible de s'assurer de l'identité de l'usager.
+
+            Les API **<span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> indispensables seront précochées** par défaut dans le formulaire d'accès. 
+            Les API **️<span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span> utiles** seront à cocher par vos soins si votre cas d'usage le justifie.
         users:
           title: Ils utilisent l’API Entreprise
           anchor: 'users'
@@ -381,6 +382,7 @@ fr:
             | **Les éditeurs proposant des solutions pour les marchés publics                     |                    [Consulter la liste des éditeurs](<%= cas_usage_path(uid: 'marches_publics', anchor: 'users') %>)                |         Formulaires pour les marchés publics          |
         request_access:
           link_datapass: "https://datapass.api.gouv.fr/api-entreprise?demarche=preremplissage"
+          content: "**Si vous souhaitez accéder à des données protégées** pour aider vos agents à instruire des dossiers de subventions, d'aides ou de marchés publics, il vous faudra faire une demande par cas d'usage.<br>En savoir plus sur les différents [cas d'usages API Entreprise](<%= cas_usages_path %>)"
 
       portail_gru:
         name: 'Portail GRU - Pré-remplissage'
@@ -472,7 +474,11 @@ fr:
 
         list_api:
           content: |+
-            Pour ce cas d'usage, **seules les données publiques sont accessibles**. En effet, le pré-remplissage d'une démarche sur un portail GRU se fait en ligne, sans authentification.
+            {:.fr-text--lead}
+            Ce tableau dresse la liste des API utiles pour ce cas d'usage. Utilisez-le pour compléter votre de demande d'habilitation. **Seules les données publiques sont accessibles** car il n'est pas possible de s'assurer de l'identité de l'usager.
+
+            Les API **<span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> indispensables seront précochées** par défaut dans le formulaire d'accès. 
+            Les API **️<span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span> utiles** seront à cocher par vos soins si votre cas d'usage le justifie.
             
             {:.fr-highlight}
             **Si vous souhaitez accéder à des données protégées pour aider vos agents à instruire les démarches du portail** ou des dossiers d'aides & subventions, il vous faudra faire une demande complémentaire.<br>En savoir plus sur le [cas d'usage portail GRU - Instruction des démarches](<%= cas_usage_path(uid: 'portail_gru_instruction') %>) et le [cas d'usage aides et subventions publiques](<%= cas_usage_path(uid: 'subventions') %>).
@@ -618,8 +624,8 @@ fr:
             {:.fr-text--lead}
             Ce tableau dresse la liste des API indispensables ou utiles pour ce cas d'usage. Utilisez-le pour compléter votre de demande d'habilitation. 
 
-            Les données **✅ indispensables seront précochées** par défaut dans le formulaire d'accès. 
-            Les données ***️⃣ utiles** seront à cocher par vos soins si votre cas d'usage le justifie.
+            Les API **<span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> indispensables seront précochées** par défaut dans le formulaire d'accès. 
+            Les API **️<span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span> utiles** seront à cocher par vos soins si votre cas d'usage le justifie.
 
             {:.fr-highlight.fr-highlight--caution}
             Lors de votre demande d'habilitation, **vous vous engagez à ne demander que les données strictement nécessaires** à la réalisation de la démarche administrative. Consulter [nos conditions générales d'utilisation](<%= cgu_path %>){:target="_blank"}.

@@ -4,7 +4,7 @@
     <thead>
       <tr>
         <th scope="col"><%= t('.col_endpoint') %></th>
-        <th scope="col"><%= t('.col_useful').html_safe %></th>
+        <th scope="col" style="text-align:center"><span style="color:#008941" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span><br/><%= t('.col_useful_essential').html_safe %><br/><span style="color:#008941" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span><br/><%= t('.col_useful').html_safe %></th>
         <th scope="col"><%= t('.col_opening') %></th>
         <th scope="col"><%= t('.col_call_id') %></th>
         <th scope="col"><%= t('.col_comments') %></th>
@@ -20,9 +20,10 @@
           </td>
           <td>
             <% if endpoint.use_cases&.include?(@data[:name]) %>
-            ✅
+            <span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span>
+
             <% elsif endpoint.use_cases_optional&.include?(@data[:name]) %>
-            *️⃣
+            <span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span>
             <% else %>
             -
             <% end %>
