@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <% Endpoint.without_forbidden_use_case(@data[:name]).each do |endpoint| %>
+      <% Endpoint.all.each do |endpoint| %>
         <tr>
           <td>
             <strong><%= endpoint.providers.map(&:name).join(' & ') %></strong><br />
@@ -24,6 +24,10 @@
 
             <% elsif endpoint.use_cases_optional&.include?(@data[:name]) %>
             <span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span>
+
+            <% elsif endpoint.use_cases_forbidden&.include?(@data[:name]) %>
+            <span style="color:#d64d00" class="fr-icon-close-circle-line" aria-hidden="true"></span>
+
             <% else %>
             -
             <% end %>
