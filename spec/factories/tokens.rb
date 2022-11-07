@@ -105,8 +105,9 @@ FactoryBot.define do
     end
 
     trait :with_magic_link do
-      magic_link_token { 'mUchmaGicWOW' }
-      magic_link_issuance_date { Time.zone.now }
+      after(:create) do |token|
+        create(:magic_link, email: token.user.email)
+      end
     end
 
     trait :api_entreprise do

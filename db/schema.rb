@@ -75,6 +75,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_25_080557) do
     t.index ["created_at"], name: "index_contacts_on_created_at"
   end
 
+  create_table "magic_links", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "email", null: false
+    t.string "access_token", null: false
+    t.datetime "expires_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "token_id"
+    t.index ["access_token"], name: "index_magic_links_on_access_token", unique: true
+    t.index ["token_id"], name: "index_magic_links_on_token_id"
+  end
+
   create_table "scopes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: nil, null: false
@@ -101,8 +112,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_25_080557) do
     t.string "temp_use_case"
     t.string "authorization_request_id"
     t.boolean "access_request_survey_sent", default: false, null: false
-    t.string "magic_link_token"
-    t.datetime "magic_link_issuance_date", precision: nil
     t.uuid "authorization_request_model_id", null: false
     t.json "extra_info"
     t.index ["access_request_survey_sent"], name: "index_tokens_on_access_request_survey_sent"
@@ -111,7 +120,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_25_080557) do
     t.index ["created_at"], name: "index_tokens_on_created_at"
     t.index ["exp"], name: "index_tokens_on_exp"
     t.index ["iat"], name: "index_tokens_on_iat"
-    t.index ["magic_link_token"], name: "index_tokens_on_magic_link_token", unique: true
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -134,6 +142,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_25_080557) do
     t.index ["pwd_renewal_token"], name: "index_users_on_pwd_renewal_token"
   end
 
+  add_foreign_key "magic_links", "tokens"
 
   create_view "access_logs_view", sql_definition: <<-SQL
       SELECT access_logs."timestamp",

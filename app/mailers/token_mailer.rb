@@ -1,9 +1,13 @@
 class TokenMailer < ApplicationMailer
-  def magic_link(recipient, token)
-    @token = token
-    @magic_link_url = Rails.configuration.token_magic_link_url + token.magic_link_token
+  include FriendlyDateHelper
+
+  def magic_link(magic_link, host)
+    @magic_link = magic_link
+    @host = host
+
+    to = magic_link.email
     subject = t('.subject')
 
-    mail(to: recipient, subject:)
+    mail(to:, subject:)
   end
 end

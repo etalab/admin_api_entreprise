@@ -37,14 +37,6 @@ class Token < ApplicationRecord
     Set[*contacts.pluck(:email)] << user.email
   end
 
-  def generate_magic_link_token
-    token = random_token_for(:magic_link_token)
-    update(
-      magic_link_token: token,
-      magic_link_issuance_date: Time.zone.now
-    )
-  end
-
   delegate :api, to: :authorization_request
 
   def self.default_create_params

@@ -3,11 +3,6 @@ class APIEntreprise::RestrictedTokenMagicLinksController < APIEntreprise::Authen
     @token = Token.find(params[:id])
 
     if access_allowed_for_current_user?
-      organizer = Token::DeliverMagicLinkToEmail.call(
-        token: @token,
-        email: target_email
-      )
-
       if organizer.success?
         success_message(title: t('.success.title', target_email:))
       else
@@ -21,6 +16,15 @@ class APIEntreprise::RestrictedTokenMagicLinksController < APIEntreprise::Authen
   end
 
   private
+
+  def organizer
+    @organizer ||= Token::DeliverMagicLinkToEmail.call(
+      email: target_email,
+      token_id: @token.id,
+      expires_at: 4.hours.from_now,
+      host: request.host
+    )
+  end
 
   def target_email
     params[:email]

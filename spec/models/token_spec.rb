@@ -16,28 +16,6 @@ RSpec.describe Token do
     it { is_expected.to contain_exactly(api_entreprise_token) }
   end
 
-  describe '#generate_magic_link_token' do
-    let(:token) { create(:token) }
-
-    it 'generates a random string for the :magic_link_token attribute' do
-      token.update(magic_link_token: nil)
-      token.generate_magic_link_token
-      token.reload
-
-      expect(token.magic_link_token).to match(/\A[0-9a-f]{20}\z/)
-    end
-
-    it 'saves the issuance date of the token' do
-      creation_time = Time.zone.now
-      Timecop.freeze(creation_time) do
-        token.generate_magic_link_token
-        token.reload
-
-        expect(token.magic_link_issuance_date.to_i).to eq(creation_time.to_i)
-      end
-    end
-  end
-
   describe '#api' do
     subject { token.api }
 

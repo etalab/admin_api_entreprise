@@ -48,6 +48,6 @@ class User < ApplicationRecord
   end
 
   def generate_pwd_renewal_token
-    update(pwd_renewal_token: random_token_for(:pwd_renewal_token))
+    update(pwd_renewal_token: access_token_for(:pwd_renewal_token))
   end
 end
