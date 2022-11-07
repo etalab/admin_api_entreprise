@@ -18,7 +18,7 @@ class APIEntreprise::RestrictedTokenMagicLinksController < APIEntreprise::Authen
   private
 
   def organizer
-    @organizer = Token::DeliverMagicLinkToEmail.call(
+    @organizer ||= Token::DeliverMagicLinkToEmail.call(
       email: target_email,
       token_id: @token.id,
       expires_at: 4.hours.from_now,
