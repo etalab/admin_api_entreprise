@@ -28,6 +28,8 @@ class OpenBureauDate
   def first_or_third_in_month?(tuesday)
     first_day_month = tuesday.at_beginning_of_month
 
+    return true if first_day_month.tuesday?
+
     first_tuesday_after_beginning_month = first_day_month.next_occurring(:tuesday)
 
     first_tuesday_after_beginning_month == tuesday || (first_tuesday_after_beginning_month + 14) == tuesday
