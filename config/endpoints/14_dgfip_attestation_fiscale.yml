@@ -6,8 +6,8 @@
     entity_type_description: |+
       Cette API délivre uniquement les attestations fiscales des **✅ entreprises soumises à l'impôt sur les sociétés (IS)**. 
 
-      L'API ne permet pas de récupérer les attestations fiscales : 
-      - ❌ des entreprises qui relèvent de l'impôt sur le revenu (IR), les entreprises individuelles sont donc notamment exclues ;
+      **L'API ne permet pas de récupérer les attestations fiscales** : 
+      - ❌ des entreprises qui relèvent de l'impôt sur le revenu (IR), les entreprises individuelles et micro-entreprises sont donc exclues. _Les entreprises qui relèvent des BIC, BNC ou BA, bénéfices respectivement industriels ou commerciaux, non-commerciaux ou agricoles, sont imposées à l'impôt sur le revenu. Leur attestation fiscale n'est donc pas récupérable par cette API_ ;
       - ❌ des sociétés ayant été créées durant l'année en cours ;
       - ❌ des sociétés bénéficiant d’un plan de règlement, redressement, sauvegarde ou conciliation ainsi que les sociétés ayant formulé un recours contentieux assorti d’un sursis de paiement.
 
@@ -19,6 +19,7 @@
       >
       > Une attestation peut être renvoyée en cas d'appel d'une entreprise "fille", mais cette attestation ne sera pas valable car incomplète. En effet, il manquera les informations de la société "mère".
       > Il est de votre ressort de vérifier si l'entreprise est membre ou non d'un groupe de sociétés imposé selon le régime fiscal d'intégration visé à l'[article 223 A du CGI](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000042340402/){:target="_blank"} afin de ne pas utiliser une attestation qui ne serait pas valable. Deux API spécifiques à ces sociétés seront bientôt disponibles.
+
 
   call_id: "SIREN"
   opening: protected
