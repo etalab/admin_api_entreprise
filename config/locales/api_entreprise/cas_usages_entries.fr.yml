@@ -8,29 +8,29 @@ fr:
           - administrations
           - collectivités
         comments_endpoints:
-          "insee/etablissements_diffusibles": "Comme toutes les données Insee indiquées \"diffusibles\", cette API est appropriée pour du **pré-remplissage de formulaire** à destination des opérateurs économiques car la donnée est publique. <br>Pour un usage en backoffice par un agent habilité, utiliser l'API \"Données établissement\" qui permet aussi d'accéder aux \"non-diffusibles\"."
-          "insee/etablissements": "**💡API à privilégier parmi les API Insee, car regroupe les infos de l'établissement et de son unité légale :** Nom commercial, dénomination sociale, nom et prénom personne physique, adresse de l'établissement&nbsp;; forme juridique, catégorie, (micro, TPE/PME) et tranche d'effectif salarié de l'unité légale."
-          "insee/unites_legales_diffusibles": "_Données spécifiques à l'unité légale \"diffusibles\"_."
-          "insee/unites_legales": "_Données spécifiques à l'unité légale_.<br>💡 Ces données sont aussi distribuées par l'API \"Données établissement\"."
-          "insee/siege_social_diffusibles": "_Données du siège social_, uniquement les \"diffusibles\"."
-          "insee/siege_social": "_Données du siège social_.<br>💡Permet de **retrouver les infos du siège social**, à partir du SIREN de l'unité légale."
-          "insee/adresse_etablissements_diffusibles": ""
-          "insee/adresse_etablissements": ""
+          "insee/etablissements_diffusibles": "API pour du **pré-remplissage de formulaire** car donnée publique."
+          "insee/etablissements": "Regroupe les infos établissement et unité légale \"diffusible\" et \"non-diffusible\".<br /><br />**Données utiles DC1 & DC2** : _Nom commercial et dénomination sociale, forme juridique, catégorie (micro/TPE/PME, ETI, GE), date de création, date de commencement de l'activité, tranche d'effectif salarié de l'unité légale_."
+          "insee/unites_legales_diffusibles": "_💡 Ces données sont aussi distribuées par l'API \"Données établissement diffusible\"_."
+          "insee/unites_legales": "_💡 Ces données sont aussi distribuées par l'API \"Données établissement\"_."
+          "insee/siege_social_diffusibles": "_Données du siège social_, uniquement les \"diffusibles\", à partir du SIREN de l'unité légale."
+          "insee/siege_social": "_Données du siège social_, à partir du SIREN de l'unité légale.<br /><br />**Donnée utile DC1 & DC2**: adresse postale du siège social."
+          "insee/adresse_etablissements_diffusibles": "_💡 Ces données sont aussi distribuées par l'API \"Données établissement diffusible\"_"
+          "insee/adresse_etablissements": "_💡 Ces données sont aussi distribuées par l'API \"Données établissement\"_"
           "infogreffe/mandataires_sociaux": ""
           "infogreffe/rcs/extrait": ""
           "ministere_interieur/rna": "_Utile si l'opérateur économique est une **association**._<br>Nom de l'association, adresse"
           "ministere_interieur/documents_associations": "_Utile si l'opérateur économique est une association._"
           "inpi/actes": "Actes détenus par les greffes. Utiles pour se renseigner sur l'**historique de l'unité légale**."
           "fabrique_numerique_ministeres_sociaux/conventions_collectives": "_Exemple d'usage spécifique_&nbsp;: **Vérifier si la reprise du personnel est obligatoire** lorsque l'entreprise est attributaire du marché."
-          "cma_france/rnm": "_Utile si l'opérateur économique est une **entrepise artisanale**._<br>Dénomination sociale, forme juridique, effectif salarié, date d'immatriculation au RNM, adresse."
+          "cma_france/rnm": "_Utile si l'opérateur économique est une **entrepise artisanale**._<br><br>**Donnée utile DC1 & DC2**: _Dénomination sociale, forme juridique, effectif salarié, date d'immatriculation au RNM, adresse_. "
           "urssaf/effectifs": "_Cette API n'est pas nécessaire dans le cadre des marchés publics_.<br>💡La tranche de l'effectif salarié est appelable avec l'API \"Données établissements - Insee\", et l'effectif d'une entreprise artisanale avec l'API \"Données du RNM - CMA\"."
           "douanes/immatriculation_eori": "_Exemple d'usage spécifique_&nbsp;: **Vérifier l'immatriculation auprès des douanes d'un attributaire de marché étranger**."
-          "dgfip/chiffres_affaires": "Vérifier de la **capacité économique et financière**. Chiffre d'affaires des trois dernières années."
-          "inpi/comptes_annuels_rncs": "Vérifier de la **capacité économique et financière**."
+          "dgfip/chiffres_affaires": "**Donnée utile DC2** : Vérifier de la capacité économique et financière avec le _chiffre d'affaires des trois dernières années_."
+          "inpi/comptes_annuels_rncs": "**Donnée utile DC2** : Vérifier de la capacité économique et financière avec les _comptes annuels_, donnée supplémentaire pouvant être requise par l'acheteur."
           "banque_de_france/bilans": "_Donnée sensible non-nécessaire._"
           "dgfip/liasses_fiscales": "_Donnée sensible non-nécessaire._"
           "attestations_fiscales": ""
-          "urssaf/attestation_vigilance": ""
+          "urssaf/attestation_vigilance": "**Suivi des prestataires choisis**"
           "msa/conformites_cotisations": ""
           "probtp/conformites_cotisations_retraite": "MP travaux publics"
           "fntp/carte_professionnelle_travaux_public": "MP travaux publics"
@@ -70,11 +70,11 @@ fr:
         list_api:
           content: |+
             {:.fr-text--xl}
-            Ce tableau dresse la liste des API utiles pour ce cas d'usage. Utilisez-le pour compléter votre de demande d'habilitation. 
+            Ce tableau dresse la liste des API utiles pour ce cas d'usage et notamment demandées dans le DC1 et le DC2. Utilisez le tableau pour compléter votre [demande d'habilitation](#request-access). 
 
             Les API **<span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> indispensables seront précochées** par défaut dans le formulaire d'accès. 
             Les API **️<span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span> utiles** seront à cocher par vos soins si votre cas d'usage le justifie.
-            Les API **<span style="color:#d64d00" class="fr-icon-close-circle-line" aria-hidden="true"></span> injustifiées** pour ce cas d'usage.
+            Les API **<span style="color:#d64d00" class="fr-icon-close-circle-line" aria-hidden="true"></span> injustifiées** ne peuvent être demandées pour ce cas d'usage.
 
 
             {:.fr-highlight.fr-highlight--caution}
@@ -198,11 +198,11 @@ fr:
         list_api:
           content: |+
             {:.fr-text--xl}
-            Ce tableau dresse la liste des API utiles pour ce cas d'usage. Utilisez-le pour compléter votre de demande d'habilitation. 
+            Ce tableau dresse la liste des API utiles pour ce cas d'usage. Utilisez-le pour compléter votre de [demande d'habilitation](#request-access). 
 
             Les API **<span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> indispensables seront précochées** par défaut dans le formulaire d'accès. 
             Les API **️<span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span> utiles** seront à cocher par vos soins si votre cas d'usage le justifie.
-            Les API **<span style="color:#d64d00" class="fr-icon-close-circle-line" aria-hidden="true"></span> injustifiées** pour ce cas d'usage.
+            Les API **<span style="color:#d64d00" class="fr-icon-close-circle-line" aria-hidden="true"></span> injustifiées** ne peuvent être demandées pour ce cas d'usage.
 
             {:.fr-highlight.fr-highlight--caution}
             Lors de votre demande d'habilitation, **vous vous engagez à ne demander que les données strictement nécessaires** à la réalisation de la démarche administrative. Consulter [nos conditions générales d'utilisation](<%= cgu_path %>){:target="_blank"}.
@@ -265,11 +265,11 @@ fr:
         list_api:
           content: |+
             {:.fr-text--xl}
-            Ce tableau dresse la liste des API utiles pour ce cas d'usage. Utilisez-le pour compléter votre de demande d'habilitation. 
+            Ce tableau dresse la liste des API utiles pour ce cas d'usage. Utilisez-le pour compléter votre de [demande d'habilitation](#request-access). 
 
             Les API **<span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> indispensables seront précochées** par défaut dans le formulaire d'accès. 
             Les API **️<span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span> utiles** seront à cocher par vos soins si votre cas d'usage le justifie.
-            Les API **<span style="color:#d64d00" class="fr-icon-close-circle-line" aria-hidden="true"></span> injustifiées** pour ce cas d'usage.
+            Les API **<span style="color:#d64d00" class="fr-icon-close-circle-line" aria-hidden="true"></span> injustifiées** ne peuvent être demandées pour ce cas d'usage.
 
 
             {:.fr-highlight.fr-highlight--caution}
@@ -375,11 +375,11 @@ fr:
         list_api:
           content: |+
             {:.fr-text--xl}
-            Ce tableau dresse la liste des API utiles pour ce cas d'usage. Utilisez-le pour compléter votre de demande d'habilitation. **Seules les données publiques sont accessibles** car il n'est pas possible de s'assurer de l'identité de l'usager.
+            Ce tableau dresse la liste des API utiles pour ce cas d'usage. Utilisez-le pour compléter votre de [demande d'habilitation](#request-access). **Seules les données publiques sont accessibles** car il n'est pas possible de s'assurer de l'identité de l'usager.
 
             Les API **<span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> indispensables seront précochées** par défaut dans le formulaire d'accès. 
             Les API **️<span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span> utiles** seront à cocher par vos soins si votre cas d'usage le justifie.
-            Les API **<span style="color:#d64d00" class="fr-icon-close-circle-line" aria-hidden="true"></span> injustifiées** pour ce cas d'usage.
+            Les API **<span style="color:#d64d00" class="fr-icon-close-circle-line" aria-hidden="true"></span> injustifiées** ne peuvent être demandées pour ce cas d'usage.
 
             
             {:.fr-highlight}
@@ -534,11 +534,11 @@ fr:
         list_api:
           content: |+
             {:.fr-text--xl}
-            Ce tableau dresse la liste des API utiles pour ce cas d'usage. Utilisez-le pour compléter votre de demande d'habilitation. 
+            Ce tableau dresse la liste des API utiles pour ce cas d'usage. Utilisez-le pour compléter votre de [demande d'habilitation](#request-access). 
 
             Les API **<span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> indispensables seront précochées** par défaut dans le formulaire d'accès. 
             Les API **️<span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span> utiles** seront à cocher par vos soins si votre cas d'usage le justifie.
-            Les API **<span style="color:#d64d00" class="fr-icon-close-circle-line" aria-hidden="true"></span> injustifiées** pour ce cas d'usage.
+            Les API **<span style="color:#d64d00" class="fr-icon-close-circle-line" aria-hidden="true"></span> injustifiées** ne peuvent être demandées pour ce cas d'usage.
 
 
             {:.fr-highlight.fr-highlight--caution}
