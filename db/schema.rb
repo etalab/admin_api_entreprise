@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_25_080557) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_09_150224) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pgcrypto"
@@ -32,6 +32,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_25_080557) do
     t.jsonb "params", default: "{}"
     t.uuid "token_id"
     t.boolean "cached"
+    t.uuid "request_id"
     t.index "((params ->> 'recipient'::text))", name: "index_access_logs_on_params_recipient", using: :gin
     t.index "((params ->> 'siren'::text))", name: "index_access_logs_on_params_siren", using: :gin
     t.index "((params ->> 'siret'::text))", name: "index_access_logs_on_params_siret", using: :gin
