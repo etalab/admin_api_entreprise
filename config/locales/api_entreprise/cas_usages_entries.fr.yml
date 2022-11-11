@@ -9,39 +9,73 @@ fr:
           - collectivités
         comments_endpoints:
           "insee/etablissements_diffusibles": "<span class='fr-badge fr-badge--sm fr-badge--new'>Candidature</span> **Données utiles DC1 & DC2** : _raison sociale, forme juridique, catégorie micro/TPE/PME de l'unité légale. Tranche effectif, activité principale et date de création de l'établissement et de l'unité légale_.<br /><br />📝 Utilisable pour du **préremplissage de formulaire** car donnée publique."
+
           "insee/etablissements": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> **Données utiles DC1 & DC2** : Mêmes données que l'API ci-dessus ⬆️ avec les \"non-diffusibles\".<br /><br />🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
-          "insee/unites_legales_diffusibles": "💡_Ces données sont aussi distribuées par l'API \"Données établissement diffusible\"_."
-          "insee/unites_legales": "💡_Ces données sont aussi distribuées par l'API \"Données établissement\"_."
-          "insee/siege_social_diffusibles": "<span class='fr-badge fr-badge--sm fr-badge--new'>Candidature</span> **Donnée utile DC1 & DC2** : À&nbsp;partir du Siren de l'unité légale, récupérez l'_adresse postale du siège social_.<br /><br />📝 Utilisable pour du **préremplissage de formulaire** car donnée publique."
-          "insee/siege_social": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> **Données utiles DC1 & DC2** : Même donnée que l'API ci-dessus ⬆️ avec les \"non-diffusibles\".<br /><br />🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
-          "insee/adresse_etablissements_diffusibles": "💡_Ces données sont aussi distribuées par l'API \"Données établissement diffusible\"_"
-          "insee/adresse_etablissements": "💡_Ces données sont aussi distribuées par l'API \"Données établissement\"_"
-          "infogreffe/mandataires_sociaux": "_Usage à justifier car donnée protégée_<br /><br />💡 Les mandataires sociaux sont disponibles avec l'API Extrait RCS d'Infogreffe. Cette API délivre une donnée plus précise dont notamment le jour et le pays de naissance._"
+
+          "infogreffe/mandataires_sociaux": "_Usage à justifier car donnée protégée._<br /><br />💡 Les mandataires sociaux sont disponibles avec l'API Extrait RCS d'Infogreffe. Cette API délivre une donnée plus précise dont notamment le jour et le pays de naissance._"
+
           "infogreffe/rcs/extrait": "<span class='fr-badge fr-badge--sm fr-badge--new'>Candidature</span> **Données utiles DC1 & DC2** : Pré-remplir presque toutes les informations contenues dans un **Kbis**, telles que _le nom commercial et la dénomination de l'unité légale_. <br />💡 _Depuis le 23 novembre 2021, l'extrait K-bis ne peut plus être demandé à l'entreprise. [Consulter le décrêt](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000043523039){:target='_blank'}_<br /><br /><span class='fr-badge fr-badge--sm fr-badge--purple-glycine fr-badge--new'>Préparation du marché</span> Identifier les dirigeants de l’organisation candidate en prévention de conflits d’intérêt."
+          
+          "insee/unites_legales_diffusibles": "💡_Ces données sont aussi distribuées par l'API \"Données établissement diffusible\"_."
+
+          "insee/unites_legales": "💡_Ces données sont aussi distribuées par l'API \"Données établissement\"_."
+
+          "insee/siege_social_diffusibles": "<span class='fr-badge fr-badge--sm fr-badge--new'>Candidature</span> **Donnée utile DC1 & DC2** : À&nbsp;partir du Siren de l'unité légale, récupérez l'_adresse postale du siège social_.<br /><br />📝 Utilisable pour du **préremplissage de formulaire** car donnée publique."
+          
+          "insee/siege_social": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> **Données utiles DC1 & DC2** : Même donnée que l'API ci-dessus ⬆️ avec les \"non-diffusibles\".<br /><br />🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
+          
+          "insee/adresse_etablissements_diffusibles": "💡_Ces données sont aussi distribuées par l'API \"Données établissement diffusible\"_"
+          
+          "insee/adresse_etablissements": "💡_Ces données sont aussi distribuées par l'API \"Données établissement\"_"
+
           "ministere_interieur/rna": "<span class='fr-badge fr-badge--sm fr-badge--new'>Candidature</span> **Données utiles DC1 & DC2** : Informations d'une association telles que _le nom, l'objet, l'adresse du siège et la date de création._"
+
           "ministere_interieur/documents_associations": "<span class='fr-badge fr-badge--sm fr-badge--new'>Candidature</span> Documents d'une association."
+
           "inpi/actes": "Actes détenus par les greffes. Utiles pour se renseigner sur l'**historique de l'unité légale**."
+
           "commission_europeenne/numero_tva": "_Uniquement les numéros de TVA français d'une entreprise ayant un Siren._"
+
           "fabrique_numerique_ministeres_sociaux/conventions_collectives": "<span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Préparation du marché</span> <span class='fr-badge fr-badge--sm fr-badge--new'>Candidature</span> _Exemple d'usage spécifique_&nbsp;: En temps qu'acheteur public vous souhaitez que le personnel actuellement titulaire du marché soit gardé même si une nouvelle entreprise remporte le marché. Consulter les conventions collective vous permet de **vérifier si la reprise du personnel est obligatoire pour l'entreprise candidate**. Certaines conventions collectives prévoient en effet la reprise du personnel par transfert de contrat."
+          
           "cma_france/rnm": "<span class='fr-badge fr-badge--sm fr-badge--new'>Candidature</span> **Données utiles DC1 & DC2**: _Dénomination sociale, forme juridique, effectif salarié, date d'immatriculation au RNM, adresse_ d'une entreprise artisanale."
+          
           "urssaf/effectifs": "_Cette API n'est pas nécessaire dans le cadre des marchés publics_.<br>💡La tranche de l'effectif salarié est appelable avec l'API \"Données établissements - Insee\", et l'effectif d'une entreprise artisanale avec l'API \"Données du RNM - CMA\"."
+          
           "douanes/immatriculation_eori": "<span class='fr-badge fr-badge--sm fr-badge--new'>Candidature</span> _Exemple d'usage spécifique_&nbsp;: Vérifier l'**immatriculation auprès des douanes** d'un attributaire de marché étranger."
+          
           "dgfip/chiffres_affaires": "<span class='fr-badge fr-badge--sm fr-badge--new'>Candidature</span> <span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> **Justificatif de capacité économique et financière** : Cette API permet d'accéder au _chiffre d'affaires des trois dernières années_, demandables en vertu de l'[article 2 de l'Arrêté du 22 mars 2019](https://www.legifrance.gouv.fr/jorf/article_jo/JORFARTI000038318581){:target='_blank'}."
+          
           "inpi/comptes_annuels_rncs": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> **Justificatif de capacité économique et financière** : Cette API permet d'accéder aux _comptes annuels_ issus de l'INPI et délivrés au format PDF. Elle peut permettre de vérifier le rapport entre actif et passif, et autres ratios financiers, demandables en vertu de l'[article 2 de l'Arrêté du 22 mars 2019](https://www.legifrance.gouv.fr/jorf/article_jo/JORFARTI000038318581){:target='_blank'}."
+         
           "banque_de_france/bilans": "_Donnée sensible non-nécessaire._"
+          
           "dgfip/liasses_fiscales": "_Donnée sensible non-nécessaire._"
+          
           "dgfip/attestations_fiscales": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> **Justificatif d'absence de motif d'exclusion** : vérifier la régularité fiscale en vertu de l'[article L2141-2 du Code de la commande publique](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037703593){:target='_blank'}. L'**attestation fiscale** est listée en [annexe 4](https://www.legifrance.gouv.fr/loda/id/JORFTEXT000038318472){:target='_blank'} comme certificat à délivrer."
+          
           "urssaf/attestation_vigilance": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> **Justificatif d'absence de motif d'exclusion** : vérifier la régularité sociale en vertu de l'[article L2141-2 du Code de la commande publique](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037703593){:target='_blank'}. L'**attestation sociale** est listée en [annexe 4](https://www.legifrance.gouv.fr/loda/id/JORFTEXT000038318472){:target='_blank'} comme certificat à délivrer.<br/><br/><span class='fr-badge fr-badge--sm fr-badge--orange-terre-battue fr-badge--new'>Suivi prestataires</span> **Vérification et mise à jour automatique du document** pour les marchés de plus de 6 mois."
-          "msa/conformites_cotisations": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> **Justificatif d'absence de motif d'exclusion** : vérifier la régularité sociale en vertu de l'[article L2141-2 du Code de la commande publique](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037703593){:target='_blank'}. La conformité des cotisations retraite est listée en [annexe 4](https://www.legifrance.gouv.fr/loda/id/JORFTEXT000038318472){:target='_blank'} comme certificat à délivrer."
-          "probtp/conformites_cotisations_retraite": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> **Justificatif d'absence de motif d'exclusion** : vérifier la régularité sociale en vertu de l'[article L2141-2 du Code de la commande publique](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037703593){:target='_blank'}. L'**attestation MSA** fest listé en [annexe 4](https://www.legifrance.gouv.fr/loda/id/JORFTEXT000038318472){:target='_blank'} comme certificat à délivrer.<br/><br/><span class='fr-badge fr-badge--sm fr-badge--grey fr'>MP travaux publics</span>"
+          
+          "msa/conformites_cotisations": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> **Justificatif d'absence de motif d'exclusion** : vérifier la régularité sociale en vertu de l'[article L2141-2 du Code de la commande publique](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037703593){:target='_blank'}. L'**attestation MSA** est listée en [annexe 4](https://www.legifrance.gouv.fr/loda/id/JORFTEXT000038318472){:target='_blank'} comme certificat à délivrer."
+          
+          "probtp/conformites_cotisations_retraite": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> **Justificatif d'absence de motif d'exclusion** : vérifier la régularité sociale en vertu de l'[article L2141-2 du Code de la commande publique](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037703593){:target='_blank'}. La conformité des cotisations retraite est listée en [annexe 4](https://www.legifrance.gouv.fr/loda/id/JORFTEXT000038318472){:target='_blank'} comme certificat à délivrer.<br/><br/><span class='fr-badge fr-badge--sm fr-badge--grey fr'>MP travaux publics</span>"
+          
           "fntp/carte_professionnelle_travaux_public": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> **Justificatif d'absence de motif d'exclusion** : vérifier la régularité sociale, des candidats soumis à cotisations congés payés, en vertu de l'[article  L2141-2 du Code de la commande publique](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037703593){:target='_blank'}. La **carte professionnelle par la FNTP** est délivrée seulement si l'entreprise est à jour de ses cotisations.<br/><br/><span class='fr-badge fr-badge--sm fr-badge--new'>Candidature</span> **Justificatif de qualification professionnelle** : Connaître les capacités techniques et professionnelles d'une entreprise avec les [identités professionnelles de la FNTP](https://www.fntp.fr/outils/carte-professionnelle/integrer-les-ip-dans-les-marches){:target='_blank'}.<br/><br/><span class='fr-badge fr-badge--sm fr-badge--grey fr'>MP travaux publics</span>"
+          
           "cnetp/attestations_cotisations_conges_payes_chomage_intemperies": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> **Justificatif d'absence de motif d'exclusion** : vérifier la régularité sociale, des candidats rattachés à la Caisse CNETP, en vertu de l'[article  L2141-2 du Code de la commande publique](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037703593){:target='_blank'}. Le **certificat CNETP** est listé en [annexe 4](https://www.legifrance.gouv.fr/loda/id/JORFTEXT000038318472){:target='_blank'} comme preuve à délivrer.<br/><br/><span class='fr-badge fr-badge--sm fr-badge--grey fr'>MP travaux publics</span>"
+          
           "agence_bio/certifications_bio": "<span class='fr-badge fr-badge--sm fr-badge--new'>Candidature</span> **Certificat de qualité** : _Exemple d'usage spécifique : un appel d'offre pour un service de restauration comportant des produits issus de l’agriculture biologique._<br/><br/><span class='fr-badge fr-badge--sm fr-badge--grey fr'>MP fournitures et services</span><br/><span class='fr-badge fr-badge--sm fr-badge--grey fr'>[achats publics durables](https://www.economie.gouv.fr/cedef/achats-publics-durables){:target='_blank'}</span>"
+          
           "ademe/certifications_rge": "<span class='fr-badge fr-badge--sm fr-badge--new'>Candidature</span> **Justificatif de qualification professionnelle.**<br/><br/><span class='fr-badge fr-badge--sm fr-badge--grey fr'>MP travaux publics</span><br/><span class='fr-badge fr-badge--sm fr-badge--grey fr'>[achats publics durables](https://www.economie.gouv.fr/cedef/achats-publics-durables){:target='_blank'}</span>"
+          
           "qualibat/certifications_batiment": "<span class='fr-badge fr-badge--sm fr-badge--new'>Candidature</span> **Justificatif de qualification professionnelle.**<br/><br/><span class='fr-badge fr-badge--sm fr-badge--grey fr'>MP travaux publics</span>"
+          
           "opqibi/qualifications_ingenierie": "<span class='fr-badge fr-badge--sm fr-badge--new'>Candidature</span> **Justificatif de qualification professionnelle.**<br/><br/><span class='fr-badge fr-badge--sm fr-badge--grey fr'>MP travaux publics</span>"
+          
           "inpi/brevets": "<span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Préparation du marché</span> _Exemple d'usage spécifique_&nbsp;: Déterminer si une entreprise est bien la seule à détenir une technologie afin de **justifier une non mise en concurrence**."
+          
           "inpi/marques": ""
+          
           "inpi/modeles": ""
         introduction:
           title: Facilitez la candidature, l’instruction et le suivi des marchés publics !
@@ -139,41 +173,75 @@ fr:
           - administrations
           - collectivités
         comments_endpoints:
-          "insee/etablissements_diffusibles": "Comme toutes les données Insee indiquées \"diffusibles\", cette API est appropriée pour du **préremplissage de formulaire** à destination des demandeurs car la donnée est publique. <br>Pour un usage en backoffice par un agent habilité, utiliser l'API \"Données établissement\" qui permet aussi d'accéder aux \"non-diffusibles\"."
-          "insee/etablissements": "**💡API à privilégier parmi les API Insee, car regroupe les infos de l'établissement et de son unité légale.**"
-          "insee/unites_legales_diffusibles": "_Données spécifiques à l'unité légale \"diffusibles\"_."
-          "insee/unites_legales": "_Données spécifiques à l'unité légale_.<br>💡 Ces données sont aussi distribuées par l'API \"Données établissement\"."
-          "insee/siege_social_diffusibles": "_Données du siège social_, uniquement les \"diffusibles\"."
-          "insee/siege_social": "_Données du siège social_.<br>💡Permet de **retrouver les infos du siège social**, à partir du SIREN de l'unité légale."
-          "insee/adresse_etablissements_diffusibles": ""
-          "insee/adresse_etablissements": ""
-          "infogreffe/mandataires_sociaux": ""
-          "infogreffe/rcs/extrait": ""
-          "ministere_interieur/rna": "_Utile pour les subventions._"
-          "ministere_interieur/documents_associations": "_Utile pour les subventions._"
-          "inpi/actes": "Actes détenus par les greffes. Utiles pour se renseigner sur l'**historique de l'unité légale**."
-          "commission_europeenne/numero_tva": ""
-          "fabrique_numerique_ministeres_sociaux/conventions_collectives": ""
-          "cma_france/rnm": "_Utile si le demandeur est une **entrepise artisanale**._"
-          "urssaf/effectifs": "_Effectif précis_.<br>💡L'API \"Données établissements - Insee\" délivre la tranche de l'effectif salarié. Si une fourchette est suffisante, préférer cette API. <br>Pour l'effectif d'une entreprise artisanale, utiliser l'API \"Données du RNM - CMA\"."
-          "douanes/immatriculation_eori": ""
-          "dgfip/chiffres_affaires": ""
-          "inpi/comptes_annuels_rncs": ""
-          "banque_de_france/bilans": "_Donnée sensible non-nécessaire._"
-          "dgfip/liasses_fiscales": "_Donnée sensible non-nécessaire._"
-          "dgfip/attestations_fiscales": ""
-          "urssaf/attestation_vigilance": ""
-          "msa/conformites_cotisations": ""
-          "probtp/conformites_cotisations_retraite": ""
-          "fntp/carte_professionnelle_travaux_public": ""
-          "cnetp/attestations_cotisations_conges_payes_chomage_intemperies": ""
-          "agence_bio/certifications_bio": ""
-          "ademe/certifications_rge": ""
-          "qualibat/certifications_batiment": ""
-          "opqibi/qualifications_ingenierie": ""
-          "inpi/brevets": ""
-          "inpi/marques": ""
-          "inpi/modeles": ""
+            "insee/etablissements_diffusibles": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> <span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Subventions</span> _Raison sociale, forme juridique, catégorie micro/TPE/PME de l'unité légale. Tranche effectif, activité principale et date de création de l'établissement et de l'unité légale_.<br /><br />📝 Utilisable pour du **préremplissage de formulaire** car donnée publique."
+
+            "insee/etablissements": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> <span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Subventions</span> Mêmes données que l'API ci-dessus ⬆️ avec les \"non-diffusibles\".<br /><br />🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
+
+            "infogreffe/mandataires_sociaux": "_Usage à justifier car donnée protégée._<br /><br />💡 Les mandataires sociaux sont disponibles avec l'API Extrait RCS d'Infogreffe. Cette API délivre une donnée plus précise dont notamment le jour et le pays de naissance._"
+
+            "infogreffe/rcs/extrait": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> <span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Subventions</span> Pré-remplir presque toutes les informations contenues dans un **Kbis**, telles que _le nom commercial et la dénomination de l'unité légale_. <br />💡 _Depuis le 23 novembre 2021, l'extrait K-bis ne peut plus être demandé à l'entreprise. [Consulter le décrêt](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000043523039){:target='_blank'}_"
+          
+            "insee/unites_legales_diffusibles": "💡_Ces données sont aussi distribuées par l'API \"Données établissement diffusible\"_."
+
+            "insee/unites_legales": "💡_Ces données sont aussi distribuées par l'API \"Données établissement\"_."
+
+            "insee/siege_social_diffusibles": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> <span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Subventions</span> À&nbsp;partir du Siren de l'unité légale, récupérez l'_adresse postale du siège social_.<br /><br />📝 Utilisable pour du **préremplissage de formulaire** car donnée publique."
+          
+            "insee/siege_social": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> <span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Subventions</span> Même donnée que l'API ci-dessus ⬆️ avec les \"non-diffusibles\".<br /><br />🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
+          
+            "insee/adresse_etablissements_diffusibles": "💡_Ces données sont aussi distribuées par l'API \"Données établissement diffusible\"_"
+          
+            "insee/adresse_etablissements": "💡_Ces données sont aussi distribuées par l'API \"Données établissement\"_"
+
+            "ministere_interieur/rna": "<span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Subventions</span> Informations d'une association telles que _le nom, l'objet, l'adresse du siège et la date de création._"
+
+            "ministere_interieur/documents_associations": "<span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Subventions</span> Documents d'une association."
+
+            "inpi/actes": "Actes détenus par les greffes. Utiles pour se renseigner sur l'**historique de l'unité légale**."
+
+            "commission_europeenne/numero_tva": "_Uniquement les numéros de TVA français d'une entreprise ayant un Siren._"
+
+            "fabrique_numerique_ministeres_sociaux/conventions_collectives": ""
+          
+            "cma_france/rnm": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> _Dénomination sociale, forme juridique, effectif salarié, date d'immatriculation au RNM, adresse_ d'une entreprise artisanale."
+          
+            "urssaf/effectifs": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> <span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Subventions</span> _Usage de l'effectif exact à justifier car donnée protégée_.<br/><br/>💡La tranche de l'effectif salarié est appelable avec l'API \"Données établissements - Insee\", et l'effectif d'une entreprise artisanale avec l'API \"Données du RNM - CMA\"."
+          
+            "douanes/immatriculation_eori": ""
+         
+            "dgfip/chiffres_affaires": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> Identifier directement le montant d'une aide, si celle-ci est déterminée par le chiffre d'affaires."
+          
+            "inpi/comptes_annuels_rncs": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> <span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Subventions</span> _Si une association a des subventions supérieure à 153 000 euros par an_, les comptes annuels sont à demander."
+         
+            "banque_de_france/bilans": "_Donnée sensible non-nécessaire._"
+          
+            "dgfip/liasses_fiscales": "_Donnée sensible non-nécessaire._"
+          
+            "dgfip/attestations_fiscales": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> Vérifier la régularité fiscale de l'entreprise en récupérant l'**attestation fiscale**."
+          
+            "urssaf/attestation_vigilance": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> Vérifier la régularité sociale en récupérant l'**attestation sociale**."
+          
+            "msa/conformites_cotisations": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> Vérifier la régularité sociale d'une entreprise du régime agricole devant verser ses **cotisations auprès de la MSA**."
+          
+            "probtp/conformites_cotisations_retraite": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> Vérifier la régularité sociale d'une entreprise du BTP."
+          
+            "fntp/carte_professionnelle_travaux_public": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> Vérifier la régularité sociale d'une entreprise du BTP."
+          
+            "cnetp/attestations_cotisations_conges_payes_chomage_intemperies": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> Vérifier la régularité sociale, des entreprises versant leurs cotisations congés payés à la Caisse CNETP."
+          
+            "agence_bio/certifications_bio": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> <span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Subventions</span> Utile si critère de labelisation en BIO."
+          
+            "ademe/certifications_rge": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> <span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Subventions</span> Utile si critère de \"Reconnu garant de l'environnement\"."
+          
+            "qualibat/certifications_batiment": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> <span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Subventions</span> Utile si critère de labelisation Qualibat."
+          
+            "opqibi/qualifications_ingenierie": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> <span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Subventions</span> Utile si critère de labelisation OPQIBI."
+          
+            "inpi/brevets": ""
+          
+            "inpi/marques": ""
+          
+            "inpi/modeles": ""
         introduction:
           title: Faciliter le dépôt et l'instruction des aides et subventions publiques
           content: |
