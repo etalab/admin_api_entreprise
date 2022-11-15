@@ -46,11 +46,11 @@
       7jours/7 et 24h/24 
   use_cases:
     - Marchés publics
-    - Aides publiques
+    - Aides & subventions publiques
     - Détection de la fraude
+    - Portail GRU - Instruction des démarches
   use_cases_forbidden:
-    - Préremplissage d'un formulaire
-    - Portail gestion relation usager
+    - Portail GRU - Préremplissage
   provider_uids: &insee_etablissements_provider_uids
     - 'insee'
   keywords: &insee_etablissements_keywords
@@ -108,7 +108,7 @@
         Dans le cas où l'entité est indiquée comme \"non-diffusible\", vous vous engagez à n'utiliser leurs informations que dans le cadre strict de vos missions de service public, à ne pas les rediffuser ni les divulguer auprès de tiers non autorisés.
 
         {:.fr-highlight.fr-highlight--caution}
-        > ⚠️ **Vous ne pouvez pas donc pas faire usage des données d'une entité "non-diffusible" pour du pré-remplissage.**
+        > ⚠️ **Vous ne pouvez pas donc pas faire usage des données d'une entité "non-diffusible" pour du préremplissage.**
 
         {:.fr-highlight}
         > Il vous est par contre possible d'indiquer à l'entité "non-diffusible" qu'elle peut modifier son statut, même provisoirement, auprès de l'Insee à l'adresse suivante : [https://statut-diffusion-sirene.insee.fr](https://statut-diffusion-sirene.insee.fr){:target="_blank"}).
@@ -147,11 +147,11 @@
   opening: public
   use_cases_optional:
     - Détection de la fraude
-    - Marchés publics
-    - Aides publiques
   use_cases:
-    - Préremplissage d'un formulaire
-    - Portail gestion relation usager
+    - Portail GRU - Préremplissage
+    - Portail GRU - Instruction des démarches
+    - Marchés publics
+    - Aides & subventions publiques
   format: *insee_etablissements_format
   availability: 
     opening_time: *insee_etablissements_opening_time

@@ -11,9 +11,9 @@ Le numéro de TVA intracommunautaire est un identifiant unique attribué aux ent
 
 <br>
 
-## Pré-remplir le n°TVA français à partir d'un SIREN
+## Préremplir le n°TVA français à partir d'un SIREN
 
-Le catalogue de l'API Entreprise s'est enrichi d'une nouvelle [API N°TVA intracommunautaire français](<%= endpoint_path(uid: 'commission_europeenne/numero_tva') %>). Cette API vous permet de retrouver le numéro de TVA intracommunautaire **français** à partir d'un numéro de SIREN. En intégrant cette API, vous pourrez donc pré-remplir automatiquement le numéro de TVA français d'une entreprise dans vos démarches à destination des entreprises inscrites au répertoire Sirene.
+Le catalogue de l'API Entreprise s'est enrichi d'une nouvelle [API N°TVA intracommunautaire français](<%= endpoint_path(uid: 'commission_europeenne/numero_tva') %>). Cette API vous permet de retrouver le numéro de TVA intracommunautaire **français** à partir d'un numéro de SIREN. En intégrant cette API, vous pourrez donc préremplir automatiquement le numéro de TVA français d'une entreprise dans vos démarches à destination des entreprises inscrites au répertoire Sirene.
 
 ⚠️ **Exceptions :** Une unité légale répertoriée en France peut avoir un numéro de TVA au format d'un autre pays européen si son siège était historiquement à l’étranger et avait commencé à déclarer ses impôts dans ce pays. Dans ce cas, l’unité légale garde le numéro de TVA qui lui a été délivré par ce pays européen. Ce numéro de TVA étranger n’est pas délivré par cette API.
 

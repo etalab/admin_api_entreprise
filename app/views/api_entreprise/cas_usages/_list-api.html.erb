@@ -1,5 +1,5 @@
 <div id="table-api" class="fr-table fr-table--no-caption">
-  <table>
+  <table style="height:450px">
   <caption>Liste des données utiles pour le cas d'usage <%= @data[:name] %></caption>
     <thead>
       <tr>
@@ -20,11 +20,14 @@
           </td>
           <td>
             <% if endpoint.use_cases&.include?(@data[:name]) %>
-            ✅
+            <span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span>
+
             <% elsif endpoint.use_cases_optional&.include?(@data[:name]) %>
-            *️⃣
+            <span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span>
+
             <% elsif endpoint.use_cases_forbidden&.include?(@data[:name]) %>
-            ❌
+            <span style="color:#d64d00" class="fr-icon-close-circle-line" aria-hidden="true"></span>
+
             <% else %>
             -
             <% end %>
