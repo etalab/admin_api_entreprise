@@ -59,3 +59,15 @@
     - Portail GRU - Instruction des démarches
   parameters:
     - Numéro de SIREN de l'unité légale
+  faq:
+    - q: "Quelle différence entre la liste des mandataires sociaux disponible dans cette API et les données de l'API Mandataires sociaux d'Infogreffe ?"
+      a: |+
+        L'[API Mandataires sociaux - Infogreffe](<%= endpoint_path(uid: 'insee/infogreffe/mandataires_sociaux') %>) permet aussi d'accéder à la liste des mandataires sociaux d'une unité légale. Issues du même fournisseur Infogreffe, la différence se trouve au niveau de l'ouverture et de la précision des données.
+
+        L'API Mandataires sociaux permet d'accéder, sous réserve d'en justifier l'usage, à des données protégées : 
+        - le lieu de naissance (commune et pays) des personnes physiques listées ;
+        - leur nationalité.
+        <br/>
+
+        {:.fr-highlight}
+        **Contrairement à l'API Mandataires sociaux, L'API Extrait RCS est adaptée pour du préremplissage**. Composée uniquement de données ouvertes, vous pouvez l'utiliser pour apporter une aide à la saisie à vos utilisateurs, comme par exemple pour le [cas d'usage Préremplissage - Portail GRU](<%= cas_usage_path('portail_gru') %>).
