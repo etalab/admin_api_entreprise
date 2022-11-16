@@ -9,12 +9,16 @@
         <div class="fr-card__body">
           <div class="fr-card__content">
             <%= form_with(url: login_api_gouv_path, method: :post, data: { turbo: false }) do |f| %>
-              <%= f.button t('.button'), class: %w(fr-btn fr-btn--md), id: 'datapass_login' %>
+              <%= f.button t('.login_datapass'), class: %w(fr-btn fr-btn--md), id: 'datapass_login' %>
             <% end %>
 
             <p class="fr-mt-2w fr-mb-0">
               <%= t('.disclaimer').html_safe %>
             </p>
+
+            <div>
+              <%= link_to t('.login_magic_link'), login_magic_link_path, class: %w(fr-m-6v fr-btn), id: 'magic_link_login' %>
+            </div>
           </div>
         </div>
       </div>
