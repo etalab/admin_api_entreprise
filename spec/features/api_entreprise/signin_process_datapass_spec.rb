@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe 'the signin process', app: :api_entreprise do
+RSpec.describe 'Signin process via datapass', app: :api_entreprise do
   subject do
     visit login_path
-    click_on 'login'
+    click_on 'datapass_login'
   end
 
   context 'when API Gouv authentication is successful' do
