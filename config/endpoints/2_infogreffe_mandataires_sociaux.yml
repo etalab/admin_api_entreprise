@@ -27,9 +27,11 @@
     - 'fraude'
   data:
     description: |+
-      Cette API délivre **tous les mandataires sociaux  et leur fonction** au sein de l'entreprise&nbsp;:
-      - S'il s'agit de personnes morales : le numéro de SIREN, la raison sociale et le nom du greffe seront précisés ;
-      - S'il s'agit de personnes physiques : le nom, le prénom, la date de naissance, ainsi que le lieu de naissance de la personne physique seront indiqués.
+      Cette API délivre **tous les mandataires sociaux et leur fonction** au sein de l'entreprise&nbsp;:
+      - S'il s'agit de personnes morales : le numéro de Siren, la raison sociale et le nom du greffe seront précisés ;
+      - S'il s'agit de personnes physiques : le nom, le prénom ainsi que des **données protégées de la personne physique** (le jour précis, la commune et le pays de naissance, la nationalité) seront indiqués.
+
+      [Quelle différence avec les données disponibles depuis l'API Extrait RCS ?](#faq_entry_0_endpoint_infogreffe_mandataires_sociaux)
   opening: protected
   format:
     - Donnée structurée JSON 
@@ -46,3 +48,23 @@
     - Portail GRU - Préremplissage
   parameters:
     - Numéro de SIREN de l'unité légale
+  faq:
+    - q: "Quelle différence avec les données de l'API Extrait RCS d'Infogreffe ?"
+      a: |+
+        L'[API Extrait RCS - Infogreffe](<%= endpoint_path(uid: 'insee/infogreffe/rcs/extrait') %>) permet aussi d'accéder à la liste des mandataires sociaux d'une unité légale. Issues du même fournisseur Infogreffe, la différence se trouve au niveau de l'ouverture et de la précision des données.
+
+        Cette API mandataires sociaux permet en plus d'accéder à des données protégées des personnes physiques : 
+        - ✅ le lieu de naissance (commune et pays) ;
+        - ✅ le jour de naissance ;
+        - ✅ la nationalité.
+        <br/>
+
+        {:.fr-highlight}
+        **Pour accéder à cette API, il vous faudra donc justifier du besoin d'obtenir ces informations protégées**. <br />
+        **Cette API n'est pas adaptée pour du préremplissage**. Pour apporter une aide à la saisie à vos utilisateurs, comme par exemple pour le [cas d'usage Préremplissage - Portail GRU](<%= cas_usage_path('portail_gru') %>), vous devez utiliser la donnée publique issue de l'[API Extrait RCS - Infogreffe](<%= endpoint_path(uid: 'insee/infogreffe/rcs/extrait') %>).
+
+
+
+
+
+

@@ -33,12 +33,14 @@
       - un **extrait des données** présentes dans le registre du commerce et des sociétés. ⚠️ Cette API n'est pas une réplique exacte d'un Kbis, même si la majorité des données sont présentes.
       - **tous les commentaires laissés par les greffiers**. Ces observations concernent, entre autres, les changements de capital, les transferts de siège, les fusions, les redressements et liquidations judiciaires (si la donnée est publique).
 
-      **Liste des données présentes dans le K-bis et qui ne figurent pas dans cette API&nbsp;:** 
+      <br/>
+      **Données du K-bis qui ne figurent pas ou seulement partiellement dans cette API&nbsp;:** 
 
+      {:.fr-table}
       | Donnée présente dans le K-bis              |   Équivalence sur API Entreprise              |
       |:-------------------------------------------|:-----------------------------------------------|
       | Activités principales de l'entreprise      |   Cette API délivre uniquement les activités de l'établissement principal (Code APE et libellé)         |
-      | Informations sur les mandataires sociaux   |   L'information délivrée par cette API est partielle, pour obtenir l'exhaustivité des données disponibles sur les mandataires sociaux, dont le lieu de naissance, nous vous recommandons d'interroger l'[API Mandataires sociaux - Infogreffe](<%= endpoint_path(uid: '/infogreffe/mandataires_sociaux') %>).    |
+      | Informations sur les mandataires sociaux   |   L'information délivrée par cette API est partielle, pour obtenir l'exhaustivité des données disponibles sur les mandataires sociaux, dont le jour et lieu de naissance et la nationalité, nous vous pouvez interroger l'[API Mandataires sociaux - Infogreffe](<%= endpoint_path(uid: '/infogreffe/mandataires_sociaux') %>).    |
       | Date de commencement de l'activité         |   ❌ Cette date n'est pas disponible sur API Entreprise. Une autre date, la date de création de l'établissement est accessible depuis l'[API Établissements - Insee](<%= endpoint_path(uid: '/insee/etablissements') %>).    |
       | Référence des autorisations obligatoires pour les professions réglementées     |   ❌ Ces informations ne sont pas disponibles sur API Entreprise.      |
       | Capital variable (minimum)<br/>_donnée parfois disponible sur le K-Bis_    |   ❌ Cette information n'est pas disponible sur API Entreprise.<br/>Le capital, tout court, est néanmoins disponible.      |
@@ -59,3 +61,16 @@
     - Portail GRU - Instruction des démarches
   parameters:
     - Numéro de SIREN de l'unité légale
+  faq:
+    - q: "Quelle différence entre la liste des mandataires sociaux disponible dans cette API et les données de l'API Mandataires sociaux d'Infogreffe ?"
+      a: |+
+        L'[API Mandataires sociaux - Infogreffe](<%= endpoint_path(uid: 'insee/infogreffe/mandataires_sociaux') %>) permet aussi d'accéder à la liste des mandataires sociaux d'une unité légale. Issues du même fournisseur Infogreffe, la différence se trouve au niveau de l'ouverture et de la précision des données.
+
+        ❌ L'API Extrait RCS ne permet pas d'accéder aux données protégées des personnes physiques : 
+        - le lieu de naissance (commune et pays) ;
+        - le jour de naissance ;
+        - la nationalité.
+        <br/>
+
+        {:.fr-highlight}
+        **Contrairement à l'API Mandataires sociaux, L'API Extrait RCS est adaptée pour du préremplissage**. Composée uniquement de données ouvertes, vous pouvez l'utiliser pour apporter une aide à la saisie à vos utilisateurs, comme par exemple pour le [cas d'usage Préremplissage - Portail GRU](<%= cas_usage_path('portail_gru') %>).
