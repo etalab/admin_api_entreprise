@@ -220,7 +220,6 @@ fr:
 
                   La distinction entre les "diffusibles" et les "non-diffusibles" n'est plus faite par une option d'appel. Nous avons créé des API distinctes :
 
-
                   {:.fr-table}
                   | API V.2  | API V.3 correspondantes |
                   | :--- | :--- |
@@ -237,14 +236,15 @@ fr:
                   | Adresse du siège social d´une unité légale, qu´elle soit "diffusible" ou non. | API **Adresse établissement** <br /> `v3/insee/sirene/etablissements/{siret}/adresse`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'insee/adresse_etablissements') %>){:target="_blank"} <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1insee~1sirene~1etablissements~1{siret}~1adresse/get') %>){:target="_blank"}|
                   | Numéro de TVA intracommunautaire | API **N°TVA intracommunautaire français** <br /> `v3/european_commission/unites_legales/{siren}/numero_tva`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'commission_europeenne/numero_tva') %>){:target="_blank"} <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1european_commission~1unites_legales~1{siren}~1numero_tva/get') %>){:target="_blank"}|
 
-                  Ce document PDF est une table de correspondance précise de chacun des champs : 
-                  ![Description image](<%= image_path('Correspondance des champs - API V.2 Entreprises.pdf') %>)
-                  
 
                   {:.fr-highlight}
                   > **Le champ booléen `dirigeant` des mandataires sociaux retiré en V.3 car non-effectif**
                   > En V.2, parmi les informations relatives aux mandataires sociaux, API Entreprise semblait transmettre une information sur le statut dirigeant ou non du mandataire social. Cette information n'était pas effective car toujours à `true`. Nous avons donc retiré ce champ inutile de l'[API V.3 Mandataires sociaux](<%= endpoint_path(uid: 'infogreffe/mandataires_sociaux') %>){:target="_blank"}.
                   > Pour connaître les rôles des mandataires sociaux, vous pouvez vous aider du champ `fonction` qui renvoie des valeurs telles que "PRESIDENT", "DIRECTEUR GENERALE".
+
+                  **Utilisez la table de correspondance précise de chacun des champs pour visualiser les évolutions entre la V.2 et la V.3** : 
+
+                  [Document PDF] [Document Excel]
 
               - subtitle: V.2 - Données de référence d'un établissement - INSEE
                 subtitle_anchor: 'v2---données-de-référence-dun-établissement---insee-'
@@ -260,6 +260,9 @@ fr:
                   |**Sans** l'option d'appel des "non-diffusibles"  | API **Données établissement diffusible** <br /> `v3/insee/sirene/etablissements/diffusibles/{siret}`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'insee/etablissements_diffusibles') %>){:target="_blank"} <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1insee~1sirene~1etablissements~1diffusibles~1{siret}/get') %>){:target="_blank"}<br /> <br /> 🧩 Cette API délivre en plus des informations sur l'unité légale de l'établissement. |
                   |**Avec** l'option d'appel des "non-diffusibles"  | API **Données établissement** <br /> `v3/insee/sirene/etablissements/{siret}`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'insee/etablissements') %>){:target="_blank"} <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1insee~1sirene~1etablissements~1{siret}/get') %>){:target="_blank"} <br /> <br /> 🧩 Cette API délivre en plus des informations sur l'unité légale de l'établissement.|
 
+                  **Utilisez la table de correspondance précise de chacun des champs pour visualiser les évolutions entre la V.2 et la V.3** : 
+
+                  [Document PDF] [Document Excel]
 
               - subtitle: V.2 - Extrait RCS - Infogreffe <a name="v2/extrait_rcs"></a>
                 subtitle_anchor: 'v2---extrait-rcs---infogreffe-'
