@@ -244,6 +244,62 @@ fr:
 
                   **Utilisez la table de correspondance précise de chacun des champs pour visualiser les évolutions entre la V.2 et la V.3** : 
 
+                  {:.fr-table}
+                  | **API V.2. Données de référence d'un établissement** | **API V.3. Données établissement** | **API V.3. Données siège social** | **API V.3. Adresse établissement** |
+                  |---|---|---|---|
+                  | **`/etablissements`** | | | |
+                  |Avec ou sans les diffusibles | Avec ou sans les diffusibles | Avec ou sans les diffusibles | Avec ou sans les diffusibles | 
+                  | **Appelé avec SIRET** | Appelé avec SIRET | Appelé avec SIREN | Appelé avec SIRET |
+                  | **Documentation : http://v2.entreprise.api.gouv.fr/entreprise.api.gouv.fr/catalogue/#a-etablissements** | Documentation : https://entreprise.api.gouv.fr/catalogue/insee/etablissements_diffusibles | Documentation : https://entreprise.api.gouv.fr/catalogue/insee/siege_social_diffusibles | Documentation : https://entreprise.api.gouv.fr/catalogue/insee/adresse_etablissements |
+                  | **`"etablissement": {`** |  |  |  |
+                  | **`"siege_social": true,`** | `"siege_social": false` | `"siege_social": true` |  |
+                  | **`"siret": "41816609600051",`** | ⚙️ Cette information va être prochainement remise en V.3. | ⚙️ Cette information va être prochainement remise en V.3. | ⚙️ Cette information va être prochainement remise en V.3. |
+                  | **`"naf": "6202A",`** | `"code": "8411Z"` dans `"activite_principale"` | `"code": "8411Z"` dans `"activite_principale"` |  |
+                  | **`"libelle_naf": "Conseil en systèmes et logiciels informatiques"`,** | `"libelle": "Administration publique générale"` dans `"activite_principale"` | `"libelle": "Administration publique générale"` dans `"activite_principale"` |  |
+                  |  | 🎁 `"nomenclature" : "NAFRev2"` -  Nouvelle donnée qui précise la nomenclature | 🎁 `"nomenclature" : "NAFRev2"` -  Nouvelle donnée qui précise la nomenclature |  |
+                  | **`"date_mise_a_jour": "1449183600,"`** |  |  |  |
+                  | **`"tranche_effectif_salarie_etablissement": {`** | `"tranche_effectif_salarie"` | `"tranche_effectif_salarie"` |  |
+                  | **`"de": 200,`** | `"de": 2000` | `"de": 2000` |  |
+                  | **`"a": 249,`** | `"de": 2000` | `"de": 2000` |  |
+                  | **`"code": "31",`** | `"code": "51"` | `"code": "51"` |  |
+                  | **`"date_reference": "2014",`** | `"date_reference": "2016"` | `"date_reference": "2016"` |  |
+                  | **`"intitule": "200 à 249 salariés"`** | `"intitule": "2 000 à 4 999 salariés"` | `"intitule": "2 000 à 4 999 salariés"` |  |
+                  | **`"date_creation_etablissement": 1108594800,`** | `"date_creation": 1634103818"` | `"date_creation": 1634103818` |  |
+                  | **`"region_implantation": {`** | ❌ Supprimé, cette information, retrouvable autrement, ralentissait l'API. Nous l'avons supprimé en V.3. | ❌ Supprimé, cette information, retrouvable autrement, ralentissait l'API. Nous l'avons supprimé en V.3. |  |
+                  | **`"code": "11",`** | ❌ Supprimé, cette information, retrouvable autrement, ralentissait l'API. Nous l'avons supprimé en V.3. | ❌ Supprimé, cette information, retrouvable autrement, ralentissait l'API. Nous l'avons supprimé en V.3. |  |
+                  | **`"value": "Île-de-France"`** | ❌ Supprimé, cette information, retrouvable autrement, ralentissait l'API. Nous l'avons supprimé en V.3. | ❌ Supprimé, cette information, retrouvable autrement, ralentissait l'API. Nous l'avons supprimé en V.3. |  |
+                  | **`"commune_implantation": {`** |  |  |  |
+                  | **`"code": "75108",`** | ❌ Supprimé car en double dans la payload | ❌ Supprimé car en double dans la payload |  |
+                  | **`"value": "PARIS 8"`** | ❌ Supprimé car en double dans la payload | ❌ Supprimé car en double dans la payload |  |
+                  | **`"pays_implantation": {`** |  |  |  |
+                  | **`"code": "FR",`** | Remplacé par `"code_pays_etranger": "99132"` | Remplacé par `"code_pays_etranger": "99132"` |  |
+                  | **`"value": "FRANCE"`** | Remplacé par `"libelle_pays_etranger": "ROYAUME-UNI"` | Remplacé par `"libelle_pays_etranger": "ROYAUME-UNI"` |  |
+                  | **`"diffusable_commercialement": true,`** | `"diffusable_commercialement": true,` | `"diffusable_commercialement": true,` |  |
+                  | **`"enseigne": null,`** | `"enseigne": "Coiff Land, CoiffureLand",` | `"enseigne": "Coiff Land, CoiffureLand",` |  |
+                  | **`"adresse": {`** |  |  |  |
+                  | **`"l1": "OCTO TECHNOLOGY",`** | `"l1": "ipsum"` dans `"acheminement_postal"` | `"l1": "ipsum"` dans `"acheminement_postal"` | `"l1": "ipsum"` dans `"acheminement_postal"` |
+                  | **`"l2": null,`** | `"l2": "ipsum"` dans `"acheminement_postal"` | `"l2": "ipsum"` dans `"acheminement_postal"` | `"l2": "ipsum"` dans `"acheminement_postal"` |
+                  | **`"l3": null,`** | `"l3": "ipsum"` dans `"acheminement_postal"` | `"l3": "ipsum"` dans `"acheminement_postal"` | `"l3": "ipsum"` dans `"acheminement_postal"` |
+                  | **`"l4": "50 AVENUE DES CHAMPS ELYSEES",`** | `"l4": "ipsum"` dans `"acheminement_postal"` | `"l4": "ipsum"` dans `"acheminement_postal"` | `"l4": "ipsum"` dans `"acheminement_postal"` |
+                  | **`"l5": null,`** | `"l5": "ipsum"` dans `"acheminement_postal"` | `"l5": "ipsum"` dans `"acheminement_postal"` | `"l5": "ipsum"` dans `"acheminement_postal"` |
+                  | **`"l6": "75008 PARIS",`** | `"l6": "ipsum"` dans `"acheminement_postal"` | `"l6": "ipsum"` dans `"acheminement_postal"` | `"l6": "ipsum"` dans `"acheminement_postal"` |
+                  | **`"l7": "FRANCE",`** | `"l7": "ipsum"` dans `"acheminement_postal"` | `"l7": "ipsum"` dans `"acheminement_postal"` | `"l7": "ipsum"` dans `"acheminement_postal"` |
+                  | **`"numero_voie": "50",`** | `"numero_voie": "22",` | `"numero_voie": "22",` | `"numero_voie": "22",` |
+                  |  | 🎁 `"indice_repetition_voie": "lorem"` - Nouvelle donnée | 🎁 `"indice_repetition_voie": "lorem"` - Nouvelle donnée | 🎁 `"indice_repetition_voie": "lorem"` - Nouvelle donnée |
+                  | **`"type_voie": "AV",`** | `"type_voie": "RUE",` | `"type_voie": "RUE",`| `"type_voie": "RUE",` |
+                  | **`"nom_voie": "DES CHAMPS ELYSEES",`** | `"libelle_voie": "ipsum",` | `"libelle_voie": "ipsum",` | `"libelle_voie": "ipsum",` |
+                  | **`"complement_adresse": null,`** | `"complement_adresse": "ZAE SAINT GUENAULT",` | `"complement_adresse": "ZAE SAINT GUENAULT",` | `"complement_adresse": "ZAE SAINT GUENAULT",` |
+                  | **`"code_postal": "75008",`** | `"code_postal": "75016",` | `"code_postal": "75016",` | `"code_postal": "75016",` |
+                  | **`"localite": "PARIS 8",`** | `"libelle_commune": "PARIS 12"` | `"libelle_commune": "PARIS 12"` | `"libelle_commune": "PARIS 12"` |
+                  | **`"code_insee_localite": "75108",`** | `"code_commune": "75112"` | ""code_commune": "75112"" | ""code_commune": "75112"" |
+                  | **`"cedex": null"`** | `"code_cedex": "ipsum",` | `"code_cedex": "ipsum",` | `"code_cedex": "ipsum",` |
+                  | | 🎁 `"libelle_cedex": "PARIS CEDEX 12"` - Nouvelle donnée | 🎁 `"libelle_cedex": "PARIS CEDEX 12"` - Nouvelle donnée | 🎁 `"libelle_cedex": "PARIS CEDEX 12"` - Nouvelle donnée |
+                  | | 🎁 `"distribution_speciale": "ipsum"` - Nouvelle donnée | 🎁 `"distribution_speciale": "ipsum"` - Nouvelle donnée | 🎁 `"distribution_speciale": "ipsum"` - Nouvelle donnée |
+                  | **`"etat_administratif": {`** |  |  |  |
+                  | **`"value": "F",`** | `"etat_administratif": "A"` | `"etat_administratif": "A"` |  |
+                  | **`"date_fermeture": 1315173600"`** | `"date_fermeture": 1634133818"` | `"date_fermeture": 1634133818"` |  |
+                  | **`"gateway_error": false"`** | ❌ Supprimé, information technique API Entreprise complexe et peu utile | ❌ Supprimé, information technique API Entreprise complexe et peu utile |  |
+
                   [Document PDF] [Document Excel]
 
               - subtitle: V.2 - Données de référence d'un établissement - INSEE
