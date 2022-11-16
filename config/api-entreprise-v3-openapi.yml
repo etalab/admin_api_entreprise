@@ -3,10 +3,14 @@ openapi: 3.0.1
 info:
   title: API Entreprise
   version: 3.0.0
-  description: Cette page contient la documentation technique pour accéder à API Entreprise.
-    Les API étant accessible uniquement sous habilitation, l'interaction avec l'environnement
-    de production n'est possible que si vous êtes **en possession d'une clé d'accès
-    (jeton).
+  description: "Cette page contient la documentation technique pour accéder à API
+    Entreprise. Les API étant accessible uniquement sous habilitation, l'interaction
+    avec l'environnement de production n'est possible que si vous êtes **en possession
+    d'une clé d'accès (jeton).\n\n### Comment tester l'API ?\n\nIl est possible de
+    tester les API via notre environnement de **staging** qui vous retournera systématiquement
+    des données fictives. Référez vous à la [documentation](https://entreprise.api.gouv.fr/developpeurs#tester-api-preproduction).\n\nIl
+    est nécessaire d'utiliser le jeton de staging indiqué ci-dessous.\n\n---\n\n*eyJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiI1MmE1YmZjMi1jMzUwLTQ4ZjQtYjY5Ni05ZWE3NmRiM2VmMjkiLCJqdGkiOiIwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDAiLCJzY29wZXMiOlsiY2VydGlmaWNhdF9yZ2VfYWRlbWUiLCJtc2FfY290aXNhdGlvbnMiLCJlbnRyZXByaXNlcyIsImV4dHJhaXRzX3JjcyIsImNlcnRpZmljYXRfb3BxaWJpIiwiYXNzb2NpYXRpb25zIiwiZXRhYmxpc3NlbWVudHMiLCJmbnRwX2NhcnRlX3BybyIsInF1YWxpYmF0IiwiZW50cmVwcmlzZXNfYXJ0aXNhbmFsZXMiLCJjZXJ0aWZpY2F0X2NuZXRwIiwiZW9yaV9kb3VhbmVzIiwicHJvYnRwIiwiYWN0ZXNfaW5waSIsImV4dHJhaXRfY291cnRfaW5waSIsImF0dGVzdGF0aW9uc19zb2NpYWxlcyIsImxpYXNzZV9maXNjYWxlIiwiYXR0ZXN0YXRpb25zX2Zpc2NhbGVzIiwiZXhlcmNpY2VzIiwiY29udmVudGlvbnNfY29sbGVjdGl2ZXMiLCJiaWxhbnNfaW5waSIsImRvY3VtZW50c19hc3NvY2lhdGlvbiIsImNlcnRpZmljYXRfYWdlbmNlX2JpbyIsImJpbGFuc19lbnRyZXByaXNlX2JkZiIsImF0dGVzdGF0aW9uc19hZ2VmaXBoIiwibWVzcmlfaWRlbnRpZmlhbnQiLCJtZXNyaV9pZGVudGl0ZSIsIm1lc3JpX2luc2NyaXB0aW9uX2V0dWRpYW50IiwibWVzcmlfaW5zY3JpcHRpb25fYXV0cmUiLCJtZXNyaV9hZG1pc3Npb24iLCJtZXNyaV9ldGFibGlzc2VtZW50cyIsInBvbGVfZW1wbG9pX2lkZW50aXRlIiwicG9sZV9lbXBsb2lfYWRyZXNzZSIsInBvbGVfZW1wbG9pX2NvbnRhY3QiLCJwb2xlX2VtcGxvaV9pbnNjcmlwdGlvbiIsImNuYWZfcXVvdGllbnRfZmFtaWxpYWwiLCJjbmFmX2FsbG9jYXRhaXJlcyIsImNuYWZfZW5mYW50cyIsImNuYWZfYWRyZXNzZSIsImNub3VzX3N0YXR1dF9ib3Vyc2llciIsInVwdGltZSIsImNub3VzX2VjaGVsb25fYm91cnNlIiwiY25vdXNfZW1haWwiLCJjbm91c19wZXJpb2RlX3ZlcnNlbWVudCIsImNub3VzX3N0YXR1dF9ib3Vyc2UiLCJjbm91c192aWxsZV9ldHVkZXMiLCJjbm91c19pZGVudGl0ZSIsImRnZmlwX2RlY2xhcmFudDFfbm9tIiwiZGdmaXBfZGVjbGFyYW50MV9ub21fbmFpc3NhbmNlIiwiZGdmaXBfZGVjbGFyYW50MV9wcmVub21zIiwiZGdmaXBfZGVjbGFyYW50MV9kYXRlX25haXNzYW5jZSIsImRnZmlwX2RlY2xhcmFudDJfbm9tIiwiZGdmaXBfZGVjbGFyYW50Ml9ub21fbmFpc3NhbmNlIiwiZGdmaXBfZGVjbGFyYW50Ml9wcmVub21zIiwiZGdmaXBfZGVjbGFyYW50Ml9kYXRlX25haXNzYW5jZSIsImRnZmlwX2RhdGVfcmVjb3V2cmVtZW50IiwiZGdmaXBfZGF0ZV9ldGFibGlzc2VtZW50IiwiZGdmaXBfYWRyZXNzZV9maXNjYWxlX3RheGF0aW9uIiwiZGdmaXBfYWRyZXNzZV9maXNjYWxlX2FubmVlIiwiZGdmaXBfbm9tYnJlX3BhcnRzIiwiZGdmaXBfbm9tYnJlX3BlcnNvbm5lc19hX2NoYXJnZSIsImRnZmlwX3NpdHVhdGlvbl9mYW1pbGlhbGUiLCJkZ2ZpcF9yZXZlbnVfYnJ1dF9nbG9iYWwiLCJkZ2ZpcF9yZXZlbnVfaW1wb3NhYmxlIiwiZGdmaXBfaW1wb3RfcmV2ZW51X25ldF9hdmFudF9jb3JyZWN0aW9ucyIsImRnZmlwX21vbnRhbnRfaW1wb3QiLCJkZ2ZpcF9yZXZlbnVfZmlzY2FsX3JlZmVyZW5jZSIsImRnZmlwX2FubmVlX2ltcG90IiwiZGdmaXBfYW5uZWVfcmV2ZW51cyIsImRnZmlwX2VycmV1cl9jb3JyZWN0aWYiLCJkZ2ZpcF9zaXR1YXRpb25fcGFydGllbGxlIl0sInN1YiI6InN0YWdpbmcgZGV2ZWxvcG1lbnQiLCJpYXQiOjE2NjY4NjQwNzQsInZlcnNpb24iOiIxLjAiLCJleHAiOjE5ODI0ODMyNzR9.u2kMWzll3iCTczUOqMQbpS66VfrVzI2lLiyGEPcKAec*\n
+    \     "
   termsOfService: https://entreprise.api.gouv.fr/cgu/
   contact:
     name: Support API Entreprise
@@ -196,7 +200,7 @@ paths:
               description: Indique si la réponse a été caché.
             X-Cache-Expires-in:
               schema:
-                type: numeric
+                type: number
                 nullable: true
                 example: 9001
               description: Secondes avant que le cache n'expire. Si le cache est vide,
@@ -218,6 +222,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: acoss/attestations_sociales_controller
           content:
             application/json:
               schema:
@@ -644,6 +649,7 @@ paths:
                 "$ref": "#/components/schemas/Error"
         '200':
           description: Entreprise trouvée
+          x-operationId: ademe/certificats_rge_controller
           headers:
             RateLimit-Limit:
               schema:
@@ -1140,6 +1146,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: cnetp/attestation_cotisations_conges_payes_chomage_intemperies_controller
           content:
             application/json:
               schema:
@@ -1522,6 +1529,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: dgddi/eori_controller
           content:
             application/json:
               schema:
@@ -1907,7 +1915,7 @@ paths:
               description: Indique si la réponse a été caché.
             X-Cache-Expires-in:
               schema:
-                type: numeric
+                type: number
                 nullable: true
                 example: 9001
               description: Secondes avant que le cache n'expire. Si le cache est vide,
@@ -1929,6 +1937,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: dgfip/attestations_fiscales_controller
           content:
             application/json:
               schema:
@@ -2330,6 +2339,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: dgfip/chiffres_affaires_controller
           content:
             application/json:
               schema:
@@ -2651,6 +2661,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: dgfip/liasses_fiscales_controller
           content:
             application/json:
               schema:
@@ -2762,6 +2773,7 @@ paths:
                                 code:
                                   title: Code du régime d’imposition applicable au
                                     résultat fiscal de l'unité légale
+                                  type: string
                                   description: "Les valeurs possibles sont les suivantes:
                                     \n \n - RN: Réel normal \n - RSI ou RS: Réel simplifié
                                     FIXME: A CONFIRMER le RS \n - RNMEMBRE: Réel normal
@@ -2808,6 +2820,7 @@ paths:
                               example: 365
                             millesime:
                               title: Millesime
+                              type: string
                               description: "Code composé de 6 caractères: \n - 4 caractères
                                 correspondant à l'année de création ou modification
                                 du formulaire. Les valeurs possibles vont de 2006
@@ -2889,6 +2902,7 @@ paths:
                     properties:
                       internal_id_itip:
                         title: Identifiant interne dénommé ITIP de la DGFIP
+                        type: string
                         description: 'Identifiant technique interne de la DGFIP ITIP:
                           Identifiant Transversal Informatique de la Personne'
                         example: '100004763104'
@@ -2898,6 +2912,12 @@ paths:
                 - data
                 - links
                 - meta
+        '404':
+          description: Pas de liasses fiscales pour cette unité légale
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
         '422':
           description: Paramètre(s) invalide(s)
           content:
@@ -3178,6 +3198,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: european_commission/vies_controller
           content:
             application/json:
               schema:
@@ -3188,6 +3209,7 @@ paths:
                     properties:
                       tva_number:
                         title: Numéro de TVA intracommunautaire français
+                        type: string
                         description: Ce numéro de TVA est extrait du numéro de SIREN,
                           à l'aide de la règle de calcul du numéro de TVA, et validé
                           auprès du service VIES de la Commission européenne. Ce numéro
@@ -3511,6 +3533,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: fabrique_numerique_ministeres_sociaux/conventions_collectives_controller
           content:
             application/json:
               schema:
@@ -3542,7 +3565,7 @@ paths:
                               example: Bureaux d'études techniques, cabinets d'ingénieurs-conseils
                                 et sociétés de conseils
                             numero_idcc:
-                              type: numeric
+                              type: number
                               description: Numéro IDCC
                               example: 1486
                             active:
@@ -3884,6 +3907,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: fntp/carte_professionnelle_travaux_publics_controller
           content:
             application/json:
               schema:
@@ -4276,6 +4300,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: infogreffe/extraits_rcs_controller
           content:
             application/json:
               schema:
@@ -4311,6 +4336,7 @@ paths:
                         items:
                           required:
                           - fonction
+                          type: object
                           properties:
                             numero_identification:
                               title: Numéro d'identification
@@ -5018,6 +5044,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: infogreffe/mandataires_sociaux_controller
           content:
             application/json:
               schema:
@@ -5493,6 +5520,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: inpi/actes_controller
           content:
             application/json:
               schema:
@@ -5841,6 +5869,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: inpi/latest_brevets_controller
           content:
             application/json:
               schema:
@@ -6308,6 +6337,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: inpi/latest_marques_controller
           content:
             application/json:
               schema:
@@ -6676,6 +6706,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: inpi/latest_modeles_controller
           content:
             application/json:
               schema:
@@ -7065,6 +7096,7 @@ paths:
                 "$ref": "#/components/schemas/Error"
         '200':
           description: Etablissement trouvé
+          x-operationId: insee/adresses_etablissements_controller
           content:
             application/json:
               schema:
@@ -7145,6 +7177,7 @@ paths:
                         -
                       libelle_voie:
                         title: Libellé de la voie
+                        type: string
                         example: DE LA PAIX
                       complement_adresse:
                         title: Complément d'adresse
@@ -7173,6 +7206,8 @@ paths:
                         type: string
                       distribution_speciale:
                         title: Distribution spéciale
+                        type: string
+                        nullable: true
                         description: "La distribution spéciale reprend les éléments
                           particuliers qui accompagnent une adresse de distribution
                           spéciale, la modalité la plus connue étant les adresses
@@ -7181,6 +7216,7 @@ paths:
                           * https://www.sirene.fr/sirene/public/variable/l5-disp"
                       code_cedex:
                         title: Code cedex
+                        type: string
                         nullable: true
                         description: 'Plus d''informations : https://fr.wikipedia.org/wiki/Courrier_d%27entreprise_%C3%A0_distribution_exceptionnelle'
                         example: '75590'
@@ -7227,32 +7263,38 @@ paths:
                         properties:
                           l1:
                             title: Ligne 1
+                            type: string
                             description: 'Si l''établissement correspond à une personne
                               morale: la dénomination sociale de la personne morale.
                               Le cas contraire: cette variable est vide.'
                             example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
                           l2:
                             title: Ligne 2
+                            type: string
                             description: 'Si l''établissement correspond à une personne
                               physique: concaténation du nom et prénom'
                             example: JEAN MARIE DURAND
                           l3:
                             title: Ligne 3
+                            type: string
                             description: Complément d'adresse comme décrit dans la
                               clé `complement_adresse`
                             example: ZAE SAINT GUENAULT
                           l4:
                             title: Ligne 4
+                            type: string
                             description: Concaténation du numéro de voie, d'indice
                               de répétition, du type de voie et du libellé de la voie
                             example: 51 BIS RUE DE LA PAIX
                           l5:
                             title: Ligne 5
+                            type: string
                             description: Distribution spéciale comme décrit dans la
                               clé `distribution_speciale`
                             example: CS 72809
                           l6:
                             title: Ligne 6
+                            type: string
                             description: 'Si le code cedex est existant: code cedex
                               accompagné de son libellé ; sinon, si le pays est en
                               France: code postal accompagné de son libellé, sinon
@@ -7261,6 +7303,7 @@ paths:
                             example: 75256 PARIX CEDEX 12
                           l7:
                             title: Ligne 7
+                            type: string
                             description: Pays de l'établissement
                             example: FRANCE
                         required:
@@ -7611,6 +7654,7 @@ paths:
                 "$ref": "#/components/schemas/Error"
         '200':
           description: Etablissement trouvé
+          x-operationId: insee/adresses_etablissements_diffusables_controller
           content:
             application/json:
               schema:
@@ -7691,6 +7735,7 @@ paths:
                         -
                       libelle_voie:
                         title: Libellé de la voie
+                        type: string
                         example: DE LA PAIX
                       complement_adresse:
                         title: Complément d'adresse
@@ -7719,6 +7764,8 @@ paths:
                         type: string
                       distribution_speciale:
                         title: Distribution spéciale
+                        type: string
+                        nullable: true
                         description: "La distribution spéciale reprend les éléments
                           particuliers qui accompagnent une adresse de distribution
                           spéciale, la modalité la plus connue étant les adresses
@@ -7727,6 +7774,7 @@ paths:
                           * https://www.sirene.fr/sirene/public/variable/l5-disp"
                       code_cedex:
                         title: Code cedex
+                        type: string
                         nullable: true
                         description: 'Plus d''informations : https://fr.wikipedia.org/wiki/Courrier_d%27entreprise_%C3%A0_distribution_exceptionnelle'
                         example: '75590'
@@ -7773,32 +7821,38 @@ paths:
                         properties:
                           l1:
                             title: Ligne 1
+                            type: string
                             description: 'Si l''établissement correspond à une personne
                               morale: la dénomination sociale de la personne morale.
                               Le cas contraire: cette variable est vide.'
                             example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
                           l2:
                             title: Ligne 2
+                            type: string
                             description: 'Si l''établissement correspond à une personne
                               physique: concaténation du nom et prénom'
                             example: JEAN MARIE DURAND
                           l3:
                             title: Ligne 3
+                            type: string
                             description: Complément d'adresse comme décrit dans la
                               clé `complement_adresse`
                             example: ZAE SAINT GUENAULT
                           l4:
                             title: Ligne 4
+                            type: string
                             description: Concaténation du numéro de voie, d'indice
                               de répétition, du type de voie et du libellé de la voie
                             example: 51 BIS RUE DE LA PAIX
                           l5:
                             title: Ligne 5
+                            type: string
                             description: Distribution spéciale comme décrit dans la
                               clé `distribution_speciale`
                             example: CS 72809
                           l6:
                             title: Ligne 6
+                            type: string
                             description: 'Si le code cedex est existant: code cedex
                               accompagné de son libellé ; sinon, si le pays est en
                               France: code postal accompagné de son libellé, sinon
@@ -7807,6 +7861,7 @@ paths:
                             example: 75256 PARIX CEDEX 12
                           l7:
                             title: Ligne 7
+                            type: string
                             description: Pays de l'établissement
                             example: FRANCE
                         required:
@@ -8176,6 +8231,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: insee/etablissements_controller
           content:
             application/json:
               schema:
@@ -8678,6 +8734,31 @@ paths:
                               des cas explicités ci-dessus, l'unité légale est toujours
                               à l'état administratif « Active ». \n \n Plus d'informations
                               dans la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifUniteLegale"
+                          economie_sociale_et_solidaire:
+                            title: Unité légale de l'économie sociale et solidaire
+                              (ESS)
+                            description: "Indique si l'unité légale est une ESS :
+                              \n \n - true : l'entreprise est une ESS \n - false :
+                              l'entreprise n'est pas une ESS \n - null : le statut
+                              ESS est inconnu. Cette information est connue pour environ
+                              1 million d'unités légales, autrement, elle est à null.
+                              \n \n Les unités légales de l'ESS adhèrent aux mêmes
+                              principes : \n * poursuivre un but social autre que
+                              le seul partage des bénéfices ; \n * une lucrativité
+                              encadrée (notamment des bénéfices majoritairement consacrés
+                              au maintien et au développement de l’activité) ; \n
+                              * une gouvernance démocratique et participative. \n
+                              Ces conditions cumulatives sont explicitées à l'[Article
+                              1 de la loi n° 2014-856 du 31 juillet 2014](https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000029314926){:target='_blank'}.
+                              \n \n Plus d'informations dans la documentation INSEE
+                              de l'API Sirene : https://www.sirene.fr/sirene/public/variable/economieSocialeSolidaireUniteLegale"
+                            type: boolean
+                            example: true
+                            nullable: true
+                            enum:
+                            - true
+                            - false
+                            -
                           date_creation:
                             title: Date de création de l'unité légale
                             type: integer
@@ -8701,6 +8782,7 @@ paths:
                         - activite_principale
                         - tranche_effectif_salarie
                         - etat_administratif
+                        - economie_sociale_et_solidaire
                         - date_creation
                       adresse:
                         type: object
@@ -8778,6 +8860,7 @@ paths:
                             -
                           libelle_voie:
                             title: Libellé de la voie
+                            type: string
                             example: DE LA PAIX
                           complement_adresse:
                             title: Complément d'adresse
@@ -8808,6 +8891,8 @@ paths:
                             type: string
                           distribution_speciale:
                             title: Distribution spéciale
+                            type: string
+                            nullable: true
                             description: "La distribution spéciale reprend les éléments
                               particuliers qui accompagnent une adresse de distribution
                               spéciale, la modalité la plus connue étant les adresses
@@ -8816,6 +8901,7 @@ paths:
                               * https://www.sirene.fr/sirene/public/variable/l5-disp"
                           code_cedex:
                             title: Code cedex
+                            type: string
                             nullable: true
                             description: 'Plus d''informations : https://fr.wikipedia.org/wiki/Courrier_d%27entreprise_%C3%A0_distribution_exceptionnelle'
                             example: '75590'
@@ -8863,33 +8949,39 @@ paths:
                             properties:
                               l1:
                                 title: Ligne 1
+                                type: string
                                 description: 'Si l''établissement correspond à une
                                   personne morale: la dénomination sociale de la personne
                                   morale. Le cas contraire: cette variable est vide.'
                                 example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
                               l2:
                                 title: Ligne 2
+                                type: string
                                 description: 'Si l''établissement correspond à une
                                   personne physique: concaténation du nom et prénom'
                                 example: JEAN MARIE DURAND
                               l3:
                                 title: Ligne 3
+                                type: string
                                 description: Complément d'adresse comme décrit dans
                                   la clé `complement_adresse`
                                 example: ZAE SAINT GUENAULT
                               l4:
                                 title: Ligne 4
+                                type: string
                                 description: Concaténation du numéro de voie, d'indice
                                   de répétition, du type de voie et du libellé de
                                   la voie
                                 example: 51 BIS RUE DE LA PAIX
                               l5:
                                 title: Ligne 5
+                                type: string
                                 description: Distribution spéciale comme décrit dans
                                   la clé `distribution_speciale`
                                 example: CS 72809
                               l6:
                                 title: Ligne 6
+                                type: string
                                 description: 'Si le code cedex est existant: code
                                   cedex accompagné de son libellé ; sinon, si le pays
                                   est en France: code postal accompagné de son libellé,
@@ -8898,6 +8990,7 @@ paths:
                                 example: 75256 PARIX CEDEX 12
                               l7:
                                 title: Ligne 7
+                                type: string
                                 description: Pays de l'établissement
                                 example: FRANCE
                             required:
@@ -9273,6 +9366,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: insee/etablissements_diffusables_controller
           content:
             application/json:
               schema:
@@ -9774,6 +9868,31 @@ paths:
                               des cas explicités ci-dessus, l'unité légale est toujours
                               à l'état administratif « Active ». \n \n Plus d'informations
                               dans la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifUniteLegale"
+                          economie_sociale_et_solidaire:
+                            title: Unité légale de l'économie sociale et solidaire
+                              (ESS)
+                            description: "Indique si l'unité légale est une ESS :
+                              \n \n - true : l'entreprise est une ESS \n - false :
+                              l'entreprise n'est pas une ESS \n - null : le statut
+                              ESS est inconnu. Cette information est connue pour environ
+                              1 million d'unités légales, autrement, elle est à null.
+                              \n \n Les unités légales de l'ESS adhèrent aux mêmes
+                              principes : \n * poursuivre un but social autre que
+                              le seul partage des bénéfices ; \n * une lucrativité
+                              encadrée (notamment des bénéfices majoritairement consacrés
+                              au maintien et au développement de l’activité) ; \n
+                              * une gouvernance démocratique et participative. \n
+                              Ces conditions cumulatives sont explicitées à l'[Article
+                              1 de la loi n° 2014-856 du 31 juillet 2014](https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000029314926){:target='_blank'}.
+                              \n \n Plus d'informations dans la documentation INSEE
+                              de l'API Sirene : https://www.sirene.fr/sirene/public/variable/economieSocialeSolidaireUniteLegale"
+                            type: boolean
+                            example: true
+                            nullable: true
+                            enum:
+                            - true
+                            - false
+                            -
                           date_creation:
                             title: Date de création de l'unité légale
                             type: integer
@@ -9797,6 +9916,7 @@ paths:
                         - activite_principale
                         - tranche_effectif_salarie
                         - etat_administratif
+                        - economie_sociale_et_solidaire
                         - date_creation
                       adresse:
                         type: object
@@ -9874,6 +9994,7 @@ paths:
                             -
                           libelle_voie:
                             title: Libellé de la voie
+                            type: string
                             example: DE LA PAIX
                           complement_adresse:
                             title: Complément d'adresse
@@ -9904,6 +10025,8 @@ paths:
                             type: string
                           distribution_speciale:
                             title: Distribution spéciale
+                            type: string
+                            nullable: true
                             description: "La distribution spéciale reprend les éléments
                               particuliers qui accompagnent une adresse de distribution
                               spéciale, la modalité la plus connue étant les adresses
@@ -9912,6 +10035,7 @@ paths:
                               * https://www.sirene.fr/sirene/public/variable/l5-disp"
                           code_cedex:
                             title: Code cedex
+                            type: string
                             nullable: true
                             description: 'Plus d''informations : https://fr.wikipedia.org/wiki/Courrier_d%27entreprise_%C3%A0_distribution_exceptionnelle'
                             example: '75590'
@@ -9959,33 +10083,39 @@ paths:
                             properties:
                               l1:
                                 title: Ligne 1
+                                type: string
                                 description: 'Si l''établissement correspond à une
                                   personne morale: la dénomination sociale de la personne
                                   morale. Le cas contraire: cette variable est vide.'
                                 example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
                               l2:
                                 title: Ligne 2
+                                type: string
                                 description: 'Si l''établissement correspond à une
                                   personne physique: concaténation du nom et prénom'
                                 example: JEAN MARIE DURAND
                               l3:
                                 title: Ligne 3
+                                type: string
                                 description: Complément d'adresse comme décrit dans
                                   la clé `complement_adresse`
                                 example: ZAE SAINT GUENAULT
                               l4:
                                 title: Ligne 4
+                                type: string
                                 description: Concaténation du numéro de voie, d'indice
                                   de répétition, du type de voie et du libellé de
                                   la voie
                                 example: 51 BIS RUE DE LA PAIX
                               l5:
                                 title: Ligne 5
+                                type: string
                                 description: Distribution spéciale comme décrit dans
                                   la clé `distribution_speciale`
                                 example: CS 72809
                               l6:
                                 title: Ligne 6
+                                type: string
                                 description: 'Si le code cedex est existant: code
                                   cedex accompagné de son libellé ; sinon, si le pays
                                   est en France: code postal accompagné de son libellé,
@@ -9994,6 +10124,7 @@ paths:
                                 example: 75256 PARIX CEDEX 12
                               l7:
                                 title: Ligne 7
+                                type: string
                                 description: Pays de l'établissement
                                 example: FRANCE
                             required:
@@ -10370,6 +10501,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: insee/sieges_diffusables_unites_legales_controller
           content:
             application/json:
               schema:
@@ -10871,6 +11003,31 @@ paths:
                               des cas explicités ci-dessus, l'unité légale est toujours
                               à l'état administratif « Active ». \n \n Plus d'informations
                               dans la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifUniteLegale"
+                          economie_sociale_et_solidaire:
+                            title: Unité légale de l'économie sociale et solidaire
+                              (ESS)
+                            description: "Indique si l'unité légale est une ESS :
+                              \n \n - true : l'entreprise est une ESS \n - false :
+                              l'entreprise n'est pas une ESS \n - null : le statut
+                              ESS est inconnu. Cette information est connue pour environ
+                              1 million d'unités légales, autrement, elle est à null.
+                              \n \n Les unités légales de l'ESS adhèrent aux mêmes
+                              principes : \n * poursuivre un but social autre que
+                              le seul partage des bénéfices ; \n * une lucrativité
+                              encadrée (notamment des bénéfices majoritairement consacrés
+                              au maintien et au développement de l’activité) ; \n
+                              * une gouvernance démocratique et participative. \n
+                              Ces conditions cumulatives sont explicitées à l'[Article
+                              1 de la loi n° 2014-856 du 31 juillet 2014](https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000029314926){:target='_blank'}.
+                              \n \n Plus d'informations dans la documentation INSEE
+                              de l'API Sirene : https://www.sirene.fr/sirene/public/variable/economieSocialeSolidaireUniteLegale"
+                            type: boolean
+                            example: true
+                            nullable: true
+                            enum:
+                            - true
+                            - false
+                            -
                           date_creation:
                             title: Date de création de l'unité légale
                             type: integer
@@ -10894,6 +11051,7 @@ paths:
                         - activite_principale
                         - tranche_effectif_salarie
                         - etat_administratif
+                        - economie_sociale_et_solidaire
                         - date_creation
                       adresse:
                         type: object
@@ -10971,6 +11129,7 @@ paths:
                             -
                           libelle_voie:
                             title: Libellé de la voie
+                            type: string
                             example: DE LA PAIX
                           complement_adresse:
                             title: Complément d'adresse
@@ -11001,6 +11160,8 @@ paths:
                             type: string
                           distribution_speciale:
                             title: Distribution spéciale
+                            type: string
+                            nullable: true
                             description: "La distribution spéciale reprend les éléments
                               particuliers qui accompagnent une adresse de distribution
                               spéciale, la modalité la plus connue étant les adresses
@@ -11009,6 +11170,7 @@ paths:
                               * https://www.sirene.fr/sirene/public/variable/l5-disp"
                           code_cedex:
                             title: Code cedex
+                            type: string
                             nullable: true
                             description: 'Plus d''informations : https://fr.wikipedia.org/wiki/Courrier_d%27entreprise_%C3%A0_distribution_exceptionnelle'
                             example: '75590'
@@ -11056,33 +11218,39 @@ paths:
                             properties:
                               l1:
                                 title: Ligne 1
+                                type: string
                                 description: 'Si l''établissement correspond à une
                                   personne morale: la dénomination sociale de la personne
                                   morale. Le cas contraire: cette variable est vide.'
                                 example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
                               l2:
                                 title: Ligne 2
+                                type: string
                                 description: 'Si l''établissement correspond à une
                                   personne physique: concaténation du nom et prénom'
                                 example: JEAN MARIE DURAND
                               l3:
                                 title: Ligne 3
+                                type: string
                                 description: Complément d'adresse comme décrit dans
                                   la clé `complement_adresse`
                                 example: ZAE SAINT GUENAULT
                               l4:
                                 title: Ligne 4
+                                type: string
                                 description: Concaténation du numéro de voie, d'indice
                                   de répétition, du type de voie et du libellé de
                                   la voie
                                 example: 51 BIS RUE DE LA PAIX
                               l5:
                                 title: Ligne 5
+                                type: string
                                 description: Distribution spéciale comme décrit dans
                                   la clé `distribution_speciale`
                                 example: CS 72809
                               l6:
                                 title: Ligne 6
+                                type: string
                                 description: 'Si le code cedex est existant: code
                                   cedex accompagné de son libellé ; sinon, si le pays
                                   est en France: code postal accompagné de son libellé,
@@ -11091,6 +11259,7 @@ paths:
                                 example: 75256 PARIX CEDEX 12
                               l7:
                                 title: Ligne 7
+                                type: string
                                 description: Pays de l'établissement
                                 example: FRANCE
                             required:
@@ -11468,6 +11637,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: insee/sieges_unites_legales_controller
           content:
             application/json:
               schema:
@@ -11970,6 +12140,31 @@ paths:
                               des cas explicités ci-dessus, l'unité légale est toujours
                               à l'état administratif « Active ». \n \n Plus d'informations
                               dans la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifUniteLegale"
+                          economie_sociale_et_solidaire:
+                            title: Unité légale de l'économie sociale et solidaire
+                              (ESS)
+                            description: "Indique si l'unité légale est une ESS :
+                              \n \n - true : l'entreprise est une ESS \n - false :
+                              l'entreprise n'est pas une ESS \n - null : le statut
+                              ESS est inconnu. Cette information est connue pour environ
+                              1 million d'unités légales, autrement, elle est à null.
+                              \n \n Les unités légales de l'ESS adhèrent aux mêmes
+                              principes : \n * poursuivre un but social autre que
+                              le seul partage des bénéfices ; \n * une lucrativité
+                              encadrée (notamment des bénéfices majoritairement consacrés
+                              au maintien et au développement de l’activité) ; \n
+                              * une gouvernance démocratique et participative. \n
+                              Ces conditions cumulatives sont explicitées à l'[Article
+                              1 de la loi n° 2014-856 du 31 juillet 2014](https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000029314926){:target='_blank'}.
+                              \n \n Plus d'informations dans la documentation INSEE
+                              de l'API Sirene : https://www.sirene.fr/sirene/public/variable/economieSocialeSolidaireUniteLegale"
+                            type: boolean
+                            example: true
+                            nullable: true
+                            enum:
+                            - true
+                            - false
+                            -
                           date_creation:
                             title: Date de création de l'unité légale
                             type: integer
@@ -11993,6 +12188,7 @@ paths:
                         - activite_principale
                         - tranche_effectif_salarie
                         - etat_administratif
+                        - economie_sociale_et_solidaire
                         - date_creation
                       adresse:
                         type: object
@@ -12070,6 +12266,7 @@ paths:
                             -
                           libelle_voie:
                             title: Libellé de la voie
+                            type: string
                             example: DE LA PAIX
                           complement_adresse:
                             title: Complément d'adresse
@@ -12100,6 +12297,8 @@ paths:
                             type: string
                           distribution_speciale:
                             title: Distribution spéciale
+                            type: string
+                            nullable: true
                             description: "La distribution spéciale reprend les éléments
                               particuliers qui accompagnent une adresse de distribution
                               spéciale, la modalité la plus connue étant les adresses
@@ -12108,6 +12307,7 @@ paths:
                               * https://www.sirene.fr/sirene/public/variable/l5-disp"
                           code_cedex:
                             title: Code cedex
+                            type: string
                             nullable: true
                             description: 'Plus d''informations : https://fr.wikipedia.org/wiki/Courrier_d%27entreprise_%C3%A0_distribution_exceptionnelle'
                             example: '75590'
@@ -12155,33 +12355,39 @@ paths:
                             properties:
                               l1:
                                 title: Ligne 1
+                                type: string
                                 description: 'Si l''établissement correspond à une
                                   personne morale: la dénomination sociale de la personne
                                   morale. Le cas contraire: cette variable est vide.'
                                 example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
                               l2:
                                 title: Ligne 2
+                                type: string
                                 description: 'Si l''établissement correspond à une
                                   personne physique: concaténation du nom et prénom'
                                 example: JEAN MARIE DURAND
                               l3:
                                 title: Ligne 3
+                                type: string
                                 description: Complément d'adresse comme décrit dans
                                   la clé `complement_adresse`
                                 example: ZAE SAINT GUENAULT
                               l4:
                                 title: Ligne 4
+                                type: string
                                 description: Concaténation du numéro de voie, d'indice
                                   de répétition, du type de voie et du libellé de
                                   la voie
                                 example: 51 BIS RUE DE LA PAIX
                               l5:
                                 title: Ligne 5
+                                type: string
                                 description: Distribution spéciale comme décrit dans
                                   la clé `distribution_speciale`
                                 example: CS 72809
                               l6:
                                 title: Ligne 6
+                                type: string
                                 description: 'Si le code cedex est existant: code
                                   cedex accompagné de son libellé ; sinon, si le pays
                                   est en France: code postal accompagné de son libellé,
@@ -12190,6 +12396,7 @@ paths:
                                 example: 75256 PARIX CEDEX 12
                               l7:
                                 title: Ligne 7
+                                type: string
                                 description: Pays de l'établissement
                                 example: FRANCE
                             required:
@@ -12567,6 +12774,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: insee/unites_legales_controller
           content:
             application/json:
               schema:
@@ -12887,6 +13095,29 @@ paths:
                           En dehors des cas explicités ci-dessus, l'unité légale est
                           toujours à l'état administratif « Active ». \n \n Plus d'informations
                           dans la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifUniteLegale"
+                      economie_sociale_et_solidaire:
+                        title: Unité légale de l'économie sociale et solidaire (ESS)
+                        description: "Indique si l'unité légale est une ESS : \n \n
+                          - true : l'entreprise est une ESS \n - false : l'entreprise
+                          n'est pas une ESS \n - null : le statut ESS est inconnu.
+                          Cette information est connue pour environ 1 million d'unités
+                          légales, autrement, elle est à null. \n \n Les unités légales
+                          de l'ESS adhèrent aux mêmes principes : \n * poursuivre
+                          un but social autre que le seul partage des bénéfices ;
+                          \n * une lucrativité encadrée (notamment des bénéfices majoritairement
+                          consacrés au maintien et au développement de l’activité)
+                          ; \n * une gouvernance démocratique et participative. \n
+                          Ces conditions cumulatives sont explicitées à l'[Article
+                          1 de la loi n° 2014-856 du 31 juillet 2014](https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000029314926){:target='_blank'}.
+                          \n \n Plus d'informations dans la documentation INSEE de
+                          l'API Sirene : https://www.sirene.fr/sirene/public/variable/economieSocialeSolidaireUniteLegale"
+                        type: boolean
+                        example: true
+                        nullable: true
+                        enum:
+                        - true
+                        - false
+                        -
                       date_creation:
                         title: Date de création de l'unité légale
                         type: integer
@@ -12918,6 +13149,7 @@ paths:
                     - activite_principale
                     - tranche_effectif_salarie
                     - etat_administratif
+                    - economie_sociale_et_solidaire
                     - date_creation
                     - date_cessation
                   links:
@@ -13269,6 +13501,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: insee/unites_legales_diffusables_controller
           content:
             application/json:
               schema:
@@ -13591,6 +13824,29 @@ paths:
                           En dehors des cas explicités ci-dessus, l'unité légale est
                           toujours à l'état administratif « Active ». \n \n Plus d'informations
                           dans la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifUniteLegale"
+                      economie_sociale_et_solidaire:
+                        title: Unité légale de l'économie sociale et solidaire (ESS)
+                        description: "Indique si l'unité légale est une ESS : \n \n
+                          - true : l'entreprise est une ESS \n - false : l'entreprise
+                          n'est pas une ESS \n - null : le statut ESS est inconnu.
+                          Cette information est connue pour environ 1 million d'unités
+                          légales, autrement, elle est à null. \n \n Les unités légales
+                          de l'ESS adhèrent aux mêmes principes : \n * poursuivre
+                          un but social autre que le seul partage des bénéfices ;
+                          \n * une lucrativité encadrée (notamment des bénéfices majoritairement
+                          consacrés au maintien et au développement de l’activité)
+                          ; \n * une gouvernance démocratique et participative. \n
+                          Ces conditions cumulatives sont explicitées à l'[Article
+                          1 de la loi n° 2014-856 du 31 juillet 2014](https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000029314926){:target='_blank'}.
+                          \n \n Plus d'informations dans la documentation INSEE de
+                          l'API Sirene : https://www.sirene.fr/sirene/public/variable/economieSocialeSolidaireUniteLegale"
+                        type: boolean
+                        example: true
+                        nullable: true
+                        enum:
+                        - true
+                        - false
+                        -
                       date_creation:
                         title: Date de création de l'unité légale
                         type: integer
@@ -13622,6 +13878,7 @@ paths:
                     - activite_principale
                     - tranche_effectif_salarie
                     - etat_administratif
+                    - economie_sociale_et_solidaire
                     - date_creation
                     - date_cessation
                   links:
@@ -13954,6 +14211,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: mi/documents_associations_controller
           content:
             application/json:
               schema:
@@ -14371,6 +14629,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: mi/associations_controller
           content:
             application/json:
               schema:
@@ -14807,6 +15066,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: msa/conformites_cotisations_controller
           content:
             application/json:
               schema:
@@ -15121,6 +15381,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: opqibi/certifications_ingenierie_controller
           content:
             application/json:
               schema:
@@ -15559,6 +15820,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: probtp/attestations_cotisation_retraite_controller
           content:
             application/json:
               schema:
@@ -15924,6 +16186,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: probtp/conformites_cotisations_retraite_controller
           content:
             application/json:
               schema:
@@ -16258,6 +16521,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: qualibat/certifications_batiment_controller
           content:
             application/json:
               schema:
@@ -16650,6 +16914,7 @@ paths:
                 type: integer
               description: La fin de la période courante (en format timestamp)
               example: 1637223155
+          x-operationId: rnm/entreprises_artisanales_controller
           content:
             application/json:
               schema:
