@@ -19,18 +19,10 @@ RSpec.shared_examples 'it creates a magic link' do
 
       expect(new_magic_link.expires_at).to be_within(10.seconds).of(4.hours.from_now)
     end
-
-    it 'saves the token_id in the magic link' do
-      subject
-
-      expect(new_magic_link.token).to eq(token)
-    end
   end
 end
 
 RSpec.shared_examples 'it aborts magic link' do
-  it_behaves_like 'display alert', :error
-
   it 'does not send the magic link email' do
     expect { subject }
       .not_to have_enqueued_mail(TokenMailer, :magic_link)
@@ -40,3 +32,4 @@ RSpec.shared_examples 'it aborts magic link' do
     expect { subject }.not_to change(MagicLink, :count)
   end
 end
+

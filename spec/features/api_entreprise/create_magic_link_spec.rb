@@ -10,6 +10,7 @@ RSpec.describe 'create a magic link', app: :api_entreprise do
   end
 
   let(:token) { create(:token, :api_entreprise) }
+  let(:new_magic_link) { MagicLink.find_by(email:) }
 
   before { login_as(user) }
 
@@ -30,12 +31,19 @@ RSpec.describe 'create a magic link', app: :api_entreprise do
 
         expect(page).to have_current_path(user_tokens_path)
       end
+
+      it 'saves the token_id in the magic link' do
+        subject
+
+        expect(new_magic_link.token).to eq(token)
+      end
     end
 
     context 'when the email address is invalid' do
       let(:email) { 'not an email' }
 
       it_behaves_like 'it aborts magic link'
+      it_behaves_like 'display alert', :error
 
       it 'redirects to the user token index page' do
         subject
@@ -55,10 +63,7 @@ RSpec.describe 'create a magic link', app: :api_entreprise do
     let(:user) { create(:user) }
     let(:email) { 'valid@email.com' }
 
-    it 'does not send the magic link email' do
-      expect { subject }
-        .not_to have_enqueued_mail(TokenMailer, :magic_link)
-    end
+    it_behaves_like 'it aborts magic link'
 
     it 'returns an error' do
       subject
