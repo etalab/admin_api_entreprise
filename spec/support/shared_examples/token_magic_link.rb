@@ -14,7 +14,7 @@ RSpec.shared_examples 'it creates a magic link' do
       expect { subject }.to change(MagicLink, :count).by(1)
     end
 
-    it 'saves the an expiration delay on the magic link' do
+    it 'saves an expiration delay on the magic link' do
       subject
 
       expect(new_magic_link.expires_at).to be_within(10.seconds).of(4.hours.from_now)
