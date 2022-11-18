@@ -32,4 +32,3 @@ RSpec.shared_examples 'it aborts magic link' do
     expect { subject }.not_to change(MagicLink, :count)
   end
 end
-
