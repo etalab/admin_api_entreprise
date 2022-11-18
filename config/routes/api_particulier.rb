@@ -12,6 +12,6 @@ constraints(APIParticulierDomainConstraint.new) do
 
     get '/compte', to: 'users#profile', as: :user_profile
 
-    get 'public/jetons/:token', to: 'public_token_magic_links#show', as: :token_show_magic_link
+    get 'public/jetons/:access_token', to: 'public_token_magic_links#show', as: :token_show_magic_link
   end
 end

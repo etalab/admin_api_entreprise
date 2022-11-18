@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'show token from magic link', app: :api_particulier do
   subject do
-    visit api_particulier_token_show_magic_link_path(token: magic_token)
+    visit api_particulier_token_show_magic_link_path(access_token: magic_token)
   end
 
   let!(:user) { create(:user, :with_token, tokens_amount: 2, email:) }

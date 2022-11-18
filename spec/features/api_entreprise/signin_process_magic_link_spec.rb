@@ -56,7 +56,7 @@ RSpec.describe 'Signin process via magic link', app: :api_entreprise do
     let(:mail_parsed) { Nokogiri::HTML(mail.html_part.body.to_s) }
     let(:target_url) { mail_parsed.at("a:contains('suivant')")['href'] }
 
-    let(:token) { MagicLink.find_by_email(email).access_token }
+    let(:access_token) { MagicLink.find_by_email(email).access_token }
 
     context 'when the user is a User (demandeur)' do
       let!(:user) { create(:user, :with_token, email:) }
@@ -65,7 +65,7 @@ RSpec.describe 'Signin process via magic link', app: :api_entreprise do
         it 'login to the token list page' do
           subject
 
-          expect(page).to have_current_path(token_show_magic_link_path(token:))
+          expect(page).to have_current_path(token_show_magic_link_path(access_token:))
         end
       end
     end
@@ -77,7 +77,7 @@ RSpec.describe 'Signin process via magic link', app: :api_entreprise do
         it 'login to the token list page' do
           subject
 
-          expect(page).to have_current_path(token_show_magic_link_path(token:))
+          expect(page).to have_current_path(token_show_magic_link_path(access_token:))
         end
       end
     end

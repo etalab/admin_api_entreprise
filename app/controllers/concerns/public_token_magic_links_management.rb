@@ -46,7 +46,7 @@ module PublicTokenMagicLinksManagement
   end
 
   def access_token
-    params.require(:token)
+    params.require(:access_token)
   end
 
   def email

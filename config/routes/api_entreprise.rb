@@ -36,7 +36,7 @@ constraints(APIEntrepriseDomainConstraint.new) do
 
     get 'public/login', to: 'public_token_magic_links#new', as: :login_magic_link
     post 'public/magic_link/create', to: 'public_token_magic_links#create'
-    get 'public/jetons/:token', to: 'public_token_magic_links#show', as: :token_show_magic_link
+    get 'public/jetons/:access_token', to: 'public_token_magic_links#show', as: :token_show_magic_link
 
     get '/compte/transferer', to: 'transfer_user_account#new', as: :transfer_account
     post '/compte/transferer', to: 'transfer_user_account#create'
