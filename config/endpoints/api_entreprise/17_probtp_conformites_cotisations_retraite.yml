@@ -19,7 +19,7 @@
     geographical_scope_description:
        Les entreprises adhérentes à ProBTP proviennent uniquement de la ✅ **France Corse métropolitaine**.
     updating_rules_description:
-       L'information est vérifiée **tous les soirs** et l'API est connectée en temps réel au système de gestion de ProBTP.
+       L'information est vérifiée **tous les soirs** et l'API est connectée en temps réel au système de gestion de ProBTP. L'API délivre donc l'attestation telle qu'elle est connue des gestionnaires ProBTP.
     entities:
       - entreprises
   call_id: "SIRET"
@@ -39,7 +39,11 @@
   data:
     description: |+
       Cette API délivre l'attestation PROBTP d'un entreprise, au format PDF, lorsque cette dernière est à jour des cotisations indiquées sur l'attestation, dont les **cotisations de retraite complémentaire**.
-  
+
+      L'attestation explicite : 
+      - les contrats retraite et prévoyance souscrits ;
+      - la régularité de versement des cotisations, indiquée comme suit : « _En tenant compte des éléments connus à cette date, elle_ [l'entreprise] _est à jour des cotisations exigibles au JJ.MM.AAAA_ ».
+
       {:.fr-h6 .fr-mt-4w}
       ### Exemple d'attestation PDF&nbsp;:
 
