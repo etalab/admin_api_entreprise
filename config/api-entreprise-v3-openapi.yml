@@ -997,6 +997,598 @@ paths:
           curl -X GET \
             -H "Authorization: Bearer $token" \
             --url "https://entreprise.api.gouv.fr/v3/ademe/etablissements/13002526500013/certification_rge?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
+  "/v3/banque_de_france/unites_legales/{siren}/bilans":
+    get:
+      summary: 3 derniers bilans annuels
+      tags:
+      - Informations financières
+      parameters:
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      - name: siren
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: 'Obtenir les trois derniers bilans d’une entreprise détenus par
+        la Banque de France. Ces bilans permettent d’accéder à certaines informations
+        contenues dans la liasse fiscale : bilans, compte de résultat et annexes confondus.
+        Ces données proviennent de la base FIBEN (Fichier bancaire des entreprises)
+        - hors cotation'
+      responses:
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                old_token_error:
+                  value:
+                    errors:
+                    - code: '00102'
+                      title: Format de jeton plus supporté
+                      detail: Vous avez utilisé un token à l'ancien format. Ce format
+                        n'est plus supporté depuis avril 2019. Vous devez refaire
+                        une demande à API Entreprise, un guide est disponible sur
+                        https://entreprise.api.gouv.fr/demander_un_acces/
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Format de jeton plus supporté
+                  description: Vous avez utilisé un token à l'ancien format. Ce format
+                    n'est plus supporté depuis avril 2019. Vous devez refaire une
+                    demande à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/demander_un_acces/
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                        à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/doc/#renouvellement-token.
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                    à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/doc/#renouvellement-token.
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://dashboard.entreprise.api.gouv.fr/profile'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://dashboard.entreprise.api.gouv.fr/profile'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '403':
+          description: Accès interdit
+          content:
+            application/json:
+              examples:
+                insufficient_privileges_error:
+                  value:
+                    errors:
+                    - code: '00100'
+                      title: Privilèges insuffisants
+                      detail: Votre token est valide mais vos privilèges sont insuffisants.
+                        Listez vos privilèges grâce à un GET sur /v2/privileges?token=VOTRE_TOKEN
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Privilèges insuffisants
+                  description: Votre token est valide mais vos privilèges sont insuffisants.
+                    Listez vos privilèges grâce à un GET sur /v2/privileges?token=VOTRE_TOKEN
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '200':
+          description: Entreprise trouvée
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          x-operationId: banque_de_france/bilans_entreprise_controller
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        data:
+                          type: object
+                          properties:
+                            annee:
+                              title: Année du bilan
+                              type: string
+                              example: '2020'
+                            date_arrete_exercice:
+                              title: Date d’arrêté de l’exercice
+                              description: Le format est YYYY-MM, le jour du mois
+                                n'est pas renseigné.
+                              type: string
+                              example: '202012'
+                            valeurs_calculees:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  disponibilites:
+                                    type: object
+                                    title: Disponibilités
+                                    description: "Correspond aux disponibilités présentés
+                                      à l'actif du bilan diminués des provisions constatées
+                                      sur ce poste. \n Les disponibilités font référence
+                                      à toutes les formes de trésorerie dont l'entreprise
+                                      est capable de disposer instantanément, il s'agit
+                                      de l'actif liquide de l'entreprise. \n Les disponibilités
+                                      peuvent servir à financer le besoin en fonds
+                                      de roulement d'exploitation."
+                                    properties:
+                                      valeur:
+                                        title: Valeur en euros
+                                        type: string
+                                        example: '9001'
+                                      evolution:
+                                        title: Évolution en pourcentage
+                                        type: number
+                                        example: 12.34
+                                        nullable: true
+                                  total_dettes_stables:
+                                    type: object
+                                    title: Total des dettes stables
+                                    properties:
+                                      valeur:
+                                        title: Valeur en euros
+                                        type: string
+                                        example: '9001'
+                                      evolution:
+                                        title: Évolution en pourcentage
+                                        type: number
+                                        example: 12.34
+                                        nullable: true
+                                  valeur_ajoutee_bdf:
+                                    type: object
+                                    title: Valeur ajoutée
+                                    description: 'La valeur ajoutée est un solde intermédiaire
+                                      de gestion issu du compte de résultat définie
+                                      comme tel : il correspond à la différence entre
+                                      la valeur finale de la production (valorisée
+                                      par le chiffre d''affaires) et la valeur des
+                                      biens qui ont été consommés par le processus
+                                      de production (consommations intermédiaires,
+                                      comme les matières premières).'
+                                    properties:
+                                      valeur:
+                                        title: Valeur en euros
+                                        type: string
+                                        example: '9001'
+                                      evolution:
+                                        title: Évolution en pourcentage
+                                        type: number
+                                        example: 12.34
+                                        nullable: true
+                                  besoin_en_fonds_de_roulement:
+                                    type: object
+                                    title: Besoin en fonds de roulement
+                                    description: Représente le montant nécessaire
+                                      au financement du cycle d'exploitation qui est
+                                      né du décalage entre les encaissements (clients)
+                                      et les décaissements (fournisseurs, salaires
+                                      et charges sociales) et du portage des stocks
+                                      avant leur utilisation dans le cycle de production
+                                      ou de commercialisation.
+                                    properties:
+                                      valeur:
+                                        title: Valeur en euros
+                                        type: string
+                                        example: '9001'
+                                      evolution:
+                                        title: Évolution en pourcentage
+                                        type: number
+                                        example: 12.34
+                                        nullable: true
+                                  excedent_brut_exploitation:
+                                    type: object
+                                    title: Excédent brut d’exploitation
+                                    description: "Solde intermédiaire de gestion issu
+                                      du compte de résultat défini comme tel : il
+                                      correspond principalement à la différence entre
+                                      la valeur ajoutée augmentée des subventions
+                                      d'exploitation et diminuées de la charge du
+                                      personnel et des impôts et taxes. \n Il mesure
+                                      la rentabilité d'exploitation brute de l'entreprise"
+                                    properties:
+                                      valeur:
+                                        title: Valeur en euros
+                                        type: string
+                                        example: '9001'
+                                      evolution:
+                                        title: Évolution en pourcentage
+                                        type: number
+                                        example: 12.34
+                                        nullable: true
+                                  capacite_autofinancement:
+                                    type: object
+                                    title: Capacité d’autofinancement
+                                    description: "Correspond à la somme du résultat
+                                      net et des charges non décaissables diminuées
+                                      des produits non encaissables (les éléments
+                                      non décaissables et non encaissables correspondent
+                                      essentiellement aux dotations nettes aux amortissements
+                                      et aux provisions). \n La capacité d'autofinancement
+                                      représente l'essentiel du flux de trésorerie
+                                      d'exploitation généré par l'entreprise. Elle
+                                      contribue au financement des dépenses autres
+                                      que celles enregistrées dans le compte de résultat
+                                      (dividendes, investissements, remboursement
+                                      emprunts etc...)"
+                                    properties:
+                                      valeur:
+                                        title: Valeur en euros
+                                        type: string
+                                        example: '9001'
+                                      evolution:
+                                        title: Évolution en pourcentage
+                                        type: number
+                                        example: 12.34
+                                        nullable: true
+                                  fonds_roulement_net_global:
+                                    type: object
+                                    title: Fonds de roulement net global
+                                    description: Correspond à la part des capitaux
+                                      permanents non absorbée par le financement des
+                                      valeurs immobilisées et qui est disponible pour
+                                      le financement des besoins lié au cycle d'exploitation
+                                      (besoins en fonds de roulement) (1) Capitaux
+                                      permanents = capitaux propres + autres fonds
+                                      propres + prov. pour risques et charges + total
+                                      dettes financieres - dettes financières CT à
+                                      l'origine (concours bancaires courants et soldes
+                                      créditeurs de banque notamment)
+                                    properties:
+                                      valeur:
+                                        title: Valeur en euros
+                                        type: string
+                                        example: '9001'
+                                      evolution:
+                                        title: Évolution en pourcentage
+                                        type: number
+                                        example: 12.34
+                                        nullable: true
+                                  ratio_fonds_roulement_net_global_sur_besoin_en_fonds_de_roulement:
+                                    type: object
+                                    title: Ratio fonds de roulement net global sur
+                                      besoin en fonds de roulement
+                                    properties:
+                                      valeur:
+                                        title: Valeur en pourcentage
+                                        type: number
+                                        example: 23.45
+                                      evolution:
+                                        title: Évolution en pourcentage
+                                        type: number
+                                        example: 12.34
+                                        nullable: true
+                                  dettes4_maturite_a_un_an_au_plus:
+                                    type: object
+                                    title: Dettes à maturité à un an au plus
+                                    description: Correspond à la somme des références
+                                      fiscales 2057VG2 et 2057VH2
+                                    properties:
+                                      valeur:
+                                        title: Valeur en euros
+                                        type: string
+                                        example: '9001'
+                                      evolution:
+                                        title: Évolution en pourcentage
+                                        type: number
+                                        example: 12.34
+                                        nullable: true
+                            declarations:
+                              type: array
+                              items:
+                                type: object
+                                required:
+                                - numero_imprime
+                                - donnees
+                                properties:
+                                  numero_imprime:
+                                    title: Numéro d'imprimé
+                                    type: string
+                                    description: Numéro du formulaire de la liasse
+                                      fiscale souscrit par unité légale.
+                                    example: '2051'
+                                  donnees:
+                                    type: array
+                                    items:
+                                      type: object
+                                      title: Données de l'imprimé
+                                      description: Chaque entrée du tableau correspondant
+                                        à couple code / valeur, spécifique au numéro
+                                        d'imprimé référencé à la clé `numero_imprime`
+                                      required:
+                                      - code_nref
+                                      - valeurs
+                                      properties:
+                                        code:
+                                          title: Code
+                                          type: string
+                                          description: Code permettant d'identifier
+                                            la donnée, constitué de 2 lettres de AA
+                                            à ZZ (cf. Code EDI)
+                                          example: GR
+                                        code_EDI:
+                                          title: Code EDI
+                                          type: string
+                                          description: 'Le code EDI est utilisé lorsque
+                                            la liasses fiscale a été souscrite via
+                                            la filière EDI/TDFC. Il permet l’échange
+                                            des données de nature comptable et/ou
+                                            fiscale avec la norme EDIFACT entre la
+                                            DGFIP et les utilisateurs des téléprocédures
+                                            EDI '
+                                          example: GR:C889:7111:1:TBX
+                                        code_absolu:
+                                          title: Code absolu
+                                          type: string
+                                          description: Ce code interne à la DGFIP
+                                            identifie une seule donnée sur un seul
+                                            formulaire
+                                          example: '2006744'
+                                        code_type_donnee:
+                                          title: Code Type Donnée
+                                          description: Ce code détermine la nature
+                                            de la donnée, le nombre et type des caractères
+                                            qu’elle peut contenir
+                                          type: string
+                                          example: CCI
+                                        intitule:
+                                          title: Intitulé
+                                          description: Intitulé de la donnée. Désigne
+                                            une donnée correspondant à une case à
+                                            cocher présente en haut de certains tableaux
+                                            de la liasse fiscale
+                                          type: string
+                                          example: Déposé néant
+                                        code_nref:
+                                          title: A un code N-REF correspond un code
+                                            absolu pour les liasses fiscales. Ces
+                                            deux codes désignent une seule donnée
+                                            présente sur un seul formulaire
+                                          type: string
+                                          example: '304651'
+                                        valeurs:
+                                          title: Valeurs associés à l'entrée
+                                          description: Si une entrée de l'imprimé
+                                            est répétable, le tableau contient plusieurs
+                                            entrées et sont ordonnées en fonction
+                                            de l'indice de répétition.
+                                          type: array
+                                          minItems: 1
+                                          items:
+                                            type: string
+                                          example:
+                                          - '4245'
+                          required:
+                          - annee
+                          - date_arrete_exercice
+                          - valeurs_calculees
+                          - declarations
+                  meta:
+                    type: object
+                    properties:
+                      count:
+                        title: Nombre de bilans
+                        type: integer
+                        example: 1
+                    required:
+                    - count
+                required:
+                - data
+                - meta
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                unprocessable_entity_error_siren_error:
+                  value:
+                    errors:
+                    - code: '00301'
+                      title: Entité non traitable
+                      detail: Le numéro de siren n'est pas correctement formatté
+                      source:
+                        parameter: siren
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le numéro de siren n'est pas correctement formatté
+                missing_mandatory_params_context_error:
+                  value:
+                    errors:
+                    - code: '00201'
+                      title: Entité non traitable
+                      detail: Le paramètre context est obligatoire
+                      source:
+                        parameter: context
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre context est obligatoire
+                missing_mandatory_params_object_error:
+                  value:
+                    errors:
+                    - code: '00202'
+                      title: Entité non traitable
+                      detail: Le paramètre object est obligatoire
+                      source:
+                        parameter: object
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre object est obligatoire
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Non trouvée
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '502':
+          description: Erreur du fournisseur
+          content:
+            application/json:
+              examples:
+                unknown_error:
+                  value:
+                    errors:
+                    - code: '17000'
+                      title: Erreur inconnue
+                      detail: Mauvaise réponse envoyée par le fournisseur de données
+                      source:
+                      meta:
+                        provider: Banque de France
+                  summary: Erreur inconnue
+                  description: Mauvaise réponse envoyée par le fournisseur de données
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '504':
+          description: Erreur d'intermédiaire
+          content:
+            application/json:
+              examples:
+                timeout_error:
+                  value:
+                    errors:
+                    - code: '17002'
+                      title: Intermédiaire hors-délai
+                      detail: Temps d’attente d’une réponse du fournisseur de données
+                        écoulé.
+                      source:
+                      meta:
+                        provider: Banque de France
+                  summary: Intermédiaire hors-délai
+                  description: Temps d’attente d’une réponse du fournisseur de données
+                    écoulé.
+                provider_unavailable_error:
+                  value:
+                    errors:
+                    - code: '17001'
+                      title: Service non disponible
+                      detail: Service du fournisseur de données temporairement indisponible
+                        ou en maintenance.
+                      source:
+                      meta:
+                        provider: Banque de France
+                  summary: Service non disponible
+                  description: Service du fournisseur de données temporairement indisponible
+                    ou en maintenance.
+                network_error:
+                  value:
+                    errors:
+                    - code: '00501'
+                      title: Erreur réseau
+                      detail: Problème de connexion au serveur distant. L'erreur peut
+                        venir soit du fournisseur, soit de API Entreprise
+                      source:
+                      meta: {}
+                  summary: Erreur réseau
+                  description: Problème de connexion au serveur distant. L'erreur
+                    peut venir soit du fournisseur, soit de API Entreprise
+                dns_resolution_error:
+                  value:
+                    errors:
+                    - code: '17004'
+                      title: Erreur de résolution DNS
+                      detail: Problème de résolution DNS de l'adresse du serveur
+                      source:
+                      meta:
+                        provider: Banque de France
+                  summary: Erreur de résolution DNS
+                  description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/banque_de_france/unites_legales/130025265/bilans?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/cnetp/unites_legales/{siren}/attestation_cotisations_conges_payes_chomage_intemperies":
     get:
       summary: Attestation de cotisations congés payés & chômage-intempéries
@@ -9075,8 +9667,25 @@ paths:
                         type: integer
                         example: 1618396818
                         description: Date de la dernière mise à jour à l'Insee.
+                      redirect_from_siret:
+                        type: string
+                        title: Siret d'origine de la requête
+                        description: "Si la requête a été effectuée sur un siret qui
+                          a été redirigé vers un autre siret , cette variable contient
+                          le siret d'origine de la requête. Cela arrive parfois lorsque
+                          la base Sirene possède des unités légales en doublons. Ces
+                          doublons sont généralement temporaires. \n Si cette variable
+                          est renseignée, le paramètre data->siret est différent du
+                          paramètre d'appel, et cette variable est le siret d'entrée.
+                          \n \n A noter que le siret de redirection est systématiquement
+                          le siret du siège social de l'unité légale: en effet la
+                          base Sirene ne possède pas la correspondance exacte entre
+                          un siret doublon et le siret d'origine. "
+                        example: '30613890000010'
+                        nullable: true
                     required:
                     - date_derniere_mise_a_jour
+                    - redirect_from_siret
                 required:
                 - data
                 - links
@@ -10225,8 +10834,25 @@ paths:
                         type: integer
                         example: 1618396818
                         description: Date de la dernière mise à jour à l'Insee.
+                      redirect_from_siret:
+                        type: string
+                        title: Siret d'origine de la requête
+                        description: "Si la requête a été effectuée sur un siret qui
+                          a été redirigé vers un autre siret , cette variable contient
+                          le siret d'origine de la requête. Cela arrive parfois lorsque
+                          la base Sirene possède des unités légales en doublons. Ces
+                          doublons sont généralement temporaires. \n Si cette variable
+                          est renseignée, le paramètre data->siret est différent du
+                          paramètre d'appel, et cette variable est le siret d'entrée.
+                          \n \n A noter que le siret de redirection est systématiquement
+                          le siret du siège social de l'unité légale: en effet la
+                          base Sirene ne possède pas la correspondance exacte entre
+                          un siret doublon et le siret d'origine. "
+                        example: '30613890000010'
+                        nullable: true
                     required:
                     - date_derniere_mise_a_jour
+                    - redirect_from_siret
                 required:
                 - data
                 - links
@@ -11376,8 +12002,25 @@ paths:
                         type: integer
                         example: 1618396818
                         description: Date de la dernière mise à jour à l'Insee.
+                      redirect_from_siret:
+                        type: string
+                        title: Siret d'origine de la requête
+                        description: "Si la requête a été effectuée sur un siret qui
+                          a été redirigé vers un autre siret , cette variable contient
+                          le siret d'origine de la requête. Cela arrive parfois lorsque
+                          la base Sirene possède des unités légales en doublons. Ces
+                          doublons sont généralement temporaires. \n Si cette variable
+                          est renseignée, le paramètre data->siret est différent du
+                          paramètre d'appel, et cette variable est le siret d'entrée.
+                          \n \n A noter que le siret de redirection est systématiquement
+                          le siret du siège social de l'unité légale: en effet la
+                          base Sirene ne possède pas la correspondance exacte entre
+                          un siret doublon et le siret d'origine. "
+                        example: '30613890000010'
+                        nullable: true
                     required:
                     - date_derniere_mise_a_jour
+                    - redirect_from_siret
                 required:
                 - data
                 - links
@@ -12529,8 +13172,25 @@ paths:
                         type: integer
                         example: 1618396818
                         description: Date de la dernière mise à jour à l'Insee.
+                      redirect_from_siret:
+                        type: string
+                        title: Siret d'origine de la requête
+                        description: "Si la requête a été effectuée sur un siret qui
+                          a été redirigé vers un autre siret , cette variable contient
+                          le siret d'origine de la requête. Cela arrive parfois lorsque
+                          la base Sirene possède des unités légales en doublons. Ces
+                          doublons sont généralement temporaires. \n Si cette variable
+                          est renseignée, le paramètre data->siret est différent du
+                          paramètre d'appel, et cette variable est le siret d'entrée.
+                          \n \n A noter que le siret de redirection est systématiquement
+                          le siret du siège social de l'unité légale: en effet la
+                          base Sirene ne possède pas la correspondance exacte entre
+                          un siret doublon et le siret d'origine. "
+                        example: '30613890000010'
+                        nullable: true
                     required:
                     - date_derniere_mise_a_jour
+                    - redirect_from_siret
                 required:
                 - data
                 - links
@@ -13259,8 +13919,21 @@ paths:
                         type: integer
                         example: 1618396818
                         description: Date de la dernière mise à jour à l'Insee.
+                      redirect_from_siren:
+                        type: string
+                        title: Siren d'origine de la requête
+                        description: "Si la requête a été effectuée sur un siren qui
+                          a été redirigé vers un autre siren, cette variable contient
+                          le siren d'origine de la requête. Cela arrive parfois lorsque
+                          la base Sirene possède des unités légales en doublons. Ces
+                          doublons sont généralement temporaires. \n Si cette variable
+                          est renseignée, le paramètre data->siren est différent du
+                          paramètre d'appel, et cette variable est le siren d'entrée."
+                        example: '306138900'
+                        nullable: true
                     required:
                     - date_derniere_mise_a_jour
+                    - redirect_from_siren
                 required:
                 - data
                 - links
@@ -13996,8 +14669,21 @@ paths:
                         type: integer
                         example: 1618396818
                         description: Date de la dernière mise à jour à l'Insee.
+                      redirect_from_siren:
+                        type: string
+                        title: Siren d'origine de la requête
+                        description: "Si la requête a été effectuée sur un siren qui
+                          a été redirigé vers un autre siren, cette variable contient
+                          le siren d'origine de la requête. Cela arrive parfois lorsque
+                          la base Sirene possède des unités légales en doublons. Ces
+                          doublons sont généralement temporaires. \n Si cette variable
+                          est renseignée, le paramètre data->siren est différent du
+                          paramètre d'appel, et cette variable est le siren d'entrée."
+                        example: '306138900'
+                        nullable: true
                     required:
                     - date_derniere_mise_a_jour
+                    - redirect_from_siren
                 required:
                 - data
                 - links
@@ -16131,7 +16817,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/probtp/etablissements/13002526500013/attestation_cotisations_retraite?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/probtp/etablissements/{siret}/conformite_cotisations_retraite":
     get:
-      summary: Conformités des cotisations retraites
+      summary: Conformité cotisations retraite complémentaire
       tags:
       - Attestations sociales et fiscales
       parameters:
@@ -16172,8 +16858,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Savoir si une entreprise est à jour de ses cotisations retraite
-        à la Protection Sociale du Bâtiment et des Travaux publics (PROBTP).
+      description: Régularité des cotisations de retraite complémentaire auprès de
+        la Protection Sociale du Bâtiment et des Travaux publics (ProBTP).
       responses:
         '401':
           description: Non autorisé
