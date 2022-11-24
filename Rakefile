@@ -21,3 +21,9 @@ task :deploy do
     sh "mina deploy domain=#{domain}"
   end
 end
+
+task :seeds do
+  domains.each do |domain|
+    sh "mina seeds domain=#{domain}"
+  end
+end

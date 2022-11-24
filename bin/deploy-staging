@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ $# -eq 1 ] ; then
+  branch=$1
+else
+  branch=develop
+fi
+
+server="dashboard.entreprise.api.gouv.fr"
+
+bundle exec rake deploy domain=$server branch=$branch to=staging
+bundle exec rake seeds domain=$server branch=$branch to=staging
