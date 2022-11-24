@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ $# -eq 1 ] ; then
+  branch=$1
+else
+  branch=develop
+fi
+
+server="dashboard.entreprise.api.gouv.fr"
+
+bundle exec mina deploy domain=$server branch=$branch to=sandbox
+bundle exec mina seeds domain=$server branch=$branch to=sandbox
