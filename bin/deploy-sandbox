@@ -6,5 +6,7 @@ else
   branch=develop
 fi
 
-bundle exec rake deploy branch=$branch to=sandbox
-bundle exec rake seeds branch=$branch to=sandbox
+server="dashboard.entreprise.api.gouv.fr"
+
+bundle exec mine deploy domain=$server branch=$branch to=sandbox
+bundle exec mina seeds domain=$server branch=$branch to=sandbox
