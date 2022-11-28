@@ -5,5 +5,5 @@ class ApplicationRecord < ActiveRecord::Base
 
   self.abstract_class = true
 
-  EMAIL_FORMAT_REGEX = /\A[a-zA-Z0-9_.+\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-.]+\z/
+  EMAIL_FORMAT_REGEX = /\A[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9\-.]+\z/
 end
