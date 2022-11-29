@@ -98,6 +98,7 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
         053
         054
         055
+        999
       ].include?(error_payload['code'][2..])
     end
   end
