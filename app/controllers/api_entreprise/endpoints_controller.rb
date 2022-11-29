@@ -9,7 +9,11 @@ class APIEntreprise::EndpointsController < APIEntrepriseController
 
   def show; end
 
-  def example; end
+  def example
+    return unless @endpoint.dummy?
+
+    redirect_to endpoint_path(uid: @endpoint.uid)
+  end
 
   private
 
