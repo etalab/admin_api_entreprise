@@ -8,12 +8,8 @@ RSpec.describe 'page access', app: :api_entreprise do
       expect(page).to have_current_path(login_path, ignore_query: true)
     end
 
-    it 'has a form to connect via datapass' do
-      expect(page).to have_button('datapass_login')
-    end
-
-    it 'has a link to connect via magic link' do
-      expect(page).to have_link('magic_link_login', href: login_magic_link_path)
+    it 'has a button to send magic link' do
+      expect(page).to have_button('send_magic_link')
     end
   end
 
