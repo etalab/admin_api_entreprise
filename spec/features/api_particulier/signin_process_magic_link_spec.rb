@@ -63,7 +63,7 @@ RSpec.describe 'Signin process via magic link', app: :api_entreprise do
 
       describe 'when the user logins with the magic link' do
         it 'login to the user account' do
-          pending("fill me up")
+          pending("fill me up bro")
         end
       end
     end
