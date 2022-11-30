@@ -1,4 +1,17 @@
 class UserMailer < ApplicationMailer
+  include FriendlyDateHelper
+
+  def magic_link_signin(magic_link, host)
+    @magic_link = magic_link
+    @host = host
+    @entreprise_or_particulier = host.split('.').first.capitalize
+
+    to = magic_link.email
+    subject = t('.subject', api: @entreprise_or_particulier)
+
+    mail(to:, subject:)
+  end
+
   def transfer_ownership(old_owner, new_owner)
     @new_owner = new_owner
     @old_owner = old_owner

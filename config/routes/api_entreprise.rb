@@ -13,6 +13,7 @@ constraints(APIEntrepriseDomainConstraint.new) do
     root to: 'pages#home'
 
     get '/compte/se-connecter', to: 'sessions#new', as: :login
+    get '/compte/se-connecter/lien-magique', to: 'sessions#create', as: :login_magic_link
     delete '/compte/deconnexion', to: 'sessions#destroy', as: :logout
 
     get '/auth/failure', to: 'sessions#failure'

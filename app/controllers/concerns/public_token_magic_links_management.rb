@@ -8,7 +8,11 @@ module PublicTokenMagicLinksManagement
   end
 
   def create
-    create_and_send_magic_link if Contact.find_by(email:) || User.find_by(email:)
+    if user.present?
+      create_and_send_magic_link_user
+    elsif contact.present?
+      create_and_send_magic_link_contact
+    end
 
     success_message(
       title: t("#{namespace}.public_token_magic_links.create.title"),
@@ -39,10 +43,28 @@ module PublicTokenMagicLinksManagement
     redirect_to login_path
   end
 
-  def create_and_send_magic_link
-    @magic_link = MagicLink.create!(email:)
+  def create_and_send_magic_link_user
+    create_magic_link
+
+    UserMailer.magic_link_signin(@magic_link, request.host).deliver_later
+  end
+
+  def create_and_send_magic_link_contact
+    create_magic_link
 
     TokenMailer.magic_link(@magic_link, request.host).deliver_later
+  end
+
+  def create_magic_link
+    @magic_link = MagicLink.create!(email:)
+  end
+
+  def contact
+    Contact.find_by(email:)
+  end
+
+  def user
+    User.find_by(email:)
   end
 
   def access_token

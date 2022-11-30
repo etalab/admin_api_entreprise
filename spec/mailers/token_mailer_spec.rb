@@ -7,7 +7,7 @@ RSpec.describe TokenMailer do
     let(:magic_link) { create(:magic_link, email:) }
     let(:magic_link_url) { '' }
     let(:email) { 'muchemail@wow.com' }
-    let(:host) { 'https://cooldomain.gouv.fr' }
+    let(:host) { 'entreprise.api.gouv.fr' }
 
     its(:subject) { is_expected.to eq('API Entreprise - Lien d\'accès à votre jeton !') }
     its(:from) { is_expected.to include(Rails.configuration.emails_sender_address) }
