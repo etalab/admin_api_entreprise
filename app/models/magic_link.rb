@@ -6,6 +6,7 @@ class MagicLink < ApplicationRecord
   validates :email, presence: true, format: { with: /#{EMAIL_FORMAT_REGEX}/ }
   attribute :expires_at, default: -> { DEFAULT_EXPIRATION_DELAY.from_now }
   belongs_to :token, optional: true
+  scope :unexpired, -> { where('expires_at > ?', Time.zone.now) }
 
   before_create :generate_access_token
 
