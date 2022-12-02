@@ -14,6 +14,24 @@ RSpec.shared_examples 'it creates a magic link' do
       expect(new_magic_link.expires_at).to be_within(10.seconds).of(4.hours.from_now)
     end
   end
+
+  describe 'magic link already exists' do
+    context 'when the magic link is expired' do
+      before { create(:magic_link, email:, expires_at: 1.day.ago) }
+
+      it 'saves a new magic link' do
+        expect { subject }.to change(MagicLink, :count).by(1)
+      end
+    end
+
+    context 'when the magic link is not expired' do
+      before { create(:magic_link, email:) }
+
+      it 'does not save a new magic link' do
+        expect { subject }.not_to change(MagicLink, :count)
+      end
+    end
+  end
 end
 
 RSpec.shared_examples 'it sends a magic link for tokens' do
