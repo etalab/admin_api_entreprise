@@ -4,10 +4,10 @@ class TokenMailer < ApplicationMailer
   def magic_link(magic_link, host)
     @magic_link = magic_link
     @host = host
-    @entreprise_or_particulier = host.split('.').first.capitalize
+    @namespace = host.split('.').first
 
     to = magic_link.email
-    subject = t('.subject', api: @api = host.split('.').first.capitalize)
+    subject = t(".#{@namespace}.subject")
 
     mail(to:, subject:)
   end
