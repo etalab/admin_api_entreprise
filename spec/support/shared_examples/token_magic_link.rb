@@ -3,33 +3,31 @@ RSpec.shared_examples 'it creates a magic link' do
 
   let(:new_magic_link) { MagicLink.find_by(email:) }
 
-  describe 'new magic link' do
-    it 'saves a magic token' do
+  it 'saves a magic token' do
+    expect { subject }.to change(MagicLink, :count).by(1)
+  end
+
+  it 'saves an expiration delay on the magic link' do
+    subject
+
+    expect(new_magic_link.expires_at).to be_within(10.seconds).of(4.hours.from_now)
+  end
+end
+
+RSpec.shared_examples 'it doesnt send another magic link if one already exists' do
+  context 'when the magic link is expired' do
+    before { create(:magic_link, email:, expires_at: 1.day.ago) }
+
+    it 'saves a new magic link' do
       expect { subject }.to change(MagicLink, :count).by(1)
-    end
-
-    it 'saves an expiration delay on the magic link' do
-      subject
-
-      expect(new_magic_link.expires_at).to be_within(10.seconds).of(4.hours.from_now)
     end
   end
 
-  describe 'magic link already exists' do
-    context 'when the magic link is expired' do
-      before { create(:magic_link, email:, expires_at: 1.day.ago) }
+  context 'when the magic link is not expired' do
+    before { create(:magic_link, email:) }
 
-      it 'saves a new magic link' do
-        expect { subject }.to change(MagicLink, :count).by(1)
-      end
-    end
-
-    context 'when the magic link is not expired' do
-      before { create(:magic_link, email:) }
-
-      it 'does not save a new magic link' do
-        expect { subject }.not_to change(MagicLink, :count)
-      end
+    it 'does not save a new magic link' do
+      expect { subject }.not_to change(MagicLink, :count)
     end
   end
 end

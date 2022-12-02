@@ -17,6 +17,7 @@ RSpec.shared_examples 'a signin process via magic link' do
       let!(:user) { create(:user, email:) }
 
       it_behaves_like 'it creates a magic link'
+      it_behaves_like 'it doesnt send another magic link if one already exists'
       it_behaves_like 'it sends a magic link for signin'
       it_behaves_like 'it displays a magic-link-sent confirmation and redirects'
     end
@@ -25,6 +26,7 @@ RSpec.shared_examples 'a signin process via magic link' do
       let!(:contact) { create(:contact, email:, token: create(:token)) }
 
       it_behaves_like 'it creates a magic link'
+      it_behaves_like 'it doesnt send another magic link if one already exists'
       it_behaves_like 'it sends a magic link for tokens'
       it_behaves_like 'it displays a magic-link-sent confirmation and redirects'
     end
