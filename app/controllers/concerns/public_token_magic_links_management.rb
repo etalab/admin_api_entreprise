@@ -8,7 +8,7 @@ module PublicTokenMagicLinksManagement
   end
 
   def create
-    create_and_send_magic_link unless magic_link_already_exist?
+    MagicLink::CreateAndSend.call(email:, host: request.host) unless valid_magic_link_already_exist?
 
     success_message(
       title: t("#{namespace}.public_token_magic_links.create.title"),
@@ -21,15 +21,7 @@ module PublicTokenMagicLinksManagement
 
   private
 
-  def create_and_send_magic_link
-    if user.present?
-      create_and_send_magic_link_user
-    elsif contact.present?
-      create_and_send_magic_link_contact
-    end
-  end
-
-  def magic_link_already_exist?
+  def valid_magic_link_already_exist?
     MagicLink.unexpired.find_by(email:).present?
   end
 
@@ -49,30 +41,6 @@ module PublicTokenMagicLinksManagement
       description: t("#{namespace}.public_token_magic_links.show.error.#{error_type}.description")
     )
     redirect_to login_path
-  end
-
-  def create_and_send_magic_link_user
-    create_magic_link
-
-    UserMailer.magic_link_signin(@magic_link, request.host).deliver_later
-  end
-
-  def create_and_send_magic_link_contact
-    create_magic_link
-
-    TokenMailer.magic_link(@magic_link, request.host).deliver_later
-  end
-
-  def create_magic_link
-    @magic_link = MagicLink.create!(email:)
-  end
-
-  def contact
-    Contact.find_by(email:)
-  end
-
-  def user
-    User.find_by(email:)
   end
 
   def access_token
