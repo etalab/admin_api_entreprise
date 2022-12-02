@@ -36,6 +36,20 @@ RSpec.shared_examples 'it sends a magic link for signin' do
   end
 end
 
+RSpec.shared_examples 'it displays a magic-link-sent confirmation and redirects' do
+  it 'redirects to the login page' do
+    subject
+
+    expect(page).to have_current_path(login_path)
+  end
+
+  it 'displays a success message' do
+    subject
+
+    expect(page).to have_content(I18n.t('api_entreprise.public_token_magic_links.create.title'))
+  end
+end
+
 RSpec.shared_examples 'it aborts magic link' do
   it 'does not send the magic link email' do
     expect { subject }.not_to have_enqueued_mail(TokenMailer, :magic_link)
