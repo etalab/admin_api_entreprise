@@ -8,11 +8,7 @@ module PublicTokenMagicLinksManagement
   end
 
   def create
-    if user.present?
-      create_and_send_magic_link_user
-    elsif contact.present?
-      create_and_send_magic_link_contact
-    end
+    create_and_send_magic_link unless magic_link_already_exist?
 
     success_message(
       title: t("#{namespace}.public_token_magic_links.create.title"),
@@ -23,7 +19,19 @@ module PublicTokenMagicLinksManagement
 
   def new; end
 
-  protected
+  private
+
+  def create_and_send_magic_link
+    if user.present?
+      create_and_send_magic_link_user
+    elsif contact.present?
+      create_and_send_magic_link_contact
+    end
+  end
+
+  def magic_link_already_exist?
+    MagicLink.unexpired.find_by(email:).present?
+  end
 
   def handle_invalid_magic_link!
     if @magic_link.blank?
