@@ -39,6 +39,7 @@
       {:.fr-table}
       | Donnée présente dans le K-bis              |   Équivalence sur API Entreprise              |
       |:-------------------------------------------|:-----------------------------------------------|
+      | Adresse du siège social                    |   Cette API délivre l'adresse de l'établissement principal. L'adresse du siège social est appelable avec l'[API siège social - Insee](<%= endpoint_path(uid: 'insee/siege_social') %>)      |
       | Activités principales de l'entreprise      |   Cette API délivre uniquement les activités de l'établissement principal (Code APE et libellé)         |
       | Informations sur les mandataires sociaux   |   L'information délivrée par cette API est partielle, pour obtenir l'exhaustivité des données disponibles sur les mandataires sociaux, dont le jour et lieu de naissance et la nationalité, nous vous pouvez interroger l'[API Mandataires sociaux - Infogreffe](<%= endpoint_path(uid: '/infogreffe/mandataires_sociaux') %>).    |
       | Date de commencement de l'activité         |   ❌ Cette date n'est pas disponible sur API Entreprise. Une autre date, la date de création de l'établissement est accessible depuis l'[API Établissements - Insee](<%= endpoint_path(uid: '/insee/etablissements') %>).    |
