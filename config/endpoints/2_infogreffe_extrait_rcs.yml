@@ -39,7 +39,7 @@
       {:.fr-table}
       | Donnée présente dans le K-bis              |   Équivalence sur API Entreprise              |
       |:-------------------------------------------|:-----------------------------------------------|
-      | Adresse du siège social                    |   Cette API délivre l'adresse de l'établissement principal. L'adresse du siège social est appelable avec l'[API siège social - Insee](<%= endpoint_path(uid: 'insee/siege_social') %>)      |
+      | Adresse du siège social                    |   Cette API délivre l'adresse de l'établissement principal. L'adresse du siège social est appelable avec l'[API siège social - Insee](<%= endpoint_path(uid: 'insee/siege_social') %>).      |
       | Activités principales de l'entreprise      |   Cette API délivre uniquement les activités de l'établissement principal (Code APE et libellé)         |
       | Informations sur les mandataires sociaux   |   L'information délivrée par cette API est partielle, pour obtenir l'exhaustivité des données disponibles sur les mandataires sociaux, dont le jour et lieu de naissance et la nationalité, nous vous pouvez interroger l'[API Mandataires sociaux - Infogreffe](<%= endpoint_path(uid: '/infogreffe/mandataires_sociaux') %>).    |
       | Date de commencement de l'activité         |   ❌ Cette date n'est pas disponible sur API Entreprise. Une autre date, la date de création de l'établissement est accessible depuis l'[API Établissements - Insee](<%= endpoint_path(uid: '/insee/etablissements') %>).    |
@@ -79,7 +79,5 @@
       a: |+
         Cette API délivre les informations de l'établissement principal d'une unité légale. 
         **L'établissement principal n'est pas forcément le siège social.** Il s'agit du lieu où l'activité est exercée, alors que le siège social correspond à l'adresse administrative de la société où se tiennent les assemblées générales et détermine la nationalité de la société.
-        <br/>
 
-        #### Pour en savoir plus :
-        - [Cet article de BPI France](https://bpifrance-creation.fr/encyclopedie/locaux-lentreprise/quels-locaux-jeune-entreprise/siege-social-letablissement-principal) détaille la différence entre le siège social et l'établissement principal avec des exemples.
+        Pour en savoir plus, [consultez cet article de BPI France](https://bpifrance-creation.fr/encyclopedie/locaux-lentreprise/quels-locaux-jeune-entreprise/siege-social-letablissement-principal){:target="_blank"}.
