@@ -35,7 +35,7 @@ L'Insee précise « _Ce sont ainsi des données concernant plus de **2,8 million
 
 <br>
 
-**🏢 Pour les personnes morales qui choisiront le nouveau statut de "diffusion partielle"**, seront désormais **confidentielles**🔐&nbsp;: 
+**🏢 Pour les personnes morales qui choisiront le nouveau statut de "diffusion partielle"**, voici les données qui seront désormais **confidentielles**🔐&nbsp;: 
 - le sigle (A VERIFIER)
 - le numéro + la voie de l'adresse postale
 
