@@ -12,6 +12,8 @@ constraints(APIEntrepriseDomainConstraint.new) do
     root to: redirect('/compte/se-connecter'), as: :dashboard_root, constraints: { subdomain: 'dashboard.entreprise.api' }
     root to: 'pages#home'
 
+    get '/stats', to: 'stats#index'
+
     get '/compte/se-connecter', to: 'sessions#new', as: :login
     delete '/compte/deconnexion', to: 'sessions#destroy', as: :logout
 

@@ -2,6 +2,8 @@ constraints(APIParticulierDomainConstraint.new) do
   namespace :api_particulier, path: '' do
     get '/', to: redirect('https://api.gouv.fr/les-api/api-particulier', status: 302)
 
+    get '/stats', to: 'stats#index'
+
     get '/compte/se-connecter', to: 'sessions#new', as: :login
     delete '/compte/deconnexion', to: 'sessions#destroy', as: :logout
 
