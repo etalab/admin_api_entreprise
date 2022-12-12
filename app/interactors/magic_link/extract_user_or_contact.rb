@@ -1,9 +1,12 @@
 class MagicLink::ExtractUserOrContact < ApplicationInteractor
   def call
     context.user = user
-    context.contact = contact
+    return if user
 
-    context.fail! unless user || contact
+    context.contact = contact
+    return if contact
+
+    context.fail!
   end
 
   private
