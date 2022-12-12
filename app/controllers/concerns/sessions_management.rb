@@ -4,7 +4,7 @@ module SessionsManagement
   end
 
   def create
-    interactor_call = MagicLink::ValidateUserFromAccessToken.call(access_token:)
+    interactor_call = MagicLink::ValidateUserFromAccessToken.call(access_token: params.require(:access_token))
 
     if interactor_call.success?
       sign_in_and_redirect(interactor_call.user)
@@ -18,11 +18,5 @@ module SessionsManagement
   def destroy
     logout_user
     redirect_to login_path
-  end
-
-  private
-
-  def access_token
-    params.require(:access_token)
   end
 end

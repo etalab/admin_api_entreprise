@@ -2,13 +2,13 @@ module PublicTokenMagicLinksManagement
   extend ActiveSupport::Concern
 
   def show
-    @magic_link = MagicLink.find_by(access_token: magic_token_show_params)
+    @magic_link = MagicLink.find_by(access_token: magic_token_show_params[:access_token])
 
     handle_invalid_magic_link!
   end
 
   def create
-    MagicLink::CreateAndSend.call(email: magic_token_create_params, host: request.host) unless valid_magic_link_already_exist?
+    MagicLink::CreateAndSend.call(magic_token_create_params)
 
     success_message(
       title: t("#{namespace}.public_token_magic_links.create.title"),
@@ -21,10 +21,6 @@ module PublicTokenMagicLinksManagement
   def new; end
 
   private
-
-  def valid_magic_link_already_exist?
-    MagicLink.unexpired.where(email: magic_token_create_params).any?
-  end
 
   def handle_invalid_magic_link!
     if @magic_link.blank?
@@ -45,10 +41,15 @@ module PublicTokenMagicLinksManagement
   end
 
   def magic_token_show_params
-    params.require(:access_token)
+    {
+      access_token: params.require(:access_token)
+    }
   end
 
   def magic_token_create_params
-    params.require(:email)
+    {
+      email: params.require(:email),
+      host: request.host
+    }
   end
 end
