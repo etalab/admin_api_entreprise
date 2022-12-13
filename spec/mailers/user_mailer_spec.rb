@@ -62,7 +62,7 @@ RSpec.describe UserMailer do
     let(:user) { create(:user, :with_token) }
 
     its(:subject) { is_expected.to eq('API Entreprise - Réconciliation de demandes d\'accès à un nouvel usager') }
-    its(:to) { is_expected.to eq(['contact@api.gouv.fr']) }
+    its(:to) { is_expected.to eq(['datapass@api.gouv.fr']) }
     its(:from) { is_expected.to include(Rails.configuration.emails_sender_address) }
 
     it 'contains the user email address' do

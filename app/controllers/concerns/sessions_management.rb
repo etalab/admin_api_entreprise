@@ -4,10 +4,10 @@ module SessionsManagement
   end
 
   def create
-    @magic_link = MagicLink.where(access_token:).last
+    interactor_call = MagicLink::ValidateUserFromAccessToken.call(access_token: params.require(:access_token))
 
-    if valid_user_magic_link?
-      sign_in_and_redirect(user)
+    if interactor_call.success?
+      sign_in_and_redirect(interactor_call.user)
     else
       error_message(title: t('.error.title'), description: t('.error.description'))
 
@@ -18,19 +18,5 @@ module SessionsManagement
   def destroy
     logout_user
     redirect_to login_path
-  end
-
-  private
-
-  def valid_user_magic_link?
-    @magic_link && user.present? && !@magic_link.expired?
-  end
-
-  def user
-    User.find_by(email: @magic_link.email)
-  end
-
-  def access_token
-    params.require(:access_token)
   end
 end

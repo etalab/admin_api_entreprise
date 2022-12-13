@@ -25,7 +25,7 @@ class UserMailer < ApplicationMailer
   def notify_datapass_for_data_reconciliation(user)
     @user = user
     @authorization_requests_ids = user.tokens.pluck(:authorization_request_id).map(&:to_i)
-    dest_address = 'contact@api.gouv.fr'
+    dest_address = 'datapass@api.gouv.fr'
     subject = 'API Entreprise - Réconciliation de demandes d\'accès à un nouvel usager'
 
     mail(to: dest_address, subject:)

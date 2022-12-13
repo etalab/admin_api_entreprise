@@ -4,10 +4,10 @@
   path: '/v3/dgfip/unites_legales/{siren}/attestation_fiscale'
   perimeter:
     entity_type_description: |+
-      Cette API délivre uniquement les attestations fiscales des **✅ entreprises soumises à l'impôt sur les sociétés (IS)**. 
+      Cette API délivre uniquement les attestations fiscales aux **✅ entreprises assujettis à l'impôt sur les sociétés (IS) et à la TVA.**. 
 
-      L'API ne permet pas de récupérer les attestations fiscales : 
-      - ❌ des entreprises qui relèvent de l'impôt sur le revenu (IR), les entreprises individuelles sont donc notamment exclues ;
+      **L'API ne permet pas de récupérer les attestations fiscales** : 
+      - ❌ des entreprises qui relèvent de l'impôt sur le revenu (IR), quelque soit leur régime d'imposition, BIC, BNC ou BA. **À partir du moment où l'entreprise est imposée à l'IR, son attestation fiscale ne peut être obtenue par cette API** : les micro-entreprises sont de fait toujours exclues du périmètre de cette API ;
       - ❌ des sociétés ayant été créées durant l'année en cours ;
       - ❌ des sociétés bénéficiant d’un plan de règlement, redressement, sauvegarde ou conciliation ainsi que les sociétés ayant formulé un recours contentieux assorti d’un sursis de paiement.
 
@@ -19,6 +19,13 @@
       >
       > Une attestation peut être renvoyée en cas d'appel d'une entreprise "fille", mais cette attestation ne sera pas valable car incomplète. En effet, il manquera les informations de la société "mère".
       > Il est de votre ressort de vérifier si l'entreprise est membre ou non d'un groupe de sociétés imposé selon le régime fiscal d'intégration visé à l'[article 223 A du CGI](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000042340402/){:target="_blank"} afin de ne pas utiliser une attestation qui ne serait pas valable. Deux API spécifiques à ces sociétés seront bientôt disponibles.
+
+      **Exceptions observées :**
+      Suite à un retour utilisateur, nous observons que les attestations fiscales des **sociétés en nom collectif (SNC) ayant opté à l'IS** ne sont pas délivrées par cette API. Cette absence serait dûe au fait que le service des impôts en charge peut être le service des impôts des particuliers dans le cas d'un associé personne physique. Même si tous les associés sont des personnes morales, l'attestation ne sera pas accessible.
+    know_more_description: |+
+      - Le BOFIP expose les [dispositions juridiques communes de l'attestation de régularité](https://bofip.impots.gouv.fr/bofip/8485-PGP.html/identifiant=BOI-DJC-ARF-20220209){:target="_blank"} ;
+      - [economie.gouv.fr](https://www.economie.gouv.fr/entreprises/impot-revenu-impot-societe-statut){:target="_blank"} dresse les types d'imposition possibles par statuts d'entreprise et vous permet de mieux comprendre le périmètre des entreprises concernées par cette API.
+
 
   call_id: "SIREN"
   opening: protected
