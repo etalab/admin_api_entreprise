@@ -62,6 +62,7 @@ API Entreprise met à disposition des administrations habilitées deux types d'A
 | [API Données siège social - Insee](<%= endpoint_path(uid: 'insee/siege_social') %>)          | [API Données siège social diffusible - Insee](<%= endpoint_path(uid: 'insee/siege_social_diffusibles') %>)    |
 | [API Adresse établissement - Insee](<%= endpoint_path(uid: 'insee/adresse_etablissements') %>)         | [API Adresse établissement diffusible - Insee](<%= endpoint_path(uid: 'insee/adresse_etablissements_diffusibles') %>)  |
 
+
 {:.fr-h5}
 ### Utiliser la bonne API pour son cas d'usage
 
@@ -82,3 +83,9 @@ Parmi les clés renvoyées par les API retournant les entités "non-diffusibles"
 
 {:.fr-highlight}
 Cette clé est actuellement **uniquement disponible pour les API renvoyant les "non-diffusibles".** Lorsqu'API Entreprise aura intégré la nouvelle version de la base Sirene, cette variable sera également disponible dans les API ayant la mention "diffusible" pour les entités en "diffusion partielle".
+
+
+
+[Toutes les API Insee](https://entreprise.api.gouv.fr/catalogue?Endpoint%5Bquery%5D=diffusible){:.fr-btn .fr-btn--secondary}{:target="_blank"}
+
+
