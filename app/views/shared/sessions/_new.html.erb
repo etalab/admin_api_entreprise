@@ -9,10 +9,11 @@
         <div class="fr-card__body">
           <div class="fr-card__content">
             <%= form_with(url: public_magic_link_create_url, method: :post, data: { turbo: false }) do |f| %>
-              <%= f.label :email, t('.label'), class: "fr-label" %>
-              <%= f.email_field :email, placeholder: "Email", required: true, class: %w(fr-m-2w fr-input) %>
+              <%= f.label :email, t('.label').html_safe, class: "fr-label left" %>
+              <%= f.email_field :email, placeholder: "Email", required: true, class: %w(fr-input) %>
               <%= f.button t('.button'), class: %w(fr-btn fr-btn--md fr-m-2w), id: 'send_magic_link' %>
             <% end %>
+            <p class="fr-mt-3w fr-mb-0"><%= t('.faq', link: link_to(t('.faq_link'), faq_index_path(anchor: 'comment-se-connecter-a-l-espace-utilisateur'))).html_safe %></p>
           </div>
         </div>
       </div>
