@@ -14,7 +14,7 @@ Parmi les entités présentes et appelables par API Entreprise, certaines, très
 
 Pour se conformer au RGPD et au [décret n° 2022-1014 du 19 juillet 2022](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000046061058){:target="_blank"}, l'Insee va sortir début 2023 une nouvelle version de la base Sirene. Cette évolution concerne deux aspects&nbsp;: 
 1. Auparavant, seules les personnes physiques pouvaient opter pour le statut "non-diffusible"; avec les nouvelles modalités, **les personnes morales pourront également réclamer une diffusion partielle** de leurs données.
-2. Auparavant, aucune donnée des unités légales et établissements "non-diffusibles" était diffusable publiquemen, bientôt, **certaines informations seront disponibles et en diffusion libre**, comme par exemple : les numéros SIREN et SIRET, l'activité principale exercée, la catégorie juridique ou encore la tranche d’effectifs…
+2. Auparavant, aucune donnée des unités légales et établissements "non-diffusibles" était diffusable publiquement, bientôt, **certaines informations seront disponibles et en diffusion libre**, comme par exemple : les numéros SIREN et SIRET, l'activité principale exercée, la catégorie juridique ou encore la tranche d’effectifs…
 
 {:.fr-quote }
 L'Insee précise « _Ce sont ainsi des données concernant plus de **2,8 millions d’établissements et 1,9 million d’unités légales qui seront désormais accessibles à tous**._ » 
