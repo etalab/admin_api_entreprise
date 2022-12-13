@@ -13,7 +13,7 @@ fr:
               - assurer une meilleure sécurité de la donnée des fournisseurs ;
               - normaliser les formats pour faciliter la compréhension et l’industrialisation ;
               - clarifier, documenter les réponses et les rendre actionnables par vos logiciels.
-             
+
               {:.fr-highlight.fr}
               > **Votre jeton d'accès reste identique 🔑**
               > Pour accéder à la version 3 de l'API Entreprise, utilisez le même token qu'en V.2. En effet, tant que votre jeton est valide, il est inutile de refaire une demande d'accès car la migration vers la V.3 ne change pas les droits que vous avez déjà obtenu.
@@ -247,7 +247,7 @@ fr:
                      **Table de correspondance de tous les champs en V.2 et leurs équivalents en V.3**
                     </summary>
 
-                  
+
                   {:.fr-table fr-table--bordered}
                   | [API V.2. Données de référence d'une entité](http://v2.entreprise.api.gouv.fr/entreprise.api.gouv.fr/catalogue/#a-entreprises){:target="_blank"}<br/><br/>Appelé avec SIREN | API V.3. Données établissement<br/><br/>Appelé avec SIRET  | API V.3. Mandataires sociaux - Infogreffe<br/><br/>Appelé avec SIREN | API V.3. Données siège social<br/><br/>Appelé avec SIREN | API V.3. Données unités légales<br/><br/>Appelé avec SIREN | API V.3. Adresse établissement<br/><br/>Appelé avec SIRET | API V.3. Extrait RCS - Infogreffe<br/><br/>Appelé avec SIREN | API V.3. Numéro de TVA Intra<br/><br/>Appelé avec SIREN |
                   |---|---|---|---|---|---|---|---|
@@ -296,7 +296,7 @@ fr:
                   |     `"identifiant": "",` |  | ❌ Supprimé pour les personnes physiques car toujours vide |  |  |  |  |  |
                   |     `"type": "PP"` |  | `"type": "personne_physique"` |  |  |  |  |  |
                   |  |  | 🎁 Nouveaux champs :<br/>-  `"lieu_naissance": "FLERS",`<br/>- `"pays_naissance": "FRANCE",`<br/>-  `"code_pays_naissance": "FR",`<br/>-  `"nationalite": "FRANCAISE",`<br/>-  `"code_nationalite": "FR"`  |
-                  |  |  |  |  |  | 
+                  |  |  |  |  |  |
                   |     `"nom": "",` |  | ❌  Supprimé pour les personnes morales car toujours vide |  |  |  | ❌  Supprimé pour les personnes morales car toujours vide |  |
                   |     `"prenom": "",` |  | ❌  Supprimé pour les personnes morales car toujours vide |  |  |  | ❌  Supprimé pour les personnes morales car toujours vide |  |
                   |     `"fonction": "COMMISSAIRE AUX COMPTES SUPPLEANT",` |  | `"fonction": "COMMISSAIRE AUX COMPTES TITULAIRE",` |  |  |  | `"fonction": "COMMISSAIRE AUX COMPTES SUPPLEANT",` |  |
@@ -364,7 +364,7 @@ fr:
 
                   </details>
 
-              - subtitle: V.2 - Données de référence d'un établissement - INSEE
+              - subtitle: V.2 - Données de référence d'un établissement - INSEE<a name="v2/etablissements"></a>
                 subtitle_anchor: 'v2---données-de-référence-dun-établissement---insee-'
                 content: |+
                   L'API V.2 `/etablissement` de l'INSEE devient l'**API centrale des données Insee en V.3**. À partir du SIRET de l'établissement, vous récupérez les données de l'établissement, dont son adresse postale, ainsi que les données de l'unité légale qui le concerne.
@@ -382,7 +382,7 @@ fr:
                     <summary>
                      **Table de correspondance de tous les champs en V.2 et leurs équivalents en V.3**
                     </summary>
-              
+
                   {:.fr-table fr-table--bordered}
                   | **[API V.2. Données de référence d'un établissement](http://v2.entreprise.api.gouv.fr/entreprise.api.gouv.fr/catalogue/#a-etablissements){:target="_blank"}** <br/><br/>_Appelé avec SIRET_ | **API V.3. Données établissement** <br/><br/>_Appelé avec SIRET_ | **API V.3. Données siège social** <br/><br/>_Appelé avec SIREN_ | **API V.3. Adresse établissement** <br/><br/>_Appelé avec SIRET_ |
                   |---|---|---|---|
@@ -433,8 +433,8 @@ fr:
                   | **`"etat_administratif": {`** |  |  |  |
                   | **`"value": "F",`** | `"etat_administratif": "A"` | `"etat_administratif": "A"` |  |
                   | **`"date_fermeture": 1315173600"`** | `"date_fermeture": 1634133818"` | `"date_fermeture": 1634133818"` |  |
-                  | **`"gateway_error": false"`** | ❌ Supprimé, information technique API Entreprise complexe et peu utile | ❌ Supprimé, information technique API Entreprise complexe et peu utile |  |
-                  
+                  | **`"gateway_error": false"`** | ❌ Supprimé, information technique API Entreprise complexe et peu utile | ❌ Supprimé, information technique API Entreprise complexe et peu utile" |  |
+
                   </details>
 
               - subtitle: V.2 - Extrait RCS - Infogreffe <a name="v2/extrait_rcs"></a>
@@ -656,7 +656,7 @@ fr:
               - ☑️ Il est interdit d'interroger l'API Entreprise depuis un site web en front-end, car le jeton d'accès serait alors divulgué. Il vous faut donc interroger nos API depuis une application en back-end. Nous n'autoriserons pas le CORS (CORS - Cross Origin Ressource Sharing) ;
               - ☑️ Prévoir non seulement les coûts de développement mais également les coûts de maintenance ;
               - ☑️ Être en capacité de gérer les mises à jour de l'API Entreprise.
-              
+
               <br>
               💡 Pour mieux comprendre l'API Entreprise avant de demander un accès, **vous pouvez utiliser [notre environnement de test](<%= developers_path(anchor: 'tester-api-preproduction') %>)**.
 
@@ -899,25 +899,25 @@ fr:
                 subtitle_anchor: 'tester-api-preproduction'
                 content: |+
                   L'API Entreprise est **testable avec un jeton accessible à tous depuis notre environnement de staging**. Ce bac à sable retourne des données fictives.
-                  
-                  Pour utiliser l'environnement de test, plusieurs moyens sont possibles : 
+
+                  Pour utiliser l'environnement de test, plusieurs moyens sont possibles :
                   * **Utilisez l'interface disponible depuis [API.gouv](https://api.gouv.fr/documentation/api-entreprise){:target="_blank"}** :
-                      1. Copiez le jeton de test disponible dans les premiers paragraphes de la page. 
-                      2. Sélectionnez _"https://staging.entreprise.api.gouv.fr - Environnement de staging"_ dans le menu déroulant situé un peu plus bas du jeton de test, à gauche. 
-                      3. Cliquez sur le bouton à droite _"Authorize"_, et entrez le jeton de test dans le champ _"Value"_ de la modale qui s'est ouverte ; validez en cliquant sur _"Authorize"_. L'environnement de test est configuré, fermez la modale. 
+                      1. Copiez le jeton de test disponible dans les premiers paragraphes de la page.
+                      2. Sélectionnez _"https://staging.entreprise.api.gouv.fr - Environnement de staging"_ dans le menu déroulant situé un peu plus bas du jeton de test, à gauche.
+                      3. Cliquez sur le bouton à droite _"Authorize"_, et entrez le jeton de test dans le champ _"Value"_ de la modale qui s'est ouverte ; validez en cliquant sur _"Authorize"_. L'environnement de test est configuré, fermez la modale.
                       4. Pour terminer, pour chacune des API, un bouton _"Try it out"_ vous permet de préremplir les paramètres d'appel avec différents exemples. Appuyez sur _"Execute"_ pour obtenir les différentes réponses possibles.
 
-                  * **Utilisez un logiciel de type _Postman_ à partir du fichier OpenAPI :** 
+                  * **Utilisez un logiciel de type _Postman_ à partir du fichier OpenAPI :**
                       1. Téléchargez le fichier OpenAPI de l'API Entreprise depuis la [page de swagger](<%= developers_openapi_path %>), avec le bouton "Download" situé en début de page.
                       2. Importer ce fichier dans un logiciel de test de type _Postman_.
-                      3. Configurez votre environnement avec l'url de l'environnement de staging `https://staging.entreprise.api.gouv.fr`. 
+                      3. Configurez votre environnement avec l'url de l'environnement de staging `https://staging.entreprise.api.gouv.fr`.
                       API Entreprise ne recommande pas un logiciel plus qu'un autre, de nombreux tutoriels sont disponibles sur internet.
 
                   * **Interrogez le staging depuis votre terminal avec une ligne de commande :**
                       1. Rendez-vous sur la [documentation swagger du site API Entreprise](<%= developers_openapi_path %>), copiez le jeton de staging disponible en début de page.
                       2. Dans la partie _"Request samples"_ disponible pour chaque API dans le swagger, recopiez les lignes de commandes proposées débutant par `curl -X GET` en remplaçant `$token` par le jeton de test et en veillant à ajouter `staging` au début de l'URL : `https://staging.entreprise.api.gouv.fr/v3/...`
                       3. Lancez cette ligne de commande dans votre terminal.
-                    
+
               - subtitle: Récupérer le jeton JWT&nbsp;🔑
                 subtitle_anchor: 'récupérer-le-jeton-jwt'
                 content: |+
