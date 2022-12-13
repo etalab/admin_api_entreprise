@@ -440,31 +440,25 @@ fr:
           entries:
             - question: "Comment se connecter à l'espace utilisateur ?"
               answer: |+
+                
+                ##### Une connexion par lien magique
+
+                La connexion s'effectue à [cette adresse](<%= login_path %>). Entrez votre adresse e-mail et cliquez sur "Envoyez le lien de connexion". Un e-mail est alors envoyé à l'adresse renseignée. Cliquez sur ce lien temporaire transmis, vous êtes connecté à votre compte API Entreprise.
+
+                ##### Un compte accessible uniquement au demandeur et au contact technique
+
                 Le [compte utilisateur](<%= user_profile_path %>) est un **espace uniquement disponible aux utilisateurs ayant eu validation de leur demande d'habilitation**.
 
-                Par ailleurs, **seule la personne ayant rempli le formulaire d’habilitation** à API Entreprise possède un accès à ce [compte](<%= user_profile_path %>). Si vous êtes cette personne, réferez-vous au cas n°1 suivant, sinon nous vous invitons à lire le cas n°2.
+                Par ailleurs, seul l'e-mail principal de contact du formulaire d’habilitation API Entreprise et l'e-mail indiqué en contact technique possèdent un accès à ce [compte](<%= user_profile_path %>). Le contact métier, le DPD et le DPO n'ont pas accès au compte API Entreprise.
 
-                #### Cas n°1
-
-                **J’ai effectué la demande d’habilitation** : Pour remplir le formulaire d’habilitation, vous avez créé un compte. Pour accéder à votre compte sur API Entreprise, vous avez besoin des mêmes identifiants : l'adresse e-mail utilisée et le mot de passe.
-
-                _Vous avez oublié votre mot de passe ?_ Un lien, situé juste en dessous du formulaire de connection vous permet de le régénérer. Inscrivez votre adresse e-mail, un courriel vous sera envoyé automatiquement pour changer votre mot de passe et vous connecter.
-
-                #### Cas n°2
-
-                **Je n’ai pas effectué la demande d’habilitation** : Pour accéder à l'espace utilisateur, vous devez vous référer à la personne qui a effectué la demande d’habilitation.
-
-                _Vous faîtes partie du service technique et avez besoin du jeton d’accès car vous participez à l’intégration de l’API Entreprise ?_ Demandez au responsable du compte d’utiliser la fonctionnalité de transmission d'un lien d’accès temporaire au jeton. Pour en savoir plus, référez vous à la rubrique [Récupérer le jeton JWT 🔑](<%= developers_path(anchor: 'récupérer-le-jeton-jwt') %>) de la documentation technique.
-
-                _Dans certains cas spécifiques comme le départ du demandeur, un changement de poste, etc.,_ un transfert de compte peut être nécessaire.
-                Une fonctionnalité est à disposition dans l'[espace utilisateur](<%= user_profile_path %>), onglet \"Compte utilisateur\". Cette opération nécessite l’accord explicite du demandeur et est instruite manuellement par nos services.
+                _Dans certains cas spécifiques comme le départ du demandeur, un changement de poste, etc.,_ un transfert de compte peut être nécessaire. Cette opération nécessite l’accord explicite du demandeur et est instruite manuellement par nos services. [En savoir plus.](#comment-transferer-mon-compte-a-une-autre-personne)
 
             - question: "Comment transférer mon compte à une autre personne ?"
               answer: |+
                 _Votre équipe évolue ? Vous quittez votre service ?_ Vous pouvez léguer votre compte à une autre personne de la même organisation.
 
-                Pour cela **utilisez la fonctionnalité prévue à cet effet :
-                - Rendez-vous dans votre [espace](<%= user_profile_path %>)**, onglet \"Compte utilisateur\".
+                Pour cela **utilisez la fonctionnalité prévue à cet effet** :
+                - Rendez-vous dans votre [espace](<%= user_profile_path %>), onglet \"Compte utilisateur\".
                 - Cliquez sur le bouton dédié \"Transférer mon compte\".
                 - Une fenêtre s'ouvre, vous rappelle vos engagements et vous permet de renseigner l'adresse e-mail du futur propriétaire du compte. Validez.
                 - Le destinataire reçoit un e-mail indiquant les démarches à suivre. Le transfert du compte est désormais de son côté. S'il n'a pas déjà un compte sur Datapass, il devra s'en créer un, en renseignant bien le SIRET de votre organisation commune. C'est indispensable pour que le compte soit bien appareillé. Toute connexion par le destinataire à l'espace utilisateur API Entreprise vaut acceptation de nos <a href="https://entreprise.api.gouv.fr/cgu/">CGU</a>.

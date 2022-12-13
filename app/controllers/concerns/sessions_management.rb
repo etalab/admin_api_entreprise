@@ -4,12 +4,12 @@ module SessionsManagement
   end
 
   def create
-    login = login_organizer.call(login_params)
+    interactor_call = MagicLink::ValidateUserFromAccessToken.call(access_token: params.require(:access_token))
 
-    if login.success?
-      sign_in_and_redirect(login.user)
+    if interactor_call.success?
+      sign_in_and_redirect(interactor_call.user)
     else
-      error_message(title: t('.not_found.title'), description: t('.not_found.description'))
+      error_message(title: t('.error.title'), description: t('.error.description'))
 
       redirect_to login_path
     end
@@ -18,34 +18,5 @@ module SessionsManagement
   def destroy
     logout_user
     redirect_to login_path
-  end
-
-  def failure
-    error_message(title: t(".#{failure_message}", default: t('.unknown')))
-
-    redirect_to login_path
-  end
-
-  protected
-
-  def login_organizer
-    fail NotImplementedError
-  end
-
-  private
-
-  def auth_hash
-    request.env['omniauth.auth']
-  end
-
-  def failure_message
-    params[:message]
-  end
-
-  def login_params
-    {
-      oauth_api_gouv_email: auth_hash.try('info').try('email'),
-      oauth_api_gouv_id: auth_hash.try('info').try('sub')
-    }
   end
 end

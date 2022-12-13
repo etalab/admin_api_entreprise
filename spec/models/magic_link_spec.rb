@@ -77,4 +77,21 @@ RSpec.describe MagicLink do
       its(:expired?) { is_expected.to be_falsy }
     end
   end
+
+  describe 'scopes' do
+    describe '.unexpired' do
+      subject { described_class.unexpired }
+
+      let!(:expired_magic_link) { create_list(:magic_link, 2, :expired) }
+      let!(:unexpired_magic_link) { create_list(:magic_link, 2) }
+
+      it 'returns unexpired magic links' do
+        expect(subject).to include(*unexpired_magic_link)
+      end
+
+      it 'does not return expired magic links' do
+        expect(subject).not_to include(*expired_magic_link)
+      end
+    end
+  end
 end

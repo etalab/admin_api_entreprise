@@ -15,9 +15,9 @@ constraints(APIEntrepriseDomainConstraint.new) do
     get '/stats', to: 'stats#index'
 
     get '/compte/se-connecter', to: 'sessions#new', as: :login
+    get '/compte/se-connecter/lien-magique', to: 'sessions#create', as: :login_magic_link
     delete '/compte/deconnexion', to: 'sessions#destroy', as: :logout
 
-    match '/auth/api_gouv/callback', to: 'sessions#create', via: [:get, :post]
     get '/auth/failure', to: 'sessions#failure'
 
     get '/compte', to: 'users#profile', as: :user_profile
@@ -34,7 +34,8 @@ constraints(APIEntrepriseDomainConstraint.new) do
     get '/compte/jetons/:id/renew', to: 'tokens#renew', as: :token_renew
     get '/compte/jetons/:id/contacts', to: 'contacts#index', as: :token_contacts
 
-    get 'public/jetons/:token', to: 'public_token_magic_links#show', as: :token_show_magic_link
+    post 'public/magic_link/create', to: 'public_token_magic_links#create'
+    get 'public/jetons/:access_token', to: 'public_token_magic_links#show', as: :token_show_magic_link
 
     get '/compte/transferer', to: 'transfer_user_account#new', as: :transfer_account
     post '/compte/transferer', to: 'transfer_user_account#create'

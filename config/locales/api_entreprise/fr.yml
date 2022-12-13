@@ -47,22 +47,6 @@ fr:
         download_attestations: 'Télécharger attestations'
 
   api_entreprise:
-    sessions:
-      new:
-        title: Accéder à mon compte<br />et aux jetons d'accès 🔑
-        button: Identifiez-vous
-        disclaimer: Seule la personne ayant effectué la demande d'habilitation peut se connecter. Elle aura besoin des mêmes identifiants.
-          <br />
-          <br />
-
-          Si vous avez besoin d'accéder au jeton d'accès mais que vous n'êtes pas cette personne, veuillez vous référer à <a href="https://entreprise.api.gouv.fr/faq/#compte-utilisateur" target="_blank">cette rubrique de la FAQ</a>.
-      create:
-        not_found:
-          title: Utilisateur inconnu
-          description: L'utilisateur Datapass n'est pas connu de nos services.
-        failure:
-          title: Authentification échouée
-          description: Echec de l'authentification. Veuillez vous rapprocher de nos services.
     users:
       user:
         title: "Compte utilisateur"
@@ -214,21 +198,9 @@ fr:
         error:
           title: Une erreur est survenue lors du transfert du jeton. Vérifiez que l'adresse e-mail est valide ou contactez le support à support@entreprise.api.gouv.fr si le problème persiste.
     public_token_magic_links:
-      show:
-        error:
-          expired:
-            title: Lien expiré
-            description: Le lien d'accès au jeton a expiré. Les liens magiques ont une durée de vie comprise entre 4 et 24 heures selon les situations. Veuillez redemander un accès à votre responsable de compte.
-          unknown:
-            title: Une erreur est survenue à la récupération du jeton.
-            description: Une erreur inconnue est survenue. Veuillez contacter le support à support@entreprise.api.gouv.fr
-          missing:
-            title: Jeton(s) non trouvés
-            description: Le jeton ou les jetons demandé(s) n'ont pas été trouvés. Veuillez contacter le support à support@entreprise.api.gouv.fr
-        disclaimer:
-          title: Durée de validité du lien
-          description: Cette page contient votre jeton d'accès à API Entreprise et ne doit en aucun cas être partagée avec un tiers non habilité ! Ce lien expirera dans %{expiration_time}.
-
+      create:
+        title: Lien magique envoyé
+        description: Si votre adresse e-mail est associée à un compte API Entreprise, en tant que contact principal ou technique, vous recevrez sous peu un e-mail permettant de vous connecter.
     contacts:
       index:
         title: Contacts
@@ -476,8 +448,3 @@ fr:
         link_kit: 🚀 Kit de mise en production
         link_migration: 📋 Guide de migration V.2 > V.3
         link_return: Retour à la documentation technique 🛠
-  token_mailer:
-    magic_link:
-      link_description:
-        one: Un lien vers votre jeton d'accès vient d'être généré à votre intention. Vous pouvez accéder à ce jeton via le lien
-        other: Un lien vers vos jetons d'accès vient d'être généré à votre intention. Vous pouvez accéder à ce jeton via le lien
