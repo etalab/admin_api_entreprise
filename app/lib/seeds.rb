@@ -20,6 +20,30 @@ class Seeds
     end
   end
 
+  def create_scopes_particulier
+    YAML
+      .load_file(Rails.root.join('config/data/scopes/particulier.yml'))
+      .map do |scope|
+      Scope.create!(
+        code: scope['code'],
+        name: scope['name'],
+        api: :particulier
+      )
+    end
+  end
+
+  def create_scopes_entreprise
+    YAML
+      .load_file(Rails.root.join('config/data/scopes/entreprise.yml'))
+      .map do |scope|
+      Scope.create!(
+        code: scope['code'],
+        name: scope['name'],
+        api: :entreprise
+      )
+    end
+  end
+
   private
 
   def create_data_for_api_entreprise
@@ -129,30 +153,6 @@ class Seeds
 
   def create_user(params = {})
     User.create!(params)
-  end
-
-  def create_scopes_particulier
-    YAML
-      .load_file(Rails.root.join('config/data/scopes/particulier.yml'))
-      .map do |scope|
-      Scope.create!(
-        code: scope['code'],
-        name: scope['name'],
-        api: :particulier
-      )
-    end
-  end
-
-  def create_scopes_entreprise
-    YAML
-      .load_file(Rails.root.join('config/data/scopes/entreprise.yml'))
-      .map do |scope|
-      Scope.create!(
-        code: scope['code'],
-        name: scope['name'],
-        api: :entreprise
-      )
-    end
   end
 
   def create_contact(params = {})

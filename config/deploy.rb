@@ -6,7 +6,7 @@ require 'mina/rbenv'  # for rbenv support. (https://rbenv.org)
 # require 'mina/rvm'    # for rvm support. (https://rvm.io)
 
 ENV['to'] ||= 'sandbox'
-%w[sandbox production].include?(ENV['to']) || raise("target environment (#{ENV['to']}) not in the list")
+%w[sandbox staging production].include?(ENV['to']) || raise("target environment (#{ENV['to']}) not in the list")
 
 print "Deploy to #{ENV['to']}\n".green
 
@@ -26,7 +26,7 @@ set :repository, 'https://github.com/etalab/admin_api_entreprise.git'
 branch = ENV['branch'] ||
   begin
     case ENV['to']
-    when 'production'
+    when 'production', 'staging'
       'master'
     when 'sandbox'
       'develop'
@@ -123,7 +123,7 @@ end
 desc "Seeds database (only works in sandbox)"
 task :seeds => :environment do
   in_path(fetch(:current_path)) do
-    command %(RAILS_ENV=#{ENV['to']} bundle exec rake db_seed:sandbox)
+    command %(RAILS_ENV=#{ENV['to']} bundle exec rake db_seed:#{ENV['to']})
   end
 end
 

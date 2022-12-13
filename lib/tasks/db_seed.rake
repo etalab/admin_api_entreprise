@@ -9,4 +9,13 @@ namespace :db_seed do
     seeds.flushdb
     seeds.perform
   end
+
+  task staging: :environment do
+    return unless Rails.env.staging?
+
+    seeds = Seeds.new
+
+    seeds.flushdb
+    seeds.perform
+  end
 end
