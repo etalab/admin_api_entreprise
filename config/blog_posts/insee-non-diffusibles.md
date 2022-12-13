@@ -78,7 +78,7 @@ Les API de l'API Entreprise sont souvent utilisées de deux façons&nbsp;:
 {:.fr-h5}
 ### Tenir compte du statut de diffusion
  
-Parmi les clés renvoyées par les API ayant les non-diffusibles, il y a un champ `diffusable_commercialement` qui indique si l'entreprise est diffusible ou non. Vous pouvez donc filtrer les unités légales selon qu'elles sont diffusibles ou non-diffusibles.
+Parmi les clés renvoyées par les API retournant les entités "non-diffusibles", il y a un champ `diffusable_commercialement` qui indique si l'entreprise est "diffusible" ou non. Vous pouvez donc filtrer les entités selon qu'elles sont diffusibles ou non-diffusibles.
 
 {:.fr-highlight}
 Cette clé est actuellement **uniquement disponible pour les API renvoyant les "non-diffusibles".** Lorsqu'API Entreprise aura intégré la nouvelle version de la base Sirene, cette variable sera également disponible dans les API ayant la mention "diffusible" pour les entités en "diffusion partielle".
