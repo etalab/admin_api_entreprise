@@ -88,6 +88,5 @@ Cette clé est actuellement **uniquement disponible pour les API renvoyant les "
 -----
 
 
-[Toutes les API Insee sur la catalogue API Entreprise](https://entreprise.api.gouv.fr/catalogue?Endpoint%5Bquery%5D=diffusible){:.fr-btn .fr-btn--secondary}{:target="_blank"}
-
+[Toutes les API Insee du catalogue API Entreprise](https://entreprise.api.gouv.fr/catalogue?Endpoint%5Bquery%5D=diffusible){:.fr-btn .fr-btn--secondary fr-btn--icon-right fr-icon-arrow-right-fill}
 
