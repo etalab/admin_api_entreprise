@@ -4,8 +4,8 @@ Mercredi 14 décembre 2022 - Publication
 ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/blog/non-diffusible-image-principale.png') %>)
 
 {:.fr-highlight}
-**Qu'est qu'une unité légale non-diffusible ?**
-On parle de "non-diffusibles" dans le cadre des entreprises et associations enregistrées au répertoire Sirene de l'Insee. Ce statut à un impact sur la diffusion des informations les concernant.
+**Qu'est qu'une unité légale ou un établissement non-diffusible ?**
+On parle de "non-diffusibles" dans le cadre des entités enregistrées au répertoire Sirene de l'Insee. Ce statut à un impact sur la diffusion des informations les concernant.
 Parmi les entités présentes et appelables par API Entreprise, certaines, très majoritairement des personnes physiques, ont explicitement demandé de ne pas figurer en diffusion commerciale, en vertu de l’[article A123-96 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031043097/){:target="_blank"}. Cela signifie que **leurs données ne sont pas publiques** et que seuls des organismes habilités et des administrations peuvent accéder aux informations.
 <br>
 
