@@ -46,7 +46,7 @@ L'Insee précise « _Ce sont ainsi des données concernant plus de **2,8 million
 {:.fr-h5}
 ### Distinguer les API diffusibles dans le catalogue
 
-API Entreprise met à disposition des administrations habilitées deux types d'API en ce qui concerne les données du répertoire Sirene&nbsp;: 
+API Entreprise met à disposition des administrations habilitées deux types d'API en ce qui concerne les données issues de l'Insee et du répertoire Sirene&nbsp;: 
 - les API avec la mention "diffusible", soit **uniquement** les données des unités légales diffusibles.
 - les API sans cette mention, permettant alors d'accéder à **toutes les unités légales**, y compris les "non-diffusibles" (_qui deviendront les "diffusion partielle", une fois qu'API Entreprise aura intégré la nouvelle version de la base Sirene_).
 
@@ -65,7 +65,7 @@ API Entreprise met à disposition des administrations habilitées deux types d'A
 {:.fr-h5}
 ### Utiliser la bonne API pour son cas d'usage
 
-Les API de l'API Entreprise sont généralement utilisées de deux façons&nbsp;:
+Les API de l'API Entreprise sont souvent utilisées de deux façons&nbsp;:
 - Pour **pré-remplir les démarches en ligne** avec des données publiques et ainsi accélerer la saisie pour les entreprises/associations ;
 - Pour donner un **accès en back-office** aux des agents habilités afin de faciliter et accélerer le traitement des démarches des entreprises/associations.
 
