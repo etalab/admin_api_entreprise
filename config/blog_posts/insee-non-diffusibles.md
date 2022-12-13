@@ -85,7 +85,9 @@ Parmi les clés renvoyées par les API retournant les entités "non-diffusibles"
 Cette clé est actuellement **uniquement disponible pour les API renvoyant les "non-diffusibles".** Lorsqu'API Entreprise aura intégré la nouvelle version de la base Sirene, cette variable sera également disponible dans les API ayant la mention "diffusible" pour les entités en "diffusion partielle".
 
 
+-----
 
-[Toutes les API Insee](https://entreprise.api.gouv.fr/catalogue?Endpoint%5Bquery%5D=diffusible){:.fr-btn .fr-btn--secondary}{:target="_blank"}
+
+[Toutes les API Insee sur la catalogue API Entreprise](https://entreprise.api.gouv.fr/catalogue?Endpoint%5Bquery%5D=diffusible){:.fr-btn .fr-btn--secondary}{:target="_blank"}
 
 
