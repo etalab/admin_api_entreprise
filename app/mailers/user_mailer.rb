@@ -4,7 +4,7 @@ class UserMailer < ApplicationMailer
   def magic_link_signin(magic_link, host)
     @magic_link = magic_link
     @host = host
-    @namespace = host.split('.').first
+    @namespace = host.split('.')[-4]
 
     to = magic_link.email
     subject = t(".#{@namespace}.subject")
