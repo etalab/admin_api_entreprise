@@ -12,4 +12,7 @@ Rails.application.routes.draw do
 
   draw(:api_entreprise)
   draw(:api_particulier)
+
+  get 'fichiers/:file_name', to: 'api/files#show'
+  get 'fichiers/telechargement/:file_name', to: 'api/files#download'
 end
