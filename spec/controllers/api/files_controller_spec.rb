@@ -6,6 +6,7 @@ RSpec.describe API::FilesController, type: :request do
   let(:file_path) { Rails.public_path.join('files', file_name) }
 
   before do
+    described_class.instance_eval { remove_const(:PUBLIC_FILES) }
     described_class::PUBLIC_FILES = [file_path].freeze
     File.write(file_path, file_content)
   end
