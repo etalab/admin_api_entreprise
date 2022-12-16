@@ -105,3 +105,31 @@
 .fr-container img {
   max-width: 100%;
 }
+
+.fr-connect-moncomptepro:before {
+  background-image: image-url("mon_compte_pro.svg") !important;
+}
+
+.fr-hr-or {
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: no-wrap;
+    color: var(--text-disabled-grey);
+}
+
+.fr-hr-or::before, .fr-hr-or::after {
+    margin: 4px;
+    content: "";
+    display: inline-flex;
+    height: 1px;
+    width: 100%;
+    background-color: var(--border-default-grey);
+    --idle: transparent;
+    --hover: var(--border-default-grey-hover);
+    --active: var(--border-default-grey-active);
+}

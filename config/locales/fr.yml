@@ -4,13 +4,16 @@ fr:
       compact: "%d/%m/%Y"
       compact_with_hours: "%d/%m/%Y à %H:%M:%S"
   time: *datetime_format
+  or: ou
 
   concerns:
     sessions_management:
-      create:
+      login:
         error:
-          title: La connection par lien magique a échouée.
+          title: La connection a échouée.
           description: Votre lien est peut-être expiré. Si cela n'est pas le cas, veuillez vous rapprocher de nos services.
+      failure:
+        unknown: Une erreur inconnue est survenue, veuillez contacter le support.
       unauthorized:
         signed_out:
           error:
