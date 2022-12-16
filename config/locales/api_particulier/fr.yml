@@ -44,16 +44,23 @@ fr:
         expired_at: "Expire le : %{humanized_date}"
         access: Accès
         token: Jeton
+    sessions:
+      create:
+        error:
+          title: Erreur d'authentification
+          description: L'authentification a échouée. S'il s'agit d'une connection par lien magique, il est peut-être expiré.
     public_token_magic_links:
       create:
         title: Lien magique envoyé
         description: Si votre adresse e-mail est associée à un compte API Particulier, en tant que contact principal ou technique, vous recevrez sous peu un e-mail permettant de vous connecter.
       show:
         error:
-          title: Une erreur est survenue à la récupération du jeton.
-          description: Le jeton est peut-être invalide ou le lien a expiré. Veuillez re-demander un accès au support.
-        disclaimer:
-          title: Durée de validité du lien
-          description: Cette page contient votre jeton d'accès à API Particulier et ne doit en aucun cas être partagée avec un tiers non habilité.
-
-
+          expired:
+            title: Lien expiré
+            description: Le lien d'accès au jeton a expiré. Les liens magiques ont une durée de vie de 24 heures. Veuillez redemander un accès à votre responsable de compte.
+          unknown:
+            title: Une erreur est survenue à la récupération du jeton.
+            description: Une erreur inconnue est survenue. Veuillez contacter le support à support@entreprise.api.gouv.fr
+          missing:
+            title: Jeton(s) non trouvés
+            description: Le jeton ou les jetons demandé(s) n'ont pas été trouvés. Veuillez contacter le support à support@entreprise.api.gouv.fr

@@ -197,7 +197,24 @@ fr:
           title: Le jeton a été transféré avec succès à l'adresse %{target_email}
         error:
           title: Une erreur est survenue lors du transfert du jeton. Vérifiez que l'adresse e-mail est valide ou contactez le support à support@entreprise.api.gouv.fr si le problème persiste.
+    sessions:
+      create:
+        error:
+          title: Erreur d'authentification
+          description: L'authentification a échouée. S'il s'agit d'une connection par lien magique, il est peut-être expiré.
+
     public_token_magic_links:
+      show:
+        error:
+          expired:
+            title: Lien expiré
+            description: Le lien d'accès au jeton a expiré. Les liens magiques ont une durée de vie de 4 heures. Veuillez redemander un accès à votre responsable de compte.
+          unknown:
+            title: Une erreur est survenue à la récupération du jeton.
+            description: Une erreur inconnue est survenue. Veuillez contacter le support à support@entreprise.api.gouv.fr
+          missing:
+            title: Jeton(s) non trouvés
+            description: Le jeton ou les jetons demandé(s) n'ont pas été trouvés. Veuillez contacter le support à support@entreprise.api.gouv.fr
       create:
         title: Lien magique envoyé
         description: Si votre adresse e-mail est associée à un compte API Entreprise, en tant que contact principal ou technique, vous recevrez sous peu un e-mail permettant de vous connecter.
