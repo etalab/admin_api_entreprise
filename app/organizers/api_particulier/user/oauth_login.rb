@@ -1,4 +1,4 @@
-class APIParticulier::User::Login < ApplicationOrganizer
+class APIParticulier::User::OAuthLogin < ApplicationOrganizer
   organize User::FindFromEmail,
     User::UpdateOAuthAPIGouvId
 end

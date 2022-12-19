@@ -10,7 +10,7 @@ module SessionsManagement
   end
 
   def create_from_oauth
-    interactor_call = login_organizer.call(oauth_params)
+    interactor_call = oauth_login_organizer.call(oauth_params)
 
     login(interactor_call)
   end

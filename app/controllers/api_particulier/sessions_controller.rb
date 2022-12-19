@@ -3,7 +3,7 @@ class APIParticulier::SessionsController < APIParticulierController
 
   protected
 
-  def login_organizer
-    APIParticulier::User::Login
+  def oauth_login_organizer
+    APIParticulier::User::OAuthLogin
   end
 end

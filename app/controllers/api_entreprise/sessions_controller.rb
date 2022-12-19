@@ -3,7 +3,7 @@ class APIEntreprise::SessionsController < APIEntrepriseController
 
   protected
 
-  def login_organizer
-    APIEntreprise::User::Login
+  def oauth_login_organizer
+    APIEntreprise::User::OAuthLogin
   end
 end
