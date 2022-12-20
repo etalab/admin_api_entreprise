@@ -3,5 +3,6 @@ RSpec.shared_examples 'display alert' do |kind|
     subject
 
     expect(page).to have_css(".fr-alert--#{kind}")
+    expect(page).not_to have_text('translation missing')
   end
 end
