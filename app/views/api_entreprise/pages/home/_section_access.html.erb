@@ -3,14 +3,18 @@
     <div class="fr-grid-row">
 
       <div class="infos-left fr-col-md-8 fr-col-lg-8 fr-col-xl-8">
-        <h4 class="fr-mb-5w"><%= t('.title_access') %>&nbsp;:</h4>
-        <div class="info fr-mb-3w">
+        <h4 class="fr-mb-0">
+          <%= t('.title_access') %>&nbsp;:
+        </h4>
+        <%= link_to faq_index_path(anchor: 'qu-est-ce-qu-une-api'), class: "fr-link fr-link--sm fr-text--base fr-mb-5w" do %>
+          <%= t('.link_faq') %>&nbsp;<span class="" aria-hidden="true" />
+        <% end %>  
+        <div class="info fr-mb-3w fr-mt-5w">
           <%= image_tag("api_entreprise/home/pictos/donnees-certifiees.svg", class: %w(info--icon fr-icon--huge)) %>
           <div class="info--text">
             <h6 class="fr-mb-1w"><%= t('.info_data_title') %></h6>
             <p class="fr-text--alt fr-text--lg">
-              <%= t('.info_data_description') %>
-            </p>
+              <%= t('.info_data_description') %></p>
           </div>
         </div>
         <div class="info fr-mb-3w">
@@ -18,8 +22,7 @@
           <div class="info--text">
             <h6 class="fr-mb-1w"><%= t('.info_provider_title') %></h6>
             <p class="fr-text--alt fr-text--lg">
-              <%= t('.info_provider_description') %>
-            </p>
+              <%= t('.info_provider_description') %></p>
           </div>
         </div>
         <div class="info fr-mb-3w">
@@ -27,8 +30,7 @@
           <div class="info--text">
             <h6 class="fr-mb-1w"><%= t('.info_account_title') %></h6>
             <p class="fr-text--alt fr-text--lg">
-              <%= t('.info_account_description') %>
-            </p>
+              <%= t('.info_account_description') %></p>
           </div>
         </div>
         <div class="info fr-mb-3w">
@@ -36,8 +38,7 @@
           <div class="info--text">
             <h6 class="fr-mb-1w"><%= t('.info_technical_title') %></h6>
             <p class="fr-text--alt fr-text--lg">
-              <%= t('.info_technical_description') %>
-            </p>
+              <%= t('.info_technical_description') %></p>
           </div>
         </div>
       </div>

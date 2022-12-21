@@ -1,0 +1,48 @@
+<section id="section-obtain" class="other-use-cases">
+  <div class="fr-container">
+    <div class="fr-grid-row">
+      <div class="left-info fr-col-xl-8 fr-col-12 fr-pt-5w padding-left-container">
+        <div class="left-info--text">
+          <h3><%= t('.title') %></h3>
+          <p class="fr-text--lg"><%= t('.description').html_safe %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="fr-container">
+    <div id="cas-usages" class="fr-container--fluid">
+      <div class="content fr-grid-row fr-grid-row--center fr-grid-row--top">
+        <% t('api_entreprise.cas_usages_entries', raise: true).keys.sample(5).each do |cas_usage_key| %>
+          <div class="fr-col-12 fr-col-sm-4 fr-col-md-4 fr-col-lg-2 fr-col-xl-2 fr-card fr-card--sm fr-enlarge-link">
+            <div class="fr-card__body">
+              <div class="fr-card__content">
+                <h2 class="fr-card__title fr-h6">
+                  <%= link_to t(".cards.#{cas_usage_key}.title"), cas_usage_path(cas_usage_key) %>
+                </h2>
+              </div>
+            </div>
+            <div class="fr-card__header">
+              <div class="fr-card__img">
+                <%= image_tag("api_entreprise/cas_usages/pictos/#{cas_usage_key}.svg", class: %w(card-image fr-responsive-img fr-pt-3w), alt: cas_usage_key) %>
+              </div>
+              <ul class="fr-badges-group fr-p-0-5v">
+                <% t("api_entreprise.cas_usages_entries.#{cas_usage_key}.user_types").each do |user_type| %>
+                  <li class="fr-m-0-5v">
+                    <p class="fr-badge fr-badge--sm fr-badge--<%= user_type_tag_color(user_type) %>"><%= user_type %></p>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="fr-container fr-mt-5w">
+    <div class="fr-grid-row fr-grid-row--center">
+      <%= link_to cas_usages_path, class: "fr-btn" do %>
+        <%= t('.link') %>&nbsp;<span class="fr-icon-arrow-right-line" aria-hidden="true" />
+      <% end %>
+    </div>
+  </div>
+</section>
