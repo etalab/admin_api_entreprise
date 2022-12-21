@@ -45,10 +45,16 @@ fr:
         access: Accès
         token: Jeton
     sessions:
-      create:
+      create_from_oauth:
         error:
           title: Erreur d'authentification
-          description: L'authentification a échouée. S'il s'agit d'une connection par lien magique, il est peut-être expiré.
+          description: L'authentification a échouée, veuillez vérifier votre combinaison identifiant/mot de passe et réessayer. Si le problème persiste, veuillez contactez le support.
+      create_from_magic_link:
+        error:
+          title: Erreur d'authentification
+          description: L'authentification a échouée. Votre lien magique est peut-être expiré. Si cela n'est pas le cas, veuillez contacter le support.
+      failure:
+        unknown: Une erreur inconnue est survenue, veuillez contacter le support.
     public_token_magic_links:
       create:
         title: Lien magique envoyé
