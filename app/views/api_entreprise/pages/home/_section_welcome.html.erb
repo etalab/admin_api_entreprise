@@ -1,20 +1,24 @@
 <section class="center fr-pt-5w fr-pb-5w">
   <h1 class="fr-text--regular">
-  <div class="">
-  <span class="fr-text--alt"><%= t('.title_start').html_safe  %>
-  <span class=" fr-pb-1w"><%= t('.title_medium').html_safe %><%= t('.title_medium_2').html_safe %></span></span>
-  </div>
-  <div class="fr-h3 fr-mb-0"><%= t('.title_end').html_safe %><div>
+    <div>
+      <span class="fr-text--alt"><%= t('.title_start').html_safe  %>
+        <%= t('.title_medium').html_safe %>
+        <%= t('.title_medium_2').html_safe %>
+      </span>
+    </div>
+    <div class="fr-h3 fr-mb-0">
+      <%= t('.title_end').html_safe %>
+    <div>
   </h1>
 
   <div class="fr-mb-1w">
-  <%= link_to endpoints_path, class: "fr-btn fr-mr-1w" do %>
-    <%= t('.button_endpoints') %>&nbsp;<span class="fr-icon-arrow-right-line" aria-hidden="true" />
-  <% end %>
+    <%= link_to endpoints_path, class: "fr-btn fr-mr-1w" do %>
+      <%= t('.button_endpoints') %>&nbsp;<span class="fr-icon-arrow-right-line" aria-hidden="true" />
+    <% end %>
 
-  <%= link_to developers_path(anchor: 'kit-de-mise-en-production'), class: "fr-btn fr-btn--secondary" do %>
-    <%= t('.button_developers') %>&nbsp;<span class="fr-icon-settings-5-line fr-icon--md" aria-hidden="true" />
-  <% end %>
+    <%= link_to developers_path(anchor: 'kit-de-mise-en-production'), class: "fr-btn fr-btn--secondary" do %>
+      <%= t('.button_developers') %>&nbsp;<span class="fr-icon-settings-5-line fr-icon--md" aria-hidden="true" />
+    <% end %>
   </div>
 
   <%= link_to faq_index_path(anchor: 'qu-est-ce-que-l-api-entreprise-a-quoi-sert-elle'), class: "fr-link fr-link--sm fr-m-1w" do %>
