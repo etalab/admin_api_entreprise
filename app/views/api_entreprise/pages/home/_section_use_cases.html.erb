@@ -17,7 +17,7 @@
             <div class="fr-card__body">
               <div class="fr-card__content">
                 <h2 class="fr-card__title fr-h6">
-                    <%= link_to t(".cards.#{cas_usage_key}.title"), cas_usage_path(cas_usage_key) %>
+                  <%= link_to t(".cards.#{cas_usage_key}.title"), cas_usage_path(cas_usage_key) %>
                 </h2>
               </div>
             </div>
@@ -28,8 +28,7 @@
               <ul class="fr-badges-group fr-p-0-5v">
                 <% I18n.t("api_entreprise.cas_usages_entries.#{cas_usage_key}.user_types").each do |user_type| %>
                   <li class="fr-m-0-5v">
-                    <p class="fr-badge fr-badge--sm fr-badge--<%= user_type_tag_color(user_type) %>"><%= user_type %>
-                    </p>
+                    <p class="fr-badge fr-badge--sm fr-badge--<%= user_type_tag_color(user_type) %>"><%= user_type %></p>
                   </li>
                 <% end %>
               </ul>
