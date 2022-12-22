@@ -16,7 +16,7 @@ class UserMailer < ApplicationMailer
     @new_owner = new_owner
     @old_owner = old_owner
     @login_url = 'https://dashboard.entreprise.api.gouv.fr/login'
-    @datapass_signup_url = 'https://auth.api.gouv.fr/users/sign-up'
+    @datapass_signup_url = 'https://app.moncomptepro.beta.gouv.fr/users/sign-up'
     subject = 'API Entreprise - Délégation d\'accès'
 
     mail(to: @new_owner.email, subject:)
