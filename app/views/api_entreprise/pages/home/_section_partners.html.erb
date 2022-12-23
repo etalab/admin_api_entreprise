@@ -7,8 +7,8 @@
       <div class="providers">
         <% @providers.each do |provider| %>
           <a href="<%= endpoints_with_provider_query_filter_path(provider) %>" target="_blank" class="card-provider fr-m-2v fr-pt-2w fr-pr-2w fr-pl-2w">
-            <%= image_tag("providers/#{provider.uid}.png", alt: 'Logo du fournisseur de données') %>
-            <h3 class="fr-h5 fr-pt-1v fr-pb-1v center"><%= provider.name %></h3>
+          <%= image_tag("providers/#{provider.uid}.png", alt: "Logo fournisseur de données - #{provider.name}") %>
+            <h3 class="fr-pt-1v fr-pb-1v center"><%= provider.name %></h3>
           </a>
         <% end %>
       </div>
