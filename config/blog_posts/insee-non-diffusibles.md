@@ -10,9 +10,9 @@ Parmi les entités présentes et appelables par API Entreprise, certaines, très
 <br>
 
 
-## Bientôt de nouvelles données publiques en V.4 🎢 <br>et quelques-unes en moins côté personne morale ...
+## Bientôt de nouvelles données publiques en V.4 🎢 <br>et quelques-unes en moins côté personne morale
 
-Pour se conformer au RGPD et au [décret n° 2022-1014 du 19 juillet 2022](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000046061058){:target="_blank"}, l'Insee va sortir début 2023 une nouvelle version de la base Sirene. Cette évolution concerne deux aspects&nbsp;: 
+Pour se conformer au RGPD et au [décret n° 2022-1014 du 19 juillet 2022](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000046061058){:target="_blank"}, l'Insee va sortir une nouvelle version de la base Sirene. Cette évolution concerne deux aspects&nbsp;: 
 1. Auparavant, seules les personnes physiques pouvaient opter pour le statut "non-diffusible"; avec les nouvelles modalités, **les personnes morales pourront également réclamer une diffusion partielle** de leurs données.
 2. Auparavant, aucune donnée des unités légales et établissements "non-diffusibles" était diffusable publiquement, bientôt, **certaines informations seront disponibles et en diffusion libre**, comme par exemple : les numéros SIREN et SIRET, l'activité principale exercée, la catégorie juridique ou encore la tranche d’effectifs…
 
@@ -21,6 +21,7 @@ L'Insee précise « _Ce sont ainsi des données concernant plus de **2,8 million
 [Lettre Sirene open data actualité n°13](https://www.insee.fr/fr/information/6525081){:target="_blank"}
 
 <br>
+📅 La sortie de cette nouvelle version est prévue pour le 21 mars 2023 d'après la [Lettre Siren open data actualuté n*14](https://www.insee.fr/fr/information/6683782){:target="_blank"}.
 
 {:.fr-h5}
 ### Les données dont le statut de diffusion va changer :
@@ -30,13 +31,13 @@ L'Insee précise « _Ce sont ainsi des données concernant plus de **2,8 million
 - SIRET
 - Commune (code et libellé)
 - Pays (code et libellé)
-- Les variables économiques : activité principale exercée, tranche d’effectif, catégorie d’entreprise. (A VERIFIER)
-- État administratif (A VERIFIER)
+- Les variables économiques : activité principale exercée, tranche d’effectif, catégorie d’entreprise, etc.
+- l'état administratif, permettant de savoir si l'unité légale est active ou cessée ; l'établissement, actif ou fermé.
 
 <br>
 
-**🏢 Pour les personnes morales qui choisiront le nouveau statut de "diffusion partielle"**, voici les données qui seront désormais **confidentielles**🔐&nbsp;: 
-- le sigle (A VERIFIER)
+**🏢 Pour les personnes morales qui choisiront le nouveau statut de "diffusion partielle"**, voici les données qui seront _a contrario_ désormais **confidentielles**🔐&nbsp;: 
+- le sigle
 - le numéro + la voie de l'adresse postale
 
 <br>
@@ -68,7 +69,7 @@ API Entreprise met à disposition des administrations habilitées deux types d'A
 
 Les API de l'API Entreprise sont souvent utilisées de deux façons&nbsp;:
 - Pour **pré-remplir les démarches en ligne** avec des données publiques et ainsi accélerer la saisie pour les entreprises/associations ;
-- Pour donner un **accès en back-office** aux des agents habilités afin de faciliter et accélerer le traitement des démarches des entreprises/associations.
+- Pour donner un **accès en back-office** aux agents habilités afin de faciliter et accélerer le traitement des démarches des entreprises/associations.
 
 {:.fr-table}
 |   | <span class='fr-badge fr-badge--sm fr-badge--new'>Préremplissage</span>  | <span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Back-office sécurisé</span> |
