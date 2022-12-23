@@ -28,11 +28,11 @@
             <%= t('.providers.description', count: @endpoint.providers.count) %>
           </div>
 
-          <h5>
+          <p>
             <% @endpoint.providers.map do |provider| %>
               <%= t("providers.#{provider.name}") %>
             <% end.join(' & ') %>
-          </h5>
+          <p>
         </div>
       </div>
     </div>
@@ -54,36 +54,36 @@
         </div>
       <% end %>
       <% if @endpoint.perimeter['entity_type_description'].present? %>
-        <h6 class="fr-mb-1w fr-mt-3w" id="perimetre_entites_concernees">
+        <h3 class="fr-h6 fr-mb-1w fr-mt-3w" id="perimetre_entites_concernees">
           <%= t('.perimeter.entity_type_title') %>
-        </h6>
+        </h3>
 
         <div>
           <%= markdown_to_html(@endpoint.perimeter['entity_type_description']) %>
         </div>
       <% end %>
       <% if @endpoint.perimeter['geographical_scope_description'].present? %>
-        <h6 class="fr-mb-1w fr-mt-3w" id="perimetre_geographique">
+        <h3 class="fr-h6 fr-mb-1w fr-mt-3w" id="perimetre_geographique">
           <%= t('.perimeter.geographical_scope_title') %>
-        </h6>
+        </h3>
 
         <div>
           <%= markdown_to_html(@endpoint.perimeter['geographical_scope_description']) %>
         </div>
       <% end %>
       <% if @endpoint.perimeter['updating_rules_description'].present? %>
-        <h6 class="fr-mb-1w fr-mt-3w" id="perimetre_regles_mise_a_jour">
+        <h3 class="fr-h6 fr-mb-1w fr-mt-3w" id="perimetre_regles_mise_a_jour">
           <%= t('.perimeter.updating_rules_title') %>
-        </h6>
+        </h3>
 
         <div>
           <%= markdown_to_html(@endpoint.perimeter['updating_rules_description']) %>
         </div>
       <% end %>
       <% if @endpoint.perimeter['know_more_description'].present? %>
-        <h6 class="fr-mb-1w fr-mt-3w" id="perimetre_en_savoir_plus">
+        <h3 class="fr-h6 fr-mb-1w fr-mt-3w" id="perimetre_en_savoir_plus">
           <%= t('.perimeter.know_more_title') %>
-        </h6>
+        </h3>
 
         <div>
           <%= markdown_to_html(@endpoint.perimeter['know_more_description']) %>
@@ -110,9 +110,9 @@
           </a>
         </div>
 
-        <h6 id="donnees_attributs" class="fr-mb-1w fr-mt-3w">
+        <h3 id="donnees_attributs" class="fr-h6 fr-mb-1w fr-mt-3w">
           <%= t('.attributes.title') %>
-        </h6>
+        </h3>
 
         <div class="keep-within-block-mobile">
           <% if @endpoint.collection? %>
@@ -137,9 +137,9 @@
         </div>
 
         <% if @endpoint.root_links.any? %>
-          <h6 id="donnees_racine_liens" class="fr-mb-1w fr-mt-3w">
+          <h3 id="donnees_racine_liens" class="fr-h6 fr-mb-1w fr-mt-3w">
             <%= t('.root_links.title') %>
-          </h6>
+          </h3>
 
           <div class="fr-pb-3w">
             <%= t('.root_links.description') %>
@@ -159,9 +159,9 @@
         <% end %>
 
         <% if @endpoint.root_meta.any? %>
-          <h6 id="donnees_racine_metadonnes" class="fr-mb-1w fr-mt-3w">
+          <h3 id="donnees_racine_metadonnes" class="fr-h6 fr-mb-1w fr-mt-3w">
             <%= t('.root_meta.title') %>
-          </h6>
+          </h3>
 
           <div class="fr-pb-3w">
             <%= t('.root_meta.description') %>
@@ -230,18 +230,18 @@
           <%= t('.cgu.title') %>
         </h2>
 
-        <h6 class="fr-mb-1w fr-mt-3w">
+        <h3 class="fr-h6 fr-mb-1w fr-mt-3w">
           <%= t('.cgu.main_title_opening') %>
-        </h6>
+        </h3>
 
         <div>
           <%= icon(t("api_entreprise.endpoint.opening.#{@endpoint.opening}.icon", raise: true)) rescue nil %>
           <%= t("api_entreprise.endpoint.opening.#{@endpoint.opening}.name", raise: true) %>
         </div>
 
-        <h6 class="fr-mb-1w fr-mt-3w">
+        <h3 class="fr-h6 fr-mb-1w fr-mt-3w">
           <%= t('.cgu.main_title') %>
-        </h6>
+        </h3>
 
         <p>
           Cette API et l’utilisation de ses données est soumise aux CGU générales d’API Entreprise, dont voici les principaux éléments auxquels vous vous engagez :
