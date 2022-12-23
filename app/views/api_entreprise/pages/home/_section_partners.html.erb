@@ -1,14 +1,14 @@
 <section id="section-partners" class="fr-p-6w">
   <div class="fr-container--fluid">
     <div class="fr-grid-row provider-container">
-      <h3 class="fr-ml-2v fr-col-12"><%= t('.title').html_safe %></h3>
+      <h2 class="fr-h3 fr-ml-2v fr-col-12"><%= t('.title').html_safe %></h2>
       <p class="fr-ml-2v fr-col-12"><%= t('.subtitle') %></p>
 
       <div class="providers">
         <% @providers.each do |provider| %>
           <a href="<%= endpoints_with_provider_query_filter_path(provider) %>" target="_blank" class="card-provider fr-m-2v fr-pt-2w fr-pr-2w fr-pl-2w">
             <%= image_tag("providers/#{provider.uid}.png", alt: 'Logo du fournisseur de données') %>
-            <h5 class="fr-pt-1v fr-pb-1v center"><%= provider.name %></h5>
+            <h3 class="fr-h5 fr-pt-1v fr-pb-1v center"><%= provider.name %></h3>
           </a>
         <% end %>
       </div>
