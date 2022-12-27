@@ -16,7 +16,7 @@ constraints(APIEntrepriseDomainConstraint.new) do
 
     get '/compte/se-connecter', to: 'sessions#new', as: :login
     get '/compte/se-connecter/lien-magique', to: 'sessions#create_from_magic_link', as: :login_magic_link
-    match '/auth/api_gouv/callback', to: 'sessions#create_from_oauth', via: [:get, :post]
+    get '/auth/api_gouv/callback', to: 'sessions#create_from_oauth'
     get '/auth/failure', to: 'sessions#failure'
     delete '/compte/deconnexion', to: 'sessions#destroy', as: :logout
 

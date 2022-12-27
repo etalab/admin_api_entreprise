@@ -37,7 +37,7 @@ RSpec.describe UserMailer do
         before { new_owner.oauth_api_gouv_id = nil }
 
         it 'informs an API Gouv account is needed' do
-          signup_link = 'https://auth.api.gouv.fr/users/sign-up'
+          signup_link = 'https://app.moncomptepro.beta.gouv.fr/users/sign-up'
 
           expect(subject.html_part.decoded).to include(signup_link)
           expect(subject.text_part.decoded).to include(signup_link)
