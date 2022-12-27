@@ -1,4 +1,4 @@
-# README
+# Site vitrine / backoffice de [API Entreprise](https://entreprise.api.gouv.fr)
 
 [![CI](https://github.com/etalab/admin_api_entreprise/actions/workflows/tests.yml/badge.svg)](https://github.com/etalab/admin_api_entreprise/actions/workflows/tests.yml)
 
