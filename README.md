@@ -1,6 +1,6 @@
 # README
 
-[![CI](https://github.com/etalab/admin_api_entreprise/actions/workflows/ci.yml/badge.svg)](https://github.com/etalab/admin_api_entreprise/actions/workflows/ci.yml)
+[![CI](https://github.com/etalab/admin_api_entreprise/actions/workflows/tests.yml/badge.svg)](https://github.com/etalab/admin_api_entreprise/actions/workflows/tests.yml)
 
 ## Requirements
 
