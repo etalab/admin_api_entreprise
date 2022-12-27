@@ -1,13 +1,13 @@
 <% extra_classes ||= '' %>
 
 <div class="use-cases <%= extra_classes %>">
-  <h3 class="fr-mb-2v" id="<%= id %>">
+  <h2 class="fr-h3 fr-mb-2v" id="<%= id %>">
     <%= t('.title') %>
-  </h3>
+  </h2>
 
-  <h6 class="fr-pt-2w fr-mb-1v">
+  <h3 class="fr-h6 fr-pt-2w fr-mb-1v">
     <%= t('.format.title') %>
-  </h6>
+  </h3>
 
   <% @endpoint.format.each do |format| %>
     <div>
@@ -15,9 +15,9 @@
     </div>
   <% end %>
 
-  <h6 class="fr-pt-2w fr-mb-1v">
+  <h3 class="fr-h6 fr-pt-2w fr-mb-1v">
     <%= t('.parameters.title', count: @endpoint.parameters.count) %>
-  </h6>
+  </h3>
 
   <% @endpoint.parameters.each do |parameter| %>
     <div>
@@ -25,9 +25,9 @@
     </div>
   <% end %>
 
-  <h6 class="fr-pt-2w fr-mb-1v">
+  <h3 class="fr-h6 fr-pt-2w fr-mb-1v">
     <%= t('.availability.title') %>
-  </h6>
+  </h3>
   <a class="fr-pt-1v fr-link" alt="API Entreprise Status Page" href="https://status.entreprise.api.gouv.fr" target="_blank">
     <%= t('.availability.link') %>
   </a>
@@ -36,9 +36,9 @@
   </div>
 
   <% if @endpoint.implemented? %>
-  <h5 class="fr-pt-2w">
+  <h3 class="fr-h5 fr-pt-2w">
     <%= t('.technical_specifications.title') %>
-  </h5>
+  </h3>
     <%= link_to t('.technical_specifications.cta'), developers_openapi_path(anchor: @endpoint.redoc_anchor), data: { turbo: false }, class: %(fr-btn fr-btn--icon-right fr-icon-arrow-right-line) %>
   <% end %>
 
