@@ -47,7 +47,6 @@ RSpec.describe MagicLink do
       before do
         allow(TokensAssociatedToEmailQuery)
           .to receive(:new)
-          .with(email: magic_link.email, api: :particulier)
           .and_return(service_instance)
       end
 

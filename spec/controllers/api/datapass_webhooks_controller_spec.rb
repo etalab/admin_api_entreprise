@@ -64,12 +64,17 @@ RSpec.describe API::DatapassWebhooksController do
       end
 
       it 'tracks through Sentry the incoming payload' do
+        allow(Sentry).to receive(:capture_message)
+        allow(Sentry).to receive(:set_context)
+
         expect(Sentry).to receive(:set_context).with(
           'DataPass webhook incoming payload',
-          payload: {
-            datapass_id: '9001',
-            event:
-          }
+          hash_including(
+            payload: {
+              datapass_id: '9001',
+              event:
+            }
+          )
         )
         expect(Sentry).to receive(:capture_message).with(
           'DataPass Incoming Payload',
