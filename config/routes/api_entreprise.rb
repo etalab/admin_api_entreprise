@@ -8,16 +8,18 @@ constraints(APIEntrepriseDomainConstraint.new) do
     end
   end
 
+  post '/auth/api_gouv_entreprise', as: :login_api_gouv
+
   scope module: :api_entreprise do
     root to: redirect('/compte/se-connecter'), as: :dashboard_root, constraints: { subdomain: 'dashboard.entreprise.api' }
     root to: 'pages#home'
 
     get '/stats', to: 'stats#index'
 
+    get '/auth/api_gouv_entreprise/callback', to: 'sessions#create_from_oauth'
+
     get '/compte/se-connecter', to: 'sessions#new', as: :login
     get '/compte/se-connecter/lien-magique', to: 'sessions#create_from_magic_link', as: :login_magic_link
-    get '/auth/api_gouv/callback', to: 'sessions#create_from_oauth'
-    get '/auth/failure', to: 'sessions#failure'
     delete '/compte/deconnexion', to: 'sessions#destroy', as: :logout
 
     get '/compte', to: 'users#profile', as: :user_profile

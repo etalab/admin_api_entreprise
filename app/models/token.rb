@@ -22,7 +22,10 @@ class Token < ApplicationRecord
   scope :valid_for, ->(api) { joins(:scopes).active.unexpired.where(scopes: { api: }).uniq }
 
   def rehash
-    AccessToken.create(token_payload)
+    return APIEntrepriseAccessToken.create(token_payload) if entreprise?
+    return APIParticulierAccessToken.create(token_payload) if particulier?
+
+    raise 'Error: token is neither entreprise nor particulier'
   end
 
   def access_scopes
@@ -38,6 +41,14 @@ class Token < ApplicationRecord
   end
 
   delegate :api, to: :authorization_request
+
+  def entreprise?
+    api == 'entreprise'
+  end
+
+  def particulier?
+    api == 'particulier'
+  end
 
   def self.default_create_params
     {

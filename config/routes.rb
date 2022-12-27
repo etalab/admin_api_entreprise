@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
   mount Sidekiq::Web => '/sidekiq'
 
-  post '/auth/api_gouv', as: :login_api_gouv
+  get '/auth/failure', to: 'sessions#failure'
 
   draw(:api_entreprise)
   draw(:api_particulier)

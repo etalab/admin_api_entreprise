@@ -1,4 +1,10 @@
 constraints(APIParticulierDomainConstraint.new) do
+  post '/auth/api_gouv_particulier', as: :login_api_gouv_particulier
+
+  scope module: :api_particulier do
+    get '/auth/api_gouv_particulier/callback', to: 'sessions#create_from_oauth'
+  end
+
   namespace :api_particulier, path: '' do
     get '/', to: redirect('https://api.gouv.fr/les-api/api-particulier', status: 302)
 
@@ -6,8 +12,6 @@ constraints(APIParticulierDomainConstraint.new) do
 
     get '/compte/se-connecter', to: 'sessions#new', as: :login
     get '/compte/se-connecter/lien-magique', to: 'sessions#create_from_magic_link', as: :login_magic_link
-    get '/auth/api_gouv/callback', to: 'sessions#create_from_oauth'
-    get '/auth/failure', to: 'sessions#failure'
     delete '/compte/deconnexion', to: 'sessions#destroy', as: :logout
 
     get '/compte', to: 'users#profile', as: :user_profile

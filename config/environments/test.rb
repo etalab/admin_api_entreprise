@@ -72,7 +72,8 @@ Rails.application.configure do
   config.emails_sender_address = 'support@entreprise.api.gouv.fr'
 
   # OAuth API Gouv config
-  config.oauth_api_gouv_client_id = '4442bfd8caac8e19ff202d33060edcd248592662d5a8098e28b706ba906fe9e0db95ad336c38248f42896db272990b8dfc969d8b8857101dabf9b2ffe7ec49b9'
+  config.oauth_api_gouv_client_id_entreprise = '4442bfd8caac8e19ff202d33060edcd248592662d5a8098e28b706ba906fe9e0db95ad336c38248f42896db272990b8dfc969d8b8857101dabf9b2ffe7ec49b9'
+  config.oauth_api_gouv_client_id_particulier = '844e3bff46ebdac9beb18c6cf793dedfdb1776262911b3d927d24871f03e46b38756b5d015d1a693057328d8673408cccf48ef7c5a6e94fa5d101042663fb5b1'
   config.oauth_api_gouv_issuer = 'https://app-staging.moncomptepro.beta.gouv.fr'
   config.oauth_api_gouv_baseurl = 'https://app-staging.moncomptepro.beta.gouv.fr'
   config.oauth_api_gouv_redirect_uri = 'http://localhost:8080/auth_api_gouv_callback'

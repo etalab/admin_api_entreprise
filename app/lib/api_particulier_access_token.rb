@@ -1,5 +1,4 @@
-# TODO: rename to APIEntrepriseAccessToken
-class AccessToken
+class APIParticulierAccessToken
   class << self
     HASH_SECRET = Rails.application.credentials.jwt_hash_secret
     HASH_ALGO = Rails.application.credentials.jwt_hash_algo
@@ -19,9 +18,9 @@ class AccessToken
     def decode_oauth_api_gouv_id_token(token, jwks)
       payload = JWT.decode(token, nil, true, {
         algorithms: ['RS256'],
-        aud: Rails.configuration.oauth_api_gouv_client_id,
+        aud: Rails.configuration.oauth_api_gouv_client_id_for_api_particulier,
         verify_aud: true,
-        iss: Rails.configuration.oauth_api_gouv_issuer,
+        iss: Rails.configuration.oauth_api_gouv_issuer_for_api_particulier,
         verify_iss: true,
         jwks: { keys: jwks }
       })

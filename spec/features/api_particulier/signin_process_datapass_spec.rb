@@ -10,7 +10,7 @@ RSpec.describe 'the signin process', app: :api_particulier do
   context 'when API Gouv authentication is successful' do
     before do
       OmniAuth.config.test_mode = true
-      OmniAuth.config.mock_auth[:api_gouv] = OmniAuth::AuthHash.new({
+      OmniAuth.config.mock_auth[:api_gouv_particulier] = OmniAuth::AuthHash.new({
         info: {
           email: user.email,
           sub: user.oauth_api_gouv_id || unknown_api_gouv_id

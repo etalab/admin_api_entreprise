@@ -1,6 +1,6 @@
 module OmniAuth::Strategies
-  class APIGouv < OmniAuth::Strategies::OAuth2
-    option :name, :api_gouv
+  class APIGouvEntreprise < OmniAuth::Strategies::OAuth2
+    option :name, :api_gouv_entreprise
 
     option :client_options, {
       site: Rails.configuration.oauth_api_gouv_baseurl,
@@ -30,4 +30,4 @@ module OmniAuth::Strategies
   end
 end
 
-OmniAuth::Strategies::ApiGouv = OmniAuth::Strategies::APIGouv
+OmniAuth::Strategies::ApiGouvEntreprise = OmniAuth::Strategies::APIGouvEntreprise
