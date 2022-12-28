@@ -17,20 +17,22 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
   describe 'without contacts on authorization request' do
     it 'updates mailjet authorization request user with first and last name' do
       expect(Mailjet::Contactslist_managemanycontacts).to receive(:create).with(
-        id: anything,
-        action: 'addnoforce',
-        contacts: [
-          {
-            email: user.email,
-            properties: {
-              'prénom' => user.first_name,
-              'nom' => user.last_name,
-              'contact_demandeur' => true,
-              'contact_métier' => false,
-              'contact_technique' => false
+        hash_including(
+          id: anything,
+          action: 'addnoforce',
+          contacts: [
+            {
+              email: user.email,
+              properties: {
+                'prénom' => user.first_name,
+                'nom' => user.last_name,
+                'contact_demandeur' => true,
+                'contact_métier' => false,
+                'contact_technique' => false
+              }
             }
-          }
-        ]
+          ]
+        )
       )
 
       subject
@@ -42,34 +44,36 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
 
     it 'updates authorization with all contacts' do
       expect(Mailjet::Contactslist_managemanycontacts).to receive(:create).with(
-        id: anything,
-        action: 'addnoforce',
-        contacts: [
-          {
-            email: user.email,
-            properties: hash_including(
-              'contact_demandeur' => true,
-              'contact_métier' => false,
-              'contact_technique' => false
-            )
-          },
-          {
-            email: authorization_request.contact_metier.email,
-            properties: hash_including(
-              'contact_demandeur' => false,
-              'contact_métier' => true,
-              'contact_technique' => false
-            )
-          },
-          {
-            email: authorization_request.contact_technique.email,
-            properties: hash_including(
-              'contact_demandeur' => false,
-              'contact_métier' => false,
-              'contact_technique' => true
-            )
-          }
-        ]
+        hash_including(
+          id: anything,
+          action: 'addnoforce',
+          contacts: [
+            {
+              email: user.email,
+              properties: hash_including(
+                'contact_demandeur' => true,
+                'contact_métier' => false,
+                'contact_technique' => false
+              )
+            },
+            {
+              email: authorization_request.contact_metier.email,
+              properties: hash_including(
+                'contact_demandeur' => false,
+                'contact_métier' => true,
+                'contact_technique' => false
+              )
+            },
+            {
+              email: authorization_request.contact_technique.email,
+              properties: hash_including(
+                'contact_demandeur' => false,
+                'contact_métier' => false,
+                'contact_technique' => true
+              )
+            }
+          ]
+        )
       )
 
       subject
@@ -84,26 +88,28 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
 
       it 'updates accordingly' do
         expect(Mailjet::Contactslist_managemanycontacts).to receive(:create).with(
-          id: anything,
-          action: 'addnoforce',
-          contacts: [
-            {
-              email: user.email,
-              properties: hash_including(
-                'contact_demandeur' => true,
-                'contact_métier' => false,
-                'contact_technique' => true
-              )
-            },
-            {
-              email: authorization_request.contact_metier.email,
-              properties: hash_including(
-                'contact_demandeur' => false,
-                'contact_métier' => true,
-                'contact_technique' => false
-              )
-            }
-          ]
+          hash_including(
+            id: anything,
+            action: 'addnoforce',
+            contacts: [
+              {
+                email: user.email,
+                properties: hash_including(
+                  'contact_demandeur' => true,
+                  'contact_métier' => false,
+                  'contact_technique' => true
+                )
+              },
+              {
+                email: authorization_request.contact_metier.email,
+                properties: hash_including(
+                  'contact_demandeur' => false,
+                  'contact_métier' => true,
+                  'contact_technique' => false
+                )
+              }
+            ]
+          )
         )
 
         subject
@@ -119,26 +125,28 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
 
       it 'updates accordingly' do
         expect(Mailjet::Contactslist_managemanycontacts).to receive(:create).with(
-          id: anything,
-          action: 'addnoforce',
-          contacts: [
-            {
-              email: user.email,
-              properties: hash_including(
-                'contact_demandeur' => true,
-                'contact_métier' => true,
-                'contact_technique' => false
-              )
-            },
-            {
-              email: authorization_request.contact_technique.email,
-              properties: hash_including(
-                'contact_demandeur' => false,
-                'contact_métier' => false,
-                'contact_technique' => true
-              )
-            }
-          ]
+          hash_including(
+            id: anything,
+            action: 'addnoforce',
+            contacts: [
+              {
+                email: user.email,
+                properties: hash_including(
+                  'contact_demandeur' => true,
+                  'contact_métier' => true,
+                  'contact_technique' => false
+                )
+              },
+              {
+                email: authorization_request.contact_technique.email,
+                properties: hash_including(
+                  'contact_demandeur' => false,
+                  'contact_métier' => false,
+                  'contact_technique' => true
+                )
+              }
+            ]
+          )
         )
 
         subject
@@ -154,18 +162,20 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
 
       it 'updates accordingly' do
         expect(Mailjet::Contactslist_managemanycontacts).to receive(:create).with(
-          id: anything,
-          action: 'addnoforce',
-          contacts: [
-            {
-              email: user.email,
-              properties: hash_including(
-                'contact_demandeur' => true,
-                'contact_métier' => true,
-                'contact_technique' => true
-              )
-            }
-          ]
+          hash_including(
+            id: anything,
+            action: 'addnoforce',
+            contacts: [
+              {
+                email: user.email,
+                properties: hash_including(
+                  'contact_demandeur' => true,
+                  'contact_métier' => true,
+                  'contact_technique' => true
+                )
+              }
+            ]
+          )
         )
 
         subject
@@ -183,26 +193,28 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
 
       it 'updates accordingly' do
         expect(Mailjet::Contactslist_managemanycontacts).to receive(:create).with(
-          id: anything,
-          action: 'addnoforce',
-          contacts: [
-            {
-              email: user.email,
-              properties: hash_including(
-                'contact_demandeur' => true,
-                'contact_métier' => false,
-                'contact_technique' => false
-              )
-            },
-            {
-              email: another_email,
-              properties: hash_including(
-                'contact_demandeur' => false,
-                'contact_métier' => true,
-                'contact_technique' => true
-              )
-            }
-          ]
+          hash_including(
+            id: anything,
+            action: 'addnoforce',
+            contacts: [
+              {
+                email: user.email,
+                properties: hash_including(
+                  'contact_demandeur' => true,
+                  'contact_métier' => false,
+                  'contact_technique' => false
+                )
+              },
+              {
+                email: another_email,
+                properties: hash_including(
+                  'contact_demandeur' => false,
+                  'contact_métier' => true,
+                  'contact_technique' => true
+                )
+              }
+            ]
+          )
         )
 
         subject
