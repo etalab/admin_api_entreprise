@@ -1,6 +1,8 @@
 # Site vitrine / backoffice de [API Entreprise](https://entreprise.api.gouv.fr)
 
-[![CI](https://github.com/etalab/admin_api_entreprise/actions/workflows/tests.yml/badge.svg)](https://github.com/etalab/admin_api_entreprise/actions/workflows/tests.yml)
+[![Tests](https://github.com/etalab/admin_api_entreprise/actions/workflows/tests.yml/badge.svg)](https://github.com/etalab/admin_api_entreprise/actions/workflows/tests.yml)
+[![Linter](https://github.com/etalab/admin_api_entreprise/actions/workflows/lint.yml/badge.svg)](https://github.com/etalab/admin_api_entreprise/actions/workflows/lint.yml)
+[![Security](https://github.com/etalab/admin_api_entreprise/actions/workflows/security.yml/badge.svg)](https://github.com/etalab/admin_api_entreprise/actions/workflows/security.yml)
 
 ## Requirements
 
