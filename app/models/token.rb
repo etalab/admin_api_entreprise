@@ -57,7 +57,7 @@ class Token < ApplicationRecord
 
   def token_payload
     payload = {
-      uid: user ? user.id : nil,
+      uid: user&.id,
       jti: id,
       scopes: scopes.pluck(:code),
       sub: intitule,
