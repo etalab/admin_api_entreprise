@@ -99,9 +99,44 @@ fr:
             - 🎯 Enfin, vous **participez activement à la simplification des démarches de candidatures aux marchés publics pour les citoyens**, en évitant de demander à une entreprise/association une information qu'elle a déjà donné ou que l'administration connaît déjà. <br />Vous vous mettez ainsi **en conformité avec la législation** et, plus particulièrement l'[Article L113-12 du Code des relations entre le public et l'administration](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037313155){:target="_blank"}.
 
         use_case_examples:
-          title: null
-          anchor: null
-          content: null
+          title: Exemples d'applications
+          anchor: 'use_case_examples'
+          content: |+ 
+            #### Un opérateur économique candidate à un appel d'offre public en ligne connecté à API Entreprise&nbsp;:
+
+            1. **Il renseigne son identifiant** (SIRET ou RNA) :
+
+               {:.fr-highlight.fr-highlight--example}
+               ⚙️ **En arrière-plan** : Un appel à l'API Entreprise est effectué.
+
+               ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/cas_usages/pictos/use_case_examples/marches-publics-use_cas_example_1a.png') %>){:width="600px"}
+
+            2. **Les informations administratives le concernant sont pré-remplies automatiquement**. L'opérateur économique les corrige si besoin et poursuit sa démarche :
+               
+               {:.fr-highlight.fr-highlight--example}
+               ⚙️ **En arrière-plan** : À partir du format structuré (.json) transmis par l'API Entreprise, vous choisissez la façon d'afficher l'information sur votre profil acheteur. 
+               ⚠️ Seule de la donnée ouverte peut être pré-remplie. Les données protégées ne doivent jamais être accessibles depuis la partie publique de votre logiciel de marchés publics.
+
+               ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/cas_usages/pictos/use_case_examples/marches-publics-use_cas_example_1b.png') %>){:width="600px"}
+               
+            3. **Les documents justificatifs**, telles que les attestations fiscale et de vigilance, déjà disponibles par API Entreprise, **n'ont pas besoin d'être transmis par l'opérateur économique**. Ils seront directement mis à disposition de l'instructeur en _backoffice_. 
+
+            4. **L'offre est réceptionnée par l'instructeur, toutes les informations et justificatifs sont regroupées dans un même espace** sur le profil acheteur. L'instructeur n'a pas à vérifier les données issues de l'API Entreprise car elles sont certifiées.
+               ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/cas_usages/pictos/use_case_examples/marches-publics-use_cas_example_2.png') %>){:width="600px"}
+
+            #### Un exemple avec Anthony, entrepreneur dans le bâtiment&nbsp;; et Audrey, du service achats du département : 
+
+            {:.fr-text--regular.fr-text--alt.fr-text--lg}
+            _Audrey, acheteuse pour le département, a publié un appel d'offre pour l'aménagement d'un carrefour routier_. La plateforme d'achats du département est connectée à l'API Entrprise.    
+
+            {:.fr-text--regular.fr-text--alt.fr-text--lg}
+            _Anthony, dont l'entreprise est qualifiée pour les travaux demandés_, a repéré l'appel d'offre en ligne. Il se rend sur la plateforme d'achats pour déposer son offre. Il entre le numéro de SIRET de son entreprise. Toutes les informations publiques rattachées à ce SIRET (adresse postale, catégorie juridique, activité principale, etc.) sont alors pré-remplies, il n'a plus besoin de les saisir. 
+
+            {:.fr-text--regular.fr-text--alt.fr-text--lg}
+            _Depuis son profil acheteur, Audrey a une vue générale_ des entreprises soumissionnaires, et, grâce à API Entreprise, des documents et informations disponibles et valides.
+            Parmi la liste des documents qu'Anthony doit fournir tout au long de la procédure pour prouver ses capacités économiques, financières et professionnelles, certains justificatifs seront directement mis à disposition d'Audrey dans son espace d'instruction. Les données accessibles par l'API Entreprise aideront également Audrey dans ses vérifications d'absence de motif d'exclusion ou d'interdiction de soumissionner. 
+            
+              
         list_api:
           content: |+
             {:.fr-text--xl}
