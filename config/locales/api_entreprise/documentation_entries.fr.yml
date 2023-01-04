@@ -13,7 +13,7 @@ fr:
               - assurer une meilleure sécurité de la donnée des fournisseurs ;
               - normaliser les formats pour faciliter la compréhension et l’industrialisation ;
               - clarifier, documenter les réponses et les rendre actionnables par vos logiciels.
-             
+
               {:.fr-highlight.fr}
               > **Votre jeton d'accès reste identique 🔑**
               > Pour accéder à la version 3 de l'API Entreprise, utilisez le même token qu'en V.2. En effet, tant que votre jeton est valide, il est inutile de refaire une demande d'accès car la migration vers la V.3 ne change pas les droits que vous avez déjà obtenu.
@@ -220,7 +220,6 @@ fr:
 
                   La distinction entre les "diffusibles" et les "non-diffusibles" n'est plus faite par une option d'appel. Nous avons créé des API distinctes :
 
-
                   {:.fr-table}
                   | API V.2  | API V.3 correspondantes |
                   | :--- | :--- |
@@ -243,7 +242,144 @@ fr:
                   > En V.2, parmi les informations relatives aux mandataires sociaux, API Entreprise semblait transmettre une information sur le statut dirigeant ou non du mandataire social. Cette information n'était pas effective car toujours à `true`. Nous avons donc retiré ce champ inutile de l'[API V.3 Mandataires sociaux](<%= endpoint_path(uid: 'infogreffe/mandataires_sociaux') %>){:target="_blank"}.
                   > Pour connaître les rôles des mandataires sociaux, vous pouvez vous aider du champ `fonction` qui renvoie des valeurs telles que "PRESIDENT", "DIRECTEUR GENERALE".
 
-              - subtitle: V.2 - Données de référence d'un établissement - INSEE
+                  <details class="fr-details">
+                    <summary>
+                     **Table de correspondance de tous les champs en V.2 et leurs équivalents en V.3**
+                    </summary>
+
+                  {:.fr-table.fr-table--very-large}
+                  | [API V.2. Données de référence d'une entité](http://v2.entreprise.api.gouv.fr/entreprise.api.gouv.fr/catalogue/#a-entreprises){:target="_blank"}<br/><br/>Appelé avec SIREN | API V.3. Données établissement<br/><br/>Appelé avec SIRET  | API V.3. Mandataires sociaux - Infogreffe<br/><br/>Appelé avec SIREN | API V.3. Données siège social<br/><br/>Appelé avec SIREN | API V.3. Données unités légales<br/><br/>Appelé avec SIREN | API V.3. Adresse établissement<br/><br/>Appelé avec SIRET | API V.3. Extrait RCS - Infogreffe<br/><br/>Appelé avec SIREN | API V.3. Numéro de TVA Intra<br/><br/>Appelé avec SIREN |
+                  |---|---|---|---|---|---|---|---|
+                  | `"entreprise": {` | `"unite_legale"` |  |  | `"unite_legale"` |  |  |  |
+                  |   `"siren": "418166096",` | ⚙️ Cette information va être prochainement remise en V.3. | ⚙️ Cette information va être prochainement remise en V.3. |  |  |  | ⚙️ Cette information va être prochainement remise en V.3. | ⚙️ Cette information va être prochainement remise en V.3. |
+                  |   `"capital_social": 509525,` |  |  |  |  |  | `"capital": {` |  |
+                  |  |  |  |  |  |  |    `"montant": "509525",` |  |
+                  |  |  |  |  |  |  |    `"devise": "EUROS",` |  |
+                  |  |  |  |  |  |  |    `"code_devise": "EUR"},` |  |
+                  |   `"numero_tva_intracommunautaire": "FR16418166096",` |  |  |  |  |  |  | 🎁 `"tva_number": "FR48672039971"` - Cette donnée est certifiée contrairement à celle de la V.2 |
+                  |   `"forme_juridique": "SA à directoire (s.a.i.)",` | `"libelle": "Service central d'un ministère"` dans `"forme_juridique"` |  |  | `"libelle": "Service central d'un ministère"` dans `"forme_juridique"` |  |  |  |
+                  |   `"forme_juridique_code": "5699",` | `"code": "7120"` dans `"forme_juridique"` |  |  | `"code": "7120"` dans `"forme_juridique"` |  |  |  |
+                  |   `"nom_commercial": "OCTO-TECHNOLOGY",` |  |  |  |  |  | `"nom_commercial": "DECATHLON",` |  |
+                  |   `"procedure_collective": false,` | ❌ Supprimé : Cette information n'a jamais fonctionné en V.2. Nous n'avons pas l'information et avons donc supprimé le champ en V.3 |  |  |  |  |  |  |
+                  |   `"enseigne": null,` | `"enseigne": "Coiff Land, CoiffureLand",` |  |  |  |  |  |  |
+                  |   `"naf_entreprise": "6202A",` | `"code": "8411Z"` |  |  | `"code": "8411Z"` |  |  |  |
+                  |   `"libelle_naf_entreprise": "Conseil en systèmes et logiciels informatiques",` | `"libelle": "Administration publique générale"` |  |  | `"libelle": "Administration publique générale"` |  |  |  |
+                  |  | 🎁 `"nomenclature" : "NAFRev2"` -  Nouvelle donnée qui précise la nomenclature |  |  | 🎁 `"nomenclature" : "NAFRev2"` -  Nouvelle donnée qui précise la nomenclature |  |  |  |
+                  |   `"raison_sociale": "OCTO-TECHNOLOGY"`, | `"raison_sociale": "DIRECTION INTERMINISTERIELLE DU NUMERIQUE"` |  |  | `"raison_sociale": "DIRECTION INTERMINISTERIELLE DU NUMERIQUE"` |  |  |  |
+                  |   `"siret_siege_social": "41816609600051",` | `"siret_siege_social": "13002526500013"` |  |  | `"siret_siege_social": "13002526500013"` |  |  |  |
+                  |   `"code_effectif_entreprise": "31",` | ❌ Supprimé car en double dans la payload |  |  | ❌ Supprimé car en double dans la payload |  |  |  |
+                  |   `"date_creation": 891381600,` | `"date_creation": 1634103818` |  |  | `"date_creation": 1634103818` |  |  |  |
+                  |   `"nom": null,` | `"nom_naissance": "Dubois"` |  |  | `"nom_naissance": "Dubois"` |  |  |  |
+                  |  | 🎁 `"nom_usage": "Dupont"` -  Nouvelle donnée  |  |  | 🎁 `"nom_usage": "Dupont"` -  Nouvelle donnée  |  |  |  |
+                  |   `"prenom": null,` | `"prenom_usuel": "Jean"` |  |  | `"prenom_usuel": "Jean"` |  |  |  |
+                  |  | 🎁  `"prenom_1": "Jean"` -  Nouvelle donnée |  |  | 🎁  `"prenom_1": "Jean"` -  Nouvelle donnée |  |  |  |
+                  |  | 🎁  `"prenom_2": "Jean"` -  Nouvelle donnée |  |  | 🎁  `"prenom_2": "Jean"` -  Nouvelle donnée |  |  |  |
+                  |  | 🎁  `"prenom_3": "Jean"` -  Nouvelle donnée |  |  | 🎁  `"prenom_3": "Jean"` -  Nouvelle donnée |  |  |  |
+                  |  | 🎁  `"prenom_4": "Jean"` -  Nouvelle donnée |  |  | 🎁  `"prenom_4": "Jean"` -  Nouvelle donnée |  |  |  |
+                  |   `"date_radiation": null,` |   `"date_radiation": null,` |  |  |   `"date_radiation": null,` |  |  |  |
+                  |   `"categorie_entreprise": "PME",` | `"categorie_entreprise": "GE"` |  |  | `"categorie_entreprise": "GE"` |  |  |  |
+                  |   `"tranche_effectif_salarie_entreprise": {` | `"tranche_effectif_salarie"` |  |  | `"tranche_effectif_salarie"` |  |  |  |
+                  |     `"de": 200,` | `"de": 2000` |  |  | `"de": 2000` |  |  |  |
+                  |     `"a": 249,` | `"a": 4999` |  |  | `"a": 4999` |  |  |  |
+                  |     `"code": "31",` | `"code": "51"` |  |  | `"code": "51"` |  |  |  |
+                  |     `"date_reference": "2014",` | `"date_reference": "2016"` |  |  | `"date_reference": "2016"` |  |  |  |
+                  |     `"intitule": "200 à 249 salariés"` | `"intitule": "2 000 à 4 999 salariés"` |  |  | `"intitule": "2 000 à 4 999 salariés"` |  |  |  |
+                  |   `"mandataires_sociaux": [` |  |  |  |  |  |  |  |
+                  |     `"nom": "Henri",` |  | `"nom": "GAUQUELIN"` |  |  |  | `"nom": "GAUQUELIN"` |  |
+                  |     `"prenom": "Martin",` |  | `"prenom": "ARNAUD"` |  |  |  |  `"prenom": "Martin",`|  |
+                  |     `"fonction": "Président du Directoire",` |  | `"fonction": "PRESIDENT"` |  |  |  | `"fonction": "Président du Directoire",` |  |
+                  |     `"dirigeant": true,` |  | ❌ Supprimé car ce champ n'apportait aucune information : juridiquement tout mandataire est un dirigeant, le champ était donc toujours à true |  |  |  | ❌ Supprimé car ce champ n'apportait aucune information : juridiquement tout mandataire est un dirigeant, le champ était donc toujours à true |  |
+                  |     `"date_naissance": "1965-01-27",` |  | `"date_naissance": "1969-08-24",` |  |  |  | `"date_naissance": "1965-01",` <br/> ⚠️ Uniquement le mois et l'année pour cette API aux données ouvertes  |  |
+                  |     `"date_naissance_timestamp": -155523600,` |  | `"date_naissance_timestamp": -11235600,` |  |  |  | ❌ car le jour de naissance n'est pas donné |  |
+                  |     `"raison_sociale": "",` |  | ❌ Supprimé pour les personnes physiques car toujours vide |  |  |  |  |  |
+                  |     `"identifiant": "",` |  | ❌ Supprimé pour les personnes physiques car toujours vide |  |  |  |  |  |
+                  |     `"type": "PP"` |  | `"type": "personne_physique"` |  |  |  |  |  |
+                  |  |  | 🎁 Nouveaux champs :<br/>-  `"lieu_naissance": "FLERS",`<br/>- `"pays_naissance": "FRANCE",`<br/>-  `"code_pays_naissance": "FR",`<br/>-  `"nationalite": "FRANCAISE",`<br/>-  `"code_nationalite": "FR"`  |
+                  |  |  |  |  |  |
+                  |     `"nom": "",` |  | ❌  Supprimé pour les personnes morales car toujours vide |  |  |  | ❌  Supprimé pour les personnes morales car toujours vide |  |
+                  |     `"prenom": "",` |  | ❌  Supprimé pour les personnes morales car toujours vide |  |  |  | ❌  Supprimé pour les personnes morales car toujours vide |  |
+                  |     `"fonction": "COMMISSAIRE AUX COMPTES SUPPLEANT",` |  | `"fonction": "COMMISSAIRE AUX COMPTES TITULAIRE",` |  |  |  | `"fonction": "COMMISSAIRE AUX COMPTES SUPPLEANT",` |  |
+                  |     `"dirigeant": true,` |  | ❌ Supprimé car ce champ n'apportait aucune information : juridiquement tout mandataire est un dirigeant, le champ était donc toujours à true |  |  |  | ❌ Supprimé car ce champ n'apportait aucune information : juridiquement tout mandataire est un dirigeant, le champ était donc toujours à true |  |
+                  |     `"date_naissance": "",` |  | ❌  Supprimé pour les personnes morales car toujours vide |  |  |  |  ❌  Supprimé pour les personnes morales car toujours vide |  |
+                  |     `"date_naissance_timestamp": 0,` |  | ❌  Supprimé pour les personnes morales car toujours vide |  |  |  | ❌  Supprimé pour les personnes morales car toujours vide |  |
+                  |     `"raison_sociale": "BCRH & ASSOCIES - SOCIETE A RESPONSABILITE LIMITEE A ASSOCIE UNIQUE",` |  | `"raison_sociale": "MAZARS - SOCIETE ANONYME A DIRECTOIRE ET CONSEIL DE SURVEILLANCE"` |  |  |  | `"raison_sociale": "BCRH & ASSOCIES - SOCIETE A RESPONSABILITE LIMITEE A ASSOCIE UNIQUE",` |  |
+                  |     `"identifiant": "490092574",` |  | `"numero_identification": "784824153"` |  |  |  | `"numero_identification": "784824153"` |  |
+                  |     `"type": "PM"` |  | `"type": "personne_morale"` |  |  |  | `"type": "personne_morale"` |  |
+                  |   `"etat_administratif": {` |  |  |  |  |  |  |  |
+                  |     `"value": "C",` | `"etat_administratif": "A",` |  |  |  |  |  |  |
+                  |     `"date_cessation": 1315173600` | `"date_cessation": 1634133818,` |  |  |  |  |  |  |
+                  |   `"diffusable_commercialement": true` |  `"diffusable_commercialement": true` |  |  |  |  |  |  |
+                  | `"etablissement_siege": {` |  |  |  |  |  |  |  |
+                  |   `"siege_social": true,` |  |  | `"siege_social": true` |  |  |  |  |
+                  |   `"siret": "41816609600051",` |  |  | ⚙️ Cette information va être prochainement remise en V.3. |  | ⚙️ Cette information va être prochainement remise en V.3. |  |  |
+                  |   `"naf": "6202A",` |  |  | `"code": "8411Z"` dans `"activite_principale"` |  |  |  |  |
+                  |   `"libelle_naf": "Conseil en systèmes et logiciels informatiques",` |  |  | `"libelle": "Administration publique générale" dans "activite_principale"` |  |  |  |  |
+                  |  |  |  | 🎁 `"nomenclature" : "NAFRev2"` -  Nouvelle donnée qui précise la nomenclature |  |  |  |  |
+                  |   `"date_mise_a_jour": 1449183600,` |  |  |  |  |  |  |  |
+                  |   `"tranche_effectif_salarie_etablissement": {` |  |  | `"tranche_effectif_salarie"` |  |  |  |  |
+                  |     `"de": 200,` |  |  | `"de": 2000` |  |  |  |  |
+                  |     `"a": 249,` |  |  | `"de": 2000` |  |  |  |  |
+                  |     `"code": "31",` |  |  | `"code": "51"` |  |  |  |  |
+                  |     `"date_reference": "2014",` |  |  | `"date_reference": "2016"` |  |  |  |  |
+                  |     `"intitule": "200 à 249 salariés"` |  |  | `"intitule": "2 000 à 4 999 salariés"` |  |  |  |  |
+                  |   }, |  |  |  |  |  |  |  |
+                  |  `"date_creation_etablissement": 1108594800,` |  |  | `"date_creation": 1634103818` |  |  |  |  |
+                  |   `"enseigne": null,` |  |  | `"enseigne": "Coiff Land, CoiffureLand",` |  |  |  |  |
+                  |   `"region_implantation": {` |  |  | ❌ Supprimé, cette information, retrouvable autrement, ralentissait l'API. Nous l'avons supprimé en V.3. |  |  |  |  |
+                  |     `"code": "11",` |  |  | ❌ Supprimé, cette information, retrouvable autrement, ralentissait l'API. Nous l'avons supprimé en V.3. |  |  |  |  |
+                  |     `"value": "Île-de-France"` |  |  | ❌ Supprimé, cette information, retrouvable autrement, ralentissait l'API. Nous l'avons supprimé en V.3. |  |  |  |  |
+                  |   }, |  |  |  |  |  |  |  |
+                  |   `"commune_implantation": {` |  |  |  |  |  |  |  |
+                  |     `"code": "75108",` |  |  | ❌ Supprimé car en double dans la payload |  |  |  |  |
+                  |     `"value": "PARIS 8"` |  |  | ❌ Supprimé car en double dans la payload |  |  |  |  |
+                  |   `"pays_implantation": {` |  |  |  |  |  |  |  |
+                  |     `"code": null,` |  |  | Remplacé par `"code_pays_etranger": "99132"` |  |  |  |  |
+                  |     `"value": null` |  |  | Remplacé par `"libelle_pays_etranger": "ROYAUME-UNI"` |  |  |  |  |
+                  |   `"diffusable_commercialement": true,` |  |  | `"diffusable_commercialement": true,` |  |  |  |  |
+                  |   `"adresse": {` |  |  |  |  |  |  |  |
+                  |     `"l1": "OCTO TECHNOLOGY",` |  |  | `"l1": "ipsum"` dans `"acheminement_postal"`|  | `"l1": "ipsum"` dans `"acheminement_postal"` |  |  |
+                  |     `"l2": null,` |  |  | `"l2": "ipsum"` dans `"acheminement_postal"` |  | `"l2": "ipsum"` dans `"acheminement_postal"` |  |  |
+                  |     `"l3": null,` |  |  | `"l3": "ipsum"` dans `"acheminement_postal"` |  | `"l3": "ipsum"` dans `"acheminement_postal"` |  |  |
+                  |     `"l4": "50 AVENUE DES CHAMPS ELYSEES",` |  |  | `"l4": "ipsum"` dans `"acheminement_postal"` |  | `"l4": "ipsum"` dans `"acheminement_postal"` |  |  |
+                  |     `"l5": null,` |  |  | `"l5": "ipsum"` dans `"acheminement_postal"` |  | `"l5": "ipsum"` dans `"acheminement_postal"` |  |  |
+                  |     `"l6": "75008 PARIS",` |  |  | `"l6": "ipsum"` dans `"acheminement_postal"` |  | `"l6": "ipsum"` dans `"acheminement_postal"` |  |  |
+                  |     `"l7": "FRANCE",` |  |  | `"l7": "ipsum"` dans `"acheminement_postal"` |  | `"l7": "ipsum"` dans `"acheminement_postal"` |  |  |
+                  |     `"numero_voie": "50",` |  |  | `"numero_voie": "22",` |  | `"numero_voie": "22",` |  |  |
+                  |  |  |  | `"indice_repetition_voie": "lorem"` - Donnée désormais séparée du numéro de voie |  | 🎁  `"indice_repetition_voie": "lorem"` - Nouvelle donnée |  |  |
+                  |     `"type_voie": "AV",` |  |  | `"type_voie": "RUE",` |  | `"type_voie": "RUE",` |  |  |
+                  |     `"nom_voie": "DES CHAMPS ELYSEES",` |  |  | `"libelle_voie": "ipsum",` |  | `"libelle_voie": "ipsum",` |  |  |
+                  |     `"complement_adresse": null,` |  |  | `"complement_adresse": "ZAE SAINT GUENAULT",` |  |`"complement_adresse": "ZAE SAINT GUENAULT",` |  |  |
+                  |     `"code_postal": "75008",` |  |  | `"code_postal": "75016",` |  | `"code_postal": "75016",` |  |  |
+                  |     `"localite": "PARIS 8",` |  |  | `"libelle_commune": "PARIS 12"` |  | `"libelle_commune": "PARIS 12"` |  |  |
+                  |     `"code_insee_localite": "75108",` |  |  | `"code_commune": "75112"` |  | `"code_commune": "75112"` |  |  |
+                  |     `"cedex": null` |  |  | `"code_cedex": "ipsum",` |  | `"code_cedex": "ipsum",` |  |  |
+                  |  |  |  | 🎁 `"libelle_cedex": "PARIS CEDEX 12"` - Nouvelle donnée  |  | 🎁 `"libelle_cedex": "PARIS CEDEX 12"` - Nouvelle donnée  |  |  |
+                  |  |  |  | 🎁 `"distribution_speciale": "ipsum"` - Nouvelle donnée |  | 🎁 `"distribution_speciale": "ipsum"` - Nouvelle donnée |  |  |
+                  |   }, |  |  |  |  |  |  |  |
+                  |   `"etat_administratif": {` |  |  |  |  |  |  |  |
+                  |     `"value": "F",` |  |  | `"etat_administratif": "A"` |  |  |  |  |
+                  |     `"date_fermeture": 1315173600` |  |  | `"date_fermeture": 1634133818` |  |  |  |  |
+                  |   `"gateway_error": false` |  |  | ❌ Supprimé, information technique API Entreprise complexe et peu utile |  |  |  |  |
+
+                  </details>
+
+                  <div class="fr-download fr-mt-4w fr-mb-1v fr-ml-2w">
+                    <p>
+                      <a href="/files/correspondance_champs_v2_entreprises.pdf" download class="fr-download__link">Télécharger le tableau PDF de correspondance des champs de l'API V2 Entreprises Insee
+                        <span class="fr-download__detail">PDF – 94 ko</span>
+                      </a>
+                    </p>
+                  </div>
+
+                  <div class="fr-download fr-mt-1v fr-ml-2w">
+                    <p>
+                      <a href="/files/correspondance_champs_v2_v3_insee.xlsx" download class="fr-download__link">Télécharger le tableur de correspondance des champs des API V2 Entreprises et Etablissements Insee
+                        <span class="fr-download__detail">XLSX – 22 ko</span>
+                      </a>
+                    </p>
+                  </div>
+
+              - subtitle: V.2 - Données de référence d'un établissement - INSEE<a name="v2/etablissements"></a>
                 subtitle_anchor: 'v2---données-de-référence-dun-établissement---insee-'
                 content: |+
                   L'API V.2 `/etablissement` de l'INSEE devient l'**API centrale des données Insee en V.3**. À partir du SIRET de l'établissement, vous récupérez les données de l'établissement, dont son adresse postale, ainsi que les données de l'unité légale qui le concerne.
@@ -257,6 +393,81 @@ fr:
                   |**Sans** l'option d'appel des "non-diffusibles"  | API **Données établissement diffusible** <br /> `v3/insee/sirene/etablissements/diffusibles/{siret}`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'insee/etablissements_diffusibles') %>){:target="_blank"} <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1insee~1sirene~1etablissements~1diffusibles~1{siret}/get') %>){:target="_blank"}<br /> <br /> 🧩 Cette API délivre en plus des informations sur l'unité légale de l'établissement. |
                   |**Avec** l'option d'appel des "non-diffusibles"  | API **Données établissement** <br /> `v3/insee/sirene/etablissements/{siret}`<br /> [📖 Fiche métier](<%= endpoint_path(uid: 'insee/etablissements') %>){:target="_blank"} <br /> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1insee~1sirene~1etablissements~1{siret}/get') %>){:target="_blank"} <br /> <br /> 🧩 Cette API délivre en plus des informations sur l'unité légale de l'établissement.|
 
+                   <details class="fr-details">
+                    <summary>
+                     **Table de correspondance de tous les champs en V.2 et leurs équivalents en V.3**
+                    </summary>
+
+                    {:.fr-table.fr-table--bordered.fr-table--large}
+                  | **[API V.2. Données de référence d'un établissement](http://v2.entreprise.api.gouv.fr/entreprise.api.gouv.fr/catalogue/#a-etablissements){:target="_blank"}** <br/><br/>_Appelé avec SIRET_ | **API V.3. Données établissement** <br/><br/>_Appelé avec SIRET_ | **API V.3. Données siège social** <br/><br/>_Appelé avec SIREN_ | **API V.3. Adresse établissement** <br/><br/>_Appelé avec SIRET_ |
+                  |---|---|---|---|
+                  | **`"etablissement": {`** |  |  |  |
+                  | **`"siege_social": true,`** | `"siege_social": false` | `"siege_social": true` |  |
+                  | **`"siret": "41816609600051",`** | ⚙️ Cette information va être prochainement remise en V.3. | ⚙️ Cette information va être prochainement remise en V.3. | ⚙️ Cette information va être prochainement remise en V.3. |
+                  | **`"naf": "6202A",`** | `"code": "8411Z"` dans `"activite_principale"` | `"code": "8411Z"` dans `"activite_principale"` |  |
+                  | **`"libelle_naf": "Conseil en systèmes et logiciels informatiques"`,** | `"libelle": "Administration publique générale"` dans `"activite_principale"` | `"libelle": "Administration publique générale"` dans `"activite_principale"` |  |
+                  |  | 🎁 `"nomenclature" : "NAFRev2"` -  Nouvelle donnée qui précise la nomenclature | 🎁 `"nomenclature" : "NAFRev2"` -  Nouvelle donnée qui précise la nomenclature |  |
+                  | **`"date_mise_a_jour": "1449183600,"`** |  |  |  |
+                  | **`"tranche_effectif_salarie_etablissement": {`** | `"tranche_effectif_salarie"` | `"tranche_effectif_salarie"` |  |
+                  | **`"de": 200,`** | `"de": 2000` | `"de": 2000` |  |
+                  | **`"a": 249,`** | `"de": 2000` | `"de": 2000` |  |
+                  | **`"code": "31",`** | `"code": "51"` | `"code": "51"` |  |
+                  | **`"date_reference": "2014",`** | `"date_reference": "2016"` | `"date_reference": "2016"` |  |
+                  | **`"intitule": "200 à 249 salariés"`** | `"intitule": "2 000 à 4 999 salariés"` | `"intitule": "2 000 à 4 999 salariés"` |  |
+                  | **`"date_creation_etablissement": 1108594800,`** | `"date_creation": 1634103818"` | `"date_creation": 1634103818` |  |
+                  | **`"region_implantation": {`** | ❌ Supprimé, cette information, retrouvable autrement, ralentissait l'API. Nous l'avons supprimé en V.3. | ❌ Supprimé, cette information, retrouvable autrement, ralentissait l'API. Nous l'avons supprimé en V.3. |  |
+                  | **`"code": "11",`** | ❌ Supprimé, cette information, retrouvable autrement, ralentissait l'API. Nous l'avons supprimé en V.3. | ❌ Supprimé, cette information, retrouvable autrement, ralentissait l'API. Nous l'avons supprimé en V.3. |  |
+                  | **`"value": "Île-de-France"`** | ❌ Supprimé, cette information, retrouvable autrement, ralentissait l'API. Nous l'avons supprimé en V.3. | ❌ Supprimé, cette information, retrouvable autrement, ralentissait l'API. Nous l'avons supprimé en V.3. |  |
+                  | **`"commune_implantation": {`** |  |  |  |
+                  | **`"code": "75108",`** | ❌ Supprimé car en double dans la payload | ❌ Supprimé car en double dans la payload |  |
+                  | **`"value": "PARIS 8"`** | ❌ Supprimé car en double dans la payload | ❌ Supprimé car en double dans la payload |  |
+                  | **`"pays_implantation": {`** |  |  |  |
+                  | **`"code": "FR",`** | Remplacé par `"code_pays_etranger": "99132"` | Remplacé par `"code_pays_etranger": "99132"` |  |
+                  | **`"value": "FRANCE"`** | Remplacé par `"libelle_pays_etranger": "ROYAUME-UNI"` | Remplacé par `"libelle_pays_etranger": "ROYAUME-UNI"` |  |
+                  | **`"diffusable_commercialement": true,`** | `"diffusable_commercialement": true,` | `"diffusable_commercialement": true,` |  |
+                  | **`"enseigne": null,`** | `"enseigne": "Coiff Land, CoiffureLand",` | `"enseigne": "Coiff Land, CoiffureLand",` |  |
+                  | **`"adresse": {`** |  |  |  |
+                  | **`"l1": "OCTO TECHNOLOGY",`** | `"l1": "ipsum"` dans `"acheminement_postal"` | `"l1": "ipsum"` dans `"acheminement_postal"` | `"l1": "ipsum"` dans `"acheminement_postal"` |
+                  | **`"l2": null,`** | `"l2": "ipsum"` dans `"acheminement_postal"` | `"l2": "ipsum"` dans `"acheminement_postal"` | `"l2": "ipsum"` dans `"acheminement_postal"` |
+                  | **`"l3": null,`** | `"l3": "ipsum"` dans `"acheminement_postal"` | `"l3": "ipsum"` dans `"acheminement_postal"` | `"l3": "ipsum"` dans `"acheminement_postal"` |
+                  | **`"l4": "50 AVENUE DES CHAMPS ELYSEES",`** | `"l4": "ipsum"` dans `"acheminement_postal"` | `"l4": "ipsum"` dans `"acheminement_postal"` | `"l4": "ipsum"` dans `"acheminement_postal"` |
+                  | **`"l5": null,`** | `"l5": "ipsum"` dans `"acheminement_postal"` | `"l5": "ipsum"` dans `"acheminement_postal"` | `"l5": "ipsum"` dans `"acheminement_postal"` |
+                  | **`"l6": "75008 PARIS",`** | `"l6": "ipsum"` dans `"acheminement_postal"` | `"l6": "ipsum"` dans `"acheminement_postal"` | `"l6": "ipsum"` dans `"acheminement_postal"` |
+                  | **`"l7": "FRANCE",`** | `"l7": "ipsum"` dans `"acheminement_postal"` | `"l7": "ipsum"` dans `"acheminement_postal"` | `"l7": "ipsum"` dans `"acheminement_postal"` |
+                  | **`"numero_voie": "50",`** | `"numero_voie": "22",` | `"numero_voie": "22",` | `"numero_voie": "22",` |
+                  |  | 🎁 `"indice_repetition_voie": "lorem"` - Nouvelle donnée | 🎁 `"indice_repetition_voie": "lorem"` - Nouvelle donnée | 🎁 `"indice_repetition_voie": "lorem"` - Nouvelle donnée |
+                  | **`"type_voie": "AV",`** | `"type_voie": "RUE",` | `"type_voie": "RUE",`| `"type_voie": "RUE",` |
+                  | **`"nom_voie": "DES CHAMPS ELYSEES",`** | `"libelle_voie": "ipsum",` | `"libelle_voie": "ipsum",` | `"libelle_voie": "ipsum",` |
+                  | **`"complement_adresse": null,`** | `"complement_adresse": "ZAE SAINT GUENAULT",` | `"complement_adresse": "ZAE SAINT GUENAULT",` | `"complement_adresse": "ZAE SAINT GUENAULT",` |
+                  | **`"code_postal": "75008",`** | `"code_postal": "75016",` | `"code_postal": "75016",` | `"code_postal": "75016",` |
+                  | **`"localite": "PARIS 8",`** | `"libelle_commune": "PARIS 12"` | `"libelle_commune": "PARIS 12"` | `"libelle_commune": "PARIS 12"` |
+                  | **`"code_insee_localite": "75108",`** | `"code_commune": "75112"` | ""code_commune": "75112"" | ""code_commune": "75112"" |
+                  | **`"cedex": null"`** | `"code_cedex": "ipsum",` | `"code_cedex": "ipsum",` | `"code_cedex": "ipsum",` |
+                  | | 🎁 `"libelle_cedex": "PARIS CEDEX 12"` - Nouvelle donnée | 🎁 `"libelle_cedex": "PARIS CEDEX 12"` - Nouvelle donnée | 🎁 `"libelle_cedex": "PARIS CEDEX 12"` - Nouvelle donnée |
+                  | | 🎁 `"distribution_speciale": "ipsum"` - Nouvelle donnée | 🎁 `"distribution_speciale": "ipsum"` - Nouvelle donnée | 🎁 `"distribution_speciale": "ipsum"` - Nouvelle donnée |
+                  | **`"etat_administratif": {`** |  |  |  |
+                  | **`"value": "F",`** | `"etat_administratif": "A"` | `"etat_administratif": "A"` |  |
+                  | **`"date_fermeture": 1315173600"`** | `"date_fermeture": 1634133818"` | `"date_fermeture": 1634133818"` |  |
+                  | **`"gateway_error": false"`** | ❌ Supprimé, information technique API Entreprise complexe et peu utile | ❌ Supprimé, information technique API Entreprise complexe et peu utile" |  |
+
+                  </details>
+
+
+                  <div class="fr-download fr-mt-4w fr-mb-1v fr-ml-2w">
+                    <p>
+                      <a href="/files/correspondance_champs_v2_etablissements.pdf" download class="fr-download__link">Télécharger le tableau PDF de correspondance des champs de l'API V2 Établissements Insee
+                        <span class="fr-download__detail">PDF – 75 ko</span>
+                      </a>
+                    </p>
+                  </div>
+
+                  <div class="fr-download fr-mt-1v fr-ml-2w">
+                    <p>
+                      <a href="/files/correspondance_champs_v2_v3_insee.xlsx" download class="fr-download__link">Télécharger le tableur de correspondance des champs des API V2 Entreprises et Etablissements Insee
+                        <span class="fr-download__detail">XLSX – 22 ko</span>
+                      </a>
+                    </p>
+                  </div>
 
               - subtitle: V.2 - Extrait RCS - Infogreffe <a name="v2/extrait_rcs"></a>
                 subtitle_anchor: 'v2---extrait-rcs---infogreffe-'
@@ -477,7 +688,7 @@ fr:
               - ☑️ Il est interdit d'interroger l'API Entreprise depuis un site web en front-end, car le jeton d'accès serait alors divulgué. Il vous faut donc interroger nos API depuis une application en back-end. Nous n'autoriserons pas le CORS (CORS - Cross Origin Ressource Sharing) ;
               - ☑️ Prévoir non seulement les coûts de développement mais également les coûts de maintenance ;
               - ☑️ Être en capacité de gérer les mises à jour de l'API Entreprise.
-              
+
               <br>
               💡 Pour mieux comprendre l'API Entreprise avant de demander un accès, **vous pouvez utiliser [notre environnement de test](<%= developers_path(anchor: 'tester-api-preproduction') %>)**.
 
@@ -721,25 +932,25 @@ fr:
                 subtitle_anchor: 'tester-api-preproduction'
                 content: |+
                   L'API Entreprise est **testable avec un jeton accessible à tous depuis notre environnement de staging**. Ce bac à sable retourne des données fictives.
-                  
-                  Pour utiliser l'environnement de test, plusieurs moyens sont possibles : 
+
+                  Pour utiliser l'environnement de test, plusieurs moyens sont possibles :
                   * **Utilisez l'interface disponible depuis [API.gouv](https://api.gouv.fr/documentation/api-entreprise){:target="_blank"}** :
-                      1. Copiez le jeton de test disponible dans les premiers paragraphes de la page. 
-                      2. Sélectionnez _"https://staging.entreprise.api.gouv.fr - Environnement de staging"_ dans le menu déroulant situé un peu plus bas du jeton de test, à gauche. 
-                      3. Cliquez sur le bouton à droite _"Authorize"_, et entrez le jeton de test dans le champ _"Value"_ de la modale qui s'est ouverte ; validez en cliquant sur _"Authorize"_. L'environnement de test est configuré, fermez la modale. 
+                      1. Copiez le jeton de test disponible dans les premiers paragraphes de la page.
+                      2. Sélectionnez _"https://staging.entreprise.api.gouv.fr - Environnement de staging"_ dans le menu déroulant situé un peu plus bas du jeton de test, à gauche.
+                      3. Cliquez sur le bouton à droite _"Authorize"_, et entrez le jeton de test dans le champ _"Value"_ de la modale qui s'est ouverte ; validez en cliquant sur _"Authorize"_. L'environnement de test est configuré, fermez la modale.
                       4. Pour terminer, pour chacune des API, un bouton _"Try it out"_ vous permet de préremplir les paramètres d'appel avec différents exemples. Appuyez sur _"Execute"_ pour obtenir les différentes réponses possibles.
 
-                  * **Utilisez un logiciel de type _Postman_ à partir du fichier OpenAPI :** 
+                  * **Utilisez un logiciel de type _Postman_ à partir du fichier OpenAPI :**
                       1. Téléchargez le fichier OpenAPI de l'API Entreprise depuis la [page de swagger](<%= developers_openapi_path %>), avec le bouton "Download" situé en début de page.
                       2. Importer ce fichier dans un logiciel de test de type _Postman_.
-                      3. Configurez votre environnement avec l'url de l'environnement de staging `https://staging.entreprise.api.gouv.fr`. 
+                      3. Configurez votre environnement avec l'url de l'environnement de staging `https://staging.entreprise.api.gouv.fr`.
                       API Entreprise ne recommande pas un logiciel plus qu'un autre, de nombreux tutoriels sont disponibles sur internet.
 
                   * **Interrogez le staging depuis votre terminal avec une ligne de commande :**
                       1. Rendez-vous sur la [documentation swagger du site API Entreprise](<%= developers_openapi_path %>), copiez le jeton de staging disponible en début de page.
                       2. Dans la partie _"Request samples"_ disponible pour chaque API dans le swagger, recopiez les lignes de commandes proposées débutant par `curl -X GET` en remplaçant `$token` par le jeton de test et en veillant à ajouter `staging` au début de l'URL : `https://staging.entreprise.api.gouv.fr/v3/...`
                       3. Lancez cette ligne de commande dans votre terminal.
-                    
+
               - subtitle: Récupérer le jeton JWT&nbsp;🔑
                 subtitle_anchor: 'récupérer-le-jeton-jwt'
                 content: |+
