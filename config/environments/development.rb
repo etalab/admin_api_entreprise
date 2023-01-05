@@ -87,5 +87,4 @@ Rails.application.configure do
   config.oauth_api_gouv_client_id_particulier = '844e3bff46ebdac9beb18c6cf793dedfdb1776262911b3d927d24871f03e46b38756b5d015d1a693057328d8673408cccf48ef7c5a6e94fa5d101042663fb5b1'
   config.oauth_api_gouv_issuer = 'https://app-test.moncomptepro.beta.gouv.fr'
   config.oauth_api_gouv_baseurl = 'https://app-test.moncomptepro.beta.gouv.fr'
-  config.oauth_api_gouv_redirect_uri = 'http://localhost:8080/auth_api_gouv_callback'
 end

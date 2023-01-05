@@ -120,12 +120,11 @@ Rails.application.configure do
 
   config.trailblazer.enable_loader = true
 
-  config.redis_database = 'redis://localhost:6379/0'
+  config.redis_database = 'redis://localhost:6379/1'
   config.emails_sender_address = 'support@entreprise.api.gouv.fr'
 
   # OAuth API Gouv config
-  config.oauth_api_gouv_client_id_entreprise: 'cabd3b5298984d52be21ef97d3fba93b8a9a756868abf13127d3d7f2e5a797c37cf5c61330034b93954e419eb3bf4a0fb06b1fa586c7053ac07b237657fa0fe0'
+  config.oauth_api_gouv_client_id_entreprise: '4442bfd8caac8e19ff202d33060edcd248592662d5a8098e28b706ba906fe9e0db95ad336c38248f42896db272990b8dfc969d8b8857101dabf9b2ffe7ec49b9'
   config.oauth_api_gouv_client_id_particulier: '95acc71c59fe4484f90668912bbb81239f0d7680d8ef3704e0bf4bc11b11a7a4ef92e72e2d695080cc7f60088bbcffd0bd049fb024dcec8679b6616599e128bc'
-  config.oauth_api_gouv_issuer: 'https://app.moncomptepro.beta.gouv.fr'
-  config.oauth_api_gouv_baseurl = 'https://app.moncomptepro.beta.gouv.fr'
+  config.oauth_api_gouv_issuer: 'https://auth-staging.api.gouv.fr'
 end
