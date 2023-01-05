@@ -16,6 +16,8 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
     :keywords,
     :opening
 
+  attr_writer :new_endpoint_uids
+
   algoliasearch_active_model do
     attributes :title, :description, :deprecated, :provider_uids, :keywords, :use_cases, :use_cases_optional
 
@@ -76,6 +78,14 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
 
   def deprecated?
     deprecated
+  end
+
+  def new_endpoints
+    return [] if !deprecated? || @new_endpoint_uids.blank?
+
+    @new_endpoint_uids.map do |new_endpoint_uid|
+      Endpoint.find(new_endpoint_uid)
+    end
   end
 
   def attributes

@@ -2,6 +2,8 @@
 - uid: 'ministere_interieur/rna'
   path: '/v3/ministere_interieur/rna/associations/{siret_or_rna}'
   position: 150
+  new_endpoint_uids: &mi_rna_new_endpoint_uids
+    - 'ministere_interieur/associations'
   perimeter:
     entity_type_description: |+
       Cette API concerne ✅ **toutes les associations inscrites au répertoire national des associations (RNA) et/ou à l'Insee**.
@@ -41,6 +43,7 @@
   parameters:
     - Numéro de SIRET ou numéro RNA de l’association
 - uid: 'ministere_interieur/documents_associations'
+  new_endpoint_uids: *mi_rna_new_endpoint_uids
   path: '/v3/ministere_interieur/rna/associations/{siret_or_rna}/documents'
   position: 155
   perimeter:
