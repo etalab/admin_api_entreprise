@@ -62,7 +62,6 @@ set :shared_files, fetch(:shared_files, []).push(
   'config/cable.yml',
   'config/master.key',
   'config/initializers/cors.rb',
-  "config/environments/#{ENV['to']}.rb"
 )
 
 namespace :bundle do
