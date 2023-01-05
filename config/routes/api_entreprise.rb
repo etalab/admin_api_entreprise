@@ -8,7 +8,7 @@ constraints(APIEntrepriseDomainConstraint.new) do
     end
   end
 
-  post '/auth/api_gouv_entreprise', as: :login_api_gouv
+  post '/auth/api_gouv_entreprise', as: :login_api_gouv_entreprise
 
   scope module: :api_entreprise do
     root to: redirect('/compte/se-connecter'), as: :dashboard_root, constraints: { subdomain: 'dashboard.entreprise.api' }

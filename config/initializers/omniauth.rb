@@ -1,3 +1,4 @@
+require 'omni_auth/strategies/api_gouv_abstract'
 require 'omni_auth/strategies/api_gouv_entreprise'
 require 'omni_auth/strategies/api_gouv_particulier'
 
