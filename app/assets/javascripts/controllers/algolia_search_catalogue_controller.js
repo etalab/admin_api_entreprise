@@ -121,6 +121,7 @@ document.addEventListener("turbo:load", function () {
       _configureHighlights(search) {
         search.addWidget(
           instantsearch.widgets.configure({
+            filters: 'deprecated:false',
             attributesToHighlight: this.attributesToHighlight,
             highlightPreTag: '<span class="search-highlight">',
             highlightPostTag: "</span>",

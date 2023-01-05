@@ -2,7 +2,7 @@ class APIEntreprise::EndpointsController < APIEntrepriseController
   before_action :extract_endpoint, except: :index
 
   def index
-    @endpoints = Endpoint.all
+    @endpoints = Endpoint.all.reject(&:deprecated?)
 
     render 'index', layout: 'api_entreprise/no_container'
   end
