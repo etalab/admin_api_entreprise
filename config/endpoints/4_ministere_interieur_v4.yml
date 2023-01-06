@@ -7,35 +7,76 @@
       Cette API concerne ✅ **les associations** inscrites au répertoire national des associations (RNA) et/ou au répertoire Sirene.
 
     geographical_scope_description: &association_geographical_scope_description |+
-      Toutes les associations dont le siège se situe sur le territoire français :
-      - ✅ Métropole
-      - ✅ Outre-mer
-
-      Les associations qui relèvent du ✅ **régime de droit local d'Alsace-Moselle** sont couvertes par l'API dès l'ors qu'elles sont immatriculées au répertoire Sirene.
+      - ✅ **Métropole**, y compris Alsace-Moselle. <br> Les associations qui relèvent du **régime de droit local d'Alsace-Moselle** sont couvertes par l'API dès lors qu'elles sont immatriculées au répertoire Sirene ;
+      - ✅ **DROM-COM** sauf ❌ les associations de Nouvelle-Calédonie, de la Polynésie française et de Wallis-et-Futuna qui ne sont pas immatriculées à l’INSEE, mais dans des bases locales.
 
     updating_rules_description: &association_updating_rules_description |+
       Les données sont **mises à jour quotidiennement** :
 
       - Les créations et modifications validées par les greffes des associations sont déversées et disponibles le lendemain dans le RNA.
       - Pour le répertoire Sirene, la mise à jour des données est faite quotidiennement entre 0h et 3h à l'Insee.
+    know_more_description: &association_know_more_description |+
 
+      Documentation sur le [site asssociations.gouv.fr](https://www.associations.gouv.fr/les-api-et-autres-outils.html){:target="_blank"}.
     entities: &association_entities
       - associations
   call_id: "SIREN / RNA"
   provider_uids: &association_provider_uids
     - 'mi'
+  keywords: &association_keywords
+    - 'association'
+    - 'forme juridique'
+    - 'statut'
+    - 'agrément'
+    - 'effectif'
+    - 'bénévoles'
+    - 'salariés'
+    - 'adhérents'
+    - 'volontaires'
+    - 'actif'
+    - 'fermé'
+    - 'utilité publique'
+    - 'affiliation'
+    - 'fédération'
+    - 'union'
+    - 'réseau'
+    - 'activité'
+    - 'naf'
+    - 'régime'
+    - 'alsace-moselle'
+    - 'adresse'
+    - 'établissements'
+    - 'compte'
+    - 'résultat'
+    - 'financement'
+    - 'dac'
+    - 'documents administratifs'
+    - 'représentants'
+    - 'mandataires'
   data:
     description: |+
-      Cette API délivre des **informations sur l'unité légale de l'association** :
-      - l'identité et les statuts (forme juridique, dates clés, état de l'association, statut utilité publique, régime, adresse de gestion) ;
-      - la tranche effectif de salariés ;
-      - les activités principales ;
-      - les agréments de l'association ;
-      - la liste des affiliations de l'association à des unions, fédérations ou réseaux, ainsi que des informations à leur sujet.
+      {:.fr-highlight.fr-highlight--caution}
+      ⚠️ **Le type et la quantité d'informations disponibles par association est variable** car de nombreuses ressources sont déclaratives ou déposées par les associations dans le cadre de démarches en ligne.
 
-      ⚠️ Le type et la quantité d'informations disponibles par association sont variables car de nombreuses ressources sont soit déclaratives, soit déposées par les associations dans le cadre de démarches en ligne.
 
-      Ces données sont issues de trois bases de ressources différentes :
+      **Cette API délivre des informations sur l'unité légale de l'association** :
+      - identité et statuts (forme juridique, dates clés, état de l'association, statut utilité publique, régime, adresse de gestion) ;
+      - tranche effectif de salariés ;
+      - activités principales ;
+      - agréments ;
+      - affiliations à des unions, fédérations ou réseaux, ainsi que des informations à leur sujet.
+
+      <br>
+      **Et sur les établissements de l'association** : 
+      - état et adresse ;
+      - activités principales ;
+      - représentants légaux, identité et fonction ;
+      - effectifs salariés, bénévoles et volontaires ;
+      - comptes de résultats et financement ;
+      - tout autre document (DAC) déposé par l'association lors de démarches en ligne.
+    
+      <br>
+      **Ces données sont issues de trois bases de ressources différentes** :
       - le répertoire national des associations (RNA) ;
       - le répertoire Sirene ;
       - les données saisies par les associations dans [Le compte Asso](https://lecompteasso.associations.gouv.fr){:target="_blank"}, nommées documents administratifs complémentaires (DAC).
@@ -51,6 +92,8 @@
     - Aides & subventions publiques
     - Détection de la fraude
     - Portail GRU - Instruction des démarches
+  use_cases_forbidden:
+    - Portail GRU - Préremplissage
   parameters:
     - Numéro de SIREN ou numéro RNA de l’association
   faq: &association_faq
@@ -64,18 +107,41 @@
 #   perimeter: *association_perimeter
 #   call_id: "SIREN / RNA"
 #   provider_uids: *association_provider_uids
+#   keywords: &association_keywords
 #   data:
 #     description: |+
-#       Cette API délivre des **informations publiques sur l'unité légale de l'association** :
-#       - l'identité et les statuts (forme juridique, dates clés, état de l'association, statut utilité publique, régime, adresse de gestion) ;
-#       - la tranche effectif de salariés ;
-#       - les activités principales.
-#
-#       Ces données sont issues de deux bases de ressources différentes :
-#       - le répertoire national des associations ;
-#       - le répertoire Sirene.
+#       {:.fr-highlight.fr-highlight--caution}
+#       ⚠️ **Le type et la quantité d'informations disponibles par association est variable** car de nombreuses ressources sont déclaratives ou déposées par les associations dans le cadre de démarches en ligne.
+
+#       **Cette API délivre des informations publiques sur l'unité légale de l'association** :
+#       - identité et statuts (forme juridique, dates clés, état de l'association, statut utilité publique, régime, adresse de gestion) ;
+#       - tranche effectif de salariés ;
+#       - activités principales ;
+#       - agréments ;
+#       - affiliations à des unions, fédérations ou réseaux, ainsi que des informations à leur sujet.
+
+#       <br>
+#       **Et sur les établissements de l'association** : 
+#       - état et adresse ;
+#       - activités principales ;
+#       - effectifs salariés, bénévoles et volontaires ;
+#       - comptes de résultats et financement ;
+#       - agréments.
+    
+#       <br>
+#       **Ces données sont issues de trois bases de ressources différentes** :
+#       - le répertoire national des associations (RNA) ;
+#       - le répertoire Sirene ;
+#       - les données saisies par les associations dans [Le compte Asso](https://lecompteasso.associations.gouv.fr){:target="_blank"}, nommées documents administratifs complémentaires (DAC).
+
 #   opening: public
 #   format: *association_format
 #   availability: *association_availability
-#   use_cases: *association_use_cases
+#   use_cases:
+#     - Portail GRU - Préremplissage
+#   use_cases_optional:
+#     - Marchés publics
+#     - Aides & subventions publiques
+#     - Portail GRU - Instruction des démarches 
+#     - Détection de la fraude
 #   faq: *association_faq
