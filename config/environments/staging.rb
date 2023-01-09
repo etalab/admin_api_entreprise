@@ -18,7 +18,7 @@ Rails.application.configure do
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
-  # config.require_master_key = true
+  config.require_master_key = true
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
@@ -46,11 +46,11 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = :debug
+  config.log_level = :info
 
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
@@ -60,9 +60,10 @@ Rails.application.configure do
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
-  # config.active_job.queue_name_prefix = "admin_apientreprise_production"
-
-  config.action_mailer.perform_caching = false
+  # config.active_job.queue_name_prefix = "admin_apientreprise_staging"
+  config.action_mailer.delivery_method       = :sendmail
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_caching       = false
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -76,7 +77,7 @@ Rails.application.configure do
   config.active_support.deprecation = :notify
 
   # Log disallowed deprecations.
-  config.active_support.disallowed_deprecation = :log
+  config.active_support.disallowed_deprecation = :raise
 
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = []
@@ -94,37 +95,26 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  # Configure logstash
+  config.logstasher.enabled = true
+  config.logstasher.suppress_app_log = false
+  config.logstasher.log_controller_parameters = true
+  config.logstasher.backtrace = true
+  config.logstasher.source = 'admin_apientreprise_staging_watchdoge.entreprise.api.gouv.fr'
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  # Inserts middleware to perform automatic connection switching.
-  # The `database_selector` hash is used to pass options to the DatabaseSelector
-  # middleware. The `delay` is used to determine how long to wait after a write
-  # to send a subsequent read to the primary.
-  #
-  # The `database_resolver` class is used by the middleware to determine which
-  # database is appropriate to use based on the time delay.
-  #
-  # The `database_resolver_context` class is used by the middleware to set
-  # timestamps for the last write to the primary. The resolver uses the context
-  # class timestamps to determine how long to wait before reading from the
-  # replica.
-  #
-  # By default Rails will store a last write timestamp in the session. The
-  # DatabaseSelector middleware is designed as such you can define your own
-  # strategy for connection switching and pass that into the middleware through
-  # these configuration options.
-  # config.active_record.database_selector = { delay: 2.seconds }
-  # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
-  # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
-
-  config.trailblazer.enable_loader = true
+  config.token_renewal_url = 'https://datapass-staging.api.gouv.fr/copy-authorization-request/'
+  config.token_authorization_request_url = 'https://datapass-staging.api.gouv.fr/api-entreprise/'
 
   config.redis_database = 'redis://localhost:6379/1'
   config.emails_sender_address = 'support@entreprise.api.gouv.fr'
 
   # OAuth API Gouv config
-  config.oauth_api_gouv_client_id_entreprise: '4442bfd8caac8e19ff202d33060edcd248592662d5a8098e28b706ba906fe9e0db95ad336c38248f42896db272990b8dfc969d8b8857101dabf9b2ffe7ec49b9'
-  config.oauth_api_gouv_client_id_particulier: '95acc71c59fe4484f90668912bbb81239f0d7680d8ef3704e0bf4bc11b11a7a4ef92e72e2d695080cc7f60088bbcffd0bd049fb024dcec8679b6616599e128bc'
-  config.oauth_api_gouv_issuer: 'https://auth-staging.api.gouv.fr'
+  config.oauth_api_gouv_client_id_entreprise =  '4442bfd8caac8e19ff202d33060edcd248592662d5a8098e28b706ba906fe9e0db95ad336c38248f42896db272990b8dfc969d8b8857101dabf9b2ffe7ec49b9'
+  config.oauth_api_gouv_client_id_particulier =  'ebb9ff029a784fdda0b209769beb68b02cbeda4d5299da111fe9b8d71b3d2d9223953f0346effc467fb1c94fb8ede5d7edb3aaf1b3bc0a1f24b0d844bf9866e4'
+
+  config.oauth_api_gouv_issuer = 'https://app-staging.moncomptepro.beta.gouv.fr'
+  config.oauth_api_gouv_baseurl = 'https://app-staging.moncomptepro.beta.gouv.fr'
 end
