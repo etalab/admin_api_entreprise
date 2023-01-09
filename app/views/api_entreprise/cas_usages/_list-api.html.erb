@@ -15,8 +15,8 @@
       <% Endpoint.all.reject(&:deprecated).each do |endpoint| %>
         <tr>
           <td>
-            <strong><%= endpoint.providers.map(&:name).join(' & ') %></strong><br />
-            <%= endpoint.title %><br />
+            <strong><%= endpoint.providers.map(&:name).join(' & ') %></strong><br>
+            <%= endpoint.title %><br>
           </td>
           <td>
             <% if endpoint.use_cases&.include?(@data[:name]) %>
