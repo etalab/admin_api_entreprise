@@ -24,8 +24,8 @@
       <p class="fr-hr-or fr-mt-8v"><%= t('or') %></p>
 
       <div class="fr-connect-group">
-        <%= form_with(url: login_api_gouv_path, method: :post, data: { turbo: false }) do |f| %>
-          <%= f.button t('.button'), class: %w(fr-connect fr-connect-moncomptepro fr-m-auto), id: 'login_oauth' do %>
+        <%= form_with(url: oauth_url, method: :post, data: { turbo: false }) do |f| %>
+          <%= f.button t('.button'), class: %w(fr-connect fr-connect-moncomptepro fr-m-auto), id: 'login_mon_compte_pro' do %>
             <span class="fr-connect__login">S’identifier avec</span>
             <span class="fr-connect__brand">MonComptePro</span>
           <% end %>

@@ -92,11 +92,9 @@ RSpec.describe Token do
   end
 
   describe '#rehash' do
-    let(:jwt) { token.rehash }
+    subject(:jwt) { token.rehash }
 
-    it 'returns a token' do
-      expect(jwt).to match(/\A([a-zA-Z0-9_-]+\.){2}([a-zA-Z0-9_-]+)?\z/)
-    end
+    it { is_expected.to match(/\A([a-zA-Z0-9_-]+\.){2}([a-zA-Z0-9_-]+)?\z/) }
 
     describe 'generated token payload' do
       let(:payload) do

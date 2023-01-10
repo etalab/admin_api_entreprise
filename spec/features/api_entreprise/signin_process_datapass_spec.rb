@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe 'the signin process', app: :api_entreprise do
   subject do
     visit login_path
-    click_on 'login_oauth'
+    click_on 'login_mon_compte_pro'
   end
 
   context 'when API Gouv authentication is successful' do
     before do
       OmniAuth.config.test_mode = true
-      OmniAuth.config.mock_auth[:api_gouv] = OmniAuth::AuthHash.new({
+      OmniAuth.config.mock_auth[:api_gouv_entreprise] = OmniAuth::AuthHash.new({
         info: {
           email: user.email,
           sub: user.oauth_api_gouv_id || unknown_api_gouv_id
