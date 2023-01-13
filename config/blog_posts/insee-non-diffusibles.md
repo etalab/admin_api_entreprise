@@ -3,11 +3,13 @@ Mercredi 14 décembre 2022 - Publication
 # Le futur des _"non-diffusibles"_
 ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/blog/non-diffusible-image-principale.png') %>)
 
-{:.fr-highlight}
-**Qu'est qu'une unité légale ou un établissement non-diffusible ?**
-On parle de "non-diffusibles" dans le cadre des entités enregistrées au répertoire Sirene de l'Insee. Ce statut à un impact sur la diffusion des informations les concernant.
+
+## Qu'est qu'une unité légale ou un établissement non-diffusible ?
+On parle de "non-diffusibles" pour certaines entités enregistrées au répertoire Sirene de l'Insee. Ce statut a un impact sur la diffusion des informations les concernant.
 Parmi les entités présentes et appelables par API Entreprise, certaines, très majoritairement des personnes physiques, ont explicitement demandé de ne pas figurer en diffusion commerciale, en vertu de l’[article A123-96 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031043097/){:target="_blank"}. Cela signifie que **leurs données ne sont pas publiques** et que seuls des organismes habilités et des administrations peuvent accéder aux informations.
-<br>
+
+{:.fr-highlight}
+**ℹ️ Cas très particuliers** : Certaines entités ne sont pas diffusibles pour d'autres raisons que la non diffusion commerciale. C'est par exemple le cas d'unités publiques particulière immatriculés spécifiquement pour des raisons fiscales et donc accessible uniquement à l'administration fiscale. C'est aussi le cas des unités de la Défense nationale, accessibles sur autorisation du Ministère de la Défense, conformément à l’[article A 123-95 du Code du commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000020165032/2010-07-02){:target="_blank"}. **Ces unités ne sont pas diffusées par l'API Entreprise**.
 
 
 ## Bientôt de nouvelles données publiques en V.4 🎢 <br>et quelques-unes en moins côté personne morale
