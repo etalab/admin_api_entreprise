@@ -3,9 +3,9 @@
   path: '/v3/insee/sirene/unites_legales/{siren}'
   position: 125
   perimeter:
-    description: |+
     entity_type_description: |+
-      Cette API concerne les unités légales inscrites au répertoire Sirene, qu'elles soient **"diffusibles" ou "non-diffusibles"** :
+      Cette API concerne les unités légales inscrites au répertoire Sirene, qu'elles soient **"diffusibles" ou ["non-diffusibles"](#faq_entry_3_endpoint_insee_unites_legales)** :
+
       - ✅ les personnes morales de droit privé : les **entreprises** dont toutes celles immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RCM) figurent dans la base Sirene ;
       - ✅ les **associations ayant un numéro de SIREN**, délivré lorsqu'elles :
         * emploient du personnel salarié ;
@@ -18,8 +18,11 @@
       ✅ Depuis janvier 2022, les loueurs de meublés non professionnels (LMNP) et les particuliers employeurs, à l'exception des cas mentionnés au [2° de l'Article R123-220 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000030783425/2022-05-31/){:target="_blank"}, ont l'obligation d'être inscrits au répertoire Sirene.
       Cette modification intervient suite au [Décret n° 2021-1500 du 17 novembre 2021](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000044340276){:target="_blank"}.
 
+      ❌ Les établissements de gestion de paye de la fonction publique, bien que présents dans la base Sirene, ne sont pas concernés par cette API. Ils ont été immatriculés pour les seuls besoins de certaines administrations (les impôts, les URSSAF, la DGCP …).
+      Leur diffusion à d'autres administrations n'est donc pas prévue.
+
     geographical_scope_description: &insee_unites_legales_geographical_scope_description |+
-      La base Sirene concerne les unités implantées en métropole, dans les DOM et dans les collectivités d'Outre-Mer de Saint-Pierre-et-Miquelon, Saint-Barthélémy et Saint-Martin.
+      La base Sirene concerne les unités implantées en métropole, dans les DROM et dans les collectivités d'Outre-Mer de Saint-Pierre-et-Miquelon, Saint-Barthélémy et Saint-Martin.
 
       ⚠️ Pour la Nouvelle-Calédonie, la Polynésie française, et Wallis-et-Futuna, seul le secteur public administratif, de l'État ou des communes est répertorié ;
       ❌ les entreprises ne sont donc pas disponibles.
@@ -29,6 +32,9 @@
 
     know_more_description: &insee_unites_legales_know_more_description |+
       L'[article R123-220 du Code du commerce](https://www.legifrance.gouv.fr/affichCode.do;jsessionid=134EFA0EE7BDCA89C2D6B31E02C48430.tplgfr30s_3?idSectionTA=LEGISCTA000006178890&cidTexte=LEGITEXT000005634379&dateTexte=20100904){:target="_blank"} liste les entités tenues d'être inclues dans le répertoire Sirene par l'Insee.
+
+      {:.fr-icon-arrow-right-line .fr-link--icon-right}
+      [🦸 **Le futur des “non-diffusibles”** - Publication 14/12/2022](https://entreprise.api.gouv.fr/blog/insee-non-diffusibles)
     entities:
       - entreprises
       - associations
@@ -111,14 +117,19 @@
 
     - q: Qu'est-ce qu'un "non-diffusible" ?
       a: |+
-        Parmi les entités présentes dans le répertoire Sirene, certaines, très majoritairement des personnes physiques, ont explicitement demandé de ne pas figurer en diffusion commerciale,
-        en vertu de l'[article A123-96 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031043097/){:target="_blank"}.
+        **La non-diffusion commerciale :**
+        Parmi les entités présentes dans le répertoire Sirene, certaines, très majoritairement des personnes physiques, ont explicitement demandé de ne pas figurer en diffusion commerciale, en vertu de l'[article A123-96 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031043097/){:target="_blank"}.
 
         Cela signifie qu'elles donnent accord de la diffusion de leur données uniquement à des organismes habilités et à des administrations. **De fait, leurs données ne sont pas publiques**.
 
-        ⚠️ Attention les informations des personnes physiques ne sont plus accessibles pour quiconque une fois qu'elles ont cessé leur activité.
+        À partir de mars 2024, le fonctionnement des non-diffusibles commerciaux évolue, certaines données seront disponibles pour du pré-remplissage et les personnes morales pourront décider de passer en diffusion partielle. Lire notre publication du 14/12/2022 : [🦸&nbsp;**Le futur des “non-diffusibles”**](https://entreprise.api.gouv.fr/blog/insee-non-diffusibles).
+       
+        <br>
+        **La non-diffusion pour d'autres raisons :**
+        Certaines entités ne sont pas diffusibles pour d'autres raisons que la non-diffusion commerciale. C'est par exemple le cas : 
+        - des établissements de gestion de paye de la fonction publique immatriculés pour les seuls besoins de certaines administrations (les impôts, les URSSAF, la DGCP …) et donc uniquement accessibles à ces administrations fiscales.
+        - des unités de la Défense nationale, accessibles sur autorisation du Ministère de la Défense, conformément à l’[article A 123-95 du Code du commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000020165032/2010-07-02){:target="_blank"}. **Ces unités ne sont pas diffusées par l'API Entreprise**.
 
-        ℹ️ Les unités de la Défense nationale font également partie des \"non-diffusibles\" mais ne sont accessibles que sur autorisation du Ministère de la Défense, conformément à l'[article A123-96 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031043097/){:target="_blank"}
 
 
     - q: Comment utiliser les informations des unités légales "non-diffusibles" ?
@@ -131,6 +142,8 @@
 
         {:.fr-highlight}
         > Il vous est par contre possible d'indiquer à l'unité légale "non-diffusible" qu'elle peut modifier son statut, même provisoirement, auprès de l'Insee à l'adresse suivante : [https://statut-diffusion-sirene.insee.fr](https://statut-diffusion-sirene.insee.fr}{:target="_blank"}).
+
+        À partir de mars 2024, le fonctionnement des non-diffusibles commerciaux évolue, certaines données seront disponibles pour du pré-remplissage et les personnes morales pourront décider de passer en diffusion partielle. Lire notre publication du 14/12/2022 : [🦸&nbsp;**Le futur des “non-diffusibles”**](https://entreprise.api.gouv.fr/blog/insee-non-diffusibles).
     
     - q: &insee_unites_legales_faq_q4 Le numéro de TVA intracommunataire disponible en V.2.n'est plus disponible en V.3, où puis-je le trouver ?
       a: &insee_unites_legales_faq_a4 |+
