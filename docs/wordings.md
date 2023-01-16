@@ -135,7 +135,7 @@ Le lien du profile: [Fiche métier "Données de référence d'une unité légale
 #### Route vers fiche cas d'usage :
 
 ```md
-[Cas d'usage aides et subventions publiques](<%= cas_usage_path('subventions') %>)
+[Cas d'usage aides et subventions publiques](<%= cas_usage_path('aides_publiques') %>)
 ```
 
 ### Les images:
