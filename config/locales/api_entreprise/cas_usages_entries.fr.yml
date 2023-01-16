@@ -344,6 +344,146 @@ fr:
         request_access:
           link_datapass: "https://datapass.api.gouv.fr/api-entreprise?demarche=aides_publiques"
 
+      subventions_associations:
+        name: 'Subventions associations'
+        user_types:
+          - administrations
+          - collectivités
+        comments_endpoints:
+            "insee/etablissements_diffusibles": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> _raison sociale, forme juridique, catégorie micro/TPE/PME de l'unité légale. Tranche effectif (année N-2 ou N-3), activité principale et date de création de l'établissement et de l'unité légale. Indique aussi si l'unité légale est de l'économie sociale et solidaire (ESS)._<br/><br/><span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Subvention association</span> **Donnée utile subv. de fonctionnement [Cerfa 12156-06](https://www.service-public.fr/particuliers/vosdroits/R1271){:target='_blank'}** : Informations sur les associations référencées au répertoire Sirene : _Sigle de l'association, activités, adresse et date de création_.<br /><br />📝 Utilisable pour du **préremplissage de formulaire** car donnée publique."
+
+            "insee/etablissements": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> <span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Subvention association</span> Mêmes données que l'API ci-dessus ⬆️ avec les \"non-diffusibles\".<br /><br />🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
+
+            "infogreffe/mandataires_sociaux": "_Usage à justifier car donnée protégée._<br /><br />💡 Les mandataires sociaux sont disponibles avec l'API Extrait RCS d'Infogreffe. Cette API délivre une donnée plus précise dont notamment le jour et le pays de naissance."
+
+            "infogreffe/rcs/extrait": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> Préremplir presque toutes les informations contenues dans un **Kbis**, telles que _le nom commercial et la dénomination de l'unité légale._<br />💡 _Depuis le 23 novembre 2021, l'extrait K-bis ne peut plus être demandé à l'entreprise. [Consulter le décrêt](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000043523039){:target='_blank'}_<br/><br/><span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Subvention association</span> **Donnée utile subv. de fonctionnement [Cerfa 12156-06](https://www.service-public.fr/particuliers/vosdroits/R1271){:target='_blank'}** : Informations des associations référencées au répertoire Sirene : Nom et dénomination, sigle, mandataires sociaux."
+          
+            "insee/unites_legales_diffusibles": "💡_Ces données sont aussi distribuées par l'API \"Données établissement diffusible\"_."
+
+            "insee/unites_legales": "💡_Ces données sont aussi distribuées par l'API \"Données établissement\"_."
+
+            "insee/siege_social_diffusibles": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> À&nbsp;partir du Siren de l'unité légale, récupérez l'_adresse postale du siège social._<br/><br/><span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Subvention association</span> **Donnée utile subv. de fonctionnement [Cerfa 12156-06](https://www.service-public.fr/particuliers/vosdroits/R1271){:target='_blank'}** : Adresse postale dont _code postal et commune_.<br /><br />📝 Utilisable pour du **préremplissage de formulaire** car donnée publique."
+          
+            "insee/siege_social": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> <span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Subvention association</span> Même donnée que l'API ci-dessus ⬆️ avec les \"non-diffusibles\".<br /><br />🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
+          
+            "insee/adresse_etablissements_diffusibles": "💡_Ces données sont aussi distribuées par l'API \"Données établissement diffusible\"_"
+          
+            "insee/adresse_etablissements": "💡_Ces données sont aussi distribuées par l'API \"Données établissement\"_"
+
+            "ministere_interieur/associations": "<span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Subvention association</span> **Informations d'une association** (unité légale et établissement) telles que _l'identité, la forme juridique, la date de création, les activités principales, le régime, les adresses, les agréments, les représentants légaux, les effectifs salariés-bénévoles-volontaires et les adhérents._<br><br>**Données utiles [compte-rendu financier](https://www.service-public.fr/particuliers/vosdroits/R46623){:target='_blank'}** : Comptes de résultats et financement, comptes du dernier exercice clôt, budget prévisionnel et rapport du commissaire au compte de l'association."
+
+            "ministere_interieur/rna": "<span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Subvention association</span> Informations d'une association telles que _le nom, l'objet, l'adresse du siège et la date de création._"
+
+            "ministere_interieur/documents_associations": "<span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Subvention association</span> Documents d'une association."
+
+            "inpi/actes": "<span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Subvention association</span> **Donnée utile subv. de fonctionnement [Cerfa 12156-06](https://www.service-public.fr/particuliers/vosdroits/R1271){:target='_blank'}** : Pour les associations ayant perçu des aides  attribuées sur la base d’un texte européen, _actes d'attribution de la subvention_ détenus par les greffes."
+
+            "commission_europeenne/numero_tva": "_Uniquement les numéros de TVA français d'une entreprise ayant un Siren._"
+
+            "fabrique_numerique_ministeres_sociaux/conventions_collectives": ""
+          
+            "cma_france/rnm": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> _Dénomination sociale, forme juridique, effectif salarié, date d'immatriculation au RNM, adresse_ d'une entreprise artisanale."
+          
+            "urssaf/effectifs": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span><span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Subvention association</span> _Usage de l'effectif exact à justifier car donnée protégée_.<br/><br/>💡La tranche de l'effectif salarié (année N-2 ou N-3) est appelable avec l'API \"Données établissements - Insee\", et l'effectif d'une entreprise artisanale avec l'API \"Données du RNM - CMA\"."
+          
+            "douanes/immatriculation_eori": ""
+         
+            "dgfip/chiffres_affaires": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> Identifier directement le montant d'une aide, si celle-ci est déterminée par le chiffre d'affaires."
+          
+            "inpi/comptes_annuels_rncs": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> <br/><br/><span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Subvention association</span> **Données utiles [compte-rendu financier](https://www.service-public.fr/particuliers/vosdroits/R46623){:target='_blank'}** : _Si une association reçoit plus de 153 000 euros de subventions en numéraire par an_, vous pouvez récupérer directement les comptes annuels avec cette API."
+         
+            "banque_de_france/bilans": "_Donnée sensible non-nécessaire._"
+          
+            "dgfip/liasses_fiscales": "_Donnée sensible non-nécessaire._"
+          
+            "dgfip/attestations_fiscales": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> Vérifier la régularité fiscale de l'entreprise en récupérant l'**attestation fiscale**. <br><br>Le cas d'utilisation de cette attestation pour les aides et subventions publiques est mentionné dans le BOFIP, [alinéa 70 du BOI-DJC-ARF](https://bofip.impots.gouv.fr/bofip/8485-PGP.html/identifiant=BOI-DJC-ARF-20220209#Cas_dutilisation_23){:target='_blank'}."
+          
+            "urssaf/attestation_vigilance": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> Vérifier la régularité sociale en récupérant l'**attestation sociale**."
+          
+            "msa/conformites_cotisations": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> Vérifier la régularité sociale d'une entreprise du régime agricole devant verser ses **cotisations auprès de la MSA**."
+          
+            "probtp/conformites_cotisations_retraite": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> Vérifier la régularité sociale d'une entreprise du BTP."
+          
+            "fntp/carte_professionnelle_travaux_public": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> Vérifier la régularité sociale d'une entreprise du BTP."
+          
+            "cnetp/attestations_cotisations_conges_payes_chomage_intemperies": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> Vérifier la régularité sociale, des entreprises versant leurs cotisations congés payés à la Caisse CNETP."
+          
+            "agence_bio/certifications_bio": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span> Utile pour vérifier les certifications en BIO d'une entreprise qui dépose une demande d'aide ou appel à projet valorisant la filière BIO. [Exemples d'aides sur critères BIO](https://www.agencebio.org/vos-outils/fonds-avenir-bio/les-aides-a-linvestissement/){:target='_blank'}."
+          
+            "ademe/certifications_rge": "<span class='fr-badge fr-badge--sm fr-badge--new'>Aides</span><br/>_Exemple spécifique :_ Dans le cadre d'aides à la réhabilitation de logement ancien, cette API permet de vérifier que l'entreprise est bien RGE."
+          
+            "qualibat/certifications_batiment": ""
+          
+            "opqibi/qualifications_ingenierie": ""
+          
+            "inpi/brevets": ""
+          
+            "inpi/marques": ""
+          
+            "inpi/modeles": ""
+        introduction:
+          title: Faciliter la saisie et l'instruction des demandes de subvention des associations
+          content: |
+            {:.fr-text--lead}
+            API Entreprise propose aux administrations et collectivités des API utiles au **formulaire unique de demandes de subventions des associations**. Les données obtenues permettent de simplifier le dépôt des demandes et de faciliter l’instruction des dossiers.
+        role:
+          title: Une simplification des démarches
+          anchor: 'simplification-des-demarches'
+          content: |+
+            {:.fr-text--lg}
+            Administrations et collectivités, en intégrant la brique API Entreprise dans votre portail d'aides et votre système d'information&nbsp;:
+            
+            - 🗄 Vous **accédez facilement aux données publiques et protégées 🔐** du ministère de l'Intérieur sur les associations, données déjà mises à disposition par les associations dans [Le compte Asso](https://lecompteasso.associations.gouv.fr){:target="_blank"}. Vous avez également un accès privilégié à d'autres informations telles que les données du répertoire Sirene, ou de l'Agence Bio ;
+
+            - 🎢 Vous **augmentez le pourcentage des démarches finalisées** car vous faîtes gagner du temps à l'usager ;
+            
+            - 🎯 Enfin, vous **participez activement à la simplification des demandes de subventions**, en évitant de demander à une association une information qu'elle a déjà donné.<br />Vous vous mettez ainsi **en conformité avec la législation** et, plus particulièrement l'[Article L113-12 du Code des relations entre le public et l'administration](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037313155){:target="_blank"}.
+        use_case_examples:
+          title: null
+          anchor: null
+          content: null
+        list_api:
+          content: |+
+            {:.fr-text--xl}
+            Ce tableau dresse la liste des API utiles pour ce cas d'usage. Utilisez-le pour compléter votre de [demande d'habilitation](#request-access). 
+
+            Les API **<span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> indispensables seront précochées** par défaut dans le formulaire d'accès. 
+            Les API **️<span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span> utiles** seront à cocher par vos soins si votre cas d'usage le justifie.
+            Les API **<span style="color:#d64d00" class="fr-icon-close-circle-line" aria-hidden="true"></span> injustifiées** ne peuvent être demandées pour ce cas d'usage.
+
+            {:.fr-highlight.fr-highlight--caution}
+            Lors de votre demande d'habilitation, **vous vous engagez à ne demander que les données strictement nécessaires** à la réalisation de la démarche administrative. Consulter [nos conditions générales d'utilisation](<%= cgu_path %>){:target="_blank"}.
+        users:
+          title: Ils utilisent l’API Entreprise
+          anchor: 'users'
+          content: |+
+            ##### Des communes et intercommunalités
+            Alsace collectivité européene, Corbas, Les Sables-D’olonne, Saint Chamond, Venissieux, Communauté d’agglomération Chauny-Tergnier-La Fère, Communauté urbaine d’Arras, Grand Poitiers communauté urbaine.
+
+            ##### Des métropôles
+            Grenoble-Alpes-Métropole, Grand Lyon.
+
+            ##### Des départements
+            Drôme, Finistère, Isère, Vaucluse.
+
+            ##### Des régions
+            Bourgogne-Franche-Comte, Bretagne, Centre-Val de Loire, Île-de-France, Normandie, Nouvelle-Aquitaine, Réunion.
+
+
+            ##### Parfois au travers d’un éditeur de logiciel :
+
+            {:.fr-table}
+            | Éditeurs ayant intégré l'API Entreprise                                             |                                          Solution                                                                            |                     Cas d'usage                       |
+            | ----------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------:|
+            | **Atexo** <br> Entreprise privée                                                    | [Local Trust Sub](https://www.atexo.com/solutions/solutions-subventions-et-aides-individuelles/){:target="_blank"}           |    Aides & subventions publiques                      |
+            | **Axyus** <br> Entreprise privée                                                    |                             [Axuys](https://www.axyus.com/){:target="_blank"}                                                |                   Aides & subventions publiques       |
+            | **Entr’ouvert** <br> Coopérative                                                    | [entrouvert.com](https://www.entrouvert.com) <br> [Publik](https://publik.entrouvert.com/){:target="_blank"}                 |                   Portail de démarches en ligne       |
+            | **MGDIS** <br> Entreprise privée                                                    |    [Portail des aides](https://www.mgdis.fr/nos-solutions/pilotage-des-aides-versees/){:target="_blank"}                     |                   Aides & subventions publiques       |
+
+            _Vous êtes un éditeur proposant une solution pour les aides et subventions publiques et ne figurez pas sur cette liste ?_ Veuillez nous contacter à cette adresse e-mail : [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr).
+        request_access:
+          link_datapass: "https://datapass.api.gouv.fr/api-entreprise?demarche=aides_publiques"
+
       fraude:
         name: 'Détection de la fraude'
         user_types:
