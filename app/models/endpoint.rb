@@ -16,8 +16,10 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
     :keywords,
     :opening
 
+  attr_writer :new_endpoint_uids, :old_endpoint_uids
+
   algoliasearch_active_model do
-    attributes :title, :description, :provider_uids, :keywords, :use_cases, :use_cases_optional
+    attributes :title, :description, :deprecated, :provider_uids, :keywords, :use_cases, :use_cases_optional
 
     searchableAttributes %w[
       title
@@ -27,6 +29,8 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
       use_cases
       use_cases_optional
     ]
+
+    attributesForFaceting %w[deprecated]
   end
 
   def initialize(params)
@@ -66,6 +70,32 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
 
   def description
     @description ||= open_api_definition['description']
+  end
+
+  def deprecated
+    @deprecated ||= (open_api_definition['deprecated'].nil? ? false : open_api_definition['deprecated'])
+  end
+
+  def deprecated?
+    deprecated
+  end
+
+  def new_endpoints
+    return [] if !deprecated? || @new_endpoint_uids.blank?
+
+    @new_endpoint_uids.map do |new_endpoint_uid|
+      Endpoint.find(new_endpoint_uid)
+    end
+  end
+
+  def old_endpoints
+    @old_endpoints ||= (@old_endpoint_uids || []).map do |old_endpoint_uid|
+      Endpoint.find(old_endpoint_uid)
+    end
+  end
+
+  def historicized?
+    old_endpoints.any?
   end
 
   def attributes

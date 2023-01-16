@@ -26,7 +26,7 @@
 
     <section class="list_api fr-background-default-white">
       <h3 id="list-api"><%= t('.link_list_api') %><span class="fr-ml-2v fr-text--light">"<%= @data[:name] %>"</span></h3>
-      <div class=list_api--content"><%= markdown_to_html(@data[:list_api][:content]) %></div>
+      <div class="list_api--content"><%= markdown_to_html(@data[:list_api][:content]) %></div>
       <%= render partial: 'api_entreprise/cas_usages/list-api', locals: {current_use_case: params[:uid]} %>
     </section>
 

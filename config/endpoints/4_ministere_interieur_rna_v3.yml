@@ -1,0 +1,87 @@
+---
+- uid: 'ministere_interieur/rna'
+  path: '/v3/ministere_interieur/rna/associations/{siret_or_rna}'
+  position: 150
+  new_endpoint_uids: &mi_rna_new_endpoint_uids
+    - 'ministere_interieur/associations'
+  perimeter:
+    entity_type_description: |+
+      Cette API concerne ✅ **toutes les associations inscrites au répertoire national des associations (RNA) et/ou à l'Insee**.
+
+    updating_rules_description: |+
+      Les données sont **mises à jour tous les jours** depuis le RNA et depuis l'Insee.
+    entities:
+      - associations
+  call_id: "SIRET / RNA"
+  provider_uids:
+    - 'mi'
+  data:
+    description: |+
+      Cette API délivre les **informations déclarées par l'association en Préfecture**, entre autres :
+      - le titre de l'association, et une description courte de ses activités ;
+      - les dates de dépôt du dossier, de création de l'association à la Préfecture et de publication au Journal Officiel si elle a eu lieu ;
+      - l'adresse du siège social ;
+      - des informations sur les dirigeants.
+
+
+      {:.fr-highlight}
+      > Une association utilisatrice de votre démarche s'est aperçue que ses informations ne sont plus à jour ?
+      > Vous pouvez l'orienter vers le [site officiel Le compte Asso](https://lecompteasso.associations.gouv.fr/declarer-un-changement-de-situation-de-mon-association/){:target="_blank"} où elle pourra déclarer son changement de situation.
+
+  opening: public
+  format:
+    - Donnée structurée JSON
+  availability:
+    opening_time:
+      7jours/7 et 24h/24
+  use_cases:
+    - Marchés publics
+    - Aides & subventions publiques
+    - Détection de la fraude
+    - Portail GRU - Préremplissage
+    - Portail GRU - Instruction des démarches
+  parameters:
+    - Numéro de SIRET ou numéro RNA de l’association
+- uid: 'ministere_interieur/documents_associations'
+  new_endpoint_uids: *mi_rna_new_endpoint_uids
+  path: '/v3/ministere_interieur/rna/associations/{siret_or_rna}/documents'
+  position: 155
+  perimeter:
+    entity_type_description: |+
+      Cette API concerne ✅ **toutes les associations inscrites au répertoire national des associations (RNA)
+      et/ou ayant déposé des documents sur le portail [lecompteasso.associations.gouv.fr](https://lecompteasso.associations.gouv.fr/){:target="_blank"}.
+
+    updating_rules_description: |+
+      Les documents provenant du RNA sont **mis à jour tous les jours**.
+    entities:
+      - associations
+  call_id: "SIRET / RNA"
+  provider_uids:
+    - 'mi'
+  data:
+    description: |+
+      Cette API indique le nombre de documents à télécharger, l’URL d’accès, le type et la date des documents.
+
+      Les documents transmis peuvent être&nbsp;:
+      - des récipissés de déclaration de création, de modification, et/ou de dissolution ;
+      - les statuts de l'association ;
+      - la liste des personnes habilitées à représenter l'association.
+
+      ⚠️ Le type et le nombre de documents délivrés varient selon l'association.
+
+  opening: public
+  format:
+    - URL vers documents PDF
+  availability:
+    opening_time:
+      7jours/7 et 24h/24
+  use_cases:
+    - Marchés publics
+    - Aides & subventions publiques
+    - Détection de la fraude
+    - Portail GRU - Instruction des démarches
+  use_cases_optional:
+    - Portail GRU - Préremplissage
+    - Portail GRU - Instruction des démarches
+  parameters:
+    - Numéro de SIRET ou numéro RNA de l’association
