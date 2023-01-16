@@ -16,7 +16,7 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
     :keywords,
     :opening
 
-  attr_writer :new_endpoint_uids
+  attr_writer :new_endpoint_uids, :old_endpoint_uids
 
   algoliasearch_active_model do
     attributes :title, :description, :deprecated, :provider_uids, :keywords, :use_cases, :use_cases_optional
@@ -86,6 +86,16 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
     @new_endpoint_uids.map do |new_endpoint_uid|
       Endpoint.find(new_endpoint_uid)
     end
+  end
+
+  def old_endpoints
+    @old_endpoints ||= (@old_endpoint_uids || []).map do |old_endpoint_uid|
+      Endpoint.find(old_endpoint_uid)
+    end
+  end
+
+  def historicized?
+    old_endpoints.any?
   end
 
   def attributes

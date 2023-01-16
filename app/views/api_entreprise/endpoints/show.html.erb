@@ -244,6 +244,24 @@
           </div>
         <% end %>
 
+        <% if @endpoint.historicized? %>
+          <h2 id="historique" class="fr-mt-md-5w fr-mt-8w">
+            <%= t('.historique.title') %>
+          </h2>
+
+          <% if @endpoint.old_endpoints.any? %>
+            <%= t('.historique.old_endpoints.description') %>
+
+            <ul>
+              <% @endpoint.old_endpoints.each do |endpoint| %>
+                <li>
+                  <%= link_to endpoint.title, endpoint_path(uid: endpoint.uid) %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        <% end %>
+
         <h2 id="cgu" class="fr-mt-md-5w fr-mt-8w">
           <%= t('.cgu.title') %>
         </h2>
