@@ -23,7 +23,7 @@
       Documentation sur le [site asssociations.gouv.fr](https://www.associations.gouv.fr/les-api-et-autres-outils.html){:target="_blank"}.
     entities: &association_entities
       - associations
-  call_id: "SIREN / RNA"
+  call_id: &call_id "SIREN / RNA"
   provider_uids: &association_provider_uids
     - 'mi'
   keywords: &association_keywords
@@ -70,14 +70,14 @@
       - affiliations à des unions, fédérations ou réseaux, ainsi que des informations à leur sujet.
 
       <br>
-      **Et sur les établissements de l'association** : 
+      **Et sur les établissements de l'association** :
       - état et adresse ;
       - activités principales ;
       - représentants légaux, identité et fonction ;
       - effectifs salariés, bénévoles et volontaires ;
       - comptes de résultats et financement ;
       - tout autre document (DAC) déposé par l'association lors de démarches en ligne.
-    
+
       <br>
       **Ces données sont issues de trois bases de ressources différentes** :
       - le répertoire national des associations (RNA) ;
@@ -98,54 +98,53 @@
     - Subventions associations
   use_cases_forbidden:
     - Portail GRU - Préremplissage
-  parameters:
+  parameters: &association_parameters
     - Numéro de SIREN ou numéro RNA de l’association
   faq: &association_faq
     - q: Une association utilisatrice de votre démarche s'est aperçue que ses informations ne sont plus à jour ?
       a: |+
         Vous pouvez l'orienter vers le [site officiel Le compte Asso](https://lecompteasso.associations.gouv.fr/declarer-un-changement-de-situation-de-mon-association/){:target="_blank"} où elle pourra déclarer son changement de situation.
 
-# - uid: 'ministere_interieur/unites_legales_open_data'
-#   path: '/v4/ministere_interieur/api-asso/associations/open_data/{siren_or_rna}'
-#   position: 150
-#   perimeter: *association_perimeter
-#   call_id: "SIREN / RNA"
-#   provider_uids: *association_provider_uids
-#   keywords: &association_keywords
-#   data:
-#     description: |+
-#       {:.fr-highlight.fr-highlight--caution}
-#       ⚠️ **Le type et la quantité d'informations disponibles par association est variable** car de nombreuses ressources sont déclaratives ou déposées par les associations dans le cadre de démarches en ligne.
+- uid: 'ministere_interieur/associations_open_data'
+  path: '/v4/ministere_interieur/api-asso/associations/open_data/{siren_or_rna}'
+  position: 151
+  perimeter: *association_perimeter
+  call_id: *call_id
+  provider_uids: *association_provider_uids
+  parameters: *association_parameters
+  keywords: *association_keywords
+  data:
+    description: |+
+      {:.fr-highlight.fr-highlight--caution}
+      ⚠️ **Le type et la quantité d'informations disponibles par association est variable** car de nombreuses ressources sont déclaratives ou déposées par les associations dans le cadre de démarches en ligne.
 
-#       **Cette API délivre des informations publiques sur l'unité légale de l'association** :
-#       - identité et statuts (forme juridique, dates clés, état de l'association, statut utilité publique, régime, adresse de gestion) ;
-#       - tranche effectif de salariés ;
-#       - activités principales ;
-#       - agréments ;
-#       - affiliations à des unions, fédérations ou réseaux, ainsi que des informations à leur sujet.
+      **Cette API délivre des informations publiques sur l'unité légale de l'association** :
+      - identité et statuts (forme juridique, dates clés, état de l'association, statut utilité publique, régime, adresse de gestion) ;
+      - tranche effectif de salariés ;
+      - activités principales ;
+      - agréments ;
+      - affiliations à des unions, fédérations ou réseaux, ainsi que des informations à leur sujet.
 
-#       <br>
-#       **Et sur les établissements de l'association** : 
-#       - état et adresse ;
-#       - activités principales ;
-#       - effectifs salariés, bénévoles et volontaires ;
-#       - comptes de résultats et financement ;
-#       - agréments.
-    
-#       <br>
-#       **Ces données sont issues de trois bases de ressources différentes** :
-#       - le répertoire national des associations (RNA) ;
-#       - le répertoire Sirene ;
-#       - les données saisies par les associations dans [Le compte Asso](https://lecompteasso.associations.gouv.fr){:target="_blank"}, nommées documents administratifs complémentaires (DAC).
+      <br>
+      **Et sur les établissements de l'association** :
+      - état et adresse ;
+      - activités principales ;
+      - effectifs salariés, bénévoles et volontaires ;
+      - agréments.
 
-#   opening: public
-#   format: *association_format
-#   availability: *association_availability
-#   use_cases:
-#     - Portail GRU - Préremplissage
-#   use_cases_optional:
-#     - Marchés publics
-#     - Aides publiques
-#     - Portail GRU - Instruction des démarches 
-#     - Détection de la fraude
-#   faq: *association_faq
+      <br>
+      **Ces données sont issues de deux bases de ressources différentes** :
+      - le répertoire national des associations (RNA) ;
+      - le répertoire Sirene.
+
+  opening: public
+  format: *association_format
+  availability: *association_availability
+  use_cases:
+    - Portail GRU - Préremplissage
+  use_cases_optional:
+    - Marchés publics
+    - Aides & subventions publiques
+    - Portail GRU - Instruction des démarches
+    - Détection de la fraude
+  faq: *association_faq
