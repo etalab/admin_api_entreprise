@@ -6,7 +6,7 @@ RSpec.describe 'Endpoints index', app: :api_entreprise do
   it 'displays endpoints with basic info and link to show' do
     visit endpoints_path
 
-    expect(page).to have_css('.endpoint-card', count: Endpoint.all.count)
+    expect(page).to have_css('.endpoint-card', count: Endpoint.all.reject(&:deprecated?).count)
     expect(page).to have_css("##{dom_id(sample_endpoint)}")
 
     within("##{dom_id(sample_endpoint)}") do
