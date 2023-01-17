@@ -17,7 +17,7 @@ class OpenAPISchemaToExample
       end
     when 'string'
       extract_value(schema, 'lorem')
-    when 'integer'
+    when 'integer', 'number'
       extract_value(schema, rand(50))
     when 'boolean'
       extract_value(schema, true)
