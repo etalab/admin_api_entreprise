@@ -1,6 +1,6 @@
 ---
 - uid: 'banque_de_france/bilans'
-  path: '/v3/banque_de_france/bilans'
+  path: '/v3/banque_de_france/unites_legales/{siren}/bilans'
   position: 220
   perimeter:
     entity_type_description: |+
@@ -30,8 +30,10 @@
     description: |+
       Cette API délivre les bilans dont la date d’arrêté est comprise entre le mois en cours [MM/AAAA] et 4 ans en arrière [MM+1/AAAA-4].
 
-      {:.fr-highlight--example}
+      {:.fr-highlight.fr-highlight--example}
       > Par exemple pour un appel le 17 janvier 2022, les bilans retenus ont une date d’arrêt comprise entre le 1er février 2018 et le 17 janvier 2022.
+
+      Ces bilans permettent d’accéder à certaines informations contenues dans la liasse fiscale : bilans, compte de résultat et annexes confondus. Ces données proviennent de la base FIBEN (Fichier bancaire des entreprises) - hors cotation
 
       Les trois bilans de la Banque de France sont listés les uns après les autres, le premier étant le plus récent. Chacun d’eux est accompagné d’informations en partie tirées :
       - des bilans (passif de l’entreprise - liasse 2051) ;
@@ -41,8 +43,8 @@
       La Banque de France délivre également une évolution des montants de l’exercice concerné avec l’année N-1, quand les durées d’exercices sont identiques.
   opening: protected
   format:
-    - Donnée structurée JSON 
-  availability: 
+    - Donnée structurée JSON
+  availability:
     opening_time:
       7 jours/7, de 8h à 23h.
       <br>
