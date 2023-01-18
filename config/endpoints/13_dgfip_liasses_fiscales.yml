@@ -60,13 +60,20 @@
     - 'participation'
   data:
     description: |+
-      Cette API délivre les liasses fiscales d'une entreprise pour l'année renseignée. Pour chaque numéro d'imprimé, les informations suivantes sont transmises :
-      1. Les règles d'imposition applicables à l'entreprise ;
-      2. Des informations sur l'imprimé complêté : millésime, durée de l'exercice en jours et date de fin, date de dépôt de la déclaration, etc. ;
-      3. Les données disponibles dans les imprimés. Ces données sont différentes selon la nature de l'organisation et l'imprimé, voici quelques exemples : 
+      Cette API délivre les liasses fiscales d'une entreprise pour l'année renseignée. Pour chaque numéro d'imprimé, les règles d'imposition applicables à l'entreprise, ainsi que le millésime, la durée de l'exercice en jours et sa date de fin, ou encore la date de dépôt de la déclaration, sont transmis.
+    
+      **Les données présentes dans les imprimés sont de différente nature**&nbsp;: 
         - des **informations financières, fiscales et comptables** ;
         - des **données sur l'entreprise et son réseau** (filiale, société-mère, participation) dont les effectifs. 
-        - des **données de personnes**, nom, prénom, date et lieu de naissance, adresses postales (déclarant, comptable, cabinets, associés, etc.), certaines rémunérations, etc.
+        - des **données de personnes**, nom, prénom, date et lieu de naissance, adresses postales, certaines rémunérations, etc.
+ 
+      <div class="fr-download fr-mb-1v">
+        <p><strong>🔎 Pour avoir un aperçu exhaustif des données disponibles</strong>, vous pouvez consulter ce document&nbsp;:<br>
+          <a href="/files/api-entreprise_liasses_fiscales_liste-des-champs-par-imprime.xls" download class="fr-download__link">Télécharger la liste des données possibles par imprimé
+            <span class="fr-download__detail">XLSX – 22 ko</span>
+          </a>
+        </p>
+      </div>
   opening: protected
   format:
     - Donnée structurée JSON
