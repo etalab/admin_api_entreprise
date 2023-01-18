@@ -15,8 +15,6 @@
 
       ❌ **Les entreprises aux régimes micro-BIC, micro-BNC et micro-BA (micro-entrepreneurs) ne sont pas concernées par cette API**. En effet, elles ne déposent pas de déclarations de résultat mais des éléments spécifiques dans la déclaration 2042C qui relève de l’impôt sur le revenu.
 
-
-
     updating_rules_description: |+
       Les déclarations de résultat sont disponibles **à compter du lendemain de la date de dépôt (J+1) et trois jours plus tard (J+3)** si le dépôt intervient une veille de week-end.
 
@@ -30,19 +28,45 @@
     - 'dgfip'
   keywords:
     - 'finances'
+    - 'compte'
     - 'financier'
     - 'résultat'
     - 'exercice'
+    - 'actif'
+    - 'passif'
+    - 'capital'
+    - 'valeur ajoutée'
+    - 'crédit'
+    - 'immobilisation'
+    - 'provision'
+    - 'participation'
+    - 'amortissement'
+    - 'créance'
+    - 'dette'
+    - 'déficit'
+    - 'plus-value'
+    - 'frais'
+    - 'adresse'
     - 'imposition'
     - 'régime'
     - 'déclaration'
     - 'fraude'
+    - 'imprime'
+    - 'bénéficiaire'
+    - 'effectif'
+    - 'déclarant'
+    - 'filiale'
+    - 'société-mère'
+    - 'participation'
   data:
     description: |+
-      Cette API délivre les liasses fiscales d'une entreprise pour l'année renseignée. Pour chaque liasse fiscale, les informations suivantes sont transmises :
-      - Les règles d'imposition applicables à l'entreprise ;
-      - Des informations sur le formulaire complêté par l'entreprise, à l'origine des données transmises ;
-      - Les données de la déclaration.
+      Cette API délivre les liasses fiscales d'une entreprise pour l'année renseignée. Pour chaque numéro d'imprimé, les informations suivantes sont transmises :
+      1. Les règles d'imposition applicables à l'entreprise ;
+      2. Des informations sur l'imprimé complêté : millésime, durée de l'exercice en jours et date de fin, date de dépôt de la déclaration, etc. ;
+      3. Les données disponibles dans les imprimés. Ces données sont différentes selon la nature de l'organisation et l'imprimé, voici quelques exemples : 
+        - des **informations financières, fiscales et comptables** ;
+        - des **données sur l'entreprise et son réseau** (filiale, société-mère, participation) dont les effectifs. 
+        - des **données de personnes**, nom, prénom, date et lieu de naissance, adresses postales (déclarant, comptable, cabinets, associés, etc.), certaines rémunérations, etc.
   opening: protected
   format:
     - Donnée structurée JSON
