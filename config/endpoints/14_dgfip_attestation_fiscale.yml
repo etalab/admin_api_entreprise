@@ -25,8 +25,9 @@
     know_more_description: |+
       - Le BOFIP expose les [dispositions juridiques communes de l'attestation de régularité](https://bofip.impots.gouv.fr/bofip/8485-PGP.html/identifiant=BOI-DJC-ARF-20220209){:target="_blank"} ;
       - [economie.gouv.fr](https://www.economie.gouv.fr/entreprises/impot-revenu-impot-societe-statut){:target="_blank"} dresse les types d'imposition possibles par statuts d'entreprise et vous permet de mieux comprendre le périmètre des entreprises concernées par cette API.
-
-
+    entities:
+      - entreprises
+      - associations
   call_id: "SIREN"
   opening: protected
   provider_uids:
@@ -58,6 +59,7 @@
     - Portail GRU - Instruction des démarches
   use_cases_forbidden:
     - Portail GRU - Préremplissage
+    - Subventions associations
   parameters:
     - Numéro de SIREN de l'entreprise
   faq:
