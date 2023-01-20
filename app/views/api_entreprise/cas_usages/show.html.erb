@@ -32,7 +32,7 @@
 
     <section class="users fr-background-grey">
       <h2 class=users--title" id="<%= @data[:users][:anchor] %>"><%= @data[:users][:title] %></h2>
-      <div class=users--content"><%= markdown_to_html(@data[:users][:content]) %></div>
+      <div class=users--content"><%= markdown_to_html(@data[:users][:content]).html_safe %></div>
     </section>
 
     <section class="request_access fr-background-default-white">
