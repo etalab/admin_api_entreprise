@@ -294,7 +294,7 @@ fr:
           title: Faciliter le dépôt et l'instruction des aides publiques
           content: |
             {:.fr-text--lead}
-            API Entreprise propose aux administrations et collectivités des API utiles dans le cadre de la délivrance d'aides publiques et fonds européens. Les données obtenues permettent de simplifier le **dépôt des demandes** et de faciliter l’**instruction des dossiers**.
+            API Entreprise propose aux administrations et collectivités des API utiles dans le cadre de la délivrance de subventions, d'aides publiques et de fonds européens. Les données obtenues permettent de simplifier le **dépôt des demandes** et de faciliter l’**instruction des dossiers**.
         role:
           title: Une simplification des démarches
           anchor: 'simplification-des-demarches'
@@ -304,7 +304,7 @@ fr:
 
             - 🗄 Vous **accédez facilement aux données publiques et protégées 🔐** de l'Insee, d'Infogreffe, de la DGFIP, de l'Urssaf... ;
 
-            - ⏰ Vous **accélérez le traitement des démarches** car vos agents instructeurs n'ont pas de vérifications supplémentaires à réaliser, **les informations obtenues de l'API Entreprise étant certifiées 🔎** ;
+            - ⏰ Vous **accélérez le traitement des demandes d'aides des associations et des entreprises** car vos agents instructeurs n'ont pas de vérifications supplémentaires à réaliser, **les informations obtenues de l'API Entreprise étant certifiées 🔎** ;
 
             - 🎢 Vous **augmentez le pourcentage des démarches finalisées** car vous faîtes gagner du temps à l'usager ;
             
@@ -316,7 +316,7 @@ fr:
         list_api:
           content: |+
             {:.fr-text--xl}
-            Ce tableau dresse la liste des API utiles pour ce cas d'usage. Utilisez-le pour compléter votre [demande d'habilitation](#request-access). 
+            Ce tableau dresse la liste des API utiles pour ce cas d'usage. Utilisez-le pour compléter votre [demande d'habilitation](#request-access).
 
             Les API **<span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> indispensables seront précochées** par défaut dans le formulaire d'accès.
             Les API **️<span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span> utiles** seront à cocher par vos soins si votre cas d'usage le justifie.
@@ -324,6 +324,8 @@ fr:
 
             {:.fr-highlight.fr-highlight--caution}
             Lors de votre demande d'habilitation, **vous vous engagez à ne demander que les données strictement nécessaires** à la réalisation de la démarche administrative. Consulter [nos conditions générales d'utilisation](<%= cgu_path %>){:target="_blank"}.
+
+            **🔎 Zoom sur les subventions de fonctionnement des associations** : [consultez la fiche pratique](<%= cas_usage_path(uid: 'subventions_associations') %>) pour connaître les données utiles.
         users:
           title: Ils utilisent l’API Entreprise
           anchor: 'users'
@@ -331,6 +333,25 @@ fr:
             {:.fr-h5}
             ### Des communes et intercommunalités
             Alsace collectivité européenne, Corbas, Les Sables-D’olonne, Saint Chamond, Venissieux, Communauté d’agglomération Chauny-Tergnier-La Fère, Communauté urbaine d’Arras, Grand Poitiers communauté urbaine.
+
+            <figure class="fr-quote--column ">
+            {:.fr-quote} 
+            >
+            > <blockquote>«&nbsp;La ville attribue des subventions aux associations de son territoire [...], elle a mis en oeuvre un portail de gestion de la relation citoyen dédié au suivi de la relation avec ses associations. Pour s'enregistrer sur ce portail, puis pour pouvoir solliciter une aide de la collectivité, l'association doit justifier de son immatriculation et de l'identité de ses représentants légaux. Le logiciel permet d'interroger l'API Entreprise pour renseigner ces différentes informations par défaut.&nbsp;»
+            > </blockquote>
+            >
+            > <figcaption>
+            > Commune de Vénissieux
+            > {:.fr-quote__author}
+            >
+            > [Site des démarches de Vénissieux](https://demarches.venissieux.fr/){:target="_blank"}
+            > {:.fr-quote__source}
+            >
+            > {:.fr-quote__image}
+            >  ![Logo de la ville de Vénissieux](<%= image_path('api_entreprise/cas_usages/pictos/use_case_examples/users_logo_venissieux.png') %>){:width="100px"}
+            > </figcaption>
+            >
+            </figure>
 
             {:.fr-h5}
             ### Des métropoles
@@ -483,14 +504,40 @@ fr:
           
             "inpi/modeles": "Dessins et modèles de l'association"
         introduction:
-          title: Faciliter la saisie et l'instruction des demandes de subvention de fonctionnement des associations
-          content: |
+          title: "Aides publiques : le cas des subventions de fonctionnement des associations"
+          content: |+
             {:.fr-text--lead}
-            API Entreprise propose aux administrations et collectivités des API utiles au **formulaire unique de demandes de subventions des associations**. Les données obtenues permettent de simplifier le dépôt des demandes et de faciliter l’instruction des dossiers.
+            API Entreprise propose aux administrations et collectivités des API utiles dans le cadre du **formulaire unique de demande de subvention des associations**. Les données obtenues permettent de simplifier le dépôt et l'instruction des demandes.
         role:
-          title: Une simplification des démarches
+          title: Une simplification des demandes de subvention des associations
           anchor: 'simplification-des-demarches'
           content: |+
+            {:.fr-h5}
+            ## Qu'est qu'une subvention de fonctionnement ?
+            On parle de subventions de _fonctionnement_ par opposition aux subventions d'_investissement_. Les subventions de fonctionnement **participent au fonctionnement global de l'association ou aux projets initiés et mis en oeuvre par l'association**.
+
+            La subvention peut être : 
+            - _**en numéraire**_, c'est-à-dire qu'il s'agit d'une aide financière sous la forme d'un versement de sommes d'argent ;
+            - _**en nature**_, c'est-à-dire une aide non-financière qui peut être la mise à disposition de locaux, d'équipements ou même de formation.
+
+            {:.fr-h5}
+            ## Un formulaire de demande unique pour les associations
+
+            Depuis le 01 janvier 2017, les demandes de fonctionnement des associations doivent être établies par le biais d'un formulaire unique dont les caractéristiques sont détaillées dans le [décret n° 2016-1971 du 28 décembre 2016](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000033736810){:target="_blank"}
+
+
+            <div class="fr-download fr--download--card fr-card--grey-1000">
+              <p>
+                <a href="/files/formulaire-unique-subventions-associations-cerfa_12156-06.pdf" download class="fr-download__link">Télécharger le formulaire unique de demande - Cerfa n°12156*06 
+                <span class="fr-download__detail">PDF – 1,3 Mo</span>
+                </a>
+              </p>
+              <p class="fr-text--xs">[Notice explicative](https://www.formulaires.service-public.fr/gf/getNotice.do?cerfaNotice=51781&cerfaFormulaire=12156){:target="_blank"}</p>
+            </div>
+
+            {:.fr-h5}
+            ## Ce que permet l'API Entreprise
+
             {:.fr-text--lg}
             Administrations et collectivités, en intégrant la brique API Entreprise dans votre portail d'aides et votre système d'information&nbsp;:
             
@@ -499,6 +546,8 @@ fr:
             - 🎢 Vous **augmentez le pourcentage des démarches finalisées** car vous faîtes gagner du temps à l'usager lors de sa saisie du [formulaire unique de demande de subventions - Cerfa n° 12156*06](https://www.service-public.fr/particuliers/vosdroits/R1271){:target="_blank"} ;
             
             - 🎯 Enfin, vous **participez activement à la simplification des demandes de subventions**, en mettant en place le [«&nbsp;Dites-le-nous une fois&nbsp;»](https://www.numerique.gouv.fr/services/guichet-dites-le-nous-une-fois/){:target="_blank"} : vous ne demandez plus à une association une information qu'elle a déjà donnée.<br />Vous vous mettez ainsi **en conformité avec la législation** et, plus particulièrement l'[Article L113-12 du Code des relations entre le public et l'administration](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037313155){:target="_blank"}.
+
+            Votre service propose d'autres types d'aides ? concerne aussi les entreprises ? Consultez la fiche pratique du [cas d'usage des aides publiques](<%= cas_usage_path(uid: 'aides_publiques') %>).
         use_case_examples:
           title: null
           anchor: null
@@ -508,12 +557,9 @@ fr:
             {:.fr-text--xl}
             Ce tableau dresse la liste des API utiles pour compléter le [formulaire unique de demande de subventions](https://www.associations.gouv.fr/le-formulaire-unique-de-demande-de-subvention-est-en-ligne.html){:target="_blank"} dont le contenu est détaillé dans le [décrêt n° 2016-1971 du 28 décembre 2016](https://www.legifrance.gouv.fr/loda/id/JORFTEXT000033736810/2022-01-02){:target="_blank"}. <br>Utilisez le tableau pour compléter votre [demande d'habilitation](#request-access). 
 
-            Les API **<span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> indispensables seront précochées** par défaut dans le formulaire d'accès. 
-            Les API **️<span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span> utiles** seront à cocher par vos soins si votre cas d'usage le justifie.
-            Les API **<span style="color:#d64d00" class="fr-icon-close-circle-line" aria-hidden="true"></span> injustifiées** ne peuvent être demandées pour ce cas d'usage.
-
-            {:.fr-highlight.fr-highlight--caution}
-            Lors de votre demande d'habilitation, **vous vous engagez à ne demander que les données strictement nécessaires** à la réalisation de la démarche administrative. Consulter [nos conditions générales d'utilisation](<%= cgu_path %>){:target="_blank"}.
+            Les API **<span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> indispensables**. 
+            Les API **<span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span> qui peuvent être utiles**.
+            Les API **<span style="color:#d64d00" class="fr-icon-close-circle-line" aria-hidden="true"></span> injustifiées ou inutiles** pour ce cas d'usage.
         users:
           title: Ils utilisent l’API Entreprise
           anchor: 'users'
@@ -521,25 +567,6 @@ fr:
             {:.fr-h5}
             ### Des communes et intercommunalités
             Alsace collectivité européenne, Corbas, Les Sables-D’olonne, Saint Chamond, Communauté d’agglomération Chauny-Tergnier-La Fère, Communauté urbaine d’Arras, Grand Poitiers communauté urbaine, Vaux-en-Velin, Venissieux.
-
-            <figure class="fr-quote--column ">
-            {:.fr-quote} 
-            >
-            > <blockquote>«&nbsp;La ville attribue des subventions aux associations de son territoire [...], elle a mis en oeuvre un portail de gestion de la relation citoyen dédié au suivi de la relation avec ses associations. Pour s'enregistrer sur ce portail, puis pour pouvoir solliciter une aide de la collectivité, l'association doit justifier de son immatriculation et de l'identité de ses représentants légaux. Le logiciel permet d'interroger l'API Entreprise pour renseigner ces différentes informations par défaut.&nbsp;»
-            > </blockquote>
-            >
-            > <figcaption>
-            > Commune de Vénissieux
-            > {:.fr-quote__author}
-            >
-            > [Site des démarches de Vénissieux](https://demarches.venissieux.fr/){:target="_blank"}
-            > {:.fr-quote__source}
-            >
-            > {:.fr-quote__image}
-            >  ![Logo de la ville de Vénissieux](<%= image_path('api_entreprise/cas_usages/pictos/use_case_examples/users_logo_venissieux.png') %>){:width="100px"}
-            > </figcaption>
-            >
-            </figure>
 
             {:.fr-h5}
             ### Des métropoles
@@ -567,7 +594,14 @@ fr:
 
             _Vous êtes un éditeur proposant une solution pour les aides et subventions publiques et ne figurez pas sur cette liste ?_ Veuillez nous contacter à cette adresse e-mail : [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr).
         request_access:
-          link_datapass: "https://datapass.api.gouv.fr/api-entreprise?demarche=subventions_associations"
+          link_datapass: "https://datapass.api.gouv.fr/api-entreprise?demarche=aides_publiques"
+          content: |+
+            ⬆️ Cette demande d'accès à l'API Entreprise a été conçue pour les aides et subventions des associations et des entreprises. Si votre service s'adresse uniquement aux associations, il vous faudra décocher les API qui ne délivrent pas de données associations :
+            
+            {:.fr-highlight.fr-highlight--caution}
+            Lors de votre demande d'habilitation, **vous vous engagez à ne demander que les données strictement nécessaires** à la réalisation de la démarche administrative. Consulter [nos conditions générales d'utilisation](<%= cgu_path %>){:target="_blank"}.
+
+            Pour vous aider, référez-vous à la [liste des API ci-dessus](#list-api).
 
       fraude:
         name: 'Détection de la fraude'
@@ -754,7 +788,7 @@ fr:
 
 
             {:.fr-highlight}
-            **Si vous souhaitez accéder à des données protégées pour aider vos agents à instruire les démarches du portail** ou des dossiers d'aides & subventions, il vous faudra faire une demande complémentaire.<br>En savoir plus sur le [cas d'usage portail GRU - Instruction des démarches](<%= cas_usage_path(uid: 'portail_gru_instruction') %>) et le [cas d'usage aides et subventions publiques](<%= cas_usage_path(uid: 'subventions') %>).
+            **Si vous souhaitez accéder à des données protégées pour aider vos agents à instruire les démarches du portail** ou des dossiers d'aides & subventions, il vous faudra faire une demande complémentaire.<br>En savoir plus sur le [cas d'usage portail GRU - Instruction des démarches](<%= cas_usage_path(uid: 'portail_gru_instruction') %>) et le [cas d'usage aides et subventions publiques](<%= cas_usage_path(uid: 'aides_publiques') %>).
 
         users:
           title: Ils utilisent l’API Entreprise
@@ -793,7 +827,7 @@ fr:
           link_datapass: "https://datapass.api.gouv.fr/api-entreprise/?demarche=portail_gru"
           content: "**Si vous souhaitez accéder à des données protégées pour aider vos agents à instruire les démarches du portail** ou des dossiers d'aides & subventions, il vous faudra faire des demandes d'habilitation différentes car celle-ci ne vous donne accès qu'à de la donnée publique.
 
-            Afin d'accéder aux formulaires spécifiques, consultez la fiche pratique du [cas d'usage portail GRU - Instruction des démarches](<%= cas_usage_path(uid: 'portail_gru_instruction') %>) et du [cas d'usage aides et subventions publiques](<%= cas_usage_path(uid: 'subventions') %>)."
+            Afin d'accéder aux formulaires spécifiques, consultez la fiche pratique du [cas d'usage portail GRU - Instruction des démarches](<%= cas_usage_path(uid: 'portail_gru_instruction') %>) et du [cas d'usage aides et subventions publiques](<%= cas_usage_path(uid: 'aide_publiques') %>)."
 
       portail_gru_instruction:
         name: 'Portail GRU - Instruction des démarches'
@@ -879,7 +913,7 @@ fr:
             Administrations et collectivités, API Entreprise propose un accès direct aux documents des entreprises & associations. Depuis leur logiciel, vos agents habilités récupèrent les données et documents administratifs nécessaires à l'instruction des démarches proposées sur votre portail relation usager.
 
 
-            _Si votre portail est uniquement dédié aux demandes d'aides & subventions_, nous vous recommandons le [cas d'usage aides et subventions publiques](<%= cas_usage_path(uid: 'subventions') %>).
+            _Si votre portail est uniquement dédié aux demandes d'aides & subventions_, nous vous recommandons le [cas d'usage aides publiques](<%= cas_usage_path(uid: 'aides_publiques') %>).
         role:
           title: Une simplification des démarches
           anchor: 'simplification-des-demarches'
@@ -1084,17 +1118,17 @@ fr:
             | **Achat Public** <br> Entreprise privée                                             |                          [achatpublic.com](https://www.achatpublic.com/){:target="_blank"}                                   |                   [Marchés publics](<%= cas_usage_path(uid: 'marches_publics') %>)<br>_Dépôt et instruction des candidatures_                                                         |
             | **Actradis** <br> Entreprise privée                                                 |                      [actradis.fr](https://www.actradis.fr/){:target="_blank"}                                               |                   [Marchés publics](<%= cas_usage_path(uid: 'marches_publics') %>)<br>_Contrôle de conformité du titulaire du marché_                                                 |
             | **Arnia**<br> Groupement d’intérêt public Bourgogne Franche-Comté                   |    [Pack commande publique](https://www.ternum-bfc.fr/services/pack-commande-publique){:target="_blank"}                     |                   [Marchés publics](<%= cas_usage_path(uid: 'marches_publics') %>)<br>_Dépôt et instruction des candidatures_                                                         |
-            | **Atexo** <br> Entreprise privée                                                    |[Local Trust Marchés Publics](https://www.atexo.com/solutions/solutions-achats-et-marches-publics/){:target="_blank"}<br>[Local Trust Sub](https://www.atexo.com/solutions/solutions-subventions-et-aides-individuelles/){:target="_blank"}|     [Marchés publics](<%= cas_usage_path(uid: 'marches_publics') %>)<br>_Dépôt et instruction des candidatures_<br><br>[Aides & subventions publiques](<%= cas_usage_path(uid: 'subventions') %>)     |
+            | **Atexo** <br> Entreprise privée                                                    |[Local Trust Marchés Publics](https://www.atexo.com/solutions/solutions-achats-et-marches-publics/){:target="_blank"}<br>[Local Trust Sub](https://www.atexo.com/solutions/solutions-subventions-et-aides-individuelles/){:target="_blank"}|     [Marchés publics](<%= cas_usage_path(uid: 'marches_publics') %>)<br>_Dépôt et instruction des candidatures_<br><br>[Aides & subventions publiques](<%= cas_usage_path(uid: 'aides_publiques') %>)     |
             | **Atline Services** <br> Entreprise privée                                          |                            [marchés-securises.fr](https://www.marches-securises.fr/entreprise/?){:target="_blank"}           |                   [Marchés publics](<%= cas_usage_path(uid: 'marches_publics') %>)<br>_Dépôt et instruction des candidatures_<br> et _Contrôle de conformité du titulaire du marché_  |
             | **AWS** <br> Entreprise privée,<br>_filiale du groupe Achat solutions_              |                       [AWS-achat](https://www.marches-publics.info){:target="_blank"}                                        |                   [Marchés publics](<%= cas_usage_path(uid: 'marches_publics') %>)<br>_Dépôt et instruction des candidatures_<br> et _Contrôle de conformité du titulaire du marché_  |
-            | **Axyus** <br> Entreprise privée                                                    |                             [Axuys](https://www.axyus.com/){:target="_blank"}                                                |                   [Aides & subventions publiques](<%= cas_usage_path(uid: 'subventions') %>)                                                                                      |
+            | **Axyus** <br> Entreprise privée                                                    |                             [Axuys](https://www.axyus.com/){:target="_blank"}                                                |                   [Aides & subventions publiques](<%= cas_usage_path(uid: 'aides_publiques') %>)                                                                                      |
             | **Dematis** <br> Entreprise privée                                                  |                 [e-marchespublics.com](https://www.e-marchespublics.com/){:target="_blank"}                                  |                   [Marchés publics](<%= cas_usage_path(uid: 'marches_publics') %>)<br>_Dépôt et instruction des candidatures_                                                         |
             | **E-attestation** <br> entreprise privée                                            |                     [E-attestations](https://www.e-attestations.com/){:target="_blank"}                                      |                   [Marchés publics](<%= cas_usage_path(uid: 'marches_publics') %>)<br>_Contrôle de conformité du titulaire du marché_                                                 |
             | **Entr’ouvert** <br> coopérative                                                    | [entrouvert.com](https://www.entrouvert.com) <br> [Publik](https://publik.entrouvert.com/){:target="_blank"}                 |                   Portail de démarches en ligne                                                                                      |
             | **Klekoon** <br> Entreprise privée                                                  |                          [klekoon.com](https://www.klekoon.com/){:target="_blank"}                                           |                   [Marchés publics](<%= cas_usage_path(uid: 'marches_publics') %>)<br>_Dépôt et instruction des candidatures_                                                         |
             | **Maximilien** <br> Groupement d’intérêt public                                     |                          [Maximilien](https://www.maximilien.fr/){:target="_blank"}                                          |                   [Marchés publics](<%= cas_usage_path(uid: 'marches_publics') %>)<br>_Dépôt et instruction des candidatures_<br> et _Contrôle de conformité du titulaire du marché_  |
             | **Megalis Bretagne** <br> Syndicat mixte                                            |      [Salle des marchés publics - Mégalis Bretagne](https://www.megalis.bretagne.bzh){:target="_blank"}                      |                   [Marchés publics](<%= cas_usage_path(uid: 'marches_publics') %>)<br>_Dépôt et instruction des candidatures_                                                         |
-            | **MGDIS** <br> Entreprise privée                                                    |    [Portail des aides](https://www.mgdis.fr/nos-solutions/pilotage-des-aides-versees/){:target="_blank"}                     |                   [Aides & subventions publiques](<%= cas_usage_path(uid: 'subventions') %>)                                                                                      |
+            | **MGDIS** <br> Entreprise privée                                                    |    [Portail des aides](https://www.mgdis.fr/nos-solutions/pilotage-des-aides-versees/){:target="_blank"}                     |                   [Aides & subventions publiques](<%= cas_usage_path(uid: 'aides_publiques') %>)                                                                                      |
             | **Provigis** <br> Entreprise privée                                                 |   [Provigis plateforme](https://www.provigis.com/connexion-plateforme-donneur-dordres/){:target="_blank"}                    |                   [Marchés publics](<%= cas_usage_path(uid: 'marches_publics') %>)<br>_Dépôt et instruction des candidatures_<br> et _Contrôle de conformité du titulaire du marché_  |
             | **Smart Global Governance** <br> Entreprise privée                                  |                       [Smart Global Governance](https://www.smartglobalgovernance.com/fr/decouvrir-la-plateforme/){:target="_blank"} |           [Marchés publics](<%= cas_usage_path(uid: 'marches_publics') %>)<br>_Gestion des risques_                                                                           |
             | **Solution Attestations** <br> Entreprise privée                                    |                       [solution-attestations.com](https://solution-attestations.com/){:target="_blank"}                      |                   [Marchés publics](<%= cas_usage_path(uid: 'marches_publics') %>)<br>_Contrôle de conformité du titulaire du marché_                                                 |
