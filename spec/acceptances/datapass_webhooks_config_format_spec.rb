@@ -7,12 +7,12 @@ RSpec.describe 'Datapass webhook config format', type: :acceptance do
 
   it 'is a valid file' do
     expect {
-      YAML.load_file(file)
+      YAML.load_file(file, aliases: true)
     }.not_to raise_error
   end
 
   it 'has valid format for each event' do
-    yaml_config = YAML.load_file(file)
+    yaml_config = YAML.load_file(file, aliases: true)
 
     %w[
       development
