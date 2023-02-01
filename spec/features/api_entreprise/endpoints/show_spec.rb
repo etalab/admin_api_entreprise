@@ -22,7 +22,7 @@ RSpec.describe 'Endpoints show', app: :api_entreprise do
       it "works for #{endpoint.uid} endpoint" do
         visit endpoint_path(uid: endpoint.uid)
 
-        expect(page).to have_content(endpoint.title)
+        expect(page).to have_css("#endpoint_#{endpoint.id}")
       end
     end
   end
