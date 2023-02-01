@@ -33,8 +33,42 @@
         79
       ],
       "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "4c6d710d4852ca5611656c28ee7f00b179c983dbcec758c051c01146abfd2be6",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/api_entreprise/endpoints/show.html.erb",
+      "line": 4,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Endpoint.find(params[:uid]).title",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "APIEntreprise::EndpointsController",
+          "method": "show",
+          "line": 11,
+          "file": "app/controllers/api_entreprise/endpoints_controller.rb",
+          "rendered": {
+            "name": "api_entreprise/endpoints/show",
+            "file": "app/views/api_entreprise/endpoints/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "api_entreprise/endpoints/show"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
     }
   ],
-  "updated": "2022-08-23 15:03:50 +0200",
-  "brakeman_version": "5.3.1"
+  "updated": "2023-02-01 17:01:32 +0100",
+  "brakeman_version": "5.4.0"
 }
