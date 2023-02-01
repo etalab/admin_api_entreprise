@@ -122,15 +122,15 @@
           </div>
         <% end %>
 
-        <div class="fr-my-2w">
-          <a href="<%= endpoint_example_path(uid: @endpoint.uid) %>" id="example_link" class="fr-btn fr-btn--secondary fr-icon-eye-line fr-btn--icon-left fr-mt-2w" aria-controls="main-modal" data-fr-opened="false" data-turbo-frame="main-modal-content">
-            Aperçu d'une réponse JSON
-          </a>
-        </div>
-
         <h3 id="donnees_attributs" class="fr-h6 fr-mb-1w fr-mt-3w">
           <%= t('.attributes.title') %>
         </h3>
+
+        <div class="fr-mt-2w fr-mb-6w">
+          <a href="<%= endpoint_example_path(uid: @endpoint.uid) %>" id="example_link" class="fr-btn fr-btn--secondary fr-icon-eye-line fr-btn--icon-left fr-mt-2w" aria-controls="main-modal" data-fr-opened="false" data-turbo-frame="main-modal-content">
+            Aperçu d'un exemple de réponse JSON
+          </a>
+        </div>
 
         <div class="keep-within-block-mobile">
           <% if @endpoint.collection? %>
