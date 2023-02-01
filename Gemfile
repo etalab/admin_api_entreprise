@@ -62,8 +62,6 @@ gem 'kramdown-parser-gfm'
 
 gem "algoliasearch-rails"
 
-gem "scenic"
-
 gem 'listen'
 
 group :development, :test do

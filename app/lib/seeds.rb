@@ -6,8 +6,6 @@ class Seeds
     create_data_for_api_entreprise
     create_data_for_api_particulier
     create_data_shared
-
-    create_access_logs
   end
 
   def flushdb
@@ -178,11 +176,6 @@ class Seeds
 
   def create_authorization_request(params = {})
     AuthorizationRequest.create!(params)
-  end
-
-  def create_access_logs
-    sql = Rails.root.join('db/seed_access_logs.sql').read
-    ActiveRecord::Base.connection.execute(sql)
   end
 
   def load_all_models!
