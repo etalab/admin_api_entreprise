@@ -18,9 +18,21 @@ Pour se conformer au RGPD et au [décret n° 2022-1014 du 19 juillet 2022](https
 1. Auparavant, seules les personnes physiques pouvaient opter pour le statut "non-diffusible"; avec les nouvelles modalités, **les personnes morales pourront également réclamer une diffusion partielle** de leurs données.
 2. Auparavant, aucune donnée des unités légales et établissements "non-diffusibles" était diffusable publiquement, bientôt, **certaines informations seront disponibles et en diffusion libre**, comme par exemple : les numéros SIREN et SIRET, l'activité principale exercée, la catégorie juridique ou encore la tranche d’effectifs…
 
-{:.fr-quote }
-L'Insee précise « _Ce sont ainsi des données concernant plus de **2,8 millions d’établissements et 1,9 million d’unités légales qui seront désormais accessibles à tous**._ » 
-[Lettre Sirene open data actualité n°13](https://www.insee.fr/fr/information/6525081){:target="_blank"}
+<figure>
+{:.fr-quote} 
+>
+> <blockquote>«&nbsp;Ce sont ainsi des données concernant plus de 2,8 millions d’établissements et 1,9 million d’unités légales qui seront désormais accessibles à tous.&nbsp;»
+> </blockquote>
+>
+> <figcaption>
+> Insee
+> {:.fr-quote__author}
+>
+> [Lettre Sirene open data actualité n°13](https://www.insee.fr/fr/information/6525081){:target="_blank"}
+> {:.fr-quote__source}
+> </figcaption>
+>
+</figure>
 
 <br>
 📅 La sortie de cette nouvelle version est prévue pour le 21 mars 2023 d'après la [Lettre Siren open data actualuté n*14](https://www.insee.fr/fr/information/6683782){:target="_blank"}.
