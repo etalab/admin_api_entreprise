@@ -4,36 +4,6 @@ class InitialSchema < ActiveRecord::Migration[7.0]
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "access_logs", id: false, force: :cascade do |t|
-    t.timestamptz "timestamp"
-    t.string "action"
-    t.string "api_version"
-    t.string "host"
-    t.string "method"
-    t.string "path"
-    t.string "route"
-    t.string "controller"
-    t.string "duration"
-    t.string "status"
-    t.string "ip"
-    t.string "source"
-    t.jsonb "params", default: "{}"
-    t.uuid "token_id"
-    t.boolean "cached"
-    t.index "((params ->> 'recipient'::text))", name: "index_access_logs_on_params_recipient", using: :gin
-    t.index "((params ->> 'siren'::text))", name: "index_access_logs_on_params_siren", using: :gin
-    t.index "((params ->> 'siret'::text))", name: "index_access_logs_on_params_siret", using: :gin
-    t.index "((params ->> 'siret_or_eori'::text))", name: "index_access_logs_on_params_siret_or_eori", using: :gin
-    t.index "date_trunc('day'::text, timezone('Europe/Paris'::text, \"timestamp\"))", name: "index_access_logs_on_timestamp_day", using: :brin
-    t.index "date_trunc('hour'::text, timezone('Europe/Paris'::text, \"timestamp\"))", name: "index_access_logs_on_timestamp_hour", using: :brin
-    t.index "date_trunc('month'::text, timezone('Europe/Paris'::text, \"timestamp\"))", name: "index_access_logs_on_timestamp_month", using: :brin
-    t.index "date_trunc('week'::text, timezone('Europe/Paris'::text, \"timestamp\"))", name: "index_access_logs_on_timestamp_week", using: :brin
-    t.index ["controller"], name: "index_access_logs_on_controller"
-    t.index ["status"], name: "index_access_logs_on_status"
-    t.index ["timestamp"], name: "index_access_logs_on_timestamp", using: :brin
-    t.index ["token_id"], name: "index_access_logs_on_token_id", where: "(token_id IS NOT NULL)"
-  end
-
   create_table "authorization_requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "intitule"
     t.string "description"
@@ -131,31 +101,4 @@ class InitialSchema < ActiveRecord::Migration[7.0]
   end
 
   add_foreign_key "magic_links", "tokens"
-
-  create_view "access_logs_view", sql_definition: <<-SQL
-      SELECT access_logs."timestamp",
-      access_logs.action,
-      access_logs.api_version,
-      access_logs.host,
-      access_logs.method,
-      access_logs.path,
-      access_logs.route,
-      access_logs.controller,
-      access_logs.duration,
-      access_logs.status,
-      access_logs.ip,
-      access_logs.source,
-      access_logs.cached,
-      access_logs.token_id,
-      btrim(((access_logs.params -> 'siren'::text))::text, '"'::text) AS param_siren,
-      btrim(((access_logs.params -> 'siret'::text))::text, '"'::text) AS param_siret,
-      btrim(((access_logs.params -> 'id'::text))::text, '"'::text) AS param_id,
-      btrim(((access_logs.params -> 'object'::text))::text, '"'::text) AS param_object,
-      btrim(((access_logs.params -> 'context'::text))::text, '"'::text) AS param_context,
-      btrim(((access_logs.params -> 'recipient'::text))::text, '"'::text) AS param_recipient,
-      btrim(((access_logs.params -> 'mois'::text))::text, '"'::text) AS param_mois,
-      btrim(((access_logs.params -> 'annee'::text))::text, '"'::text) AS param_annee,
-      btrim(((access_logs.params -> 'non_diffusables'::text))::text, '"'::text) AS param_non_diffusables
-     FROM access_logs;
-  SQL
 end
