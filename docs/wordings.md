@@ -152,6 +152,51 @@ Pour gérer la taille de l'image, je peux ajouter une largeur et/ou une hauteur 
 ![Description image](<%= image_path('loading.gif') %>){:width="600px"}
 ```
 
+### Les citations
+
+Bloc html à ajouter dans le fichier markdown :
+
+```md
+<figure class="fr-quote--column ">
+{:.fr-quote}
+>
+> <blockquote>«&nbsp;LoremIpsum&nbsp;»
+> </blockquote>
+>
+> <figcaption>
+> Commune de Vénissieux
+> {:.fr-quote__author}
+>
+> [Nom du lien](https://demarches.venissieux.fr/){:target="_blank"}
+> {:.fr-quote__source}
+>
+> {:.fr-quote__image}
+>  ![Decrit l'image](<%= image_path('api_entreprise/cas_usages/chemindelimage.png') %>){:width="100px"}
+> </figcaption>
+>
+</figure>
+```
+
+### Les téléchargements
+
+Bloc html à ajouter dans le fichier markdown :
+
+```md
+<div class="fr-grid-row fr-grid-row--gutters">
+ <div class="fr-col-12 fr-col-md-6">
+  <div class="fr-download fr-enlarge-link fr-download--card">
+   <p>
+    <a href="/files/formulaire-unique-subventions-associations-cerfa_12156-06.pdf" download class="fr-download__link">Télécharger le document
+     <span class="fr-download__detail">PDF – 1,3 Mo</span>
+    </a>
+   </p>
+   <p class="fr-download__desc">Lorem Ipsum pour en dire plus</p>
+  </div>
+ </div>
+</div>
+```
+
+
 ### Utilisation Ruby
 
 A noter qu'il est aussi possible d'utiliser du ruby dans la vue (même si ce
