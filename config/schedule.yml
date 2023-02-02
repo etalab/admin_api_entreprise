@@ -2,22 +2,13 @@ development:
   token_expiration_notice:
     cron: '0 1 * * *'
     class: 'TokenExpirationNoticeJob'
-    queue: admin_api_entreprise_development_default
+    queue: default
 
-production:
+production: &deployed
   token_expiration_notice:
     cron: '0 */4 * * *'
     class: 'TokenExpirationNoticeJob'
-    queue: admin_api_entreprise_production_default
+    queue: default
 
-staging:
-  token_expiration_notice:
-    cron: '0 */4 * * *'
-    class: 'TokenExpirationNoticeJob'
-    queue: admin_api_entreprise_staging_default
-
-sandbox:
-  token_expiration_notice:
-    cron: '0 */4 * * *'
-    class: 'TokenExpirationNoticeJob'
-    queue: admin_api_entreprise_sandbox_default
+staging: *deployed
+sandbox: *deployed
