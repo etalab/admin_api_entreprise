@@ -24,20 +24,17 @@
     - 'douanes'
   data:
     description: |+
-      Cette API délivre : 
+      Cette API délivre :
       - le statut **actif ou non du numéro EORI** de l'entreprise. Si le numéro EORI n'est plus actif, cela signifie que l'entreprise n'est plus autorisée à importer ou exporter en Union Européenne.
       - La raison sociale et l'adresse de l'entreprise telles qu'enregistrée auprès des douanes sont aussi précisées.
-      
-      
+
+
       {:.fr-highlight.fr-highlight--caution}
-      > ⚠️ Une réponse **statut inactif peut être un faux négatif** : Si vous utilisez le SIRET d'une entreprise dont vous ne connaissez pas le pays d'immatriculation, il se peut que le statut inactif corresponde au fait que l'appel ne fonctionne pas (dans le cas où l'entreprise n'a pas été immatriculée en France). 
+      > ⚠️ Une réponse **statut inactif peut être un faux négatif** : Si vous utilisez le SIRET d'une entreprise dont vous ne connaissez pas le pays d'immatriculation, il se peut que le statut inactif corresponde au fait que l'appel ne fonctionne pas (dans le cas où l'entreprise n'a pas été immatriculée en France).
 
   opening: public
   format:
-    - Donnée structurée JSON 
-  availability: 
-    opening_time:
-      7jours/7 et 24h/24 
+    - Donnée structurée JSON
   use_cases:
     - Détection de la fraude
   use_cases_optional:

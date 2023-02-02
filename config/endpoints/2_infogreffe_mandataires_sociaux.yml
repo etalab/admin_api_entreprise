@@ -5,7 +5,7 @@
   perimeter:
     entity_type_description: |+
       Cette API concerne ✅ **toutes les entreprises inscrites au registre du commerce et des sociétés** (RCS).
-      
+
       Il s'agit des entreprises ayant une activité commerciale. Pour plus de détails, consulter [le site du ministère de l'économie](https://www.economie.gouv.fr/entreprises/registre-commerce-societes-rcs){:target="_blank"}
     updating_rules_description: |+
       Les données sont **mises à jour en temps réel** avec les greffes. La donnée est donc la plus récente possible, _modulo_ le temps de saisie nécessaire pour les greffiers.
@@ -34,10 +34,7 @@
       [Quelle différence avec les données disponibles depuis l'API Extrait RCS ?](#faq_entry_0_endpoint_infogreffe_mandataires_sociaux)
   opening: protected
   format:
-    - Donnée structurée JSON 
-  availability: 
-    opening_time:
-      7jours/7 et 24h/24 
+    - Donnée structurée JSON
   use_cases:
     - Aides publiques
     - Détection de la fraude
@@ -54,7 +51,7 @@
       a: |+
         L'[API Extrait RCS - Infogreffe](<%= endpoint_path(uid: 'insee/infogreffe/rcs/extrait') %>) permet aussi d'accéder à la liste des mandataires sociaux d'une unité légale. Issues du même fournisseur Infogreffe, la différence se trouve au niveau de l'ouverture et de la précision des données.
 
-        Cette API mandataires sociaux permet en plus d'accéder à des données protégées des personnes physiques : 
+        Cette API mandataires sociaux permet en plus d'accéder à des données protégées des personnes physiques :
         - ✅ le lieu de naissance (commune et pays) ;
         - ✅ le jour de naissance ;
         - ✅ la nationalité.

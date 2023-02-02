@@ -4,9 +4,9 @@
   path: '/v3/dgfip/unites_legales/{siren}/attestation_fiscale'
   perimeter:
     entity_type_description: |+
-      Cette API délivre uniquement les attestations fiscales aux **✅ entreprises assujettis à l'impôt sur les sociétés (IS) et à la TVA.**. 
+      Cette API délivre uniquement les attestations fiscales aux **✅ entreprises assujettis à l'impôt sur les sociétés (IS) et à la TVA.**.
 
-      **L'API ne permet pas de récupérer les attestations fiscales** : 
+      **L'API ne permet pas de récupérer les attestations fiscales** :
       - ❌ des entreprises qui relèvent de l'impôt sur le revenu (IR), quelque soit leur régime d'imposition, BIC, BNC ou BA. **À partir du moment où l'entreprise est imposée à l'IR, son attestation fiscale ne peut être obtenue par cette API** : les micro-entreprises sont de fait toujours exclues du périmètre de cette API ;
       - ❌ des sociétés ayant été créées durant l'année en cours ;
       - ❌ des sociétés bénéficiant d’un plan de règlement, redressement, sauvegarde ou conciliation ainsi que les sociétés ayant formulé un recours contentieux assorti d’un sursis de paiement.
@@ -49,9 +49,6 @@
     description: "Cette API délivre l'attestation de régularité fiscale d'une entreprise, au format PDF. L'attestation est **délivrée ✅ si l'entreprise est en règle de ses obligations** déclaratives et de paiement d'IS et de TVA."
   format:
     - URL vers l'attestation en PDF
-  availability: 
-    opening_time:
-      7jours/7 et 23h/24 (Opérations de maintenance toutes les nuits entre 1h et 2h)
   use_cases:
     - Marchés publics
     - Aides publiques
