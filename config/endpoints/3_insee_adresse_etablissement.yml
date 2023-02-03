@@ -13,10 +13,10 @@
         * ont demandé ou bénéficient de transferts financiers publics.
       - ✅ les établissements des personnes morales de droit public : les **institutions et services de l'État** et les collectivités territoriales ;
       - ✅ Les établissements des organismes publics ou privés et les entreprises étrangères qui ont une représentation ou une activité en France.
-      
-      
+
+
       {:.fr-highlight}
-      ✅ Depuis janvier 2022, les loueurs de meublés non professionnels (LMNP) et les particuliers employeurs, à l'exception des cas mentionnés au [2° de l'Article R123-220 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000030783425/2022-05-31/){:target="_blank"}, ont l'obligation d'être inscrits au répertoire Sirene. Cette modification intervient suite au [Décret n° 2021-1500 du 17 novembre 2021](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000044340276){:target="_blank"}. 
+      ✅ Depuis janvier 2022, les loueurs de meublés non professionnels (LMNP) et les particuliers employeurs, à l'exception des cas mentionnés au [2° de l'Article R123-220 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000030783425/2022-05-31/){:target="_blank"}, ont l'obligation d'être inscrits au répertoire Sirene. Cette modification intervient suite au [Décret n° 2021-1500 du 17 novembre 2021](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000044340276){:target="_blank"}.
 
 
       ❌ Les établissements de gestion de paye de la fonction publique, bien que présents dans la base Sirene, ne sont pas concernés par cette API. Ils ont été immatriculés pour les seuls besoins de certaines administrations (les impôts, les URSSAF, la DGCP …).
@@ -43,10 +43,7 @@
   parameters: &insee_adresse_etablissement_parameters
     - Numéro de SIRET de l'établissement
   format: &insee_adresse_etablissement_format
-    - Donnée structurée JSON 
-  availability: 
-    opening_time: &insee_adresse_etablissement_opening_time
-      7jours/7 et 24h/24 
+    - Donnée structurée JSON
   use_cases_optional:
     - Marchés publics
     - Aides publiques
@@ -87,10 +84,10 @@
 
         {:.fr-highlight}
         > À partir de mars 2024, le fonctionnement des non-diffusibles commerciaux évolue, certaines données seront disponibles pour du pré-remplissage et les personnes morales pourront décider de passer en diffusion partielle. <br>Lire notre publication du 14/12/2022 : [🦸&nbsp;**Le futur des “non-diffusibles”**](https://entreprise.api.gouv.fr/blog/insee-non-diffusibles).
-       
+
 
         **La non-diffusion pour d'autres raisons :**
-        Certaines entités ne sont pas diffusibles pour d'autres raisons que la non-diffusion commerciale. C'est par exemple le cas : 
+        Certaines entités ne sont pas diffusibles pour d'autres raisons que la non-diffusion commerciale. C'est par exemple le cas :
         - des établissements de gestion de paye de la fonction publique immatriculés pour les seuls besoins de certaines administrations (les impôts, les URSSAF, la DGCP …) et donc uniquement accessibles à ces administrations fiscales.
         - des unités de la Défense nationale, accessibles sur autorisation du Ministère de la Défense, conformément à l’[article A 123-95 du Code du commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000020165032/2010-07-02){:target="_blank"}. **Ces unités ne sont pas diffusées par l'API Entreprise**.
 
@@ -124,7 +121,7 @@
 
 
       {:.fr-highlight}
-      ✅ Depuis janvier 2022, les loueurs de meublés non professionnels (LMNP) et les particuliers employeurs, à l'exception des cas mentionnés au [2° de l'Article R123-220 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000030783425/2022-05-31/){:target="_blank"}, ont l'obligation d'être inscrits au répertoire Sirene. Cette modification intervient suite au [Décret n° 2021-1500 du 17 novembre 2021](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000044340276){:target="_blank"}. 
+      ✅ Depuis janvier 2022, les loueurs de meublés non professionnels (LMNP) et les particuliers employeurs, à l'exception des cas mentionnés au [2° de l'Article R123-220 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000030783425/2022-05-31/){:target="_blank"}, ont l'obligation d'être inscrits au répertoire Sirene. Cette modification intervient suite au [Décret n° 2021-1500 du 17 novembre 2021](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000044340276){:target="_blank"}.
 
       ❌ **Les établissements ["non-diffusibles"](#faq_entry_1_endpoint_insee_adresse_etablissements_diffusibles) ne sont pas couverts par cette API**, leur adresse est appelable avec [cette API](<%= endpoint_path(uid: 'insee/adresse_etablissements') %>).
 
@@ -136,8 +133,6 @@
     - associations
   opening: public
   format: *insee_adresse_etablissement_format
-  availability: 
-    opening_time: *insee_adresse_etablissement_opening_time
   use_cases_optional:
     - Marchés publics
     - Aides publiques

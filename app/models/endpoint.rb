@@ -5,7 +5,6 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
     :call_id,
     :parameters,
     :format,
-    :availability,
     :provider_uids,
     :perimeter,
     :extra_description,
@@ -96,6 +95,10 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
 
   def historicized?
     old_endpoints.any?
+  end
+
+  def maintenances
+    open_api_definition['x-maintenances']
   end
 
   def attributes

@@ -42,10 +42,7 @@
   parameters: &insee_unites_legales_parameters
     - Numéro de SIREN de l'unité légale
   format: &insee_unites_legales_format
-    - Donnée structurée JSON 
-  availability: 
-    opening_time: &insee_unites_legales_opening_time
-      7jours/7 et 24h/24 
+    - Donnée structurée JSON
   use_cases_optional:
     - Marchés publics
     - Aides publiques
@@ -124,10 +121,10 @@
 
         {:.fr-highlight}
         > À partir de mars 2024, le fonctionnement des non-diffusibles commerciaux évolue, certaines données seront disponibles pour du pré-remplissage et les personnes morales pourront décider de passer en diffusion partielle. <br>Lire notre publication du 14/12/2022 : [🦸&nbsp;**Le futur des “non-diffusibles”**](https://entreprise.api.gouv.fr/blog/insee-non-diffusibles).
-       
+
 
         **La non-diffusion pour d'autres raisons :**
-        Certaines entités ne sont pas diffusibles pour d'autres raisons que la non-diffusion commerciale. C'est par exemple le cas : 
+        Certaines entités ne sont pas diffusibles pour d'autres raisons que la non-diffusion commerciale. C'est par exemple le cas :
         - des établissements de gestion de paye de la fonction publique immatriculés pour les seuls besoins de certaines administrations (les impôts, les URSSAF, la DGCP …) et donc uniquement accessibles à ces administrations fiscales.
         - des unités de la Défense nationale, accessibles sur autorisation du Ministère de la Défense, conformément à l’[article A 123-95 du Code du commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000020165032/2010-07-02){:target="_blank"}. **Ces unités ne sont pas diffusées par l'API Entreprise**.
 
@@ -145,10 +142,10 @@
         > Il vous est par contre possible d'indiquer à l'unité légale "non-diffusible" qu'elle peut modifier son statut, même provisoirement, auprès de l'Insee à l'adresse suivante : [https://statut-diffusion-sirene.insee.fr](https://statut-diffusion-sirene.insee.fr}{:target="_blank"}).
 
         À partir de mars 2024, le fonctionnement des non-diffusibles commerciaux évolue, certaines données seront disponibles pour du pré-remplissage et les personnes morales pourront décider de passer en diffusion partielle. Lire notre publication du 14/12/2022 : [🦸&nbsp;**Le futur des “non-diffusibles”**](https://entreprise.api.gouv.fr/blog/insee-non-diffusibles).
-    
+
     - q: &insee_unites_legales_faq_q6 Le numéro de TVA intracommunataire disponible en V.2.n'est plus disponible en V.3, où puis-je le trouver ?
       a: &insee_unites_legales_faq_a6 |+
-        Lors de la conception de la V.3 de l'API Entreprise, nous avons décidé de ne plus délivrer le numéro de TVA intracommunautaire par le biais de l'API de l'Insee car cette donnée ne provient pas de ce fournisseur. Cette donnée était et est calculée par l'API Entreprise à partir du numéro de SIREN. 
+        Lors de la conception de la V.3 de l'API Entreprise, nous avons décidé de ne plus délivrer le numéro de TVA intracommunautaire par le biais de l'API de l'Insee car cette donnée ne provient pas de ce fournisseur. Cette donnée était et est calculée par l'API Entreprise à partir du numéro de SIREN.
 
         **Une [API spécifique est maintenant disponible en V.3](<%= endpoint_path(uid: 'commission_europeenne/numero_tva') %>)** et permet de connaître le numéro intracommunautaire français d'une unité légale. Cette API effectue une vérification auprès du service compétent de la Commission européenne.
 
@@ -179,8 +176,6 @@
     - associations
   opening: public
   format: *insee_unites_legales_format
-  availability: 
-    opening_time: *insee_unites_legales_opening_time
   use_cases_optional:
     - Détection de la fraude
     - Marchés publics

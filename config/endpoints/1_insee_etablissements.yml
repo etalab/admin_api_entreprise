@@ -42,10 +42,7 @@
   parameters: &insee_etablissements_parameters
     - Numéro de SIRET de l'établissement
   format: &insee_etablissements_format
-    - Donnée structurée JSON 
-  availability: 
-    opening_time: &insee_etablissements_opening_time
-      7jours/7 et 24h/24 
+    - Donnée structurée JSON
   use_cases:
     - Marchés publics
     - Aides publiques
@@ -99,7 +96,7 @@
 
     - q: &insee_etablissements_faq_q2 Qu'est-ce qu'un "non-diffusible" ?
       a: &insee_etablissements_faq_a2 |+
-        
+
         **La non-diffusion commerciale :**
         Parmi les entités présentes dans le répertoire Sirene, certaines, très majoritairement des personnes physiques, ont explicitement demandé de ne pas figurer en diffusion commerciale, en vertu de l'[article A123-96 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031043097/){:target="_blank"}.
 
@@ -107,14 +104,14 @@
 
         {:.fr-highlight}
         > À partir de mars 2024, le fonctionnement des non-diffusibles commerciaux évolue, certaines données seront disponibles pour du pré-remplissage et les personnes morales pourront décider de passer en diffusion partielle. <br>Lire notre publication du 14/12/2022 : [🦸&nbsp;**Le futur des “non-diffusibles”**](https://entreprise.api.gouv.fr/blog/insee-non-diffusibles).
-       
+
 
         **La non-diffusion pour d'autres raisons :**
-        Certaines entités ne sont pas diffusibles pour d'autres raisons que la non-diffusion commerciale. C'est par exemple le cas : 
+        Certaines entités ne sont pas diffusibles pour d'autres raisons que la non-diffusion commerciale. C'est par exemple le cas :
         - des établissements de gestion de paye de la fonction publique immatriculés pour les seuls besoins de certaines administrations (les impôts, les URSSAF, la DGCP …) et donc uniquement accessibles à ces administrations fiscales.
         - des unités de la Défense nationale, accessibles sur autorisation du Ministère de la Défense, conformément à l’[article A 123-95 du Code du commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000020165032/2010-07-02){:target="_blank"}. **Ces unités ne sont pas diffusées par l'API Entreprise**.
 
-       
+
 
     - q: &insee_etablissements_faq_q3 Comment utiliser les informations des établissements "non-diffusibles" ?
       a: &insee_etablissements_faq_a3 |+
@@ -165,8 +162,6 @@
     - Aides publiques
     - Subventions associations
   format: *insee_etablissements_format
-  availability: 
-    opening_time: *insee_etablissements_opening_time
   parameters: *insee_etablissements_parameters
   call_id: *insee_etablissements_call_id
   provider_uids: *insee_etablissements_provider_uids
