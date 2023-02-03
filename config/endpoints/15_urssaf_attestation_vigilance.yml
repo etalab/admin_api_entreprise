@@ -4,33 +4,26 @@
   path: '/v3/urssaf/unites_legales/{siren}/attestation_vigilance'
   perimeter:
     entity_type_description: |+
-      ✅ **Toutes les entreprises sont concernées**, y compris les micro-entreprises.
+  
+      - ✅ les entreprises et associations du régime général ;
+      - ✅ les très grandes entreprises ;
+      - ✅ les professions libérales (certaines n'ont pas de SIREN et ne seront donc pas trouvées par l'API) ;
+      - ✅ les micro-entrepreneurs de type "profession libérale" ;
+      - ✅ les firmes étrangères ;
+      - ✅ les administrations et collectivités territoriales.
+      <br />
 
-      L'attestation est délivrée si l'entreprise :
-      - s'est acquitée des cotisations et contributions dues à leur date normale d'exigibilité ;
-      - a souscrit un plan d'apurement (planification des remboursements) des cotisations et contributions restant dues, qu'elle respecte ;
-      - s'est acquitée des cotisations et contributions dues, mais n'est pas à jour dans le paiement des majorations et pénalités ;
-      - ne s'est pas acquittée des cotisations et contributions dues mais en conteste le montant par recours contentieux.
+      **Ne sont pas concernées par l'API&nbsp;:**
+      - ❌ les micro-entrepreneurs qui ne sont pas en profession libérale et ❌ les artisans-commerçants. _Ces deux catégories ne sont pas appelables avec un numéro de SIREN_ ;
+      - ❌ les entreprises utilisant le titre-emploi-service (TESE) et ❌ les associations et fondations utilisant le chèque-emploi associatif (CEA). _Ces deux catégories ne sont pas appelables car elles ont des déclarations apériodiques_.
 
-      Le cadre précis de délivrance de l'attestation est expliqué sur le [site de l'URSSAF](https://www.urssaf.fr/portail/home/employeur/declarer-et-payer/obtenir-une-attestation/attestation-de-vigilance.html){:target="_blank"}.
+    geographical_scope_description: |+
+       - ✅ France métropolitaine ;
+       - ✅ DROM COM ;
+       - ✅ Firmes étrangères établies en France.
 
-      {:.fr-highlight}
-      > Depuis 2021, la contribution annuelle de l'OETH (Obligation d'Emploi de Travailleur Handicapé), fait partie des contribution dues pour obtenir l'attestation.
-      > Cette compétence était auparavant attribuée à l'AGEFIPH.
-
-      {:.fr-h6 .fr-mt-4w}
-      ### Exemple d'attestation PDF&nbsp;:
-
-      <div class="fr-download">                
-       <p>                    
-        <a href="/files/exemple-urssaf-attestation-sociale.pdf" download class="fr-download__link">
-         Télécharger un exemple d'attestation de vigilance                     
-         <span class="fr-download__detail">                            
-         PDF – 843 Ko                               
-         </span>                    
-        </a>                
-       </p>            
-      </div>  
+    updating_rules_description: |+
+      Les données sont **mises à jour chaque nuit**, directement auprès du système d'information de l'URSSAF. Il peut donc exister un décalage de 24h au maximum entre les données de l'API et le SI de l'Urssaf.
     entities:
       - entreprises
   opening: protected
@@ -59,11 +52,44 @@
     - 'Aides publiques'
     - 'fraude'
   data:
-    description: Cette API délivre l'attestation de vigilance, au format PDF.
+    description: |+
+      Cette API permet de **savoir si l'attestation de vigilance est délivrée par l'Urssaf** ou refusée. En cas de délivrance de l'attestation l'API transmet une **URL de téléchargement de l'attestation, au format PDF**.
+      
+      L'attestation de vigilance est **délivrée sous [certaines conditions](#faq_entry_0_endpoint_urssaf_attestation_vigilance)** ; entre autres, si l'entreprise s'est acquitée de ses cotisations et contributions. 
+      
+      Elle a une **durée de validité légale de 6 mois** à compter de la date de délivrance indiquée sur le document. [En&nbsp;savoir&nbsp;plus](#faq_entry_1_endpoint_urssaf_attestation_vigilance).
+
+      {:.fr-h6 .fr-mt-4w}
+      ### Exemple d'attestation PDF&nbsp;:
+
+      <div class="fr-download">                
+       <p>                    
+        <a href="/files/exemple-urssaf-attestation-sociale.pdf" download class="fr-download__link">
+         Télécharger un exemple d'attestation de vigilance                     
+         <span class="fr-download__detail">                            
+         PDF – 843 Ko                               
+         </span>                    
+        </a>                
+       </p>            
+      </div>  
   faq:
+    - q: Sous quelles conditions l'attestation est délivrée ?
+      a: |+
+        L'attestation est délivrée si l'entreprise :
+        - s'est acquitée des cotisations et contributions dues à leur date normale d'exigibilité ;
+        - a souscrit un plan d'apurement (planification des remboursements) des cotisations et contributions restant dues, qu'elle respecte ;
+        - s'est acquitée des cotisations et contributions dues, mais n'est pas à jour dans le paiement des majorations et pénalités ;
+        - ne s'est pas acquittée des cotisations et contributions dues mais en conteste le montant par recours contentieux.
+
+        Le cadre précis de délivrance de l'attestation est expliqué sur le [site de l'URSSAF](https://www.urssaf.fr/portail/home/employeur/declarer-et-payer/obtenir-une-attestation/attestation-de-vigilance.html){:target="_blank"}.
+
+        {:.fr-highlight}
+        > Depuis 2021, la contribution annuelle de l'OETH (Obligation d'Emploi de Travailleur Handicapé), fait partie des contribution dues pour obtenir l'attestation.
+        > Cette compétence était auparavant attribuée à l'AGEFIPH.
+
     - q: Combien de temps est valide l'attestation de vigilance ?
       a: |+
-        L'attestation de vigilance est valide 6 mois à compter de la dernière date de période analysée. Celle-ci dépend de la situation de chaque entreprise et de la dernière déclaration enregistrée dans le système.
+        L'attestation de vigilance est valide 6 mois à compter de la date figurant sur l'attestation. L'API transmet des attestations dont la date de période analysée est inférieure à 3 mois. Par conséquent, la période de validité d'une attestation récupérée sur l'API Entreprise peut varier entre 3 et 6 mois.
 
     - q: L'API ne renvoie pas de pièce, peut-on considérer que l'entreprise n'est pas à jour ?
       a: |+
