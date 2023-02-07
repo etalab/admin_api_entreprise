@@ -53,6 +53,8 @@ fr:
                   > **⚠️ Cas particulier**, _vous êtes un éditeur ?_
                   > Ce n’est pas votre numéro de SIRET mais celui de votre client public qu’il s’agira de renseigner. API Entreprise doit pouvoir tracer pour quelle entité publique l'appel a été passé.
 
+                  Pour en savoir plus sur les paramètres obligatoires d'appel, consultez les [spécifications techniques](<%= developers_path(anchor: 'renseigner-les-paramètres-dappel-et-de-traçabilité') %>).
+
               - subtitle: 3. Codes erreurs spécifiques à chaque situation, actionnables et documentés
                 subtitle_anchor: 'codes-erreurs-spécifiques-à-chaque-situation-actionnables-et-documentés'
                 content: |+
@@ -871,7 +873,7 @@ fr:
                   | Paramètre                                                  |      Information à renseigner           |
                   |:----------------------------------------------------------:|-----------------------------------------|
                   |`&context=CadreDeLaRequête`|**Le cadre de la requête** <br><br>Par exemple : aides publiques, marchés publics ou gestion d'un référentiel tiers utilisé pour tel type d'application*.*
-                  |`&recipient=BénéficaireDeL'Appel`|**Le bénéficiaire de l'appel** <br><br>Ce paramètre permet la traçabilité de l'appel et doit correspondre au _SIRET de l'organisation publique habilitée à utiliser la donnée_. <br><br>Si vous êtes une collectivité ou une administration, ce paramètre doit donc être votre numéro de SIRET. Si vous êtes un éditeur, il s'agit du SIRET de l'organisation publique cliente demandant la donnée.
+                  |`&recipient=BénéficaireDeL'Appel`|**Le bénéficiaire de l'appel** <br><br>Ce paramètre permet la traçabilité de l'appel et doit correspondre au _SIRET de l'organisation publique habilitée à utiliser la donnée_. <br><br>Si vous êtes une collectivité ou une administration, ce paramètre doit donc être votre numéro de SIRET. Si vous êtes un éditeur, il s'agit du SIRET de l'organisation publique cliente demandant la donnée.<br><br>Une vérification est effectuée par API Entreprise pour refuser tout format qui ne serait pas un numéro de SIRET et pour refuser un SIRET qui serait identique à l'entité appelée.
                   |`&object= RaisonDeL'AppelOuIdentifiant`|**La raison de l'appel** <br> ou l'identifiant de la procédure. <br><br> L'identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l'essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l'appel. En effet, vous devez pouvoir justifier de la raison d'un appel auprès du fournisseur de données. <br> Description courte (< 50 caractères).
 
               - subtitle: Changer de version
