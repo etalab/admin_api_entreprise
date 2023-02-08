@@ -15,11 +15,8 @@
       Pour ces dernières entreprises, l'obtention d'une attestation fiscale est possible en transmettant le [formulaire n° 3666](https://www.impots.gouv.fr/formulaire/3666-sd/attestation-de-regularite-fiscale){:target="_blank"} à leur service des impôts des entreprises. Ces entreprises ne peuvent pas bénéficier du service en ligne disponible sur le site [www.impots.gouv.fr](www.impots.gouv.fr){:target="_blank"}, conformément au [bulletin officiel des impôts du 7 décembre 2016 référencé BOI-DJC-ARF-20161207](https://bofip.impots.gouv.fr/bofip/8485-PGP.html/identifiant%3DBOI-DJC-ARF-20161207){:target="_blank"}.
 
       {:.fr-highlight.fr-highlight--caution}
-      > **⚠️ Cette API n'est pas fiable pour ❌ les sociétés "filles" appartenant à un groupe de société**.
-      >
-      > Une attestation peut être renvoyée en cas d'appel d'une entreprise "fille", mais cette attestation ne sera pas valable car incomplète. En effet, il manquera les informations de la société "mère".
-      > Il est de votre ressort de vérifier si l'entreprise est membre ou non d'un groupe de sociétés imposé selon le régime fiscal d'intégration visé à l'[article 223 A du CGI](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000042340402/){:target="_blank"} afin de ne pas utiliser une attestation qui ne serait pas valable. Deux API spécifiques à ces sociétés seront bientôt disponibles.
-
+      > **⚠️ Cette API n'est pas fiable pour ❌ les sociétés "filles" appartenant à un groupe de société**. Avant de d'utiliser cette API, il est de votre ressort d'avoir vérifié que l'entreprise n'est pas une société fille. [En savoir plus](#faq_entry_4_endpoint_dgfip_attestations_fiscales)
+      
       **Exceptions observées :**
       Suite à un retour utilisateur, nous observons que les attestations fiscales des **sociétés en nom collectif (SNC) ayant opté à l'IS** ne sont pas délivrées par cette API. Cette absence serait dûe au fait que le service des impôts en charge peut être le service des impôts des particuliers dans le cas d'un associé personne physique. Même si tous les associés sont des personnes morales, l'attestation ne sera pas accessible.
     know_more_description: |+
@@ -47,7 +44,9 @@
     - 'fraude'
   data:
     description: |+
-      Cette API délivre l'attestation de régularité fiscale d'une entreprise, au format PDF. L'attestation est **délivrée ✅ si l'entreprise est en règle de ses obligations** déclaratives et de paiement d'IS et de TVA.
+      Cette API délivre l'attestation de régularité fiscale d'une entreprise, au format PDF. L'attestation est **délivrée ✅ si l'entreprise est en règle de ses obligations** déclaratives et de paiement d'IS et de TVA. 
+
+      La date de délivrance de l'attestation correspond au jour de l'appel et statue donc de la **situation de l'entreprise au dernier jour du moins M-1**. [En savoir plus sur la date de délivrance](#faq_entry_3_endpoint_dgfip_attestations_fiscales). 
 
       {:.fr-h6 .fr-mt-4w}
       ### Exemple d'attestation PDF&nbsp;:
@@ -113,11 +112,9 @@
 
     - q: Quelle est la date de délivrance de l'attestation ?
       a: |+
-        Théoriquement, l'attestation de régularité fiscale peut être obtenue tout au long de l'année et apprécie la situation de l'entreprise au dernier jour du mois précédant la demande de délivrance de l'attestation.
+        D'après le [BOFIP - Alinéa 180](https://bofip.impots.gouv.fr/bofip/8485-PGP.html/identifiant=BOI-DJC-ARF-20220209){:target="_blank"}; l'attestation de régularité fiscale peut être obtenue tout au long de l'année et apprécie la situation de l'entreprise au dernier jour du mois précédant la demande de délivrance de l'attestation.
 
-        En pratique, les dates de délivrance des attestations obtenues sur API Entreprise varient.
-
-
+        La date de délivrance des attestations obtenues sur API Entreprise est la date de l'appel. Par conséquent, les attestations fiscales délivrées sur l'API Entreprise indiquent que l'entreprise était à jour de ses cotisations au dernier jour du mois M-1.
 
     - q: Pourquoi l'attestation délivrée par cette API n'est pas valable pour une entreprise filiale d'un groupe de sociétés ?
       a: |+
@@ -125,7 +122,9 @@
         * sa propre attestation, justifiant de ses propres obligations, à savoir le dépôt des déclarations de résultats et de TVA, ainsi que le paiement de la TVA ;
         * l'attestation de régularité fiscale de la société mère du groupe, qui confirme le paiement de l'impôt sur les société.
 
-        Cette API ne permet pas d'entrer le numéro de SIREN de la société mère. Par conséquent, elle ne délivre que la partie concernant la société fille. Ce qui est insuffisant.
+        Cette API ne permet pas d'entrer le numéro de SIREN de la société mère. Par conséquent, elle ne délivre que la partie concernant la société fille. Ce qui est insuffisant. En effet, il manquera les informations de la société "mère".
+
+        **Il est de votre ressort de vérifier si l'entreprise est membre ou non d'un groupe de sociétés imposé selon le régime fiscal d'intégration visé à l'[article 223 A du CGI](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000042340402/){:target="_blank"} afin de ne pas utiliser une attestation qui ne serait pas valable.**
 
         Une API dédiée sera bientôt disponible.
 
