@@ -22,7 +22,7 @@
        - ✅ Firmes étrangères établies en France.
 
     updating_rules_description: |+
-      Les données sont **mises à jour chaque nuit**, directement auprès du système d'information de l'URSSAF. Il peut donc exister un décalage de 24h au maximum entre les données de l'API et le SI de l'Urssaf.
+      Les données sont **mises à jour chaque nuit**, directement auprès du système d'information de l'Urssaf. Il peut donc exister un décalage de 24h au maximum entre les données de l'API et le SI de l'Urssaf.
     entities:
       - entreprises
   opening: protected
@@ -56,7 +56,34 @@
       
       L'attestation de vigilance est **délivrée sous [certaines conditions](#faq_entry_0_endpoint_urssaf_attestation_vigilance)** ; entre autres, si l'entreprise s'est acquitée de ses cotisations et contributions. 
       
-      Elle a une **durée de validité légale de 6 mois** à compter de la date de délivrance indiquée sur le document. [En&nbsp;savoir&nbsp;plus](#faq_entry_1_endpoint_urssaf_attestation_vigilance).
+      Elle a une **durée de validité légale de 6 mois** à compter de la date d'analyse indiquée sur le document et qui est différente de la date de délivrance du document. [En&nbsp;savoir&nbsp;plus](#faq_entry_1_endpoint_urssaf_attestation_vigilance).
+
+      <section class="fr-accordion">
+        <h3 class="fr-accordion__title">
+          <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-1">Liste des informations disponibles sur l'attestation</button>
+        </h3>
+        <div class="fr-collapse" id="accordion-1">
+
+        - **Des informations sur l'entreprise&nbsp;:**
+          - Nom de l'unité légale&nbsp;;
+          - adresse du siège social&nbsp;;
+          - numéro de SIREN&nbsp;;
+          - La date de début de la centralisation des obligations sociales de l'entreprise par l'organisme émetteur.
+
+        - **La liste des établissements concernés** par l'attestation de vigilance et leur numéro de SIRET. _S'ils sont tous concernés, une mention l'indique_.
+
+        - Pour les entreprises ayant des salariés, pour le mois et les établissements listés : 
+          - l'**effectif moyen mensuel** calculé par l'Urssaf à partir des données issues de la déclaration sociale nominative (DSN)&nbsp;;
+          - la **masse salariale**, c'est à dire le total des rémunérations déclarées sur le dernier bordereau récapitulatif des cotisations Urssaf.
+          
+        - **Un paragraphe listant les obligations sociales en règle**, qui peuvent être différentes selon l'entité analysée&nbsp;;
+
+        - **Des informations relatives à l'attestation&nbsp;:**
+          - date et lieu de délivrance&nbsp;;
+          - code sécurité - 💡 _Grâce à API Entreprise vous n'avez pas besoin d'utiliser ce code pour vérifier l'authenticité des documents car toutes nos attestations sont issues directement à l'Urssaf et donc certifiées !_
+          - adresse, courriel et téléphone du service gestionnaire de l'Urssaf.
+        </div>
+      </section>
 
       {:.fr-h6 .fr-mt-4w}
       ### Exemple d'attestation PDF&nbsp;:
@@ -80,7 +107,7 @@
         - s'est acquitée des cotisations et contributions dues, mais n'est pas à jour dans le paiement des majorations et pénalités ;
         - ne s'est pas acquittée des cotisations et contributions dues mais en conteste le montant par recours contentieux.
 
-        Le cadre précis de délivrance de l'attestation est expliqué sur le [site de l'URSSAF](https://www.urssaf.fr/portail/home/employeur/declarer-et-payer/obtenir-une-attestation/attestation-de-vigilance.html){:target="_blank"}.
+        Le cadre précis de délivrance de l'attestation est expliqué sur le [site de l'Urssaf](https://www.urssaf.fr/portail/home/employeur/declarer-et-payer/obtenir-une-attestation/attestation-de-vigilance.html){:target="_blank"}.
 
         {:.fr-highlight}
         > Depuis 2021, la contribution annuelle de l'OETH (Obligation d'Emploi de Travailleur Handicapé), fait partie des contribution dues pour obtenir l'attestation.
@@ -88,7 +115,10 @@
 
     - q: Combien de temps est valide l'attestation de vigilance ?
       a: |+
-        L'attestation de vigilance est valide 6 mois à compter de la date figurant sur l'attestation. L'API transmet des attestations dont la date de période analysée est inférieure à 3 mois. Par conséquent, la période de validité d'une attestation récupérée sur l'API Entreprise peut varier entre 3 et 6 mois.
+        L'attestation de vigilance est valide 6 mois à compter de la date de fin de période analysée figurant sur l'attestation. Cette date est lisible en fin de seconde page, à la suite du paragraphe indiquant les obligations sociales. 
+        ⚠️ Cette date est différente de la date d'édition de l'attestation. 
+        
+        L'API transmet des attestations dont la date de période analysée est inférieure à 3 mois. Par conséquent, la période de validité d'une attestation récupérée sur l'API Entreprise peut varier entre 3 et 6 mois.
 
     - q: L'API ne renvoie pas de pièce, peut-on considérer que l'entreprise n'est pas à jour ?
       a: |+
