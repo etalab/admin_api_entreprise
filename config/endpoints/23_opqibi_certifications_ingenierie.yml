@@ -4,7 +4,7 @@
   position: 340
   perimeter:
     entity_type_description: |+
-      ✅ **Toutes les unités légales, ayant l'ingénierie comme activité principale ou accessoire**, et qui ont été certifiées par l'[OPQIBI](https://www.opqibi.com/){:target="_blank"}. Ce qui représente environ 2000 structures en 2020.
+      ✅ **Toutes les unités légales certifiées par l'OPQIBI**, ce qui représente environ 2000 structures en 2020. Les entités éligibles à cette certification doivent impérativement avoir l'**ingénierie comme activité** principale ou accessoire. [En savoir plus sur les critères d'éligibilité](#faq_entry_0_endpoint_opqibi_qualifications_ingenierie).
     entities:
       - associations
       - entreprises
@@ -23,20 +23,52 @@
     - 'qualité'
     - 'marchés publics'
     - 'aides'
+    - 'rge'
   data:
     description: |+
+      Le certificat OPQIBI renseigne sur les capacités d'ingénierie d'une organisation. Il permet de connaître les qualifications et qualifications probatoires de l'entité. [En savoir plus](#faq_entry_1_endpoint_opqibi_qualifications_ingenierie).
+      
       Cette API délivre :
-      - les informations générales du certificat OPQIBI** dont notamment les dates de délivrance et de validité ;
-      - le détail des **qualifications** et qualifications probatoires de l’entreprise, dont notamment le code de la qualification, son nom et sa définition, le statut “RGE Études" initié par l'ADEME s’il est reconnu, et les dates de validité.
+      - les **informations relatives au certificat OPQIBI**, notamment les dates de délivrance et de validité ;
+      - le **détail des qualifications**, dont notamment le code de la qualification, son libellé et sa définition, le statut “RGE Études" initié par l'ADEME s’il est reconnu, et les dates de validité.
+      - l'**URL pour accéder au certificat en ligne**.
 
-      {:.fr-highlight}
-      > **Une entreprise certifiée OPQIBI possède au moins une qualification ou une qualification probatoire.**
-      > Une qualification **atteste de la capacité d’une entreprise d’ingénierie à réaliser une prestation déterminée**. Elle est attribuée sur la base de critères légaux, administratifs, juridiques, financiers et techniques (moyens (humains, matériels, méthodologiques) et références).
-      > Une qualification probatoire est attribuée à une entreprise nouvellement créée ou en cours de diversification qui ne dispose pas encore de référence ou en nombre insuffisant mais satisfait aux critères légaux, administratifs, juridiques et moyens.
+      <section class="fr-accordion">
+        <h3 class="fr-accordion__title">
+          <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-1">Liste des informations disponibles sur le certificat en ligne</button>
+        </h3>
+        <div class="fr-collapse" id="accordion-1">
+
+        **Des informations sur l'entreprise&nbsp;:**
+
+        - raison sociale, SIREN, SIRET, forme juridique, code NAF et capital social&nbsp;;
+        - adresse du siège social et téléphone de l'entreprise&nbsp;;
+        - e-mail et site internet&nbsp;;
+        - communes des établissements secondaires&nbsp;;
+        - nom, prénom et fonction du ou des dirigeants "ayant le pouvoir d'engager la structure"&nbsp;;
+        - registre de commerce ou de répertoire des métiers auquel l'entreprise est rattachée&nbsp;;
+        - numéro et ville d'enregistrement au registre du commerce&nbsp;;
+        - assurances&nbsp;;
+        - dernier chiffre d'affaires total connu, date indiquée&nbsp;;
+        - dernier effectif.
+
+        **Un tableau des qualifications attribuées&nbsp;:**
+        - code&nbsp;;
+        - libellé&nbsp;;
+        - date d'effet.
+      
+        **Des informations liées au certificat&nbsp;:**
+        
+        - numéro d'identification du certificat&nbsp;;
+        - date d'édition;nbsp;;
+        - durée de validité.
+
+        </div>
+      </section>
 
   opening: public
   format:
-    - Donnée structurée JSON et URL vers le certificat en PDF
+    - Donnée structurée JSON et URL vers le certificat en ligne
   use_cases_optional:
     - Marchés publics
     - Aides publiques
@@ -51,7 +83,7 @@
       a: |+
         Toute structure ayant l’ingénierie comme activité principale ou accessoire peut postuler à une qualification de l'OPQIBI :
         - qu'elle soit ou non adhérente à un syndicat professionnel,
-        - qu'elle soit de création récente ou ancienne
+        - qu'elle soit de création récente ou ancienne,
         - quelle que soit sa taille,
         - quelle que soit sa forme juridique
         - quel que soit son code d'activité,
@@ -60,7 +92,17 @@
         - qu'elle soit ou non issue d'une profession réglementée,
         - qu'elle soit française ou étrangère.
 
-        **Source: [Opqibi.fr, rubrique "Qui peut se faire qualifie ?"](https://www.opqibi.com/page/qui-peut-se-faire-qualifier){:target="_blank"}.**
+        **Source**: [Opqibi.fr](https://www.opqibi.com/page/qui-peut-se-faire-qualifier){:target="_blank"}
+
+    - q: Qu'est-ce qu'une qualification ?
+      a: |+
+        Une **qualification atteste de la capacité** d’une entité d’ingénierie à réaliser une prestation déterminée. Elle est attribuée sur la base de critères légaux, administratifs, juridiques, financiers et techniques (moyens (humains, matériels, méthodologiques) et références).
+
+        Une **qualification probatoire** est attribuée à une entité nouvellement créée ou en cours de diversification qui ne dispose pas encore de référence ou en nombre insuffisant mais satisfait aux critères légaux, administratifs, juridiques et moyens.
+
+        La **mention « RGE »** (Reconnu Garant de l’Environnement) peut être délivrée aux professionnels réalisant des prestations intellectuelles concourant à la performance énergétique des bâtiments et des installations d’énergie renouvelable. [En savoir plus sur la reconnaissance RGE et l'OPQIBI](https://www.opqibi.com/page/qualifications-opqibi-et-reconnaissance-rge-etudes){:target="_blank"}.
+
+        Une entité certifiée OPQIBI possède au moins une qualification ou une qualification probatoire.
 
     - q: Quelles durées de validité pour le certificat et les qualifications ?
       a: |+
