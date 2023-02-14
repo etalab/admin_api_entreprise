@@ -21,7 +21,7 @@
       Suite à un retour utilisateur, nous observons que les attestations fiscales des **sociétés en nom collectif (SNC) ayant opté à l'IS** ne sont pas délivrées par cette API. Cette absence serait dûe au fait que le service des impôts en charge peut être le service des impôts des particuliers dans le cas d'un associé personne physique. Même si tous les associés sont des personnes morales, l'attestation ne sera pas accessible.
     know_more_description: |+
       - Le BOFIP expose les [dispositions juridiques communes de l'attestation de régularité](https://bofip.impots.gouv.fr/bofip/8485-PGP.html/identifiant=BOI-DJC-ARF-20220209){:target="_blank"} ;
-      - [economie.gouv.fr](https://www.economie.gouv.fr/entreprises/impot-revenu-impot-societe-statut){:target="_blank"} dresse les types d'imposition possibles par statuts d'entreprise et vous permet de mieux comprendre le périmètre des entreprises concernées par cette API.
+      - Cette page d'[economie.gouv.fr](https://www.economie.gouv.fr/entreprises/impot-revenu-impot-societe-statut){:target="_blank"} dresse les types d'imposition possibles par statuts d'entreprise et vous permet de mieux comprendre le périmètre des entreprises concernées par cette API.
     entities:
       - entreprises
       - associations
@@ -47,6 +47,26 @@
       Cette API délivre l'attestation de régularité fiscale d'une entreprise, au format PDF. L'attestation est **délivrée ✅ si l'entreprise est en règle de ses obligations** déclaratives et de paiement d'IS et de TVA. 
 
       La date de délivrance de l'attestation correspond au jour de l'appel et statue donc de la **situation de l'entreprise au dernier jour du moins M-1**. [En savoir plus sur la date de délivrance](#faq_entry_3_endpoint_dgfip_attestations_fiscales). 
+
+      <section class="fr-accordion">
+        <h3 class="fr-accordion__title">
+          <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-1">Liste des informations disponibles sur l'attestation</button>
+        </h3>
+        <div class="fr-collapse" id="accordion-1">
+
+        - **Des informations sur l'entreprise&nbsp;:**
+          - dénomination sociale de la société&nbsp;;
+          - adresse de l'établissement principal&nbsp;;
+          - numéro de SIREN&nbsp;;
+
+        - **Un paragraphe listant les obligations fiscales en règle**&nbsp;;
+
+        - **Des informations relatives à l'attestation&nbsp;:**
+          - date de délivrance&nbsp;;
+          - numéro de délivrance - 💡 _Grâce à API Entreprise vous n'avez pas besoin d'utiliser ce numéro pour vérifier l'authenticité des documents car toutes nos attestations sont issues directement de la DGFIP et donc certifiées !_
+          - coordonnées du service des impôts gestionnaire.
+        </div>
+      </section>
 
       {:.fr-h6 .fr-mt-4w}
       ### Exemple d'attestation PDF&nbsp;:
