@@ -134,13 +134,9 @@
 
         <div class="keep-within-block-mobile">
           <% if @endpoint.collection? %>
-            <%=
-              render partial: 'property', locals: {
-                key: 'type',
-                kind: 'attribute',
-                properties: @endpoint.collection_types
-                }
-              %>
+            <div class="fr-pb-3w">
+              <%= t('.collection.subtitle') %>
+            </div>
           <% end %>
 
           <% @endpoint.attributes.each do |key, properties| %>
@@ -152,51 +148,51 @@
               }
             %>
           <% end %>
+
+          <% if @endpoint.root_links.any? %>
+            <h3 id="donnees_racine_liens" class="fr-h6 fr-mb-1w fr-mt-3w">
+              <%= t('.root_links.title') %>
+            </h3>
+
+            <div class="fr-pb-3w">
+              <%= t('.root_links.description') %>
+            </div>
+
+            <div class="keep-within-block-mobile">
+              <% @endpoint.root_links.each do |key, properties| %>
+                <%=
+                  render partial: 'property', locals: {
+                    key: key,
+                    kind: 'link',
+                    properties: properties
+                  }
+                %>
+              <% end %>
+            </div>
+          <% end %>
+
+          <% if @endpoint.root_meta.any? %>
+            <h3 id="donnees_racine_metadonnes" class="fr-h6 fr-mb-1w fr-mt-3w">
+              <%= t('.root_meta.title') %>
+            </h3>
+
+            <div class="fr-pb-3w">
+              <%= t('.root_meta.description') %>
+            </div>
+
+            <div class="keep-within-block-mobile">
+              <% @endpoint.root_meta.each do |key, properties| %>
+                <%=
+                  render partial: 'property', locals: {
+                    key: key,
+                    kind: 'meta',
+                    properties: properties
+                  }
+                %>
+              <% end %>
+            </div>
+          <% end %>
         </div>
-
-        <% if @endpoint.root_links.any? %>
-          <h3 id="donnees_racine_liens" class="fr-h6 fr-mb-1w fr-mt-3w">
-            <%= t('.root_links.title') %>
-          </h3>
-
-          <div class="fr-pb-3w">
-            <%= t('.root_links.description') %>
-          </div>
-
-          <div class="keep-within-block-mobile">
-            <% @endpoint.root_links.each do |key, properties| %>
-              <%=
-                render partial: 'property', locals: {
-                  key: key,
-                  kind: 'link',
-                  properties: properties
-                }
-              %>
-            <% end %>
-          </div>
-        <% end %>
-
-        <% if @endpoint.root_meta.any? %>
-          <h3 id="donnees_racine_metadonnes" class="fr-h6 fr-mb-1w fr-mt-3w">
-            <%= t('.root_meta.title') %>
-          </h3>
-
-          <div class="fr-pb-3w">
-            <%= t('.root_meta.description') %>
-          </div>
-
-          <div class="keep-within-block-mobile">
-            <% @endpoint.root_meta.each do |key, properties| %>
-              <%=
-                render partial: 'property', locals: {
-                  key: key,
-                  kind: 'meta',
-                  properties: properties
-                }
-              %>
-            <% end %>
-          </div>
-        <% end %>
 
         <% if @endpoint.custom_provider_errors.any? %>
           <h2 id="erreurs" class="fr-mt-md-5w fr-mt-8w">
