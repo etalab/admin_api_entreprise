@@ -64,6 +64,8 @@ gem "algoliasearch-rails"
 
 gem 'listen'
 
+gem 'anchored'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'colorize'
