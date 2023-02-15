@@ -2,6 +2,10 @@ require 'kramdown'
 require 'kramdown-parser-gfm'
 
 module ApplicationHelper
+  def auto_link(text, options = {})
+    Anchored::Linker.auto_link(text, options)
+  end
+
   def status_to_color(status)
     case status
     when :up
