@@ -5,10 +5,7 @@ require_relative 'config/application'
 
 Rails.application.load_tasks
 
-wd2 = 'ns3162821.ip-51-91-107.eu'
-watchdoge  = 'ns3189474.ip-135-125-108.eu'
-
-domains = [watchdoge, wd2]
+domains = ['watchdoge1', 'watchdoge2']
 
 task :setup do
   domains.each do |domain|
