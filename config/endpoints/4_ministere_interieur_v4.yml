@@ -1,6 +1,6 @@
 ---
-- uid: 'ministere_interieur/associations'
-  path: '/v4/ministere_interieur/api-association/associations/{siren_or_rna}'
+- uid: 'djepva/associations'
+  path: '/v4/djepva/api-association/associations/{siren_or_rna}'
   position: 150
   old_endpoint_uids:
     - 'ministere_interieur/rna'
@@ -25,7 +25,7 @@
       - associations
   call_id: &call_id "SIREN / RNA"
   provider_uids: &association_provider_uids
-    - 'mi'
+    - 'djepva'
   keywords: &association_keywords
     - 'association'
     - 'forme juridique'
@@ -102,8 +102,8 @@
       a: |+
         Vous pouvez l'orienter vers le [site officiel Le compte Asso](https://lecompteasso.associations.gouv.fr/declarer-un-changement-de-situation-de-mon-association/){:target="_blank"} où elle pourra déclarer son changement de situation.
 
-- uid: 'ministere_interieur/associations_open_data'
-  path: '/v4/ministere_interieur/api-association/associations/open_data/{siren_or_rna}'
+- uid: 'djepva/associations_open_data'
+  path: '/v4/djepva/api-association/associations/open_data/{siren_or_rna}'
   position: 151
   perimeter: *association_perimeter
   call_id: *call_id
