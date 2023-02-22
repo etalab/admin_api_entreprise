@@ -6,7 +6,7 @@
     entity_type_description: |+
       Cette API concerne les unités légales inscrites au répertoire Sirene, qu'elles soient **"diffusibles" ou ["non-diffusibles"](#faq_entry_3_endpoint_insee_unites_legales)** :
 
-      - ✅ les personnes morales de droit privé : les **entreprises** dont toutes celles immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RCM) figurent dans la base Sirene ;
+      - ✅ les personnes morales de droit privé : les **entreprises** dont toutes celles immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RM) figurent dans la base Sirene ;
       - ✅ les **associations ayant un numéro de SIREN**, délivré lorsqu'elles :
         * emploient du personnel salarié ;
         * sont soumises à la TVA ;
@@ -83,20 +83,25 @@
       - les mandataires sociaux, [cette API](<%= endpoint_path(uid: 'infogreffe/mandataires_sociaux') %>) .
       - les informations du siège social, [cette API pour les "diffusibles"](<%= endpoint_path(uid: 'insee/siege_social_diffusibles') %>) et [cette API pour tous les sièges sociaux, y compris les "non-diffusibles"](<%= endpoint_path(uid: 'insee/siege_social') %>).
   faq:
-    - q: &insee_unites_legales_faq_q1 Qu'est-ce que l'état administratif d'une entité légale ?
+    - q: &insee_unites_legales_faq_q1 À quoi correspondent les états administratifs ? Une unité légale peut-elle être en activité alors que tous ses établissements sont fermés ?
       a: &insee_unites_legales_faq_a1 |+
+        À gros trait, l'état administratif vous permet de vérifier si l'entreprise ou l'association est en activité. Il faut pour cela distinguer et vérifier l'état administratif de l'unité légale et celui de ses établissments.
+
+        **État administratif de l'unité légale&nbsp;:**
+        L'état administratif de l'unité légale peut être "actif" ou "cessé".
+        L'unité légale est toujours active, sauf si une déclaration de cessation administrative a été déposée et prise en compte par l'Insee. 
         L'état administratif indique si une unité légale est active ou cessée.
 
-        **Pour les personnes morales**, l'unité légale est considérée comme juridiquement cessée si :
-        - il y a eu dépôt de la déclaration de disparition de la personne morale ;
-        - elle a été inscrite sans activité à sa demande. Dans le cas d'une création au répertoire Sirene mais sans avoir encore démarré une activité (activité principale provisoire “0000Z”) ;
-        - elle n'a plus d'établissement en activité.
+        **État administratif d'un établissement&nbsp;:**
+        Il peut être "actif" ou "fermé". Lors de son inscription au répertoire Sirene, un établissement est, sauf exception, à l'état "actif". Le passage à l'état "fermé" découle de la prise en compte d'une déclaration de fermeture. Un établissement fermé peut être rouvert.
 
-        **Pour les personnes physiques**, l'unité légale est considérée comme juridiquement cessée si :
-        - l'exploitant de l'unité légale décède ;
-        - l'exploitant dépose une cessation d'activité.
-
-          En dehors de ces cas, l'état administratif de l'unité légale est toujours "actif".
+        **Cas particuliers&nbsp;:**
+        - **une unité légale est active alors que tous ses établissements sont fermés**. Il s'agit alors d'une entité active d'un point de vue administratif mais n'ayant pas d'activité économique. Cette situation regroupe : 
+           - Les sociétés en sommeil, c'est-à-dire faire reconnaître par une formalité leur état en sommeil afin de ne plus avoir certaines obligations fiscales ;
+           - Les sociétés présumées inactives, identifiées par l’Insee pour des besoins statistiques.
+           
+           La distinction "en sommeil" ou "présumée inactive" n'est pas une information transmise par l'Insee.
+        - **une unité légale est cessée alors qu'un établissement est actif**. Cette situation est une erreur à signaler au pôle du répertoire Sirene à l'Insee. Une unité légale cessée ne peut avoir d'établissements actifs.
 
     - q: &insee_unites_legales_faq_q2 Une unité légale semble être successivement active puis cessée puis active, est-ce normal ?
       a: &insee_unites_legales_faq_a2 |+
@@ -155,7 +160,7 @@
   perimeter:
     entity_type_description: |+
       Cette API concerne les unités légales inscrites au répertoire Sirene et **"diffusibles" commercialement** :
-      - ✅ les personnes morales de droit privé : les **entreprises**, dont toutes celles immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RCM) figurent dans la base Sirene ;
+      - ✅ les personnes morales de droit privé : les **entreprises**, dont toutes celles immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RM) figurent dans la base Sirene ;
       - ✅ les **associations ayant un numéro de SIREN**, délivré lorsqu'elles :
         * emploient du personnel salarié ;
         * sont soumises à la TVA ;

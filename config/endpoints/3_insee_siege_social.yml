@@ -6,7 +6,7 @@
     entity_type_description: |+
       Cette API concerne les sièges sociaux des unités légales inscrites au répertoire Sirene, qu'elles soient **"diffusibles" ou ["non-diffusibles"](#faq_entry_2_endpoint_insee_siege_social)** :
 
-      - ✅ les sièges sociaux des personnes morales de droit privé : **les entreprises et les entrepreneurs individuels**, dont toutes celles et ceux immatriculés au registre du commerce et des sociétés (RCS) et/ou au répertoire des métiers (RCM) ;
+      - ✅ les sièges sociaux des personnes morales de droit privé : **les entreprises et les entrepreneurs individuels**, dont toutes celles et ceux immatriculés au registre du commerce et des sociétés (RCS) et/ou au répertoire des métiers (RM) ;
       - ✅ les sièges sociaux **associations ayant un numéro de SIRET** délivré lorsqu'elles :
         * emploient du personnel salarié ;
         * sont soumises à la TVA ;
@@ -85,15 +85,25 @@
     description: &insee_siege_social_provider_uids_data_description |+
       Cette API délivre les **informations générales d'un siège social à partir du numéro de SIREN de son unité légale**.
   faq:
-    - q: &insee_siege_social_provider_uids_faq_q1 Qu'est-ce que l'état administratif du siège social ?
+    - q: &insee_siege_social_provider_uids_faq_q1 À quoi correspondent les états administratifs ? Une unité légale peut-elle être en activité alors que tous ses établissements sont fermés ?
       a: &insee_siege_social_provider_uids_faq_a1 |+
-        L’état administratif d’un établissement a deux modalités : "actif" ou "fermé".
+        À gros trait, l'état administratif vous permet de vérifier si l'entreprise ou l'association est en activité. Il faut pour cela distinguer et vérifier l'état administratif de l'unité légale et celui de ses établissments.
 
-        Lors de son inscription au répertoire Sirene, un établissement est, sauf exception, à l'état "actif".
+        **État administratif de l'unité légale&nbsp;:**
+        L'état administratif de l'unité légale peut être "actif" ou "cessé".
+        L'unité légale est toujours active, sauf si une déclaration de cessation administrative a été déposée et prise en compte par l'Insee. 
+        L'état administratif indique si une unité légale est active ou cessée.
 
-        Le passage à l’état "fermé" découle de la prise en compte d'une déclaration de fermeture.
+        **État administratif d'un établissement&nbsp;:**
+        Il peut être "actif" ou "fermé". Lors de son inscription au répertoire Sirene, un établissement est, sauf exception, à l'état "actif". Le passage à l'état "fermé" découle de la prise en compte d'une déclaration de fermeture. Un établissement fermé peut être rouvert.
 
-        Un établissement fermé peut être rouvert.
+        **Cas particuliers&nbsp;:**
+        - **une unité légale est active alors que tous ses établissements sont fermés**. Il s'agit alors d'une entité active d'un point de vue administratif mais n'ayant pas d'activité économique. Cette situation regroupe : 
+           - Les sociétés en sommeil, c'est-à-dire faire reconnaître par une formalité leur état en sommeil afin de ne plus avoir certaines obligations fiscales ;
+           - Les sociétés présumées inactives, identifiées par l’Insee pour des besoins statistiques.
+           
+           La distinction "en sommeil" ou "présumée inactive" n'est pas une information transmise par l'Insee.
+        - **une unité légale est cessée alors qu'un établissement est actif**. Cette situation est une erreur à signaler au pôle du répertoire Sirene à l'Insee. Une unité légale cessée ne peut avoir d'établissements actifs.
 
     - q: &insee_siege_social_provider_uids_faq_q2 "L'état administratif du siège social est fermé mais l'unité légale est active, est-ce une erreur ?"
       a: &insee_siege_social_provider_uids_faq_a2 |+
@@ -137,7 +147,7 @@
   perimeter:
     entity_type_description: |+
       Cette API concerne les sièges sociaux des unités légales inscrites au répertoire Sirene et **"diffusibles" commercialement** :
-      - ✅ les sièges sociaux des personnes morales de droit privé : **les entreprises et les entrepreneurs individuels**, dont toutes celles et ceux immatriculés au registre du commerce et des sociétés (RCS) et/ou au répertoire des métiers (RCM ;
+      - ✅ les sièges sociaux des personnes morales de droit privé : **les entreprises et les entrepreneurs individuels**, dont toutes celles et ceux immatriculés au registre du commerce et des sociétés (RCS) et/ou au répertoire des métiers (RM) ;
       - ✅ les sièges sociaux **associations ayant un numéro de SIRET** délivré lorsqu'elles :
         * emploient du personnel salarié ;
         * sont soumises à la TVA ;
