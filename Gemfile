@@ -38,8 +38,6 @@ gem 'pundit'
 gem 'omniauth-oauth2'
 gem 'omniauth-rails_csrf_protection'
 
-gem 'elasticsearch', '= 7.10.1'
-
 gem 'pastel'
 
 gem 'rails-i18n','~> 7.0.6'
