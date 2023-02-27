@@ -1,7 +1,8 @@
 class CasUsage
   include ActiveModel::Model
 
-  attr_accessor :name,
+  attr_accessor :uid,
+    :name,
     :introduction,
     :role,
     :user_types,
@@ -9,36 +10,41 @@ class CasUsage
     :use_case_examples,
     :list_api,
     :users,
-    :request_access,
-    :cas_usage_key
+    :request_access
 
   def self.all
-    build_all_from_yaml
-  end
-
-  def self.find(cas_usage_key)
-    build_from_yaml(cas_usage_key)
-  end
-
-  def self.build_all_from_yaml
-    I18n.t('api_entreprise.cas_usages_entries').map do |cas_usage_key, _entry|
-      build_from_yaml(cas_usage_key)
+    I18n.t('api_entreprise.cas_usages_entries', raise: true).map do |uid, entry|
+      build_from_yaml(uid, entry)
     end
   end
 
-  def self.build_from_yaml(cas_usage_key)
-    entry = I18n.t("api_entreprise.cas_usages_entries.#{cas_usage_key}")
+  def self.find(uid)
+    cas_usage = all.find { |item| item.uid == uid }
+
+    raise not_found(uid) if cas_usage.nil?
+
+    cas_usage
+  end
+
+  def self.not_found(uid)
+    ActiveRecord::RecordNotFound.new("CasUsage '#{uid}' does not exist")
+  end
+
+  def self.build_from_yaml(uid, entry)
     new(
-      name: entry[:name],
-      introduction: entry[:introduction],
-      role: entry[:role],
-      user_types: entry[:user_types],
-      comments_endpoints: entry[:comments_endpoints],
-      use_case_examples: entry[:use_case_examples],
-      list_api: entry[:list_api],
-      users: entry[:users],
-      request_access: entry[:request_access],
-      cas_usage_key:
+      entry.slice(
+        :name,
+        :introduction,
+        :role,
+        :user_types,
+        :comments_endpoints,
+        :use_case_examples,
+        :list_api,
+        :users,
+        :request_access
+      ).merge(
+        uid: uid.to_s
+      )
     )
   end
 end

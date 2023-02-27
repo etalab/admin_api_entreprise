@@ -8,17 +8,17 @@
   </div>
 
   <div class="content fr-container fr-mt-5w fr-mb-5w">
-    <% I18n.t('api_entreprise.cas_usages_entries', raise: true).keys.each do |cas_usage_key| %>
+    <% CasUsage.all.each do |cas_usage| %>
       <div class="fr-card fr-enlarge-link">
         <div class="fr-card__body">
           <div class="fr-card__content">
             <h2 class="fr-card__title fr-h5">
-              <%= link_to t(".cards.#{cas_usage_key}.title"), cas_usage_path(cas_usage_key) %>
+              <%= link_to t(".cards.#{cas_usage.uid}.title"), cas_usage_path(cas_usage.uid) %>
             </h2>
-            <p class="fr-card__desc fr-text--lg"><%= t(".cards.#{cas_usage_key}.description") %></p>
+            <p class="fr-card__desc fr-text--lg"><%= t(".cards.#{cas_usage.uid}.description") %></p>
             <div class="fr-card__end">
               <ul class="fr-badges-group">
-                <% I18n.t("api_entreprise.cas_usages_entries.#{cas_usage_key}.user_types").each do |user_type| %>
+                <% cas_usage.user_types.each do |user_type| %>
                   <li class="fr-m-0-5v"><p class="fr-badge fr-badge--sm fr-badge--<%= user_type_tag_color(user_type) %>"><%= user_type %></p></li>
                 <% end %>
               </ul>
@@ -27,7 +27,7 @@
         </div>
         <div class="fr-card__header">
           <div class="fr-card__img">
-            <%= image_tag("api_entreprise/cas_usages/pictos/#{cas_usage_key}.svg", class: %w(card-image fr-responsive-img), alt: cas_usage_key) %>
+            <%= image_tag("api_entreprise/cas_usages/pictos/#{cas_usage.uid}.svg", class: %w(card-image fr-responsive-img), alt: cas_usage.uid) %>
           </div>
         </div>
       </div>

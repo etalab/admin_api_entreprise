@@ -1,6 +1,6 @@
 <div id="table-api" class="fr-table fr-table--no-caption">
   <table style="height:450px">
-  <caption>Liste des données utiles pour le cas d'usage <%= @data[:name] %></caption>
+  <caption>Liste des données utiles pour le cas d'usage <%= @cas_usage.name %></caption>
     <thead>
       <tr>
         <th scope="col"><%= t('.col_endpoint') %></th>
@@ -19,13 +19,13 @@
             <%= endpoint.title %><br>
           </td>
           <td>
-            <% if endpoint.use_cases&.include?(@data[:name]) %>
+            <% if endpoint.use_cases&.include?(@cas_usage.name) %>
             <span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span>
 
-            <% elsif endpoint.use_cases_optional&.include?(@data[:name]) %>
+            <% elsif endpoint.use_cases_optional&.include?(@cas_usage.name) %>
             <span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span>
 
-            <% elsif endpoint.use_cases_forbidden&.include?(@data[:name]) %>
+            <% elsif endpoint.use_cases_forbidden&.include?(@cas_usage.name) %>
             <span style="color:#d64d00" class="fr-icon-close-circle-line" aria-hidden="true"></span>
 
             <% else %>
@@ -41,7 +41,7 @@
             <%= t("api_entreprise.endpoint.call_id.#{endpoint.call_id}") %>
           </td>
           <td>
-            <%= markdown_to_html(@data[:comments_endpoints].try(:[], endpoint.uid.to_sym)) %>
+            <%= markdown_to_html(@cas_usage.comments_endpoints.try(:[], endpoint.uid.to_sym)) %>
           </td>
           <td>
             <%= link_to t('.documentation'), "#{endpoints_path}/#{endpoint.uid}" %><br/>

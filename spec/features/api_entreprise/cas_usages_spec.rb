@@ -11,11 +11,15 @@ RSpec.describe 'Cas usages pages', app: :api_entreprise do
 
   describe 'show' do
     it 'does not raise error' do
-      I18n.t('api_entreprise.cas_usages_entries').each_key do |cas_usage_uid|
-        expect {
-          visit cas_usage_path(uid: cas_usage_uid)
-        }.not_to raise_error, "Cas usage '#{cas_usage_uid}' is not valid"
+      CasUsage.all.each do |cas_usage|
+        visit cas_usage_path(uid: cas_usage.uid)
+        expect(page).to have_current_path(cas_usage_path(cas_usage.uid), ignore_query: true)
       end
+    end
+
+    it 'redirects to root path when cas_usage is not found' do
+      visit cas_usage_path(uid: '0123456789')
+      expect(page).to have_current_path root_path
     end
   end
 end
