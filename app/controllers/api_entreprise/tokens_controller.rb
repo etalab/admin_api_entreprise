@@ -13,17 +13,8 @@ class APIEntreprise::TokensController < APIEntreprise::AuthenticatedUsersControl
   end
 
   def stats
-    retrieve_stats = RetrieveTokenStats.call(token_id: params[:id])
-
-    if retrieve_stats.success?
-      @token = retrieve_stats.token
-      @stats = retrieve_stats.stats
-      @period = period_to_display
-    else
-      error_identifier = retrieve_stats.message
-      error_message(title: t(".error.#{error_identifier}", token_id: params[:id]))
-      redirect_to user_tokens_path if error_identifier == 'not_found'
-    end
+    @token = Token.find(params[:id])
+    @stats_facade = TokenStatsFacade.new(@token)
   end
 
   def renew
