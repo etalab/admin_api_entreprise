@@ -55,10 +55,6 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
     ActiveRecord::RecordNotFound.new("uid '#{uid}' does not exist in AvailableEndpoints", self, :uid, uid)
   end
 
-  def self.without_forbidden_use_case(use_case)
-    all.reject { |endpoint| endpoint.use_cases_forbidden&.include?(use_case) }
-  end
-
   def id
     @id ||= uid.gsub('/', '_')
   end
@@ -194,6 +190,18 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
 
   def providers
     Provider.filter_by_uid(provider_uids)
+  end
+
+  def use_case?(cas_usage_name)
+    use_cases&.include?(cas_usage_name)
+  end
+
+  def use_case_optionnal?(cas_usage_name)
+    use_cases_optional&.include?(cas_usage_name)
+  end
+
+  def use_case_forbidden?(cas_usage_name)
+    use_cases_forbidden&.include?(cas_usage_name)
   end
 
   private

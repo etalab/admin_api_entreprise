@@ -12,25 +12,14 @@
       </tr>
     </thead>
     <tbody>
-      <% Endpoint.all.reject(&:deprecated).each do |endpoint| %>
+      <% @active_endpoints.each do |endpoint| %>
         <tr>
           <td>
             <strong><%= endpoint.providers.map(&:name).join(' & ') %></strong><br>
             <%= endpoint.title %><br>
           </td>
           <td>
-            <% if endpoint.use_cases&.include?(@cas_usage.name) %>
-            <span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span>
-
-            <% elsif endpoint.use_cases_optional&.include?(@cas_usage.name) %>
-            <span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span>
-
-            <% elsif endpoint.use_cases_forbidden&.include?(@cas_usage.name) %>
-            <span style="color:#d64d00" class="fr-icon-close-circle-line" aria-hidden="true"></span>
-
-            <% else %>
-            -
-            <% end %>
+            <%= h(endpoint.cas_usage_icon(@cas_usage.name).html_safe) %>
           </td>
           <td>
             <%= icon(t("api_entreprise.endpoint.opening.#{endpoint.opening}.icon", raise: true)) rescue nil %>
