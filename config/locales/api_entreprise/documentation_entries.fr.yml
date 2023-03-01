@@ -7,7 +7,7 @@ fr:
           - anchor: 'introduction'
             title: Introduction
             introduction: |+
-              **Ce guide liste les changements effectués entre la version 2 de l’API Entreprise et la version 3, et vous livre les éléments nécessaires pour effectuer la migration**.
+              **Ce guide liste les changements effectués entre la version 2 de l’API&nbsp;Entreprise et la version 3, et vous livre les éléments nécessaires pour effectuer la migration**.
 
               Les évolutions présentées ici ont été guidées par trois objectifs&nbsp;:&nbsp;
               - assurer une meilleure sécurité de la donnée des fournisseurs ;
@@ -16,7 +16,7 @@ fr:
 
               {:.fr-highlight.fr}
               > **Votre jeton d'accès reste identique 🔑**
-              > Pour accéder à la version 3 de l'API Entreprise, utilisez le même token qu'en V.2. En effet, tant que votre jeton est valide, il est inutile de refaire une demande d'accès car la migration vers la V.3 ne change pas les droits que vous avez déjà obtenu.
+              > Pour accéder à la version 3 de l'API&nbsp;Entreprise, utilisez le même token qu'en V.2. En effet, tant que votre jeton est valide, il est inutile de refaire une demande d'accès car la migration vers la V.3 ne change pas les droits que vous avez déjà obtenu.
           - anchor: 'evolutions-generales'
             title: Évolutions générales
             sections:
@@ -34,7 +34,7 @@ fr:
 
                   **🧰 Comment ?**
                   Utilisez un client REST API pour tester les API pendant le développement.
-                  Des clients sont disponibles gratuitement. API Entreprise utilise pour ses propres tests le client Insomnia. Le plus connu sur le marché est Postman.
+                  Des clients sont disponibles gratuitement. API&nbsp;Entreprise utilise pour ses propres tests le client Insomnia. Le plus connu sur le marché est Postman.
                   Une fois le client installé, vous pouvez directement intégrer notre fichier [Swagger/OpenAPI](<%= developers_openapi_path %>){:target="_blank"} dedans.
 
               - subtitle: 2. Votre numéro de SIRET obligatoire dans le "recipient"
@@ -46,12 +46,12 @@ fr:
                   > **Avant** : Ce paramètre obligatoire n’était pas contraint en termes de syntaxe.
 
                   **🤔 Pourquoi ?**
-                  - Pour garantir la traçabilité de l’appel jusqu’au bénéficiaire ayant obtenu l’habilitation à appeler l’API Entreprise et respecter nos engagements auprès des fournisseurs de données ;
+                  - Pour garantir la traçabilité de l’appel jusqu’au bénéficiaire ayant obtenu l’habilitation à appeler l’API&nbsp;Entreprise et respecter nos engagements auprès des fournisseurs de données ;
                   - Nous avions trop d’utilisateurs inscrivant le numéro de SIRET ou RNA de l’entreprise/association recherchée.
 
                   {:.fr-highlight.fr-highlight--caution}
                   > **⚠️ Cas particulier**, _vous êtes un éditeur ?_
-                  > Ce n’est pas votre numéro de SIRET mais celui de votre client public qu’il s’agira de renseigner. API Entreprise doit pouvoir tracer pour quelle entité publique l'appel a été passé.
+                  > Ce n’est pas votre numéro de SIRET mais celui de votre client public qu’il s’agira de renseigner. API&nbsp;Entreprise doit pouvoir tracer pour quelle entité publique l'appel a été passé.
 
                   Pour en savoir plus sur les paramètres obligatoires d'appel, consultez les [spécifications techniques](<%= developers_path(anchor: 'renseigner-les-paramètres-dappel-et-de-traçabilité') %>).
 
@@ -152,7 +152,7 @@ fr:
                   **🚀 Avec la V.3 :** La payload de réponse est normalisée est composée systématiquement de 3 clés :
                   - `data`, qui regroupe l'ensemble des données de la ou les ressources (si c'est une ressource seule, la données est un **objet** `json`, si c'est une collection, la données est un **tableau** `json`) ;
                   - `links`, qui donne des liens vers d'autres endpoints relatifs à cette ressource, liens qui peuvent être utilisés par vos logiciels pour relancer un appel ;
-                  - `meta`, qui regroupe des metadonnées liées à API Entreprise ou au fournisseur de données.
+                  - `meta`, qui regroupe des metadonnées liées à API&nbsp;Entreprise ou au fournisseur de données.
 
 
                   ###### Architecture de la payload V.3 :
@@ -241,7 +241,7 @@ fr:
 
                   {:.fr-highlight}
                   > **Le champ booléen `dirigeant` des mandataires sociaux retiré en V.3 car non-effectif**
-                  > En V.2, parmi les informations relatives aux mandataires sociaux, API Entreprise semblait transmettre une information sur le statut dirigeant ou non du mandataire social. Cette information n'était pas effective car toujours à `true`. Nous avons donc retiré ce champ inutile de l'[API V.3 Mandataires sociaux](<%= endpoint_path(uid: 'infogreffe/mandataires_sociaux') %>){:target="_blank"}.
+                  > En V.2, parmi les informations relatives aux mandataires sociaux, API&nbsp;Entreprise semblait transmettre une information sur le statut dirigeant ou non du mandataire social. Cette information n'était pas effective car toujours à `true`. Nous avons donc retiré ce champ inutile de l'[API V.3 Mandataires sociaux](<%= endpoint_path(uid: 'infogreffe/mandataires_sociaux') %>){:target="_blank"}.
                   > Pour connaître les rôles des mandataires sociaux, vous pouvez vous aider du champ `fonction` qui renvoie des valeurs telles que "PRESIDENT", "DIRECTEUR GENERALE".
 
                   <details class="fr-details">
@@ -689,18 +689,18 @@ fr:
           - anchor: 'prerequis-techniques'
             title: Prérequis techniques
             introduction: |+
-              Voici la liste des **fondamentaux techniques à mettre en place pour le bon fonctionnement de l’API Entreprise**&nbsp;:
+              Voici la liste des **fondamentaux techniques à mettre en place pour le bon fonctionnement de l’API&nbsp;Entreprise**&nbsp;:
 
               - ☑️ Être en mesure de gérer le protocole HTTPS ;
               - ☑️ Avoir une version de langage récente. Si vous utilisez Java, une version >= 1.8 est nécessaire (pour la gestion des certificats de +1024 bit, du TLS 1.2 minimum et des suites cryptographiques - ciphers) ;
               - ☑️ S’assurer que nos Autorités de Certification (AC) pour les certificats SSL sont autorisées par vos systèmes ;
-              - ☑️ L'API Entreprise est uniquement accessible par internet. Si vous avez un pare-feu, il faut donc prévoir de whitelister l'adresse IP du service API Entreprise ;
-              - ☑️ Il est interdit d'interroger l'API Entreprise depuis un site web en front-end, car le jeton d'accès serait alors divulgué. Il vous faut donc interroger nos API depuis une application en back-end. Nous n'autoriserons pas le CORS (CORS - Cross Origin Ressource Sharing) ;
+              - ☑️ L'API&nbsp;Entreprise est uniquement accessible par internet. Si vous avez un pare-feu, il faut donc prévoir de whitelister l'adresse IP du service API Entreprise ;
+              - ☑️ Il est interdit d'interroger l'API&nbsp;Entreprise depuis un site web en front-end, car le jeton d'accès serait alors divulgué. Il vous faut donc interroger nos API depuis une application en back-end. Nous n'autoriserons pas le CORS (CORS - Cross Origin Ressource Sharing) ;
               - ☑️ Prévoir non seulement les coûts de développement mais également les coûts de maintenance ;
-              - ☑️ Être en capacité de gérer les mises à jour de l'API Entreprise.
+              - ☑️ Être en capacité de gérer les mises à jour de l'API&nbsp;Entreprise.
 
               <br>
-              💡 Pour mieux comprendre l'API Entreprise avant de demander un accès, **vous pouvez utiliser [notre environnement de test](<%= developers_path(anchor: 'tester-api-preproduction') %>)**.
+              💡 Pour mieux comprendre l'API&nbsp;Entreprise avant de demander un accès, **vous pouvez utiliser [notre environnement de test](<%= developers_path(anchor: 'tester-api-preproduction') %>)**.
 
           - anchor: 'specifications-generales'
             title: Spécifications générales&nbsp;🎛
@@ -710,7 +710,7 @@ fr:
                 content: |+
                   #### Les plafonds
 
-                  Les limites de volumétrie sur API Entreprise se décomposent en deux règles principales&nbsp;:&nbsp;
+                  Les limites de volumétrie sur API&nbsp;Entreprise se décomposent en deux règles principales&nbsp;:&nbsp;
 
                   - **Un plafond général par IP de 1000 requêtes/minute**.
 
@@ -762,7 +762,7 @@ fr:
                   | `RateLimit-Reset` |La **fin de la période** courante. | Timestamp |
                   | *Uniquement pour le header associé au code erreur 429* <br> `Retry-after`| **Décompte du nombre de secondes restantes** avant la prochaine période | Secondes |
 
-                  Vous pouvez donc **utiliser les champs du header pour optimiser votre consommation de l'API Entreprise**.
+                  Vous pouvez donc **utiliser les champs du header pour optimiser votre consommation de l'API&nbsp;Entreprise**.
 
                   #### Règles de bannissement en cas de surconsommation
 
@@ -792,17 +792,17 @@ fr:
               - subtitle: Autoriser nos Autorités de Certifications
                 subtitle_anchor: 'autoriser-nos-autorités-de-certifications'
                 content: |+
-                  API Entreprise utilise [DHIMYOTIS](https://www.dhimyotis.com/) comme organisme de délivrance de ses certificats SSL principaux ainsi que [Let's Encrypt](https://letsencrypt.org/) pour certains services secondaires.
+                  API&nbsp;Entreprise utilise [DHIMYOTIS](https://www.dhimyotis.com/) comme organisme de délivrance de ses certificats SSL principaux ainsi que [Let's Encrypt](https://letsencrypt.org/) pour certains services secondaires.
 
                   Il est conseillé d'ajouter ces Autorités de Certifications (AC) à votre base de confiance si vous en avez une. Une solution idéale est d'utiliser un paquet d'autorités mises à jour automatiquement ([Mozilla par exemple](https://wiki.mozilla.org/CA/Included_Certificates))
 
-                  API Entreprise utilise des certificats multi-domaines ; c'est à dire avec un "nom courant" (_common name - CN_) et plusieurs "noms alternatifs du sujet" (_subject alternatives names - SAN_), **soyez certains que vos outils fonctionnent correctement avec**.
+                  API&nbsp;Entreprise utilise des certificats multi-domaines ; c'est à dire avec un "nom courant" (_common name - CN_) et plusieurs "noms alternatifs du sujet" (_subject alternatives names - SAN_), **soyez certains que vos outils fonctionnent correctement avec**.
 
               - subtitle: Gérer les erreurs - codes HTTPS
                 subtitle_anchor: 'gérer-les-erreurs---codes-https'
                 content: |+
                   #### Un code standard HTTPS pour catégoriser le statut de l'appel
-                  Toutes les réponse de l’API Entreprise sont envoyées avec un code HTTPS. **Ces codes permettent de se renseigner sur le statut de l’appel**, et sont harmonisés pour l'ensemble des API quelque soir le fournisseur de données.
+                  Toutes les réponse de l’API&nbsp;Entreprise sont envoyées avec un code HTTPS. **Ces codes permettent de se renseigner sur le statut de l’appel**, et sont harmonisés pour l'ensemble des API quelque soir le fournisseur de données.
                   Pour en savoir plus sur les codes HTTPS, cet article de [Wikipedia](https://fr.wikipedia.org/wiki/Liste_des_codes_HTTP){:target="_blank"} constitue une bonne base explicative.
 
                   ##### En cas de succès, le code HTTP commence par 2 :
@@ -825,12 +825,12 @@ fr:
                   |`451` | **Indisponible pour raisons légales** - ce code est spécifiquement renvoyé lorsque vous demandez les informations d’une entreprise ou d’un établissement non diffusible au travers des endpoints `entreprises` et `etablissements` de l’INSEE, sans avoir utilisé l’option d’appel spécifique. Pour en savoir plus, [consultez la documentation de cet endpoint dans le catalogue de données](../catalogue/).|
 
 
-                  ###### En cas d’échec, si l’erreur provient d’API Entreprise ou bien des fournisseurs de données, le code HTTP commence par 5 :
+                  ###### En cas d’échec, si l’erreur provient d’API&nbsp;Entreprise ou bien des fournisseurs de données, le code HTTP commence par 5 :
 
                   {:.fr-table}
                   | Code HTTP                        |      Signification                     |
                   |----------------------------------|----------------------------------------|
-                  |`500` | **Erreur interne à API Entreprise** – Une erreur interne du serveur d’API Entreprise est survenue. [Consultez votre compte utilisateur](<%= user_tokens_path %>){:target="_blank"}, l’historique de l’incident devrait y être affiché ; ainsi que les actions à venir.
+                  |`500` | **Erreur interne à API&nbsp;Entreprise** – Une erreur interne du serveur d’API&nbsp;Entreprise est survenue. [Consultez votre compte utilisateur](<%= user_tokens_path %>){:target="_blank"}, l’historique de l’incident devrait y être affiché ; ainsi que les actions à venir.
                   |`502` | **Erreur interne fournisseur** – Une erreur interne du serveur du ou des fournisseurs est survenue. [Consultez votre compte utilisateur](<%= user_tokens_path %>){:target="_blank"}, l’historique de l’incident devrait y être affiché ; ainsi que les actions à venir.
                   |`503` | **Service non disponible** – Le service est temporairement indisponible ou en maintenance. Pour connaître l’historique de disponibilité et les incidents type de l’endpoint, vous pouvez [consulter le catalogue de données](../catalogue/).
                   |`504` | **Intermédiaire hors délai** – Le(s) producteur(s) de données ont mis trop de temps à répondre. Notre temps d’attente, nous permettant de ne pas immobiliser le serveur sur un appel sans réponse, est fixé à 10 secondes et a été dépassé.|
@@ -867,7 +867,7 @@ fr:
               - subtitle: Renseigner les paramètres d'appel et de traçabilité
                 subtitle_anchor: 'renseigner-les-paramètres-dappel-et-de-traçabilité'
                 content: |+
-                  API Entreprise vous permet d’accéder à des données protégées. C’est pourquoi, dans un **objectif de traçabilité**, nous vous demandons de renseigner dans chacune de vos requêtes, non seulement un jeton d’accès, mais aussi **certaines informations qualifiant votre requête**.
+                  API&nbsp;Entreprise vous permet d’accéder à des données protégées. C’est pourquoi, dans un **objectif de traçabilité**, nous vous demandons de renseigner dans chacune de vos requêtes, non seulement un jeton d’accès, mais aussi **certaines informations qualifiant votre requête**.
 
 
                   {:.fr-highlight.fr-highlight--caution}
@@ -886,31 +886,31 @@ fr:
               - subtitle: Gérer les évolutions de version
                 subtitle_anchor: 'gerer-les-evolutions-de-version'
                 content: |+
-                  Il est fréquent que des API soient concernées par des évolutions et donc l'arrivée de nouvelles versions.
-                  La version majeure V.3 de l'API Entreprise permet de créer facilement de nouvelles versions, tout en gardant les précédentes, rendant ainsi accessibles rapidement les évolutions qu'API Entreprise obtient de ses fournisseurs.
+                  Il est fréquent que les API évoluent et que, par conséquent, de nouvelles versions soient publiées.
+                  La version majeure V.3 de l'API&nbsp;Entreprise permet de créer facilement de nouvelles versions, tout en gardant les précédentes, rendant ainsi accessibles rapidement les évolutions qu'API Entreprise obtient de ses fournisseurs.
 
                   {:.fr-h5}
                   #### Toute évolution implique une montée de version
 
-                  Les montés de version interviennnent pour toute évolution de l'API concernée, c'est-à-dire :
+                  Les montés de version d'une API interviennent pour toute évolution, c'est-à-dire :
                   - l'ajout d'une nouvelle donnée par le fournisseur de la donnée (par exemple : champ de l'économie sociale et solidaire introduit par l'Insee) ;
                   - la transformation de la structure de l'API par le fournisseur de la donnée ;
-                  - l'ajout d'une fonctionnalité par API Entreprise (par exemple : la délivrance d'un champ "document disponible" pour une API qui ne renvoyait que l'URL de téléchargement du document).
+                  - l'ajout d'une fonctionnalité par API&nbsp;Entreprise (par exemple : la délivrance d'un champ "document disponible" pour une API qui ne renvoyait que l'URL de téléchargement du document).
 
                   Pour monter en version, [consultez la rubrique suivante](#changer-de-version).
 
                   {:.fr-h5}
                   #### Les anciennes versions maintenues tant que le fournisseur de la donnée le permet
 
-                  Depuis la V.3 de l'API Entreprise, les anciennes versions sont maintenues par le service API Entreprise tant que cela est possible. 
+                  Depuis la V.3 de l'API&nbsp;Entreprise, les anciennes versions sont maintenues par le service API Entreprise tant que cela est possible. 
                   En pratique, cela signifie que : 
-                  - tant que le fournisseur continue d'envoyer la strcuture de données de l'ancienne version, cette ancienne version est maintenue par l'API Entreprise ; 
-                  - si le fournisseur ne renvoie plus la même structure de donnée, API Entreprise supprimera l'ancienne version car la maintenir reviendrait à renvoyer des champs vides.
+                  - tant que le fournisseur continue d'envoyer la strcuture de données de l'ancienne version, cette ancienne version est maintenue par l'API&nbsp;Entreprise ; 
+                  - si le fournisseur ne renvoie plus la même structure de donnée, API&nbsp;Entreprise supprimera l'ancienne version car la maintenir reviendrait à renvoyer des champs vides.
 
               - subtitle: Changer de version
                 subtitle_anchor: 'changer-de-version'
                 content: |+
-                  Depuis la version 3 de l'API Entreprise, toutes les API peuvent évoluer indépendamment les unes des autres. Les anciennes versions (à partir de la V.3) restent donc toujours disponibles si le fournisseur de la donnée continue de transmettre les informations.
+                  Depuis la version 3 de l'API&nbsp;Entreprise, toutes les API peuvent évoluer indépendamment les unes des autres. Les anciennes versions (à partir de la V.3) restent donc toujours disponibles si le fournisseur de la donnée continue de transmettre les informations.
                   Depuis la version 3, le numéro de version est un paramètre de l’appel et non plus une valeur fixe pour toutes les API comme en version 1 et 2 (Les versions 1 et 2 sont définitivement dépréciées, la version 1 étant déjà fermée et **la version 2 fermant le 30 juin 2023**).
 
                   >_Exemple d'utilisation du paramètre d'appel de version :_
@@ -963,7 +963,7 @@ fr:
               - subtitle: Tester l'API en préproduction
                 subtitle_anchor: 'tester-api-preproduction'
                 content: |+
-                  L'API Entreprise est **testable avec un jeton accessible à tous depuis notre environnement de staging**. Ce bac à sable retourne des données fictives.
+                  L'API&nbsp;Entreprise est **testable avec un jeton accessible à tous depuis notre environnement de staging**. Ce bac à sable retourne des données fictives.
 
                   Pour utiliser l'environnement de test, plusieurs moyens sont possibles :
                   * **Utilisez l'interface disponible depuis [API.gouv](https://api.gouv.fr/documentation/api-entreprise){:target="_blank"}** :
@@ -973,27 +973,27 @@ fr:
                       4. Pour terminer, pour chacune des API, un bouton _"Try it out"_ vous permet de préremplir les paramètres d'appel avec différents exemples. Appuyez sur _"Execute"_ pour obtenir les différentes réponses possibles.
 
                   * **Utilisez un logiciel de type _Postman_ à partir du fichier OpenAPI :**
-                      1. Téléchargez le fichier OpenAPI de l'API Entreprise depuis la [page de swagger](<%= developers_openapi_path %>), avec le bouton "Download" situé en début de page.
+                      1. Téléchargez le fichier OpenAPI de l'API&nbsp;Entreprise depuis la [page de swagger](<%= developers_openapi_path %>), avec le bouton "Download" situé en début de page.
                       2. Importer ce fichier dans un logiciel de test de type _Postman_.
                       3. Configurez votre environnement avec l'url de l'environnement de staging `https://staging.entreprise.api.gouv.fr`.
-                      API Entreprise ne recommande pas un logiciel plus qu'un autre, de nombreux tutoriels sont disponibles sur internet.
+                      API&nbsp;Entreprise ne recommande pas un logiciel plus qu'un autre, de nombreux tutoriels sont disponibles sur internet.
 
                   * **Interrogez le staging depuis votre terminal avec une ligne de commande :**
-                      1. Rendez-vous sur la [documentation swagger du site API Entreprise](<%= developers_openapi_path %>), copiez le jeton de staging disponible en début de page.
+                      1. Rendez-vous sur la [documentation swagger du site API&nbsp;Entreprise](<%= developers_openapi_path %>), copiez le jeton de staging disponible en début de page.
                       2. Dans la partie _"Request samples"_ disponible pour chaque API dans le swagger, recopiez les lignes de commandes proposées débutant par `curl -X GET` en remplaçant `$token` par le jeton de test et en veillant à ajouter `staging` au début de l'URL : `https://staging.entreprise.api.gouv.fr/v3/...`
                       3. Lancez cette ligne de commande dans votre terminal.
 
               - subtitle: Récupérer le jeton JWT&nbsp;🔑
                 subtitle_anchor: 'récupérer-le-jeton-jwt'
                 content: |+
-                  Seule la personne ayant fait la demande d'habilitation a accès au token, au travers du [compte utilisateur API Entreprise](<%= user_tokens_path %>){:target="_blank"}.
+                  Seule la personne ayant fait la demande d'habilitation a accès au token, au travers du [compte utilisateur API&nbsp;Entreprise](<%= user_tokens_path %>){:target="_blank"}.
 
                   - _Si vous avez réalisé la demande d'habilitation_, vous pouvez **récupérer vos tokens ou jetons d'accès directement depuis votre [compte](<%= user_tokens_path %>){:target="_blank"}**.
 
-                  - _Si vous n'avez pas réalisé la demande d'habilitation mais que vous êtes la personne en charge d'intégrer l'API Entreprise_, **la personne ayant effectué la demande d'habilitation peut vous transmettre le token de façon sécurisée depuis son [compte](<%= user_tokens_path %>){:target="_blank"}**, en cliquant sur le bouton _"Transmettre le jeton à mon équipe technique"_. Vous recevrez alors, **par e-mail, un lien d'une durée de 4 heures** vous donnant accès au jeton.
+                  - _Si vous n'avez pas réalisé la demande d'habilitation mais que vous êtes la personne en charge d'intégrer l'API&nbsp;Entreprise_, **la personne ayant effectué la demande d'habilitation peut vous transmettre le token de façon sécurisée depuis son [compte](<%= user_tokens_path %>){:target="_blank"}**, en cliquant sur le bouton _"Transmettre le jeton à mon équipe technique"_. Vous recevrez alors, **par e-mail, un lien d'une durée de 4 heures** vous donnant accès au jeton.
 
                   {:.fr-highlight.fr-highlight--caution}
-                  > ⚠️ L'utilisation de cette fonctionnalité du compte utilisateur doit avoir pour unique objectif la transmission sécurisée de la clé aux services techniques qui intégreront l'API Entreprise. **Le jeton JWT ne doit jamais être transmis par e-mail.**
+                  > ⚠️ L'utilisation de cette fonctionnalité du compte utilisateur doit avoir pour unique objectif la transmission sécurisée de la clé aux services techniques qui intégreront l'API&nbsp;Entreprise. **Le jeton JWT ne doit jamais être transmis par e-mail.**
 
               - subtitle: Faire sa première requête
                 subtitle_anchor: 'faire-sa-première-requête'
@@ -1003,13 +1003,13 @@ fr:
                   Après avoir récupéré votre jeton, vous pouvez faire un premier appel de test.
 
                   Utilisez l'[environnement de production documenté (_Swagger_)](https://api.gouv.fr/documentation/api-entreprise}{:target="_blank"}), disponible sur api.gouv.fr.
-                  Il permet, à l'aide d'un token d'authentification valide 🔑, d'effectuer directement depuis le navigateur des tests de l'API. Les données confidentielles restent bien protégées. Vous y trouverez aussi la spécification technique téléchargeable sous format YAML afin de pouvoir accélérer le développement de vos outils d'interfaçage avec API Entreprise.
+                  Il permet, à l'aide d'un token d'authentification valide 🔑, d'effectuer directement depuis le navigateur des tests de l'API. Les données confidentielles restent bien protégées. Vous y trouverez aussi la spécification technique téléchargeable sous format YAML afin de pouvoir accélérer le développement de vos outils d'interfaçage avec API&nbsp;Entreprise.
 
                   {:.fr-highlight.fr-highlight--caution}
                   > ⚠️ Attention, pour rappel, vous ne devez jamais copier-coller un token dans la barre de recherche classique d'un moteur de recherche ou dans un e-mail. Pour récupérer votre jeton de façon sécurisée, consultez cette [rubrique](<%= faq_index_path(anchor: 'comment-transmettre-le-jeton-d-acces-en-tout-securite') %>){:target="_blank"}.
 
 
-                  #### Éléments constitutifs de la requête HTTP d'API Entreprise
+                  #### Éléments constitutifs de la requête HTTP d'API&nbsp;Entreprise
 
                   Chaque URL de requête est spécifiée dans le [Swagger](<%= developers_openapi_path %>){:target="_blank_"},
                   
