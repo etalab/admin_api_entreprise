@@ -110,7 +110,7 @@ fr:
               - subtitle: 5. Gestion des évolutions futures
                 subtitle_anchor: 'gestion-des-évolutions-futures'
                 content: |+
-                  **🚀 Avec la V.3 :** Toutes les API pourront évoluer indépendamment les unes des autres. Les anciennes versions resteront toujours disponibles. Le numéro de version devient donc un paramètre de l’appel et non plus une valeur fixe pour toutes les API.
+                  **🚀 Avec la V.3 :** Toutes les API pourront évoluer indépendamment les unes des autres. Les anciennes versions resteront disponibles si le fournisseur de la donnée continue de nous transmettre les informations. Le numéro de version devient donc un paramètre de l’appel et non plus une valeur fixe pour toutes les API.
                   📩 Une infolettre annoncera systématiquement les nouvelles évolutions.
 
                   {:.fr-highlight.fr-highlight--example}
@@ -883,19 +883,42 @@ fr:
                   |`&recipient=BénéficaireDeL'Appel`|**Le bénéficiaire de l'appel** <br><br>Ce paramètre permet la traçabilité de l'appel et doit correspondre au _SIRET de l'organisation publique habilitée à utiliser la donnée_. <br><br>Si vous êtes une collectivité ou une administration, ce paramètre doit donc être votre numéro de SIRET. Si vous êtes un éditeur, il s'agit du SIRET de l'organisation publique cliente demandant la donnée.<br><br>Une vérification est effectuée par API Entreprise pour refuser tout format qui ne serait pas un numéro de SIRET et pour refuser un SIRET qui serait identique à l'entité appelée.
                   |`&object= RaisonDeL'AppelOuIdentifiant`|**La raison de l'appel** <br> ou l'identifiant de la procédure. <br><br> L'identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l'essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l'appel. En effet, vous devez pouvoir justifier de la raison d'un appel auprès du fournisseur de données. <br> Description courte (< 50 caractères).
 
+              - subtitle: Gérer les évolutions de version
+                subtitle_anchor: 'gerer-les-evolutions-de-version'
+                content: |+
+                  Il est fréquent que des API soient concernées par des évolutions et donc l'arrivée de nouvelles versions.
+                  La version majeure V.3 de l'API Entreprise permet de créer facilement de nouvelles versions, tout en gardant les précédentes, rendant ainsi accessibles rapidement les évolutions qu'API Entreprise obtient de ses fournisseurs.
+
+                  {:.fr-h5}
+                  #### Toute évolution implique une montée de version
+
+                  Les montés de version interviennnent pour toute évolution de l'API concernée, c'est-à-dire :
+                  - l'ajout d'une nouvelle donnée par le fournisseur de la donnée (par exemple : champ de l'économie sociale et solidaire introduit par l'Insee) ;
+                  - la transformation de la structure de l'API par le fournisseur de la donnée ;
+                  - l'ajout d'une fonctionnalité par API Entreprise (par exemple : la délivrance d'un champ "document disponible" pour une API qui ne renvoyait que l'URL de téléchargement du document).
+
+                  Pour monter en version, [consultez la rubrique suivante](#changer-de-version).
+
+                  {:.fr-h5}
+                  #### Les anciennes versions maintenues tant que le fournisseur de la donnée le permet
+
+                  Depuis la V.3 de l'API Entreprise, les anciennes versions sont maintenues par le service API Entreprise tant que cela est possible. 
+                  En pratique, cela signifie que : 
+                  - tant que le fournisseur continue d'envoyer la strcuture de données de l'ancienne version, cette ancienne version est maintenue par l'API Entreprise ; 
+                  - si le fournisseur ne renvoie plus la même structure de donnée, API Entreprise supprimera l'ancienne version car la maintenir reviendrait à renvoyer des champs vides.
+
               - subtitle: Changer de version
                 subtitle_anchor: 'changer-de-version'
                 content: |+
-                  Depuis la version 3 de l'API Entreprise, toutes les API peuvent évoluer indépendamment les unes des autres. Les anciennes versions (à partir de la V.3) restent donc toujours disponibles.
+                  Depuis la version 3 de l'API Entreprise, toutes les API peuvent évoluer indépendamment les unes des autres. Les anciennes versions (à partir de la V.3) restent donc toujours disponibles si le fournisseur de la donnée continue de transmettre les informations.
                   Depuis la version 3, le numéro de version est un paramètre de l’appel et non plus une valeur fixe pour toutes les API comme en version 1 et 2 (Les versions 1 et 2 sont définitivement dépréciées, la version 1 étant déjà fermée et **la version 2 fermant le 30 juin 2023**).
 
                   >_Exemple d'utilisation du paramètre d'appel de version :_
-                  > Imaginons l'API documents, cette API est disponible en v.3 et une nouvelle version est sortie, la v.4.
+                  > Imaginons un exemple fictif : l'API documents, cette API est disponible en v.3 et une nouvelle version est sortie, la V.4.
                   > Pour appeler la version souhaitée, il vous faudra directement inscrire le numéro de la version dans l'URL : `https://entreprise.api.gouv.fr/v3/...` pour la V.3 ou `https://entreprise.api.gouv.fr/v4/...` pour la V.4.
 
                   {:.fr-highlight}
                   📩 Une lettre d'information annonce systématiquement les nouvelles évolutions. Vous pouvez vous abonner [ici](<%= newsletter_path %>).
-
 
               - subtitle: Monitorer la disponibilité des API
                 subtitle_anchor: 'monitorer-la-disponibilité-des-api'
