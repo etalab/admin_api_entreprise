@@ -9,7 +9,7 @@ RSpec.describe DatapassWebhook::ArchivePreviousToken, type: :interactor do
   let(:token) { create(:token) }
 
   before do
-    create(:authorization_request, token:, external_id: previous_external_id) if previous_external_id
+    create(:authorization_request, tokens: [token], external_id: previous_external_id) if previous_external_id
   end
 
   context 'when event is validate_application or validate' do

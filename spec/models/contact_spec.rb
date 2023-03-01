@@ -8,8 +8,8 @@ RSpec.describe Contact do
   describe '.not_expired scope' do
     subject { described_class.not_expired }
 
-    let!(:valid_contact) { create(:contact, token: create(:token, blacklisted: false, archived: false)) }
-    let!(:invalid_contact) { create(:contact, token: create(:token, blacklisted: false, archived: true)) }
+    let!(:valid_contact) { create(:contact, authorization_request: create(:authorization_request, tokens: [create(:token, blacklisted: false, archived: false)])) }
+    let!(:invalid_contact) { create(:contact, authorization_request: create(:authorization_request, tokens: [create(:token, blacklisted: false, archived: true)])) }
 
     it 'renders valid content' do
       expect(subject.count).to eq(1)
@@ -17,11 +17,11 @@ RSpec.describe Contact do
     end
   end
 
-  describe '.with_token' do
-    subject { described_class.with_token }
+  describe '.with_tokens' do
+    subject { described_class.with_tokens }
 
     let!(:contacts) do
-      create(:authorization_request, :with_contacts, :with_token)
+      create(:authorization_request, :with_contacts, :with_tokens)
         .contacts
     end
 
@@ -38,6 +38,25 @@ RSpec.describe Contact do
     describe '#email' do
       it { is_expected.to allow_value('valid@email.com').for(:email) }
       it { is_expected.not_to allow_value('not an email').for(:email) }
+    end
+  end
+
+  describe 'valid_token associations' do
+    let(:contact) do
+      create(
+        :contact,
+        authorization_request: create(:authorization_request, :with_multiple_tokens_one_valid)
+      )
+    end
+
+    it 'returns a token' do
+      expect(contact.token).to be_present
+    end
+
+    it 'returns a valid token' do
+      expect(contact.authorization_request.tokens.first.blacklisted?).to be true
+      expect(contact.valid_token).to be_present
+      expect(contact.token.id).to eq(contact.valid_token.id)
     end
   end
 end

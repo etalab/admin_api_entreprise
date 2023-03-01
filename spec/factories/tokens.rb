@@ -17,7 +17,7 @@ FactoryBot.define do
     after(:build) do |token, evaluator|
       if token.authorization_request_id && token.authorization_request.nil?
         token.authorization_request = build(
-          :authorization_request, token:, intitule: evaluator.intitule
+          :authorization_request, tokens: [token], intitule: evaluator.intitule
         )
       elsif token.authorization_request_id
         token.authorization_request.external_id = token.authorization_request_id
@@ -84,6 +84,15 @@ FactoryBot.define do
 
     trait :archived do
       archived { true }
+
+      after(:create) do |token|
+        create(:contact, :business, authorization_request: token.authorization_request)
+        create(:contact, :tech, authorization_request: token.authorization_request)
+      end
+    end
+
+    trait :not_archived do
+      archived { false }
 
       after(:create) do |token|
         create(:contact, :business, authorization_request: token.authorization_request)
