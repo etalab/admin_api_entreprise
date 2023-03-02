@@ -1,8 +1,10 @@
 ---
 - uid: 'urssaf/attestation_vigilance'
+  old_endpoint_uids:
+    - 'urssaf/v3/attestation_vigilance'
   position: 260
-  path: '/v3/urssaf/unites_legales/{siren}/attestation_vigilance'
-  perimeter:
+  path: '/v4/urssaf/unites_legales/{siren}/attestation_vigilance'
+  perimeter: &urssaf_attestation_perimeter
     entity_type_description: |+
       - ✅ les entreprises et associations du régime général ;
       - ✅ les très grandes entreprises ;
@@ -25,23 +27,23 @@
       Les données sont **mises à jour chaque nuit**, directement auprès du système d'information de l'Urssaf. Il peut donc exister un décalage de 24h au maximum entre les données de l'API et le SI de l'Urssaf.
     entities:
       - entreprises
-  opening: protected
-  call_id: "SIREN"
-  parameters:
+  opening: &urssaf_attestation_opening protected
+  call_id: &urssaf_attestation_call_id "SIREN"
+  parameters: &urssaf_attestation_parameters
     - Numéro de SIREN de l'entreprise
   format:
     - URL vers l'attestation en PDF
-  use_cases:
+  use_cases: &urssaf_attestation_use_cases
     - Marchés publics
     - Aides publiques
     - Détection de la fraude
     - Portail GRU - Instruction des démarches
-  use_cases_forbidden:
+  use_cases_forbidden: &urssaf_attestation_use_cases_forbidden
     - Portail GRU - Préremplissage
     - Subventions associations
-  provider_uids:
+  provider_uids: &urssaf_attestation_provider_uids
     - 'acoss'
-  keywords:
+  keywords: &urssaf_attestations_keywords
     - 'conformité'
     - 'conforme'
     - 'obligations'
@@ -50,12 +52,12 @@
     - 'marchés publics'
     - 'Aides publiques'
     - 'fraude'
-  data:
+  data: &urssaf_attestations_data
     description: |+
       Cette API permet de **savoir si l'attestation de vigilance est délivrée par l'Urssaf** ou refusée. En cas de délivrance de l'attestation l'API transmet une **URL de téléchargement de l'attestation, au format PDF**.
-      
-      L'attestation de vigilance est **délivrée sous [certaines conditions](#faq_entry_0_endpoint_urssaf_attestation_vigilance)** ; entre autres, si l'entreprise s'est acquitée de ses cotisations et contributions. 
-      
+
+      L'attestation de vigilance est **délivrée sous [certaines conditions](#faq_entry_0_endpoint_urssaf_attestation_vigilance)** ; entre autres, si l'entreprise s'est acquitée de ses cotisations et contributions.
+
       Elle a une **durée de validité légale de 6 mois** à compter de la date d'analyse indiquée sur le document et qui est différente de la date de délivrance du document. [En&nbsp;savoir&nbsp;plus](#faq_entry_1_endpoint_urssaf_attestation_vigilance).
 
       <section class="fr-accordion">
@@ -72,10 +74,10 @@
 
         - **La liste des établissements concernés** par l'attestation de vigilance et leur numéro de SIRET. _S'ils sont tous concernés, une mention l'indique_.
 
-        - Pour les entreprises ayant des salariés : 
+        - Pour les entreprises ayant des salariés :
           - l'**effectif moyen mensuel** calculé par l'Urssaf à partir des données issues de la déclaration sociale nominative (DSN)&nbsp;;
           - la **masse salariale**, c'est à dire le total des rémunérations déclarées sur le dernier bordereau récapitulatif des cotisations Urssaf.
-          
+
         - **Un paragraphe listant les obligations sociales en règle**, qui peuvent être différentes selon l'entité analysée&nbsp;;
 
         - **Des informations relatives à l'attestation&nbsp;:**
@@ -88,19 +90,19 @@
       {:.fr-h6 .fr-mt-4w}
       ### Exemple d'attestation PDF&nbsp;:
 
-      <div class="fr-download">                
-       <p>                    
+      <div class="fr-download">
+       <p>
         <a href="/files/exemple-urssaf-attestation-sociale.pdf" download class="fr-download__link">
-         Télécharger un exemple d'attestation de vigilance                     
-         <span class="fr-download__detail">                            
-         PDF – 843 Ko                               
-         </span>                    
-        </a>                
-       </p>            
-      </div>  
-  faq:
-    - q: Sous quelles conditions l'attestation est délivrée ?
-      a: |+
+         Télécharger un exemple d'attestation de vigilance
+         <span class="fr-download__detail">
+         PDF – 843 Ko
+         </span>
+        </a>
+       </p>
+      </div>
+  faq: &urssaf_attestations_faq
+    - q: &urssaf_attestations_faq_q1 Sous quelles conditions l'attestation est délivrée ?
+      a: &urssaf_attestations_faq_a1 |+
         L'attestation est délivrée si l'entreprise :
         - s'est acquitée des cotisations et contributions dues à leur date normale d'exigibilité ;
         - a souscrit un plan d'apurement (planification des remboursements) des cotisations et contributions restant dues, qu'elle respecte ;
@@ -113,13 +115,35 @@
         > Depuis 2021, la contribution annuelle de l'OETH (Obligation d'Emploi de Travailleur Handicapé), fait partie des contribution dues pour obtenir l'attestation.
         > Cette compétence était auparavant attribuée à l'AGEFIPH.
 
-    - q: Combien de temps est valide l'attestation de vigilance ?
-      a: |+
-        L'attestation de vigilance est valide 6 mois à compter de la date de fin de période analysée figurant sur l'attestation. Cette date est lisible en fin de seconde page, à la suite du paragraphe indiquant les obligations sociales. 
-        ⚠️ Cette date est différente de la date d'édition de l'attestation. 
-        
+    - q: &urssaf_attestations_faq_q2 Combien de temps est valide l'attestation de vigilance ?
+      a: &urssaf_attestations_faq_a2 |+
+        L'attestation de vigilance est valide 6 mois à compter de la date de fin de période analysée figurant sur l'attestation. Cette date est lisible en fin de seconde page, à la suite du paragraphe indiquant les obligations sociales.
+        ⚠️ Cette date est différente de la date d'édition de l'attestation.
+
         L'API transmet des attestations dont la date de période analysée est inférieure à 3 mois. Par conséquent, la période de validité d'une attestation récupérée sur l'API Entreprise peut varier entre 3 et 6 mois.
 
-    - q: L'API ne renvoie pas de pièce, peut-on considérer que l'entreprise n'est pas à jour ?
-      a: |+
+    - q: &urssaf_attestations_faq_q3 L'API ne renvoie pas de pièce, peut-on considérer que l'entreprise n'est pas à jour ?
+      a: &urssaf_attestations_faq_a3 |+
         Non, dans certain cas, l'API ne peut pas délivrer l'attestation, cela ne signifie pas que l'entreprise n'est pas à jour.
+- uid: 'urssaf/v3/attestation_vigilance'
+  position: 9001
+  new_endpoint_uids:
+    - 'urssaf/attestation_vigilance'
+  path: '/v3/urssaf/unites_legales/{siren}/attestation_vigilance'
+  perimeter: *urssaf_attestation_perimeter
+  opening: *urssaf_attestation_opening
+  call_id: *urssaf_attestation_call_id
+  parameters: *urssaf_attestation_parameters
+  format:
+    - Payload JSON
+  use_cases: *urssaf_attestation_use_cases
+  use_cases_forbidden: *urssaf_attestation_use_cases_forbidden
+  provider_uids: *urssaf_attestation_provider_uids
+  keywords: *urssaf_attestations_keywords
+  data: *urssaf_attestations_data
+  faq:
+    - q: *urssaf_attestations_faq_q1
+      a: *urssaf_attestations_faq_a1
+    - q: *urssaf_attestations_faq_q3
+      a: *urssaf_attestations_faq_a3
+
