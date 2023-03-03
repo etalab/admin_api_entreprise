@@ -57,6 +57,7 @@ set :shared_files, fetch(:shared_files, []).push(
   'config/credentials/sandbox.key',
   'config/credentials/staging.key',
   'config/credentials/production.key',
+  'config/initializers/frontal.rb',
   'config/database.yml',
   'config/sidekiq.yml',
   'config/cable.yml',
