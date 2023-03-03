@@ -223,7 +223,7 @@ fr:
                   La distinction entre les "diffusibles" et les "non-diffusibles" n'est plus faite par une option d'appel. Nous avons créé des API distinctes :
 
                   {:.fr-table}
-                  | API V.2  | API V.3 correspondantes |
+                  | API V.2  | API V.3+ correspondantes |
                   | :--- | :--- |
                   | **API [Données de référence d'une entité - INSEE](https://v2.entreprise.api.gouv.fr/catalogue/#a-entreprises){:target="_blank"}<br> Sans** l'option d'appel des "non-diffusibles" |  |
                   | Données concernant les unités légales "diffusibles".  | API **Données unité légale diffusible** <br> `v3/insee/sirene/unites_legales/diffusibles/{siren}`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'insee/unites_legales_diffusibles') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1insee~1sirene~1unites_legales~1diffusibles~1{siren}/get') %>){:target="_blank"}<br> <br>Ces informations sont aussi disponibles depuis :<br> API **Données établissement diffusible** <br> `v3/insee/sirene/etablissements/diffusibles/{siret}`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'insee/etablissements_diffusibles') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1insee~1sirene~1etablissements~1diffusibles~1{siret}/get') %>){:target="_blank"}<br> <br> 🎁 *Nouvelle donnée disponible :* Sexe des personnes physiques.<br> <br> ⚠️ *Suppression du champ  `raison_sociale` pour les personnes physiques en V.3* : par abus de langage, on parle de raison sociale ou dénomination pour les personnes physiques, or leur nom d'entreprise correspond toujours au nom de famille et au prénom, précédés ou suivis de la mention "entrepreneur individuel" ou "EI". En savoir plus sur [service-public.fr](https://entreprendre.service-public.fr/vosdroits/F23283/personnalisation/resultat){:target="_blank"}|
@@ -389,7 +389,7 @@ fr:
                   La distinction entre les "diffusibles" et les "non-diffusibles" n'est plus faite par une option d'appel. Nous avons créé des API distinctes :
 
                   {:.fr-table}
-                  | API V.2  | API V.3 correspondantes |
+                  | API V.2  | API V.3+ correspondantes |
                   | :--- | :--- |
                   | **API [Données de référence d'un établissement - INSEE](https://v2.entreprise.api.gouv.fr/catalogue/#a-etablissements){:target="_blank"}** | |
                   |**Sans** l'option d'appel des "non-diffusibles"  | API **Données établissement diffusible** <br> `v3/insee/sirene/etablissements/diffusibles/{siret}`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'insee/etablissements_diffusibles') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1insee~1sirene~1etablissements~1diffusibles~1{siret}/get') %>){:target="_blank"}<br> <br> 🧩 Cette API délivre en plus des informations sur l'unité légale de l'établissement. |
@@ -475,7 +475,7 @@ fr:
                 subtitle_anchor: 'v2---extrait-rcs---infogreffe-'
                 content: |+
                   {:.fr-table}
-                  | API V.2  | API V.3 correspondante |
+                  | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Extrait RCS - Infogreffe](https://v2.entreprise.api.gouv.fr/catalogue/#a-extraits_rcs_infogreffe){:target="_blank"}** | API **Extrait RCS** <br> `/v3/infogreffe/rcs/unites_legales/{siren}/extrait_kbis`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'infogreffe/rcs/extrait') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1infogreffe~1rcs~1unites_legales~1{siren}~1extrait_kbis/get') %>){:target="_blank"} |
 
@@ -516,7 +516,7 @@ fr:
                 subtitle_anchor: 'v2---conventions-collectives---fabrique-numérique-des-ministères-sociaux-'
                 content: |+
                   {:.fr-table}
-                  | API V.2  | API V.3 correspondante |
+                  | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Conventions collectives - Fabrique numérique des Ministères sociaux](https://v2.entreprise.api.gouv.fr/catalogue/#a-conventions_collectives){:target="_blank"}** | API **Conventions collectives** <br> `/v3/fabrique_numerique_ministeres_sociaux/etablissements/{siret}/conventions_collectives`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'fabrique_numerique_ministeres_sociaux/conventions_collectives') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1fabrique_numerique_ministeres_sociaux~1etablissements~1{siret}~1conventions_collectives/get') %>){:target="_blank"} |
 
@@ -525,7 +525,7 @@ fr:
                 subtitle_anchor: 'v2---données-de-référence-dune-entreprise-artisanale---cma-france-'
                 content: |+
                   {:.fr-table}
-                  | API V.2  | API V.3 correspondante |
+                  | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Données de référence d'une entreprise artisanale - CMA France](https://v2.entreprise.api.gouv.fr/catalogue/#a-entreprises_artisanales_cma){:target="_blank"}** | API **Données du RNM d'une entreprise artisanale** <br> `/v3/cma_france/rnm/unites_legales/{siren}`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'cma_france/rnm') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1cma_france~1rnm~1unites_legales~1{siren}/get') %>){:target="_blank"} |
 
@@ -534,7 +534,7 @@ fr:
                 subtitle_anchor: 'v2---effectifs-dune-entreprise---urssaf-'
                 content: |+
                   {:.fr-table}
-                  | API V.2  | API V.3 correspondante |
+                  | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Effectifs d'une entreprise - URSSAF](https://v2.entreprise.api.gouv.fr/catalogue/#a-effectifs_..._acoss_covid){:target="_blank"}** |  API **Effectifs** <br> [📖 Fiche métier](<%= endpoint_path(uid: 'urssaf/effectifs') %>){:target="_blank"} <br> ⚙️ Swagger prochainement disponible  |
 
@@ -543,7 +543,7 @@ fr:
                 subtitle_anchor: 'v2---immatriculations-eori----douanes-'
                 content: |+
                   {:.fr-table}
-                  | API V.2  | API V.3 correspondante |
+                  | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Immatriculations EORI -  Douanes](https://v2.entreprise.api.gouv.fr/catalogue/#a-eori_douanes){:target="_blank"}** | API **Immatriculations EORI** <br> `/v3/douanes/etablissements/{siret_or_eori}/immatriculations_eori`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'douanes/immatriculation_eori') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1douanes~1etablissements~1{siret_or_eori}~1immatriculations_eori/get') %>){:target="_blank"} |
 
@@ -552,7 +552,7 @@ fr:
                 subtitle_anchor: 'v2---chiffre-daffaires---dgfip-'
                 content: |+
                   {:.fr-table}
-                  | API V.2  | API V.3 correspondante |
+                  | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Chiffre d'affaires - DGFIP](https://v2.entreprise.api.gouv.fr/catalogue/#a-exercices){:target="_blank"}** | API **Chiffre d'affaires** <br> `v3/dgfip/etablissements/{siret}/chiffres_affaires`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'dgfip/chiffres_affaires') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-financieres/paths/~1v3~1dgfip~1etablissements~1{siret}~1chiffres_affaires/get') %>){:target="_blank"} |
 
@@ -561,7 +561,7 @@ fr:
                 subtitle_anchor: 'v2---bilans-annuels---inpi-'
                 content: |+
                   {:.fr-table}
-                  | API V.2  | API V.3 correspondante |
+                  | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Bilans annuels - INPI](https://v2.entreprise.api.gouv.fr/catalogue/#a-bilans_inpi){:target="_blank"}** | API **Comptes annuels du RNCS** <br> <br> [📖 Fiche métier](<%= endpoint_path(uid: 'inpi/comptes_annuels_rncs') %>){:target="_blank"} <br> ⚙️ Swagger prochainement disponible |
 
@@ -570,7 +570,7 @@ fr:
                 subtitle_anchor: 'v2---3-derniers-bilans-annuels---banque-de-france-'
                 content: |+
                   {:.fr-table}
-                  | API V.2  | API V.3 correspondante |
+                  | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [3 derniers bilans annuels - Banque de France](https://v2.entreprise.api.gouv.fr/catalogue/#a-bilans_entreprises_bdf){:target="_blank"}** |  API **Trois derniers bilans annuels** <br> <br> [📖 Fiche métier](<%= endpoint_path(uid: 'banque_de_france/bilans') %>){:target="_blank"} <br> ⚙️ Swagger prochainement disponible  |
 
@@ -579,7 +579,7 @@ fr:
                 subtitle_anchor: 'v2---déclarations-de-résultats---dgfip-'
                 content: |+
                   {:.fr-table}
-                  | API V.2  | API V.3 correspondante |
+                  | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Déclarations de résulats - DGFIP](https://v2.entreprise.api.gouv.fr/catalogue/#a-liasses_fiscales_dgfip){:target="_blank"}** | API **Liasses fiscales** <br> `v3/dgfip/unites_legales/{siren}/liasses_fiscales/{year}`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'dgfip/liasses_fiscales') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-financieres/paths/~1v3~1dgfip~1unites_legales~1{siren}~1liasses_fiscales~1{year}/get') %>){:target="_blank"} |
 
@@ -588,7 +588,7 @@ fr:
                 subtitle_anchor: 'v2---attestation-fiscale---dgfip-'
                 content: |+
                   {:.fr-table}
-                  | API V.2  | API V.3 correspondante |
+                  | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Attestation fiscale - DGFIP](https://v2.entreprise.api.gouv.fr/catalogue/#a-attestations_fiscales_dgfip){:target="_blank"}** | API **Attestation fiscale - DGFIP** <br> `v3/dgfip/unites_legales/{siren}/attestation_fiscale`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'dgfip/attestations_fiscales') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Attestations-sociales-et-fiscales/paths/~1v3~1dgfip~1unites_legales~1{siren}~1attestation_fiscale/get') %>){:target="_blank"} |
 
@@ -596,7 +596,7 @@ fr:
                 subtitle_anchor: '#v2---attestation-de-vigilance---acoss-'
                 content: |+
                   {:.fr-table}
-                  | API V.2  | API V.3 correspondante |
+                  | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Attestation de vigilance - ACOSS](https://v2.entreprise.api.gouv.fr/catalogue/#a-attestations_sociales_acoss){:target="_blank"}** | API **Attestation de vigilance - URSSAF Caisse nationale** <br> `v3/urssaf/unites_legales/{siren}/attestation_vigilance`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'urssaf/attestation_vigilance') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Attestations-sociales-et-fiscales/paths/~1v3~1urssaf~1unites_legales~1{siren}~1attestation_vigilance/get') %>){:target="_blank"} |
 
@@ -604,7 +604,7 @@ fr:
                 subtitle_anchor: 'v2---conformité-emploi-des-travailleurs-handicapés---agefiph-'
                 content: |+
                   {:.fr-table}
-                  | API V.2  | API V.3 correspondante |
+                  | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Conformité emploi des travailleurs handicapés - Agefiph](https://v2.entreprise.api.gouv.fr/catalogue/#a-attestations_agefiph){:target="_blank"}** | ❌ Ressource supprimée en V3 - *Depuis 2021, la contribution annuelle de l’OETH (Obligation d’Emploi de Travailleur Handicapé) relève de l'URSSAF et non plus de l'Agefiph*. <br> <br> La conformité à l'OETH est donc désormais incluse dans l'[API attestation de vigileance - URSSAF](<%= endpoint_path(uid: 'urssaf/attestation_vigilance') %>){:target="_blank"} ou dans l'[API conformité cotisations de sécurité sociale agricole - MSA](<%= endpoint_path(uid: 'msa/conformites_cotisations') %>){:target="_blank"} pour les entreprises relevant du régime agricole. |
 
@@ -612,7 +612,7 @@ fr:
                 subtitle_anchor: 'v2---cotisations-de-sécurité-agricole---msa-'
                 content: |+
                   {:.fr-table}
-                  | API V.2  | API V.3 correspondante |
+                  | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Cotisations de sécurité agricole - MSA](https://v2.entreprise.api.gouv.fr/catalogue/#a-cotisations_msa){:target="_blank"}** | API **Conformité cotisations de sécurité sociale agricole** <br> `v3/msa/etablissements/{siret}/conformite_cotisations`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'msa/conformites_cotisations') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Attestations-sociales-et-fiscales/paths/~1v3~1msa~1etablissements~1{siret}~1conformite_cotisations/get') %>){:target="_blank"} |
 
@@ -620,7 +620,7 @@ fr:
                 subtitle_anchor: 'v2---cotisations-retraite-bâtiment---probtp-'
                 content: |+
                   {:.fr-table}
-                  | API V.2  | API V.3 correspondante |
+                  | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Cotisations retraite bâtiment - PROBTP](https://v2.entreprise.api.gouv.fr/catalogue/#a-cotisation_retraite_probtp){:target="_blank"}** | API **Conformité cotisations retraite bâtiment** <br> <br> [📖 Fiche métier](<%= endpoint_path(uid: 'probtp/conformites_cotisations_retraite') %>){:target="_blank"} <br> ⚙️ Swagger prochainement disponible  <br> <br> 🚀 En V.3, plus besoin de faire deux appels différents. **Avec un seul appel, vous obtenez l'état de conformité et l'URL de téléchargement** de l'attestation si elle est disponible. |
 
@@ -628,7 +628,7 @@ fr:
                 subtitle_anchor: 'v2---carte-professionnelle-travaux-publics---fntp-'
                 content: |+
                   {:.fr-table}
-                  | API V.2  | API V.3 correspondante |
+                  | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Carte professionnelle travaux publics - FNTP](https://v2.entreprise.api.gouv.fr/catalogue/#a-cartes_professionnelles_fntp){:target="_blank"}** | API **Carte professionnelle travaux publics** <br> `v3/fntp/unites_legales/{siren}/carte_professionnelle_travaux_publics`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'fntp/carte_professionnelle_travaux_public') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Attestations-sociales-et-fiscales/paths/~1v3~1fntp~1unites_legales~1{siren}~1carte_professionnelle_travaux_publics/get') %>){:target="_blank"} |
 
@@ -637,7 +637,7 @@ fr:
                 subtitle_anchor: 'v2---cotisations-congés-payés--chômage-intempéries---cnetp-'
                 content: |+
                   {:.fr-table}
-                  | API V.2  | API V.3 correspondante |
+                  | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Cotisations congés payés & chômage intempéries - CNETP](https://v2.entreprise.api.gouv.fr/catalogue/#a-certificats_cnetp){:target="_blank"}** | API **Attestation de cotisations congés payés & chômage-intempéries** <br> `v3/cnetp/unites_legales/{siren}/attestation_cotisations_conges_payes_chomage_intemperies`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'cnetp/attestations_cotisations_conges_payes_chomage_intemperies') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Attestations-sociales-et-fiscales/paths/~1v3~1cnetp~1unites_legales~1{siren}~1attestation_cotisations_conges_payes_chomage_intemperies/get') %>){:target="_blank"}|
 
@@ -645,7 +645,7 @@ fr:
                 subtitle_anchor: 'v2---cotisations-congés-payés--chômage-intempéries---cnetp-'
                 content: |+
                   {:.fr-table}
-                  | API V.2  | API V.3 correspondante |
+                  | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Certification en BIO - Agence BIO](https://v2.entreprise.api.gouv.fr/catalogue/#a-certificats_agence_bio){:target="_blank"}** |  API **Certifications en BIO** <br> <br> [📖 Fiche métier](<%= endpoint_path(uid: 'agence_bio/certifications_bio') %>){:target="_blank"} <br> ⚙️ Swagger prochainement disponible  |
 
@@ -654,7 +654,7 @@ fr:
                 subtitle_anchor: 'v2---certification-rge---ademe-'
                 content: |+
                   {:.fr-table}
-                  | API V.2  | API V.3 correspondante |
+                  | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Certification RGE - ADEME](https://v2.entreprise.api.gouv.fr/catalogue/#a-certificats_rge_ademe){:target="_blank"}** | API **Certificat RGE** <br> `v3/ademe/etablissements/{siret}/certification_rge`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'ademe/certifications_rge') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Certifications-professionnelles/paths/~1v3~1ademe~1etablissements~1{siret}~1certification_rge/get') %>){:target="_blank"} |
 
@@ -662,7 +662,7 @@ fr:
                 subtitle_anchor: 'v2---certification-de-qualification-du-bâtiment---qualibat-'
                 content: |+
                   {:.fr-table}
-                  | API V.2  | API V.3 correspondante |
+                  | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Certification de qualification du bâtiment - Qualibat](https://v2.entreprise.api.gouv.fr/catalogue/#a-certificats_qualibat){:target="_blank"}** | API **Certification Qualibat** <br> `v3/qualibat/etablissements/{siret}/certification_batiment`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'qualibat/certifications_batiment') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Certifications-professionnelles/paths/~1v3~1qualibat~1etablissements~1{siret}~1certification_batiment/get') %>){:target="_blank"} |
 
@@ -670,7 +670,7 @@ fr:
                 subtitle_anchor: 'v2---certification-de-qualification-dingénierie---opqibi-'
                 content: |+
                   {:.fr-table}
-                  | API V.2  | API V.3 correspondante |
+                  | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Certification de qualification d'ingénierie - OPQIBI](https://v2.entreprise.api.gouv.fr/catalogue/#a-certificats_opqibi){:target="_blank"}** |  API **Certification d'ingénierie OPQIBI** <br> <br> [📖 Fiche métier](<%= endpoint_path(uid: 'opqibi/qualifications_ingenierie') %>){:target="_blank"} <br> ⚙️ Swagger prochainement disponible  |
 
@@ -678,7 +678,7 @@ fr:
                 subtitle_anchor: 'v2---brevets-modèles-et-marques-déposés---inpi-'
                 content: |+
                   {:.fr-table}
-                  | API V.2  | API V.3 correspondantes |
+                  | API V.2  | API V.3+ correspondantes |
                   | :--- | :--- |
                   | **API [Brevets, modèles et marques déposés - INPI](https://v2.entreprise.api.gouv.fr/catalogue/#a-extraits_courts_inpi){:target="_blank"}** | |
                   | Données des brevets | API **Brevets déposés** <br> `v3/inpi/unites_legales/{siren}/brevets`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'inpi/brevets') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Propriete-intellectuelle/paths/~1v3~1inpi~1unites_legales~1{siren}~1brevets/get') %>){:target="_blank"} |
