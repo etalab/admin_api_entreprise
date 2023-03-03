@@ -54,15 +54,28 @@
     - 'fraude'
   data: &urssaf_attestations_data
     description: |+
-      Cette API permet de **savoir si l'attestation de vigilance est délivrée par l'Urssaf** ou refusée. En cas de délivrance de l'attestation l'API transmet une **URL de téléchargement de l'attestation, au format PDF**.
+      Cette API permet de : 
+      - **savoir si l'attestation de vigilance est délivrée par l'Urssaf** et obtenir l'URL de téléchargement de l'**attestation, au format PDF**. 
 
-      L'attestation de vigilance est **délivrée sous [certaines conditions](#faq_entry_0_endpoint_urssaf_attestation_vigilance)** ; entre autres, si l'entreprise s'est acquitée de ses cotisations et contributions.
+        {:.fr-highlight}
+        >⚠️ La délivrance de l'attestation ne veut pas forcément dire que l'entité est jour de ses cotisations. L'attestation de vigilance est délivrée sous [certaines conditions](#faq_entry_0_endpoint_urssaf_attestation_vigilance) ; entre autres, si l'entreprise s'est acquitée de ses cotisations et contributions.
 
-      Elle a une **durée de validité légale de 6 mois** à compter de la date d'analyse indiquée sur le document et qui est différente de la date de délivrance du document. [En&nbsp;savoir&nbsp;plus](#faq_entry_1_endpoint_urssaf_attestation_vigilance).
+      - **obtenir la date de début et de fin de validité de l'attestation**. L'attestation a une durée de validité légale de 6 mois à compter de la date d'analyse indiquée sur le document et qui est différente de la date de délivrance du document. [En&nbsp;savoir&nbsp;plus](#faq_entry_1_endpoint_urssaf_attestation_vigilance). 
+
+        {:.fr-highlight.fr-highlight--example}
+        >💡 Cette donnée structurée vous permet de reprogrammer automatiquement un appel avant la fin de validité du document
+
+      - **obtenir le code de sécurité de l'attestation** : ce code vous permet d'accéder aux informations de l'URSSAF associées à l'attestation (date de certification, période concernée, organisme émetteur, effectif et masse salariale, etc.).
+
+      - **savoir si l'entité n'est pas à jour de ses cotisations**, avec le code statut `refus_de_delivrance`.
+
+        {:.fr-highlight.fr-highlight--example}
+        >💡 Cette donnée structurée vous permet d'indiquer automatiquement sur votre logiciel que l'entreprise n'est pas en règle.
+
 
       <section class="fr-accordion">
         <h3 class="fr-accordion__title">
-          <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-1">Liste des informations disponibles sur l'attestation</button>
+          <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-1">Liste des informations disponibles sur l'attestation PDF</button>
         </h3>
         <div class="fr-collapse" id="accordion-1">
 
