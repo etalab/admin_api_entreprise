@@ -41,11 +41,15 @@
     <div class="fr-container">
       <div class="fr-notice__body">
         <p class="fr-notice__title fr-text--regular">
-          <% if action_name == 'developers' || action_name == 'guide_migration' %>
-            <%= t('.banner.tech_migration', date: OpenBureauDate.new.next_date.strftime('%d/%m/%Y')).html_safe %>
-          <% else %>
-            <%= t('.banner.default', date: OpenBureauDate.new.next_date.strftime('%d/%m/%Y')).html_safe %>
-          <% end %>
+          <strike>
+            <% if action_name == 'developers' || action_name == 'guide_migration' %>
+              <%= t('.banner.tech_migration', date: OpenBureauDate.new.next_date.strftime('%d/%m/%Y')).html_safe %>
+            <% else %>
+              <%= t('.banner.default', date: OpenBureauDate.new.next_date.strftime('%d/%m/%Y')).html_safe %>
+            <% end %>
+          </strike>
+          <br />
+          Ce bureau ouvert est annulé, le prochain est prévu le 21/03/2022
         </p>
       </div>
     </div>
