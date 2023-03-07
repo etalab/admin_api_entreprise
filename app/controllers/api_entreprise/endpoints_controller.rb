@@ -7,7 +7,9 @@ class APIEntreprise::EndpointsController < APIEntrepriseController
     render 'index', layout: 'api_entreprise/no_container'
   end
 
-  def show; end
+  def show
+    @active_endpoints = EndpointDecorator.decorate_collection(Endpoint.all.reject(&:deprecated))
+  end
 
   def example
     return unless @endpoint.dummy?
