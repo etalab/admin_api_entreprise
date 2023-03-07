@@ -13,7 +13,8 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
     :use_cases_optional,
     :use_cases_forbidden,
     :keywords,
-    :opening
+    :opening,
+    :historique
 
   attr_writer :new_endpoint_uids, :old_endpoint_uids
 
