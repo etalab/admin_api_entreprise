@@ -2,9 +2,6 @@
 - uid: 'djepva/associations'
   path: '/v4/djepva/api-association/associations/{siren_or_rna}'
   position: 150
-  old_endpoint_uids:
-    - 'ministere_interieur/rna'
-    - 'ministere_interieur/documents_associations'
   perimeter: &association_perimeter
     entity_type_description: &association_entity_type_description |+
       Cette API concerne ✅ **les associations** inscrites au répertoire national des associations (RNA) et/ou au répertoire Sirene.
@@ -101,9 +98,11 @@
     - q: Une association utilisatrice de votre démarche s'est aperçue que ses informations ne sont plus à jour ?
       a: |+
         Vous pouvez l'orienter vers le [site officiel Le compte Asso](https://lecompteasso.associations.gouv.fr/declarer-un-changement-de-situation-de-mon-association/){:target="_blank"} où elle pourra déclarer son changement de situation.
-
 - uid: 'djepva/associations_open_data'
   path: '/v4/djepva/api-association/associations/open_data/{siren_or_rna}'
+  old_endpoint_uids:
+    - 'ministere_interieur/rna'
+    - 'ministere_interieur/documents_associations'
   position: 151
   perimeter: *association_perimeter
   call_id: *call_id
@@ -144,3 +143,15 @@
     - Portail GRU - Instruction des démarches
     - Détection de la fraude
   faq: *association_faq
+  historique: |+
+    **Ce que change la V.4 par rapport à la V.3 :**
+    - Nouvelle structure de donnée : cette API fait suite aux deux API V.3 et réunit au même endroit les informations et documents des associations en open data. L'API propose plus de données&nbsp;;
+    - Nouvelle API source et nouveau fournisseur de donnée : la DJEPVA au travers de l'[API association](https://www.associations.gouv.fr/les-api-et-autres-outils.html){:target="_blank"}
+    - Le SIREN en paramètre d'appel.
+
+    **Ce qui ne change pas:**
+    - Les informations concernent l'unité légale ET les établissements de l'association. Vous pouvez donc toujours retrouver les informations relatives à un SIRET&nbsp;;
+    - L'API distribue les données du RNA&nbsp;;
+    - La donnée est en open data.
+
+

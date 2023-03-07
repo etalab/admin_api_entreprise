@@ -248,7 +248,7 @@
           </h2>
           <%= markdown_to_html(@endpoint.historique) %>
           <% if @endpoint.old_endpoints.any? %>
-            <p class="fr-text--bold fr-mb-1v"><%= t('.historique.old_endpoints.description') %></p>
+            <p class="fr-text--bold fr-mb-1v fr-mt-4w"><%= t('.historique.old_endpoints.description') %></p>
             <ul>
               <% @endpoint.old_endpoints.each do |endpoint| %>
                 <li>
@@ -256,7 +256,7 @@
                 </li>
               <% end %>
             </ul>
-            <p class="fr-text--sm fr-mt-4w fr-highlight"><%= t('.historique.old_endpoints.link_documentation').html_safe %></p>
+            <p class="fr-text--sm fr-mt-4w"><%= t('.historique.old_endpoints.link_documentation').html_safe %></p>
           <% end %>
         <% end %>
 
