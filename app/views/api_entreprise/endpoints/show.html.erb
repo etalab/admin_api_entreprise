@@ -253,10 +253,11 @@
             <ul>
               <% @endpoint.old_endpoints.each do |endpoint| %>
                 <li>
-                  <%= link_to endpoint.title, endpoint_path(uid: endpoint.uid) %>
+                  <%= link_to endpoint.path, endpoint_path(uid: endpoint.uid) %>
                 </li>
               <% end %>
             </ul>
+            <p class="fr-text--sm fr-mt-4w"><%= t('.historique.old_endpoints.link_documentation').html_safe %></p>
           <% end %>
         <% end %>
 
