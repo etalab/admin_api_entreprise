@@ -7,7 +7,7 @@ class AuthorizationRequest < ApplicationRecord
     inverse_of: :authorization_request,
     dependent: :nullify
 
-  has_one :valid_token, -> { where(blacklisted: false, archived: false) },
+  has_one :valid_token, -> { valid },
     class_name: 'Token',
     inverse_of: :authorization_request,
     required: false,

@@ -19,6 +19,7 @@ class Token < ApplicationRecord
   scope :archived, -> { where(blacklisted: false, archived: true) }
   scope :blacklisted, -> { where(blacklisted: true) }
 
+  scope :valid, -> { active.unexpired }
   scope :valid_for, ->(api) { joins(:scopes).active.unexpired.where(scopes: { api: }).uniq }
 
   def rehash
