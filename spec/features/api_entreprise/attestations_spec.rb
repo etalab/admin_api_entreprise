@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe 'User attestations through tokens', app: :api_entreprise do
   include_context 'with siade payloads'
 
-  let(:invalid_token_intitule) { 'Token with another scope' }
+  let(:inactive_token_intitule) { 'Token with another scope' }
   let(:another_api_entreprise_scope) { create(:scope, name: 'whatever', code: 'whatever', api: 'entreprise') }
-  let!(:invalid_token) { create(:token, user:, scopes: [another_api_entreprise_scope], intitule: invalid_token_intitule) }
+  let!(:inactive_token) { create(:token, user:, scopes: [another_api_entreprise_scope], intitule: inactive_token_intitule) }
 
   before do
     login_as(user)
@@ -80,7 +80,7 @@ RSpec.describe 'User attestations through tokens', app: :api_entreprise do
       end
 
       context 'when selected token have no attestation scopes' do
-        let(:token) { invalid_token_intitule }
+        let(:token) { inactive_token_intitule }
 
         it 'doesnt show attestations download links' do
           expect(page).not_to have_link('attestation-sociale-download')
@@ -115,7 +115,7 @@ RSpec.describe 'User attestations through tokens', app: :api_entreprise do
     end
 
     context 'when user search an invalid siren' do
-      let(:token) { invalid_token_intitule }
+      let(:token) { inactive_token_intitule }
 
       before do
         allow(facade_double).to receive(:retrieve_company).and_raise(SiadeClientError.new(422, '422 Unprocessable Entity'))
@@ -128,7 +128,7 @@ RSpec.describe 'User attestations through tokens', app: :api_entreprise do
     end
 
     context 'when user search a siren not found' do
-      let(:token) { invalid_token_intitule }
+      let(:token) { inactive_token_intitule }
 
       before do
         allow(facade_double).to receive(:retrieve_company).and_raise(SiadeClientError.new(404, '404 Not Found'))
@@ -141,7 +141,7 @@ RSpec.describe 'User attestations through tokens', app: :api_entreprise do
     end
 
     context 'when user choose a token which is unauthorized' do
-      let(:token) { invalid_token_intitule }
+      let(:token) { inactive_token_intitule }
 
       before do
         allow(facade_double).to receive(:retrieve_company).and_raise(SiadeClientError.new(401, '401 Unauthorized'))

@@ -16,7 +16,7 @@ RSpec.describe AuthorizationRequest do
     end
   end
 
-  describe 'valid_token associations' do
+  describe 'active_token associations' do
     let(:authorization_request) do
       create(:authorization_request, :with_multiple_tokens_one_valid)
     end
@@ -25,10 +25,10 @@ RSpec.describe AuthorizationRequest do
       expect(authorization_request.token).to be_present
     end
 
-    it 'returns a valid token' do
-      expect(authorization_request.valid_token).to be_present
-      expect(authorization_request.token.id).to eq(authorization_request.valid_token.id)
-      expect(authorization_request.tokens.first.id).not_to eq(authorization_request.valid_token.id)
+    it 'returns an active token' do
+      expect(authorization_request.active_token).to be_present
+      expect(authorization_request.token.id).to eq(authorization_request.active_token.id)
+      expect(authorization_request.tokens.first.id).not_to eq(authorization_request.active_token.id)
     end
   end
 end

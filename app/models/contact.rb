@@ -1,7 +1,7 @@
 class Contact < ApplicationRecord
   belongs_to :authorization_request
   has_many :tokens, through: :authorization_request
-  has_one :valid_token, through: :authorization_request, source: :valid_token
+  has_one :active_token, through: :authorization_request, source: :active_token
 
   validates :email, presence: true, format: { with: /#{EMAIL_FORMAT_REGEX}/ }
   validates :contact_type, presence: true, inclusion: { in: %w[admin tech other] }
@@ -11,7 +11,7 @@ class Contact < ApplicationRecord
   end
 
   def token
-    valid_token || tokens.first
+    active_token || tokens.first
   end
 
   scope :not_expired, lambda {

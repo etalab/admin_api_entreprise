@@ -7,7 +7,7 @@ class TokensAssociatedToEmailQuery
   end
 
   def call
-    return tokens.valid_for(api).uniq if api
+    return tokens.active_for(api).uniq if api
 
     tokens.uniq
   end

@@ -41,7 +41,7 @@ RSpec.describe Contact do
     end
   end
 
-  describe 'valid_token associations' do
+  describe 'active_token associations' do
     let(:contact) do
       create(
         :contact,
@@ -55,8 +55,8 @@ RSpec.describe Contact do
 
     it 'returns a valid token' do
       expect(contact.authorization_request.tokens.first.blacklisted?).to be true
-      expect(contact.valid_token).to be_present
-      expect(contact.token.id).to eq(contact.valid_token.id)
+      expect(contact.active_token).to be_present
+      expect(contact.token.id).to eq(contact.active_token.id)
     end
   end
 end

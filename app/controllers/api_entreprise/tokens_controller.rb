@@ -1,6 +1,6 @@
 class APIEntreprise::TokensController < APIEntreprise::AuthenticatedUsersController
   def index
-    @tokens = current_user.tokens.valid_for('entreprise')
+    @tokens = current_user.tokens.active_for('entreprise')
   end
 
   def show

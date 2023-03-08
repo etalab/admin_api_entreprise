@@ -7,7 +7,7 @@ class AuthorizationRequest < ApplicationRecord
     inverse_of: :authorization_request,
     dependent: :nullify
 
-  has_one :valid_token, -> { valid },
+  has_one :active_token, -> { active },
     class_name: 'Token',
     inverse_of: :authorization_request,
     required: false,
@@ -35,6 +35,6 @@ class AuthorizationRequest < ApplicationRecord
   scope :submitted_at_least_once, -> { where.not(first_submitted_at: nil) }
 
   def token
-    valid_token || tokens.first
+    active_token || tokens.first
   end
 end

@@ -7,8 +7,8 @@ RSpec.describe TokensAssociatedToEmailQuery do
   let(:api) { nil }
 
   let(:token_list) { Token.where(id: tokens.map(&:id)) }
-  let(:token_list_particulier) { token_list.valid_for(:particulier) }
-  let(:token_list_entreprise) { token_list.valid_for(:entreprise) }
+  let(:token_list_particulier) { token_list.active_for(:particulier) }
+  let(:token_list_entreprise) { token_list.active_for(:entreprise) }
 
   context 'when email is not provided' do
     let(:email) { nil }
