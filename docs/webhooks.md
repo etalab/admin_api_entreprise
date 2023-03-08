@@ -19,7 +19,7 @@ Pour plus d'infos sur les webhooks:
 - [Documentation DataPass sur les
   webhooks](https://github.com/betagouv/datapass/blob/master/backend/docs/webhooks.md)
 - [Implémentation technique pour API
-  Entreprise](https://github.com/betagouv/datapass/blob/master/backend/docs/webhooks.md)
+  Entreprise](https://github.com/betagouv/datapass/blob/master/backend/app/notifiers/api_entreprise_notifier.rb)
 
 ## Implémentation technique
 

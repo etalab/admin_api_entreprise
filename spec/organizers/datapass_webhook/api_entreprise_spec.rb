@@ -49,4 +49,34 @@ RSpec.describe DatapassWebhook::APIEntreprise, type: :interactor do
       subject
     }.to change { token.reload.archived }.to(true)
   end
+
+  context 'with a revoke token event' do
+    let(:datapass_webhook_params) { build(:datapass_webhook, event: 'revoke') }
+
+    it { is_expected.to be_a_success }
+
+    it 'does not raise an error' do
+      expect { subject }.not_to raise_error
+    end
+  end
+
+  context 'with an archive token event' do
+    let(:datapass_webhook_params) { build(:datapass_webhook, event: 'archive') }
+
+    it { is_expected.to be_a_success }
+
+    it 'does not raise an error' do
+      expect { subject }.not_to raise_error
+    end
+  end
+
+  context 'with a delete token event' do
+    let(:datapass_webhook_params) { build(:datapass_webhook, event: 'delete') }
+
+    it { is_expected.to be_a_success }
+
+    it 'does not raise an error' do
+      expect { subject }.not_to raise_error
+    end
+  end
 end
