@@ -7,8 +7,8 @@ RSpec.describe Token do
     expect(build(:token)).to be_valid
   end
 
-  describe '.valid_for scope' do
-    subject { described_class.valid_for('entreprise') }
+  describe '.active_for scope' do
+    subject { described_class.active_for('entreprise') }
 
     let!(:api_entreprise_token) { create(:token, :api_entreprise, scopes_count: 2) }
     let!(:api_particulier_token) { create(:token, :api_particulier, scopes_count: 2) }

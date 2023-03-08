@@ -16,7 +16,7 @@ class DatapassWebhook::CreateToken < ApplicationInteractor
   private
 
   def create_token
-    authorization_request.create_token(
+    authorization_request.tokens.create(
       Token.default_create_params.merge(
         authorization_request_id: authorization_request.external_id
       ).merge(

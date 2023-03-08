@@ -24,12 +24,27 @@ FactoryBot.define do
       end
     end
 
-    trait :with_token do
-      token { create(:token) }
+    trait :with_multiple_tokens_one_valid do
+      tokens do
+        [
+          create(:token, :blacklisted, :not_archived),
+          create(:token, :not_blacklisted, :not_archived)
+        ]
+      end
+
+      after(:create, &:reload)
+    end
+
+    trait :with_tokens do
+      tokens do
+        [
+          build(:token)
+        ]
+      end
     end
 
     trait :submitted do
-      with_token
+      with_tokens
       with_contacts
 
       first_submitted_at { DateTime.now }

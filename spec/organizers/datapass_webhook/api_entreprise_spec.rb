@@ -14,7 +14,7 @@ RSpec.describe DatapassWebhook::APIEntreprise, type: :interactor do
 
     allow(Mailjet::Contactslist_managemanycontacts).to receive(:create)
 
-    create(:authorization_request, external_id: previous_enrollment_id, token:)
+    create(:authorization_request, external_id: previous_enrollment_id, tokens: [token])
   end
 
   it { is_expected.to be_a_success }

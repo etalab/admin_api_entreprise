@@ -2,7 +2,7 @@ class APIEntreprise::AttestationsController < APIEntreprise::AuthenticatedUsersC
   before_action :authorize!
 
   def index
-    @tokens = current_user.tokens.valid_for('entreprise')
+    @tokens = current_user.tokens.active_for('entreprise')
 
     @best_token = Token.find_best_token_to_retrieve_attestations(@tokens)
   end

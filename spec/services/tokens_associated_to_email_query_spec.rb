@@ -7,8 +7,8 @@ RSpec.describe TokensAssociatedToEmailQuery do
   let(:api) { nil }
 
   let(:token_list) { Token.where(id: tokens.map(&:id)) }
-  let(:token_list_particulier) { token_list.valid_for(:particulier) }
-  let(:token_list_entreprise) { token_list.valid_for(:entreprise) }
+  let(:token_list_particulier) { token_list.active_for(:particulier) }
+  let(:token_list_entreprise) { token_list.active_for(:entreprise) }
 
   context 'when email is not provided' do
     let(:email) { nil }
@@ -18,10 +18,10 @@ RSpec.describe TokensAssociatedToEmailQuery do
 
   context 'when email is provided from a contact' do
     context 'with tokens' do
-      let!(:contact_1) { create(:contact, email:, token: create(:token)) }
-      let!(:contact_2) { create(:contact, email:, token: create(:token)) }
+      let!(:contact_1) { create(:contact, email:, authorization_request: create(:authorization_request, :with_tokens)) }
+      let!(:contact_2) { create(:contact, email:, authorization_request: create(:authorization_request, :with_tokens)) }
 
-      let(:tokens) { [contact_1.token, contact_2.token] }
+      let(:tokens) { [contact_1.authorization_request.token, contact_2.authorization_request.token] }
 
       context 'when API is not provided' do
         it { is_expected.to contain_exactly(*token_list) }
@@ -81,8 +81,8 @@ RSpec.describe TokensAssociatedToEmailQuery do
   context 'when email is from both user and contact' do
     context 'with tokens' do
       let!(:user) { create(:user, :with_token, email:, tokens_amount: 2) }
-      let!(:contact) { create(:contact, email:, token: create(:token)) }
-      let(:tokens) { user.tokens.to_a + [contact.token] }
+      let!(:contact) { create(:contact, email:, authorization_request: create(:authorization_request, :with_tokens)) }
+      let(:tokens) { user.tokens.to_a + contact.tokens }
 
       context 'when API is not provided' do
         it { is_expected.to contain_exactly(*token_list) }

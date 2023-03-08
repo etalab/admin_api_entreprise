@@ -3,7 +3,7 @@ class Token < ApplicationRecord
 
   include RandomToken
 
-  belongs_to :authorization_request, foreign_key: 'authorization_request_model_id', inverse_of: :token
+  belongs_to :authorization_request, foreign_key: 'authorization_request_model_id', inverse_of: :tokens
   validates :exp, presence: true
   validate :scopes_must_belong_to_only_one_api
 
@@ -11,15 +11,17 @@ class Token < ApplicationRecord
   has_many :contacts, through: :authorization_request
   has_and_belongs_to_many :scopes
 
-  scope :not_blacklisted, -> { where(blacklisted: false) }
   scope :issued_in_last_seven_days, -> { where(created_at: 3.weeks.ago..1.week.ago) }
   scope :unexpired, -> { where('exp > ?', Time.zone.now.to_i) }
 
-  scope :active, -> { where(blacklisted: false, archived: false) }
-  scope :archived, -> { where(blacklisted: false, archived: true) }
   scope :blacklisted, -> { where(blacklisted: true) }
+  scope :not_blacklisted, -> { where(blacklisted: false) }
 
-  scope :valid_for, ->(api) { joins(:scopes).active.unexpired.where(scopes: { api: }).uniq }
+  scope :archived, -> { where(blacklisted: false, archived: true) }
+  scope :not_archived, -> { where(archived: false) }
+
+  scope :active, -> { not_blacklisted.not_archived.unexpired }
+  scope :active_for, ->(api) { joins(:scopes).active.where(scopes: { api: }).uniq }
 
   def rehash
     AccessToken.create(token_payload)
