@@ -1,17 +1,16 @@
 class MagicLink::ValidateUserFromAccessToken < ApplicationInteractor
   def call
     context.magic_link = magic_link
+    context.fail! unless valid_magic_link?
+
     context.user = user
-
-    return if valid_user_magic_link?
-
-    context.fail!
+    context.fail! unless user
   end
 
   private
 
-  def valid_user_magic_link?
-    context.magic_link && context.user && magic_link_not_expired?
+  def valid_magic_link?
+    context.magic_link && magic_link_not_expired?
   end
 
   def magic_link
