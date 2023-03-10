@@ -109,4 +109,18 @@ RSpec.shared_examples 'a signin process via magic link' do
       end
     end
   end
+
+  describe 'non-regression test: when trying to log with inexistent access token' do
+    subject do
+      visit login_magic_link_url(access_token: 'inexistent')
+    end
+
+    it 'redirects to the login page' do
+      subject
+
+      expect(page).to have_current_path(login_path, ignore_query: true)
+    end
+
+    it_behaves_like 'display alert', :error
+  end
 end
