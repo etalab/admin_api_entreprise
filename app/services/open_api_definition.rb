@@ -38,9 +38,9 @@ class OpenAPIDefinition
 
   def open_api_definition_url
     if Rails.env.sandbox?
-      'https://sandbox.entreprise.api.gouv.fr/v3/openapi.yaml'
+      'https://sandbox.entreprise.api.gouv.fr/v3/openapi-entreprise.yaml'
     else
-      'https://entreprise.api.gouv.fr/v3/openapi.yaml'
+      'https://entreprise.api.gouv.fr/v3/openapi-entreprise.yaml'
     end
   end
 end
