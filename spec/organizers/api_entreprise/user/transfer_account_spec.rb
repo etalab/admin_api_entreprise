@@ -71,7 +71,7 @@ RSpec.describe APIEntreprise::User::TransferAccount, type: :organizer do
         subject
         target_user = User.find_by(email: target_user_email)
 
-        expect(target_user.token_ids).to contain_exactly(*transfered_token_ids)
+        expect(target_user.token_ids).to match_array(transfered_token_ids)
       end
 
       it 'removes token ownership of the previous user' do
