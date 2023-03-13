@@ -29,7 +29,7 @@ RSpec.describe 'transfer user account ownership', app: :api_entreprise, js: true
       subject
 
       expect(user.tokens.reload.pluck(:id))
-        .to contain_exactly(*user_tokens_id)
+        .to match_array(user_tokens_id)
     end
   end
 
