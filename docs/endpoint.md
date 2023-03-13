@@ -4,7 +4,7 @@
 
 Pour ajouter un nouvel endpoint, il faut que celui-ci soit présent au sein du
 fichier OpenAPI disponible à l'adresse suivante:
-[https://entreprise.api.gouv.fr/v3/openapi.yaml](https://entreprise.api.gouv.fr/v3/openapi.yaml).
+[https://entreprise.api.gouv.fr/v3/openapi-entreprise.yaml](https://entreprise.api.gouv.fr/v3/openapi-entreprise.yaml).
 
 Il existe une copie locale situé [ici](../config/api-entreprise-v3-openapi.yml)
 en cas d'erreur du serveur (pour le mettre à jour vous pouvez utiliser le
