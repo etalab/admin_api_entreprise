@@ -57,7 +57,8 @@ constraints(APIEntrepriseDomainConstraint.new) do
 
     get '/apis/status', to: 'pages#current_status', as: :current_status
     get '/open-api.yml', to: ->(env) { [200, {}, [OpenAPIDefinition.instance.open_api_definition_content]] }, as: :openapi_definition
-
+    get '/robots.txt', to: ->(env) { [200, {}, URI.open('config/seo/api-entreprise/robots.txt')] }
+      
     get '/infolettre', to: 'pages#newsletter', as: :newsletter
     get '/mentions-legales', to: 'pages#mentions', as: :mentions
     get '/cgu', to: 'pages#cgu', as: :cgu
