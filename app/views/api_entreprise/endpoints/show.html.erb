@@ -246,17 +246,17 @@
           <h2 id="historique" class="fr-mt-md-5w fr-mt-8w">
             <%= t('.historique.title') %>
           </h2>
-
+          <%= markdown_to_html(@endpoint.historique) %>
           <% if @endpoint.old_endpoints.any? %>
-            <%= t('.historique.old_endpoints.description') %>
-
+            <p class="fr-text--bold fr-mb-1v fr-mt-4w"><%= t('.historique.old_endpoints.description') %></p>
             <ul>
               <% @endpoint.old_endpoints.each do |endpoint| %>
                 <li>
-                  <%= link_to endpoint.title, endpoint_path(uid: endpoint.uid) %>
+                  <%= link_to endpoint.uid, endpoint_path(uid: endpoint.uid) %>
                 </li>
               <% end %>
             </ul>
+            <p class="fr-text--sm fr-mt-4w"><%= t('.historique.old_endpoints.link_documentation').html_safe %></p>
           <% end %>
         <% end %>
 
