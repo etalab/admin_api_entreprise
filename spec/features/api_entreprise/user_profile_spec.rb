@@ -7,6 +7,7 @@ RSpec.describe 'user profile page', app: :api_entreprise do
 
   let(:invalid_authorization_request) { create(:authorization_request, user:) }
   let(:valid_authorization_request) { create(:authorization_request, :submitted, user:) }
+  let(:authorization_request_particulier) { create(:authorization_request, :submitted, user:, api: 'particulier') }
 
   context 'when the user is not authenticated' do
     it 'redirects to the login' do
@@ -47,6 +48,14 @@ RSpec.describe 'user profile page', app: :api_entreprise do
 
       expect(page).to have_css("##{dom_id(valid_authorization_request, :list)}")
       expect(page).not_to have_css("##{dom_id(invalid_authorization_request, :list)}")
+    end
+
+    it 'non regression test : does not display api particulier authorization request' do
+      authorization_request_particulier
+
+      show_profile
+
+      expect(page).not_to have_css("##{dom_id(authorization_request_particulier, :list)}")
     end
   end
 end
