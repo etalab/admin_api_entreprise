@@ -18,34 +18,18 @@ class Seeds
     end
   end
 
-  def create_scopes_particulier
+  def create_scopes(api)
     YAML
-      .load_file(Rails.root.join('config/data/scopes/particulier.yml'))
+      .load_file(Rails.root.join("config/data/scopes/#{api}.yml"))
       .map do |scope|
-      Scope.create!(
-        code: scope['code'],
-        name: scope['name'],
-        api: :particulier
-      )
-    end
-  end
-
-  def create_scopes_entreprise
-    YAML
-      .load_file(Rails.root.join('config/data/scopes/entreprise.yml'))
-      .map do |scope|
-      Scope.create!(
-        code: scope['code'],
-        name: scope['name'],
-        api: :entreprise
-      )
+      { code: scope['code'], name: scope['name'], api: }
     end
   end
 
   private
 
   def create_data_for_api_entreprise
-    @scopes_entreprise = create_scopes_entreprise
+    @scopes_entreprise = create_scopes('entreprise')
 
     create_api_entreprise_token_with_contact
     create_api_entreprise_token_valid
@@ -56,7 +40,7 @@ class Seeds
   end
 
   def create_data_for_api_particulier
-    @scopes_particulier = create_scopes_particulier
+    @scopes_particulier = create_scopes('particulier')
 
     create_api_particulier_token_valid
   end
@@ -158,20 +142,17 @@ class Seeds
   end
 
   def create_token(user, scopes, token_params: {}, authorization_request_params: {})
-    api = scopes.first.api
+    api = scopes.first[:api]
     authorization_request = create_authorization_request(authorization_request_params.merge(user:, api:))
 
-    token = Token.create!(
+    Token.create!(
       Token.default_create_params
         .merge(token_params)
+        .merge(scopes_as_jsonb: scopes)
         .merge(
           authorization_request:
         )
     )
-
-    token.update!(scopes:)
-
-    token
   end
 
   def create_authorization_request(params = {})
