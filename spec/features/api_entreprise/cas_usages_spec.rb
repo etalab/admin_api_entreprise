@@ -11,7 +11,7 @@ RSpec.describe 'Cas usages pages', app: :api_entreprise do
 
   describe 'show' do
     it 'does not raise error' do
-      CasUsage.all.each do |cas_usage|
+      APIEntreprise::CasUsage.all.each do |cas_usage|
         visit cas_usage_path(uid: cas_usage.uid)
         expect(page).to have_current_path(cas_usage_path(cas_usage.uid), ignore_query: true)
       end

@@ -24,7 +24,7 @@ SitemapGenerator::Sitemap.create do
 
   add cas_usages_path
 
-  CasUsage.all.each do |cas_usage|
+  APIEntreprise::CasUsage.all.each do |cas_usage|
     add cas_usage_path(uid: cas_usage.uid)
   end
 

@@ -1,5 +1,6 @@
-class CasUsage
+class AbstractCasUsage
   include ActiveModel::Model
+  include AbstractAPIClass
 
   attr_accessor :uid,
     :name,
@@ -13,7 +14,7 @@ class CasUsage
     :request_access
 
   def self.all
-    I18n.t('api_entreprise.cas_usages_entries', raise: true).map do |uid, entry|
+    backend.map do |uid, entry|
       build_from_yaml(uid, entry)
     end
   end
@@ -46,5 +47,9 @@ class CasUsage
         uid: uid.to_s
       )
     )
+  end
+
+  def self.backend
+    I18n.t("#{api}.cas_usages_entries", raise: true)
   end
 end
