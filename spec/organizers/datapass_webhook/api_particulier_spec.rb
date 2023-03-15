@@ -14,10 +14,6 @@ RSpec.describe DatapassWebhook::APIParticulier, type: :interactor do
   end
   let(:legacy_token_id) { 'over-9000' }
 
-  before do
-    create(:scope, code: 'cnaf_quotient_familial', api: 'particulier')
-  end
-
   it { is_expected.to be_a_success }
 
   it 'creates a user' do

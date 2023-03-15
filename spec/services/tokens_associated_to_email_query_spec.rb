@@ -36,7 +36,7 @@ RSpec.describe TokensAssociatedToEmailQuery do
       context 'when API Entreprise' do
         let(:api) { :entreprise }
 
-        it { is_expected.to match_array(token_list_particulier) }
+        it { is_expected.to match_array(token_list_entreprise) }
       end
     end
 

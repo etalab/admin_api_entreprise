@@ -61,8 +61,7 @@ FactoryBot.define do
     scopes do
       {
         'associations' => true,
-        'entreprises' => true,
-        'exercices' => false
+        'entreprises' => true
       }
     end
   end

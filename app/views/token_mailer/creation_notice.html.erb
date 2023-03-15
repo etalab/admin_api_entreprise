@@ -13,7 +13,7 @@
     <p>Ce token possède les droits d'accès suivants :</p>
     <ul>
       <% @token.scopes.each do |scope| %>
-        <li><%= scope.name %></li>
+        <li><%= scope["name"] %></li>
       <% end %>
     </ul>
 

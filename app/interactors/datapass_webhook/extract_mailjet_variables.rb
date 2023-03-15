@@ -53,8 +53,8 @@ class DatapassWebhook::ExtractMailjetVariables < ApplicationInteractor
   end
 
   def add_token_scopes
-    available_scope_codes.each do |scope|
-      context.mailjet_variables["token_role_#{scope}"] = token_roles.include?(scope).to_s
+    token_roles.each do |role|
+      context.mailjet_variables["token_role_#{role}"] = 'true'
     end
   end
 
@@ -63,7 +63,7 @@ class DatapassWebhook::ExtractMailjetVariables < ApplicationInteractor
   end
 
   def token_roles
-    @token_roles ||= authorization_request.token.scopes.pluck(:code)
+    @token_roles ||= authorization_request.token.scopes
   end
 
   def events_from_instructor
@@ -81,15 +81,5 @@ class DatapassWebhook::ExtractMailjetVariables < ApplicationInteractor
 
   def authorization_request
     context.authorization_request
-  end
-
-  def available_scope_codes
-    ::Scope.available.pluck(:code)
-  end
-
-  def excluded_scopes
-    %w[
-      uptime
-    ].freeze
   end
 end

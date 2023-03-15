@@ -10,16 +10,34 @@ RSpec.describe Token do
   describe '.active_for scope' do
     subject { described_class.active_for('entreprise') }
 
-    let!(:api_entreprise_token) { create(:token, :api_entreprise, scopes_count: 2) }
-    let!(:api_particulier_token) { create(:token, :api_particulier, scopes_count: 2) }
+    let!(:entreprise_token) { [create(:token, :with_scopes, scopes_count: 3)] }
 
-    it { is_expected.to contain_exactly(api_entreprise_token) }
+    let(:authorization_request_particulier) do
+      create(
+        :authorization_request,
+        api: 'particulier',
+        tokens: [create(:token, :with_scopes, scopes_count: 2)]
+      )
+    end
+
+    let(:authorization_request_entreprise) do
+      create(
+        :authorization_request,
+        api: 'entreprise',
+        tokens: entreprise_token
+      )
+    end
+
+    it 'fetches only entreprise tokens' do
+      expect(subject.count).to eq(1)
+      expect(subject.first.scopes.count).to eq(3)
+    end
   end
 
   describe '#api' do
     subject { token.api }
 
-    let(:token) { create(:token, :api_entreprise) }
+    let(:token) { create(:token, :with_scopes) }
 
     it { is_expected.to eq('entreprise') }
   end
@@ -193,23 +211,6 @@ RSpec.describe Token do
       contacts_emails = token.contacts.pluck(:email).uniq
 
       expect(subject).to include(*contacts_emails)
-    end
-  end
-
-  describe '#valid' do
-    it 'is invalid with scopes from different API' do
-      token = build(:token)
-      token.scopes << [
-        create(:scope, api: :particulier),
-        create(:scope, api: :entreprise)
-      ]
-      expect(token).not_to be_valid
-    end
-
-    it 'is valid with API Particulier scopes' do
-      token = build(:token)
-      token.scopes << create_list(:scope, 2, api: :particulier)
-      expect(token).to be_valid
     end
   end
 end

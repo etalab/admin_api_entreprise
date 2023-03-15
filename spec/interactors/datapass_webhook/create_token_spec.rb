@@ -11,10 +11,6 @@ RSpec.describe DatapassWebhook::CreateToken, type: :interactor do
 
   before do
     Timecop.freeze
-
-    scopes.each do |scope|
-      create(:scope, code: scope)
-    end
   end
 
   after do
@@ -50,8 +46,7 @@ RSpec.describe DatapassWebhook::CreateToken, type: :interactor do
       expect(token.authorization_request).to eq(authorization_request)
       expect(token.exp).to eq(18.months.from_now.to_i)
       expect(token.iat).to eq(Time.zone.now.to_i)
-
-      expect(token.scopes.pluck(:code).sort).to eq(%w[associations entreprises])
+      expect(token.scopes.sort).to eq(%w[associations entreprises])
     end
   end
 end
