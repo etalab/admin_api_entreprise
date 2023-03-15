@@ -13,7 +13,7 @@ class APIEntreprise::PagesController < APIEntrepriseController
 
   def home
     @endpoints_sample = APIEntreprise::Endpoint.all.sample(3)
-    @providers = Provider.all
+    @providers = APIEntreprise::Provider.all
   end
 
   def newsletter; end

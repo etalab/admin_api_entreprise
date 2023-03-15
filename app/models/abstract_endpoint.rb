@@ -136,7 +136,7 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
   end
 
   def providers
-    Provider.filter_by_uid(provider_uids)
+    Kernel.const_get(api.classify)::Provider.filter_by_uid(provider_uids)
   end
 
   def use_case?(cas_usage_name)
