@@ -19,13 +19,25 @@ RSpec.describe 'the signin process', app: :api_entreprise do
 
     after { OmniAuth.config.test_mode = false }
 
-    context 'when the user is unknown from API Entreprise' do
-      let!(:user) { build(:user) }
+    describe 'simple login' do
+      context 'when the user is unknown' do
+        let!(:user) { build(:user) }
 
-      it 'redirects to the login page' do
-        subject
+        it 'redirects to the login page' do
+          subject
 
-        expect(page).to have_current_path(login_path, ignore_query: true)
+          expect(page).to have_current_path(login_path, ignore_query: true)
+        end
+      end
+
+      context 'when the user exists' do
+        let!(:user) { create(:user) }
+
+        it 'redirects to the user profile' do
+          subject
+
+          expect(page).to have_current_path(user_profile_path, ignore_query: true)
+        end
       end
     end
 
