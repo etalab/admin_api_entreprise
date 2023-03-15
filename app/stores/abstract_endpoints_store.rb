@@ -1,7 +1,8 @@
 require 'singleton'
 
-class AvailableEndpoints
+class AbstractEndpointsStore
   include Singleton
+  include AbstractAPIClass
 
   def self.all
     instance.backend
@@ -16,6 +17,12 @@ class AvailableEndpoints
   def backend
     load_backend if Rails.env.development?
     @backend
+  end
+
+  protected
+
+  def endpoints_files
+    Dir["#{Rails.root.join("config/endpoints/#{api}/")}*.yml"]
   end
 
   private
@@ -33,10 +40,6 @@ class AvailableEndpoints
     }.map do |endpoint| # rubocop:todo Style/MultilineBlockChain
       endpoint.except('position')
     end
-  end
-
-  def endpoints_files
-    Dir["#{Rails.root.join('config/endpoints/')}*.yml"]
   end
 
   def order_by_position(endpoint1, endpoint2)

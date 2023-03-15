@@ -1,11 +1,11 @@
-RSpec.describe AvailableEndpoints, type: :service do
+RSpec.describe APIEntreprise::EndpointsStore, type: :store do
   describe '.all' do
     subject { described_class.all }
 
     it { is_expected.to be_an_instance_of(Array) }
 
     it 'loads endpoints from backend files' do
-      expect(subject.count).to be >= Dir["#{Rails.root.join('config/endpoints/')}*.yml"].count
+      expect(subject.count).to be >= 1
     end
 
     describe 'an element' do

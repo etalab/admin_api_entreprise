@@ -3,6 +3,40 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
+      "fingerprint": "069a6bdc88dbc9babc4174ea2e37910399ea3a1439e0f2415592060962715676",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/api_entreprise/endpoints/show.html.erb",
+      "line": 46,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "APIEntreprise::Endpoint.find(params[:uid]).open_api_definition[\"disclaimer\"]",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "APIEntreprise::EndpointsController",
+          "method": "show",
+          "line": 12,
+          "file": "app/controllers/api_entreprise/endpoints_controller.rb",
+          "rendered": {
+            "name": "api_entreprise/endpoints/show",
+            "file": "app/views/api_entreprise/endpoints/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "api_entreprise/endpoints/show"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
       "fingerprint": "07ee40def7f84233500682f2012e254ba0b8f5d82ad4665d68013c88dc89400b",
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
@@ -26,40 +60,6 @@
       "location": {
         "type": "template",
         "template": "api_entreprise/documentation/index"
-      },
-      "user_input": null,
-      "confidence": "High",
-      "cwe_id": [
-        79
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "2cf2d9ead63a11e6e040c8f2dfdb0ca05edacca7575c284d6db0832aa8f52d8f",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped model attribute",
-      "file": "app/views/api_entreprise/endpoints/show.html.erb",
-      "line": 46,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "Endpoint.find(params[:uid]).open_api_definition[\"disclaimer\"]",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "APIEntreprise::EndpointsController",
-          "method": "show",
-          "line": 12,
-          "file": "app/controllers/api_entreprise/endpoints_controller.rb",
-          "rendered": {
-            "name": "api_entreprise/endpoints/show",
-            "file": "app/views/api_entreprise/endpoints/show.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "api_entreprise/endpoints/show"
       },
       "user_input": null,
       "confidence": "High",
@@ -191,6 +191,6 @@
       "note": ""
     }
   ],
-  "updated": "2023-03-27 09:51:31 +0200",
+  "updated": "2023-03-27 10:14:56 +0200",
   "brakeman_version": "5.4.1"
 }

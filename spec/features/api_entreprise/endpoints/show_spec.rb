@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Endpoints show', app: :api_entreprise do
   let(:uid) { example_uid }
 
-  let(:endpoint) { Endpoint.find(uid) }
+  let(:endpoint) { APIEntreprise::Endpoint.find(uid) }
 
   it 'displays basic information, with attributes data' do
     visit endpoint_path(uid:)
@@ -18,11 +18,11 @@ RSpec.describe 'Endpoints show', app: :api_entreprise do
   end
 
   describe 'each endpoint' do
-    Endpoint.all.each do |endpoint|
+    APIEntreprise::Endpoint.all.each do |endpoint|
       it "works for #{endpoint.uid} endpoint" do
         visit endpoint_path(uid: endpoint.uid)
 
-        expect(page).to have_css("#endpoint_#{endpoint.id}")
+        expect(page).to have_css("#api_entreprise_endpoint_#{endpoint.id}")
       end
     end
   end

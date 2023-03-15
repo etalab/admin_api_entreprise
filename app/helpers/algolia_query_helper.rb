@@ -6,6 +6,6 @@ module AlgoliaQueryHelper
   end
 
   def query_filter_providers(provider)
-    "?Endpoint%5Bquery%5D=#{provider.uid}"
+    "?APIEntreprise::Endpoint%5Bquery%5D=#{provider.uid}"
   end
 end

@@ -30,7 +30,7 @@ SitemapGenerator::Sitemap.create do
 
   add endpoints_path
 
-  Endpoint.all.reject(&:deprecated).each do |endpoint|
+  APIEntreprise::Endpoint.all.reject(&:deprecated).each do |endpoint|
     add endpoint_path(uid: endpoint.id)
   end
 end
