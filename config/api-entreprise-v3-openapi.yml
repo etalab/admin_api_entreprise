@@ -98,6 +98,7 @@ paths:
         required: true
         schema:
           type: string
+      deprecated: true
       security:
       - jwt_bearer_token: []
       description: Attestation sociale délivrée à une entreprise acquittée de ses
@@ -383,48 +384,54 @@ paths:
                       meta: {}
                   summary: Fichier renvoyé par le fournisseur de données non valide
                   description: Le fichier n'est pas au format attendu
-                une_demande_d_analyse_est_deja_en_cours_de_traitement_04502:
+                demande_de_traitement_logiciel_en_cours_04502:
                   value:
                     errors:
                     - code: '04502'
-                      title: Une demande d'analyse est déjà en cours de traitement
-                      detail: Une demande d'analyse du dossier de l'entreprise a déjà
-                        été demandée, cela prend au maximum 2 jours.
+                      title: Demande de traitement logiciel en cours
+                      detail: Une erreur informatique a eu lieu, une demande de traitement
+                        par le logiciel est en cours.
                       source: 
                       meta:
                         provider: ACOSS
-                  summary: Une demande d'analyse est déjà en cours de traitement
-                  description: Une demande d'analyse du dossier de l'entreprise a
-                    déjà été demandée, cela prend au maximum 2 jours.
-                analyse_de_la_situation_du_compte_en_cours_04501:
+                  summary: Demande de traitement logiciel en cours
+                  description: Une erreur informatique a eu lieu, une demande de traitement
+                    par le logiciel est en cours.
+                analyse_manuelle_de_la_situation_du_compte_en_cours_04501:
                   value:
                     errors:
                     - code: '04501'
-                      title: Analyse de la situation du compte en cours
-                      detail: La situation de l'entreprise requiert une analyse manuelle
-                        d'un agent de l'URSSAF. Une demande d'analyse vient d'être
-                        envoyée, cela prend au maximum 2 jours.
+                      title: Analyse manuelle de la situation du compte en cours
+                      detail: Une analyse humaine par un agent des URSSAF est requise.
+                        Le temps de traitement est très variable selon de la complexité
+                        de situation, la demande de pièces justificatives complémentaires
+                        ou la charge de travail des agents.
                       source: 
                       meta:
                         provider: ACOSS
                         retry_in: 172800
-                  summary: Analyse de la situation du compte en cours
-                  description: La situation de l'entreprise requiert une analyse manuelle
-                    d'un agent de l'URSSAF. Une demande d'analyse vient d'être envoyée,
-                    cela prend au maximum 2 jours.
-                attestation_de_vigilance_non_delivree_04503:
+                  summary: Analyse manuelle de la situation du compte en cours
+                  description: Une analyse humaine par un agent des URSSAF est requise.
+                    Le temps de traitement est très variable selon de la complexité
+                    de situation, la demande de pièces justificatives complémentaires
+                    ou la charge de travail des agents.
+                la_situation_du_compte_ne_permet_pas_de_delivrer_l_attestation_demandee_04503:
                   value:
                     errors:
                     - code: '04503'
-                      title: Attestation de vigilance non délivrée
-                      detail: La situation du compte ne permet pas de délivrer l'attestation
-                        de vigilance demandée, contactez directement l'entreprise.
+                      title: La situation du compte ne permet pas de délivrer l'attestation
+                        demandée
+                      detail: Il n'est pas possible de renvoyer l'attestation. Cela
+                        peut être dû au fait qu'un des établissements d'une entreprise
+                        n'a pas retourné les informations.
                       source: 
                       meta:
                         provider: ACOSS
-                  summary: Attestation de vigilance non délivrée
-                  description: La situation du compte ne permet pas de délivrer l'attestation
-                    de vigilance demandée, contactez directement l'entreprise.
+                  summary: La situation du compte ne permet pas de délivrer l'attestation
+                    demandée
+                  description: Il n'est pas possible de renvoyer l'attestation. Cela
+                    peut être dû au fait qu'un des établissements d'une entreprise
+                    n'a pas retourné les informations.
               schema:
                 "$ref": "#/components/schemas/Error"
         '404':
@@ -3781,9 +3788,9 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Informations et documents de référence d'une association, issues
-        du répertoire national des associations (RNA) et des documents administratifs
-        complémentaires (DAC).
+      description: Informations et documents de référence d'une association et de
+        ses établissements, issues du répertoire national des associations (RNA) et
+        des documents administratifs complémentaires (DAC).
       responses:
         '401':
           description: Non autorisé
@@ -5380,8 +5387,9 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Informations et documents de référence d'une association, accessibles
-        en open data, issues du répertoire national des associations (RNA).
+      description: Informations et documents de référence d'une association et de
+        ses établissements, accessibles en open data, issues du répertoire national
+        des associations (RNA).
       responses:
         '401':
           description: Non autorisé
@@ -10847,8 +10855,8 @@ paths:
                         nullable: true
                       code_pays_etranger:
                         title: Code du pays pour les établissements situés à l'étranger
-                        description: 'La nomenclature des codes pays se trouve ici:
-                          https://www.insee.fr/fr/information/2028273'
+                        description: 'La nomenclature des codes pays se trouve ici
+                          : https://www.insee.fr/fr/information/2028273'
                         type: string
                         example: '99132'
                         nullable: true
@@ -10869,14 +10877,14 @@ paths:
                             title: Ligne 1
                             type: string
                             description: 'Si l''établissement correspond à une personne
-                              morale: la dénomination sociale de la personne morale.
+                              morale : la dénomination sociale de la personne morale.
                               Le cas contraire: cette variable est vide.'
                             example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
                           l2:
                             title: Ligne 2
                             type: string
                             description: 'Si l''établissement correspond à une personne
-                              physique: concaténation du nom et prénom'
+                              physique : concaténation du nom et prénom'
                             example: JEAN MARIE DURAND
                           l3:
                             title: Ligne 3
@@ -10899,9 +10907,9 @@ paths:
                           l6:
                             title: Ligne 6
                             type: string
-                            description: 'Si le code cedex est existant: code cedex
+                            description: 'Si le code cedex est existant : code cedex
                               accompagné de son libellé ; sinon, si le pays est en
-                              France: code postal accompagné de son libellé, sinon
+                              France : code postal accompagné de son libellé, sinon
                               : libellé de la commune de l''établissement situé à
                               l''étranger'
                             example: 75256 PARIX CEDEX 12
@@ -11409,8 +11417,8 @@ paths:
                         nullable: true
                       code_pays_etranger:
                         title: Code du pays pour les établissements situés à l'étranger
-                        description: 'La nomenclature des codes pays se trouve ici:
-                          https://www.insee.fr/fr/information/2028273'
+                        description: 'La nomenclature des codes pays se trouve ici
+                          : https://www.insee.fr/fr/information/2028273'
                         type: string
                         example: '99132'
                         nullable: true
@@ -11431,14 +11439,14 @@ paths:
                             title: Ligne 1
                             type: string
                             description: 'Si l''établissement correspond à une personne
-                              morale: la dénomination sociale de la personne morale.
+                              morale : la dénomination sociale de la personne morale.
                               Le cas contraire: cette variable est vide.'
                             example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
                           l2:
                             title: Ligne 2
                             type: string
                             description: 'Si l''établissement correspond à une personne
-                              physique: concaténation du nom et prénom'
+                              physique : concaténation du nom et prénom'
                             example: JEAN MARIE DURAND
                           l3:
                             title: Ligne 3
@@ -11461,9 +11469,9 @@ paths:
                           l6:
                             title: Ligne 6
                             type: string
-                            description: 'Si le code cedex est existant: code cedex
+                            description: 'Si le code cedex est existant : code cedex
                               accompagné de son libellé ; sinon, si le pays est en
-                              France: code postal accompagné de son libellé, sinon
+                              France : code postal accompagné de son libellé, sinon
                               : libellé de la commune de l''établissement situé à
                               l''étranger'
                             example: 75256 PARIX CEDEX 12
@@ -12081,6 +12089,11 @@ paths:
                             title: Attributs de la personne physique
                             description: Attributs associés à la personne physique.
                               Les valeurs sont à 'null' pour les personnes morales.
+                              Pour les personnes physiques, la raison sociale / dénomination
+                              / nom de l'entreprise correspond toujours au nom de
+                              famille et au prénom, précédés ou suivis de la mention
+                              "entrepreneur individuel" ou "EI". Pour en savoir plus,
+                              consulter cette page du site service-public.fr https://entreprendre.service-public.fr/vosdroits/F23283/personnalisation/resultat
                             properties:
                               pseudonyme:
                                 title: Pseudonyme
@@ -12139,7 +12152,6 @@ paths:
                                 enum:
                                 - M
                                 - F
-                                - 
                                 nullable: true
                                 description: Caractère féminin ou masculin de la personne
                                   physique. Cette valeur peut ne pas être renseignée
@@ -12158,15 +12170,15 @@ paths:
                             title: Catégorie de l'unité légale
                             type: string
                             example: GE
+                            nullable: true
                             enum:
                             - GE
                             - ETI
                             - PME
-                            - 
                             description: "Il s'agit d'une variable statistique calculée
-                              par l'Insee. Elle ne peut prendre que 3 valeurs: \n
-                              \n - GE: Grande Entreprise \n - ETI: Entreprise de Taille
-                              Intermédiaire \n - PME: Petite ou Moyenne Entreprise
+                              par l'Insee. Elle ne peut prendre que 3 valeurs : \n
+                              \n - GE : Grande Entreprise \n - ETI : Entreprise de
+                              Taille Intermédiaire \n - PME : Petite ou Moyenne Entreprise
                               \n \n Celle-ci peut-être 'null' dans certains cas :
                               quand il s’agit d’une unité légale nouvellement créée,
                               ou bien d’une unité légale cessée, ou encore d’une unité
@@ -12359,18 +12371,22 @@ paths:
                             - A
                             - C
                             description: "Cette valeur décrit l'état administratif
-                              de l'unité légale, qui peut être : \n \n - cessée. Le
-                              passage à l'état « Cessée » découle de la prise en compte
-                              d'une déclaration de cessation administrative. Pour
-                              les personnes morales, cela correspond au dépôt de la
-                              déclaration de disparition de la personne morale. Pour
-                              les personnes physiques, cela correspond soit à la prise
-                              en compte de la déclaration de cessation d'activité
-                              déposée par l'exploitant soit au décès de l'exploitant
-                              conformément à la réglementation. \n - active. En dehors
-                              des cas explicités ci-dessus, l'unité légale est toujours
-                              à l'état administratif « Active ». \n \n Plus d'informations
-                              dans la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifUniteLegale"
+                              de l'unité légale qui peut être « active » ou « cessée
+                              » \n \n **Pour les personnes morales**, l'unité légale
+                              est considérée comme juridiquement « cessée » si : \n
+                              - il y a eu dépôt de la déclaration de disparition
+                              de la personne morale ; \n - elle a été inscrite sans
+                              activité à sa demande. Dans le cas d'une création au
+                              répertoire Sirene mais sans avoir encore démarré une
+                              activité (activité principale provisoire “0000Z”) ;
+                              \n - elle n'a plus d'établissement en activité. \n \n
+                              **Pour les personnes physiques**, l'unité légale est
+                              considérée comme juridiquement « cessée » si : \n -
+                              l'exploitant de l'unité légale décède ; \n - l'exploitant
+                              dépose une cessation d'activité. \n \n En dehors de
+                              ces cas, l'état administratif de l'unité légale est
+                              toujours « actif ». \n \n Plus d'informations dans la
+                              documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifUniteLegale"
                           economie_sociale_et_solidaire:
                             title: Unité légale de l'économie sociale et solidaire
                               (ESS)
@@ -12395,7 +12411,6 @@ paths:
                             enum:
                             - true
                             - false
-                            - 
                           date_creation:
                             title: Date de création de l'unité légale
                             type: integer
@@ -12571,7 +12586,7 @@ paths:
                           code_pays_etranger:
                             title: Code du pays pour les établissements situés à l'étranger
                             description: 'La nomenclature des codes pays se trouve
-                              ici: https://www.insee.fr/fr/information/2028273'
+                              ici : https://www.insee.fr/fr/information/2028273'
                             type: string
                             example: '99132'
                             nullable: true
@@ -12593,14 +12608,15 @@ paths:
                                 title: Ligne 1
                                 type: string
                                 description: 'Si l''établissement correspond à une
-                                  personne morale: la dénomination sociale de la personne
-                                  morale. Le cas contraire: cette variable est vide.'
+                                  personne morale : la dénomination sociale de la
+                                  personne morale. Le cas contraire: cette variable
+                                  est vide.'
                                 example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
                               l2:
                                 title: Ligne 2
                                 type: string
                                 description: 'Si l''établissement correspond à une
-                                  personne physique: concaténation du nom et prénom'
+                                  personne physique : concaténation du nom et prénom'
                                 example: JEAN MARIE DURAND
                               l3:
                                 title: Ligne 3
@@ -12624,9 +12640,9 @@ paths:
                               l6:
                                 title: Ligne 6
                                 type: string
-                                description: 'Si le code cedex est existant: code
+                                description: 'Si le code cedex est existant : code
                                   cedex accompagné de son libellé ; sinon, si le pays
-                                  est en France: code postal accompagné de son libellé,
+                                  est en France : code postal accompagné de son libellé,
                                   sinon : libellé de la commune de l''établissement
                                   situé à l''étranger'
                                 example: 75256 PARIX CEDEX 12
@@ -12715,7 +12731,7 @@ paths:
                           est renseignée, le paramètre data->siret est différent du
                           paramètre d'appel, et cette variable est le siret d'entrée.
                           \n \n A noter que le siret de redirection est systématiquement
-                          le siret du siège social de l'unité légale: en effet la
+                          le siret du siège social de l'unité légale : en effet la
                           base Sirene ne possède pas la correspondance exacte entre
                           un siret doublon et le siret d'origine. "
                         example: '30613890000010'
@@ -13280,6 +13296,11 @@ paths:
                             title: Attributs de la personne physique
                             description: Attributs associés à la personne physique.
                               Les valeurs sont à 'null' pour les personnes morales.
+                              Pour les personnes physiques, la raison sociale / dénomination
+                              / nom de l'entreprise correspond toujours au nom de
+                              famille et au prénom, précédés ou suivis de la mention
+                              "entrepreneur individuel" ou "EI". Pour en savoir plus,
+                              consulter cette page du site service-public.fr https://entreprendre.service-public.fr/vosdroits/F23283/personnalisation/resultat
                             properties:
                               pseudonyme:
                                 title: Pseudonyme
@@ -13338,7 +13359,6 @@ paths:
                                 enum:
                                 - M
                                 - F
-                                - 
                                 nullable: true
                                 description: Caractère féminin ou masculin de la personne
                                   physique. Cette valeur peut ne pas être renseignée
@@ -13357,15 +13377,15 @@ paths:
                             title: Catégorie de l'unité légale
                             type: string
                             example: GE
+                            nullable: true
                             enum:
                             - GE
                             - ETI
                             - PME
-                            - 
                             description: "Il s'agit d'une variable statistique calculée
-                              par l'Insee. Elle ne peut prendre que 3 valeurs: \n
-                              \n - GE: Grande Entreprise \n - ETI: Entreprise de Taille
-                              Intermédiaire \n - PME: Petite ou Moyenne Entreprise
+                              par l'Insee. Elle ne peut prendre que 3 valeurs : \n
+                              \n - GE : Grande Entreprise \n - ETI : Entreprise de
+                              Taille Intermédiaire \n - PME : Petite ou Moyenne Entreprise
                               \n \n Celle-ci peut-être 'null' dans certains cas :
                               quand il s’agit d’une unité légale nouvellement créée,
                               ou bien d’une unité légale cessée, ou encore d’une unité
@@ -13558,18 +13578,22 @@ paths:
                             - A
                             - C
                             description: "Cette valeur décrit l'état administratif
-                              de l'unité légale, qui peut être : \n \n - cessée. Le
-                              passage à l'état « Cessée » découle de la prise en compte
-                              d'une déclaration de cessation administrative. Pour
-                              les personnes morales, cela correspond au dépôt de la
-                              déclaration de disparition de la personne morale. Pour
-                              les personnes physiques, cela correspond soit à la prise
-                              en compte de la déclaration de cessation d'activité
-                              déposée par l'exploitant soit au décès de l'exploitant
-                              conformément à la réglementation. \n - active. En dehors
-                              des cas explicités ci-dessus, l'unité légale est toujours
-                              à l'état administratif « Active ». \n \n Plus d'informations
-                              dans la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifUniteLegale"
+                              de l'unité légale qui peut être « active » ou « cessée
+                              » \n \n **Pour les personnes morales**, l'unité légale
+                              est considérée comme juridiquement « cessée » si : \n
+                              - il y a eu dépôt de la déclaration de disparition
+                              de la personne morale ; \n - elle a été inscrite sans
+                              activité à sa demande. Dans le cas d'une création au
+                              répertoire Sirene mais sans avoir encore démarré une
+                              activité (activité principale provisoire “0000Z”) ;
+                              \n - elle n'a plus d'établissement en activité. \n \n
+                              **Pour les personnes physiques**, l'unité légale est
+                              considérée comme juridiquement « cessée » si : \n -
+                              l'exploitant de l'unité légale décède ; \n - l'exploitant
+                              dépose une cessation d'activité. \n \n En dehors de
+                              ces cas, l'état administratif de l'unité légale est
+                              toujours « actif ». \n \n Plus d'informations dans la
+                              documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifUniteLegale"
                           economie_sociale_et_solidaire:
                             title: Unité légale de l'économie sociale et solidaire
                               (ESS)
@@ -13594,7 +13618,6 @@ paths:
                             enum:
                             - true
                             - false
-                            - 
                           date_creation:
                             title: Date de création de l'unité légale
                             type: integer
@@ -13770,7 +13793,7 @@ paths:
                           code_pays_etranger:
                             title: Code du pays pour les établissements situés à l'étranger
                             description: 'La nomenclature des codes pays se trouve
-                              ici: https://www.insee.fr/fr/information/2028273'
+                              ici : https://www.insee.fr/fr/information/2028273'
                             type: string
                             example: '99132'
                             nullable: true
@@ -13792,14 +13815,15 @@ paths:
                                 title: Ligne 1
                                 type: string
                                 description: 'Si l''établissement correspond à une
-                                  personne morale: la dénomination sociale de la personne
-                                  morale. Le cas contraire: cette variable est vide.'
+                                  personne morale : la dénomination sociale de la
+                                  personne morale. Le cas contraire: cette variable
+                                  est vide.'
                                 example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
                               l2:
                                 title: Ligne 2
                                 type: string
                                 description: 'Si l''établissement correspond à une
-                                  personne physique: concaténation du nom et prénom'
+                                  personne physique : concaténation du nom et prénom'
                                 example: JEAN MARIE DURAND
                               l3:
                                 title: Ligne 3
@@ -13823,9 +13847,9 @@ paths:
                               l6:
                                 title: Ligne 6
                                 type: string
-                                description: 'Si le code cedex est existant: code
+                                description: 'Si le code cedex est existant : code
                                   cedex accompagné de son libellé ; sinon, si le pays
-                                  est en France: code postal accompagné de son libellé,
+                                  est en France : code postal accompagné de son libellé,
                                   sinon : libellé de la commune de l''établissement
                                   situé à l''étranger'
                                 example: 75256 PARIX CEDEX 12
@@ -13914,7 +13938,7 @@ paths:
                           est renseignée, le paramètre data->siret est différent du
                           paramètre d'appel, et cette variable est le siret d'entrée.
                           \n \n A noter que le siret de redirection est systématiquement
-                          le siret du siège social de l'unité légale: en effet la
+                          le siret du siège social de l'unité légale : en effet la
                           base Sirene ne possède pas la correspondance exacte entre
                           un siret doublon et le siret d'origine. "
                         example: '30613890000010'
@@ -14480,6 +14504,11 @@ paths:
                             title: Attributs de la personne physique
                             description: Attributs associés à la personne physique.
                               Les valeurs sont à 'null' pour les personnes morales.
+                              Pour les personnes physiques, la raison sociale / dénomination
+                              / nom de l'entreprise correspond toujours au nom de
+                              famille et au prénom, précédés ou suivis de la mention
+                              "entrepreneur individuel" ou "EI". Pour en savoir plus,
+                              consulter cette page du site service-public.fr https://entreprendre.service-public.fr/vosdroits/F23283/personnalisation/resultat
                             properties:
                               pseudonyme:
                                 title: Pseudonyme
@@ -14538,7 +14567,6 @@ paths:
                                 enum:
                                 - M
                                 - F
-                                - 
                                 nullable: true
                                 description: Caractère féminin ou masculin de la personne
                                   physique. Cette valeur peut ne pas être renseignée
@@ -14557,15 +14585,15 @@ paths:
                             title: Catégorie de l'unité légale
                             type: string
                             example: GE
+                            nullable: true
                             enum:
                             - GE
                             - ETI
                             - PME
-                            - 
                             description: "Il s'agit d'une variable statistique calculée
-                              par l'Insee. Elle ne peut prendre que 3 valeurs: \n
-                              \n - GE: Grande Entreprise \n - ETI: Entreprise de Taille
-                              Intermédiaire \n - PME: Petite ou Moyenne Entreprise
+                              par l'Insee. Elle ne peut prendre que 3 valeurs : \n
+                              \n - GE : Grande Entreprise \n - ETI : Entreprise de
+                              Taille Intermédiaire \n - PME : Petite ou Moyenne Entreprise
                               \n \n Celle-ci peut-être 'null' dans certains cas :
                               quand il s’agit d’une unité légale nouvellement créée,
                               ou bien d’une unité légale cessée, ou encore d’une unité
@@ -14758,18 +14786,22 @@ paths:
                             - A
                             - C
                             description: "Cette valeur décrit l'état administratif
-                              de l'unité légale, qui peut être : \n \n - cessée. Le
-                              passage à l'état « Cessée » découle de la prise en compte
-                              d'une déclaration de cessation administrative. Pour
-                              les personnes morales, cela correspond au dépôt de la
-                              déclaration de disparition de la personne morale. Pour
-                              les personnes physiques, cela correspond soit à la prise
-                              en compte de la déclaration de cessation d'activité
-                              déposée par l'exploitant soit au décès de l'exploitant
-                              conformément à la réglementation. \n - active. En dehors
-                              des cas explicités ci-dessus, l'unité légale est toujours
-                              à l'état administratif « Active ». \n \n Plus d'informations
-                              dans la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifUniteLegale"
+                              de l'unité légale qui peut être « active » ou « cessée
+                              » \n \n **Pour les personnes morales**, l'unité légale
+                              est considérée comme juridiquement « cessée » si : \n
+                              - il y a eu dépôt de la déclaration de disparition
+                              de la personne morale ; \n - elle a été inscrite sans
+                              activité à sa demande. Dans le cas d'une création au
+                              répertoire Sirene mais sans avoir encore démarré une
+                              activité (activité principale provisoire “0000Z”) ;
+                              \n - elle n'a plus d'établissement en activité. \n \n
+                              **Pour les personnes physiques**, l'unité légale est
+                              considérée comme juridiquement « cessée » si : \n -
+                              l'exploitant de l'unité légale décède ; \n - l'exploitant
+                              dépose une cessation d'activité. \n \n En dehors de
+                              ces cas, l'état administratif de l'unité légale est
+                              toujours « actif ». \n \n Plus d'informations dans la
+                              documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifUniteLegale"
                           economie_sociale_et_solidaire:
                             title: Unité légale de l'économie sociale et solidaire
                               (ESS)
@@ -14794,7 +14826,6 @@ paths:
                             enum:
                             - true
                             - false
-                            - 
                           date_creation:
                             title: Date de création de l'unité légale
                             type: integer
@@ -14970,7 +15001,7 @@ paths:
                           code_pays_etranger:
                             title: Code du pays pour les établissements situés à l'étranger
                             description: 'La nomenclature des codes pays se trouve
-                              ici: https://www.insee.fr/fr/information/2028273'
+                              ici : https://www.insee.fr/fr/information/2028273'
                             type: string
                             example: '99132'
                             nullable: true
@@ -14992,14 +15023,15 @@ paths:
                                 title: Ligne 1
                                 type: string
                                 description: 'Si l''établissement correspond à une
-                                  personne morale: la dénomination sociale de la personne
-                                  morale. Le cas contraire: cette variable est vide.'
+                                  personne morale : la dénomination sociale de la
+                                  personne morale. Le cas contraire: cette variable
+                                  est vide.'
                                 example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
                               l2:
                                 title: Ligne 2
                                 type: string
                                 description: 'Si l''établissement correspond à une
-                                  personne physique: concaténation du nom et prénom'
+                                  personne physique : concaténation du nom et prénom'
                                 example: JEAN MARIE DURAND
                               l3:
                                 title: Ligne 3
@@ -15023,9 +15055,9 @@ paths:
                               l6:
                                 title: Ligne 6
                                 type: string
-                                description: 'Si le code cedex est existant: code
+                                description: 'Si le code cedex est existant : code
                                   cedex accompagné de son libellé ; sinon, si le pays
-                                  est en France: code postal accompagné de son libellé,
+                                  est en France : code postal accompagné de son libellé,
                                   sinon : libellé de la commune de l''établissement
                                   situé à l''étranger'
                                 example: 75256 PARIX CEDEX 12
@@ -15114,7 +15146,7 @@ paths:
                           est renseignée, le paramètre data->siret est différent du
                           paramètre d'appel, et cette variable est le siret d'entrée.
                           \n \n A noter que le siret de redirection est systématiquement
-                          le siret du siège social de l'unité légale: en effet la
+                          le siret du siège social de l'unité légale : en effet la
                           base Sirene ne possède pas la correspondance exacte entre
                           un siret doublon et le siret d'origine. "
                         example: '30613890000010'
@@ -15682,6 +15714,11 @@ paths:
                             title: Attributs de la personne physique
                             description: Attributs associés à la personne physique.
                               Les valeurs sont à 'null' pour les personnes morales.
+                              Pour les personnes physiques, la raison sociale / dénomination
+                              / nom de l'entreprise correspond toujours au nom de
+                              famille et au prénom, précédés ou suivis de la mention
+                              "entrepreneur individuel" ou "EI". Pour en savoir plus,
+                              consulter cette page du site service-public.fr https://entreprendre.service-public.fr/vosdroits/F23283/personnalisation/resultat
                             properties:
                               pseudonyme:
                                 title: Pseudonyme
@@ -15740,7 +15777,6 @@ paths:
                                 enum:
                                 - M
                                 - F
-                                - 
                                 nullable: true
                                 description: Caractère féminin ou masculin de la personne
                                   physique. Cette valeur peut ne pas être renseignée
@@ -15759,15 +15795,15 @@ paths:
                             title: Catégorie de l'unité légale
                             type: string
                             example: GE
+                            nullable: true
                             enum:
                             - GE
                             - ETI
                             - PME
-                            - 
                             description: "Il s'agit d'une variable statistique calculée
-                              par l'Insee. Elle ne peut prendre que 3 valeurs: \n
-                              \n - GE: Grande Entreprise \n - ETI: Entreprise de Taille
-                              Intermédiaire \n - PME: Petite ou Moyenne Entreprise
+                              par l'Insee. Elle ne peut prendre que 3 valeurs : \n
+                              \n - GE : Grande Entreprise \n - ETI : Entreprise de
+                              Taille Intermédiaire \n - PME : Petite ou Moyenne Entreprise
                               \n \n Celle-ci peut-être 'null' dans certains cas :
                               quand il s’agit d’une unité légale nouvellement créée,
                               ou bien d’une unité légale cessée, ou encore d’une unité
@@ -15960,18 +15996,22 @@ paths:
                             - A
                             - C
                             description: "Cette valeur décrit l'état administratif
-                              de l'unité légale, qui peut être : \n \n - cessée. Le
-                              passage à l'état « Cessée » découle de la prise en compte
-                              d'une déclaration de cessation administrative. Pour
-                              les personnes morales, cela correspond au dépôt de la
-                              déclaration de disparition de la personne morale. Pour
-                              les personnes physiques, cela correspond soit à la prise
-                              en compte de la déclaration de cessation d'activité
-                              déposée par l'exploitant soit au décès de l'exploitant
-                              conformément à la réglementation. \n - active. En dehors
-                              des cas explicités ci-dessus, l'unité légale est toujours
-                              à l'état administratif « Active ». \n \n Plus d'informations
-                              dans la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifUniteLegale"
+                              de l'unité légale qui peut être « active » ou « cessée
+                              » \n \n **Pour les personnes morales**, l'unité légale
+                              est considérée comme juridiquement « cessée » si : \n
+                              - il y a eu dépôt de la déclaration de disparition
+                              de la personne morale ; \n - elle a été inscrite sans
+                              activité à sa demande. Dans le cas d'une création au
+                              répertoire Sirene mais sans avoir encore démarré une
+                              activité (activité principale provisoire “0000Z”) ;
+                              \n - elle n'a plus d'établissement en activité. \n \n
+                              **Pour les personnes physiques**, l'unité légale est
+                              considérée comme juridiquement « cessée » si : \n -
+                              l'exploitant de l'unité légale décède ; \n - l'exploitant
+                              dépose une cessation d'activité. \n \n En dehors de
+                              ces cas, l'état administratif de l'unité légale est
+                              toujours « actif ». \n \n Plus d'informations dans la
+                              documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifUniteLegale"
                           economie_sociale_et_solidaire:
                             title: Unité légale de l'économie sociale et solidaire
                               (ESS)
@@ -15996,7 +16036,6 @@ paths:
                             enum:
                             - true
                             - false
-                            - 
                           date_creation:
                             title: Date de création de l'unité légale
                             type: integer
@@ -16172,7 +16211,7 @@ paths:
                           code_pays_etranger:
                             title: Code du pays pour les établissements situés à l'étranger
                             description: 'La nomenclature des codes pays se trouve
-                              ici: https://www.insee.fr/fr/information/2028273'
+                              ici : https://www.insee.fr/fr/information/2028273'
                             type: string
                             example: '99132'
                             nullable: true
@@ -16194,14 +16233,15 @@ paths:
                                 title: Ligne 1
                                 type: string
                                 description: 'Si l''établissement correspond à une
-                                  personne morale: la dénomination sociale de la personne
-                                  morale. Le cas contraire: cette variable est vide.'
+                                  personne morale : la dénomination sociale de la
+                                  personne morale. Le cas contraire: cette variable
+                                  est vide.'
                                 example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
                               l2:
                                 title: Ligne 2
                                 type: string
                                 description: 'Si l''établissement correspond à une
-                                  personne physique: concaténation du nom et prénom'
+                                  personne physique : concaténation du nom et prénom'
                                 example: JEAN MARIE DURAND
                               l3:
                                 title: Ligne 3
@@ -16225,9 +16265,9 @@ paths:
                               l6:
                                 title: Ligne 6
                                 type: string
-                                description: 'Si le code cedex est existant: code
+                                description: 'Si le code cedex est existant : code
                                   cedex accompagné de son libellé ; sinon, si le pays
-                                  est en France: code postal accompagné de son libellé,
+                                  est en France : code postal accompagné de son libellé,
                                   sinon : libellé de la commune de l''établissement
                                   situé à l''étranger'
                                 example: 75256 PARIX CEDEX 12
@@ -16316,7 +16356,7 @@ paths:
                           est renseignée, le paramètre data->siret est différent du
                           paramètre d'appel, et cette variable est le siret d'entrée.
                           \n \n A noter que le siret de redirection est systématiquement
-                          le siret du siège social de l'unité légale: en effet la
+                          le siret du siège social de l'unité légale : en effet la
                           base Sirene ne possède pas la correspondance exacte entre
                           un siret doublon et le siret d'origine. "
                         example: '30613890000010'
@@ -16700,7 +16740,12 @@ paths:
                         type: object
                         title: Attributs de la personne physique
                         description: Attributs associés à la personne physique. Les
-                          valeurs sont à 'null' pour les personnes morales.
+                          valeurs sont à 'null' pour les personnes morales. Pour les
+                          personnes physiques, la raison sociale / dénomination /
+                          nom de l'entreprise correspond toujours au nom de famille
+                          et au prénom, précédés ou suivis de la mention "entrepreneur
+                          individuel" ou "EI". Pour en savoir plus, consulter cette
+                          page du site service-public.fr https://entreprendre.service-public.fr/vosdroits/F23283/personnalisation/resultat
                         properties:
                           pseudonyme:
                             title: Pseudonyme
@@ -16758,7 +16803,6 @@ paths:
                             enum:
                             - M
                             - F
-                            - 
                             nullable: true
                             description: Caractère féminin ou masculin de la personne
                               physique. Cette valeur peut ne pas être renseignée pour
@@ -16777,21 +16821,21 @@ paths:
                         title: Catégorie de l'unité légale
                         type: string
                         example: GE
+                        nullable: true
                         enum:
                         - GE
                         - ETI
                         - PME
-                        - 
                         description: "Il s'agit d'une variable statistique calculée
-                          par l'Insee. Elle ne peut prendre que 3 valeurs: \n \n -
-                          GE: Grande Entreprise \n - ETI: Entreprise de Taille Intermédiaire
-                          \n - PME: Petite ou Moyenne Entreprise \n \n Celle-ci peut-être
-                          'null' dans certains cas : quand il s’agit d’une unité légale
-                          nouvellement créée, ou bien d’une unité légale cessée, ou
-                          encore d’une unité légale hors champ du calcul de la catégorie
-                          (unité légale agricole ou ne faisant pas partie du système
-                          productif). \n \n Définition de 'catégorie d'entreprise'
-                          par l'Insee : https://www.insee.fr/fr/metadonnees/definition/c1057"
+                          par l'Insee. Elle ne peut prendre que 3 valeurs : \n \n
+                          - GE : Grande Entreprise \n - ETI : Entreprise de Taille
+                          Intermédiaire \n - PME : Petite ou Moyenne Entreprise \n
+                          \n Celle-ci peut-être 'null' dans certains cas : quand il
+                          s’agit d’une unité légale nouvellement créée, ou bien d’une
+                          unité légale cessée, ou encore d’une unité légale hors champ
+                          du calcul de la catégorie (unité légale agricole ou ne faisant
+                          pas partie du système productif). \n \n Définition de 'catégorie
+                          d'entreprise' par l'Insee : https://www.insee.fr/fr/metadonnees/definition/c1057"
                       diffusable_commercialement:
                         title: Diffusable commercialement
                         type: boolean
@@ -16968,17 +17012,21 @@ paths:
                         - A
                         - C
                         description: "Cette valeur décrit l'état administratif de
-                          l'unité légale, qui peut être : \n \n - cessée. Le passage
-                          à l'état « Cessée » découle de la prise en compte d'une
-                          déclaration de cessation administrative. Pour les personnes
-                          morales, cela correspond au dépôt de la déclaration de disparition
-                          de la personne morale. Pour les personnes physiques, cela
-                          correspond soit à la prise en compte de la déclaration de
-                          cessation d'activité déposée par l'exploitant soit au décès
-                          de l'exploitant conformément à la réglementation. \n - active.
-                          En dehors des cas explicités ci-dessus, l'unité légale est
-                          toujours à l'état administratif « Active ». \n \n Plus d'informations
-                          dans la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifUniteLegale"
+                          l'unité légale qui peut être « active » ou « cessée » \n
+                          \n **Pour les personnes morales**, l'unité légale est considérée
+                          comme juridiquement « cessée » si : \n - il y a eu dépôt
+                          de la déclaration de disparition de la personne morale
+                          ; \n - elle a été inscrite sans activité à sa demande. Dans
+                          le cas d'une création au répertoire Sirene mais sans avoir
+                          encore démarré une activité (activité principale provisoire
+                          “0000Z”) ; \n - elle n'a plus d'établissement en activité.
+                          \n \n **Pour les personnes physiques**, l'unité légale est
+                          considérée comme juridiquement « cessée » si : \n - l'exploitant
+                          de l'unité légale décède ; \n - l'exploitant dépose une
+                          cessation d'activité. \n \n En dehors de ces cas, l'état
+                          administratif de l'unité légale est toujours « actif ».
+                          \n \n Plus d'informations dans la documentation Insee de
+                          l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifUniteLegale"
                       economie_sociale_et_solidaire:
                         title: Unité légale de l'économie sociale et solidaire (ESS)
                         description: "Indique si l'unité légale est une ESS : \n \n
@@ -17001,7 +17049,6 @@ paths:
                         enum:
                         - true
                         - false
-                        - 
                       date_creation:
                         title: Date de création de l'unité légale
                         type: integer
@@ -17460,7 +17507,12 @@ paths:
                         type: object
                         title: Attributs de la personne physique
                         description: Attributs associés à la personne physique. Les
-                          valeurs sont à 'null' pour les personnes morales.
+                          valeurs sont à 'null' pour les personnes morales. Pour les
+                          personnes physiques, la raison sociale / dénomination /
+                          nom de l'entreprise correspond toujours au nom de famille
+                          et au prénom, précédés ou suivis de la mention "entrepreneur
+                          individuel" ou "EI". Pour en savoir plus, consulter cette
+                          page du site service-public.fr https://entreprendre.service-public.fr/vosdroits/F23283/personnalisation/resultat
                         properties:
                           pseudonyme:
                             title: Pseudonyme
@@ -17518,7 +17570,6 @@ paths:
                             enum:
                             - M
                             - F
-                            - 
                             nullable: true
                             description: Caractère féminin ou masculin de la personne
                               physique. Cette valeur peut ne pas être renseignée pour
@@ -17537,21 +17588,21 @@ paths:
                         title: Catégorie de l'unité légale
                         type: string
                         example: GE
+                        nullable: true
                         enum:
                         - GE
                         - ETI
                         - PME
-                        - 
                         description: "Il s'agit d'une variable statistique calculée
-                          par l'Insee. Elle ne peut prendre que 3 valeurs: \n \n -
-                          GE: Grande Entreprise \n - ETI: Entreprise de Taille Intermédiaire
-                          \n - PME: Petite ou Moyenne Entreprise \n \n Celle-ci peut-être
-                          'null' dans certains cas : quand il s’agit d’une unité légale
-                          nouvellement créée, ou bien d’une unité légale cessée, ou
-                          encore d’une unité légale hors champ du calcul de la catégorie
-                          (unité légale agricole ou ne faisant pas partie du système
-                          productif). \n \n Définition de 'catégorie d'entreprise'
-                          par l'Insee : https://www.insee.fr/fr/metadonnees/definition/c1057"
+                          par l'Insee. Elle ne peut prendre que 3 valeurs : \n \n
+                          - GE : Grande Entreprise \n - ETI : Entreprise de Taille
+                          Intermédiaire \n - PME : Petite ou Moyenne Entreprise \n
+                          \n Celle-ci peut-être 'null' dans certains cas : quand il
+                          s’agit d’une unité légale nouvellement créée, ou bien d’une
+                          unité légale cessée, ou encore d’une unité légale hors champ
+                          du calcul de la catégorie (unité légale agricole ou ne faisant
+                          pas partie du système productif). \n \n Définition de 'catégorie
+                          d'entreprise' par l'Insee : https://www.insee.fr/fr/metadonnees/definition/c1057"
                       diffusable_commercialement:
                         title: Diffusible commercialement
                         type: boolean
@@ -17730,17 +17781,21 @@ paths:
                         - A
                         - C
                         description: "Cette valeur décrit l'état administratif de
-                          l'unité légale, qui peut être : \n \n - cessée. Le passage
-                          à l'état « Cessée » découle de la prise en compte d'une
-                          déclaration de cessation administrative. Pour les personnes
-                          morales, cela correspond au dépôt de la déclaration de disparition
-                          de la personne morale. Pour les personnes physiques, cela
-                          correspond soit à la prise en compte de la déclaration de
-                          cessation d'activité déposée par l'exploitant soit au décès
-                          de l'exploitant conformément à la réglementation. \n - active.
-                          En dehors des cas explicités ci-dessus, l'unité légale est
-                          toujours à l'état administratif « Active ». \n \n Plus d'informations
-                          dans la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifUniteLegale"
+                          l'unité légale qui peut être « active » ou « cessée » \n
+                          \n **Pour les personnes morales**, l'unité légale est considérée
+                          comme juridiquement « cessée » si : \n - il y a eu dépôt
+                          de la déclaration de disparition de la personne morale
+                          ; \n - elle a été inscrite sans activité à sa demande. Dans
+                          le cas d'une création au répertoire Sirene mais sans avoir
+                          encore démarré une activité (activité principale provisoire
+                          “0000Z”) ; \n - elle n'a plus d'établissement en activité.
+                          \n \n **Pour les personnes physiques**, l'unité légale est
+                          considérée comme juridiquement « cessée » si : \n - l'exploitant
+                          de l'unité légale décède ; \n - l'exploitant dépose une
+                          cessation d'activité. \n \n En dehors de ces cas, l'état
+                          administratif de l'unité légale est toujours « actif ».
+                          \n \n Plus d'informations dans la documentation Insee de
+                          l'API Sirene : https://www.sirene.fr/sirene/public/variable/etatAdministratifUniteLegale"
                       economie_sociale_et_solidaire:
                         title: Unité légale de l'économie sociale et solidaire (ESS)
                         description: "Indique si l'unité légale est une ESS : \n \n
@@ -17763,7 +17818,6 @@ paths:
                         enum:
                         - true
                         - false
-                        - 
                       date_creation:
                         title: Date de création de l'unité légale
                         type: integer
@@ -21115,6 +21169,531 @@ paths:
           curl -X GET \
             -H "Authorization: Bearer $token" \
             --url "https://entreprise.api.gouv.fr/v3/cma_france/rnm/unites_legales/130025265?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
+  "/v4/urssaf/unites_legales/{siren}/attestation_vigilance":
+    get:
+      summary: Attestation de vigilance
+      tags:
+      - Attestations sociales et fiscales
+      parameters:
+      - name: siren
+        in: path
+        description: Siren de l'entreprise
+        examples:
+          siren_octo_technology:
+            value: '418166096'
+            summary: SIREN Octo Technology
+          siren_non_diffusible:
+            value: '005572466'
+            summary: SIREN entreprise non diffusible
+          siren_artisant:
+            value: '301123626'
+            summary: SIREN entreprise artisanale
+          siren_fntp:
+            value: '339379984'
+            summary: SIREN pour FNTP
+          siren_cnetp:
+            value: '542036207'
+            summary: SIREN pour CNETP
+          siren_opqibi:
+            value: '515228211'
+            summary: SIREN pour OPQIBI
+          siren_entrepreneur_individuel:
+            value: '389839937'
+            summary: SIREN d'un entrepeneur individuel (cessé)
+          siren_marques_brevets_modeles:
+            value: '542065479'
+            summary: SIREN d'une entreprise ayant des marques, brevets et modèles
+              (INPI)
+        required: true
+        schema:
+          type: string
+      - name: Cache-Control
+        in: header
+        description: Si cette valeur est fixée à "no-cache", le système de cache est
+          alors ignoré et la donnée est directement récupérée depuis le fournisseur
+          de données.
+        schema:
+          type: string
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Attestation sociale délivrée à une entreprise acquittée de ses
+        obligations de cotisations et contributions sociales auprès de l'URSSAF Caisse
+        nationale.
+      responses:
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                old_token_error:
+                  value:
+                    errors:
+                    - code: '00102'
+                      title: Format de jeton plus supporté
+                      detail: Vous avez utilisé un token à l'ancien format. Ce format
+                        n'est plus supporté depuis avril 2019. Vous devez refaire
+                        une demande à API Entreprise, un guide est disponible sur
+                        https://entreprise.api.gouv.fr/demander_un_acces/
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Format de jeton plus supporté
+                  description: Vous avez utilisé un token à l'ancien format. Ce format
+                    n'est plus supporté depuis avril 2019. Vous devez refaire une
+                    demande à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/demander_un_acces/
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                        à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/doc/#renouvellement-token.
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                    à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/doc/#renouvellement-token.
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '403':
+          description: Accès interdit
+          content:
+            application/json:
+              examples:
+                insufficient_privileges_error:
+                  value:
+                    errors:
+                    - code: '00100'
+                      title: Privilèges insuffisants
+                      detail: Votre token est valide mais vos privilèges sont insuffisants.
+                        Listez vos privilèges sur /v2/privileges
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Privilèges insuffisants
+                  description: Votre token est valide mais vos privilèges sont insuffisants.
+                    Listez vos privilèges sur /v2/privileges
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '200':
+          description: Entreprise found
+          headers:
+            X-Response-Cached:
+              schema:
+                type: boolean
+                example: true
+                enum:
+                - true
+                - false
+                default: false
+              description: Indique si la réponse a été caché.
+            X-Cache-Expires-in:
+              schema:
+                type: number
+                nullable: true
+                example: 9001
+              description: Secondes avant que le cache n'expire. Si le cache est vide,
+                ce header est vide (mais présent).
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          x-operationId: api_entreprise_v4_acoss_attestations_sociales
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      entity_status:
+                        title: Status de l'entreprise vis-à-vis de ses obligations
+                          sociales
+                        type: object
+                        properties:
+                          code:
+                            type: string
+                            title: Code du status
+                            description: Cette valeur ne peut être actuellement que
+                              'ok' ou 'refus_de_delivrance'. Pour ce dernier cas,
+                              cela signifie que l'entité n'est pas à jour de ses cotisations.
+                            enum:
+                            - ok
+                            - refus_de_delivrance
+                            example: ok
+                          libelle:
+                            type: string
+                            title: Libellé associé au code
+                            example: Attestation délivrée par l'Urssaf
+                          description:
+                            type: string
+                            title: Description associé au code
+                            example: La délivrance de l'attestation de vigilance a
+                              été refusée par l'Urssaf car l'entité n'est pas à jour
+                              de ses cotisations sociales.
+                        required:
+                        - code
+                        - libelle
+                        - description
+                      date_debut_validite:
+                        title: Date de début de validité
+                        type: date
+                        nullable: true
+                        description: "Cette date est présente en fin de document dans
+                          le paragraphe « Attestation de l'union de recouvrement ».
+                          \n \n Cette donnée est extraire du document PDF par API
+                          Entreprise."
+                        example: '2022-12-03'
+                      date_fin_validite:
+                        title: Date de fin de validité
+                        type: date
+                        nullable: true
+                        description: "Cette date est obtenue à l'aide de la date de
+                          début de validité. \n \n La règle de calcul est la suivante:
+                          6 mois après la date de début de validité, à la fin du mois.
+                          Par exemple si une date de début de validité est le 03/12/2022,
+                          alors la date de fin de validité est le 30/06/2023. \n Cette
+                          donnée est calculée par API Entreprise."
+                        example: '2023-06-30'
+                      code_securite:
+                        title: Code de sécurité
+                        type: string
+                        nullable: true
+                        description: "Ce code de sécurité permet de vérifier auprès
+                          de l'URSSAF la véracité des informations du document. Vous
+                          pouvez faire cette vérification sur le lien suivant: https://www.urssaf.fr/portail/home/utile-et-pratique/verification-attestation.html
+                          \n \n Cette donnée est extraire du document PDF par API
+                          Entreprise."
+                        example: GB1QWERTYJJEX1O
+                      document_url:
+                        title: URL de téléchargement de l'attestation de vigilance
+                        type: string
+                        nullable: true
+                        description: Ce lien délivre l'attestation de vigilance de
+                          l'entreprise au format PDF.
+                        example: https://storage.entreprise.api.gouv.fr/siade/1569139162-b99824d9c764aae19a862a0af-attestation_vigilance_acoss.pdf
+                      document_url_expires_in:
+                        title: Nombre de secondes avant expiration du document référencé
+                          dans 'document_url'
+                        description: 'Il s''agit d''une expiration technique: cette
+                          valeur n''a aucun lien avec les dates de debut ou de fin
+                          de validité.'
+                        type: integer
+                        nullable: true
+                        example: 86400
+                    required:
+                    - entity_status
+                    - date_debut_validite
+                    - date_fin_validite
+                    - code_securite
+                    - document_url
+                    - document_url_expires_in
+                  links:
+                    type: object
+                  meta:
+                    type: object
+                required:
+                - data
+                - links
+                - meta
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                unprocessable_entity_error_siren_error:
+                  value:
+                    errors:
+                    - code: '00301'
+                      title: Entité non traitable
+                      detail: Le numéro de siren n'est pas correctement formatté
+                      source:
+                        parameter: siren
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le numéro de siren n'est pas correctement formatté
+                missing_mandatory_params_context_error:
+                  value:
+                    errors:
+                    - code: '00201'
+                      title: Entité non traitable
+                      detail: Le paramètre context est obligatoire
+                      source:
+                        parameter: context
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre context est obligatoire
+                missing_mandatory_params_object_error:
+                  value:
+                    errors:
+                    - code: '00202'
+                      title: Entité non traitable
+                      detail: Le paramètre object est obligatoire
+                      source:
+                        parameter: object
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre object est obligatoire
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '502':
+          description: Erreur du fournisseur
+          content:
+            application/json:
+              examples:
+                unknown_error:
+                  value:
+                    errors:
+                    - code: '04999'
+                      title: Erreur inconnue du fournisseur de données
+                      detail: La réponse retournée par le fournisseur de données est
+                        invalide et inconnue de notre service. L'équipe technique
+                        a été notifiée de cette erreur pour investigation.
+                      source: 
+                      meta:
+                        provider: ACOSS
+                  summary: Erreur inconnue du fournisseur de données
+                  description: La réponse retournée par le fournisseur de données
+                    est invalide et inconnue de notre service. L'équipe technique
+                    a été notifiée de cette erreur pour investigation.
+                fichier_renvoye_par_le_fournisseur_de_donnees_non_valide_04051:
+                  value:
+                    errors:
+                    - code: '04051'
+                      title: Fichier renvoyé par le fournisseur de données non valide
+                      detail: 'Erreur lors du décodage : la chaîne de caractères en
+                        base64 est invalide'
+                      source: 
+                      meta: {}
+                  summary: Fichier renvoyé par le fournisseur de données non valide
+                  description: 'Erreur lors du décodage : la chaîne de caractères
+                    en base64 est invalide'
+                fichier_renvoye_par_le_fournisseur_de_donnees_non_valide_04052:
+                  value:
+                    errors:
+                    - code: '04052'
+                      title: Fichier renvoyé par le fournisseur de données non valide
+                      detail: Temps d'attente de téléchargement du document écoulé
+                      source: 
+                      meta: {}
+                  summary: Fichier renvoyé par le fournisseur de données non valide
+                  description: Temps d'attente de téléchargement du document écoulé
+                fichier_renvoye_par_le_fournisseur_de_donnees_non_valide_04053:
+                  value:
+                    errors:
+                    - code: '04053'
+                      title: Fichier renvoyé par le fournisseur de données non valide
+                      detail: Erreur de connexion sur le server distant
+                      source: 
+                      meta: {}
+                  summary: Fichier renvoyé par le fournisseur de données non valide
+                  description: Erreur de connexion sur le server distant
+                fichier_renvoye_par_le_fournisseur_de_donnees_non_valide_04054:
+                  value:
+                    errors:
+                    - code: '04054'
+                      title: Fichier renvoyé par le fournisseur de données non valide
+                      detail: L'URL vers le document renvoyée par le fournisseur de
+                        données est invalide
+                      source: 
+                      meta: {}
+                  summary: Fichier renvoyé par le fournisseur de données non valide
+                  description: L'URL vers le document renvoyée par le fournisseur
+                    de données est invalide
+                fichier_renvoye_par_le_fournisseur_de_donnees_non_valide_04055:
+                  value:
+                    errors:
+                    - code: '04055'
+                      title: Fichier renvoyé par le fournisseur de données non valide
+                      detail: Le fichier n'est pas au format attendu
+                      source: 
+                      meta: {}
+                  summary: Fichier renvoyé par le fournisseur de données non valide
+                  description: Le fichier n'est pas au format attendu
+                demande_de_traitement_logiciel_en_cours_04502:
+                  value:
+                    errors:
+                    - code: '04502'
+                      title: Demande de traitement logiciel en cours
+                      detail: Une erreur informatique a eu lieu, une demande de traitement
+                        par le logiciel est en cours.
+                      source: 
+                      meta:
+                        provider: ACOSS
+                  summary: Demande de traitement logiciel en cours
+                  description: Une erreur informatique a eu lieu, une demande de traitement
+                    par le logiciel est en cours.
+                analyse_manuelle_de_la_situation_du_compte_en_cours_04501:
+                  value:
+                    errors:
+                    - code: '04501'
+                      title: Analyse manuelle de la situation du compte en cours
+                      detail: Une analyse humaine par un agent des URSSAF est requise.
+                        Le temps de traitement est très variable selon de la complexité
+                        de situation, la demande de pièces justificatives complémentaires
+                        ou la charge de travail des agents.
+                      source: 
+                      meta:
+                        provider: ACOSS
+                        retry_in: 172800
+                  summary: Analyse manuelle de la situation du compte en cours
+                  description: Une analyse humaine par un agent des URSSAF est requise.
+                    Le temps de traitement est très variable selon de la complexité
+                    de situation, la demande de pièces justificatives complémentaires
+                    ou la charge de travail des agents.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Entreprise non trouvée
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '504':
+          description: Erreur d'intermédiaire
+          content:
+            application/json:
+              examples:
+                timeout_error:
+                  value:
+                    errors:
+                    - code: '04002'
+                      title: Intermédiaire hors-délai
+                      detail: Temps d’attente d’une réponse du fournisseur de données
+                        écoulé.
+                      source: 
+                      meta:
+                        provider: ACOSS
+                  summary: Intermédiaire hors-délai
+                  description: Temps d’attente d’une réponse du fournisseur de données
+                    écoulé.
+                provider_unavailable_error:
+                  value:
+                    errors:
+                    - code: '04001'
+                      title: Service non disponible
+                      detail: Service du fournisseur de données temporairement indisponible
+                        ou en maintenance.
+                      source: 
+                      meta:
+                        provider: ACOSS
+                  summary: Service non disponible
+                  description: Service du fournisseur de données temporairement indisponible
+                    ou en maintenance.
+                network_error:
+                  value:
+                    errors:
+                    - code: '00501'
+                      title: Erreur réseau
+                      detail: Problème de connexion au serveur distant. L'erreur peut
+                        venir soit du fournisseur, soit de API Entreprise
+                      source: 
+                      meta: {}
+                  summary: Erreur réseau
+                  description: Problème de connexion au serveur distant. L'erreur
+                    peut venir soit du fournisseur, soit de API Entreprise
+                dns_resolution_error:
+                  value:
+                    errors:
+                    - code: '04004'
+                      title: Erreur de résolution DNS
+                      detail: Problème de résolution DNS de l'adresse du serveur
+                      source: 
+                      meta:
+                        provider: ACOSS
+                  summary: Erreur de résolution DNS
+                  description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v4/urssaf/unites_legales/130025265/attestation_vigilance?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
 servers:
 - url: https://entreprise.api.gouv.fr
   description: Environnement de production
@@ -21148,11 +21727,11 @@ components:
       description: |-
         Votre jeton d'authentification doit être placé dans le header 'Authorization: Bearer VOTRE_JWT', sa validité est de 18 mois.
 
-        Exemple cURL :
+            Exemple cURL :
 
-            curl -X GET \
-            -H "Authorization: Bearer $token" \
-            --url "https://entreprise.api.gouv.fr/v3/..."
+                curl -X GET \
+                -H "Authorization: Bearer $token" \
+                --url "https://entreprise.api.gouv.fr/v3/..."
       name: Authorization
       in: header
       scheme: bearer
