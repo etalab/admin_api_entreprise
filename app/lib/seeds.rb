@@ -14,7 +14,7 @@ class Seeds
     load_all_models!
 
     ActiveRecord::Base.connection.transaction do
-      (ApplicationRecord.descendants - [AccessLog]).each(&:delete_all)
+      ApplicationRecord.descendants.each(&:delete_all)
     end
   end
 
