@@ -18,7 +18,7 @@ SitemapGenerator::Sitemap.create do
   add guide_migration_path
   add developers_openapi_path
 
-  BlogPost.all.each do |blog_post|
+  APIEntreprise::BlogPost.all.each do |blog_post|
     add blog_post_path(id: blog_post.id)
   end
 
