@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class DocumentationEntrySection < ApplicationAlgoliaSearchableActiveModel
-  include ActiveModel::Model
-
   attr_accessor :subtitle, :subtitle_anchor, :content, :page
 
   algoliasearch_active_model do
