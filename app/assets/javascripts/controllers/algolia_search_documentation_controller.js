@@ -4,7 +4,7 @@ document.addEventListener("turbo:load", function () {
     class extends window.StimulusController {
       static targets = ["searchBox"];
       static values = {
-        index: Array,
+        index: String,
         attributesToHighlight: Array,
         page: String
       };
@@ -51,7 +51,7 @@ document.addEventListener("turbo:load", function () {
         };
 
         return window.instantsearch({
-          indexName: this.indexValue[1],
+          indexName: this.indexValue,
           searchClient,
           routing: true,
         });
@@ -81,7 +81,7 @@ document.addEventListener("turbo:load", function () {
 
       _addSecondSearch(search) {
         search.addWidgets([
-          instantsearch.widgets.index({ indexName: this.indexValue[0] })
+          instantsearch.widgets.index({ indexName: this.indexValue })
         ]);
       }
 

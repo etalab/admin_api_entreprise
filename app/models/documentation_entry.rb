@@ -1,23 +1,9 @@
 # frozen_string_literal: true
 
-class DocumentationEntry < ApplicationAlgoliaSearchableActiveModel
+class DocumentationEntry
   include ActiveModel::Model
 
   attr_accessor :title, :introduction, :sections, :anchor, :page
-
-  algoliasearch_active_model do
-    attributes :title, :introduction_markdown, :sections, :page
-
-    searchableAttributes %w[
-      title
-      introduction_markdown
-      sections
-    ]
-
-    attributesForFaceting %w[
-      page
-    ]
-  end
 
   def self.all
     developers + guide_migration
