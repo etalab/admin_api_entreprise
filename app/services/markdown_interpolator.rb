@@ -9,6 +9,8 @@ class MarkdownInterpolator
   end
 
   def perform
+    return '' if @content.blank?
+
     Kramdown::Document.new(
       content_interpolated,
       input: 'GFM',
