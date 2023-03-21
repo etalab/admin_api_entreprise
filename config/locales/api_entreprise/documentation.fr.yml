@@ -1,12 +1,13 @@
 ---
 fr:
   api_entreprise:
-    documentation_entries:
-      pages:
-        guide_migration:
+    documentation_pages:
+      guide_migration:
+        title: Guide de migration&nbsp;📋
+        sections:
           - anchor: 'introduction'
             title: Introduction
-            introduction: |+
+            content: |+
               **Ce guide liste les changements effectués entre la version 2 de l’API&nbsp;Entreprise et la version 3, et vous livre les éléments nécessaires pour effectuer la migration**.
 
               Les évolutions présentées ici ont été guidées par trois objectifs&nbsp;:&nbsp;
@@ -19,9 +20,9 @@ fr:
               > Pour accéder à la version 3 de l'API&nbsp;Entreprise, utilisez le même token qu'en V.2. En effet, tant que votre jeton est valide, il est inutile de refaire une demande d'accès car la migration vers la V.3 ne change pas les droits que vous avez déjà obtenu.
           - anchor: 'evolutions-generales'
             title: Évolutions générales
-            sections:
-              - subtitle: 1. Jeton d'accès à paramétrer dans le header
-                subtitle_anchor: 'jeton-daccès-à-paramétrer-dans-le-header-'
+            subsections:
+              - title: 1. Jeton d'accès à paramétrer dans le header
+                anchor: 'jeton-daccès-à-paramétrer-dans-le-header-'
                 content: |+
                   **🚀 Avec la V.3 :** Le jeton est à paramétrer uniquement dans le header de l’appel.
 
@@ -37,8 +38,8 @@ fr:
                   Des clients sont disponibles gratuitement. API&nbsp;Entreprise utilise pour ses propres tests le client Insomnia. Le plus connu sur le marché est Postman.
                   Une fois le client installé, vous pouvez directement intégrer notre fichier [Swagger/OpenAPI](<%= developers_openapi_path %>){:target="_blank"} dedans.
 
-              - subtitle: 2. Votre numéro de SIRET obligatoire dans le "recipient"
-                subtitle_anchor: 'votre-numéro-de-siret-obligatoire-dans-le-recipient'
+              - title: 2. Votre numéro de SIRET obligatoire dans le "recipient"
+                anchor: 'votre-numéro-de-siret-obligatoire-dans-le-recipient'
                 content: |+
                   **🚀 Avec la V.3 :** Le paramètre obligatoire `recipient` de l’URL d’appel devra obligatoirement être complété par votre numéro de SIRET.
 
@@ -55,8 +56,8 @@ fr:
 
                   Pour en savoir plus sur les paramètres obligatoires d'appel, consultez les [spécifications techniques](<%= developers_path(anchor: 'renseigner-les-paramètres-dappel-et-de-traçabilité') %>).
 
-              - subtitle: 3. Codes erreurs spécifiques à chaque situation, actionnables et documentés
-                subtitle_anchor: 'codes-erreurs-spécifiques-à-chaque-situation-actionnables-et-documentés'
+              - title: 3. Codes erreurs spécifiques à chaque situation, actionnables et documentés
+                anchor: 'codes-erreurs-spécifiques-à-chaque-situation-actionnables-et-documentés'
                 content: |+
                   **🚀 Avec la V.3 :** Tous les codes erreur HTTPS sont accompagnés de codes plus précis, spécifiques à chaque situation d’erreur. Une explication en toutes lettres est également donnée dans la payload. Enfin, dans certains cas, une métadonnée actionnable est disponible.
 
@@ -102,13 +103,13 @@ fr:
                   Utiliser les libellés pour comprendre l’erreur rencontrée, voire automatiser votre logiciel en fonction du code.
                   La liste de tous les codes erreurs spécifiques (environ 80) est disponible dans le [Swagger](<%= developers_openapi_path %>){:target="_blank"}. La gestion des erreurs et l'explication des codes retours est détaillée dans la [documentation technique générale](<%= developers_path(anchor: 'code-https-et-gestion-des-erreurs') %>){:target="_blank"}.
 
-              - subtitle: 4. Volumétrie indiquée dans le header et actionnable
-                subtitle_anchor: 'volumétrie-indiquée-dans-le-header-et-actionnable'
+              - title: 4. Volumétrie indiquée dans le header et actionnable
+                anchor: 'volumétrie-indiquée-dans-le-header-et-actionnable'
                 content: |+
                   La gestion de la volumétrie est maintenue identique à la dernière évolution de la V.2 et expliquée dans cette [documentation](<%= developers_path(anchor: 'volumétrie') %>)
 
-              - subtitle: 5. Gestion des évolutions futures
-                subtitle_anchor: 'gestion-des-évolutions-futures'
+              - title: 5. Gestion des évolutions futures
+                anchor: 'gestion-des-évolutions-futures'
                 content: |+
                   **🚀 Avec la V.3 :** Toutes les API pourront évoluer indépendamment les unes des autres. Les anciennes versions resteront disponibles si le fournisseur de la donnée continue de nous transmettre les informations. Le numéro de version devient donc un paramètre de l’appel et non plus une valeur fixe pour toutes les API.
                   📩 Une infolettre annoncera systématiquement les nouvelles évolutions.
@@ -126,8 +127,8 @@ fr:
                   https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/:siret
                   ```
 
-              - subtitle: 6. Un seul fournisseur et un seul type de données par API
-                subtitle_anchor: 'un-seul-fournisseur-et-un-seul-type-de-données-par-api'
+              - title: 6. Un seul fournisseur et un seul type de données par API
+                anchor: 'un-seul-fournisseur-et-un-seul-type-de-données-par-api'
                 content: |+
                   **🚀 Avec la V.3 :** Chaque API appelle un seul et unique fournisseur de données.
 
@@ -146,8 +147,8 @@ fr:
 
                   [Table de correspondance<br>des API v.2 > v.3](<%= guide_migration_path(anchor: 'table-de-correspondance-v-2-v-3') %>){:.fr-btn fr-btn--secondary}
 
-              - subtitle: 7. Les payloads normalisées et enrichies
-                subtitle_anchor: 'les-payloads-normalisées-et-enrichies'
+              - title: 7. Les payloads normalisées et enrichies
+                anchor: 'les-payloads-normalisées-et-enrichies'
                 content: |+
                   **🚀 Avec la V.3 :** La payload de réponse est normalisée est composée systématiquement de 3 clés :
                   - `data`, qui regroupe l'ensemble des données de la ou les ressources (si c'est une ressource seule, la données est un **objet** `json`, si c'est une collection, la données est un **tableau** `json`) ;
@@ -181,7 +182,7 @@ fr:
 
           - anchor: 'table-de-correspondance-v-2-v-3'
             title: Table de correspondance V.2 > V.3
-            introduction: |+
+            content: |+
               Cette partie du guide de migration permet de trouver la correspondance de chaque API de la V.2 avec les API de la V3&nbsp;:&nbsp;
 
               **Sommaire des tables de correspondance des API V.2&nbsp;:**
@@ -211,9 +212,9 @@ fr:
                 * ["V.2 - Certification de qualification du bâtiment" - Qualibat](#v2/qualibat)
                 * ["V.2 - Certification de qualification d'ingénierie" - OPQIBI](#v2/certif-opqibi)
                 * ["V.2 - Brevets, modèle et marques déposés" - INPI](#v2/brevet-modeles-marques)
-            sections:
-              - subtitle: V.2 - Données de référence d'une entité - INSEE <a name="v2/entreprises"></a>
-                subtitle_anchor: 'v2---données-de-référence-dune-entité---insee-'
+            subsections:
+              - title: V.2 - Données de référence d'une entité - INSEE <a name="v2/entreprises"></a>
+                anchor: 'v2---données-de-référence-dune-entité---insee-'
                 content: |+
                   L'API V.2 `/entreprise` de l'INSEE a été découpée en plusieurs API différentes dans la V.3 :
                   - les données de référence de l'unité légale tirées de l'Insee ;
@@ -381,8 +382,8 @@ fr:
                     </p>
                   </div>
 
-              - subtitle: V.2 - Données de référence d'un établissement - INSEE<a name="v2/etablissements"></a>
-                subtitle_anchor: 'v2---données-de-référence-dun-établissement---insee-'
+              - title: V.2 - Données de référence d'un établissement - INSEE<a name="v2/etablissements"></a>
+                anchor: 'v2---données-de-référence-dun-établissement---insee-'
                 content: |+
                   L'API V.2 `/etablissement` de l'INSEE devient l'**API centrale des données Insee en V.3**. À partir du SIRET de l'établissement, vous récupérez les données de l'établissement, dont son adresse postale, ainsi que les données de l'unité légale qui le concerne.
 
@@ -471,8 +472,8 @@ fr:
                     </p>
                   </div>
 
-              - subtitle: V.2 - Extrait RCS - Infogreffe <a name="v2/extrait_rcs"></a>
-                subtitle_anchor: 'v2---extrait-rcs---infogreffe-'
+              - title: V.2 - Extrait RCS - Infogreffe <a name="v2/extrait_rcs"></a>
+                anchor: 'v2---extrait-rcs---infogreffe-'
                 content: |+
                   {:.fr-table}
                   | API V.2  | API V.3+ correspondante |
@@ -480,8 +481,8 @@ fr:
                   | **API [Extrait RCS - Infogreffe](https://v2.entreprise.api.gouv.fr/catalogue/#a-extraits_rcs_infogreffe){:target="_blank"}** | API **Extrait RCS** <br> `../infogreffe/rcs/unites_legales/{siren}/extrait_kbis`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'infogreffe/rcs/extrait') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1infogreffe~1rcs~1unites_legales~1{siren}~1extrait_kbis/get') %>){:target="_blank"} |
 
 
-              - subtitle: V.2 - Informations déclaratives d'une association - Ministère de l'Intérieur <a name="v2/associations"></a>
-                subtitle_anchor: 'v2---informations-déclaratives-dune-association---ministère-de-lintérieur-'
+              - title: V.2 - Informations déclaratives d'une association - Ministère de l'Intérieur <a name="v2/associations"></a>
+                anchor: 'v2---informations-déclaratives-dune-association---ministère-de-lintérieur-'
                 content: |+
                   La migration V.3 introduit de nouvelles données sur les associations. Par conséquent, en migrant, vous trouverez deux nouvelles API :
                   - Une **API en open data**, délivrant le même type d'informations que celles données par l'API V.2 données RNA d'une association et l'API V.2 Divers documents d'une associations.
@@ -492,8 +493,8 @@ fr:
                   | :--- | :--- |
                   | **API [Informations déclaratives d’une association - Ministère de l'Intérieur](https://v2.entreprise.api.gouv.fr/catalogue/#a-associations){:target="_blank"}** | API **Données association en open data - DJEPVA** <br> `v4/djepva/api-association/associations/open_data/{siren_or_rna}`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'djepva/associations_open_data') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v4~1djepva~1api-association~1associations~1open_data~1{siren_or_rna}/get') %>){:target="_blank"}<br><br>**🎁 Plus de données disponibles** avec la nouvelle [API Données associations - DJEPVA](<%= endpoint_path(uid: 'djepva/associations') %>){:target="_blank"}.  |
 
-              - subtitle: V.2 - Divers documents d'une association - Ministère de l'Intérieur <a name="v2/doc-associations"></a>
-                subtitle_anchor: 'v2---divers-documents-dune-association---ministère-de-lintérieur-'
+              - title: V.2 - Divers documents d'une association - Ministère de l'Intérieur <a name="v2/doc-associations"></a>
+                anchor: 'v2---divers-documents-dune-association---ministère-de-lintérieur-'
                 content: |+
                   La migration V.3 introduit de nouvelles données sur les associations. Par conséquent, en migrant, vous trouverez deux nouvelles API :
                   - Une **API en open data**, délivrant le même type d'informations que celles données par l'API V.2 données RNA d'une association et l'API V.2 Divers documents d'une associations.
@@ -504,16 +505,16 @@ fr:
                   | :--- | :--- |
                   | **API [Divers documents d'une association - Ministère de l'Intérieur](https://v2.entreprise.api.gouv.fr/catalogue/#a-documents_associations){:target="_blank"}** | API **Données association en open data - DJEPVA** <br> `v4/djepva/api-association/associations/open_data/{siren_or_rna}`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'djepva/associations_open_data') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v4~1djepva~1api-association~1associations~1open_data~1{siren_or_rna}/get') %>){:target="_blank"}<br><br>**🎁 Plus de données disponibles** avec la nouvelle [API Données associations - DJEPVA](<%= endpoint_path(uid: 'djepva/associations') %>){:target="_blank"}. |
 
-              - subtitle: V.2 - Actes - INPI <a name="v2/actes"></a>
-                subtitle_anchor: 'v2---actes---inpi-'
+              - title: V.2 - Actes - INPI <a name="v2/actes"></a>
+                anchor: 'v2---actes---inpi-'
                 content: |+
                   {:.fr-table}
                   | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Actes - INPI](https://v2.entreprise.api.gouv.fr/catalogue/#a-actes_inpi){:target="_blank"}** | API **Actes** <br> `../inpi/unites_legales/{siren}/actes`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'inpi/actes') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1inpi~1unites_legales~1{siren}~1actes/get') %>){:target="_blank"} |
 
-              - subtitle: V.2 - Conventions collectives - Fabrique numérique des Ministères sociaux <a name="v2/conventions-collectives"></a>
-                subtitle_anchor: 'v2---conventions-collectives---fabrique-numérique-des-ministères-sociaux-'
+              - title: V.2 - Conventions collectives - Fabrique numérique des Ministères sociaux <a name="v2/conventions-collectives"></a>
+                anchor: 'v2---conventions-collectives---fabrique-numérique-des-ministères-sociaux-'
                 content: |+
                   {:.fr-table}
                   | API V.2  | API V.3+ correspondante |
@@ -521,8 +522,8 @@ fr:
                   | **API [Conventions collectives - Fabrique numérique des Ministères sociaux](https://v2.entreprise.api.gouv.fr/catalogue/#a-conventions_collectives){:target="_blank"}** | API **Conventions collectives** <br> `../fabrique_numerique_ministeres_sociaux/etablissements/{siret}/conventions_collectives`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'fabrique_numerique_ministeres_sociaux/conventions_collectives') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1fabrique_numerique_ministeres_sociaux~1etablissements~1{siret}~1conventions_collectives/get') %>){:target="_blank"} |
 
 
-              - subtitle: V.2 - Données de référence d'une entreprise artisanale - CMA France <a name="v2/entreprises-artisanales"></a>
-                subtitle_anchor: 'v2---données-de-référence-dune-entreprise-artisanale---cma-france-'
+              - title: V.2 - Données de référence d'une entreprise artisanale - CMA France <a name="v2/entreprises-artisanales"></a>
+                anchor: 'v2---données-de-référence-dune-entreprise-artisanale---cma-france-'
                 content: |+
                   {:.fr-table}
                   | API V.2  | API V.3+ correspondante |
@@ -530,8 +531,8 @@ fr:
                   | **API [Données de référence d'une entreprise artisanale - CMA France](https://v2.entreprise.api.gouv.fr/catalogue/#a-entreprises_artisanales_cma){:target="_blank"}** | API **Données du RNM d'une entreprise artisanale** <br> `../cma_france/rnm/unites_legales/{siren}`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'cma_france/rnm') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1cma_france~1rnm~1unites_legales~1{siren}/get') %>){:target="_blank"} |
 
 
-              - subtitle: V.2 - Effectifs d'une entreprise - URSSAF <a name="v2/effectifs"></a>
-                subtitle_anchor: 'v2---effectifs-dune-entreprise---urssaf-'
+              - title: V.2 - Effectifs d'une entreprise - URSSAF <a name="v2/effectifs"></a>
+                anchor: 'v2---effectifs-dune-entreprise---urssaf-'
                 content: |+
                   {:.fr-table}
                   | API V.2  | API V.3+ correspondante |
@@ -539,8 +540,8 @@ fr:
                   | **API [Effectifs d'une entreprise - URSSAF](https://v2.entreprise.api.gouv.fr/catalogue/#a-effectifs_..._acoss_covid){:target="_blank"}** |  API **Effectifs** <br> [📖 Fiche métier](<%= endpoint_path(uid: 'urssaf/effectifs') %>){:target="_blank"} <br> ⚙️ Swagger prochainement disponible  |
 
 
-              - subtitle: V.2 - Immatriculations EORI -  Douanes <a name="v2/eori"></a>
-                subtitle_anchor: 'v2---immatriculations-eori----douanes-'
+              - title: V.2 - Immatriculations EORI -  Douanes <a name="v2/eori"></a>
+                anchor: 'v2---immatriculations-eori----douanes-'
                 content: |+
                   {:.fr-table}
                   | API V.2  | API V.3+ correspondante |
@@ -548,8 +549,8 @@ fr:
                   | **API [Immatriculations EORI -  Douanes](https://v2.entreprise.api.gouv.fr/catalogue/#a-eori_douanes){:target="_blank"}** | API **Immatriculations EORI** <br> `../douanes/etablissements/{siret_or_eori}/immatriculations_eori`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'douanes/immatriculation_eori') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1douanes~1etablissements~1{siret_or_eori}~1immatriculations_eori/get') %>){:target="_blank"} |
 
 
-              - subtitle: V.2 - Chiffre d'affaires - DGFIP <a name="v2/exercices"></a>
-                subtitle_anchor: 'v2---chiffre-daffaires---dgfip-'
+              - title: V.2 - Chiffre d'affaires - DGFIP <a name="v2/exercices"></a>
+                anchor: 'v2---chiffre-daffaires---dgfip-'
                 content: |+
                   {:.fr-table}
                   | API V.2  | API V.3+ correspondante |
@@ -557,8 +558,8 @@ fr:
                   | **API [Chiffre d'affaires - DGFIP](https://v2.entreprise.api.gouv.fr/catalogue/#a-exercices){:target="_blank"}** | API **Chiffre d'affaires** <br> `../dgfip/etablissements/{siret}/chiffres_affaires`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'dgfip/chiffres_affaires') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-financieres/paths/~1v3~1dgfip~1etablissements~1{siret}~1chiffres_affaires/get') %>){:target="_blank"} |
 
 
-              - subtitle: V.2 - Bilans annuels - INPI <a name="v2/bilans-inpi"></a>
-                subtitle_anchor: 'v2---bilans-annuels---inpi-'
+              - title: V.2 - Bilans annuels - INPI <a name="v2/bilans-inpi"></a>
+                anchor: 'v2---bilans-annuels---inpi-'
                 content: |+
                   {:.fr-table}
                   | API V.2  | API V.3+ correspondante |
@@ -566,8 +567,8 @@ fr:
                   | **API [Bilans annuels - INPI](https://v2.entreprise.api.gouv.fr/catalogue/#a-bilans_inpi){:target="_blank"}** | API **Comptes annuels du RNCS** <br> <br> [📖 Fiche métier](<%= endpoint_path(uid: 'inpi/comptes_annuels_rncs') %>){:target="_blank"} <br> ⚙️ Swagger prochainement disponible |
 
 
-              - subtitle: V.2 - 3 derniers bilans annuels - Banque de France <a name="v2/bilans-bdf"></a>
-                subtitle_anchor: 'v2---3-derniers-bilans-annuels---banque-de-france-'
+              - title: V.2 - 3 derniers bilans annuels - Banque de France <a name="v2/bilans-bdf"></a>
+                anchor: 'v2---3-derniers-bilans-annuels---banque-de-france-'
                 content: |+
                   {:.fr-table}
                   | API V.2  | API V.3+ correspondante |
@@ -575,8 +576,8 @@ fr:
                   | **API [3 derniers bilans annuels - Banque de France](https://v2.entreprise.api.gouv.fr/catalogue/#a-bilans_entreprises_bdf){:target="_blank"}** |  API **Trois derniers bilans annuels** <br> <br> [📖 Fiche métier](<%= endpoint_path(uid: 'banque_de_france/bilans') %>){:target="_blank"} <br> ⚙️ Swagger prochainement disponible  |
 
 
-              - subtitle: V.2 - Déclarations de résultats - DGFIP <a name="v2/liasses-fiscales"></a>
-                subtitle_anchor: 'v2---déclarations-de-résultats---dgfip-'
+              - title: V.2 - Déclarations de résultats - DGFIP <a name="v2/liasses-fiscales"></a>
+                anchor: 'v2---déclarations-de-résultats---dgfip-'
                 content: |+
                   {:.fr-table}
                   | API V.2  | API V.3+ correspondante |
@@ -584,48 +585,48 @@ fr:
                   | **API [Déclarations de résulats - DGFIP](https://v2.entreprise.api.gouv.fr/catalogue/#a-liasses_fiscales_dgfip){:target="_blank"}** | API **Liasses fiscales** <br> `../dgfip/unites_legales/{siren}/liasses_fiscales/{year}`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'dgfip/liasses_fiscales') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Informations-financieres/paths/~1v3~1dgfip~1unites_legales~1{siren}~1liasses_fiscales~1{year}/get') %>){:target="_blank"} |
 
 
-              - subtitle: V.2 - Attestation fiscale - DGFIP <a name="v2/attestation-fiscale"></a>
-                subtitle_anchor: 'v2---attestation-fiscale---dgfip-'
+              - title: V.2 - Attestation fiscale - DGFIP <a name="v2/attestation-fiscale"></a>
+                anchor: 'v2---attestation-fiscale---dgfip-'
                 content: |+
                   {:.fr-table}
                   | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Attestation fiscale - DGFIP](https://v2.entreprise.api.gouv.fr/catalogue/#a-attestations_fiscales_dgfip){:target="_blank"}** | API **Attestation fiscale - DGFIP** <br> `../dgfip/unites_legales/{siren}/attestation_fiscale`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'dgfip/attestations_fiscales') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Attestations-sociales-et-fiscales/paths/~1v3~1dgfip~1unites_legales~1{siren}~1attestation_fiscale/get') %>){:target="_blank"} |
 
-              - subtitle: V.2 - Attestation de vigilance - ACOSS <a name="v2/attestation-vigilance"></a>
-                subtitle_anchor: '#v2---attestation-de-vigilance---acoss-'
+              - title: V.2 - Attestation de vigilance - ACOSS <a name="v2/attestation-vigilance"></a>
+                anchor: '#v2---attestation-de-vigilance---acoss-'
                 content: |+
                   {:.fr-table}
                   | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Attestation de vigilance - ACOSS](https://v2.entreprise.api.gouv.fr/catalogue/#a-attestations_sociales_acoss){:target="_blank"}** | API **Attestation de vigilance - URSSAF Caisse nationale** <br> `../urssaf/unites_legales/{siren}/attestation_vigilance`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'urssaf/attestation_vigilance') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Attestations-sociales-et-fiscales/paths/~1v4~1urssaf~1unites_legales~1{siren}~1attestation_vigilance/get') %>){:target="_blank"} |
 
-              - subtitle: V.2 - Conformité emploi des travailleurs handicapés - Agefiph <a name="v2/conformite-emploi-handicapes"></a>
-                subtitle_anchor: 'v2---conformité-emploi-des-travailleurs-handicapés---agefiph-'
+              - title: V.2 - Conformité emploi des travailleurs handicapés - Agefiph <a name="v2/conformite-emploi-handicapes"></a>
+                anchor: 'v2---conformité-emploi-des-travailleurs-handicapés---agefiph-'
                 content: |+
                   {:.fr-table}
                   | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Conformité emploi des travailleurs handicapés - Agefiph](https://v2.entreprise.api.gouv.fr/catalogue/#a-attestations_agefiph){:target="_blank"}** | ❌ Ressource supprimée en V3 - *Depuis 2021, la contribution annuelle de l’OETH (Obligation d’Emploi de Travailleur Handicapé) relève de l'URSSAF et non plus de l'Agefiph*. <br> <br> La conformité à l'OETH est donc désormais incluse dans l'[API attestation de vigileance - URSSAF](<%= endpoint_path(uid: 'urssaf/attestation_vigilance') %>){:target="_blank"} ou dans l'[API conformité cotisations de sécurité sociale agricole - MSA](<%= endpoint_path(uid: 'msa/conformites_cotisations') %>){:target="_blank"} pour les entreprises relevant du régime agricole. |
 
-              - subtitle: V.2 - Cotisations de sécurité agricole - MSA <a name="v2/cotis-secu-agricole"></a>
-                subtitle_anchor: 'v2---cotisations-de-sécurité-agricole---msa-'
+              - title: V.2 - Cotisations de sécurité agricole - MSA <a name="v2/cotis-secu-agricole"></a>
+                anchor: 'v2---cotisations-de-sécurité-agricole---msa-'
                 content: |+
                   {:.fr-table}
                   | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Cotisations de sécurité agricole - MSA](https://v2.entreprise.api.gouv.fr/catalogue/#a-cotisations_msa){:target="_blank"}** | API **Conformité cotisations de sécurité sociale agricole** <br> `../msa/etablissements/{siret}/conformite_cotisations`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'msa/conformites_cotisations') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Attestations-sociales-et-fiscales/paths/~1v3~1msa~1etablissements~1{siret}~1conformite_cotisations/get') %>){:target="_blank"} |
 
-              - subtitle: V.2 - Cotisations retraite bâtiment - PROBTP <a name="v2/cotis-retraite-batiment"></a>
-                subtitle_anchor: 'v2---cotisations-retraite-bâtiment---probtp-'
+              - title: V.2 - Cotisations retraite bâtiment - PROBTP <a name="v2/cotis-retraite-batiment"></a>
+                anchor: 'v2---cotisations-retraite-bâtiment---probtp-'
                 content: |+
                   {:.fr-table}
                   | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Cotisations retraite bâtiment - PROBTP](https://v2.entreprise.api.gouv.fr/catalogue/#a-cotisation_retraite_probtp){:target="_blank"}** | API **Conformité cotisations retraite bâtiment** <br> <br> [📖 Fiche métier](<%= endpoint_path(uid: 'probtp/conformites_cotisations_retraite') %>){:target="_blank"} <br> ⚙️ Swagger prochainement disponible  <br> <br> 🚀 En V.3, plus besoin de faire deux appels différents. **Avec un seul appel, vous obtenez l'état de conformité et l'URL de téléchargement** de l'attestation si elle est disponible. |
 
-              - subtitle: V.2 - Carte professionnelle travaux publics - FNTP <a name="v2/carte-pro-travaux-publics"></a>
-                subtitle_anchor: 'v2---carte-professionnelle-travaux-publics---fntp-'
+              - title: V.2 - Carte professionnelle travaux publics - FNTP <a name="v2/carte-pro-travaux-publics"></a>
+                anchor: 'v2---carte-professionnelle-travaux-publics---fntp-'
                 content: |+
                   {:.fr-table}
                   | API V.2  | API V.3+ correspondante |
@@ -633,16 +634,16 @@ fr:
                   | **API [Carte professionnelle travaux publics - FNTP](https://v2.entreprise.api.gouv.fr/catalogue/#a-cartes_professionnelles_fntp){:target="_blank"}** | API **Carte professionnelle travaux publics** <br> `../fntp/unites_legales/{siren}/carte_professionnelle_travaux_publics`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'fntp/carte_professionnelle_travaux_public') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Attestations-sociales-et-fiscales/paths/~1v3~1fntp~1unites_legales~1{siren}~1carte_professionnelle_travaux_publics/get') %>){:target="_blank"} |
 
 
-              - subtitle: V.2 - Cotisations congés payés & chômage intempéries - CNETP <a name="v2/cotis-conges-payes-chomage-intemperies"></a>
-                subtitle_anchor: 'v2---cotisations-congés-payés--chômage-intempéries---cnetp-'
+              - title: V.2 - Cotisations congés payés & chômage intempéries - CNETP <a name="v2/cotis-conges-payes-chomage-intemperies"></a>
+                anchor: 'v2---cotisations-congés-payés--chômage-intempéries---cnetp-'
                 content: |+
                   {:.fr-table}
                   | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Cotisations congés payés & chômage intempéries - CNETP](https://v2.entreprise.api.gouv.fr/catalogue/#a-certificats_cnetp){:target="_blank"}** | API **Attestation de cotisations congés payés & chômage-intempéries** <br> `../cnetp/unites_legales/{siren}/attestation_cotisations_conges_payes_chomage_intemperies`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'cnetp/attestations_cotisations_conges_payes_chomage_intemperies') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Attestations-sociales-et-fiscales/paths/~1v3~1cnetp~1unites_legales~1{siren}~1attestation_cotisations_conges_payes_chomage_intemperies/get') %>){:target="_blank"}|
 
-              - subtitle: V.2 - Certification en BIO - Agence BIO <a name="v2/certif-bio"></a>
-                subtitle_anchor: 'v2---cotisations-congés-payés--chômage-intempéries---cnetp-'
+              - title: V.2 - Certification en BIO - Agence BIO <a name="v2/certif-bio"></a>
+                anchor: 'v2---cotisations-congés-payés--chômage-intempéries---cnetp-'
                 content: |+
                   {:.fr-table}
                   | API V.2  | API V.3+ correspondante |
@@ -650,32 +651,32 @@ fr:
                   | **API [Certification en BIO - Agence BIO](https://v2.entreprise.api.gouv.fr/catalogue/#a-certificats_agence_bio){:target="_blank"}** |  API **Certifications en BIO** <br> <br> [📖 Fiche métier](<%= endpoint_path(uid: 'agence_bio/certifications_bio') %>){:target="_blank"} <br> ⚙️ Swagger prochainement disponible  |
 
 
-              - subtitle: V.2 - Certification RGE - ADEME <a name="v2/rge-ademe"></a>
-                subtitle_anchor: 'v2---certification-rge---ademe-'
+              - title: V.2 - Certification RGE - ADEME <a name="v2/rge-ademe"></a>
+                anchor: 'v2---certification-rge---ademe-'
                 content: |+
                   {:.fr-table}
                   | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Certification RGE - ADEME](https://v2.entreprise.api.gouv.fr/catalogue/#a-certificats_rge_ademe){:target="_blank"}** | API **Certificat RGE** <br> `../ademe/etablissements/{siret}/certification_rge`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'ademe/certifications_rge') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Certifications-professionnelles/paths/~1v3~1ademe~1etablissements~1{siret}~1certification_rge/get') %>){:target="_blank"} |
 
-              - subtitle: V.2 - Certification de qualification du bâtiment - Qualibat <a name="v2/qualibat"></a>
-                subtitle_anchor: 'v2---certification-de-qualification-du-bâtiment---qualibat-'
+              - title: V.2 - Certification de qualification du bâtiment - Qualibat <a name="v2/qualibat"></a>
+                anchor: 'v2---certification-de-qualification-du-bâtiment---qualibat-'
                 content: |+
                   {:.fr-table}
                   | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Certification de qualification du bâtiment - Qualibat](https://v2.entreprise.api.gouv.fr/catalogue/#a-certificats_qualibat){:target="_blank"}** | API **Certification Qualibat** <br> `../qualibat/etablissements/{siret}/certification_batiment`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'qualibat/certifications_batiment') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Certifications-professionnelles/paths/~1v3~1qualibat~1etablissements~1{siret}~1certification_batiment/get') %>){:target="_blank"} |
 
-              - subtitle: V.2 - Certification de qualification d'ingénierie - OPQIBI <a name="v2/certif-opqibi"></a>
-                subtitle_anchor: 'v2---certification-de-qualification-dingénierie---opqibi-'
+              - title: V.2 - Certification de qualification d'ingénierie - OPQIBI <a name="v2/certif-opqibi"></a>
+                anchor: 'v2---certification-de-qualification-dingénierie---opqibi-'
                 content: |+
                   {:.fr-table}
                   | API V.2  | API V.3+ correspondante |
                   | :--- | :--- |
                   | **API [Certification de qualification d'ingénierie - OPQIBI](https://v2.entreprise.api.gouv.fr/catalogue/#a-certificats_opqibi){:target="_blank"}** |  API **Certification d'ingénierie OPQIBI** <br> <br> [📖 Fiche métier](<%= endpoint_path(uid: 'opqibi/qualifications_ingenierie') %>){:target="_blank"} <br> ⚙️ Swagger prochainement disponible  |
 
-              - subtitle: V.2 - Brevets, modèles et marques déposés - INPI <a name="v2/brevet-modeles-marques"></a>
-                subtitle_anchor: 'v2---brevets-modèles-et-marques-déposés---inpi-'
+              - title: V.2 - Brevets, modèles et marques déposés - INPI <a name="v2/brevet-modeles-marques"></a>
+                anchor: 'v2---brevets-modèles-et-marques-déposés---inpi-'
                 content: |+
                   {:.fr-table}
                   | API V.2  | API V.3+ correspondantes |
@@ -685,10 +686,12 @@ fr:
                   | Données des dessins & modèles | API **Modèles déposés** <br> `../inpi/unites_legales/{siren}/modeles`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'inpi/modeles') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Propriete-intellectuelle/paths/~1v3~1inpi~1unites_legales~1{siren}~1modeles/get') %>){:target="_blank"} |
                   | Données des marques | API **Marques déposées** <br> `../inpi/unites_legales/{siren}/marques`<br> [📖 Fiche métier](<%= endpoint_path(uid: 'inpi/marques') %>){:target="_blank"} <br> [📟 Swagger](<%= developers_openapi_path(anchor: 'tag/Propriete-intellectuelle/paths/~1v3~1inpi~1unites_legales~1{siren}~1marques/get') %>){:target="_blank"} |
 
-        developers:
+      developers:
+        title: Espace développeurs&nbsp;🛠
+        sections:
           - anchor: 'prerequis-techniques'
             title: Prérequis techniques
-            introduction: |+
+            content: |+
               Voici la liste des **fondamentaux techniques à mettre en place pour le bon fonctionnement de l’API&nbsp;Entreprise**&nbsp;:
 
               - ☑️ Être en mesure de gérer le protocole HTTPS ;
@@ -704,9 +707,9 @@ fr:
 
           - anchor: 'specifications-generales'
             title: Spécifications générales&nbsp;🎛
-            sections:
-              - subtitle: Respecter la volumétrie
-                subtitle_anchor: 'respecter-la-volumétrie'
+            subsections:
+              - title: Respecter la volumétrie
+                anchor: 'respecter-la-volumétrie'
                 content: |+
                   #### Les plafonds
 
@@ -778,8 +781,8 @@ fr:
 
                   Pour les appels de traitement de masse, il est souhaitable que vous fassiez vos **batchs automatiques la nuit ou durant les heures creuses** afin de ne pas affecter la qualité du service pour le reste des usagers.
 
-              - subtitle: Configurer vos timeout
-                subtitle_anchor: 'configurer-vos-timeout'
+              - title: Configurer vos timeout
+                anchor: 'configurer-vos-timeout'
                 content: |+
                   Le timeout est le temps d'attente maximal de réponse à une requête. Il vous permet de ne pas immobiliser votre logiciel en le laissant bloqué sur un appel sans réponse.
 
@@ -789,8 +792,8 @@ fr:
 
                   De même, pour ne pas immobiliser nos serveurs, nous attendons les réponses de nos fournisseurs un maximum de 10 secondes avant de vous les retransmettre. Si ce délai d’attente est dépassé un code erreur HTTP `504` vous sera renvoyé.
 
-              - subtitle: Autoriser nos Autorités de Certifications
-                subtitle_anchor: 'autoriser-nos-autorités-de-certifications'
+              - title: Autoriser nos Autorités de Certifications
+                anchor: 'autoriser-nos-autorités-de-certifications'
                 content: |+
                   API&nbsp;Entreprise utilise [DHIMYOTIS](https://www.dhimyotis.com/) comme organisme de délivrance de ses certificats SSL principaux ainsi que [Let's Encrypt](https://letsencrypt.org/) pour certains services secondaires.
 
@@ -798,8 +801,8 @@ fr:
 
                   API&nbsp;Entreprise utilise des certificats multi-domaines ; c'est à dire avec un "nom courant" (_common name - CN_) et plusieurs "noms alternatifs du sujet" (_subject alternatives names - SAN_), **soyez certains que vos outils fonctionnent correctement avec**.
 
-              - subtitle: Gérer les erreurs - codes HTTPS
-                subtitle_anchor: 'gérer-les-erreurs---codes-https'
+              - title: Gérer les erreurs - codes HTTPS
+                anchor: 'gérer-les-erreurs---codes-https'
                 content: |+
                   #### Un code standard HTTPS pour catégoriser le statut de l'appel
                   Toutes les réponse de l’API&nbsp;Entreprise sont envoyées avec un code HTTPS. **Ces codes permettent de se renseigner sur le statut de l’appel**, et sont harmonisés pour l'ensemble des API quelque soir le fournisseur de données.
@@ -864,8 +867,8 @@ fr:
                   La liste des codes spécifiques à chaque endpoint y est disponible.
 
 
-              - subtitle: Renseigner les paramètres d'appel et de traçabilité
-                subtitle_anchor: 'renseigner-les-paramètres-dappel-et-de-traçabilité'
+              - title: Renseigner les paramètres d'appel et de traçabilité
+                anchor: 'renseigner-les-paramètres-dappel-et-de-traçabilité'
                 content: |+
                   API&nbsp;Entreprise vous permet d’accéder à des données protégées. C’est pourquoi, dans un **objectif de traçabilité**, nous vous demandons de renseigner dans chacune de vos requêtes, non seulement un jeton d’accès, mais aussi **certaines informations qualifiant votre requête**.
 
@@ -883,8 +886,8 @@ fr:
                   |`&recipient=BénéficaireDeL'Appel`|**Le bénéficiaire de l'appel** <br><br>Ce paramètre permet la traçabilité de l'appel et doit correspondre au _SIRET de l'organisation publique habilitée à utiliser la donnée_. <br><br>Si vous êtes une collectivité ou une administration, ce paramètre doit donc être votre numéro de SIRET. Si vous êtes un éditeur, il s'agit du SIRET de l'organisation publique cliente demandant la donnée.<br><br>Une vérification est effectuée par API Entreprise pour refuser tout format qui ne serait pas un numéro de SIRET et pour refuser un SIRET qui serait identique à l'entité appelée.
                   |`&object= RaisonDeL'AppelOuIdentifiant`|**La raison de l'appel** <br> ou l'identifiant de la procédure. <br><br> L'identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l'essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l'appel. En effet, vous devez pouvoir justifier de la raison d'un appel auprès du fournisseur de données. <br> Description courte (< 50 caractères).
 
-              - subtitle: Gérer les évolutions de version
-                subtitle_anchor: 'gerer-les-evolutions-de-version'
+              - title: Gérer les évolutions de version
+                anchor: 'gerer-les-evolutions-de-version'
                 content: |+
                   Il est fréquent que les API évoluent et que, par conséquent, de nouvelles versions soient publiées.
                   La version majeure V.3 de l'API&nbsp;Entreprise permet de créer facilement de nouvelles versions, tout en gardant les précédentes, rendant ainsi accessibles rapidement les évolutions qu'API Entreprise obtient de ses fournisseurs.
@@ -918,8 +921,8 @@ fr:
                   - tant que le fournisseur continue d'envoyer la strcuture de données de l'ancienne version, cette ancienne version est maintenue par l'API&nbsp;Entreprise ;
                   - si le fournisseur ne renvoie plus la même structure de donnée, API&nbsp;Entreprise supprimera l'ancienne version car la maintenir reviendrait à renvoyer des champs vides.
 
-              - subtitle: Changer de version
-                subtitle_anchor: 'changer-de-version'
+              - title: Changer de version
+                anchor: 'changer-de-version'
                 content: |+
                   Depuis la version 3 de l'API&nbsp;Entreprise, toutes les API peuvent évoluer indépendamment les unes des autres. Les anciennes versions (à partir de la V.3) restent donc toujours disponibles si le fournisseur de la donnée continue de transmettre les informations.
                   Depuis la version 3, le numéro de version est un paramètre de l’appel et non plus une valeur fixe pour toutes les API comme en version 1 et 2 (Les versions 1 et 2 sont définitivement dépréciées, la version 1 étant déjà fermée et **la version 2 fermant le 30 juin 2023**).
@@ -931,16 +934,16 @@ fr:
                   {:.fr-highlight}
                   📩 Une lettre d'information annonce systématiquement les nouvelles évolutions. Vous pouvez vous abonner [ici](<%= newsletter_path %>).
 
-              - subtitle: Monitorer la disponibilité des API
-                subtitle_anchor: 'monitorer-la-disponibilité-des-api'
+              - title: Monitorer la disponibilité des API
+                anchor: 'monitorer-la-disponibilité-des-api'
                 content: |+
                   Pour vous informer de la disponibilité de nos API&nbsp;:
                   - vous pouvez retrouver tous les incidents et opérations de maintenance directement depuis notre [page de statut](https://status.entreprise.api.gouv.fr/){:target="_blank"}, cette page est complétée manuellement par nos services ;
                   - vous pourrez bientôt utiliser nos API de monitoring (⚙️ développements en cours).
 
 
-              - subtitle: Retrouver les droits d'un jeton JWT
-                subtitle_anchor: 'retrouver-les-droits-dun-jeton-jwt'
+              - title: Retrouver les droits d'un jeton JWT
+                anchor: 'retrouver-les-droits-dun-jeton-jwt'
                 content: |+
                   Pour connaître **la liste des APIs auxquelles vous avez le droit** avec votre jeton d'accès, vous pouvez le vérifier avec l'API `/privileges`.
 
@@ -970,9 +973,9 @@ fr:
 
           - anchor: 'kit-de-mise-en-production'
             title: Kit de mise en production&nbsp;🚀
-            sections:
-              - subtitle: Tester l'API en préproduction
-                subtitle_anchor: 'tester-api-preproduction'
+            subsections:
+              - title: Tester l'API en préproduction
+                anchor: 'tester-api-preproduction'
                 content: |+
                   L'API&nbsp;Entreprise est **testable avec un jeton accessible à tous depuis notre environnement de staging**. Ce bac à sable retourne des données fictives.
 
@@ -994,8 +997,8 @@ fr:
                       2. Dans la partie _"Request samples"_ disponible pour chaque API dans le swagger, recopiez les lignes de commandes proposées débutant par `curl -X GET` en remplaçant `$token` par le jeton de test et en veillant à ajouter `staging` au début de l'URL : `https://staging.entreprise.api.gouv.fr/v3/...`
                       3. Lancez cette ligne de commande dans votre terminal.
 
-              - subtitle: Récupérer le jeton JWT&nbsp;🔑
-                subtitle_anchor: 'récupérer-le-jeton-jwt'
+              - title: Récupérer le jeton JWT&nbsp;🔑
+                anchor: 'récupérer-le-jeton-jwt'
                 content: |+
                   Seule la personne ayant fait la demande d'habilitation a accès au token, au travers du [compte utilisateur API&nbsp;Entreprise](<%= user_tokens_path %>){:target="_blank"}.
 
@@ -1006,8 +1009,8 @@ fr:
                   {:.fr-highlight.fr-highlight--caution}
                   > ⚠️ L'utilisation de cette fonctionnalité du compte utilisateur doit avoir pour unique objectif la transmission sécurisée de la clé aux services techniques qui intégreront l'API&nbsp;Entreprise. **Le jeton JWT ne doit jamais être transmis par e-mail.**
 
-              - subtitle: Faire sa première requête
-                subtitle_anchor: 'faire-sa-première-requête'
+              - title: Faire sa première requête
+                anchor: 'faire-sa-première-requête'
                 content: |+
                   #### Utiliser l'environnement de production - _Swagger_
 
@@ -1045,26 +1048,26 @@ fr:
 
                   Une fois que vous avez fait un premier appel, celui-ci est **répertorié** dans votre compte utilisateur, en passant par [la liste de tous vos tokens](https://dashboard.entreprise.api.gouv.fr/me/tokens), et en cliquant sur "Voir les statistiques".
 
-              - subtitle: Configurer le logiciel métier
-                subtitle_anchor: 'configurer-le-logiciel-métier'
+              - title: Configurer le logiciel métier
+                anchor: 'configurer-le-logiciel-métier'
                 content: |+
                   Documentation en construction&nbsp;🚧
 
           - anchor: 'incidents-et-maintenances'
             title: Incidents et maintenances&nbsp;🚧
-            sections:
-              - subtitle: Que faire en cas de rupture de service ?
-                subtitle_anchor: 'que-faire-en-cas-de-rupture-de-service-'
+            subsections:
+              - title: Que faire en cas de rupture de service ?
+                anchor: 'que-faire-en-cas-de-rupture-de-service-'
                 content: |+
                   Le service ne répond plus ? consultez [cette rubrique de notre FAQ](<%= faq_index_path(anchor: 'rupture-de-service') %>){:target="_blank"}.
 
-              - subtitle: Être informé des ruptures de service
-                subtitle_anchor: 'être-informé-des-ruptures-de-service'
+              - title: Être informé des ruptures de service
+                anchor: 'être-informé-des-ruptures-de-service'
                 content: |+
                   Pour être informé des différentes indisponibilités, [abonnez-vous aux notifications par e-mail depuis notre page de statut](https://status.entreprise.api.gouv.fr/subscribe/email){:target="_blank"}.
 
           - anchor: 'renouvellement-du-jwt'
             title: Renouvellement du JWT&nbsp;🔑
-            introduction: >-
+            content: >-
               Pour comprendre comment renouveler votre jeton, consultez [cette rubrique de notre FAQ](<%= faq_index_path(anchor: 'jetons-d-acces') %>){:target="_blank"}.
 
