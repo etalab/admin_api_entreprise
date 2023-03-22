@@ -99,9 +99,7 @@ task :setup do
 end
 
 task :sitemaps do
-  in_path(fetch(:current_path)) do
-    command %(bundle exec rake sitemap:refresh)
-  end
+  command %(bundle exec rake sitemap:refresh)
 end
 
 desc "Deploys the current version to the server."
