@@ -98,6 +98,12 @@ task :setup do
   invoke :'samhain_db_update'
 end
 
+task :sitemaps do
+  in_path(fetch(:current_path)) do
+    command %(bundle exec rake sitemap:refresh)
+  end
+end
+
 desc "Deploys the current version to the server."
 task :deploy => :environment do
   # uncomment this line to make sure you pushed your local branch to the remote origin
@@ -119,6 +125,10 @@ task :deploy => :environment do
     end
     invoke :cgu_to_pdf
     invoke :'deploy:cleanup'
+
+    if ENV['to'] == 'production'
+      invoke :'sitemaps'
+    end
 
     on :launch do
       in_path(fetch(:current_path)) do

@@ -237,3 +237,19 @@ Exemple de commande :
 # il ne faut pas mettre d'espace après la virgule entre les variables qui sont entre crochets
 bundle exec rake user:transfer_account\['current@user.com','new@user.com'\]
 ```
+
+## Génération des sitemaps
+
+On utilise 2 sitemaps différents pour le site d'API Entreprise et le site d'API Particulier.
+Pour générer les sitemaps il suffit d'executer la commande : 
+
+```shell
+rake sitemap:refresh
+```
+
+Lors de l'éxecution de la commande, un ping auto sera envoyé à google afin d'indiquer que le sitemaps a changé.
+En local, afin de ne pas solliciter google inutilement il est préférable de ne pas déclencher le ping
+
+```shell
+rake sitemap:refresh:no_ping
+```

@@ -1,4 +1,5 @@
 require 'erb'
+require 'kramdown'
 
 class MarkdownInterpolator
   include Rails.application.routes.url_helpers
