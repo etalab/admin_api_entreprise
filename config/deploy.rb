@@ -126,6 +126,10 @@ task :deploy => :environment do
     invoke :cgu_to_pdf
     invoke :'deploy:cleanup'
 
+    if ENV['to'] == 'production'
+      invoke :'sitemaps'
+    end
+
     on :launch do
       in_path(fetch(:current_path)) do
         command %{mkdir -p tmp/}
@@ -136,9 +140,6 @@ task :deploy => :environment do
     end
   end
   invoke :'samhain_db_update'
-  if ENV['to'] == 'production'
-    invoke :'sitemaps'
-  end
   # you can use `run :local` to run tasks on local machine before of after the deploy scripts
   # run(:local){ say 'done' }
 end
