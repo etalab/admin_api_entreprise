@@ -5,6 +5,7 @@ FactoryBot.define do
     archived { false }
     version { '1.0' }
     days_left_notification_sent { [] }
+    scopes { [] }
     extra_info { {} }
 
     sequence(:authorization_request_id) { |n| "1234#{n}" }
@@ -26,23 +27,35 @@ FactoryBot.define do
       token.authorization_request.user = evaluator.user if evaluator.user
     end
 
-    trait :with_scopes do
-      scopes do
-        [
-          build(:scope)
-        ]
+    trait :with_api_particulier do
+      transient do
+        user { nil }
+        intitule { 'Token' }
       end
+
+      after(:build) do |token, evaluator|
+        token.authorization_request = build(
+          :authorization_request, tokens: [token], intitule: evaluator.intitule, api: 'particulier'
+        )
+        token.authorization_request.user = evaluator.user if evaluator.user
+      end
+    end
+
+    trait :with_scopes do
+      transient do
+        scopes_count { 1 }
+      end
+
+      scopes { Array.new(scopes_count) { |i| "x#{i}x" } }
     end
 
     trait :with_specific_scopes do
       transient do
-        specific_scopes { ['entreprises'] }
+        specific_scopes { %w[entreprises] }
         intitule { 'Token' }
       end
 
-      scopes do
-        specific_scopes.map { |scope| build(:scope, :with_specific_scope, specific_scope: scope) }
-      end
+      scopes { specific_scopes }
     end
 
     trait :access_request_survey_not_sent do
@@ -116,26 +129,6 @@ FactoryBot.define do
     trait :with_magic_link do
       after(:create) do |token|
         create(:magic_link, email: token.user.email)
-      end
-    end
-
-    trait :api_entreprise do
-      transient do
-        scopes_count { 1 }
-      end
-
-      scopes do
-        build_list(:scope, scopes_count, api: :entreprise)
-      end
-    end
-
-    trait :api_particulier do
-      transient do
-        scopes_count { 1 }
-      end
-
-      scopes do
-        build_list(:scope, scopes_count, api: :particulier)
       end
     end
   end

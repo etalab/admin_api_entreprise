@@ -28,7 +28,7 @@ RSpec.describe 'API Particulier: profile spec', app: :api_particulier do
       let!(:token) { create(:token, user:, scopes:) }
 
       context 'when this token is for API Entreprise' do
-        let(:scopes) { create_list(:scope, 1, api: 'entreprise') }
+        let(:scopes) { %w[x1x] }
 
         it 'displays no token disclaimer' do
           go_to_profile
@@ -38,11 +38,11 @@ RSpec.describe 'API Particulier: profile spec', app: :api_particulier do
       end
 
       context 'when this token is for API Particulier' do
-        let(:scopes) { create_list(:scope, 1, api: 'particulier') }
+        let!(:token) { create(:token, :with_api_particulier, user:, scopes:) }
+        let(:scopes) { %w[x1x] }
 
         it 'display this token' do
           go_to_profile
-
           expect(page).to have_css("##{dom_id(token)}")
         end
       end

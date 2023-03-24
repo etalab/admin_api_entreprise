@@ -25,12 +25,18 @@ RSpec.describe 'token details page', app: :api_entreprise do
     expect(page).to have_css("##{dom_id(token, :copy_button)}")
   end
 
-  it 'displays tokens access scopes' do
+  it 'displays tokens access scopes with humanized missing key' do
     token = create(:token, :with_scopes, user:)
-    scopes = token.scopes.pluck(:code)
     visit token_path(token)
 
-    expect(page).to have_content(*scopes)
+    expect(page).to have_content(*token.scopes.map(&:humanize))
+  end
+
+  it 'displays tokens access scopes with translations' do
+    token = create(:token, scopes: ['entreprises'], user:)
+    visit token_path(token)
+
+    expect(page).to have_content('INSEE Entreprise')
   end
 
   it 'has a button to create a magic link' do

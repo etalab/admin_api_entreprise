@@ -35,10 +35,10 @@
           </strong>
 
           <ul class="fr-tags-group">
-            <% token.scopes.pluck(:code).each do |code| %>
+            <% token.scopes.each do |scope| %>
               <li>
                 <span class="fr-tag">
-                  <%= code %>
+                  <%= humanize_scope(scope, 'entreprise') %>
                 </span>
               </li>
             <% end %>

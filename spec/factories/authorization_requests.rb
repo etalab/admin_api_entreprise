@@ -7,10 +7,6 @@ FactoryBot.define do
     status { 'draft' }
     api { 'entreprise' }
 
-    after(:build) do |authorization_request|
-      authorization_request.api = authorization_request.token.scopes.first.api if authorization_request.token.present? && authorization_request.token.scopes.any?
-    end
-
     trait :without_external_id do
       external_id { nil }
     end

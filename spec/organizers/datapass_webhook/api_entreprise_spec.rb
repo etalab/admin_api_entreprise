@@ -10,8 +10,6 @@ RSpec.describe DatapassWebhook::APIEntreprise, type: :interactor do
   let(:token) { create(:token) }
 
   before do
-    create(:scope, code: 'entreprises', api: 'entreprise')
-
     allow(Mailjet::Contactslist_managemanycontacts).to receive(:create)
 
     create(:authorization_request, external_id: previous_enrollment_id, tokens: [token])

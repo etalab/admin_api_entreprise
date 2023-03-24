@@ -5,8 +5,8 @@ seeds = Seeds.new
 seeds.flushdb
 
 if Rails.env.staging?
-  seeds.create_scopes_particulier
-  seeds.create_scopes_entreprise
+  seeds.create_scopes('particulier')
+  seeds.create_scopes('entreprise')
 else
   seeds.perform
 end

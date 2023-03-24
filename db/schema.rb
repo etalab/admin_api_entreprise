@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_25_080557) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_15_090426) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pgcrypto"
@@ -84,12 +84,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_25_080557) do
     t.boolean "access_request_survey_sent", default: false, null: false
     t.uuid "authorization_request_model_id", null: false
     t.json "extra_info"
+    t.jsonb "scopes", default: [], null: false
     t.index ["access_request_survey_sent"], name: "index_tokens_on_access_request_survey_sent"
     t.index ["archived"], name: "index_tokens_on_archived"
     t.index ["blacklisted"], name: "index_tokens_on_blacklisted"
     t.index ["created_at"], name: "index_tokens_on_created_at"
     t.index ["exp"], name: "index_tokens_on_exp"
     t.index ["iat"], name: "index_tokens_on_iat"
+    t.index ["scopes"], name: "index_tokens_on_scopes", using: :gin
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

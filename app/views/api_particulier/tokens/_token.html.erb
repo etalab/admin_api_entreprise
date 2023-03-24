@@ -11,8 +11,9 @@
                 target: '_blank',
                 id: :authorization_request_link, class: %w(fr-link fr-link--sm) %>
         </span>
+      </h4>
 
-       <div class="fr-card__desc">
+      <div class="fr-card__desc">
         <ul>
           <li>
             <%= t('.delivered_at', humanized_date: friendly_format_from_timestamp(token.iat)) %>
@@ -31,7 +32,7 @@
             <% token.scopes.each do |scope| %>
               <li>
                 <span class="fr-tag">
-                  <%= scope.name %>
+                  <%= humanize_scope(scope, 'particulier') %>
                 </span>
               </li>
             <% end %>

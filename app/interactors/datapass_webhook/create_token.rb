@@ -26,7 +26,7 @@ class DatapassWebhook::CreateToken < ApplicationInteractor
   end
 
   def affect_scopes(token)
-    token.scopes = Scope.where(code: scopes)
+    token.update!(scopes:)
   end
 
   def token_already_exists?

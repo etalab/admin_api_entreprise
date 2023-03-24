@@ -4,7 +4,7 @@ RSpec.describe 'User attestations through tokens', app: :api_entreprise do
   include_context 'with siade payloads'
 
   let(:inactive_token_intitule) { 'Token with another scope' }
-  let(:another_api_entreprise_scope) { create(:scope, name: 'whatever', code: 'whatever', api: 'entreprise') }
+  let(:another_api_entreprise_scope) { %w[whatever] }
   let!(:inactive_token) { create(:token, user:, scopes: [another_api_entreprise_scope], intitule: inactive_token_intitule) }
 
   before do

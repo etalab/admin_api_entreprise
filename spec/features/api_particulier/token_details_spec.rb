@@ -2,13 +2,12 @@ RSpec.describe 'API Particulier: token details', app: :api_particulier do
   subject(:go_to_profile) { visit api_particulier_user_profile_path }
 
   let(:user) { create(:user) }
-  let(:scopes) { [create(:scope, api: 'particulier', name: 'Scope 1')] }
+  let(:scopes) { %w[x1x] }
 
-  let!(:token) { create(:token, user:, scopes:) }
+  let!(:token) { create(:token, :with_api_particulier, user:, scopes:) }
 
   before do
     login_as(user)
-
     go_to_profile
   end
 
@@ -16,7 +15,18 @@ RSpec.describe 'API Particulier: token details', app: :api_particulier do
     expect(page).to have_content(token.intitule)
     expect(page).to have_content(friendly_format_from_timestamp(token.iat))
     expect(page).to have_content(friendly_format_from_timestamp(token.exp))
-    expect(page).to have_content('Scope 1')
+  end
+
+  it 'displays tokens access scopes with humanized missing key' do
+    expect(page).to have_content(*token.scopes.map(&:humanize))
+  end
+
+  context 'when the token uses a translated scope' do
+    let(:token) { create(:token, :with_api_particulier, user:, scopes: ['dgfip_declarant1_nom']) }
+
+    it 'displays tokens access scopes with translations' do
+      expect(page).to have_content('DGFIP - État civil - déclarant 1 - Nom')
+    end
   end
 
   it 'has a button to copy active tokens hash to clipboard' do
