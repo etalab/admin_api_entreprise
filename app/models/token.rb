@@ -8,7 +8,6 @@ class Token < ApplicationRecord
 
   has_one :user, through: :authorization_request
   has_many :contacts, through: :authorization_request
-  has_and_belongs_to_many :old_scopes, class_name: 'Scope', join_table: 'scopes_tokens'
 
   scope :issued_in_last_seven_days, -> { where(created_at: 3.weeks.ago..1.week.ago) }
   scope :unexpired, -> { where('exp > ?', Time.zone.now.to_i) }
