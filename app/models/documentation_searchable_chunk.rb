@@ -28,7 +28,7 @@ class DocumentationSearchableChunk < ApplicationAlgoliaSearchableActiveModel
           searchable_chunks << new(subsection, page_uid)
         end
 
-        searchable_chunks << new(section, page_uid) if section[:content].present?
+        searchable_chunks << new(section, page_uid)
       end
     end
   end
