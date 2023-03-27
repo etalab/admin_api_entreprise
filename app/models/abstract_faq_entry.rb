@@ -3,7 +3,9 @@
 require 'kramdown'
 require 'kramdown-parser-gfm'
 
-class FAQEntry < ApplicationAlgoliaSearchableActiveModel
+class AbstractFAQEntry < ApplicationAlgoliaSearchableActiveModel
+  include AbstractAPIClass
+
   attr_accessor :question,
     :answer,
     :category,
@@ -24,7 +26,7 @@ class FAQEntry < ApplicationAlgoliaSearchableActiveModel
   end
 
   def self.all
-    I18n.t('api_entreprise.faq.categories').each_with_object([]) do |category, array|
+    I18n.t("#{api}.faq.categories").each_with_object([]) do |category, array|
       entries = category[:entries].map do |entry|
         new(
           entry.merge(
