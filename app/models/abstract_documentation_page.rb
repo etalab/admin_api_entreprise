@@ -1,5 +1,6 @@
-class DocumentationPage
+class AbstractDocumentationPage
   include ActiveModel::Model
+  include AbstractAPIClass
 
   attr_accessor :title,
     :sections
@@ -9,7 +10,7 @@ class DocumentationPage
   end
 
   def self.find(uid)
-    page_data = I18n.t!("api_entreprise.documentation_pages.#{uid}")
+    page_data = I18n.t!("#{api}.documentation_pages.#{uid}")
 
     new(
       title: page_data[:title],

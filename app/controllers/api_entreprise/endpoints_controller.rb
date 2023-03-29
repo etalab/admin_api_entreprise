@@ -2,13 +2,13 @@ class APIEntreprise::EndpointsController < APIEntrepriseController
   before_action :extract_endpoint, except: :index
 
   def index
-    @endpoints = Endpoint.all.reject(&:deprecated?)
+    @endpoints = APIEntreprise::Endpoint.all.reject(&:deprecated?)
 
     render 'index', layout: 'api_entreprise/no_container'
   end
 
   def show
-    @active_endpoints = EndpointDecorator.decorate_collection(Endpoint.all.reject(&:deprecated))
+    @active_endpoints = EndpointDecorator.decorate_collection(APIEntreprise::Endpoint.all.reject(&:deprecated))
   end
 
   def example
@@ -20,6 +20,6 @@ class APIEntreprise::EndpointsController < APIEntrepriseController
   private
 
   def extract_endpoint
-    @endpoint = Endpoint.find(params[:uid])
+    @endpoint = APIEntreprise::Endpoint.find(params[:uid])
   end
 end

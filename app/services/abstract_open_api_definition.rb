@@ -1,7 +1,7 @@
 require 'singleton'
 require 'open-uri'
 
-class OpenAPIDefinition
+class AbstractOpenAPIDefinition
   include Singleton
 
   attr_reader :backend
@@ -29,18 +29,20 @@ class OpenAPIDefinition
 
   # rubocop:disable Security/Open
   def open_api_definition_content
-    URI.open(open_api_definition_url).read
+    URI.open(remote_url).read
   rescue StandardError => e
     Sentry.capture_exception(e)
-    Rails.root.join('config/api-entreprise-v3-openapi.yml').read
+    local_path.read
   end
   # rubocop:enable Security/Open
 
-  def open_api_definition_url
-    if Rails.env.sandbox?
-      'https://sandbox.entreprise.api.gouv.fr/v3/openapi-entreprise.yaml'
-    else
-      'https://entreprise.api.gouv.fr/v3/openapi-entreprise.yaml'
-    end
+  protected
+
+  def local_path
+    fail NotImplementedError
+  end
+
+  def remote_url
+    fail NotImplementedError
   end
 end

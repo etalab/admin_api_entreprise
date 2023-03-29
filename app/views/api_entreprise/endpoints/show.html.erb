@@ -19,7 +19,7 @@
       <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
         <div class="fr-col-md-5 fr-col-12 logos">
           <% @endpoint.providers.each do |provider| %>
-            <%= image_tag("providers/#{provider.uid}.png", alt: 'Logo du fournisseur de données') %>
+            <%= image_tag(provider.image_path, alt: 'Logo du fournisseur de données') %>
           <% end %>
         </div>
 

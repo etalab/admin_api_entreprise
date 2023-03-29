@@ -1,5 +1,7 @@
 # rubocop:disable Metrics/ClassLength
-class Endpoint < ApplicationAlgoliaSearchableActiveModel
+class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
+  include AbstractAPIClass
+
   attr_accessor :uid,
     :path,
     :call_id,
@@ -33,19 +35,14 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
     attributesForFaceting %w[deprecated]
   end
 
-  def initialize(params)
-    super(params)
-    load_dummy_definition! if open_api_definition.blank? || response_schema.blank? || force_dummy_load?
-  end
-
   def self.all
-    AvailableEndpoints.all.map do |endpoint|
+    endpoints_store_class.all.map do |endpoint|
       new(endpoint)
     end
   end
 
   def self.find(uid)
-    available_endpoint = AvailableEndpoints.find(uid)
+    available_endpoint = endpoints_store_class.find(uid)
 
     raise not_found(uid) if available_endpoint.blank?
 
@@ -53,7 +50,11 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
   end
 
   def self.not_found(uid)
-    ActiveRecord::RecordNotFound.new("uid '#{uid}' does not exist in AvailableEndpoints", self, :uid, uid)
+    ActiveRecord::RecordNotFound.new("uid '#{uid}' does not exist in #{endpoints_store_class}", self, :uid, uid)
+  end
+
+  def self.endpoints_store_class
+    Kernel.const_get("#{api.classify}::EndpointsStore")
   end
 
   def id
@@ -76,28 +77,6 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
     deprecated
   end
 
-  def new_endpoints
-    return [] if !deprecated? || @new_endpoint_uids.blank?
-
-    @new_endpoint_uids.map do |new_endpoint_uid|
-      Endpoint.find(new_endpoint_uid)
-    end
-  end
-
-  def old_endpoints
-    @old_endpoints ||= (@old_endpoint_uids || []).map do |old_endpoint_uid|
-      Endpoint.find(old_endpoint_uid)
-    end
-  end
-
-  def historicized?
-    old_endpoints.any?
-  end
-
-  def maintenances
-    open_api_definition['x-maintenances']
-  end
-
   def attributes
     @attributes ||= extract_data_from_schema
   end
@@ -117,20 +96,6 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
   def example_payload
     @example_payload ||= response_schema['example'] ||
                          OpenAPISchemaToExample.new(response_schema).perform
-  end
-
-  def custom_provider_errors
-    @custom_provider_errors ||= error_examples('502').reject do |error_payload|
-      %w[
-        000
-        051
-        052
-        053
-        054
-        055
-        999
-      ].include?(error_payload['code'][2..])
-    end
   end
 
   def error_examples(http_code)
@@ -167,30 +132,11 @@ class Endpoint < ApplicationAlgoliaSearchableActiveModel
   end
 
   def open_api_definition
-    @open_api_definition ||= OpenAPIDefinition.get(path)
-  end
-
-  def load_dummy_definition!
-    @open_api_definition = I18n.t("api_entreprise.missing_endpoints.#{path}").stringify_keys
-    @dummy_definition = true
-  end
-
-  def dummy?
-    @dummy_definition
-  end
-
-  def force_dummy_load?
-    %w[
-      /v3/inpi/unites_legales/{siren}/actes
-    ].include?(path)
-  end
-
-  def implemented?
-    !dummy?
+    @open_api_definition ||= Kernel.const_get(self.class.name.split('::')[0])::OpenAPIDefinition.get(path)
   end
 
   def providers
-    Provider.filter_by_uid(provider_uids)
+    Kernel.const_get(api.classify)::Provider.filter_by_uid(provider_uids)
   end
 
   def use_case?(cas_usage_name)

@@ -1,4 +1,4 @@
-# Site vitrine / backoffice de [API Entreprise](https://entreprise.api.gouv.fr)
+# Site vitrine / backoffice de [API Entreprise](https://entreprise.api.gouv.fr) et [API Particulier](https://particulier.api.gouv.fr)
 
 [![Tests](https://github.com/etalab/admin_api_entreprise/actions/workflows/tests.yml/badge.svg)](https://github.com/etalab/admin_api_entreprise/actions/workflows/tests.yml)
 [![Linter](https://github.com/etalab/admin_api_entreprise/actions/workflows/lint.yml/badge.svg)](https://github.com/etalab/admin_api_entreprise/actions/workflows/lint.yml)
@@ -84,10 +84,9 @@ En local et sandbox, la connexion s'effectue sur `auth-test.api.gouv.fr` qui est
 de données de fixtures (disponible
 [ici](https://github.com/betagouv/api-auth/blob/master/scripts/fixtures.sql))
 
-Les 2 comptes suivants sont disponibles :
+Les comptes suivants sont disponibles :
 
 - user@yopmail.com / user@yopmail.com -> utilisateur normal
-- api-entreprise@yopmail.com / api-entreprise@yopmail.com -> utilisateur admin
 
 ### Sans Docker
 
@@ -100,8 +99,6 @@ Pour lancer le server:
 Vous pouvez accéder ensuite accéder au site via les adresses suivantes:
 
 ```
-# Affiche le site dashboard d'API Entreprise par défaut
-http://dashboard.entreprise.api.localtest.me:3000/
 # Pour visualiser le site d'API Entreprise
 http://entreprise.api.localtest.me:3000/
 # Pour visualiser le site d'API Particulier
@@ -119,8 +116,6 @@ docker-compose up
 Vous pouvez accéder ensuite accéder au site via le'adresse suivante:
 
 ```
-# Affiche le site dashboard d'API Entreprise par défaut
-http://dashboard.entreprise.api.localtest.me:5000/
 # Pour visualiser le site d'API Entreprise
 http://entreprise.api.localtest.me:5000/
 # Pour visualiser le site d'API Particulier

@@ -14,7 +14,9 @@ class AlgoliaReindexer
   end
 
   def indexable_active_models
-    ApplicationAlgoliaSearchableActiveModel.descendants
+    ApplicationAlgoliaSearchableActiveModel.descendants.reject do |model|
+      model.name.start_with?('Abstract')
+    end
   end
 
   def indexable_active_record_models

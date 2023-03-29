@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Endpoint do
+RSpec.describe APIEntreprise::Endpoint do
   describe '.all' do
     subject { described_class.all }
 

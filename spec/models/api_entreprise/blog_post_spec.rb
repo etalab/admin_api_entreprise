@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe BlogPost do
-  describe 'BlogPost.all' do
+RSpec.describe APIEntreprise::BlogPost do
+  describe '.all' do
     it 'returns an array' do
       expect(described_class.all).to be_an(Array)
     end
   end
 
-  describe 'BlogPost.find' do
+  describe '.find' do
     it 'returns a blog post' do
       expect(described_class.find('hello-world').id).to eq('hello-world')
     end
