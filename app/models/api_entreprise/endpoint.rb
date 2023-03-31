@@ -1,4 +1,14 @@
 class APIEntreprise::Endpoint < AbstractEndpoint
+  attr_accessor :data,
+    :extra_description,
+    :format,
+    :call_id,
+    :parameters,
+    :use_cases_optional,
+    :use_cases_forbidden,
+    :opening,
+    :historique
+
   def initialize(params)
     super(params)
     load_dummy_definition! if open_api_definition.blank? || response_schema.blank? || force_dummy_load?
