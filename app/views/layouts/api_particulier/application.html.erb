@@ -17,21 +17,18 @@
     <%= render partial: 'shared/common_head_scripts' %>
   </head>
 
-  <body>
+  <body
+    data-algolia-application-id="<%= Rails.application.credentials.algolia_application_id %>"
+    data-algolia-search-key="<%= Rails.application.credentials.algolia_search_api_key %>"
+  >
     <%# <%= render partial: 'shared/matomo' %>
     <%= render partial: 'shared/api_particulier/header' %>
 
-    <div class="fr-container fr-mb-5w fr-mt-5w">
-      <turbo-frame id="alerts">
-        <%= render partial: 'shared/alerts' %>
-      </turbo-frame>
-
-      <% if content_for?(:body) %>
-        <%= yield(:body) %>
-      <% else %>
-        <%= yield %>
-      <% end %>
-    </div>
+    <% if content_for?(:no_container) %>
+      <%= yield(:no_container) %>
+    <% else %>
+      <%= render partial: 'shared/api_particulier/containerized_body' %>
+    <% end %>
 
     <%= render partial: 'shared/api_particulier/footer' %>
   </body>
