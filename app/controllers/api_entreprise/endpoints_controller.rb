@@ -8,7 +8,6 @@ class APIEntreprise::EndpointsController < APIEntrepriseController
   end
 
   def show
-    @active_endpoints = EndpointDecorator.decorate_collection(APIEntreprise::Endpoint.all.reject(&:deprecated))
   end
 
   def example
