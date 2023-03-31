@@ -1,5 +1,5 @@
 class APIParticulier::PagesController < APIParticulierController
   def home
-    redirect_to api_particulier_login_path
+    @providers = APIParticulier::Provider.all
   end
 end
