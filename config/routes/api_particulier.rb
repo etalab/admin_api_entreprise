@@ -7,7 +7,7 @@ constraints(APIParticulierDomainConstraint.new) do
   end
 
   namespace :api_particulier, path: '' do
-    get '/', to: redirect('https://api.gouv.fr/les-api/api-particulier', status: 302)
+    get '/', to: 'pages#home'
 
     get '/stats', to: 'stats#index'
 

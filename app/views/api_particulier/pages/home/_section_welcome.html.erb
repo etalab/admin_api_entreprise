@@ -1,0 +1,23 @@
+<section class="center fr-pt-5w fr-pb-5w">
+  <h1 class="fr-mx-2w fr-text--regular">
+    <div>
+      <span class="fr-text--alt">
+        <%= t('.title').html_safe  %>
+      </span>
+    </div>
+  </h1>
+
+  <span class="fr-h3">
+    <%= t('.subtitle').html_safe %>
+  </span>
+
+  <div class="fr-m-1w">
+    <%= link_to endpoints_path, class: "fr-btn fr-m-1v" do %>
+      <%= t('.button_endpoints') %>&nbsp;<span class="fr-icon-arrow-right-line" aria-hidden="true"></span>
+    <% end %>
+
+    <%= link_to developers_path(anchor: 'kit-de-mise-en-production'), class: "fr-btn fr-btn--secondary fr-m-1v fr" do %>
+      <%= t('.button_developers') %>&nbsp;<span class="fr-icon-settings-5-line fr-icon--md" aria-hidden="true"></span>
+    <% end %>
+  </div>
+</section>
