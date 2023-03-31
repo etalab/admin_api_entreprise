@@ -24,7 +24,7 @@ class AbstractOpenAPIDefinition
   end
 
   def load_backend
-    @backend = YAML.safe_load(open_api_definition_content)
+    @backend = YAML.safe_load(open_api_definition_content, aliases: true, permitted_classes: [Date])
   end
 
   # rubocop:disable Security/Open

@@ -4,19 +4,10 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
 
   attr_accessor :uid,
     :path,
-    :call_id,
-    :parameters,
-    :format,
     :provider_uids,
     :perimeter,
-    :extra_description,
-    :data,
     :use_cases,
-    :use_cases_optional,
-    :use_cases_forbidden,
-    :keywords,
-    :opening,
-    :historique
+    :keywords
 
   attr_writer :new_endpoint_uids, :old_endpoint_uids
 

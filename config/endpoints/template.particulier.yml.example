@@ -1,0 +1,26 @@
+---
+- uid: 'pole_emploi/situation'
+  path: '/api/v2/situations-pole-emploi'
+  # Position au sein de l'index
+  position: 200
+  perimeter:
+    entity_type_description: |+
+      Une description exhaustive des types d'entité renvoyés par le endpoint dans la fiche détaillée. Le markdown GFM est supporté ici.
+    geographical_scope_description:  |+
+      Une description exhaustive du scope géographique dans la fiche détaillée. Le markdown GFM est supporté ici.
+    updating_rules_description: |+
+      Les règles de mise à jour de la donnée dans al fiche détaillée. Le markdown GFM est supporté ici.
+    know_more_description: |+
+      Lien optionnel pour en savoir plus sur la donnée. Le markdown GFM est supporté ici.
+
+  # La liste des clés disponible est stockée dans la locale `provider_uids` du fichier provider_uids.fr.yml
+  provider_uids:
+    - 'insee'
+  # Ces mots clés servent à la recherche algolia sur l'index du catalogue
+  keywords:
+    - 'whatever'
+  use_cases: []
+  faq:
+    - q: "Question ?"
+      a: |+
+        Réponse à la question. Le markdown GFM est supporté ici.
