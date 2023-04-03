@@ -1,0 +1,33 @@
+<% extra_classes ||= '' %>
+
+<div class="use-cases <%= extra_classes %>">
+  <h2 class="fr-h3 fr-mb-2v" id="<%= id %>">
+    <%= t('.title') %>
+  </h2>
+
+  <h3 class="fr-h6 fr-pt-2w fr-mb-1v">
+    <%= t('.format.title') %>
+  </h3>
+
+  <div>
+    Donnée structurée JSON
+  </div>
+
+  <h3 class="fr-h6 fr-pt-2w fr-mb-1v">
+    <%= t('.parameters.title', count: @endpoint.parameters.count) %>
+  </h3>
+
+  <ul>
+    <% @endpoint.parameters.each do |parameter| %>
+      <li>
+        <%= parameter %>
+      </li>
+    <% end %>
+  </ul>
+
+  <h3 class="fr-h5 fr-pt-2w">
+    <%= t('.technical_specifications.title') %>
+  </h3>
+
+  <%= link_to t('.technical_specifications.cta'), developers_openapi_path(anchor: @endpoint.redoc_anchor), data: { turbo: false }, class: %(fr-btn fr-btn--icon-right fr-icon-arrow-right-line) %>
+</div>

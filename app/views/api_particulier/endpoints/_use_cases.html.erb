@@ -1,0 +1,23 @@
+<% extra_classes ||= '' %>
+
+<div class="details <%= extra_classes %>">
+  <% if @endpoint.use_cases %>
+    <h2 class="fr-h3" id="<%= id %>">
+      <%= t('.main.title') %>
+    </h2>
+
+    <div>
+      <%= t('.main.description') %>
+    </div>
+
+    <ul class="fr-tags-group fr-mt-2w">
+      <% @endpoint.use_cases.each do |use_case| %>
+        <li class="fr-mb-1w">
+          <span class="fr-tag">
+            <%= use_case %>
+          </span>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

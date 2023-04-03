@@ -7,8 +7,7 @@ class APIEntreprise::EndpointsController < APIEntrepriseController
     render 'index', layout: 'api_entreprise/no_container'
   end
 
-  def show
-  end
+  def show; end
 
   def example
     return unless @endpoint.dummy?

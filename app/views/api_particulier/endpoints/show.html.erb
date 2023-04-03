@@ -1,0 +1,180 @@
+<% layout_main_bloc = 8 %>
+<article id="<%= dom_id(@endpoint) %>" class="endpoint">
+  <h1>
+    <%= @endpoint.title %>
+  </h1>
+
+  <div class="fr-grid-row fr-pb-2w">
+    <div class="fr-col-md-<%= layout_main_bloc %> fr-col-12">
+      <p class="fr-text--lead fr-mt-md-2w">
+        <%= @endpoint.description %>
+      </p>
+    </div>
+
+    <div class="providers fr-col-md-<%= 12 - layout_main_bloc %> fr-col-12">
+      <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
+        <div class="fr-col-md-5 fr-col-12 logos">
+          <% @endpoint.providers.each do |provider| %>
+            <%= image_tag(provider.image_path, alt: 'Logo du fournisseur de données') %>
+          <% end %>
+        </div>
+
+        <div class="text fr-col-md-7 fr-col-12">
+          <div class="fr-text--sm fr-mb-2w">
+            <%= t('.providers.description', count: @endpoint.providers.count) %>
+          </div>
+
+          <p>
+            <% @endpoint.providers.map do |provider| %>
+              <%= t("providers.#{provider.name}") %>
+            <% end.join(' & ') %>
+          <p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="separator fr-unhidden-md fr-hidden">
+
+  <div class="fr-grid-row">
+    <div class="fr-col-md-<%= layout_main_bloc %> fr-col-12 fr-pt-2w fr-mt-md-0 fr-pr-md-2w fr-pr-0">
+      <h2 id="perimetre">
+        <%= t('.perimeter.title') %>
+      </h2>
+
+      <% if @endpoint.perimeter['description'].present? %>
+        <div>
+          <%= markdown_to_html(@endpoint.perimeter['description']) %>
+        </div>
+      <% end %>
+      <% if @endpoint.perimeter['entity_type_description'].present? %>
+        <h3 class="fr-h6 fr-mb-1w fr-mt-3w" id="perimetre_entites_concernees">
+          <%= t('.perimeter.entity_type_title') %>
+        </h3>
+
+        <div>
+          <%= markdown_to_html(@endpoint.perimeter['entity_type_description']) %>
+        </div>
+      <% end %>
+      <% if @endpoint.perimeter['geographical_scope_description'].present? %>
+        <h3 class="fr-h6 fr-mb-1w fr-mt-3w" id="perimetre_geographique">
+          <%= t('.perimeter.geographical_scope_title') %>
+        </h3>
+
+        <div>
+          <%= markdown_to_html(@endpoint.perimeter['geographical_scope_description']) %>
+        </div>
+      <% end %>
+      <% if @endpoint.perimeter['updating_rules_description'].present? %>
+        <h3 class="fr-h6 fr-mb-1w fr-mt-3w" id="perimetre_regles_mise_a_jour">
+          <%= t('.perimeter.updating_rules_title') %>
+        </h3>
+
+        <div>
+          <%= markdown_to_html(@endpoint.perimeter['updating_rules_description']) %>
+        </div>
+      <% end %>
+      <% if @endpoint.perimeter['know_more_description'].present? %>
+        <h3 class="fr-h6 fr-mb-1w fr-mt-3w" id="perimetre_en_savoir_plus">
+          <%= t('.perimeter.know_more_title') %>
+        </h3>
+
+        <div>
+          <%= markdown_to_html(@endpoint.perimeter['know_more_description']) %>
+        </div>
+      <% end %>
+
+      <%= render partial: 'use_cases', locals: { id: 'use_cases_mobile', extra_classes: 'fr-hidden-md' } %>
+      <%= render partial: 'details', locals: { id: 'use_cases_mobile', extra_classes: 'fr-mb-3w fr-hidden-md' } %>
+
+      <h2 id="donnees" class="fr-mt-md-5w fr-mt-8w">
+        <%= t('.data.title') %>
+      </h2>
+
+      <h3 id="donnees_attributs" class="fr-h6 fr-mb-1w fr-mt-3w">
+        <%= t('.attributes.title') %>
+      </h3>
+
+      <div class="fr-mt-2w fr-mb-6w">
+        <a href="<%= endpoint_example_path(uid: @endpoint.uid) %>" id="example_link" class="fr-btn fr-btn--secondary fr-icon-eye-line fr-btn--icon-left fr-mt-2w" aria-controls="main-modal" data-fr-opened="false" data-turbo-frame="main-modal-content">
+          Aperçu d'un exemple de réponse JSON
+        </a>
+      </div>
+
+      <div class="keep-within-block-mobile">
+        <% @endpoint.attributes.each do |key, properties| %>
+          <%=
+            render partial: 'shared/endpoints/property', locals: {
+              key: key,
+              kind: 'attribute',
+              properties: properties
+            }
+          %>
+        <% end %>
+      </div>
+
+      <% if @endpoint.faq.any? %>
+        <h2 id="faq" class="fr-mt-md-5w fr-mt-8w">
+          <%= t('.faq.title') %>
+        </h2>
+
+        <div class="fr-accordions-group">
+          <% @endpoint.faq.each_with_index do |faq_entry, index| %>
+            <section class="fr-accordion faq-entry" id="<%= dom_id(@endpoint, "faq_entry_#{index}") %>">
+              <h3 class="fr-accordion__title">
+                <button class="fr-accordion__btn" aria-expanded="false" aria-controls="<%= dom_id(@endpoint, "faq_entry_answer_#{index}") %>">
+                  <div>
+                    <%= raw faq_entry['question'] %>
+                  </div>
+                </button>
+              </h3>
+
+              <div class="fr-collapse" id="<%= dom_id(@endpoint, "faq_entry_answer_#{index}") %>">
+                <%= raw faq_entry['answer'] %>
+              </div>
+            </section>
+          <% end %>
+        </div>
+      <% end %>
+
+      <h2 id="cgu" class="fr-mt-md-5w fr-mt-8w">
+        <%= t('.cgu.title') %>
+      </h2>
+
+      <h3 class="fr-h6 fr-mb-1w fr-mt-3w">
+        <%= t('.cgu.main_title') %>
+      </h3>
+
+      <p>
+        Cette API et l’utilisation de ses données est soumise aux CGU générales d’API Particulier, dont voici les principaux éléments auxquels vous vous engagez :
+
+        <ul>
+          <li>
+            <strong>ne demander que les données strictement nécessaires</strong> ;
+          </li>
+          <li>
+            <strong>ne pas utiliser votre jeton d’accès pour une démarche différente</strong> de celle indiquée lors de votre demande (le cas échéant le jeton sera révoqué) ;
+          </li>
+          <li>
+            <strong>présenter les données obtenues uniquement aux seuls agents habilités</strong> et à tracer l’accès de ces agents aux données ;
+          </li>
+          <li>
+            <strong>ne pas commercialiser les données</strong> reçues et à ne pas les communiquer à des tiers en dehors des cas prévus par la loi.
+          </li>
+        </ul>
+
+        L’ensemble des conditions sont consultables et téléchargeables ci-dessous :
+
+        <br>
+        <br>
+
+        <%= link_to t('.cgu.cta'), cgu_path, id: 'cgu_link', class: %w(fr-btn fr-btn--secondary fr-btn--icon-right fr-icon-eye-line) %>
+      </p>
+    </div>
+
+    <div class="fr-col-md-<%= 12 - layout_main_bloc %>">
+      <%= render partial: 'use_cases', locals: { id: 'use_cases_desktop', extra_classes: 'fr-hidden fr-unhidden-md' } %>
+      <%= render partial: 'details', locals: { id: 'details_desktop', extra_classes: 'fr-hidden fr-unhidden-md' } %>
+    </div>
+  </div>
+</article>
