@@ -39,4 +39,8 @@ module ApplicationHelper
   def icon(kind)
     "<span class=\"icon #{kind}\" aria-hidden=\"true\"></span>".html_safe
   end
+
+  def api_name
+    t("#{namespace}.name")
+  end
 end
