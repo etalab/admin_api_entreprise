@@ -30,7 +30,7 @@ class AbstractOpenAPIDefinition
   # rubocop:disable Security/Open
   def open_api_definition_content
     URI.open(remote_url).read
-  rescue StandardError => e
+  rescue StandardError, OpenURI::HTTPError => e
     Sentry.capture_exception(e)
     local_path.read
   end
