@@ -24,7 +24,7 @@ RSpec.describe APIEntreprise::EndpointsStore, type: :store do
     subject { described_class.find(uid) }
 
     context 'with valid uid' do
-      let(:uid) { example_uid }
+      let(:uid) { api_entreprise_example_uid }
 
       it { is_expected.to be_present }
 

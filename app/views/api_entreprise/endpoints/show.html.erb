@@ -143,7 +143,7 @@
 
           <% @endpoint.attributes.each do |key, properties| %>
             <%=
-              render partial: 'property', locals: {
+              render partial: 'shared/endpoints/property', locals: {
                 key: key,
                 kind: 'attribute',
                 properties: properties
@@ -163,7 +163,7 @@
             <div class="keep-within-block-mobile">
               <% @endpoint.root_links.each do |key, properties| %>
                 <%=
-                  render partial: 'property', locals: {
+                  render partial: 'shared/endpoints/property', locals: {
                     key: key,
                     kind: 'link',
                     properties: properties
@@ -185,7 +185,7 @@
             <div class="keep-within-block-mobile">
               <% @endpoint.root_meta.each do |key, properties| %>
                 <%=
-                  render partial: 'property', locals: {
+                  render partial: 'shared/endpoints/property', locals: {
                     key: key,
                     kind: 'meta',
                     properties: properties

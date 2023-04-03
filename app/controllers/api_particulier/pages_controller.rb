@@ -5,7 +5,7 @@ class APIParticulier::PagesController < APIParticulierController
 
   def cgu
     render content_type: 'application/pdf',
-      body: File.read(Rails.root.join('public/files/cgu-api-particulier-2022-03.pdf')),
+      body: Rails.public_path.join('files/cgu-api-particulier-2022-03.pdf').read,
       filename: 'cgu-api-particulier-2022-03.pdf'
   end
 

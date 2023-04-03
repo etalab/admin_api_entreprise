@@ -1,9 +1,13 @@
 module SpecsHelper
-  def example_uid
+  def api_particulier_example_uid
+    'cnaf/quotient_familial'
+  end
+
+  def api_entreprise_example_uid
     'insee/unites_legales'
   end
 
-  def example_collection_uid
+  def api_entreprise_example_collection_uid
     'infogreffe/mandataires_sociaux'
   end
 

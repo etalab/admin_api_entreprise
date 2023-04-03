@@ -25,7 +25,7 @@
       <div class="sub-properties fr-mt-1w">
         <% properties['properties'].each do |sub_key, sub_properties| %>
           <%=
-            render partial: 'property', locals: {
+            render partial: 'shared/endpoints/property', locals: {
               key: sub_key,
               kind: key,
               properties: sub_properties
@@ -40,7 +40,7 @@
         </div>
 
         <%=
-          render partial: 'property', locals: {
+          render partial: 'shared/endpoints/property', locals: {
             key: "items_#{key}",
             kind: 'array',
             properties: properties['items']

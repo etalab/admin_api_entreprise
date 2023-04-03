@@ -5,6 +5,7 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
   attr_accessor :uid,
     :path,
     :provider_uids,
+    :parameters,
     :perimeter,
     :use_cases,
     :keywords
