@@ -9,6 +9,22 @@ RSpec.describe 'Simple pages', app: :api_particulier do
     end
   end
 
+  describe 'mentions' do
+    it 'does not raise error' do
+      expect {
+        visit mentions_path
+      }.not_to raise_error
+    end
+  end
+
+  describe 'cgu' do
+    it 'does not raise error' do
+      expect {
+        visit cgu_path
+      }.not_to raise_error
+    end
+  end
+
   describe 'account' do
     it 'does not raise error' do
       expect {

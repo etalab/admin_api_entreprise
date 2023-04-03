@@ -22,5 +22,9 @@ constraints(APIParticulierDomainConstraint.new) do
 
     post 'public/magic_link/create', to: 'public_token_magic_links#create'
     get 'public/jetons/:access_token', to: 'public_token_magic_links#show', as: :token_show_magic_link
+
+    get '/mentions-legales', to: 'pages#mentions', as: :mentions
+    get '/cgu', to: 'pages#cgu', as: :cgu
+    get '/accessibilite', to: 'pages#accessibility', as: :accessibilite
   end
 end
