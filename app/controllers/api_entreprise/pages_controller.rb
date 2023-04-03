@@ -25,7 +25,9 @@ class APIEntreprise::PagesController < APIEntrepriseController
 
   def accessibility; end
 
-  def redoc; end
+  def redoc
+    render 'shared/pages/redoc'
+  end
 
   private
 

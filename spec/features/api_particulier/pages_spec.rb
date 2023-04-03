@@ -18,4 +18,16 @@ RSpec.describe 'Simple pages', app: :api_particulier do
       expect(page).to have_content('API Particulier')
     end
   end
+
+  describe 'developers redoc page', js: true do
+    it 'works and displays openapi container' do
+      Capybara.using_wait_time 5 do
+        expect {
+          visit developers_openapi_path
+        }.not_to raise_error
+
+        expect(page).to have_content('Quotient familial')
+      end
+    end
+  end
 end
