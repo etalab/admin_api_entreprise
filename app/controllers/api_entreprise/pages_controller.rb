@@ -19,11 +19,15 @@ class APIEntreprise::PagesController < APIEntrepriseController
 
   def newsletter; end
 
-  def mentions; end
-
   def cgu; end
 
-  def accessibility; end
+  def mentions
+    render 'shared/pages/mentions'
+  end
+
+  def accessibility
+    render 'shared/pages/accessibility'
+  end
 
   def redoc
     render 'shared/pages/redoc'

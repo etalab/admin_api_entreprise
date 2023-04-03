@@ -43,4 +43,8 @@ module ApplicationHelper
   def api_name
     t("#{namespace}.name")
   end
+
+  def support_email
+    t("#{namespace}.support_email")
+  end
 end
