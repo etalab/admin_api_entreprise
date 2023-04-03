@@ -76,14 +76,6 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
     @redoc_anchor ||= "tag/#{tag_for_redoc}/paths/#{path_for_redoc}/get"
   end
 
-  def root_links
-    @root_links ||= extract_root_properties_from_schema('links')
-  end
-
-  def root_meta
-    @root_meta ||= extract_root_properties_from_schema('meta')
-  end
-
   def example_payload
     @example_payload ||= response_schema['example'] ||
                          OpenAPISchemaToExample.new(response_schema).perform
@@ -98,11 +90,6 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
     http_code_response['content']['application/json']['examples'].values.map { |example_schema_payload|
       example_schema_payload['value']['errors']
     }.flatten
-  end
-
-  def collection_types
-    @collection_types ||= response_schema
-      .dig('properties', 'data', 'items', 'properties', 'data', 'properties', 'type') || {}
   end
 
   def collection?
@@ -143,34 +130,6 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
   end
 
   private
-
-  def extract_data_from_schema
-    properties_path = %w[properties data properties]
-    properties_path.insert(2, 'items') if collection?
-    properties_path.insert(-1, 'data') if collection?
-    properties_path.insert(-1, 'properties') if collection?
-
-    response_schema.dig(*properties_path) || {}
-  end
-
-  def extract_properties_from_schema(name)
-    properties_path = ['properties', 'data', 'properties', name]
-    properties_path.insert(2, 'items') if collection?
-
-    response_schema.dig(*properties_path).try(:[], 'properties') || {}
-  end
-
-  def extract_root_properties_from_schema(name)
-    response_schema.dig('properties', name).try(:[], 'properties') || {}
-  end
-
-  def response_schema
-    ok_response = open_api_definition['responses']['200']
-
-    return if ok_response.blank?
-
-    ok_response['content']['application/json']['schema']
-  end
 
   def tag_for_redoc
     return unless open_api_definition['tags']
