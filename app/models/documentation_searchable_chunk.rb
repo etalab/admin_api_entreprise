@@ -22,8 +22,8 @@ class DocumentationSearchableChunk < ApplicationAlgoliaSearchableActiveModel
   end
 
   def self.all
-    %w[entreprise particulier].each do |api|
-      I18n.t!("api_#{api}.documentation_pages").each_with_object([]) do |(page_uid, page_data), searchable_chunks|
+    %w[entreprise particulier].each_with_object([]) do |api, searchable_chunks|
+      I18n.t!("api_#{api}.documentation_pages").each do |page_uid, page_data|
         page_data[:sections].each do |section|
           (section[:subsections] || []).each do |subsection|
             searchable_chunks << new(subsection, page_uid)
