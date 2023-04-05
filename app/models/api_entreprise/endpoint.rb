@@ -96,12 +96,4 @@ class APIEntreprise::Endpoint < AbstractEndpoint
   def extract_root_properties_from_schema(name)
     response_schema.dig('properties', name).try(:[], 'properties') || {}
   end
-
-  def response_schema
-    ok_response = open_api_definition['responses']['200']
-
-    return if ok_response.blank?
-
-    ok_response['content']['application/json']['schema']
-  end
 end

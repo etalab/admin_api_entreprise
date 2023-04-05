@@ -82,6 +82,14 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
                          OpenAPISchemaToExample.new(response_schema).perform
   end
 
+  def response_schema
+    ok_response = open_api_definition['responses']['200']
+
+    return if ok_response.blank?
+
+    ok_response['content']['application/json']['schema']
+  end
+
   def error_examples(http_code)
     http_code_response = open_api_definition['responses'][http_code]
 
