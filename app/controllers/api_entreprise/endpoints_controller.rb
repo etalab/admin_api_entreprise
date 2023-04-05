@@ -10,9 +10,11 @@ class APIEntreprise::EndpointsController < APIEntrepriseController
   def show; end
 
   def example
-    return unless @endpoint.dummy?
-
-    redirect_to endpoint_path(uid: @endpoint.uid)
+    if @endpoint.dummy?
+      redirect_to endpoint_path(uid: @endpoint.uid)
+    else
+      render 'shared/endpoints/example'
+    end
   end
 
   private

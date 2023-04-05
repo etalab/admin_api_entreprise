@@ -9,7 +9,9 @@ class APIParticulier::EndpointsController < APIParticulierController
 
   def show; end
 
-  def example; end
+  def example
+    render 'shared/endpoints/example'
+  end
 
   private
 
