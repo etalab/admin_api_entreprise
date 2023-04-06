@@ -1,6 +1,9 @@
 class APIParticulier::PagesController < APIParticulierController
+  layout :page_layout
+
   def home
     @providers = APIParticulier::Provider.all
+    @endpoints_sample = APIParticulier::Endpoint.all.sample(3)
   end
 
   def cgu
@@ -19,5 +22,14 @@ class APIParticulier::PagesController < APIParticulierController
 
   def accessibility
     render 'shared/pages/accessibility'
+  end
+
+  private
+
+  def page_layout
+    case action_name
+    when 'home'
+      'api_particulier/no_container'
+    end
   end
 end
