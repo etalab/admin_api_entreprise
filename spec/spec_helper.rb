@@ -14,7 +14,7 @@
 
 # Configuration for simplecov
 # Test coverage options (activated only if rspec is run without arguments)
-if ARGV.grep(/spec\.rb/).empty? || ENV['CI'].present? || ENV['COVERAGE'].present?
+if ARGV.grep(/spec\.rb/).empty? || ENV['CI'] || ENV['COVERAGE']
   require 'simplecov'
   require 'simplecov-console'
 
