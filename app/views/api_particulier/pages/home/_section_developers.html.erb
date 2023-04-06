@@ -1,0 +1,44 @@
+<section id="section-developers">
+  <div class="fr-container fr-p-5w">
+    <div class="fr-grid-row">
+      <h2 class="fr-h3 fr-col-12"><%= t('.title').html_safe %></h2>
+      <p class="fr-col-12"><%= t('.description') %></p>
+    </div>
+
+    <div class="cards">
+      <div class="fr-card fr-m-2v fr-enlarge-link">
+        <div class="fr-card__body">
+          <div class="fr-card__content">
+            <h3 class="fr-h4 fr-card__title">
+              <%= link_to t('.prerequisites_link'), developers_path(anchor: 'prerequis-techniques') %>
+            </h3>
+            <p class="fr-card__desc"><%= t('.prerequisites_description') %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="fr-card fr-m-2v fr-enlarge-link">
+        <div class="fr-card__body">
+          <div class="fr-card__content">
+            <h3 class="fr-h4 fr-card__title">
+              <%= link_to t('.integration_link'), developers_path(anchor: 'kit-de-mise-en-production') %>
+            </h3>
+            <p class="fr-card__desc"><%= t('.integration_description') %></p>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="fr-card fr-m-2v fr-enlarge-link">
+        <div class="fr-card__body">
+          <div class="fr-card__content">
+            <h3 class="fr-h4 fr-card__title">
+              <%= link_to t('.swagger_link'), developers_openapi_path %>
+            </h3>
+            <p class="fr-card__desc"><%= t('.swagger_description') %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
