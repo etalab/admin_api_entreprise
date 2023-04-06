@@ -15,7 +15,7 @@
           "type": "controller",
           "class": "APIEntreprise::EndpointsController",
           "method": "show",
-          "line": 12,
+          "line": 11,
           "file": "app/controllers/api_entreprise/endpoints_controller.rb",
           "rendered": {
             "name": "api_entreprise/endpoints/show",
@@ -115,6 +115,50 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
+      "fingerprint": "6e045331fd394b170ca66ab338afeaa9922838fba2d730e6f3aeec93c3712731",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/api_particulier/documentation/_menu.html.erb",
+      "line": 9,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "(Unresolved Model).new[:introduction].title",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "APIParticulier::DocumentationController",
+          "method": "developers",
+          "line": 7,
+          "file": "app/controllers/api_particulier/documentation_controller.rb",
+          "rendered": {
+            "name": "api_particulier/documentation/index",
+            "file": "app/views/api_particulier/documentation/index.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "api_particulier/documentation/index",
+          "line": 4,
+          "file": "app/views/api_particulier/documentation/index.html.erb",
+          "rendered": {
+            "name": "api_particulier/documentation/_menu",
+            "file": "app/views/api_particulier/documentation/_menu.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "api_particulier/documentation/_menu"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
       "fingerprint": "95a95ef2fe2a973ec4c069e6b5d12484374d3dfb7fb4a696a4afb1ecf717f1d0",
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
@@ -138,6 +182,74 @@
       "location": {
         "type": "template",
         "template": "api_entreprise/documentation/index"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "9d86aa37e1a4bb160e00dfd490f8da5e03de289c78031c318e93f3e7eb23ebed",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/api_particulier/documentation/index.html.erb",
+      "line": 32,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "(Unresolved Model).new[:introduction].content",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "APIParticulier::DocumentationController",
+          "method": "developers",
+          "line": 7,
+          "file": "app/controllers/api_particulier/documentation_controller.rb",
+          "rendered": {
+            "name": "api_particulier/documentation/index",
+            "file": "app/views/api_particulier/documentation/index.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "api_particulier/documentation/index"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "a7871533c88e1d58522687dae37c1f9e31cef1cfa775502aca2e684684e9ea14",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/api_particulier/documentation/index.html.erb",
+      "line": 27,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "(Unresolved Model).new[:introduction].title",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "APIParticulier::DocumentationController",
+          "method": "developers",
+          "line": 7,
+          "file": "app/controllers/api_particulier/documentation_controller.rb",
+          "rendered": {
+            "name": "api_particulier/documentation/index",
+            "file": "app/views/api_particulier/documentation/index.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "api_particulier/documentation/index"
       },
       "user_input": null,
       "confidence": "High",
@@ -189,8 +301,52 @@
         79
       ],
       "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "faa35a2cf3ef6134b43a15565db3b4c90d2c8d028504f1d083b7e9af5958b4a4",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/api_particulier/documentation/_banner.html.erb",
+      "line": 3,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "APIParticulier::DocumentationPage.find(\"developers\").title",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "APIParticulier::DocumentationController",
+          "method": "developers",
+          "line": 7,
+          "file": "app/controllers/api_particulier/documentation_controller.rb",
+          "rendered": {
+            "name": "api_particulier/documentation/index",
+            "file": "app/views/api_particulier/documentation/index.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "api_particulier/documentation/index",
+          "line": 8,
+          "file": "app/views/api_particulier/documentation/index.html.erb",
+          "rendered": {
+            "name": "api_particulier/documentation/_banner",
+            "file": "app/views/api_particulier/documentation/_banner.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "api_particulier/documentation/_banner"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
     }
   ],
-  "updated": "2023-03-27 13:01:11 +0200",
+  "updated": "2023-04-06 12:31:40 +0200",
   "brakeman_version": "5.4.1"
 }
