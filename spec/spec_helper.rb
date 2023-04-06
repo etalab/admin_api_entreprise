@@ -12,13 +12,9 @@
 # the additional setup, and require it from the spec files that actually need
 # it.
 
-require 'rspec/retry'
-require 'webmock/rspec'
-require 'pundit/rspec'
-
 # Configuration for simplecov
 # Test coverage options (activated only if rspec is run without arguments)
-if ARGV.grep(/spec\.rb/).empty?
+if ARGV.grep(/spec\.rb/).empty? || ENV['CI'].present? || ENV['COVERAGE'].present?
   require 'simplecov'
   require 'simplecov-console'
 
@@ -30,12 +26,15 @@ if ARGV.grep(/spec\.rb/).empty?
   )
 
   SimpleCov.start 'rails' do
-    add_filter 'app/channels/'
     add_filter 'app/jobs/application_job.rb'
     add_filter 'app/mailers/application_mailer.rb'
     add_filter 'lib/tasks/'
   end
 end
+
+require 'rspec/retry'
+require 'webmock/rspec'
+require 'pundit/rspec'
 
 require 'capybara/rspec'
 require 'rack_session_access/capybara'
