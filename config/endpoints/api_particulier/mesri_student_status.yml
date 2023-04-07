@@ -4,31 +4,33 @@
   position: 200
   perimeter:
     entity_type_description: |+
-      Cette API concerne les ✅ **étudiants inscrits dans les établissements sous tutelle du ministère de l'enseignement supérieur**, ou pré-inscrits au sens du CROUS.
+      Cette API concerne les ✅ **étudiants admis ou inscrits dans les établissements sous tutelle du ministère de l'enseignement supérieur**, ayant au minimum une admission ou inscription dans l'année en cours et quelque soit leur régime : formation initiale, apprentissage, stagiaire de la formation continue, contrat de professionnalisation...
 
-      Ne sont pas concernés :
+      Ne sont pas concernés, les étudiants des établissements :
 
-      - ❌ les établissements sous tutelle du ministère de l'agriculture ;
-      - ❌ les établissements sous tutelle du ministère de la culture ;
-      - ❌ les établissements du secondaire (BTS, classes préparatoires,...) ;
-      - ❌ les établissements privés.
+      - ❌ sous tutelle du ministère de l'agriculture ;
+      - ❌ sous tutelle du ministère de la culture ;
+      - ❌ du secondaire (BTS, classes préparatoires,...) ;
+      - ❌ privés.
 
-      ℹ️ La couverture des établissements du champ des étudiants sera progressivement complétée. Le MSER, fournisseur de la donnée, précise que l'ambition de cette API est bien de couvrir un nombre maximum d’étudiants, même à terme les étudiants dont les établissements sont sous tutelles autre que celle du Ministère l’Enseignement Supérieur et de la Recherche.
+      {:.fr-highlight}
+      > ℹ️ Le MSER précise que l'ambition de cette API est bien de couvrir un nombre maximum d’étudiants, y compris à terme les étudiants dont les établissements sont sous autre tutelle que celle du Ministère l’Enseignement Supérieur et de la Recherche.
 
+      
 
-      **Les étudiants concernés sont ceux ayant au minimum une pré-inscription ou inscription dans l'année en cours** quelque soit leur régime :  étudiant en formation initiale, apprenti, stagiaire de la formation continue, contrat de professionnalisation...
+      ⚠️ **Tous les établissements ne délivrent pas les informations des étudiants admis**. Par conséquent si un étudiant est admis et que l'API ne vous renvoie pas d'information, il n'est pas possible de considérer de façon définitive que cet étudiant n'est pas admis.
 
-      ⚠️ **Tous les établissements ne délivrent pas les informations des étudiants pré-inscrits au sens du CNOUS**, indiqués par le statut _admis_. Par conséquent si un étudiant est pré-inscrit au sens du CNOUS et que l'API ne vous renvoie pas d'information, il n'est pas possible de considérer de façon définitive que cet étudiant n'est pas pré-inscrit.
+      En savoir plus sur la [différence entre le statut inscrit et admis](#faq_entry_0_api_particulier_endpoint_mesr_statut_etudiant).
 
     geographical_scope_description:  |+
-      Le référentiel national du statut étudiant couvre une partie des établissements de ✅ métropole et les départements et régions d'outre-mer : Martinique, Guadeloupe, Guyane et Réunion.
+      Le référentiel national du statut étudiant couvre **✅ une partie des établissements de métropole et de Martinique, Guadeloupe, Guyane et Réunion**.
 
       Ne sont pas couverts :
-
       - ❌ les collectivités d’outre-mer Mayotte, Polynésie française, Saint-Barthélemy, Saint-Martin, Saint-Pierre-et-Miquelon, Wallis-et-Futuna ;
-      - ❌ Les établissements français de l'étranger.
+      - ❌ les établissements français de l'étranger.
 
-      ℹ️ Le MESR, fournisseur de la donnée, précise que l'ambition de cette API est bien de couvrir tous les établissements situées en France métropolitaine et d’outre-mer, y compris les collectivités d’outre-mer. Les établissements français de l'étranger ne seront pas contre pas couverts.
+      {:.fr-highlight}
+      > ℹ️ Le MESR précise que l'ambition de cette API est bien de couvrir tous les établissements situées en France métropolitaine et d’outre-mer, y compris les collectivités d’outre-mer. Les établissements français de l'étranger ne seront pas contre pas couverts.
 
       <iframe src="https://data.enseignementsup-recherche.gouv.fr/explore/embed/dataset/fr-esr-api-statut-etudiant/viz/?static=false&datasetcard=false&apikey=509275f034986f39f87d0ccf2a075efe6c2df21f253e505abb58af38" width="600" height="400" frameborder="0"></iframe>
 
