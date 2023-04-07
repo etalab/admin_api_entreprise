@@ -4,58 +4,68 @@
   position: 200
   perimeter:
     entity_type_description: |+
-      Cette API concerne les ✅ **étudiants inscrits dans les établissements sous tutelle du ministère de l'enseignement supérieur**, ou pré-inscrits au sens du CROUS.
+      Cette API concerne les ✅ **étudiants admis ou inscrits dans les établissements sous tutelle du ministère de l'enseignement supérieur**, ayant au minimum une admission ou inscription dans l'année en cours et quelque soit leur régime : formation initiale, apprentissage, stagiaire de la formation continue, contrat de professionnalisation...
 
-      Ne sont pas concernés :
+      Ne sont pas concernés, les étudiants des établissements :
 
-      - ❌ les établissements sous tutelle du ministère de l'agriculture ;
-      - ❌ les établissements sous tutelle du ministère de la culture ;
-      - ❌ les établissements du secondaire (BTS, classes préparatoires,...) ;
-      - ❌ les établissements privés.
+      - ❌ sous tutelle du ministère de l'agriculture ;
+      - ❌ sous tutelle du ministère de la culture ;
+      - ❌ du secondaire (BTS, classes préparatoires,...) ;
+      - ❌ privés.
 
-      ℹ️ La couverture des établissements du champ des étudiants sera progressivement complétée. Le MSER, fournisseur de la donnée, précise que l'ambition de cette API est bien de couvrir un nombre maximum d’étudiants, même à terme les étudiants dont les établissements sont sous tutelles autre que celle du Ministère l’Enseignement Supérieur et de la Recherche.
+      {:.fr-highlight}
+      > ℹ️ Le MSER précise que l'ambition de cette API est bien de couvrir un nombre maximum d’étudiants, y compris à terme les étudiants dont les établissements sont sous autre tutelle que celle du Ministère l’Enseignement Supérieur et de la Recherche.
 
+      ⚠️ **Tous les établissements ne délivrent pas les informations des étudiants admis**. Par conséquent si un étudiant est admis et que l'API ne vous renvoie pas d'information, il n'est pas possible de considérer de façon définitive que cet étudiant n'est pas admis.
 
-      **Les étudiants concernés sont ceux ayant au minimum une pré-inscription ou inscription dans l'année en cours** quelque soit leur régime :  étudiant en formation initiale, apprenti, stagiaire de la formation continue, contrat de professionnalisation...
-
-      ⚠️ **Tous les établissements ne délivrent pas les informations des étudiants pré-inscrits au sens du CNOUS**, indiqués par le statut _admis_. Par conséquent si un étudiant est pré-inscrit au sens du CNOUS et que l'API ne vous renvoie pas d'information, il n'est pas possible de considérer de façon définitive que cet étudiant n'est pas pré-inscrit.
+      En savoir plus sur la [différence entre le statut inscrit et admis](#faq_entry_0_api_particulier_endpoint_mesr_statut_etudiant).
 
     geographical_scope_description:  |+
-      Le référentiel national du statut étudiant couvre une partie des établissements de ✅ métropole et les départements et régions d'outre-mer : Martinique, Guadeloupe, Guyane et Réunion.
+      Le référentiel national du statut étudiant couvre **✅ une partie des établissements de métropole et de Martinique, Guadeloupe, Guyane et Réunion**.
 
       Ne sont pas couverts :
-
       - ❌ les collectivités d’outre-mer Mayotte, Polynésie française, Saint-Barthélemy, Saint-Martin, Saint-Pierre-et-Miquelon, Wallis-et-Futuna ;
-      - ❌ Les établissements français de l'étranger.
+      - ❌ les établissements français de l'étranger.
 
-      ℹ️ Le MESR, fournisseur de la donnée, précise que l'ambition de cette API est bien de couvrir tous les établissements situées en France métropolitaine et d’outre-mer, y compris les collectivités d’outre-mer. Les établissements français de l'étranger ne seront pas contre pas couverts.
+      {:.fr-highlight}
+      > ℹ️ Le MESR précise que l'ambition de cette API est bien de couvrir tous les établissements situées en France métropolitaine et d’outre-mer, y compris les collectivités d’outre-mer. Les établissements français de l'étranger ne seront pas contre pas couverts.
 
       <iframe src="https://data.enseignementsup-recherche.gouv.fr/explore/embed/dataset/fr-esr-api-statut-etudiant/viz/?static=false&datasetcard=false&apikey=509275f034986f39f87d0ccf2a075efe6c2df21f253e505abb58af38" width="600" height="400" frameborder="0"></iframe>
 
     updating_rules_description: |+
-      La mise à jour des informations est **variable selon les établissements** car tous les établissements ne procèdent pas de la même manière pour fournir les données de pré-inscription et d’inscription :
+      La mise à jour des informations est **variable selon les établissements** car tous les établissements ne procèdent pas de la même manière pour fournir les données d'admission et d’inscription :
 
       - Pour les **grandes universités**, le délai peut être en **temps réel** ;
       - Pour les petits établissements, le délai est probablement plus long.
 
       Des inscriptions peuvent avoir lieu toute l'année, et la transmission de ces informations par les établissements se fait elle aussi tout au long de l'année.
+  data:
+    description: |+
+      Cette API délivre la **liste des inscriptions et admissions d'un étudiant**, en précisant les dates de début et de fin d'études, le régime de formation et le l'établisssement.
   provider_uids:
     - 'mesr'
   keywords: []
   parameters:
-    - Données de civilité
-    - Numéro INE
+    - Nom, prénom, date de naissance de l'étudiant ;
+    - ou Identifiant National Étudiant (INE).
   use_cases:
     - Attribution des aides à la scolarité
     - Attribution des aides sociales
     - Tarification sociale et solidaire des transports
     - Tarification des services publics municipaux
   faq:
-    - q: Quelle différence entre formation continue, la reprise d'études et la formation initiale ?
+    - q: Quelle différence entre le statut "admis" et le statut "inscrit" ?
       a:
-        La **formation initiale** correspond à un parcours d’études amorcé à l’école élémentaire et suivi sans interruption de plus d’un an. S'il y a interruption, il s’agit d'une **reprise d’études**.
+        "Lorsque la candidature ou la demande de l'étudiant à rejoindre un établissement d'enseignement supérieur est accordée, le statut d'inscription est \"admis\".
+        
 
-        La **formation continue** est, quant à elle, destinée aux salariés, employés ou demandeurs d’emploi. Elle a pour objectif de conforter, améliorer ou acquérir des connaissances professionnelles au-delà de la formation initiale.
-        La distinction principale entre formation initiale et formation continue est le critère de conventionnement, spécifique à la formation continue et qui se traduit par la signature d’une convention ou d’un contrat de formation professionnelle entre la personne et l’établissement formateur tel qu’il est décrit dans les [articles L.6353-1 à L. 6353-7 du Code du travail](https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072050/LEGISCTA000006178215/#LEGISCTA000006178215) et l’[article D. 714-62 du Code de l’éducation](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000027866356/).
+        À partir du moment où toute la procédure d'inscription est terminée et où **l'étudiant est en règle de ses droits d'inscription, le statut de l'étudiant passe alors à \"inscrit\"**. Selon les règles de l'établissement et le statut de l'étudiant, le passage du statut \"admis\" au statut \"inscrit\" se réalise après règlement total des droits, un premier versement ou l'acquittement.
+         
+
+        Un étudiant peut être inscrit dans différents établissements."
+
+    - q: Quelle différence entre formation initiale et formation continue ?
+      a:
+        La distinction principale entre formation initiale et formation continue est le **critère de conventionnement spécifique à la formation continue** et qui se traduit par la signature d’une convention ou d’un contrat de formation professionnelle entre la personne et l’établissement formateur tel qu’il est décrit dans les [articles L.6353-1 à L. 6353-7 du Code du travail](https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072050/LEGISCTA000006178215/#LEGISCTA000006178215) et l’[article D. 714-62 du Code de l’éducation](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000027866356/).
 
 
