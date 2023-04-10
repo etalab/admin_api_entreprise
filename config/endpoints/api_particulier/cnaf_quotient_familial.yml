@@ -6,28 +6,36 @@
     entity_type_description: |+
       Cette API concerne les **allocataires de la majorité des régimes** :
       - ✅ le régime général ;
-      - ✅ les titulaires de l'éducation nationale,
+      - ✅ les titulaires de l'éducation nationale ;
       - ✅ les retraités de la fonction publique d'État et des collectivités locales ;
-      - ✅ les régimes spéciaux suivants : Artiste auteur compositeur, France Télécom, Industries électriques et gazières, Marin du commerce et pêche, Mines (régime général), Poste, RATP, SNCF, Navigation intérieure en cas d'accord local et les pensions des autres régimes.
+      - ✅ les régimes spéciaux suivants : artiste-auteur-compositeur, France Télécom, industries électriques et gazières, marin du commerce et pêche, mines (régime général), poste, RATP, SNCF, navigation intérieure en cas d'accord local et les pensions des autres régimes.
 
       Ne sont pas concernés par cette API, les bénéficiaires des régimes suivants :
-      - ❌ le régime agricole, les bénéficiaires étant rattachés à la MSA, ce qui représente 1 à 2% des allocataires ;
+      - ❌ le régime agricole : les bénéficiaires (1 à 2% des allocataires) sont rattachés à la MSA ;
       - ❌ le régime des titulaires de l'Assemblée nationale et du Sénat ;
       - ❌ le régime de la navigation intérieure **sauf** lorsqu'un accord local est passé, et que le régime est alors pris en compte par la CAF.
 
-
-      ℹ️ Le QF CNAF est calculé seulement pour les allocataires dont les ressources sont déclarées. En effet, pour calculer le quotient familial, la CNAF collecte tous les mois auprès de la DGFIP les ressources de l'individu (revenus salariés et non-salariés, du capital, rentes ...). Elle récupère le bilan en fin d'année. Sans la réception de ces ressources, le QF CNAF ne peut être calculé : une erreur est renvoyée.
-
-      ℹ️ Si le particulier n'a plus d'allocations, son QF n'est pas renvoyé. Une erreur sera transmise.
-
     geographical_scope_description:  |+
-      - ✅ Allocataires de France métropolitaine
-      - ✅ Allocataires DROM COM
-      - ✅ Allocataires de nationalité étrangère
+      - ✅ France métropolitaine
+      - ✅ DROM COM
+      - ✅ allocataires de nationalité étrangère
     updating_rules_description: |+
-      Les données sont **mises à jour en temps réel**, l'API étant directement relié au système d'information de la Caisse nationale des allocations familiales.
+      Les données sont **mises à jour en temps réel**, l'API étant reliée au système d'information de la Caisse nationale des allocations familiales.
 
       ⚠️ **Les informations obtenues sont représentatives de la situation connue par la CNAF et peuvent évoluer très fréquemment**. Le Quotient familial CAF est recalculé tous les mois, il peut être rétroactif et dépend de la situation du particulier et de l'état du droit. Il peut donc y avoir des écarts, notamment si la situation de la personne évolue entre temps : perte d'un emploi, évolution des ressources, arrivée d'un enfant, majorité d'un enfant, modification de la législation etc. Depuis que les allocations logement sont contemporaines (transmises très régulièrement), le QF est amené à évoluer lui aussi très fréquemment.
+  data:
+    description: |+
+      Cette API délivre la **composition familiale de l'allocataire et son quotient familial CAF**.
+
+      {:.fr-highlight}
+      > Le quotient familial de la CNAF a une définition différente du quotient familial de l'administration fiscale, [en  savoir plus](#faq_entry_1_api_particulier_endpoint_cnaf_quotient_familial).
+
+      {:.fr-highlight.fr-highlight--caution}
+      > **Le QF CNAF est calculé seulement pour les allocataires dont les ressources sont déclarées**. En effet, pour calculer le quotient familial, la CNAF collecte tous les mois auprès de la DGFIP les ressources de l'individu (revenus salariés et non-salariés, du capital, rentes ...). Elle récupère le bilan en fin d'année. Sans la réception de ces ressources, le QF CNAF ne peut être calculé : une erreur est renvoyée par l'API.
+      >
+      > Si le particulier n'a plus d'allocations, son QF n'est pas renvoyé. Une erreur est transmise par l'API.
+
+      Le montant du quotient familial CAF retourné par l'API Particulier peut être différent de celui transmis par le dossier allocataire (CDAP), [en savoir plus](#faq_entry_0_api_particulier_endpoint_cnaf_quotient_familial).
 
   provider_uids:
     - 'cnaf'
