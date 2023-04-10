@@ -20,16 +20,27 @@
       - ❌ les données des étudiants boursiers étrangers.
     updating_rules_description: |+
       Les données sont **mises à jour une fois par an**, début septembre, une fois tous les étudiants inscrits.
+  data:
+    description: |+
+      Cette API **indique si un étudiant est boursier et permet de connaître le montant de la bourse** perçue grâce à l'échelon et la durée de versement.
   provider_uids:
     - 'cnous'
   keywords: []
   parameters:
-    - Données de civilité
-    - Numéro INE
-    - Jeton FranceConnect
+    - Nom, prénom, date de naissance de l'étudiant ;
+    - ou Identifiant National Étudiant (INE) ;
+    - ou FranceConnect.
   use_cases:
     - Attribution des aides à la scolarité
     - Attribution des aides sociales
     - Tarification sociale et solidaire des transports
     - Tarification des services publics municipaux
-  faq: []
+  faq: 
+    - q: À quoi correspondent les échelons de bourse ?
+      a:
+        "Il existe huit échelons de bourses d'étudiant, de 0bis à 7. Chaque échelon de bourse indique **le montant reçu par l'étudiant pour l'année scolaire**. 
+        
+        Pour chaque échelon, il y a deux montants possibles, le premier correspond au montant versé pour 10 mois ; le second, plus élevé, équivaut à 12 mois. Il est versé aux étudiants bénéficiant du maintien de la bourse pendant les grandes vacances universitaires. Les taux sont fixés par arrêté, la page dédiée sur [Service-public.fr](TODO) détaille les montants et vous permettra de retrouver l'arrêté de l'année en cours.
+        
+        Cette API vous permet de connaître le montant exact perçu par l'étudiant car elle délivre l'échelon de la bourse et la durée de versement en mois."
+
