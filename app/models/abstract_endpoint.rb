@@ -7,6 +7,7 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
     :provider_uids,
     :parameters,
     :perimeter,
+    :data,
     :use_cases,
     :keywords
 

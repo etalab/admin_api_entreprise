@@ -87,89 +87,97 @@
       <%= render partial: 'use_cases', locals: { id: 'use_cases_mobile', extra_classes: 'fr-hidden-md' } %>
       <%= render partial: 'details', locals: { id: 'use_cases_mobile', extra_classes: 'fr-mb-3w fr-hidden-md' } %>
 
-      <h2 id="donnees" class="fr-mt-md-5w fr-mt-8w">
-        <%= t('.data.title') %>
-      </h2>
 
-      <h3 id="donnees_attributs" class="fr-h6 fr-mb-1w fr-mt-3w">
-        <%= t('.attributes.title') %>
-      </h3>
-
-      <div class="fr-mt-2w fr-mb-6w">
-        <a href="<%= endpoint_example_path(uid: @endpoint.uid) %>" id="example_link" class="fr-btn fr-btn--secondary fr-icon-eye-line fr-btn--icon-left fr-mt-2w" aria-controls="main-modal" data-fr-opened="false" data-turbo-frame="main-modal-content">
-          Aperçu d'un exemple de réponse JSON
-        </a>
-      </div>
-
-      <div class="keep-within-block-mobile">
-        <% @endpoint.attributes.each do |key, properties| %>
-          <%=
-            render partial: 'shared/endpoints/property', locals: {
-              key: key,
-              kind: 'attribute',
-              properties: properties
-            }
-          %>
-        <% end %>
-      </div>
-
-      <% if @endpoint.faq.any? %>
-        <h2 id="faq" class="fr-mt-md-5w fr-mt-8w">
-          <%= t('.faq.title') %>
+        <h2 id="donnees" class="fr-mt-md-5w fr-mt-8w">
+          <%= t('.data.title') %>
         </h2>
 
-        <div class="fr-accordions-group">
-          <% @endpoint.faq.each_with_index do |faq_entry, index| %>
-            <section class="fr-accordion faq-entry" id="<%= dom_id(@endpoint, "faq_entry_#{index}") %>">
-              <h3 class="fr-accordion__title">
-                <button class="fr-accordion__btn" aria-expanded="false" aria-controls="<%= dom_id(@endpoint, "faq_entry_answer_#{index}") %>">
-                  <div>
-                    <%= raw faq_entry['question'] %>
-                  </div>
-                </button>
-              </h3>
+        <% if @endpoint.data.present? && @endpoint.data['description'].present? %>
+          <div>
+            <%= markdown_to_html(@endpoint.data['description']) %>
+          </div>
+        <% end %>
 
-              <div class="fr-collapse" id="<%= dom_id(@endpoint, "faq_entry_answer_#{index}") %>">
-                <%= raw faq_entry['answer'] %>
-              </div>
-            </section>
+        <h3 id="donnees_attributs" class="fr-h6 fr-mb-1w fr-mt-3w">
+          <%= t('.attributes.title') %>
+        </h3>
+
+        <div class="fr-mt-2w fr-mb-6w">
+          <a href="<%= endpoint_example_path(uid: @endpoint.uid) %>" id="example_link" class="fr-btn fr-btn--secondary fr-icon-eye-line fr-btn--icon-left fr-mt-2w" aria-controls="main-modal" data-fr-opened="false" data-turbo-frame="main-modal-content">
+            Aperçu d'un exemple de réponse JSON
+          </a>
+        </div>
+
+        <div class="keep-within-block-mobile">
+          <% @endpoint.attributes.each do |key, properties| %>
+            <%=
+              render partial: 'shared/endpoints/property', locals: {
+                key: key,
+                kind: 'attribute',
+                properties: properties
+              }
+            %>
           <% end %>
         </div>
-      <% end %>
 
-      <h2 id="cgu" class="fr-mt-md-5w fr-mt-8w">
-        <%= t('.cgu.title') %>
-      </h2>
+        <% if @endpoint.faq.any? %>
+          <h2 id="faq" class="fr-mt-md-5w fr-mt-8w">
+            <%= t('.faq.title') %>
+          </h2>
 
-      <h3 class="fr-h6 fr-mb-1w fr-mt-3w">
-        <%= t('.cgu.main_title') %>
-      </h3>
+          <div class="fr-accordions-group">
+            <% @endpoint.faq.each_with_index do |faq_entry, index| %>
+              <section class="fr-accordion faq-entry" id="<%= dom_id(@endpoint, "faq_entry_#{index}") %>">
+                <h3 class="fr-accordion__title">
+                  <button class="fr-accordion__btn" aria-expanded="false" aria-controls="<%= dom_id(@endpoint, "faq_entry_answer_#{index}") %>">
+                    <div>
+                      <%= raw faq_entry['question'] %>
+                    </div>
+                  </button>
+                </h3>
 
-      <p>
-        Cette API et l’utilisation de ses données est soumise aux CGU générales d’API Particulier, dont voici les principaux éléments auxquels vous vous engagez :
+                <div class="fr-collapse" id="<%= dom_id(@endpoint, "faq_entry_answer_#{index}") %>">
+                  <%= raw faq_entry['answer'] %>
+                </div>
+              </section>
+            <% end %>
+          </div>
+        <% end %>
 
-        <ul>
-          <li>
-            <strong>ne demander que les données strictement nécessaires</strong> ;
-          </li>
-          <li>
-            <strong>ne pas utiliser votre jeton d’accès pour une démarche différente</strong> de celle indiquée lors de votre demande (le cas échéant le jeton sera révoqué) ;
-          </li>
-          <li>
-            <strong>présenter les données obtenues uniquement aux seuls agents habilités</strong> et à tracer l’accès de ces agents aux données ;
-          </li>
-          <li>
-            <strong>ne pas commercialiser les données</strong> reçues et à ne pas les communiquer à des tiers en dehors des cas prévus par la loi.
-          </li>
-        </ul>
+        <h2 id="cgu" class="fr-mt-md-5w fr-mt-8w">
+          <%= t('.cgu.title') %>
+        </h2>
 
-        L’ensemble des conditions sont consultables et téléchargeables ci-dessous :
+        <h3 class="fr-h6 fr-mb-1w fr-mt-3w">
+          <%= t('.cgu.main_title') %>
+        </h3>
 
-        <br>
-        <br>
+        <p>
+          Cette API et l’utilisation de ses données est soumise aux CGU générales d’API Particulier, dont voici les principaux éléments auxquels vous vous engagez :
 
-        <%= link_to t('.cgu.cta'), cgu_path, id: 'cgu_link', class: %w(fr-btn fr-btn--secondary fr-btn--icon-right fr-icon-eye-line) %>
-      </p>
+          <ul>
+            <li>
+              <strong>ne demander que les données strictement nécessaires</strong> ;
+            </li>
+            <li>
+              <strong>ne pas utiliser votre jeton d’accès pour une démarche différente</strong> de celle indiquée lors de votre demande (le cas échéant le jeton sera révoqué) ;
+            </li>
+            <li>
+              <strong>présenter les données obtenues uniquement aux seuls agents habilités</strong> et à tracer l’accès de ces agents aux données ;
+            </li>
+            <li>
+              <strong>ne pas commercialiser les données</strong> reçues et à ne pas les communiquer à des tiers en dehors des cas prévus par la loi.
+            </li>
+          </ul>
+
+          L’ensemble des conditions sont consultables et téléchargeables ci-dessous :
+
+          <br>
+          <br>
+
+          <%= link_to t('.cgu.cta'), cgu_path, id: 'cgu_link', class: %w(fr-btn fr-btn--secondary fr-btn--icon-right fr-icon-eye-line) %>
+        </p>
+    
     </div>
 
     <div class="fr-col-md-<%= 12 - layout_main_bloc %>">
