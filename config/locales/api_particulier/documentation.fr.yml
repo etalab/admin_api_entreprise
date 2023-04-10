@@ -13,13 +13,15 @@ fr:
               - ☑️ Être en mesure de gérer le protocole HTTPS ;
               - ☑️ Avoir une version de langage récente. Si vous utilisez Java, une version >= 1.8 est nécessaire (pour la gestion des certificats de +1024 bit, du TLS 1.2 minimum et des suites cryptographiques - ciphers) ;
               - ☑️ S’assurer que nos Autorités de Certification (AC) pour les certificats SSL sont autorisées par vos systèmes ;
-              - ☑️ L'API&nbsp;Particulier est uniquement accessible par internet. Si vous avez un pare-feu, il faut donc prévoir de whitelister l'adresse IP du service API Particulier ;
+              - ☑️ L'API&nbsp;Particulier est uniquement accessible par internet. Si vous avez un pare-feu, il faut donc prévoir de whitelister l'adresse IP du service API&nbsp;Particulier ;
               - ☑️ Il est interdit d'interroger l'API&nbsp;Particulier depuis un site web en front-end, car le jeton d'accès serait alors divulgué. Il vous faut donc interroger nos API depuis une application en back-end. Nous n'autoriserons pas le CORS (CORS - Cross Origin Ressource Sharing) ;
               - ☑️ Prévoir non seulement les coûts de développement mais également les coûts de maintenance ;
               - ☑️ Être en capacité de gérer les mises à jour de l'API&nbsp;Particulier.
 
               <br>
-              💡 Pour mieux comprendre l'API&nbsp;Particulier avant de demander un accès, **vous pouvez utiliser [notre environnement de test](<%= developers_path(anchor: 'tester-api-preproduction') %>)**.
+
+              {:.fr-highlight}
+              > 💡 Pour mieux comprendre l'API&nbsp;Particulier avant de demander un accès, **vous pouvez utiliser [notre environnement de test](<%= developers_path(anchor: 'tester-api-preproduction') %>)**.
 
           - anchor: 'specifications-generales'
             title: Spécifications générales&nbsp;🎛
@@ -31,9 +33,9 @@ fr:
 
                   Les limites de volumétrie sur API&nbsp;Particulier se décomposent en deux règles principales&nbsp;:&nbsp;
 
-                  - **Un plafond général par IP de 1000 requêtes/minute**.
+                  - **Un plafond général par IP de 1000 requêtes/minute** ;
 
-                  - **Une volumétrie par jeton&nbsp;:** 20 requêtes/secondes
+                  - **Une volumétrie par jeton&nbsp;:** 20 requêtes/secondes.
 
                   #### Informations volumétrie dans le header
 
@@ -105,7 +107,7 @@ fr:
 
                   Il est conseillé d'ajouter ces Autorités de Certifications (AC) à votre base de confiance si vous en avez une. Une solution idéale est d'utiliser un paquet d'autorités mises à jour automatiquement ([Mozilla par exemple](https://wiki.mozilla.org/CA/Included_Certificates))
 
-                  API&nbsp;Particulier utilise des certificats multi-domaines ; c'est à dire avec un "nom courant" (_common name - CN_) et plusieurs "noms alternatifs du sujet" (_subject alternatives names - SAN_), **soyez certains que vos outils fonctionnent correctement avec**.
+                  API&nbsp;Particulier utilise des certificats multi-domaines ; c'es-à-dire avec un "nom courant" (_common name - CN_) et plusieurs "noms alternatifs du sujet" (_subject alternatives names - SAN_), **soyez certains que vos outils fonctionnent correctement avec**.
 
               - title: Gérer les erreurs - codes HTTPS
                 anchor: 'gérer-les-erreurs---codes-https'
@@ -144,7 +146,6 @@ fr:
 
                   Retrouvez tous les codes erreurs pour chaque endpoint dans [notre swagger, partie "Response samples"](<%= developers_openapi_path %>){:target="_blank"}.
                   La liste des codes spécifiques à chaque endpoint y est disponible.
-
 
               - title: Retrouver les droits d'un jeton
                 anchor: 'retrouver-les-droits-dun-jeton'
