@@ -1,8 +1,10 @@
 ---
 - uid: 'dgfip/attestations_fiscales'
   position: 250
-  path: '/v3/dgfip/unites_legales/{siren}/attestation_fiscale'
-  perimeter:
+  old_endpoint_uids:
+    - 'dgfip/v3/attestations_fiscales'
+  path: '/v4/dgfip/unites_legales/{siren}/attestation_fiscale'
+  perimeter: &dgfip_attestation_perimeter
     entity_type_description: |+
       Cette API délivre uniquement les attestations fiscales aux **✅ entreprises assujettis à l'impôt sur les sociétés (IS) et à la TVA.**.
 
@@ -16,7 +18,7 @@
 
       {:.fr-highlight.fr-highlight--caution}
       > **⚠️ Cette API n'est pas fiable pour ❌ les sociétés "filles" appartenant à un groupe de société**. Avant de d'utiliser cette API, il est de votre ressort d'avoir vérifié que l'entreprise n'est pas une société fille. [En savoir plus](#faq_entry_4_endpoint_dgfip_attestations_fiscales)
-      
+
       **Exceptions observées :**
       Suite à un retour utilisateur, nous observons que les attestations fiscales des **sociétés en nom collectif (SNC) ayant opté à l'IS** ne sont pas délivrées par cette API. Cette absence serait dûe au fait que le service des impôts en charge peut être le service des impôts des particuliers dans le cas d'un associé personne physique. Même si tous les associés sont des personnes morales, l'attestation ne sera pas accessible.
     know_more_description: |+
@@ -25,11 +27,11 @@
     entities:
       - entreprises
       - associations
-  call_id: "SIREN"
-  opening: protected
-  provider_uids:
+  call_id: &dgfip_attestation_call_id "SIREN"
+  opening: &dgfip_attestation_opening protected
+  provider_uids: &dgfip_attestation_provider_uids
     - 'dgfip'
-  keywords:
+  keywords: &dgfip_attestation_keywords
     - 'conformité'
     - 'conforme'
     - 'obligations'
@@ -42,11 +44,11 @@
     - 'marchés publics'
     - 'Aides publiques'
     - 'fraude'
-  data:
+  data: &dgfip_attestation_data
     description: |+
-      Cette API délivre l'attestation de régularité fiscale d'une entreprise, au format PDF. L'attestation est **délivrée ✅ si l'entreprise est en règle de ses obligations** déclaratives et de paiement d'IS et de TVA. 
+      Cette API délivre l'attestation de régularité fiscale d'une entreprise, au format PDF. L'attestation est **délivrée ✅ si l'entreprise est en règle de ses obligations** déclaratives et de paiement d'IS et de TVA.
 
-      La date de délivrance de l'attestation correspond au jour de l'appel et statue donc de la **situation de l'entreprise au dernier jour du moins M-1**. [En savoir plus sur la date de délivrance](#faq_entry_3_endpoint_dgfip_attestations_fiscales). 
+      La date de délivrance de l'attestation correspond au jour de l'appel et statue donc de la **situation de l'entreprise au dernier jour du moins M-1**. [En savoir plus sur la date de délivrance](#faq_entry_3_endpoint_dgfip_attestations_fiscales).
 
       <section class="fr-accordion">
         <h3 class="fr-accordion__title">
@@ -71,29 +73,29 @@
       {:.fr-h6 .fr-mt-4w}
       ### Exemple d'attestation PDF&nbsp;:
 
-      <div class="fr-download">                
-       <p>                    
+      <div class="fr-download">
+       <p>
         <a href="/files/exemple-dgfip-attestation-fiscale.pdf" download class="fr-download__link">
-         Télécharger un exemple d'attestation fiscale                      
-         <span class="fr-download__detail">                            
-         PDF – 279 Ko                               
-         </span>                    
-        </a>                
-       </p>            
-      </div>   
+         Télécharger un exemple d'attestation fiscale
+         <span class="fr-download__detail">
+         PDF – 279 Ko
+         </span>
+        </a>
+       </p>
+      </div>
   format:
     - URL vers l'attestation en PDF
-  use_cases:
+  use_cases: &dgfip_attestation_use_cases
     - Marchés publics
     - Aides publiques
     - Détection de la fraude
     - Portail GRU - Instruction des démarches
-  use_cases_forbidden:
+  use_cases_forbidden: &dgfip_attestation_use_cases_forbidden
     - Portail GRU - Préremplissage
     - Subventions associations
-  parameters:
+  parameters:  &dgfip_attestation_parameters
     - Numéro de SIREN de l'entreprise
-  faq:
+  faq: &dgfip_attestation_faq
     - q: L’api ne renvoie pas de pièce, cela signifie-t'il que l’entreprise n’est pas à jour ?
       a: |+
         Non, dans certains cas particuliers, l'API ne peut pas renvoyer l’attestation.
@@ -149,3 +151,20 @@
         Une API dédiée sera bientôt disponible.
 
         Plus d'informations disponibles dans le [BOFIP - Dispositions juridiques communes - Attestation de régularité fiscale](https://bofip.impots.gouv.fr/bofip/8485-PGP.html/identifiant%3DBOI-DJC-ARF-20161207){:target="_blank"}.
+- uid: 'dgfip/v3/attestations_fiscales'
+  position: 9002
+  new_endpoint_uids:
+    - 'dgfip/attestations_fiscales'
+  path: '/v3/dgfip/unites_legales/{siren}/attestation_fiscale'
+  perimeter: *dgfip_attestation_perimeter
+  opening: *dgfip_attestation_opening
+  call_id: *dgfip_attestation_call_id
+  parameters: *dgfip_attestation_parameters
+  format:
+    - Payload JSON
+  use_cases: *dgfip_attestation_use_cases
+  use_cases_forbidden: *dgfip_attestation_use_cases_forbidden
+  provider_uids: *dgfip_attestation_provider_uids
+  keywords: *dgfip_attestation_keywords
+  data: *dgfip_attestation_data
+  faq: *dgfip_attestation_faq
