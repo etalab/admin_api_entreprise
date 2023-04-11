@@ -1,0 +1,51 @@
+---
+- uid: 'education_nationale/statut_eleve_scolarise'
+  path: '/api/v2/eleves_scolarises'
+  position: 150
+  perimeter:
+    entity_type_description: |+
+      Cette API concerne les **élèves** des niveaux de classe suivants :
+      - ✅ primaire ;
+      - ✅ collège ;
+      - ✅ lycée ;
+      - ✅ CPGE - classes préparatoires aux grandes écoles ;
+      - ✅ BTS - brevet de technicien supérieur.
+
+      Une **large majorité d'établissements** sont concernés : 
+      - ✅ établissements publics ;
+      - ✅ établissements privés sous contrat ;
+      - ✅ lycées militaires et lycées maritimes ;
+      - ✅ une partie des formations à distance du CNED.
+
+      Les établissements suivants ne sont pas couverts par l'API : 
+      - ❌ établissements privés hors contrat ;
+      - ❌ lycées agricoles ;
+      - ❌ instruction à la maison.
+
+      Concernant le statut boursier des élèves : **seules les bourses sur critères sociaux à l'échelle nationale** sont couvertes par l'API.
+      
+    geographical_scope_description:  |+
+      - ✅ France métropolitaine ;
+      - ✅ DROM COM.
+    updating_rules_description: |+
+      Les données sont **mises à jour quotidiennement tous les soirs**, alimentées par les référenciels académiques.
+
+      Les informations, même si elles évoluent principalement au moment du pic de la rentrée scolaire en septembre, peuvent changer en cours d'année (déménagements, etc.).
+  data:
+    description: |+
+      Cette API **indique si l'élève est scolarisé et s'il est boursier** en précisant l'échelon de bourse.  
+  provider_uids:
+    - 'education_nationale'
+  keywords: []
+  parameters:
+    - Nom, prénom, date de naissance de l'élève, sexe, code UAI de l'établissement et année scolaire.
+  use_cases:
+    - Attribution des aides à la scolarité
+    - Attribution des aides sociales
+    - Tarification sociale et solidaire des transports
+    - Tarification des services publics municipaux
+  faq: 
+    - q: À quoi correspondent les échelons de bourse ?
+      a:
+        "Il existe trois échelons de bourses pour les collégiens, de 1 à 3 et six échelons pour les lycéens, de 1 à 6. Chaque échelon de bourse indique **le montant reçu par l'élève pour l'année scolaire**. Le montant de la bourse dépend d'un barème en fonction du revenu fiscal et du nombre enfants à charge du foyer."
+
