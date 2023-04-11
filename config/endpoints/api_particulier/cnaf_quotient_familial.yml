@@ -1,0 +1,86 @@
+---
+- uid: 'cnaf/quotient_familial'
+  path: '/api/v2/composition-familiale'
+  position: 100
+  perimeter:
+    entity_type_description: |+
+      Cette API concerne les **allocataires de la majorité des régimes** :
+      - ✅ le régime général ;
+      - ✅ les titulaires de l'éducation nationale ;
+      - ✅ les retraités de la fonction publique d'État et des collectivités locales ;
+      - ✅ les régimes spéciaux suivants : artiste-auteur-compositeur, France Télécom, industries électriques et gazières, marin du commerce et pêche, mines (régime général), poste, RATP, SNCF, navigation intérieure en cas d'accord local et les pensions des autres régimes.
+
+      Ne sont pas concernés par cette API, les bénéficiaires des régimes suivants :
+      - ❌ le régime agricole : les bénéficiaires (1 à 2% des allocataires) sont rattachés à la MSA ;
+      - ❌ le régime des titulaires de l'Assemblée nationale et du Sénat ;
+      - ❌ le régime de la navigation intérieure **sauf** lorsqu'un accord local est passé, et que le régime est alors pris en compte par la CAF.
+
+    geographical_scope_description:  |+
+      - ✅ France métropolitaine
+      - ✅ DROM COM
+      - ✅ allocataires de nationalité étrangère
+    updating_rules_description: |+
+      Les données sont **mises à jour en temps réel**, l'API étant reliée au système d'information de la Caisse nationale des allocations familiales.
+
+      ⚠️ **Les informations obtenues sont représentatives de la situation connue par la CNAF et peuvent évoluer très fréquemment**. Le Quotient familial CAF est recalculé tous les mois, il peut être rétroactif et dépend de la situation du particulier et de l'état du droit. Il peut donc y avoir des écarts, notamment si la situation de la personne évolue entre temps : perte d'un emploi, évolution des ressources, arrivée d'un enfant, majorité d'un enfant, modification de la législation etc. Depuis que les allocations logement sont contemporaines (transmises très régulièrement), le QF est amené à évoluer lui aussi très fréquemment.
+  data:
+    description: |+
+      Cette API délivre la **composition familiale de l'allocataire et son quotient familial CAF**.
+
+      {:.fr-highlight}
+      > Le quotient familial de la CNAF a une définition différente du quotient familial de l'administration fiscale, [en  savoir plus](#faq_entry_1_api_particulier_endpoint_cnaf_quotient_familial).
+
+      {:.fr-highlight.fr-highlight--caution}
+      > **Le QF CNAF est calculé seulement pour les allocataires dont les ressources sont déclarées**. En effet, pour calculer le quotient familial, la CNAF collecte tous les mois auprès de la DGFIP les ressources de l'individu (revenus salariés et non-salariés, du capital, rentes ...). Elle récupère le bilan en fin d'année. Sans la réception de ces ressources, le QF CNAF ne peut être calculé : une erreur est renvoyée par l'API.
+      >
+      > Si le particulier n'a plus d'allocations, son QF n'est pas renvoyé. Une erreur est transmise par l'API.
+
+      Le montant du quotient familial CAF retourné par l'API Particulier peut être différent de celui transmis par le dossier allocataire (CDAP), [en savoir plus](#faq_entry_0_api_particulier_endpoint_cnaf_quotient_familial).
+
+  provider_uids:
+    - 'cnaf'
+  keywords:
+    - composition
+    - quotient
+    - famille
+    - familial
+  parameters:
+    - Code postal et numéro de l'allocataire
+  use_cases:
+    - Attribution des aides à la scolarité
+    - Attribution des aides sociales
+    - Tarification sociale et solidaire des transports
+    - Tarification des services publics municipaux
+  faq:
+    - q: Pourquoi le quotient familial (QF) retourné par l'API Particulier est-il parfois différent de celui transmis par le CDAP ?
+      a: |+
+        Actuellement, il peut arriver que le quotient familial transmis par l'API particulier diffère de celui obtenu sur le [CDAP (Consultation du dossier allocataire par les partenaires)](https://www.caf.fr/partenaires/cdap). Voici des éléments de réponses pour comprendre les différences suivantes :
+
+        * **Le montant du QF est différent** :
+          La différence des montants observés est souvent liée à une différence de temporalité. L'API Particulier délivre le QF du mois M-1 ; là où le CDAP indique le QF en cours.
+        * **Le montant du QF est à 0 sur API Particulier, au lieu de non connu sur le CDAP** :
+          Actuellement, l'API de la CNAF qui alimente l'API Particulier, n'indique pas par un code erreur précis le cas des allocataires dont le QF n'est pas calculable faute de connaître les ressources perçues. En effet, actuellement, un QF à 0 est envoyé, plutôt qu'une erreur.
+          La CNAF a conscience que ce retour peut porter à confusion. Il est prévu une évolution dans la future API.
+        * **Le montant du QF n'est pas délivré par l'API Particulier (affiché non droit) alors qu'il est délivré par le CDAP** :
+          Lorsqu'aucune prestation n'est versée au mois M, l'API CNAF, source de l'API Particulier, ne retourne pas de QF, y compris si en M-1 la personne avait bien des prestations. Une question métier est en cours pour faire évoluer l’API afin de fournir le dernier QF calculé ainsi que la date de ce dernier calcul.
+
+
+        La CNAF travaille actuellement sur une nouvelle API qui retournera les mêmes informations que le CDAP. Les développements sont déjà en cours.
+
+    - q: Quelle différence entre le quotient familial de la CAF et le QF de l'administration fiscale ?
+      a: |+
+        Le quotient familial retourné par l'API est le quotient familial de la CAF. Ce QF est différent de celui de l'administration fiscale car il prend en compte les prestations familiales. Contrairement au quotient familial DGFIP calculé au moment de la déclaration de revenu, le QF de la CAF est revu à chaque changement de situation familiale et/ou professionnelle.
+
+        Calcul du QF de la CAF : Revenu imposable de l’année N-2 divisé par 12 + **les prestations familiales du mois de référence**, le tout divisé par le nombre de parts fiscales du foyer.
+
+        Source : [Caf.fr](https://caf.fr/allocataires/vies-de-famille/articles/quotient-familial-caf-impots-quelles-differences)
+    - q: Qu'est-ce qu'un enfant au sens de la CNAF ?
+      a: |+
+        La liste des enfants transmis par l'API correspond à la notion d'enfant à charge au sens de la législation familiale. Pour qu'un enfant soit considéré comme "à charge", l’allocataire doit assurer financièrement son entretien de manière effective et permanente et assumer à son égard la responsabilité affective et éducative. Il n'y a pas d'obligation de lien de parenté avec l’enfant.
+
+        Deux notions d’enfant à charge cohabitent :
+
+        * enfant à charge au sens des prestations familiales (Pf) : un enfant est reconnu à charge s’il est âgé d’un mois à moins de 20 ans quelle que soit sa situation, dès lors que son salaire net mensuel ne dépasse pas 55 % du Smic brut ;
+        * enfant à charge au sens de la législation familiale: en plus des enfants à charge au sens des Pf, sont également considérés à charge pour les aides au logement, les enfants âgés de moins de 21 ans en Métropole (22 ans dans les Dom), les enfants âgés de 20 à 25 ans pour le calcul du Rmi/Rsa, et dès le mois de leur naissance, les enfants bénéficiaires de l’allocation de base de la Paje.
+
+        Source: [data.caf.fr](http://data.caf.fr/dataset/population-des-foyers-allocataires-par-commune/resource/3baa3b5b-8376-4b24-a79b-10ee364e956f)

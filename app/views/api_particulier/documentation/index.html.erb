@@ -1,0 +1,51 @@
+<div id="documentation" class="fr-container--fluid fr-mb-1v" >
+  <div class="fr-grid-row" data-controller="anchor-buttons <%= params[:disable_search].blank? ? 'algolia-search-documentation' : '' %>" data-algolia-search-documentation-index-value="DocumentationSearchableChunk" data-algolia-search-documentation-attributes-to-highlight-value='["title", "content"]' data-algolia-search-documentation-page-value="api_particulier_<%= controller.action_name %>" data-anchor-buttons-tags-value='["h2", "h3"]'>
+    <div class="fr-col-12 fr-col-sm-12 fr-col-md-3 fr-col-lg-3 fr-col-xl-3">
+      <%= render 'menu' %>
+    </div>
+
+    <div class="fr-col-12 fr-col-sm-12 fr-col-md-9 fr-col-lg-9 fr-col-xl-9 fr-background-default-white">
+      <%= render 'banner' %>
+
+      <% if action_name == 'developers' %>
+        <div class="fr-col-12 fr-col-sm-12 card-swagger fr-card fr-enlarge-link">
+          <div class="fr-card__body">
+            <div class="fr-card__content">
+              <p class="fr-card__title">
+                <%= link_to t('.card_swagger_link'), developers_openapi_path %>
+              </p>
+              <p class="fr-card__desc"><%= t('.card_swagger_description').html_safe %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="documentation doc_markdown_to_html doc_markdown_to_html--emphasize-titles" data-action="DOMNodeInserted->anchor-buttons#addAllAnchorCopyButtons">
+        <% @documentation_page.sections.each do |section| %>
+          <div data-algolia-search-documentation-hit="<%= dom_id(section[:introduction]) %>" id="<%= section[:introduction].id %>">
+            <h2 data-algolia-search-documentation-hit-attribute="title" id="<%= section[:introduction].anchor %>">
+              <%= section[:introduction].title.html_safe %>
+            </h2>
+
+            <% if section[:introduction].content.present? %>
+              <div data-algolia-search-documentation-hit-attribute="content" id="content_<%= section[:introduction].anchor %>">
+                <%= section[:introduction].content.html_safe %>
+              </div>
+            <% end %>
+          </div>
+
+          <% section[:subsections].each do |subsection| %>
+            <div data-algolia-search-documentation-hit="<%= dom_id(subsection) %>" id="<%= subsection.id %>">
+              <h3 data-algolia-search-documentation-hit-attribute="title" id="<%= subsection.anchor %>">
+                <%= subsection.title.html_safe %>
+              </h3>
+              <div data-algolia-search-documentation-hit-attribute="content" id="content_<%= subsection.anchor %>">
+                <%= subsection.content.html_safe %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,10 @@
 fr:
+  api_entreprise:
+    name: API Entreprise
+    support_email: support@entreprise.api.gouv.fr
+  api_particulier:
+    name: API Particulier
+    support_email: support@particulier.api.gouv.fr
   datetime: &datetime_format
     formats:
       compact: "%d/%m/%Y"
@@ -50,3 +56,17 @@ fr:
         disclaimer:
           title: Durée de validité du lien
           description: Cette page contient votre jeton d'accès à API Entreprise et ne doit en aucun cas être partagée avec un tiers non habilité ! Ce lien expirera dans %{expiration_time}.
+    pages:
+      redoc:
+        title: "Swagger 📟"
+        description: |-
+          Cette documentation technique recense les spécifications techniques des différents endpoints de l'%{api_name}.
+          Elle est propulsée par <a href='https://github.com/Redocly/redoc' target='_blank'>Redoc</a> et se base sur le fichier OpenAPI.
+    endpoints:
+      property:
+        array:
+          label: "Cette propriété contient 1 ou plusieurs éléments ayant les spécifications suivantes :"
+        example:
+          label: 'ex:'
+      example:
+        title: "Exemple de réponse (JSON)"

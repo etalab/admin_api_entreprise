@@ -1,0 +1,22 @@
+<nav class="menu fr-sidemenu--sticky-full-height" aria-label="Menu latéral">
+  <div class="fr-sidemenu__inner">
+    <button class="fr-sidemenu__btn" aria-controls="fr-sidemenu-wrapper" aria-expanded="false">Dans cette rubrique</button>
+    <div class="fr-collapse" id="fr-sidemenu-wrapper">
+      <ul class="fr-sidemenu__list">
+        <% @documentation_page.sections.each do |section| %>
+          <li class="fr-sidemenu__item">
+            <a class="fr-sidemenu__link" href="#<%= section[:introduction].anchor %>" target="_self">
+              <%= section[:introduction].title.html_safe %>
+            </a>
+          </li>
+        <% end %>
+
+        <% if action_name == 'developers' %>
+          <li class="fr-btn fr-btn--secondary fr-mt-2v">
+            <%= link_to t('.swagger'), developers_openapi_path %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

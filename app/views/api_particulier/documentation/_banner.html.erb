@@ -1,0 +1,27 @@
+<div class="banner <%= action_name %>-background-color fr-pt-10v fr-pb-10v">
+  <h1>
+    <%= @documentation_page.title.html_safe %>
+  </h1>
+  <div class="fr-search-bar fr-search-bar--lg fr-mb-8v" id="search-2" role="search">
+    <div class="fr-col-12 fr-hidden" data-algolia-search-documentation-target="searchBox">
+      <div class="fr-search-bar fr-search-bar--lg" role="search">
+        <label class="fr-label" for="documentation_search_input">
+          <%= t('.search_bar.button') %>
+        </label>
+
+        <input class="fr-input" placeholder="<%= t('.search_bar.placeholder') %>" type="search" id="documentation_search_input" name="documentation_search_input">
+
+        <button class="fr-btn">
+          <%= t('.search_bar.button') %>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="links">
+    <% if action_name == 'developers' %>
+      <a class="fr-link fr-text--lg fr-m-2v" href="#specifications-generales"><%= t('.link_specs') %>&nbsp;<span class="fr-icon-arrow-down-line" aria-hidden="true"></span></a>
+      <a class="fr-link fr-text--lg fr-m-2v" href="#kit-de-mise-en-production"><%= t('.link_kit') %>&nbsp;<span class="fr-icon-arrow-down-line" aria-hidden="true"></span></a>
+    <% end %>
+  </div>
+</div>

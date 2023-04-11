@@ -2,12 +2,12 @@ fr:
   layouts:
     api_particulier:
       application:
-        title: Portail API Particulier
+        title: API Particulier
 
   shared:
     api_particulier:
       header:
-        title: Portail API Particulier
+        title: API Particulier
         tagline: Les données des particuliers <strong>pour les administrations</strong>
         tools:
           links:
@@ -19,6 +19,10 @@ fr:
             sign_out:
               title: "Se déconnecter"
               icon: "logout-box-r-fill"
+        menu:
+          catalogue: "<strong>Catalogue des API</strong><br> & documentation des données"
+          developer: "<strong>Espace développeur</strong><br> & spécifications techniques"
+          ask_access: "<strong>Demander un accès</strong><br>🔑 Vérifier votre éligibilité"
 
       footer:
         tagline: Accédez aux données fiscales (DGFIP), familiales (CAF), au statut pôle-emploi et au statut étudiant des particuliers pour simplifier des démarches administratives.
@@ -28,6 +32,88 @@ fr:
           - api.gouv.fr/les-api/api-particulier
 
   api_particulier:
+    pages:
+      home:
+        section_welcome:
+          title: <strong>Vous êtes un acteur public ?</strong><br />Gagnez du temps dans vos démarches<br />auprès des particuliers !
+          subtitle: Intégrez l'API Particulier 👇
+          button_endpoints: Les données disponibles
+          button_developers: Kit d'intégration
+        section_access:
+          title_access: Un bouquet d'API pour les agents publics vers les informations administratives des citoyens
+          info_data_title: Des données certifiées sans solliciter le citoyen
+          info_data_description: Les données sont prises à la source. Plus besoin de demander certains justificatifs aux particuliers. Terminé les fautes de frappes et la vérification manuelle car l’information est certifiée et fait foi.
+          info_provider_title: Les fournisseurs de données regroupés
+          info_provider_description: API Particulier recherche et démarche pour vous les organisations publiques ayant des données administratives sur les citoyens.
+          info_account_title: Un seul interlocuteur à un seul endroit
+          info_account_description: API Particulier agrège et restitue les connaissances techniques et fonctionnelles au même endroit. Vous n'avez plus besoin de gérer plusieurs contacts techniques et fonctionnels.
+          info_technical_title: Un seul interfaçage technique
+          info_technical_description: L’interfaçage est unique et dans des standards à jour des contraintes industrielles. Il n'est plus nécessaire de lire et comprendre les documentations des différentes DSI.
+          card_documentation_title: Une documentation métier de chaque API
+          card_documentation_description: Liste des données, périmètre de l’API, conditions d’utilisations,&nbsp;...
+          card_developers_title: Un espace développeur
+          card_developers_description: Spécifications techniques générales et dédiées à chaque API, Swagger, Kit de mise en production,&nbsp;...
+          link_faq: "Qu'est-ce qu'une API ?"
+
+        section_partners:
+          title: Ils partagent les données au travers d’API Particulier&nbsp;:&nbsp;
+          subtitle: Découvrez les API de chaque fournisseur de données.
+          link_endpoints: Consulter toutes les API
+          link_new_api: Proposer une nouvelle API
+        section_developers:
+          title: Un espace développeur 🛠 <br>pour intégrer et maintenir l’API
+          description: Une documentation technique précise dédiée aux équipes d’intégration.
+          prerequisites_link: Les prérequis techniques
+          prerequisites_description: La liste des fondamentaux techniques à maitriser, avant de demander un d’accès à l’API Particulier.
+          integration_link: Kit d’intégration
+          integration_description: Un pas à pas pour intégrer et mettre en production l’API Particulier
+          swagger_link: Spécifications techniques de chaque API
+          swagger_description: Utilisez notre Swagger (OpenAPI)
+
+    endpoints:
+      index:
+        title: Catalogue des API
+      endpoint:
+        cta:
+          swagger: Swagger
+          documentation: Documentation
+      show:
+        providers:
+          description:
+            one: "Fournisseur de la donnée"
+            other: "Fournisseurs de la donnée"
+        perimeter:
+          title: "Périmètre"
+          entity_type_title: "Usagers concernés :"
+          geographical_scope_title: "Périmètre géographique :"
+          updating_rules_title: "Actualisation de la donnée :"
+          know_more_title: "En savoir plus :"
+        data:
+          title: "Les données"
+        attributes:
+          title: "Informations renvoyées en JSON :"
+        faq:
+          title: "Questions & réponses"
+        cgu:
+          title: "Conditions d'utilisation des données"
+          main_title: "Conditions générales :"
+          cta: "CGU API Particulier"
+      use_cases:
+        main:
+          title: "Cas d'usage"
+          description: "Liste des cas d'usage où cette API est utile :"
+
+      details:
+        title: "Détails de l'API"
+        format:
+          title: "Format de l'information"
+        parameters:
+          title:
+            one: "Identifiant d'appel"
+            other: "Identifiants d'appel"
+        technical_specifications:
+          title: "Spécifications techniques :"
+          cta: "Consulter le swagger"
     users:
       profile:
         title:
@@ -73,10 +159,10 @@ fr:
           cnaf_allocataires: CNAF - Allocataires
           cnaf_enfants: CNAF - Enfants
           cnaf_adresse: CNAF - Adresse
-          pole_emploi_identite: Pôle Emploi - Identité
-          pole_emploi_contact: Pôle Emploi - Données de contact
-          pole_emploi_adresse: Pôle Emploi - Adresse
-          pole_emploi_inscription: Pôle Emploi - Inscription
+          pole_emploi_identite: Pôle emploi - Identité
+          pole_emploi_contact: Pôle emploi - Données de contact
+          pole_emploi_adresse: Pôle emploi - Adresse
+          pole_emploi_inscription: Pôle emploi - Inscription
           mesri_identifiant: Statut étudiant - INE
           mesri_identite: Statut étudiant - Identité
           mesri_inscription_autre: Statut étudiant - Inscriptions en formation continue
@@ -116,3 +202,15 @@ fr:
           missing:
             title: Jeton(s) non trouvés
             description: Le jeton ou les jetons demandé(s) n'ont pas été trouvés. Veuillez contacter le support à support@entreprise.api.gouv.fr
+    documentation:
+      index:
+        card_swagger_link: 🕹 Swagger
+        card_swagger_description: Spécifications techniques de chacune des API&nbsp;:&nbsp;<br/>- Paramètres d’appels<br/>- Détail de la réponse JSON<br/>- Codes erreurs
+      menu:
+        swagger: Swagger
+      banner:
+        search_bar:
+          button: Recherche
+          placeholder: Entrez votre recherche ici
+        link_specs: 🎛 Spécifications générales
+        link_kit: 🚀 Kit de mise en production

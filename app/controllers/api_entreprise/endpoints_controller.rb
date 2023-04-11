@@ -7,14 +7,14 @@ class APIEntreprise::EndpointsController < APIEntrepriseController
     render 'index', layout: 'api_entreprise/no_container'
   end
 
-  def show
-    @active_endpoints = EndpointDecorator.decorate_collection(APIEntreprise::Endpoint.all.reject(&:deprecated))
-  end
+  def show; end
 
   def example
-    return unless @endpoint.dummy?
-
-    redirect_to endpoint_path(uid: @endpoint.uid)
+    if @endpoint.dummy?
+      redirect_to endpoint_path(uid: @endpoint.uid)
+    else
+      render 'shared/endpoints/example'
+    end
   end
 
   private

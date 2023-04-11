@@ -1,0 +1,46 @@
+---
+- uid: 'cnous/statut_etudiant_boursier'
+  path: '/api/v2/etudiants-boursiers'
+  position: 300
+  perimeter:
+    entity_type_description: |+
+      Cette API délivre **uniquement les bourses "obligatoires"** et ne concerne pas les bourses d'ordre facultatif.
+
+      L'API délivre les données :
+      - ✅ des **boursiers d’État sur critères sociaux (gérés par les Crous)** ;
+      - ✅ des **boursiers sur critères sociaux des filières sanitaires et sociales** des régions Normandie et Occitanie. D'autres régions devraient être couvertes à l'avenir.
+
+    geographical_scope_description:  |+
+      L'API couvre :
+      - ✅ les territoire français, dont les ✅ DROM ; _uniquement régions Normandie et Occitanie pour les bourses des filières sanitaires et sociales_ ;
+      - ✅ les boursiers de nationalité française. 
+
+      Ne sont pas couverts par cette API : 
+      - ❌ les territoires d'outre-mer ;
+      - ❌ les données des étudiants boursiers étrangers.
+    updating_rules_description: |+
+      Les données sont **mises à jour une fois par an**, début septembre, une fois tous les étudiants inscrits.
+  data:
+    description: |+
+      Cette API **indique si un étudiant est boursier et permet de connaître le montant de la bourse** perçue grâce à l'échelon et la durée de versement.
+  provider_uids:
+    - 'cnous'
+  keywords: []
+  parameters:
+    - Nom, prénom, date de naissance de l'étudiant ;
+    - ou Identifiant National Étudiant (INE) ;
+    - ou FranceConnect.
+  use_cases:
+    - Attribution des aides à la scolarité
+    - Attribution des aides sociales
+    - Tarification sociale et solidaire des transports
+    - Tarification des services publics municipaux
+  faq: 
+    - q: À quoi correspondent les échelons de bourse ?
+      a:
+        "Il existe huit échelons de bourses d'étudiant, de 0bis à 7. Chaque échelon de bourse indique **le montant reçu par l'étudiant pour l'année scolaire**. 
+        
+        Pour chaque échelon, il y a deux montants possibles, le premier correspond au montant versé pour 10 mois ; le second, plus élevé, équivaut à 12 mois. Il est versé aux étudiants bénéficiant du maintien de la bourse pendant les grandes vacances universitaires. Les taux sont fixés par arrêté, la page dédiée sur [Service-public.fr](https://www.service-public.fr/particuliers/vosdroits/F12214) détaille les montants et vous permettra de retrouver l'arrêté de l'année en cours.
+        
+        Cette API vous permet de connaître le montant exact perçu par l'étudiant car elle délivre l'échelon de la bourse et la durée de versement en mois."
+

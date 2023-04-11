@@ -22,9 +22,9 @@ class AbstractDocumentationPage
 
   def self.build_section(section, page_uid)
     {
-      introduction: DocumentationSearchableChunk.new(section, page_uid),
+      introduction: DocumentationSearchableChunk.new(section, "#{api}_#{page_uid}"),
       subsections: (section[:subsections] || []).map do |subsection|
-        DocumentationSearchableChunk.new(subsection, page_uid)
+        DocumentationSearchableChunk.new(subsection, "#{api}_#{page_uid}")
       end
     }
   end

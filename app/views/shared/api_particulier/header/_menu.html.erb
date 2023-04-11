@@ -1,0 +1,31 @@
+<div class="fr-header__menu fr-modal" id="modal-header-menu" aria-labelledby="fr-btn-menu-mobile-1">
+  <div class="fr-container">
+    <button class="fr-link--close fr-link" aria-controls="modal-header-menu">
+      Fermer
+    </button>
+
+    <div class="fr-header__menu-links"></div>
+
+    <nav class="fr-nav" id="navigation-header-menu" aria-label="Menu principal">
+      <ul class="fr-nav__list">
+        <li class="fr-nav__item">
+          <a class="fr-nav__link center" href="<%= endpoints_path %>" target="_self" <%= active_link_attribute('catalogue', request.url) %>>
+            <%= t('.catalogue').html_safe %>
+          </a>
+        </li>
+
+        <li class="fr-nav__item">
+          <a class="fr-nav__link center" href="<%= developers_path %>" target="_self" <%= active_link_attribute('developer', request.url) %>>
+            <%= t('.developer').html_safe %>
+          </a>
+        </li>
+
+        <li class="ask-access-link fr-nav__item">
+          <a class="fr-nav__link center" href="https://api.gouv.fr/les-api/api-particulier/demande-acces" target="_blank">
+            <%= t('.ask_access').html_safe %>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

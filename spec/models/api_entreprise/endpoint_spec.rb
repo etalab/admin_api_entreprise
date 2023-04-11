@@ -17,7 +17,7 @@ RSpec.describe APIEntreprise::Endpoint do
     subject { described_class.find(uid) }
 
     context 'with valid uid' do
-      let(:uid) { example_uid }
+      let(:uid) { api_entreprise_example_uid }
 
       it { is_expected.to be_an_instance_of(described_class) }
 
@@ -56,7 +56,7 @@ RSpec.describe APIEntreprise::Endpoint do
     end
 
     context 'with collection uid' do
-      let(:uid) { example_collection_uid }
+      let(:uid) { api_entreprise_example_collection_uid }
 
       it { is_expected.to be_an_instance_of(described_class) }
 

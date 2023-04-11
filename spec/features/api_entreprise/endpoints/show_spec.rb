@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Endpoints show', app: :api_entreprise do
-  let(:uid) { example_uid }
+  let(:uid) { api_entreprise_example_uid }
 
   let(:endpoint) { APIEntreprise::Endpoint.find(uid) }
 
@@ -62,7 +62,7 @@ RSpec.describe 'Endpoints show', app: :api_entreprise do
       end
 
       it 'open modal with custom example' do
-        visit endpoint_path(uid: example_collection_uid)
+        visit endpoint_path(uid: api_entreprise_example_collection_uid)
 
         click_on 'example_link'
 

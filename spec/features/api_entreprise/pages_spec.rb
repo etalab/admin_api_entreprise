@@ -17,6 +17,14 @@ RSpec.describe 'Simple pages', app: :api_entreprise do
     end
   end
 
+  describe 'accessibilite' do
+    it 'does not raise error' do
+      expect {
+        visit accessibilite_path
+      }.not_to raise_error
+    end
+  end
+
   describe 'infolettre' do
     it 'does not raise error' do
       expect {
