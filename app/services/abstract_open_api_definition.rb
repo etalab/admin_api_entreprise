@@ -29,7 +29,11 @@ class AbstractOpenAPIDefinition
 
   # rubocop:disable Security/Open
   def open_api_definition_content
-    URI.open(remote_url).read
+    if load_local?
+      local_path.read
+    else
+      URI.open(remote_url).read
+    end
   rescue StandardError, OpenURI::HTTPError => e
     Sentry.capture_exception(e)
     local_path.read
@@ -44,5 +48,11 @@ class AbstractOpenAPIDefinition
 
   def remote_url
     fail NotImplementedError
+  end
+
+  private
+
+  def load_local?
+    ENV['LOAD_LOCAL_OPEN_API_DEFINITIONS'].present?
   end
 end

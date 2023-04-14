@@ -44,15 +44,6 @@ class InitialSchema < ActiveRecord::Migration[7.0]
     t.index ["token_id"], name: "index_magic_links_on_token_id"
   end
 
-  create_table "scopes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name", null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.string "code", null: false
-    t.text "api", null: false
-    t.index ["created_at"], name: "index_scopes_on_created_at"
-  end
-
   create_table "scopes_tokens", id: false, force: :cascade do |t|
     t.uuid "token_id", null: false
     t.uuid "scope_id", null: false
@@ -72,12 +63,14 @@ class InitialSchema < ActiveRecord::Migration[7.0]
     t.boolean "access_request_survey_sent", default: false, null: false
     t.uuid "authorization_request_model_id", null: false
     t.json "extra_info"
+    t.jsonb "scopes", default: [], null: false
     t.index ["access_request_survey_sent"], name: "index_tokens_on_access_request_survey_sent"
     t.index ["archived"], name: "index_tokens_on_archived"
     t.index ["blacklisted"], name: "index_tokens_on_blacklisted"
     t.index ["created_at"], name: "index_tokens_on_created_at"
     t.index ["exp"], name: "index_tokens_on_exp"
     t.index ["iat"], name: "index_tokens_on_iat"
+    t.index ["scopes"], name: "index_tokens_on_scopes", using: :gin
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

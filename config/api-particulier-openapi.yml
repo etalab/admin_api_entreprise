@@ -83,7 +83,7 @@ paths:
         Le service permet de vérifier l'authenticité du justificatif d'impôt sur le revenu ou de l'avis d'impôt sur le revenu présenté par un usager.
 
         **Paramètres d'appel :** numéro fiscal et numéro d'avis d'imposition
-        **Données disponibles en bac à sable :** [liste](https://airtable.com/invite/l?inviteId=inv3ImCypw30uuLK9&inviteToken=0482ffbcc5d830fb6a409161fc372635a48b6bbcffdcde552f5be4290f80db50)
+        **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/tree/develop/payloads/api_particulier_v2_dgfip_svair)
       summary: Service de vérification de l'avis d'impôt sur le revenu
       parameters:
       - name: numeroFiscal
@@ -331,7 +331,7 @@ paths:
 
         **Paramètres d'appel :** numéro d'allocataire et code postal
 
-        **Données disponibles en bac à sable :** [liste](https://airtable.com/invite/l?inviteId=invpeDu6xq16LHfI5&inviteToken=66173d447bcbdf7d43548facb7c6b38df1267f8481f1a21491410ff30ecb2c8b&utm_source=email)
+        **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/api_particulier_v2_cnaf_quotient_familial)
       parameters:
       - name: numeroAllocataire
         in: query
@@ -368,19 +368,20 @@ paths:
                       type: object
                       properties:
                         nomPrenom:
-                          title: Noms et prénoms du parent
+                          title: Nom et prénoms
                           type: string
-                          description: Noms et prénoms du parent allocataire de la
+                          description: Nom et prénoms du parent allocataire de la
                             CAF
                           example: JEAN JACQUES
                         dateDeNaissance:
                           title: Date de naissance
                           type: string
                           pattern: "^\\d{8}$"
-                          description: 'Date de naissance au format: JJMMAAAA'
+                          description: Date de naissance au format JJMMAAAA
                           example: '01021970'
                         sexe:
-                          title: Sexe du parent
+                          title: Sexe
+                          description: Sexe du parent
                           type: string
                           example: M
                           enum:
@@ -388,39 +389,28 @@ paths:
                           - M
                   enfants:
                     title: Informations sur les enfants composant la famille
-                    description: "La liste des enfants correspond à la notion d'enfant
-                      à charge au sens de la législation familiale. Pour qu'un enfant
-                      soit considéré comme \"à charge\", l’allocataire doit assurer
-                      financièrement son entretien de manière effective et permanente
-                      et assumer à son égard la responsabilité affective et éducative.
-                      Il n'y a pas d'obligation de lien de parenté avec l’enfant.
-                      \n \n Deux notions d’enfant à charge cohabitent : \n - enfant
-                      à charge au sens des prestations familiales (Pf) : un enfant
-                      est reconnu à charge s’il est âgé d’un mois à moins de 20 ans
-                      quelle que soit sa situation, dès lors que son salaire net mensuel
-                      ne dépasse pas 55 % du Smic brut ; \n - enfant à charge au sens
-                      de la législation familiale : sont considérés à charge pour
-                      les aides au logement, les enfants âgés de moins de 21 ans en
-                      Métropole (22 ans dans les Dom), les enfants âgés de 20 à 25
-                      ans pour le calcul du Rmi/Rsa, et dès le mois de leur naissance,
-                      les enfants bénéficiaires de l’allocation de base de la Paje."
+                    description: 'La liste des enfants correspond à la notion d''enfant
+                      à charge au sens de la législation familiale. Il n''y a notamment
+                      pas d''obligation de lien de parenté avec l’enfant. Pour en
+                      savoir plus, consultez la FAQ https://particulier.api.gouv.fr/catalogue/cnaf/quotient_familial#faq_entry_2_api_particulier_endpoint_cnaf_quotient_familial:'
                     type: array
                     items:
                       type: object
                       properties:
                         nomPrenom:
-                          title: Noms et prénoms de l'enfant
+                          title: Nom et prénoms
                           type: string
-                          description: Noms et prénoms de l'enfant des allocataires
+                          description: Nom et prénoms de l'enfant des allocataires
                           example: JESSICA JACQUES
                         dateDeNaissance:
-                          title: Date de naissance de l'enfant
+                          title: Date de naissance
                           type: string
                           pattern: "^\\d{8}$"
-                          description: 'Date de naissance au format: JJMMAAAA'
+                          description: Date de naissance au format JJMMAAAA
                           example: '01031995'
                         sexe:
-                          title: Sexe de l'enfant
+                          title: Sexe
+                          description: Sexe de l'enfant
                           type: string
                           example: F
                           enum:
@@ -430,7 +420,7 @@ paths:
                     title: Adresse de la famille
                     type: object
                     description: Adresse structurée au format de la poste. C'est l'adresse
-                      connue de la CAF, il s'agit d'une information déclarative.
+                      connue de la CNAF, il s'agit d'une information déclarative.
                     properties:
                       identite:
                         title: Identité du destinataire
@@ -444,12 +434,12 @@ paths:
                         description: Numéro d'appartement, escalier
                         type: string
                         nullable: true
-                        example:
+                        example: 
                       complementIdentiteGeo:
                         title: Complément d'information du point géographique
                         type: string
                         nullable: true
-                        example:
+                        example: 
                         description: Entrée, tour, immeuble, bâtiment, résidence
                       numeroRue:
                         title: Voie
@@ -460,7 +450,7 @@ paths:
                         title: Lieu-dit
                         type: string
                         nullable: true
-                        example:
+                        example: 
                         description: 'Lieu-dit ou service particulier de distribution
                           : poste restante, boîte postale'
                       codePostalVille:
@@ -475,7 +465,7 @@ paths:
                   quotientFamilial:
                     title: Quotient familial CAF de la famille
                     type: integer
-                    description: Valeur du quotient familial calculée par la CAF.
+                    description: Valeur du quotient familial calculée par la CAF
                     example: 1045
                   annee:
                     title: Année du quotient familial
@@ -530,7 +520,7 @@ paths:
       description: |-
         Données d'identité, de contact et de statut du demandeur d'emploi.
         **Paramètres d'appel :** Nom d’utilisateur Pôle emploi choisi par le particulier lors de la création de son espace personnel en ligne
-        **Données disponibles en bac à sable :** [liste](https://airtable.com/invite/l?inviteId=inv1n0CkFzq3Y0pvn&inviteToken=a5b49ec5bb9d2323df4adbdfc6c65da35a2248af30c38095101b3cca6ea0898a&utm_source=email)
+        **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/api_particulier_v2_pole_emploi_statut)
       parameters:
       - name: identifiant
         required: true
@@ -560,7 +550,7 @@ paths:
                     example: martin.jacques
                   civilite:
                     title: Civilité
-                    description: Civilité du particulier, Madame ou Monsieur
+                    description: Civilité du demandeur d'emploi, Madame ou Monsieur
                     type: string
                     example: M.
                     enum:
@@ -569,29 +559,30 @@ paths:
                   nom:
                     title: Nom de naissance
                     type: string
-                    description: Nom de naissance du particulier
+                    description: Nom de naissance du demandeur d'emploi
                     example: MARTIN
                   nomUsage:
                     title: Nom d'usage
                     type: string
-                    description: Nom d'usage du particulier
+                    description: Nom d'usage du demandeur d'emploi
                     nullable: true
-                    example:
+                    example: 
                   prenom:
                     title: Prénom
                     type: string
                     example: JACQUES
-                    description: Prénom du particulier, limité à 13 caractère
+                    description: Prénom ddu demandeur d'emploi, limité à 13 caractères
                   sexe:
                     title: Sexe
                     type: string
-                    description: Sexe du particulier
+                    description: Sexe du demandeur d'emploi
                     example: Masculin
                   dateNaissance:
                     title: Date de naissance
                     format: date
                     type: string
-                    description: Date de naissance du particulier au format YYYY-MM-DD
+                    description: Date de naissance du demandeur d'emploi au format
+                      YYYY-MM-DD
                     example: 1995-02-02
                   codeCertificationCNAV:
                     title: Code du statut de certification d'identité CNAV
@@ -613,27 +604,27 @@ paths:
                     - AC
                     - DC
                     - RC
-                    -
+                    - 
                   telephone:
                     title: Téléphone principal
                     type: string
-                    description: Numéro de téléphone principal du particulier
+                    description: Numéro de téléphone principal du demandeur d'emploi
                     example: 108756471
                   telephone2:
                     title: Téléphone secondaire
                     type: string
-                    description: Numéro de téléphone secondaire du particulier
+                    description: Numéro de téléphone secondaire du demandeur d'emploi
                     nullable: true
                   email:
                     title: E-mail
                     type: string
                     nullable: true
-                    description: Adresse e-mail du particulier
+                    description: Adresse e-mail du demandeur d'emploi
                     example: martin.jacques@france.fr
                   adresse:
                     title: Adresse
                     type: object
-                    description: Adresse du particulier, déclarée par le particulier
+                    description: Adresse du demandeur d'emploi, déclarée par le particulier
                       lors de son inscription à Pôle emploi ou suite à une déclaration
                       de changement d’adresse.
                     properties:
@@ -653,15 +644,15 @@ paths:
                       ligneComplementDestinaire:
                         type: string
                         nullable: true
-                        example:
+                        example: 
                       ligneComplementAdresse:
                         type: string
                         nullable: true
-                        example:
+                        example: 
                       ligneComplementDistribution:
                         type: string
                         nullable: true
-                        example:
+                        example: 
                       ligneNom:
                         type: string
                         example: MARTIN
@@ -779,12 +770,12 @@ paths:
           type: string
       summary: Statut étudiant
       description: |-
-        Inscriptions et pré-inscriptions CROUS d'un étudiant aux établissements d'enseignement supérieur.
+        Admissions et inscriptions d'un étudiant aux établissements d'enseignement supérieur.
         **Paramètres d'appel :** Pour appeler l'API statut étudiant, deux modes d'appel sont possibles :
          - INE, l'identifiant national étudiant ;
          - l'état civil de l'étudiant: nom, prénom, date de naissance, sexe et lieu de naissance.
 
-        **Données disponibles en bac à sable :** [liste](https://airtable.com/invite/l?inviteId=invaqM68okWdPDzc5&inviteToken=43864c010a85095fd8acc6770f6528ce3beff684f60e7aab58e248c29e6d0433&utm_source=email)
+        **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/api_particulier_v2_mesri_student_status)
       responses:
         '200':
           x-operationId: api_particulier_v2_mesri_student_status
@@ -795,14 +786,13 @@ paths:
                 type: object
                 properties:
                   ine:
-                    title: Numéro INE
+                    title: Identifiant National Étudiant (INE)
                     type: string
-                    description: Identifiant National Étudiant (INE). Cet identifiant
-                      est unique à chaque étudiant sur le territoire français. Il
-                      est composé de 11 caractères, 10 chiffres et 1 lettre, et depuis
-                      la rentrée 2018, 9 chiffres et 2 lettres. Les étudiants peuvent
-                      retrouver leur numéro INE sur leur carte étudiant et leur certificat
-                      de scolarité.
+                    description: Cet identifiant est unique à chaque étudiant sur
+                      le territoire français. Il est composé de 11 caractères, 10
+                      chiffres et 1 lettre, et depuis la rentrée 2018, 9 chiffres
+                      et 2 lettres. Les étudiants peuvent retrouver leur numéro INE
+                      sur leur carte étudiant et leur certificat de scolarité.
                     example: 1234567890G
                   nom:
                     title: Nom de naissance
@@ -821,7 +811,8 @@ paths:
                     description: Date de naissance de l'étudiant
                     example: 1992-11-29
                   inscriptions:
-                    title: Liste des inscriptions de l'étudiant pour l'année en cours
+                    title: Liste des admissions et inscriptions de l'étudiant pour
+                      l'année en cours
                     type: array
                     items:
                       type: object
@@ -839,44 +830,29 @@ paths:
                           description: Date de fin de la période d'étude dans l'établissement
                           example: 2023-08-31
                         statut:
-                          title: Statut d'inscription
+                          title: Statut de l'inscription
                           type: string
-                          description: "Statut d'inscription de l'étudiant. Il existe
-                            deux modalités différentes : \n \n - inscrit : inscrit
-                            dans l'établissement ; \n - admis, c'est-à-dire pré-inscrit
-                            au sens du CROUS. Le statut admis correspond à une pré-inscription
-                            de l'étudiant dans un établissement, en formation initiale
-                            ou continue. Ce statut ne garantit pas que l'étudiant
-                            soit accepté par l'établissement. Cette pré-inscription
-                            permet à l'étudiant de faire ses démarches auprès du CROUS.
-                            Les étudiants \"admis\" passent au statut \"inscrit\"
-                            une fois leur inscription validée par l'établissement.
-                            L'inscription dépend des critères de l'établissement :
-                            acceptation la candidature, paiement des droits d'inscription...
-                            Tous les étudiants \"admis\" ne sont donc pas forcément
-                            de futurs étudiants \"inscrits\"."
+                          description: |
+                            "Statut de l'inscription de l'étudiant. Il existe deux modalités différentes :
+                            \n
+                            \n
+                            - admis : l'étudiant est pré-inscrit dans l'établissement mais la procédure complète d'inscription et le règlement des droits d'inscription ne sont pas terminés. Les étudiants \"admis\" passent au statut \"inscrit\" une fois leurs droits d'inscription régularisés (paiement des droits, premier versement des droits ou acquittement des droits selon la situation de l'étudiant et les règles de l'établissement.) Tous les étudiants \"admis\" ne sont donc pas forcément de futurs étudiants \"inscrits\".
+                            \n
+                            - inscrit : l'étudiant est inscrit dans l'établissement car il est en règle de ses droits d'inscription. L'étudiant peut être inscrit dans plusieurs établissements."
                           example: admis
                           enum:
                           - admis
                           - inscrit
                         regime:
-                          title: Régime de l'étudiant
+                          title: Régime de formation
                           type: string
                           description: "Régime de formation de l'étudiant. Il existe
                             deux modalités différentes : \n \n - formation initiale
-                            ou reprise d'études : Cette modalité indique que l'étudiant
-                            est en formation initiale ou en reprise d'études. La formation
-                            initiale correspond à un parcours d’études amorcé à l’école
-                            élémentaire et suivi sans interruption durant plus d’un
-                            an. S'il y a interruption, il s’agit d'une reprise d’études;
-                            \n - formation continue : Cette modalité indique que l'étudiant
-                            est en formation continue. Ce type de formation est destinée
-                            aux salariés, employés ou demandeurs d’emploi et a pour
-                            objectif de conforter, améliorer ou acquérir des connaissances
-                            professionnelles au-delà de la formation initiale. La
-                            formation continue s'accompagne toujours de la signature
-                            d’une convention ou d’un contrat de formation professionnelle
-                            entre la personne et l’établissement formateur."
+                            : Ce champ indique que l'étudiant est en formation initiale
+                            sous statut étudiant (y compris dans le cadre de reprise
+                            d’études) ou en en apprentissage ; \n - formation continue
+                            : Ce champ indique que l'étudiant est en formation continue
+                            ou en contrat de professionalisation."
                           example: formation initiale
                           enum:
                           - formation initiale
@@ -973,12 +949,12 @@ paths:
           type: string
       summary: Statut étudiant boursier
       description: |-
-        Statut boursier d'un étudiant.
+        Statut et échelon boursier d'un étudiant, délivrés par le Cnous.
         **Paramètres d'appel :** Pour appeler l'API statut boursier, deux modes d'appel sont possibles :
          - INE, l'identifiant national étudiant ;
          - l'état civil de l'étudiant: nom, prénom, date de naissance, sexe et lieu de naissance.
 
-        **Données disponibles en bac à sable :** [liste](https://airtable.com/invite/l?inviteId=inv9lBycvDR5UzbyM&inviteToken=6e46235c19bbb4a70dd31ab483eb7375ac0bf46c9d8145d1358e0aa50f65277a&utm_source=email)
+        **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/api_particulier_v2_cnous_student_scholarship)
       responses:
         '200':
           x-operationId: api_particulier_v2_cnous_student_scholarship
@@ -1030,15 +1006,11 @@ paths:
                   echelonBourse:
                     title: Échelon de la bourse
                     type: string
-                    description: Échelon de bourse de l'étudiant, indiquant le montant
-                      reçu pour l'année scolaire. Il y a 8 échelons de bourse, de
-                      0bis à 7. Chaque échelon est composé de deux montants, le premier
-                      correspondant au montant versé pour 10 mois ; le second, plus
-                      élevé, pour les étudiants bénéficiant du maintien de la bourse
-                      pendant les grandes vacances universitaires. Les taux sont fixé
-                      par arrêté, la page dédiée sur Service-public.fr détaille les
-                      montants et vous permettra de retrouver l'arrêté de l'année
-                      en cours.
+                    description: '"Il existe 8 échelons de bourse, de 0bis à 7, correspondant
+                      aux montants reçus par l''étudiant pour l''année scolaire. Pour
+                      en savoir plus, consulter la FAQ : https://particulier.api.gouv.fr/catalogue/cnous/statut_etudiant_boursier#faq_entry_answer_0_api_particulier_endpoint_cnous_statut_etudiant_boursier."
+
+                      '
                     example: '6'
                     enum:
                     - 0bis
@@ -1177,13 +1149,13 @@ components:
       properties:
         error:
           type: string
-          example:
+          example: 
         reason:
           type: string
-          example:
+          example: 
         message:
           type: string
-          example:
+          example: 
   securitySchemes:
     apiKey:
       type: apiKey

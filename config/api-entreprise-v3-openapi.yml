@@ -477,12 +477,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -1000,12 +1003,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -1599,12 +1605,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -1976,12 +1985,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -2358,12 +2370,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -2387,6 +2402,7 @@ paths:
   "/v3/dgfip/unites_legales/{siren}/attestation_fiscale":
     get:
       summary: Attestation fiscale
+      deprecated: true
       tags:
       - Attestations sociales et fiscales
       parameters:
@@ -2785,12 +2801,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -2811,6 +2830,456 @@ paths:
           curl -X GET \
             -H "Authorization: Bearer $token" \
             --url "https://entreprise.api.gouv.fr/v3/dgfip/unites_legales/130025265/attestation_fiscale?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
+      x-maintenances:
+        from_hour: '01:00'
+        to_hour: '02:00'
+  "/v4/dgfip/unites_legales/{siren}/attestation_fiscale":
+    get:
+      summary: Attestation fiscale
+      tags:
+      - Attestations sociales et fiscales
+      parameters:
+      - name: siren
+        in: path
+        description: Siren de l'entreprise
+        examples:
+          siren_octo_technology:
+            value: '418166096'
+            summary: SIREN Octo Technology
+          siren_non_diffusible:
+            value: '005572466'
+            summary: SIREN entreprise non diffusible
+          siren_artisant:
+            value: '301123626'
+            summary: SIREN entreprise artisanale
+          siren_fntp:
+            value: '339379984'
+            summary: SIREN pour FNTP
+          siren_cnetp:
+            value: '542036207'
+            summary: SIREN pour CNETP
+          siren_opqibi:
+            value: '515228211'
+            summary: SIREN pour OPQIBI
+          siren_entrepreneur_individuel:
+            value: '389839937'
+            summary: SIREN d'un entrepeneur individuel (cessé)
+          siren_marques_brevets_modeles:
+            value: '542065479'
+            summary: SIREN d'une entreprise ayant des marques, brevets et modèles
+              (INPI)
+        required: true
+        schema:
+          type: string
+      - name: Cache-Control
+        in: header
+        description: Si cette valeur est fixée à "no-cache", le système de cache est
+          alors ignoré et la donnée est directement récupérée depuis le fournisseur
+          de données.
+        schema:
+          type: string
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Attestation fiscale délivrée par la Direction générale des finances
+        publiques (DGFIP), indiquant que l’entreprise est à jour de ses obligations
+        fiscales.
+      responses:
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                old_token_error:
+                  value:
+                    errors:
+                    - code: '00102'
+                      title: Format de jeton plus supporté
+                      detail: Vous avez utilisé un token à l'ancien format. Ce format
+                        n'est plus supporté depuis avril 2019. Vous devez refaire
+                        une demande à API Entreprise, un guide est disponible sur
+                        https://entreprise.api.gouv.fr/demander_un_acces/
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Format de jeton plus supporté
+                  description: Vous avez utilisé un token à l'ancien format. Ce format
+                    n'est plus supporté depuis avril 2019. Vous devez refaire une
+                    demande à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/demander_un_acces/
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                        à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/doc/#renouvellement-token.
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                    à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/doc/#renouvellement-token.
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '403':
+          description: Accès interdit
+          content:
+            application/json:
+              examples:
+                insufficient_privileges_error:
+                  value:
+                    errors:
+                    - code: '00100'
+                      title: Privilèges insuffisants
+                      detail: Votre token est valide mais vos privilèges sont insuffisants.
+                        Listez vos privilèges sur /v2/privileges
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Privilèges insuffisants
+                  description: Votre token est valide mais vos privilèges sont insuffisants.
+                    Listez vos privilèges sur /v2/privileges
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '200':
+          description: Attestation fiscale trouvée
+          headers:
+            X-Response-Cached:
+              schema:
+                type: boolean
+                example: true
+                enum:
+                - true
+                - false
+                default: false
+              description: Indique si la réponse a été caché.
+            X-Cache-Expires-in:
+              schema:
+                type: number
+                nullable: true
+                example: 9001
+              description: Secondes avant que le cache n'expire. Si le cache est vide,
+                ce header est vide (mais présent).
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          x-operationId: api_entreprise_v4_dgfip_attestations_fiscales
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      document_url:
+                        title: URL de téléchargement de l'attestation fiscale (.pdf)
+                        type: string
+                        description: Ce lien donne accès à l'attestation fiscale au
+                          format PDF.
+                        example: https://storage.entreprise.api.gouv.fr/siade/1569139162-b99824d9c764aae19a862a0af-attestation_fiscale_dgfip.pdf
+                      document_url_expires_in:
+                        title: Délai avant expiration de l'URL de téléchargement du
+                          document'
+                        description: Nombre de secondes avant expiration de l'URL
+                          de téléchargement du document. Il s'agit d'une expiration
+                          purement technique.
+                        type: integer
+                        example: 86400
+                      date_delivrance_attestation:
+                        title: Date de délivrance de l'attestation
+                        description: Date à laquelle l'attestation a été délivrée.
+                          Il s'agit en général de la date du jour de l'appel.
+                        type: date
+                        example: '2023-04-11'
+                      date_periode_analysee:
+                        title: Date de la période analysée
+                        description: "La situation est appréciée au dernier jour du
+                          mois précédant la demande de délivrance de l'attestation.
+                          \n \n Source: https://bofip.impots.gouv.fr/bofip/8485-PGP.html/identifiant=BOI-DJC-ARF-20220209#Modalites_de_controle_des_o_26"
+                        example: '2023-03-31'
+                        type: date
+                    required:
+                    - document_url
+                    - document_url_expires_in
+                    - date_delivrance_attestation
+                    - date_periode_analysee
+                  links:
+                    type: object
+                  meta:
+                    type: object
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          description: Non trouvée
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                unprocessable_entity_error_siren_error:
+                  value:
+                    errors:
+                    - code: '00301'
+                      title: Entité non traitable
+                      detail: Le numéro de siren n'est pas correctement formatté
+                      source:
+                        parameter: siren
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le numéro de siren n'est pas correctement formatté
+                missing_mandatory_params_context_error:
+                  value:
+                    errors:
+                    - code: '00201'
+                      title: Entité non traitable
+                      detail: Le paramètre context est obligatoire
+                      source:
+                        parameter: context
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre context est obligatoire
+                missing_mandatory_params_object_error:
+                  value:
+                    errors:
+                    - code: '00202'
+                      title: Entité non traitable
+                      detail: Le paramètre object est obligatoire
+                      source:
+                        parameter: object
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre object est obligatoire
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '502':
+          description: Erreur du fournisseur
+          content:
+            application/json:
+              examples:
+                unknown_error:
+                  value:
+                    errors:
+                    - code: '03999'
+                      title: Erreur inconnue du fournisseur de données
+                      detail: La réponse retournée par le fournisseur de données est
+                        invalide et inconnue de notre service. L'équipe technique
+                        a été notifiée de cette erreur pour investigation.
+                      source: 
+                      meta:
+                        provider: DGFIP - Adélie
+                  summary: Erreur inconnue du fournisseur de données
+                  description: La réponse retournée par le fournisseur de données
+                    est invalide et inconnue de notre service. L'équipe technique
+                    a été notifiée de cette erreur pour investigation.
+                fichier_renvoye_par_le_fournisseur_de_donnees_non_valide_03051:
+                  value:
+                    errors:
+                    - code: '03051'
+                      title: Fichier renvoyé par le fournisseur de données non valide
+                      detail: 'Erreur lors du décodage : la chaîne de caractères en
+                        base64 est invalide'
+                      source: 
+                      meta: {}
+                  summary: Fichier renvoyé par le fournisseur de données non valide
+                  description: 'Erreur lors du décodage : la chaîne de caractères
+                    en base64 est invalide'
+                fichier_renvoye_par_le_fournisseur_de_donnees_non_valide_03052:
+                  value:
+                    errors:
+                    - code: '03052'
+                      title: Fichier renvoyé par le fournisseur de données non valide
+                      detail: Temps d'attente de téléchargement du document écoulé
+                      source: 
+                      meta: {}
+                  summary: Fichier renvoyé par le fournisseur de données non valide
+                  description: Temps d'attente de téléchargement du document écoulé
+                fichier_renvoye_par_le_fournisseur_de_donnees_non_valide_03053:
+                  value:
+                    errors:
+                    - code: '03053'
+                      title: Fichier renvoyé par le fournisseur de données non valide
+                      detail: Erreur de connexion sur le server distant
+                      source: 
+                      meta: {}
+                  summary: Fichier renvoyé par le fournisseur de données non valide
+                  description: Erreur de connexion sur le server distant
+                fichier_renvoye_par_le_fournisseur_de_donnees_non_valide_03054:
+                  value:
+                    errors:
+                    - code: '03054'
+                      title: Fichier renvoyé par le fournisseur de données non valide
+                      detail: L'URL vers le document renvoyée par le fournisseur de
+                        données est invalide
+                      source: 
+                      meta: {}
+                  summary: Fichier renvoyé par le fournisseur de données non valide
+                  description: L'URL vers le document renvoyée par le fournisseur
+                    de données est invalide
+                fichier_renvoye_par_le_fournisseur_de_donnees_non_valide_03055:
+                  value:
+                    errors:
+                    - code: '03055'
+                      title: Fichier renvoyé par le fournisseur de données non valide
+                      detail: Le fichier n'est pas au format attendu
+                      source: 
+                      meta: {}
+                  summary: Fichier renvoyé par le fournisseur de données non valide
+                  description: Le fichier n'est pas au format attendu
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '504':
+          description: Erreur d'intermédiaire
+          content:
+            application/json:
+              examples:
+                timeout_error:
+                  value:
+                    errors:
+                    - code: '03002'
+                      title: Intermédiaire hors-délai
+                      detail: Temps d’attente d’une réponse du fournisseur de données
+                        écoulé.
+                      source: 
+                      meta:
+                        provider: DGFIP - Adélie
+                  summary: Intermédiaire hors-délai
+                  description: Temps d’attente d’une réponse du fournisseur de données
+                    écoulé.
+                provider_unavailable_error:
+                  value:
+                    errors:
+                    - code: '03001'
+                      title: Service non disponible
+                      detail: Service du fournisseur de données temporairement indisponible
+                        ou en maintenance.
+                      source: 
+                      meta:
+                        provider: DGFIP - Adélie
+                  summary: Service non disponible
+                  description: Service du fournisseur de données temporairement indisponible
+                    ou en maintenance.
+                network_error:
+                  value:
+                    errors:
+                    - code: '00501'
+                      title: Erreur réseau
+                      detail: Problème de connexion au serveur distant. L'erreur peut
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
+                      source: 
+                      meta:
+                        retry_in: 10
+                  summary: Erreur réseau
+                  description: Problème de connexion au serveur distant. L'erreur
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
+                dns_resolution_error:
+                  value:
+                    errors:
+                    - code: '03004'
+                      title: Erreur de résolution DNS
+                      detail: Problème de résolution DNS de l'adresse du serveur
+                      source: 
+                      meta:
+                        provider: DGFIP - Adélie
+                  summary: Erreur de résolution DNS
+                  description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v4/dgfip/unites_legales/130025265/attestation_fiscale?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
       x-maintenances:
         from_hour: '01:00'
         to_hour: '02:00'
@@ -3139,12 +3608,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -3708,12 +4180,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -4157,22 +4632,22 @@ paths:
                             example: Tribunal d'instance de Strasbourg
                             nullable: true
                             enum:
-                            - Tribunal d’instance de Metz
-                            - Tribunal d’instance de Saint-Avold
-                            - Tribunal d’instance de Sarrebourg
-                            - Tribunal d’instance de Sarreguemines
-                            - Tribunal d’instance de de Thionville
-                            - Tribunal d’instance de Haguenau
-                            - Tribunal d’instance d’Illkirch
-                            - Tribunal d’instance de Molsheim
-                            - Tribunal d’instance de Saverne
-                            - Tribunal d’instance de Schiltigheim
-                            - Tribunal d’instance de Sélestat
-                            - Tribunal d’instance de Strasbourg
-                            - Tribunal d’instance de Colmar
-                            - Tribunal d’instance de Guebwiller
-                            - Tribunal d’instance de Mulhouse
-                            - Tribunal d’instance de Thann
+                            - Tribunal d'instance de Metz
+                            - Tribunal d'instance de Saint-Avold
+                            - Tribunal d'instance de Sarrebourg
+                            - Tribunal d'instance de Sarreguemines
+                            - Tribunal d'instance de de Thionville
+                            - Tribunal d'instance de Haguenau
+                            - Tribunal d'instance d’Illkirch
+                            - Tribunal d'instance de Molsheim
+                            - Tribunal d'instance de Saverne
+                            - Tribunal d'instance de Schiltigheim
+                            - Tribunal d'instance de Sélestat
+                            - Tribunal d'instance de Strasbourg
+                            - Tribunal d'instance de Colmar
+                            - Tribunal d'instance de Guebwiller
+                            - Tribunal d'instance de Mulhouse
+                            - Tribunal d'instance de Thann
                           volume:
                             title: Volume du registre du tribunal d'instance
                             type: string
@@ -4280,6 +4755,7 @@ paths:
                             url:
                               type: string
                               title: URL de l'agrément
+                              nullable: true
                               example: https://associations.api.gouv.fr/agrements/05.11.2018.pdf
                       activites:
                         title: Liste des activités de l'association
@@ -4300,6 +4776,7 @@ paths:
                               envisagées pour atteindre l'objet. Ce champ délivre
                               l'objet tel que rédigé dans les statuts de l'association.
                             type: string
+                            nullable: true
                             example: L'association a pour objet de promouvoir la pratique
                               du sport de haut niveau et de contribuer à la formation
                               des jeunes sportifs.
@@ -4355,13 +4832,13 @@ paths:
                             - libelle
                           champ_action_territorial:
                             title: Champ d'action territorial
-                            example: departemental
+                            example: départemental
                             type: string
                             enum:
                             - national
                             - international
-                            - regional
-                            - departemental
+                            - régional
+                            - départemental
                             - local
                             nullable: true
                           activite_principale:
@@ -5055,7 +5532,7 @@ paths:
                               title: Type du document
                               enum:
                               - Pièce
-                              - Récipissé
+                              - Récipicé
                               example: Pièce
                             sous_type:
                               type: object
@@ -5288,12 +5765,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -5756,22 +6236,22 @@ paths:
                             example: Tribunal d'instance de Strasbourg
                             nullable: true
                             enum:
-                            - Tribunal d’instance de Metz
-                            - Tribunal d’instance de Saint-Avold
-                            - Tribunal d’instance de Sarrebourg
-                            - Tribunal d’instance de Sarreguemines
-                            - Tribunal d’instance de de Thionville
-                            - Tribunal d’instance de Haguenau
-                            - Tribunal d’instance d’Illkirch
-                            - Tribunal d’instance de Molsheim
-                            - Tribunal d’instance de Saverne
-                            - Tribunal d’instance de Schiltigheim
-                            - Tribunal d’instance de Sélestat
-                            - Tribunal d’instance de Strasbourg
-                            - Tribunal d’instance de Colmar
-                            - Tribunal d’instance de Guebwiller
-                            - Tribunal d’instance de Mulhouse
-                            - Tribunal d’instance de Thann
+                            - Tribunal d'instance de Metz
+                            - Tribunal d'instance de Saint-Avold
+                            - Tribunal d'instance de Sarrebourg
+                            - Tribunal d'instance de Sarreguemines
+                            - Tribunal d'instance de de Thionville
+                            - Tribunal d'instance de Haguenau
+                            - Tribunal d'instance d’Illkirch
+                            - Tribunal d'instance de Molsheim
+                            - Tribunal d'instance de Saverne
+                            - Tribunal d'instance de Schiltigheim
+                            - Tribunal d'instance de Sélestat
+                            - Tribunal d'instance de Strasbourg
+                            - Tribunal d'instance de Colmar
+                            - Tribunal d'instance de Guebwiller
+                            - Tribunal d'instance de Mulhouse
+                            - Tribunal d'instance de Thann
                           volume:
                             title: Volume du registre du tribunal d'instance
                             type: string
@@ -5879,6 +6359,7 @@ paths:
                             url:
                               type: string
                               title: URL de l'agrément
+                              nullable: true
                               example: https://associations.api.gouv.fr/agrements/05.11.2018.pdf
                       activites:
                         title: Liste des activités de l'association
@@ -5899,6 +6380,7 @@ paths:
                               envisagées pour atteindre l'objet. Ce champ délivre
                               l'objet tel que rédigé dans les statuts de l'association.
                             type: string
+                            nullable: true
                             example: L'association a pour objet de promouvoir la pratique
                               du sport de haut niveau et de contribuer à la formation
                               des jeunes sportifs.
@@ -5954,13 +6436,13 @@ paths:
                             - libelle
                           champ_action_territorial:
                             title: Champ d'action territorial
-                            example: departemental
+                            example: départemental
                             type: string
                             enum:
                             - national
                             - international
-                            - regional
-                            - departemental
+                            - régional
+                            - départemental
                             - local
                             nullable: true
                           activite_principale:
@@ -6531,12 +7013,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -6850,12 +7335,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -7259,12 +7747,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -7636,12 +8127,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -8401,12 +8895,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -8912,12 +9409,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -9266,12 +9766,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -9746,12 +10249,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -10125,12 +10631,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -10526,12 +11035,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -11089,12 +11601,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -11283,10 +11798,14 @@ paths:
                         title: Numéro dans la voie
                         type: string
                         example: '22'
+                        description: Cette valeur est masquée à [ND] si l'etablissement
+                          correspond à une personne morale non-diffusible.
                       indice_repetition_voie:
                         title: Indice de répétition du numéro dans la voie
-                        description: 'Plus d''informations dans la documentation Insee
-                          de l''API Sirene : https://www.sirene.fr/sirene/public/variable/indrep'
+                        description: "Plus d'informations dans la documentation Insee
+                          de l'API Sirene : https://www.sirene.fr/sirene/public/variable/indrep
+                          \n Cette valeur est masquée à [ND] si l'etablissement correspond
+                          à une personne morale non-diffusible."
                         type: string
                         nullable: true
                         enum:
@@ -11302,7 +11821,9 @@ paths:
                           en abrégé et en majuscules. L'information n'est pas toujours
                           renseignée. Pour certaines petites communes, l'information
                           n'existe pas. \n \n Plus d'informations dans la documentation
-                          Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/typvoie"
+                          Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/typvoie
+                          \n Cette valeur est masquée à [ND] si l'etablissement correspond
+                          à une personne morale non-diffusible."
                         type: string
                         nullable: true
                         enum:
@@ -11353,12 +11874,16 @@ paths:
                         title: Libellé de la voie
                         type: string
                         example: DE LA PAIX
+                        description: Cette valeur est masquée à [ND] si l'etablissement
+                          correspond à une personne morale non-diffusible.
                       complement_adresse:
                         title: Complément d'adresse
                         type: string
-                        description: Le complément d'adresse correspond à des éléments
+                        description: "Le complément d'adresse correspond à des éléments
                           situés à l'extérieur du bâtiment qui permettent de compléter
-                          l'adresse (résidence, bâtiment, entrée, etc..)
+                          l'adresse (résidence, bâtiment, entrée, etc..) \n Cette
+                          valeur est masquée à [ND] si l'etablissement correspond
+                          à une personne morale non-diffusible."
                         example: ZAE SAINT GUENAULT
                         nullable: true
                       code_commune:
@@ -11378,30 +11903,38 @@ paths:
                         title: Code postal
                         example: '75016'
                         type: string
+                        description: Cette valeur est masquée à [ND] si l'etablissement
+                          correspond à une personne morale non-diffusible.
                       distribution_speciale:
                         title: Distribution spéciale
                         type: string
                         nullable: true
                         description: "La distribution spéciale reprend les éléments
                           particuliers qui accompagnent une adresse de distribution
-                          spéciale, la modalité la plus connue étant les adresses
+                          \  spéciale, la modalité la plus connue étant les adresses
                           en 'CEDEX'. \n \n Plus d'informations dans la documentation
                           Insee de l'API Sirene : * https://www.sirene.fr/sirene/public/variable/distributionSpecialeEtablissement
-                          * https://www.sirene.fr/sirene/public/variable/l5-disp"
+                          * https://www.sirene.fr/sirene/public/variable/l5-disp \n
+                          Cette valeur est masquée à [ND] si l'etablissement correspond
+                          à une personne morale non-diffusible."
                       code_cedex:
                         title: Code cedex
                         type: string
                         nullable: true
-                        description: 'Plus d''informations : https://fr.wikipedia.org/wiki/Courrier_d%27entreprise_%C3%A0_distribution_exceptionnelle'
+                        description: "Plus d'informations : https://fr.wikipedia.org/wiki/Courrier_d%27entreprise_%C3%A0_distribution_exceptionnelle
+                          \n Cette valeur est masquée à [ND] si l'etablissement correspond
+                          à une personne morale non-diffusible."
                         example: '75590'
                       libelle_cedex:
                         title: Libellé du code cedex
                         type: string
                         nullable: true
                         example: PARIS CEDEX 12
-                        description: Ce champ indique le libellé correspondant au
+                        description: "Ce champ indique le libellé correspondant au
                           code cedex de l'établissement. Si le code cedex est à 'null',
-                          ce champ est également à 'null'.
+                          ce champ est également à 'null'. \n Cette valeur est masquée
+                          à [ND] si l'etablissement correspond à une personne morale
+                          non-diffusible."
                       libelle_commune:
                         title: Nom de la commune pour une adresse en France
                         description: Cette valeur est à 'null' pour les établissements
@@ -11438,48 +11971,54 @@ paths:
                           l1:
                             title: Ligne 1
                             type: string
-                            description: 'Si l''établissement correspond à une personne
+                            description: "Si l'établissement correspond à une personne
                               morale : la dénomination sociale de la personne morale.
-                              Le cas contraire: cette variable est vide.'
+                              Le cas contraire: cette variable est vide. \n Cette
+                              valeur est masquée à [ND] si l'etablissement correspond
+                              à une personne morale non-diffusible."
                             example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
                           l2:
                             title: Ligne 2
                             type: string
-                            description: 'Si l''établissement correspond à une personne
-                              physique : concaténation du nom et prénom'
+                            description: "Si l'établissement correspond à une personne
+                              physique : concaténation du nom et prénom \n Cette valeur
+                              est masquée à [ND] si l'etablissement correspond à une
+                              personne morale non-diffusible."
                             example: JEAN MARIE DURAND
                           l3:
                             title: Ligne 3
                             type: string
-                            description: Complément d'adresse comme décrit dans la
-                              clé `complement_adresse`
+                            description: "Si l'établissement correspond à une personne
+                              physique : concaténation du nom et prénom \n Cette valeur
+                              est masquée à [ND] si l'etablissement correspond à une
+                              personne morale non-diffusible."
                             example: ZAE SAINT GUENAULT
                           l4:
                             title: Ligne 4
                             type: string
-                            description: Concaténation du numéro de voie, d'indice
+                            description: "Concaténation du numéro de voie, d'indice
                               de répétition, du type de voie et du libellé de la voie
+                              \n Cette valeur est masquée à [ND] si l'etablissement
+                              correspond à une personne morale non-diffusible."
                             example: 51 BIS RUE DE LA PAIX
                           l5:
                             title: Ligne 5
                             type: string
-                            description: Distribution spéciale comme décrit dans la
-                              clé `distribution_speciale`
+                            description: "Distribution spéciale comme décrit dans
+                              la clé `distribution_speciale` \n Cette valeur est masquée
+                              à [ND] si l'etablissement correspond à une personne
+                              morale non-diffusible."
                             example: CS 72809
                           l6:
                             title: Ligne 6
                             type: string
-                            description: 'Si le code cedex est existant : code cedex
+                            description: "Si le code cedex est existant : code cedex
                               accompagné de son libellé ; sinon, si le pays est en
                               France : code postal accompagné de son libellé, sinon
-                              : libellé de la commune de l''établissement situé à
-                              l''étranger'
+                              : libellé de la commune de l'établissement situé à l'étranger
+                              \n Cette valeur est masquée à [ND] si l'etablissement
+                              correspond à une personne morale non-diffusible."
                             example: 75256 PARIX CEDEX 12
-                          l7:
-                            title: Ligne 7
-                            type: string
-                            description: Pays de l'établissement
-                            example: FRANCE
                         required:
                         - l1
                         - l2
@@ -11487,7 +12026,6 @@ paths:
                         - l4
                         - l5
                         - l6
-                        - l7
                     required:
                     - numero_voie
                     - indice_repetition_voie
@@ -11651,12 +12189,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -12024,10 +12565,12 @@ paths:
                         - true
                         - false
                         description: "Indique si l'établissement est : \n \n - diffusible
-                          : 'true' \n - non-diffusible : 'false'. Dans ce cas, les
-                          informations obtenues ne doivent en aucun cas être accessibles
-                          au grand public. \n \n Plus d'informations sur les conditions
-                          de diffusion : LIEN TODO"
+                          : 'true' \n - partiellement-diffusible : 'true'. Dans ce
+                          cas, les informations obtenues peuvent être masquées par
+                          la chaîne de caractère '[ND]' \n - non-diffusible : 'false'.
+                          Dans ce cas, les informations obtenues ne doivent en aucun
+                          cas être accessibles au grand public. \n \n Plus d'informations
+                          sur les conditions de diffusion : LIEN TODO"
                       enseigne:
                         title: Enseigne de l'établissement
                         type: string
@@ -12191,11 +12734,13 @@ paths:
                             type: boolean
                             example: true
                             description: "Indique si l'unité légale est : \n \n -
-                              une unité légale diffusible : 'true' \n - une unité
-                              légale non-diffusible : 'false'. Dans ce cas, les informations
-                              obtenues ne doivent en aucun cas être accessibles au
-                              grand public. \n \n Plus d'informations sur les conditions
-                              de diffusion : LIEN TODO"
+                              une unité légale diffusible : 'true' \n - partiellement-diffusible
+                              : 'true'. Dans ce cas, les informations obtenues peuvent
+                              être masquées par la chaîne de caractère '[ND]' \n -
+                              une unité légale non-diffusible : 'false'. Dans ce cas,
+                              les informations obtenues ne doivent en aucun cas être
+                              accessibles au grand public. \n \n Plus d'informations
+                              sur les conditions de diffusion : LIEN TODO"
                           forme_juridique:
                             type: object
                             title: Attributs de la forme juridique
@@ -12859,12 +13404,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -13244,7 +13792,9 @@ paths:
                           peut posséder une enseigne, plusieurs enseignes ou aucune.
                           \n \n Cette variable est la concaténation séparée par des
                           virgules des 3 champs \"renvoyés\" par l'Insee. Plus d'informations
-                          ici: https://www.sirene.fr/sirene/public/variable/enseigne1Etablissement"
+                          ici: https://www.sirene.fr/sirene/public/variable/enseigne1Etablissement
+                          \n Cette valeur est masquée à [ND] si l'unité légale correspond
+                          à une personne morale non-diffusible."
                         example: Coiff Land, CoiffureLand
                       unite_legale:
                         type: object
@@ -13288,6 +13838,8 @@ paths:
                                 type: string
                                 example: DINUM
                                 nullable: true
+                                description: Cette valeur est masquée à [ND] si l'unité
+                                  légale correspond à une personne morale non-diffusible.
                             required:
                             - raison_sociale
                             - sigle
@@ -13307,51 +13859,67 @@ paths:
                                 type: string
                                 example: DJ Falcon
                                 nullable: true
-                                description: Le pseudonyme correspond au nom qu'une
+                                description: "Le pseudonyme correspond au nom qu'une
                                   personne utilise pour se désigner dans l'exercice
                                   de son activité, généralement littéraire ou artistique.
+                                  \n Cette valeur est masquée à [ND] si l'unité légale
+                                  correspond à une personne physique non-diffusible."
                               prenom_usuel:
                                 title: Prénom usuel
                                 type: string
                                 example: Jean
                                 nullable: true
-                                description: Le prénom usuel est le prénom par lequel
+                                description: "Le prénom usuel est le prénom par lequel
                                   une personne choisit de se faire appeler dans la
                                   vie courante. Ce prénom fait partie de ceux qui
                                   lui ont été donnés à sa naissance et qui sont inscrits
-                                  à l'état civil.
+                                  à l'état civil. \n Cette valeur est masquée à [ND]
+                                  si l'unité légale correspond à une personne physique
+                                  non-diffusible."
                               prenom_1:
                                 title: Prénom numéro 1 déclaré
                                 type: string
                                 example: Jean
                                 nullable: true
+                                description: Cette valeur est masquée à [ND] si l'unité
+                                  légale correspond à une personne physique non-diffusible.
                               prenom_2:
                                 title: Prénom numéro 2 déclaré
                                 type: string
                                 example: Jacques
                                 nullable: true
+                                description: Cette valeur est masquée à [ND] si l'unité
+                                  légale correspond à une personne physique non-diffusible.
                               prenom_3:
                                 title: Prénom numéro 3 déclaré
                                 type: string
                                 example: Pierre
                                 nullable: true
+                                description: Cette valeur est masquée à [ND] si l'unité
+                                  légale correspond à une personne physique non-diffusible.
                               prenom_4:
                                 title: Prénom numéro 4 déclaré
                                 type: string
                                 example: Paul
                                 nullable: true
+                                description: Cette valeur est masquée à [ND] si l'unité
+                                  légale correspond à une personne physique non-diffusible.
                               nom_usage:
                                 title: Nom d'usage
                                 type: string
                                 example: Dupont
                                 nullable: true
-                                description: Nom que la personne physique a choisi
-                                  d'utiliser.
+                                description: "Nom que la personne physique a choisi
+                                  d'utiliser. \n Cette valeur est masquée à [ND] si
+                                  l'unité légale correspond à une personne physique
+                                  non-diffusible."
                               nom_naissance:
                                 title: Nom de naissance
                                 type: string
                                 example: Dubois
                                 nullable: true
+                                description: Cette valeur est masquée à [ND] si l'unité
+                                  légale correspond à une personne physique non-diffusible.
                               sexe:
                                 title: Genre
                                 type: string
@@ -13360,9 +13928,11 @@ paths:
                                 - M
                                 - F
                                 nullable: true
-                                description: Caractère féminin ou masculin de la personne
-                                  physique. Cette valeur peut ne pas être renseignée
-                                  pour une personne physique.
+                                description: "Caractère féminin ou masculin de la
+                                  personne physique. Cette valeur peut ne pas être
+                                  renseignée pour une personne physique. \n Cette
+                                  valeur est masquée à [ND] si l'unité légale correspond
+                                  à une personne physique non-diffusible."
                             required:
                             - pseudonyme
                             - prenom_usuel
@@ -13398,11 +13968,13 @@ paths:
                             type: boolean
                             example: true
                             description: "Indique si l'unité légale est : \n \n -
-                              une unité légale diffusible : 'true' \n - une unité
-                              légale non-diffusible : 'false'. Dans ce cas, les informations
-                              obtenues ne doivent en aucun cas être accessibles au
-                              grand public. \n \n Plus d'informations sur les conditions
-                              de diffusion : LIEN TODO"
+                              une unité légale diffusible : 'true' \n - partiellement-diffusible
+                              : 'true'. Dans ce cas, les informations obtenues peuvent
+                              être masquées par la chaîne de caractère '[ND]' \n -
+                              une unité légale non-diffusible : 'false'. Dans ce cas,
+                              les informations obtenues ne doivent en aucun cas être
+                              accessibles au grand public. \n \n Plus d'informations
+                              sur les conditions de diffusion : LIEN TODO"
                           forme_juridique:
                             type: object
                             title: Attributs de la forme juridique
@@ -13656,10 +14228,14 @@ paths:
                             title: Numéro dans la voie
                             type: string
                             example: '22'
+                            description: Cette valeur est masquée à [ND] si l'etablissement
+                              correspond à une personne morale non-diffusible.
                           indice_repetition_voie:
                             title: Indice de répétition du numéro dans la voie
-                            description: 'Plus d''informations dans la documentation
-                              Insee de l''API Sirene : https://www.sirene.fr/sirene/public/variable/indrep'
+                            description: "Plus d'informations dans la documentation
+                              Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/indrep
+                              \n Cette valeur est masquée à [ND] si l'etablissement
+                              correspond à une personne morale non-diffusible."
                             type: string
                             nullable: true
                             enum:
@@ -13675,7 +14251,9 @@ paths:
                               en abrégé et en majuscules. L'information n'est pas
                               toujours renseignée. Pour certaines petites communes,
                               l'information n'existe pas. \n \n Plus d'informations
-                              dans la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/typvoie"
+                              dans la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/typvoie
+                              \n Cette valeur est masquée à [ND] si l'etablissement
+                              correspond à une personne morale non-diffusible."
                             type: string
                             nullable: true
                             enum:
@@ -13726,13 +14304,16 @@ paths:
                             title: Libellé de la voie
                             type: string
                             example: DE LA PAIX
+                            description: Cette valeur est masquée à [ND] si l'etablissement
+                              correspond à une personne morale non-diffusible.
                           complement_adresse:
                             title: Complément d'adresse
                             type: string
-                            description: Le complément d'adresse correspond à des
+                            description: "Le complément d'adresse correspond à des
                               éléments situés à l'extérieur du bâtiment qui permettent
                               de compléter l'adresse (résidence, bâtiment, entrée,
-                              etc..)
+                              etc..) \n Cette valeur est masquée à [ND] si l'etablissement
+                              correspond à une personne morale non-diffusible."
                             example: ZAE SAINT GUENAULT
                             nullable: true
                           code_commune:
@@ -13753,30 +14334,38 @@ paths:
                             title: Code postal
                             example: '75016'
                             type: string
+                            description: Cette valeur est masquée à [ND] si l'etablissement
+                              correspond à une personne morale non-diffusible.
                           distribution_speciale:
                             title: Distribution spéciale
                             type: string
                             nullable: true
                             description: "La distribution spéciale reprend les éléments
                               particuliers qui accompagnent une adresse de distribution
-                              spéciale, la modalité la plus connue étant les adresses
+                              \  spéciale, la modalité la plus connue étant les adresses
                               en 'CEDEX'. \n \n Plus d'informations dans la documentation
                               Insee de l'API Sirene : * https://www.sirene.fr/sirene/public/variable/distributionSpecialeEtablissement
-                              * https://www.sirene.fr/sirene/public/variable/l5-disp"
+                              * https://www.sirene.fr/sirene/public/variable/l5-disp
+                              \n Cette valeur est masquée à [ND] si l'etablissement
+                              correspond à une personne morale non-diffusible."
                           code_cedex:
                             title: Code cedex
                             type: string
                             nullable: true
-                            description: 'Plus d''informations : https://fr.wikipedia.org/wiki/Courrier_d%27entreprise_%C3%A0_distribution_exceptionnelle'
+                            description: "Plus d'informations : https://fr.wikipedia.org/wiki/Courrier_d%27entreprise_%C3%A0_distribution_exceptionnelle
+                              \n Cette valeur est masquée à [ND] si l'etablissement
+                              correspond à une personne morale non-diffusible."
                             example: '75590'
                           libelle_cedex:
                             title: Libellé du code cedex
                             type: string
                             nullable: true
                             example: PARIS CEDEX 12
-                            description: Ce champ indique le libellé correspondant
+                            description: "Ce champ indique le libellé correspondant
                               au code cedex de l'établissement. Si le code cedex est
-                              à 'null', ce champ est également à 'null'.
+                              à 'null', ce champ est également à 'null'. \n Cette
+                              valeur est masquée à [ND] si l'etablissement correspond
+                              à une personne morale non-diffusible."
                           libelle_commune:
                             title: Nom de la commune pour une adresse en France
                             description: Cette valeur est à 'null' pour les établissements
@@ -13814,50 +14403,56 @@ paths:
                               l1:
                                 title: Ligne 1
                                 type: string
-                                description: 'Si l''établissement correspond à une
+                                description: "Si l'établissement correspond à une
                                   personne morale : la dénomination sociale de la
                                   personne morale. Le cas contraire: cette variable
-                                  est vide.'
+                                  est vide. \n Cette valeur est masquée à [ND] si
+                                  l'etablissement correspond à une personne morale
+                                  non-diffusible."
                                 example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
                               l2:
                                 title: Ligne 2
                                 type: string
-                                description: 'Si l''établissement correspond à une
-                                  personne physique : concaténation du nom et prénom'
+                                description: "Si l'établissement correspond à une
+                                  personne physique : concaténation du nom et prénom
+                                  \n Cette valeur est masquée à [ND] si l'etablissement
+                                  correspond à une personne morale non-diffusible."
                                 example: JEAN MARIE DURAND
                               l3:
                                 title: Ligne 3
                                 type: string
-                                description: Complément d'adresse comme décrit dans
-                                  la clé `complement_adresse`
+                                description: "Si l'établissement correspond à une
+                                  personne physique : concaténation du nom et prénom
+                                  \n Cette valeur est masquée à [ND] si l'etablissement
+                                  correspond à une personne morale non-diffusible."
                                 example: ZAE SAINT GUENAULT
                               l4:
                                 title: Ligne 4
                                 type: string
-                                description: Concaténation du numéro de voie, d'indice
+                                description: "Concaténation du numéro de voie, d'indice
                                   de répétition, du type de voie et du libellé de
-                                  la voie
+                                  la voie \n Cette valeur est masquée à [ND] si l'etablissement
+                                  correspond à une personne morale non-diffusible."
                                 example: 51 BIS RUE DE LA PAIX
                               l5:
                                 title: Ligne 5
                                 type: string
-                                description: Distribution spéciale comme décrit dans
-                                  la clé `distribution_speciale`
+                                description: "Distribution spéciale comme décrit dans
+                                  la clé `distribution_speciale` \n Cette valeur est
+                                  masquée à [ND] si l'etablissement correspond à une
+                                  personne morale non-diffusible."
                                 example: CS 72809
                               l6:
                                 title: Ligne 6
                                 type: string
-                                description: 'Si le code cedex est existant : code
+                                description: "Si le code cedex est existant : code
                                   cedex accompagné de son libellé ; sinon, si le pays
                                   est en France : code postal accompagné de son libellé,
-                                  sinon : libellé de la commune de l''établissement
-                                  situé à l''étranger'
+                                  sinon : libellé de la commune de l'établissement
+                                  situé à l'étranger \n Cette valeur est masquée à
+                                  [ND] si l'etablissement correspond à une personne
+                                  morale non-diffusible."
                                 example: 75256 PARIX CEDEX 12
-                              l7:
-                                title: Ligne 7
-                                type: string
-                                description: Pays de l'établissement
-                                example: FRANCE
                             required:
                             - l1
                             - l2
@@ -13865,7 +14460,6 @@ paths:
                             - l4
                             - l5
                             - l6
-                            - l7
                         required:
                         - numero_voie
                         - indice_repetition_voie
@@ -14066,12 +14660,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -14452,7 +15049,9 @@ paths:
                           peut posséder une enseigne, plusieurs enseignes ou aucune.
                           \n \n Cette variable est la concaténation séparée par des
                           virgules des 3 champs \"renvoyés\" par l'Insee. Plus d'informations
-                          ici: https://www.sirene.fr/sirene/public/variable/enseigne1Etablissement"
+                          ici: https://www.sirene.fr/sirene/public/variable/enseigne1Etablissement
+                          \n Cette valeur est masquée à [ND] si l'unité légale correspond
+                          à une personne morale non-diffusible."
                         example: Coiff Land, CoiffureLand
                       unite_legale:
                         type: object
@@ -14496,6 +15095,8 @@ paths:
                                 type: string
                                 example: DINUM
                                 nullable: true
+                                description: Cette valeur est masquée à [ND] si l'unité
+                                  légale correspond à une personne morale non-diffusible.
                             required:
                             - raison_sociale
                             - sigle
@@ -14515,51 +15116,67 @@ paths:
                                 type: string
                                 example: DJ Falcon
                                 nullable: true
-                                description: Le pseudonyme correspond au nom qu'une
+                                description: "Le pseudonyme correspond au nom qu'une
                                   personne utilise pour se désigner dans l'exercice
                                   de son activité, généralement littéraire ou artistique.
+                                  \n Cette valeur est masquée à [ND] si l'unité légale
+                                  correspond à une personne physique non-diffusible."
                               prenom_usuel:
                                 title: Prénom usuel
                                 type: string
                                 example: Jean
                                 nullable: true
-                                description: Le prénom usuel est le prénom par lequel
+                                description: "Le prénom usuel est le prénom par lequel
                                   une personne choisit de se faire appeler dans la
                                   vie courante. Ce prénom fait partie de ceux qui
                                   lui ont été donnés à sa naissance et qui sont inscrits
-                                  à l'état civil.
+                                  à l'état civil. \n Cette valeur est masquée à [ND]
+                                  si l'unité légale correspond à une personne physique
+                                  non-diffusible."
                               prenom_1:
                                 title: Prénom numéro 1 déclaré
                                 type: string
                                 example: Jean
                                 nullable: true
+                                description: Cette valeur est masquée à [ND] si l'unité
+                                  légale correspond à une personne physique non-diffusible.
                               prenom_2:
                                 title: Prénom numéro 2 déclaré
                                 type: string
                                 example: Jacques
                                 nullable: true
+                                description: Cette valeur est masquée à [ND] si l'unité
+                                  légale correspond à une personne physique non-diffusible.
                               prenom_3:
                                 title: Prénom numéro 3 déclaré
                                 type: string
                                 example: Pierre
                                 nullable: true
+                                description: Cette valeur est masquée à [ND] si l'unité
+                                  légale correspond à une personne physique non-diffusible.
                               prenom_4:
                                 title: Prénom numéro 4 déclaré
                                 type: string
                                 example: Paul
                                 nullable: true
+                                description: Cette valeur est masquée à [ND] si l'unité
+                                  légale correspond à une personne physique non-diffusible.
                               nom_usage:
                                 title: Nom d'usage
                                 type: string
                                 example: Dupont
                                 nullable: true
-                                description: Nom que la personne physique a choisi
-                                  d'utiliser.
+                                description: "Nom que la personne physique a choisi
+                                  d'utiliser. \n Cette valeur est masquée à [ND] si
+                                  l'unité légale correspond à une personne physique
+                                  non-diffusible."
                               nom_naissance:
                                 title: Nom de naissance
                                 type: string
                                 example: Dubois
                                 nullable: true
+                                description: Cette valeur est masquée à [ND] si l'unité
+                                  légale correspond à une personne physique non-diffusible.
                               sexe:
                                 title: Genre
                                 type: string
@@ -14568,9 +15185,11 @@ paths:
                                 - M
                                 - F
                                 nullable: true
-                                description: Caractère féminin ou masculin de la personne
-                                  physique. Cette valeur peut ne pas être renseignée
-                                  pour une personne physique.
+                                description: "Caractère féminin ou masculin de la
+                                  personne physique. Cette valeur peut ne pas être
+                                  renseignée pour une personne physique. \n Cette
+                                  valeur est masquée à [ND] si l'unité légale correspond
+                                  à une personne physique non-diffusible."
                             required:
                             - pseudonyme
                             - prenom_usuel
@@ -14606,11 +15225,13 @@ paths:
                             type: boolean
                             example: true
                             description: "Indique si l'unité légale est : \n \n -
-                              une unité légale diffusible : 'true' \n - une unité
-                              légale non-diffusible : 'false'. Dans ce cas, les informations
-                              obtenues ne doivent en aucun cas être accessibles au
-                              grand public. \n \n Plus d'informations sur les conditions
-                              de diffusion : LIEN TODO"
+                              une unité légale diffusible : 'true' \n - partiellement-diffusible
+                              : 'true'. Dans ce cas, les informations obtenues peuvent
+                              être masquées par la chaîne de caractère '[ND]' \n -
+                              une unité légale non-diffusible : 'false'. Dans ce cas,
+                              les informations obtenues ne doivent en aucun cas être
+                              accessibles au grand public. \n \n Plus d'informations
+                              sur les conditions de diffusion : LIEN TODO"
                           forme_juridique:
                             type: object
                             title: Attributs de la forme juridique
@@ -14864,10 +15485,14 @@ paths:
                             title: Numéro dans la voie
                             type: string
                             example: '22'
+                            description: Cette valeur est masquée à [ND] si l'etablissement
+                              correspond à une personne morale non-diffusible.
                           indice_repetition_voie:
                             title: Indice de répétition du numéro dans la voie
-                            description: 'Plus d''informations dans la documentation
-                              Insee de l''API Sirene : https://www.sirene.fr/sirene/public/variable/indrep'
+                            description: "Plus d'informations dans la documentation
+                              Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/indrep
+                              \n Cette valeur est masquée à [ND] si l'etablissement
+                              correspond à une personne morale non-diffusible."
                             type: string
                             nullable: true
                             enum:
@@ -14883,7 +15508,9 @@ paths:
                               en abrégé et en majuscules. L'information n'est pas
                               toujours renseignée. Pour certaines petites communes,
                               l'information n'existe pas. \n \n Plus d'informations
-                              dans la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/typvoie"
+                              dans la documentation Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/typvoie
+                              \n Cette valeur est masquée à [ND] si l'etablissement
+                              correspond à une personne morale non-diffusible."
                             type: string
                             nullable: true
                             enum:
@@ -14934,13 +15561,16 @@ paths:
                             title: Libellé de la voie
                             type: string
                             example: DE LA PAIX
+                            description: Cette valeur est masquée à [ND] si l'etablissement
+                              correspond à une personne morale non-diffusible.
                           complement_adresse:
                             title: Complément d'adresse
                             type: string
-                            description: Le complément d'adresse correspond à des
+                            description: "Le complément d'adresse correspond à des
                               éléments situés à l'extérieur du bâtiment qui permettent
                               de compléter l'adresse (résidence, bâtiment, entrée,
-                              etc..)
+                              etc..) \n Cette valeur est masquée à [ND] si l'etablissement
+                              correspond à une personne morale non-diffusible."
                             example: ZAE SAINT GUENAULT
                             nullable: true
                           code_commune:
@@ -14961,30 +15591,38 @@ paths:
                             title: Code postal
                             example: '75016'
                             type: string
+                            description: Cette valeur est masquée à [ND] si l'etablissement
+                              correspond à une personne morale non-diffusible.
                           distribution_speciale:
                             title: Distribution spéciale
                             type: string
                             nullable: true
                             description: "La distribution spéciale reprend les éléments
                               particuliers qui accompagnent une adresse de distribution
-                              spéciale, la modalité la plus connue étant les adresses
+                              \  spéciale, la modalité la plus connue étant les adresses
                               en 'CEDEX'. \n \n Plus d'informations dans la documentation
                               Insee de l'API Sirene : * https://www.sirene.fr/sirene/public/variable/distributionSpecialeEtablissement
-                              * https://www.sirene.fr/sirene/public/variable/l5-disp"
+                              * https://www.sirene.fr/sirene/public/variable/l5-disp
+                              \n Cette valeur est masquée à [ND] si l'etablissement
+                              correspond à une personne morale non-diffusible."
                           code_cedex:
                             title: Code cedex
                             type: string
                             nullable: true
-                            description: 'Plus d''informations : https://fr.wikipedia.org/wiki/Courrier_d%27entreprise_%C3%A0_distribution_exceptionnelle'
+                            description: "Plus d'informations : https://fr.wikipedia.org/wiki/Courrier_d%27entreprise_%C3%A0_distribution_exceptionnelle
+                              \n Cette valeur est masquée à [ND] si l'etablissement
+                              correspond à une personne morale non-diffusible."
                             example: '75590'
                           libelle_cedex:
                             title: Libellé du code cedex
                             type: string
                             nullable: true
                             example: PARIS CEDEX 12
-                            description: Ce champ indique le libellé correspondant
+                            description: "Ce champ indique le libellé correspondant
                               au code cedex de l'établissement. Si le code cedex est
-                              à 'null', ce champ est également à 'null'.
+                              à 'null', ce champ est également à 'null'. \n Cette
+                              valeur est masquée à [ND] si l'etablissement correspond
+                              à une personne morale non-diffusible."
                           libelle_commune:
                             title: Nom de la commune pour une adresse en France
                             description: Cette valeur est à 'null' pour les établissements
@@ -15022,50 +15660,56 @@ paths:
                               l1:
                                 title: Ligne 1
                                 type: string
-                                description: 'Si l''établissement correspond à une
+                                description: "Si l'établissement correspond à une
                                   personne morale : la dénomination sociale de la
                                   personne morale. Le cas contraire: cette variable
-                                  est vide.'
+                                  est vide. \n Cette valeur est masquée à [ND] si
+                                  l'etablissement correspond à une personne morale
+                                  non-diffusible."
                                 example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
                               l2:
                                 title: Ligne 2
                                 type: string
-                                description: 'Si l''établissement correspond à une
-                                  personne physique : concaténation du nom et prénom'
+                                description: "Si l'établissement correspond à une
+                                  personne physique : concaténation du nom et prénom
+                                  \n Cette valeur est masquée à [ND] si l'etablissement
+                                  correspond à une personne morale non-diffusible."
                                 example: JEAN MARIE DURAND
                               l3:
                                 title: Ligne 3
                                 type: string
-                                description: Complément d'adresse comme décrit dans
-                                  la clé `complement_adresse`
+                                description: "Si l'établissement correspond à une
+                                  personne physique : concaténation du nom et prénom
+                                  \n Cette valeur est masquée à [ND] si l'etablissement
+                                  correspond à une personne morale non-diffusible."
                                 example: ZAE SAINT GUENAULT
                               l4:
                                 title: Ligne 4
                                 type: string
-                                description: Concaténation du numéro de voie, d'indice
+                                description: "Concaténation du numéro de voie, d'indice
                                   de répétition, du type de voie et du libellé de
-                                  la voie
+                                  la voie \n Cette valeur est masquée à [ND] si l'etablissement
+                                  correspond à une personne morale non-diffusible."
                                 example: 51 BIS RUE DE LA PAIX
                               l5:
                                 title: Ligne 5
                                 type: string
-                                description: Distribution spéciale comme décrit dans
-                                  la clé `distribution_speciale`
+                                description: "Distribution spéciale comme décrit dans
+                                  la clé `distribution_speciale` \n Cette valeur est
+                                  masquée à [ND] si l'etablissement correspond à une
+                                  personne morale non-diffusible."
                                 example: CS 72809
                               l6:
                                 title: Ligne 6
                                 type: string
-                                description: 'Si le code cedex est existant : code
+                                description: "Si le code cedex est existant : code
                                   cedex accompagné de son libellé ; sinon, si le pays
                                   est en France : code postal accompagné de son libellé,
-                                  sinon : libellé de la commune de l''établissement
-                                  situé à l''étranger'
+                                  sinon : libellé de la commune de l'établissement
+                                  situé à l'étranger \n Cette valeur est masquée à
+                                  [ND] si l'etablissement correspond à une personne
+                                  morale non-diffusible."
                                 example: 75256 PARIX CEDEX 12
-                              l7:
-                                title: Ligne 7
-                                type: string
-                                description: Pays de l'établissement
-                                example: FRANCE
                             required:
                             - l1
                             - l2
@@ -15073,7 +15717,6 @@ paths:
                             - l4
                             - l5
                             - l6
-                            - l7
                         required:
                         - numero_voie
                         - indice_repetition_voie
@@ -15274,12 +15917,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -15649,10 +16295,12 @@ paths:
                         - true
                         - false
                         description: "Indique si l'établissement est : \n \n - diffusible
-                          : 'true' \n - non-diffusible : 'false'. Dans ce cas, les
-                          informations obtenues ne doivent en aucun cas être accessibles
-                          au grand public. \n \n Plus d'informations sur les conditions
-                          de diffusion : LIEN TODO"
+                          : 'true' \n - partiellement-diffusible : 'true'. Dans ce
+                          cas, les informations obtenues peuvent être masquées par
+                          la chaîne de caractère '[ND]' \n - non-diffusible : 'false'.
+                          Dans ce cas, les informations obtenues ne doivent en aucun
+                          cas être accessibles au grand public. \n \n Plus d'informations
+                          sur les conditions de diffusion : LIEN TODO"
                       enseigne:
                         title: Enseigne de l'établissement
                         type: string
@@ -15816,11 +16464,13 @@ paths:
                             type: boolean
                             example: true
                             description: "Indique si l'unité légale est : \n \n -
-                              une unité légale diffusible : 'true' \n - une unité
-                              légale non-diffusible : 'false'. Dans ce cas, les informations
-                              obtenues ne doivent en aucun cas être accessibles au
-                              grand public. \n \n Plus d'informations sur les conditions
-                              de diffusion : LIEN TODO"
+                              une unité légale diffusible : 'true' \n - partiellement-diffusible
+                              : 'true'. Dans ce cas, les informations obtenues peuvent
+                              être masquées par la chaîne de caractère '[ND]' \n -
+                              une unité légale non-diffusible : 'false'. Dans ce cas,
+                              les informations obtenues ne doivent en aucun cas être
+                              accessibles au grand public. \n \n Plus d'informations
+                              sur les conditions de diffusion : LIEN TODO"
                           forme_juridique:
                             type: object
                             title: Attributs de la forme juridique
@@ -16484,12 +17134,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -16841,10 +17494,13 @@ paths:
                         type: boolean
                         example: true
                         description: "Indique si l'unité légale est : \n \n - une
-                          unité légale diffusible : 'true' \n - une unité légale non-diffusible
-                          : 'false'. Dans ce cas, les informations obtenues ne doivent
-                          en aucun cas être accessibles au grand public. \n \n Plus
-                          d'informations sur les conditions de diffusion : LIEN TODO"
+                          unité légale diffusible : 'true' \n - partiellement-diffusible
+                          : 'true'. Dans ce cas, les informations obtenues peuvent
+                          être masquées par la chaîne de caractère '[ND]' \n - une
+                          unité légale non-diffusible : 'false'. Dans ce cas, les
+                          informations obtenues ne doivent en aucun cas être accessibles
+                          au grand public. \n \n Plus d'informations sur les conditions
+                          de diffusion : LIEN TODO"
                       forme_juridique:
                         type: object
                         title: Attributs de la forme juridique
@@ -17246,12 +17902,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -17500,6 +18159,8 @@ paths:
                             type: string
                             example: DINUM
                             nullable: true
+                            description: Cette valeur est masquée à [ND] si l'unité
+                              légale correspond à une personne morale non-diffusible.
                         required:
                         - raison_sociale
                         - sigle
@@ -17519,50 +18180,65 @@ paths:
                             type: string
                             example: DJ Falcon
                             nullable: true
-                            description: Le pseudonyme correspond au nom qu'une personne
+                            description: "Le pseudonyme correspond au nom qu'une personne
                               utilise pour se désigner dans l'exercice de son activité,
-                              généralement littéraire ou artistique.
+                              généralement littéraire ou artistique. \n Cette valeur
+                              est masquée à [ND] si l'unité légale correspond à une
+                              personne physique non-diffusible."
                           prenom_usuel:
                             title: Prénom usuel
                             type: string
                             example: Jean
                             nullable: true
-                            description: Le prénom usuel est le prénom par lequel
+                            description: "Le prénom usuel est le prénom par lequel
                               une personne choisit de se faire appeler dans la vie
                               courante. Ce prénom fait partie de ceux qui lui ont
                               été donnés à sa naissance et qui sont inscrits à l'état
-                              civil.
+                              civil. \n Cette valeur est masquée à [ND] si l'unité
+                              légale correspond à une personne physique non-diffusible."
                           prenom_1:
                             title: Prénom numéro 1 déclaré
                             type: string
                             example: Jean
                             nullable: true
+                            description: Cette valeur est masquée à [ND] si l'unité
+                              légale correspond à une personne physique non-diffusible.
                           prenom_2:
                             title: Prénom numéro 2 déclaré
                             type: string
                             example: Jacques
                             nullable: true
+                            description: Cette valeur est masquée à [ND] si l'unité
+                              légale correspond à une personne physique non-diffusible.
                           prenom_3:
                             title: Prénom numéro 3 déclaré
                             type: string
                             example: Pierre
                             nullable: true
+                            description: Cette valeur est masquée à [ND] si l'unité
+                              légale correspond à une personne physique non-diffusible.
                           prenom_4:
                             title: Prénom numéro 4 déclaré
                             type: string
                             example: Paul
                             nullable: true
+                            description: Cette valeur est masquée à [ND] si l'unité
+                              légale correspond à une personne physique non-diffusible.
                           nom_usage:
                             title: Nom d'usage
                             type: string
                             example: Dupont
                             nullable: true
-                            description: Nom que la personne physique a choisi d'utiliser.
+                            description: "Nom que la personne physique a choisi d'utiliser.
+                              \n Cette valeur est masquée à [ND] si l'unité légale
+                              correspond à une personne physique non-diffusible."
                           nom_naissance:
                             title: Nom de naissance
                             type: string
                             example: Dubois
                             nullable: true
+                            description: Cette valeur est masquée à [ND] si l'unité
+                              légale correspond à une personne physique non-diffusible.
                           sexe:
                             title: Genre
                             type: string
@@ -17571,9 +18247,11 @@ paths:
                             - M
                             - F
                             nullable: true
-                            description: Caractère féminin ou masculin de la personne
+                            description: "Caractère féminin ou masculin de la personne
                               physique. Cette valeur peut ne pas être renseignée pour
-                              une personne physique.
+                              une personne physique. \n Cette valeur est masquée à
+                              [ND] si l'unité légale correspond à une personne physique
+                              non-diffusible."
                         required:
                         - pseudonyme
                         - prenom_usuel
@@ -18015,12 +18693,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -18450,12 +19131,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -18871,12 +19555,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -19240,12 +19927,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -19663,12 +20353,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -20065,12 +20758,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -20382,12 +21078,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -20784,12 +21483,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -21143,12 +21845,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
@@ -21668,12 +22373,15 @@ paths:
                     - code: '00501'
                       title: Erreur réseau
                       detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
                       source: 
-                      meta: {}
+                      meta:
+                        retry_in: 10
                   summary: Erreur réseau
                   description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
                 dns_resolution_error:
                   value:
                     errors:
