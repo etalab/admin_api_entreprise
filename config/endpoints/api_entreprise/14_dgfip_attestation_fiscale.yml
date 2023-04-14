@@ -152,7 +152,13 @@
 
         Plus d'informations disponibles dans le [BOFIP - Dispositions juridiques communes - Attestation de régularité fiscale](https://bofip.impots.gouv.fr/bofip/8485-PGP.html/identifiant%3DBOI-DJC-ARF-20161207){:target="_blank"}.
   historique: |+
-    - Ajout de 2 champs dans la réponse: `date_delivrance_attestation` et `date_periode_analysee`
+    **Ce que change la V.4 par rapport à la V.3 :**
+    Ajout de nouvelles informations lorsque l'attestation est délivrée : 
+    - Un champ `date_delivrance_attestation`, généralement la date de l'appel de l'attestation ;
+    - Un champ `date_periode_analysee` indiquant la date butoire à laquelle la situation de l'entreprise a été analysée, ayant induit la délivrance de l'attestation.
+
+    **Ce qui ne change pas :**
+    À part l'ajout des champs précédents, rien n'a changé. Cette montée en version n'est pas dûe à une évolution de l'API de l'URSSAF, par conséquent, la V.3 est maintenue par API&nbsp;Entreprise.
 - uid: 'dgfip/v3/attestations_fiscales'
   position: 9002
   new_endpoint_uids:
