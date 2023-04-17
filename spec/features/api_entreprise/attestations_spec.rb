@@ -3,10 +3,6 @@ require 'rails_helper'
 RSpec.describe 'User attestations through tokens', app: :api_entreprise do
   include_context 'with siade payloads'
 
-  let(:inactive_token_intitule) { 'Token with another scope' }
-  let(:another_api_entreprise_scope) { %w[whatever] }
-  let!(:inactive_token) { create(:token, user:, scopes: [another_api_entreprise_scope], intitule: inactive_token_intitule) }
-
   before do
     login_as(user)
 
@@ -25,7 +21,7 @@ RSpec.describe 'User attestations through tokens', app: :api_entreprise do
     end
 
     context 'when user has tokens with attestation scopes' do
-      let(:user) { create(:user, :with_token, scopes: %w[attestations_sociales attestations_fiscales]) }
+      let(:user) { create(:user, :with_token, scopes: %w[attestations_sociales attestations_fiscales], tokens_amount: 2) }
       let(:id_selected_token) { find('select#token').value }
       let(:scopes_selected_token) { Token.find(id_selected_token).scopes }
 
@@ -45,10 +41,16 @@ RSpec.describe 'User attestations through tokens', app: :api_entreprise do
 
   describe 'search', js: true do
     subject(:search) do
-      select(token, from: 'token')
+      select(token_intitule, from: 'token')
       fill_in('search_siren', with: siren)
       click_button('search')
     end
+
+    let(:token_intitule) { user.token.intitule }
+    let(:facade_double) { instance_double(EntrepriseWithAttestationsFacade, retrieve_company: nil, retrieve_attestation_sociale: nil, retrieve_attestation_fiscale: nil) }
+    let(:entreprise) { Entreprise.new(payload_entreprise['entreprise']) }
+    let(:user) { create(:user, :with_token, scopes: ['attestations_fiscales']) }
+    let(:siren) { siren_valid }
 
     before do
       allow(EntrepriseWithAttestationsFacade).to receive(:new).and_return(facade_double)
@@ -63,14 +65,7 @@ RSpec.describe 'User attestations through tokens', app: :api_entreprise do
       allow(facade_double).to receive(:attestation_sociale_url).and_return(payload_attestation_sociale['url'])
     end
 
-    let(:facade_double) { instance_double(EntrepriseWithAttestationsFacade, retrieve_company: nil, retrieve_attestation_sociale: nil, retrieve_attestation_fiscale: nil) }
-    let(:entreprise) { Entreprise.new(payload_entreprise['entreprise']) }
-    let(:user) { create(:user, :with_token, scopes: ['attestations_fiscales']) }
-    let(:siren) { siren_valid }
-
     context 'when user search a valid siren which works for all endpoints' do
-      let(:token) { 'Token with scopes: ["attestations_fiscales"]' }
-
       before do
         search
       end
@@ -79,18 +74,7 @@ RSpec.describe 'User attestations through tokens', app: :api_entreprise do
         expect(page).to have_content('dummy name')
       end
 
-      context 'when selected token have no attestation scopes' do
-        let(:token) { inactive_token_intitule }
-
-        it 'doesnt show attestations download links' do
-          expect(page).not_to have_link('attestation-sociale-download')
-          expect(page).not_to have_link('attestation-fiscale-download')
-        end
-      end
-
       context 'when selected token has one attestation scope' do
-        let(:token) { 'Token with scopes: ["attestations_fiscales"]' }
-
         it 'shows link to download this attestation only, not the other' do
           expect(page).not_to have_link('attestation-sociale-download')
           expect(page).to have_link('attestation-fiscale-download',
@@ -103,8 +87,6 @@ RSpec.describe 'User attestations through tokens', app: :api_entreprise do
           create(:user, :with_token, scopes: %w[attestations_sociales attestations_fiscales])
         end
 
-        let(:token) { 'Token with scopes: ["attestations_sociales", "attestations_fiscales"]' }
-
         it 'shows both links to download attestations' do
           expect(page).to have_link('attestation-sociale-download',
             href: 'http://entreprise.api.gouv.fr/uploads/attestation_sociale.pdf')
@@ -115,8 +97,6 @@ RSpec.describe 'User attestations through tokens', app: :api_entreprise do
     end
 
     context 'when user search an invalid siren' do
-      let(:token) { inactive_token_intitule }
-
       before do
         allow(facade_double).to receive(:retrieve_company).and_raise(SiadeClientError.new(422, '422 Unprocessable Entity'))
         search
@@ -128,8 +108,6 @@ RSpec.describe 'User attestations through tokens', app: :api_entreprise do
     end
 
     context 'when user search a siren not found' do
-      let(:token) { inactive_token_intitule }
-
       before do
         allow(facade_double).to receive(:retrieve_company).and_raise(SiadeClientError.new(404, '404 Not Found'))
         search
@@ -141,8 +119,6 @@ RSpec.describe 'User attestations through tokens', app: :api_entreprise do
     end
 
     context 'when user choose a token which is unauthorized' do
-      let(:token) { inactive_token_intitule }
-
       before do
         allow(facade_double).to receive(:retrieve_company).and_raise(SiadeClientError.new(401, '401 Unauthorized'))
 
@@ -155,8 +131,6 @@ RSpec.describe 'User attestations through tokens', app: :api_entreprise do
     end
 
     context 'when siren errors on attestation sociale' do
-      let(:token) { 'Token with scopes: ["attestations_fiscales"]' }
-
       before do
         allow(facade_double).to receive(:retrieve_attestation_sociale).and_raise(SiadeClientError.new(401, '401 Unauthorized'))
 

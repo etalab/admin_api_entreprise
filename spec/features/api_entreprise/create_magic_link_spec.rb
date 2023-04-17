@@ -17,7 +17,7 @@ RSpec.describe 'create a magic link', app: :api_entreprise do
   context 'when the current user is the token owner' do
     let(:user) do
       user = create(:user)
-      user.authorization_requests << token.authorization_request
+      create(:user_authorization_request_role, :demandeur, user:, authorization_request: token.authorization_request)
       user
     end
 

@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'token details page', app: :api_entreprise do
   let(:user) { create(:user, :with_token) }
-  let(:token) { create(:token, user:) }
+  let(:authorization_request) { create(:authorization_request, :with_demandeur, demandeur: user) }
+  let(:token) { create(:token, authorization_request:) }
 
   before do
     login_as(user)
@@ -26,14 +27,14 @@ RSpec.describe 'token details page', app: :api_entreprise do
   end
 
   it 'displays tokens access scopes with humanized missing key' do
-    token = create(:token, :with_scopes, user:)
+    token = create(:token, :with_scopes, authorization_request:)
     visit token_path(token)
 
     expect(page).to have_content(*token.scopes.map(&:humanize))
   end
 
   it 'displays tokens access scopes with translations' do
-    token = create(:token, scopes: ['entreprises'], user:)
+    token = create(:token, scopes: ['entreprises'], authorization_request:)
     visit token_path(token)
 
     expect(page).to have_content('INSEE Entreprise')

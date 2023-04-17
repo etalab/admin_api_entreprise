@@ -101,21 +101,21 @@ RSpec.describe 'User token listing', app: :api_entreprise do
     end
 
     it 'does not display archived tokens' do
-      archived_token = create(:token, :archived, user:)
+      archived_token = create(:token, :archived, authorization_request: user.tokens.first.authorization_request)
       token_index
 
       expect(page).not_to have_css("input[value='#{archived_token.rehash}']")
     end
 
     it 'does not display blacklisted tokens' do
-      blacklisted_token = create(:token, :blacklisted, user:)
+      blacklisted_token = create(:token, :blacklisted, authorization_request: user.tokens.first.authorization_request)
       token_index
 
       expect(page).not_to have_css("input[value='#{blacklisted_token.rehash}']")
     end
 
     it 'does not display expired tokens' do
-      expired_token = create(:token, exp: 1.day.ago, user:)
+      expired_token = create(:token, exp: 1.day.ago, authorization_request: user.tokens.first.authorization_request)
       token_index
 
       expect(page).not_to have_css("input[value='#{expired_token.rehash}']")
