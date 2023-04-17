@@ -15,9 +15,6 @@ class TokensAssociatedToEmailQuery
   private
 
   def tokens
-    Token
-      .joins(:authorization_request, :user)
-      .left_joins(:contacts)
-      .where('contacts.email = :email OR users.email = :email', email:)
+    Token.joins(:users).where(users: { email: })
   end
 end

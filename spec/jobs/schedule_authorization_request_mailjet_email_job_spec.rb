@@ -96,8 +96,8 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob do
       end
 
       context 'when there is cc field in mailjet attributes' do
-        let(:cc_contact1) { create(:contact, :with_full_name) }
-        let(:cc_contact2) { create(:contact, :with_full_name) }
+        let(:cc_contact1) { create(:user, :with_full_name) }
+        let(:cc_contact2) { create(:user, :with_full_name) }
 
         before do
           mailjet_attributes[:cc] = [

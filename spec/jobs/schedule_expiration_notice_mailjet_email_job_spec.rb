@@ -10,7 +10,10 @@ RSpec.describe ScheduleExpirationNoticeMailjetEmailJob do
     end
 
     let(:expires_in) { 90 }
-    let(:token) { create(:token) }
+    let(:authorization_request) { create(:authorization_request, :with_demandeur, :with_contact_technique) }
+    let(:token) { create(:token, authorization_request:) }
+    let(:demandeur) { token.authorization_request.demandeur }
+    let(:contact) { token.authorization_request.contact_technique }
     let(:token_id) { token.id }
 
     context 'when token id is not found' do
@@ -35,13 +38,9 @@ RSpec.describe ScheduleExpirationNoticeMailjetEmailJob do
 
     context 'when token is found and expires_in is valid' do
       let(:external_id) { '9001' }
-      let(:contact) { create(:contact, :with_full_name, authorization_request: token.authorization_request) }
 
       before do
-        token.authorization_request.update!(
-          external_id:
-        )
-        token.authorization_request.contacts << contact
+        token.authorization_request.update!(external_id:)
       end
 
       it 'calls Mailjet client with valid params' do
@@ -49,7 +48,7 @@ RSpec.describe ScheduleExpirationNoticeMailjetEmailJob do
           {
             from_name: anything,
             from_email: anything,
-            to: "#{token.user.full_name} <#{token.user.email}>, #{contact.full_name} <#{contact.email}>",
+            to: "#{demandeur.full_name} <#{demandeur.email}>, #{contact.full_name} <#{contact.email}>",
             vars: {
               cadre_utilisation_token: token.intitule,
               authorization_request_id: external_id,
