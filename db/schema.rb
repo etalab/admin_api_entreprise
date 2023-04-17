@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_27_064629) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_16_095426) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pgcrypto"
@@ -25,24 +25,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_27_064629) do
     t.datetime "first_submitted_at", precision: nil
     t.datetime "validated_at", precision: nil
     t.datetime "created_at", precision: nil
-    t.uuid "user_id", null: false
     t.string "previous_external_id"
     t.string "siret"
     t.string "api", null: false
     t.string "demarche"
     t.index ["external_id"], name: "index_authorization_requests_on_external_id", unique: true, where: "(external_id IS NOT NULL)"
-  end
-
-  create_table "contacts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "email", null: false
-    t.string "phone_number"
-    t.string "contact_type", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.uuid "authorization_request_id"
-    t.string "first_name"
-    t.string "last_name"
-    t.index ["created_at"], name: "index_contacts_on_created_at"
   end
 
   create_table "magic_links", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -85,6 +72,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_27_064629) do
     t.index ["scopes"], name: "index_tokens_on_scopes", using: :gin
   end
 
+  create_table "user_authorization_request_roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "authorization_request_id", null: false
+    t.string "role", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email"
     t.string "context"
@@ -106,4 +101,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_27_064629) do
   end
 
   add_foreign_key "magic_links", "tokens"
+  add_foreign_key "user_authorization_request_roles", "authorization_requests"
+  add_foreign_key "user_authorization_request_roles", "users"
 end
