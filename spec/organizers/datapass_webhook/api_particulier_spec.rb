@@ -14,12 +14,14 @@ RSpec.describe DatapassWebhook::APIParticulier, type: :interactor do
   end
   let(:legacy_token_id) { 'over-9000' }
 
+  let(:demandeur_roles) { UserAuthorizationRequestRole.where(role: 'demandeur') }
+
   it { is_expected.to be_a_success }
 
-  it 'creates a user' do
+  it 'creates a demandeur' do
     expect {
       subject
-    }.to change(User, :count).by(1)
+    }.to change(demandeur_roles, :count).by(1)
   end
 
   it 'creates an authorization request with particulier api' do

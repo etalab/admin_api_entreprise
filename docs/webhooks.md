@@ -82,7 +82,7 @@ production:
         # Tableau des destinataires en copie
         cc:
           - "authorization_request.contact_technique"
-          - "authorization_request.user"
+          - "authorization_request.demandeur"
 ```
 
 Un test d'acceptance vérifie le format du fichier: si il y a une typo les tests

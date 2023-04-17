@@ -1,10 +1,11 @@
+# TODO: can be factorized better with previous interactor
 class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
-  def call # rubocop:todo Metrics/AbcSize
+  def call # rubocop:disable Metrics/AbcSize
     context.authorization_request = AuthorizationRequest.find_or_initialize_by(external_id: context.data['pass']['id'])
     context.authorization_request.assign_attributes(authorization_request_attributes)
 
-    context.authorization_request.user = context.user
-    create_or_update_contacts
+    create_or_update_demandeur_role
+    create_or_update_contacts_with_roles
 
     return if context.authorization_request.save
 
@@ -13,17 +14,39 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
 
   private
 
-  def create_or_update_contacts
-    create_or_update_contact(:responsable_technique, :technique)
-    create_or_update_contact(:contact_metier, :metier)
+  def create_or_update_demandeur_role
+    UserAuthorizationRequestRole
+      .find_or_create_by(user: context.authorization_request.demandeur || context.user, authorization_request: context.authorization_request, role: 'demandeur')
+      .update!(user: context.user)
   end
 
-  def create_or_update_contact(from_kind, to_kind)
-    contact_payload = contact_payload_for(from_kind)
+  def create_or_update_contacts_with_roles
+    create_contact_metier_with_role
+    create_contact_technique_with_role
+  end
+
+  def create_contact_metier_with_role
+    contact_payload = contact_payload_for(:contact_metier)
 
     return if contact_payload.blank?
 
-    contact = context.authorization_request.public_send("contact_#{to_kind}") || context.authorization_request.public_send("build_contact_#{to_kind}")
+    contact = create_or_update_contact_from_payload(contact_payload, :contact_metier)
+
+    UserAuthorizationRequestRole.create(user_id: contact.id, authorization_request: context.authorization_request, role: 'contact_metier')
+  end
+
+  def create_contact_technique_with_role
+    contact_payload = contact_payload_for(:responsable_technique)
+
+    return if contact_payload.blank?
+
+    contact = create_or_update_contact_from_payload(contact_payload, :contact_technique)
+
+    UserAuthorizationRequestRole.create(user_id: contact.id, authorization_request: context.authorization_request, role: 'contact_technique')
+  end
+
+  def create_or_update_contact_from_payload(contact_payload, contact_kind)
+    contact = context.authorization_request.public_send(contact_kind) || User.create
 
     contact.assign_attributes(
       last_name: contact_payload['family_name'],
@@ -33,6 +56,7 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
     )
 
     contact.save
+    contact
   end
 
   def authorization_request_attributes

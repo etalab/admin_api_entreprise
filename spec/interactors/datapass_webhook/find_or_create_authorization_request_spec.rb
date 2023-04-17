@@ -12,7 +12,7 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
   let(:fired_at) { 2.minutes.ago.to_i }
 
   context 'when authorization request already exists' do
-    let!(:authorization_request) { create(:authorization_request, :with_contacts, external_id: authorization_id) }
+    let!(:authorization_request) { create(:authorization_request, :with_demandeur, :with_contact_technique, :with_contact_metier, external_id: authorization_id) }
 
     it { is_expected.to be_a_success }
     it { expect(subject.authorization_request).to eq(authorization_request) }
@@ -44,23 +44,24 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
       expect(authorization_request.contact_technique.full_name).to eq('RESPONSABLE_TECHNIQUE LAST NAME responsable_technique first name')
     end
 
-    context 'when it is the same user' do
-      let!(:authorization_request) { create(:authorization_request, external_id: authorization_id, user:) }
+    context 'when it is the same demandeur' do
+      let!(:authorization_request) { create(:authorization_request, :with_demandeur, external_id: authorization_id, demandeur: user) }
 
-      it 'does not update user' do
+      it 'does not update demandeur' do
         expect {
           subject
-        }.not_to change { authorization_request.reload.user }
+        }.not_to change { authorization_request.reload.demandeur }
       end
     end
 
-    context 'when it is not the same user' do
-      let!(:authorization_request) { create(:authorization_request, external_id: authorization_id) }
+    context 'when it is not the same demandeur' do
+      let(:original_user) { create(:user, first_name: 'another') }
+      let!(:authorization_request) { create(:authorization_request, :with_demandeur, external_id: authorization_id, demandeur: original_user) }
 
-      it 'updates user' do
+      it 'updates demandeur' do
         expect {
           subject
-        }.to change { authorization_request.reload.user }.to(user)
+        }.to change { authorization_request.reload.demandeur }.to(user)
       end
     end
   end
@@ -88,7 +89,7 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
   context 'when event is send_application or submit' do
     let(:datapass_webhook_params) { build(:datapass_webhook, event: %w[send_application submit].sample, fired_at:, authorization_request_attributes: { id: authorization_id }) }
 
-    let!(:authorization_request) { create(:authorization_request, :with_contacts, external_id: authorization_id, first_submitted_at:) }
+    let!(:authorization_request) { create(:authorization_request, external_id: authorization_id, first_submitted_at:) }
 
     context 'when first_submitted_at is nil' do
       let(:first_submitted_at) { nil }
@@ -114,7 +115,7 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
   context 'when event is validate_application or validate' do
     let(:datapass_webhook_params) { build(:datapass_webhook, event: %w[validate_application validate].sample, fired_at:, authorization_request_attributes: { id: authorization_id }) }
 
-    let!(:authorization_request) { create(:authorization_request, :with_contacts, external_id: authorization_id) }
+    let!(:authorization_request) { create(:authorization_request, external_id: authorization_id) }
 
     it 'sets validated_at' do
       expect {

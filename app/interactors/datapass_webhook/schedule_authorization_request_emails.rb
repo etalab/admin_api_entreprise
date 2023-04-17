@@ -56,7 +56,7 @@ class DatapassWebhook::ScheduleAuthorizationRequestEmails < ApplicationInteracto
 
   def default_recipients
     [
-      'authorization_request.user'
+      'authorization_request.demandeur'
     ]
   end
 

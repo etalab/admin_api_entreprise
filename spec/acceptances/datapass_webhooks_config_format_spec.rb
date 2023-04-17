@@ -3,7 +3,8 @@ require 'yaml'
 
 RSpec.describe 'Datapass webhook config format', type: :acceptance do
   let(:file) { Rails.root.join('./config/datapass_webhooks.yml') }
-  let(:dummy_authorization_request) { create(:authorization_request, :with_contacts) }
+  let(:demandeur) { create(:user) }
+  let(:dummy_authorization_request) { create(:authorization_request, :with_demandeur, :with_contact_technique, :with_contact_metier) }
 
   it 'is a valid file' do
     expect {
