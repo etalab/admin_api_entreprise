@@ -6,7 +6,9 @@ RSpec.describe AuthorizationRequest do
   end
 
   describe 'contacts associations' do
-    let(:authorization_request) { create(:authorization_request, :with_contacts) }
+    let(:contact_technique) { create(:user, :contact_technique) }
+    let(:contact_metier) { create(:user, :contact_metier) }
+    let(:authorization_request) { create(:authorization_request, :with_contact_technique, :with_contact_metier) }
 
     it 'has valid association for contact technique and metier' do
       expect(authorization_request.contacts.count).to eq(2)
@@ -39,6 +41,22 @@ RSpec.describe AuthorizationRequest do
       expect(authorization_request.active_token).to be_present
       expect(authorization_request.token.id).to eq(authorization_request.active_token.id)
       expect(authorization_request.tokens.first.id).not_to eq(authorization_request.active_token.id)
+    end
+  end
+
+  describe 'contacts' do
+    let(:authorization_request) { create(:authorization_request, :with_contact_technique, :with_roles, roles: %i[demandeur contact_metier]) }
+
+    it 'returns contacts' do
+      expect(authorization_request.contacts).to include(authorization_request.contact_technique)
+    end
+  end
+
+  describe 'contacts_no_demandeur' do
+    let(:authorization_request) { create(:authorization_request, :with_contact_technique, :with_roles, roles: %i[demandeur contact_metier]) }
+
+    it 'doesnt returns demandeur even if also contact' do
+      expect(authorization_request.contacts_no_demandeur).not_to include(authorization_request.demandeur)
     end
   end
 end
