@@ -1,16 +1,24 @@
 <div class="fr-card fr-card--horizontal fr-card--no-arrow token-card" id="<%= dom_id(contact) %>">
   <div class="fr-card__body">
     <div class="fr-card__content">
-      <h4 class="fr-card__title">
-        <%= t(".subtitle_#{contact.contact_type}") %>
-      </h4>
+      <% contact.roles_for(@token).each do |role| %>
+        <h4 class="fr-card__title">
+          <%= t(".subtitle_#{role}") %>
+        </h4>
+      <% end %>
 
       <div class="fr-card__desc">
-        <label class="fr-label" for="<%= dom_id(contact, :email) %>"><%= t('.email_label') %></label>
+        <label class="fr-label" for="<%= dom_id(contact, :email) %>">
+          <%= t('.email_label') %>
+        </label>
         <input id="<%= dom_id(contact, :email) %>" class="fr-input" type="text" readonly value="<%= contact.email %>" />
 
-        <label class="fr-label" for="<%= dom_id(contact, :phone) %>"><%= t('.phone_label') %></label>
-        <input id="<%= dom_id(contact, :phone) %>" class="fr-input" type="text" readonly value="<%= contact.phone_number %>" />
+        <label class="fr-label" for="<%= dom_id(contact, :phone) %>">
+          <%= t('.phone_label') %>
+        </label>
+        <input id="<%= dom_id(contact, :phone) %>" class="fr-input" type="text" readonly
+          value="<%= contact.phone_number %>" />
+      </div>
     </div>
   </div>
 </div>

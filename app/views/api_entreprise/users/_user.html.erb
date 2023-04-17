@@ -7,19 +7,19 @@
     <h3>
       <%= @user.full_name %>
 
-      <% if @user.demandeur? %>
+      <% if @user_roles.include?(:demandeur) %>
         <span class="fr-tag">
           <%= t('.demandeur') %>
         </span>
       <% end %>
 
-      <% if @user.contact_metier? %>
+      <% if @user_roles.include?(:contact_metier) %>
         <span class="fr-tag">
           <%= t('.contact_metier') %>
         </span>
       <% end %>
 
-      <% if @user.contact_technique? %>
+      <% if @user_roles.include?(:contact_technique) %>
         <span class="fr-tag">
           <%= t('.contact_technique') %>
         </span>

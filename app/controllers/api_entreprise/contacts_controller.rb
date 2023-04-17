@@ -1,9 +1,9 @@
 class APIEntreprise::ContactsController < APIEntreprise::AuthenticatedUsersController
   def index
-    @token = Token.includes(:contacts).find(params[:id])
+    @token = Token.find(params[:id])
 
     if access_to_contacts?
-      @contacts = @token.contacts
+      @contacts = @token.contacts_no_demandeur
     else
       error_message(title: t('.unauthorized'))
 
@@ -14,6 +14,6 @@ class APIEntreprise::ContactsController < APIEntreprise::AuthenticatedUsersContr
   private
 
   def access_to_contacts?
-    current_user == @token.user
+    @token.demandeur == current_user
   end
 end
