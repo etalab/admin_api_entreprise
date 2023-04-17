@@ -3,6 +3,9 @@ class Seeds
     @user_email = 'user@yopmail.com'
     @user = create_main_user
 
+    @contact_email = 'contact_technique@yopmail.com'
+    @contact = create_contact
+
     create_data_for_api_entreprise
     create_data_for_api_particulier
     create_data_shared
@@ -27,7 +30,6 @@ class Seeds
   def create_data_for_api_entreprise
     @scopes_entreprise = create_scopes('entreprise')
 
-    create_api_entreprise_token_with_contact
     create_api_entreprise_token_valid
     create_api_entreprise_token_archived
     create_api_entreprise_token_blacklisted
@@ -54,30 +56,25 @@ class Seeds
     )
   end
 
+  def create_contact
+    create_user(
+      email: @contact_email,
+      phone_number: '0782112233',
+      first_name: 'Justine',
+      last_name: 'Martin'
+    )
+  end
+
   def create_magic_link
     MagicLink.new(email: @user.email)
   end
 
-  def create_api_entreprise_token_with_contact
-    token = create_token(
-      @user,
-      @scopes_entreprise.sample(2),
-      'entreprise',
-      authorization_request_params: {
-        intitule: 'Mairie de Lyon',
-        external_id: 101,
-        status: :validated,
-        first_submitted_at: 2.weeks.ago
-      }
-    )
-    create_contact(email: @user_email, authorization_request: token.authorization_request, contact_type: 'admin')
-  end
-
   def create_api_entreprise_token_valid
     create_token(
-      @user,
       @scopes_entreprise.sample(2),
       'entreprise',
+      demandeur: @user,
+      contact_technique: @contact,
       authorization_request_params: {
         intitule: 'Mairie de Lyon 2',
         external_id: 102,
@@ -89,10 +86,11 @@ class Seeds
 
   def create_api_entreprise_token_archived
     create_token(
-      @user,
       @scopes_entreprise.sample(2),
       'entreprise',
       token_params: { archived: true },
+      demandeur: @user,
+      contact_technique: @contact,
       authorization_request_params: {
         intitule: 'Mairie de Strasbourg',
         external_id: 103,
@@ -104,10 +102,10 @@ class Seeds
 
   def create_api_entreprise_token_blacklisted
     create_token(
-      @user,
       @scopes_entreprise.sample(2),
       'entreprise',
       token_params: { blacklisted: true },
+      demandeur: @user,
       authorization_request_params: {
         intitule: 'Mairie de Paris',
         external_id: 104,
@@ -119,10 +117,10 @@ class Seeds
 
   def create_api_entreprise_token_expired
     create_token(
-      @user,
       @scopes_entreprise.sample(2),
       'entreprise',
       token_params: { exp: 1.year.ago, created_at: 2.years.ago + 1.week },
+      demandeur: @user,
       authorization_request_params: {
         intitule: 'Mairie de Montpellier',
         external_id: 105,
@@ -135,22 +133,27 @@ class Seeds
   end
 
   def create_api_entreprise_authorization_refused
-    create_authorization_request(
-      intitule: 'Mairie de Bruxelles',
+    create_user_authorization_request_role(
       user: @user,
-      api: 'entreprise',
-      status: :refused,
-      external_id: 106,
-      first_submitted_at: 2.years.ago,
-      validated_at: 2.years.ago + 1.week
+      authorization_request: create_authorization_request(
+        api: 'entreprise',
+        intitule: 'Mairie de Bruxelles',
+        status: :refused,
+        external_id: 106,
+        first_submitted_at: 2.years.ago,
+        validated_at: 2.years.ago + 1.week
+      ),
+      role: 'demandeur'
     )
   end
 
   def create_api_particulier_token_valid
     create_token(
-      @user,
       @scopes_particulier,
       'particulier',
+      demandeur: @user,
+      contact_metier: @contact,
+      contact_technique: @contact,
       authorization_request_params: {
         intitule: 'Mairie de Bordeaux',
         external_id: 201,
@@ -164,12 +167,13 @@ class Seeds
     User.create!(params)
   end
 
-  def create_contact(params = {})
-    Contact.create!(params)
-  end
+  # rubocop:disable Metrics/ParameterLists
+  def create_token(scopes, api, demandeur:, contact_technique: nil, contact_metier: nil, token_params: {}, authorization_request_params: {})
+    authorization_request = create_authorization_request(authorization_request_params.merge(api:))
 
-  def create_token(user, scopes, api, token_params: {}, authorization_request_params: {})
-    authorization_request = create_authorization_request(authorization_request_params.merge(user:, api:))
+    create_user_authorization_request_role(user: demandeur, authorization_request:, role: 'demandeur')
+    create_user_authorization_request_role(user: contact_technique, authorization_request:, role: 'contact_technique') if contact_technique
+    create_user_authorization_request_role(user: contact_metier, authorization_request:, role: 'contact_metier') if contact_metier
 
     Token.create!(
       Token.default_create_params
@@ -180,9 +184,14 @@ class Seeds
         )
     )
   end
+  # rubocop:enable Metrics/ParameterLists
 
   def create_authorization_request(params = {})
     AuthorizationRequest.create!(params)
+  end
+
+  def create_user_authorization_request_role(params = {})
+    UserAuthorizationRequestRole.create!(params)
   end
 
   def load_all_models!
