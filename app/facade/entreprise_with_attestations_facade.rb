@@ -5,7 +5,7 @@ class EntrepriseWithAttestationsFacade
     @token = token
     @siren = siren
 
-    @token_scope_codes = @token.scopes.map(&:code)
+    @token_scopes = @token.scopes
   end
 
   def retrieve_company
@@ -13,11 +13,11 @@ class EntrepriseWithAttestationsFacade
   end
 
   def retrieve_attestation_sociale
-    @attestation_sociale_url = attestation_sociale_result if @token_scope_codes.include? 'attestations_sociales'
+    @attestation_sociale_url = attestation_sociale_result if @token_scopes.include? 'attestations_sociales'
   end
 
   def retrieve_attestation_fiscale
-    @attestation_fiscale_url = attestation_fiscale_result if @token_scope_codes.include? 'attestations_fiscales'
+    @attestation_fiscale_url = attestation_fiscale_result if @token_scopes.include? 'attestations_fiscales'
   end
 
   def entreprise_naf_full
