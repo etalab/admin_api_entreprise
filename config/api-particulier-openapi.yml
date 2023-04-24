@@ -3,70 +3,48 @@ openapi: 3.0.0
 info:
   title: API Particulier
   version: 2.2.0
-  description: |2-
+  description: |
+    ## Bienvenue sur la documentation interactive d'API Particulier.
 
-        ## Bienvenue sur la documentation interactive d'API Particulier.
+    ### Commencer à utiliser l'API
 
+    API Particulier est une API en accès restreint, ce qui signifie qu'il vous faut remplir une [demande d'habilitation](https://datapass.api.gouv.fr) avant de pouvoir l'utiliser avec des vraies données.
 
-        ### Commencer à utiliser l'API
+    Afin de tester l'API avant la validation de votre demande d'habilitation, nous avons mis en place un bac à sable de l'API qui reproduit les comportements de l'API en production.
 
+    Dans le bac à sable, pour chaque type de donnée disponible, un jeu de donnée libre en édition est mis à votre disposition, afin que vous puissiez faire vos tests en toute autonomie.
 
-        API Particulier est une API en accès restreint, ce qui signifie qu'il vous faut remplir une [demande d'habilitation](https://datapass.api.gouv.fr) avant de pouvoir l'utiliser avec des vraies données.
+    Le fonctionnement du bac à sable est identique à celui de la véritable API de production, à la différence près que les données sont fictives, éditables par tout le monde, et que les jetons d'accès sont en libre service.
 
+    Le bac à sable et l'API de production sont appelables par deux adresses distinctes :
 
-        Afin de tester l'API avant la validation de votre demande d'habilitation, nous avons mis en place un bac à sable de l'API qui reproduit les comportements de l'API en production.
+    - bac à sable : [https://staging.particulier.api.gouv.fr/api](https://staging.particulier.api.gouv.fr/api)
+    - production : [https://particulier.api.gouv.fr/api](https://particulier.api.gouv.fr/api)
 
+    Pour récupérer le jeton de production un portail développeur est mis à votre disposition à l'adresse suivante : [https://mon.portail.api.gouv.fr](https://mon.portail.api.gouv.fr)
 
-        Dans le bac à sable, pour chaque type de donnée disponible, un jeu de donnée libre en édition est mis à votre disposition, afin que vous puissiez faire vos tests en toute autonomie.
+    Pour effectuer vos tests sur le bac à sable, référez-vous à ce dépôt github: [etalab/siade_staging_data](https://github.com/etalab/siade_staging_data/) (l'ancien système basé sur Airtable n'est plus maintenu et va être remplacé par le nouveau système). Un jeton nommé default est disponible ici: [tokens](https://github.com/etalab/siade_staging_data/tree/develop/tokens)
 
+    ### Périmètre des données retournées
 
-        Le fonctionnement du bac à sable est identique à celui de la véritable API de production, à la différence près que les données sont fictives, éditables par tout le monde, et que les jetons d'accès sont en libre service.
+    **Important :** le contenu du jeu de données retourné dépend des _scopes_ ou _périmètres_ du jeton utilisé.
 
+    En effet, les disposition de l'article [L144-8](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000045213315) n'autorisent que l'échange des informations **strictement nécessaires** pour traiter une démarche.
 
-        Le bac à sable et l'API de production sont appelables par deux adresses distinctes :
+    Afin de respecter ce devoir de minimisation de la donnée, chaque jeton est associé, par la demande d'habilitation, à des _scopes_ agissant comme des masques sur la donnée.
 
+    Ainsi, pour pouvoir lire de la donnée, il est nécessaire de cocher lors de votre [demande d'habilitation](https://datapass.api.gouv.fr) une ou plusieurs cases correspondant aux données du même fournisseur, votre jeton possèdera alors les _scopes_ associés aux données cochées.
 
-        - bac à sable : [https://particulier-test.api.gouv.fr/api](https://particulier-test.api.gouv.fr/api)
+    En conséquence, suivant le jeton utilisé, une même requête peut retourner des résultats différents.
 
-        - production : [https://particulier.api.gouv.fr/api](https://particulier.api.gouv.fr/api)
+    **Attention :** La documentation ci-dessous ne prend pas en compte les _scopes_, qui agissent comme masques de la donnée retournée par l'API. Cette documentation suppose donc que votre jeton permet d'accéder à la donnée décrite.
 
+    ### Passer son service en production
 
-        Pour récupérer le jeton de production un portail développeur est mis à votre disposition à l'adresse suivante : [https://mon.portail.api.gouv.fr](https://mon.portail.api.gouv.fr)
+    Lors de votre passage en production :
 
-
-        Pour effectuer vos tests sur le bac à sable: vous pouvez utiliser ce jeton qui donne accès à l'ensemble des données: `7792dc29bca0d8ed8ba24976ad009214d23a2eea`
-
-        ### Périmètre des données retournées
-
-
-        **Important :** le contenu du jeu de données retourné dépend des _scopes_ ou _périmètres_ du jeton utilisé.
-
-
-        En effet, les disposition de l'article [L144-8](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000045213315) n'autorisent que l'échange des informations **strictement nécessaires** pour traiter une démarche.
-
-
-        Afin de respecter ce devoir de minimisation de la donnée, chaque jeton est associé, par la demande d'habilitation, à des _scopes_ agissant comme des masques sur la donnée.
-
-
-        Ainsi, pour pouvoir lire de la donnée, il est nécessaire de cocher lors de votre [demande d'habilitation](https://datapass.api.gouv.fr) une ou plusieurs cases correspondant aux données du même fournisseur, votre jeton possèdera alors les _scopes_ associés aux données cochées.
-
-
-        En conséquence, suivant le jeton utilisé, une même requête peut retourner des résultats différents.
-
-
-
-        **Attention :** La documentation ci-dessous ne prend pas en compte les _scopes_, qui agissent comme masques de la donnée retournée par l'API. Cette documentation suppose donc que votre jeton permet d'accéder à la donnée décrite.
-
-
-        ### Passer son service en production
-
-
-        Lors de votre passage en production :
-
-
-        - remplacez l'URL de particulier-test.api.gouv.fr à particulier.api.gouv.fr
-
-        - remplacez le jeton de test par le jeton obtenu sur [le portail API Particulier](https://mon.portail.api.gouv.fr)
+    - remplacez l'URL de staging.particulier.api.gouv.fr à particulier.api.gouv.fr
+    - remplacez le jeton de test par le jeton obtenu sur [le portail API Particulier](https://mon.portail.api.gouv.fr)
   termsOfService: https://api.gouv.fr/resources/CGU%20API%20Particulier.pdf
   contact:
     name: Contact API Particulier
@@ -434,12 +412,12 @@ paths:
                         description: Numéro d'appartement, escalier
                         type: string
                         nullable: true
-                        example: 
+                        example:
                       complementIdentiteGeo:
                         title: Complément d'information du point géographique
                         type: string
                         nullable: true
-                        example: 
+                        example:
                         description: Entrée, tour, immeuble, bâtiment, résidence
                       numeroRue:
                         title: Voie
@@ -450,7 +428,7 @@ paths:
                         title: Lieu-dit
                         type: string
                         nullable: true
-                        example: 
+                        example:
                         description: 'Lieu-dit ou service particulier de distribution
                           : poste restante, boîte postale'
                       codePostalVille:
@@ -566,7 +544,7 @@ paths:
                     type: string
                     description: Nom d'usage du demandeur d'emploi
                     nullable: true
-                    example: 
+                    example:
                   prenom:
                     title: Prénom
                     type: string
@@ -604,7 +582,7 @@ paths:
                     - AC
                     - DC
                     - RC
-                    - 
+                    -
                   telephone:
                     title: Téléphone principal
                     type: string
@@ -644,15 +622,15 @@ paths:
                       ligneComplementDestinaire:
                         type: string
                         nullable: true
-                        example: 
+                        example:
                       ligneComplementAdresse:
                         type: string
                         nullable: true
-                        example: 
+                        example:
                       ligneComplementDistribution:
                         type: string
                         nullable: true
-                        example: 
+                        example:
                       ligneNom:
                         type: string
                         example: MARTIN
@@ -952,7 +930,7 @@ paths:
         Statut et échelon boursier d'un étudiant, délivrés par le Cnous.
         **Paramètres d'appel :** Pour appeler l'API statut boursier, deux modes d'appel sont possibles :
          - INE, l'identifiant national étudiant ;
-         - l'état civil de l'étudiant: nom, prénom, date de naissance, sexe et lieu de naissance.
+         - l'état civil de l'étudiant: nom, prénom, date de naissance, sexe (optionnel) et lieu de naissance (optionnel).
 
         **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/api_particulier_v2_cnous_student_scholarship)
       responses:
@@ -1060,6 +1038,22 @@ paths:
                     example: Carnot
         '401': *2
         '404': *5
+        '409':
+          description: Des doublons ont été trouvé, merci d'affiner vos critères.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: conflict
+                  reason:
+                    type: string
+                    example: Plusieurs ressources correspondent aux critères
+                  message:
+                    type: string
+                    example: Plusieurs ressources correspondent aux critères
         '500': *3
         '503': *4
   "/api/ping":
@@ -1149,13 +1143,13 @@ components:
       properties:
         error:
           type: string
-          example: 
+          example:
         reason:
           type: string
-          example: 
+          example:
         message:
           type: string
-          example: 
+          example:
   securitySchemes:
     apiKey:
       type: apiKey
