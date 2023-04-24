@@ -570,6 +570,9 @@ paths:
           siret_entrepreneur_individuel:
             value: '38983993700015'
             summary: SIRET d'un entrepreneur individuel (fermé)
+          siret_ademe:
+            value: '42878198300039'
+            summary: SIRET pour ADEME RGE
         required: true
         schema:
           type: string
@@ -3347,6 +3350,9 @@ paths:
           siret_entrepreneur_individuel:
             value: '38983993700015'
             summary: SIRET d'un entrepreneur individuel (fermé)
+          siret_ademe:
+            value: '42878198300039'
+            summary: SIRET pour ADEME RGE
         required: true
         schema:
           type: string
@@ -7428,6 +7434,9 @@ paths:
           siret_entrepreneur_individuel:
             value: '38983993700015'
             summary: SIRET d'un entrepreneur individuel (fermé)
+          siret_ademe:
+            value: '42878198300039'
+            summary: SIRET pour ADEME RGE
         required: true
         schema:
           type: string
@@ -11098,6 +11107,9 @@ paths:
           siret_entrepreneur_individuel:
             value: '38983993700015'
             summary: SIRET d'un entrepreneur individuel (fermé)
+          siret_ademe:
+            value: '42878198300039'
+            summary: SIRET pour ADEME RGE
         required: true
         schema:
           type: string
@@ -11377,6 +11389,15 @@ paths:
                         type: string
                         nullable: true
                         example: ROYAUME-UNI
+                      status_diffusion:
+                        title: Statut de la diffusion
+                        type: string
+                        enum:
+                        - diffusible
+                        - partiellement_diffusible
+                        - non_diffusible
+                        description: Indique si l'établissement rattaché est diffusable,
+                          partiellement diffusable ou non diffusable
                       acheminement_postal:
                         type: object
                         title: Éléments constitutifs de l'adresse postale pour son
@@ -11453,6 +11474,7 @@ paths:
                     - libelle_commune_etranger
                     - code_pays_etranger
                     - libelle_pays_etranger
+                    - status_diffusion
                     - acheminement_postal
                   links:
                     type: object
@@ -11664,6 +11686,9 @@ paths:
           siret_entrepreneur_individuel:
             value: '38983993700015'
             summary: SIRET d'un entrepreneur individuel (fermé)
+          siret_ademe:
+            value: '42878198300039'
+            summary: SIRET pour ADEME RGE
         required: true
         schema:
           type: string
@@ -11960,6 +11985,15 @@ paths:
                         type: string
                         nullable: true
                         example: ROYAUME-UNI
+                      status_diffusion:
+                        title: Statut de la diffusion
+                        type: string
+                        enum:
+                        - diffusible
+                        - partiellement_diffusible
+                        - non_diffusible
+                        description: Indique si l'établissement rattaché est diffusable,
+                          partiellement diffusable ou non diffusable
                       acheminement_postal:
                         type: object
                         title: Éléments constitutifs de l'adresse postale pour son
@@ -12041,6 +12075,7 @@ paths:
                     - libelle_commune_etranger
                     - code_pays_etranger
                     - libelle_pays_etranger
+                    - status_diffusion
                     - acheminement_postal
                   links:
                     type: object
@@ -12252,6 +12287,9 @@ paths:
           siret_entrepreneur_individuel:
             value: '38983993700015'
             summary: SIRET d'un entrepreneur individuel (fermé)
+          siret_ademe:
+            value: '42878198300039'
+            summary: SIRET pour ADEME RGE
         required: true
         schema:
           type: string
@@ -12557,6 +12595,15 @@ paths:
                         - date_reference
                         - de
                         - a
+                      status_diffusion:
+                        title: Statut de la diffusion
+                        type: string
+                        enum:
+                        - diffusible
+                        - partiellement_diffusible
+                        - non_diffusible
+                        description: Indique si l'établissement est diffusable, partiellement
+                          diffusable ou non diffusable
                       diffusable_commercialement:
                         title: Diffusable commercialement
                         type: boolean
@@ -12565,12 +12612,11 @@ paths:
                         - true
                         - false
                         description: "Indique si l'établissement est : \n \n - diffusible
-                          : 'true' \n - partiellement-diffusible : 'true'. Dans ce
-                          cas, les informations obtenues peuvent être masquées par
-                          la chaîne de caractère '[ND]' \n - non-diffusible : 'false'.
+                          : 'true' \n - partiellement-diffusible : 'false'. Dans ce
+                          cas, les informations obtenues ne doivent en aucun cas être
+                          accessibles au grand public. \n - non-diffusible : 'false'.
                           Dans ce cas, les informations obtenues ne doivent en aucun
-                          cas être accessibles au grand public. \n \n Plus d'informations
-                          sur les conditions de diffusion : LIEN TODO"
+                          cas être accessibles au grand public."
                       enseigne:
                         title: Enseigne de l'établissement
                         type: string
@@ -12729,18 +12775,26 @@ paths:
                               agricole ou ne faisant pas partie du système productif).
                               \n \n Définition de 'catégorie d'entreprise' par l'Insee
                               : https://www.insee.fr/fr/metadonnees/definition/c1057"
+                          status_diffusion:
+                            title: Statut de la diffusion
+                            type: string
+                            enum:
+                            - diffusible
+                            - partiellement_diffusible
+                            - non_diffusible
+                            description: Indique si l'unite légale est diffusable,
+                              partiellement diffusable ou non diffusable
                           diffusable_commercialement:
                             title: Diffusable commercialement
                             type: boolean
                             example: true
                             description: "Indique si l'unité légale est : \n \n -
                               une unité légale diffusible : 'true' \n - partiellement-diffusible
-                              : 'true'. Dans ce cas, les informations obtenues peuvent
-                              être masquées par la chaîne de caractère '[ND]' \n -
-                              une unité légale non-diffusible : 'false'. Dans ce cas,
-                              les informations obtenues ne doivent en aucun cas être
-                              accessibles au grand public. \n \n Plus d'informations
-                              sur les conditions de diffusion : LIEN TODO"
+                              : 'false'. Dans ce cas, les informations obtenues ne
+                              doivent en aucun cas être accessibles au grand public.
+                              \n - une unité légale non-diffusible : 'false'. Dans
+                              ce cas, les informations obtenues ne doivent en aucun
+                              cas être accessibles au grand public."
                           forme_juridique:
                             type: object
                             title: Attributs de la forme juridique
@@ -12979,6 +13033,7 @@ paths:
                         - personne_morale_attributs
                         - personne_physique_attributs
                         - categorie_entreprise
+                        - status_diffusion
                         - diffusable_commercialement
                         - forme_juridique
                         - activite_principale
@@ -13140,6 +13195,15 @@ paths:
                             type: string
                             nullable: true
                             example: ROYAUME-UNI
+                          status_diffusion:
+                            title: Statut de la diffusion
+                            type: string
+                            enum:
+                            - diffusible
+                            - partiellement_diffusible
+                            - non_diffusible
+                            description: Indique si l'établissement rattaché est diffusable,
+                              partiellement diffusable ou non diffusable
                           acheminement_postal:
                             type: object
                             title: Éléments constitutifs de l'adresse postale pour
@@ -13219,6 +13283,7 @@ paths:
                         - libelle_commune_etranger
                         - code_pays_etranger
                         - libelle_pays_etranger
+                        - status_diffusion
                         - acheminement_postal
                       date_creation:
                         title: Date de création de l'unité légale
@@ -13242,6 +13307,7 @@ paths:
                     - date_fermeture
                     - activite_principale
                     - tranche_effectif_salarie
+                    - status_diffusion
                     - diffusable_commercialement
                     - enseigne
                     - unite_legale
@@ -13467,6 +13533,9 @@ paths:
           siret_entrepreneur_individuel:
             value: '38983993700015'
             summary: SIRET d'un entrepreneur individuel (fermé)
+          siret_ademe:
+            value: '42878198300039'
+            summary: SIRET pour ADEME RGE
         required: true
         schema:
           type: string
@@ -13772,17 +13841,28 @@ paths:
                         - date_reference
                         - de
                         - a
+                      status_diffusion:
+                        title: Statut de la diffusion
+                        type: string
+                        enum:
+                        - diffusible
+                        - partiellement_diffusible
+                        - non_diffusible
+                        description: Indique si l'établissement est diffusable, partiellement
+                          diffusable ou non diffusable
                       diffusable_commercialement:
                         title: Diffusable commercialement
                         type: boolean
                         example: true
                         enum:
                         - true
-                        description: Détermine si l'établissement est non-diffusible.
-                          Cette API n'appelant pas les non-diffusible, cette valeur
-                          est toujours à 'true'. Pour récupérer des établissements
-                          non-diffusibles, référez-vous à la documentation de l'API
-                          /insee/etablissements/:siren
+                        - false
+                        description: "Indique si l'établissement est : \n \n - diffusible
+                          : 'true' \n - partiellement-diffusible : 'true'. Dans ce
+                          cas, les informations obtenues peuvent être masquées par
+                          la chaîne de caractère '[ND]' \n - non-diffusible : 'false'.
+                          Dans ce cas, les informations obtenues ne doivent en aucun
+                          cas être accessibles au grand public."
                       enseigne:
                         title: Enseigne de l'établissement
                         type: string
@@ -13963,6 +14043,15 @@ paths:
                               agricole ou ne faisant pas partie du système productif).
                               \n \n Définition de 'catégorie d'entreprise' par l'Insee
                               : https://www.insee.fr/fr/metadonnees/definition/c1057"
+                          status_diffusion:
+                            title: Statut de la diffusion
+                            type: string
+                            enum:
+                            - diffusible
+                            - partiellement_diffusible
+                            - non_diffusible
+                            description: Indique si l'unite légale est diffusable,
+                              partiellement diffusable ou non diffusable
                           diffusable_commercialement:
                             title: Diffusable commercialement
                             type: boolean
@@ -13973,8 +14062,7 @@ paths:
                               être masquées par la chaîne de caractère '[ND]' \n -
                               une unité légale non-diffusible : 'false'. Dans ce cas,
                               les informations obtenues ne doivent en aucun cas être
-                              accessibles au grand public. \n \n Plus d'informations
-                              sur les conditions de diffusion : LIEN TODO"
+                              accessibles au grand public."
                           forme_juridique:
                             type: object
                             title: Attributs de la forme juridique
@@ -14213,6 +14301,7 @@ paths:
                         - personne_morale_attributs
                         - personne_physique_attributs
                         - categorie_entreprise
+                        - status_diffusion
                         - diffusable_commercialement
                         - forme_juridique
                         - activite_principale
@@ -14391,6 +14480,15 @@ paths:
                             type: string
                             nullable: true
                             example: ROYAUME-UNI
+                          status_diffusion:
+                            title: Statut de la diffusion
+                            type: string
+                            enum:
+                            - diffusible
+                            - partiellement_diffusible
+                            - non_diffusible
+                            description: Indique si l'établissement rattaché est diffusable,
+                              partiellement diffusable ou non diffusable
                           acheminement_postal:
                             type: object
                             title: Éléments constitutifs de l'adresse postale pour
@@ -14475,6 +14573,7 @@ paths:
                         - libelle_commune_etranger
                         - code_pays_etranger
                         - libelle_pays_etranger
+                        - status_diffusion
                         - acheminement_postal
                       date_creation:
                         title: Date de création de l'unité légale
@@ -14498,6 +14597,7 @@ paths:
                     - date_fermeture
                     - activite_principale
                     - tranche_effectif_salarie
+                    - status_diffusion
                     - diffusable_commercialement
                     - enseigne
                     - unite_legale
@@ -15029,17 +15129,28 @@ paths:
                         - date_reference
                         - de
                         - a
+                      status_diffusion:
+                        title: Statut de la diffusion
+                        type: string
+                        enum:
+                        - diffusible
+                        - partiellement_diffusible
+                        - non_diffusible
+                        description: Indique si l'établissement est diffusable, partiellement
+                          diffusable ou non diffusable
                       diffusable_commercialement:
                         title: Diffusable commercialement
                         type: boolean
                         example: true
                         enum:
                         - true
-                        description: Détermine si l'établissement est non-diffusible.
-                          Cette API n'appelant pas les non-diffusible, cette valeur
-                          est toujours à 'true'. Pour récupérer des établissements
-                          non-diffusibles, référez-vous à la documentation de l'API
-                          /insee/etablissements/:siren
+                        - false
+                        description: "Indique si l'établissement est : \n \n - diffusible
+                          : 'true' \n - partiellement-diffusible : 'true'. Dans ce
+                          cas, les informations obtenues peuvent être masquées par
+                          la chaîne de caractère '[ND]' \n - non-diffusible : 'false'.
+                          Dans ce cas, les informations obtenues ne doivent en aucun
+                          cas être accessibles au grand public."
                       enseigne:
                         title: Enseigne de l'établissement
                         type: string
@@ -15220,6 +15331,15 @@ paths:
                               agricole ou ne faisant pas partie du système productif).
                               \n \n Définition de 'catégorie d'entreprise' par l'Insee
                               : https://www.insee.fr/fr/metadonnees/definition/c1057"
+                          status_diffusion:
+                            title: Statut de la diffusion
+                            type: string
+                            enum:
+                            - diffusible
+                            - partiellement_diffusible
+                            - non_diffusible
+                            description: Indique si l'unite légale est diffusable,
+                              partiellement diffusable ou non diffusable
                           diffusable_commercialement:
                             title: Diffusable commercialement
                             type: boolean
@@ -15230,8 +15350,7 @@ paths:
                               être masquées par la chaîne de caractère '[ND]' \n -
                               une unité légale non-diffusible : 'false'. Dans ce cas,
                               les informations obtenues ne doivent en aucun cas être
-                              accessibles au grand public. \n \n Plus d'informations
-                              sur les conditions de diffusion : LIEN TODO"
+                              accessibles au grand public."
                           forme_juridique:
                             type: object
                             title: Attributs de la forme juridique
@@ -15470,6 +15589,7 @@ paths:
                         - personne_morale_attributs
                         - personne_physique_attributs
                         - categorie_entreprise
+                        - status_diffusion
                         - diffusable_commercialement
                         - forme_juridique
                         - activite_principale
@@ -15648,6 +15768,15 @@ paths:
                             type: string
                             nullable: true
                             example: ROYAUME-UNI
+                          status_diffusion:
+                            title: Statut de la diffusion
+                            type: string
+                            enum:
+                            - diffusible
+                            - partiellement_diffusible
+                            - non_diffusible
+                            description: Indique si l'établissement rattaché est diffusable,
+                              partiellement diffusable ou non diffusable
                           acheminement_postal:
                             type: object
                             title: Éléments constitutifs de l'adresse postale pour
@@ -15732,6 +15861,7 @@ paths:
                         - libelle_commune_etranger
                         - code_pays_etranger
                         - libelle_pays_etranger
+                        - status_diffusion
                         - acheminement_postal
                       date_creation:
                         title: Date de création de l'unité légale
@@ -15755,6 +15885,7 @@ paths:
                     - date_fermeture
                     - activite_principale
                     - tranche_effectif_salarie
+                    - status_diffusion
                     - diffusable_commercialement
                     - enseigne
                     - unite_legale
@@ -16287,6 +16418,15 @@ paths:
                         - date_reference
                         - de
                         - a
+                      status_diffusion:
+                        title: Statut de la diffusion
+                        type: string
+                        enum:
+                        - diffusible
+                        - partiellement_diffusible
+                        - non_diffusible
+                        description: Indique si l'établissement est diffusable, partiellement
+                          diffusable ou non diffusable
                       diffusable_commercialement:
                         title: Diffusable commercialement
                         type: boolean
@@ -16295,12 +16435,11 @@ paths:
                         - true
                         - false
                         description: "Indique si l'établissement est : \n \n - diffusible
-                          : 'true' \n - partiellement-diffusible : 'true'. Dans ce
-                          cas, les informations obtenues peuvent être masquées par
-                          la chaîne de caractère '[ND]' \n - non-diffusible : 'false'.
+                          : 'true' \n - partiellement-diffusible : 'false'. Dans ce
+                          cas, les informations obtenues ne doivent en aucun cas être
+                          accessibles au grand public. \n - non-diffusible : 'false'.
                           Dans ce cas, les informations obtenues ne doivent en aucun
-                          cas être accessibles au grand public. \n \n Plus d'informations
-                          sur les conditions de diffusion : LIEN TODO"
+                          cas être accessibles au grand public."
                       enseigne:
                         title: Enseigne de l'établissement
                         type: string
@@ -16459,18 +16598,26 @@ paths:
                               agricole ou ne faisant pas partie du système productif).
                               \n \n Définition de 'catégorie d'entreprise' par l'Insee
                               : https://www.insee.fr/fr/metadonnees/definition/c1057"
+                          status_diffusion:
+                            title: Statut de la diffusion
+                            type: string
+                            enum:
+                            - diffusible
+                            - partiellement_diffusible
+                            - non_diffusible
+                            description: Indique si l'unite légale est diffusable,
+                              partiellement diffusable ou non diffusable
                           diffusable_commercialement:
                             title: Diffusable commercialement
                             type: boolean
                             example: true
                             description: "Indique si l'unité légale est : \n \n -
                               une unité légale diffusible : 'true' \n - partiellement-diffusible
-                              : 'true'. Dans ce cas, les informations obtenues peuvent
-                              être masquées par la chaîne de caractère '[ND]' \n -
-                              une unité légale non-diffusible : 'false'. Dans ce cas,
-                              les informations obtenues ne doivent en aucun cas être
-                              accessibles au grand public. \n \n Plus d'informations
-                              sur les conditions de diffusion : LIEN TODO"
+                              : 'false'. Dans ce cas, les informations obtenues ne
+                              doivent en aucun cas être accessibles au grand public.
+                              \n - une unité légale non-diffusible : 'false'. Dans
+                              ce cas, les informations obtenues ne doivent en aucun
+                              cas être accessibles au grand public."
                           forme_juridique:
                             type: object
                             title: Attributs de la forme juridique
@@ -16709,6 +16856,7 @@ paths:
                         - personne_morale_attributs
                         - personne_physique_attributs
                         - categorie_entreprise
+                        - status_diffusion
                         - diffusable_commercialement
                         - forme_juridique
                         - activite_principale
@@ -16870,6 +17018,15 @@ paths:
                             type: string
                             nullable: true
                             example: ROYAUME-UNI
+                          status_diffusion:
+                            title: Statut de la diffusion
+                            type: string
+                            enum:
+                            - diffusible
+                            - partiellement_diffusible
+                            - non_diffusible
+                            description: Indique si l'établissement rattaché est diffusable,
+                              partiellement diffusable ou non diffusable
                           acheminement_postal:
                             type: object
                             title: Éléments constitutifs de l'adresse postale pour
@@ -16949,6 +17106,7 @@ paths:
                         - libelle_commune_etranger
                         - code_pays_etranger
                         - libelle_pays_etranger
+                        - status_diffusion
                         - acheminement_postal
                       date_creation:
                         title: Date de création de l'unité légale
@@ -16972,6 +17130,7 @@ paths:
                     - date_fermeture
                     - activite_principale
                     - tranche_effectif_salarie
+                    - status_diffusion
                     - diffusable_commercialement
                     - enseigne
                     - unite_legale
@@ -17489,18 +17648,26 @@ paths:
                           du calcul de la catégorie (unité légale agricole ou ne faisant
                           pas partie du système productif). \n \n Définition de 'catégorie
                           d'entreprise' par l'Insee : https://www.insee.fr/fr/metadonnees/definition/c1057"
+                      status_diffusion:
+                        title: Statut de la diffusion
+                        type: string
+                        enum:
+                        - diffusible
+                        - partiellement_diffusible
+                        - non_diffusible
+                        description: Indique si l'unite légale est diffusable, partiellement
+                          diffusable ou non diffusable
                       diffusable_commercialement:
                         title: Diffusable commercialement
                         type: boolean
                         example: true
                         description: "Indique si l'unité légale est : \n \n - une
                           unité légale diffusible : 'true' \n - partiellement-diffusible
-                          : 'true'. Dans ce cas, les informations obtenues peuvent
-                          être masquées par la chaîne de caractère '[ND]' \n - une
+                          : 'false'. Dans ce cas, les informations obtenues ne doivent
+                          en aucun cas être accessibles au grand public. \n - une
                           unité légale non-diffusible : 'false'. Dans ce cas, les
                           informations obtenues ne doivent en aucun cas être accessibles
-                          au grand public. \n \n Plus d'informations sur les conditions
-                          de diffusion : LIEN TODO"
+                          au grand public."
                       forme_juridique:
                         type: object
                         title: Attributs de la forme juridique
@@ -17735,6 +17902,7 @@ paths:
                     - personne_morale_attributs
                     - personne_physique_attributs
                     - categorie_entreprise
+                    - status_diffusion
                     - diffusable_commercialement
                     - forme_juridique
                     - activite_principale
@@ -18281,17 +18449,26 @@ paths:
                           du calcul de la catégorie (unité légale agricole ou ne faisant
                           pas partie du système productif). \n \n Définition de 'catégorie
                           d'entreprise' par l'Insee : https://www.insee.fr/fr/metadonnees/definition/c1057"
+                      status_diffusion:
+                        title: Statut de la diffusion
+                        type: string
+                        enum:
+                        - diffusible
+                        - partiellement_diffusible
+                        - non_diffusible
+                        description: Indique si l'unite légale est diffusable, partiellement
+                          diffusable ou non diffusable
                       diffusable_commercialement:
-                        title: Diffusible commercialement
+                        title: Diffusable commercialement
                         type: boolean
                         example: true
-                        enum:
-                        - true
-                        description: Détermine si l'unité légale est une entité non-diffusible.
-                          Cette API n'appelant pas les non-diffusible, cette valeur
-                          est toujours à 'true'. Pour récupérer des unités légales
-                          non-diffusible, référez-vous à la documentation de l'API
-                          /insee/unites_legales/:siren
+                        description: "Indique si l'unité légale est : \n \n - une
+                          unité légale diffusible : 'true' \n - partiellement-diffusible
+                          : 'true'. Dans ce cas, les informations obtenues peuvent
+                          être masquées par la chaîne de caractère '[ND]' \n - une
+                          unité légale non-diffusible : 'false'. Dans ce cas, les
+                          informations obtenues ne doivent en aucun cas être accessibles
+                          au grand public."
                       forme_juridique:
                         type: object
                         title: Attributs de la forme juridique
@@ -18526,6 +18703,7 @@ paths:
                     - personne_morale_attributs
                     - personne_physique_attributs
                     - categorie_entreprise
+                    - status_diffusion
                     - diffusable_commercialement
                     - forme_juridique
                     - activite_principale
@@ -19640,6 +19818,9 @@ paths:
           siret_entrepreneur_individuel:
             value: '38983993700015'
             summary: SIRET d'un entrepreneur individuel (fermé)
+          siret_ademe:
+            value: '42878198300039'
+            summary: SIRET pour ADEME RGE
         required: true
         schema:
           type: string
@@ -20416,6 +20597,9 @@ paths:
           siret_entrepreneur_individuel:
             value: '38983993700015'
             summary: SIRET d'un entrepreneur individuel (fermé)
+          siret_ademe:
+            value: '42878198300039'
+            summary: SIRET pour ADEME RGE
         required: true
         schema:
           type: string
@@ -21141,6 +21325,9 @@ paths:
           siret_entrepreneur_individuel:
             value: '38983993700015'
             summary: SIRET d'un entrepreneur individuel (fermé)
+          siret_ademe:
+            value: '42878198300039'
+            summary: SIRET pour ADEME RGE
         required: true
         schema:
           type: string
