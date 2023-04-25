@@ -6,8 +6,7 @@ class APIEntreprise::Endpoint < AbstractEndpoint
     :parameters,
     :use_cases_optional,
     :use_cases_forbidden,
-    :opening,
-    :historique
+    :opening
 
   def initialize(params)
     super(params)
@@ -38,24 +37,6 @@ class APIEntreprise::Endpoint < AbstractEndpoint
         999
       ].include?(error_payload['code'][2..])
     end
-  end
-
-  def new_endpoints
-    return [] if !deprecated? || @new_endpoint_uids.blank?
-
-    @new_endpoint_uids.map do |new_endpoint_uid|
-      self.class.find(new_endpoint_uid)
-    end
-  end
-
-  def old_endpoints
-    @old_endpoints ||= (@old_endpoint_uids || []).map do |old_endpoint_uid|
-      self.class.find(old_endpoint_uid)
-    end
-  end
-
-  def historicized?
-    old_endpoints.any?
   end
 
   def force_dummy_load?

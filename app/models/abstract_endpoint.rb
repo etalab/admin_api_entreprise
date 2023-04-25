@@ -10,6 +10,7 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
     :parameters_details,
     :data,
     :use_cases,
+    :historique,
     :keywords
 
   attr_writer :new_endpoint_uids, :old_endpoint_uids
@@ -69,6 +70,24 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
 
   def deprecated?
     deprecated
+  end
+
+  def new_endpoints
+    return [] if !deprecated? || @new_endpoint_uids.blank?
+
+    @new_endpoint_uids.map do |new_endpoint_uid|
+      self.class.find(new_endpoint_uid)
+    end
+  end
+
+  def old_endpoints
+    @old_endpoints ||= (@old_endpoint_uids || []).map do |old_endpoint_uid|
+      self.class.find(old_endpoint_uid)
+    end
+  end
+
+  def historicized?
+    old_endpoints.any?
   end
 
   def attributes
