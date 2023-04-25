@@ -28,7 +28,7 @@
             <%= t('.providers.description', count: @endpoint.providers.count) %>
           </div>
 
-          <p>
+          <p class="fr-text--lg fr-text--bold">
             <% @endpoint.providers.map do |provider| %>
               <%= t("providers.#{provider.name}") %>
             <% end.join(' & ') %>

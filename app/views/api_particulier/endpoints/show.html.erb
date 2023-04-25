@@ -23,8 +23,8 @@
           <li>
               <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#cgu">Conditions d'utilisation de l'API</a>
           </li>
-      </ul>
-    </nav>
+        </ul>
+      </nav>
     </div>
 
     <div class="providers fr-col-md-<%= 12 - layout_main_bloc %> fr-col-12">
@@ -40,7 +40,7 @@
             <%= t('.providers.description', count: @endpoint.providers.count) %>
           </div>
 
-          <p>
+          <p class="fr-text--lg fr-text--bold">
             <% @endpoint.providers.map do |provider| %>
               <%= t("providers.#{provider.name}") %>
             <% end.join(' & ') %>
