@@ -56,7 +56,26 @@
 
   <div class="fr-grid-row">
     <div class="fr-col-md-<%= layout_main_bloc %> fr-col-12 fr-pt-2w fr-mt-md-0 fr-pr-md-2w fr-pr-0">
+      <% elsif @endpoint.deprecated? %>
+        <div class="fr-alert fr-alert--error fr-mb-2w">
+          <p class="fr-alert__title">
+            <%= t('.deprecated.title') %>
+          </p>
 
+          <p>
+            <%= t('.deprecated.description') %>
+            <ul>
+              <% @endpoint.new_endpoints.each do |endpoint| %>
+                <li>
+                  <%= link_to endpoint.title, endpoint_path(uid: endpoint.uid) %>
+                </li>
+              <% end %>
+            </ul>
+            <p class="fr-text--sm fr-mt-2w">
+            <%= t('.deprecated.link_documentation').html_safe %></p>
+          </p>
+        </div>
+      <% end %>
       <h2 id="perimetre">
         <%= t('.perimeter.title') %>
       </h2>
@@ -172,6 +191,24 @@
             <% end %>
           </div>
         <% end %>
+
+        <% if @endpoint.historicized? %>
+          <h2 id="historique" class="fr-mt-md-5w fr-mt-8w">
+            <%= t('.historique.title') %>
+          </h2>
+          <%= markdown_to_html(@endpoint.historique) %>
+          <% if @endpoint.old_endpoints.any? %>
+            <p class="fr-text--bold fr-mb-1v fr-mt-4w"><%= t('.historique.old_endpoints.description') %></p>
+            <ul>
+              <% @endpoint.old_endpoints.each do |endpoint| %>
+                <li>
+                  <%= link_to endpoint.uid, endpoint_path(uid: endpoint.uid) %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        <% end %>
+
 
         <h2 id="cgu" class="fr-mt-md-5w fr-mt-8w">
           <%= t('.cgu.title') %>
