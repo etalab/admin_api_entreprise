@@ -13,7 +13,7 @@
     Donnée structurée JSON
   </div>
 
-  <h3 class="fr-h6 fr-pt-2w fr-mb-1v">
+  <h3 class="fr-h6 fr-pt-4w fr-mb-1v">
     <%= t('.parameters.title', count: @endpoint.parameters.count) %>
   </h3>
 
@@ -24,8 +24,22 @@
       </li>
     <% end %>
   </ul>
+  <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" title="Détails des modalités d'appel" href="#parameters_details">
+  <%= t('.parameters.link') %>
+ </a>
+  
 
-  <h3 class="fr-h5 fr-pt-2w">
+  <h3 class="fr-h6 fr-pt-4w fr-mb-1v">
+    <%= t('.availability.title') %>
+  </h3>
+  <a class="fr-pt-1v fr-link" title="API Entreprise Status Page" href="https://status.api.gouv.fr/" target="_blank">
+    <%= t('.availability.link') %>
+  </a>
+  <div class="fr-pt-2w">
+      <%= t('.availability.no_maintenance') %>
+  </div>
+
+  <h3 class="fr-h5 fr-pt-4w">
     <%= t('.technical_specifications.title') %>
   </h3>
 

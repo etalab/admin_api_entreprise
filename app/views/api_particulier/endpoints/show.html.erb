@@ -9,6 +9,25 @@
       <p class="fr-text--lead fr-mt-md-2w">
         <%= @endpoint.description %>
       </p>
+      <nav class="" role="navigation">
+      <ul class="">
+          <li>
+              <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#perimetre">Périmètre de l'API</a>
+          </li>
+          <li>
+              <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#parameters_details">Modalités d'appel</a>
+          </li>
+          <li>
+              <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#donnees">Données distribuées</a>
+          </li>
+          <li>
+              <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#faq">Q & R</a>
+          </li>
+          <li>
+              <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#cgu">Conditions d'utilisation</a>
+          </li>
+        </ul>
+      </nav>
     </div>
 
     <div class="providers fr-col-md-<%= 12 - layout_main_bloc %> fr-col-12">
@@ -24,7 +43,7 @@
             <%= t('.providers.description', count: @endpoint.providers.count) %>
           </div>
 
-          <p>
+          <p class="fr-text--lg fr-text--bold">
             <% @endpoint.providers.map do |provider| %>
               <%= t("providers.#{provider.name}") %>
             <% end.join(' & ') %>
@@ -33,11 +52,11 @@
       </div>
     </div>
   </div>
-
   <hr class="separator fr-unhidden-md fr-hidden">
 
   <div class="fr-grid-row">
     <div class="fr-col-md-<%= layout_main_bloc %> fr-col-12 fr-pt-2w fr-mt-md-0 fr-pr-md-2w fr-pr-0">
+
       <h2 id="perimetre">
         <%= t('.perimeter.title') %>
       </h2>
@@ -87,6 +106,16 @@
       <%= render partial: 'use_cases', locals: { id: 'use_cases_mobile', extra_classes: 'fr-hidden-md' } %>
       <%= render partial: 'details', locals: { id: 'use_cases_mobile', extra_classes: 'fr-mb-3w fr-hidden-md' } %>
 
+      
+        <h2 id="parameters_details" class="fr-mt-md-5w fr-mt-8w">
+        <%= t('.parameters_details.title') %>
+        </h2>
+
+        <% if @endpoint.parameters_details.present? && @endpoint.parameters_details['description'].present? %>
+          <div>
+            <%= markdown_to_html(@endpoint.parameters_details['description']) %>
+          </div>
+        <% end %>
 
         <h2 id="donnees" class="fr-mt-md-5w fr-mt-8w">
           <%= t('.data.title') %>

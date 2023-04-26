@@ -20,6 +20,17 @@
       - ❌ les données des étudiants boursiers étrangers.
     updating_rules_description: |+
       Les données sont **mises à jour une fois par an**, début septembre, une fois tous les étudiants inscrits.
+  parameters_details:
+    description: |+
+      Cette API propose trois modalités d'appel :
+      <p class="fr-badge fr-badge--blue-ecume">Identité pivot</p>
+      Avec les données d'identité : Nom, prénom, date de naissance de l'étudiant, sexe (optionnel) et lieu de naissance (optionnel).
+
+      <p class="fr-badge fr-badge--purple-glycine">Identifiant</p>
+      Avec l'Identifiant National Étudiant (INE). Cet identifiant unique figure notamment sur la carte étudiant.
+
+      <p class="fr-badge fr-badge--green-emeraude">FranceConnect</p>
+      Avec FranceConnect.
   data:
     description: |+
       Cette API **indique si un étudiant est boursier et permet de connaître le montant de la bourse** perçue grâce à l'échelon et la durée de versement.
@@ -27,7 +38,7 @@
     - 'cnous'
   keywords: []
   parameters:
-    - Nom, prénom, date de naissance de l'étudiant, sexe (optionnel) et lieu de naissance (optionnel) ;
+    - Identité pivot ;
     - ou Identifiant National Étudiant (INE) ;
     - ou FranceConnect.
   use_cases:

@@ -39,14 +39,22 @@
       - Pour les petits établissements, le délai est probablement plus long.
 
       Des inscriptions peuvent avoir lieu toute l'année, et la transmission de ces informations par les établissements se fait elle aussi tout au long de l'année.
+  parameters_details:
+    description: |+
+      Cette API propose deux modalités d'appel :
+      <p class="fr-badge fr-badge--blue-ecume">Identité pivot</p>
+      Avec les données d'identité : Nom, prénom, date de naissance de l'étudiant, sexe (optionnel) et lieu de naissance (optionnel).
+
+       <p class="fr-badge fr-badge--purple-glycine">Identifiant</p>
+      Avec l'Identifiant National Étudiant (INE). Cet identifiant unique figure notamment sur la carte étudiant.
   data:
     description: |+
-      Cette API délivre la **liste des inscriptions et admissions d'un étudiant**, en précisant les dates de début et de fin d'études, le régime de formation et le l'établisssement.
+      Cette API délivre la **liste des inscriptions et admissions d'un étudiant**, en précisant les dates de début et de fin d'études, le régime de formation et le l'établisssement. L'obtention de ces informations permet d'éviter de demander un certificat étudiant.
   provider_uids:
     - 'mesr'
   keywords: []
   parameters:
-    - Nom, prénom, date de naissance de l'étudiant ;
+    - Identité pivot ;
     - ou Identifiant National Étudiant (INE).
   use_cases:
     - Attribution des aides à la scolarité
