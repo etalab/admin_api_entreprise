@@ -56,7 +56,7 @@
 
   <div class="fr-grid-row">
     <div class="fr-col-md-<%= layout_main_bloc %> fr-col-12 fr-pt-2w fr-mt-md-0 fr-pr-md-2w fr-pr-0">
-      <% elsif @endpoint.deprecated? %>
+      <% if @endpoint.deprecated? %>
         <div class="fr-alert fr-alert--error fr-mb-2w">
           <p class="fr-alert__title">
             <%= t('.deprecated.title') %>
