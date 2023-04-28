@@ -31,14 +31,25 @@
       Les données sont **mises à jour quotidiennement tous les soirs _heure métropolitaine_**, alimentées par les référenciels académiques.
 
       Les informations, même si elles évoluent principalement lors de la rentrée scolaire en septembre, peuvent changer en cours d'année (déménagements, etc.).
+  parameters_details:
+    description: |+
+      Cette API propose une modalité d'appel :
+      <p class="fr-badge fr-badge--blue-ecume">Identité pivot</p>
+      **Avec les données d'identité** : Nom, prénom, sexe, date de naissance de l'élève, code UAI de l'établissement et année scolaire.
+
+      <p class="fr-badge fr-badge--purple-glycine">Identifiant</p>
+      Avec l'Identifiant National Étudiant (INE). Cet identifiant unique figure notamment sur la carte étudiant.
+
+      <p class="fr-badge fr-badge--green-emeraude">FranceConnect</p>
+      Avec FranceConnect.
   data:
     description: |+
-      Cette API **indique si l'élève est scolarisé et s'il est boursier** en précisant l'échelon de bourse.  
+      Cette API **indique si l'élève est scolarisé et s'il est boursier** en précisant l'échelon de bourse.
   provider_uids:
     - 'education_nationale'
   keywords: []
   parameters:
-    - Nom, prénom, sexe, date de naissance de l'élève, code UAI de l'établissement et année scolaire.
+    - Identité pivot
   use_cases:
     - Attribution des aides à la scolarité
     - Attribution des aides sociales
