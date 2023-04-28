@@ -9,24 +9,34 @@
       <p class="fr-text--lead fr-mt-md-2w">
         <%= @endpoint.description %>
       </p>
+      <div class="fr-alert fr-alert--info fr-alert--sm fr-mb-2w">
+        <p class="fr-alert__title">
+          <%= t('.incoming.title') %>
+        </p>
+        <p>
+          <%= t('.incoming.description') %>
+          <p class="fr-text--sm fr-mt-2w">
+          <%= t('.incoming.link_documentation').html_safe %><%= link_to t('.incoming.cta'), developers_openapi_path(anchor: @endpoint.redoc_anchor), data: { turbo: false }, class: %() %></p>
+        </p>
+      </div>
       <nav class="" role="navigation">
-      <ul class="">
-          <li>
-              <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#perimetre">Périmètre de l'API</a>
-          </li>
-          <li>
-              <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#parameters_details">Modalités d'appel</a>
-          </li>
-          <li>
-              <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#donnees">Données distribuées</a>
-          </li>
-          <li>
-              <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#faq">Q & R</a>
-          </li>
-          <li>
-              <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#cgu">Conditions d'utilisation</a>
-          </li>
-        </ul>
+        <ul class="">
+            <li>
+                <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#perimetre">Périmètre de l'API</a>
+            </li>
+            <li>
+                <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#parameters_details">Modalités d'appel</a>
+            </li>
+            <li>
+                <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#donnees">Données distribuées</a>
+            </li>
+            <li>
+                <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#faq">Q & R</a>
+            </li>
+            <li>
+                <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#cgu">Conditions d'utilisation</a>
+            </li>
+          </ul>
       </nav>
     </div>
 
@@ -76,17 +86,6 @@
           </p>
         </div>
       <% end %>
-        <div class="fr-alert fr-alert--info fr-alert--sm fr-mb-2w">
-          <p class="fr-alert__title">
-            <%= t('.incoming.title') %>
-          </p>
-
-          <p>
-            <%= t('.incoming.description') %>
-            <p class="fr-text--sm fr-mt-2w">
-            <%= t('.incoming.link_documentation').html_safe %><%= link_to t('.incoming.cta'), developers_openapi_path(anchor: @endpoint.redoc_anchor), data: { turbo: false }, class: %() %></p>
-          </p>
-        </div>
       <h2 id="perimetre">
         <%= t('.perimeter.title') %>
       </h2>
