@@ -13,14 +13,61 @@
     know_more_description: |+
       Lien optionnel pour en savoir plus sur la donnée. Le markdown GFM est supporté ici.
 
+  parameters_details:
+    description: |+
+      Cette API propose XXX modalités d'appel :
+      <p class="fr-badge fr-badge--blue-ecume">Identité pivot</p>
+      Avec les données d'identité : Lorem ipsum
+
+      <p class="fr-badge fr-badge--purple-glycine">Identifiant</p>
+      Avec TYPE IDENTIFIANT : Lorem ipsum
+
+      <p class="fr-badge fr-badge--green-emeraude">FranceConnect</p>
+      Avec FranceConnect.
+  data:
+    description: |+
+      Lorem ispum
+
   # La liste des clés disponible est stockée dans la locale `provider_uids` du fichier provider_uids.fr.yml
   provider_uids:
     - 'insee'
   # Ces mots clés servent à la recherche algolia sur l'index du catalogue
   keywords:
     - 'whatever'
-  use_cases: []
+  use_cases:
+    - Attribution des aides à la scolarité
+    - Attribution des aides sociales
+    - Tarification sociale et solidaire des transports
+    - Tarification des services publics municipaux
   faq:
     - q: "Question ?"
       a: |+
         Réponse à la question. Le markdown GFM est supporté ici.
+
+
+  ---
+- uid: 'cnous/statut_etudiant_boursier'
+  path: '/api/v2/etudiants-boursiers'
+  position: 300
+  perimeter:
+    entity_type_description: |+
+      Cette API délivre **uniquement les bourses "obligatoires"** et ne concerne pas les bourses d'ordre facultatif.
+
+      L'API délivre les données :
+      - ✅ des **boursiers d’État sur critères sociaux (gérés par les Crous)** ;
+      - ✅ des **boursiers sur critères sociaux des filières sanitaires et sociales** des régions Normandie et Occitanie. D'autres régions devraient être couvertes à l'avenir.
+
+    geographical_scope_description:  |+
+      L'API couvre :
+      - ✅ les territoire français, dont les ✅ DROM ; _uniquement régions Normandie et Occitanie pour les bourses des filières sanitaires et sociales_ ;
+      - ✅ les boursiers de nationalité française. 
+
+      Ne sont pas couverts par cette API : 
+      - ❌ les territoires d'outre-mer ;
+      - ❌ les données des étudiants boursiers étrangers.
+    updating_rules_description: |+
+      Les données sont **mises à jour une fois par an**, début septembre, une fois tous les étudiants inscrits.
+
+
+
+
