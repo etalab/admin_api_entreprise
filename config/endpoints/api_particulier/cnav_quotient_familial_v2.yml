@@ -22,7 +22,7 @@
     geographical_scope_description:  |+
       - ✅ France métropolitaine
       - ✅ DROM COM
-      - ✅ allocataires de nationalité étrangère
+      - ✅ Allocataires de nationalité étrangère
     updating_rules_description: |+
       Les données sont **mises à jour en temps réel**, cette API de la CNAV est reliée au système d'information de la Caisse nationale des allocations familiales (CNAF) et à celui de la mutualité sociale agricole (MSA).
 
@@ -40,11 +40,15 @@
       > Si le particulier n'a plus d'allocations, son QF n'est pas renvoyé. Une erreur est transmise par l'API.
 
       Le montant du quotient familial CAF retourné par l'API Particulier peut être différent de celui transmis par le dossier allocataire (CDAP), [en savoir plus](#faq_entry_0_api_particulier_endpoint_cnaf_quotient_familial).
+  parameters_details:
+    description: |+
+      Cette API propose une modalité d'appel :
+      <p class="fr-badge fr-badge--blue-ecume">Identité pivot</p>
+      **Avec les données d'identité** : Noms, prénoms, date de naissance, code Insee de naissance et code pays de naissance de l'allocataire.
   provider_uids:
     - 'cnav'
   parameters:
-    - Noms, prénoms, sexe, date de naissance et lieu de naissance du particulier
-    - Mois et année du quotient familial recherché
+    - Identité pivot
   keywords:
     - composition
     - quotient
@@ -92,9 +96,9 @@
 
         Source: [data.caf.fr](http://data.caf.fr/dataset/population-des-foyers-allocataires-par-commune/resource/3baa3b5b-8376-4b24-a79b-10ee364e956f)
   historique: |+
-    **Ce que change cette API de la CNAV par rapport à précente de la CNAF :**
+    **Ce que change cette API de la CNAV par rapport à précédente de la CNAF :**
     - Le périmètre des particuliers concernés s'élargit avec l'ajout des bénéficiaires de la MSA qui sont au régime agricole.
-    - L'API est diffusée par un nouveau fournisseur, la Caisse nationale d'assurance viellesse (CNAV), qui redistribue les données de la CNAF (données délivrée par l'API précédente) et les données de la MSA.
+    - L'API est diffusée par un nouveau fournisseur, la Caisse nationale d'assurance viellesse (CNAV), qui redistribue les données de la CNAF (données délivrées par l'API précédente) et les données de la MSA.
 
     **Ce qui ne change pas :**
     Mis à part le périmètre, rien ne change.
