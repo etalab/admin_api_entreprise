@@ -35,7 +35,7 @@ RSpec.describe API::DatapassWebhooksController do
       it 'renders 401 with an error message as json' do
         subject
 
-        expect(response.code).to eq('401')
+        expect(response).to have_http_status(:unauthorized)
         expect(JSON.parse(response.body)).to eq({
           'error' => 'Unauthorized'
         })
@@ -92,7 +92,7 @@ RSpec.describe API::DatapassWebhooksController do
         it 'renders 200' do
           subject
 
-          expect(response.code).to eq('200')
+          expect(response).to have_http_status(:ok)
         end
 
         context 'when event is validate_application' do
@@ -122,7 +122,7 @@ RSpec.describe API::DatapassWebhooksController do
         it 'renders 422' do
           subject
 
-          expect(response.code).to eq('422')
+          expect(response).to have_http_status(:unprocessable_entity)
         end
       end
     end
@@ -152,7 +152,7 @@ RSpec.describe API::DatapassWebhooksController do
       it 'renders 200' do
         subject
 
-        expect(response.code).to eq('200')
+        expect(response).to have_http_status(:ok)
       end
 
       context 'when event is validate_application' do

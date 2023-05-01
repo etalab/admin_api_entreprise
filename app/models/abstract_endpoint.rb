@@ -72,6 +72,14 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
     deprecated
   end
 
+  def incoming
+    @incoming ||= open_api_definition['tags'].nil? ? false : open_api_definition['tags'].include?('Prochainement')
+  end
+
+  def incoming?
+    incoming
+  end
+
   def new_endpoints
     return [] if !deprecated? || @new_endpoint_uids.blank?
 
