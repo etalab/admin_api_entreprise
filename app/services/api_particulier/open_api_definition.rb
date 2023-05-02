@@ -8,7 +8,7 @@ class APIParticulier::OpenAPIDefinition < AbstractOpenAPIDefinition
   def remote_url
     if Rails.env.sandbox?
       'https://sandbox.particulier.api.gouv.fr/api/open-api.yml'
-    elsif Rails.env.staging?
+    elsif Rails.env.staging? || Rails.env.development?
       'https://staging.particulier.api.gouv.fr/api/open-api.yml'
     else
       'https://particulier.api.gouv.fr/api/open-api.yml'
