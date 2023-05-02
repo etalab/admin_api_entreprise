@@ -1,7 +1,10 @@
 <% layout_main_bloc = 8 %>
 <article id="<%= dom_id(@endpoint) %>" class="endpoint">
   <h1>
-    <%= @endpoint.title %>
+    <%= @endpoint.title %> 
+    <% if @endpoint.incoming? %>
+      <p class="fr-badge fr-badge--new">prochainement</p>
+    <% end %>
   </h1>
 
   <div class="fr-grid-row fr-pb-2w">
@@ -9,24 +12,34 @@
       <p class="fr-text--lead fr-mt-md-2w">
         <%= @endpoint.description %>
       </p>
+      <div class="fr-alert fr-alert--info fr-alert--sm fr-mb-2w">
+        <p class="fr-alert__title">
+          <%= t('.incoming.title') %>
+        </p>
+        <p>
+          <%= t('.incoming.description') %>
+          <p class="fr-text--sm fr-mt-2w">
+          <%= t('.incoming.link_documentation').html_safe %><%= link_to t('.incoming.cta'), developers_openapi_path(anchor: @endpoint.redoc_anchor), data: { turbo: false }, class: %() %></p>
+        </p>
+      </div>
       <nav class="" role="navigation">
-      <ul class="">
-          <li>
-              <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#perimetre">Périmètre de l'API</a>
-          </li>
-          <li>
-              <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#parameters_details">Modalités d'appel</a>
-          </li>
-          <li>
-              <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#donnees">Données distribuées</a>
-          </li>
-          <li>
-              <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#faq">Q & R</a>
-          </li>
-          <li>
-              <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#cgu">Conditions d'utilisation</a>
-          </li>
-        </ul>
+        <ul class="">
+            <li>
+                <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#perimetre">Périmètre de l'API</a>
+            </li>
+            <li>
+                <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#parameters_details">Modalités d'appel</a>
+            </li>
+            <li>
+                <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#donnees">Données distribuées</a>
+            </li>
+            <li>
+                <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#faq">Q & R</a>
+            </li>
+            <li>
+                <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#cgu">Conditions d'utilisation</a>
+            </li>
+          </ul>
       </nav>
     </div>
 
@@ -56,7 +69,26 @@
 
   <div class="fr-grid-row">
     <div class="fr-col-md-<%= layout_main_bloc %> fr-col-12 fr-pt-2w fr-mt-md-0 fr-pr-md-2w fr-pr-0">
+      <% if @endpoint.deprecated? %>
+        <div class="fr-alert fr-alert--error fr-mb-2w">
+          <p class="fr-alert__title">
+            <%= t('.deprecated.title') %>
+          </p>
 
+          <p>
+            <%= t('.deprecated.description') %>
+            <ul>
+              <% @endpoint.new_endpoints.each do |endpoint| %>
+                <li>
+                  <%= link_to endpoint.title, endpoint_path(uid: endpoint.uid) %>
+                </li>
+              <% end %>
+            </ul>
+            <p class="fr-text--sm fr-mt-2w">
+            <%= t('.deprecated.link_documentation').html_safe %></p>
+          </p>
+        </div>
+      <% end %>
       <h2 id="perimetre">
         <%= t('.perimeter.title') %>
       </h2>
@@ -172,6 +204,24 @@
             <% end %>
           </div>
         <% end %>
+
+        <% if @endpoint.historicized? %>
+          <h2 id="historique" class="fr-mt-md-5w fr-mt-8w">
+            <%= t('.historique.title') %>
+          </h2>
+          <%= markdown_to_html(@endpoint.historique) %>
+          <% if @endpoint.old_endpoints.any? %>
+            <p class="fr-text--bold fr-mb-1v fr-mt-4w"><%= t('.historique.old_endpoints.description') %></p>
+            <ul>
+              <% @endpoint.old_endpoints.each do |endpoint| %>
+                <li>
+                  <%= link_to endpoint.uid, endpoint_path(uid: endpoint.uid) %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        <% end %>
+
 
         <h2 id="cgu" class="fr-mt-md-5w fr-mt-8w">
           <%= t('.cgu.title') %>

@@ -787,6 +787,7 @@ paths:
                               description: Informations sur la qualification du présent
                                 certificat
                               type: object
+                              additionalProperties: false
                               properties:
                                 code:
                                   title: Code qualification
@@ -835,6 +836,7 @@ paths:
                               description: informations sur l'enregistrement de ce
                                 certificat dans la base ADEME
                               type: object
+                              additionalProperties: false
                               properties:
                                 internal_id:
                                   title: Identifiant interne
@@ -1211,9 +1213,11 @@ paths:
                               type: array
                               items:
                                 type: object
+                                additionalProperties: false
                                 properties:
                                   disponibilites:
                                     type: object
+                                    additionalProperties: false
                                     title: Disponibilités
                                     description: "Correspond aux disponibilités présentés
                                       à l'actif du bilan diminués des provisions constatées
@@ -1235,6 +1239,7 @@ paths:
                                         nullable: true
                                   total_dettes_stables:
                                     type: object
+                                    additionalProperties: false
                                     title: Total des dettes stables
                                     properties:
                                       valeur:
@@ -1248,6 +1253,7 @@ paths:
                                         nullable: true
                                   valeur_ajoutee_bdf:
                                     type: object
+                                    additionalProperties: false
                                     title: Valeur ajoutée
                                     description: 'La valeur ajoutée est un solde intermédiaire
                                       de gestion issu du compte de résultat définie
@@ -1269,6 +1275,7 @@ paths:
                                         nullable: true
                                   besoin_en_fonds_de_roulement:
                                     type: object
+                                    additionalProperties: false
                                     title: Besoin en fonds de roulement
                                     description: Représente le montant nécessaire
                                       au financement du cycle d'exploitation qui est
@@ -1289,6 +1296,7 @@ paths:
                                         nullable: true
                                   excedent_brut_exploitation:
                                     type: object
+                                    additionalProperties: false
                                     title: Excédent brut d’exploitation
                                     description: "Solde intermédiaire de gestion issu
                                       du compte de résultat défini comme tel : il
@@ -1309,6 +1317,7 @@ paths:
                                         nullable: true
                                   capacite_autofinancement:
                                     type: object
+                                    additionalProperties: false
                                     title: Capacité d’autofinancement
                                     description: "Correspond à la somme du résultat
                                       net et des charges non décaissables diminuées
@@ -1334,6 +1343,7 @@ paths:
                                         nullable: true
                                   fonds_roulement_net_global:
                                     type: object
+                                    additionalProperties: false
                                     title: Fonds de roulement net global
                                     description: Correspond à la part des capitaux
                                       permanents non absorbée par le financement des
@@ -1357,6 +1367,7 @@ paths:
                                         nullable: true
                                   ratio_fonds_roulement_net_global_sur_besoin_en_fonds_de_roulement:
                                     type: object
+                                    additionalProperties: false
                                     title: Ratio fonds de roulement net global sur
                                       besoin en fonds de roulement
                                     properties:
@@ -1371,6 +1382,7 @@ paths:
                                         nullable: true
                                   dettes4_maturite_a_un_an_au_plus:
                                     type: object
+                                    additionalProperties: false
                                     title: Dettes à maturité à un an au plus
                                     description: Correspond à la somme des références
                                       fiscales 2057VG2 et 2057VH2
@@ -1388,6 +1400,7 @@ paths:
                               type: array
                               items:
                                 type: object
+                                additionalProperties: false
                                 required:
                                 - numero_imprime
                                 - donnees
@@ -1402,6 +1415,7 @@ paths:
                                     type: array
                                     items:
                                       type: object
+                                      additionalProperties: false
                                       title: Données de l'imprimé
                                       description: Chaque entrée du tableau correspondant
                                         à couple code / valeur, spécifique au numéro
@@ -1409,6 +1423,7 @@ paths:
                                       required:
                                       - code_nref
                                       - valeurs
+                                      - evolution
                                       properties:
                                         code:
                                           title: Code
@@ -1428,6 +1443,11 @@ paths:
                                             DGFIP et les utilisateurs des téléprocédures
                                             EDI '
                                           example: GR:C889:7111:1:TBX
+                                        evolution:
+                                          title: Évolution de la donnée
+                                          type: number
+                                          example: 4.56
+                                          nullable: true
                                         code_absolu:
                                           title: Code absolu
                                           type: string
@@ -1487,6 +1507,7 @@ paths:
                         example: 1
                     required:
                     - count
+                    additionalProperties: false
                   links:
                     type: object
                 required:
@@ -2247,6 +2268,7 @@ paths:
                     - pays
                     - rue
                     - ville
+                    additionalProperties: false
                   links:
                     type: object
                   meta:
@@ -3076,6 +3098,7 @@ paths:
                     - document_url_expires_in
                     - date_delivrance_attestation
                     - date_periode_analysee
+                    additionalProperties: false
                   links:
                     type: object
                   meta:
@@ -3817,6 +3840,7 @@ paths:
                           d'impositions, notamment si celle-ci fait partie d'un groupe.
                         items:
                           type: object
+                          additionalProperties: false
                           required:
                           - id
                           - code
@@ -3886,6 +3910,7 @@ paths:
                         type: array
                         items:
                           type: object
+                          additionalProperties: false
                           required:
                           - numero_imprime
                           - regime
@@ -3905,6 +3930,7 @@ paths:
                               title: Régime d’imposition applicable au résultat fiscal
                                 de l'unité légale
                               type: object
+                              additionalProperties: false
                               required:
                               - code
                               - libelle
@@ -3975,6 +4001,7 @@ paths:
                                 référencé à la clé `numero_imprime`
                               items:
                                 type: object
+                                additionalProperties: false
                                 required:
                                 - code_nref
                                 - valeurs
@@ -4036,6 +4063,7 @@ paths:
                     required:
                     - obligations_fiscales
                     - declarations
+                    additionalProperties: false
                   links:
                     type: object
                   meta:
@@ -4049,6 +4077,7 @@ paths:
                         example: '100004763104'
                     required:
                     - internal_id_itip
+                    additionalProperties: false
                 required:
                 - data
                 - links
@@ -4450,6 +4479,7 @@ paths:
                         nullable: true
                       forme_juridique:
                         type: object
+                        additionalProperties: false
                         title: Forme juridique
                         required:
                         - code
@@ -4569,7 +4599,63 @@ paths:
                         nullable: true
                       adresse_siege:
                         type: object
+                        additionalProperties: false
                         title: Adresse du siège social de l'association
+                        properties:
+                          complement:
+                            title: Complément d'adresse
+                            type: string
+                            example: ''
+                            nullable: true
+                          numero_voie:
+                            title: Numéro de voie
+                            type: string
+                            example: '33'
+                            nullable: true
+                          type_voie:
+                            title: Type de voie
+                            type: string
+                            example: rue
+                            nullable: true
+                          libelle_voie:
+                            title: Libellé de la voie
+                            type: string
+                            example: de Modagor
+                            nullable: true
+                          distribution:
+                            title: Distribution
+                            type: string
+                            nullable: true
+                          code_insee:
+                            title: Code INSEE de la commune
+                            type: string
+                            example: '75108'
+                            nullable: true
+                          code_postal:
+                            title: Code postal de la commune
+                            type: string
+                            example: '75009'
+                            nullable: true
+                          commune:
+                            title: Nom de la commune
+                            type: string
+                            example: Paris
+                            nullable: true
+                        required:
+                        - complement
+                        - numero_voie
+                        - type_voie
+                        - libelle_voie
+                        - distribution
+                        - code_insee
+                        - code_postal
+                        - commune
+                      adresse_gestion:
+                        type: object
+                        additionalProperties: false
+                        title: Adresse de gestion de l'association
+                        description: L'adresse de gestion est l'adresse à laquelle
+                          se trouve les bureaux administratifs.
                         properties:
                           complement:
                             title: Complément d'adresse
@@ -4626,6 +4712,7 @@ paths:
                           complémentaires (DAC). Les attributs sont vides si l'association
                           est une association "Loi 1901".
                         type: object
+                        additionalProperties: false
                         required:
                         - tribunal_instance
                         - volume
@@ -4676,6 +4763,7 @@ paths:
                         type: array
                         items:
                           type: object
+                          additionalProperties: false
                           required:
                           - nom
                           - rna
@@ -4683,6 +4771,8 @@ paths:
                           - telephone
                           - courriel
                           - objet
+                          - adresse
+                          - site_web
                           properties:
                             nom:
                               type: string
@@ -4714,11 +4804,70 @@ paths:
                               title: Objet du membre du réseau
                               example: Promouvoir l'engagement des parents d'élèves
                                 dans l'éducation de leurs enfants
+                            adresse:
+                              type: object
+                              additionalProperties: false
+                              title: Adresse du siège social de l'association
+                              properties:
+                                complement:
+                                  title: Complément d'adresse
+                                  type: string
+                                  example: ''
+                                  nullable: true
+                                numero_voie:
+                                  title: Numéro de voie
+                                  type: string
+                                  example: '33'
+                                  nullable: true
+                                type_voie:
+                                  title: Type de voie
+                                  type: string
+                                  example: rue
+                                  nullable: true
+                                libelle_voie:
+                                  title: Libellé de la voie
+                                  type: string
+                                  example: de Modagor
+                                  nullable: true
+                                distribution:
+                                  title: Distribution
+                                  type: string
+                                  nullable: true
+                                code_insee:
+                                  title: Code INSEE de la commune
+                                  type: string
+                                  example: '75108'
+                                  nullable: true
+                                code_postal:
+                                  title: Code postal de la commune
+                                  type: string
+                                  example: '75009'
+                                  nullable: true
+                                commune:
+                                  title: Nom de la commune
+                                  type: string
+                                  example: Paris
+                                  nullable: true
+                              required:
+                              - complement
+                              - numero_voie
+                              - type_voie
+                              - libelle_voie
+                              - distribution
+                              - code_insee
+                              - code_postal
+                              - commune
+                            site_web:
+                              title: Site internet du membre du réseau
+                              type: string
+                              example: reseau-association.fr
+                              nullable: true
                       agrements:
                         title: Liste des agréments administratifs associés à l'association
                         type: array
                         items:
                           type: object
+                          additionalProperties: false
                           required:
                           - numero
                           - date_attribution
@@ -4766,6 +4915,7 @@ paths:
                       activites:
                         title: Liste des activités de l'association
                         type: object
+                        additionalProperties: false
                         required:
                         - objet
                         - objet_social1
@@ -4788,6 +4938,7 @@ paths:
                               des jeunes sportifs.
                           objet_social1:
                             type: object
+                            additionalProperties: false
                             title: Objet social principal
                             description: 'L''objet social suit la nomenclature nationale
                               Waldec et permet de rattacher l''objet de l''association
@@ -4813,6 +4964,7 @@ paths:
                             - libelle
                           objet_social2:
                             type: object
+                            additionalProperties: false
                             title: Objet social secondaire
                             description: 'L''objet social suit la nomenclature nationale
                               Waldec et permet de rattacher l''objet de l''association
@@ -4849,6 +5001,7 @@ paths:
                             nullable: true
                           activite_principale:
                             type: object
+                            additionalProperties: false
                             title: Activité principale
                             description: "Lorsque l'association est immatriculée au
                               répertoire Sirene, elle se voit attribuer un code APE.
@@ -4858,6 +5011,7 @@ paths:
                             required:
                             - code
                             - libelle
+                            - annee
                             properties:
                               code:
                                 type: string
@@ -4869,8 +5023,14 @@ paths:
                                 title: Libellé de l'activité principale
                                 example: Action sociale sans hébergement n.c.a.
                                 nullable: true
+                              annee:
+                                title: Année de l'activité principale
+                                type: string
+                                example: '2012'
+                                nullable: true
                           tranche_effectif:
                             type: object
+                            additionalProperties: false
                             title: Tranche d'effectif salarié de l'entité
                             description: Pour environ la moitié des établissements,
                               la tranche d'effectif salarié n'est pas renseignée.
@@ -4883,6 +5043,7 @@ paths:
                             required:
                             - code
                             - libelle
+                            - annee
                             properties:
                               code:
                                 type: string
@@ -4925,11 +5086,16 @@ paths:
                                 - '51'
                                 - '52'
                                 - '53'
-                              intitule:
+                              libelle:
                                 title: Intitulé associé au code effectif
                                 type: string
                                 nullable: true
                                 example: 2 000 à 4 999 salariés
+                              annee:
+                                title: Année d'affectation du code effectif
+                                type: string
+                                example: '2013'
+                                nullable: true
                           economie_sociale_et_solidaire:
                             title: Indique si l'association appartient à de l'économie
                               sociale et solidaire (ESS)
@@ -4948,6 +5114,7 @@ paths:
                         type: array
                         items:
                           type: object
+                          additionalProperties: false
                           required:
                           - siren
                           - siret
@@ -5022,6 +5189,7 @@ paths:
                               description: Cette information provient du répertoire
                                 Sirene.
                               type: object
+                              additionalProperties: false
                               properties:
                                 complement:
                                   title: Complément d'adresse
@@ -5064,6 +5232,7 @@ paths:
                                   nullable: true
                             activite_principale:
                               type: object
+                              additionalProperties: false
                               title: Activité principale
                               description: "Lorsque l'association est immatriculée
                                 au répertoire Sirene, elle se voit attribuer un code
@@ -5087,6 +5256,7 @@ paths:
                                   nullable: true
                             tranche_effectif:
                               type: object
+                              additionalProperties: false
                               title: Tranche d'effectif salarié de l'entité
                               description: Pour environ la moitié des établissements,
                                 la tranche d'effectif salarié n'est pas renseignée.
@@ -5141,7 +5311,7 @@ paths:
                                   - '51'
                                   - '52'
                                   - '53'
-                                intitule:
+                                libelle:
                                   title: Intitulé associé au code effectif
                                   type: string
                                   nullable: true
@@ -5151,6 +5321,7 @@ paths:
                               type: array
                               items:
                                 type: object
+                                additionalProperties: false
                                 required:
                                 - annee
                                 - nombre_benevoles
@@ -5192,6 +5363,7 @@ paths:
                                     example: 15
                                   nombre_adherents:
                                     type: object
+                                    additionalProperties: false
                                     title: Nombre d'adhérents
                                     required:
                                     - total
@@ -5215,6 +5387,7 @@ paths:
                               type: array
                               items:
                                 type: object
+                                additionalProperties: false
                                 required:
                                 - annee
                                 - commisaire_aux_comptes
@@ -5264,7 +5437,7 @@ paths:
                                     title: Total des produits
                                     type: number
                                     example: 3000.0
-                            representant_legaux:
+                            representants_legaux:
                               title: Liste des représentants légaux de l'établissement
                               description: Les personnes renvoyées dans cette liste
                                 sont uniquement celles renseignées comme représentant
@@ -5273,6 +5446,7 @@ paths:
                               type: array
                               items:
                                 type: object
+                                additionalProperties: false
                                 required:
                                 - civilite
                                 - nom
@@ -5345,6 +5519,7 @@ paths:
                               type: array
                               items:
                                 type: object
+                                additionalProperties: false
                                 required:
                                 - nom
                                 - annee_validite
@@ -5405,6 +5580,7 @@ paths:
                         type: array
                         items:
                           type: object
+                          additionalProperties: false
                           required:
                           - nom
                           - numero
@@ -5441,6 +5617,7 @@ paths:
                             adresse:
                               title: Adresse du réseau
                               type: object
+                              additionalProperties: false
                               properties:
                                 complement:
                                   title: Complément d'adresse
@@ -5498,6 +5675,7 @@ paths:
                               nullable: true
                             nombre_licencies:
                               type: object
+                              additionalProperties: false
                               title: Nombre de licenciés
                               description: Ces informations ne sont pas tout le temps
                                 renseignées
@@ -5527,6 +5705,7 @@ paths:
                         type: array
                         items:
                           type: object
+                          additionalProperties: false
                           required:
                           - type
                           - sous_type
@@ -5542,6 +5721,7 @@ paths:
                               example: Pièce
                             sous_type:
                               type: object
+                              additionalProperties: false
                               title: Sous-type du document
                               required:
                               - code
@@ -5636,6 +5816,7 @@ paths:
                     - date_publication_reconnue_utilite_publique
                     - date_publication_journal_officiel
                     - adresse_siege
+                    - adresse_gestion
                     - alsace_moselle
                     - composition_reseau
                     - agrements
@@ -5643,6 +5824,7 @@ paths:
                     - etablissements
                     - reseaux_affiliation
                     - documents_rna
+                    additionalProperties: false
                   links:
                     type: object
                   meta:
@@ -5671,6 +5853,7 @@ paths:
                     - internal_id
                     - date_derniere_mise_a_jour_sirene
                     - date_derniere_mise_a_jour_rna
+                    additionalProperties: false
                 required:
                 - data
                 - links
@@ -6054,6 +6237,7 @@ paths:
                         nullable: true
                       forme_juridique:
                         type: object
+                        additionalProperties: false
                         title: Forme juridique
                         required:
                         - code
@@ -6173,7 +6357,63 @@ paths:
                         nullable: true
                       adresse_siege:
                         type: object
+                        additionalProperties: false
                         title: Adresse du siège social de l'association
+                        properties:
+                          complement:
+                            title: Complément d'adresse
+                            type: string
+                            example: ''
+                            nullable: true
+                          numero_voie:
+                            title: Numéro de voie
+                            type: string
+                            example: '33'
+                            nullable: true
+                          type_voie:
+                            title: Type de voie
+                            type: string
+                            example: rue
+                            nullable: true
+                          libelle_voie:
+                            title: Libellé de la voie
+                            type: string
+                            example: de Modagor
+                            nullable: true
+                          distribution:
+                            title: Distribution
+                            type: string
+                            nullable: true
+                          code_insee:
+                            title: Code INSEE de la commune
+                            type: string
+                            example: '75108'
+                            nullable: true
+                          code_postal:
+                            title: Code postal de la commune
+                            type: string
+                            example: '75009'
+                            nullable: true
+                          commune:
+                            title: Nom de la commune
+                            type: string
+                            example: Paris
+                            nullable: true
+                        required:
+                        - complement
+                        - numero_voie
+                        - type_voie
+                        - libelle_voie
+                        - distribution
+                        - code_insee
+                        - code_postal
+                        - commune
+                      adresse_gestion:
+                        type: object
+                        additionalProperties: false
+                        title: Adresse de gestion de l'association
+                        description: L'adresse de gestion est l'adresse à laquelle
+                          se trouve les bureaux administratifs.
                         properties:
                           complement:
                             title: Complément d'adresse
@@ -6230,6 +6470,7 @@ paths:
                           complémentaires (DAC). Les attributs sont vides si l'association
                           est une association "Loi 1901".
                         type: object
+                        additionalProperties: false
                         required:
                         - tribunal_instance
                         - volume
@@ -6280,6 +6521,7 @@ paths:
                         type: array
                         items:
                           type: object
+                          additionalProperties: false
                           required:
                           - nom
                           - rna
@@ -6287,6 +6529,8 @@ paths:
                           - telephone
                           - courriel
                           - objet
+                          - adresse
+                          - site_web
                           properties:
                             nom:
                               type: string
@@ -6318,11 +6562,70 @@ paths:
                               title: Objet du membre du réseau
                               example: Promouvoir l'engagement des parents d'élèves
                                 dans l'éducation de leurs enfants
+                            adresse:
+                              type: object
+                              additionalProperties: false
+                              title: Adresse du siège social de l'association
+                              properties:
+                                complement:
+                                  title: Complément d'adresse
+                                  type: string
+                                  example: ''
+                                  nullable: true
+                                numero_voie:
+                                  title: Numéro de voie
+                                  type: string
+                                  example: '33'
+                                  nullable: true
+                                type_voie:
+                                  title: Type de voie
+                                  type: string
+                                  example: rue
+                                  nullable: true
+                                libelle_voie:
+                                  title: Libellé de la voie
+                                  type: string
+                                  example: de Modagor
+                                  nullable: true
+                                distribution:
+                                  title: Distribution
+                                  type: string
+                                  nullable: true
+                                code_insee:
+                                  title: Code INSEE de la commune
+                                  type: string
+                                  example: '75108'
+                                  nullable: true
+                                code_postal:
+                                  title: Code postal de la commune
+                                  type: string
+                                  example: '75009'
+                                  nullable: true
+                                commune:
+                                  title: Nom de la commune
+                                  type: string
+                                  example: Paris
+                                  nullable: true
+                              required:
+                              - complement
+                              - numero_voie
+                              - type_voie
+                              - libelle_voie
+                              - distribution
+                              - code_insee
+                              - code_postal
+                              - commune
+                            site_web:
+                              title: Site internet du membre du réseau
+                              type: string
+                              example: reseau-association.fr
+                              nullable: true
                       agrements:
                         title: Liste des agréments administratifs associés à l'association
                         type: array
                         items:
                           type: object
+                          additionalProperties: false
                           required:
                           - numero
                           - date_attribution
@@ -6370,6 +6673,7 @@ paths:
                       activites:
                         title: Liste des activités de l'association
                         type: object
+                        additionalProperties: false
                         required:
                         - objet
                         - objet_social1
@@ -6392,6 +6696,7 @@ paths:
                               des jeunes sportifs.
                           objet_social1:
                             type: object
+                            additionalProperties: false
                             title: Objet social principal
                             description: 'L''objet social suit la nomenclature nationale
                               Waldec et permet de rattacher l''objet de l''association
@@ -6417,6 +6722,7 @@ paths:
                             - libelle
                           objet_social2:
                             type: object
+                            additionalProperties: false
                             title: Objet social secondaire
                             description: 'L''objet social suit la nomenclature nationale
                               Waldec et permet de rattacher l''objet de l''association
@@ -6453,6 +6759,7 @@ paths:
                             nullable: true
                           activite_principale:
                             type: object
+                            additionalProperties: false
                             title: Activité principale
                             description: "Lorsque l'association est immatriculée au
                               répertoire Sirene, elle se voit attribuer un code APE.
@@ -6462,6 +6769,7 @@ paths:
                             required:
                             - code
                             - libelle
+                            - annee
                             properties:
                               code:
                                 type: string
@@ -6473,8 +6781,14 @@ paths:
                                 title: Libellé de l'activité principale
                                 example: Action sociale sans hébergement n.c.a.
                                 nullable: true
+                              annee:
+                                title: Année de l'activité principale
+                                type: string
+                                example: '2012'
+                                nullable: true
                           tranche_effectif:
                             type: object
+                            additionalProperties: false
                             title: Tranche d'effectif salarié de l'entité
                             description: Pour environ la moitié des établissements,
                               la tranche d'effectif salarié n'est pas renseignée.
@@ -6487,6 +6801,7 @@ paths:
                             required:
                             - code
                             - libelle
+                            - annee
                             properties:
                               code:
                                 type: string
@@ -6529,11 +6844,16 @@ paths:
                                 - '51'
                                 - '52'
                                 - '53'
-                              intitule:
+                              libelle:
                                 title: Intitulé associé au code effectif
                                 type: string
                                 nullable: true
                                 example: 2 000 à 4 999 salariés
+                              annee:
+                                title: Année d'affectation du code effectif
+                                type: string
+                                example: '2013'
+                                nullable: true
                           economie_sociale_et_solidaire:
                             title: Indique si l'association appartient à de l'économie
                               sociale et solidaire (ESS)
@@ -6552,6 +6872,7 @@ paths:
                         type: array
                         items:
                           type: object
+                          additionalProperties: false
                           required:
                           - siren
                           - siret
@@ -6624,6 +6945,7 @@ paths:
                               description: Cette information provient du répertoire
                                 Sirene.
                               type: object
+                              additionalProperties: false
                               properties:
                                 complement:
                                   title: Complément d'adresse
@@ -6666,6 +6988,7 @@ paths:
                                   nullable: true
                             activite_principale:
                               type: object
+                              additionalProperties: false
                               title: Activité principale
                               description: "Lorsque l'association est immatriculée
                                 au répertoire Sirene, elle se voit attribuer un code
@@ -6689,6 +7012,7 @@ paths:
                                   nullable: true
                             tranche_effectif:
                               type: object
+                              additionalProperties: false
                               title: Tranche d'effectif salarié de l'entité
                               description: Pour environ la moitié des établissements,
                                 la tranche d'effectif salarié n'est pas renseignée.
@@ -6743,7 +7067,7 @@ paths:
                                   - '51'
                                   - '52'
                                   - '53'
-                                intitule:
+                                libelle:
                                   title: Intitulé associé au code effectif
                                   type: string
                                   nullable: true
@@ -6753,6 +7077,7 @@ paths:
                               type: array
                               items:
                                 type: object
+                                additionalProperties: false
                                 required:
                                 - annee
                                 - nombre_benevoles
@@ -6794,6 +7119,7 @@ paths:
                                     example: 15
                                   nombre_adherents:
                                     type: object
+                                    additionalProperties: false
                                     title: Nombre d'adhérents
                                     required:
                                     - total
@@ -6817,6 +7143,7 @@ paths:
                               type: array
                               items:
                                 type: object
+                                additionalProperties: false
                                 required:
                                 - annee
                                 - commisaire_aux_comptes
@@ -6886,11 +7213,13 @@ paths:
                     - date_publication_reconnue_utilite_publique
                     - date_publication_journal_officiel
                     - adresse_siege
+                    - adresse_gestion
                     - alsace_moselle
                     - composition_reseau
                     - agrements
                     - activites
                     - etablissements
+                    additionalProperties: false
                   links:
                     type: object
                   meta:
@@ -6919,6 +7248,7 @@ paths:
                     - internal_id
                     - date_derniere_mise_a_jour_sirene
                     - date_derniere_mise_a_jour_rna
+                    additionalProperties: false
                 required:
                 - data
                 - links
@@ -7217,6 +7547,7 @@ paths:
                         example: FR48672039971
                     required:
                     - tva_number
+                    additionalProperties: false
                   links:
                     type: object
                   meta:
@@ -7634,6 +7965,7 @@ paths:
                               example: KALICONT000005635173
                           required:
                           - internal_id
+                          additionalProperties: false
                   meta:
                     type: object
                   links:
@@ -8349,6 +8681,10 @@ paths:
                   data:
                     type: object
                     properties:
+                      siren:
+                        title: Siren de l'unité légale
+                        type: string
+                        example: '130025265'
                       date_radiation:
                         title: Date de radiation de l'entreprise
                         description: Il s'agit de la date de radiation au registre
@@ -8385,6 +8721,7 @@ paths:
                           required:
                           - fonction
                           type: object
+                          additionalProperties: false
                           properties:
                             numero_identification:
                               title: Numéro d'identification
@@ -8452,6 +8789,7 @@ paths:
                           le greffier et inscrits dans les observations.
                         items:
                           type: object
+                          additionalProperties: false
                           properties:
                             numero:
                               type: string
@@ -8472,8 +8810,9 @@ paths:
                         example: DECATHLON
                         nullable: true
                       etablissement_principal:
-                        type: object
                         title: Informations de l'établissement principal
+                        type: object
+                        additionalProperties: false
                         properties:
                           activite:
                             type: string
@@ -8513,6 +8852,7 @@ paths:
                         - code_ape
                       capital:
                         type: object
+                        additionalProperties: false
                         title: Capital de l'entreprise
                         properties:
                           montant:
@@ -8540,6 +8880,7 @@ paths:
                         - code_devise
                       greffe:
                         type: object
+                        additionalProperties: false
                         title: Greffe
                         description: Informations sur le greffe.
                         properties:
@@ -8558,6 +8899,7 @@ paths:
                         - code
                       personne_physique:
                         type: object
+                        additionalProperties: false
                         title: Personne physique
                         description: Informations sur l'entreprise s'il s'agit d'une
                           personne physique. Les champs sont vides si l'entreprise
@@ -8565,6 +8907,7 @@ paths:
                         properties:
                           adresse:
                             type: object
+                            additionalProperties: false
                             title: Adresse
                             description: L'adresse transmise par Infogreffe est renvoyée
                               sous différents formats, utilisant parfois le champ
@@ -8634,6 +8977,7 @@ paths:
                             - pays
                           nationalite:
                             type: object
+                            additionalProperties: false
                             title: Nationalité
                             description: Nationalité de la personne physique.
                             properties:
@@ -8667,12 +9011,14 @@ paths:
                             nullable: true
                           naissance:
                             type: object
+                            additionalProperties: false
                             title: Naissance
                             description: Informations de naissance de la personne
                               physique (lieu, date, pays)
                             properties:
                               pays:
                                 type: object
+                                additionalProperties: false
                                 title: Pays de naissance
                                 description: Pays de naissance de la personne physique
                                 properties:
@@ -8717,6 +9063,7 @@ paths:
                         - naissance
                       personne_morale:
                         type: object
+                        additionalProperties: false
                         title: Personne morale
                         description: Informations sur l'entreprise s'il s'agit d'une
                           personne morale. Les champs sont vides si l'entreprise est
@@ -8724,6 +9071,7 @@ paths:
                         properties:
                           forme_juridique:
                             type: object
+                            additionalProperties: false
                             title: Forme juridique
                             description: Forme juridique de la personne morale
                             properties:
@@ -8769,6 +9117,7 @@ paths:
                         - date_cloture_exercice_comptable
                         - date_fin_de_vie
                     required:
+                    - siren
                     - date_radiation
                     - date_extrait
                     - date_immatriculation
@@ -8780,6 +9129,7 @@ paths:
                     - greffe
                     - personne_physique
                     - personne_morale
+                    additionalProperties: false
                   links:
                     type: object
                   meta:
@@ -9273,6 +9623,7 @@ paths:
                     - personnes_physiques_count
                     - personnes_morales_count
                     - count
+                    additionalProperties: false
                   links:
                     type: object
                 required:
@@ -10516,6 +10867,7 @@ paths:
                                 de marque, au format XML.
                           required:
                           - notice
+                          additionalProperties: false
                         meta:
                           type: object
                   meta:
@@ -10920,6 +11272,7 @@ paths:
                                 de modèle, au format XML
                           required:
                           - notice
+                          additionalProperties: false
                         meta:
                           type: object
                   meta:
@@ -11400,6 +11753,7 @@ paths:
                           partiellement diffusable ou non diffusable
                       acheminement_postal:
                         type: object
+                        additionalProperties: false
                         title: Éléments constitutifs de l'adresse postale pour son
                           acheminement.
                         description: Il ne s'agit pas d'un traitement RNVP mais simplement
@@ -11476,6 +11830,7 @@ paths:
                     - libelle_pays_etranger
                     - status_diffusion
                     - acheminement_postal
+                    additionalProperties: false
                   links:
                     type: object
                     properties:
@@ -11494,6 +11849,7 @@ paths:
                     required:
                     - unite_legale
                     - etablissement
+                    additionalProperties: false
                   meta:
                     type: object
                     properties:
@@ -11503,6 +11859,7 @@ paths:
                         description: Date de la dernière mise à jour à l'Insee.
                     required:
                     - date_derniere_mise_a_jour
+                    additionalProperties: false
                 required:
                 - data
                 - links
@@ -11996,6 +12353,7 @@ paths:
                           partiellement diffusable ou non diffusable
                       acheminement_postal:
                         type: object
+                        additionalProperties: false
                         title: Éléments constitutifs de l'adresse postale pour son
                           acheminement.
                         description: Il ne s'agit pas d'un traitement RNVP mais simplement
@@ -12053,6 +12411,11 @@ paths:
                               \n Cette valeur est masquée à [ND] si l'etablissement
                               correspond à une personne morale non-diffusible."
                             example: 75256 PARIX CEDEX 12
+                          l7:
+                            title: Ligne 7
+                            type: string
+                            description: Pays de l'établissement
+                            example: FRANCE
                         required:
                         - l1
                         - l2
@@ -12060,6 +12423,7 @@ paths:
                         - l4
                         - l5
                         - l6
+                        - l7
                     required:
                     - numero_voie
                     - indice_repetition_voie
@@ -12077,6 +12441,7 @@ paths:
                     - libelle_pays_etranger
                     - status_diffusion
                     - acheminement_postal
+                    additionalProperties: false
                   links:
                     type: object
                     properties:
@@ -12095,6 +12460,7 @@ paths:
                     required:
                     - unite_legale
                     - etablissement
+                    additionalProperties: false
                   meta:
                     type: object
                     properties:
@@ -12104,6 +12470,7 @@ paths:
                         description: Date de la dernière mise à jour à l'Insee.
                     required:
                     - date_derniere_mise_a_jour
+                    additionalProperties: false
                 required:
                 - data
                 - links
@@ -12477,6 +12844,7 @@ paths:
                       activite_principale:
                         title: Attributs de l'activité principale
                         type: object
+                        additionalProperties: false
                         properties:
                           code:
                             title: Code de l'activité principale (APE) de l'établissement
@@ -12517,6 +12885,7 @@ paths:
                         - nomenclature
                       tranche_effectif_salarie:
                         type: object
+                        additionalProperties: false
                         title: Tranche d'effectif salarié de l'établissement
                         description: Pour environ la moitié des établissements, la
                           tranche d'effectif salarié n'est pas renseignée. Il s'agit
@@ -12616,7 +12985,8 @@ paths:
                           cas, les informations obtenues ne doivent en aucun cas être
                           accessibles au grand public. \n - non-diffusible : 'false'.
                           Dans ce cas, les informations obtenues ne doivent en aucun
-                          cas être accessibles au grand public."
+                          cas être accessibles au grand public. \n Plus d'informations
+                          sur les conditions de diffusion : https://www.sirene.fr/sirene/public/variable/statutDiffusionEtablissement"
                       enseigne:
                         title: Enseigne de l'établissement
                         type: string
@@ -12630,6 +13000,7 @@ paths:
                         example: Coiff Land, CoiffureLand
                       unite_legale:
                         type: object
+                        additionalProperties: false
                         title: Unité légale de l'établissement
                         properties:
                           siren:
@@ -12656,6 +13027,7 @@ paths:
                               à une personne physique.'
                           personne_morale_attributs:
                             type: object
+                            additionalProperties: false
                             title: Attributs de la personne morale
                             description: Attributs associés à la personne morale.
                               Les valeurs sont à 'null' pour les personnes physiques.
@@ -12675,6 +13047,7 @@ paths:
                             - sigle
                           personne_physique_attributs:
                             type: object
+                            additionalProperties: false
                             title: Attributs de la personne physique
                             description: Attributs associés à la personne physique.
                               Les valeurs sont à 'null' pour les personnes morales.
@@ -12794,9 +13167,11 @@ paths:
                               doivent en aucun cas être accessibles au grand public.
                               \n - une unité légale non-diffusible : 'false'. Dans
                               ce cas, les informations obtenues ne doivent en aucun
-                              cas être accessibles au grand public."
+                              cas être accessibles au grand public. \n Plus d'informations
+                              sur les conditions de diffusion : https://www.sirene.fr/sirene/public/variable/statutDiffusionUniteLegale"
                           forme_juridique:
                             type: object
+                            additionalProperties: false
                             title: Attributs de la forme juridique
                             properties:
                               code:
@@ -12837,6 +13212,7 @@ paths:
                           activite_principale:
                             title: Attributs de l'activité principale
                             type: object
+                            additionalProperties: false
                             properties:
                               code:
                                 title: Code de l'activité principale (APE) de l'unité
@@ -12879,6 +13255,7 @@ paths:
                             - nomenclature
                           tranche_effectif_salarie:
                             type: object
+                            additionalProperties: false
                             title: Tranche d'effectif salarié de l'unité légale
                             description: Pour environ la moitié des établissements,
                               la tranche d'effectif salarié n'est pas renseignée.
@@ -12912,13 +13289,12 @@ paths:
                                   Plus d'informations dans la documentation Insee
                                   de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen.
                                   \n \n L'effectif exact de l'entreprise, mensuel
-                                  et annuel, est disponible au travers de l'[API Effectifs
-                                  - URSSAF Caisse nationale](TODO). Si votre jeton
-                                  contient ce droit d'accès, nous vous recommandons
-                                  d'utiliser cette API. Ces données étant protégées,
-                                  leur cadre d'utilisation est différent de la tranche
-                                  effectif fournie par l'Insee, qui elle est une donnée
-                                  publique."
+                                  et annuel, est disponible au travers de l'API Effectifs
+                                  - URSSAF Caisse nationale. Si votre jeton contient
+                                  ce droit d'accès, nous vous recommandons d'utiliser
+                                  cette API. Ces données étant protégées, leur cadre
+                                  d'utilisation est différent de la tranche effectif
+                                  fournie par l'Insee, qui elle est une donnée publique."
                                 enum:
                                 - NN
                                 - '00'
@@ -13043,6 +13419,7 @@ paths:
                         - date_creation
                       adresse:
                         type: object
+                        additionalProperties: false
                         title: Adresse de l'établissement
                         properties:
                           numero_voie:
@@ -13206,6 +13583,7 @@ paths:
                               partiellement diffusable ou non diffusable
                           acheminement_postal:
                             type: object
+                            additionalProperties: false
                             title: Éléments constitutifs de l'adresse postale pour
                               son acheminement.
                             description: Il ne s'agit pas d'un traitement RNVP mais
@@ -13313,6 +13691,7 @@ paths:
                     - unite_legale
                     - adresse
                     - date_creation
+                    additionalProperties: false
                   links:
                     type: object
                     properties:
@@ -13324,6 +13703,7 @@ paths:
                           obtenir les données de référence de l'unité légale.
                     required:
                     - unite_legale
+                    additionalProperties: false
                   meta:
                     type: object
                     properties:
@@ -13350,6 +13730,7 @@ paths:
                     required:
                     - date_derniere_mise_a_jour
                     - redirect_from_siret
+                    additionalProperties: false
                 required:
                 - data
                 - links
@@ -13723,6 +14104,7 @@ paths:
                       activite_principale:
                         title: Attributs de l'activité principale
                         type: object
+                        additionalProperties: false
                         properties:
                           code:
                             title: Code de l'activité principale (APE) de l'établissement
@@ -13763,6 +14145,7 @@ paths:
                         - nomenclature
                       tranche_effectif_salarie:
                         type: object
+                        additionalProperties: false
                         title: Tranche d'effectif salarié de l'établissement
                         description: Pour environ la moitié des établissements, la
                           tranche d'effectif salarié n'est pas renseignée. Il s'agit
@@ -13862,7 +14245,8 @@ paths:
                           cas, les informations obtenues peuvent être masquées par
                           la chaîne de caractère '[ND]' \n - non-diffusible : 'false'.
                           Dans ce cas, les informations obtenues ne doivent en aucun
-                          cas être accessibles au grand public."
+                          cas être accessibles au grand public. \n Plus d'informations
+                          sur les conditions de diffusion : https://www.sirene.fr/sirene/public/variable/statutDiffusionEtablissement"
                       enseigne:
                         title: Enseigne de l'établissement
                         type: string
@@ -13878,6 +14262,7 @@ paths:
                         example: Coiff Land, CoiffureLand
                       unite_legale:
                         type: object
+                        additionalProperties: false
                         title: Unité légale de l'établissement
                         properties:
                           siren:
@@ -13904,6 +14289,7 @@ paths:
                               à une personne physique.'
                           personne_morale_attributs:
                             type: object
+                            additionalProperties: false
                             title: Attributs de la personne morale
                             description: Attributs associés à la personne morale.
                               Les valeurs sont à 'null' pour les personnes physiques.
@@ -13925,6 +14311,7 @@ paths:
                             - sigle
                           personne_physique_attributs:
                             type: object
+                            additionalProperties: false
                             title: Attributs de la personne physique
                             description: Attributs associés à la personne physique.
                               Les valeurs sont à 'null' pour les personnes morales.
@@ -14062,9 +14449,11 @@ paths:
                               être masquées par la chaîne de caractère '[ND]' \n -
                               une unité légale non-diffusible : 'false'. Dans ce cas,
                               les informations obtenues ne doivent en aucun cas être
-                              accessibles au grand public."
+                              accessibles au grand public. \n Plus d'informations
+                              sur les conditions de diffusion : https://www.sirene.fr/sirene/public/variable/statutDiffusionEtablissement"
                           forme_juridique:
                             type: object
+                            additionalProperties: false
                             title: Attributs de la forme juridique
                             properties:
                               code:
@@ -14105,6 +14494,7 @@ paths:
                           activite_principale:
                             title: Attributs de l'activité principale
                             type: object
+                            additionalProperties: false
                             properties:
                               code:
                                 title: Code de l'activité principale (APE) de l'unité
@@ -14147,6 +14537,7 @@ paths:
                             - nomenclature
                           tranche_effectif_salarie:
                             type: object
+                            additionalProperties: false
                             title: Tranche d'effectif salarié de l'unité légale
                             description: Pour environ la moitié des établissements,
                               la tranche d'effectif salarié n'est pas renseignée.
@@ -14180,13 +14571,12 @@ paths:
                                   Plus d'informations dans la documentation Insee
                                   de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen.
                                   \n \n L'effectif exact de l'entreprise, mensuel
-                                  et annuel, est disponible au travers de l'[API Effectifs
-                                  - URSSAF Caisse nationale](TODO). Si votre jeton
-                                  contient ce droit d'accès, nous vous recommandons
-                                  d'utiliser cette API. Ces données étant protégées,
-                                  leur cadre d'utilisation est différent de la tranche
-                                  effectif fournie par l'Insee, qui elle est une donnée
-                                  publique."
+                                  et annuel, est disponible au travers de l'API Effectifs
+                                  - URSSAF Caisse nationale. Si votre jeton contient
+                                  ce droit d'accès, nous vous recommandons d'utiliser
+                                  cette API. Ces données étant protégées, leur cadre
+                                  d'utilisation est différent de la tranche effectif
+                                  fournie par l'Insee, qui elle est une donnée publique."
                                 enum:
                                 - NN
                                 - '00'
@@ -14311,6 +14701,7 @@ paths:
                         - date_creation
                       adresse:
                         type: object
+                        additionalProperties: false
                         title: Adresse de l'établissement
                         properties:
                           numero_voie:
@@ -14491,6 +14882,7 @@ paths:
                               partiellement diffusable ou non diffusable
                           acheminement_postal:
                             type: object
+                            additionalProperties: false
                             title: Éléments constitutifs de l'adresse postale pour
                               son acheminement.
                             description: Il ne s'agit pas d'un traitement RNVP mais
@@ -14551,6 +14943,11 @@ paths:
                                   [ND] si l'etablissement correspond à une personne
                                   morale non-diffusible."
                                 example: 75256 PARIX CEDEX 12
+                              l7:
+                                title: Ligne 7
+                                type: string
+                                description: Pays de l'établissement
+                                example: FRANCE
                             required:
                             - l1
                             - l2
@@ -14558,6 +14955,7 @@ paths:
                             - l4
                             - l5
                             - l6
+                            - l7
                         required:
                         - numero_voie
                         - indice_repetition_voie
@@ -14603,6 +15001,7 @@ paths:
                     - unite_legale
                     - adresse
                     - date_creation
+                    additionalProperties: false
                   links:
                     type: object
                     properties:
@@ -14614,6 +15013,7 @@ paths:
                           obtenir les données de référence de l'unité légale.
                     required:
                     - unite_legale
+                    additionalProperties: false
                   meta:
                     type: object
                     properties:
@@ -14640,6 +15040,7 @@ paths:
                     required:
                     - date_derniere_mise_a_jour
                     - redirect_from_siret
+                    additionalProperties: false
                 required:
                 - data
                 - links
@@ -15011,6 +15412,7 @@ paths:
                       activite_principale:
                         title: Attributs de l'activité principale
                         type: object
+                        additionalProperties: false
                         properties:
                           code:
                             title: Code de l'activité principale (APE) de l'établissement
@@ -15051,6 +15453,7 @@ paths:
                         - nomenclature
                       tranche_effectif_salarie:
                         type: object
+                        additionalProperties: false
                         title: Tranche d'effectif salarié de l'établissement
                         description: Pour environ la moitié des établissements, la
                           tranche d'effectif salarié n'est pas renseignée. Il s'agit
@@ -15150,7 +15553,8 @@ paths:
                           cas, les informations obtenues peuvent être masquées par
                           la chaîne de caractère '[ND]' \n - non-diffusible : 'false'.
                           Dans ce cas, les informations obtenues ne doivent en aucun
-                          cas être accessibles au grand public."
+                          cas être accessibles au grand public. \n Plus d'informations
+                          sur les conditions de diffusion : https://www.sirene.fr/sirene/public/variable/statutDiffusionEtablissement"
                       enseigne:
                         title: Enseigne de l'établissement
                         type: string
@@ -15166,6 +15570,7 @@ paths:
                         example: Coiff Land, CoiffureLand
                       unite_legale:
                         type: object
+                        additionalProperties: false
                         title: Unité légale de l'établissement
                         properties:
                           siren:
@@ -15192,6 +15597,7 @@ paths:
                               à une personne physique.'
                           personne_morale_attributs:
                             type: object
+                            additionalProperties: false
                             title: Attributs de la personne morale
                             description: Attributs associés à la personne morale.
                               Les valeurs sont à 'null' pour les personnes physiques.
@@ -15213,6 +15619,7 @@ paths:
                             - sigle
                           personne_physique_attributs:
                             type: object
+                            additionalProperties: false
                             title: Attributs de la personne physique
                             description: Attributs associés à la personne physique.
                               Les valeurs sont à 'null' pour les personnes morales.
@@ -15350,9 +15757,11 @@ paths:
                               être masquées par la chaîne de caractère '[ND]' \n -
                               une unité légale non-diffusible : 'false'. Dans ce cas,
                               les informations obtenues ne doivent en aucun cas être
-                              accessibles au grand public."
+                              accessibles au grand public. \n Plus d'informations
+                              sur les conditions de diffusion : https://www.sirene.fr/sirene/public/variable/statutDiffusionEtablissement"
                           forme_juridique:
                             type: object
+                            additionalProperties: false
                             title: Attributs de la forme juridique
                             properties:
                               code:
@@ -15393,6 +15802,7 @@ paths:
                           activite_principale:
                             title: Attributs de l'activité principale
                             type: object
+                            additionalProperties: false
                             properties:
                               code:
                                 title: Code de l'activité principale (APE) de l'unité
@@ -15435,6 +15845,7 @@ paths:
                             - nomenclature
                           tranche_effectif_salarie:
                             type: object
+                            additionalProperties: false
                             title: Tranche d'effectif salarié de l'unité légale
                             description: Pour environ la moitié des établissements,
                               la tranche d'effectif salarié n'est pas renseignée.
@@ -15468,13 +15879,12 @@ paths:
                                   Plus d'informations dans la documentation Insee
                                   de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen.
                                   \n \n L'effectif exact de l'entreprise, mensuel
-                                  et annuel, est disponible au travers de l'[API Effectifs
-                                  - URSSAF Caisse nationale](TODO). Si votre jeton
-                                  contient ce droit d'accès, nous vous recommandons
-                                  d'utiliser cette API. Ces données étant protégées,
-                                  leur cadre d'utilisation est différent de la tranche
-                                  effectif fournie par l'Insee, qui elle est une donnée
-                                  publique."
+                                  et annuel, est disponible au travers de l'API Effectifs
+                                  - URSSAF Caisse nationale. Si votre jeton contient
+                                  ce droit d'accès, nous vous recommandons d'utiliser
+                                  cette API. Ces données étant protégées, leur cadre
+                                  d'utilisation est différent de la tranche effectif
+                                  fournie par l'Insee, qui elle est une donnée publique."
                                 enum:
                                 - NN
                                 - '00'
@@ -15599,6 +16009,7 @@ paths:
                         - date_creation
                       adresse:
                         type: object
+                        additionalProperties: false
                         title: Adresse de l'établissement
                         properties:
                           numero_voie:
@@ -15779,6 +16190,7 @@ paths:
                               partiellement diffusable ou non diffusable
                           acheminement_postal:
                             type: object
+                            additionalProperties: false
                             title: Éléments constitutifs de l'adresse postale pour
                               son acheminement.
                             description: Il ne s'agit pas d'un traitement RNVP mais
@@ -15839,6 +16251,11 @@ paths:
                                   [ND] si l'etablissement correspond à une personne
                                   morale non-diffusible."
                                 example: 75256 PARIX CEDEX 12
+                              l7:
+                                title: Ligne 7
+                                type: string
+                                description: Pays de l'établissement
+                                example: FRANCE
                             required:
                             - l1
                             - l2
@@ -15846,6 +16263,7 @@ paths:
                             - l4
                             - l5
                             - l6
+                            - l7
                         required:
                         - numero_voie
                         - indice_repetition_voie
@@ -15891,6 +16309,7 @@ paths:
                     - unite_legale
                     - adresse
                     - date_creation
+                    additionalProperties: false
                   links:
                     type: object
                     properties:
@@ -15902,6 +16321,7 @@ paths:
                           obtenir les données de référence de l'unité légale.
                     required:
                     - unite_legale
+                    additionalProperties: false
                   meta:
                     type: object
                     properties:
@@ -15928,6 +16348,7 @@ paths:
                     required:
                     - date_derniere_mise_a_jour
                     - redirect_from_siret
+                    additionalProperties: false
                 required:
                 - data
                 - links
@@ -16300,6 +16721,7 @@ paths:
                       activite_principale:
                         title: Attributs de l'activité principale
                         type: object
+                        additionalProperties: false
                         properties:
                           code:
                             title: Code de l'activité principale (APE) de l'établissement
@@ -16340,6 +16762,7 @@ paths:
                         - nomenclature
                       tranche_effectif_salarie:
                         type: object
+                        additionalProperties: false
                         title: Tranche d'effectif salarié de l'établissement
                         description: Pour environ la moitié des établissements, la
                           tranche d'effectif salarié n'est pas renseignée. Il s'agit
@@ -16439,7 +16862,8 @@ paths:
                           cas, les informations obtenues ne doivent en aucun cas être
                           accessibles au grand public. \n - non-diffusible : 'false'.
                           Dans ce cas, les informations obtenues ne doivent en aucun
-                          cas être accessibles au grand public."
+                          cas être accessibles au grand public. \n Plus d'informations
+                          sur les conditions de diffusion : https://www.sirene.fr/sirene/public/variable/statutDiffusionEtablissement"
                       enseigne:
                         title: Enseigne de l'établissement
                         type: string
@@ -16453,6 +16877,7 @@ paths:
                         example: Coiff Land, CoiffureLand
                       unite_legale:
                         type: object
+                        additionalProperties: false
                         title: Unité légale de l'établissement
                         properties:
                           siren:
@@ -16479,6 +16904,7 @@ paths:
                               à une personne physique.'
                           personne_morale_attributs:
                             type: object
+                            additionalProperties: false
                             title: Attributs de la personne morale
                             description: Attributs associés à la personne morale.
                               Les valeurs sont à 'null' pour les personnes physiques.
@@ -16498,6 +16924,7 @@ paths:
                             - sigle
                           personne_physique_attributs:
                             type: object
+                            additionalProperties: false
                             title: Attributs de la personne physique
                             description: Attributs associés à la personne physique.
                               Les valeurs sont à 'null' pour les personnes morales.
@@ -16617,9 +17044,11 @@ paths:
                               doivent en aucun cas être accessibles au grand public.
                               \n - une unité légale non-diffusible : 'false'. Dans
                               ce cas, les informations obtenues ne doivent en aucun
-                              cas être accessibles au grand public."
+                              cas être accessibles au grand public. \n Plus d'informations
+                              sur les conditions de diffusion : https://www.sirene.fr/sirene/public/variable/statutDiffusionUniteLegale"
                           forme_juridique:
                             type: object
+                            additionalProperties: false
                             title: Attributs de la forme juridique
                             properties:
                               code:
@@ -16660,6 +17089,7 @@ paths:
                           activite_principale:
                             title: Attributs de l'activité principale
                             type: object
+                            additionalProperties: false
                             properties:
                               code:
                                 title: Code de l'activité principale (APE) de l'unité
@@ -16702,6 +17132,7 @@ paths:
                             - nomenclature
                           tranche_effectif_salarie:
                             type: object
+                            additionalProperties: false
                             title: Tranche d'effectif salarié de l'unité légale
                             description: Pour environ la moitié des établissements,
                               la tranche d'effectif salarié n'est pas renseignée.
@@ -16735,13 +17166,12 @@ paths:
                                   Plus d'informations dans la documentation Insee
                                   de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen.
                                   \n \n L'effectif exact de l'entreprise, mensuel
-                                  et annuel, est disponible au travers de l'[API Effectifs
-                                  - URSSAF Caisse nationale](TODO). Si votre jeton
-                                  contient ce droit d'accès, nous vous recommandons
-                                  d'utiliser cette API. Ces données étant protégées,
-                                  leur cadre d'utilisation est différent de la tranche
-                                  effectif fournie par l'Insee, qui elle est une donnée
-                                  publique."
+                                  et annuel, est disponible au travers de l'API Effectifs
+                                  - URSSAF Caisse nationale. Si votre jeton contient
+                                  ce droit d'accès, nous vous recommandons d'utiliser
+                                  cette API. Ces données étant protégées, leur cadre
+                                  d'utilisation est différent de la tranche effectif
+                                  fournie par l'Insee, qui elle est une donnée publique."
                                 enum:
                                 - NN
                                 - '00'
@@ -16866,6 +17296,7 @@ paths:
                         - date_creation
                       adresse:
                         type: object
+                        additionalProperties: false
                         title: Adresse de l'établissement
                         properties:
                           numero_voie:
@@ -17029,6 +17460,7 @@ paths:
                               partiellement diffusable ou non diffusable
                           acheminement_postal:
                             type: object
+                            additionalProperties: false
                             title: Éléments constitutifs de l'adresse postale pour
                               son acheminement.
                             description: Il ne s'agit pas d'un traitement RNVP mais
@@ -17136,6 +17568,7 @@ paths:
                     - unite_legale
                     - adresse
                     - date_creation
+                    additionalProperties: false
                   links:
                     type: object
                     properties:
@@ -17147,6 +17580,7 @@ paths:
                           obtenir les données de référence de l'unité légale.
                     required:
                     - unite_legale
+                    additionalProperties: false
                   meta:
                     type: object
                     properties:
@@ -17173,6 +17607,7 @@ paths:
                     required:
                     - date_derniere_mise_a_jour
                     - redirect_from_siret
+                    additionalProperties: false
                 required:
                 - data
                 - links
@@ -17531,6 +17966,7 @@ paths:
                           personne physique.'
                       personne_morale_attributs:
                         type: object
+                        additionalProperties: false
                         title: Attributs de la personne morale
                         description: Attributs associés à la personne morale. Les
                           valeurs sont à 'null' pour les personnes physiques.
@@ -17550,6 +17986,7 @@ paths:
                         - sigle
                       personne_physique_attributs:
                         type: object
+                        additionalProperties: false
                         title: Attributs de la personne physique
                         description: Attributs associés à la personne physique. Les
                           valeurs sont à 'null' pour les personnes morales. Pour les
@@ -17667,9 +18104,11 @@ paths:
                           en aucun cas être accessibles au grand public. \n - une
                           unité légale non-diffusible : 'false'. Dans ce cas, les
                           informations obtenues ne doivent en aucun cas être accessibles
-                          au grand public."
+                          au grand public. \n Plus d'informations sur les conditions
+                          de diffusion : https://www.sirene.fr/sirene/public/variable/statutDiffusionUniteLegale"
                       forme_juridique:
                         type: object
+                        additionalProperties: false
                         title: Attributs de la forme juridique
                         properties:
                           code:
@@ -17708,6 +18147,7 @@ paths:
                       activite_principale:
                         title: Attributs de l'activité principale
                         type: object
+                        additionalProperties: false
                         properties:
                           code:
                             title: Code de l'activité principale (APE) de l'unité
@@ -17748,6 +18188,7 @@ paths:
                         - nomenclature
                       tranche_effectif_salarie:
                         type: object
+                        additionalProperties: false
                         title: Tranche d'effectif salarié de l'unité légale
                         description: Pour environ la moitié des établissements, la
                           tranche d'effectif salarié n'est pas renseignée. Il s'agit
@@ -17778,12 +18219,12 @@ paths:
                               plus \n \n Plus d'informations dans la documentation
                               Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen.
                               \n \n L'effectif exact de l'entreprise, mensuel et annuel,
-                              est disponible au travers de l'[API Effectifs - URSSAF
-                              Caisse nationale](TODO). Si votre jeton contient ce
-                              droit d'accès, nous vous recommandons d'utiliser cette
-                              API. Ces données étant protégées, leur cadre d'utilisation
-                              est différent de la tranche effectif fournie par l'Insee,
-                              qui elle est une donnée publique."
+                              est disponible au travers de l'API Effectifs - URSSAF
+                              Caisse nationale. Si votre jeton contient ce droit d'accès,
+                              nous vous recommandons d'utiliser cette API. Ces données
+                              étant protégées, leur cadre d'utilisation est différent
+                              de la tranche effectif fournie par l'Insee, qui elle
+                              est une donnée publique."
                             enum:
                             - NN
                             - '00'
@@ -17911,6 +18352,7 @@ paths:
                     - economie_sociale_et_solidaire
                     - date_creation
                     - date_cessation
+                    additionalProperties: false
                   links:
                     type: object
                     properties:
@@ -17928,6 +18370,7 @@ paths:
                     required:
                     - siege_social
                     - siege_social_adresse
+                    additionalProperties: false
                   meta:
                     type: object
                     properties:
@@ -17950,6 +18393,7 @@ paths:
                     required:
                     - date_derniere_mise_a_jour
                     - redirect_from_siren
+                    additionalProperties: false
                 required:
                 - data
                 - links
@@ -18313,6 +18757,7 @@ paths:
                           personne physique.'
                       personne_morale_attributs:
                         type: object
+                        additionalProperties: false
                         title: Attributs de la personne morale
                         description: Attributs associés à la personne morale. Les
                           valeurs sont à 'null' pour les personnes physiques.
@@ -18334,6 +18779,7 @@ paths:
                         - sigle
                       personne_physique_attributs:
                         type: object
+                        additionalProperties: false
                         title: Attributs de la personne physique
                         description: Attributs associés à la personne physique. Les
                           valeurs sont à 'null' pour les personnes morales. Pour les
@@ -18468,9 +18914,11 @@ paths:
                           être masquées par la chaîne de caractère '[ND]' \n - une
                           unité légale non-diffusible : 'false'. Dans ce cas, les
                           informations obtenues ne doivent en aucun cas être accessibles
-                          au grand public."
+                          au grand public. \n Plus d'informations sur les conditions
+                          de diffusion : https://www.sirene.fr/sirene/public/variable/statutDiffusionEtablissement"
                       forme_juridique:
                         type: object
+                        additionalProperties: false
                         title: Attributs de la forme juridique
                         properties:
                           code:
@@ -18509,6 +18957,7 @@ paths:
                       activite_principale:
                         title: Attributs de l'activité principale
                         type: object
+                        additionalProperties: false
                         properties:
                           code:
                             title: Code de l'activité principale (APE) de l'unité
@@ -18549,6 +18998,7 @@ paths:
                         - nomenclature
                       tranche_effectif_salarie:
                         type: object
+                        additionalProperties: false
                         title: Tranche d'effectif salarié de l'unité légale
                         description: Pour environ la moitié des établissements, la
                           tranche d'effectif salarié n'est pas renseignée. Il s'agit
@@ -18579,12 +19029,12 @@ paths:
                               plus \n \n Plus d'informations dans la documentation
                               Insee de l'API Sirene : https://www.sirene.fr/sirene/public/variable/tefen.
                               \n \n L'effectif exact de l'entreprise, mensuel et annuel,
-                              est disponible au travers de l'[API Effectifs - URSSAF
-                              Caisse nationale](TODO). Si votre jeton contient ce
-                              droit d'accès, nous vous recommandons d'utiliser cette
-                              API. Ces données étant protégées, leur cadre d'utilisation
-                              est différent de la tranche effectif fournie par l'Insee,
-                              qui elle est une donnée publique."
+                              est disponible au travers de l'API Effectifs - URSSAF
+                              Caisse nationale. Si votre jeton contient ce droit d'accès,
+                              nous vous recommandons d'utiliser cette API. Ces données
+                              étant protégées, leur cadre d'utilisation est différent
+                              de la tranche effectif fournie par l'Insee, qui elle
+                              est une donnée publique."
                             enum:
                             - NN
                             - '00'
@@ -18712,6 +19162,7 @@ paths:
                     - economie_sociale_et_solidaire
                     - date_creation
                     - date_cessation
+                    additionalProperties: false
                   links:
                     type: object
                     properties:
@@ -18729,6 +19180,7 @@ paths:
                     required:
                     - siege_social
                     - siege_social_adresse
+                    additionalProperties: false
                   meta:
                     type: object
                     properties:
@@ -18751,6 +19203,7 @@ paths:
                     required:
                     - date_derniere_mise_a_jour
                     - redirect_from_siren
+                    additionalProperties: false
                 required:
                 - data
                 - links
@@ -19132,6 +19585,7 @@ paths:
                     required:
                     - nombre_documents
                     - nombre_documents_deficients
+                    additionalProperties: false
                   links:
                     type: object
                 required:
@@ -19551,6 +20005,7 @@ paths:
                           la date de dissolution, autrement, il est indiqué 'null'.
                       adresse_siege:
                         type: object
+                        additionalProperties: false
                         title: Adresse du siège social de l'association
                         properties:
                           complement:
@@ -19629,6 +20084,7 @@ paths:
                     - etat
                     - groupement
                     - mise_a_jour
+                    additionalProperties: false
                   links:
                     type: object
                   meta:
@@ -19984,6 +20440,7 @@ paths:
                         - under_investigation
                     required:
                     - status
+                    additionalProperties: false
                   links:
                     type: object
                   meta:
@@ -20331,6 +20788,7 @@ paths:
                         type: array
                         items:
                           type: object
+                          additionalProperties: false
                           properties:
                             nom:
                               title: Nom
@@ -20369,6 +20827,7 @@ paths:
                         type: array
                         items:
                           type: object
+                          additionalProperties: false
                           properties:
                             nom:
                               title: Nom
@@ -20410,6 +20869,7 @@ paths:
                     - date_validite_qualifications
                     - qualifications_probatoires
                     - date_validite_qualifications_probatoires
+                    additionalProperties: false
                   links:
                     type: object
                   meta:
@@ -21138,6 +21598,7 @@ paths:
                           aux cotisations retraites de ProBTP.
                     required:
                     - eligible
+                    additionalProperties: false
                   links:
                     type: object
                   meta:
@@ -21908,6 +22369,7 @@ paths:
                     required:
                     - modalite_exercice
                     - non_sedentaire
+                    additionalProperties: false
                   links:
                     type: object
                   meta:
@@ -22273,6 +22735,7 @@ paths:
                         title: Status de l'entreprise vis-à-vis de ses obligations
                           sociales
                         type: object
+                        additionalProperties: false
                         properties:
                           code:
                             type: string
@@ -22351,6 +22814,7 @@ paths:
                     - code_securite
                     - document_url
                     - document_url_expires_in
+                    additionalProperties: false
                   links:
                     type: object
                   meta:

@@ -83,7 +83,7 @@ paths:
       - Avis d'imposition
       responses:
         '200':
-          x-operationId: api_particulier_v2_dgfip_svair
+          x-operationId: api_particulier_v2_dgfip_situation_ir
           description: Avis d'imposition
           content:
             application/json:
@@ -412,12 +412,12 @@ paths:
                         description: Numéro d'appartement, escalier
                         type: string
                         nullable: true
-                        example:
+                        example: 
                       complementIdentiteGeo:
                         title: Complément d'information du point géographique
                         type: string
                         nullable: true
-                        example:
+                        example: 
                         description: Entrée, tour, immeuble, bâtiment, résidence
                       numeroRue:
                         title: Voie
@@ -428,7 +428,7 @@ paths:
                         title: Lieu-dit
                         type: string
                         nullable: true
-                        example:
+                        example: 
                         description: 'Lieu-dit ou service particulier de distribution
                           : poste restante, boîte postale'
                       codePostalVille:
@@ -544,7 +544,7 @@ paths:
                     type: string
                     description: Nom d'usage du demandeur d'emploi
                     nullable: true
-                    example:
+                    example: 
                   prenom:
                     title: Prénom
                     type: string
@@ -582,7 +582,7 @@ paths:
                     - AC
                     - DC
                     - RC
-                    -
+                    - 
                   telephone:
                     title: Téléphone principal
                     type: string
@@ -622,15 +622,15 @@ paths:
                       ligneComplementDestinaire:
                         type: string
                         nullable: true
-                        example:
+                        example: 
                       ligneComplementAdresse:
                         type: string
                         nullable: true
-                        example:
+                        example: 
                       ligneComplementDistribution:
                         type: string
                         nullable: true
-                        example:
+                        example: 
                       ligneNom:
                         type: string
                         example: MARTIN
@@ -1129,6 +1129,361 @@ paths:
                       type: string
         '401': *2
         '500': *3
+  "/api/v2/composition-familiale-v2":
+    get:
+      summary: Quotient familial CAF & MSA
+      description: "## PROCHAINNEMENT \n \n Quotient familial et composition de la
+        famille d'un allocataire du régime général et du régime agricole. \n Pour
+        de plus amples informations sur cette api et y avoir accès en avant première,
+        veuillez contacter l'équipe API Particulier. \n **Données disponibles en bac
+        à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/api_particulier_v2_cnaf_quotient_familial_v2) "
+      tags:
+      - Prochainement
+      parameters:
+      - name: nomUsage
+        schema:
+          type: string
+        in: query
+        description: Nom d'usage
+        required: false
+      - name: nomNaissance
+        schema:
+          type: string
+        in: query
+        description: Nom de naissance
+        required: false
+      - name: prenoms[]
+        in: query
+        description: Liste des prénoms
+        required: false
+        schema:
+          type: array
+          minItems: 1
+          items:
+            type: string
+      - name: anneeDateDeNaissance
+        description: Année de naissance. Ne pas la renseigner si celle-ci est inconnue
+        required: false
+        in: query
+        schema:
+          type: integer
+          example: 1990
+      - name: moisDateDeNaissance
+        description: Mois de naissance. Ne pas le renseigner si celle-ci est inconnu.
+          Cette valeur est ignorée si anneeDateDeNaissance est vide.
+        required: false
+        in: query
+        schema:
+          type: integer
+          example: 1
+      - name: jourDateDeNaissance
+        description: Jour de naissance. Ne pas le renseigner si celui-ci est inconnu.
+          Cette valeur est ignorée si moisDateDeNaissance ou anneeDateDeNaissance
+          est vide.
+        required: false
+        in: query
+        schema:
+          type: integer
+          example: 1
+      - name: codeInseeLieuDeNaissance
+        in: query
+        schema:
+          type: string
+          minLength: 5
+          maxLength: 5
+          example: '08480'
+        description: Code Insee à 5 chiffres du lieu de naissance de la personne sur
+          5 chiffres. Ne pas remplir si la personne est née à l'étranger.
+        required: false
+      - name: codePaysLieuDeNaissance
+        in: query
+        description: Code Insee à 5 chiffres du pays de naissance (France = 99100)
+        schema:
+          type: string
+          minLength: 5
+          maxLength: 5
+          example: '99100'
+        required: true
+      - name: sexe
+        in: query
+        description: Sexe de la personne, masculin ou féminin
+        required: true
+        schema:
+          enum:
+          - M
+          - F
+      - name: annee
+        in: query
+        description: Année du quotient familial recherché. Si l'année n'est pas renseignée,
+          le dernier QF est transmis.
+        required: false
+        schema:
+          type: integer
+          example: 2021
+      - name: mois
+        in: query
+        required: false
+        description: Mois pour le quotient, si non renseigné renvoie le dernier QF
+          calculé
+        schema:
+          type: integer
+          example: 12
+      responses:
+        '200':
+          x-operationId: api_particulier_v2_cnaf_quotient_familial_v2
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  allocataires:
+                    title: Informations sur les parents composant la famille
+                    type: array
+                    minItems: 1
+                    items:
+                      type: object
+                      properties:
+                        nomNaissance:
+                          title: Nom
+                          type: string
+                          description: Nom de naissance de l'allocataire
+                          example: JACQUES
+                        nomUsuel:
+                          title: Nom d'usage
+                          type: string
+                          description: Nom d'usage de l'allocataire
+                          example: JACQUES
+                        prenoms:
+                          title: Prénoms
+                          type: string
+                          description: Prénoms de l'allocataire
+                          example: JEAN-PIERRE THOMAS
+                        anneeDateDeNaissance:
+                          title: Année de naissance
+                          type: string
+                          example: '2000'
+                          description: Année de la date de naissance de l'allocataire.
+                            Peut-être vide si inconnue.
+                          nullable: true
+                        moisDateDeNaissance:
+                          title: Mois de naissance
+                          type: string
+                          example: '01'
+                          description: Mois de la date de naissance de l'allocataire.
+                            Peut-être vide si inconnue.
+                          nullable: true
+                        jourDateDeNaissance:
+                          title: Jour de naissance
+                          type: string
+                          example: '31'
+                          description: Jour de la date de naissance de l'allocataire.
+                            Peut-être vide si inconnue.
+                          nullable: true
+                        sexe:
+                          title: Sexe
+                          type: string
+                          description: Sexe de l'allocataire
+                          example: M
+                          enum:
+                          - F
+                          - M
+                  enfants:
+                    type: array
+                    title: Informations sur les enfants composant la famille
+                    items:
+                      type: object
+                      properties:
+                        nomNaissance:
+                          title: Nom de naissance
+                          type: string
+                          description: Nom de naissance de l'enfant
+                          example: JACQUES
+                        nomUsuel:
+                          title: Nom d'usage
+                          type: string
+                          description: Nom d'usage de l'enfant
+                          example: JACQUES
+                        prenoms:
+                          title: Prénoms
+                          type: string
+                          description: Prénoms de l'enfant
+                          example: JEAN-PIERRE THOMAS
+                        anneeDateDeNaissance:
+                          title: Année de naissance
+                          type: string
+                          example: '2000'
+                          description: Année de la date de naissance de l'enfant.
+                            Peut-être vide si inconnue.
+                          nullable: true
+                        moisDateDeNaissance:
+                          title: Mois de naissance
+                          type: string
+                          example: '01'
+                          description: Mois de la date de naissance de l'enfant. Peut-être
+                            vide si inconnue.
+                          nullable: true
+                        jourDateDeNaissance:
+                          title: Jour de naissance
+                          type: string
+                          example: '31'
+                          description: Jour de la date de naissance de l'enfant. Peut-être
+                            vide si inconnue.
+                          nullable: true
+                        sexe:
+                          title: Sexe
+                          type: string
+                          description: Sexe de l'enfant
+                          example: M
+                          enum:
+                          - F
+                          - M
+                  adresse:
+                    title: Adresse de la famille
+                    type: object
+                    description: Adresse au format de la poste
+                    properties:
+                      identite:
+                        title: Identité du destinataire
+                        type: string
+                        example: Monsieur JEAN JACQUES
+                        description: 'Identité du destinataire : Civilité, titre ou
+                          qualité + nom et prénom'
+                      complementInformation:
+                        title: Complément d'information du destinataire ou point de
+                          remise
+                        description: Complément d'information du destinataire ou point
+                          de remise.
+                        type: string
+                        nullable: true
+                        example: 
+                      complementInformationGeographique:
+                        title: Complément d'information du point géographique
+                        type: string
+                        nullable: true
+                        example: 
+                        description: Complément d'information du point géographique.
+                      numeroLibelleVoie:
+                        title: Voie
+                        type: string
+                        description: Numéro et libellé de la voie
+                        example: 1 RUE DE LA GARE
+                      lieuDit:
+                        title: Lieu-dit
+                        type: string
+                        nullable: true
+                        example: 
+                        description: 'Lieu-dit ou service particulier de distribution
+                          : poste restante, boîte postale'
+                      codePostalVille:
+                        title: Code postal
+                        type: string
+                        description: Code postale et localité de destination
+                        example: '75002'
+                      pays:
+                        title: Pays
+                        type: string
+                        description: Pays
+                        example: FRANCE
+                  quotientFamilial:
+                    title: Quotient familial CAF ou MSA
+                    type: integer
+                    description: Valeur du quotient familial calculé par la CAF ou
+                      la MSA
+                    example: 1045
+                  annee:
+                    title: Année du quotient familial
+                    type: integer
+                    description: Année de calcul du quotient familial
+                    example: 2021
+                  mois:
+                    title: Mois du quotient familial
+                    type: integer
+                    description: Mois de calcul du quotient familial
+                    example: 6
+        '400':
+          description: Mauvais paramètres d'appels
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: bad_request
+                  reason:
+                    type: string
+                    example: Le codePaysLieuDeNaissance est manquant
+                  message:
+                    type: string
+                    example: Le codePaysLieuDeNaissance est manquant
+        '401':
+          description: Votre jeton d'API n'a pas été trouvé ou n'est pas actif
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: access_denied
+                  reason:
+                    type: string
+                    example: Token not found or inactive
+                  message:
+                    type: string
+                    example: Votre jeton d'API n'a pas été trouvé ou n'est pas actif
+        '404':
+          description: Dossier allocataire inexistant. Le document ne peut être édité.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: not_found
+                  reason:
+                    type: string
+                    example: Dossier allocataire inexistant. Le document ne peut être
+                      édité.
+                  message:
+                    type: string
+                    example: Dossier allocataire inexistant. Le document ne peut être
+                      édité.
+        '500':
+          description: Une erreur interne s'est produite, l'équipe a été prévenue.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: error
+                  reason:
+                    type: string
+                    example: Internal server error
+                  message:
+                    type: string
+                    example: Une erreur interne s'est produite, l'équipe a été prévenue.
+        '503':
+          description: Une erreur est survenue lors de l'appel au fournisseur de donnée
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: network_error
+                  reason:
+                    type: string
+                    example: timeout of 10000 ms exceeded
+                  message:
+                    type: string
+                    example: Une erreur est survenue lors de l'appel au fournisseur
+                      de donnée
 security:
 - apiKey: []
 servers:
@@ -1143,13 +1498,13 @@ components:
       properties:
         error:
           type: string
-          example:
+          example: 
         reason:
           type: string
-          example:
+          example: 
         message:
           type: string
-          example:
+          example: 
   securitySchemes:
     apiKey:
       type: apiKey
