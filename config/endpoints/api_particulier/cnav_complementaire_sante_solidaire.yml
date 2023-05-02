@@ -25,7 +25,7 @@
       Avec FranceConnect.
   data:
     description: |+
-      Cette API **indique si le particulier est bénéfiaire de la complémentaire santé solidaire**, en précisant si celle-ci est avec ou sans participation finanicère. Si le particulier est bénéficaire, la date d'ouverture du droit et de fermeture du droit sera également transmise.
+      Cette API **indique si le particulier est bénéfiaire de la complémentaire santé solidaire**, en précisant si celle-ci est avec ou sans participation finanicère. Si le particulier est bénéficaire, la date d'ouverture du droit et la date de fermeture du droit seront également transmises.
   provider_uids:
     - 'cnaf'
   # Ces mots clés servent à la recherche algolia sur l'index du catalogue
@@ -36,6 +36,19 @@
   use_cases:
     - whatever
   faq:
-    - q: "Question ?"
+    - q: "Qu'est-ce qu'une complémentaire santé solidaire ?"
       a: |+
-        Réponse à la question. Le markdown GFM est supporté ici.
+        La complémentaire santé solidaire est une **aide versée par l'assurance maladie sous conditions de ressources et de résidence**. Elle prend en charge la part des dépenses de santé qui ne sont pas remboursées par la sécurité sociale et permet d'accéder à d'autres avantages.
+
+        La complémentaire santé solidaire peut être : 
+        - gratuite, indiquée par "sans participation" dans cette API ; 
+        - payante, indiquée par "avec participation" dans cette API.
+
+        Pour en savoir plus, [consulter cette page dédiée sur service-public.fr](https://www.service-public.fr/particuliers/vosdroits/F10027){target="_blank"}.
+    - q: "Quel est le mécanisme déterminant l'indicateur ?"
+      a: |+
+        En pratique, il peut arriver qu'un bénéficiaire soit bénéficiare de plusieurs C2S, et même parfois de certaines C2S avec participation et d'autres sans participation.
+         
+        L'indicateur "bénéficiaire avec participation / bénéficiaire sans participation / non-bénéficiaire C2S' est déterminé en suivant la méthodologie suivante :" 
+
+
