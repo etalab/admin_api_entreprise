@@ -1,35 +1,31 @@
 ---
-- uid: 'cnav/sante_solidaire'
+- uid: 'cnav/complementaire_sante_solidaire'
   path: '/api/v2/complementaire-sante-solidaire'
   # Position au sein de l'index
   position: 200
   perimeter:
     entity_type_description: |+
-      Une description exhaustive des types d'entité renvoyés par le endpoint dans la fiche détaillée. Le markdown GFM est supporté ici.
+      ✅ **Le périmètre de l'API est exhaustif et couvre tous les assurés** de la sphère sociale susceptibles d'être concernés par la complémentaire de santé solidaire.
     geographical_scope_description:  |+
-      Une description exhaustive du scope géographique dans la fiche détaillée. Le markdown GFM est supporté ici.
+      Cette API couvre les assurés : 
+      - ✅ de France métropolitaine
+      - ✅ des départements d'Outre-mer
+      - ✅ de nationalité étrangère.
+
+      Les collectivtés d'Outre-mer, ayant un autre système de sécurité sociale, ne sont pas concernées par cette API.
     updating_rules_description: |+
-      Les règles de mise à jour de la donnée dans al fiche détaillée. Le markdown GFM est supporté ici.
-    know_more_description: |+
-      Lien optionnel pour en savoir plus sur la donnée. Le markdown GFM est supporté ici.
+      Les données sont **mises à jour en temps réel** et issues du répertoire national commun de la protection sociale (RNCPS) opéré par la CNAV. Les données du répertoires sont remontées directement par les différents organismes comme par exemple la CNAF pour les assurés du régime général et la MSA pour les assurés au régime agricole.
   parameters_details:
     description: |+
-      Cette API propose XXX modalités d'appel :
+      Cette API propose 2 modalités d'appel :
       <p class="fr-badge fr-badge--blue-ecume">Identité pivot</p>
-      Avec les données d'identité du particulier : Lorem ipsum
-
-      <p class="fr-badge fr-badge--purple-glycine">Identifiant</p>
-      Avec TYPE IDENTIFIANT : Lorem ipsum
+      Avec les données d'identité : Noms, prénoms, sexe, date de naissance, code Insee de naissance et code pays de naissance du particulier.
 
       <p class="fr-badge fr-badge--green-emeraude">FranceConnect</p>
       Avec FranceConnect.
-  parameters_details:
-    description: |+
-      Cette API propose une modalité d'appel.
   data:
     description: |+
-      Lorem ispum
-  # La liste des clés disponible est stockée dans la locale `provider_uids` du fichier provider_uids.fr.yml
+      Cette API **indique si le particulier est bénéfiaire de la complémentaire santé solidaire**, en précisant si celle-ci est avec ou sans participation finanicère. Si le particulier est bénéficaire, la date d'ouverture du droit et de fermeture du droit sera également transmise.
   provider_uids:
     - 'cnaf'
   # Ces mots clés servent à la recherche algolia sur l'index du catalogue
