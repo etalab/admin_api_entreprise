@@ -1,5 +1,6 @@
 class AuthorizationRequest < ApplicationRecord
-  belongs_to :user
+  has_many :user_authorization_request_roles, dependent: :nullify
+  has_many :users, through: :user_authorization_request_roles, source: :user
 
   has_many :tokens,
     class_name: 'Token',
@@ -18,24 +19,43 @@ class AuthorizationRequest < ApplicationRecord
 
   validates :api, inclusion: { in: %w[entreprise particulier] }
 
-  has_many :contacts, dependent: :destroy_async
-
-  has_one :contact_technique,
-    -> { where(contact_type: 'tech') },
-    class_name: 'Contact',
-    inverse_of: :authorization_request,
-    dependent: :destroy
-
-  has_one :contact_metier,
-    -> { where(contact_type: 'admin') },
-    class_name: 'Contact',
-    inverse_of: :authorization_request,
-    dependent: :destroy
-
   scope :submitted_at_least_once, -> { where.not(first_submitted_at: nil) }
   scope :authorization_requests_for, ->(api) { where(authorization_requests: { api: }) }
 
   def token
     active_token || tokens.first
+  end
+
+  has_many :contacts_authorization_request_roles,
+    -> { where.not(role: 'demandeur') },
+    class_name: 'UserAuthorizationRequestRole',
+    inverse_of: :authorization_request,
+    dependent: :destroy
+
+  has_one :demandeur_authorization_request_role,
+    -> { where(role: 'demandeur') },
+    class_name: 'UserAuthorizationRequestRole',
+    inverse_of: :authorization_request,
+    dependent: :destroy
+
+  has_one :contact_technique_authorization_request_role,
+    -> { where(role: 'contact_technique') },
+    class_name: 'UserAuthorizationRequestRole',
+    inverse_of: :authorization_request,
+    dependent: :destroy
+
+  has_one :contact_metier_authorization_request_role,
+    -> { where(role: 'contact_metier') },
+    class_name: 'UserAuthorizationRequestRole',
+    inverse_of: :authorization_request,
+    dependent: :destroy
+
+  has_many :contacts, through: :contacts_authorization_request_roles, source: :user
+  has_one :demandeur, through: :demandeur_authorization_request_role
+  has_one :contact_technique, through: :contact_technique_authorization_request_role
+  has_one :contact_metier, through: :contact_metier_authorization_request_role
+
+  def contacts_no_demandeur
+    contacts.reject { |user| user == demandeur }
   end
 end

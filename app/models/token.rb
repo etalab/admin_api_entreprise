@@ -6,9 +6,6 @@ class Token < ApplicationRecord
   belongs_to :authorization_request, foreign_key: 'authorization_request_model_id', inverse_of: :tokens
   validates :exp, presence: true
 
-  has_one :user, through: :authorization_request
-  has_many :contacts, through: :authorization_request
-
   scope :issued_in_last_seven_days, -> { where(created_at: 3.weeks.ago..1.week.ago) }
   scope :unexpired, -> { where('exp > ?', Time.zone.now.to_i) }
 
@@ -21,6 +18,13 @@ class Token < ApplicationRecord
   scope :active, -> { not_blacklisted.not_archived.unexpired }
   scope :active_for, ->(api) { active.joins(:authorization_request).where(authorization_request: { api: }).uniq }
 
+  has_many :users, through: :authorization_request
+  has_many :contacts, through: :authorization_request
+  has_many :demandeurs, through: :authorization_request
+
+  has_one :demandeur, through: :authorization_request
+  delegate :contacts_no_demandeur, to: :authorization_request
+
   def rehash
     AccessToken.create(token_payload)
   end
@@ -31,10 +35,6 @@ class Token < ApplicationRecord
 
   def expired?
     exp < Time.zone.now.to_i
-  end
-
-  def user_and_contacts_email
-    Set[*contacts.pluck(:email)] << user.email
   end
 
   delegate :api, to: :authorization_request
@@ -57,7 +57,7 @@ class Token < ApplicationRecord
 
   def token_payload
     payload = {
-      uid: user&.id,
+      uid: demandeur&.id,
       jti: id,
       scopes:,
       sub: intitule,

@@ -8,6 +8,7 @@ RSpec.describe DatapassWebhook::APIEntreprise, type: :interactor do
   let(:datapass_webhook_params) { build(:datapass_webhook, event: 'validate_application', demarche: 'editeurs', authorization_request_attributes: { copied_from_enrollment_id: previous_enrollment_id }) }
   let(:previous_enrollment_id) { rand(9001).to_s }
   let(:token) { create(:token) }
+  let(:demandeur_roles) { UserAuthorizationRequestRole.where(role: 'demandeur') }
 
   before do
     allow(Mailjet::Contactslist_managemanycontacts).to receive(:create)
@@ -17,10 +18,10 @@ RSpec.describe DatapassWebhook::APIEntreprise, type: :interactor do
 
   it { is_expected.to be_a_success }
 
-  it 'creates a user' do
+  it 'creates 1 demandeur' do
     expect {
       subject
-    }.to change(User, :count).by(1)
+    }.to change(demandeur_roles, :count).by(1)
   end
 
   it 'creates an authorization request with entreprise api and demarche' do

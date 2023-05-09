@@ -10,6 +10,7 @@ FactoryBot.define do
 
     cgu_agreement_date { Time.zone.now }
     tokens_newly_transfered { false }
+    phone_number { '0606060606' }
 
     trait :with_full_name do
       first_name { 'Jean-Marie' }
@@ -53,8 +54,8 @@ FactoryBot.define do
             :token,
             :with_specific_scopes,
             specific_scopes: evaluator.scopes,
-            user: u,
-            intitule: "Token with scopes: #{evaluator.scopes}"
+            intitule: "Token with scopes: #{evaluator.scopes}",
+            authorization_request: create(:authorization_request, :with_demandeur, demandeur: u)
           )
         end
       end
@@ -62,19 +63,69 @@ FactoryBot.define do
 
     trait :with_blacklisted_token do
       after(:create) do |u|
-        create(:token, :blacklisted, user: u)
+        create(:token, :blacklisted, users: [u])
       end
     end
 
     trait :with_archived_token do
       after(:create) do |u|
-        create(:token, :archived, user: u)
+        create(:token, :archived, users: [u])
       end
     end
 
     trait :with_expired_token do
       after(:create) do |u|
-        create(:token, :expired, user: u)
+        create(:token, :expired, users: [u])
+      end
+    end
+
+    trait :with_roles do
+      transient do
+        roles { [] }
+      end
+
+      after(:create) do |user, evaluator|
+        evaluator.roles.each do |role|
+          create(
+            :user_authorization_request_role,
+            authorization_request: create(:authorization_request),
+            user:,
+            role:
+          )
+        end
+      end
+    end
+
+    trait :demandeur do
+      after(:create) do |u|
+        create(
+          :user_authorization_request_role,
+          authorization_request: create(:authorization_request),
+          user: u,
+          role: 'demandeur'
+        )
+      end
+    end
+
+    trait :contact_technique do
+      after(:create) do |u|
+        create(
+          :user_authorization_request_role,
+          authorization_request: create(:authorization_request),
+          user: u,
+          role: 'contact_technique'
+        )
+      end
+    end
+
+    trait :contact_metier do
+      after(:create) do |u|
+        create(
+          :user_authorization_request_role,
+          authorization_request: create(:authorization_request),
+          user: u,
+          role: 'contact_metier'
+        )
       end
     end
   end

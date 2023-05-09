@@ -6,7 +6,7 @@ RSpec.describe DatapassWebhook::ExtractMailjetVariables, type: :interactor do
   subject { described_class.call(datapass_webhook_params.merge(authorization_request:)) }
 
   let(:datapass_webhook_params) { build(:datapass_webhook, event:) }
-  let(:authorization_request) { create(:authorization_request) }
+  let(:authorization_request) { create(:authorization_request, :with_demandeur) }
 
   let(:event) { %w[created create].sample }
 
@@ -19,9 +19,9 @@ RSpec.describe DatapassWebhook::ExtractMailjetVariables, type: :interactor do
     expect(subject.mailjet_variables['authorization_request_intitule']).to eq(authorization_request.intitule)
     expect(subject.mailjet_variables['authorization_request_description']).to eq(authorization_request.description)
 
-    expect(subject.mailjet_variables['demandeur_first_name']).to eq(authorization_request.user.first_name)
-    expect(subject.mailjet_variables['demandeur_last_name']).to eq(authorization_request.user.last_name)
-    expect(subject.mailjet_variables['demandeur_email']).to eq(authorization_request.user.email)
+    expect(subject.mailjet_variables['demandeur_first_name']).to eq(authorization_request.demandeur.first_name)
+    expect(subject.mailjet_variables['demandeur_last_name']).to eq(authorization_request.demandeur.last_name)
+    expect(subject.mailjet_variables['demandeur_email']).to eq(authorization_request.demandeur.email)
 
     expect(subject.mailjet_variables['token_scopes']).to be_nil
   end
@@ -58,7 +58,7 @@ RSpec.describe DatapassWebhook::ExtractMailjetVariables, type: :interactor do
   end
 
   context 'when authorization request has contacts' do
-    let(:authorization_request) { create(:authorization_request, :with_contacts) }
+    let(:authorization_request) { create(:authorization_request, :with_demandeur, :with_contact_metier, :with_contact_technique) }
 
     it 'adds contact metier and technique first, last name and email' do
       %w[

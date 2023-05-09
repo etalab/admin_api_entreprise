@@ -32,10 +32,7 @@ class ScheduleExpirationNoticeMailjetEmailJob < ApplicationJob
   end
 
   def build_recipients(token)
-    [
-      token.user,
-      token.contacts
-    ].flatten.map { |recipient|
+    token.users.map { |recipient|
       "#{recipient.full_name} <#{recipient.email}>"
     }.uniq.join(', ')
   end

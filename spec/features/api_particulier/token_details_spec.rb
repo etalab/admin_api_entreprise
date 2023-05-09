@@ -1,13 +1,12 @@
 RSpec.describe 'API Particulier: token details', app: :api_particulier do
   subject(:go_to_profile) { visit api_particulier_user_profile_path }
 
-  let(:user) { create(:user) }
   let(:scopes) { %w[x1x] }
 
-  let!(:token) { create(:token, :with_api_particulier, user:, scopes:) }
+  let!(:token) { create(:token, :with_api_particulier, scopes:) }
 
   before do
-    login_as(user)
+    login_as(token.demandeur)
     go_to_profile
   end
 
@@ -22,7 +21,7 @@ RSpec.describe 'API Particulier: token details', app: :api_particulier do
   end
 
   context 'when the token uses a translated scope' do
-    let(:token) { create(:token, :with_api_particulier, user:, scopes: ['dgfip_declarant1_nom']) }
+    let(:token) { create(:token, :with_api_particulier, scopes: ['dgfip_declarant1_nom']) }
 
     it 'displays tokens access scopes with translations' do
       expect(page).to have_content('DGFIP - État civil - déclarant 1 - Nom')

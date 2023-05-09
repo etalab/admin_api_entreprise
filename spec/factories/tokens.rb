@@ -11,33 +11,31 @@ FactoryBot.define do
     sequence(:authorization_request_id) { |n| "1234#{n}" }
 
     transient do
-      user { nil }
+      users { nil }
       intitule { 'Token' }
     end
 
     after(:build) do |token, evaluator|
       if token.authorization_request_id && token.authorization_request.nil?
-        token.authorization_request = build(
-          :authorization_request, tokens: [token], intitule: evaluator.intitule
+        token.authorization_request = create(
+          :authorization_request, :with_demandeur, tokens: [token], intitule: evaluator.intitule
         )
       elsif token.authorization_request_id
         token.authorization_request.external_id = token.authorization_request_id
       end
-
-      token.authorization_request.user = evaluator.user if evaluator.user
     end
 
     trait :with_api_particulier do
       transient do
-        user { nil }
+        users { nil }
         intitule { 'Token' }
       end
 
       after(:build) do |token, evaluator|
-        token.authorization_request = build(
-          :authorization_request, tokens: [token], intitule: evaluator.intitule, api: 'particulier'
+        token.authorization_request = create(
+          :authorization_request, :with_demandeur, tokens: [token], intitule: evaluator.intitule, api: 'particulier'
         )
-        token.authorization_request.user = evaluator.user if evaluator.user
+        token.authorization_request.users << evaluator.users if evaluator.users
       end
     end
 
@@ -88,48 +86,18 @@ FactoryBot.define do
 
     trait :blacklisted do
       blacklisted { true }
-
-      after(:create) do |token|
-        create(:contact, :business, authorization_request: token.authorization_request)
-        create(:contact, :tech, authorization_request: token.authorization_request)
-      end
     end
 
     trait :archived do
       archived { true }
-
-      after(:create) do |token|
-        create(:contact, :business, authorization_request: token.authorization_request)
-        create(:contact, :tech, authorization_request: token.authorization_request)
-      end
     end
 
     trait :not_archived do
       archived { false }
-
-      after(:create) do |token|
-        create(:contact, :business, authorization_request: token.authorization_request)
-        create(:contact, :tech, authorization_request: token.authorization_request)
-      end
-    end
-
-    trait :with_contacts do
-      after(:create) do |token|
-        create(:contact, :business, authorization_request: token.authorization_request)
-        create(:contact, :business, authorization_request: token.authorization_request)
-        create(:contact, :tech, authorization_request: token.authorization_request)
-        create(:contact, :other, authorization_request: token.authorization_request)
-      end
     end
 
     trait :expired do
       exp { 20.months.ago.to_i }
-    end
-
-    trait :with_magic_link do
-      after(:create) do |token|
-        create(:magic_link, email: token.user.email)
-      end
     end
   end
 end

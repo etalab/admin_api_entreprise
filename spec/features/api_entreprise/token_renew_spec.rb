@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'token renew page', app: :api_entreprise do
   let(:user) { create(:user, :with_token) }
-  let(:token) { create(:token, user:) }
+  let(:token) { user.tokens.first }
 
   before do
     login_as(user)

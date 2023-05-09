@@ -3,21 +3,11 @@ FactoryBot.define do
     intitule { 'Intitule' }
     description { 'description' }
     sequence(:external_id, &:to_s)
-    user { build(:user, :with_full_name) }
     status { 'draft' }
     api { 'entreprise' }
 
     trait :without_external_id do
       external_id { nil }
-    end
-
-    trait :with_contacts do
-      contacts do
-        [
-          build(:contact, :with_full_name, :business),
-          build(:contact, :with_full_name, :tech)
-        ]
-      end
     end
 
     trait :with_multiple_tokens_one_valid do
@@ -41,7 +31,6 @@ FactoryBot.define do
 
     trait :submitted do
       with_tokens
-      with_contacts
 
       first_submitted_at { DateTime.now }
       status { 'submitted' }
@@ -52,6 +41,47 @@ FactoryBot.define do
 
       validated_at { DateTime.now }
       status { 'validated' }
+    end
+
+    trait :with_demandeur do
+      transient do
+        demandeur { nil }
+      end
+
+      after(:create) do |authorization_request, evaluator|
+        if evaluator.demandeur.present?
+          create(:user_authorization_request_role, :demandeur, authorization_request:, user: evaluator.demandeur)
+        else
+          create(:user_authorization_request_role, :demandeur, authorization_request:)
+        end
+      end
+    end
+
+    trait :with_contact_metier do
+      after(:create) do |authorization_request|
+        create(:user_authorization_request_role, :contact_metier, authorization_request:)
+      end
+    end
+
+    trait :with_contact_technique do
+      after(:create) do |authorization_request|
+        create(:user_authorization_request_role, :contact_technique, authorization_request:)
+      end
+    end
+
+    trait :with_roles do
+      transient do
+        roles { [] }
+        user { nil }
+      end
+
+      after(:create) do |authorization_request, evaluator|
+        user = evaluator.user || create(:user)
+
+        evaluator.roles.each do |role|
+          create(:user_authorization_request_role, role:, authorization_request:, user:)
+        end
+      end
     end
   end
 end

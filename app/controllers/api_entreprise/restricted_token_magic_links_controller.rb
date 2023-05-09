@@ -31,6 +31,6 @@ class APIEntreprise::RestrictedTokenMagicLinksController < APIEntreprise::Authen
   end
 
   def access_allowed_for_current_user?
-    current_user == @token.user
+    @token.demandeurs.include?(current_user)
   end
 end

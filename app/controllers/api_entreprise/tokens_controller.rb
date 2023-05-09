@@ -28,6 +28,6 @@ class APIEntreprise::TokensController < APIEntreprise::AuthenticatedUsersControl
   end
 
   def access_allowed_for_current_user?
-    current_user == @token.user
+    @token.users.include?(current_user)
   end
 end

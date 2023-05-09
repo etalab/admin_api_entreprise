@@ -122,7 +122,7 @@ RSpec.describe Token do
       end
 
       it 'contains its owner user id into the "uid" key' do
-        expect(payload.fetch(:uid)).to eq(token.user.id)
+        expect(payload.fetch(:uid)).to eq(token.demandeur.id)
       end
 
       it 'contains its id into the "jti" key' do
@@ -193,24 +193,6 @@ RSpec.describe Token do
       it 'returns true' do
         expect(token).to be_expired
       end
-    end
-  end
-
-  describe '#user_and_contacts_email' do
-    subject { token.user_and_contacts_email }
-
-    let(:token) { create(:token, :with_contacts) }
-
-    it 'contains the token owner\'s email (account owner)' do
-      user_email = token.user.email
-
-      expect(subject).to include(user_email)
-    end
-
-    it 'contains all token\'s contacts email' do
-      contacts_emails = token.contacts.pluck(:email).uniq
-
-      expect(subject).to include(*contacts_emails)
     end
   end
 end

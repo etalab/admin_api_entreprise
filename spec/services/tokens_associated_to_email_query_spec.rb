@@ -18,10 +18,9 @@ RSpec.describe TokensAssociatedToEmailQuery do
 
   context 'when email is provided from a contact' do
     context 'with tokens' do
-      let!(:contact_1) { create(:contact, email:, authorization_request: create(:authorization_request, :with_tokens)) }
-      let!(:contact_2) { create(:contact, email:, authorization_request: create(:authorization_request, :with_tokens)) }
+      let!(:contact) { create(:user, :contact_technique) }
 
-      let(:tokens) { [contact_1.authorization_request.token, contact_2.authorization_request.token] }
+      let(:tokens) { contact.tokens.to_a }
 
       context 'when API is not provided' do
         it { is_expected.to match_array(token_list) }
@@ -41,8 +40,7 @@ RSpec.describe TokensAssociatedToEmailQuery do
     end
 
     context 'without tokens' do
-      let!(:contact_1) { create(:contact, email:) }
-      let!(:contact_2) { create(:contact, email:) }
+      let!(:contact) { create(:user, email:) }
 
       it { is_expected.to eq(Token.none) }
     end
@@ -78,11 +76,15 @@ RSpec.describe TokensAssociatedToEmailQuery do
     end
   end
 
-  context 'when email is from both user and contact' do
+  context 'when email is from a user demandeur and contact' do
     context 'with tokens' do
-      let!(:user) { create(:user, :with_token, email:, tokens_amount: 2) }
-      let!(:contact) { create(:contact, email:, authorization_request: create(:authorization_request, :with_tokens)) }
-      let(:tokens) { user.tokens.to_a + contact.tokens }
+      let!(:contact) do
+        create(:user,
+          :with_roles,
+          email:,
+          roles: %w[demandeur contact_technique])
+      end
+      let(:tokens) { contact.tokens.to_a }
 
       context 'when API is not provided' do
         it { is_expected.to match_array(token_list) }
@@ -103,7 +105,6 @@ RSpec.describe TokensAssociatedToEmailQuery do
 
     context 'without tokens' do
       let!(:user) { create(:user, email:) }
-      let!(:contact) { create(:contact, email:) }
 
       it { is_expected.to eq(Token.none) }
     end

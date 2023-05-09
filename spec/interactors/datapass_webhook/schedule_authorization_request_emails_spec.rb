@@ -15,7 +15,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
   end
 
   let(:datapass_webhook_params) { build(:datapass_webhook, event:) }
-  let(:authorization_request) { create(:authorization_request, :with_contacts) }
+  let(:authorization_request) { create(:authorization_request, :with_demandeur, :with_contact_metier, :with_contact_technique) }
   let(:mailjet_variables) { { lol: 'oki' } }
 
   before do
@@ -53,8 +53,8 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
           template_id: '11',
           to: [
             {
-              'email' => authorization_request.user.email,
-              'full_name' => authorization_request.user.full_name
+              'email' => authorization_request.demandeur.email,
+              'full_name' => authorization_request.demandeur.full_name
             }
           ]
         )
@@ -67,8 +67,8 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
           template_id: '12',
           to: [
             {
-              'email' => authorization_request.user.email,
-              'full_name' => authorization_request.user.full_name
+              'email' => authorization_request.demandeur.email,
+              'full_name' => authorization_request.demandeur.full_name
             }
           ]
         )
@@ -80,23 +80,23 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
     let(:event) { %w[refuse_application refuse].sample }
 
     before do
-      AuthorizationRequestConditionFacade.define_method(:user_first_name_is_run?) do
-        user.first_name == 'run'
+      AuthorizationRequestConditionFacade.define_method(:demandeur_first_name_is_run?) do
+        demandeur.first_name == 'run'
       end
 
-      AuthorizationRequestConditionFacade.define_method(:user_last_name_is_run?) do
-        user.last_name == 'run'
+      AuthorizationRequestConditionFacade.define_method(:demandeur_last_name_is_run?) do
+        demandeur.last_name == 'run'
       end
     end
 
     after do
-      AuthorizationRequestConditionFacade.remove_method(:user_first_name_is_run?)
-      AuthorizationRequestConditionFacade.remove_method(:user_last_name_is_run?)
+      AuthorizationRequestConditionFacade.remove_method(:demandeur_first_name_is_run?)
+      AuthorizationRequestConditionFacade.remove_method(:demandeur_last_name_is_run?)
     end
 
     context 'when all conditions are met' do
       before do
-        authorization_request.user.update!(
+        authorization_request.demandeur.update!(
           first_name: 'run',
           last_name: 'run'
         )
@@ -114,8 +114,8 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
             template_id: '51',
             to: [
               {
-                'email' => authorization_request.user.email,
-                'full_name' => authorization_request.user.full_name
+                'email' => authorization_request.demandeur.email,
+                'full_name' => authorization_request.demandeur.full_name
               }
             ]
           )
@@ -138,8 +138,8 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
                 'full_name' => authorization_request.contact_technique.full_name
               },
               {
-                'email' => authorization_request.user.email,
-                'full_name' => authorization_request.user.full_name
+                'email' => authorization_request.demandeur.email,
+                'full_name' => authorization_request.demandeur.full_name
               }
             ]
           )
@@ -149,7 +149,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
 
     describe 'when one condition is not met' do
       before do
-        authorization_request.user.update!(
+        authorization_request.users.first.update!(
           first_name: 'run',
           last_name: 'not run'
         )
@@ -167,8 +167,8 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
             template_id: '51',
             to: [
               {
-                'email' => authorization_request.user.email,
-                'full_name' => authorization_request.user.full_name
+                'email' => authorization_request.demandeur.email,
+                'full_name' => authorization_request.demandeur.full_name
               }
             ]
           )

@@ -11,7 +11,7 @@ class DatapassWebhook::UpdateMailjetContacts < ApplicationInteractor
 
   def mailjet_contact_payloads
     [
-      mailjet_payload_for(:user),
+      mailjet_payload_for(:demandeur),
       mailjet_payload_for(:contact_metier),
       mailjet_payload_for(:contact_technique)
     ].compact.uniq do |mailjet_contact_payload|
@@ -30,7 +30,7 @@ class DatapassWebhook::UpdateMailjetContacts < ApplicationInteractor
       properties: {
         'prénom' => contact.first_name,
         'nom' => contact.last_name,
-        'contact_demandeur' => contact.email == authorization_request.user.try(:email),
+        'contact_demandeur' => contact.email == authorization_request.demandeur.try(:email),
         'contact_métier' => contact.email == authorization_request.contact_metier.try(:email),
         'contact_technique' => contact.email == authorization_request.contact_technique.try(:email)
       }
