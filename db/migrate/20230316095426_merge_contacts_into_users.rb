@@ -62,9 +62,9 @@ class MergeContactsIntoUsers < ActiveRecord::Migration[7.0]
 
       role = 'demandeur' if user.persisted?
 
-      UserAuthorizationRequestRole.create!(user:, authorization_request: contact.authorization_request, role:) if contact.authorization_request
-
       user.save
+
+      UserAuthorizationRequestRole.find_or_create_by(user:, authorization_request: contact.authorization_request, role:) if contact.authorization_request
     end
 
     remove_column :authorization_requests, :user_id
