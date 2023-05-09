@@ -7,19 +7,6 @@ module PublicTokenMagicLinksManagement
     handle_invalid_magic_link!
   end
 
-  def create
-    MagicLink::CreateAndSend.call(magic_token_create_params)
-
-    success_message(
-      title: t("#{namespace}.public_token_magic_links.create.title"),
-      description: t("#{namespace}.public_token_magic_links.create.description")
-    )
-
-    redirect_to login_path
-  end
-
-  def new; end
-
   private
 
   def handle_invalid_magic_link!
@@ -43,13 +30,6 @@ module PublicTokenMagicLinksManagement
   def magic_token_show_params
     {
       access_token: params.require(:access_token)
-    }
-  end
-
-  def magic_token_create_params
-    {
-      email: params.require(:email),
-      host: request.host
     }
   end
 end

@@ -7,10 +7,6 @@ RSpec.describe 'page access', app: :api_entreprise do
     it 'can access the login page' do
       expect(page).to have_current_path(login_path, ignore_query: true)
     end
-
-    it 'has a button to send magic link' do
-      expect(page).to have_button('send_magic_link')
-    end
   end
 
   context 'when the user is logged in' do
