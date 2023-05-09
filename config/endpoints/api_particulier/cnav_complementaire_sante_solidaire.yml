@@ -25,7 +25,10 @@
       Avec FranceConnect.
   data:
     description: |+
-      Cette API **indique si le particulier est bénéficiaire de la complémentaire santé solidaire (C2S)**, en précisant si celle-ci est **avec ou sans participation financière**. Si le particulier est bénéficaire, la **date d'ouverture du droit et la date de fermeture** du droit seront également transmises.
+      Cette API **indique si le particulier est bénéficiaire de la complémentaire santé solidaire ([C2S](#faq_entry_0_api_particulier_endpoint_cnav_complementaire_sante_solidaire))**. En précisant : 
+      - si la C2S est avec ou sans participation financière ;
+      - la date d'ouverture du droit ;
+      - la date de fermeture du droit.
   provider_uids:
     - 'cnav'
   # Ces mots clés servent à la recherche algolia sur l'index du catalogue
@@ -33,6 +36,10 @@
     - complementaire
     - sante
     - solidaire
+    - C2S
+    - assuré
+    - assurance maladie
+    - mutuelle
   parameters:
     - Identité pivot
     - FranceConnect
@@ -47,11 +54,7 @@
         - gratuite, indiquée par "sans participation" dans cette API ; 
         - payante, indiquée par "avec participation" dans cette API.
 
-        Pour en savoir plus, [consulter cette page dédiée sur service-public.fr](https://www.service-public.fr/particuliers/vosdroits/F10027){target="_blank"}.
-    - q: "Quel est le mécanisme déterminant l'indicateur ?"
-      a: |+
-        En pratique, il peut arriver qu'un bénéficiaire soit bénéficiare de plusieurs C2S, et même parfois de certaines C2S avec participation et d'autres sans participation.
-         
-        L'indicateur "bénéficiaire avec participation / bénéficiaire sans participation / non-bénéficiaire C2S' est déterminé en suivant la méthodologie suivante :" 
+        Pour en savoir plus, [consulter cette page dédiée sur service-public.fr](https://www.service-public.fr/particuliers/vosdroits/F10027){:target="_blank"}.
+
 
 
