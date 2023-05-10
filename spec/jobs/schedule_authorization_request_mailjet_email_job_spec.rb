@@ -129,6 +129,20 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob do
         end
       end
 
+      describe 'non-regression test: when a CC field is empty' do
+        let(:cc_contact_main) { create(:user, :with_full_name) }
+
+        before do
+          mailjet_attributes[:cc] = [nil]
+        end
+
+        it 'do not error' do
+          expect(Mailjet::Send).to receive(:create)
+
+          expect { subject }.not_to raise_error
+        end
+      end
+
       context 'when Mailjet raises an error' do
         let(:mailjet_error) do
           Mailjet::ApiError.new(
