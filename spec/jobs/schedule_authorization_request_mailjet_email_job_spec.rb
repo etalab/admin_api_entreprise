@@ -96,18 +96,18 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob do
       end
 
       context 'when there is cc field in mailjet attributes' do
-        let(:cc_contact1) { create(:user, :with_full_name) }
-        let(:cc_contact2) { create(:user, :with_full_name) }
+        let(:cc_contact_main) { create(:user, :with_full_name) }
+        let(:cc_contact_other) { create(:user, :with_full_name) }
 
         before do
           mailjet_attributes[:cc] = [
             {
-              email: cc_contact1.email,
-              full_name: cc_contact1.full_name
+              email: cc_contact_main.email,
+              full_name: cc_contact_main.full_name
             },
             {
-              email: cc_contact2.email,
-              full_name: cc_contact2.full_name
+              email: cc_contact_other.email,
+              full_name: cc_contact_other.full_name
             }
           ]
         end
@@ -118,7 +118,7 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob do
               from_name: anything,
               from_email: anything,
               to: "#{to_user.full_name} <#{to_user.email}>",
-              cc: "#{cc_contact1.full_name} <#{cc_contact1.email}>, #{cc_contact2.full_name} <#{cc_contact2.email}>",
+              cc: "#{cc_contact_main.full_name} <#{cc_contact_main.email}>, #{cc_contact_other.full_name} <#{cc_contact_other.email}>",
               vars: mailjet_template_vars,
               'Mj-TemplateLanguage' => true,
               'Mj-TemplateID' => mailjet_template_id
