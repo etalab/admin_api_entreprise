@@ -443,23 +443,20 @@ fr:
           entries:
             - question: "Comment se connecter à l'espace utilisateur ?"
               answer: |+
-                
-                ##### Une connexion par lien magique
+                Le [compte utilisateur](<%= user_profile_path %>) est un espace accessible aux trois contacts principaux mentionnés dans la demande d'habilitation validée : le contact qui a établi la demande, le contact métier et le contact technique. 
 
-                La connexion s'effectue à [cette adresse](<%= login_path %>). Entrez votre adresse e-mail et cliquez sur "Envoyez le lien de connexion". Un e-mail est alors envoyé à l'adresse renseignée. Cliquez sur ce lien temporaire transmis, vous êtes connecté à votre compte API Entreprise.
+                La connexion se fait par le mode d'authentification "MonComptePro" en cliquant sur le bouton bleu disponible à [cette page](<%= user_profile_path %>). Une adresse e-mail vous est alors demandée, il vous faut **utiliser l'e-mail renseigné dans la demande d'habilitation**.
+                Configurez votre mot de passe ou utilisez le mode de connexion par lien magique.
 
-                ##### Un compte accessible uniquement au demandeur et au contact technique
-
-                Le [compte utilisateur](<%= user_profile_path %>) est un **espace uniquement disponible aux utilisateurs ayant eu validation de leur demande d'habilitation**.
-
-                Par ailleurs, seul l'e-mail principal de contact du formulaire d’habilitation API Entreprise et l'e-mail indiqué en contact technique possèdent un accès à ce [compte](<%= user_profile_path %>). Le contact métier, le DPD et le DPO n'ont pas accès au compte API Entreprise.
-
+                {:.fr-highlight}
                 _Dans certains cas spécifiques comme le départ du demandeur, un changement de poste, etc.,_ un transfert de compte peut être nécessaire. Cette opération nécessite l’accord explicite du demandeur et est instruite manuellement par nos services. [En savoir plus.](#comment-transferer-mon-compte-a-une-autre-personne)
 
-                ##### La connexion par mot de passe reste disponible pour les demandeurs
-
-                _Vous êtes à l'origine de la demande d'habilitation ?_ En tant que demandeur, vous avez un autre moyen d'accès au compte API Entreprise : Vous pouvez utiliser l'**authentification par mot de passe "MonComptePro"**. Il vous faudra alors renseigner l'adresse e-mail et le mot de passe que vous aviez configuré au moment de faire votre demande d'habilitation à l'API Entreprise. Le bouton pour accéder à l'authentification par MonComptePro se situe en dessous de la connexion par lien magique, à [cette page](<%= login_path %>).
-
+                **Le compte utilisateur vous permet de :** 
+                - copier/coller le jeton d'accès à l'API, en [respectant les règles indispensables de sécurité](#qu-est-ce-qu-un-token-ou-jeton) ;
+                - [renouveler votre jeton d'accès arrivé à expiration](#comment-renouveler-mon-jeton-arrivant-a-expiration) ;
+                - [étendre/modifier vos droits d'accès](#comment-elargir-le-perimetre-des-api-disponibles-avec-mon-jeton-obtenir-de-nouvelles-donnees) ;
+                - consulter les statistiques d'utilisation de votre jeton ;
+                - consulter la liste de vos habilitations à API Entreprise.
 
             - question: "Comment transférer mon compte à une autre personne ?"
               answer: |+
