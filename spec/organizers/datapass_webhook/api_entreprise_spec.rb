@@ -5,7 +5,14 @@ require 'rails_helper'
 RSpec.describe DatapassWebhook::APIEntreprise, type: :interactor do
   subject { described_class.call(datapass_webhook_params) }
 
-  let(:datapass_webhook_params) { build(:datapass_webhook, event: 'validate_application', demarche: 'editeurs', authorization_request_attributes: { copied_from_enrollment_id: previous_enrollment_id }) }
+  let(:datapass_webhook_params) do
+    build(:datapass_webhook,
+      event: 'validate_application',
+      demarche: 'editeurs',
+      authorization_request_attributes: {
+        copied_from_enrollment_id: previous_enrollment_id
+      })
+  end
   let(:previous_enrollment_id) { rand(9001).to_s }
   let(:token) { create(:token) }
   let(:demandeur_roles) { UserAuthorizationRequestRole.where(role: 'demandeur') }
