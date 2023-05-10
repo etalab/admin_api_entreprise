@@ -11,6 +11,12 @@ module UserSessionsHelper
     !current_user.nil?
   end
 
+  def user_is_demandeur?(authorization_request)
+    return unless authorization_request
+
+    authorization_request.demandeur == current_user
+  end
+
   def sign_in_and_redirect(user)
     session[:current_user_id] = user.id
     redirect_current_user_to_homepage

@@ -51,4 +51,31 @@ RSpec.describe 'token contacts page', app: :api_entreprise do
       end
     end
   end
+
+  describe 'connected as a contact (metier)' do
+    let(:user) { contact_metier }
+    let(:authorization_request) { create(:authorization_request, :with_contact_metier, :with_contact_technique, :with_roles, roles: %i[demandeur contact_technique]) }
+    let(:token) { create(:token, authorization_request:) }
+
+    it 'do not displays the metier contact data' do
+      expect(page).not_to have_css("input[value='#{contact_technique.email}']")
+      expect(page).not_to have_css("input[value='#{contact_technique.phone_number}']")
+    end
+
+    context 'when accessing his own data' do
+      it 'does not have a button to update the contact data' do
+        expect(page).not_to have_button(dom_id(contact_technique, :edit_button))
+      end
+    end
+
+    context 'when accessing another user data' do
+      let(:token) { create(:token) }
+
+      it_behaves_like 'display alert', :error
+
+      it 'redirects to the user profile' do
+        expect(page).to have_current_path(user_profile_path)
+      end
+    end
+  end
 end

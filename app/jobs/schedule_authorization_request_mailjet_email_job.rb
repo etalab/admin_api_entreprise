@@ -36,7 +36,7 @@ class ScheduleAuthorizationRequestMailjetEmailJob < ApplicationJob
   def build_recipient_attributes(recipient_payloads)
     return if recipient_payloads.nil?
 
-    recipient_payloads.map { |recipient_payload|
+    recipient_payloads.compact.map { |recipient_payload|
       recipient_payload.stringify_keys!
 
       "#{recipient_payload['full_name']} <#{recipient_payload['email']}>"

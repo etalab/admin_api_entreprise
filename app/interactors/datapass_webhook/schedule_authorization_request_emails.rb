@@ -42,7 +42,7 @@ class DatapassWebhook::ScheduleAuthorizationRequestEmails < ApplicationInteracto
   def recipient_payload(user_strings_to_eval)
     return if user_strings_to_eval.blank?
 
-    user_strings_to_eval.map do |user_string_to_eval|
+    user_strings_to_eval.map { |user_string_to_eval|
       contact = user_string_to_eval.split('.').reduce(context) do |object, method|
         object.public_send(method)
       end
@@ -53,7 +53,7 @@ class DatapassWebhook::ScheduleAuthorizationRequestEmails < ApplicationInteracto
         'email' => contact.email,
         'full_name' => contact.full_name
       }
-    end
+    }.compact
   end
 
   def default_recipients
