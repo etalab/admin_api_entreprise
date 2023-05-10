@@ -1,0 +1,62 @@
+---
+- uid: 'cnav/complementaire_sante_solidaire'
+  path: '/api/v2/complementaire-sante-solidaire'
+  # Position au sein de l'index
+  position: 600
+  perimeter:
+    entity_type_description: |+
+      ✅ **Le périmètre de l'API est exhaustif et couvre tous les assurés** de la sphère sociale susceptibles d'être concernés par la complémentaire de santé solidaire ([C2S](#faq_entry_0_api_particulier_endpoint_cnav_complementaire_sante_solidaire)).
+    geographical_scope_description:  |+
+      Cette API couvre les assurés : 
+      - ✅ de France métropolitaine
+      - ✅ des départements d'Outre-mer
+      - ✅ de nationalité étrangère.
+
+      Les collectivtés d'Outre-mer, ayant un autre système de sécurité sociale, ne sont pas concernées par cette API.
+    updating_rules_description: |+
+      Les données sont **mises à jour en temps réel** et issues du répertoire national commun de la protection sociale (RNCPS) opéré par la CNAV. Les données du répertoire sont remontées directement par les différents organismes comme par exemple la CNAF pour les assurés du régime général et la MSA pour les assurés au régime agricole.
+  parameters_details:
+    description: |+
+      Cette API propose 2 modalités d'appel :
+      <p class="fr-badge fr-badge--blue-ecume">Identité pivot</p>
+      Avec les données d'identité : noms, prénoms, sexe, date de naissance, code Insee de naissance et code pays de naissance du particulier.
+
+      <p class="fr-badge fr-badge--green-emeraude">FranceConnect</p>
+      Avec FranceConnect.
+  data:
+    description: |+
+      Cette API **indique si le particulier est bénéficiaire de la complémentaire santé solidaire**. En précisant : 
+      - si la C2S est avec ou sans participation financière ;
+      - la date d'ouverture du droit ;
+      - la date de fermeture du droit.
+  provider_uids:
+    - 'cnav'
+  # Ces mots clés servent à la recherche algolia sur l'index du catalogue
+  keywords:
+    - complementaire
+    - sante
+    - solidaire
+    - C2S
+    - assuré
+    - assurance maladie
+    - mutuelle
+  parameters:
+    - Identité pivot
+    - FranceConnect
+  use_cases:
+    - whatever
+  faq:
+    - q: "Qu'est-ce qu'une complémentaire santé solidaire ?"
+      a: |+
+        La complémentaire santé solidaire est une **aide versée par l'assurance maladie sous conditions de ressources et de résidence**. Elle prend en charge la part des dépenses de santé qui ne sont pas remboursées par la sécurité sociale et permet d'accéder à d'autres avantages.
+
+        La complémentaire santé solidaire peut être : 
+        - gratuite, indiquée par _"sans participation"_ dans cette API ; 
+        - payante à partir d'un certain montant de ressources, indiquée par _"avec participation"_ dans cette API.
+
+ 
+        **En savoir plus sur le dispositif** : [service-public.fr](https://www.service-public.fr/particuliers/vosdroits/F10027){:target="_blank"}.
+        **En savoir plus sur les conditions d'accès** : [complementaire-sante-solidaire.gouv.fr](https://www.complementaire-sante-solidaire.gouv.fr/complementairesantesolidaire.php){:target="_blank"}.
+
+
+
