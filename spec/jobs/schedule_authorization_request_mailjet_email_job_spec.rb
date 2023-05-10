@@ -170,7 +170,7 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob do
           end
         end
 
-        it 'raises this error (which reschedule job exponentialy)' do
+        it 'raises this error (which reschedule job exponentially)' do
           expect {
             subject
           }.to raise_error(Mailjet::ApiError)
