@@ -47,6 +47,8 @@ class DatapassWebhook::ScheduleAuthorizationRequestEmails < ApplicationInteracto
         object.public_send(method)
       end
 
+      next unless contact
+
       {
         'email' => contact.email,
         'full_name' => contact.full_name

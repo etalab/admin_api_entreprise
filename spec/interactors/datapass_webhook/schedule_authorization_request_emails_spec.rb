@@ -145,6 +145,14 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
           )
         ).at(Time.zone.now)
       end
+
+      describe 'non-regression test: on an authorization_request with no contacts' do
+        let(:authorization_request) { create(:authorization_request, :with_demandeur) }
+
+        it 'do not error' do
+          expect { subject }.not_to raise_error
+        end
+      end
     end
 
     describe 'when one condition is not met' do
