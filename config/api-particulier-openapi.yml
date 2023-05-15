@@ -55,6 +55,200 @@ info:
     url: https://github.com/betagouv/api-particulier/blob/master/LICENSE
 tags: []
 paths:
+  "/api/v2/scolarites":
+    get:
+      summary: Statut élève scolarisé et boursier
+      tags:
+      - Scolarité étudiant
+      - Prochainement
+      parameters:
+      - name: X-Api-Key
+        in: header
+        schema:
+          type: string
+      - name: nom
+        in: query
+        schema:
+          type: string
+      - name: prenom
+        in: query
+        schema:
+          type: string
+      - name: sexe
+        in: query
+        schema:
+          type: string
+      - name: dateNaissance
+        in: query
+        schema:
+          type: string
+      - name: codeEtablissement
+        in: query
+        schema:
+          type: string
+      - name: anneeScolaire
+        in: query
+        schema:
+          type: string
+      description: Statut scolarisé et statut boursier d'un élève du primaire, collège
+        ou lycée.
+      responses:
+        '200':
+          description: Scolarité trouvée
+          x-operationId: api_particulier_v2_mesri_scolarites
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  eleve:
+                    title: Informations sur l'élève
+                    description: Les informations retournées ici sont celles transmises
+                      en paramètre d'appel. S'il y a eu des erreurs de frappe à la
+                      saisie, elles seront renvoyées.
+                    type: object
+                    properties:
+                      nom:
+                        title: Nom
+                        description: Nom de l'élève
+                        type: string
+                        example: Dubois
+                      prenom:
+                        title: Prénom
+                        description: Prénom de l'élève
+                        type: string
+                        example: Camille
+                      sexe:
+                        title: Sexe
+                        description: Sexe de l'élève, masculin ou féminin
+                        type: string
+                        example: F
+                        enum:
+                        - M
+                        - F
+                      date_naissance:
+                        title: Date de naissance
+                        description: Date de naissance de l'élève au format AAAA-MM-JJ
+                        type: string
+                        example: '2000-01-20'
+                    required:
+                    - nom
+                    - prenom
+                    - sexe
+                    - date_naissance
+                  code_etablissement:
+                    title: Code UAI de l'établissement
+                    description: |
+                      Code d'unité administrative immatriculée (code UAI) de l'établissement où est scolarisé l'élève. Ce code unique inscrit au répertoire national des établissements est composé de 7 chiffres et d'une lettre ; les trois premiers chiffres correspondent au numéro de département de l'établissement.
+
+                      Pour retrouver facilement le code UAI d'un établissement à partir d' informations plus facilement connues des usagers (commune, code postal, etc.), vous pouvez utiliser l'[API \"Annuaire de l'éducation nationale\" ](https://api.gouv.fr/les-api/api-annuaire-education).
+
+                      ⚠️ L'établissement 0861288H (CNED Direction générale) n'existe pas dans l'API annuaire de l'éducation nationale, il faudra donc compléter la liste des établissements avec une ligne CNED à laquelle sera associée le code UAI qui sera en passé en entrée.
+                    type: string
+                    pattern: "^\\d{7}\\w$"
+                    example: '0890003V'
+                  annee_scolaire:
+                    title: Année scolaire
+                    description: Année scolaire de l'élève au format AAAA-AAAA
+                    type: string
+                    pattern: "^\\d{4}$|^\\d{4}-\\d{4}$"
+                    example: 2022-2023
+                  est_scolarise:
+                    description: Indique si l'élève est scolarisé dans l'établissement.
+                    type: boolean
+                    example: true
+                  est_boursier:
+                    description: Indique si l'élève est boursier dans l'établissement.
+                      Les bourses concernent uniquement les élèves des collèges et
+                      lycées.
+                    type: boolean
+                    example: false
+                  status_eleve:
+                    title: Statut de l'élève
+                    description: |
+                      Indique le statut sous lequel l'élève est scolarisé dans l'établissement. Les valeurs possibles sont&nbsp;:&nbsp;
+                      - ST : Scolaire, il s'agit du statut de base renvoyé pour près de 95% des élèves. Ce statut concerne également les élèves qui suivent le CNED (Centre national d'éducation à distance). Ceux-ci peuvent être distingués par l'établissement car ils sont tous affectés au même : `0861288H (CNED DIRECTION GENERALE)`.
+                      - AP : Apprenti
+                      - CQ : Contrat de qualification
+                      - FC : Formation continue
+                    type: object
+                    properties:
+                      code:
+                        title: Code statut de l'élève
+                        description: Code du statut sous lequel l'élève est scolarisé
+                          dans l'établissement.
+                        type: string
+                        enum:
+                        - ST
+                        - AP
+                        - FQ
+                        - CQ
+                        - FC
+                      libelle:
+                        title: Libellé du statut de l'élève
+                        description: Libellé du statut sous lequel l'élève est scolarisé
+                          dans l'établissement.
+                        type: string
+                        enum:
+                        - Scolaire
+                        - Apprenti
+                        - Stagiaire de la Formation Professionnelle
+                        - Contrat de Qualification
+                        - Formation Continue
+                    required:
+                    - code
+                    - libelle
+        '400':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                unprocessable_entity_error_gender_error:
+                  value:
+                    errors:
+                    - code: '00364'
+                      title: Entité non traitable
+                      detail: Le sexe n'est pas correctement formaté (m ou f)
+                      source:
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le sexe n'est pas correctement formaté (m ou f)
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Non trouvée
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '503':
+          description: Erreur du fournisseur
+          content:
+            application/json:
+              examples:
+                unknown_error:
+                  value:
+                    errors:
+                    - code: '25999'
+                      title: Erreur inconnue du fournisseur de données
+                      detail: La réponse retournée par le fournisseur de données est
+                        invalide et inconnue de notre service. L'équipe technique
+                        a été notifiée de cette erreur pour investigation.
+                      source:
+                      meta:
+                        provider: MESRI
+                  summary: Erreur inconnue du fournisseur de données
+                  description: La réponse retournée par le fournisseur de données
+                    est invalide et inconnue de notre service. L'équipe technique
+                    a été notifiée de cette erreur pour investigation.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '504':
+          description: Erreur d'intermédiaire
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
   "/api/v2/avis-imposition":
     get:
       description: |-
@@ -412,12 +606,12 @@ paths:
                         description: Numéro d'appartement, escalier
                         type: string
                         nullable: true
-                        example: 
+                        example:
                       complementIdentiteGeo:
                         title: Complément d'information du point géographique
                         type: string
                         nullable: true
-                        example: 
+                        example:
                         description: Entrée, tour, immeuble, bâtiment, résidence
                       numeroRue:
                         title: Voie
@@ -428,7 +622,7 @@ paths:
                         title: Lieu-dit
                         type: string
                         nullable: true
-                        example: 
+                        example:
                         description: 'Lieu-dit ou service particulier de distribution
                           : poste restante, boîte postale'
                       codePostalVille:
@@ -544,7 +738,7 @@ paths:
                     type: string
                     description: Nom d'usage du demandeur d'emploi
                     nullable: true
-                    example: 
+                    example:
                   prenom:
                     title: Prénom
                     type: string
@@ -582,7 +776,7 @@ paths:
                     - AC
                     - DC
                     - RC
-                    - 
+                    -
                   telephone:
                     title: Téléphone principal
                     type: string
@@ -622,15 +816,15 @@ paths:
                       ligneComplementDestinaire:
                         type: string
                         nullable: true
-                        example: 
+                        example:
                       ligneComplementAdresse:
                         type: string
                         nullable: true
-                        example: 
+                        example:
                       ligneComplementDistribution:
                         type: string
                         nullable: true
-                        example: 
+                        example:
                       ligneNom:
                         type: string
                         example: MARTIN
@@ -1132,11 +1326,10 @@ paths:
   "/api/v2/composition-familiale-v2":
     get:
       summary: Quotient familial CAF & MSA
-      description: "Quotient familial et composition de la
-        famille d'un allocataire du régime général et du régime agricole. \n Pour
-        de plus amples informations sur cette api et y avoir accès en avant première,
-        veuillez contacter l'équipe API Particulier. \n **Données disponibles en bac
-        à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/api_particulier_v2_cnaf_quotient_familial_v2) "
+      description: "Quotient familial et composition de la famille d'un allocataire
+        du régime général et du régime agricole. \n Pour de plus amples informations
+        sur cette api et y avoir accès en avant première, veuillez contacter l'équipe
+        API Particulier. \n **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/api_particulier_v2_cnaf_quotient_familial_v2) "
       tags:
       - Prochainement
       parameters:
@@ -1356,12 +1549,12 @@ paths:
                           de remise.
                         type: string
                         nullable: true
-                        example: 
+                        example:
                       complementInformationGeographique:
                         title: Complément d'information du point géographique
                         type: string
                         nullable: true
-                        example: 
+                        example:
                         description: Complément d'information du point géographique.
                       numeroLibelleVoie:
                         title: Voie
@@ -1372,7 +1565,7 @@ paths:
                         title: Lieu-dit
                         type: string
                         nullable: true
-                        example: 
+                        example:
                         description: 'Lieu-dit ou service particulier de distribution
                           : poste restante, boîte postale'
                       codePostalVille:
@@ -1592,11 +1785,12 @@ paths:
                     description: "Indique si le particulier est bénéficiaire de la
                       complémentaire de santé solidaire au moment de l'appel. Cet
                       indicateur précise sous quelle forme la C2S est attribuée (avec
-                      ou sans participation financière). \n - Si le statut est 'beneficiaire_sans_participation_financiere',
-                      cela signifie que le particulier est bénéficiaire d'une C2S
-                      sans participation financière. - Si le statut est 'beneficiaire_avec_participation_financiere',
+                      ou sans participation financière). \n \n - Si le statut est
+                      'beneficiaire_sans_participation_financiere', cela signifie
+                      que le particulier est bénéficiaire d'une C2S sans participation
+                      financière. \n - Si le statut est 'beneficiaire_avec_participation_financiere',
                       cela signifie que le particulier est d'une bénéficiaire de C2S
-                      avec participation financière. - Si le statut est 'non_beneficiaire_css',
+                      avec participation financière. \n - Si le statut est 'non_beneficiaire_css',
                       cela signifie que le particulier n'est pas concerné par la C2S."
                     enum:
                     - beneficiaire_sans_participation_financiere
@@ -1608,10 +1802,10 @@ paths:
                     format: date
                     nullable: true
                     description: "Date de début de droit à la complémentaire santé
-                      solidaire (C2S) si le particulier est bénéficiaire. \n                    \n
-                      Dans le cas d'un particulier bénéficiant de plusieurs C2S, la
-                      date d'ouverture de droit la plus récente est transmise. \n
-                      Ce champs est null dans le cas où le particulier n'est pas bénéficiaire
+                      solidaire (C2S) si le particulier est bénéficiaire. \n Dans
+                      le cas d'un particulier bénéficiant de plusieurs C2S, la date
+                      d'ouverture de droit la plus récente est transmise. \n Ce champs
+                      est null dans le cas où le particulier n'est pas bénéficiaire
                       de la C2S."
                     example: 1992-11-29
                   dateFin:
@@ -1721,13 +1915,13 @@ components:
       properties:
         error:
           type: string
-          example: 
+          example:
         reason:
           type: string
-          example: 
+          example:
         message:
           type: string
-          example: 
+          example:
   securitySchemes:
     apiKey:
       type: apiKey
