@@ -1,15 +1,10 @@
 ---
 - uid: 'education_nationale/statut_eleve_scolarise'
-  path: '/api/v2/eleves_scolarises'
-  position: 150
+  path: '/api/v2/scolarites'
+  position: 650
   perimeter:
     entity_type_description: |+
-      Cette API concerne les **élèves du primaire et du secondaire**, des niveaux de classe suivants :
-      - ✅ primaire ;
-      - ✅ collège ;
-      - ✅ lycée ;
-      - ✅ CPGE - classes préparatoires aux grandes écoles ;
-      - ✅ BTS - brevet de technicien supérieur.
+      Cette API concerne les **✅ élèves du primaire, du collège et du lycée**.
 
       Une **large majorité d'établissements** sont concernés : 
       - ✅ établissements publics ;
@@ -17,18 +12,18 @@
       - ✅ lycées militaires et lycées maritimes ;
       - ✅ une partie des formations à distance du CNED.
 
-      Les établissements suivants ne sont pas couverts par l'API : 
+      **Concernant le statut boursier des élèves** : seules les bourses sur critères sociaux à l'échelle nationale sont couvertes par l'API. Par ailleurs, les bourses ne concernent que les collégiens et lycéens.
+      
+
+      **Les établissements suivants ne sont pas couverts par l'API** : 
       - ❌ établissements privés hors contrat ;
       - ❌ lycées agricoles ;
       - ❌ instruction dans la famille.
-
-      Concernant le statut boursier des élèves : **seules les bourses sur critères sociaux à l'échelle nationale** sont couvertes par l'API. Par ailleurs, les bourses ne concernent que les collégiens et lycéens.
-      
     geographical_scope_description:  |+
-      - ✅ France métropolitaine ;
-      - ✅ DROM COM.
+      - ✅ France métropolitaine
+      - ✅ DROM-COM
     updating_rules_description: |+
-      Les données du **premier degré** (primaire) sont mises à jour en **temps réel**.Les données du **second degré** (collèges et lycées) sont mises à jour **quotidiennement toutes les nuits**.
+      Les données du **premier degré** (primaire) sont mises à jour en **temps réel**. Les données du **second degré** (collèges et lycées) sont mises à jour **quotidiennement toutes les nuits**.
 
       Les informations, même si elles évoluent principalement lors de la rentrée scolaire en septembre, peuvent changer en cours d'année (déménagements, etc.).
   parameters_details:
