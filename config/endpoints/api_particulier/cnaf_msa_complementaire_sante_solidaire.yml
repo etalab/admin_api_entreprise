@@ -7,14 +7,12 @@
     entity_type_description: |+
       ✅ **Le périmètre de l'API est exhaustif et couvre tous les assurés** de la sphère sociale susceptibles d'être concernés par la complémentaire de santé solidaire ([C2S](#faq_entry_0_api_particulier_endpoint_cnav_complementaire_sante_solidaire)).
     geographical_scope_description:  |+
-      Cette API couvre les assurés : 
-      - ✅ de France métropolitaine
-      - ✅ des départements d'Outre-mer
-      - ✅ de nationalité étrangère.
-
-      Les collectivtés d'Outre-mer, ayant un autre système de sécurité sociale, ne sont pas concernées par cette API.
+      - ✅ France métropolitaine
+      - ✅ Départements d'Outre-mer
+      - ✅ Assurés de nationalité étrangère
+      - ❌ Les collectivtés d'Outre-mer, ayant un autre système de sécurité sociale, ne sont pas concernées par cette API.
     updating_rules_description: |+
-      Les données sont **mises à jour en temps réel** et issues du répertoire national commun de la protection sociale (RNCPS) opéré par la CNAV (Caisse nationale d'assurance vieillesse). Les données du répertoire sont remontées directement par les différents organismes comme la CNAF pour les assurés du régime général et la MSA pour les assurés au régime agricole.
+      Les données sont **mises à jour en temps réel** et issues du répertoire national commun de la protection sociale (RNCPS) opéré par la CNAV (Caisse nationale d'assurance vieillesse). Les données du répertoire sont remontées directement par les différents organismes comme la CNAM pour les assurés du régime général et la MSA pour les assurés au régime agricole.
   parameters_details:
     description: |+
       Cette API propose 2 modalités d'appel :
@@ -30,7 +28,7 @@
       - la date d'ouverture du droit ;
       - la date de fermeture du droit.
   provider_uids:
-    - 'cnaf-msa'
+    - 'sphere_sociale'
   # Ces mots clés servent à la recherche algolia sur l'index du catalogue
   keywords:
     - complementaire
