@@ -4,7 +4,7 @@ class User < ApplicationRecord
   include RandomToken
 
   has_many :user_authorization_request_roles, dependent: :destroy
-  has_many :authorization_requests, through: :user_authorization_request_roles, dependent: :destroy
+  has_many :authorization_requests, through: :user_authorization_request_roles
 
   has_many :tokens, through: :authorization_requests
 

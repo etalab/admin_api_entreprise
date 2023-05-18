@@ -14,7 +14,6 @@ class UserAuthorizationRequestRole < ApplicationRecord
     -> { joins(:user_authorization_request_roles).where(user_authorization_request_roles: { role: 'demandeur' }) },
     class_name: 'User',
     inverse_of: :user_authorization_request_roles,
-    dependent: :destroy,
     foreign_key: 'user_id',
     optional: true
 
@@ -22,7 +21,6 @@ class UserAuthorizationRequestRole < ApplicationRecord
     -> { joins(:user_authorization_request_roles).where(user_authorization_request_roles: { role: 'contact_metier' }) },
     class_name: 'User',
     inverse_of: :user_authorization_request_roles,
-    dependent: :destroy,
     foreign_key: 'user_id',
     optional: true
 
@@ -30,7 +28,6 @@ class UserAuthorizationRequestRole < ApplicationRecord
     -> { joins(:user_authorization_request_roles).where(user_authorization_request_roles: { role: 'contact_technique' }) },
     class_name: 'User',
     inverse_of: :user_authorization_request_roles,
-    dependent: :destroy,
     foreign_key: 'user_id',
     optional: true
 end
