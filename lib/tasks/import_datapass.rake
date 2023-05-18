@@ -42,9 +42,14 @@ namespace :datapass do
     row[:team_members].each do |team_member|
       user = User.find_by(email: team_member['email'])
 
-      role = team_member_to_contact[team_member['role']]
+      role = team_member_to_contact[team_member['type']]
 
-      next unless user && authorization_request && role
+      unless user && authorization_request && role
+        puts "Error: User #{team_member['email']} or AuthorizationRequest #{row[:id]} or role #{role} not found"
+        next
+      end
+
+      puts "Will create new UserAuthorizationRequestRole for #{user.email} on AuthorizationRequest #{authorization_request.external_id} (role: #{role})"
 
       create_user_authorization_request_role(authorization_request, user, role)
     end
