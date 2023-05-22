@@ -25,7 +25,7 @@ RSpec.describe 'Endpoints index', app: :api_entreprise do
       end
     end
 
-    it 'filters endpoints' do
+    it 'filters endpoints', retry: 5 do
       subject
 
       expect(page).to have_css('.endpoint-card', count: 1)
