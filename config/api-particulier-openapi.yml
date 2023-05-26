@@ -60,7 +60,6 @@ paths:
       summary: Statut élève scolarisé et boursier
       tags:
       - Scolarité étudiant
-      - Prochainement
       parameters:
       - name: X-Api-Key
         in: header
@@ -95,7 +94,7 @@ paths:
       responses:
         '200':
           description: Scolarité trouvée
-          x-operationId: api_particulier_v2_mesri_scolarites
+          x-operationId: api_particulier_v2_men_scolarites
           content:
             application/json:
               schema:
@@ -112,12 +111,12 @@ paths:
                         title: Nom
                         description: Nom de l'élève
                         type: string
-                        example: Dubois
+                        example: Martin
                       prenom:
                         title: Prénom
                         description: Prénom de l'élève
                         type: string
-                        example: Camille
+                        example: Justine
                       sexe:
                         title: Sexe
                         description: Sexe de l'élève, masculin ou féminin
@@ -141,12 +140,12 @@ paths:
                     description: |
                       Code d'unité administrative immatriculée (code UAI) de l'établissement où est scolarisé l'élève. Ce code unique inscrit au répertoire national des établissements est composé de 7 chiffres et d'une lettre ; les trois premiers chiffres correspondent au numéro de département de l'établissement.
 
-                      Pour retrouver facilement le code UAI d'un établissement à partir d' informations plus facilement connues des usagers (commune, code postal, etc.), vous pouvez utiliser l'[API \"Annuaire de l'éducation nationale\" ](https://api.gouv.fr/les-api/api-annuaire-education).
+                      Pour retrouver facilement le code UAI d'un établissement à partir d' informations plus facilement connues des usagers (commune, code postal, etc.), vous pouvez utiliser l'[API \"Annuaire de l'éducation nationale\"](https://api.gouv.fr/les-api/api-annuaire-education).
 
                       ⚠️ L'établissement 0861288H (CNED Direction générale) n'existe pas dans l'API annuaire de l'éducation nationale, il faudra donc compléter la liste des établissements avec une ligne CNED à laquelle sera associée le code UAI qui sera en passé en entrée.
                     type: string
                     pattern: "^\\d{7}\\w$"
-                    example: '0890003V'
+                    example: 0210015C
                   annee_scolaire:
                     title: Année scolaire
                     description: Année scolaire de l'élève au format AAAA-AAAA
@@ -166,11 +165,27 @@ paths:
                   status_eleve:
                     title: Statut de l'élève
                     description: |
-                      Indique le statut sous lequel l'élève est scolarisé dans l'établissement. Les valeurs possibles sont&nbsp;:&nbsp;
-                      - ST : Scolaire, il s'agit du statut de base renvoyé pour près de 95% des élèves. Ce statut concerne également les élèves qui suivent le CNED (Centre national d'éducation à distance). Ceux-ci peuvent être distingués par l'établissement car ils sont tous affectés au même : `0861288H (CNED DIRECTION GENERALE)`.
+                      Indique le statut sous lequel l'élève est scolarisé dans l'établissement. Les valeurs sont susceptibles d'évoluer &nbsp;:&nbsp;
+                      \n
+                      - ST : Scolaire, il s'agit du statut de base renvoyé pour près de 95% des élèves.
+                      \n
                       - AP : Apprenti
+                      \n
                       - CQ : Contrat de qualification
+                      \n
                       - FC : Formation continue
+                      \n
+                      - ED : Enseignement à distance
+                      \n
+                      - IN : Candidat individuel
+                      \n
+                      - FQ : Stagiaire de la formation Professionnelle
+                      \n
+                      - SC : Scolaire ou formation initiale
+                      \n
+                      - CP : Contrat de professionnalisation.
+                      \n
+                      - NC : Non connu ou non communiqué.
                     type: object
                     properties:
                       code:
@@ -178,23 +193,13 @@ paths:
                         description: Code du statut sous lequel l'élève est scolarisé
                           dans l'établissement.
                         type: string
-                        enum:
-                        - ST
-                        - AP
-                        - FQ
-                        - CQ
-                        - FC
+                        example: ST
                       libelle:
                         title: Libellé du statut de l'élève
                         description: Libellé du statut sous lequel l'élève est scolarisé
                           dans l'établissement.
                         type: string
-                        enum:
-                        - Scolaire
-                        - Apprenti
-                        - Stagiaire de la Formation Professionnelle
-                        - Contrat de Qualification
-                        - Formation Continue
+                        example: SCOLAIRE
                     required:
                     - code
                     - libelle
@@ -209,7 +214,7 @@ paths:
                     - code: '00364'
                       title: Entité non traitable
                       detail: Le sexe n'est pas correctement formaté (m ou f)
-                      source:
+                      source: 
                       meta: {}
                   summary: Entité non traitable
                   description: Le sexe n'est pas correctement formaté (m ou f)
@@ -229,14 +234,14 @@ paths:
                 unknown_error:
                   value:
                     errors:
-                    - code: '25999'
+                    - code: '30999'
                       title: Erreur inconnue du fournisseur de données
                       detail: La réponse retournée par le fournisseur de données est
                         invalide et inconnue de notre service. L'équipe technique
                         a été notifiée de cette erreur pour investigation.
-                      source:
+                      source: 
                       meta:
-                        provider: MESRI
+                        provider: MEN
                   summary: Erreur inconnue du fournisseur de données
                   description: La réponse retournée par le fournisseur de données
                     est invalide et inconnue de notre service. L'équipe technique
@@ -255,7 +260,7 @@ paths:
         Le service permet de vérifier l'authenticité du justificatif d'impôt sur le revenu ou de l'avis d'impôt sur le revenu présenté par un usager.
 
         **Paramètres d'appel :** numéro fiscal et numéro d'avis d'imposition
-        **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/tree/develop/payloads/api_particulier_v2_dgfip_svair)
+        **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/tree/develop/payloads/api_particulier_v2_dgfip_situation_ir)
       summary: Service de vérification de l'avis d'impôt sur le revenu
       parameters:
       - name: numeroFiscal
@@ -606,12 +611,12 @@ paths:
                         description: Numéro d'appartement, escalier
                         type: string
                         nullable: true
-                        example:
+                        example: 
                       complementIdentiteGeo:
                         title: Complément d'information du point géographique
                         type: string
                         nullable: true
-                        example:
+                        example: 
                         description: Entrée, tour, immeuble, bâtiment, résidence
                       numeroRue:
                         title: Voie
@@ -622,7 +627,7 @@ paths:
                         title: Lieu-dit
                         type: string
                         nullable: true
-                        example:
+                        example: 
                         description: 'Lieu-dit ou service particulier de distribution
                           : poste restante, boîte postale'
                       codePostalVille:
@@ -738,7 +743,7 @@ paths:
                     type: string
                     description: Nom d'usage du demandeur d'emploi
                     nullable: true
-                    example:
+                    example: 
                   prenom:
                     title: Prénom
                     type: string
@@ -776,7 +781,7 @@ paths:
                     - AC
                     - DC
                     - RC
-                    -
+                    - 
                   telephone:
                     title: Téléphone principal
                     type: string
@@ -816,15 +821,15 @@ paths:
                       ligneComplementDestinaire:
                         type: string
                         nullable: true
-                        example:
+                        example: 
                       ligneComplementAdresse:
                         type: string
                         nullable: true
-                        example:
+                        example: 
                       ligneComplementDistribution:
                         type: string
                         nullable: true
-                        example:
+                        example: 
                       ligneNom:
                         type: string
                         example: MARTIN
@@ -941,13 +946,11 @@ paths:
         schema:
           type: string
       summary: Statut étudiant
-      description: |-
-        Admissions et inscriptions d'un étudiant aux établissements d'enseignement supérieur.
-        **Paramètres d'appel :** Pour appeler l'API statut étudiant, deux modes d'appel sont possibles :
-         - INE, l'identifiant national étudiant ;
-         - l'état civil de l'étudiant: nom, prénom, date de naissance, sexe et lieu de naissance.
-
-        **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/api_particulier_v2_mesri_student_status)
+      description: "Admissions et inscriptions d'un étudiant aux établissements d'enseignement
+        supérieur.\n**Paramètres d'appel :** Pour appeler l'API statut étudiant, deux
+        modes d'appel sont possibles :\n - INE, l'identifiant national étudiant ;\n
+        - l'état civil de l'étudiant: nom, prénom, date de naissance, sexe et lieu
+        de naissance.\n \n**Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/api_particulier_v2_mesri_student_status)"
       responses:
         '200':
           x-operationId: api_particulier_v2_mesri_student_status
@@ -960,11 +963,13 @@ paths:
                   ine:
                     title: Identifiant National Étudiant (INE)
                     type: string
-                    description: Cet identifiant est unique à chaque étudiant sur
+                    description: "Cet identifiant est unique à chaque étudiant sur
                       le territoire français. Il est composé de 11 caractères, 10
                       chiffres et 1 lettre, et depuis la rentrée 2018, 9 chiffres
                       et 2 lettres. Les étudiants peuvent retrouver leur numéro INE
-                      sur leur carte étudiant et leur certificat de scolarité.
+                      sur leur carte étudiant et leur certificat de scolarité. \n
+                      Dans le cas où l'appel à l'api n'a pas été fait avec l'INE,
+                      le champ est null."
                     example: 1234567890G
                   nom:
                     title: Nom de naissance
@@ -1230,6 +1235,22 @@ paths:
                     type: string
                     description: L'établissement d'études de l'étudiant
                     example: Carnot
+        '400':
+          description: Mauvais paramètres d'appels
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: bad_request
+                  reason:
+                    type: string
+                    example: Le sexe est manquant
+                  message:
+                    type: string
+                    example: Le sexe est manquant
         '401': *2
         '404': *5
         '409':
@@ -1549,12 +1570,12 @@ paths:
                           de remise.
                         type: string
                         nullable: true
-                        example:
+                        example: 
                       complementInformationGeographique:
                         title: Complément d'information du point géographique
                         type: string
                         nullable: true
-                        example:
+                        example: 
                         description: Complément d'information du point géographique.
                       numeroLibelleVoie:
                         title: Voie
@@ -1565,7 +1586,7 @@ paths:
                         title: Lieu-dit
                         type: string
                         nullable: true
-                        example:
+                        example: 
                         description: 'Lieu-dit ou service particulier de distribution
                           : poste restante, boîte postale'
                       codePostalVille:
@@ -1802,9 +1823,7 @@ paths:
                     format: date
                     nullable: true
                     description: "Date de début de droit à la complémentaire santé
-                      solidaire (C2S) si le particulier est bénéficiaire. \n Dans
-                      le cas d'un particulier bénéficiant de plusieurs C2S, la date
-                      d'ouverture de droit la plus récente est transmise. \n Ce champs
+                      solidaire (C2S) si le particulier est bénéficiaire. \n Ce champs
                       est null dans le cas où le particulier n'est pas bénéficiaire
                       de la C2S."
                     example: 1992-11-29
@@ -1915,13 +1934,13 @@ components:
       properties:
         error:
           type: string
-          example:
+          example: 
         reason:
           type: string
-          example:
+          example: 
         message:
           type: string
-          example:
+          example: 
   securitySchemes:
     apiKey:
       type: apiKey
