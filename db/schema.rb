@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_16_095426) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_29_094940) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pgcrypto"
@@ -90,7 +90,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_16_095426) do
     t.string "pwd_renewal_token"
     t.datetime "pwd_renewal_token_sent_at", precision: nil
     t.string "oauth_api_gouv_id"
-    t.boolean "admin", default: false
     t.boolean "tokens_newly_transfered", default: false
     t.string "first_name"
     t.string "last_name"
