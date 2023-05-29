@@ -120,5 +120,15 @@ RSpec.describe 'User token listing', app: :api_entreprise do
 
       expect(page).not_to have_css("input[value='#{expired_token.rehash}']")
     end
+
+    context 'when the user has no token' do
+      let(:user) { create(:user) }
+
+      it 'displays a message' do
+        subject
+
+        expect(page).to have_content(I18n.t('api_entreprise.tokens.index.no_tokens'))
+      end
+    end
   end
 end
