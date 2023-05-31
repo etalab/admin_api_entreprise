@@ -3,12 +3,6 @@ module SessionsManagement
     redirect_current_user_to_homepage if user_signed_in?
   end
 
-  def create_from_magic_link
-    interactor_call = MagicLink::ValidateUserFromAccessToken.call(access_token: params.require(:access_token))
-
-    login(interactor_call)
-  end
-
   def create_from_oauth
     interactor_call = oauth_login_organizer.call(oauth_params)
 
