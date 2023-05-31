@@ -1,7 +1,7 @@
 Mardi 30 mai 2023 - Publication
 <p class="fr-badge fr-badge--green-menthe">💡 Bonne pratique</p>
 
-# Les liens de mise à jour des données sources
+# Inciter à la mise à jour des référentiels sources
 ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/blog/references-sites-modification-donnees.png') %>)
 
 {:.fr-highlight}
@@ -12,11 +12,9 @@ Mardi 30 mai 2023 - Publication
 <br>
 
 {:.fr-h3}
-## Inciter à la mise à jour des référentiels sources 
+## Comment proposer la mise à jour des informations ?
 
-L'utilisation des données disponibles dans l'API Entreprise facilite les démarches de vos usagers dans la plupart des cas. Cette simplification doit toutefois être accompagnée d'**un service résilient, en mesure de prendre en compte les situations où l'obtention de la bonne information par API ne fonctionnerait pas**. Parmi ces situations, la mise à jour d'une donnée erronnée ou obsolète est un service qu'il faut proposer à vos usagers.
-
-**Cette mise à jour peut être faite directement sur votre démarche en ligne, en permettant à vos usagers d'éditer le champ eronné**. Cette fonctionnalité leur permettra de terminer la démarche. En revanche, si l'usager réalise d'autres démarches, il aura besoin d'effectuer cette manipulation pour chacune d'entre elles car l'information corrigée ne sera pas transmise aux répertoires de référence.
+**La mise à jour d'une information peut être faite directement sur votre démarche en ligne, en permettant à vos usagers d'éditer le champ eronné**. Cette fonctionnalité leur permettra de terminer la démarche. En revanche, si l'usager réalise d'autres démarches, il aura besoin d'effectuer cette manipulation pour chacune d'entre elles car l'information corrigée ne sera pas transmise aux répertoires de référence.
 
 **C'est pourquoi, il peut être utile de proposer à vos usagers des liens vers les démarches permettant la mise à jour de leurs données.** Une fois la déclaration effectuée, les délais de prise en compte dans les répertoires sont généralement de 2 à 4 semaines. Il est donc préférable de proposer les deux modalités de modification : une édition dans votre service en ligne et une redirection vers les sites permettant la mise à jour des répertoires.
 
@@ -51,7 +49,7 @@ L'utilisation des données disponibles dans l'API Entreprise facilite les démar
 {:.fr-h3}
 ## Ajouter des liens vers les sites permettant la modification
 
-Les divers services en ligne à destination des entreprises et des associations sont actuellement en cours de refonte dans l'objectif de mettre à disposition un guichet unique où toutes les démarches pourront être réalisées. À ce jour, **tout n'est pas encore stabilisé et le parcours utilisateur pour modifier durablement les informations reste complexe**. En attendant la mise à disposition des guichets uniques, API Entreprise vous recommande déjà certains liens susceptibles d'aider vos usagers.
+Les divers services en ligne à destination des entreprises et des associations sont actuellement en cours de refonte pour mettre à disposition un guichet unique où toutes les démarches pourront être réalisées. À ce jour, **tout n'est pas encore stabilisé et le parcours utilisateur pour modifier durablement les informations reste complexe**. En attendant la mise à disposition des guichets uniques, API Entreprise vous recommande déjà certains liens susceptibles d'aider vos usagers.
 
 <br>
 
