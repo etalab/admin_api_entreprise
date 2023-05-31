@@ -22,11 +22,11 @@ L'utilisation des données disponibles dans l'API Entreprise facilite les démar
 
 <div class="fr-container--fluid">
  <div class="fr-grid-row fr-grid-row--gutters">
-  <div class="fr-col-6">
+  <div class="fr-col-md-6 fr-col-12">
    <img src="<%= image_path('api_entreprise/blog/references-sites-modification-donnees-exemple-maquette.png') %>" class="fr-responsive-img" alt="[À MODIFIER | vide ou texte alternatif de l’image]" />
         <!-- L’alternative de l’image (attribut alt) doit toujours être présent, sa valeur peut-être vide ou non selon votre contexte -->
   </div> 
-  <div class="fr-col-6">
+  <div class="fr-col-12 fr-col-md-6">
    <p class="fr-text--bold">
     Ci-contre, un exemple d'interface qui reprend les bonnes pratiques suivantes :
    </p>
