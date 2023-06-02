@@ -71,17 +71,16 @@
     - q: Pourquoi le statut non-boursier est-il fiable seulement à partir de mi-octobre ?
       a: |+
         Pour cette première mouture de l'API scolarité de l'élève, le statut boursier n'est pas encore complètement fiable.
+        Au mois d'août de chaque année, la **base des élèves boursiers est entièrement purgée**. La constitution de la base des élèves boursiers est donc refaite chaque année au compte-goutte, à partir des transmissions des établissements. 
         
-        Actuellement, la **base des élèves boursiers est purgée**, chaque année et entièrement, au mois d'août. La constitution de la base des élèves boursiers est donc refaite chaque année au compte-goutte, à partir des transmissions des établissements. 
-        
+        **Par conséquent, jusqu'à mi-octobre** :
+        - le **statut non-boursier** (`"est_boursier" : "false"`) peut représenter deux situations : 
+            - l'élève n'est pas boursier ;
+            - le statut boursier est inconnu par l'API.
+        - le **statut boursier positif** (`"est_boursier" : "true"`) **est fiable.**
 
-        Jusqu'à mi-octobre, un statut non-boursier (`"est_boursier" : "false"`) transmis par cette API peut représenter deux situations : 
-        - l'élève n'est pas boursier ;
-        - le statut boursier est inconnu par l'API.
-
-        **Par conséquent, jusqu'à mi-octobre, seul le statut boursier positif (`"est_boursier" : "true"`) est fiable.**
-
-        Le Ministère de l'éducation nationale est en recherche d'une meilleure alternative.
+        <br>
+        Le Ministère de l'éducation nationale est en recherche d'une meilleure alternative dont le calendrier pourrait être 2024.
     - q: À quoi correspondent les échelons de bourse ?
       a:
         "Il existe trois échelons de bourses pour les collégiens, de 1 à 3 et six échelons pour les lycéens, de 1 à 6. Chaque échelon de bourse indique **le montant reçu par l'élève pour l'année scolaire**. Le montant de la bourse dépend d'un barème en fonction du revenu fiscal et du nombre enfants à charge du foyer."
