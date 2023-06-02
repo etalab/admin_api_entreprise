@@ -28,6 +28,21 @@
       Cette API propose une seule modalité d'appel :
       <p class="fr-badge fr-badge--purple-glycine">Identifiant</p>
       **Avec l'identifiant Pôle emploi** : Cet identifiant est celui choisi par le particulier lors de la création de son espace personnel en ligne.
+
+
+      <section class="fr-accordion">    
+       <h3 class="fr-accordion__title">        
+        <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106">
+         Besoin de cette API avec FranceConnect ?
+        </button>    
+       </h3>    
+       <div class="fr-collapse" id="accordion-106">        
+        La modalité d'appel FranceConnect n'est pas disponible pour l'API demandeur d'emploi sur API Particulier. 
+
+        Vous pouvez utiliser l'[API dédiée de Pôle emploi](https://api.gouv.fr/les-api/api-statut-demandeur-emploi){:target="_blank"} ! Cette API, qui n'appartient pas au bouquet API Particulier, permet d'accéder au statut demandeur d'emploi avec FranceConnect. Il vous faudra faire une habilitiation spécifique.  
+       </div>
+      </section>
+
   data: 
     description: |+
       Pour les demandeurs d'emploi actuels, l'API renvoie la **date d'inscription et la catégorie** permettant de connaître la situation précise du demandeur, ainsi que des informations concernant le demandeur d'emploi.
@@ -41,7 +56,7 @@
   provider_uids:
     - 'pole_emploi'
   parameters:
-    - Identifiant Pôle emploi
+    - Identifiant Pôle emploi.
   keywords: []
   use_cases:
     - Attribution des aides à la scolarité
@@ -51,7 +66,7 @@
   faq:
     - q: Périmètre détaillé des catégories de demandeurs d'emploi concernés par l'API.
       a: |+
-        Les catégories de demandeur d'emploi délivrées par l'API correspondent aux 5 premières catégories administratives définies par l’[arrêté du 5 février 1992 portant application de l’article L. 5411-2 du Code du travail](https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000174464/) :
+        Les catégories de demandeur d'emploi délivrées par l'API correspondent aux 5 premières catégories administratives définies par l’[arrêté du 5 février 1992 portant application de l’article L. 5411-2 du Code du travail](https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000174464/){:target="_blank"} :
 
         {:.fr-table}
         | Catégorie administrative    | Description       |  Catégorie présente dans l'API|
