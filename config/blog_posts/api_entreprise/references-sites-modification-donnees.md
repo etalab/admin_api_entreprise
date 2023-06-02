@@ -12,7 +12,7 @@ Mardi 30 mai 2023 - Publication
 <br>
 
 {:.fr-h3}
-## Comment proposer la mise à jour des informations ?
+## Comment proposer la mise à jour des informations de vos usagers ?
 
 **La mise à jour d'une information peut être faite directement sur votre démarche en ligne, en permettant à vos usagers d'éditer le champ eronné**. Cette fonctionnalité leur permettra de terminer la démarche. En revanche, si l'usager réalise d'autres démarches, il aura besoin d'effectuer cette manipulation pour chacune d'entre elles car l'information corrigée ne sera pas transmise aux répertoires de référence.
 
@@ -54,7 +54,7 @@ Les divers services en ligne à destination des entreprises et des associations 
 <br>
 
 {:.fr-h5}
-### Le portail e-procédures de l'Inpi recommandé pour les entreprises
+### Pour les entreprises : le portail e-procédures de l'Inpi recommandé
 
 📌 **Pour la mise à jour des données d'une entreprise**, API Entreprise vous recommande de communiquer le lien suivant à vos usagers : 
 **[https://procedures.inpi.fr/?/](https://procedures.inpi.fr/?/){:target="_blank"}{:.fr-link}**.
@@ -71,7 +71,7 @@ Après un test du parcours utilisateur, ce site :
 <br>
 
 {:.fr-h5}
-## Mon compte asso, le site de référence pour les associations
+## Pour les associations : MonCompteAsso
 
 Si le site [Mon compte asso](https://lecompteasso.associations.gouv.fr){:target="_blank"} ne permet pas encore de modifier directement les informations de l'association, il recense en revanche la totalité des procédures :
 
@@ -85,7 +85,7 @@ Ce guide permettra à vos usagers de savoir auprès de qui les changements doive
 <br>
 
 {:.fr-h5}
-### Une procédure spécifique pour la modification du code APE
+### Pour la modification du code APE : une procédure spécifique
 
 À ce jour, pour les entreprises comme pour les associations, la demande de changement du code APE se fait au travers d'une démarche spécifique, détaillée dans [cette fiche pratique de l'Insee](https://www.insee.fr/fr/information/2015441#titre-bloc-3){:target="_blank"} et en remplissant [un formulaire de l'Insee](https://www.insee.fr/fr/information/6435934){:target="_blank"}.
 
