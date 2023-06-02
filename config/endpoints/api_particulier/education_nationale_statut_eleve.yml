@@ -28,6 +28,9 @@
       Les données du **premier degré** (primaire) sont mises à jour en **temps réel**. Les données du **second degré** (collèges et lycées) sont mises à jour **quotidiennement toutes les nuits**.
 
       Les informations, même si elles évoluent principalement lors de la rentrée scolaire en septembre, peuvent changer en cours d'année (déménagements, etc.).
+
+      {:.fr-highlight.fr-highlight--caution}
+      Attention, si un élève est indiqué "non-boursier" avant mi-octobre, il ne faut pas prendre en compte cette information. Le **statut non-boursier est véritablement fiable à partir de mi-octobre**. [En savoir plus](#faq_entry_answer_1_api_particulier_endpoint_education_nationale_statut_eleve_scolarise).
   parameters_details:
     description: |+
       Cette API propose une modalité d'appel :
@@ -65,6 +68,19 @@
 
         {:.fr-highlight}
         ⚠️ Les données transmises pour l'année scolaire N+1 sont et seront toujours des informations susceptibles d'évoluer car l'élève peut changer d'avis jusqu'à la rentrée.
+    - q: Pourquoi le statut non-boursier est-il fiable seulement à partir de mi-octobre ?
+      a: |+
+        Pour cette première mouture de l'API scolarité de l'élève, le statut boursier n'est pas encore complètement fiable.
+        Au mois d'août de chaque année, la **base des élèves boursiers est entièrement purgée**. La constitution de la base des élèves boursiers est donc refaite chaque année au compte-goutte, à partir des transmissions des établissements. 
+        
+        **Par conséquent, jusqu'à mi-octobre** :
+        - le **statut non-boursier** (`"est_boursier" : "false"`) peut représenter deux situations : 
+            - l'élève n'est pas boursier ;
+            - le statut boursier est inconnu par l'API.
+        - le **statut boursier positif** (`"est_boursier" : "true"`) **est fiable.**
+
+        <br>
+        Le Ministère de l'éducation nationale est en recherche d'une meilleure alternative dont le calendrier pourrait être 2024.
     - q: À quoi correspondent les échelons de bourse ?
       a:
         "Il existe trois échelons de bourses pour les collégiens, de 1 à 3 et six échelons pour les lycéens, de 1 à 6. Chaque échelon de bourse indique **le montant reçu par l'élève pour l'année scolaire**. Le montant de la bourse dépend d'un barème en fonction du revenu fiscal et du nombre enfants à charge du foyer."
