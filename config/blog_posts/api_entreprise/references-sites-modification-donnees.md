@@ -1,4 +1,4 @@
-Mardi 30 mai 2023 - Publication
+Vendredi 02 juin 2023 - Publication
 <p class="fr-badge fr-badge--green-menthe">💡 Bonne pratique</p>
 
 # Inciter à la mise à jour des référentiels sources
