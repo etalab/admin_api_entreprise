@@ -71,9 +71,9 @@ Après un test du parcours utilisateur, ce site :
 <br>
 
 {:.fr-h5}
-## Pour les associations : MonCompteAsso
+## Pour les associations : Le Compte Asso
 
-Si le site [Mon compte asso](https://lecompteasso.associations.gouv.fr){:target="_blank"} ne permet pas encore de modifier directement les informations de l'association, il recense en revanche la totalité des procédures :
+Si le site [Le Compte Asso](https://lecompteasso.associations.gouv.fr){:target="_blank"} ne permet pas encore de modifier directement les informations de l'association, il recense en revanche la totalité des procédures :
 
 📌 **Pour la majorité des déclarations**, nous vous recommandons d'indiquer le lien suivant : 
 **[https://lecompteasso.associations.gouv.fr/declarer-un-changement-de-situation-de-mon-association/](https://lecompteasso.associations.gouv.fr/declarer-un-changement-de-situation-de-mon-association/){:target="_blank"}{:.fr-link}**.
