@@ -1,11 +1,20 @@
-# Hello world
+Vendredi 09 juin 2023 - Publication
+<p class="fr-badge fr-badge--purple-glycine-main-494">🎁 Nouvelles données</p>
 
-This is an example article, with a link to [catalogue path](<%= endpoints_path %>) and a sample image:
+# Nouvelles données associations V4 : des données ouvertes et protégées
+![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/blog/image-donnees-association-opendata-fermees.png') %>)
 
-![Example](<%= image_path('providers/api_entreprise/acoss.png') %>)
+{:.fr-highlight}
+> **Lorem Ipsum**
+> Lorem Ipsum
 
+<br>
 
-<!-- Composant deux colonnes avec image à gauche -->
+{:.fr-h3}
+## Lorem Ipsum
+
+Lorem Ipsum
+
 <div class="fr-container--fluid">
  <div class="fr-grid-row fr-grid-row--gutters">
   <div class="fr-col-md-6 fr-col-12">
@@ -30,3 +39,23 @@ This is an example article, with a link to [catalogue path](<%= endpoints_path %
   </div>
  </div>
 </div>
+
+
+<br>
+
+{:.fr-h3}
+## Lorem Ipsum
+
+Lorem Ipsum
+
+<br>
+
+{:.fr-h5}
+### Lorem Ipsum
+
+
+-----
+
+
+[Catalogue API Entreprise](https://entreprise.api.gouv.fr/catalogue?Endpoint%5Bquery%5D=diffusible){:.fr-btn .fr-btn--secondary fr-btn--icon-right fr-icon-arrow-right-fill}
+
