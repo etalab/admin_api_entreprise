@@ -5,11 +5,11 @@ if File.exist?(schedule_file)
 end
 
 Sidekiq.configure_server do |config|
-  config.redis = { url: ENV.fetch('REDIS_URL') { Rails.application.config_for(:redis) } }
+  config.redis = { url: ENV.fetch('REDIS_URL') { Rails.application.config_for(:redis)[:url] } }
 
   Sidekiq::Cron::Job.load_from_hash(loaded_conf[Rails.env])
 end
 
 Sidekiq.configure_client do |config|
-  config.redis = { url: ENV.fetch('REDIS_URL') { Rails.application.config_for(:redis) } }
+  config.redis = { url: ENV.fetch('REDIS_URL') { Rails.application.config_for(:redis)[:url] } }
 end
