@@ -59,6 +59,7 @@ set :shared_files, fetch(:shared_files, []).push(
   'config/credentials/production.key',
   'config/initializers/frontal.rb',
   'config/database.yml',
+  'config/redis.yml',
   'config/sidekiq.yml',
   'config/cable.yml',
   'config/master.key'

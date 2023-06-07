@@ -79,7 +79,6 @@ Rails.application.configure do
   config.token_renewal_url  = 'https://datapass-staging.api.gouv.fr/copy-authorization-request/'
   config.token_authorization_request_url  = 'https://datapass-staging.api.gouv.fr/api-entreprise/'
 
-  config.redis_database = 'redis://localhost:6379/0'
   config.emails_sender_address = 'support@entreprise.api.gouv.fr'
 
   # OAuth API Gouv config
