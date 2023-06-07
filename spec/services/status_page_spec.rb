@@ -13,11 +13,11 @@ RSpec.describe StatusPage, type: :service do
         }.to_json
       )
     end
-    let(:redis) { described_class.new.send(:redis) }
+    let(:redis_service) { RedisService.instance }
     let(:status) { 'UP' }
 
     before do
-      redis.del('status_page_current_status')
+      redis_service.del('status_page_current_status')
       stubbed_request
     end
 
@@ -28,16 +28,16 @@ RSpec.describe StatusPage, type: :service do
         expect(stubbed_request).to have_been_requested
       end
 
-      it 'stores value in redis' do
+      it 'stores value in redis_service' do
         expect {
           retrieve_current_status
-        }.to change { redis.get('status_page_current_status') }.to('UP')
+        }.to change { redis_service.get('status_page_current_status') }.to('UP')
       end
 
-      it 'sets a ttl of 5 minutes on redis key' do
+      it 'sets a ttl of 5 minutes on redis_service key' do
         retrieve_current_status
 
-        expect(redis.ttl('status_page_current_status')).to be_within(5.seconds.to_i).of(5.minutes.to_i)
+        expect(redis_service.ttl('status_page_current_status')).to be_within(5.seconds.to_i).of(5.minutes.to_i)
       end
 
       context 'when Instatus works' do
@@ -71,7 +71,7 @@ RSpec.describe StatusPage, type: :service do
 
     context 'with cache set' do
       before do
-        redis.set('status_page_current_status', status)
+        redis_service.set('status_page_current_status', status)
       end
 
       it 'does not call Instatus' do

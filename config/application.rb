@@ -44,5 +44,7 @@ module AdminApientreprise
 
     config.assets.prefix = '/assets'
     config.assets.version = 'v3'
+
+    config.cache_store = :redis_cache_store, config_for(:cache_redis)
   end
 end
