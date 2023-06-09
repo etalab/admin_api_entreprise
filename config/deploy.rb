@@ -139,6 +139,7 @@ task :deploy => :environment do
       end
     end
   end
+  invoke :'rake', 'cache:clear'
   invoke :'samhain_db_update'
   # you can use `run :local` to run tasks on local machine before of after the deploy scripts
   # run(:local){ say 'done' }

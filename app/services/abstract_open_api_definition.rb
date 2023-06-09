@@ -32,7 +32,9 @@ class AbstractOpenAPIDefinition
     if load_local?
       local_path.read
     else
-      URI.open(remote_url).read
+      Rails.cache.fetch(remote_url, expires_in: 1.hour) do
+        URI.open(remote_url).read
+      end
     end
   rescue StandardError, OpenURI::HTTPError => e
     Sentry.capture_exception(e)
