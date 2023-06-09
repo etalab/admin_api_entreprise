@@ -29,7 +29,7 @@
             <div class="fr-collapse" id="fr-sidemenu-wrapper">
               <ul class="fr-sidemenu__list">
                 <% @faq_entries_grouped_by_categories.keys.each do |category_name| %>
-                  <%= render partial: "shared/api_entreprise/sidemenu_list_item", locals: { path: faq_index_path(anchor: category_name.parameterize), link_name: category_name } %>
+                  <%= render partial: "shared/faq_sidemenu_list_item", locals: { path: faq_index_path(anchor: category_name.parameterize), link_name: category_name } %>
                 <% end %>
               </ul>
             </div>
