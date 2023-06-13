@@ -215,9 +215,11 @@
             <% end %>
           </ul>
 
-          <p>
-          <%= t(".provider_errors.others_in_swagger_html", link: link_to(t('.provider_errors.documentation_link'), developers_openapi_path(anchor: @endpoint.redoc_anchor), data: { turbo: false })) %>
-          </p>
+          <% unless @endpoint.deprecated? %>
+            <p>
+              <%= t(".provider_errors.others_in_swagger_html", link: link_to(t('.provider_errors.documentation_link'), developers_openapi_path(anchor: @endpoint.redoc_anchor), data: { turbo: false })) %>
+            </p>
+          <% end %>
         <% end %>
 
         <% if @endpoint.faq.any? %>

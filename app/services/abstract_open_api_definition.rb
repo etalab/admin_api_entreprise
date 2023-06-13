@@ -27,6 +27,17 @@ class AbstractOpenAPIDefinition
     @backend = YAML.safe_load(open_api_definition_content, aliases: true, permitted_classes: [Date])
   end
 
+  def open_api_without_deprecated_paths_definition_content
+    paths = backend['paths'].dup
+
+    paths.reject! do |_, definition|
+      definition['get'] &&
+        definition['get']['deprecated']
+    end
+
+    backend.merge('paths' => paths).to_yaml
+  end
+
   # rubocop:disable Security/Open
   def open_api_definition_content
     if load_local?
