@@ -39,10 +39,11 @@
     <% end %>
   </div>
 
-  <% if @endpoint.implemented? %>
-  <h3 class="fr-h5 fr-pt-2w">
-    <%= t('.technical_specifications.title') %>
-  </h3>
+  <% if @endpoint.implemented? && !@endpoint.deprecated? %>
+    <h3 class="fr-h5 fr-pt-2w">
+      <%= t('.technical_specifications.title') %>
+    </h3>
+
     <%= link_to t('.technical_specifications.cta'), developers_openapi_path(anchor: @endpoint.redoc_anchor), data: { turbo: false }, class: %(fr-btn fr-btn--icon-right fr-icon-arrow-right-line) %>
   <% end %>
 
