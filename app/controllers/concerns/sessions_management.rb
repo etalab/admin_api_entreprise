@@ -26,7 +26,7 @@ module SessionsManagement
     if interactor_call.success?
       sign_in_and_redirect(interactor_call.user)
     else
-      error_message(title: t('.error.title'), description: t('.error.description'))
+      error_message(title: t(".#{interactor_call.message}.title"), description: t(".#{interactor_call.message}.description"))
 
       redirect_to login_path
     end

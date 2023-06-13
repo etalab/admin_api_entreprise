@@ -215,9 +215,10 @@ fr:
           title: Une erreur est survenue lors du transfert du jeton. Vérifiez que l'adresse e-mail est valide ou contactez le support à support@entreprise.api.gouv.fr si le problème persiste.
     sessions:
       create_from_oauth:
-        error:
-          title: Erreur d'authentification
-          description: L'authentification a échouée, veuillez vérifier votre combinaison identifiant/mot de passe et réessayer. Si le problème persiste, veuillez contactez le support.
+        not_found:
+          title: "Utilisateur non trouvé"
+          description: "L'authentification a échouée, l'utilisateur est inconnu du service. Si vous êtes un nouvel utilisateur, vous devez au préalable déposer une demande DataPass, plus d'infos sur le lien suivant: https://api.gouv.fr/les-api/api-entreprise/demande-acces"
+
       failure:
         unknown: Une erreur inconnue est survenue, veuillez contacter le support.
 
