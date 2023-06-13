@@ -3,16 +3,32 @@
 require 'rails_helper'
 
 RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interactor do
-  subject { described_class.call(datapass_webhook_params.merge(user:, api: 'entreprise')) }
+  subject { described_class.call(datapass_webhook_params.merge(api: 'entreprise')) }
 
-  let(:datapass_webhook_params) { build(:datapass_webhook, fired_at:, authorization_request_attributes: { id: authorization_id, copied_from_enrollment_id: previous_authorization_id }) }
-  let(:user) { create(:user) }
+  let(:datapass_webhook_params) do
+    build(:datapass_webhook, fired_at:, authorization_request_attributes: {
+      id: authorization_id,
+      team_members: team_members_payload
+    })
+  end
+  let(:team_members_payload) do
+    [
+      demandeur,
+      contact_metier,
+      responsable_technique
+    ]
+  end
+  let(:demandeur) { build(:datapass_webhook_team_member_model, type: 'demandeur') }
+  let(:responsable_technique) { build(:datapass_webhook_team_member_model, type: 'responsable_technique') }
+  let(:contact_metier) { build(:datapass_webhook_team_member_model, type: 'contact_metier') }
+
   let(:authorization_id) { rand(1..4000).to_s }
-  let(:previous_authorization_id) { rand(4001..9001).to_s }
   let(:fired_at) { 2.minutes.ago.to_i }
 
   context 'when authorization request already exists' do
-    let!(:authorization_request) { create(:authorization_request, :with_demandeur, :with_contact_technique, :with_contact_metier, external_id: authorization_id) }
+    let!(:authorization_request) do
+      create(:authorization_request, :with_all_contacts, external_id: authorization_id)
+    end
 
     it { is_expected.to be_a_success }
     it { expect(subject.authorization_request).to eq(authorization_request) }
@@ -45,7 +61,7 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
     end
 
     context 'when it is the same demandeur' do
-      let!(:authorization_request) { create(:authorization_request, :with_demandeur, external_id: authorization_id, demandeur: user) }
+      let(:demandeur) { build(:datapass_webhook_team_member_model, type: 'demandeur', email: authorization_request.demandeur.email) }
 
       it 'does not update demandeur' do
         expect {
@@ -55,13 +71,10 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
     end
 
     context 'when it is not the same demandeur' do
-      let(:original_user) { create(:user, first_name: 'another') }
-      let!(:authorization_request) { create(:authorization_request, :with_demandeur, external_id: authorization_id, demandeur: original_user) }
-
       it 'updates demandeur' do
         expect {
           subject
-        }.to change { authorization_request.reload.demandeur }.to(user)
+        }.to change { authorization_request.reload.demandeur }
       end
     end
   end
@@ -70,12 +83,12 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
     it { is_expected.to be_a_success }
     it { expect(subject.authorization_request).to an_instance_of(AuthorizationRequest) }
 
-    it 'creates a new authorization request with attributes (including siret), contacts and linked to user' do
+    it 'creates a new authorization request with attributes (including siret) and contacts' do
       expect {
         subject
-      }.to change { user.reload.authorization_requests.count }.by(1)
+      }.to change(AuthorizationRequest, :count).by(1)
 
-      authorization_request = user.authorization_requests.last
+      authorization_request = AuthorizationRequest.last
 
       expect(authorization_request.intitule).to eq(datapass_webhook_params['data']['pass']['intitule'])
       expect(authorization_request.siret).to eq(datapass_webhook_params['data']['pass']['siret'])

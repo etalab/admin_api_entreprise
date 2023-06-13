@@ -14,14 +14,42 @@ RSpec.describe DatapassWebhook::APIParticulier, type: :interactor do
   end
   let(:legacy_token_id) { 'over-9000' }
 
-  let(:demandeur_roles) { UserAuthorizationRequestRole.where(role: 'demandeur') }
-
   it { is_expected.to be_a_success }
 
-  it 'creates a demandeur' do
+  it 'creates one demandeur' do
     expect {
       subject
-    }.to change(demandeur_roles, :count).by(1)
+    }.to change(UserAuthorizationRequestRole.where(role: 'demandeur'), :count).by(1)
+  end
+
+  it 'creates one contact technique' do
+    expect {
+      subject
+    }.to change(UserAuthorizationRequestRole.where(role: 'contact_technique'), :count).by(1)
+  end
+
+  describe 'when demandeur and contact technique are the same' do
+    let(:email) { generate(:email) }
+
+    before do
+      datapass_webhook_params['data']['pass']['team_members'].map do |team_member_json|
+        team_member_json['family_name'] = 'Dupont'
+        team_member_json['given_name'] = 'Jean'
+        team_member_json['email'] = email
+      end
+    end
+
+    it 'creates one demandeur' do
+      expect {
+        subject
+      }.to change(UserAuthorizationRequestRole.where(role: 'demandeur'), :count).by(1)
+    end
+
+    it 'creates one contact technique' do
+      expect {
+        subject
+      }.to change(UserAuthorizationRequestRole.where(role: 'contact_technique'), :count).by(1)
+    end
   end
 
   it 'creates an authorization request with particulier api' do

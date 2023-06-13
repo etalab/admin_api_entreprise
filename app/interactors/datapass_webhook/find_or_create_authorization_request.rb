@@ -4,7 +4,6 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
     context.authorization_request = AuthorizationRequest.find_or_initialize_by(external_id: context.data['pass']['id'])
     context.authorization_request.assign_attributes(authorization_request_attributes)
 
-    create_or_update_demandeur_role
     create_or_update_contacts_with_roles
 
     return if context.authorization_request.save
@@ -14,49 +13,33 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
 
   private
 
-  def create_or_update_demandeur_role
-    UserAuthorizationRequestRole
-      .find_or_create_by(user: context.authorization_request.demandeur || context.user, authorization_request: context.authorization_request, role: 'demandeur')
-      .update!(user: context.user)
-  end
-
   def create_or_update_contacts_with_roles
-    create_contact_metier_with_role
-    create_contact_technique_with_role
+    {
+      'demandeur' => 'demandeur',
+      'contact_metier' => 'contact_metier',
+      'responsable_technique' => 'contact_technique'
+    }.each do |contact_kind, role|
+      contact_payload = contact_payload_for(contact_kind)
+
+      next if contact_payload.blank?
+
+      user = extract_user_from_contact_payload(contact_payload)
+
+      user_authorization_request_role = context.authorization_request.user_authorization_request_roles.find_or_initialize_by(role:)
+      user_authorization_request_role.update!(user:) if user_authorization_request_role.user != user
+    end
   end
 
-  def create_contact_metier_with_role
-    contact_payload = contact_payload_for(:contact_metier)
+  def extract_user_from_contact_payload(contact_payload)
+    user = User.find_or_initialize_by(email: contact_payload['email'])
 
-    return if contact_payload.blank?
-
-    contact = create_or_update_contact_from_payload(contact_payload, :contact_metier)
-
-    UserAuthorizationRequestRole.create(user_id: contact.id, authorization_request: context.authorization_request, role: 'contact_metier')
-  end
-
-  def create_contact_technique_with_role
-    contact_payload = contact_payload_for(:responsable_technique)
-
-    return if contact_payload.blank?
-
-    contact = create_or_update_contact_from_payload(contact_payload, :contact_technique)
-
-    UserAuthorizationRequestRole.create(user_id: contact.id, authorization_request: context.authorization_request, role: 'contact_technique')
-  end
-
-  def create_or_update_contact_from_payload(contact_payload, contact_kind)
-    contact = context.authorization_request.public_send(contact_kind) || User.create
-
-    contact.assign_attributes(
+    user.assign_attributes(
       last_name: contact_payload['family_name'],
       first_name: contact_payload['given_name'],
-      email: contact_payload['email'],
       phone_number: contact_payload['phone_number']
     )
 
-    contact.save
-    contact
+    user
   end
 
   def authorization_request_attributes
