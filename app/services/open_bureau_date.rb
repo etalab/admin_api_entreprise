@@ -22,7 +22,7 @@ class OpenBureauDate
   end
 
   def before_open_bureau_time?
-    Time.zone.now < Time.parse('11:00 am')
+    Time.zone.now < '11:00 am'.in_time_zone(Time.zone)
   end
 
   def first_or_third_in_month?(tuesday)
