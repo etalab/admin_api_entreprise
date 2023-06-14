@@ -69,6 +69,12 @@ FactoryBot.define do
       end
     end
 
+    trait :with_all_contacts do
+      with_demandeur
+      with_contact_metier
+      with_contact_technique
+    end
+
     trait :with_roles do
       transient do
         roles { [] }

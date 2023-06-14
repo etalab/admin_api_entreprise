@@ -15,7 +15,6 @@ RSpec.describe DatapassWebhook::APIEntreprise, type: :interactor do
   end
   let(:previous_enrollment_id) { rand(9001).to_s }
   let(:token) { create(:token) }
-  let(:demandeur_roles) { UserAuthorizationRequestRole.where(role: 'demandeur') }
 
   before do
     allow(Mailjet::Contactslist_managemanycontacts).to receive(:create)
@@ -25,10 +24,52 @@ RSpec.describe DatapassWebhook::APIEntreprise, type: :interactor do
 
   it { is_expected.to be_a_success }
 
-  it 'creates 1 demandeur' do
+  it 'creates one demandeur' do
     expect {
       subject
-    }.to change(demandeur_roles, :count).by(1)
+    }.to change(UserAuthorizationRequestRole.where(role: 'demandeur'), :count).by(1)
+  end
+
+  it 'creates one contact technique' do
+    expect {
+      subject
+    }.to change(UserAuthorizationRequestRole.where(role: 'contact_technique'), :count).by(1)
+  end
+
+  it 'creates one contact metier' do
+    expect {
+      subject
+    }.to change(UserAuthorizationRequestRole.where(role: 'contact_metier'), :count).by(1)
+  end
+
+  describe 'when demandeur, contact technique and contact metier are the same' do
+    let(:email) { generate(:email) }
+
+    before do
+      datapass_webhook_params['data']['pass']['team_members'].map do |team_member_json|
+        team_member_json['family_name'] = 'Dupont'
+        team_member_json['given_name'] = 'Jean'
+        team_member_json['email'] = email
+      end
+    end
+
+    it 'creates one demandeur' do
+      expect {
+        subject
+      }.to change(UserAuthorizationRequestRole.where(role: 'demandeur'), :count).by(1)
+    end
+
+    it 'creates one contact technique' do
+      expect {
+        subject
+      }.to change(UserAuthorizationRequestRole.where(role: 'contact_technique'), :count).by(1)
+    end
+
+    it 'creates one contact metier' do
+      expect {
+        subject
+      }.to change(UserAuthorizationRequestRole.where(role: 'contact_metier'), :count).by(1)
+    end
   end
 
   it 'creates an authorization request with entreprise api and demarche' do
