@@ -8507,6 +8507,824 @@ paths:
           curl -X GET \
             -H "Authorization: Bearer $token" \
             --url "https://entreprise.api.gouv.fr/v3/fntp/unites_legales/130025265/carte_professionnelle_travaux_publics?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
+  "/v3/gip_mds/unites_legales/{siren}/effectifs_annuels/{year}":
+    get:
+      summary: Effectifs annuels d'une unité légale
+      tags:
+      - Informations générales
+      parameters:
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      - name: siren
+        in: path
+        description: Siren de l'entreprise
+        examples:
+          siren_octo_technology:
+            value: '418166096'
+            summary: SIREN Octo Technology
+          siren_non_diffusible:
+            value: '005572466'
+            summary: SIREN entreprise non diffusible
+          siren_artisant:
+            value: '301123626'
+            summary: SIREN entreprise artisanale
+          siren_fntp:
+            value: '339379984'
+            summary: SIREN pour FNTP
+          siren_cnetp:
+            value: '542036207'
+            summary: SIREN pour CNETP
+          siren_opqibi:
+            value: '515228211'
+            summary: SIREN pour OPQIBI
+          siren_entrepreneur_individuel:
+            value: '389839937'
+            summary: SIREN d'un entrepeneur individuel (cessé)
+          siren_marques_brevets_modeles:
+            value: '542065479'
+            summary: SIREN d'une entreprise ayant des marques, brevets et modèles
+              (INPI)
+        required: true
+        schema:
+          type: string
+      - name: year
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Ces effectifs sont extrait pour le régime général de l'URSSAF et
+        pour le régime agricole de la MSA
+      responses:
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                old_token_error:
+                  value:
+                    errors:
+                    - code: '00102'
+                      title: Format de jeton plus supporté
+                      detail: Vous avez utilisé un token à l'ancien format. Ce format
+                        n'est plus supporté depuis avril 2019. Vous devez refaire
+                        une demande à API Entreprise, un guide est disponible sur
+                        https://entreprise.api.gouv.fr/demander_un_acces/
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Format de jeton plus supporté
+                  description: Vous avez utilisé un token à l'ancien format. Ce format
+                    n'est plus supporté depuis avril 2019. Vous devez refaire une
+                    demande à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/demander_un_acces/
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                        à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/doc/#renouvellement-token.
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                    à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/doc/#renouvellement-token.
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '403':
+          description: Accès interdit
+          content:
+            application/json:
+              examples:
+                insufficient_privileges_error:
+                  value:
+                    errors:
+                    - code: '00100'
+                      title: Privilèges insuffisants
+                      detail: Votre token est valide mais vos privilèges sont insuffisants.
+                        Listez vos privilèges sur /v2/privileges
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Privilèges insuffisants
+                  description: Votre token est valide mais vos privilèges sont insuffisants.
+                    Listez vos privilèges sur /v2/privileges
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '200':
+          description: Effectifs annuels trouvé
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          x-operationId: api_entreprise_v3_gip_mds_effectifs_annuels_entreprise
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      siren:
+                        title: Siren de l'unité légale
+                        type: string
+                        example: '130025265'
+                      annee:
+                        title: Année de référence
+                        type: string
+                        example: '2017'
+                      effectifs_annuel:
+                        title: Effectif annuel de l'établissement
+                        type: object
+                        properties:
+                          regime_general:
+                            title: Effectifs du régime général
+                            description: Cette donnée provient de l'URSSAF
+                            type: object
+                            properties:
+                              value:
+                                title: Valeur
+                                type: number
+                                example: 12.34
+                              date_derniere_mise_a_jour:
+                                title: Date de la dernière mise à jour de la donnée
+                                type: string
+                                example: '2018-01-01'
+                            required:
+                            - value
+                            - date_derniere_mise_a_jour
+                          regime_agricole:
+                            title: Effectifs du régime agricole
+                            description: Cette donnée provient de la MSA
+                            type: object
+                            properties:
+                              value:
+                                title: Valeur
+                                type: number
+                                example: 12.34
+                              date_derniere_mise_a_jour:
+                                title: Date de la dernière mise à jour de la donnée
+                                type: string
+                                example: '2018-01-01'
+                            required:
+                            - value
+                            - date_derniere_mise_a_jour
+                        required:
+                        - regime_general
+                        - regime_agricole
+                    required:
+                    - siren
+                    - annee
+                    - effectifs_annuel
+                    additionalProperties: false
+                  links:
+                    type: object
+                  meta:
+                    type: object
+                required:
+                - data
+                - links
+                - meta
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                unprocessable_entity_error_siren_error:
+                  value:
+                    errors:
+                    - code: '00301'
+                      title: Entité non traitable
+                      detail: Le numéro de siren n'est pas correctement formatté
+                      source:
+                        parameter: siren
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le numéro de siren n'est pas correctement formatté
+                missing_mandatory_params_context_error:
+                  value:
+                    errors:
+                    - code: '00201'
+                      title: Entité non traitable
+                      detail: Le paramètre context est obligatoire
+                      source:
+                        parameter: context
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre context est obligatoire
+                missing_mandatory_params_object_error:
+                  value:
+                    errors:
+                    - code: '00202'
+                      title: Entité non traitable
+                      detail: Le paramètre object est obligatoire
+                      source:
+                        parameter: object
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre object est obligatoire
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Effectifs non trouvés
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '502':
+          description: Erreur du fournisseur
+          content:
+            application/json:
+              examples:
+                unknown_error:
+                  value:
+                    errors:
+                    - code: '31999'
+                      title: Erreur inconnue du fournisseur de données
+                      detail: La réponse retournée par le fournisseur de données est
+                        invalide et inconnue de notre service. L'équipe technique
+                        a été notifiée de cette erreur pour investigation.
+                      source: 
+                      meta:
+                        provider: GIP-MDS
+                  summary: Erreur inconnue du fournisseur de données
+                  description: La réponse retournée par le fournisseur de données
+                    est invalide et inconnue de notre service. L'équipe technique
+                    a été notifiée de cette erreur pour investigation.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '504':
+          description: Erreur d'intermédiaire
+          content:
+            application/json:
+              examples:
+                timeout_error:
+                  value:
+                    errors:
+                    - code: '31002'
+                      title: Intermédiaire hors-délai
+                      detail: Temps d’attente d’une réponse du fournisseur de données
+                        écoulé.
+                      source: 
+                      meta:
+                        provider: GIP-MDS
+                  summary: Intermédiaire hors-délai
+                  description: Temps d’attente d’une réponse du fournisseur de données
+                    écoulé.
+                provider_unavailable_error:
+                  value:
+                    errors:
+                    - code: '31001'
+                      title: Service non disponible
+                      detail: Service du fournisseur de données temporairement indisponible
+                        ou en maintenance.
+                      source: 
+                      meta:
+                        provider: GIP-MDS
+                  summary: Service non disponible
+                  description: Service du fournisseur de données temporairement indisponible
+                    ou en maintenance.
+                network_error:
+                  value:
+                    errors:
+                    - code: '00501'
+                      title: Erreur réseau
+                      detail: Problème de connexion au serveur distant. L'erreur peut
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
+                      source: 
+                      meta:
+                        retry_in: 10
+                  summary: Erreur réseau
+                  description: Problème de connexion au serveur distant. L'erreur
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
+                dns_resolution_error:
+                  value:
+                    errors:
+                    - code: '31004'
+                      title: Erreur de résolution DNS
+                      detail: Problème de résolution DNS de l'adresse du serveur
+                      source: 
+                      meta:
+                        provider: GIP-MDS
+                  summary: Erreur de résolution DNS
+                  description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/gip_mds/unites_legales/130025265/effectifs_annuels/2019?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
+  "/v3/gip_mds/etablissements/{siret}/effectifs_mensuels/{month}/annee/{year}":
+    get:
+      summary: Effectifs mensuels d'un établissement
+      tags:
+      - Informations générales
+      parameters:
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      - name: siret
+        in: path
+        description: Siret de l'établissement
+        examples:
+          siret_octo_technology:
+            value: '41816609600069'
+            summary: SIRET Octo Technology
+          siret_non_diffusible:
+            value: '00557246600026'
+            summary: SIRET établissement non diffusible
+          siret_agefiph:
+            value: '39332832300059'
+            summary: SIRET pour AGEFIPH
+          siret_msa:
+            value: '81104725700019'
+            summary: SIRET pour MSA
+          siret_probtp:
+            value: '43841606700017'
+            summary: SIRET pour ProBTP
+          siret_agence_bio:
+            value: '48311105000025'
+            summary: SIRET pour l'Agence Bio
+          siret_qualibat:
+            value: '78824266700020'
+            summary: SIRET pour Qualibat
+          siret_entrepreneur_individuel:
+            value: '38983993700015'
+            summary: SIRET d'un entrepreneur individuel (fermé)
+          siret_ademe:
+            value: '42878198300039'
+            summary: SIRET pour ADEME RGE
+        required: true
+        schema:
+          type: string
+      - name: year
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: month
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: profondeur
+        in: query
+        description: Nombre de mois à remonter dans le temps. Par défaut cette valeur
+          est à 0, ce renvoi le mois en cours. Il n'est pas possible de remonter à
+          plus de 13 mois.
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+          maximum: 12
+      security:
+      - jwt_bearer_token: []
+      description: Ces effectifs sont extrait pour le régime général de l'URSSAF et
+        pour le régime agricole de la MSA
+      responses:
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                old_token_error:
+                  value:
+                    errors:
+                    - code: '00102'
+                      title: Format de jeton plus supporté
+                      detail: Vous avez utilisé un token à l'ancien format. Ce format
+                        n'est plus supporté depuis avril 2019. Vous devez refaire
+                        une demande à API Entreprise, un guide est disponible sur
+                        https://entreprise.api.gouv.fr/demander_un_acces/
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Format de jeton plus supporté
+                  description: Vous avez utilisé un token à l'ancien format. Ce format
+                    n'est plus supporté depuis avril 2019. Vous devez refaire une
+                    demande à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/demander_un_acces/
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                        à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/doc/#renouvellement-token.
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                    à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/doc/#renouvellement-token.
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '403':
+          description: Accès interdit
+          content:
+            application/json:
+              examples:
+                insufficient_privileges_error:
+                  value:
+                    errors:
+                    - code: '00100'
+                      title: Privilèges insuffisants
+                      detail: Votre token est valide mais vos privilèges sont insuffisants.
+                        Listez vos privilèges sur /v2/privileges
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Privilèges insuffisants
+                  description: Votre token est valide mais vos privilèges sont insuffisants.
+                    Listez vos privilèges sur /v2/privileges
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '200':
+          description: Effectifs annuels trouvé
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          x-operationId: api_entreprise_v3_gip_mds_effectifs_mensuels_etablissement
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      siret:
+                        title: Siret de l'établissement
+                        type: string
+                        example: '13002526500013'
+                      effectifs_mensuels:
+                        title: Effectif mensuels de l'établissement
+                        type: array
+                        items:
+                          type: object
+                          additionalProperties: false
+                          required:
+                          - regime
+                          - annee
+                          - mois
+                          - value
+                          - date_derniere_mise_a_jour
+                          properties:
+                            regime:
+                              title: Type de régime
+                              type: string
+                              example: regime_general
+                              enum:
+                              - regime_general
+                              - regime_agricole
+                            value:
+                              title: Valeur
+                              description: Cette valeur est à null si il n'y a pas
+                                d'effectif dans le régime
+                              type: number
+                              example: 12.34
+                              nullable: true
+                            annee:
+                              title: Année
+                              type: string
+                              maxLength: 4
+                              minLength: 4
+                              example: '2021'
+                            mois:
+                              title: Mois
+                              type: string
+                              example: '01'
+                              maxLength: 2
+                              minLength: 2
+                              enum:
+                              - '01'
+                              - '02'
+                              - '03'
+                              - '04'
+                              - '05'
+                              - '06'
+                              - '07'
+                              - '08'
+                              - '09'
+                              - '10'
+                              - '11'
+                              - '12'
+                            date_derniere_mise_a_jour:
+                              title: Date de la dernière mise à jour de la donnée
+                              type: string
+                              example: '2018-01-01'
+                              nullable: true
+                    required:
+                    - siret
+                    - effectifs_mensuels
+                    additionalProperties: false
+                  links:
+                    type: object
+                  meta:
+                    type: object
+                required:
+                - data
+                - links
+                - meta
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                unprocessable_entity_error_siret_error:
+                  value:
+                    errors:
+                    - code: '00302'
+                      title: Entité non traitable
+                      detail: Le numéro de siret n'est pas correctement formatté
+                      source:
+                        parameter: siret
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le numéro de siret n'est pas correctement formatté
+                missing_mandatory_params_context_error:
+                  value:
+                    errors:
+                    - code: '00201'
+                      title: Entité non traitable
+                      detail: Le paramètre context est obligatoire
+                      source:
+                        parameter: context
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre context est obligatoire
+                missing_mandatory_params_object_error:
+                  value:
+                    errors:
+                    - code: '00202'
+                      title: Entité non traitable
+                      detail: Le paramètre object est obligatoire
+                      source:
+                        parameter: object
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre object est obligatoire
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Effectifs non trouvés
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '502':
+          description: Erreur du fournisseur
+          content:
+            application/json:
+              examples:
+                unknown_error:
+                  value:
+                    errors:
+                    - code: '31999'
+                      title: Erreur inconnue du fournisseur de données
+                      detail: La réponse retournée par le fournisseur de données est
+                        invalide et inconnue de notre service. L'équipe technique
+                        a été notifiée de cette erreur pour investigation.
+                      source: 
+                      meta:
+                        provider: GIP-MDS
+                  summary: Erreur inconnue du fournisseur de données
+                  description: La réponse retournée par le fournisseur de données
+                    est invalide et inconnue de notre service. L'équipe technique
+                    a été notifiée de cette erreur pour investigation.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '504':
+          description: Erreur d'intermédiaire
+          content:
+            application/json:
+              examples:
+                timeout_error:
+                  value:
+                    errors:
+                    - code: '31002'
+                      title: Intermédiaire hors-délai
+                      detail: Temps d’attente d’une réponse du fournisseur de données
+                        écoulé.
+                      source: 
+                      meta:
+                        provider: GIP-MDS
+                  summary: Intermédiaire hors-délai
+                  description: Temps d’attente d’une réponse du fournisseur de données
+                    écoulé.
+                provider_unavailable_error:
+                  value:
+                    errors:
+                    - code: '31001'
+                      title: Service non disponible
+                      detail: Service du fournisseur de données temporairement indisponible
+                        ou en maintenance.
+                      source: 
+                      meta:
+                        provider: GIP-MDS
+                  summary: Service non disponible
+                  description: Service du fournisseur de données temporairement indisponible
+                    ou en maintenance.
+                network_error:
+                  value:
+                    errors:
+                    - code: '00501'
+                      title: Erreur réseau
+                      detail: Problème de connexion au serveur distant. L'erreur peut
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
+                      source: 
+                      meta:
+                        retry_in: 10
+                  summary: Erreur réseau
+                  description: Problème de connexion au serveur distant. L'erreur
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
+                dns_resolution_error:
+                  value:
+                    errors:
+                    - code: '31004'
+                      title: Erreur de résolution DNS
+                      detail: Problème de résolution DNS de l'adresse du serveur
+                      source: 
+                      meta:
+                        provider: GIP-MDS
+                  summary: Erreur de résolution DNS
+                  description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/gip_mds/etablissements/13002526500013/effectifs_mensuels/11/annee/2019?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/infogreffe/rcs/unites_legales/{siren}/extrait_kbis":
     get:
       summary: Extrait RCS
@@ -12860,35 +13678,39 @@ paths:
                             title: Code de l'activité principale (APE) de l'établissement
                             type: string
                             example: 8411Z
+                            nullable: true
                             description: "Le code APE (activité principale exercée)
                               permet d'identifier la branche d'activité principale.
                               Il est attribué par l'Insee lors de l'immatriculation
                               ou la déclaration d'activité de l'entreprise. Ce code
                               de 4 chiffres + 1 lettre est extrait de la nomenclature
-                              d'activité française (NAF) de l'Insee. \n \n À noter
-                              qu'un établissement n'ayant pas encore de code APE peut
-                              se voir affecter la valeur '00.00Z' de manière provisoire.
+                              d'activité française (NAF) de l'Insee. Si le code n'est
+                              pas renseigné dans la nomenclature 'Naf Rév2' (nomenclature
+                              en vigueur), le code est null ici. \n \n À noter qu'un
+                              établissement n'ayant pas encore de code APE peut se
+                              voir affecter la valeur '00.00Z' de manière provisoire.
                               \n \n Plus d'informations métier : https://entreprendre.service-public.fr/vosdroits/F33050
                               Nomemclature d'activité française - NAF rév.2 de l'Insee
                               : https://www.insee.fr/fr/information/2120875"
                           libelle:
                             title: Libellé associé au code APE
                             type: string
-                            nullable: true
+                            nullable: false
                             example: Administration publique générale
                             description: "Libellé associé au code APE. Si le code
-                              n'est pas renseigné dans la nomenclature 'Naf Rév2'
-                              (nomenclature en vigueur), le libellé n'est pas renseigné
-                              ici. Si le code ne correspond à aucun libellé au sein
-                              de la nomenclature 'Naf Rév2', la valeur 'non référencé'
-                              est utilisée. \n \n Nomemclature d'activité française
-                              - NAF rév.2 de l'Insee : https://www.insee.fr/fr/information/2406147"
+                              ne correspond à aucun libellé au sein de la nomenclature
+                              'Naf Rév2', la valeur 'non référencé' est utilisée.
+                              \n \n Nomemclature d'activité française - NAF rév.2
+                              de l'Insee : https://www.insee.fr/fr/information/2406147"
                           nomenclature:
                             title: Nomenclature associée au code
                             type: string
+                            nullable: true
                             example: NAFRev2
                             description: Ce champ indique le nom de la nomenclature
-                              associée au code APE.
+                              associée au code APE. Si le code n'est pas renseigné
+                              dans la nomenclature 'Naf Rév2' (nomenclature en vigueur),
+                              la nomenclature null ici.
                         required:
                         - code
                         - libelle
@@ -13236,36 +14058,40 @@ paths:
                                   légale
                                 type: string
                                 example: 8411Z
+                                nullable: true
                                 description: "Le code APE (activité principale exercée)
                                   permet d'identifier la branche d'activité principale.
                                   Il est attribué par l'Insee lors de l'immatriculation
                                   ou la déclaration d'activité de l'entreprise. Ce
                                   code de 4 chiffres + 1 lettre est extrait de la
                                   nomenclature d'activité française (NAF) de l'Insee.
-                                  \n \n À noter qu'une entreprise n'ayant pas encore
-                                  de code APE peut se voir affecter la valeur '00.00Z'
-                                  de manière provisoire. \n \n Plus d'informations
-                                  métier : https://entreprendre.service-public.fr/vosdroits/F33050
+                                  Si le code n'est pas renseigné dans la nomenclature
+                                  'Naf Rév2' (nomenclature en vigueur), le code est
+                                  null ici. \n \n À noter qu'une entreprise n'ayant
+                                  pas encore de code APE peut se voir affecter la
+                                  valeur '00.00Z' de manière provisoire. \n \n Plus
+                                  d'informations métier : https://entreprendre.service-public.fr/vosdroits/F33050
                                   Nomemclature d'activité française - NAF rév.2 de
                                   l'Insee : https://www.insee.fr/fr/information/2120875"
                               libelle:
                                 title: Libellé associé au code APE
                                 type: string
-                                nullable: true
+                                nullable: false
                                 example: Administration publique générale
-                                description: "Si le code n'est pas renseigné dans
-                                  la nomenclature 'Naf Rév2' (nomenclature en vigueur),
-                                  le libellé n'est pas renseigné ici. Si le code ne
-                                  correspond à aucun libellé au sein de la nomenclature
+                                description: "Libellé associé au code APE. Si le code
+                                  ne correspond à aucun libellé au sein de la nomenclature
                                   'Naf Rév2', la valeur 'non référencé' est utilisée.
                                   \n \n Nomemclature d'activité française - NAF rév.2
                                   de l'Insee : https://www.insee.fr/fr/information/2406147"
                               nomenclature:
                                 title: Nomenclature associée au code
                                 type: string
+                                nullable: true
                                 example: NAFRev2
                                 description: Ce champ indique le nom de la nomenclature
-                                  associée au code APE.
+                                  associée au code APE. Si le code n'est pas renseigné
+                                  dans la nomenclature 'Naf Rév2' (nomenclature en
+                                  vigueur), la nomenclature null ici.
                             required:
                             - code
                             - libelle
@@ -14128,35 +14954,39 @@ paths:
                             title: Code de l'activité principale (APE) de l'établissement
                             type: string
                             example: 8411Z
+                            nullable: true
                             description: "Le code APE (activité principale exercée)
                               permet d'identifier la branche d'activité principale.
                               Il est attribué par l'Insee lors de l'immatriculation
                               ou la déclaration d'activité de l'entreprise. Ce code
                               de 4 chiffres + 1 lettre est extrait de la nomenclature
-                              d'activité française (NAF) de l'Insee. \n \n À noter
-                              qu'un établissement n'ayant pas encore de code APE peut
-                              se voir affecter la valeur '00.00Z' de manière provisoire.
+                              d'activité française (NAF) de l'Insee. Si le code n'est
+                              pas renseigné dans la nomenclature 'Naf Rév2' (nomenclature
+                              en vigueur), le code est null ici. \n \n À noter qu'un
+                              établissement n'ayant pas encore de code APE peut se
+                              voir affecter la valeur '00.00Z' de manière provisoire.
                               \n \n Plus d'informations métier : https://entreprendre.service-public.fr/vosdroits/F33050
                               Nomemclature d'activité française - NAF rév.2 de l'Insee
                               : https://www.insee.fr/fr/information/2120875"
                           libelle:
                             title: Libellé associé au code APE
                             type: string
-                            nullable: true
+                            nullable: false
                             example: Administration publique générale
                             description: "Libellé associé au code APE. Si le code
-                              n'est pas renseigné dans la nomenclature 'Naf Rév2'
-                              (nomenclature en vigueur), le libellé n'est pas renseigné
-                              ici. Si le code ne correspond à aucun libellé au sein
-                              de la nomenclature 'Naf Rév2', la valeur 'non référencé'
-                              est utilisée. \n \n Nomemclature d'activité française
-                              - NAF rév.2 de l'Insee : https://www.insee.fr/fr/information/2406147"
+                              ne correspond à aucun libellé au sein de la nomenclature
+                              'Naf Rév2', la valeur 'non référencé' est utilisée.
+                              \n \n Nomemclature d'activité française - NAF rév.2
+                              de l'Insee : https://www.insee.fr/fr/information/2406147"
                           nomenclature:
                             title: Nomenclature associée au code
                             type: string
+                            nullable: true
                             example: NAFRev2
                             description: Ce champ indique le nom de la nomenclature
-                              associée au code APE.
+                              associée au code APE. Si le code n'est pas renseigné
+                              dans la nomenclature 'Naf Rév2' (nomenclature en vigueur),
+                              la nomenclature null ici.
                         required:
                         - code
                         - libelle
@@ -14526,36 +15356,40 @@ paths:
                                   légale
                                 type: string
                                 example: 8411Z
+                                nullable: true
                                 description: "Le code APE (activité principale exercée)
                                   permet d'identifier la branche d'activité principale.
                                   Il est attribué par l'Insee lors de l'immatriculation
                                   ou la déclaration d'activité de l'entreprise. Ce
                                   code de 4 chiffres + 1 lettre est extrait de la
                                   nomenclature d'activité française (NAF) de l'Insee.
-                                  \n \n À noter qu'une entreprise n'ayant pas encore
-                                  de code APE peut se voir affecter la valeur '00.00Z'
-                                  de manière provisoire. \n \n Plus d'informations
-                                  métier : https://entreprendre.service-public.fr/vosdroits/F33050
+                                  Si le code n'est pas renseigné dans la nomenclature
+                                  'Naf Rév2' (nomenclature en vigueur), le code est
+                                  null ici. \n \n À noter qu'une entreprise n'ayant
+                                  pas encore de code APE peut se voir affecter la
+                                  valeur '00.00Z' de manière provisoire. \n \n Plus
+                                  d'informations métier : https://entreprendre.service-public.fr/vosdroits/F33050
                                   Nomemclature d'activité française - NAF rév.2 de
                                   l'Insee : https://www.insee.fr/fr/information/2120875"
                               libelle:
                                 title: Libellé associé au code APE
                                 type: string
-                                nullable: true
+                                nullable: false
                                 example: Administration publique générale
-                                description: "Si le code n'est pas renseigné dans
-                                  la nomenclature 'Naf Rév2' (nomenclature en vigueur),
-                                  le libellé n'est pas renseigné ici. Si le code ne
-                                  correspond à aucun libellé au sein de la nomenclature
+                                description: "Libellé associé au code APE. Si le code
+                                  ne correspond à aucun libellé au sein de la nomenclature
                                   'Naf Rév2', la valeur 'non référencé' est utilisée.
                                   \n \n Nomemclature d'activité française - NAF rév.2
                                   de l'Insee : https://www.insee.fr/fr/information/2406147"
                               nomenclature:
                                 title: Nomenclature associée au code
                                 type: string
+                                nullable: true
                                 example: NAFRev2
                                 description: Ce champ indique le nom de la nomenclature
-                                  associée au code APE.
+                                  associée au code APE. Si le code n'est pas renseigné
+                                  dans la nomenclature 'Naf Rév2' (nomenclature en
+                                  vigueur), la nomenclature null ici.
                             required:
                             - code
                             - libelle
@@ -15444,35 +16278,39 @@ paths:
                             title: Code de l'activité principale (APE) de l'établissement
                             type: string
                             example: 8411Z
+                            nullable: true
                             description: "Le code APE (activité principale exercée)
                               permet d'identifier la branche d'activité principale.
                               Il est attribué par l'Insee lors de l'immatriculation
                               ou la déclaration d'activité de l'entreprise. Ce code
                               de 4 chiffres + 1 lettre est extrait de la nomenclature
-                              d'activité française (NAF) de l'Insee. \n \n À noter
-                              qu'un établissement n'ayant pas encore de code APE peut
-                              se voir affecter la valeur '00.00Z' de manière provisoire.
+                              d'activité française (NAF) de l'Insee. Si le code n'est
+                              pas renseigné dans la nomenclature 'Naf Rév2' (nomenclature
+                              en vigueur), le code est null ici. \n \n À noter qu'un
+                              établissement n'ayant pas encore de code APE peut se
+                              voir affecter la valeur '00.00Z' de manière provisoire.
                               \n \n Plus d'informations métier : https://entreprendre.service-public.fr/vosdroits/F33050
                               Nomemclature d'activité française - NAF rév.2 de l'Insee
                               : https://www.insee.fr/fr/information/2120875"
                           libelle:
                             title: Libellé associé au code APE
                             type: string
-                            nullable: true
+                            nullable: false
                             example: Administration publique générale
                             description: "Libellé associé au code APE. Si le code
-                              n'est pas renseigné dans la nomenclature 'Naf Rév2'
-                              (nomenclature en vigueur), le libellé n'est pas renseigné
-                              ici. Si le code ne correspond à aucun libellé au sein
-                              de la nomenclature 'Naf Rév2', la valeur 'non référencé'
-                              est utilisée. \n \n Nomemclature d'activité française
-                              - NAF rév.2 de l'Insee : https://www.insee.fr/fr/information/2406147"
+                              ne correspond à aucun libellé au sein de la nomenclature
+                              'Naf Rév2', la valeur 'non référencé' est utilisée.
+                              \n \n Nomemclature d'activité française - NAF rév.2
+                              de l'Insee : https://www.insee.fr/fr/information/2406147"
                           nomenclature:
                             title: Nomenclature associée au code
                             type: string
+                            nullable: true
                             example: NAFRev2
                             description: Ce champ indique le nom de la nomenclature
-                              associée au code APE.
+                              associée au code APE. Si le code n'est pas renseigné
+                              dans la nomenclature 'Naf Rév2' (nomenclature en vigueur),
+                              la nomenclature null ici.
                         required:
                         - code
                         - libelle
@@ -15842,36 +16680,40 @@ paths:
                                   légale
                                 type: string
                                 example: 8411Z
+                                nullable: true
                                 description: "Le code APE (activité principale exercée)
                                   permet d'identifier la branche d'activité principale.
                                   Il est attribué par l'Insee lors de l'immatriculation
                                   ou la déclaration d'activité de l'entreprise. Ce
                                   code de 4 chiffres + 1 lettre est extrait de la
                                   nomenclature d'activité française (NAF) de l'Insee.
-                                  \n \n À noter qu'une entreprise n'ayant pas encore
-                                  de code APE peut se voir affecter la valeur '00.00Z'
-                                  de manière provisoire. \n \n Plus d'informations
-                                  métier : https://entreprendre.service-public.fr/vosdroits/F33050
+                                  Si le code n'est pas renseigné dans la nomenclature
+                                  'Naf Rév2' (nomenclature en vigueur), le code est
+                                  null ici. \n \n À noter qu'une entreprise n'ayant
+                                  pas encore de code APE peut se voir affecter la
+                                  valeur '00.00Z' de manière provisoire. \n \n Plus
+                                  d'informations métier : https://entreprendre.service-public.fr/vosdroits/F33050
                                   Nomemclature d'activité française - NAF rév.2 de
                                   l'Insee : https://www.insee.fr/fr/information/2120875"
                               libelle:
                                 title: Libellé associé au code APE
                                 type: string
-                                nullable: true
+                                nullable: false
                                 example: Administration publique générale
-                                description: "Si le code n'est pas renseigné dans
-                                  la nomenclature 'Naf Rév2' (nomenclature en vigueur),
-                                  le libellé n'est pas renseigné ici. Si le code ne
-                                  correspond à aucun libellé au sein de la nomenclature
+                                description: "Libellé associé au code APE. Si le code
+                                  ne correspond à aucun libellé au sein de la nomenclature
                                   'Naf Rév2', la valeur 'non référencé' est utilisée.
                                   \n \n Nomemclature d'activité française - NAF rév.2
                                   de l'Insee : https://www.insee.fr/fr/information/2406147"
                               nomenclature:
                                 title: Nomenclature associée au code
                                 type: string
+                                nullable: true
                                 example: NAFRev2
                                 description: Ce champ indique le nom de la nomenclature
-                                  associée au code APE.
+                                  associée au code APE. Si le code n'est pas renseigné
+                                  dans la nomenclature 'Naf Rév2' (nomenclature en
+                                  vigueur), la nomenclature null ici.
                             required:
                             - code
                             - libelle
@@ -16761,35 +17603,39 @@ paths:
                             title: Code de l'activité principale (APE) de l'établissement
                             type: string
                             example: 8411Z
+                            nullable: true
                             description: "Le code APE (activité principale exercée)
                               permet d'identifier la branche d'activité principale.
                               Il est attribué par l'Insee lors de l'immatriculation
                               ou la déclaration d'activité de l'entreprise. Ce code
                               de 4 chiffres + 1 lettre est extrait de la nomenclature
-                              d'activité française (NAF) de l'Insee. \n \n À noter
-                              qu'un établissement n'ayant pas encore de code APE peut
-                              se voir affecter la valeur '00.00Z' de manière provisoire.
+                              d'activité française (NAF) de l'Insee. Si le code n'est
+                              pas renseigné dans la nomenclature 'Naf Rév2' (nomenclature
+                              en vigueur), le code est null ici. \n \n À noter qu'un
+                              établissement n'ayant pas encore de code APE peut se
+                              voir affecter la valeur '00.00Z' de manière provisoire.
                               \n \n Plus d'informations métier : https://entreprendre.service-public.fr/vosdroits/F33050
                               Nomemclature d'activité française - NAF rév.2 de l'Insee
                               : https://www.insee.fr/fr/information/2120875"
                           libelle:
                             title: Libellé associé au code APE
                             type: string
-                            nullable: true
+                            nullable: false
                             example: Administration publique générale
                             description: "Libellé associé au code APE. Si le code
-                              n'est pas renseigné dans la nomenclature 'Naf Rév2'
-                              (nomenclature en vigueur), le libellé n'est pas renseigné
-                              ici. Si le code ne correspond à aucun libellé au sein
-                              de la nomenclature 'Naf Rév2', la valeur 'non référencé'
-                              est utilisée. \n \n Nomemclature d'activité française
-                              - NAF rév.2 de l'Insee : https://www.insee.fr/fr/information/2406147"
+                              ne correspond à aucun libellé au sein de la nomenclature
+                              'Naf Rév2', la valeur 'non référencé' est utilisée.
+                              \n \n Nomemclature d'activité française - NAF rév.2
+                              de l'Insee : https://www.insee.fr/fr/information/2406147"
                           nomenclature:
                             title: Nomenclature associée au code
                             type: string
+                            nullable: true
                             example: NAFRev2
                             description: Ce champ indique le nom de la nomenclature
-                              associée au code APE.
+                              associée au code APE. Si le code n'est pas renseigné
+                              dans la nomenclature 'Naf Rév2' (nomenclature en vigueur),
+                              la nomenclature null ici.
                         required:
                         - code
                         - libelle
@@ -17137,36 +17983,40 @@ paths:
                                   légale
                                 type: string
                                 example: 8411Z
+                                nullable: true
                                 description: "Le code APE (activité principale exercée)
                                   permet d'identifier la branche d'activité principale.
                                   Il est attribué par l'Insee lors de l'immatriculation
                                   ou la déclaration d'activité de l'entreprise. Ce
                                   code de 4 chiffres + 1 lettre est extrait de la
                                   nomenclature d'activité française (NAF) de l'Insee.
-                                  \n \n À noter qu'une entreprise n'ayant pas encore
-                                  de code APE peut se voir affecter la valeur '00.00Z'
-                                  de manière provisoire. \n \n Plus d'informations
-                                  métier : https://entreprendre.service-public.fr/vosdroits/F33050
+                                  Si le code n'est pas renseigné dans la nomenclature
+                                  'Naf Rév2' (nomenclature en vigueur), le code est
+                                  null ici. \n \n À noter qu'une entreprise n'ayant
+                                  pas encore de code APE peut se voir affecter la
+                                  valeur '00.00Z' de manière provisoire. \n \n Plus
+                                  d'informations métier : https://entreprendre.service-public.fr/vosdroits/F33050
                                   Nomemclature d'activité française - NAF rév.2 de
                                   l'Insee : https://www.insee.fr/fr/information/2120875"
                               libelle:
                                 title: Libellé associé au code APE
                                 type: string
-                                nullable: true
+                                nullable: false
                                 example: Administration publique générale
-                                description: "Si le code n'est pas renseigné dans
-                                  la nomenclature 'Naf Rév2' (nomenclature en vigueur),
-                                  le libellé n'est pas renseigné ici. Si le code ne
-                                  correspond à aucun libellé au sein de la nomenclature
+                                description: "Libellé associé au code APE. Si le code
+                                  ne correspond à aucun libellé au sein de la nomenclature
                                   'Naf Rév2', la valeur 'non référencé' est utilisée.
                                   \n \n Nomemclature d'activité française - NAF rév.2
                                   de l'Insee : https://www.insee.fr/fr/information/2406147"
                               nomenclature:
                                 title: Nomenclature associée au code
                                 type: string
+                                nullable: true
                                 example: NAFRev2
                                 description: Ce champ indique le nom de la nomenclature
-                                  associée au code APE.
+                                  associée au code APE. Si le code n'est pas renseigné
+                                  dans la nomenclature 'Naf Rév2' (nomenclature en
+                                  vigueur), la nomenclature null ici.
                             required:
                             - code
                             - libelle
@@ -18203,34 +19053,39 @@ paths:
                               légale
                             type: string
                             example: 8411Z
+                            nullable: true
                             description: "Le code APE (activité principale exercée)
                               permet d'identifier la branche d'activité principale.
                               Il est attribué par l'Insee lors de l'immatriculation
                               ou la déclaration d'activité de l'entreprise. Ce code
                               de 4 chiffres + 1 lettre est extrait de la nomenclature
-                              d'activité française (NAF) de l'Insee. \n \n À noter
-                              qu'une entreprise n'ayant pas encore de code APE peut
-                              se voir affecter la valeur '00.00Z' de manière provisoire.
-                              \n \n Plus d'informations métier : https://entreprendre.service-public.fr/vosdroits/F33050
+                              d'activité française (NAF) de l'Insee. Si le code n'est
+                              pas renseigné dans la nomenclature 'Naf Rév2' (nomenclature
+                              en vigueur), le code est null ici. \n \n À noter qu'une
+                              entreprise n'ayant pas encore de code APE peut se voir
+                              affecter la valeur '00.00Z' de manière provisoire. \n
+                              \n Plus d'informations métier : https://entreprendre.service-public.fr/vosdroits/F33050
                               Nomemclature d'activité française - NAF rév.2 de l'Insee
                               : https://www.insee.fr/fr/information/2120875"
                           libelle:
                             title: Libellé associé au code APE
                             type: string
-                            nullable: true
+                            nullable: false
                             example: Administration publique générale
-                            description: "Si le code n'est pas renseigné dans la nomenclature
-                              'Naf Rév2' (nomenclature en vigueur), le libellé n'est
-                              pas renseigné ici. Si le code ne correspond à aucun
-                              libellé au sein de la nomenclature 'Naf Rév2', la valeur
-                              'non référencé' est utilisée. \n \n Nomemclature d'activité
-                              française - NAF rév.2 de l'Insee : https://www.insee.fr/fr/information/2406147"
+                            description: "Libellé associé au code APE. Si le code
+                              ne correspond à aucun libellé au sein de la nomenclature
+                              'Naf Rév2', la valeur 'non référencé' est utilisée.
+                              \n \n Nomemclature d'activité française - NAF rév.2
+                              de l'Insee : https://www.insee.fr/fr/information/2406147"
                           nomenclature:
                             title: Nomenclature associée au code
                             type: string
+                            nullable: true
                             example: NAFRev2
                             description: Ce champ indique le nom de la nomenclature
-                              associée au code APE.
+                              associée au code APE. Si le code n'est pas renseigné
+                              dans la nomenclature 'Naf Rév2' (nomenclature en vigueur),
+                              la nomenclature null ici.
                         required:
                         - code
                         - libelle
@@ -19021,34 +19876,39 @@ paths:
                               légale
                             type: string
                             example: 8411Z
+                            nullable: true
                             description: "Le code APE (activité principale exercée)
                               permet d'identifier la branche d'activité principale.
                               Il est attribué par l'Insee lors de l'immatriculation
                               ou la déclaration d'activité de l'entreprise. Ce code
                               de 4 chiffres + 1 lettre est extrait de la nomenclature
-                              d'activité française (NAF) de l'Insee. \n \n À noter
-                              qu'une entreprise n'ayant pas encore de code APE peut
-                              se voir affecter la valeur '00.00Z' de manière provisoire.
-                              \n \n Plus d'informations métier : https://entreprendre.service-public.fr/vosdroits/F33050
+                              d'activité française (NAF) de l'Insee. Si le code n'est
+                              pas renseigné dans la nomenclature 'Naf Rév2' (nomenclature
+                              en vigueur), le code est null ici. \n \n À noter qu'une
+                              entreprise n'ayant pas encore de code APE peut se voir
+                              affecter la valeur '00.00Z' de manière provisoire. \n
+                              \n Plus d'informations métier : https://entreprendre.service-public.fr/vosdroits/F33050
                               Nomemclature d'activité française - NAF rév.2 de l'Insee
                               : https://www.insee.fr/fr/information/2120875"
                           libelle:
                             title: Libellé associé au code APE
                             type: string
-                            nullable: true
+                            nullable: false
                             example: Administration publique générale
-                            description: "Si le code n'est pas renseigné dans la nomenclature
-                              'Naf Rév2' (nomenclature en vigueur), le libellé n'est
-                              pas renseigné ici. Si le code ne correspond à aucun
-                              libellé au sein de la nomenclature 'Naf Rév2', la valeur
-                              'non référencé' est utilisée. \n \n Nomemclature d'activité
-                              française - NAF rév.2 de l'Insee : https://www.insee.fr/fr/information/2406147"
+                            description: "Libellé associé au code APE. Si le code
+                              ne correspond à aucun libellé au sein de la nomenclature
+                              'Naf Rév2', la valeur 'non référencé' est utilisée.
+                              \n \n Nomemclature d'activité française - NAF rév.2
+                              de l'Insee : https://www.insee.fr/fr/information/2406147"
                           nomenclature:
                             title: Nomenclature associée au code
                             type: string
+                            nullable: true
                             example: NAFRev2
                             description: Ce champ indique le nom de la nomenclature
-                              associée au code APE.
+                              associée au code APE. Si le code n'est pas renseigné
+                              dans la nomenclature 'Naf Rév2' (nomenclature en vigueur),
+                              la nomenclature null ici.
                         required:
                         - code
                         - libelle
