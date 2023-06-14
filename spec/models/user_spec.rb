@@ -78,14 +78,14 @@ RSpec.describe User do
       let!(:user) { create(:user, email:) }
 
       its(:id) { is_expected.to eq user.id }
-      its(:email) { is_expected.to eq email }
+      its(:email) { is_expected.to eq email.downcase }
     end
 
     context 'when email already exists with different case' do
       let!(:user) { create(:user, email: 'EMAIL_with@CASE.com') }
 
       its(:id) { is_expected.to eq user.id }
-      its(:email) { is_expected.to eq 'EMAIL_with@CASE.com' }
+      its(:email) { is_expected.to eq 'email_with@case.com' }
     end
   end
 end

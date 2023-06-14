@@ -31,7 +31,7 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
   end
 
   def extract_user_from_contact_payload(contact_payload)
-    user = User.find_or_initialize_by(email: contact_payload['email'])
+    user = User.find_or_initialize_by_email(contact_payload['email'])
 
     user.assign_attributes(
       last_name: contact_payload['family_name'],
