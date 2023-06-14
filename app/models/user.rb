@@ -11,6 +11,8 @@ class User < ApplicationRecord
     uniqueness: { case_sensitive: false },
     format: { with: /#{EMAIL_FORMAT_REGEX}/ }
 
+  before_create :sanitize_email
+
   scope :added_since_yesterday, -> { where('created_at > ?', 1.day.ago) }
 
   def self.find_or_initialize_by_email(email)
@@ -18,7 +20,9 @@ class User < ApplicationRecord
   end
 
   def self.insensitive_find_by_email(email)
-    where('email ilike (?)', email).limit(1).first
+    return if email.blank?
+
+    where('email ilike (?)', email.strip).limit(1).first
   end
 
   def confirmed?
@@ -43,5 +47,11 @@ class User < ApplicationRecord
 
   def generate_pwd_renewal_token
     update(pwd_renewal_token: access_token_for(:pwd_renewal_token))
+  end
+
+  def sanitize_email
+    return if email.blank?
+
+    self.email = email.downcase.strip
   end
 end
