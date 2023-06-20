@@ -1,0 +1,109 @@
+---
+- uid: 'gip_mds/effectifs_annuels_unite_legale'
+  path: '/v3/gip_mds/unites_legales/{siren}/effectifs_annuels/{year}'
+  position: 1234
+  extra_description: |+
+    Texte directement en dessous de la description. Ce champ peut-être omis (optionnel). Le markdown GFM est supporté ici.
+  perimeter:
+    description: |+
+      Une description exhaustive du périmètre utilisée dans la fiche détaillée. Le markdown GFM est supporté ici.
+    entity_type_description: |+
+      Une description exhaustive des types d'entité renvoyés par le endpoint dans la fiche détaillée. Le markdown GFM est supporté ici.
+    geographical_scope_description:  |+
+      Une description exhaustive du scope géographique dans la fiche détaillée. Le markdown GFM est supporté ici.
+    updating_rules_description: |+
+      Les règles de mise à jour de la donnée dans al fiche détaillée. Le markdown GFM est supporté ici.
+    know_more_description: |+
+      Lien optionnel pour en savoir plus sur la donnée. Le markdown GFM est supporté ici.
+
+    # La liste des clés disponible est stockée dans le fichier endpoint.fr.yml
+    entities:
+      - entreprises
+      - associations
+  # Texte libre
+  call_id: SIREN
+  # La liste des clés disponible est stockée dans la locale `provider_uids` du fichier provider_uids.fr.yml
+  provider_uids:
+    - 'gipmds'
+  # Ces mots clés servent à la recherche algolia sur l'index du catalogue
+  keywords:
+    - 'whatever'
+  data:
+    description: |+
+      Décrit le type / format des données délivrée par l'API. Le markdown GFM est supporté ici.
+  # Ne peut être que public ou protected
+  opening: protected
+  # Texte libre, cette donnée est affichée sur la page du endpoint
+  use_cases_optional:
+  use_cases_forbidden:
+  use_cases:
+    - Aides publiques
+    - Marchés publics
+    - Portail GRU - Préremplissage
+    - Portail GRU - Instruction des démarches
+    - Subventions associations
+    - Détection de la fraude
+  # Texte libre, cette donnée est affichée sur la page du endpoint
+  parameters:
+    - Numéro de SIREN de la personne physique ou morale recherchée
+  format:
+    - Donnée structurée JSON
+  faq:
+    - q: "Question ?"
+      a: |+
+        Réponse à la question. Le markdown GFM est supporté ici.
+
+- uid: 'gip_mds/effectifs_mensuels_etablissement'
+  path: '/v3/gip_mds/etablissements/{siret}/effectifs_mensuels/{month}/annee/{year}'
+  position: 1235
+  extra_description: |+
+    Texte directement en dessous de la description. Ce champ peut-être omis (optionnel). Le markdown GFM est supporté ici.
+  perimeter:
+    description: |+
+      Une description exhaustive du périmètre utilisée dans la fiche détaillée. Le markdown GFM est supporté ici.
+    entity_type_description: |+
+      Une description exhaustive des types d'entité renvoyés par le endpoint dans la fiche détaillée. Le markdown GFM est supporté ici.
+    geographical_scope_description:  |+
+      Une description exhaustive du scope géographique dans la fiche détaillée. Le markdown GFM est supporté ici.
+    updating_rules_description: |+
+      Les règles de mise à jour de la donnée dans al fiche détaillée. Le markdown GFM est supporté ici.
+    know_more_description: |+
+      Lien optionnel pour en savoir plus sur la donnée. Le markdown GFM est supporté ici.
+
+    # La liste des clés disponible est stockée dans le fichier endpoint.fr.yml
+    entities:
+      - etablissements_entreprises
+  # Texte libre
+  call_id: SIRET
+  # La liste des clés disponible est stockée dans la locale `provider_uids` du fichier provider_uids.fr.yml
+  provider_uids:
+    - 'gipmds'
+  # Ces mots clés servent à la recherche algolia sur l'index du catalogue
+  keywords:
+    - 'whatever'
+  data:
+    description: |+
+      Décrit le type / format des données délivrée par l'API. Le markdown GFM est supporté ici.
+  # Ne peut être que public ou protected
+  opening: protected
+  # Texte libre, cette donnée est affichée sur la page du endpoint
+  use_cases_optional:
+  use_cases_forbidden:
+  use_cases:
+    - Aides publiques
+    - Marchés publics
+    - Portail GRU - Préremplissage
+    - Portail GRU - Instruction des démarches
+    - Subventions associations
+    - Détection de la fraude
+  # Texte libre, cette donnée est affichée sur la page du endpoint
+  parameters:
+    - Numéro de SIRET de l'établissement
+    - Année
+    - Mois
+  format:
+    - Donnée structurée JSON
+  faq:
+    - q: "Question ?"
+      a: |+
+        Réponse à la question. Le markdown GFM est supporté ici.
