@@ -10,13 +10,13 @@ RSpec.describe Token do
   describe '.active_for scope' do
     subject { described_class.active_for('entreprise') }
 
-    let!(:entreprise_token) { [create(:token, :with_scopes, scopes_count: 3)] }
+    let!(:entreprise_token) { create_list(:token, 1, :with_scopes, scopes_count: 3) }
 
     let(:authorization_request_particulier) do
       create(
         :authorization_request,
         api: 'particulier',
-        tokens: [create(:token, :with_scopes, scopes_count: 2)]
+        tokens: create_list(:token, 1, :with_scopes, scopes_count: 2)
       )
     end
 

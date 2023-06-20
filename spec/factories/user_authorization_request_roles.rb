@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :user_authorization_request_role do
-    authorization_request { create(:authorization_request) }
-    user { create(:user, :with_full_name) }
+    authorization_request
+    user { association(:user, :with_full_name) }
     role { nil }
 
     trait :demandeur do
