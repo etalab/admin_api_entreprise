@@ -72,6 +72,36 @@ RSpec.describe DatapassWebhook::APIEntreprise, type: :interactor do
     end
   end
 
+  describe 'when contact metier is empty (non-regression test)' do
+    before do
+      datapass_webhook_params['data']['pass']['team_members'].each do |team_member_json|
+        next unless team_member_json['type'] == 'contact_metier'
+
+        team_member_json['family_name'] = nil
+        team_member_json['given_name'] = nil
+        team_member_json['email'] = nil
+      end
+    end
+
+    it 'creates one demandeur' do
+      expect {
+        subject
+      }.to change(UserAuthorizationRequestRole.where(role: 'demandeur'), :count).by(1)
+    end
+
+    it 'creates one contact technique' do
+      expect {
+        subject
+      }.to change(UserAuthorizationRequestRole.where(role: 'contact_technique'), :count).by(1)
+    end
+
+    it 'does not create contact metier' do
+      expect {
+        subject
+      }.not_to change(UserAuthorizationRequestRole.where(role: 'contact_metier'), :count)
+    end
+  end
+
   it 'creates an authorization request with entreprise api and demarche' do
     expect {
       subject
