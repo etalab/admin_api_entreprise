@@ -55,6 +55,527 @@ info:
     url: https://github.com/betagouv/api-particulier/blob/master/LICENSE
 tags: []
 paths:
+  "/api/v2/complementaire-sante-solidaire":
+    get:
+      summary: Complémentaire santé solidaire
+      tags:
+      - Prochainement
+      parameters:
+      - name: X-Api-Key
+        in: header
+        schema:
+          type: string
+      - name: nomUsage
+        in: query
+        description: Nom d'usage
+        example: DUPONT
+        required: false
+        schema:
+          type: string
+      - name: nomNaissance
+        in: query
+        description: Nom de naissance
+        example: JEAN
+        required: false
+        schema:
+          type: string
+      - name: prenoms
+        in: query
+        schema:
+          type: array
+          minItems: 1
+          items:
+            type: string
+          example:
+          - PIERRE
+          - RICHARD
+        description: Liste des prénoms
+        required: false
+      - name: anneeDateDeNaissance
+        in: query
+        description: Année de naissance. Ne pas la renseigner si celle-ci est inconnue
+        example: 1990
+        required: false
+        schema:
+          type: integer
+      - name: moisDateDeNaissance
+        in: query
+        description: Mois de naissance. Ne pas le renseigner si celui-ci est inconnu.
+          Cette valeur est ignorée si anneeDateDeNaissance est vide.
+        example: 1
+        required: false
+        schema:
+          type: integer
+      - name: jourDateDeNaissance
+        in: query
+        description: Jour de naissance. Ne pas le renseigner si celui-ci est inconnu.
+          Cette valeur est ignorée si moisDateDeNaissance ou anneeDateDeNaissance
+          est vide.
+        example: 1
+        required: false
+        schema:
+          type: integer
+      - name: codeInseeLieuDeNaissance
+        in: query
+        schema:
+          type: string
+          minLength: 5
+          maxLength: 5
+          example: '08480'
+        description: Code Insee à 5 chiffres du lieu de naissance de la personne sur
+          5 chiffres. Ne pas remplir si la personne est née à l'étranger.
+        required: false
+      - name: codePaysLieuDeNaissance
+        in: query
+        schema:
+          type: string
+          minLength: 5
+          maxLength: 5
+          example: '99100'
+        description: Code Insee à 5 chiffres du pays de naissance (France = 99100)
+        required: true
+      - name: sexe
+        in: query
+        schema:
+          type: string
+          enum:
+          - M
+          - F
+        description: Sexe de la personne, masculin ou féminin
+        required: true
+        example: M
+      description: "Savoir si un particulier est bénéficiaire de la complémentaire
+        santé solidaire (C2S). \n\n Pour de plus amples informations sur cette api
+        et y avoir accès en avant première, veuillez contacter l'équipe API Particulier.
+        \n **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/complementaire_sante_solidaire) "
+      responses:
+        '200':
+          description: Complementaire santé solidaire trouvée
+          x-operationId: api_particulier_v2_cnaf_complementaire_sante_solidaire
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    title: Statut bénéficiaire de la complémentaire santé solidaire
+                      (C2S)
+                    type: string
+                    description: "Indique si le particulier est bénéficiaire de la
+                      complémentaire de santé solidaire au moment de l'appel. Cet
+                      indicateur précise sous quelle forme la C2S est attribuée (avec
+                      ou sans participation financière). \n \n - Si le statut est
+                      'beneficiaire_sans_participation_financiere', cela signifie
+                      que le particulier est bénéficiaire d'une C2S sans participation
+                      financière. \n - Si le statut est 'beneficiaire_avec_participation_financiere',
+                      cela signifie que le particulier est d'une bénéficiaire de C2S
+                      avec participation financière. \n - Si le statut est 'non_beneficiaire_css',
+                      cela signifie que le particulier n'est pas concerné par la C2S."
+                    enum:
+                    - beneficiaire_sans_participation_financiere
+                    - beneficiaire_avec_participation_financiere
+                    - non_beneficiaire_css
+                  dateDebut:
+                    title: Date d'ouverture du droit à la C2S
+                    type: string
+                    nullable: true
+                    description: "Date de début de droit à la complémentaire santé
+                      solidaire (C2S) si le particulier est bénéficiaire. \n Ce champs
+                      est null dans le cas où le particulier n'est pas bénéficiaire
+                      de la C2S."
+                    example: '1992-11-29'
+                  dateFin:
+                    title: Date de fermeture du droit à la C2S
+                    type: string
+                    nullable: true
+                    description: "Date de fin de droit à la complémentaire santé solidaire
+                      (C2S) du particulier bénéficiaire. \n Ce champs est calculé
+                      en ajoutant 12 mois à la date de début de droit à la C2S. \n
+                      Ce champs sera null dans le cas où le particulier n'est pas
+                      bénéficiaire de la C2S."
+                    example: '1993-11-29'
+        '400':
+          description: Mauvais paramètres d'appels
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '401':
+          description: Votre jeton d'Api n'a pas été trouvé ou n'est pas actif
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Dossier allocataire inexistant. Le document ne peut être édité.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '500':
+          description: Une erreur interne s'est produite, l'équipe a été prévenue.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '503':
+          description: Une erreur est survenue lors de l'appel au fournisseur de donnée
+          content:
+            application/json:
+              examples:
+                unknown_error:
+                  value:
+                    errors:
+                    - code: '23999'
+                      title: Erreur inconnue du fournisseur de données
+                      detail: La réponse retournée par le fournisseur de données est
+                        invalide et inconnue de notre service. L'équipe technique
+                        a été notifiée de cette erreur pour investigation.
+                      source: 
+                      meta:
+                        provider: CNAF
+                  summary: Erreur inconnue du fournisseur de données
+                  description: La réponse retournée par le fournisseur de données
+                    est invalide et inconnue de notre service. L'équipe technique
+                    a été notifiée de cette erreur pour investigation.
+              schema:
+                "$ref": "#/components/schemas/Error"
+  "/api/v2/composition-familiale-v2":
+    get:
+      summary: Quotient familial CAF & MSA
+      tags:
+      - Prochainement
+      parameters:
+      - name: X-Api-Key
+        in: header
+        schema:
+          type: string
+      - name: nomUsage
+        in: query
+        description: Nom d'usage
+        example: DUPONT
+        required: false
+        schema:
+          type: string
+      - name: nomNaissance
+        in: query
+        description: Nom de naissance
+        example: JEAN
+        required: false
+        schema:
+          type: string
+      - name: prenoms
+        in: query
+        schema:
+          type: array
+          minItems: 1
+          items:
+            type: string
+          example:
+          - PIERRE
+          - RICHARD
+        description: Liste des prénoms
+        required: false
+      - name: anneeDateDeNaissance
+        in: query
+        description: Année de naissance. Ne pas la renseigner si celle-ci est inconnue
+        example: 1990
+        required: false
+        schema:
+          type: integer
+      - name: moisDateDeNaissance
+        in: query
+        description: Mois de naissance. Ne pas le renseigner si celui-ci est inconnu.
+          Cette valeur est ignorée si anneeDateDeNaissance est vide.
+        example: 1
+        required: false
+        schema:
+          type: integer
+      - name: jourDateDeNaissance
+        in: query
+        description: Jour de naissance. Ne pas le renseigner si celui-ci est inconnu.
+          Cette valeur est ignorée si moisDateDeNaissance ou anneeDateDeNaissance
+          est vide.
+        example: 1
+        required: false
+        schema:
+          type: integer
+      - name: codeInseeLieuDeNaissance
+        in: query
+        schema:
+          type: string
+          minLength: 5
+          maxLength: 5
+          example: '08480'
+        description: Code Insee à 5 chiffres du lieu de naissance de la personne sur
+          5 chiffres. Ne pas remplir si la personne est née à l'étranger.
+        required: false
+      - name: codePaysLieuDeNaissance
+        in: query
+        schema:
+          type: string
+          minLength: 5
+          maxLength: 5
+          example: '99100'
+        description: Code Insee à 5 chiffres du pays de naissance (France = 99100)
+        required: true
+      - name: sexe
+        in: query
+        schema:
+          type: string
+          enum:
+          - M
+          - F
+        description: Sexe de la personne, masculin ou féminin
+        required: true
+        example: M
+      - name: annee
+        in: query
+        description: Année du quotient familial recherché. Si l'année n'est pas renseignée,
+          le dernier QF est transmis.
+        example: 2021
+        required: false
+        schema:
+          type: integer
+      - name: mois
+        in: query
+        description: Mois pour le quotient, si non renseigné renvoie le dernier QF
+          calculé
+        example: 12
+        required: false
+        schema:
+          type: integer
+      description: "Quotient familial et composition de la famille d'un allocataire
+        du régime général et du régime agricole. \n Pour de plus amples informations
+        sur cette api et y avoir accès en avant première, veuillez contacter l'équipe
+        API Particulier. \n **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/api_particulier_v2_cnaf_quotient_familial_v2) "
+      responses:
+        '200':
+          description: Complementaire santé solidaire trouvée
+          x-operationId: api_particulier_v2_cnaf_quotient_familial_v2
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  allocataires:
+                    title: Informations sur les parents composant la famille
+                    type: array
+                    minItems: 1
+                    items:
+                      type: object
+                      properties:
+                        nomNaissance:
+                          title: Nom
+                          type: string
+                          description: Nom de naissance de l'allocataire
+                          example: JACQUES
+                        nomUsuel:
+                          title: Nom d'usage
+                          type: string
+                          description: Nom d'usage de l'allocataire
+                          example: JACQUES
+                        prenoms:
+                          title: Prénoms
+                          type: string
+                          description: Prénoms de l'allocataire
+                          example: JEAN-PIERRE THOMAS
+                        anneeDateDeNaissance:
+                          title: Année de naissance
+                          type: string
+                          example: '2000'
+                          description: Année de la date de naissance de l'allocataire.
+                            Peut-être vide si inconnue.
+                          nullable: true
+                        moisDateDeNaissance:
+                          title: Mois de naissance
+                          type: string
+                          example: '01'
+                          description: Mois de la date de naissance de l'allocataire.
+                            Peut-être vide si inconnue.
+                          nullable: true
+                        jourDateDeNaissance:
+                          title: Jour de naissance
+                          type: string
+                          example: '31'
+                          description: Jour de la date de naissance de l'allocataire.
+                            Peut-être vide si inconnue.
+                          nullable: true
+                        sexe:
+                          title: Sexe
+                          type: string
+                          description: Sexe de l'allocataire
+                          example: M
+                          enum:
+                          - F
+                          - M
+                  enfants:
+                    type: array
+                    title: Informations sur les enfants composant la famille
+                    items:
+                      type: object
+                      properties:
+                        nomNaissance:
+                          title: Nom de naissance
+                          type: string
+                          description: Nom de naissance de l'enfant
+                          example: JACQUES
+                        nomUsuel:
+                          title: Nom d'usage
+                          type: string
+                          description: Nom d'usage de l'enfant
+                          example: JACQUES
+                        prenoms:
+                          title: Prénoms
+                          type: string
+                          description: Prénoms de l'enfant
+                          example: JEAN-PIERRE THOMAS
+                        anneeDateDeNaissance:
+                          title: Année de naissance
+                          type: string
+                          example: '2000'
+                          description: Année de la date de naissance de l'enfant.
+                            Peut-être vide si inconnue.
+                          nullable: true
+                        moisDateDeNaissance:
+                          title: Mois de naissance
+                          type: string
+                          example: '01'
+                          description: Mois de la date de naissance de l'enfant. Peut-être
+                            vide si inconnue.
+                          nullable: true
+                        jourDateDeNaissance:
+                          title: Jour de naissance
+                          type: string
+                          example: '31'
+                          description: Jour de la date de naissance de l'enfant. Peut-être
+                            vide si inconnue.
+                          nullable: true
+                        sexe:
+                          title: Sexe
+                          type: string
+                          description: Sexe de l'enfant
+                          example: M
+                          enum:
+                          - F
+                          - M
+                  adresse:
+                    title: Adresse de la famille
+                    type: object
+                    description: Adresse au format de la poste
+                    properties:
+                      identite:
+                        title: Identité du destinataire
+                        type: string
+                        example: Monsieur JEAN JACQUES
+                        description: 'Identité du destinataire : Civilité, titre ou
+                          qualité + nom et prénom'
+                      complementInformation:
+                        title: Complément d'information du destinataire ou point de
+                          remise
+                        description: Complément d'information du destinataire ou point
+                          de remise.
+                        type: string
+                        nullable: true
+                        example: 
+                      complementInformationGeographique:
+                        title: Complément d'information du point géographique
+                        type: string
+                        nullable: true
+                        example: 
+                        description: Complément d'information du point géographique.
+                      numeroLibelleVoie:
+                        title: Voie
+                        type: string
+                        description: Numéro et libellé de la voie
+                        example: 1 RUE DE LA GARE
+                      lieuDit:
+                        title: Lieu-dit
+                        type: string
+                        nullable: true
+                        example: 
+                        description: 'Lieu-dit ou service particulier de distribution
+                          : poste restante, boîte postale'
+                      codePostalVille:
+                        title: Code postal
+                        type: string
+                        description: Code postale et localité de destination
+                        example: '75002'
+                      pays:
+                        title: Pays
+                        type: string
+                        description: Pays
+                        example: FRANCE
+                    required:
+                    - identite
+                    - complementInformation
+                    - complementInformationGeographique
+                    - numeroLibelleVoie
+                    - lieuDit
+                    - codePostalVille
+                    - pays
+                  quotientFamilial:
+                    title: Quotient familial CAF ou MSA
+                    type: integer
+                    description: Valeur du quotient familial calculé par la CAF ou
+                      la MSA
+                    example: 1045
+                  annee:
+                    title: Année du quotient familial
+                    type: integer
+                    description: Année de calcul du quotient familial
+                    example: 2021
+                  mois:
+                    title: Mois du quotient familial
+                    type: integer
+                    description: Mois de calcul du quotient familial
+                    example: 6
+        '400':
+          description: Mauvais paramètres d'appels
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '401':
+          description: Votre jeton d'Api n'a pas été trouvé ou n'est pas actif
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Dossier allocataire inexistant. Le document ne peut être édité.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '500':
+          description: Une erreur interne s'est produite, l'équipe a été prévenue.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '503':
+          description: Une erreur est survenue lors de l'appel au fournisseur de donnée
+          content:
+            application/json:
+              examples:
+                unknown_error:
+                  value:
+                    errors:
+                    - code: '23999'
+                      title: Erreur inconnue du fournisseur de données
+                      detail: La réponse retournée par le fournisseur de données est
+                        invalide et inconnue de notre service. L'équipe technique
+                        a été notifiée de cette erreur pour investigation.
+                      source: 
+                      meta:
+                        provider: CNAF
+                  summary: Erreur inconnue du fournisseur de données
+                  description: La réponse retournée par le fournisseur de données
+                    est invalide et inconnue de notre service. L'équipe technique
+                    a été notifiée de cette erreur pour investigation.
+              schema:
+                "$ref": "#/components/schemas/Error"
   "/api/v2/scolarites":
     get:
       summary: Statut élève scolarisé et boursier
@@ -67,26 +588,51 @@ paths:
           type: string
       - name: nom
         in: query
+        description: Nom de l'élève
+        example: Martin
+        required: true
         schema:
           type: string
       - name: prenom
         in: query
+        description: Prénom de l'élève
+        example: Justine
+        required: true
         schema:
           type: string
       - name: sexe
         in: query
+        description: Sexe de l'élève, masculin ou féminin
+        example: m
+        required: true
         schema:
           type: string
       - name: dateNaissance
         in: query
+        description: Date de naissance de l'élève au format AAAA-MM-JJ
+        example: '2000-01-20'
+        required: true
         schema:
           type: string
       - name: codeEtablissement
         in: query
+        description: |
+          Code d'unité administrative immatriculée (code UAI) de l'établissement où est scolarisé l'élève. Ce code unique inscrit au répertoire national des établissements est composé de 7 chiffres et d'une lettre ; les trois premiers chiffres correspondent au numéro de département de l'établissement.
+
+          Pour retrouver facilement le code UAI d'un établissement à partir d' informations plus facilement connues des usagers (commune, code postal, etc.), vous pouvez utiliser l'[API \"Annuaire de l'éducation nationale\"](https://api.gouv.fr/les-api/api-annuaire-education).
+
+          ⚠️ L'établissement 0861288H (CNED Direction générale) n'existe pas dans l'API annuaire de l'éducation nationale, il faudra donc compléter la liste des établissements avec une ligne CNED à laquelle sera associée le code UAI qui sera en passé en entrée.
+        example: 0210015C
+        required: true
         schema:
           type: string
       - name: anneeScolaire
         in: query
+        description: 'Année scolaire recherchée au format AAAA-AAAA ou AAAA. Les informations
+          connues par l''API concerne surtout l''année en cours et parfois l''année
+          scolaire à venir. Pour en savoir plus consulter la fiche métier : https://particulier.api.gouv.fr/catalogue/education_nationale/statut_eleve_scolarise#faq_entry_answer_0_api_particulier_endpoint_education_nationale_statut_eleve_scolarise.'
+        example: 2022-2023
+        required: true
         schema:
           type: string
       description: Statut scolarisé et statut boursier d'un élève du primaire, collège
@@ -157,11 +703,31 @@ paths:
                     type: boolean
                     example: true
                   est_boursier:
-                    description: Indique si l'élève est boursier dans l'établissement.
-                      Les bourses concernent uniquement les élèves des collèges et
-                      lycées.
+                    description: |
+                      Indique si l'élève est boursier dans l'établissement. Les bourses concernent uniquement les élèves des collèges et lycées.
+                      \n
+                      ⚠️ Si le statut boursier est à \"false\" avant mi-octobre, cela ne signifie pas forcément que l'élève n'est pas boursier. Il peut s'agir d'un faux négatif lié à une absence de l'information en base. Pour en savoir plus consulter la fiche métier : https://particulier.api.gouv.fr/catalogue/education_nationale/statut_eleve_scolarise#faq_entry_answer_1_api_particulier_endpoint_education_nationale_statut_eleve_scolarise.
                     type: boolean
-                    example: false
+                    example: true
+                  niveau_bourse:
+                    description: "Indique l'échelon de la bourse de l'élève. Est à
+                      \"null\" quand \"est_boursier\" est \"false\". Les bourses concernent
+                      uniquement les élèves des collèges et lycées. \n Il existe trois
+                      échelons de bourses pour les collégiens (1 à 3) et six échelons
+                      pour les lycéens (1 à 6), correspondant aux montants reçus par
+                      l'élève pour l'année scolaire. Pour en savoir plus, consulter
+                      la FAQ : https://particulier.api.gouv.fr/catalogue/education_nationale/statut_eleve_scolarise#faq_entry_answer_2_api_particulier_endpoint_education_nationale_statut_eleve_scolarise"
+                    type: integer
+                    example: 1
+                    nullable: true
+                    enum:
+                    - 
+                    - 1
+                    - 2
+                    - 3
+                    - 4
+                    - 5
+                    - 6
                   status_eleve:
                     title: Statut de l'élève
                     description: |
@@ -1345,579 +1911,6 @@ paths:
                       type: string
         '401': *2
         '500': *3
-  "/api/v2/composition-familiale-v2":
-    get:
-      summary: Quotient familial CAF & MSA
-      description: "Quotient familial et composition de la famille d'un allocataire
-        du régime général et du régime agricole. \n Pour de plus amples informations
-        sur cette api et y avoir accès en avant première, veuillez contacter l'équipe
-        API Particulier. \n **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/api_particulier_v2_cnaf_quotient_familial_v2) "
-      tags:
-      - Prochainement
-      parameters:
-      - name: nomUsage
-        schema:
-          type: string
-        in: query
-        description: Nom d'usage
-        required: false
-      - name: nomNaissance
-        schema:
-          type: string
-        in: query
-        description: Nom de naissance
-        required: false
-      - name: prenoms[]
-        in: query
-        description: Liste des prénoms
-        required: false
-        schema:
-          type: array
-          minItems: 1
-          items:
-            type: string
-          example:
-          - JEAN
-          - MARCEL
-      - name: anneeDateDeNaissance
-        description: Année de naissance. Ne pas la renseigner si celle-ci est inconnue
-        required: false
-        in: query
-        schema:
-          type: integer
-          example: 1990
-      - name: moisDateDeNaissance
-        description: Mois de naissance. Ne pas le renseigner si celle-ci est inconnu.
-          Cette valeur est ignorée si anneeDateDeNaissance est vide.
-        required: false
-        in: query
-        schema:
-          type: integer
-          example: 1
-      - name: jourDateDeNaissance
-        description: Jour de naissance. Ne pas le renseigner si celui-ci est inconnu.
-          Cette valeur est ignorée si moisDateDeNaissance ou anneeDateDeNaissance
-          est vide.
-        required: false
-        in: query
-        schema:
-          type: integer
-          example: 1
-      - name: codeInseeLieuDeNaissance
-        in: query
-        schema:
-          type: string
-          minLength: 5
-          maxLength: 5
-          example: '08480'
-        description: Code Insee à 5 chiffres du lieu de naissance de la personne sur
-          5 chiffres. Ne pas remplir si la personne est née à l'étranger.
-        required: false
-      - name: codePaysLieuDeNaissance
-        in: query
-        description: Code Insee à 5 chiffres du pays de naissance (France = 99100)
-        schema:
-          type: string
-          minLength: 5
-          maxLength: 5
-          example: '99100'
-        required: true
-      - name: sexe
-        in: query
-        description: Sexe de la personne, masculin ou féminin
-        required: true
-        schema:
-          enum:
-          - M
-          - F
-      - name: annee
-        in: query
-        description: Année du quotient familial recherché. Si l'année n'est pas renseignée,
-          le dernier QF est transmis.
-        required: false
-        schema:
-          type: integer
-          example: 2021
-      - name: mois
-        in: query
-        required: false
-        description: Mois pour le quotient, si non renseigné renvoie le dernier QF
-          calculé
-        schema:
-          type: integer
-          example: 12
-      responses:
-        '200':
-          x-operationId: api_particulier_v2_cnaf_quotient_familial_v2
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  allocataires:
-                    title: Informations sur les parents composant la famille
-                    type: array
-                    minItems: 1
-                    items:
-                      type: object
-                      properties:
-                        nomNaissance:
-                          title: Nom
-                          type: string
-                          description: Nom de naissance de l'allocataire
-                          example: JACQUES
-                        nomUsuel:
-                          title: Nom d'usage
-                          type: string
-                          description: Nom d'usage de l'allocataire
-                          example: JACQUES
-                        prenoms:
-                          title: Prénoms
-                          type: string
-                          description: Prénoms de l'allocataire
-                          example: JEAN-PIERRE THOMAS
-                        anneeDateDeNaissance:
-                          title: Année de naissance
-                          type: string
-                          example: '2000'
-                          description: Année de la date de naissance de l'allocataire.
-                            Peut-être vide si inconnue.
-                          nullable: true
-                        moisDateDeNaissance:
-                          title: Mois de naissance
-                          type: string
-                          example: '01'
-                          description: Mois de la date de naissance de l'allocataire.
-                            Peut-être vide si inconnue.
-                          nullable: true
-                        jourDateDeNaissance:
-                          title: Jour de naissance
-                          type: string
-                          example: '31'
-                          description: Jour de la date de naissance de l'allocataire.
-                            Peut-être vide si inconnue.
-                          nullable: true
-                        sexe:
-                          title: Sexe
-                          type: string
-                          description: Sexe de l'allocataire
-                          example: M
-                          enum:
-                          - F
-                          - M
-                  enfants:
-                    type: array
-                    title: Informations sur les enfants composant la famille
-                    items:
-                      type: object
-                      properties:
-                        nomNaissance:
-                          title: Nom de naissance
-                          type: string
-                          description: Nom de naissance de l'enfant
-                          example: JACQUES
-                        nomUsuel:
-                          title: Nom d'usage
-                          type: string
-                          description: Nom d'usage de l'enfant
-                          example: JACQUES
-                        prenoms:
-                          title: Prénoms
-                          type: string
-                          description: Prénoms de l'enfant
-                          example: JEAN-PIERRE THOMAS
-                        anneeDateDeNaissance:
-                          title: Année de naissance
-                          type: string
-                          example: '2000'
-                          description: Année de la date de naissance de l'enfant.
-                            Peut-être vide si inconnue.
-                          nullable: true
-                        moisDateDeNaissance:
-                          title: Mois de naissance
-                          type: string
-                          example: '01'
-                          description: Mois de la date de naissance de l'enfant. Peut-être
-                            vide si inconnue.
-                          nullable: true
-                        jourDateDeNaissance:
-                          title: Jour de naissance
-                          type: string
-                          example: '31'
-                          description: Jour de la date de naissance de l'enfant. Peut-être
-                            vide si inconnue.
-                          nullable: true
-                        sexe:
-                          title: Sexe
-                          type: string
-                          description: Sexe de l'enfant
-                          example: M
-                          enum:
-                          - F
-                          - M
-                  adresse:
-                    title: Adresse de la famille
-                    type: object
-                    description: Adresse au format de la poste
-                    properties:
-                      identite:
-                        title: Identité du destinataire
-                        type: string
-                        example: Monsieur JEAN JACQUES
-                        description: 'Identité du destinataire : Civilité, titre ou
-                          qualité + nom et prénom'
-                      complementInformation:
-                        title: Complément d'information du destinataire ou point de
-                          remise
-                        description: Complément d'information du destinataire ou point
-                          de remise.
-                        type: string
-                        nullable: true
-                        example: 
-                      complementInformationGeographique:
-                        title: Complément d'information du point géographique
-                        type: string
-                        nullable: true
-                        example: 
-                        description: Complément d'information du point géographique.
-                      numeroLibelleVoie:
-                        title: Voie
-                        type: string
-                        description: Numéro et libellé de la voie
-                        example: 1 RUE DE LA GARE
-                      lieuDit:
-                        title: Lieu-dit
-                        type: string
-                        nullable: true
-                        example: 
-                        description: 'Lieu-dit ou service particulier de distribution
-                          : poste restante, boîte postale'
-                      codePostalVille:
-                        title: Code postal
-                        type: string
-                        description: Code postale et localité de destination
-                        example: '75002'
-                      pays:
-                        title: Pays
-                        type: string
-                        description: Pays
-                        example: FRANCE
-                  quotientFamilial:
-                    title: Quotient familial CAF ou MSA
-                    type: integer
-                    description: Valeur du quotient familial calculé par la CAF ou
-                      la MSA
-                    example: 1045
-                  annee:
-                    title: Année du quotient familial
-                    type: integer
-                    description: Année de calcul du quotient familial
-                    example: 2021
-                  mois:
-                    title: Mois du quotient familial
-                    type: integer
-                    description: Mois de calcul du quotient familial
-                    example: 6
-        '400':
-          description: Mauvais paramètres d'appels
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: bad_request
-                  reason:
-                    type: string
-                    example: Le codePaysLieuDeNaissance est manquant
-                  message:
-                    type: string
-                    example: Le codePaysLieuDeNaissance est manquant
-        '401':
-          description: Votre jeton d'API n'a pas été trouvé ou n'est pas actif
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: access_denied
-                  reason:
-                    type: string
-                    example: Token not found or inactive
-                  message:
-                    type: string
-                    example: Votre jeton d'API n'a pas été trouvé ou n'est pas actif
-        '404':
-          description: Dossier allocataire inexistant. Le document ne peut être édité.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: not_found
-                  reason:
-                    type: string
-                    example: Dossier allocataire inexistant. Le document ne peut être
-                      édité.
-                  message:
-                    type: string
-                    example: Dossier allocataire inexistant. Le document ne peut être
-                      édité.
-        '500':
-          description: Une erreur interne s'est produite, l'équipe a été prévenue.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: error
-                  reason:
-                    type: string
-                    example: Internal server error
-                  message:
-                    type: string
-                    example: Une erreur interne s'est produite, l'équipe a été prévenue.
-        '503':
-          description: Une erreur est survenue lors de l'appel au fournisseur de donnée
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: network_error
-                  reason:
-                    type: string
-                    example: timeout of 10000 ms exceeded
-                  message:
-                    type: string
-                    example: Une erreur est survenue lors de l'appel au fournisseur
-                      de donnée
-  "/api/v2/complementaire-sante-solidaire":
-    get:
-      summary: Complémentaire santé solidaire
-      description: "Savoir si un particulier est bénéficiaire de la complémentaire
-        santé solidaire (C2S). \n\n Pour de plus amples informations sur cette api
-        et y avoir accès en avant première, veuillez contacter l'équipe API Particulier.
-        \n **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/complementaire_sante_solidaire) "
-      tags:
-      - Prochainement
-      parameters:
-      - name: nomUsage
-        schema:
-          type: string
-        in: query
-        description: Nom d'usage
-        required: false
-      - name: nomNaissance
-        schema:
-          type: string
-        in: query
-        description: Nom de naissance
-        required: false
-      - name: prenoms[]
-        in: query
-        description: Liste des prénoms
-        required: false
-        schema:
-          type: array
-          minItems: 1
-          items:
-            type: string
-          example:
-          - PIERRE
-          - RICHARD
-      - name: anneeDateDeNaissance
-        description: Année de naissance. Ne pas la renseigner si celle-ci est inconnue
-        required: false
-        in: query
-        schema:
-          type: integer
-          example: 1990
-      - name: moisDateDeNaissance
-        description: Mois de naissance. Ne pas le renseigner si celui-ci est inconnu.
-          Cette valeur est ignorée si anneeDateDeNaissance est vide.
-        required: false
-        in: query
-        schema:
-          type: integer
-          example: 1
-      - name: jourDateDeNaissance
-        description: Jour de naissance. Ne pas le renseigner si celui-ci est inconnu.
-          Cette valeur est ignorée si moisDateDeNaissance ou anneeDateDeNaissance
-          est vide.
-        required: false
-        in: query
-        schema:
-          type: integer
-          example: 1
-      - name: codeInseeLieuDeNaissance
-        in: query
-        schema:
-          type: string
-          minLength: 5
-          maxLength: 5
-          example: '08480'
-        description: Code Insee à 5 chiffres du lieu de naissance de la personne sur
-          5 chiffres. Ne pas remplir si la personne est née à l'étranger.
-        required: false
-      - name: codePaysLieuDeNaissance
-        in: query
-        description: Code Insee à 5 chiffres du pays de naissance (France = 99100)
-        schema:
-          type: string
-          minLength: 5
-          maxLength: 5
-          example: '99100'
-        required: true
-      - name: sexe
-        in: query
-        description: Sexe de la personne, masculin ou féminin
-        required: true
-        schema:
-          enum:
-          - M
-          - F
-      responses:
-        '200':
-          x-operationId: api_particulier_v2_cnaf_complementaire_sante_solidaire
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    title: Statut bénéficiaire de la complémentaire santé solidaire
-                      (C2S)
-                    type: string
-                    description: "Indique si le particulier est bénéficiaire de la
-                      complémentaire de santé solidaire au moment de l'appel. Cet
-                      indicateur précise sous quelle forme la C2S est attribuée (avec
-                      ou sans participation financière). \n \n - Si le statut est
-                      'beneficiaire_sans_participation_financiere', cela signifie
-                      que le particulier est bénéficiaire d'une C2S sans participation
-                      financière. \n - Si le statut est 'beneficiaire_avec_participation_financiere',
-                      cela signifie que le particulier est d'une bénéficiaire de C2S
-                      avec participation financière. \n - Si le statut est 'non_beneficiaire_css',
-                      cela signifie que le particulier n'est pas concerné par la C2S."
-                    enum:
-                    - beneficiaire_sans_participation_financiere
-                    - beneficiaire_avec_participation_financiere
-                    - non_beneficiaire_css
-                  dateDebut:
-                    title: Date d'ouverture du droit à la C2S
-                    type: string
-                    format: date
-                    nullable: true
-                    description: "Date de début de droit à la complémentaire santé
-                      solidaire (C2S) si le particulier est bénéficiaire. \n Ce champs
-                      est null dans le cas où le particulier n'est pas bénéficiaire
-                      de la C2S."
-                    example: 1992-11-29
-                  dateFin:
-                    title: Date de fermeture du droit à la C2S
-                    type: string
-                    format: date
-                    nullable: true
-                    description: "Date de fin de droit à la complémentaire santé solidaire
-                      (C2S) du particulier bénéficiaire. \n Ce champs est calculé
-                      en ajoutant 12 mois à la date de début de droit à la C2S. \n
-                      Ce champs sera null dans le cas où le particulier n'est pas
-                      bénéficiaire de la C2S."
-                    example: 1993-11-29
-        '400':
-          description: Mauvais paramètres d'appels
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: bad_request
-                  reason:
-                    type: string
-                    example: Le codePaysLieuDeNaissance est manquant
-                  message:
-                    type: string
-                    example: Le codePaysLieuDeNaissance est manquant
-        '401':
-          description: Votre jeton d'API n'a pas été trouvé ou n'est pas actif
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: access_denied
-                  reason:
-                    type: string
-                    example: Token not found or inactive
-                  message:
-                    type: string
-                    example: Votre jeton d'API n'a pas été trouvé ou n'est pas actif
-        '404':
-          description: Dossier allocataire inexistant. Le document ne peut être édité.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: not_found
-                  reason:
-                    type: string
-                    example: Dossier allocataire inexistant. Le document ne peut être
-                      édité.
-                  message:
-                    type: string
-                    example: Dossier allocataire inexistant. Le document ne peut être
-                      édité.
-        '500':
-          description: Une erreur interne s'est produite, l'équipe a été prévenue.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: error
-                  reason:
-                    type: string
-                    example: Internal server error
-                  message:
-                    type: string
-                    example: Une erreur interne s'est produite, l'équipe a été prévenue.
-        '503':
-          description: Une erreur est survenue lors de l'appel au fournisseur de donnée
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: network_error
-                  reason:
-                    type: string
-                    example: timeout of 10000 ms exceeded
-                  message:
-                    type: string
-                    example: Une erreur est survenue lors de l'appel au fournisseur
-                      de donnée
 security:
 - apiKey: []
 servers:
