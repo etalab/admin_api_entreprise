@@ -10,7 +10,7 @@ services:
     volumes:
       - ./docker/db/:/docker-entrypoint-initdb.d
   redis:
-    image: 'redis:6.0-alpine'
+    image: 'redis:6.2-alpine'
     command: redis-server
   web:
     build: .
