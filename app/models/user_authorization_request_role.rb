@@ -2,11 +2,9 @@ class UserAuthorizationRequestRole < ApplicationRecord
   belongs_to :user
   belongs_to :authorization_request
 
-  # rubocop:disable Rails/UniqueValidationWithoutIndex
   validates :authorization_request_id, uniqueness: { scope: %i[user_id role] }
   validates :user_id, uniqueness: { scope: %i[authorization_request_id role] }
   validates :role, uniqueness: { scope: %i[authorization_request_id user_id], case_sensitive: false }
-  # rubocop:enable Rails/UniqueValidationWithoutIndex
 
   validates :role, inclusion: { in: %w[demandeur contact_metier contact_technique] }
 
