@@ -1,0 +1,87 @@
+---
+- uid: 'gip_mds/effectifs_annuels_unite_legale'
+  path: '/v3/gip_mds/unites_legales/{siren}/effectifs_annuels/{year}'
+  position: 1
+  perimeter:
+    entity_type_description: |+
+      Cette API permet d’accéder aux effectifs annuels de ✅ **toutes les unités légales du régime général et du régime agricole** ayant des salariés.
+
+      ✅ Les associations ayant un SIREN et des salariés sont concernées par cette API.
+      
+    geographical_scope_description:  |+
+      - ✅ France métropolitaine
+      - ✅ DROM-COM sauf ❌ Mayotte
+    updating_rules_description: |+
+      Les effectifs annuels d'une unité légale sont mis à jour **une fois par an, au 31 janvier**.
+    know_more_description: |+
+      Les données d'effectifs de cette API sont issues du **répertoire commun des déclarants (RCD)** qui récupère les effectifs du régime général auprès de l'URSSAF et les données du régime agricole auprès de la MSA.
+    # La liste des clés disponible est stockée dans le fichier endpoint.fr.yml
+    entities:
+      - entreprises
+      - associations
+  # Texte libre
+  call_id: SIREN
+  # La liste des clés disponible est stockée dans la locale `provider_uids` du fichier provider_uids.fr.yml
+  provider_uids:
+    - 'gipmds'
+  # Ces mots clés servent à la recherche algolia sur l'index du catalogue
+  keywords: &gip_mds_effectifs_keywords
+    - 'effectif'
+    - 'urssaf'
+    - 'msa'
+    - 'regime agricole'
+    - 'regime general'
+    - 'ressources humaines'
+    - 'salaries'
+  data:
+    description: |+
+      Cette API délivre l'**effectif annuel de l'unité légale** pour l'année demandée. Les données transmises distinguent le régime général du régime agricole.
+  opening: protected
+  use_cases_optional: &gip_mds_effectifs_use_cases_optional
+    - Aides publiques
+    - Marchés publics
+    - Subventions associations
+    - Portail GRU - Instruction des démarches
+  use_cases_forbidden: &gip_mds_effectifs_use_cases_forbidden
+    - Portail GRU - Préremplissage
+  use_cases: &gip_mds_effectifs_use_cases
+    - Détection de la fraude
+  parameters:
+    - Numéro de SIREN de l'unité légale
+  format:
+    - Donnée structurée JSON
+
+- uid: 'gip_mds/effectifs_mensuels_etablissement'
+  path: '/v3/gip_mds/etablissements/{siret}/effectifs_mensuels/{month}/annee/{year}'
+  position: 2
+  perimeter:
+    entity_type_description: |+
+      Cette API permet d’accéder aux effectifs mensuels de ✅ **tous les établissements du régime général et du régime agricole** ayant des salariés.
+
+      ✅ Les associations ayant un SIREN et des salariés sont concernées par cette API.
+    geographical_scope_description:  |+
+      - ✅ France métropolitaine
+      - ✅ DROM-COM sauf ❌ Mayotte
+    updating_rules_description: |+
+      Les effectifs mensuels d'un établissement sont mis à jour **une fois par mois**.
+    know_more_description: |+
+      Les données d'effectifs de cette API sont issues du **répertoire commun des déclarants (RCD)** qui récupère les effectifs du régime général auprès de l'URSSAF et les données du régime agricole auprès de la MSA.
+    entities:
+      - etablissements_entreprises
+  call_id: SIRET
+  provider_uids:
+    - 'gipmds'
+  keywords: *gip_mds_effectifs_keywords
+  data:
+    description: |+
+      Cette API délivre l'**effectif mensuel d'un établissement'**. Il est possible d'appeler l'effectif mensuel des **13 derniers mois**. Les données transmises distinguent le régime général du régime agricole.
+  opening: protected
+  use_cases_optional: *gip_mds_effectifs_use_cases_optional
+  use_cases_forbidden: *gip_mds_effectifs_use_cases_forbidden
+  use_cases: *gip_mds_effectifs_use_cases
+  parameters:
+    - Numéro de SIRET de l'établissement
+    - Année
+    - Mois
+  format:
+    - Donnée structurée JSON
