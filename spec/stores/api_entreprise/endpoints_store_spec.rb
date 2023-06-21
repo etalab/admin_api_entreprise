@@ -8,15 +8,17 @@ RSpec.describe APIEntreprise::EndpointsStore, type: :store do
       expect(subject.count).to be >= 1
     end
 
+    it 'is ordered by position' do
+      positions = subject.pluck(:position)
+
+      expect(positions).to eq(positions.sort)
+    end
+
     describe 'an element' do
       subject { described_class.all.first }
 
       it { is_expected.to have_key('uid') }
       it { is_expected.to have_key('path') }
-
-      it 'is ordered by position' do
-        expect(subject['uid']).to eq('insee/etablissements_diffusibles')
-      end
     end
   end
 
