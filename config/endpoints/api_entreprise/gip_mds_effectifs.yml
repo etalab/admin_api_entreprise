@@ -2,15 +2,20 @@
 - uid: 'gip_mds/effectifs_annuels_unite_legale'
   path: '/v3/gip_mds/unites_legales/{siren}/effectifs_annuels/{year}'
   position: 1234
-  extra_description: |+
-    Texte directement en dessous de la description. Ce champ peut-être omis (optionnel). Le markdown GFM est supporté ici.
   perimeter:
-    description: |+
-      Une description exhaustive du périmètre utilisée dans la fiche détaillée. Le markdown GFM est supporté ici.
     entity_type_description: |+
-      Une description exhaustive des types d'entité renvoyés par le endpoint dans la fiche détaillée. Le markdown GFM est supporté ici.
+      Cette API permet d’accéder aux effectifs de ✅ toutes les unités légales ayant des salariés, à l’exception :
+
+      - ❌ des entreprises des marins ;
+      - ❌ des entreprises de cultes ;
+      - ❌ des junior-entreprises (environ 200 unités légales) ;
+      - ❌ Les administrations et collectivités territoriales ne sont pas concernées.
+
+      ✅ Les associations ayant un SIREN et des salariés sont concernées par cette API.
+      
     geographical_scope_description:  |+
-      Une description exhaustive du scope géographique dans la fiche détaillée. Le markdown GFM est supporté ici.
+      - ✅ France métropolitaine
+      - DROM-COM sauf ❌ Mayotte
     updating_rules_description: |+
       Les règles de mise à jour de la donnée dans al fiche détaillée. Le markdown GFM est supporté ici.
     know_more_description: |+
