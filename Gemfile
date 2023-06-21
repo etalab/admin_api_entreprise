@@ -65,6 +65,8 @@ gem 'listen'
 
 gem 'anchored'
 
+gem 'strong_migrations'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'colorize'
