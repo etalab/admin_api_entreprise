@@ -4,23 +4,17 @@
   position: 1234
   perimeter:
     entity_type_description: |+
-      Cette API permet d’accéder aux effectifs de ✅ toutes les unités légales ayant des salariés, à l’exception :
-
-      - ❌ des entreprises des marins ;
-      - ❌ des entreprises de cultes ;
-      - ❌ des junior-entreprises (environ 200 unités légales) ;
-      - ❌ Les administrations et collectivités territoriales ne sont pas concernées.
+      Cette API permet d’accéder aux effectifs annuels de ✅ **toutes les unités légales du régime général et du régime agricole** ayant des salariés.
 
       ✅ Les associations ayant un SIREN et des salariés sont concernées par cette API.
       
     geographical_scope_description:  |+
       - ✅ France métropolitaine
-      - DROM-COM sauf ❌ Mayotte
+      - ✅ DROM-COM sauf ❌ Mayotte
     updating_rules_description: |+
-      Les règles de mise à jour de la donnée dans al fiche détaillée. Le markdown GFM est supporté ici.
+      Les effectifs annuels d'une unité légale sont mis à jour **une fois par an, au 31 janvier**.
     know_more_description: |+
-      Lien optionnel pour en savoir plus sur la donnée. Le markdown GFM est supporté ici.
-
+      Les données d'effectifs de cette API sont issues du **répertoire commun des déclarants (RCD)** qui récupère les effectifs du régime général auprès de l'URSSAF et les données du régime agricole auprès de la MSA.
     # La liste des clés disponible est stockée dans le fichier endpoint.fr.yml
     entities:
       - entreprises
@@ -36,79 +30,53 @@
   data:
     description: |+
       Décrit le type / format des données délivrée par l'API. Le markdown GFM est supporté ici.
-  # Ne peut être que public ou protected
   opening: protected
-  # Texte libre, cette donnée est affichée sur la page du endpoint
-  use_cases_optional:
-  use_cases_forbidden:
-  use_cases:
+  use_cases_optional: &gip_mds_effectifs_use_cases_optional
     - Aides publiques
     - Marchés publics
-    - Portail GRU - Préremplissage
-    - Portail GRU - Instruction des démarches
     - Subventions associations
+    - Portail GRU - Instruction des démarches
+  use_cases_forbidden: &gip_mds_effectifs_use_cases_forbidden
+    - Portail GRU - Préremplissage
+  use_cases: &gip_mds_effectifs_use_cases
     - Détection de la fraude
-  # Texte libre, cette donnée est affichée sur la page du endpoint
   parameters:
-    - Numéro de SIREN de la personne physique ou morale recherchée
+    - Numéro de SIREN de l'unité légale
   format:
     - Donnée structurée JSON
-  faq:
-    - q: "Question ?"
-      a: |+
-        Réponse à la question. Le markdown GFM est supporté ici.
 
 - uid: 'gip_mds/effectifs_mensuels_etablissement'
   path: '/v3/gip_mds/etablissements/{siret}/effectifs_mensuels/{month}/annee/{year}'
   position: 1235
-  extra_description: |+
-    Texte directement en dessous de la description. Ce champ peut-être omis (optionnel). Le markdown GFM est supporté ici.
   perimeter:
-    description: |+
-      Une description exhaustive du périmètre utilisée dans la fiche détaillée. Le markdown GFM est supporté ici.
     entity_type_description: |+
-      Une description exhaustive des types d'entité renvoyés par le endpoint dans la fiche détaillée. Le markdown GFM est supporté ici.
-    geographical_scope_description:  |+
-      Une description exhaustive du scope géographique dans la fiche détaillée. Le markdown GFM est supporté ici.
-    updating_rules_description: |+
-      Les règles de mise à jour de la donnée dans al fiche détaillée. Le markdown GFM est supporté ici.
-    know_more_description: |+
-      Lien optionnel pour en savoir plus sur la donnée. Le markdown GFM est supporté ici.
+      Cette API permet d’accéder aux effectifs mensuels de ✅ **tous les établissements du régime général et du régime agricole** ayant des salariés.
 
-    # La liste des clés disponible est stockée dans le fichier endpoint.fr.yml
+      ✅ Les associations ayant un SIREN et des salariés sont concernées par cette API.
+    geographical_scope_description:  |+
+      - ✅ France métropolitaine
+      - ✅ DROM-COM sauf ❌ Mayotte
+    updating_rules_description: |+
+      Les effectifs mensuels d'un établissement sont mis à jour **une fois par mois**.
+    know_more_description: |+
+      Les données d'effectifs de cette API sont issues du **répertoire commun des déclarants (RCD)** qui récupère les effectifs du régime général auprès de l'URSSAF et les données du régime agricole auprès de la MSA.
     entities:
       - etablissements_entreprises
-  # Texte libre
   call_id: SIRET
-  # La liste des clés disponible est stockée dans la locale `provider_uids` du fichier provider_uids.fr.yml
   provider_uids:
     - 'gipmds'
-  # Ces mots clés servent à la recherche algolia sur l'index du catalogue
   keywords:
     - 'whatever'
   data:
     description: |+
       Décrit le type / format des données délivrée par l'API. Le markdown GFM est supporté ici.
-  # Ne peut être que public ou protected
   opening: protected
-  # Texte libre, cette donnée est affichée sur la page du endpoint
-  use_cases_optional:
-  use_cases_forbidden:
-  use_cases:
-    - Aides publiques
-    - Marchés publics
-    - Portail GRU - Préremplissage
-    - Portail GRU - Instruction des démarches
-    - Subventions associations
-    - Détection de la fraude
-  # Texte libre, cette donnée est affichée sur la page du endpoint
+  use_cases_optional: *gip_mds_effectifs_use_cases_optional
+  use_cases_forbidden: *gip_mds_effectifs_use_cases_forbidden
+  use_cases: *gip_mds_effectifs_use_cases
   parameters:
     - Numéro de SIRET de l'établissement
     - Année
     - Mois
   format:
     - Donnée structurée JSON
-  faq:
-    - q: "Question ?"
-      a: |+
-        Réponse à la question. Le markdown GFM est supporté ici.
