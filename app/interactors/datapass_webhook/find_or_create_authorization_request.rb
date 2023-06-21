@@ -25,6 +25,8 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
 
       user = extract_user_from_contact_payload(contact_payload)
 
+      next unless user.valid?
+
       user_authorization_request_role = context.authorization_request.user_authorization_request_roles.find_or_initialize_by(role:)
       user_authorization_request_role.update!(user:) if user_authorization_request_role.user != user
     end
