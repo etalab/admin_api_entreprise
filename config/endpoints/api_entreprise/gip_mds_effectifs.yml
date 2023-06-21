@@ -25,8 +25,14 @@
   provider_uids:
     - 'gipmds'
   # Ces mots clés servent à la recherche algolia sur l'index du catalogue
-  keywords:
-    - 'whatever'
+  keywords: &gip_mds_effectifs_keywords
+    - 'effectif'
+    - 'urssaf'
+    - 'msa'
+    - 'regime agricole'
+    - 'regime general'
+    - 'ressources humaines'
+    - 'salaries'
   data:
     description: |+
       Cette API délivre l'**effectif annuel de l'unité légale** pour l'année demandée. Les données transmises distinguent le régime général du régime agricole.
@@ -65,8 +71,7 @@
   call_id: SIRET
   provider_uids:
     - 'gipmds'
-  keywords:
-    - 'whatever'
+  keywords: *gip_mds_effectifs_keywords
   data:
     description: |+
       Cette API délivre l'**effectif mensuel d'un établissement'**. Il est possible d'appeler l'effectif mensuel des **13 derniers mois**. Les données transmises distinguent le régime général du régime agricole.
