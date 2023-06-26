@@ -12,7 +12,7 @@ module UserSessionsHelper
   end
 
   def user_is_demandeur?(authorization_request)
-    return unless authorization_request
+    return false unless authorization_request
 
     authorization_request.demandeur == current_user
   end
