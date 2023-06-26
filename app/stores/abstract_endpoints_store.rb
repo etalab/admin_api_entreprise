@@ -34,7 +34,7 @@ class AbstractEndpointsStore
 
   def load_backend
     @backend = endpoints_files.inject([]) { |array, endpoint_file|
-      array.concat(YAML.safe_load(File.read(endpoint_file), aliases: true))
+      array.concat(YAML.safe_load_file(endpoint_file, aliases: true))
     }.sort { |endpoint1, endpoint2| # rubocop:todo Style/MultilineBlockChain
       order_by_position(endpoint1, endpoint2)
     }.map do |endpoint| # rubocop:todo Style/MultilineBlockChain
