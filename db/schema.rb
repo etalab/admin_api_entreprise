@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_21_113853) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_23_074703) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pgcrypto"
@@ -41,11 +41,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_21_113853) do
     t.uuid "token_id"
     t.index ["access_token"], name: "index_magic_links_on_access_token", unique: true
     t.index ["token_id"], name: "index_magic_links_on_token_id"
-  end
-
-  create_table "scopes_tokens", id: false, force: :cascade do |t|
-    t.uuid "token_id", null: false
-    t.uuid "scope_id", null: false
   end
 
   create_table "tokens", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
