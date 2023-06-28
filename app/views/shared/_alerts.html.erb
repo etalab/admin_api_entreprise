@@ -6,9 +6,7 @@
       </p>
 
       <% if flash[kind]['description'] %>
-        <p>
-        <%= flash[kind]['description'] %>
-        </p>
+        <%= simple_format(flash[kind]['description']) %>
       <% end %>
     </div>
   <% end %>
