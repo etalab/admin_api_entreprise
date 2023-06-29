@@ -140,17 +140,10 @@ Effectuer la commande suivante pour déployer en production:
 ./bin/deploy
 ```
 
-Il est possible de déployer une branche (develop par défaut) en faisant un flushdb / seed sur la machine frontale en sandbox
-avec la commande suivante:
+Dans le cas d'un test sur sandbox sur la machine frontale avec la branche `features/whatever`
 
 ```
-./bin/deploy-sandbox
-```
-
-Dans le cas d'un test sur sandbox avec la branche `features/whatever`
-
-```
-bundle exec mina deploy domain=dashboard.entreprise.api.gouv.fr branch=features/whatever to=sandbox
+ssh -A watchdoge -- /usr/local/bin/rails_deploy_admin_apientreprise_sandbox.sh features/whatever
 ```
 
 ## Ajout de credentials via rails:credentials
