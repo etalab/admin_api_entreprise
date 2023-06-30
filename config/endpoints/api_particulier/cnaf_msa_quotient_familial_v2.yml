@@ -26,10 +26,10 @@
     updating_rules_description: |+
       Les données sont **mises à jour en temps réel**, cette API opérée par la CNAV (Caisse nationale d'assurance vieillesse) est reliée au système d'information de la Caisse nationale des allocations familiales (CNAF) et à celui de la mutualité sociale agricole (MSA).
 
-      ⚠️ **Les informations obtenues sont représentatives de la situation connue par la CNAF et la MSA et peuvent évoluer très fréquemment**. Le quotient familial CAF ou MSA est recalculé tous les mois, il peut être rétroactif et dépend de la situation du particulier et de l'état du droit. Il peut donc y avoir des écarts, notamment si la situation de la personne évolue entre temps : perte d'un emploi, évolution des ressources, arrivée d'un enfant, majorité d'un enfant, modification de la législation etc. Depuis que les allocations logement sont contemporaines (transmises très régulièrement), le QF est amené à évoluer lui aussi très fréquemment.
+      ⚠️ **Les informations obtenues sont représentatives de la situation connue par la CNAF et la MSA au moment de l'appel**, il est donc possible qu'un quotient familial appelé pour un mois donné à un instant T, soit différent s'il est redemandé à un instant T+. [En savoir plus](faq_entry_1_api_particulier_endpoint_cnaf-msa_quotient_familial_v2). 
   data:
     description: |+
-      Cette API délivre la **composition familiale de l'allocataire et son quotient familial CAF ou MSA**. Le QF de l'allocataire est disponible pour les 24 mois précédents en précisant le mois et l'année dans l'appel.
+      Cette API délivre la **composition familiale de l'allocataire et son quotient familial CAF ou MSA**. Par défaut, le quotient familial du **mois en cours** est transmis. Le QF de l'allocataire est disponible pour les 24 mois précédents en précisant le mois et l'année dans l'appel.
 
       {:.fr-highlight}
       > Le quotient familial au sens de la CNAF ou de la MSA a une définition différente du quotient familial de l'administration fiscale, [en  savoir plus](#faq_entry_1_api_particulier_endpoint_cnaf_quotient_familial).
@@ -75,6 +75,23 @@
         Calcul du QF CAF/MSA : Revenu imposable de l’année N-2 divisé par 12 + **les prestations familiales du mois de référence**, le tout divisé par le nombre de parts fiscales du foyer.
 
         Source : [Caf.fr](https://caf.fr/allocataires/vies-de-famille/articles/quotient-familial-caf-impots-quelles-differences)
+
+    - q: Variations du quotient familial au cours du temps et dates de calcul
+      a: |+
+        **Le quotient familial CAF ou MSA d'un même mois peut changer**. Il est recalculé fréquemment au cours du temps par la CAF et la MSA. En effet, la situation de la personne peut évoluer : _perte d'un emploi, évolution des ressources, arrivée d'un enfant, majorité d'un enfant, modification de la législation, évolution des allocations logement etc._ 
+        **Cette variation apparaît notamment entre le quotient familial du mois en cours appelé en début de mois ou en fin de mois**. 
+
+        **Deplus, la date du calcul du quotient familial diffère** selon qu'il s'agit du quotient de la CAF ou de la MSA.
+        - La CAF effectue une sauvegarde des quotients recalculés uniquement lorqu'un changement subvient du côté de l'allocataire. 
+
+            {:.fr-highlight.fr-highlight--example}
+            > Par exemple, un appel le 28 juin 2023, du quotient du mois en cours (juin 2023) : La CAF renverra le QF qu'elle a en mémoire, par exemple calculé le 19 juin 2023.
+
+        - La MSA effectue un recalcul du quotient familial à chaque appel de l'API.
+         
+            {:.fr-highlight.fr-highlight--example}
+            > Par exemple, un appel le 28 juin 2023 du quotient familial du mois en cours (juin 2023) : la MSA recalculera le QF le 28 juin 2023.
+
     - q: Qu'est-ce qu'un enfant au sens de la CNAF ?
       a: |+
         La liste des enfants transmis par l'API correspond à la notion d'enfant à charge au sens de la législation familiale. Pour qu'un enfant soit considéré comme "à charge", l’allocataire doit assurer financièrement son entretien de manière effective et permanente et assumer à son égard la responsabilité affective et éducative. Il n'y a pas d'obligation de lien de parenté avec l’enfant.
