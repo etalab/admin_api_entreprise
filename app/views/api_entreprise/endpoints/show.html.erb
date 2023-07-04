@@ -11,7 +11,18 @@
     <div class="fr-col-md-<%= layout_main_bloc %> fr-col-12">
       <p class="fr-text--lead fr-mt-md-2w">
         <%= @endpoint.description %>
-
+        <% if @endpoint.incoming? %>
+          <div class="fr-alert fr-alert--info fr-alert--sm fr-mb-2w">
+            <p class="fr-alert__title">
+              <%= t('.incoming.title') %>
+            </p>
+            <p>
+              <%= t('.incoming.description') %>
+              <p class="fr-text--sm fr-mt-2w">
+              <%= t('.incoming.link_documentation').html_safe %><%= link_to t('.incoming.cta'), developers_openapi_path(anchor: @endpoint.redoc_anchor), data: { turbo: false }, class: %() %></p>
+            </p>
+          </div>
+        <% end %>
         <% if @endpoint.extra_description.present? %>
           <%= markdown_to_html(@endpoint.extra_description) %>
         <% end %>

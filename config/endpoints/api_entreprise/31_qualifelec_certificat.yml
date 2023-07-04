@@ -3,107 +3,68 @@
   path: '/v3/qualifelec/etablissements/{siret}/certificats'
   # Position au sein de l'index
   position: 1
-  extra_description: |+
-    Texte directement en dessous de la description. Ce champ peut-être omis (optionnel). Le markdown GFM est supporté ici.
   perimeter:
-    description: |+
-      Une description exhaustive du périmètre utilisée dans la fiche détaillée. Le markdown GFM est supporté ici.
     entity_type_description: |+
-      Une description exhaustive des types d'entité renvoyés par le endpoint dans la fiche détaillée. Le markdown GFM est supporté ici.
-    geographical_scope_description:  |+
-      Une description exhaustive du scope géographique dans la fiche détaillée. Le markdown GFM est supporté ici.
-    updating_rules_description: |+
-      Les règles de mise à jour de la donnée dans al fiche détaillée. Le markdown GFM est supporté ici.
-    know_more_description: |+
-      Lien optionnel pour en savoir plus sur la donnée. Le markdown GFM est supporté ici.
+      ✅ Toutes les **entreprises du génie électrique et énergétique** ayant obtenu une certification par [Qualifelec](https://www.qualifelec.fr/){:target="_blank"}. Toutes les certifications sont concernées : RGE ou non, accréditées ou non, probatoire ou classique.
 
-    # La liste des clés disponible est stockée dans le fichier endpoint.fr.yml
+      Cela représente environ 5000 établissements.
+    geographical_scope_description:  |+
+      - ✅ France métropolitaine
+      - ✅ DROM COM
+    updating_rules_description: |+
+      Les données sont **mises à jour en temps réel**, l'API étant directement reliée au système d'information de Qualifelec.
     entities:
       - entreprises
-      - associations
   # Texte libre
-  call_id: "SIRET / RNA"
+  call_id: "SIRET"
   # La liste des clés disponible est stockée dans la locale `provider_uids` du fichier provider_uids.fr.yml
   provider_uids:
-    - 'insee'
+    - 'qualifelec'
   # Ces mots clés servent à la recherche algolia sur l'index du catalogue
   keywords:
-    - 'whatever'
+    - 'qualifelec'
+    - 'certificat'
+    - 'capacite'
+    - 'habilitation'
+    - 'rge'
+    - 'reconnu garant environnement'
+    - 'energie'
+    - 'electricite'
+    - 'assurance'
+    - 'decennale'
+    - 'responsabilite civile'
+    - 'mention'
+    - 'classification'
+    - 'qualification'
+    - 'indice'
+    - 'effectif'
   data:
     description: |+
-      Décrit le type / format des données délivrée par l'API. Le markdown GFM est supporté ici.
+      Cette API permet d'obtenir **la liste des certificats Qualifelec valides** obtenus par l'établissement. Pour chaque certificat, l'API délivre les données suivantes : 
+      - **informations relatives au certificat** : numéro, dates de validité ; 
+      - **informations sur la qualification obtenue** : labellisée RGE ou non, libellé, dates de validité, indices, mentions, domaines et la classification qui donne l'effectif du personnel d'execution et d'encadrement disponible pour cette qualification ;
+      - **assurances décennale et de responsabilité civile** ;
+      - l'url de téléchargement du certificat au **format PDF**.
+     
+      {:.fr-h6 .fr-mt-4w}
+      ### Exemple de certificat PDF&nbsp;:
 
-      # Pour ajouter un bloc de téléchargement pour un seul document PDF
-
-      <div class="fr-downloads-group fr-downloads-group--bordered">    
-        <h4 class="fr-downloads-group__title fr-text--lg fr-mb-1v">Exemple d'attestation&nbsp;:</h4>      
-        <div class="fr-download">                
-          <p>                    
-            <a href="/files/exemple-fntp-carte-professionnelle-travaux-publics.pdf" download class="fr-download__link">
-            Télécharger un exemple de carte professionnelle FNTP                       
-            <span class="fr-download__detail">                            
-            PDF – 623 Ko                        
-            </span>                    
-            </a>                
-          </p>            
-          </div>        
-      </div>  
-
-      # Pour ajouter un bloc de téléchargement pour plusieurs documents PDF
-
-        <div class="fr-downloads-group fr-downloads-group--bordered">    
-          <h4 class="fr-downloads-group__title fr-text--lg fr-mb-1v">Exemples de documents PDF&nbsp;:</h4>  
-          <ul>        
-          <li>            
-            <div class="fr-download">                
-            <p>                    
-              <a href="/files/formulaire-unique-subventions-associations-cerfa_12156-06.pdf" download class="fr-download__link">
-              Télécharger le document lorem ipsum sit dolores amet                        
-              <span class="fr-download__detail">                            
-              PDF – 161,88 Ko                        
-              </span>                    
-              </a>                
-            </p>            
-          </div>        
-          </li>        
-          <li>            
-            <div class="fr-download">                
-            <p>                    
-              <a href="/files/formulaire-unique-subventions-associations-cerfa_12156-06.pdf" download class="fr-download__link">
-              Télécharger le document lorem ipsum sit dolores amet                        
-              <span class="fr-download__detail">                            
-              PDF – 161,88 Ko                        
-              </span>                    
-              </a>                
-            </p>            
-            </div>        
-          </li>        
-        </ul>
-      </div>        
-  # Ne peut être que public ou protected
-  opening: protected
-  # Texte libre, cette donnée est affichée sur la page du endpoint
+      <div class="fr-download">                
+       <p>                    
+        <a href="/files/exemple-certificat-qualifelec.pdf" download class="fr-download__link">
+         Télécharger un exemple de certificat Qualifelec                      
+         <span class="fr-download__detail">                            
+         PDF – 756 Ko                               
+         </span>                    
+        </a>                
+       </p>            
+      </div>   
+  opening: public
   use_cases_optional:
   use_cases_forbidden:
   use_cases:
-    - Aides publiques
     - Marchés publics
-    - Portail GRU - Préremplissage
-    - Portail GRU - Instruction des démarches
-    - Subventions associations
-    - Détection de la fraude
-  # Texte libre, cette donnée est affichée sur la page du endpoint
   parameters:
-    - Numéro de SIREN de la personne physique ou morale recherchée
+    - Numéro de SIRET de l'établissement
   format:
-    - Donnée structurée JSON
-  faq:
-    - q: "Question ?"
-      a: |+
-        Réponse à la question. Le markdown GFM est supporté ici.
-  historique: |+
-    **Ce que change la V.4 par rapport à la V.3 :**
-    Texte
-
-    **Ce qui ne change pas :**
-    Texte
+    - Donnée structurée JSON et URL vers le certificat en PDF
