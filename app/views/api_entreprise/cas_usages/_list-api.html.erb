@@ -14,25 +14,25 @@
     <tbody>
       <% @active_endpoints.each do |endpoint| %>
         <tr>
-          <td>
+          <td style="vertical-align:initial">
             <strong><%= endpoint.providers.map(&:name).join(' & ') %></strong><br>
             <%= endpoint.title %><br>
           </td>
-          <td>
+          <td style="vertical-align:initial">
             <%= h(endpoint.cas_usage_icon(@cas_usage.name).html_safe) %>
           </td>
-          <td>
+          <td style="vertical-align:initial">
             <%= icon(t("api_entreprise.endpoint.opening.#{endpoint.opening}.icon", raise: true)) rescue nil %>
             <%= t("api_entreprise.endpoint.opening.#{endpoint.opening}.name") %>
           </td>
-          <td>
-            <%= icon(t("api_entreprise.endpoint.call_id.#{endpoint.call_id}.icon", raise: true)) rescue nil %>
+          <td style="vertical-align:initial">
+            <%= icon (t("api_entreprise.endpoint.call_id.#{endpoint.call_id}.icon", raise: true)) rescue nil %>
             <%= t("api_entreprise.endpoint.call_id.#{endpoint.call_id}") %>
-          </td>
-          <td>
+          </td style="vertical-align:initial">
+          <td style="vertical-align:initial">
             <%= markdown_to_html(@cas_usage.comments_endpoints.try(:[], endpoint.uid.to_sym)) %>
           </td>
-          <td>
+          <td style="vertical-align:baseline">
             <%= link_to t('.documentation'), "#{endpoints_path}/#{endpoint.uid}" %><br/>
             <%= link_to t('.swagger'), "#{developers_openapi_path}##{endpoint.redoc_anchor}" %>
           </td>
