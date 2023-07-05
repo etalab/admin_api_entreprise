@@ -1,8 +1,6 @@
-require 'rails_helper'
-
-RSpec.describe 'log out', app: :api_entreprise do
+RSpec.describe 'log out', app: :api_particulier do
   subject do
-    visit user_profile_path
+    visit api_particulier_user_profile_path
 
     click_link 'logout_button'
   end
@@ -11,7 +9,7 @@ RSpec.describe 'log out', app: :api_entreprise do
     login_as(create(:user))
 
     # rubocop:disable RSpec/AnyInstance
-    allow_any_instance_of(APIEntreprise::SessionsController).to receive(:oauth_logout_url).and_return(after_logout_path)
+    allow_any_instance_of(APIParticulier::SessionsController).to receive(:oauth_logout_url).and_return(after_logout_path)
     # rubocop:enable RSpec/AnyInstance
   end
 

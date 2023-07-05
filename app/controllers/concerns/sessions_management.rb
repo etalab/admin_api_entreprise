@@ -17,7 +17,14 @@ module SessionsManagement
 
   def destroy
     logout_user
-    redirect_to login_path
+
+    redirect_to oauth_logout_url
+  end
+
+  def after_logout
+    success_message(title: t('.success'))
+
+    redirect_to root_path
   end
 
   private
@@ -45,5 +52,13 @@ module SessionsManagement
 
   def auth_hash
     request.env['omniauth.auth']
+  end
+
+  def oauth_logout_url
+    "#{Rails.application.config.oauth_api_gouv_issuer}/oauth/logout?post_logout_redirect_uri=#{after_logout_url}&client_id=#{oauth_api_gouv_client_id}"
+  end
+
+  def oauth_api_gouv_client_id
+    Rails.configuration.public_send("oauth_api_gouv_client_id_#{namespace.gsub('api_', '')}")
   end
 end
