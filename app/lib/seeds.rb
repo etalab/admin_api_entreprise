@@ -1,9 +1,9 @@
 class Seeds
   def perform
-    @user_email = Rails.env.development? ? 'user@yopmail.com' : 'unknown@whatever.com'
+    @user_email = 'user@yopmail.com'
     @user = create_main_user
 
-    @contact_email = Rails.env.development? ? 'user10@yopmail.com' : 'contact_technique_unknown@whatever.com'
+    @contact_email = 'contact_technique@yopmail.com'
     @contact = create_contact
 
     create_data_for_api_entreprise
