@@ -7,12 +7,17 @@
       Cette API permet d’accéder aux effectifs annuels de ✅ **toutes les unités légales du régime général et du régime agricole** ayant des salariés.
 
       ✅ Les associations ayant un SIREN et des salariés sont concernées par cette API.
+
+      ❌ Les régimes spéciaux ne sont pas couverts.
       
     geographical_scope_description:  |+
       - ✅ France métropolitaine
-      - ✅ DROM-COM sauf ❌ Mayotte
+      - ✅ DROM-COM
     updating_rules_description: |+
-      Les effectifs annuels d'une unité légale sont mis à jour **une fois par an, au 31 janvier**.
+      L'effectif de l'année N d'une unité légale est mis à disposition **fin janvier de l'année N+1**. 
+      
+      {:.fr-highlight}
+      > L'effectif d'une même année peut évoluer au cours du temps, car les rectifications à posteriori sont possibles.
     know_more_description: |+
       Les données d'effectifs de cette API sont issues du **répertoire commun des déclarants (RCD)** qui récupère les effectifs du régime général auprès de l'URSSAF et les données du régime agricole auprès de la MSA.
     # La liste des clés disponible est stockée dans le fichier endpoint.fr.yml
@@ -35,7 +40,9 @@
     - 'salaries'
   data:
     description: |+
-      Cette API délivre l'**effectif annuel de l'unité légale** pour l'année demandée. Les données transmises distinguent le régime général du régime agricole.
+      Cette API délivre l'**effectif moyen annuel (EMA) de l'unité légale** pour l'année demandée. Les données transmises distinguent le régime général du régime agricole. 
+      
+      L'effectif moyen annuel de l'unité légale correspond à la somme des effectifs moyens mensuels (EMM) de tous les établissements de l'unité, divisée par le nombre de mois au cours desquels des salariés ont été employés. [En savoir plus sur l'EMA](#faq_entry_answer_0_api_entreprise_endpoint_gip_mds_effectifs_annuels_unite_legale).
   opening: protected
   use_cases_optional: &gip_mds_effectifs_use_cases_optional
     - Aides publiques
@@ -50,6 +57,55 @@
     - Numéro de SIREN de l'unité légale
   format:
     - Donnée structurée JSON
+  faq:
+      - q: Quel est le calcul de l'effectif moyen annuel (EMA) ?
+        a: |+
+          L'effectif moyen annuel (EMA) correspond à la somme des effectifs moyens mensuels (EMM) de tous les établissements de l'unité, divisée par le nombre de mois au cours desquels des salariés ont été employés.
+
+          L'ensemble des contrats actifs sont pris en compte, à l'exception :
+          - ❌ des contrats d'apprentissage ;
+          - ❌ des contrats d'initiative l'emploi ;
+          - ❌ des contrats d'accompagnement dans l'emploi ; 
+          - ❌ des contrats de professionnalisation ; 
+          - ❌ des conventions industrielles de formation par la recherche en entreprise ;
+          - ❌ des CDD en remplacement d'un salarié absent ;
+          - ❌ des conventions de stage ; 
+          - ❌ des contrats de volontariat de service civique ; 
+          - ❌ des contrats de soutien et d'aide par le travail ;
+          - ❌ des contrats de type ligne de service ;
+         
+          - ❌ des périodes de mise en situation en milieu professionnel ;
+          - ❌ des compagnons d’Emmaüs ; 
+          - ❌ Patrons-pêcheurs ; 
+          - ❌ des vendeurs à domicile indépendants (VDI) ;
+          - ❌ des mandats sociaux ; 
+          - ❌ des contrats d'appui au projet d'entreprise ; 
+          - ❌ des praticiens hospitaliers en détachement ; 
+          - ❌ des contrats d’engagement détenu ;
+          - ❌ des colporteurs de presse ;
+          - ❌ des statuts d'emploi "militaire de réserve" ; 
+          - ❌ des parcours d'accès aux carrières (Pacte) ;
+          - ❌ des travailleurs expatriés à l’étranger au sens de la Sécurité Sociale ; 
+          - ❌ des mandats d'élus ; 
+          - ❌ des fonctionnaire en détachement sur un mandat électif (élu local) ;
+          - ❌ des contrats de mission d'un collaborateur occasionnel du service public (COSP) ou assimilé
+          - ❌ des fonctionnaires pour détachement ; 
+        
+          {:.fr-h6 .fr-mt-4w}
+          ### Pour en savoir plus&nbsp;:
+
+          Le [site de l'Urssaf](https://www.urssaf.fr/portail/home/employeur/calculer-les-cotisations/le-calcul-de-leffectif/calcul-des-effectifs-par-lurssaf/presentation-des-regles-de-gesti.html){:target="_blank"} est la source de référence des règles de gestion et de calcul des effectifs. Le document suivant les explique en détail : 
+
+          <div class="fr-download">
+          <p>
+            <a href="/files/gip_mds_effectifs_methode_calcul_urssaf.pdf" download class="fr-download__link">
+            Télécharger les règles de gestion du calcul des effectifs de l'Urssaf
+            <span class="fr-download__detail">
+            PDF – 1,3 Mo | version du 26/01/2023 
+            </span>
+            </a>
+          </p>
+          </div>
 
 - uid: 'gip_mds/effectifs_mensuels_etablissement'
   path: '/v3/gip_mds/etablissements/{siret}/effectifs_mensuels/{month}/annee/{year}'
@@ -87,3 +143,8 @@
     - Mois
   format:
     - Donnée structurée JSON
+  faq:
+    - q: Quel est le calcul de l'effectif moyen mensuel (EMM) ?
+      a: |+
+        Lorem
+
