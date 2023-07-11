@@ -33,7 +33,7 @@ module SessionsManagement
     if interactor_call.success?
       sign_in_and_redirect(interactor_call.user)
     else
-      error_message(title: t(".#{interactor_call.message}.title"), description: t(".#{interactor_call.message}.description"))
+      send(extract_flash_kind(interactor_call.message), title: t(".#{interactor_call.message}.title"), description: t(".#{interactor_call.message}.description"))
 
       redirect_to login_path
     end
@@ -60,5 +60,14 @@ module SessionsManagement
 
   def oauth_api_gouv_client_id
     Rails.configuration.public_send("oauth_api_gouv_client_id_#{namespace.gsub('api_', '')}")
+  end
+
+  def extract_flash_kind(message)
+    case message
+    when 'not_found'
+      'info_message'
+    else
+      'error_message'
+    end
   end
 end

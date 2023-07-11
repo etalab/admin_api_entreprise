@@ -91,6 +91,6 @@ RSpec.describe 'the signin process', app: :api_particulier do
       expect(page).to have_current_path(api_particulier_login_path, ignore_query: true)
     end
 
-    it_behaves_like 'display alert', :error
+    it_behaves_like 'display alert', :info
   end
 end
