@@ -23,10 +23,11 @@ RSpec.describe 'the signin process', app: :api_particulier do
       context 'when the user is unknown' do
         let!(:user) { build(:user) }
 
-        it 'redirects to the login page' do
+        it 'redirects to the login page and print wrong email' do
           subject
 
           expect(page).to have_current_path(api_particulier_login_path, ignore_query: true)
+          expect(page).to have_content(user.email)
         end
       end
 
@@ -91,6 +92,6 @@ RSpec.describe 'the signin process', app: :api_particulier do
       expect(page).to have_current_path(api_particulier_login_path, ignore_query: true)
     end
 
-    it_behaves_like 'display alert', :error
+    it_behaves_like 'display alert', :info
   end
 end
