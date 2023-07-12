@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_23_074703) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_12_084011) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pgcrypto"
@@ -78,13 +78,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_23_074703) do
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email"
-    t.string "context"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.datetime "cgu_agreement_date", precision: nil
-    t.text "note", default: ""
-    t.string "pwd_renewal_token"
-    t.datetime "pwd_renewal_token_sent_at", precision: nil
     t.string "oauth_api_gouv_id"
     t.boolean "tokens_newly_transfered", default: false
     t.string "first_name"
@@ -92,7 +87,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_23_074703) do
     t.string "phone_number"
     t.index ["created_at"], name: "index_users_on_created_at"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["pwd_renewal_token"], name: "index_users_on_pwd_renewal_token"
   end
 
   add_foreign_key "magic_links", "tokens"
