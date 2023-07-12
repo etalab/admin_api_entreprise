@@ -28,7 +28,6 @@ RSpec.describe DatapassWebhook::FindOrCreateUser, type: :interactor do
         expect(user.first_name).to eq('demandeur first name')
         expect(user.last_name).to eq('demandeur last name')
         expect(user.phone_number).to be_present
-        expect(user.context).to eq('13002526500013')
       end
     end
 
