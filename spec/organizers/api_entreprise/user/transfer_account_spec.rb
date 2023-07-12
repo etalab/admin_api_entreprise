@@ -97,7 +97,6 @@ RSpec.describe APIEntreprise::User::TransferAccount, type: :organizer do
 
         expect(target_user).to have_attributes({
           email: target_user_email,
-          context: current_owner.context,
           oauth_api_gouv_id: nil,
           tokens_newly_transfered: true,
           confirmed?: false

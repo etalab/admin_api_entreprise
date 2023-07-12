@@ -4,7 +4,7 @@ RSpec.describe UserMailer do
   describe '#transfer_ownership' do
     subject { described_class.transfer_ownership(old_owner, new_owner) }
 
-    let(:new_owner) { create(:user) }
+    let(:new_owner) { create(:user, :with_token) }
     let(:old_owner) { create(:user) }
 
     its(:subject) { is_expected.to eq('API Entreprise - Délégation d\'accès') }
@@ -49,8 +49,8 @@ RSpec.describe UserMailer do
         end
 
         it 'informs to use the same siret' do
-          expect(subject.html_part.decoded).to include(new_owner.context)
-          expect(subject.text_part.decoded).to include(new_owner.context)
+          expect(subject.html_part.decoded).to include(new_owner.siret)
+          expect(subject.text_part.decoded).to include(new_owner.siret)
         end
       end
     end

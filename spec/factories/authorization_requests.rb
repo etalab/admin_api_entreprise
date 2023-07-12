@@ -5,6 +5,7 @@ FactoryBot.define do
     sequence(:external_id, &:to_s)
     status { 'draft' }
     api { 'entreprise' }
+    siret { '13002526500013' }
 
     trait :without_external_id do
       external_id { nil }

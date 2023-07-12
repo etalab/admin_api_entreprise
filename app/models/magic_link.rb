@@ -1,8 +1,6 @@
 class MagicLink < ApplicationRecord
   DEFAULT_EXPIRATION_DELAY = 4.hours
 
-  include RandomToken
-
   validates :email, presence: true, format: { with: /#{EMAIL_FORMAT_REGEX}/ }
   attribute :expires_at, default: -> { DEFAULT_EXPIRATION_DELAY.from_now }
   belongs_to :token, optional: true
@@ -26,5 +24,16 @@ class MagicLink < ApplicationRecord
 
   def expired?
     Time.zone.now >= expires_at
+  end
+
+  private
+
+  def access_token_for(attr)
+    constraint = {}
+    loop do
+      token = SecureRandom.hex(10)
+      constraint[attr] = token
+      return token unless self.class.find_by(constraint)
+    end
   end
 end

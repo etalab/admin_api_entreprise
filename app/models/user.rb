@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  include RandomToken
+  self.ignored_columns += %w[cgu_agreement_date note context pwd_renewal_token pwd_renewal_token_sent_at]
 
   has_many :user_authorization_request_roles, dependent: :destroy
   has_many :authorization_requests, through: :user_authorization_request_roles
@@ -37,16 +37,16 @@ class User < ApplicationRecord
     tokens_newly_transfered
   end
 
+  def siret
+    token.try(:siret)
+  end
+
   def token
     tokens.first
   end
 
   def roles_for(token)
     UserAuthorizationRequestRole.where(user: self, authorization_request: token.authorization_request).pluck(:role)
-  end
-
-  def generate_pwd_renewal_token
-    update(pwd_renewal_token: access_token_for(:pwd_renewal_token))
   end
 
   def sanitize_email

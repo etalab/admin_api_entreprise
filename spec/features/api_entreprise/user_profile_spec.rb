@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'user profile page', app: :api_entreprise do
   subject(:show_profile) { visit user_profile_path }
 
-  let(:user) { create(:user, :with_note) }
+  let(:user) { create(:user) }
 
   let(:invalid_authorization_request) { create(:authorization_request, :with_demandeur, demandeur: user) }
   let(:valid_authorization_request) { create(:authorization_request, :submitted, :with_demandeur, demandeur: user) }
@@ -26,12 +26,6 @@ RSpec.describe 'user profile page', app: :api_entreprise do
       show_profile
 
       expect(page).to have_content(user.email)
-    end
-
-    it 'does not display the user note' do
-      show_profile
-
-      expect(page).not_to have_content(user.note)
     end
 
     it 'has a button to transfer the account ownership' do

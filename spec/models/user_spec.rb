@@ -32,16 +32,6 @@ RSpec.describe User do
     end
   end
 
-  describe '#generate_pwd_renewal_token' do
-    it 'generates a random string for pwd_renewal_token attribute' do
-      user.update(pwd_renewal_token: nil)
-      user.generate_pwd_renewal_token
-      user.reload
-
-      expect(user.pwd_renewal_token).to match(/\A[0-9a-f]{20}\z/)
-    end
-  end
-
   describe '#confirmed?' do
     subject { user.confirmed? }
 

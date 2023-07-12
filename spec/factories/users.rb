@@ -4,21 +4,12 @@ FactoryBot.define do
   factory :user do
     email
     sequence(:oauth_api_gouv_id, &:to_s)
-    # rubocop:disable RSpec/EmptyExampleGroup
-    context { 'VERY_DEVELOPMENT' }
-    # rubocop:enable RSpec/EmptyExampleGroup
 
-    cgu_agreement_date { Time.zone.now }
-    tokens_newly_transfered { false }
     phone_number { '0606060606' }
 
     trait :with_full_name do
       first_name { 'Jean-Marie' }
       last_name { 'Gigot' }
-    end
-
-    trait :with_note do
-      note { 'much note' }
     end
 
     trait :confirmed do
