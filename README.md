@@ -26,21 +26,31 @@ installer les paquets et importer les tables de la base de données :
 Installer `Docker` et `docker-compose` (sur Mac tout est
 [ici](https://docs.docker.com/desktop/mac/install/))
 
-Puis:
+Pour lancer l'application :
 
 ```sh
-docker-compose up --build
+make start
 ```
 
-Et pour setup la db:
+**L'application doit être lancée pour exécuter les autres commandes.**
+
+Pour arrêter:
 
 ```sh
-docker-compose exec -e RAILS_ENV=development -e POSTGRES_HOST=db web bundle exec rails db:schema:load db:schema:load
-docker-compose exec -e RAILS_ENV=development -e POSTGRES_HOST=db web bundle exec rails db:schema:load db:seed:replant
+make stop
 ```
 
-P.S: la première commande se termine en erreur parfois, mais le schéma est
-bien loadé. Il n'est donc pas possible de chaîner les commandes.
+Lors du premier lancement, il faut initialiser la base de donnée (après `make start`):
+
+```sh
+make install_database
+```
+
+En cas de problème, pour réinstaller la base de données:
+
+```sh
+make reinstall_database
+```
 
 ## Tests
 
