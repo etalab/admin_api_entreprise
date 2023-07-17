@@ -3,6 +3,8 @@
 </h3>
 
 <% if @tokens.any? %>
+  <%= render 'shared/token_share_warning' %>
+
   <%= render @tokens %>
 <% else %>
   <p id="no_token_disclaimer">

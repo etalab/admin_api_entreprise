@@ -49,7 +49,7 @@ fr:
 
                 ![Fonctionnement API Particulier](<%= image_path('api_particulier/fonctionnement-api-particulier.png') %>)
 
-                **API Particulier facilite plusieurs types de démarches :** 
+                **API Particulier facilite plusieurs types de démarches :**
                 - [Aide facultatives à la scolarité](https://api.gouv.fr/guides/aides-facultatives-scolarite){:target="_blank"} ;
                 - [Tarification cantine des collèges et lycées](https://api.gouv.fr/guides/cantines-colleges-lycees-tarification){:target="_blank"} ;
                 - [Aides des centres communaux d'action sociale (CCAS)](https://api.gouv.fr/guides/ccas){:target="_blank"} ;
@@ -65,7 +65,7 @@ fr:
                 - ✅ Les informations sont certifiées ;
                 - ✅ Vous accédez avec une seule habilitation aux données de différents fournisseurs : la Caisse nationale des allocations familiales (CNAF), la sécurité sociale agricole (MSA), Pôle emploi, le ministère de l'enseignement supérieur et de la recherche (MESR), le ministère de l'éduction nationale (MEN) et enfin le Centre national des œuvres universitaires et scolaires (Cnous).
 
-                 **API Particulier facilite plusieurs types de démarches :** 
+                 **API Particulier facilite plusieurs types de démarches :**
                 - [Aide facultatives à la scolarité](https://api.gouv.fr/guides/aides-facultatives-scolarite){:target="_blank"} ;
                 - [Tarification cantine des collèges et lycées](https://api.gouv.fr/guides/cantines-colleges-lycees-tarification){:target="_blank"} ;
                 - [Aides des centres communaux d'action sociale (CCAS)](https://api.gouv.fr/guides/ccas){:target="_blank"} ;
@@ -138,8 +138,8 @@ fr:
             - question: "Je recherche un éditeur proposant l’API Particulier"
               answer: |+
                 _Vous êtes un acteur public et recherchez un éditeur de logiciel pour intégrer et utiliser l’API Particulier ?_
-                
-                Retrouvez la liste des éditeurs ayant intégré l'API Particulier depuis les cas d'usages : 
+
+                Retrouvez la liste des éditeurs ayant intégré l'API Particulier depuis les cas d'usages :
                 - [Aide facultatives à la scolarité](https://api.gouv.fr/guides/aides-facultatives-scolarite){:target="_blank"} ;
                 - [Tarification cantine des collèges et lycées](https://api.gouv.fr/guides/cantines-colleges-lycees-tarification){:target="_blank"} ;
                 - [Aides des centres communaux d'action sociale (CCAS)](https://api.gouv.fr/guides/ccas){:target="_blank"} ;
@@ -199,7 +199,7 @@ fr:
                   {:.fr-highlight}
                   > ℹ️ Pour les identifier, vous pouvez vous aider :
                   >   - du [catalogue de données](<%= endpoints_path %>). Il présente l’ensemble des API disponibles accompagnées d’une documentation fonctionnelle et technique.
-                  >   - des cas d’usages proposés par API Particulier. Nous y décrivons les données utiles : 
+                  >   - des cas d’usages proposés par API Particulier. Nous y décrivons les données utiles :
                   >          - [Aide facultatives à la scolarité](https://api.gouv.fr/guides/aides-facultatives-scolarite){:target="_blank"} ;
                   >          - [Tarification cantine des collèges et lycées](https://api.gouv.fr/guides/cantines-colleges-lycees-tarification){:target="_blank"} ;
                   >          - [Aides des centres communaux d'action sociale (CCAS)](https://api.gouv.fr/guides/ccas){:target="_blank"} ;
@@ -252,6 +252,22 @@ fr:
 
         - name: "Jetons d’accès"
           entries:
+            - question: "Comment transmettre le jeton d’accès en tout sécurité ?"
+              answer: |+
+                Dans le cadre de l'intégration de l’API, il peut arriver qu'il y ait besoin ponctuellement de transmettre le jeton à une personne qui n'a pas accès au [compte utilisateur](<%= api_particulier_user_profile_path %>).
+                ⚠️ Comme expliqué [ici](<%= faq_index_path(anchor: 'qu-est-ce-qu-un-token-ou-jeton') %>), votre token vous est propre, il ne faut pas surtout pas le copier/coller dans un e-mail.
+
+                **Pour transmettre votre jeton, vous devez utiliser la fonctionnalité prévue dans votre compte utilisateur sur API Entreprise** :
+                - Cliquez sur le bouton "Transmettre le jeton" (blanc au contour bleu) situé juste en dessous de l’encadré du jeton.
+                - Une fenêtre s’ouvre alors, elle vous rappelle vos engagements, et vous permet d’indiquer une adresse e-mail.
+                - En cliquant sur "Envoyer", un courriel sera transmis à cette adresse, avec, à l’intérieur, **un lien d’une durée de 4 heures, qui permettra à l’utilisateur de récupérer le jeton**.
+
+                {:.fr-highlight.fr-highlight--caution}
+                > ⚠️ Vous êtes responsable de votre clé d'accès au titre des engagements pris au moment de l'habilitation de votre organisation en signant nos <a href="https://particulier.api.gouv.fr/cgu/">CGU</a>. L'utilisation de la fonctionnalité "Transmettre le jeton" a pour objectif de sécuriser l'envoi de votre jeton aux services techniques qui intègreront l'API Entreprise. Vous ne devez pas divulguer cet accès à des tiers non-habilités.
+
+                Si vous avez divulgué votre jeton par erreur, le renouvellement d’un jeton est très facile et rapide. Écrivez rapidement à <a href="mailto:contact@particulier.api.gouv.fr">contact@particulier.api.gouv.fr</a>.
+
+
             - question: "Comment récupérer son jeton après validation de la demande d'habilitation ?"
               answer: |+
                   1. Une fois votre demande d'habilitation validée, un e-mail vous est envoyé avec un lien vers votre [compte utilisateur](<%= user_profile_path %>).
@@ -352,7 +368,7 @@ fr:
 
                 **2. Contactez le support**
 
-                Si l'incident n'est pas déjà annoncé par API Particulier et si vous n'avez pas dépassé la volumétrie autorisée, vous pouvez nous contacter sur [support@particulier.api.gouv.fr](mailto:support@particulier.api.gouv.fr)
+                Si l'incident n'est pas déjà annoncé par API Particulier et si vous n'avez pas dépassé la volumétrie autorisée, vous pouvez nous contacter sur [contact@particulier.api.gouv.fr](mailto:contact@particulier.api.gouv.fr)
 
             - question: "J'ai dépassé la volumétrie, mon IP est bannie, comment faire ?"
               answer: |+
@@ -387,7 +403,7 @@ fr:
           entries:
             - question: "Comment se connecter à l'espace utilisateur ?"
               answer: |+
-                Le [compte utilisateur](<%= user_profile_path %>) est un espace accessible aux trois contacts principaux mentionnés dans la demande d'habilitation validée : le contact qui a établi la demande, le contact métier et le contact technique. 
+                Le [compte utilisateur](<%= user_profile_path %>) est un espace accessible aux trois contacts principaux mentionnés dans la demande d'habilitation validée : le contact qui a établi la demande, le contact métier et le contact technique.
 
                 La connexion se fait par le mode d'authentification "MonComptePro" en cliquant sur le bouton bleu disponible à [cette page](<%= user_profile_path %>). Une adresse e-mail vous est alors demandée, il vous faut **utiliser l'e-mail renseigné dans la demande d'habilitation**.
                 Configurez votre mot de passe ou utilisez le mode de connexion par lien magique.
@@ -395,7 +411,7 @@ fr:
                 {:.fr-highlight}
                 _Dans certains cas spécifiques comme le départ du demandeur, un changement de poste, etc.,_ un transfert de compte peut être nécessaire. Cette opération nécessite l’accord explicite du demandeur et est instruite manuellement par nos services. [En savoir plus.](#comment-transferer-mon-compte-a-une-autre-personne)
 
-                **Le compte utilisateur vous permet de :** 
+                **Le compte utilisateur vous permet de :**
                 - copier/coller le jeton d'accès à l'API, en [respectant les règles indispensables de sécurité](#qu-est-ce-qu-un-token-ou-jeton) ;
                 - [étendre/modifier vos droits d'accès](#comment-elargir-le-perimetre-des-api-disponibles-avec-mon-jeton-obtenir-de-nouvelles-donnees), _fonctionnalité actuellement seulement disponible pour le contact demandeur_ ;
                 - consulter les statistiques d'utilisation de votre jeton ;
@@ -455,12 +471,12 @@ fr:
                 - les paramètres d'appel utilisés pour effectuer la requête ;
                 - l'adresse e-mail sous laquelle est enregistré votre jeton d'authentification ;
                 - Toute autre information (captures d'écran, messages d'erreur, etc.) détaillant l'erreur rencontrée est bienvenue.
-                
+
                 {:.fr-highlight.fr-highlight--caution}
                 > ⚠️ **Les données des particuliers sont des informations sensibles**
                 > Il est impératif de ne pas les transmettre par e-mail mais bien d'utiliser l'[outil sécurisé de transfert d'informations](https://www.demarches-simplifiees.fr/commencer/api-particulier-transfert-securise-d-informations){:target="_blank"}
 
-                La fourniture de ces informations nous permettra de vous répondre dans de meilleurs délais. 
+                La fourniture de ces informations nous permettra de vous répondre dans de meilleurs délais.
 
                 {:.fr-highlight.fr-highlight--caution}
                 > ⚠️ **Ne partagez jamais votre jeton d'authentification dans votre demande de support !**

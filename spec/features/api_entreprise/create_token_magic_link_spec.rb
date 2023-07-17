@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'create a magic link', app: :api_entreprise do
+RSpec.describe 'create a token magic link', app: :api_entreprise do
   subject do
     visit user_tokens_path
     within("##{dom_id(token, :magic_link)}") do

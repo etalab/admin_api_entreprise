@@ -30,6 +30,7 @@ constraints(APIParticulierDomainConstraint.new) do
     get '/compte', to: 'users#profile', as: :user_profile
 
     post 'public/magic_link/create', to: 'public_token_magic_links#create'
+    post '/compte/jetons/:id/partager', to: 'restricted_token_magic_links#create', as: :token_create_magic_link
     get 'public/jetons/:access_token', to: 'public_token_magic_links#show', as: :token_show_magic_link
 
     get '/mentions-legales', to: 'pages#mentions', as: :mentions
