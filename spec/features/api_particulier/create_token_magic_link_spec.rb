@@ -1,0 +1,87 @@
+require 'rails_helper'
+
+RSpec.describe 'create a token magic link', app: :api_particulier do
+  subject do
+    visit api_particulier_user_profile_path
+
+    within("##{dom_id(token, :magic_link)}") do
+      fill_in 'email', with: email
+      click_button
+    end
+  end
+
+  let(:token) { create(:token, :with_api_particulier, :with_scopes) }
+  let(:new_magic_link) { MagicLink.find_by(email:) }
+
+  before { login_as(user) }
+
+  context 'when the current user is the token owner' do
+    let(:user) do
+      user = create(:user)
+      create(:user_authorization_request_role, :demandeur, user:, authorization_request: token.authorization_request)
+      user
+    end
+
+    context 'when the email address is valid' do
+      let(:email) { 'valid@email.com' }
+
+      it_behaves_like 'it creates a magic link'
+
+      it 'redirects to the user account page' do
+        subject
+
+        expect(page).to have_current_path(api_particulier_user_profile_path)
+      end
+
+      it 'saves the token_id in the magic link' do
+        subject
+
+        expect(new_magic_link.token).to eq(token)
+      end
+    end
+
+    context 'when the email address is invalid' do
+      let(:email) { 'not an email' }
+
+      it_behaves_like 'it aborts magic link'
+      it_behaves_like 'display alert', :error
+
+      it 'redirects to the user account page' do
+        subject
+
+        expect(page).to have_current_path(api_particulier_user_profile_path)
+      end
+    end
+  end
+
+  context 'when the current user is not the token owner' do
+    subject do
+      page.driver.post(token_create_magic_link_path(token), params: {
+        email: 'much@hack.ack'
+      })
+    end
+
+    let(:user) { create(:user) }
+    let(:email) { 'valid@email.com' }
+
+    it_behaves_like 'it aborts magic link'
+
+    it 'returns an error' do
+      subject
+
+      expect(page.driver.status_code).to eq(403)
+    end
+  end
+
+  describe 'with javascript actived', js: true do
+    let(:token) { create(:token, :with_api_particulier, :with_scopes) }
+    let(:user) { token.demandeur }
+
+    it 'displays modal on click' do
+      visit api_particulier_user_profile_path
+      expect(page).not_to have_css("##{dom_id(token, :magic_link)}")
+      click_on dom_id(token, :modal_button)
+      expect(page).to have_css("##{dom_id(token, :magic_link)}")
+    end
+  end
+end

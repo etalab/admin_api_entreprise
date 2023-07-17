@@ -1,0 +1,3 @@
+class APIParticulier::RestrictedTokenMagicLinksController < APIParticulier::AuthenticatedUsersController
+  include RestrictedTokenMagicLinksManagement
+end
