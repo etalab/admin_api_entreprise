@@ -61,6 +61,11 @@ jobs:
       - name: Run tests
         run: bundle exec rspec
 
+      - uses: joshmfrankel/simplecov-check-action@main
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          minimum_suite_coverage: 95
+
       - name: Force push develop to master
         run: |
           if [ `git branch --show-current` = "develop" ] ; then
