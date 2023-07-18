@@ -4,9 +4,9 @@ module RestrictedTokenMagicLinksManagement
 
     if access_allowed_for_current_user?
       if organizer.success?
-        success_message(title: t('.success.title', target_email:))
+        success_message(title: t('concerns.restricted_token_magic_links_management.create.success.title', target_email:))
       else
-        error_message(title: t('.error.title', support_email: t("#{namespace}.support_email")))
+        error_message(title: t('concerns.restricted_token_magic_links_management.create.error.title', support_email: t("#{namespace}.support_email")))
       end
 
       redirect_back fallback_location: root_path
