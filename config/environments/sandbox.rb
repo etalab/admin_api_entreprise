@@ -108,8 +108,6 @@ Rails.application.configure do
   config.token_renewal_url = 'https://datapass-staging.api.gouv.fr/copy-authorization-request/'
   config.token_authorization_request_url = 'https://datapass-staging.api.gouv.fr/api-entreprise/'
 
-  config.emails_sender_address = 'support@entreprise.api.gouv.fr'
-
   # OAuth API Gouv config
   config.oauth_api_gouv_client_id_entreprise =  '4442bfd8caac8e19ff202d33060edcd248592662d5a8098e28b706ba906fe9e0db95ad336c38248f42896db272990b8dfc969d8b8857101dabf9b2ffe7ec49b9'
   config.oauth_api_gouv_client_id_particulier =  '95acc71c59fe4484f90668912bbb81239f0d7680d8ef3704e0bf4bc11b11a7a4ef92e72e2d695080cc7f60088bbcffd0bd049fb024dcec8679b6616599e128bc'

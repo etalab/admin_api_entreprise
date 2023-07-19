@@ -24,7 +24,7 @@ class ScheduleAuthorizationRequestMailjetEmailJob < ApplicationJob
   def build_message(mailjet_attributes)
     {
       from_name: 'API Entreprise',
-      from_email: Rails.configuration.emails_sender_address,
+      from_email: ApplicationMailer.default_params[:from],
       to: build_recipient_attributes(mailjet_attributes['to']),
       cc: build_recipient_attributes(mailjet_attributes['cc']),
       vars: mailjet_attributes['vars'],

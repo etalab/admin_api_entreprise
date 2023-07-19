@@ -1,5 +1,6 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: Rails.configuration.emails_sender_address
+  default from: 'support@entreprise.api.gouv.fr'
+
   layout 'mailer'
 
   helper :friendly_date
