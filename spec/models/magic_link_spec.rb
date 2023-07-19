@@ -77,6 +77,14 @@ RSpec.describe MagicLink do
     end
   end
 
+  describe '#initial_expiration_delay_in_hours' do
+    subject { magic_link.initial_expiration_delay_in_hours }
+
+    let(:magic_link) { create(:magic_link, created_at: 1.hour.ago, expires_at: 1.hour.from_now) }
+
+    it { is_expected.to eq(2) }
+  end
+
   describe 'scopes' do
     describe '.unexpired' do
       subject { described_class.unexpired }

@@ -26,6 +26,10 @@ class MagicLink < ApplicationRecord
     Time.zone.now >= expires_at
   end
 
+  def initial_expiration_delay_in_hours
+    (expires_at - created_at).round / 3600
+  end
+
   private
 
   def access_token_for(attr)
