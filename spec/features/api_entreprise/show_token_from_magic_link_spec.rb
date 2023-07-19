@@ -109,7 +109,7 @@ RSpec.describe 'show token from magic link', app: :api_entreprise do
     end
 
     context 'when the magic link has expired' do
-      before { Timecop.freeze(4.hours.from_now) }
+      before { Timecop.freeze((MagicLink::DEFAULT_EXPIRATION_DELAY + 1.hour).from_now) }
 
       after { Timecop.return }
 

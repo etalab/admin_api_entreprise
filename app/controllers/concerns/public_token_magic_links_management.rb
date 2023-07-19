@@ -13,16 +13,16 @@ module PublicTokenMagicLinksManagement
     if @magic_link.blank?
       handle_error!('unknown')
     elsif @magic_link.expired?
-      handle_error!('expired')
+      handle_error!('expired', initial_expiration_delay_in_hours: @magic_link.initial_expiration_delay_in_hours)
     elsif @magic_link.tokens.blank?
       handle_error!('missing')
     end
   end
 
-  def handle_error!(error_type)
+  def handle_error!(error_type, i18n_params = {})
     error_message(
       title: t("#{namespace}.public_token_magic_links.show.error.#{error_type}.title"),
-      description: t("#{namespace}.public_token_magic_links.show.error.#{error_type}.description")
+      description: t("#{namespace}.public_token_magic_links.show.error.#{error_type}.description", **i18n_params)
     )
     redirect_to login_path
   end

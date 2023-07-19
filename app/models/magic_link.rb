@@ -1,5 +1,5 @@
 class MagicLink < ApplicationRecord
-  DEFAULT_EXPIRATION_DELAY = 4.hours
+  DEFAULT_EXPIRATION_DELAY = 24.hours
 
   validates :email, presence: true, format: { with: /#{EMAIL_FORMAT_REGEX}/ }
   attribute :expires_at, default: -> { DEFAULT_EXPIRATION_DELAY.from_now }
@@ -24,6 +24,10 @@ class MagicLink < ApplicationRecord
 
   def expired?
     Time.zone.now >= expires_at
+  end
+
+  def initial_expiration_delay_in_hours
+    (expires_at - created_at).round / 3600
   end
 
   private
