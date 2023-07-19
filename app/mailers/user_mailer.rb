@@ -1,17 +1,6 @@
 class UserMailer < ApplicationMailer
   include FriendlyDateHelper
 
-  def magic_link_signin(magic_link, host)
-    @magic_link = magic_link
-    @host = host
-    @namespace = host.split('.')[-4]
-
-    to = magic_link.email
-    subject = t(".#{@namespace}.subject")
-
-    mail(to:, subject:)
-  end
-
   def transfer_ownership(old_owner, new_owner)
     @new_owner = new_owner
     @old_owner = old_owner
