@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe TokenMailer do
+RSpec.describe APIEntreprise::TokenMailer do
   describe '#magic_link' do
     subject(:mailer) { described_class.magic_link(magic_link, host) }
 
@@ -10,7 +10,7 @@ RSpec.describe TokenMailer do
     let(:host) { 'entreprise.api.gouv.fr' }
 
     its(:subject) { is_expected.to eq('API Entreprise - Lien d\'accès à votre jeton !') }
-    its(:from) { is_expected.to include(ApplicationMailer.default_params[:from]) }
+    its(:from) { is_expected.to include(APIEntrepriseMailer.default_params[:from]) }
     its(:to) { is_expected.to contain_exactly(email) }
 
     it 'contains the magic link to the token' do

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Bonjour,</p>
+
+    <p>
+      <%= t('.link_description', count: @magic_link.tokens.count) %>&nbsp;
+      <%= link_to('suivant', token_show_magic_link_url(host: @host, access_token: @magic_link.access_token)) %>
+    </p>
+
+    <p>Ce lien est temporaire. Il est valable jusqu'au <%= friendly_format_from_timestamp(@magic_link.expires_at) %></p>
+    <p>Cordialement,</p>
+    <p><%= t(".signature") %></p>
+  </body>
+</html>
