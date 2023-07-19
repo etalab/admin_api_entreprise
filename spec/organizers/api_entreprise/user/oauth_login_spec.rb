@@ -40,7 +40,7 @@ RSpec.describe APIEntreprise::User::OAuthLogin, type: :organizer do
 
       it 'sends an email to datapass for authorization request ownership update' do
         expect { sync! }
-          .to have_enqueued_mail(UserMailer, :notify_datapass_for_data_reconciliation)
+          .to have_enqueued_mail(APIEntreprise::UserMailer, :notify_datapass_for_data_reconciliation)
           .with(user)
       end
 
@@ -48,7 +48,7 @@ RSpec.describe APIEntreprise::User::OAuthLogin, type: :organizer do
         sync!
 
         expect { sync! }
-          .not_to have_enqueued_mail(UserMailer, :notify_datapass_for_data_reconciliation)
+          .not_to have_enqueued_mail(APIEntreprise::UserMailer, :notify_datapass_for_data_reconciliation)
       end
     end
   end

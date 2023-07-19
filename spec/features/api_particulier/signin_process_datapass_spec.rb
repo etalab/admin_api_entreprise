@@ -64,11 +64,6 @@ RSpec.describe 'the signin process', app: :api_particulier do
       context 'when the user signs in the second time (and more)' do
         let!(:user) { create(:user) }
 
-        it 'does not send any email to DataPass' do
-          expect { subject }
-            .not_to have_enqueued_mail(UserMailer, :notify_datapass_for_data_reconciliation)
-        end
-
         it 'redirects to the user profile' do
           subject
 

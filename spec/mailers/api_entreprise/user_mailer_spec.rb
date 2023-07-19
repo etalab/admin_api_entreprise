@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UserMailer do
+RSpec.describe APIEntreprise::UserMailer do
   describe '#transfer_ownership' do
     subject { described_class.transfer_ownership(old_owner, new_owner) }
 

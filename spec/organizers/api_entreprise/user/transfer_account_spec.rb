@@ -41,7 +41,7 @@ RSpec.describe APIEntreprise::User::TransferAccount, type: :organizer do
       end
 
       it 'notifies the new owner by email' do
-        expect(UserMailer).to receive(:transfer_ownership)
+        expect(APIEntreprise::UserMailer).to receive(:transfer_ownership)
           .with(current_owner, target_user)
           .and_call_original
 
@@ -81,7 +81,7 @@ RSpec.describe APIEntreprise::User::TransferAccount, type: :organizer do
       end
 
       it 'sends a notification email for account creation' do
-        expect(UserMailer).to receive(:transfer_ownership)
+        expect(APIEntreprise::UserMailer).to receive(:transfer_ownership)
           .and_call_original
 
         subject
@@ -119,7 +119,7 @@ RSpec.describe APIEntreprise::User::TransferAccount, type: :organizer do
     end
 
     it 'does not send email notification' do
-      expect(UserMailer).not_to receive(:transfer_ownership)
+      expect(APIEntreprise::UserMailer).not_to receive(:transfer_ownership)
 
       subject
     end

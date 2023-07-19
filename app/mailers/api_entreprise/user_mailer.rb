@@ -1,4 +1,4 @@
-class UserMailer < ApplicationMailer
+class APIEntreprise::UserMailer < APIEntrepriseMailer
   include FriendlyDateHelper
 
   def transfer_ownership(old_owner, new_owner)
