@@ -23,8 +23,8 @@ RSpec.describe MagicLink do
 
   describe 'defaults' do
     describe '#expires_at' do
-      it 'defaults to 4 hours' do
-        expect(magic_link.expires_at).to be_within(10.seconds).of(4.hours.from_now)
+      it 'defaults to 24 hours' do
+        expect(magic_link.expires_at).to be_within(10.seconds).of(24.hours.from_now)
       end
     end
   end
