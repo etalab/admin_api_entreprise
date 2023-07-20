@@ -51,6 +51,14 @@ class Token < ApplicationRecord
 
   delegate :intitule, :siret, to: :authorization_request
 
+  def legacy_token?
+    extra_info['legacy_token_id'].present?
+  end
+
+  def legacy_token_migrated?
+    extra_info['legacy_token_migrated'].present?
+  end
+
   private
 
   def token_payload
