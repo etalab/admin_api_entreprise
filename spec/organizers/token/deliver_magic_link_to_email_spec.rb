@@ -5,11 +5,13 @@ RSpec.describe Token::DeliverMagicLinkToEmail, type: :organizer do
 
   let(:params) do
     {
-      email:
+      email:,
+      host:
     }
   end
 
   let(:new_magic_link) { MagicLink.find_by(email:) }
+  let(:host) { 'entreprise.api.gouv.fr' }
 
   context 'with a valid email address' do
     let(:email) { 'valid@email.com' }
@@ -18,8 +20,18 @@ RSpec.describe Token::DeliverMagicLinkToEmail, type: :organizer do
 
     it 'queues the magic link email' do
       expect { subject }
-        .to have_enqueued_mail(TokenMailer, :magic_link)
+        .to have_enqueued_mail(APIEntreprise::TokenMailer, :magic_link)
         .with(new_magic_link)
+    end
+
+    context 'with api pariculier host' do
+      let(:host) { 'particulier.api.gouv.fr' }
+
+      it 'queues the magic link email' do
+        expect { subject }
+          .to have_enqueued_mail(APIParticulier::TokenMailer, :magic_link)
+          .with(new_magic_link)
+      end
     end
 
     it 'saves a magic random token' do
@@ -42,7 +54,7 @@ RSpec.describe Token::DeliverMagicLinkToEmail, type: :organizer do
 
     it 'does not queue any email' do
       expect { subject }
-        .not_to have_enqueued_mail(TokenMailer, :magic_link)
+        .not_to have_enqueued_mail(APIEntreprise::TokenMailer, :magic_link)
     end
   end
 end

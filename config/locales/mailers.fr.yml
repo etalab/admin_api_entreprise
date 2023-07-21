@@ -1,22 +1,15 @@
 fr:
-  user_mailer:
-    magic_link_signin:
-      entreprise:
-        subject: API Entreprise - Lien de connexion
-        signature: L'équipe API Entreprise
-      particulier:
-        subject: API Particulier - Lien de connexion
-        signature: L'équipe API Particulier
-      link_description: Vous pouvez vous connecter à votre compte en cliquant sur le lien
-
-  token_mailer:
-    magic_link:
-      entreprise:
+  api_entreprise:
+    token_mailer:
+      magic_link:
         subject: API Entreprise - Lien d'accès à votre jeton !
         signature: L'équipe API Entreprise
-      particulier:
+        link_description: &token_mailer_link_description
+          one: Un lien vers votre jeton d'accès vient d'être généré à votre intention. Vous pouvez accéder à ce jeton via le lien
+          other: Un lien vers vos jetons d'accès vient d'être généré à votre intention. Vous pouvez accéder à ce jeton via le lien
+  api_particulier:
+    token_mailer:
+      magic_link:
         subject: API Particulier - Lien d'accès à votre jeton !
         signature: L'équipe API Particulier
-      link_description:
-        one: Un lien vers votre jeton d'accès vient d'être généré à votre intention. Vous pouvez accéder à ce jeton via le lien
-        other: Un lien vers vos jetons d'accès vient d'être généré à votre intention. Vous pouvez accéder à ce jeton via le lien
+        link_description: *token_mailer_link_description

@@ -23,7 +23,7 @@ class ScheduleExpirationNoticeMailjetEmailJob < ApplicationJob
   def build_message(token, expires_in)
     {
       from_name: 'API Entreprise',
-      from_email: Rails.configuration.emails_sender_address,
+      from_email: APIEntrepriseMailer.default_params[:from],
       to: build_recipients(token),
       vars: build_vars(token),
       'Mj-TemplateLanguage' => true,
