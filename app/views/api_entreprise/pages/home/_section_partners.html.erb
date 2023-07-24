@@ -6,7 +6,7 @@
 
       <div class="providers">
         <% @providers.each do |provider| %>
-          <a href="<%= endpoints_with_provider_query_filter_path(provider) %>" target="_blank" class="card-provider fr-m-2v fr-pt-2w fr-pr-2w fr-pl-2w">
+          <a href="<%= endpoints_with_provider_query_filter_path(provider) %>" id="link_<%= provider.uid %>" target="_blank" class="card-provider fr-m-2v fr-pt-2w fr-pr-2w fr-pl-2w">
             <%= image_tag(provider.image_path, alt: "Logo fournisseur de données - #{provider.name}") %>
           </a>
         <% end %>
