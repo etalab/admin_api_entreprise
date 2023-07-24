@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   db:
     image: postgres:12.4
@@ -10,7 +10,7 @@ services:
     volumes:
       - ./docker/db/:/docker-entrypoint-initdb.d
   redis:
-    image: 'redis:6.2-alpine'
+    image: "redis:6.2-alpine"
     command: redis-server
   web:
     build: .
