@@ -1,0 +1,42 @@
+---
+- uid: 'inpi/rne/beneficiaires_effectifs'
+  path: '/v3/inpi/rne/unites_legales/open_data/{siren}/beneficiaires_effectifs'
+  position: 300
+  perimeter:
+    entity_type_description: |+
+      Toutes les entreprises inscrit au RCS (Registre du Commerce et des Sociétés) ainsi qu'au RNM (Répertoire Nationale des Métiers)
+    geographical_scope_description:  |+
+      - ✅ France métropolitaine
+      - ✅ DROM COM
+    updating_rules_description: |+
+      Les données sont mises à jour quotidiennement.
+    know_more_description: |+
+      La documentation relative à l'API RNE se trouve sur le lien [suivant](https://data.inpi.fr/content/editorial/Acces_API_Entreprises)
+
+    entities:
+      - entreprises
+  call_id: "SIREN"
+  provider_uids:
+    - 'inpi'
+  keywords:
+    - 'rne'
+    - 'rcs'
+    - 'rnm'
+  data:
+    description: |+
+      Cette API délivre la liste des bénéficiaires effectifs avec l'ensemble des modalités et attributs associés.
+  opening: protected
+  use_cases_optional:
+  use_cases_forbidden:
+  use_cases:
+    - Aides publiques
+    - Marchés publics
+    - Portail GRU - Préremplissage
+    - Portail GRU - Instruction des démarches
+    - Subventions associations
+    - Détection de la fraude
+  parameters:
+    - Numéro de SIREN de la personne morale recherchée
+  format:
+    - Donnée structurée JSON
+  faq: []
