@@ -264,7 +264,7 @@ paths:
         required: false
         schema:
           type: string
-      - name: prenoms
+      - name: prenoms[]
         in: query
         schema:
           type: array
@@ -351,7 +351,7 @@ paths:
         API Particulier. \n **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/api_particulier_v2_cnaf_quotient_familial_v2) "
       responses:
         '200':
-          description: Complementaire santé solidaire trouvée
+          description: Quotient Familial trouvée
           x-operationId: api_particulier_v2_cnaf_quotient_familial_v2
           content:
             application/json:
@@ -375,6 +375,7 @@ paths:
                           type: string
                           description: Nom d'usage de l'allocataire
                           example: JACQUES
+                          nullable: true
                         prenoms:
                           title: Prénoms
                           type: string
@@ -425,6 +426,7 @@ paths:
                           type: string
                           description: Nom d'usage de l'enfant
                           example: JACQUES
+                          nullable: true
                         prenoms:
                           title: Prénoms
                           type: string
@@ -489,6 +491,7 @@ paths:
                         type: string
                         description: Numéro et libellé de la voie
                         example: 1 RUE DE LA GARE
+                        nullable: true
                       lieuDit:
                         title: Lieu-dit
                         type: string
@@ -514,6 +517,14 @@ paths:
                     - lieuDit
                     - codePostalVille
                     - pays
+                  regime:
+                    title: Régime de l'allocataire
+                    type: string
+                    description: Précise le régime de l'allocataire (CNAF ou MSA)
+                    example: MSA
+                    enum:
+                    - CNAF
+                    - MSA
                   quotientFamilial:
                     title: Quotient familial CAF ou MSA
                     type: integer
@@ -530,16 +541,31 @@ paths:
                     type: integer
                     description: Mois de calcul du quotient familial
                     example: 6
+                  annee_calcul:
+                    title: Année du calcul du quotient familial
+                    type: integer
+                    description: Année à laquelle le quotient familial a été calculé
+                    example: 2021
+                  mois_calcul:
+                    title: Mois du calcul du quotient familial
+                    type: integer
+                    description: Mois auquel le quotient familial a été calculé
+                    example: 3
         '400':
           description: Mauvais paramètres d'appels
           content:
             application/json:
-              schema:
-                "$ref": "#/components/schemas/Error"
-        '401':
-          description: Votre jeton d'Api n'a pas été trouvé ou n'est pas actif
-          content:
-            application/json:
+              examples:
+                unprocessable_entity_error_gender_error:
+                  value:
+                    errors:
+                    - code: '00364'
+                      title: Entité non traitable
+                      detail: Le sexe n'est pas correctement formaté (m ou f)
+                      source:
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le sexe n'est pas correctement formaté (m ou f)
               schema:
                 "$ref": "#/components/schemas/Error"
         '404':
@@ -548,14 +574,8 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
-        '500':
-          description: Une erreur interne s'est produite, l'équipe a été prévenue.
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/Error"
         '503':
-          description: Une erreur est survenue lors de l'appel au fournisseur de donnée
+          description: Erreur du fournisseur
           content:
             application/json:
               examples:
@@ -574,6 +594,12 @@ paths:
                   description: La réponse retournée par le fournisseur de données
                     est invalide et inconnue de notre service. L'équipe technique
                     a été notifiée de cette erreur pour investigation.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '504':
+          description: Erreur d'intermédiaire
+          content:
+            application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
   "/api/v2/scolarites":
@@ -619,7 +645,7 @@ paths:
         description: |
           Code d'unité administrative immatriculée (code UAI) de l'établissement où est scolarisé l'élève. Ce code unique inscrit au répertoire national des établissements est composé de 7 chiffres et d'une lettre ; les trois premiers chiffres correspondent au numéro de département de l'établissement.
 
-          Pour retrouver facilement le code UAI d'un établissement à partir d' informations plus facilement connues des usagers (commune, code postal, etc.), vous pouvez utiliser l'[API \"Annuaire de l'éducation nationale\"](https://api.gouv.fr/les-api/api-annuaire-education).
+          Pour retrouver facilement le code UAI d'un établissement à partir d' informations plus facilement connues des usagers (commune, code postal, etc.), vous pouvez utiliser l'[API "Annuaire de l'éducation nationale"](https://api.gouv.fr/les-api/api-annuaire-education).
 
           ⚠️ L'établissement 0861288H (CNED Direction générale) n'existe pas dans l'API annuaire de l'éducation nationale, il faudra donc compléter la liste des établissements avec une ligne CNED à laquelle sera associée le code UAI qui sera en passé en entrée.
         example: 0210015C
@@ -686,7 +712,7 @@ paths:
                     description: |
                       Code d'unité administrative immatriculée (code UAI) de l'établissement où est scolarisé l'élève. Ce code unique inscrit au répertoire national des établissements est composé de 7 chiffres et d'une lettre ; les trois premiers chiffres correspondent au numéro de département de l'établissement.
 
-                      Pour retrouver facilement le code UAI d'un établissement à partir d' informations plus facilement connues des usagers (commune, code postal, etc.), vous pouvez utiliser l'[API \"Annuaire de l'éducation nationale\"](https://api.gouv.fr/les-api/api-annuaire-education).
+                      Pour retrouver facilement le code UAI d'un établissement à partir d' informations plus facilement connues des usagers (commune, code postal, etc.), vous pouvez utiliser l'[API "Annuaire de l'éducation nationale"](https://api.gouv.fr/les-api/api-annuaire-education).
 
                       ⚠️ L'établissement 0861288H (CNED Direction générale) n'existe pas dans l'API annuaire de l'éducation nationale, il faudra donc compléter la liste des établissements avec une ligne CNED à laquelle sera associée le code UAI qui sera en passé en entrée.
                     type: string
@@ -705,18 +731,15 @@ paths:
                   est_boursier:
                     description: |
                       Indique si l'élève est boursier dans l'établissement. Les bourses concernent uniquement les élèves des collèges et lycées.
-                      \n
-                      ⚠️ Si le statut boursier est à \"false\" avant mi-octobre, cela ne signifie pas forcément que l'élève n'est pas boursier. Il peut s'agir d'un faux négatif lié à une absence de l'information en base. Pour en savoir plus consulter la fiche métier : https://particulier.api.gouv.fr/catalogue/education_nationale/statut_eleve_scolarise#faq_entry_answer_1_api_particulier_endpoint_education_nationale_statut_eleve_scolarise.
+
+                      ⚠️ Si le statut boursier est à "false" avant mi-octobre, cela ne signifie pas forcément que l'élève n'est pas boursier. Il peut s'agir d'un faux négatif lié à une absence de l'information en base. Pour en savoir plus consulter la fiche métier : https://particulier.api.gouv.fr/catalogue/education_nationale/statut_eleve_scolarise#faq_entry_answer_1_api_particulier_endpoint_education_nationale_statut_eleve_scolarise.
                     type: boolean
                     example: true
                   niveau_bourse:
-                    description: "Indique l'échelon de la bourse de l'élève. Est à
-                      \"null\" quand \"est_boursier\" est \"false\". Les bourses concernent
-                      uniquement les élèves des collèges et lycées. \n Il existe trois
-                      échelons de bourses pour les collégiens (1 à 3) et six échelons
-                      pour les lycéens (1 à 6), correspondant aux montants reçus par
-                      l'élève pour l'année scolaire. Pour en savoir plus, consulter
-                      la FAQ : https://particulier.api.gouv.fr/catalogue/education_nationale/statut_eleve_scolarise#faq_entry_answer_2_api_particulier_endpoint_education_nationale_statut_eleve_scolarise"
+                    description: |
+                      Indique l'échelon de la bourse de l'élève. Est à "null" quand "est_boursier" est "false". Les bourses concernent uniquement les élèves des collèges et lycées.
+
+                      Il existe trois échelons de bourses pour les collégiens (1 à 3) et six échelons pour les lycéens (1 à 6), correspondant aux montants reçus par l'élève pour l'année scolaire. Pour en savoir plus, consulter la FAQ : https://particulier.api.gouv.fr/catalogue/education_nationale/statut_eleve_scolarise#faq_entry_answer_2_api_particulier_endpoint_education_nationale_statut_eleve_scolarise"
                     type: integer
                     example: 1
                     nullable: true
@@ -731,26 +754,17 @@ paths:
                   status_eleve:
                     title: Statut de l'élève
                     description: |
-                      Indique le statut sous lequel l'élève est scolarisé dans l'établissement. Les valeurs sont susceptibles d'évoluer &nbsp;:&nbsp;
-                      \n
+                      Indique le statut sous lequel l'élève est scolarisé dans l'établissement. Les valeurs sont susceptibles d'évoluer :
+
                       - ST : Scolaire, il s'agit du statut de base renvoyé pour près de 95% des élèves.
-                      \n
                       - AP : Apprenti
-                      \n
                       - CQ : Contrat de qualification
-                      \n
                       - FC : Formation continue
-                      \n
                       - ED : Enseignement à distance
-                      \n
                       - IN : Candidat individuel
-                      \n
                       - FQ : Stagiaire de la formation Professionnelle
-                      \n
                       - SC : Scolaire ou formation initiale
-                      \n
                       - CP : Contrat de professionnalisation.
-                      \n
                       - NC : Non connu ou non communiqué.
                     type: object
                     properties:
@@ -808,6 +822,121 @@ paths:
                       source: 
                       meta:
                         provider: MEN
+                  summary: Erreur inconnue du fournisseur de données
+                  description: La réponse retournée par le fournisseur de données
+                    est invalide et inconnue de notre service. L'équipe technique
+                    a été notifiée de cette erreur pour investigation.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '504':
+          description: Erreur d'intermédiaire
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+  "/api/v2/paiements-pole-emploi":
+    get:
+      summary: Paiements versés par Pôle Emploi
+      tags:
+      - Paiements Pôle Emploi
+      parameters:
+      - name: X-Api-Key
+        in: header
+        schema:
+          type: string
+      - name: identifiant
+        in: query
+        description: Identifiant Pôle emploi choisi par le particulier lors de la
+          création de son espace personnel en ligne.
+        example: jean.dupont33
+        required: true
+        schema:
+          type: string
+      description: Ensemble des paiements versé par Pôle Emploi pour un usager
+      responses:
+        '200':
+          description: Paiements trouvées
+          x-operationId: api_particulier_v2_pole_emploi_indemnites
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  identifiant:
+                    title: Nom d'utilisateur Pôle emploi
+                    type: string
+                    description: Identifiant Pôle emploi, tel qu'il a été renseigné
+                      en paramètre d'appel. Cet identifiant est le nom d'utilisateur
+                      tel que choisi par le particulier lors de la création de son
+                      espace personnel en ligne.
+                    example: jean.dupont33
+                  paiements:
+                    title: Paiements
+                    type: array
+                    minItems: 1
+                    items:
+                      title: Paiement
+                      type: object
+                      properties:
+                        date:
+                          title: Date du paiement
+                          type: string
+                          example: '2021-01-01'
+                        montant:
+                          title: Montant
+                          type: number
+                          example: 123.4
+                        allocations:
+                          title: Allocations
+                          type: number
+                          example: 45.1
+                        aides:
+                          title: Aides
+                          type: number
+                          example: 12.21
+                        autres:
+                          title: Autres paiements
+                          type: number
+                          example: 2.34
+        '400':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                entite_non_traitable_00380:
+                  value:
+                    errors:
+                    - code: '00380'
+                      title: Entité non traitable
+                      detail: L'identifiant Pole Emploi est manquant
+                      source:
+                      meta: {}
+                  summary: Entité non traitable
+                  description: L'identifiant Pole Emploi est manquant
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Non trouvée
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '503':
+          description: Erreur du fournisseur
+          content:
+            application/json:
+              examples:
+                unknown_error:
+                  value:
+                    errors:
+                    - code: '24999'
+                      title: Erreur inconnue du fournisseur de données
+                      detail: La réponse retournée par le fournisseur de données est
+                        invalide et inconnue de notre service. L'équipe technique
+                        a été notifiée de cette erreur pour investigation.
+                      source:
+                      meta:
+                        provider: Pôle Emploi
                   summary: Erreur inconnue du fournisseur de données
                   description: La réponse retournée par le fournisseur de données
                     est invalide et inconnue de notre service. L'équipe technique
@@ -937,33 +1066,39 @@ paths:
                   erreurCorrectif:
                     type: string
                     example: ''
-                    description: 'S''il existe un correctif plus récent que l''avis
-                      contrôlé, ce champ prend la valeur "Ce document ne correspond
-                      pas à la situation la plus récente pour cet usager". Sinon,
-                      le champ est vide. La présence de ce champ indique qu''il existe
-                      un avis d''imposition avec un numéro d''avis distinct qui contient
-                      les informations plus récentes. La mise à jour de l''avis initial
-                      est en général à l''initiative de l''administré auprès des impôts
-                      (par exemple : changement de revenus ou du nombre de part).
-                      L''API Particulier peut fournir cet avis à condition de connaître
-                      le numéro de l''avis le plus récent. L''API Particulier ne peut
-                      pas fournir le numéro de l''avis le plus récent en réponse de
-                      l''appel initial. Pour trouver le numéro de cet avis, il faut
-                      le demander au particulier auquel l''avis est adressé ou le
-                      demander manuellement auprès du centre des impôts de votre région.
-                      Vous trouverez de plus amples informations sur <a href="https://www.impots.gouv.fr/portail/precisions-sur-le-service-de-verification-des-avis-dimpot-sur-le-revenu-svair">le
-                      site des impôts</a>.'
+                    description: |
+                      S'il existe un correctif plus récent que l'avis contrôlé, ce champ
+                      prend la valeur "Ce document ne correspond pas à la
+                      situation la plus récente pour cet usager". Sinon, le
+                      champ est vide. La présence de ce champ
+                      indique qu'il existe un avis d'imposition avec un numéro
+                      d'avis distinct qui contient les informations plus
+                      récentes. La mise à jour de l'avis initial est en général
+                      à l'initiative de l'administré auprès des impôts (par
+                      exemple : changement de revenus ou du nombre de part).
+                      L'API Particulier peut fournir cet avis à condition de
+                      connaître le numéro de l'avis le plus récent. L'API
+                      Particulier ne peut pas fournir le numéro de l'avis le
+                      plus récent en réponse de l'appel initial. Pour trouver le
+                      numéro de cet avis, il faut le demander au particulier
+                      auquel l'avis est adressé ou le demander manuellement
+                      auprès du centre des impôts de votre région. Vous
+                      trouverez de plus amples informations sur <a
+                      href="https://www.impots.gouv.fr/portail/precisions-sur-\
+                      le-service-de-verification-des-avis-dimpot-sur-le-revenu-\
+                      svair">le site des impôts</a>."
                   situationPartielle:
                     type: string
                     example: ''
-                    description: 'Le champ "situationPartielle" indique, dans un foyer
-                      marié ou pacsé, le décès d''un des contribuables. Cela signifie
-                      qu''il y aura 2 avis de taxations pour une même année : une
-                      taxation pour le couple du 01/01/AAAA à la date du décès d''un
-                      déclarant, et une autre taxation, pour le conjoint survivant,
-                      de la date de décès du conjoint au 31/12/AAAA. Ce champ prend
-                      la valeur "(*) Situation  {anneeRevenus} partielle". Sinon,
-                      le champ est vide.'
+                    description: |
+                      Le champ "situationPartielle" indique, dans un foyer marié ou
+                      pacsé, le décès d'un des contribuables. Cela signifie
+                      qu'il y aura 2 avis de taxations pour une même année : une
+                      taxation pour le couple du 01/01/AAAA à la date du décès
+                      d'un déclarant, et une autre taxation, pour le conjoint
+                      survivant, de la date de décès du conjoint au 31/12/AAAA.
+                      Ce champ prend la valeur "(*) Situation  {anneeRevenus}
+                      partielle". Sinon, le champ est vide."
         '401': &2
           description: Votre jeton d'API n'a pas été trouvé ou n'est pas actif
           content:
@@ -1332,15 +1467,14 @@ paths:
                   codeCertificationCNAV:
                     title: Code du statut de certification d'identité CNAV
                     type: string
-                    description: "Pôle emploi dépend d'un flux de certification d'identité
+                    description: 'Pôle emploi dépend d''un flux de certification d''identité
                       émis par la CNAV, un particulier peut avoir été certifié ou
-                      non. \n \n Sont considérés comme certifés, les statuts suivants
-                      : \n \n - VC IDENTITE CERTIFIEE \n - IC : IDENTITE ASSIMILEE
-                      CERTIFIEE \n - PC : IDENTITE CERTIFIEE PARTIELLEMENT \n \n Sont
-                      considérés comme non-certifiés : \n \n - AC : ATTENTE TRAITEMENT
-                      RETOUR CNAV \n - DC : DEMANDE CERTIF. ENVOYEE \n - EC : ECHEC
-                      DE CERTIFICATION CNAV \n - null : IDENTITE NON CERTIFIEE \n
-                      - RC : REFUS PROPOSITION DE CERTIFICATION"
+                      non. Sont considérés comme certifés, les statuts suivants :
+                      - VC IDENTITE CERTIFIEE - IC : IDENTITE ASSIMILEE CERTIFIEE
+                      - PC : IDENTITE CERTIFIEE PARTIELLEMENT Sont considérés comme
+                      non-certifiés : - AC : ATTENTE TRAITEMENT RETOUR CNAV - DC :
+                      DEMANDE CERTIF. ENVOYEE - EC : ECHEC DE CERTIFICATION CNAV -
+                      null : IDENTITE NON CERTIFIEE - RC : REFUS PROPOSITION DE CERTIFICATION'
                     example: VC
                     enum:
                     - VC
@@ -1417,13 +1551,13 @@ paths:
                     example: 2023-03-12
                   codeCategorieInscription:
                     title: Code de la catégorie d'inscription
-                    description: "Code de la catégorie d'inscription du particulier
-                      à Pôle emploi. \n \n - 1 : PERSONNE SANS EMPLOI DISPONIBLE DUREE
-                      INDETERMINEE PLEIN TPS \n - 2 : PERSONNE SANS EMPLOI DISPONIBLE
-                      DUREE INDETERMINEE PARTIEL \n - 3 : PERSONNE SANS EMPLOI DISPONIBLE
-                      DUREE DETERMINEE OU SAISON \n - 4 : PERSONNE SANS EMPLOI NON
-                      DISPONIBLE IMMEDIATEMENT \n - 5 : PERSONNE POURVUE D'UN EMPLOI
-                      A LA RECHERCHE D'UN AUTRE"
+                    description: |
+                      Code de la catégorie d'inscription du particulier à Pôle emploi.
+                        - 1 : PERSONNE SANS EMPLOI DISPONIBLE DUREE INDETERMINEE PLEIN TPS
+                        - 2 : PERSONNE SANS EMPLOI DISPONIBLE DUREE INDETERMINEE PARTIEL
+                        - 3 : PERSONNE SANS EMPLOI DISPONIBLE DUREE DETERMINEE OU SAISON
+                        - 4 : PERSONNE SANS EMPLOI NON DISPONIBLE IMMEDIATEMENT
+                        - 5 : PERSONNE POURVUE D'UN EMPLOI A LA RECHERCHE D'UN AUTRE"
                     type: integer
                     example: 1
                     enum:
@@ -1500,13 +1634,12 @@ paths:
           pattern: "^\\d{4}-\\d{2}-\\d{2}$"
           example: '1992-11-29'
       - name: lieuDeNaissance
-        description: "Le lieu de naissance est donné par le code Insee composé de
-          5 caractères. \n \n - Dans le cas d'un étudiant né en France, il s'agit
-          du code Insee de la commune de naissance. \n - Dans le cas d'un étudiant
-          né à l'étranger, il s'agit du code Insee du pays de naissance, construit
-          avec deux caractères « 99 » auxquels sont concaténés les 3 caractères du
-          code pays de la BCN. Ce champ est facultatif, même s'il est recommandé en
-          cas de doublon."
+        description: |
+          Le lieu de naissance est donné par le code Insee composé de 5 caractères.
+
+          - Dans le cas d'un étudiant né en France, il s'agit du code Insee de la commune de naissance.
+
+          - Dans le cas d'un étudiant né à l'étranger, il s'agit du code Insee du pays de naissance, construit avec deux caractères « 99 » auxquels sont concaténés les 3 caractères du code pays de la BCN. Ce champ est facultatif, même s'il est recommandé en cas de doublon."
         in: query
         required: false
         schema:
@@ -1572,11 +1705,9 @@ paths:
                           title: Statut de l'inscription
                           type: string
                           description: |
-                            "Statut de l'inscription de l'étudiant. Il existe deux modalités différentes :
-                            \n
-                            \n
-                            - admis : l'étudiant est pré-inscrit dans l'établissement mais la procédure complète d'inscription et le règlement des droits d'inscription ne sont pas terminés. Les étudiants \"admis\" passent au statut \"inscrit\" une fois leurs droits d'inscription régularisés (paiement des droits, premier versement des droits ou acquittement des droits selon la situation de l'étudiant et les règles de l'établissement.) Tous les étudiants \"admis\" ne sont donc pas forcément de futurs étudiants \"inscrits\".
-                            \n
+                            Statut de l'inscription de l'étudiant. Il existe deux modalités différentes :
+                            - admis : l'étudiant est pré-inscrit dans l'établissement mais la procédure complète d'inscription et le règlement des droits d'inscription ne sont pas terminés. Les étudiants "admis" passent au statut "inscrit" une fois leurs droits d'inscription régularisés (paiement des droits, premier versement des droits ou acquittement des droits selon la situation de l'étudiant et les règles de l'établissement.) Tous les étudiants "admis" ne sont donc pas forcément de futurs étudiants "inscrits".
+
                             - inscrit : l'étudiant est inscrit dans l'établissement car il est en règle de ses droits d'inscription. L'étudiant peut être inscrit dans plusieurs établissements."
                           example: admis
                           enum:
@@ -1585,13 +1716,12 @@ paths:
                         regime:
                           title: Régime de formation
                           type: string
-                          description: "Régime de formation de l'étudiant. Il existe
-                            deux modalités différentes : \n \n - formation initiale
-                            : Ce champ indique que l'étudiant est en formation initiale
-                            sous statut étudiant (y compris dans le cadre de reprise
-                            d’études) ou en en apprentissage ; \n - formation continue
-                            : Ce champ indique que l'étudiant est en formation continue
-                            ou en contrat de professionalisation."
+                          description: |
+                            Régime de formation de l'étudiant. Il existe deux modalités différentes :
+
+                              - formation initiale : Ce champ indique que l'étudiant est en formation initiale sous statut étudiant (y compris dans le cadre de reprise d’études) ou en en apprentissage ;
+
+                              - formation continue : Ce champ indique que l'étudiant est en formation continue ou en contrat de professionalisation."
                           example: formation initiale
                           enum:
                           - formation initiale
