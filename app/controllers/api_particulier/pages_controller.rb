@@ -20,6 +20,8 @@ class APIParticulier::PagesController < APIParticulierController
     render 'shared/pages/mentions'
   end
 
+  def newsletter; end
+
   def accessibility
     render 'shared/pages/accessibility'
   end
@@ -30,6 +32,8 @@ class APIParticulier::PagesController < APIParticulierController
     case action_name
     when 'home'
       'api_particulier/no_container'
+    when 'newsletter'
+      'api_entreprise/no_newsletter_banner'
     end
   end
 end
