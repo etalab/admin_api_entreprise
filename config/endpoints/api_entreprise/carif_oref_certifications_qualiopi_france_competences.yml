@@ -10,18 +10,40 @@
       - ✅ France métropolitaine
       - ✅ DROM-COM
     updating_rules_description: |+
-      Les données sont **mises à jour toutes les 24h à 72h**.
+      Les données sont **mises à jour en majorité toutes les 24h** mais ce délai peut parfois passer à 72h ou plus pour des cas spécifiques.
     entities:
       - entreprises
       - associations
-  # Texte libre
   call_id: "SIRET"
-  # La liste des clés disponible est stockée dans la locale `provider_uids` du fichier provider_uids.fr.yml
   provider_uids:
     - 'carif_oref'
   keywords:
-    - 'LOREM'
-    - 'IPSUM'
+    - 'Carif Oref'
+    - 'qualiopi'
+    - 'formation apprentis'
+    - "numéro de déclaration d'activité"
+    - 'NDA'
+    - 'bilan de competences'
+    - 'certification apprentissage'
+    - 'FranceCompétences'
+    - 'habilitation à former'
+    - 'habilitation à orgnaiser'
+    - 'habilitation'
+    - 'formation'
+    - 'formation professionnelle'
+    - 'organisme de formation'
+    - 'certification professionnelle'
+    - 'qualité de la formation'
+    - 'référentiel national des certifications professionnelles'
+    - 'RNCP'
+    - 'Compte personnel de formation'
+    - 'CPF'
+    - 'démarche qualité'
+    - 'normes de formation'
+    - 'référencement des formations'
+    - 'programme de formation'
+    - "validation des acquis de l'expérience"
+    - 'VAE'
   data:
     description: |+
       Cette API permet de savoir si un établissement est habilité à former. Elle délivre :
@@ -34,12 +56,17 @@
       > - de véritablement dire si un établissement est habilité à former ou à organiser des épreuves car elle indique également les habilitations France Compétences de l'établissement ;
       > - d'avoir une donnée plus fiable car le réseau des Carif Oref effectue une double vérification en croisant ses bases et les bases du Ministère de l'intérieur. En cas de détection d'anomalie, les Carif Oref peuvent, grâce à leurs réseaux locaux, prendre contact avec l'établissement concerné et vérifier la situation.
 
-      [NDA, Qualiopi, France Compétences, quelles différences ?](https://entreprise.api.gouv.fr/catalogue/carif_oref/certifications_qualiopi_france_competences#faq_entry_answer_0_api_entreprise_endpoint_carif_oref_certifications_qualiopi_france_competences)
+      [NDA, Qualiopi, France Compétences, quelles différences ?](../carif_oref/certifications_qualiopi_france_competences#faq_entry_answer_0_api_entreprise_endpoint_carif_oref_certifications_qualiopi_france_competences)
   opening: public
   use_cases_optional:
+    - Portail GRU - Instruction des démarches
+    - Subventions associations
   use_cases_forbidden:
+    - Portail GRU - Préremplissage
   use_cases:
-    - Lorem
+    - Détection de la fraude
+    - Marchés publics
+    - Aides publiques
   parameters:
     - Siret de l'établissement
   format:
@@ -72,9 +99,7 @@
         
          Les organismes porteurs de certifications (comme par exemple des CAP, des diplômes publiques, des titres du ministère du Travail, etc.) inscrites au répertoire national des compétences professionnelles (RNCP) et au répertoire spécifique (RS) délivrent :
          - des "habilitations à former", *c'est-à-dire qu'un établissement qui revendique avoir les capacités de former à la certification de l'organisme porteur, doit au préalable avoir reçu cette habilitation*. 
-         - des "habilitations à organiser", *c'est-à-dire qu'un établissement qui revendique avoir les capacités d'organiser des épreuves visant à valider une certification de l'organisme porteur, doit au préalable avoir reçu cette habilitation*.
-
-         
+         - des "habilitations à organiser", *c'est-à-dire qu'un établissement qui revendique avoir les capacités d'organiser des épreuves visant à valider une certification de l'organisme porteur, doit au préalable avoir reçu cette habilitation*.  
     - q: Nomenclature des spécialités
       a: |+
          La nomenclature des spécialités indiquées dans le bilan pédagogique et financier est la suivante (à jour en juillet 2023): 
