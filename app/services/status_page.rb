@@ -19,14 +19,14 @@ class StatusPage
   private
 
   def raw_current_status
-    redis_service.get(redis_cached_key) ||
+    cache.read(cache_key) ||
       retrieve_from_status_page
   end
 
   def retrieve_from_status_page
     status = page_summary['page']['status']
 
-    redis_service.set(redis_cached_key, status, ex: 5.minutes.to_i)
+    cache.write(cache_key, status, expires_in: 5.minutes.to_i)
 
     status
   end
@@ -45,11 +45,11 @@ class StatusPage
     'https://status.entreprise.api.gouv.fr/summary.json'
   end
 
-  def redis_cached_key
+  def cache_key
     'status_page_current_status'
   end
 
-  def redis_service
-    @redis_service ||= RedisService.instance
+  def cache
+    @cache ||= Rails.cache
   end
 end
