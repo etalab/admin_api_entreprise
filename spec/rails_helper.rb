@@ -66,6 +66,10 @@ RSpec.configure do |config|
   config.around(:each, js: true) do |example|
     example.run_with_retry retry: example.metadata[:retry] || 3
   end
+
+  config.before do
+    Rails.cache.clear
+  end
 end
 
 Shoulda::Matchers.configure do |config|
