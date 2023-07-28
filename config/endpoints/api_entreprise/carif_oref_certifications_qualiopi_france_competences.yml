@@ -5,26 +5,36 @@
   position: 1
   perimeter:
     entity_type_description: |+
-      LOREM IPSUM
-
+      ✅ **Tous les établissements de formation** quelque soit leur statut, publics, à but lucratif, associatif, etc...
     geographical_scope_description:  |+
       - ✅ France métropolitaine
+      - ✅ DROM-COM
     updating_rules_description: |+
-      LOREM IPSUM
+      Les données sont **mises à jour toutes les 24h à 72h**.
     entities:
       - entreprises
+      - associations
   # Texte libre
   call_id: "SIRET"
   # La liste des clés disponible est stockée dans la locale `provider_uids` du fichier provider_uids.fr.yml
   provider_uids:
     - 'carif_oref'
-  # Ces mots clés servent à la recherche algolia sur l'index du catalogue
   keywords:
     - 'LOREM'
     - 'IPSUM'
   data:
     description: |+
-      lorem ipsum lalala
+      Cette API permet de savoir si un établissement est habilité à former. Elle délivre :
+      - le **certificat Qualiopi** ; 
+      - la **liste des habilitations France Compétences**.
+      
+      {:.fr-highlight}
+      > **La valeur ajoutée de cette API opérée par le réseau des CARIF OREF est** : 
+      > - de connaître les certificats Qualiopi des établissements et pas uniquement des unités légales ; 
+      > - de véritablement dire si un établissement est habilité à former ou à organiser des épreuves car elle indique également les habilitations France Compétences de l'établissement ;
+      > - d'avoir une donnée plus fiable car le réseau des Carif Oref effectue une double vérification en croisant ses bases et les bases du Ministère de l'intérieur. En cas de détection d'anomalie, les Carif Oref peuvent, grâce à leurs réseaux locaux, prendre contact avec l'établissement concerné et vérifier la situation.
+
+      [NDA, Qualiopi, France Compétences, quelles différences ?](https://entreprise.api.gouv.fr/catalogue/carif_oref/certifications_qualiopi_france_competences#faq_entry_answer_0_api_entreprise_endpoint_carif_oref_certifications_qualiopi_france_competences)
   opening: public
   use_cases_optional:
   use_cases_forbidden:
@@ -35,9 +45,39 @@
   format:
     - Donnée structurée JSON
   faq:
+    - q: NDA, Qualiopi, France Compétences, quelles différences ?
+      a: |+
+         {:.fr-h5}
+         #### NDA ou numéro de déclaration d'activité
+         
+         Tout établissement qui exerce une des activité suivantes, à titre principal ou accessoire, doit avoir un numéro de déclaration d'activité actif : 
+         - Action de formation ;
+         - Bilan de compétences ;
+         - Actions permettant de faire valider les acquis de l'expérience ;
+         - Actions de formation par apprentissage.
+
+         Le NDA reste actif un an, sous réserve que l'établissement dépose chaque année son [bilan pédagofoque et financier](https://travail-emploi.gouv.fr/actualites/l-actualite-du-ministere/article/bilan-pedagogique-et-financier-bpf-organismes-de-formation-c-est-le-moment-de){:target="_blank"}.
+         
+         {:.fr-h5}
+         #### Qualiopi
+
+         Le certificat Qualiopi est une certification qui atteste de la qualité des compétences de formation d'un organisme. Le certificat Qualiopi est toujours rattaché à un numéro de déclation d'activité (NDA). 
+         
+         Depuis le 1er janvier 2022, la **certification Qualiopi est obligatoire pour bénéficier de fonds** des financeurs mentionnés à l’[article L.6316-1 du code du travail](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037390323){:target="_blank"} : les opérateurs de compétences, les associations Transitions Pro, l’État, les régions, la Caisse des dépôts et consignations, Pôle emploi et l’Agefiph.
+
+         Ce certificat est valable 3 ans.
+         
+         {:.fr-h5}
+         #### Habilitations France Compétences
+        
+         Les organismes porteurs de certifications (comme par exemple des CAP, des diplômes publiques, des titres du ministère du Travail, etc.) inscrites au répertoire national des compétences professionnelles (RNCP) et au répertoire spécifique (RS) délivrent :
+         - des "habilitations à former", *c'est-à-dire qu'un établissement qui revendique avoir les capacités de former à la certification de l'organisme porteur, doit au préalable avoir reçu cette habilitation*. 
+         - des "habilitations à organiser", *c'est-à-dire qu'un établissement qui revendique avoir les capacités d'organiser des épreuves visant à valider une certification de l'organisme porteur, doit au préalable avoir reçu cette habilitation*.
+
+         
     - q: Nomenclature des spécialités
       a: |+
-         La nomenclature des spécialités fournie par Carif Oref en juillet 2023 est la suivante : 
+         La nomenclature des spécialités indiquées dans le bilan pédagogique et financier est la suivante (à jour en juillet 2023): 
           | Code  | Intitulé de la formation                                        |
           |-------|----------------------------------------------------------------|
           | 100   | Formations générales                                           |
