@@ -67,6 +67,8 @@ gem 'anchored'
 
 gem 'strong_migrations'
 
+gem 'gaffe'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'colorize'

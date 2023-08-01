@@ -12,6 +12,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym 'API'
   inflect.acronym 'DB'
   inflect.acronym 'OAuth'
+  inflect.acronym 'HTTP'
 
   inflect.acronym 'FAQ'
 end

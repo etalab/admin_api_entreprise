@@ -16,5 +16,7 @@ module ActiveLinks
     else
       false
     end
+  rescue ActionController::RoutingError
+    false
   end
 end
