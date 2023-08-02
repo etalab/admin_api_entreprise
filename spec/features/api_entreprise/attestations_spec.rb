@@ -55,14 +55,7 @@ RSpec.describe 'User attestations through tokens', app: :api_entreprise do
     before do
       allow(EntrepriseWithAttestationsFacade).to receive(:new).and_return(facade_double)
 
-      allow(facade_double).to receive(:entreprise).and_return(entreprise)
-      allow(facade_double).to receive(:entreprise_raison_sociale).and_return(entreprise.raison_sociale)
-      allow(facade_double).to receive(:entreprise_forme_juridique).and_return(entreprise.forme_juridique)
-      allow(facade_double).to receive(:categorie_entreprise).and_return(entreprise.categorie_entreprise)
-      allow(facade_double).to receive(:entreprise_naf_full).and_return('whatever')
-
-      allow(facade_double).to receive(:attestation_fiscale_url).and_return(payload_attestation_fiscale['url'])
-      allow(facade_double).to receive(:attestation_sociale_url).and_return(payload_attestation_sociale['url'])
+      allow(facade_double).to receive_messages(entreprise:, entreprise_raison_sociale: entreprise.raison_sociale, entreprise_forme_juridique: entreprise.forme_juridique, categorie_entreprise: entreprise.categorie_entreprise, entreprise_naf_full: 'whatever', attestation_fiscale_url: payload_attestation_fiscale['url'], attestation_sociale_url: payload_attestation_sociale['url'])
     end
 
     context 'when user search a valid siren which works for all endpoints' do
