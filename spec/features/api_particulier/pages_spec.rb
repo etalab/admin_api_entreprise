@@ -33,6 +33,14 @@ RSpec.describe 'Simple pages', app: :api_particulier do
     end
   end
 
+  describe 'infolettre' do
+    it 'does not raise error' do
+      expect {
+        visit newsletter_path
+      }.not_to raise_error
+    end
+  end
+
   describe 'account' do
     it 'does not raise error' do
       expect {
