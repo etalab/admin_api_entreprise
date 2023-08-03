@@ -61,7 +61,7 @@ RSpec.describe DatapassWebhook::APIEntreprise, type: :interactor do
   describe 'Mailjet adding contacts' do
     it 'adds contacts to Entreprise mailjet list' do
       expect(Mailjet::Contactslist_managemanycontacts).to receive(:create).with(
-        id: Rails.application.credentials.mj_list_id!,
+        id: Rails.application.credentials.mj_list_id_entreprise!,
         action: 'addnoforce',
         contacts: [{ email: a_string_matching(/demandeur\d{1,4}@service.gouv.fr/),
                      properties: { 'contact_demandeur' => true,

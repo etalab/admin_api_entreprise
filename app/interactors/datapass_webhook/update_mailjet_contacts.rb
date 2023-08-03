@@ -1,7 +1,7 @@
 class DatapassWebhook::UpdateMailjetContacts < ApplicationInteractor
   def call
     Mailjet::Contactslist_managemanycontacts.create(
-      id: ::Rails.application.credentials.mj_list_id!,
+      id: ::Rails.application.credentials.mj_list_id_entreprise!,
       action: 'addnoforce',
       contacts: mailjet_contact_payloads
     )
