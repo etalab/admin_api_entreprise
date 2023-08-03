@@ -20,7 +20,6 @@ RSpec.describe DatapassWebhook::APIEntreprise, type: :interactor do
 
   before do
     allow(Mailjet::Contactslist_managemanycontacts).to receive(:create)
-
     create(:authorization_request, external_id: previous_enrollment_id, tokens: [token])
   end
 
@@ -56,6 +55,35 @@ RSpec.describe DatapassWebhook::APIEntreprise, type: :interactor do
       expect {
         subject
       }.to change { token.reload.archived }.to(true)
+    end
+  end
+
+  describe 'Mailjet adding contacts' do
+    it 'adds contacts to Entreprise mailjet list' do
+      expect(Mailjet::Contactslist_managemanycontacts).to receive(:create).with(
+        id: Rails.application.credentials.mj_list_id!,
+        action: 'addnoforce',
+        contacts: [{ email: a_string_matching(/demandeur\d{1,4}@service.gouv.fr/),
+                     properties: { 'contact_demandeur' => true,
+                                   'contact_métier' => false,
+                                   'contact_technique' => false,
+                                   'nom' => 'demandeur last name',
+                                   'prénom' => 'demandeur first name' } },
+                   { email: a_string_matching(/contact_metier\d{1,4}@service.gouv.fr/),
+                     properties: { 'contact_demandeur' => false,
+                                   'contact_métier' => true,
+                                   'contact_technique' => false,
+                                   'nom' => 'contact_metier last name',
+                                   'prénom' => 'contact_metier first name' } },
+                   { email: a_string_matching(/responsable_technique\d{1,4}@service.gouv.fr/),
+                     properties: { 'contact_demandeur' => false,
+                                   'contact_métier' => false,
+                                   'contact_technique' => true,
+                                   'nom' => 'responsable_technique last name',
+                                   'prénom' => 'responsable_technique first name' } }]
+      )
+
+      subject
     end
   end
 end
