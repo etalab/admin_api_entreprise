@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
-  subject { described_class.call(authorization_request:) }
+  subject { described_class.call(authorization_request:, api: 'entreprise') }
 
   let(:authorization_request) { create(:authorization_request) }
 
