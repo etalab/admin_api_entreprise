@@ -1,9 +1,7 @@
 class DatapassWebhook::ScheduleAuthorizationRequestEmails < ApplicationInteractor
   def call
     (datapass_webhooks_config_for_event[:emails] || []).each do |email_config|
-      schedule_email(
-        email_config.stringify_keys
-      )
+      schedule_email(email_config.stringify_keys)
     end
   end
 

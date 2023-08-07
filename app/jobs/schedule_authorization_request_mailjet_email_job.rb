@@ -12,7 +12,7 @@ class ScheduleAuthorizationRequestMailjetEmailJob < ApplicationJob
     return if authorization_request_status_changed?(authorization_request_status)
 
     deliver_mailjet_email(
-      build_message(mailjet_attributes.stringify_keys)
+      build_message(mailjet_attributes.stringify_keys, @authorization_request.api)
     )
   rescue Mailjet::ApiError => e
     affect_mailjet_context_for_sentry(e)
@@ -21,10 +21,10 @@ class ScheduleAuthorizationRequestMailjetEmailJob < ApplicationJob
 
   private
 
-  def build_message(mailjet_attributes)
+  def build_message(mailjet_attributes, api)
     {
-      from_name: 'API Entreprise',
-      from_email: APIEntrepriseMailer.default_params[:from],
+      from_name: from_name(api),
+      from_email: from_email(api),
       to: build_recipient_attributes(mailjet_attributes['to']),
       cc: build_recipient_attributes(mailjet_attributes['cc']),
       vars: mailjet_attributes['vars'],
