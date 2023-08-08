@@ -204,4 +204,35 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
       end
     end
   end
+
+  describe 'when on API Particulier' do
+    let(:authorization_request) { create(:authorization_request, :with_demandeur, :with_contact_technique, api: 'particulier') }
+
+    it 'updates accordingly' do
+      expect(Mailjet::Contactslist_managemanycontacts).to receive(:create).with(
+        hash_including(
+          id: anything,
+          action: 'addnoforce',
+          contacts: [
+            {
+              email: authorization_request.demandeur.email,
+              properties: hash_including(
+                'contact_demandeur' => true,
+                'contact_technique' => false
+              )
+            },
+            {
+              email: authorization_request.contact_technique.email,
+              properties: hash_including(
+                'contact_demandeur' => false,
+                'contact_technique' => true
+              )
+            }
+          ]
+        )
+      )
+
+      subject
+    end
+  end
 end
