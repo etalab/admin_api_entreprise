@@ -41,7 +41,7 @@
     - 'droit de vote'
   data:
     description: |+
-      Cette API délivre la **liste des bénéficiaires effectifs de l'unité légale** avec l'ensemble des modalités et des attributs qui leurs sont associés.
+      Cette API délivre la **liste des bénéficiaires effectifs de l'unité légale** et permet de comprendre en détail sous quelles modalités le contrôle est exercé par le bénéficiaires effectif sur l'unité légale. [En savoir plus sur les caractéristiques qui font d'une personne physique un bénéficiaire effectif](#)
   opening: protected
   use_cases_optional:
   use_cases_forbidden:
@@ -56,4 +56,28 @@
     - Numéro de SIREN de l'unité légale
   format:
     - Donnée structurée JSON
-  faq: []
+  faq:
+    - q: Caractéristiques définissant un bénéficiaire effectif
+      a: |+
+        Selon la [définition donnée par l'Inpi](https://www.inpi.fr/qui-sont-les-beneficiaires-effectifs-d-une-societe){:target="_blank"} :  
+
+        > Un bénéficiaire effectif est une personne physique exerçant le contrôle effectif d’une société, directement ou indirectement. En pratique, un bénéficiaire effectif c’est :
+        > - toute personne physique possédant directement ou indirectement plus de 25 % du capital ou des droits de vote d’une société ;
+        > - toute personne physique exerçant par tout autre moyen un pouvoir de contrôle sur les organes de gestion, d’administration de la société ou sur l’assemblée générale des associés ;
+        > - ou, à défaut, le représentant légal de la société.
+
+        {:.fr-h6 .fr-mt-4w}
+        ### Pour en savoir plus&nbsp;:
+
+        [Cette fiche pratique des greffes](https://www.greffe-tc-paris.fr/uploads/paris/Fiches%20RCS/RBE_Fiche_pratique_schemas.pdf){:target="_blank"} décrit en schémas les différentes situations qui font d'une personne physique un bénéficiaire effectif d'une société :
+
+        <div class="fr-download">
+        <p>
+          <a href="/files/beneficiaires-effectifs-fiche-explicative-greffes.pdf" download class="fr-download__link">
+          Télécharger la fiche explicative des greffes
+          <span class="fr-download__detail">
+          PDF – 2,1 Mo
+          </span>
+          </a>
+        </p>
+        </div>
