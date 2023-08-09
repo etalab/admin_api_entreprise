@@ -4,6 +4,7 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
 
   attr_accessor :uid,
     :path,
+    :beta,
     :provider_uids,
     :parameters,
     :perimeter,
@@ -78,6 +79,10 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
 
   def incoming?
     incoming
+  end
+
+  def beta?
+    beta.present? && beta
   end
 
   def new_endpoints

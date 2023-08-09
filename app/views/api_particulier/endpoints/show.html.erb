@@ -1,9 +1,11 @@
 <% layout_main_bloc = 8 %>
 <article id="<%= dom_id(@endpoint) %>" class="endpoint">
   <h1>
-    <%= @endpoint.title %> 
+    <%= @endpoint.title %>
     <% if @endpoint.incoming? %>
       <p class="fr-badge fr-badge--new">prochainement</p>
+    <% elsif @endpoint.beta? %>
+      <p class="fr-badge fr-badge--green-bourgeon">en beta test</p>
     <% end %>
   </h1>
 
@@ -11,19 +13,32 @@
     <div class="fr-col-md-<%= layout_main_bloc %> fr-col-12">
       <p class="fr-text--lead fr-mt-md-2w">
         <%= @endpoint.description %>
+
+        <% if @endpoint.incoming? %>
+          <div class="fr-alert fr-alert--info fr-alert--sm fr-mb-2w">
+            <p class="fr-alert__title">
+              <%= t('.incoming.title') %>
+            </p>
+            <p>
+              <%= t('.incoming.description') %>
+
+              <p class="fr-text--sm fr-mt-2w">
+                <%= t('.incoming.link_documentation').html_safe %> <%= link_to t('.incoming.cta'), developers_openapi_path(anchor: @endpoint.redoc_anchor), data: { turbo: false }, class: %() %>
+              </p>
+            </p>
+          </div>
+        <% elsif @endpoint.beta? %>
+          <div class="fr-alert fr-alert--info fr-alert--sm fr-mb-2w">
+            <p class="fr-alert__title">
+              <%= t('shared.endpoints.show.beta.title') %>
+            </p>
+            <p>
+              <%= t('shared.endpoints.show.beta.description').html_safe %>
+            </p>
+          </div>
+        <% end %>
       </p>
-      <% if @endpoint.incoming? %>
-      <div class="fr-alert fr-alert--info fr-alert--sm fr-mb-2w">
-        <p class="fr-alert__title">
-          <%= t('.incoming.title') %>
-        </p>
-        <p>
-          <%= t('.incoming.description') %>
-          <p class="fr-text--sm fr-mt-2w">
-          <%= t('.incoming.link_documentation').html_safe %><%= link_to t('.incoming.cta'), developers_openapi_path(anchor: @endpoint.redoc_anchor), data: { turbo: false }, class: %() %></p>
-        </p>
-      </div>
-      <% end %>
+
       <nav class="" role="navigation">
         <ul class="">
             <li>
@@ -140,7 +155,7 @@
       <%= render partial: 'use_cases', locals: { id: 'use_cases_mobile', extra_classes: 'fr-hidden-md' } %>
       <%= render partial: 'details', locals: { id: 'use_cases_mobile', extra_classes: 'fr-mb-3w fr-hidden-md' } %>
 
-      
+
         <h2 id="parameters_details" class="fr-mt-md-5w fr-mt-8w">
         <%= t('.parameters_details.title') %>
         </h2>
@@ -258,7 +273,7 @@
 
           <%= link_to t('.cgu.cta'), cgu_path, id: 'cgu_link', class: %w(fr-btn fr-btn--secondary fr-btn--icon-right fr-icon-eye-line) %>
         </p>
-    
+
     </div>
 
     <div class="fr-col-md-<%= 12 - layout_main_bloc %>">
