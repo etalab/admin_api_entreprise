@@ -45,7 +45,7 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
 
     it 'updates authorization with all contacts' do
       expect(Mailjet::Contactslist_managemanycontacts).to receive(:create).with(
-        hash_including(
+        {
           id: anything,
           action: 'addnoforce',
           contacts: [
@@ -74,7 +74,7 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
               )
             }
           ]
-        )
+        }
       )
 
       subject
@@ -85,7 +85,7 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
 
       it 'updates accordingly' do
         expect(Mailjet::Contactslist_managemanycontacts).to receive(:create).with(
-          hash_including(
+          {
             id: anything,
             action: 'addnoforce',
             contacts: [
@@ -106,7 +106,7 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
                 )
               }
             ]
-          )
+          }
         )
 
         subject
@@ -210,7 +210,7 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
 
     it 'updates accordingly' do
       expect(Mailjet::Contactslist_managemanycontacts).to receive(:create).with(
-        hash_including(
+        {
           id: anything,
           action: 'addnoforce',
           contacts: [
@@ -233,7 +233,7 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
               }
             }
           ]
-        )
+        }
       )
 
       subject
