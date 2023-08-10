@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
-  subject { described_class.call(authorization_request:, api: 'entreprise') }
+  subject { described_class.call(authorization_request:) }
 
   let(:authorization_request) { create(:authorization_request) }
 
@@ -216,17 +216,21 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
           contacts: [
             {
               email: authorization_request.demandeur.email,
-              properties: hash_including(
+              properties: {
                 'contact_demandeur' => true,
-                'contact_technique' => false
-              )
+                'contact_technique' => false,
+                'nom' => 'Gigot',
+                'prénom' => 'Jean-Marie'
+              }
             },
             {
               email: authorization_request.contact_technique.email,
-              properties: hash_including(
+              properties: {
                 'contact_demandeur' => false,
-                'contact_technique' => true
-              )
+                'contact_technique' => true,
+                'nom' => 'Gigot',
+                'prénom' => 'Jean-Marie'
+              }
             }
           ]
         )

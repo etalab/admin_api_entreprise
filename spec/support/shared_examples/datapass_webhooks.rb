@@ -9,10 +9,6 @@ RSpec.shared_examples 'datapass webhooks' do
     expect { subject }.to change(UserAuthorizationRequestRole.where(role: 'contact_technique'), :count).by(1)
   end
 
-  it 'creates one contact metier' do
-    expect { subject }.to change(UserAuthorizationRequestRole.where(role: 'contact_metier'), :count).by(1)
-  end
-
   it 'creates an authorization request' do
     expect { subject }.to change(AuthorizationRequest, :count).by(1)
   end
@@ -36,12 +32,6 @@ RSpec.shared_examples 'datapass webhooks' do
       expect {
         subject
       }.to change(UserAuthorizationRequestRole.where(role: 'demandeur'), :count).by(1)
-    end
-
-    it 'creates one contact metier' do
-      expect {
-        subject
-      }.to change(UserAuthorizationRequestRole.where(role: 'contact_metier'), :count).by(1)
     end
   end
 

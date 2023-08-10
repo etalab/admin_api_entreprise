@@ -25,6 +25,10 @@ RSpec.describe DatapassWebhook::APIEntreprise, type: :interactor do
 
   it_behaves_like 'datapass webhooks'
 
+  it 'creates one contact metier' do
+    expect { subject }.to change(UserAuthorizationRequestRole.where(role: 'contact_metier'), :count).by(1)
+  end
+
   it 'creates an authorization request with entreprise api and demarche' do
     expect(subject.authorization_request.api).to eq('entreprise')
     expect(subject.authorization_request.demarche).to eq('editeurs')
@@ -84,6 +88,24 @@ RSpec.describe DatapassWebhook::APIEntreprise, type: :interactor do
       )
 
       subject
+    end
+  end
+
+  describe 'when demandeur, contact technique and contact metier are the same' do
+    let(:email) { generate(:email) }
+
+    before do
+      datapass_webhook_params['data']['pass']['team_members'].map do |team_member_json|
+        team_member_json['family_name'] = 'Dupont'
+        team_member_json['given_name'] = 'Jean'
+        team_member_json['email'] = email
+      end
+    end
+
+    it 'creates one contact metier' do
+      expect {
+        subject
+      }.to change(UserAuthorizationRequestRole.where(role: 'contact_metier'), :count).by(1)
     end
   end
 end

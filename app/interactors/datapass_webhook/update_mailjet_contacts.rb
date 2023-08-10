@@ -25,16 +25,19 @@ class DatapassWebhook::UpdateMailjetContacts < ApplicationInteractor
     return if contact.nil?
     return if contact.email.nil?
 
-    {
+    payload = {
       email: contact.email,
       properties: {
         'prénom' => contact.first_name,
         'nom' => contact.last_name,
         'contact_demandeur' => contact.email == authorization_request.demandeur.try(:email),
-        'contact_métier' => contact.email == authorization_request.contact_metier.try(:email),
         'contact_technique' => contact.email == authorization_request.contact_technique.try(:email)
       }
     }
+
+    payload[:properties]['contact_métier'] = (contact.email == authorization_request.contact_metier.try(:email)) if authorization_request.api == 'entreprise'
+
+    payload
   end
 
   def authorization_request
