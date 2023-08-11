@@ -12,6 +12,7 @@ module DatapassWebhook
 
     organize ::DatapassWebhook::FindOrCreateUser,
       ::DatapassWebhook::FindOrCreateAuthorizationRequest,
-      ::DatapassWebhook::CreateToken
+      ::DatapassWebhook::CreateToken,
+      ::DatapassWebhook::UpdateMailjetContacts
   end
 end

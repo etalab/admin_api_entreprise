@@ -71,4 +71,28 @@ RSpec.describe DatapassWebhook::ExtractMailjetVariables, type: :interactor do
       end
     end
   end
+
+  context 'when API is particulier' do
+    let(:authorization_request) { create(:authorization_request, :with_demandeur, :with_contact_technique, api: 'particulier') }
+
+    it { is_expected.to be_a_success }
+
+    it 'creates a hash with all required variables extracted from datapass webhook payload' do
+      expect(subject.mailjet_variables).to be_present
+
+      expect(subject.mailjet_variables['authorization_request_id']).to eq(authorization_request.external_id)
+      expect(subject.mailjet_variables['authorization_request_intitule']).to eq(authorization_request.intitule)
+      expect(subject.mailjet_variables['authorization_request_description']).to eq(authorization_request.description)
+
+      expect(subject.mailjet_variables['demandeur_first_name']).to eq(authorization_request.demandeur.first_name)
+      expect(subject.mailjet_variables['demandeur_last_name']).to eq(authorization_request.demandeur.last_name)
+      expect(subject.mailjet_variables['demandeur_email']).to eq(authorization_request.demandeur.email)
+
+      expect(subject.mailjet_variables['token_scopes']).to be_nil
+
+      expect(subject.mailjet_variables['contact_technique_first_name']).to be_present
+      expect(subject.mailjet_variables['contact_technique_last_name']).to be_present
+      expect(subject.mailjet_variables['contact_technique_email']).to be_present
+    end
+  end
 end

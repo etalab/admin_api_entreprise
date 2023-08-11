@@ -45,7 +45,7 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
 
     it 'updates authorization with all contacts' do
       expect(Mailjet::Contactslist_managemanycontacts).to receive(:create).with(
-        hash_including(
+        {
           id: anything,
           action: 'addnoforce',
           contacts: [
@@ -74,7 +74,7 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
               )
             }
           ]
-        )
+        }
       )
 
       subject
@@ -85,7 +85,7 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
 
       it 'updates accordingly' do
         expect(Mailjet::Contactslist_managemanycontacts).to receive(:create).with(
-          hash_including(
+          {
             id: anything,
             action: 'addnoforce',
             contacts: [
@@ -106,7 +106,7 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
                 )
               }
             ]
-          )
+          }
         )
 
         subject
@@ -202,6 +202,41 @@ RSpec.describe DatapassWebhook::UpdateMailjetContacts, type: :interactor do
 
         subject
       end
+    end
+  end
+
+  describe 'when on API Particulier' do
+    let(:authorization_request) { create(:authorization_request, :with_demandeur, :with_contact_technique, api: 'particulier') }
+
+    it 'updates accordingly' do
+      expect(Mailjet::Contactslist_managemanycontacts).to receive(:create).with(
+        {
+          id: anything,
+          action: 'addnoforce',
+          contacts: [
+            {
+              email: authorization_request.demandeur.email,
+              properties: {
+                'contact_demandeur' => true,
+                'contact_technique' => false,
+                'nom' => 'Gigot',
+                'prénom' => 'Jean-Marie'
+              }
+            },
+            {
+              email: authorization_request.contact_technique.email,
+              properties: {
+                'contact_demandeur' => false,
+                'contact_technique' => true,
+                'nom' => 'Gigot',
+                'prénom' => 'Jean-Marie'
+              }
+            }
+          ]
+        }
+      )
+
+      subject
     end
   end
 end
