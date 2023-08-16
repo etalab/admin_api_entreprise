@@ -2,11 +2,10 @@
 <article id="<%= dom_id(@endpoint) %>" class="endpoint">
   <h1>
     <%= @endpoint.title %>
-
     <% if @endpoint.incoming? %>
       <p class="fr-badge fr-badge--new">prochainement</p>
     <% elsif @endpoint.beta? %>
-      <p class="fr-badge fr-badge--green-bourgeon">beta</p>
+      <p class="fr-badge fr-badge--green-bourgeon fr-badge--new">Version beta</p>
     <% end %>
   </h1>
 
