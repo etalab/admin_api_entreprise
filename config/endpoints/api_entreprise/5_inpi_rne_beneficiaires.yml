@@ -1,0 +1,111 @@
+---
+- uid: 'inpi/rne/beneficiaires_effectifs'
+  path: '/v3/inpi/rne/unites_legales/open_data/{siren}/beneficiaires_effectifs'
+  beta: true
+  position: 1
+  perimeter:
+    entity_type_description: |+
+      **✅ Toutes les entreprises inscrites au répertoire national des entreprises (RNE)**
+
+      Ce nouveau répertoire remplace le registre du commerce et des sociétés (RCS) ; le répertoire des métiers (RM) et le registre des actifs agricoles (RAA). Toute entreprise exerçant une activité de nature commerciale, artisanale, agricole ou indépendante, sur le territoire français _sauf Polynésie française, Nouvelle-Calédonie et Wallis et Futuna_,  devra y être enregistrée.
+    geographical_scope_description:  |+
+      - ✅ France métropolitaine
+      - ✅ DROM COM hors Polynésie française, Nouvelle-Calédonie et Wallis et Futuna
+    updating_rules_description: |+
+      Les données sont mises à jour quotidiennement.
+    know_more_description: |+
+      Cette API restitue une partie des données, les bénéficiaires effectifs, de l'API Base RNE de l'Inpi :
+      - [Informations de l'Inpi concernant le registre national des entreprises](https://www.inpi.fr/le-registre-national-des-entreprises){:target="_blank"} ;
+      - [Documentation technique de l'API base RNE](https://www.inpi.fr/sites/default/files/documentation%20technique%20API%20formalit%C3%A9s_v2.3.pdf){:target="_blank"}.
+
+
+    entities:
+      - entreprises
+  call_id: "SIREN"
+  provider_uids:
+    - 'inpi'
+  keywords:
+    - 'rne'
+    - 'rcs'
+    - 'rnm'
+    - 'bénéficiaire'
+    - 'représentant légal'
+    - 'titulaire'
+    - 'part'
+    - 'usufruit'
+    - 'nue-propriété'
+    - 'propriété'
+    - 'indivision'
+    - 'patrimoine'
+    - 'répartition'
+    - 'droit de vote'
+  data:
+    description: |+
+      Cette API délivre la **liste des bénéficiaires effectifs de l'unité légale** et permet de comprendre en détail sous quelles modalités le contrôle est exercé par le bénéficiaire effectif sur l'unité légale. [En savoir plus sur les caractéristiques qui font qu'une personne physique est considérée comme bénéficiaire effectif](#faq_entry_answer_0_api_entreprise_endpoint_inpi_rne_beneficiaires_effectifs).
+  opening: protected
+  use_cases_optional:
+  use_cases_forbidden:
+  use_cases:
+    - Aides publiques
+    - Marchés publics
+    - Portail GRU - Préremplissage
+    - Portail GRU - Instruction des démarches
+    - Subventions associations
+    - Détection de la fraude
+  parameters:
+    - Numéro de SIREN de l'unité légale
+  format:
+    - Donnée structurée JSON
+  faq:
+    - q: Caractéristiques définissant un bénéficiaire effectif
+      a: |+
+        Selon la [définition donnée par l'Inpi](https://www.inpi.fr/qui-sont-les-beneficiaires-effectifs-d-une-societe){:target="_blank"} :  
+
+        > Un bénéficiaire effectif est une personne physique exerçant le contrôle effectif d’une société, directement ou indirectement. En pratique, un bénéficiaire effectif c’est :
+        > - toute personne physique possédant directement ou indirectement plus de 25 % du capital ou des droits de vote d’une société ;
+        > - toute personne physique exerçant par tout autre moyen un pouvoir de contrôle sur les organes de gestion, d’administration de la société ou sur l’assemblée générale des associés ;
+        > - ou, à défaut, le représentant légal de la société.
+
+        {:.fr-h6 .fr-mt-4w}
+        ### Pour en savoir plus&nbsp;:
+
+        Cette [fiche pratique des greffes](https://www.greffe-tc-paris.fr/uploads/paris/Fiches%20RCS/RBE_Fiche_pratique_schemas.pdf){:target="_blank"} décrit en schémas les différentes situations qui font d'une personne physique un bénéficiaire effectif d'une société :
+
+        <div class="fr-download">
+        <p>
+          <a href="/files/beneficiaires-effectifs-fiche-explicative-greffes.pdf" download class="fr-download__link">
+          Télécharger la fiche explicative des greffes
+          <span class="fr-download__detail">
+          PDF – 2,1 Mo
+          </span>
+          </a>
+        </p>
+        </div>
+    - q: Documents Cerfa de déclaration à l'origine des données
+      a: |+
+        Les données transmises par cette API proviennent des déclarations faites dans les CERFA suivants : 
+      
+        <div class="fr-download">
+        <p>
+          <a href="/files/beneficiaires-effectifs-cerfa-societes.pdf" download class="fr-download__link">
+          Télécharger le Cerfa 16062*02 de «&nbsp;déclaration relative au(x) bénéficiaire(s) effectifs(s) d'une société&nbsp;»
+          <span class="fr-download__detail">
+          PDF – 1,2 Mo
+          </span>
+          </a>
+        </p>
+        </div>
+
+        <div class="fr-download">
+        <p>
+          <a href="/files/beneficiaires-effectifs-cerfa-gie.pdf" download class="fr-download__link">
+          Télécharger le Cerfa 16064*02 de «&nbsp;déclaration relative au(x) bénéficiaire(s) effectifs(s) d'un GIE ou d'une association&nbsp;» 
+          <span class="fr-download__detail">
+          PDF – 1,2 Mo
+          </span>
+          </a>
+        </p>
+        </div>
+
+
+

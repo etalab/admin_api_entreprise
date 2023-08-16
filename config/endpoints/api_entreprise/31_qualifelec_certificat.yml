@@ -1,8 +1,7 @@
 ---
 - uid: 'qualifelec/certificats'
   path: '/v3/qualifelec/etablissements/{siret}/certificats'
-  # Position au sein de l'index
-  position: 1
+  position: 2
   perimeter:
     entity_type_description: |+
       ✅ Toutes les **entreprises du génie électrique et énergétique** ayant obtenu une certification par [Qualifelec](https://www.qualifelec.fr/){:target="_blank"}. Toutes les certifications sont concernées : RGE ou non, accréditées ou non, probatoire ou classique.
@@ -40,25 +39,25 @@
     - 'effectif'
   data:
     description: |+
-      Cette API permet d'obtenir **la liste des certificats Qualifelec valides** obtenus par l'établissement. Pour chaque certificat, l'API délivre les données suivantes : 
-      - **informations relatives au certificat** : numéro, dates de validité ; 
+      Cette API permet d'obtenir **la liste des certificats Qualifelec valides** obtenus par l'établissement. Pour chaque certificat, l'API délivre les données suivantes :
+      - **informations relatives au certificat** : numéro, dates de validité ;
       - **informations sur la qualification obtenue** : labellisée RGE ou non, libellé, dates de validité, indices, mentions, domaines et la classification qui donne l'effectif du personnel d'execution et d'encadrement disponible pour cette qualification ;
       - **assurances décennale et de responsabilité civile** ;
       - l'url de téléchargement du certificat au **format PDF**.
-     
+
       {:.fr-h6 .fr-mt-4w}
       ### Exemple de certificat PDF&nbsp;:
 
-      <div class="fr-download">                
-       <p>                    
+      <div class="fr-download">
+       <p>
         <a href="/files/exemple-certificat-qualifelec.pdf" download class="fr-download__link">
-         Télécharger un exemple de certificat Qualifelec                      
-         <span class="fr-download__detail">                            
-         PDF – 756 Ko                               
-         </span>                    
-        </a>                
-       </p>            
-      </div>   
+         Télécharger un exemple de certificat Qualifelec
+         <span class="fr-download__detail">
+         PDF – 756 Ko
+         </span>
+        </a>
+       </p>
+      </div>
   opening: public
   use_cases_optional:
   use_cases_forbidden:

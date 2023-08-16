@@ -1,19 +1,24 @@
 <div class="fr-col-xs-12 fr-col-sm-6 fr-col-lg-3 fr-p-2v" id="<%= dom_id(endpoint) %>">
   <article class="endpoint-card fr-grid-card">
-    <header class="fr-grid-row fr-grid-row--gutters fr-grid-row--start">
-      <% if endpoint.incoming? %>
-        <p class="fr-badge fr-badge--new">prochainement</p>
-      <% end %>
-      <div class="fr-col-8">
-        <h3 class="fr-h5" data-algolia-search-catalogue-hit-attribute="title">
-          <%= endpoint.title %>
-        </h3>
-      </div>
-
-      <div class="fr-col-4">
-        <% endpoint.providers.each do |provider| %>
-          <%= image_tag(provider.image_path, class: %w(provider)) %>
+     <header>
+      <div>
+        <% if endpoint.incoming? %>
+          <p class="fr-badge fr-badge--new">prochainement</p>
+        <% elsif endpoint.beta? %>
+          <p class="fr-badge fr-badge--new fr-badge--green-bourgeon">Version Beta</p>
         <% end %>
+      </div>
+      <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--start">
+        <div class="fr-col-8">
+          <h3 class="fr-h5" data-algolia-search-catalogue-hit-attribute="title">
+            <%= endpoint.title %>
+          </h3>
+        </div>
+        <div class="fr-col-4">
+          <% endpoint.providers.each do |provider| %>
+            <%= image_tag(provider.image_path, class: %w(provider)) %>
+          <% end %>
+        </div>
       </div>
     </header>
 
