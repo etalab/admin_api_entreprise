@@ -32,6 +32,10 @@
       <%= render partial: 'shared/api_particulier/containerized_body' %>
     <% end %>
 
+    <% unless content_for?(:no_newsletter_banner) %>
+      <%= render partial: 'shared/newsletter_banner' %>
+    <% end %>
+
     <%= render partial: 'shared/api_particulier/footer' %>
     <%= render partial: 'shared/modal' %>
     <%= render partial: 'shared/tooltip' %>
