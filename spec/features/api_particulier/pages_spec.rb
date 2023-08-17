@@ -39,6 +39,12 @@ RSpec.describe 'Simple pages', app: :api_particulier do
         visit newsletter_path
       }.not_to raise_error
     end
+
+    it 'does not mention API Entreprise' do
+      visit newsletter_path
+
+      expect(page).not_to have_content('API Entreprise')
+    end
   end
 
   describe 'account' do

@@ -40,7 +40,7 @@ class APIEntreprise::PagesController < APIEntrepriseController
     when 'home'
       'api_entreprise/no_container'
     when 'newsletter'
-      'no_newsletter_banner'
+      'api_entreprise/no_newsletter_banner'
     end
   end
 end
