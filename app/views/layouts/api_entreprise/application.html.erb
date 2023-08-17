@@ -26,13 +26,11 @@
 
     <% if content_for?(:no_container) %>
       <%= yield(:no_container) %>
-    <% elsif content_for?(:no_newsletter_banner) %>
-      <%= yield(:no_newsletter_banner) %>
     <% else %>
       <%= render partial: 'shared/api_entreprise/containerized_body' %>
     <% end %>
 
-    <% unless content_for?(:no_newsletter_banner) %>
+    <% unless @no_newsletter_banner %>
       <%= render partial: 'shared/newsletter_banner' %>
     <% end %>
 

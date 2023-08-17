@@ -15,9 +15,13 @@ class APIEntreprise::PagesController < APIEntrepriseController
     @endpoints_sample = APIEntreprise::Endpoint.all.sample(3)
     @providers = APIEntreprise::Provider.all
     @cas_usages_sample = APIEntreprise::CasUsage.all.sample(5)
+
+    @no_newsletter_banner = true
   end
 
-  def newsletter; end
+  def newsletter
+    @no_newsletter_banner = true
+  end
 
   def cgu; end
 
@@ -37,10 +41,8 @@ class APIEntreprise::PagesController < APIEntrepriseController
 
   def page_layout
     case action_name
-    when 'home'
+    when 'home', 'newsletter'
       'api_entreprise/no_container'
-    when 'newsletter'
-      'api_entreprise/no_newsletter_banner'
     end
   end
 end

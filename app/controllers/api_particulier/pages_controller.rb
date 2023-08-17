@@ -4,6 +4,8 @@ class APIParticulier::PagesController < APIParticulierController
   def home
     @providers = APIParticulier::Provider.all
     @endpoints_sample = APIParticulier::Endpoint.all.sample(3)
+
+    @no_newsletter_banner = true
   end
 
   def cgu
@@ -20,7 +22,9 @@ class APIParticulier::PagesController < APIParticulierController
     render 'shared/pages/mentions'
   end
 
-  def newsletter; end
+  def newsletter
+    @no_newsletter_banner = true
+  end
 
   def accessibility
     render 'shared/pages/accessibility'
@@ -30,10 +34,8 @@ class APIParticulier::PagesController < APIParticulierController
 
   def page_layout
     case action_name
-    when 'home'
+    when 'home', 'newsletter'
       'api_particulier/no_container'
-    when 'newsletter'
-      'api_particulier/no_newsletter_banner'
     end
   end
 end
