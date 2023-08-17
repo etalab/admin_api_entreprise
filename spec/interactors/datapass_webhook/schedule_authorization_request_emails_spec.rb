@@ -17,6 +17,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
   let(:datapass_webhook_params) { build(:datapass_webhook, event:) }
   let(:authorization_request) { create(:authorization_request, :with_demandeur, :with_contact_metier, :with_contact_technique) }
   let(:mailjet_variables) { { lol: 'oki' } }
+  let(:api) { 'entreprise' }
 
   before do
     Timecop.freeze(Date.new(2021, 9, 1))
@@ -144,6 +145,16 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
             ]
           )
         ).at(Time.zone.now)
+      end
+
+      describe 'on API Particulier' do
+        let(:api) { 'particulier' }
+
+        it 'works the same' do
+          subject
+
+          expect(ScheduleAuthorizationRequestMailjetEmailJob).to have_been_enqueued.exactly(:twice)
+        end
       end
 
       describe 'non-regression test: on an authorization_request with no contacts' do
