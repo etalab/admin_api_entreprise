@@ -1,6 +1,8 @@
 class APIEntreprise::PagesController < APIEntrepriseController
   helper AlgoliaQueryHelper
 
+  after_action :skip_newsletter_banner!, only: %i[home newsletter]
+
   layout :page_layout
 
   def current_status
@@ -15,13 +17,9 @@ class APIEntreprise::PagesController < APIEntrepriseController
     @endpoints_sample = APIEntreprise::Endpoint.all.sample(3)
     @providers = APIEntreprise::Provider.all
     @cas_usages_sample = APIEntreprise::CasUsage.all.sample(5)
-
-    @no_newsletter_banner = true
   end
 
-  def newsletter
-    @no_newsletter_banner = true
-  end
+  def newsletter; end
 
   def cgu; end
 
@@ -44,5 +42,9 @@ class APIEntreprise::PagesController < APIEntrepriseController
     when 'home', 'newsletter'
       'api_entreprise/no_container'
     end
+  end
+
+  def skip_newsletter_banner!
+    @no_newsletter_banner = true
   end
 end

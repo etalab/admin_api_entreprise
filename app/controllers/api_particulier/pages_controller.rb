@@ -1,11 +1,11 @@
 class APIParticulier::PagesController < APIParticulierController
+  after_action :skip_newsletter_banner!, only: %i[home newsletter]
+
   layout :page_layout
 
   def home
     @providers = APIParticulier::Provider.all
     @endpoints_sample = APIParticulier::Endpoint.all.sample(3)
-
-    @no_newsletter_banner = true
   end
 
   def cgu
@@ -22,9 +22,7 @@ class APIParticulier::PagesController < APIParticulierController
     render 'shared/pages/mentions'
   end
 
-  def newsletter
-    @no_newsletter_banner = true
-  end
+  def newsletter; end
 
   def accessibility
     render 'shared/pages/accessibility'
@@ -37,5 +35,9 @@ class APIParticulier::PagesController < APIParticulierController
     when 'home', 'newsletter'
       'api_particulier/no_container'
     end
+  end
+
+  def skip_newsletter_banner!
+    @no_newsletter_banner = true
   end
 end
