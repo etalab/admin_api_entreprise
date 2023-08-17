@@ -33,7 +33,7 @@ class APIParticulier::PagesController < APIParticulierController
     when 'home'
       'api_particulier/no_container'
     when 'newsletter'
-      'no_newsletter_banner'
+      'api_particulier/no_newsletter_banner'
     end
   end
 end
