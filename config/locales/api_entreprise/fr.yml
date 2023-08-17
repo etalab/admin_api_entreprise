@@ -1,513 +1,481 @@
+---
 fr:
+  api_entreprise:
+    attestations:
+      index:
+        authorization_request_number: Demande n°%{external_id} - %{intitule}
+        description: Récupérez les attestations sociales ou fiscales d'une entreprise ou d'une association, en entrant son numéro SIREN.
+        description_cgu_html: Pour rappel, les %{href} vous engagent à <strong>ne pas diffuser les données reçues, ici les attestations fiscales et sociales, à des tiers non-autorisés</strong>.
+        description_cgu_link_text: conditions d'utilisation de l'API Entreprise
+        interface: Interface d'appel
+        search: Rechercher
+        siren_number:
+          label: 'Numéro de SIREN :'
+        token:
+          label: "🔑 Jeton d'habilitation :"
+      search:
+        attestation_fiscale_not_downloadable: Attestation fiscale non‑téléchargeable avec ce jeton
+        attestation_sociale_not_downloadable: Attestation sociale non‑téléchargeable avec ce jeton
+        company_category:
+          label: 'Catégorie d''entreprise :'
+        company_type:
+          label: 'Nature juridique :'
+        download_attestation_fiscale_cta: Attestation fiscale (PDF)
+        download_attestation_sociale_cta: Attestation sociale (PDF)
+        naf_code:
+          label: 'Code NAF :'
+    authorization_requests:
+      index:
+        new_cta: Nouvelle demande d'habilitation API Entreprise
+        table:
+          caption: Liste des demandes d'habilitation
+          external_url: Demande d'accès (numéro %{external_id})
+          status:
+            archived: "Demande archivée 📝"
+            changes_requested: Demande en attente de modifications ⚠️
+            draft: "Demande en brouillon 📝"
+            refused: Demande refusée ❌
+            revoked: Demande révoquée ❌
+            submitted: Demande en attente de validation ⚙️
+            validated: Demande validée ✅
+          token:
+            active: Jeton actif
+            archived: Jeton archivé
+            blacklisted: Jeton désactivé
+            expired: Jeton expiré
+        title: Vos demandes d'habilitation (%{count})
+    cas_usages:
+      index:
+        cards:
+          aides_publiques:
+            description: Facilitez le dépôt des demandes et récupérez les justificatifs administratifs de vos utilisateurs.
+            title: Aides publiques
+          editeur:
+            description: Donnez accès à l'API Entreprise à vos clients publics.
+            title: Accès éditeurs de logiciels
+          fraude:
+            description: Accédez rapidement à des informations sociales, financières et économiques.
+            title: Détection de la fraude
+          marches_publics:
+            description: Facilitez le dépôt des candidatures et récupérez les justificatifs administratifs de vos utilisateurs.
+            title: Marchés publics
+          portail_gru:
+            description: Pré-remplissez les champs des démarches de votre portail usager avec des données ouvertes.
+            title: Portail GRU - Préremplissage
+          portail_gru_instruction:
+            description: Accédez aux documents administratifs pour instruire les démarches de votre portail usager.
+            title: Portail GRU - Instruction des démarches
+          subventions_associations:
+            description: Facilitez la saisie et l'instruction du formulaire unique de demande des associations.
+            title: Subventions fonctionnement associations
+        description: Consultez les <strong>fiches pratiques des cas d’utilisation</strong> de l’API Entreprise.<br>Retrouvez, entre autres, les <strong>données utiles</strong> pour les cas d’usages.
+        title: Cas d'usages
+      list-api:
+        col_call_id: Identifiant d'appel
+        col_comments: Commentaires
+        col_endpoint: API
+        col_links: Documentations
+        col_opening: Ouverture
+        col_useful: Utilité
+        documentation: "📖 Fiche métier"
+        swagger: "📟 Swagger"
+      others:
+        aides_publiques:
+          description: Faciliter le dépôt et l'instruction
+          title: Aides publiques
+        editeur:
+          description: Proposer API Entreprise aux clients publics
+          title: Accès éditeurs de logiciels
+        fraude:
+          description: Accéder rapidement aux informations-clés
+          title: Détection de la fraude
+        link: En savoir plus
+        marches_publics:
+          description: Faciliter la candidature et l'instruction
+          title: Marchés publics
+        portail_gru:
+          description: Préremplir et personnaliser
+          title: Portail GRU - Préremplissage
+        portail_gru_instruction:
+          description: Accéder aux documents pour instruire les démarches
+          title: Portail GRU - Instruction des démarches
+        subventions_associations:
+          description: Faciliter la saisie du formulaire unique et l'instruction
+          title: Subventions fonctionnement associations
+        title: 'D''autres cas d''usages&nbsp;:'
+      show:
+        label: Cas d'usage
+        link_access: Demander un accès
+        link_list_api: Liste des API utiles
+        request_access:
+          description: Ce cas d’utilisation correspond à votre besoin ?
+          link: Remplir une demande
+          title: Demander un accès
+    contacts:
+      contact:
+        email_label: Adresse E-mail
+        phone_label: Numéro de téléphone
+        subtitle_contact_metier: Contact métier
+        subtitle_contact_technique: Contact technique
+      index:
+        title: Contacts
+        unauthorized: Vous n'êtes pas autorisé à accéder à ces données.
+    documentation:
+      banner:
+        link_kit: "🚀 Kit de mise en production"
+        link_migration: "📋 Guide de migration V.2 > V.3"
+        link_return: "Retour à la documentation technique 🛠"
+        link_specs: "🎛 Spécifications générales"
+        search_bar:
+          button: Recherche
+          placeholder: Entrez votre recherche ici
+      index:
+        card_swagger_description: Spécifications techniques de chacune des API&nbsp;:&nbsp;<br/>- Paramètres d’appels<br/>- Détail de la réponse JSON<br/>- Codes erreurs
+        card_swagger_link: "🕹 Swagger"
+      menu:
+        migration: Guide de migration
+        swagger: Swagger
+    endpoints:
+      details:
+        availability:
+          link: Page de statut des API
+          maintenance: En maintenance tous les jours de %{from_hour} à %{to_hour}
+          no_maintenance: Disponible 24h/24 et 7j/7
+          title: Disponibilité
+        format:
+          title: Format de l'information
+        parameters:
+          title:
+            one: Identifiant d'appel
+            other: Identifiants d'appel
+        technical_specifications:
+          cta: Consulter le swagger
+          title: 'Spécifications techniques :'
+        title: Détails de l'API
+      endpoint:
+        cta:
+          documentation: Documentation
+          swagger: Swagger
+      index:
+        search:
+          button: Rechercher
+          label: certificat, INSEE, association...
+        title: Catalogue des API
+      show:
+        attributes:
+          title: 'Informations renvoyées en JSON :'
+        cgu:
+          cta: CGU API Entreprise
+          main_title: 'Conditions générales :'
+          main_title_opening: 'Ouverture de la donnée :'
+          title: Conditions d'utilisation des données
+        collection:
+          subtitle: 'Ces informations sont renvoyées sous forme de tableau dont les éléments ont les spécifications suivantes :'
+        data:
+          title: Les données
+        deprecated:
+          description: 'Cette API est une ancienne version, nous vous invitons à utiliser ces API les plus récentes :'
+          link_documentation: Plus d'informations sur la gestion de version API&nbsp;Entreprise dans cette <a href='https://entreprise.api.gouv.fr/developpeurs#gerer-les-evolutions-de-version' target='_blank'>documentation</a>.
+          title: Cette API est dépréciée
+        faq:
+          title: Questions & réponses
+        historique:
+          old_endpoints:
+            description: 'Documentations des anciennes API :'
+            link_documentation: Plus d'informations sur la gestion de version API&nbsp;Entreprise dans cette <a href='https://entreprise.api.gouv.fr/developpeurs#gerer-les-evolutions-de-version' target='_blank'>documentation</a>.
+          title: Historique
+        incoming:
+          cta: Consulter le swagger
+          description: Cette API est en cours de conception et va bientôt rejoindre le catalogue d'API Entreprise.
+          link_documentation: En plus de cette documentation, un environnement technique de test est déjà disponible&nbsp;:&nbsp;
+          title: Cette API est bientôt disponible, testez-là !
+        perimeter:
+          entity_type_title: 'Entreprises ou associations concernées :'
+          geographical_scope_title: 'Périmètre géographique :'
+          know_more_title: 'En savoir plus :'
+          title: Périmètre
+          updating_rules_title: 'Actualisation de la donnée :'
+        provider_errors:
+          description_html: 'Lorsque l''API ne peut pas retourner les informations demandées, un message d''erreur est transmis. <br> <br>Les erreurs, spécifiques à cette API et au fournisseur de données %{provider_name}, sont listées ici :'
+          documentation_link: documentation technique
+          others_in_swagger_html: L'intégralité des messages d'erreurs relatifs à cette API est consultable dans la %{link}.
+          title: Erreurs spécifiques
+        providers:
+          description:
+            one: Fournisseur de la donnée
+            other: Fournisseurs de la donnée
+        root_links:
+          description: Ces liens sont présents dans la réponse et permettent d'appeler automatiquement d'autres API du catalogue en lien avec celle-ci.
+          title: 'Liens à la racine :'
+        root_meta:
+          description: 'Les métadonnées sont des données généralement liées au contexte de la ressource : mise à jour chez le fournisseurs, informations système, etc...'
+          title: 'Métadonnées racine :'
+      use_cases:
+        main:
+          description: 'Liste des cas d''usage où cette API est utile :'
+          title: Cas d'usage
+        optional:
+          description: 'Liste des cas d''usage où cette API est peut être utile :'
+    faq:
+      index:
+        search_bar:
+          button: Recherche
+          label: Rechercher
+          placeholder: jeton, demande d'habilitation...
+        title: FAQ & contact
+    pages:
+      current_status:
+        title: Statuts des API
+      home:
+        section_access:
+          card_developers_description: Spécifications techniques générales et dédiées à chaque API, Swagger, Kit de mise en production,&nbsp;...
+          card_developers_title: Un espace développeur
+          card_documentation_description: Liste des données, périmètre de l’API, conditions d’utilisations,&nbsp;...
+          card_documentation_title: Une documentation métier de chaque API
+          info_account_description: API Entreprise agrège et restitue les connaissances techniques et fonctionnelles au même endroit. Vous n'avez plus besoin de gérer plusieurs contacts techniques et fonctionnels.
+          info_account_title: Un seul interlocuteur à un seul endroit
+          info_data_description: Les données sont prises à la source. Terminé les fautes de frappes et la vérification manuelle de l'authenticité d'une attestation, l’information est certifiée et fait foi.
+          info_data_title: Des données certifiées
+          info_provider_description: API Entreprise recherche et démarche pour vous les organisations publiques ayant des données administratives sur les entreprises et les associations.
+          info_provider_title: Les fournisseurs de données regroupés
+          info_technical_description: L’interfaçage est unique et dans des standards à jour des contraintes industrielles. Il n'est plus nécessaire de lire et comprendre les documentations des différentes DSI.
+          info_technical_title: Un seul interfaçage technique
+          link_faq: Qu'est-ce qu'une API ?
+          title_access: Un bouquet d'API pour les agents publics vers les informations administratives des entreprises/associations
+        section_developers:
+          description: Une documentation technique précise dédiée aux équipes d’intégration.
+          integration_description: Un pas à pas pour intégrer et mettre en production l’API Entreprise
+          integration_link: Kit d’intégration
+          prerequisites_description: La liste des fondamentaux techniques à maitriser, avant de demander un d’accès à l’API Entreprise.
+          prerequisites_link: Les prérequis techniques
+          status_link: Statuts des API
+          swagger_description: Utilisez notre Swagger (OpenApi)
+          swagger_link: Spécifications techniques de chaque API
+          title: "Un espace développeur 🛠 <br>pour intégrer et maintenir l’API"
+        section_endpoints:
+          link_endpoints: Consulter le catalogue des données
+          title: De nombreuses données sur les entreprises et associations&nbsp;:&nbsp;
+        section_howto:
+          access_account_description: Votre demande d’accès à l’API Entreprise a été acceptée par notre pôle juridique, connectez-vous pour&nbsp;:&nbsp;
+          access_account_list_content: "<strong>Personnaliser le contenu du site</strong> API Entreprise en fonction de vos habilitations."
+          access_account_list_stats: Consulter les <strong>statistiques d’utilisation</strong> ;
+          access_account_list_token: Récupérer et renouveler les <strong>jetons d’accès</strong> ;
+          access_account_title: "Accéder à mon compte et aux jetons 🔑"
+          annuaire_data_description: Retrouvez certaines informations sur les entreprises et les associations sur un autre site&nbsp;:&nbsp;l’Annuaire des entreprises.
+          annuaire_data_link: Vous n’êtes pas une administration ?
+          cgu_description: Votre administration est-elle éligible ? Quels sont les prérequis techniques ? Quels sont vos engagements ?
+          cgu_link: Conditions détaillées d'utilisation du service
+          check_eligibity: Vérifier son éligibilité et demander un accès
+          connect: Se connecter
+          description: Seules les entités administratives sont éligibles ✅.<br>Les éditeurs de solutions logicielles à destination des administrations peuvent également l’être.
+          title: Comment obtenir un accès ?
+        section_partners:
+          link_endpoints: Consulter toutes les API
+          link_new_api: Proposer une nouvelle API
+          subtitle: Découvrez les API de chaque fournisseur de données.
+          title: Ils partagent les données au travers d’API Entreprise&nbsp;:&nbsp;
+        section_use_cases:
+          cards:
+            aides_publiques:
+              title: Aides publiques
+            editeur:
+              title: Accès éditeurs de logiciels
+            fraude:
+              title: Détection de la fraude
+            marches_publics:
+              title: Marchés publics
+            portail_gru:
+              title: Portail GRU - Préremplissage
+            portail_gru_instruction:
+              title: Portail GRU - Instruction
+            subventions_associations:
+              title: Subventions associations
+          description: "<strong>Une fois l'API Entreprise intégrée dans votre système d'information</strong>&nbsp;:&nbsp;<br>À partir d'un SIRET/SIREN/RNA, les informations sont automatiquement saisies dans les formulaires de vos usagers et en back-office pour vos agents. Cet accès direct aux données administratives facilite de nombreux cas d'usages&nbsp;:&nbsp;"
+          link: Tous les cas d'usages
+          title: Cas d'usages
+        section_welcome:
+          button_developers: Kit d'intégration
+          button_endpoints: Les données disponibles
+          link_faq: API Entreprise, c'est quoi ?
+          subtitle: "<br><strong>Intégrez l'API&nbsp;Entreprise👇</strong>"
+          title: "<strong>Vous êtes un acteur public ?</strong><br>Gagnez du temps dans vos démarches<br> entreprises & associations&nbsp;!"
+      newsletter:
+        banner:
+          description: Abonnez-vous à nos différentes lettres d'informations pour être informé <strong>des actualités, des évènements, des nouveautés et des ruptures de service.</strong>
+          title: Lettres d'information
+        main:
+          archives_description: Nous archivons toutes nos communications dans <a href="https://v2.entreprise.api.gouv.fr/infolettres/" target="_blank">notre page infolettre</a>
+          archives_title: "🕰 Archives de toutes nos communication&nbsp;:&nbsp;"
+          newsletter_description: Restez informé des dernières API disponibles, des nouvelles fonctionnalités et en cas de rupture de service majeure&nbsp;:&nbsp;
+          newsletter_title: "💌 Actualités et guides pratiques&nbsp;:&nbsp;"
+          operations_button: S'abonner aux incidents
+          operations_description: Soyez notifié des incidents et opérations de maintenance des API de votre choix&nbsp;:&nbsp;
+          operations_title: "🚧 Maintenance & incidents&nbsp;:&nbsp;"
+          title: Abonnez-vous à nos lettres d'infos&nbsp;!
+    public_token_magic_links:
+      show:
+        disclaimer:
+          description: Cette page contient votre jeton d'accès à API Entreprise et ne doit en aucun cas être partagée avec un tiers non habilité ! Ce lien expirera dans %{expiration_time}.
+          title: Durée de validité du lien
+        error:
+          expired:
+            description: Le lien d'accès au jeton a expiré. Les liens magiques ont une durée de vie de %{initial_expiration_delay_in_hours} heures. Veuillez redemander un accès à votre responsable de compte.
+            title: Lien expiré
+          missing:
+            description: Le jeton ou les jetons demandé(s) n'ont pas été trouvés. Veuillez contacter le support à support@entreprise.api.gouv.fr
+            title: Jeton(s) non trouvés
+          unknown:
+            description: Une erreur inconnue est survenue. Veuillez contacter le support à support@entreprise.api.gouv.fr
+            title: Une erreur est survenue à la récupération du jeton.
+    sessions:
+      after_logout:
+        success: Déconnexion réussie.
+      create_from_oauth:
+        not_found:
+          description: "Veuillez vérifier que l'e-mail %{email} utilisé ici correspond à l'e-mail utilisé lors de votre demande d'habilitation API Entreprise. \n\n Si vous êtes un nouvel utilisateur, veuillez déposer une demande en suivant le lien suivant : https://api.gouv.fr/les-api/api-entreprise/demande-acces\n Après validation de celle-ci, vous pourrez vous connecter au compte API Entreprise."
+          title: Votre compte ne semble pas être rattaché à une habilitation API Entreprise.
+      failure:
+        unknown: Une erreur inconnue est survenue, veuillez contacter le support.
+    tokens:
+      index:
+        no_tokens: Aucun jeton d'accès pour cet utilisateur.
+        title:
+          one: Jetons d'accès
+          other: Jetons d'accès (%{count})
+          zero: Jetons d'accès
+      renew:
+        continue: "⬜ Continuer"
+        description: "Vous souhaitez renouveler votre jeton arrivant à expiration ou demander de nouvelles données pour le même cas d'usage ? Cette fonctionnalité vous permet de <strong>dupliquer le formulaire de demande d'accès déjà rempli</strong> pour ce jeton et de le modifier. <strong>En cliquant sur \"Continuer\" vous serez transféré sur le site DataPass</strong>.\n<br>\n<br>\n💡 Le renouvellement d'un jeton ne supprime pas votre jeton actuel. Ce dernier continue de fonctionner jusqu'à sa date d'expiration.\n<br>\n<br>\nPour en savoir plus, consultez <a href='https://entreprise.api.gouv.fr/faq#comment-renouveler-mon-jeton-arrivant-a-expiration' target='_blank'>cette rubrique de notre FAQ</a>.\n"
+        title: Renouveler ou étendre mes droits
+      show:
+        error:
+          title: Accès au jeton non autorisé
+      stats:
+        details:
+          internal_id: 'Identifiant technique du jeton : %{id}'
+        links:
+          user_tokens: Retour à la liste des jetons
+        requests_details:
+          title: Détails des %{limit} dernières requêtes
+        tabs:
+          last_10_minutes: 10 dernières minutes
+          last_30_hours: 30 dernières heures
+          last_8_days: 8 derniers jours
+        title: 'Cas d''usage du jeton : %{title}'
+      token:
+        access: Accès
+        actions:
+          renew: Renouveler ou étendre mes droits
+          transfer: Transmettre le jeton
+        delivered_at: 'Délivré le : %{humanized_date}'
+        expired_at: 'Expire le : %{humanized_date}'
+        links:
+          contacts: Contacts
+          datapass: Demande d'accès initiale (N° %{id})
+          stats: Voir les statistiques
+        magic_link:
+          confirm: Êtes-vous sûr de vouloir transférer votre jeton à cette adresse ?
+          cta: Envoyer le lien d'accès au jeton
+          description: Cette fonctionnalité vous permet d'envoyer un e-mail contenant un lien d'accès au jeton. L'URL transmise a une durée limitée de 4 heures. <br> <br> Attention, nos <a href="https://entreprise.api.gouv.fr/cgu/">CGU</a> vous engagent ! Vous ne devez pas divulguer cet accès à des tiers non-habilités. Pour en savoir plus, consultez <a href='https://entreprise.api.gouv.fr/faq#comment-transmettre-le-jeton-d-acces-en-tout-securite' target='_blank'>cette rubrique de notre FAQ</a>.
+          email:
+            label: Adresse e-mail du destinataire
+            placeholder: jean@dupont.fr
+          title: Transférer le jeton d'accès
+        scope:
+          actes_inpi: Actes INPI
+          associations: Association
+          attestations_agefiph: Attestations AGEFIPH
+          attestations_fiscales: Attestations Fiscales
+          attestations_sociales: Attestation Sociale
+          bilans_entreprise_bdf: Bilans Entreprises BDF
+          bilans_inpi: Bilans INPI
+          certificat_agence_bio: Certificats BIO
+          certificat_cnetp: Certificat CNETP
+          certificat_opqibi: Certificat OPQIBI
+          certificat_rge_ademe: Certificat RGE (ADEME)
+          conventions_collectives: Conventions Collectives
+          documents_association: Document association
+          effectifs_acoss: Effectifs Entreprise ACOSS
+          entreprises: INSEE Entreprise
+          entreprises_artisanales: RNM CMA France - Entreprises artisanales
+          eori_douanes: Immatriculation EORI - Douanes
+          etablissements: INSEE Etablissement
+          exercices: Exercice
+          extrait_court_inpi: Extrait INPI
+          extraits_rcs: Extrait RCS
+          fntp_carte_pro: Carte Pro FNTP
+          liasse_fiscale: Liasse fiscale
+          msa_cotisations: Cotisation MSA
+          probtp: Certificat PROBTP
+          qualibat: Certificat Qualibat
+        title: 'Cadre d''utilisation : %{intitule}'
+        token: Jeton
+    transfer_user_account:
+      create:
+        error:
+          title: Quelque chose s'est mal passé. Veuillez envoyer un e-mail à support@entreprises.api.gouv.fr
+        success:
+          title: Un e-mail a été envoyé avec succès au destinataire. Assurez-vous qu'il effectue les démarches indiquées dans le mail qu'il a reçu pour que le transfert soit possible. Une fois ces démarches effectuées, une validation manuelle par nos services finalisera le transfert.
+      new:
+        confirm: Êtes-vous sûr de vouloir transférer votre compte ?
+        cta: Transférer mon compte
+        description: Cette fonctionnalité vous permet de transmettre définitivement votre compte API Entreprise à une tierce personne. Une fois le transfert effectué, vous n'aurez plus accès au compte. <br> <br> Attention, nos <a href="https://entreprise.api.gouv.fr/cgu/">CGU</a> vous engagent ! Vous ne devez pas transférer ce compte à un tiers non-habilité. Pour en savoir plus, consultez <a href='https://entreprise.api.gouv.fr/faq#comment-transferer-mon-compte-a-une-autre-personne' target='_blank'>cette rubrique de notre FAQ</a>.
+        email:
+          label: Adresse e-mail du futur propriétaire du compte
+          placeholder: jean.dupont@gouv.fr
+        title: Déléguer mon compte utilisateur
+    users:
+      user:
+        contact_metier: Contact métier
+        contact_technique: Contact technique
+        demandeur: Demandeur
+        no_phone_number: "-"
+        title: Compte utilisateur
+        transfer_account:
+          cta: Transférer mon compte
+          disclaimer: 'Votre équipe évolue ? Vous quittez votre service ? Vous pouvez léguer votre compte à une autre personne :'
   layouts:
     api_entreprise:
       application:
         title: API Entreprise
   shared:
     api_entreprise:
+      footer:
+        external_links:
+        - api.gouv.fr
+        - annuaire-entreprises.data.gouv.fr
+        - data.gouv.fr
+        tagline: API Entreprise, un <strong>service de l'écosystème des API et de la circulation des données</strong> au sein des administrations.
       header:
-        title: API Entreprise
-        tagline: Les données des entreprises et des associations <strong>pour les administrations</strong>
-        tools:
-          links:
-            faq_contact:
-              title: "FAQ & Contact"
-              icon: "question-fill"
-            sign_in:
-              title: "Se connecter"
-              icon: "lock-fill"
-            user_connected:
-              icon: "user-fill"
-            sign_out:
-              title: "Se déconnecter"
-              icon: "logout-box-r-fill"
         menu:
-          catalogue: "<strong>Catalogue des API</strong><br> & documentation des données"
-          usages: "<strong>Cas d'usages</strong><br> Fiches pratiques"
-          developer: "<strong>Espace développeur</strong><br> & spécifications techniques"
           ask_access: "<strong>Demander un accès</strong><br>🔑 Vérifier votre éligibilité"
           banner:
             default: "<strong>Nouvelle version de l'API</strong> : Bureau ouvert <a href='https://webconf.numerique.gouv.fr/APIEntreprise00Version3'>en visio</a> le %{date} à 10 heures. <a href='/faq#quand-et-pourquoi-un-bureau-ouvert'>En savoir plus ➜</a>"
             tech_migration: "<strong>Une question sur la migration vers la V3 ?</strong> Un tech et un métier vous répondent au bureau ouvert <a href='https://webconf.numerique.gouv.fr/APIEntreprise00Version3'>en visio</a> le %{date} à 10 heures. <a href='/faq#quand-et-pourquoi-un-bureau-ouvert'>En savoir plus ➜</a>"
+          catalogue: "<strong>Catalogue des API</strong><br> & documentation des données"
+          developer: "<strong>Espace développeur</strong><br> & spécifications techniques"
+          usages: "<strong>Cas d'usages</strong><br> Fiches pratiques"
+        tagline: Les données des entreprises et des associations <strong>pour les administrations</strong>
+        title: API Entreprise
+        tools:
+          links:
+            faq_contact:
+              icon: question-fill
+              title: FAQ & Contact
+            sign_in:
+              icon: lock-fill
+              title: Se connecter
+            sign_out:
+              icon: logout-box-r-fill
+              title: Se déconnecter
+            user_connected:
+              icon: user-fill
       newsletter_banner:
-        title: "Abonnez-vous à nos lettres d’information"
-        description: "Restez informés des dernières API disponibles, des nouvelles fonctionnalités et évolutions techniques, ou encore des opérations de maintenance et incidents."
-        button: "S'abonner"
-      footer:
-        tagline: API Entreprise, un <strong>service de l'écosystème des API et de la circulation des données</strong> au sein des administrations.
-        external_links:
-          - api.gouv.fr
-          - annuaire-entreprises.data.gouv.fr
-          - data.gouv.fr
-
+        button: S'abonner
+        description: Restez informés des dernières API disponibles, des nouvelles fonctionnalités et évolutions techniques, ou encore des opérations de maintenance et incidents.
+        title: Abonnez-vous à nos lettres d’information
       user_signed_in_side_menu:
-        toggle: "Menu"
-        profil: "Compte utilisateur"
-        tokens: "Jetons d'accès"
-        download_attestations: 'Télécharger attestations'
-
-  api_entreprise:
-    users:
-      user:
-        title: "Compte utilisateur"
-        no_phone_number: "-"
-        transfer_account:
-          disclaimer: "Votre équipe évolue ? Vous quittez votre service ? Vous pouvez léguer votre compte à une autre personne :"
-          cta: Transférer mon compte
-        demandeur: "Demandeur"
-        contact_metier: "Contact métier"
-        contact_technique: "Contact technique"
-
-    attestations:
-      index:
-        interface: "Interface d'appel"
-        description: "Récupérez les attestations sociales ou fiscales d'une entreprise ou d'une association, en entrant son numéro SIREN."
-        description_cgu_html: "Pour rappel, les %{href} vous engagent à <strong>ne pas diffuser les données reçues, ici les attestations fiscales et sociales, à des tiers non-autorisés</strong>."
-        description_cgu_link_text: "conditions d'utilisation de l'API Entreprise"
-        authorization_request_number: "Demande n°%{external_id} - %{intitule}"
-        search: 'Rechercher'
-        token:
-          label: "🔑 Jeton d'habilitation :"
-        siren_number:
-          label: 'Numéro de SIREN :'
-      search:
-        download_attestation_fiscale_cta: 'Attestation fiscale (PDF)'
-        download_attestation_sociale_cta: 'Attestation sociale (PDF)'
-        company_type:
-          label: 'Nature juridique :'
-        company_category:
-          label: "Catégorie d'entreprise :"
-        naf_code:
-          label: 'Code NAF :'
-        attestation_sociale_not_downloadable: "Attestation sociale non‑téléchargeable avec ce jeton"
-        attestation_fiscale_not_downloadable: 'Attestation fiscale non‑téléchargeable avec ce jeton'
-
-    transfer_user_account:
-      new:
-        title: Déléguer mon compte utilisateur
-        description: Cette fonctionnalité vous permet de transmettre définitivement votre compte API Entreprise à une tierce personne. Une fois le transfert effectué, vous n'aurez plus accès au compte.
-            <br>
-            <br>
-            Attention, nos <a href="https://entreprise.api.gouv.fr/cgu/">CGU</a> vous engagent ! Vous ne devez pas transférer ce compte à un tiers non-habilité. Pour en savoir plus, consultez <a href='https://entreprise.api.gouv.fr/faq#comment-transferer-mon-compte-a-une-autre-personne' target='_blank'>cette rubrique de notre FAQ</a>.
-        email:
-          label: Adresse e-mail du futur propriétaire du compte
-          placeholder: jean.dupont@gouv.fr
-        cta: Transférer mon compte
-        confirm: Êtes-vous sûr de vouloir transférer votre compte ?
-      create:
-        success:
-          title: Un e-mail a été envoyé avec succès au destinataire. Assurez-vous qu'il effectue les démarches indiquées dans le mail qu'il a reçu pour que le transfert soit possible. Une fois ces démarches effectuées, une validation manuelle par nos services finalisera le transfert.
-        error:
-          title: Quelque chose s'est mal passé. Veuillez envoyer un e-mail à support@entreprises.api.gouv.fr
-
-    tokens:
-      index:
-        no_tokens: "Aucun jeton d'accès pour cet utilisateur."
-        title:
-          zero: "Jetons d'accès"
-          one: "Jetons d'accès"
-          other: "Jetons d'accès (%{count})"
-
-      show:
-        error:
-          title: Accès au jeton non autorisé
-      renew:
-        title: Renouveler ou étendre mes droits
-        description: |+
-          Vous souhaitez renouveler votre jeton arrivant à expiration ou demander de nouvelles données pour le même cas d'usage ? Cette fonctionnalité vous permet de <strong>dupliquer le formulaire de demande d'accès déjà rempli</strong> pour ce jeton et de le modifier. <strong>En cliquant sur "Continuer" vous serez transféré sur le site DataPass</strong>.
-          <br>
-          <br>
-          💡 Le renouvellement d'un jeton ne supprime pas votre jeton actuel. Ce dernier continue de fonctionner jusqu'à sa date d'expiration.
-          <br>
-          <br>
-          Pour en savoir plus, consultez <a href='https://entreprise.api.gouv.fr/faq#comment-renouveler-mon-jeton-arrivant-a-expiration' target='_blank'>cette rubrique de notre FAQ</a>.
-        continue: ⬜ Continuer
-      token:
-        title: "Cadre d'utilisation : %{intitule}"
-        links:
-          datapass: Demande d'accès initiale (N° %{id})
-          stats: Voir les statistiques
-          contacts: Contacts
-        delivered_at: "Délivré le : %{humanized_date}"
-        expired_at: "Expire le : %{humanized_date}"
-        access: Accès
-        token: Jeton
-        actions:
-          transfer: Transmettre le jeton
-          renew: Renouveler ou étendre mes droits
-        magic_link:
-          title: Transférer le jeton d'accès
-          description: Cette fonctionnalité vous permet d'envoyer un e-mail contenant un lien d'accès au jeton. L'URL transmise a une durée limitée de 4 heures.
-            <br>
-            <br>
-            Attention, nos <a href="https://entreprise.api.gouv.fr/cgu/">CGU</a> vous engagent ! Vous ne devez pas divulguer cet accès à des tiers non-habilités. Pour en savoir plus, consultez <a href='https://entreprise.api.gouv.fr/faq#comment-transmettre-le-jeton-d-acces-en-tout-securite' target='_blank'>cette rubrique de notre FAQ</a>.
-          email:
-            label: Adresse e-mail du destinataire
-            placeholder: jean@dupont.fr
-          cta: Envoyer le lien d'accès au jeton
-          confirm: Êtes-vous sûr de vouloir transférer votre jeton à cette adresse ?
-        scope:
-          attestations_agefiph: Attestations AGEFIPH
-          attestations_fiscales: Attestations Fiscales
-          attestations_sociales: Attestation Sociale
-          certificat_cnetp: Certificat CNETP
-          associations: Association
-          certificat_opqibi: Certificat OPQIBI
-          documents_association: Document association
-          etablissements: INSEE Etablissement
-          entreprises: INSEE Entreprise
-          extrait_court_inpi: Extrait INPI
-          extraits_rcs: Extrait RCS
-          exercices: Exercice
-          liasse_fiscale: Liasse fiscale
-          fntp_carte_pro: Carte Pro FNTP
-          qualibat: Certificat Qualibat
-          probtp: Certificat PROBTP
-          msa_cotisations: Cotisation MSA
-          bilans_entreprise_bdf: Bilans Entreprises BDF
-          certificat_rge_ademe: Certificat RGE (ADEME)
-          conventions_collectives: Conventions Collectives
-          actes_inpi: Actes INPI
-          bilans_inpi: Bilans INPI
-          effectifs_acoss: Effectifs Entreprise ACOSS
-          entreprises_artisanales: RNM CMA France - Entreprises artisanales
-          eori_douanes: Immatriculation EORI - Douanes
-          certificat_agence_bio: Certificats BIO
-      stats:
-        title: "Cas d'usage du jeton : %{title}"
-        tabs:
-          last_10_minutes: 10 dernières minutes
-          last_30_hours: 30 dernières heures
-          last_8_days: 8 derniers jours
-        links:
-          user_tokens: Retour à la liste des jetons
-        details:
-          internal_id: "Identifiant technique du jeton : %{id}"
-        requests_details:
-          title: Détails des %{limit} dernières requêtes
-
-    authorization_requests:
-      index:
-        title: "Vos demandes d'habilitation (%{count})"
-        new_cta: "Nouvelle demande d'habilitation API Entreprise"
-        table:
-          caption: "Liste des demandes d'habilitation"
-          external_url: "Demande d'accès (numéro %{external_id})"
-          status:
-            draft: "Demande en brouillon 📝"
-            changes_requested: "Demande en attente de modifications ⚠️"
-            submitted: "Demande en attente de validation ⚙️"
-            validated: "Demande validée ✅"
-            refused: "Demande refusée ❌"
-            revoked: "Demande révoquée ❌"
-            archived: "Demande archivée 📝"
-          token:
-            active: "Jeton actif"
-            archived: "Jeton archivé"
-            expired: "Jeton expiré"
-            blacklisted: "Jeton désactivé"
-
-    sessions:
-      create_from_oauth:
-        not_found:
-          title: "Votre compte ne semble pas être rattaché à une habilitation API Entreprise."
-          description: "Veuillez vérifier que l'e-mail %{email} utilisé ici correspond à l'e-mail utilisé lors de votre demande d'habilitation API Entreprise. \n\n
-          Si vous êtes un nouvel utilisateur, veuillez déposer une demande en suivant le lien suivant : https://api.gouv.fr/les-api/api-entreprise/demande-acces\n
-          Après validation de celle-ci, vous pourrez vous connecter au compte API Entreprise."
-
-      failure:
-        unknown: Une erreur inconnue est survenue, veuillez contacter le support.
-      after_logout:
-        success: Déconnexion réussie.
-
-    public_token_magic_links:
-      show:
-        error:
-          expired:
-            title: Lien expiré
-            description: Le lien d'accès au jeton a expiré. Les liens magiques ont une durée de vie de %{initial_expiration_delay_in_hours} heures. Veuillez redemander un accès à votre responsable de compte.
-          unknown:
-            title: Une erreur est survenue à la récupération du jeton.
-            description: Une erreur inconnue est survenue. Veuillez contacter le support à support@entreprise.api.gouv.fr
-          missing:
-            title: Jeton(s) non trouvés
-            description: Le jeton ou les jetons demandé(s) n'ont pas été trouvés. Veuillez contacter le support à support@entreprise.api.gouv.fr
-        disclaimer:
-          title: Durée de validité du lien
-          description: Cette page contient votre jeton d'accès à API Entreprise et ne doit en aucun cas être partagée avec un tiers non habilité ! Ce lien expirera dans %{expiration_time}.
-    contacts:
-      index:
-        title: Contacts
-        unauthorized: Vous n'êtes pas autorisé à accéder à ces données.
-      contact:
-        subtitle_contact_technique: Contact technique
-        subtitle_contact_metier: Contact métier
-        email_label: Adresse E-mail
-        phone_label: Numéro de téléphone
-
-    endpoints:
-      index:
-        title: "Catalogue des API"
-        search:
-          label: 'certificat, INSEE, association...'
-          button: 'Rechercher'
-      endpoint:
-        cta:
-          documentation: "Documentation"
-          swagger: "Swagger"
-
-      show:
-        deprecated:
-          title: "Cette API est dépréciée"
-          description: "Cette API est une ancienne version, nous vous invitons à utiliser ces API les plus récentes :"
-          link_documentation: |-
-            Plus d'informations sur la gestion de version API&nbsp;Entreprise dans cette <a href='https://entreprise.api.gouv.fr/developpeurs#gerer-les-evolutions-de-version' target='_blank'>documentation</a>.
-        incoming:
-          title: "Cette API est bientôt disponible, testez-là !"
-          description: "Cette API est en cours de conception et va bientôt rejoindre le catalogue d'API Entreprise."
-          link_documentation: |-
-            En plus de cette documentation, un environnement technique de test est déjà disponible&nbsp;:&nbsp;
-          cta: "Consulter le swagger"
-        providers:
-          description:
-            one: "Fournisseur de la donnée"
-            other: "Fournisseurs de la donnée"
-        perimeter:
-          title: "Périmètre"
-          entity_type_title: "Entreprises ou associations concernées :"
-          geographical_scope_title: "Périmètre géographique :"
-          updating_rules_title: "Actualisation de la donnée :"
-          know_more_title: "En savoir plus :"
-        data:
-          title: "Les données"
-        attributes:
-          title: "Informations renvoyées en JSON :"
-        collection:
-          subtitle: "Ces informations sont renvoyées sous forme de tableau dont les éléments ont les spécifications suivantes :"
-        root_links:
-          title: "Liens à la racine :"
-          description: "Ces liens sont présents dans la réponse et permettent d'appeler automatiquement d'autres API du catalogue en lien avec celle-ci."
-        root_meta:
-          title: "Métadonnées racine :"
-          description: "Les métadonnées sont des données généralement liées au contexte de la ressource : mise à jour chez le fournisseurs, informations système, etc..."
-        provider_errors:
-          title: "Erreurs spécifiques"
-          description_html: "Lorsque l'API ne peut pas retourner les informations demandées, un message d'erreur est transmis.
-            <br>
-            <br>Les erreurs, spécifiques à cette API et au fournisseur de données %{provider_name}, sont listées ici :"
-          others_in_swagger_html: "L'intégralité des messages d'erreurs relatifs à cette API est consultable dans la %{link}."
-          documentation_link: "documentation technique"
-        faq:
-          title: "Questions & réponses"
-        historique:
-          title: "Historique"
-          old_endpoints:
-            description: "Documentations des anciennes API :"
-            link_documentation: |-
-              Plus d'informations sur la gestion de version API&nbsp;Entreprise dans cette <a href='https://entreprise.api.gouv.fr/developpeurs#gerer-les-evolutions-de-version' target='_blank'>documentation</a>.
-        cgu:
-          title: "Conditions d'utilisation des données"
-          main_title_opening: "Ouverture de la donnée :"
-          main_title: "Conditions générales :"
-          cta: "CGU API Entreprise"
-      use_cases:
-        main:
-          title: "Cas d'usage"
-          description: "Liste des cas d'usage où cette API est utile :"
-        optional:
-          description: "Liste des cas d'usage où cette API est peut être utile :"
-      details:
-        title: "Détails de l'API"
-        format:
-          title: "Format de l'information"
-        availability:
-          title: "Disponibilité"
-          link: "Page de statut des API"
-          maintenance: "En maintenance tous les jours de %{from_hour} à %{to_hour}"
-          no_maintenance: "Disponible 24h/24 et 7j/7"
-        parameters:
-          title:
-            one: "Identifiant d'appel"
-            other: "Identifiants d'appel"
-        technical_specifications:
-          title: "Spécifications techniques :"
-          cta: "Consulter le swagger"
-    faq:
-      index:
-        title: "FAQ & contact"
-        search_bar:
-          label: "Rechercher"
-          placeholder: "jeton, demande d'habilitation..."
-          button: "Recherche"
-
-    cas_usages:
-      index:
-        title: "Cas d'usages"
-        description: "Consultez les <strong>fiches pratiques des cas d’utilisation</strong> de l’API Entreprise.<br>Retrouvez, entre autres, les <strong>données utiles</strong> pour les cas d’usages."
-        cards:
-          marches_publics:
-            title: "Marchés publics"
-            description: "Facilitez le dépôt des candidatures et récupérez les justificatifs administratifs de vos utilisateurs."
-          aides_publiques:
-            title: "Aides publiques"
-            description: "Facilitez le dépôt des demandes et récupérez les justificatifs administratifs de vos utilisateurs."
-          subventions_associations:
-            title: "Subventions fonctionnement associations"
-            description: "Facilitez la saisie et l'instruction du formulaire unique de demande des associations."
-          portail_gru:
-            title: "Portail GRU - Préremplissage"
-            description: "Pré-remplissez les champs des démarches de votre portail usager avec des données ouvertes."
-          portail_gru_instruction:
-            title: "Portail GRU - Instruction des démarches"
-            description: "Accédez aux documents administratifs pour instruire les démarches de votre portail usager."
-          fraude:
-            title: "Détection de la fraude"
-            description: "Accédez rapidement à des informations sociales, financières et économiques."
-          editeur:
-            title: "Accès éditeurs de logiciels"
-            description: "Donnez accès à l'API Entreprise à vos clients publics."
-      show:
-        label: "Cas d'usage"
-        link_access: "Demander un accès"
-        link_list_api: "Liste des API utiles"
-        request_access:
-          title: "Demander un accès"
-          description: "Ce cas d’utilisation correspond à votre besoin ?"
-          link: "Remplir une demande"
-      others:
-        title: "D'autres cas d'usages&nbsp;:"
-        link: "En savoir plus"
-        marches_publics:
-          title: "Marchés publics"
-          description: "Faciliter la candidature et l'instruction"
-        aides_publiques:
-          title: "Aides publiques"
-          description: "Faciliter le dépôt et l'instruction"
-        subventions_associations:
-          title: "Subventions fonctionnement associations"
-          description: "Faciliter la saisie du formulaire unique et l'instruction"
-        portail_gru:
-          title: "Portail GRU - Préremplissage"
-          description: "Préremplir et personnaliser"
-        portail_gru_instruction:
-          title: "Portail GRU - Instruction des démarches"
-          description: "Accéder aux documents pour instruire les démarches"
-        fraude:
-          title: "Détection de la fraude"
-          description: "Accéder rapidement aux informations-clés"
-        editeur:
-            title: "Accès éditeurs de logiciels"
-            description: "Proposer API Entreprise aux clients publics"
-      list-api:
-        col_endpoint: "API"
-        col_useful: "Utilité"
-        col_opening: "Ouverture"
-        col_links: "Documentations"
-        col_comments: "Commentaires"
-        col_call_id: "Identifiant d'appel"
-        documentation: "📖 Fiche métier"
-        swagger: "📟 Swagger"
-    pages:
-      current_status:
-        title: "Statuts des API"
-      newsletter:
-        main:
-          title: Abonnez-vous à nos lettres d'infos&nbsp;!
-          newsletter_title: 💌 Actualités et guides pratiques&nbsp;:&nbsp;
-          newsletter_description: Restez informé des dernières API disponibles, des nouvelles fonctionnalités et en cas de rupture de service majeure&nbsp;:&nbsp;
-          operations_title: 🚧 Maintenance & incidents&nbsp;:&nbsp;
-          operations_description: Soyez notifié des incidents et opérations de maintenance des API de votre choix&nbsp;:&nbsp;
-          operations_button: S'abonner aux incidents
-          archives_title: 🕰 Archives de toutes nos communication&nbsp;:&nbsp;
-          archives_description: Nous archivons toutes nos communications dans <a href="https://v2.entreprise.api.gouv.fr/infolettres/" target="_blank">notre page infolettre</a>
-        banner:
-          title: Lettres d'information
-          description: Abonnez-vous à nos différentes lettres d'informations pour être informé <strong>des actualités, des évènements, des nouveautés et des ruptures de service.</strong>
-      home:
-        section_welcome:
-          title: <strong>Vous êtes un acteur public ?</strong><br>Gagnez du temps dans vos démarches<br> entreprises & associations&nbsp;!
-          subtitle: <br><strong>Intégrez l'API&nbsp;Entreprise👇</strong>
-          button_endpoints: Les données disponibles
-          button_developers: Kit d'intégration
-          link_faq: API Entreprise, c'est quoi ?
-        section_access:
-          title_access: Un bouquet d'API pour les agents publics vers les informations administratives des entreprises/associations
-          info_data_title: Des données certifiées
-          info_data_description: Les données sont prises à la source. Terminé les fautes de frappes et la vérification manuelle de l'authenticité d'une attestation, l’information est certifiée et fait foi.
-          info_provider_title: Les fournisseurs de données regroupés
-          info_provider_description: API Entreprise recherche et démarche pour vous les organisations publiques ayant des données administratives sur les entreprises et les associations.
-          info_account_title: Un seul interlocuteur à un seul endroit
-          info_account_description: API Entreprise agrège et restitue les connaissances techniques et fonctionnelles au même endroit. Vous n'avez plus besoin de gérer plusieurs contacts techniques et fonctionnels.
-          info_technical_title: Un seul interfaçage technique
-          info_technical_description: L’interfaçage est unique et dans des standards à jour des contraintes industrielles. Il n'est plus nécessaire de lire et comprendre les documentations des différentes DSI.
-          card_documentation_title: Une documentation métier de chaque API
-          card_documentation_description: Liste des données, périmètre de l’API, conditions d’utilisations,&nbsp;...
-          card_developers_title: Un espace développeur
-          card_developers_description: Spécifications techniques générales et dédiées à chaque API, Swagger, Kit de mise en production,&nbsp;...
-          link_faq: "Qu'est-ce qu'une API ?"
-        section_use_cases:
-          title: Cas d'usages
-          description: <strong>Une fois l'API Entreprise intégrée dans votre système d'information</strong>&nbsp;:&nbsp;<br>À partir d'un SIRET/SIREN/RNA, les informations sont automatiquement saisies dans les formulaires de vos usagers et en back-office pour vos agents. Cet accès direct aux données administratives facilite de nombreux cas d'usages&nbsp;:&nbsp;
-          cards:
-            marches_publics:
-              title: "Marchés publics"
-            aides_publiques:
-              title: "Aides publiques"
-            subventions_associations:
-              title: "Subventions associations"
-            portail_gru:
-              title: "Portail GRU - Préremplissage"
-            portail_gru_instruction:
-              title: "Portail GRU - Instruction"
-            fraude:
-              title: "Détection de la fraude"
-            editeur:
-              title: "Accès éditeurs de logiciels"
-          link: "Tous les cas d'usages"
-        section_howto:
-          title: Comment obtenir un accès ?
-          description: Seules les entités administratives sont éligibles ✅.<br>Les éditeurs de solutions logicielles à destination des administrations peuvent également l’être.
-          check_eligibity: Vérifier son éligibilité et demander un accès
-          cgu_link: Conditions détaillées d'utilisation du service
-          cgu_description: Votre administration est-elle éligible ? Quels sont les prérequis techniques ? Quels sont vos engagements ?
-          annuaire_data_link: Vous n’êtes pas une administration ?
-          annuaire_data_description: Retrouvez certaines informations sur les entreprises et les associations sur un autre site&nbsp;:&nbsp;l’Annuaire des entreprises.
-          access_account_title: Accéder à mon compte et aux jetons 🔑
-          access_account_description: Votre demande d’accès à l’API Entreprise a été acceptée par notre pôle juridique, connectez-vous pour&nbsp;:&nbsp;
-          access_account_list_token: Récupérer et renouveler les <strong>jetons d’accès</strong> ;
-          access_account_list_stats: Consulter les <strong>statistiques d’utilisation</strong> ;
-          access_account_list_content: <strong>Personnaliser le contenu du site</strong> API Entreprise en fonction de vos habilitations.
-          connect: Se connecter
-        section_partners:
-          title: Ils partagent les données au travers d’API Entreprise&nbsp;:&nbsp;
-          subtitle: Découvrez les API de chaque fournisseur de données.
-          link_endpoints: Consulter toutes les API
-          link_new_api: Proposer une nouvelle API
-        section_endpoints:
-          title: De nombreuses données sur les entreprises et associations&nbsp;:&nbsp;
-          link_endpoints: Consulter le catalogue des données
-        section_developers:
-          title: Un espace développeur 🛠 <br>pour intégrer et maintenir l’API
-          description: Une documentation technique précise dédiée aux équipes d’intégration.
-          prerequisites_link: Les prérequis techniques
-          prerequisites_description: La liste des fondamentaux techniques à maitriser, avant de demander un d’accès à l’API Entreprise.
-          integration_link: Kit d’intégration
-          integration_description: Un pas à pas pour intégrer et mettre en production l’API Entreprise
-          swagger_link: Spécifications techniques de chaque API
-          swagger_description: Utilisez notre Swagger (OpenApi)
-          status_link: Statuts des API
-    documentation:
-      index:
-        card_swagger_link: 🕹 Swagger
-        card_swagger_description: Spécifications techniques de chacune des API&nbsp;:&nbsp;<br/>- Paramètres d’appels<br/>- Détail de la réponse JSON<br/>- Codes erreurs
-      menu:
-        swagger: Swagger
-        migration: Guide de migration
-      banner:
-        search_bar:
-          button: Recherche
-          placeholder: Entrez votre recherche ici
-        link_specs: 🎛 Spécifications générales
-        link_kit: 🚀 Kit de mise en production
-        link_migration: 📋 Guide de migration V.2 > V.3
-        link_return: Retour à la documentation technique 🛠
+        download_attestations: Télécharger attestations
+        profil: Compte utilisateur
+        toggle: Menu
+        tokens: Jetons d'accès

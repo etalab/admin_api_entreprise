@@ -3,219 +3,195 @@ fr:
   api_particulier:
     documentation_pages:
       developers:
-        title: Espace développeurs&nbsp;🛠
         sections:
-          - anchor: 'prerequis-techniques'
-            title: Prérequis techniques
+        - anchor: prerequis-techniques
+          title: Prérequis techniques
+          content: "Voici la liste des **fondamentaux techniques à mettre en place pour le bon fonctionnement de l’API&nbsp;Particulier**&nbsp;:\n\n- ☑️ Être en mesure de gérer le protocole HTTPS ;\n- ☑️ Avoir une version de langage récente. Si vous utilisez Java, une version >= 1.8 est nécessaire (pour la gestion des certificats de +1024 bit, du TLS 1.2 minimum et des suites cryptographiques - ciphers) ;\n- ☑️ S’assurer que nos Autorités de Certification (AC) pour les certificats SSL sont autorisées par vos systèmes ;\n- ☑️ L'API&nbsp;Particulier est uniquement accessible par internet. Si vous avez un pare-feu, il faut donc prévoir de whitelister l'adresse IP du service API&nbsp;Particulier ;\n- ☑️ Il est interdit d'interroger l'API&nbsp;Particulier depuis un site web en front-end, car le jeton d'accès serait alors divulgué. Il vous faut donc interroger nos API depuis une application en back-end. Nous n'autoriserons pas le CORS (CORS - Cross Origin Ressource Sharing) ;\n- ☑️ Prévoir non seulement les coûts de développement mais également les coûts de maintenance ;\n- ☑️ Être en capacité de gérer les mises à jour de l'API&nbsp;Particulier.\n\n<br>\n\n{:.fr-highlight}\n> 💡 Pour mieux comprendre l'API&nbsp;Particulier avant de demander un accès, **vous pouvez utiliser [notre environnement de test](<%= developers_path(anchor: 'tester-api-preproduction') %>)**.\n\n"
+        - anchor: specifications-generales
+          title: "Spécifications générales&nbsp;🎛"
+          subsections:
+          - title: Respecter la volumétrie
+            anchor: respecter-la-volumétrie
             content: |+
-              Voici la liste des **fondamentaux techniques à mettre en place pour le bon fonctionnement de l’API&nbsp;Particulier**&nbsp;:
+              #### Les plafonds
 
-              - ☑️ Être en mesure de gérer le protocole HTTPS ;
-              - ☑️ Avoir une version de langage récente. Si vous utilisez Java, une version >= 1.8 est nécessaire (pour la gestion des certificats de +1024 bit, du TLS 1.2 minimum et des suites cryptographiques - ciphers) ;
-              - ☑️ S’assurer que nos Autorités de Certification (AC) pour les certificats SSL sont autorisées par vos systèmes ;
-              - ☑️ L'API&nbsp;Particulier est uniquement accessible par internet. Si vous avez un pare-feu, il faut donc prévoir de whitelister l'adresse IP du service API&nbsp;Particulier ;
-              - ☑️ Il est interdit d'interroger l'API&nbsp;Particulier depuis un site web en front-end, car le jeton d'accès serait alors divulgué. Il vous faut donc interroger nos API depuis une application en back-end. Nous n'autoriserons pas le CORS (CORS - Cross Origin Ressource Sharing) ;
-              - ☑️ Prévoir non seulement les coûts de développement mais également les coûts de maintenance ;
-              - ☑️ Être en capacité de gérer les mises à jour de l'API&nbsp;Particulier.
+              Les limites de volumétrie sur API&nbsp;Particulier se décomposent en deux règles principales&nbsp;:&nbsp;
 
-              <br>
+              - **Un plafond général par IP de 1000 requêtes/minute** ;
+
+              - **Une volumétrie par jeton&nbsp;:** 20 requêtes/secondes.
+
+              #### Informations volumétrie dans le header
+
+              ##### Pour toutes les réponses&nbsp;:
+
+              Dans toutes les réponses de nos API, le header vous transmet des informations sur la volumétrie&nbsp;:
+
+              {:.fr-table}
+              | Champs du header    |   Signification    |     Format           |
+              |:------------------------------|:------------------|:------------:|
+              | `RateLimit-Limit` |La **limite** concernant l'endpoint appelé, soit le nombre de requête/minute. | Nombre|
+              | `RateLimit-Remaining` |Le **nombre d'appels restants** durant la période courante d'une minute. | Nombre |
+              | `RateLimit-Reset` |La **fin de la période** courante. | Timestamp |
+
+              {:.fr-highlight.fr-highlight--example}
+              > **Exemple&nbsp;:**
+              > Considérons un endpoint ayant une limite de 50 appels /minute.
+              > Vous faîtes un premier appel à 10h00 pile, et effectuez un second appel 20 secondes plus tard, puis un troisième 10 secondes plus tard, vous aurez les valeurs suivantes :
+              > - `RateLimit-Limit` : 50 ;
+              > - `RateLimit-Remaining` : 47 (50 moins les 3 appels effectués) ;
+              > - `RateLimit-Reset` : [*Timestamp correspondant au jour présent à 10h01*]. Le premier appel initialise le compteur (à 10h00 pile), la période se termine 1min plus tard.
+              >
+              > Vous pouvez donc jusqu'à 10h01 pile effectuer 47 appels, le compteur sera réinitialisé à 50 à ce moment-là.
+
+              ##### En cas de dépassement :
+
+              Si vous dépassez le nombre d'appels autorisés (`RateLimit-Remaining = 0`), le serveur répondra avec le `status 429` sur tous les appels suivants dans la même période.
+
+              Le header associé à ce code erreur `429` sera accompagné&nbsp;:&nbsp;
+              - des trois champs précédents ;
+              - d'un champ supplémentaire indiquant le temps à attendre avant de pouvoir effectuer des nouveaux appels.
+
+              {:.fr-table}
+              | Champs du header    |   Signification    |     Format           |
+              |:------------------------------|:------------------|:------------:|
+              | `RateLimit-Limit` |La **limite** concernant l'endpoint appelé, soit le nombre de requête/minute. | Nombre|
+              | `RateLimit-Remaining` |Le **nombre d'appels restants** durant la période courante d'une minute. | Nombre |
+              | `RateLimit-Reset` |La **fin de la période** courante. | Timestamp |
+              | *Uniquement pour le header associé au code erreur 429* <br> `Retry-after`| **Décompte du nombre de secondes restantes** avant la prochaine période | Secondes |
+
+              Vous pouvez donc **utiliser les champs du header pour optimiser votre consommation de l'API&nbsp;Particulier**.
+
+              #### Règles de bannissement en cas de surconsommation
+
+              En cas de non prise en compte des codes erreurs `429` ou en cas de dépassement de la limite de volumétrie globale, **votre IP sera temporairement bannie de nos serveurs pour une durée fixe et non révocable de 12h**. Si vous avez plusieurs jetons, tous seront donc bloqués pendant ce laps de temps.
+
+              Les appels depuis une IP bannie ne renvoient pas de codes HTTP, le serveur ne répond tout simplement pas.
 
               {:.fr-highlight}
-              > 💡 Pour mieux comprendre l'API&nbsp;Particulier avant de demander un accès, **vous pouvez utiliser [notre environnement de test](<%= developers_path(anchor: 'tester-api-preproduction') %>)**.
+              > ℹ️ Au bout de ces 12 heures, vos accès sont automatiquement rétablis ; **il est donc inutile d'écrire au support**.
 
-          - anchor: 'specifications-generales'
-            title: Spécifications générales&nbsp;🎛
-            subsections:
-              - title: Respecter la volumétrie
-                anchor: 'respecter-la-volumétrie'
-                content: |+
-                  #### Les plafonds
+              Nous vous invitons à prendre les mesures nécessaires car le dépassement intervient généralement chez nos utilisateurs lorsque leur programme n'a pas été correctement configuré.
 
-                  Les limites de volumétrie sur API&nbsp;Particulier se décomposent en deux règles principales&nbsp;:&nbsp;
+              Pour les appels de traitement de masse, il est souhaitable que vous fassiez vos **batchs automatiques la nuit ou durant les heures creuses** afin de ne pas affecter la qualité du service pour le reste des usagers.
 
-                  - **Un plafond général par IP de 1000 requêtes/minute** ;
+          - title: Configurer vos timeout
+            anchor: configurer-vos-timeout
+            content: |+
+              Le timeout est le temps d'attente maximal de réponse à une requête. Il vous permet de ne pas immobiliser votre logiciel en le laissant bloqué sur un appel sans réponse.
 
-                  - **Une volumétrie par jeton&nbsp;:** 20 requêtes/secondes.
+              De façon générale, nous vous recommandons un timeout de **5 secondes**.
 
-                  #### Informations volumétrie dans le header
+              De même, pour ne pas immobiliser nos serveurs, nous attendons les réponses de nos fournisseurs un maximum de 10 secondes avant de vous les retransmettre. Si ce délai d’attente est dépassé un code erreur HTTP `504` vous sera renvoyé.
 
-                  ##### Pour toutes les réponses&nbsp;:
+          - title: Autoriser nos Autorités de Certifications
+            anchor: autoriser-nos-autorités-de-certifications
+            content: |+
+              API&nbsp;Particulier utilise [DHIMYOTIS](https://www.dhimyotis.com/) comme organisme de délivrance de ses certificats SSL principaux ainsi que [Let's Encrypt](https://letsencrypt.org/) pour certains services secondaires.
 
-                  Dans toutes les réponses de nos API, le header vous transmet des informations sur la volumétrie&nbsp;:
+              Il est conseillé d'ajouter ces Autorités de Certifications (AC) à votre base de confiance si vous en avez une. Une solution idéale est d'utiliser un paquet d'autorités mises à jour automatiquement ([Mozilla par exemple](https://wiki.mozilla.org/CA/Included_Certificates))
 
-                  {:.fr-table}
-                  | Champs du header    |   Signification    |     Format           |
-                  |:------------------------------|:------------------|:------------:|
-                  | `RateLimit-Limit` |La **limite** concernant l'endpoint appelé, soit le nombre de requête/minute. | Nombre|
-                  | `RateLimit-Remaining` |Le **nombre d'appels restants** durant la période courante d'une minute. | Nombre |
-                  | `RateLimit-Reset` |La **fin de la période** courante. | Timestamp |
+              API&nbsp;Particulier utilise des certificats multi-domaines ; c'es-à-dire avec un "nom courant" (_common name - CN_) et plusieurs "noms alternatifs du sujet" (_subject alternatives names - SAN_), **soyez certains que vos outils fonctionnent correctement avec**.
 
-                  {:.fr-highlight.fr-highlight--example}
-                  > **Exemple&nbsp;:**
-                  > Considérons un endpoint ayant une limite de 50 appels /minute.
-                  > Vous faîtes un premier appel à 10h00 pile, et effectuez un second appel 20 secondes plus tard, puis un troisième 10 secondes plus tard, vous aurez les valeurs suivantes :
-                  > - `RateLimit-Limit` : 50 ;
-                  > - `RateLimit-Remaining` : 47 (50 moins les 3 appels effectués) ;
-                  > - `RateLimit-Reset` : [*Timestamp correspondant au jour présent à 10h01*]. Le premier appel initialise le compteur (à 10h00 pile), la période se termine 1min plus tard.
-                  >
-                  > Vous pouvez donc jusqu'à 10h01 pile effectuer 47 appels, le compteur sera réinitialisé à 50 à ce moment-là.
+          - title: Gérer les erreurs - codes HTTPS
+            anchor: gérer-les-erreurs---codes-https
+            content: |+
+              #### Un code standard HTTPS pour catégoriser le statut de l'appel
 
-                  ##### En cas de dépassement :
+              Toutes les réponse de l’API&nbsp;Particulier sont envoyées avec un code HTTPS. **Ces codes permettent de se renseigner sur le statut de l’appel**, et sont harmonisés pour l'ensemble des API quelque soit le fournisseur de données.
+              Pour en savoir plus sur les codes HTTPS, cet article de [Wikipedia](https://fr.wikipedia.org/wiki/Liste_des_codes_HTTP){:target="_blank"} constitue une bonne base explicative.
 
-                  Si vous dépassez le nombre d'appels autorisés (`RateLimit-Remaining = 0`), le serveur répondra avec le `status 429` sur tous les appels suivants dans la même période.
+              ##### En cas de succès, le code HTTP commence par 2 :
 
-                  Le header associé à ce code erreur `429` sera accompagné&nbsp;:&nbsp;
-                  - des trois champs précédents ;
-                  - d'un champ supplémentaire indiquant le temps à attendre avant de pouvoir effectuer des nouveaux appels.
+              {:.fr-table}
+              | Code HTTPS                                       |      Signification                 |
+              |--------------------------------------------------|------------------------------------|
+              |`200` | **Tout va bien.**|
 
-                  {:.fr-table}
-                  | Champs du header    |   Signification    |     Format           |
-                  |:------------------------------|:------------------|:------------:|
-                  | `RateLimit-Limit` |La **limite** concernant l'endpoint appelé, soit le nombre de requête/minute. | Nombre|
-                  | `RateLimit-Remaining` |Le **nombre d'appels restants** durant la période courante d'une minute. | Nombre |
-                  | `RateLimit-Reset` |La **fin de la période** courante. | Timestamp |
-                  | *Uniquement pour le header associé au code erreur 429* <br> `Retry-after`| **Décompte du nombre de secondes restantes** avant la prochaine période | Secondes |
+              ##### En cas d’échec, si l’erreur vient de votre côté, le code HTTP commence par 4 :
 
-                  Vous pouvez donc **utiliser les champs du header pour optimiser votre consommation de l'API&nbsp;Particulier**.
-
-                  #### Règles de bannissement en cas de surconsommation
-
-                  En cas de non prise en compte des codes erreurs `429` ou en cas de dépassement de la limite de volumétrie globale, **votre IP sera temporairement bannie de nos serveurs pour une durée fixe et non révocable de 12h**. Si vous avez plusieurs jetons, tous seront donc bloqués pendant ce laps de temps.
-
-                  Les appels depuis une IP bannie ne renvoient pas de codes HTTP, le serveur ne répond tout simplement pas.
-
-                  {:.fr-highlight}
-                  > ℹ️ Au bout de ces 12 heures, vos accès sont automatiquement rétablis ; **il est donc inutile d'écrire au support**.
-
-                  Nous vous invitons à prendre les mesures nécessaires car le dépassement intervient généralement chez nos utilisateurs lorsque leur programme n'a pas été correctement configuré.
-
-                  Pour les appels de traitement de masse, il est souhaitable que vous fassiez vos **batchs automatiques la nuit ou durant les heures creuses** afin de ne pas affecter la qualité du service pour le reste des usagers.
-
-              - title: Configurer vos timeout
-                anchor: 'configurer-vos-timeout'
-                content: |+
-                  Le timeout est le temps d'attente maximal de réponse à une requête. Il vous permet de ne pas immobiliser votre logiciel en le laissant bloqué sur un appel sans réponse.
-
-                  De façon générale, nous vous recommandons un timeout de **5 secondes**.
-
-                  De même, pour ne pas immobiliser nos serveurs, nous attendons les réponses de nos fournisseurs un maximum de 10 secondes avant de vous les retransmettre. Si ce délai d’attente est dépassé un code erreur HTTP `504` vous sera renvoyé.
-
-              - title: Autoriser nos Autorités de Certifications
-                anchor: 'autoriser-nos-autorités-de-certifications'
-                content: |+
-                  API&nbsp;Particulier utilise [DHIMYOTIS](https://www.dhimyotis.com/) comme organisme de délivrance de ses certificats SSL principaux ainsi que [Let's Encrypt](https://letsencrypt.org/) pour certains services secondaires.
-
-                  Il est conseillé d'ajouter ces Autorités de Certifications (AC) à votre base de confiance si vous en avez une. Une solution idéale est d'utiliser un paquet d'autorités mises à jour automatiquement ([Mozilla par exemple](https://wiki.mozilla.org/CA/Included_Certificates))
-
-                  API&nbsp;Particulier utilise des certificats multi-domaines ; c'es-à-dire avec un "nom courant" (_common name - CN_) et plusieurs "noms alternatifs du sujet" (_subject alternatives names - SAN_), **soyez certains que vos outils fonctionnent correctement avec**.
-
-              - title: Gérer les erreurs - codes HTTPS
-                anchor: 'gérer-les-erreurs---codes-https'
-                content: |+
-                  #### Un code standard HTTPS pour catégoriser le statut de l'appel
-
-                  Toutes les réponse de l’API&nbsp;Particulier sont envoyées avec un code HTTPS. **Ces codes permettent de se renseigner sur le statut de l’appel**, et sont harmonisés pour l'ensemble des API quelque soit le fournisseur de données.
-                  Pour en savoir plus sur les codes HTTPS, cet article de [Wikipedia](https://fr.wikipedia.org/wiki/Liste_des_codes_HTTP){:target="_blank"} constitue une bonne base explicative.
-
-                  ##### En cas de succès, le code HTTP commence par 2 :
-
-                  {:.fr-table}
-                  | Code HTTPS                                       |      Signification                 |
-                  |--------------------------------------------------|------------------------------------|
-                  |`200` | **Tout va bien.**|
-
-                  ##### En cas d’échec, si l’erreur vient de votre côté, le code HTTP commence par 4 :
-
-                  {:.fr-table}
-                  | Code HTTP                       |      Signification                     |
-                  |---------------------------------|----------------------------------------|
-                  |`400` | **Mauvaise requête** – La syntaxe de votre requête est erronée: les paramètres ne sont pas valides.|
-                  |`401` | **Non autorisé** – Votre token est invalide ou manquant.|
-                  |`403` | **Interdit** – Le serveur a compris votre requête mais refuse de l’exécuter car votre jeton ne vous donne pas accès à cette ressource.|
-                  |`404` | **Non trouvé** – La ressource demandée n'a pas été trouvée. |
+              {:.fr-table}
+              | Code HTTP                       |      Signification                     |
+              |---------------------------------|----------------------------------------|
+              |`400` | **Mauvaise requête** – La syntaxe de votre requête est erronée: les paramètres ne sont pas valides.|
+              |`401` | **Non autorisé** – Votre token est invalide ou manquant.|
+              |`403` | **Interdit** – Le serveur a compris votre requête mais refuse de l’exécuter car votre jeton ne vous donne pas accès à cette ressource.|
+              |`404` | **Non trouvé** – La ressource demandée n'a pas été trouvée. |
 
 
-                  ###### En cas d’échec, si l’erreur provient d’API&nbsp;Particulier ou bien des fournisseurs de données, le code HTTP commence par 5 :
+              ###### En cas d’échec, si l’erreur provient d’API&nbsp;Particulier ou bien des fournisseurs de données, le code HTTP commence par 5 :
 
-                  {:.fr-table}
-                  | Code HTTP                        |      Signification                     |
-                  |----------------------------------|----------------------------------------|
-                  |`500` | **Erreur interne à API&nbsp;Particulier** – Une erreur interne du serveur d’API&nbsp;Particulier est survenue.
-                  |`503` | **Service non disponible** – Le service est temporairement indisponible ou en maintenance.
-                  |`504` | **Intermédiaire hors délai** – Le(s) producteur(s) de données ont mis trop de temps à répondre. Notre temps d’attente, nous permettant de ne pas immobiliser le serveur sur un appel sans réponse, est fixé à 10 secondes et a été dépassé.|
+              {:.fr-table}
+              | Code HTTP                        |      Signification                     |
+              |----------------------------------|----------------------------------------|
+              |`500` | **Erreur interne à API&nbsp;Particulier** – Une erreur interne du serveur d’API&nbsp;Particulier est survenue.
+              |`503` | **Service non disponible** – Le service est temporairement indisponible ou en maintenance.
+              |`504` | **Intermédiaire hors délai** – Le(s) producteur(s) de données ont mis trop de temps à répondre. Notre temps d’attente, nous permettant de ne pas immobiliser le serveur sur un appel sans réponse, est fixé à 10 secondes et a été dépassé.|
 
-                  Retrouvez tous les codes erreurs pour chaque endpoint dans [notre swagger, partie "Response samples"](<%= developers_openapi_path %>){:target="_blank"}.
-                  La liste des codes spécifiques à chaque endpoint y est disponible.
+              Retrouvez tous les codes erreurs pour chaque endpoint dans [notre swagger, partie "Response samples"](<%= developers_openapi_path %>){:target="_blank"}.
+              La liste des codes spécifiques à chaque endpoint y est disponible.
 
-              - title: Retrouver les droits d'un jeton
-                anchor: 'retrouver-les-droits-dun-jeton'
-                content: |+
-                  Pour connaître **la liste des APIs auxquelles vous avez le droit** avec votre jeton d'accès, vous pouvez le vérifier avec l'API `/api/introspect`.
+          - title: Retrouver les droits d'un jeton
+            anchor: retrouver-les-droits-dun-jeton
+            content: |+
+              Pour connaître **la liste des APIs auxquelles vous avez le droit** avec votre jeton d'accès, vous pouvez le vérifier avec l'API `/api/introspect`.
 
-                  Si vous gérez les tokens pour vos utilisateurs, vous pouvez aussi utiliser cette API pour vérifier les droits associés à leurs tokens.
+              Si vous gérez les tokens pour vos utilisateurs, vous pouvez aussi utiliser cette API pour vérifier les droits associés à leurs tokens.
 
-                  {:.fr-h5}
-                  #### La requête HTTP :
+              {:.fr-h5}
+              #### La requête HTTP :
 
-                  ```
-                  https://particulier.api.gouv.fr/api/introspect?token=LeTokenATester
-                  ```
+              ```
+              https://particulier.api.gouv.fr/api/introspect?token=LeTokenATester
+              ```
 
-                  Le paramètre d'appel à renseigner est le token dont vous souhaitez connaître les droits.
+              Le paramètre d'appel à renseigner est le token dont vous souhaitez connaître les droits.
 
-                  > **Exemple de réponse JSON :**
-                  >```
-                  >{
-                  >  "_id": "48ed8e98-33e4-4b05-88fe-f933d1b421c4",
-                  >  "name": null,
-                  >  "scopes": [
-                  >    "cnous_statut_boursier",
-                  >    [...]
-                  >    "cnaf_adresse"
-                  >  ]
-                  >}
-                  > ```
+              > **Exemple de réponse JSON :**
+              >```
+              >{
+              >  "_id": "48ed8e98-33e4-4b05-88fe-f933d1b421c4",
+              >  "name": null,
+              >  "scopes": [
+              >    "cnous_statut_boursier",
+              >    [...]
+              >    "cnaf_adresse"
+              >  ]
+              >}
+              > ```
 
-                  La réponse JSON renvoie la liste des API et champs autorisées. Retrouvez-leurs spécifications techniques dans le [Swagger](<%= developers_openapi_path %>){:target="_blank_"}.
+              La réponse JSON renvoie la liste des API et champs autorisées. Retrouvez-leurs spécifications techniques dans le [Swagger](<%= developers_openapi_path %>){:target="_blank_"}.
 
-          - anchor: 'kit-de-mise-en-production'
-            title: Kit de mise en production&nbsp;🚀
-            subsections:
-              - title: Tester l'API en préproduction
-                anchor: 'tester-api-preproduction'
-                content: |+
-                  L'API&nbsp;Particulier est **testable avec un jeton accessible à tous depuis notre environnement de staging**. Ce bac à sable retourne des données fictives.
+        - anchor: kit-de-mise-en-production
+          title: "Kit de mise en production&nbsp;🚀"
+          subsections:
+          - title: Tester l'API en préproduction
+            anchor: tester-api-preproduction
+            content: |+
+              L'API&nbsp;Particulier est **testable avec un jeton accessible à tous depuis notre environnement de staging**. Ce bac à sable retourne des données fictives.
 
-                  Pour utiliser l'environnement de test, plusieurs moyens sont possibles :
-                  * **Utilisez l'interface disponible depuis [API.gouv](https://api.gouv.fr/documentation/api-particulier){:target="_blank"}** :
-                      1. Copiez le jeton de test disponible dans les premiers paragraphes de la page.
-                      2. Sélectionnez _"https://staging.particulier.api.gouv.fr - Environnement de staging"_ dans le menu déroulant situé un peu plus bas du jeton de test, à gauche.
-                      3. Cliquez sur le bouton à droite _"Authorize"_, et entrez le jeton de test dans le champ _"Value"_ de la modale qui s'est ouverte ; validez en cliquant sur _"Authorize"_. L'environnement de test est configuré, fermez la modale.
-                      4. Pour terminer, pour chacune des API, un bouton _"Try it out"_ vous permet de préremplir les paramètres d'appel avec différents exemples. Appuyez sur _"Execute"_ pour obtenir les différentes réponses possibles.
+              Pour utiliser l'environnement de test, plusieurs moyens sont possibles :
+              * **Utilisez l'interface disponible depuis [API.gouv](https://api.gouv.fr/documentation/api-particulier){:target="_blank"}** :
+                  1. Copiez le jeton de test disponible dans les premiers paragraphes de la page.
+                  2. Sélectionnez _"https://staging.particulier.api.gouv.fr - Environnement de staging"_ dans le menu déroulant situé un peu plus bas du jeton de test, à gauche.
+                  3. Cliquez sur le bouton à droite _"Authorize"_, et entrez le jeton de test dans le champ _"Value"_ de la modale qui s'est ouverte ; validez en cliquant sur _"Authorize"_. L'environnement de test est configuré, fermez la modale.
+                  4. Pour terminer, pour chacune des API, un bouton _"Try it out"_ vous permet de préremplir les paramètres d'appel avec différents exemples. Appuyez sur _"Execute"_ pour obtenir les différentes réponses possibles.
 
-                  * **Utilisez un logiciel de type _Postman_ à partir du fichier OpenAPI :**
-                      1. Téléchargez le fichier OpenAPI de l'API&nbsp;Particulier depuis la [page de swagger](<%= developers_openapi_path %>), avec le bouton "Download" situé en début de page.
-                      2. Importer ce fichier dans un logiciel de test de type _Postman_.
-                      3. Configurez votre environnement avec l'url de l'environnement de staging `https://staging.particulier.api.gouv.fr`.
-                      API&nbsp;Particulier ne recommande pas un logiciel plus qu'un autre, de nombreux tutoriels sont disponibles sur internet.
+              * **Utilisez un logiciel de type _Postman_ à partir du fichier OpenAPI :**
+                  1. Téléchargez le fichier OpenAPI de l'API&nbsp;Particulier depuis la [page de swagger](<%= developers_openapi_path %>), avec le bouton "Download" situé en début de page.
+                  2. Importer ce fichier dans un logiciel de test de type _Postman_.
+                  3. Configurez votre environnement avec l'url de l'environnement de staging `https://staging.particulier.api.gouv.fr`.
+                  API&nbsp;Particulier ne recommande pas un logiciel plus qu'un autre, de nombreux tutoriels sont disponibles sur internet.
 
-              - title: Récupérer le jeton JWT&nbsp;🔑
-                anchor: 'récupérer-le-jeton-jwt'
-                content: |+
-                  Seule la personne ayant fait la demande d'habilitation a accès au token, au travers du [compte utilisateur API&nbsp;Particulier](<%= api_particulier_user_profile_path %>){:target="_blank"}.
+          - title: "Récupérer le jeton JWT&nbsp;🔑"
+            anchor: récupérer-le-jeton-jwt
+            content: |+
+              Seule la personne ayant fait la demande d'habilitation a accès au token, au travers du [compte utilisateur API&nbsp;Particulier](<%= api_particulier_user_profile_path %>){:target="_blank"}.
 
-                  - _Si vous avez réalisé la demande d'habilitation_, vous pouvez **récupérer vos tokens ou jetons d'accès directement depuis votre [compte](<%= api_particulier_user_profile_path %>){:target="_blank"}**.
+              - _Si vous avez réalisé la demande d'habilitation_, vous pouvez **récupérer vos tokens ou jetons d'accès directement depuis votre [compte](<%= api_particulier_user_profile_path %>){:target="_blank"}**.
 
-              - title: Faire sa première requête
-                anchor: 'faire-sa-première-requête'
-                content: |+
-                  #### Utiliser l'environnement de production - _Swagger_
-
-                  Après avoir récupéré votre jeton, vous pouvez faire un premier appel de test.
-
-                  Utilisez l'[environnement de production documenté (_Swagger_)](https://api.gouv.fr/documentation/api-particulier}{:target="_blank"}), disponible sur api.gouv.fr.
-                  Il permet, à l'aide d'un token d'authentification valide 🔑, d'effectuer directement depuis le navigateur des tests de l'API. Les données confidentielles restent bien protégées. Vous y trouverez aussi la spécification technique téléchargeable sous format YAML afin de pouvoir accélérer le développement de vos outils d'interfaçage avec API&nbsp;Particulier.
-
-                  #### Éléments constitutifs de la requête HTTP d'API&nbsp;Particulier
-
-                  Chaque URL de requête est spécifiée dans le [Swagger](<%= developers_openapi_path %>){:target="_blank_"},
+          - title: Faire sa première requête
+            anchor: faire-sa-première-requête
+            content: "#### Utiliser l'environnement de production - _Swagger_\n\nAprès avoir récupéré votre jeton, vous pouvez faire un premier appel de test.\n\nUtilisez l'[environnement de production documenté (_Swagger_)](https://api.gouv.fr/documentation/api-particulier}{:target=\"_blank\"}), disponible sur api.gouv.fr.\nIl permet, à l'aide d'un token d'authentification valide 🔑, d'effectuer directement depuis le navigateur des tests de l'API. Les données confidentielles restent bien protégées. Vous y trouverez aussi la spécification technique téléchargeable sous format YAML afin de pouvoir accélérer le développement de vos outils d'interfaçage avec API&nbsp;Particulier.\n\n#### Éléments constitutifs de la requête HTTP d'API&nbsp;Particulier\n\nChaque URL de requête est spécifiée dans le [Swagger](<%= developers_openapi_path %>){:target=\"_blank_\"},\n"
+        title: "Espace développeurs&nbsp;🛠"
+...

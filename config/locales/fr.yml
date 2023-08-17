@@ -1,3 +1,4 @@
+---
 fr:
   api_entreprise:
     name: API Entreprise
@@ -5,67 +6,65 @@ fr:
   api_particulier:
     name: API Particulier
     support_email: contact@particulier.api.gouv.fr
-  datetime: &datetime_format
-    formats:
-      compact: "%d/%m/%Y"
-      compact_with_hours: "%d/%m/%Y à %H:%M:%S"
-  time: *datetime_format
-
+  commons:
+    copy_token_success_message: Le jeton a été copié avec succès
   concerns:
-    sessions_management:
-      login:
+    restricted_token_magic_links_management:
+      create:
         error:
-          title: La connection a échouée.
-          description: Votre lien est peut-être expiré. Si cela n'est pas le cas, veuillez vous rapprocher de nos services.
+          title: Une erreur est survenue lors du transfert du jeton. Vérifiez que l'adresse e-mail est valide ou contactez le support à %{support_email} si le problème persiste.
+        success:
+          title: Le jeton a été transféré avec succès à l'adresse %{target_email}
+    sessions_management:
       failure:
         unknown: Une erreur inconnue est survenue, veuillez contacter le support.
+      login:
+        error:
+          description: Votre lien est peut-être expiré. Si cela n'est pas le cas, veuillez vous rapprocher de nos services.
+          title: La connection a échouée.
       unauthorized:
-        signed_out:
-          error:
-            title: Veuillez vous connecter pour accéder à cette page.
         signed_in:
           error:
             title: Vous n'avez pas les droits pour accéder à cette page.
-    restricted_token_magic_links_management:
-      create:
-        success:
-          title: Le jeton a été transféré avec succès à l'adresse %{target_email}
-        error:
-          title: Une erreur est survenue lors du transfert du jeton. Vérifiez que l'adresse e-mail est valide ou contactez le support à %{support_email} si le problème persiste.
-  commons:
-    copy_token_success_message: Le jeton a été copié avec succès
-
+        signed_out:
+          error:
+            title: Veuillez vous connecter pour accéder à cette page.
+  datetime:
+    formats:
+      compact: "%d/%m/%Y"
+      compact_with_hours: "%d/%m/%Y à %H:%M:%S"
   shared:
-    sessions:
-      new:
-        title: Accéder à mon compte<br>et aux jetons d'accès 🔑
-        faq: Une difficulté à vous connecter ? Consultez %{link}
-        faq_link: notre FAQ
-    token_share_warning:
-      notice: <strong>Ne transmettez jamais votre jeton par email</strong>, il permet d'accéder à des informations sensibles et vous êtes responsable de l'utilisation qui en est faite. Utilisez le bouton "Transmettre le jeton" ou utilisez une messagerie sécurisée.
-    public_token_magic_links:
+    endpoints:
+      example:
+        title: Exemple de réponse (JSON)
+      property:
+        array:
+          label: 'Cette propriété contient 1 ou plusieurs éléments ayant les spécifications suivantes :'
+        example:
+          label: 'ex:'
       show:
-        disclaimer:
-          title: Durée de validité du lien
-          description: Cette page contient votre jeton d'accès à %{api_name} et ne doit en aucun cas être partagée avec un tiers non habilité ! Ce lien expirera dans %{expiration_time}.
+        beta:
+          description: Elle est en production et fonctionnelle, mais succeptible de changer en fonction des retours des utilisateurs et du fournisseur de données. <br /> <br /> Vous serez bien entendu informé des changements en amont le cas échéant. N'hésitez pas à contacter le support si vous avez des questions.
+          title: Cette API est en bêta test
     pages:
       redoc:
-        title: "Swagger 📟"
         description: |-
           Cette documentation technique recense les spécifications techniques des différents endpoints de l'%{api_name}.
           Elle est propulsée par <a href='https://github.com/Redocly/redoc' target='_blank'>Redoc</a> et se base sur le fichier OpenAPI.
-    endpoints:
-      property:
-        array:
-          label: "Cette propriété contient 1 ou plusieurs éléments ayant les spécifications suivantes :"
-        example:
-          label: 'ex:'
-      example:
-        title: "Exemple de réponse (JSON)"
+        title: "Swagger 📟"
+    public_token_magic_links:
       show:
-        beta:
-          title: "Cette API est en bêta test"
-          description: "Elle est en production et fonctionnelle, mais succeptible de changer en fonction des retours des utilisateurs et du fournisseur de données.
-            <br />
-            <br />
-            Vous serez bien entendu informé des changements en amont le cas échéant. N'hésitez pas à contacter le support si vous avez des questions."
+        disclaimer:
+          description: Cette page contient votre jeton d'accès à %{api_name} et ne doit en aucun cas être partagée avec un tiers non habilité ! Ce lien expirera dans %{expiration_time}.
+          title: Durée de validité du lien
+    sessions:
+      new:
+        faq: Une difficulté à vous connecter ? Consultez %{link}
+        faq_link: notre FAQ
+        title: "Accéder à mon compte<br>et aux jetons d'accès 🔑"
+    token_share_warning:
+      notice: <strong>Ne transmettez jamais votre jeton par email</strong>, il permet d'accéder à des informations sensibles et vous êtes responsable de l'utilisation qui en est faite. Utilisez le bouton "Transmettre le jeton" ou utilisez une messagerie sécurisée.
+  time:
+    formats:
+      compact: "%d/%m/%Y"
+      compact_with_hours: "%d/%m/%Y à %H:%M:%S"
