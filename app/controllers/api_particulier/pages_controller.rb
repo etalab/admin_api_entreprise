@@ -1,4 +1,6 @@
 class APIParticulier::PagesController < APIParticulierController
+  after_action :skip_newsletter_banner!, only: %i[home newsletter]
+
   layout :page_layout
 
   def home
@@ -30,10 +32,12 @@ class APIParticulier::PagesController < APIParticulierController
 
   def page_layout
     case action_name
-    when 'home'
+    when 'home', 'newsletter'
       'api_particulier/no_container'
-    when 'newsletter'
-      'api_particulier/no_newsletter_banner'
     end
+  end
+
+  def skip_newsletter_banner!
+    @no_newsletter_banner = true
   end
 end
