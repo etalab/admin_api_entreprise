@@ -3,7 +3,7 @@
   path: '/api/v2/situations-pole-emploi'
   position: 500
   perimeter:
-    entity_type_description: |+
+    entity_type_description: &pole_emploi__entity_type_description |+
       L'API concerne **les demandeurs d'emploi ayant été inscrits à Pôle emploi depuis 2010**, y compris ceux dont l'inscription a pris fin.
 
       **Seules les cinq premières catégories de demandeurs d'emploi sont concernées** par l'API :
@@ -23,7 +23,7 @@
       Les données sont **mises à jour en temps réel**, l'API étant directement reliée au système d'information de Pôle emploi.
 
       Les informations obtenues sont représentatives de la situation à date du demandeur d'emploi. Par exemple, la catégorie d'inscription, donnée qui peut évoluer au cours du temps, est mise à jour en temps réel également.
-  parameters_details: &pole_emploi_parameters_details
+  parameters_details:
     description: |+
       Cette API propose une seule modalité d'appel :
       <p class="fr-badge fr-badge--purple-glycine">Identifiant</p>
@@ -64,8 +64,8 @@
     - Tarification sociale et solidaire des transports
     - Tarification des services publics municipaux
   faq:
-    - q: Périmètre détaillé des catégories de demandeurs d'emploi concernés par l'API.
-      a: |+
+    - q: &pole_emploi_faq_q_1 Périmètre détaillé des catégories de demandeurs d'emploi concernés par l'API.
+      a: &pole_emploi_faq_r_1 |+
         Les catégories de demandeur d'emploi délivrées par l'API correspondent aux 5 premières catégories administratives définies par l’[arrêté du 5 février 1992 portant application de l’article L. 5411-2 du Code du travail](https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000174464/){:target="_blank"} :
 
         {:.fr-table}
@@ -84,22 +84,37 @@
   path: '/api/v2/paiements-pole-emploi'
   position: 501
   perimeter:
-    entity_type_description: |+
-      L'API concerne **les demandeurs d'emploi ayant été inscrits à Pôle emploi depuis 2010**, y compris ceux dont l'inscription a pris fin.
-
-      **Seules les cinq premières catégories de demandeurs d'emploi sont concernées** par l'API :
-      - ✅ en recherche d'emploi ;
-      - ✅ disponibles immédiatement ;
-      - ✅ non-tenus de faire des actes positifs de recherche d’emploi.
-
-      Les ❌ catégories 6 à 8, tenues d'accomplir des actes positifs de recherche d'emploi, ne sont pas concernées par l'API. [En savoir plus](#faq_entry_0_api_particulier_endpoint_pole_emploi_situation).
-
+    entity_type_description: *pole_emploi__entity_type_description
     geographical_scope_description: *pole_emploi_geographical_scope_description
-    updating_rules_description: *pole_emploi_updating_rules_description
-  parameters_details: *pole_emploi_parameters_details
+    updating_rules_description: Les données sont **mises à jour en temps réel**, l'API étant directement reliée au système d'information de Pôle emploi.Les informations obtenues sont représentatives de la situation à date des paiements versés au demandeur d'emploi.
+  parameters_details: 
+    description: |+
+      Cette API propose une seule modalité d'appel :
+
+      <p class="fr-badge fr-badge--purple-glycine">Identifiant</p>
+      **Avec l'identifiant Pôle emploi** : Cet identifiant est celui choisi par le particulier lors de la création de son espace personnel en ligne.
+
+      <section class="fr-accordion">
+        <h3 class="fr-accordion__title">
+        <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106">
+          Besoin de cette API avec FranceConnect ?
+        </button>
+        </h3>
+        <div class="fr-collapse" id="accordion-106">
+        La modalité d'appel FranceConnect n'est pas disponible pour l'API demandeur d'emploi sur API Particulier.
+
+        Vous pouvez utiliser l'[API dédiée de Pôle emploi](https://api.gouv.fr/les-api/api-indemnisation-pole-emploi){:target="_blank"} ! Cette API, qui n'appartient pas au bouquet API Particulier, permet d'accéder à la liste des paiements versés avec FranceConnect. Il vous faudra faire une habilitiation spécifique.
+        </div>
+      </section>
   data:
     description: |+
-      Liste des paiements sur les 2 dernières années
+      Cette API délivre la **liste des paiements Pôle emploi versés au cours des 24 derniers mois** au demandeur d'emploi. Ces paiements sont répartis en 3 catégories (allocations, aides et autres paiements) et datés.
+
+      {:.fr-highlight}
+      > **Des informations à confirmer avec le fournisseur de service**
+      > Une profondeur d'historique de 24 mois a été constaté par l'équipe API Particulier. Cette profondeur est à reconfirmr avec Pôle emploi ; 
+      > De même, pour certain cas, l'équipe API Particulier a constaté des paiements avec des dates dans le futur. Nous échangeons actuellement avec Pôle emploi pour identifier ces cas et les documenter.
+
   provider_uids:
     - 'pole_emploi'
   parameters:
@@ -110,7 +125,9 @@
     - Attribution des aides sociales
     - Tarification sociale et solidaire des transports
     - Tarification des services publics municipaux
-  faq: []
+  faq: 
+    - q: *pole_emploi_faq_q_1
+      a: *pole_emploi_faq_r_1
 
 
 
