@@ -41,7 +41,7 @@ gem 'sitemap_generator'
 
 gem 'pastel'
 
-gem 'rails-i18n','~> 7.0.7'
+gem 'rails-i18n','~> 7.0.8'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
