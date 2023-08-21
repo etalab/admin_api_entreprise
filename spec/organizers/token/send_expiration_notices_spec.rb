@@ -9,6 +9,20 @@ RSpec.describe Token::SendExpirationNotices, type: :organizer do
     let!(:another_token_expired_within_3_month) { create(:token, :expiring_within_3_month) }
     let!(:token_expired_within_1_year) { create(:token, :expiring_in_1_year) }
 
+    describe 'when API Particulier (temporary)' do
+      let!(:one_token_expired_within_3_month) { create(:token, :expiring_within_3_month, :with_api_particulier) }
+      let!(:another_token_expired_within_3_month) { create(:token, :expiring_within_3_month, :with_api_particulier) }
+      let!(:token_expired_within_1_year) { create(:token, :expiring_in_1_year, :with_api_particulier) }
+
+      it 'doesnt send anything' do
+        expect(ScheduleExpirationNoticeMailjetEmailJob).not_to receive(:perform_later).with(one_token_expired_within_3_month, days).and_call_original
+        expect(ScheduleExpirationNoticeMailjetEmailJob).not_to receive(:perform_later).with(another_token_expired_within_3_month, days).and_call_original
+        expect(ScheduleExpirationNoticeMailjetEmailJob).not_to receive(:perform_later).with(token_expired_within_1_year, days).and_call_original
+
+        subject
+      end
+    end
+
     it { is_expected.to be_success }
 
     it 'calls the mailer for the affected tokens only' do

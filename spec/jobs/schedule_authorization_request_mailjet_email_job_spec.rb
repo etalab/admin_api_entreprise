@@ -66,8 +66,8 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob do
       it 'calls Mailjet client with valid params' do
         expect(Mailjet::Send).to receive(:create).with(
           {
-            from_name: anything,
-            from_email: anything,
+            from_name: 'API Entreprise',
+            from_email: APIEntrepriseMailer.default_params[:from],
             to: "#{to_user.full_name} <#{to_user.email}>",
             vars: mailjet_template_vars,
             'Mj-TemplateLanguage' => true,
@@ -83,8 +83,8 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob do
       it 'calls Mailjet client with valid params' do
         expect(Mailjet::Send).to receive(:create).with(
           {
-            from_name: anything,
-            from_email: anything,
+            from_name: 'API Entreprise',
+            from_email: APIEntrepriseMailer.default_params[:from],
             to: "#{to_user.full_name} <#{to_user.email}>",
             vars: mailjet_template_vars,
             'Mj-TemplateLanguage' => true,
@@ -189,6 +189,25 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob do
             subject
           }.to raise_error(Mailjet::ApiError)
         end
+      end
+    end
+
+    describe 'with api Particulier' do
+      let(:authorization_request) { create(:authorization_request, status: authorization_request_status, api: 'particulier') }
+
+      it 'calls Mailjet client with valid params' do
+        expect(Mailjet::Send).to receive(:create).with(
+          {
+            from_name: 'API Particulier',
+            from_email: APIParticulierMailer.default_params[:from],
+            to: "#{to_user.full_name} <#{to_user.email}>",
+            vars: mailjet_template_vars,
+            'Mj-TemplateLanguage' => true,
+            'Mj-TemplateID' => mailjet_template_id
+          }.stringify_keys
+        )
+
+        subject
       end
     end
   end

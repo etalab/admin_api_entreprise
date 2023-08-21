@@ -19,6 +19,16 @@ module MailjetHelpers
     }
   end
 
+  def from_name(api)
+    "API #{api.capitalize}"
+  end
+
+  def from_email(api)
+    mailer_klass = "API#{api.capitalize}Mailer".constantize
+
+    mailer_klass.default_params[:from]
+  end
+
   private
 
   def sanitize_message_payload(message)

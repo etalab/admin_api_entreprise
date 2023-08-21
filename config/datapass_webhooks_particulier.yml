@@ -1,0 +1,59 @@
+# Check https://github.com/betagouv/signup-back/tree/master/docs/webhooks.md for all events and their details
+---
+development: &development
+  created: &created {}
+  updated: &updated {}
+  team_member_updated: &team_member_updated {}
+  send_application: &send_application
+    emails:
+      - id: '11'
+      - id: '12'
+        when: 'in 14 days'
+  notify: &notify {}
+  review_application: &review_application {}
+  refuse_application: &refuse_application
+    emails:
+      - id: '51'
+        condition_on_authorization: 'demandeur_first_name_is_run?'
+      - id: '52'
+        condition_on_authorization: 'demandeur_last_name_is_run?'
+        to:
+          - 'authorization_request.demandeur'
+        cc:
+          - 'authorization_request.contact_technique'
+  validate_application: &validate_application {}
+
+  create: *created
+  update: *updated
+  team_member_update: *team_member_updated
+  submit: *send_application
+  request_changes: *review_application
+  refuse: *refuse_application
+  validate: *validate_application
+
+test: *development
+
+production: &production
+  created: &created
+    emails:
+  updated: &updated {}
+  team_member_updated: &team_member_updated {}
+  send_application: &send_application
+    emails:
+  notify: &notify {}
+  review_application: &review_application
+    emails:
+  refuse_application: &refuse_application
+    emails:
+  validate_application: &validate_application
+    emails:
+  create: *created
+  update: *updated
+  team_member_update: *team_member_updated
+  submit: *send_application
+  request_changes: *review_application
+  refuse: *refuse_application
+  validate: *validate_application
+
+sandbox: *production
+staging: *production

@@ -23,8 +23,8 @@ class ScheduleAuthorizationRequestMailjetEmailJob < ApplicationJob
 
   def build_message(mailjet_attributes)
     {
-      from_name: 'API Entreprise',
-      from_email: APIEntrepriseMailer.default_params[:from],
+      from_name: from_name(@authorization_request.api),
+      from_email: from_email(@authorization_request.api),
       to: build_recipient_attributes(mailjet_attributes['to']),
       cc: build_recipient_attributes(mailjet_attributes['cc']),
       vars: mailjet_attributes['vars'],

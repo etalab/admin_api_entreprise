@@ -46,8 +46,8 @@ RSpec.describe ScheduleExpirationNoticeMailjetEmailJob do
       it 'calls Mailjet client with valid params' do
         expect(Mailjet::Send).to receive(:create).with(
           {
-            from_name: anything,
-            from_email: anything,
+            from_name: 'API Entreprise',
+            from_email: APIEntrepriseMailer.default_params[:from],
             to: "#{demandeur.full_name} <#{demandeur.email}>, #{contact.full_name} <#{contact.email}>",
             vars: {
               cadre_utilisation_token: token.intitule,
@@ -60,6 +60,29 @@ RSpec.describe ScheduleExpirationNoticeMailjetEmailJob do
         )
 
         subject
+      end
+
+      context 'when token is for API Particulier' do
+        let(:authorization_request) { create(:authorization_request, :with_demandeur, :with_contact_technique, api: 'particulier') }
+
+        it 'calls Mailjet client with valid params' do
+          expect(Mailjet::Send).to receive(:create).with(
+            {
+              from_name: 'API Particulier',
+              from_email: APIParticulierMailer.default_params[:from],
+              to: "#{demandeur.full_name} <#{demandeur.email}>, #{contact.full_name} <#{contact.email}>",
+              vars: {
+                cadre_utilisation_token: token.intitule,
+                authorization_request_id: external_id,
+                expiration_date: "#{Time.zone.at(token.exp).strftime('%d/%m/%Y à %Hh%M')} (heure de Paris)"
+              },
+              'Mj-TemplateLanguage' => true,
+              'Mj-TemplateID' => 3_139_223
+            }.stringify_keys
+          )
+
+          subject
+        end
       end
 
       context 'when Mailjet raises an error' do
