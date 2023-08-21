@@ -5,6 +5,7 @@ class Token::RetrieveExpiring < ApplicationInteractor
     context.expiring_tokens = Token
       .not_blacklisted
       .where(archived: false)
+      .joins(:authorization_request).where(authorization_request: { api: 'entreprise' })
       .where("exp <= ? AND NOT days_left_notification_sent::jsonb @> '?'::jsonb", expiration_period, expire_in)
   end
 
