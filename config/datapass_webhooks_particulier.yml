@@ -18,9 +18,9 @@ development: &development
       - id: '52'
         condition_on_authorization: 'demandeur_last_name_is_run?'
         to:
-          - 'authorization_request.contact_technique'
-        cc:
           - 'authorization_request.demandeur'
+        cc:
+          - 'authorization_request.contact_technique'
   validate_application: &validate_application {}
 
   create: *created

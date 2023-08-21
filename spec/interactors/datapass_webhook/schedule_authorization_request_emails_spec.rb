@@ -17,7 +17,6 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
   let(:datapass_webhook_params) { build(:datapass_webhook, event:) }
   let(:authorization_request) { create(:authorization_request, :with_demandeur, :with_contact_metier, :with_contact_technique) }
   let(:mailjet_variables) { { lol: 'oki' } }
-  let(:api) { 'entreprise' }
 
   before do
     Timecop.freeze(Date.new(2021, 9, 1))
@@ -95,77 +94,6 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
       AuthorizationRequestConditionFacade.remove_method(:demandeur_last_name_is_run?)
     end
 
-    context 'when all conditions are met' do
-      before do
-        authorization_request.demandeur.update!(
-          first_name: 'run',
-          last_name: 'run'
-        )
-      end
-
-      it 'schedules emails according to configuration, with valid recipients attributes' do
-        subject
-
-        expect(ScheduleAuthorizationRequestMailjetEmailJob).to have_been_enqueued.exactly(:twice)
-
-        expect(ScheduleAuthorizationRequestMailjetEmailJob).to have_been_enqueued.exactly(:once).with(
-          authorization_request.id,
-          authorization_request.status,
-          hash_including(
-            template_id: '51',
-            to: [
-              {
-                'email' => authorization_request.demandeur.email,
-                'full_name' => authorization_request.demandeur.full_name
-              }
-            ]
-          )
-        ).at(Time.zone.now)
-
-        expect(ScheduleAuthorizationRequestMailjetEmailJob).to have_been_enqueued.exactly(:once).with(
-          authorization_request.id,
-          authorization_request.status,
-          hash_including(
-            template_id: '52',
-            to: [
-              {
-                'email' => authorization_request.contact_metier.email,
-                'full_name' => authorization_request.contact_metier.full_name
-              }
-            ],
-            cc: [
-              {
-                'email' => authorization_request.contact_technique.email,
-                'full_name' => authorization_request.contact_technique.full_name
-              },
-              {
-                'email' => authorization_request.demandeur.email,
-                'full_name' => authorization_request.demandeur.full_name
-              }
-            ]
-          )
-        ).at(Time.zone.now)
-      end
-
-      describe 'on API Particulier' do
-        let(:api) { 'particulier' }
-
-        it 'works the same' do
-          subject
-
-          expect(ScheduleAuthorizationRequestMailjetEmailJob).to have_been_enqueued.exactly(:twice)
-        end
-      end
-
-      describe 'non-regression test: on an authorization_request with no contacts' do
-        let(:authorization_request) { create(:authorization_request, :with_demandeur) }
-
-        it 'do not error' do
-          expect { subject }.not_to raise_error
-        end
-      end
-    end
-
     describe 'when one condition is not met' do
       before do
         authorization_request.users.first.update!(
@@ -192,6 +120,120 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
             ]
           )
         ).at(Time.zone.now)
+      end
+    end
+
+    context 'when all conditions are met' do
+      context 'when on API Entreprise' do
+        before do
+          authorization_request.demandeur.update!(
+            first_name: 'run',
+            last_name: 'run'
+          )
+        end
+
+        it 'schedules emails according to configuration, with valid recipients attributes' do
+          subject
+
+          expect(ScheduleAuthorizationRequestMailjetEmailJob).to have_been_enqueued.exactly(:twice)
+
+          expect(ScheduleAuthorizationRequestMailjetEmailJob).to have_been_enqueued.exactly(:once).with(
+            authorization_request.id,
+            authorization_request.status,
+            hash_including(
+              template_id: '51',
+              to: [
+                {
+                  'email' => authorization_request.demandeur.email,
+                  'full_name' => authorization_request.demandeur.full_name
+                }
+              ]
+            )
+          ).at(Time.zone.now)
+
+          expect(ScheduleAuthorizationRequestMailjetEmailJob).to have_been_enqueued.exactly(:once).with(
+            authorization_request.id,
+            authorization_request.status,
+            hash_including(
+              template_id: '52',
+              to: [
+                {
+                  'email' => authorization_request.contact_metier.email,
+                  'full_name' => authorization_request.contact_metier.full_name
+                }
+              ],
+              cc: [
+                {
+                  'email' => authorization_request.contact_technique.email,
+                  'full_name' => authorization_request.contact_technique.full_name
+                },
+                {
+                  'email' => authorization_request.demandeur.email,
+                  'full_name' => authorization_request.demandeur.full_name
+                }
+              ]
+            )
+          ).at(Time.zone.now)
+        end
+
+        describe 'non-regression test: on an authorization_request with no contacts' do
+          let(:authorization_request) { create(:authorization_request, :with_demandeur) }
+
+          it 'do not error' do
+            expect { subject }.not_to raise_error
+          end
+        end
+      end
+
+      context 'when on API Particulier' do
+        let(:authorization_request) { create(:authorization_request, :with_demandeur, :with_contact_technique, api: 'particulier') }
+
+        before do
+          authorization_request.demandeur.update!(
+            first_name: 'run',
+            last_name: 'run'
+          )
+        end
+
+        it 'schedules emails according to configuration, with valid recipients attributes' do
+          subject
+
+          expect(ScheduleAuthorizationRequestMailjetEmailJob).to have_been_enqueued.exactly(:twice)
+
+          expect(ScheduleAuthorizationRequestMailjetEmailJob).to have_been_enqueued.exactly(:once).with(
+            authorization_request.id,
+            authorization_request.status,
+            hash_including(
+              template_id: '51',
+              to: [
+                {
+                  'email' => authorization_request.demandeur.email,
+                  'full_name' => authorization_request.demandeur.full_name
+                }
+              ]
+            )
+          ).at(Time.zone.now)
+
+          expect(ScheduleAuthorizationRequestMailjetEmailJob).to have_been_enqueued.exactly(:once).with(
+            authorization_request.id,
+            authorization_request.status,
+            hash_including(
+              template_id: '52',
+              to: [
+                {
+                  'email' => authorization_request.demandeur.email,
+                  'full_name' => authorization_request.demandeur.full_name
+                }
+              ],
+              cc: [
+                {
+                  'email' => authorization_request.contact_technique.email,
+                  'full_name' => authorization_request.contact_technique.full_name
+                }
+              ]
+            )
+          ).at(Time.zone.now)
+        end
       end
     end
   end
