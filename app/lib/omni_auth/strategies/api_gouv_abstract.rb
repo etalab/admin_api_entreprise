@@ -10,7 +10,7 @@ module OmniAuth::Strategies
       }
     }
 
-    option :scope, 'openid email'
+    option :scope, 'openid email profile phone'
 
     uid { raw_info['sub'] }
 

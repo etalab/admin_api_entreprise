@@ -49,8 +49,9 @@ module SessionsManagement
 
   def oauth_params
     {
+      oauth_api_gouv_id: auth_hash.try('info').try('sub'),
       oauth_api_gouv_email: oauth_email,
-      oauth_api_gouv_id: auth_hash.try('info').try('sub')
+      oauth_api_gouv_info: auth_hash.try('info')
     }
   end
 

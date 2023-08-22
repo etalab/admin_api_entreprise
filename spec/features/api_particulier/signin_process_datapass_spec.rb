@@ -10,10 +10,13 @@ RSpec.describe 'the signin process', app: :api_particulier do
     before do
       OmniAuth.config.test_mode = true
       OmniAuth.config.mock_auth[:api_gouv_particulier] = OmniAuth::AuthHash.new({
-        info: {
+        info: OmniAuth::AuthHash::InfoHash.new(
           email: user.email,
+          family_name: user.last_name,
+          given_name: user.first_name,
+          phone_number: user.phone_number,
           sub: user.oauth_api_gouv_id || unknown_api_gouv_id
-        }
+        )
       })
     end
 
@@ -23,11 +26,18 @@ RSpec.describe 'the signin process', app: :api_particulier do
       context 'when the user is unknown' do
         let!(:user) { build(:user) }
 
-        it 'redirects to the login page and print wrong email' do
-          subject
+        it 'creates a user with valid attributes and redirects to his profile' do
+          expect {
+            subject
+          }.to change(User, :count).by(1)
 
-          expect(page).to have_current_path(api_particulier_login_path, ignore_query: true)
-          expect(page).to have_content(user.email)
+          latest_user = User.last
+
+          %w[email first_name last_name phone_number].each do |attr|
+            expect(latest_user.send(attr)).to eq(user.send(attr))
+          end
+
+          expect(page).to have_current_path(user_profile_path, ignore_query: true)
         end
       end
 

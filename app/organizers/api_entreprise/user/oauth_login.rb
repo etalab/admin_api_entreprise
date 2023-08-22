@@ -1,5 +1,5 @@
 class APIEntreprise::User::OAuthLogin < ApplicationOrganizer
-  organize User::FindFromEmail,
+  organize User::FindOrCreateThroughOAuth,
     User::UpdateOAuthAPIGouvId,
     User::NotifyDatapassOfTokenOwnership
 end
