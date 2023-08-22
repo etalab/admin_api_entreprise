@@ -5,15 +5,16 @@ module MailjetHelpers
     )
   end
 
-  def affect_mailjet_context_for_sentry(mailjet_exception)
+  def affect_mailjet_context_for_sentry(mailjet_exception, authorization_request_id)
     Sentry.set_context(
       'mailjet error',
-      build_mailjet_error_context(mailjet_exception)
+      build_mailjet_error_context(mailjet_exception, authorization_request_id)
     )
   end
 
-  def build_mailjet_error_context(mailjet_exception)
+  def build_mailjet_error_context(mailjet_exception, authorization_request_id)
     {
+      authorization_request_id:,
       mailjet_error_code: mailjet_exception.code,
       mailjet_error_reason: mailjet_exception.reason
     }
