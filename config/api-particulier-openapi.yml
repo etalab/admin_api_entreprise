@@ -79,7 +79,7 @@ paths:
         required: false
         schema:
           type: string
-      - name: prenoms
+      - name: prenoms[]
         in: query
         schema:
           type: array
@@ -123,7 +123,8 @@ paths:
           maxLength: 5
           example: '08480'
         description: Code Insee à 5 chiffres du lieu de naissance de la personne sur
-          5 chiffres. Ne pas remplir si la personne est née à l'étranger.
+          5 chiffres. Ne pas remplir si la personne est née à l'étranger. Le champs
+          est obligatoire si la personne est née en France
         required: false
       - name: codePaysLieuDeNaissance
         in: query
@@ -144,82 +145,238 @@ paths:
         description: Sexe de la personne, masculin ou féminin
         required: true
         example: M
-      description: "Savoir si un particulier est bénéficiaire de la complémentaire
-        santé solidaire (C2S). \n\n Pour de plus amples informations sur cette api
-        et y avoir accès en avant première, veuillez contacter l'équipe API Particulier.
-        \n **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/complementaire_sante_solidaire) "
+      description: "Quotient familial et composition de la famille d'un allocataire
+        du régime général et du régime agricole. \n Pour de plus amples informations
+        sur cette api et y avoir accès en avant première, veuillez contacter l'équipe
+        API Particulier. \n **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/api_particulier_v2_cnaf_quotient_familial_v2) "
       responses:
         '200':
-          description: Complementaire santé solidaire trouvée
+          description: Quotient Familial trouvée
           x-operationId: api_particulier_v2_cnaf_complementaire_sante_solidaire
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  status:
-                    title: Statut bénéficiaire de la complémentaire santé solidaire
-                      (C2S)
+                  allocataires:
+                    title: Informations sur les parents composant la famille
+                    type: array
+                    minItems: 1
+                    items:
+                      type: object
+                      properties:
+                        nomNaissance:
+                          title: Nom
+                          type: string
+                          description: Nom de naissance de l'allocataire
+                          example: JACQUES
+                        nomUsuel:
+                          title: Nom d'usage
+                          type: string
+                          description: Nom d'usage de l'allocataire
+                          example: JACQUES
+                          nullable: true
+                        prenoms:
+                          title: Prénoms
+                          type: string
+                          description: Prénoms de l'allocataire
+                          example: JEAN-PIERRE THOMAS
+                        anneeDateDeNaissance:
+                          title: Année de naissance
+                          type: string
+                          example: '2000'
+                          description: Année de la date de naissance de l'allocataire.
+                            Peut-être vide si inconnue.
+                          nullable: true
+                        moisDateDeNaissance:
+                          title: Mois de naissance
+                          type: string
+                          example: '01'
+                          description: Mois de la date de naissance de l'allocataire.
+                            Peut-être vide si inconnue.
+                          nullable: true
+                        jourDateDeNaissance:
+                          title: Jour de naissance
+                          type: string
+                          example: '31'
+                          description: Jour de la date de naissance de l'allocataire.
+                            Peut-être vide si inconnue.
+                          nullable: true
+                        sexe:
+                          title: Sexe
+                          type: string
+                          description: Sexe de l'allocataire
+                          example: M
+                          enum:
+                          - F
+                          - M
+                  enfants:
+                    type: array
+                    title: Informations sur les enfants composant la famille
+                    items:
+                      type: object
+                      properties:
+                        nomNaissance:
+                          title: Nom de naissance
+                          type: string
+                          description: Nom de naissance de l'enfant
+                          example: JACQUES
+                        nomUsuel:
+                          title: Nom d'usage
+                          type: string
+                          description: Nom d'usage de l'enfant
+                          example: JACQUES
+                          nullable: true
+                        prenoms:
+                          title: Prénoms
+                          type: string
+                          description: Prénoms de l'enfant
+                          example: JEAN-PIERRE THOMAS
+                        anneeDateDeNaissance:
+                          title: Année de naissance
+                          type: string
+                          example: '2000'
+                          description: Année de la date de naissance de l'enfant.
+                            Peut-être vide si inconnue.
+                          nullable: true
+                        moisDateDeNaissance:
+                          title: Mois de naissance
+                          type: string
+                          example: '01'
+                          description: Mois de la date de naissance de l'enfant. Peut-être
+                            vide si inconnue.
+                          nullable: true
+                        jourDateDeNaissance:
+                          title: Jour de naissance
+                          type: string
+                          example: '31'
+                          description: Jour de la date de naissance de l'enfant. Peut-être
+                            vide si inconnue.
+                          nullable: true
+                        sexe:
+                          title: Sexe
+                          type: string
+                          description: Sexe de l'enfant
+                          example: M
+                          enum:
+                          - F
+                          - M
+                  adresse:
+                    title: Adresse de la famille
+                    type: object
+                    description: Adresse au format de la poste
+                    properties:
+                      identite:
+                        title: Identité du destinataire
+                        type: string
+                        example: Monsieur JEAN JACQUES
+                        description: 'Identité du destinataire : Civilité, titre ou
+                          qualité + nom et prénom'
+                      complementInformation:
+                        title: Complément d'information du destinataire ou point de
+                          remise
+                        description: Complément d'information du destinataire ou point
+                          de remise.
+                        type: string
+                        nullable: true
+                        example: 
+                      complementInformationGeographique:
+                        title: Complément d'information du point géographique
+                        type: string
+                        nullable: true
+                        example: 
+                        description: Complément d'information du point géographique.
+                      numeroLibelleVoie:
+                        title: Voie
+                        type: string
+                        description: Numéro et libellé de la voie
+                        example: 1 RUE DE LA GARE
+                        nullable: true
+                      lieuDit:
+                        title: Lieu-dit
+                        type: string
+                        nullable: true
+                        example: 
+                        description: 'Lieu-dit ou service particulier de distribution
+                          : poste restante, boîte postale'
+                      codePostalVille:
+                        title: Code postal
+                        type: string
+                        description: Code postale et localité de destination
+                        example: '75002'
+                      pays:
+                        title: Pays
+                        type: string
+                        description: Pays
+                        example: FRANCE
+                    required:
+                    - identite
+                    - complementInformation
+                    - complementInformationGeographique
+                    - numeroLibelleVoie
+                    - lieuDit
+                    - codePostalVille
+                    - pays
+                  regime:
+                    title: Régime de l'allocataire
                     type: string
-                    description: "Indique si le particulier est bénéficiaire de la
-                      complémentaire de santé solidaire au moment de l'appel. Cet
-                      indicateur précise sous quelle forme la C2S est attribuée (avec
-                      ou sans participation financière). \n \n - Si le statut est
-                      'beneficiaire_sans_participation_financiere', cela signifie
-                      que le particulier est bénéficiaire d'une C2S sans participation
-                      financière. \n - Si le statut est 'beneficiaire_avec_participation_financiere',
-                      cela signifie que le particulier est d'une bénéficiaire de C2S
-                      avec participation financière. \n - Si le statut est 'non_beneficiaire_css',
-                      cela signifie que le particulier n'est pas concerné par la C2S."
+                    description: Précise le régime de l'allocataire (CNAF ou MSA)
+                    example: MSA
                     enum:
-                    - beneficiaire_sans_participation_financiere
-                    - beneficiaire_avec_participation_financiere
-                    - non_beneficiaire_css
-                  dateDebut:
-                    title: Date d'ouverture du droit à la C2S
-                    type: string
-                    nullable: true
-                    description: "Date de début de droit à la complémentaire santé
-                      solidaire (C2S) si le particulier est bénéficiaire. \n Ce champs
-                      est null dans le cas où le particulier n'est pas bénéficiaire
-                      de la C2S."
-                    example: '1992-11-29'
-                  dateFin:
-                    title: Date de fermeture du droit à la C2S
-                    type: string
-                    nullable: true
-                    description: "Date de fin de droit à la complémentaire santé solidaire
-                      (C2S) du particulier bénéficiaire. \n Ce champs est calculé
-                      en ajoutant 12 mois à la date de début de droit à la C2S. \n
-                      Ce champs sera null dans le cas où le particulier n'est pas
-                      bénéficiaire de la C2S."
-                    example: '1993-11-29'
+                    - CNAF
+                    - MSA
+                  quotientFamilial:
+                    title: Quotient familial CAF ou MSA
+                    type: integer
+                    description: Valeur du quotient familial calculé par la CAF ou
+                      la MSA
+                    example: 1045
+                  annee:
+                    title: Année du quotient familial
+                    type: integer
+                    description: Année de calcul du quotient familial
+                    example: 2021
+                  mois:
+                    title: Mois du quotient familial
+                    type: integer
+                    description: Mois de calcul du quotient familial
+                    example: 6
+                  annee_calcul:
+                    title: Année du calcul du quotient familial
+                    type: integer
+                    description: Année à laquelle le quotient familial a été calculé
+                    example: 2021
+                  mois_calcul:
+                    title: Mois du calcul du quotient familial
+                    type: integer
+                    description: Mois auquel le quotient familial a été calculé
+                    example: 3
         '400':
           description: Mauvais paramètres d'appels
           content:
             application/json:
-              schema:
-                "$ref": "#/components/schemas/Error"
-        '401':
-          description: Votre jeton d'Api n'a pas été trouvé ou n'est pas actif
-          content:
-            application/json:
+              examples:
+                unprocessable_entity_error_gender_error:
+                  value:
+                    errors:
+                    - code: '00364'
+                      title: Entité non traitable
+                      detail: Le sexe n'est pas correctement formaté (m ou f)
+                      source: 
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le sexe n'est pas correctement formaté (m ou f)
               schema:
                 "$ref": "#/components/schemas/Error"
         '404':
-          description: Dossier allocataire inexistant. Le document ne peut être édité.
-          content:
-            application/json:
-              schema:
-                "$ref": "#/components/schemas/Error"
-        '500':
-          description: Une erreur interne s'est produite, l'équipe a été prévenue.
+          description: Dossier complémentaire inexistant. Le document ne peut être
+            édité.
           content:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
         '503':
-          description: Une erreur est survenue lors de l'appel au fournisseur de donnée
+          description: Erreur du fournisseur
           content:
             application/json:
               examples:
@@ -238,6 +395,12 @@ paths:
                   description: La réponse retournée par le fournisseur de données
                     est invalide et inconnue de notre service. L'équipe technique
                     a été notifiée de cette erreur pour investigation.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '504':
+          description: Erreur d'intermédiaire
+          content:
+            application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
   "/api/v2/composition-familiale-v2":
@@ -308,7 +471,8 @@ paths:
           maxLength: 5
           example: '08480'
         description: Code Insee à 5 chiffres du lieu de naissance de la personne sur
-          5 chiffres. Ne pas remplir si la personne est née à l'étranger.
+          5 chiffres. Ne pas remplir si la personne est née à l'étranger. Le champs
+          est obligatoire si la personne est née en France
         required: false
       - name: codePaysLieuDeNaissance
         in: query
@@ -562,7 +726,7 @@ paths:
                     - code: '00364'
                       title: Entité non traitable
                       detail: Le sexe n'est pas correctement formaté (m ou f)
-                      source:
+                      source: 
                       meta: {}
                   summary: Entité non traitable
                   description: Le sexe n'est pas correctement formaté (m ou f)
@@ -909,7 +1073,7 @@ paths:
                     - code: '00380'
                       title: Entité non traitable
                       detail: L'identifiant Pole Emploi est manquant
-                      source:
+                      source: 
                       meta: {}
                   summary: Entité non traitable
                   description: L'identifiant Pole Emploi est manquant
@@ -934,7 +1098,7 @@ paths:
                       detail: La réponse retournée par le fournisseur de données est
                         invalide et inconnue de notre service. L'équipe technique
                         a été notifiée de cette erreur pour investigation.
-                      source:
+                      source: 
                       meta:
                         provider: Pôle Emploi
                   summary: Erreur inconnue du fournisseur de données
