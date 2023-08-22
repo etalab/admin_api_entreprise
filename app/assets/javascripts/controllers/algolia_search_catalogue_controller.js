@@ -54,18 +54,27 @@ document.addEventListener("turbo:load", function () {
         var entriesInResult = [];
         var query = event.results[0].query;
 
+        if (query === "") {
+          return;
+        }
+
+        var container = document.querySelector(
+          "[data-algolia-search-catalogue-hit]"
+        ).parentElement;
+
         event.results[0].hits.forEach(function (hit) {
           entriesInResult = controller._handleHit(
             controller,
             hit,
-            entriesInResult
+            entriesInResult,
+            container
           );
         });
 
         controller._hideEntriesNotInResult(entriesInResult);
       }
 
-      _handleHit(controller, hit, entriesInResult) {
+      _handleHit(controller, hit, entriesInResult, container) {
         var entry = document.querySelector(
           "[data-algolia-search-catalogue-hit='" + hit.objectID + "']"
         );
@@ -82,6 +91,9 @@ document.addEventListener("turbo:load", function () {
               element
             );
           });
+
+        container.removeChild(entry);
+        container.appendChild(entry);
 
         entry.classList.remove("fr-hidden");
 
