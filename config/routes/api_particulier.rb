@@ -3,6 +3,7 @@ constraints(APIParticulierDomainConstraint.new) do
 
   scope module: :api_particulier do
     get '/auth/api_gouv_particulier/callback', to: 'sessions#create_from_oauth'
+    get '/auth/failure', to: 'sessions#failure'
     get '/robots.txt', to: ->(env) { [200, {}, URI.open('config/seo/api-particulier/robots.txt')] }
   end
 
