@@ -87,7 +87,7 @@ RSpec.describe 'the signin process', app: :api_entreprise do
   context 'when API Gouv authentication fails' do
     before do
       OmniAuth.config.test_mode = true
-      OmniAuth.config.mock_auth[:api_gouv] = :invalid_credentials
+      OmniAuth.config.mock_auth[:api_gouv_entreprise] = :invalid_credentials
     end
 
     after { OmniAuth.config.test_mode = false }
@@ -98,6 +98,6 @@ RSpec.describe 'the signin process', app: :api_entreprise do
       expect(page).to have_current_path(login_path, ignore_query: true)
     end
 
-    it_behaves_like 'display alert', :info
+    it_behaves_like 'display alert', :error
   end
 end

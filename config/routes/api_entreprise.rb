@@ -17,6 +17,7 @@ constraints(APIEntrepriseDomainConstraint.new) do
     get '/stats', to: 'stats#index'
 
     get '/auth/api_gouv_entreprise/callback', to: 'sessions#create_from_oauth'
+    get '/auth/failure', to: 'sessions#failure'
 
     get '/compte/se-connecter', to: 'sessions#new', as: :login
     get '/compte/se-connecter/lien-magique', to: 'sessions#create_from_magic_link', as: :login_magic_link
