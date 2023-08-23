@@ -43,13 +43,19 @@ RSpec.describe APIParticulier::User::OAuthLogin, type: :organizer do
   end
 
   context 'when the user exists in the database' do
-    let(:user) { create(:user) }
+    let!(:user) { create(:user) }
     let(:oauth_api_gouv_id) { user.oauth_api_gouv_id }
 
     it { is_expected.to be_a_success }
 
+    it 'does not create a new user' do
+      expect {
+        sync!
+      }.not_to change(User, :count)
+    end
+
     context 'when the user does not have a known API Gouv ID' do
-      let(:user) { create(:user, oauth_api_gouv_id: nil) }
+      let!(:user) { create(:user, oauth_api_gouv_id: nil) }
       let(:oauth_api_gouv_id) { '1234' }
 
       it { is_expected.to be_a_success }
