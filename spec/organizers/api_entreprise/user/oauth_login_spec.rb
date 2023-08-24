@@ -16,7 +16,6 @@ RSpec.describe APIEntreprise::User::OAuthLogin, type: :organizer do
       email: user.email,
       family_name: user.last_name,
       given_name: user.first_name,
-      phone_number: user.phone_number,
       sub: user.oauth_api_gouv_id || unknown_api_gouv_id
     )
   end
@@ -36,7 +35,7 @@ RSpec.describe APIEntreprise::User::OAuthLogin, type: :organizer do
 
       latest_user = User.last
 
-      %w[email first_name last_name phone_number].each do |attr|
+      %w[email first_name last_name].each do |attr|
         expect(latest_user.send(attr)).to eq(user.send(attr))
       end
     end

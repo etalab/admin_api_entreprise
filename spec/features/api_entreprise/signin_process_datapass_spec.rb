@@ -14,7 +14,6 @@ RSpec.describe 'the signin process', app: :api_entreprise do
           email: user.email,
           family_name: user.last_name,
           given_name: user.first_name,
-          phone_number: user.phone_number,
           sub: user.oauth_api_gouv_id || unknown_api_gouv_id
         }
       })
@@ -33,7 +32,7 @@ RSpec.describe 'the signin process', app: :api_entreprise do
 
           latest_user = User.last
 
-          %w[email first_name last_name phone_number].each do |attr|
+          %w[email first_name last_name].each do |attr|
             expect(latest_user.send(attr)).to eq(user.send(attr))
           end
 

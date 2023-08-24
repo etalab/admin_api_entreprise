@@ -16,8 +16,7 @@ class User
       {
         last_name: user_params['family_name'],
         first_name: user_params['given_name'],
-        email: api_gouv_email,
-        phone_number: user_params['phone_number']
+        email: api_gouv_email
       }
     end
 
