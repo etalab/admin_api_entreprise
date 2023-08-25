@@ -2,7 +2,7 @@ class User < ApplicationRecord
   self.ignored_columns += %w[cgu_agreement_date note context pwd_renewal_token pwd_renewal_token_sent_at]
 
   has_many :user_authorization_request_roles, dependent: :destroy
-  has_many :authorization_requests, through: :user_authorization_request_roles
+  has_many :authorization_requests, -> { distinct.reorder(:created_at) }, through: :user_authorization_request_roles
 
   has_many :tokens, through: :authorization_requests
 
