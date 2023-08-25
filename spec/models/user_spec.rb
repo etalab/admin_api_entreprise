@@ -78,4 +78,15 @@ RSpec.describe User do
       its(:email) { is_expected.to eq 'email_with@case.com' }
     end
   end
+
+  describe 'authorization_requests association' do
+    subject { user.authorization_requests }
+
+    let!(:authorization_request) { create(:authorization_request, :with_demandeur, :with_contact_metier, demandeur: user, contact_metier: user) }
+
+    it 'sorts only once the authorization request' do
+      expect(subject).to include(authorization_request)
+      expect(subject.size).to eq(1)
+    end
+  end
 end

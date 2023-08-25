@@ -18,16 +18,6 @@ RSpec.describe AuthorizationRequest do
     end
   end
 
-  describe 'authorization_request_for scope' do
-    subject { described_class.authorization_requests_for('entreprise') }
-
-    let!(:authorization_requests_entreprise) { create(:authorization_request, api: 'entreprise') }
-    let!(:authorization_requests_particulier) { create(:authorization_request, api: 'particulier') }
-
-    it { is_expected.to include(*authorization_requests_entreprise) }
-    it { is_expected.not_to include(authorization_requests_particulier) }
-  end
-
   describe 'active_token associations' do
     let(:authorization_request) do
       create(:authorization_request, :with_multiple_tokens_one_valid)
