@@ -48,14 +48,23 @@ RSpec.describe 'User attestations through tokens', app: :api_entreprise do
 
     let(:token_intitule) { user.token.intitule }
     let(:facade_double) { instance_double(EntrepriseWithAttestationsFacade, retrieve_company: nil, retrieve_attestation_sociale: nil, retrieve_attestation_fiscale: nil) }
-    let(:entreprise) { Entreprise.new(payload_entreprise['entreprise']) }
+    let(:entreprise) { Entreprise.new(JSON.parse(payload_entreprise)['data'].slice(*entreprise_interesting_fields)) }
+    let(:entreprise_interesting_fields) { %w[personne_morale_attributs activite_principale forme_juridique categorie_entreprise] }
     let(:user) { create(:user, :with_token, scopes: ['attestations_fiscales']) }
     let(:siren) { siren_valid }
 
     before do
       allow(EntrepriseWithAttestationsFacade).to receive(:new).and_return(facade_double)
 
-      allow(facade_double).to receive_messages(entreprise:, entreprise_raison_sociale: entreprise.raison_sociale, entreprise_forme_juridique: entreprise.forme_juridique, categorie_entreprise: entreprise.categorie_entreprise, entreprise_naf_full: 'whatever', attestation_fiscale_url: payload_attestation_fiscale['url'], attestation_sociale_url: payload_attestation_sociale['url'])
+      allow(facade_double).to receive_messages(
+        entreprise:,
+        entreprise_raison_sociale: 'raison_sociale',
+        entreprise_forme_juridique_libelle: 'forme_juridique_libelle',
+        categorie_entreprise: 'categorie_entreprise',
+        entreprise_naf_full: 'whatever',
+        attestation_fiscale_url: 'attestation-fiscale-url',
+        attestation_sociale_url: 'attestation-sociale-url'
+      )
     end
 
     context 'when user search a valid siren which works for all endpoints' do
@@ -64,14 +73,13 @@ RSpec.describe 'User attestations through tokens', app: :api_entreprise do
       end
 
       it 'shows company name' do
-        expect(page).to have_content('dummy name')
+        expect(page).to have_content('raison_sociale')
       end
 
       context 'when selected token has one attestation scope' do
         it 'shows link to download this attestation only, not the other' do
           expect(page).not_to have_link('attestation-sociale-download')
-          expect(page).to have_link('attestation-fiscale-download',
-            href: 'http://entreprise.api.gouv.fr/uploads/attestation_fiscale.pdf')
+          expect(page).to have_link('attestation-fiscale-download', href: 'attestation-fiscale-url')
         end
       end
 
@@ -81,10 +89,8 @@ RSpec.describe 'User attestations through tokens', app: :api_entreprise do
         end
 
         it 'shows both links to download attestations' do
-          expect(page).to have_link('attestation-sociale-download',
-            href: 'http://entreprise.api.gouv.fr/uploads/attestation_sociale.pdf')
-          expect(page).to have_link('attestation-fiscale-download',
-            href: 'http://entreprise.api.gouv.fr/uploads/attestation_fiscale.pdf')
+          expect(page).to have_link('attestation-sociale-download', href: 'attestation-sociale-url')
+          expect(page).to have_link('attestation-fiscale-download', href: 'attestation-fiscale-url')
         end
       end
     end
@@ -131,8 +137,7 @@ RSpec.describe 'User attestations through tokens', app: :api_entreprise do
       end
 
       it 'allows to download attestation fiscale' do
-        expect(page).to have_link('attestation-fiscale-download',
-          href: 'http://entreprise.api.gouv.fr/uploads/attestation_fiscale.pdf')
+        expect(page).to have_link('attestation-fiscale-download', href: 'attestation-fiscale-url')
       end
 
       it 'shows error' do

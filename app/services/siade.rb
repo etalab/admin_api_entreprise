@@ -11,19 +11,19 @@ class Siade
   def entreprises(siren:)
     check_presence!(siren)
 
-    siade_result("v2/entreprises/#{siren}")
+    siade_result("v3/insee/sirene/unites_legales/#{siren}")
   end
 
   def attestations_sociales(siren:)
     check_presence!(siren)
 
-    siade_result("v2/attestations_sociales_acoss/#{siren}")
+    siade_result("v4/urssaf/unites_legales/#{siren}/attestation_vigilance")
   end
 
   def attestations_fiscales(siren:)
     check_presence!(siren)
 
-    siade_result("v2/attestations_fiscales_dgfip/#{siren}")
+    siade_result("v4/dgfip/unites_legales/#{siren}/attestation_fiscale")
   end
 
   private
@@ -33,7 +33,7 @@ class Siade
 
     result = siade_request(endpoint)
 
-    JSON.parse(result)
+    JSON.parse(result).try(:[], 'data')
   end
 
   def siade_request(endpoint)

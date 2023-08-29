@@ -1,9 +1,16 @@
 class Entreprise
   include ActiveModel::Model
 
-  attr_accessor :raison_sociale,
-    :naf_entreprise,
-    :libelle_naf_entreprise,
+  attr_accessor :personne_morale_attributs,
+    :activite_principale,
     :forme_juridique,
     :categorie_entreprise
+
+  def forme_juridique_libelle
+    forme_juridique[:libelle]
+  end
+
+  def raison_sociale
+    personne_morale_attributs[:raison_sociale]
+  end
 end
