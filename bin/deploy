@@ -6,9 +6,10 @@ git stash && \
   git checkout master && \
   git fetch origin &&
   git pull origin master && \
-  bundle install && \
   ssh -A watchdoge1 -- /usr/local/bin/rails_deploy_admin_apientreprise_production.sh &&
   ssh -A watchdoge2 -- /usr/local/bin/rails_deploy_admin_apientreprise_production.sh &&
+  ssh -A watchdoge1 -- /usr/local/bin/rails_deploy_admin_apientreprise_staging.sh &&
+  ssh -A watchdoge2 -- /usr/local/bin/rails_deploy_admin_apientreprise_staging.sh &&
   git tag releases/$(date +"%Y-%m-%d--%H-%M") master && \
   git push --tags && \
   git checkout $current_branch && \
