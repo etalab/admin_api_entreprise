@@ -21,17 +21,18 @@ class EntrepriseWithAttestationsFacade
   end
 
   def entreprise_naf_full
-    "#{entreprise.naf_entreprise} - #{entreprise.libelle_naf_entreprise}"
+    "#{entreprise.activite_principale[:code]} - #{entreprise.activite_principale[:libelle]}"
   end
 
-  delegate :raison_sociale, :forme_juridique, to: :entreprise, prefix: true
+  delegate :raison_sociale, to: :entreprise, prefix: true
+  delegate :forme_juridique_libelle, to: :entreprise, prefix: true
   delegate :categorie_entreprise, to: :entreprise
 
   private
 
   def entreprise_result
     entreprise_interesting_keys = entreprise_payload.slice(
-      :raison_sociale, :naf_entreprise, :libelle_naf_entreprise, :forme_juridique, :categorie_entreprise
+      :personne_morale_attributs, :activite_principale, :forme_juridique, :categorie_entreprise
     )
 
     Entreprise.new(entreprise_interesting_keys)
@@ -39,16 +40,15 @@ class EntrepriseWithAttestationsFacade
 
   def entreprise_payload
     response = siade_client.entreprises(siren:)
-
-    response['entreprise'].transform_keys(&:to_sym)
+    response.deep_transform_keys(&:to_sym)
   end
 
   def attestation_sociale_result
-    siade_client.attestations_sociales(siren:)['url']
+    siade_client.attestations_sociales(siren:)['document_url']
   end
 
   def attestation_fiscale_result
-    siade_client.attestations_fiscales(siren:)['url']
+    siade_client.attestations_fiscales(siren:)['document_url']
   end
 
   def siade_client

@@ -21,17 +21,17 @@ RSpec.describe Siade, type: :service do
   describe '#entreprise', type: :request do
     subject { described_class.new(token:).entreprises(siren:) }
 
-    let(:endpoint_url) { "#{siade_url}/v2/entreprises/#{siren}" }
+    let(:endpoint_url) { "#{siade_url}/v3/insee/sirene/unites_legales/#{siren}" }
 
     describe 'happy path' do
       before do
         stub_request(:get, endpoint_url)
           .with(query: siade_params, headers: siade_headers)
-          .to_return(status: 200, body: payload_entreprise.to_json)
+          .to_return(status: 200, body: payload_entreprise)
       end
 
       it 'returns correct result' do
-        expect(subject['entreprise']['raison_sociale']).to eq('dummy name')
+        expect(subject['personne_morale_attributs']['raison_sociale']).to eq('DIRECTION INTERMINISTERIELLE DU NUMERIQUE')
       end
     end
 
@@ -63,17 +63,17 @@ RSpec.describe Siade, type: :service do
   describe '#attestations_sociales', type: :request do
     subject { described_class.new(token:).attestations_sociales(siren:) }
 
-    let(:endpoint_url) { "#{siade_url}/v2/attestations_sociales_acoss/#{siren}" }
+    let(:endpoint_url) { "#{siade_url}/v4/urssaf/unites_legales/#{siren}/attestation_vigilance" }
 
     describe 'happy path' do
       before do
         stub_request(:get, endpoint_url)
           .with(query: siade_params, headers: siade_headers)
-          .to_return(status: 200, body: payload_attestation_sociale.to_json)
+          .to_return(status: 200, body: payload_attestation_sociale)
       end
 
       it 'returns correct result' do
-        expect(subject['url']).to eq('http://entreprise.api.gouv.fr/uploads/attestation_sociale.pdf')
+        expect(subject['document_url']).to eq('https://storage.entreprise.api.gouv.fr/url-de-telechargement-attestation-vigilance.pdf')
       end
     end
 
@@ -105,17 +105,17 @@ RSpec.describe Siade, type: :service do
   describe '#attestations_fiscales', type: :request do
     subject { described_class.new(token:).attestations_fiscales(siren:) }
 
-    let(:endpoint_url) { "#{siade_url}/v2/attestations_fiscales_dgfip/#{siren}" }
+    let(:endpoint_url) { "#{siade_url}/v4/dgfip/unites_legales/#{siren}/attestation_fiscale" }
 
     describe 'happy path' do
       before do
         stub_request(:get, endpoint_url)
           .with(query: siade_params, headers: siade_headers)
-          .to_return(status: 200, body: payload_attestation_fiscale.to_json)
+          .to_return(status: 200, body: payload_attestation_fiscale)
       end
 
       it 'returns correct result' do
-        expect(subject['url']).to eq('http://entreprise.api.gouv.fr/uploads/attestation_fiscale.pdf')
+        expect(subject['document_url']).to eq('https://entreprise.api.gouv.fr/files/attestation-fiscale-dgfip-exemple.pdf')
       end
     end
 

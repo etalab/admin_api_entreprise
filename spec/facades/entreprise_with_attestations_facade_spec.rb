@@ -15,24 +15,24 @@ RSpec.describe EntrepriseWithAttestationsFacade do
 
   describe 'entreprise data' do
     before do
-      allow(siade_double).to receive(:entreprises).and_return(payload_entreprise)
+      allow(siade_double).to receive(:entreprises).and_return(JSON.parse(payload_entreprise)['data'])
       subject.retrieve_company
     end
 
-    its(:entreprise_raison_sociale) { is_expected.to eq('dummy name') }
-    its(:entreprise_forme_juridique) { is_expected.to eq('dummy forme juridique') }
-    its(:categorie_entreprise) { is_expected.to eq('dummy cat. entreprise') }
-    its(:entreprise_naf_full) { is_expected.to eq('dummy naf - dummy libelle naf') }
+    its(:entreprise_raison_sociale) { is_expected.to eq('DIRECTION INTERMINISTERIELLE DU NUMERIQUE') }
+    its(:entreprise_forme_juridique_libelle) { is_expected.to eq("Service central d'un ministère") }
+    its(:categorie_entreprise) { is_expected.to eq('GE') }
+    its(:entreprise_naf_full) { is_expected.to eq('8411Z - Administration publique générale') }
   end
 
   describe '#attestation_sociale_url' do
     before do
-      allow(siade_double).to receive(:attestations_sociales).and_return(payload_attestation_sociale)
+      allow(siade_double).to receive(:attestations_sociales).and_return(JSON.parse(payload_attestation_sociale)['data'])
       subject.retrieve_attestation_sociale
     end
 
     context 'when token has attestations_sociales scope' do
-      its(:attestation_sociale_url) { is_expected.to eq('http://entreprise.api.gouv.fr/uploads/attestation_sociale.pdf') }
+      its(:attestation_sociale_url) { is_expected.to eq('https://storage.entreprise.api.gouv.fr/url-de-telechargement-attestation-vigilance.pdf') }
     end
 
     context 'when token does not have attestations_sociales scope' do
@@ -44,12 +44,12 @@ RSpec.describe EntrepriseWithAttestationsFacade do
 
   describe '#attestation_fiscale_url' do
     before do
-      allow(siade_double).to receive(:attestations_fiscales).and_return(payload_attestation_fiscale)
+      allow(siade_double).to receive(:attestations_fiscales).and_return(JSON.parse(payload_attestation_fiscale)['data'])
       subject.retrieve_attestation_fiscale
     end
 
     context 'when token has attestations_fiscales scope' do
-      its(:attestation_fiscale_url) { is_expected.to eq('http://entreprise.api.gouv.fr/uploads/attestation_fiscale.pdf') }
+      its(:attestation_fiscale_url) { is_expected.to eq('https://entreprise.api.gouv.fr/files/attestation-fiscale-dgfip-exemple.pdf') }
     end
 
     context 'when token does not have attestations_fiscales scope' do
