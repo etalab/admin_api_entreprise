@@ -14,9 +14,10 @@ RSpec.describe TokenExpirationNoticeJob do
     end
   end
 
-  it_behaves_like 'sending expiration notices', 90
-  it_behaves_like 'sending expiration notices', 60
-  it_behaves_like 'sending expiration notices', 30
-  it_behaves_like 'sending expiration notices', 14
   it_behaves_like 'sending expiration notices', 0
+  it_behaves_like 'sending expiration notices', 7
+  it_behaves_like 'sending expiration notices', 14
+  it_behaves_like 'sending expiration notices', 30
+  it_behaves_like 'sending expiration notices', 60
+  it_behaves_like 'sending expiration notices', 90
 end
