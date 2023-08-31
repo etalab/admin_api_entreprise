@@ -37,8 +37,7 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
 
     user.assign_attributes(
       last_name: contact_payload['family_name'],
-      first_name: contact_payload['given_name'],
-      phone_number: contact_payload['phone_number']
+      first_name: contact_payload['given_name']
     )
 
     user

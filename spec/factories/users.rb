@@ -5,8 +5,6 @@ FactoryBot.define do
     email
     sequence(:oauth_api_gouv_id, &:to_s)
 
-    phone_number { '0606060606' }
-
     trait :with_full_name do
       first_name { 'Jean-Marie' }
       last_name { 'Gigot' }

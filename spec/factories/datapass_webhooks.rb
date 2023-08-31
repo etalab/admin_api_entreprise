@@ -72,7 +72,6 @@ FactoryBot.define do
     sequence(:id, &:to_s)
     sequence(:uid) { |n| "uid#{n}" }
     type { 'demandeur' }
-    phone_number { '0256743256' }
 
     after(:build) do |team_member_model|
       team_member_model['family_name'] ||= "#{team_member_model['type']} last name"

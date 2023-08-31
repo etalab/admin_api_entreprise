@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  self.ignored_columns += %w[phone_number]
+
   has_many :user_authorization_request_roles, dependent: :destroy
   has_many :authorization_requests, -> { distinct.reorder(:created_at) }, through: :user_authorization_request_roles
 
