@@ -1,11 +1,13 @@
 <div class="fr-col-xs-12 fr-col-sm-6 fr-col-lg-3 fr-p-2v" id="<%= dom_id(endpoint) %>">
   <article class="endpoint-card fr-grid-card">
-     <header>
+    <header>
       <div>
         <% if endpoint.incoming? %>
           <p class="fr-badge fr-badge--new">prochainement</p>
         <% elsif endpoint.beta? %>
           <p class="fr-badge fr-badge--new fr-badge--green-bourgeon">Version Beta</p>
+        <% elsif endpoint.novelty? %>
+          <p class="fr-badge fr-badge--new fr-badge--blue-ecume">Nouveauté</p>
         <% end %>
       </div>
       <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--start">

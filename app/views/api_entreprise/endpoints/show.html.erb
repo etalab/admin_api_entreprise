@@ -6,6 +6,8 @@
       <p class="fr-badge fr-badge--new">prochainement</p>
     <% elsif @endpoint.beta? %>
       <p class="fr-badge fr-badge--green-bourgeon fr-badge--new">Version beta</p>
+    <% elsif endpoint.novelty? %>
+      <p class="fr-badge fr-badge--new fr-badge--blue-ecume">Nouveauté</p>
     <% end %>
   </h1>
 
