@@ -50,7 +50,6 @@ class Seeds
   def create_main_user
     create_user(
       email: @user_email,
-      phone_number: '0936656565',
       first_name: 'Jean',
       last_name: 'Dupont'
     )
@@ -59,7 +58,6 @@ class Seeds
   def create_contact
     create_user(
       email: @contact_email,
-      phone_number: '0782112233',
       first_name: 'Justine',
       last_name: 'Martin'
     )

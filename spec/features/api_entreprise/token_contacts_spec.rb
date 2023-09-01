@@ -15,14 +15,12 @@ RSpec.describe 'token contacts page', app: :api_entreprise do
     it 'displays the metier contact data' do
       within('#' << dom_id(contact_metier)) do
         expect(page).to have_css("input[value='#{contact_metier.email}']")
-        expect(page).to have_css("input[value='#{contact_metier.phone_number}']")
       end
     end
 
     it 'displays the tech contact data' do
       within('#' << dom_id(contact_technique)) do
         expect(page).to have_css("input[value='#{contact_technique.email}']")
-        expect(page).to have_css("input[value='#{contact_technique.phone_number}']")
       end
     end
   end
@@ -59,7 +57,6 @@ RSpec.describe 'token contacts page', app: :api_entreprise do
 
     it 'do not displays the metier contact data' do
       expect(page).not_to have_css("input[value='#{contact_technique.email}']")
-      expect(page).not_to have_css("input[value='#{contact_technique.phone_number}']")
     end
 
     context 'when accessing his own data' do
