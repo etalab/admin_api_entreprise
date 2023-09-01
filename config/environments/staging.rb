@@ -110,8 +110,7 @@ Rails.application.configure do
 
   # OAuth API Gouv config
   config.oauth_api_gouv_client_id_entreprise =  '4442bfd8caac8e19ff202d33060edcd248592662d5a8098e28b706ba906fe9e0db95ad336c38248f42896db272990b8dfc969d8b8857101dabf9b2ffe7ec49b9'
-  config.oauth_api_gouv_client_id_particulier =  'ebb9ff029a784fdda0b209769beb68b02cbeda4d5299da111fe9b8d71b3d2d9223953f0346effc467fb1c94fb8ede5d7edb3aaf1b3bc0a1f24b0d844bf9866e4'
-
-  config.oauth_api_gouv_issuer = 'https://app-staging.moncomptepro.beta.gouv.fr'
-  config.oauth_api_gouv_baseurl = 'https://app-staging.moncomptepro.beta.gouv.fr'
+  config.oauth_api_gouv_client_id_particulier =  '95acc71c59fe4484f90668912bbb81239f0d7680d8ef3704e0bf4bc11b11a7a4ef92e72e2d695080cc7f60088bbcffd0bd049fb024dcec8679b6616599e128bc'
+  config.oauth_api_gouv_issuer = 'https://app-test.moncomptepro.beta.gouv.fr'
+  config.oauth_api_gouv_baseurl = 'https://app-test.moncomptepro.beta.gouv.fr'
 end
