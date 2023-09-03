@@ -1,4 +1,8 @@
 constraints(APIParticulierDomainConstraint.new) do
+  namespace :api do
+    post '/datapass/api_particulier/webhook' => 'datapass_webhooks#api_particulier'
+  end
+
   post '/auth/api_gouv_particulier', as: :login_api_gouv_particulier
 
   scope module: :api_particulier do
