@@ -90,6 +90,13 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
     novelty.present? && novelty
   end
 
+  def pending_status
+    return 'novelty' if novelty?
+    return 'beta' if beta?
+
+    'incoming' if incoming?
+  end
+
   def new_endpoints
     return [] if !deprecated? || @new_endpoint_uids.blank?
 

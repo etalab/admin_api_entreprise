@@ -2,13 +2,7 @@
   <article class="endpoint-card fr-grid-card">
     <header>
       <div>
-        <% if endpoint.incoming? %>
-          <p class="fr-badge fr-badge--new">prochainement</p>
-        <% elsif endpoint.beta? %>
-          <p class="fr-badge fr-badge--new fr-badge--green-bourgeon">Version Beta</p>
-        <% elsif endpoint.novelty? %>
-          <p class="fr-badge fr-badge--new fr-badge--blue-ecume">Nouveauté</p>
-        <% end %>
+        <%= endpoint_status_badge(endpoint) %>
       </div>
       <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--start">
         <div class="fr-col-8">
