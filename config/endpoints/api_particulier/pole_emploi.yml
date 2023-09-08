@@ -84,7 +84,14 @@
   path: '/api/v2/paiements-pole-emploi'
   position: 501
   perimeter:
-    entity_type_description: *pole_emploi__entity_type_description
+    entity_type_description: |+
+      L'API concerne **les demandeurs d'emploi ayant été inscrits à Pôle emploi depuis 2010**, y compris ceux dont l'inscription a pris fin.
+
+      **Seules les cinq premières catégories de demandeurs d'emploi sont concernées** par l'API :
+      - ✅ en recherche d'emploi ;
+      - ✅ disponibles immédiatement ;
+      - ✅ non-tenus de faire des actes positifs de recherche d’emploi.
+
     geographical_scope_description: *pole_emploi_geographical_scope_description
     updating_rules_description: Les données sont **mises à jour en temps réel**, l'API étant directement reliée au système d'information de Pôle emploi.Les informations obtenues sont représentatives de la situation à date des paiements versés au demandeur d'emploi.
   parameters_details: 
