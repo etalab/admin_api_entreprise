@@ -1,9 +1,9 @@
-class DatapassWebhook::ArchiveCurrentToken < ApplicationInteractor
+class DatapassWebhook::RevokeCurrentToken < ApplicationInteractor
   def call
-    return unless context.event == 'archive'
+    return unless context.event == 'revoke'
     return unless token_already_exists?
 
-    context.authorization_request.archive!
+    context.authorization_request.blacklist!
   end
 
   private

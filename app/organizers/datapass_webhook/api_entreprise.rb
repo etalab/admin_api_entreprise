@@ -9,6 +9,7 @@ module DatapassWebhook
       ::DatapassWebhook::CreateToken,
       ::DatapassWebhook::ArchivePreviousToken,
       ::DatapassWebhook::ArchiveCurrentToken,
+      ::DatapassWebhook::RevokeCurrentToken,
       ::DatapassWebhook::UpdateMailjetContacts,
       ::DatapassWebhook::ExtractMailjetVariables,
       ::DatapassWebhook::ScheduleAuthorizationRequestEmails
