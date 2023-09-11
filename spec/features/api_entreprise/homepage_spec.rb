@@ -11,7 +11,7 @@ RSpec.describe 'Homepage', app: :api_entreprise do
       expect(page).to have_current_path(url_with_filtering)
     end
 
-    it 'filters on partner', js: true do
+    it 'filters on partner', :js do
       visit url_with_filtering
 
       expect(page).to have_css('#api_entreprise_endpoint_infogreffe_mandataires_sociaux')

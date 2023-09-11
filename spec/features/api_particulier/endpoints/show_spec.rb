@@ -24,7 +24,7 @@ RSpec.describe 'Endpoints show', app: :api_particulier do
   end
 
   describe 'actions' do
-    describe 'click on example', js: true do
+    describe 'click on example', :js do
       it 'opens modal with example' do
         visit endpoint_path(uid:)
 

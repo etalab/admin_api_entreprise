@@ -50,7 +50,7 @@ RSpec.describe 'Endpoints show', app: :api_entreprise do
   end
 
   describe 'actions' do
-    describe 'click on example', js: true do
+    describe 'click on example', :js do
       it 'opens modal with example' do
         visit endpoint_path(uid:)
 
@@ -73,7 +73,7 @@ RSpec.describe 'Endpoints show', app: :api_entreprise do
       end
     end
 
-    describe 'click on cgu', js: true do
+    describe 'click on cgu', :js do
       it 'opens modal with CGU content' do
         visit endpoint_path(uid:)
 

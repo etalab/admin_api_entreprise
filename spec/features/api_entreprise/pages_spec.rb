@@ -33,7 +33,7 @@ RSpec.describe 'Simple pages', app: :api_entreprise do
     end
   end
 
-  describe 'developers redoc page', js: true do
+  describe 'developers redoc page', :js do
     it 'works and displays openapi container' do
       Capybara.using_wait_time 5 do
         expect {

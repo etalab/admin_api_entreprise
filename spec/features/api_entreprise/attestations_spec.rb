@@ -39,7 +39,7 @@ RSpec.describe 'User attestations through tokens', app: :api_entreprise do
     end
   end
 
-  describe 'search', js: true do
+  describe 'search', :js do
     subject(:search) do
       select(token_intitule, from: 'token')
       fill_in('search_siren', with: siren)

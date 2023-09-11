@@ -72,7 +72,7 @@ RSpec.describe 'create a token magic link', app: :api_entreprise do
     end
   end
 
-  describe 'with javascript actived', js: true do
+  describe 'with javascript actived', :js do
     let(:user) { create(:user, :with_token) }
     let(:token) { user.tokens.sample }
 

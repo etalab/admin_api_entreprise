@@ -16,7 +16,7 @@ RSpec.describe 'Endpoints index', app: :api_entreprise do
     end
   end
 
-  describe 'algolia search', js: true do
+  describe 'algolia search', :js do
     subject do
       visit endpoints_path
 

@@ -34,7 +34,7 @@ RSpec.describe 'user profile page', app: :api_entreprise do
       expect(page).to have_css('#transfer_account_button')
     end
 
-    it 'displays authorizations requests which are submitted', js: true do
+    it 'displays authorizations requests which are submitted', :js do
       valid_authorization_request
       invalid_authorization_request
 
