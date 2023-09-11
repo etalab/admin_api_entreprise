@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Status header', app: :api_entreprise, js: true do
+RSpec.describe 'Status header', :js, app: :api_entreprise do
   before do
     allow_any_instance_of(StatusPage).to receive(:current_status).and_return(:up) # rubocop:todo RSpec/AnyInstance
   end

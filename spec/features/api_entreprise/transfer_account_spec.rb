@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'transfer user account ownership', app: :api_entreprise, js: true do
+RSpec.describe 'transfer user account ownership', :js, app: :api_entreprise do
   subject do
     visit user_profile_path
 

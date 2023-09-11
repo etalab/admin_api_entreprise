@@ -9,7 +9,7 @@ RSpec.describe 'FAQ & Support', app: :api_particulier do
     expect(page).to have_css('.faq-entry', count: APIParticulier::FAQEntry.all.count)
   end
 
-  it 'has a button to copy anchors on titles', js: true do
+  it 'has a button to copy anchors on titles', :js do
     APIParticulier::FAQEntry.all do |entry|
       expect(page).to have_css("#button-anchor-#{entry.category.parameterize}"),
         "Missing button copy-anchor on #{entry.category}"
