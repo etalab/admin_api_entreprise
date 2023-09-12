@@ -7,14 +7,17 @@
   position: 200
   perimeter:
     entity_type_description: |+
-      Cette API concerne les **allocataires de la majorité des régimes** :
-      - ✅ le régime général ;
+      **Cette API concerne les allocataires de la majorité des régimes** :
       - ✅ le régime agricole (MSA) ;
-      - ✅ les titulaires de l'éducation nationale ;
-      - ✅ les retraités de la fonction publique d'État et des collectivités locales ;
-      - ✅ les régimes spéciaux suivants : artiste-auteur-compositeur, France Télécom, industries électriques et gazières, marin du commerce et pêche, mines (régime général), poste, RATP, SNCF, navigation intérieure en cas d'accord local et les pensions des autres régimes.
 
-      Ne sont pas concernés par cette API, les bénéficiaires des régimes suivants :
+      **À venir prochainement (T1 2024)** et disponibles durant la transition dans l'[ancienne API](/catalogue/cnaf/quotient_familial) :
+      - ⏳ le régime général ;
+      - ⏳ les titulaires de l'éducation nationale ;
+      - ⏳ les retraités de la fonction publique d'État et des collectivités locales ;
+      - ⏳ les régimes spéciaux suivants : artiste-auteur-compositeur, France Télécom, industries électriques et gazières, marin du commerce et pêche, mines (régime général), poste, RATP, SNCF, navigation intérieure en cas d'accord local et les pensions des autres régimes.
+
+
+      **Ne sont pas concernés par cette API**, les bénéficiaires des régimes suivants :
       
       - ❌ le régime des titulaires de l'Assemblée nationale et du Sénat ;
       - ❌ le régime de la navigation intérieure **sauf** lorsqu'un accord local est passé, et que le régime est alors pris en compte par la CAF.
@@ -45,7 +48,10 @@
     description: |+
       Cette API propose deux modalités d'appel :
       <p class="fr-badge fr-badge--blue-ecume">Identité pivot</p>
-      **Avec les données d'identité** : Noms, prénoms, date de naissance, code Insee de naissance et code pays de naissance de l'allocataire.
+      **Avec les données d'identité** : Noms, prénoms, sexe<sup>\*</sup>, date de naissance, code Insee de naissance (COG)<sup>\**</sup> et code pays de naissance<sup>\*</sup> de l'allocataire.
+      <span class="fr-text--xs">
+      <sup>\*</sup> Obligatoire | <sup>\**</sup> Obligatoire si la personne est née en France.
+      </span>
 
       <p class="fr-badge fr-badge--green-emeraude">FranceConnect</p>
       **Avec FranceConnect**.
