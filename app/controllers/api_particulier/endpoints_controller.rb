@@ -3,6 +3,7 @@ class APIParticulier::EndpointsController < APIParticulierController
 
   def index
     @endpoints = APIParticulier::Endpoint.all.reject(&:deprecated?)
+      .sort { |endpoint1, endpoint2| helpers.order_by_position_or_status(endpoint1, endpoint2) }
 
     render 'index', layout: 'api_particulier/no_container'
   end

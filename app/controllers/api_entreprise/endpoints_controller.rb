@@ -3,6 +3,7 @@ class APIEntreprise::EndpointsController < APIEntrepriseController
 
   def index
     @endpoints = APIEntreprise::Endpoint.all.reject(&:deprecated?)
+      .sort { |endpoint1, endpoint2| helpers.order_by_position_or_status(endpoint1, endpoint2) }
 
     render 'index', layout: 'api_entreprise/no_container'
   end
