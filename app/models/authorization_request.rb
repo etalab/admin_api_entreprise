@@ -57,4 +57,16 @@ class AuthorizationRequest < ApplicationRecord
   def contacts_no_demandeur
     contacts.reject { |user| user == demandeur }
   end
+
+  def archive!
+    token&.update!(archived: true)
+
+    update!(status: 'archived')
+  end
+
+  def blacklist!
+    token&.update!(blacklisted: true)
+
+    update!(status: 'blacklisted')
+  end
 end
