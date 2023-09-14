@@ -68,7 +68,7 @@ jobs:
           minimum_suite_coverage: 95
 
       - name: Import GPG key to sign master push
-        if: github.ref == 'refs/heads/develop'
+        if: github.ref == 'refs/heads/fake_develop'
         id: import_gpg
         uses: crazy-max/ghaction-import-gpg@v6
         with:
@@ -79,10 +79,10 @@ jobs:
           PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Force push develop to master
-        if: github.ref == 'refs/heads/develop'
+        if: github.ref == 'refs/heads/fake_develop'
         run: |
           git reset --hard && \
-            git push --force origin develop:fake_master && \
+            git push --force origin fake_develop:fake_master && \
             git fetch && \
             [[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow
           exit 0
