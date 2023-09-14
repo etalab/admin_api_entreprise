@@ -68,7 +68,7 @@ jobs:
           minimum_suite_coverage: 95
 
       - name: Import GPG key to sign master push
-        if: github.ref == 'refs/heads/develop'
+        if: github.ref == 'refs/heads/fake_develop'
         id: import_gpg
         uses: crazy-max/ghaction-import-gpg@v2
         with:
@@ -79,7 +79,7 @@ jobs:
           PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Force push develop to master
-        if: github.ref == 'refs/heads/develop'
+        if: github.ref == 'refs/heads/fake_develop'
         run: |
           git reset --hard && \
             git push --force origin develop:fake_master && \
