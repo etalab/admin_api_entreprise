@@ -36,7 +36,11 @@
     <%= t('.availability.link') %>
   </a>
   <div class="fr-pt-2w">
+    <% if @endpoint.maintenances.present? %>
+      <%= t('.availability.maintenance', from_hour: @endpoint.maintenances['from_hour'], to_hour: @endpoint.maintenances['to_hour']) %>
+    <% else %>
       <%= t('.availability.no_maintenance') %>
+    <% end %>
   </div>
 
   <h3 class="fr-h5 fr-pt-4w">
