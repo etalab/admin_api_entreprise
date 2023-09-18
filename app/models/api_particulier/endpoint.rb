@@ -7,6 +7,10 @@ class APIParticulier::Endpoint < AbstractEndpoint
     []
   end
 
+  def maintenances
+    open_api_definition['x-maintenances']
+  end
+
   def collection?
     false
   end
