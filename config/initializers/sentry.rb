@@ -1,3 +1,5 @@
+return unless ENV['FRONTAL'] == 'true'
+
 Sentry.init do |config|
   config.dsn = ::Rails.application.credentials.sentry_dsn
 
