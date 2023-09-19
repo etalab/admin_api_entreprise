@@ -17,6 +17,7 @@
           <td style="vertical-align:initial">
             <strong><%= endpoint.providers.map(&:name).join(' & ') %></strong><br>
             <%= endpoint.title %><br>
+            <%= endpoint_status_badge(endpoint) %>
           </td>
           <td style="vertical-align:initial">
             <%= h(endpoint.cas_usage_icon(@cas_usage.name).html_safe) %>
