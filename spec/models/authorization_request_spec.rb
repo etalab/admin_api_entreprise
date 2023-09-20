@@ -18,6 +18,21 @@ RSpec.describe AuthorizationRequest do
     end
   end
 
+  describe '.with_tokens_for scope' do
+    subject { described_class.with_tokens_for('particulier') }
+
+    let!(:authorization_request) do
+      create(:authorization_request, :with_tokens, api: 'particulier')
+      create(:authorization_request, api: 'particulier')
+      create(:authorization_request)
+      create(:authorization_request)
+    end
+
+    it 'returns 1 token with api particulier' do
+      expect(subject.count).to eq(1)
+    end
+  end
+
   describe 'fetch token with the most recent expiration date' do
     let(:authorization_request) do
       create(:authorization_request, :with_multiple_tokens_one_valid)
