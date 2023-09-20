@@ -2,7 +2,8 @@ class APIEntreprise::TokensController < APIEntreprise::AuthenticatedUsersControl
   before_action :extract_token, except: %i[index]
 
   def index
-    @tokens = current_user.tokens.active_for('entreprise')
+    authorization_requests = current_user.authorization_requests.with_tokens_for('entreprise')
+    @tokens = authorization_requests.map(&:token)
   end
 
   def show; end

@@ -39,7 +39,7 @@ RSpec.describe AuthorizationRequest do
     end
 
     it 'returns the tokens that expires the latest' do
-      expect(authorization_request.latest_expiration_token).not_to eq(authorization_request.tokens.first.id)
+      expect(authorization_request.most_recent_token).not_to eq(authorization_request.tokens.first.id)
     end
   end
 

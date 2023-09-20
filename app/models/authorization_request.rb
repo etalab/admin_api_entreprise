@@ -23,10 +23,10 @@ class AuthorizationRequest < ApplicationRecord
   scope :submitted_at_least_once, -> { where.not(first_submitted_at: nil) }
 
   def token
-    active_token || latest_expiration_token
+    active_token || most_recent_token
   end
 
-  def latest_expiration_token
+  def most_recent_token
     tokens.max_by(&:exp)
   end
 
