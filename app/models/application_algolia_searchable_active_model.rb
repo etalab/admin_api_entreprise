@@ -12,7 +12,7 @@ class ApplicationAlgoliaSearchableActiveModel
 
   module ClassMethods
     def algoliasearch_active_model(options = {}, &)
-      algoliasearch(options.merge(id: :dom_id), &)
+      algoliasearch(options.merge(id: :algolia_search_id), &)
     end
 
     def all
@@ -42,7 +42,7 @@ class ApplicationAlgoliaSearchableActiveModel
     fail NotImplementedError
   end
 
-  def dom_id
+  def algolia_search_id
     "#{self.class.name.underscore}_#{id}"
   end
 end
