@@ -45,7 +45,7 @@
 
           <div class="fr-mb-2w">
             <% faq_entries.each do |faq_entry| %>
-              <section class="fr-accordion faq-entry" data-algolia-search-with-accordion-hit="<%= faq_entry.dom_id %>" id="<%= dom_id(faq_entry) %>">
+              <section class="fr-accordion faq-entry" data-algolia-search-with-accordion-hit="<%= faq_entry.algolia_search_id %>" id="<%= dom_id(faq_entry) %>">
                 <h3 class="fr-accordion__title">
                   <button class="fr-accordion__btn" aria-expanded="false" aria-controls="<%= dom_id(faq_entry, :answer) %>">
                     <div data-algolia-search-with-accordion-hit-attribute="question">
