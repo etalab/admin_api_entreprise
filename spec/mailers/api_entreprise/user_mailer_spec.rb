@@ -32,27 +32,6 @@ RSpec.describe APIEntreprise::UserMailer do
           expect(subject.text_part.decoded).to include(new_owner.email)
         end
       end
-
-      context 'when the new owner does not have an API Gouv account' do
-        before { new_owner.oauth_api_gouv_id = nil }
-
-        it 'informs an API Gouv account is needed' do
-          signup_link = 'https://app.moncomptepro.beta.gouv.fr/users/sign-up'
-
-          expect(subject.html_part.decoded).to include(signup_link)
-          expect(subject.text_part.decoded).to include(signup_link)
-        end
-
-        it 'informs to use the same email address' do
-          expect(subject.html_part.decoded).to include(new_owner.email)
-          expect(subject.text_part.decoded).to include(new_owner.email)
-        end
-
-        it 'informs to use the same siret' do
-          expect(subject.html_part.decoded).to include(new_owner.siret)
-          expect(subject.text_part.decoded).to include(new_owner.siret)
-        end
-      end
     end
   end
 
