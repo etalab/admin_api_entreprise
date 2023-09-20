@@ -2,8 +2,9 @@ class APIEntreprise::TokensController < APIEntreprise::AuthenticatedUsersControl
   before_action :extract_token, except: %i[index]
 
   def index
+    @active_tokens = current_user.tokens.active_for('entreprise').sort_by(&:exp).reverse
     authorization_requests = current_user.authorization_requests.with_tokens_for('entreprise')
-    @tokens = authorization_requests.map(&:token)
+    @inactive_tokens = authorization_requests.map(&:token).sort_by(&:exp).reverse - @active_tokens
   end
 
   def show; end
