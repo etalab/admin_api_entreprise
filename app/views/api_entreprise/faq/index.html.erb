@@ -1,4 +1,4 @@
-<div class="fr-grid-row" <%= params[:disable_search].blank? ? 'data-controller=algolia-search-with-accordion' : '' %> data-algolia-search-with-accordion-index-value="APIEntreprise::FAQEntry" data-algolia-search-with-accordion-attributes-to-highlight-value='["question", "answer_markdownify"]'>
+<div class="fr-grid-row" <%= params[:disable_search].blank? ? 'data-controller=algolia-search-with-accordion' : '' %> data-algolia-search-with-accordion-index-value="APIEntreprise_FAQEntry" data-algolia-search-with-accordion-attributes-to-highlight-value='["question", "answer_markdownify"]'>
   <div class="fr-col-12">
     <div class="fr-grid-row fr-mb-2w">
       <div class="fr-col-12">
@@ -8,12 +8,12 @@
       </div>
 
       <div class="fr-col-12 fr-hidden" data-algolia-search-with-accordion-target="searchBox">
-        <div class="fr-search-bar fr-search-bar--lg" role="search">
+        <div class="fr-search-bar fr-search-bar--lg" id="faq_search_input" role="search">
           <label class="fr-label" for="faq_search_input">
             <%= t('.search_bar.label') %>
           </label>
 
-          <input class="fr-input" placeholder="<%= t('.search_bar.placeholder') %>" type="search" id="faq_search_input" name="faq_search_input">
+          <input class="fr-input" placeholder="<%= t('.search_bar.placeholder') %>" type="search" name="faq_search_input">
 
           <button class="fr-btn">
             <%= t('.search_bar.button') %>
@@ -45,7 +45,7 @@
 
           <div class="fr-mb-2w">
             <% faq_entries.each do |faq_entry| %>
-              <section class="fr-accordion faq-entry" data-algolia-search-with-accordion-hit="<%= dom_id(faq_entry) %>" id="<%= faq_entry.id %>">
+              <section class="fr-accordion faq-entry" data-algolia-search-with-accordion-hit="<%= faq_entry.dom_id %>" id="<%= dom_id(faq_entry) %>">
                 <h3 class="fr-accordion__title">
                   <button class="fr-accordion__btn" aria-expanded="false" aria-controls="<%= dom_id(faq_entry, :answer) %>">
                     <div data-algolia-search-with-accordion-hit-attribute="question">

@@ -56,7 +56,7 @@ class AbstractFAQEntry < ApplicationAlgoliaSearchableActiveModel
   end
 
   def id
-    slug
+    @id ||= slug.gsub('/', '_')
   end
 
   def answer_markdownify
