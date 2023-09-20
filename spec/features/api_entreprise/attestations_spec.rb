@@ -46,7 +46,7 @@ RSpec.describe 'User attestations through tokens', app: :api_entreprise do
       click_button('search')
     end
 
-    let(:token_intitule) { user.token.intitule }
+    let(:token_intitule) { user.tokens.first.intitule }
     let(:facade_double) { instance_double(EntrepriseWithAttestationsFacade, retrieve_company: nil, retrieve_attestation_sociale: nil, retrieve_attestation_fiscale: nil) }
     let(:entreprise) { Entreprise.new(JSON.parse(payload_entreprise)['data'].slice(*entreprise_interesting_fields)) }
     let(:entreprise_interesting_fields) { %w[personne_morale_attributs activite_principale forme_juridique categorie_entreprise] }

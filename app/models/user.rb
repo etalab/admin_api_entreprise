@@ -37,14 +37,6 @@ class User < ApplicationRecord
     tokens_newly_transfered
   end
 
-  def siret
-    token.try(:siret)
-  end
-
-  def token
-    tokens.first
-  end
-
   def roles_for(token)
     UserAuthorizationRequestRole.where(user: self, authorization_request: token.authorization_request).pluck(:role)
   end

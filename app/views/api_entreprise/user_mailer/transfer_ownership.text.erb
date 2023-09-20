@@ -2,17 +2,7 @@ Bonjour et bienvenue,
 
 <%= @old_owner.email %> propose de vous transférer la responsabilité du compte utilisateur API Entreprise de votre organisation. Ce compte vous permettra d'accéder aux jetons (tokens) API Entreprise, à leurs statistiques d'utilisation et à l'interface de téléchargement des attestations si vos jetons sont pourvus de ces droits.
 
-<% if @new_owner.oauth_api_gouv_id.nil? %>
- La poursuite des étapes suivantes entrainera le transfert du compte et toute connexion à l'espace utilisateur de votre part vaudra acceptation de nos CGU, consultables à l'adresse https://entreprise.api.gouv.fr/cgu.
-
-Pour accéder à l'espace utilisateur API Entreprise, vous devez au préalable vous créer un compte DataPass (<%= @datapass_signup_url %>). Il est impératif de renseigner les informations suivantes afin d'éviter des erreurs de réconciliation à votre première connexion :
-  - adresse email : <%= @new_owner.email %>
-  <% if @new_owner.siret %>
-  - siret de l'organisation: <%= @new_owner.siret %>
-  <% end %>
-<% else %>
-  Votre compte DataPass associé à votre adresse e-mail <%= @new_owner.email %> vous permettra d'accéder au compte API Entreprise. Toute connexion à l'espace utilisateur de votre part vaudra acceptation de nos CGU, consultables à l'adresse https://entreprise.api.gouv.fr/cgu.
-<% end %>
+Votre compte DataPass associé à votre adresse e-mail <%= @new_owner.email %> vous permettra d'accéder au compte API Entreprise. Toute connexion à l'espace utilisateur de votre part vaudra acceptation de nos CGU, consultables à l'adresse https://entreprise.api.gouv.fr/cgu.
 
 Le transfert définitif de la responsabilité du compte nécessite une validation manuelle de nos services et peut prendre quelques jours.
 Vous pourrez ensuite accéder à l'espace utilisateur API Entreprise de votre organisation, (<%= @login_url %>) en utilisant vos identifiants DataPass.
