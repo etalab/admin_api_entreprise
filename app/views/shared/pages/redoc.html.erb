@@ -11,7 +11,7 @@
 
 <script>
   function initRedoc() {
-    var uri = '<%= openapi_without_deprecated_definition_path %>';
+    var uri = '<%= namespace == "api_particulier" ? openapi_definition_path : openapi_without_deprecated_definition_path %>';
 
     Redoc.init(
       uri,
