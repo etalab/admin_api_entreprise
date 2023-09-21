@@ -1,25 +1,17 @@
 class APIEntreprise::TokensController < APIEntreprise::AuthenticatedUsersController
+  before_action :extract_token, except: %i[index]
+
   def index
     @tokens = current_user.tokens.active_for('entreprise')
   end
 
-  def show
-    @token = Token.find(params[:id])
-
-    return if access_allowed_for_current_user?
-
-    error_message(title: t('.error.title'))
-    redirect_current_user_to_homepage
-  end
+  def show; end
 
   def stats
-    @token = Token.find(params[:id])
     @stats_facade = TokenStatsFacade.new(@token)
   end
 
-  def renew
-    @token = Token.find(params[:id])
-  end
+  def renew; end
 
   private
 
@@ -27,7 +19,10 @@ class APIEntreprise::TokensController < APIEntreprise::AuthenticatedUsersControl
     params[:period]&.to_sym || :last_8_days
   end
 
-  def access_allowed_for_current_user?
-    @token.users.include?(current_user)
+  def extract_token
+    @token = current_user.tokens.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    error_message(title: t('.error.title'))
+    redirect_current_user_to_homepage
   end
 end
