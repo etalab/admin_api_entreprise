@@ -27,7 +27,7 @@ class AuthorizationRequest < ApplicationRecord
   end
 
   def most_recent_token
-    tokens.max_by(&:exp)
+    tokens.order(exp: :desc).limit(1).first
   end
 
   has_many :contacts_authorization_request_roles,

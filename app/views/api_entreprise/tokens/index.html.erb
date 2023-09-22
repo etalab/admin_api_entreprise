@@ -1,8 +1,12 @@
 <% if @active_tokens.any? || @inactive_tokens.any? %>
-  <%= render partial: 'api_entreprise/tokens/user_tokens_list', 
-    locals: { subtitle: t('.active_title', count: @active_tokens.count), tokens: @active_tokens } %>
-  <%= render partial: 'api_entreprise/tokens/user_tokens_list', 
-    locals: { subtitle: t('.inactive_title', count: @inactive_tokens.count), tokens: @inactive_tokens } %>
+  <% if @active_tokens.any? %>
+    <%= render partial: 'api_entreprise/tokens/user_tokens_list', 
+      locals: { subtitle: t('.active_title', count: @active_tokens.count), tokens: @active_tokens } %>
+  <% end %>
+  <% if @inactive_tokens.any? %>
+    <%= render partial: 'api_entreprise/tokens/user_tokens_list', 
+      locals: { subtitle: t('.inactive_title', count: @inactive_tokens.count), tokens: @inactive_tokens } %>
+  <% end %>
 <% else %>
   <h2><%= t('.no_tokens') %></h2>
 <% end %>

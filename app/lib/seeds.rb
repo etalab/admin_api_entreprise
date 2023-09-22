@@ -77,7 +77,8 @@ class Seeds
         intitule: 'Mairie de Lyon 2',
         external_id: 102,
         status: :validated,
-        first_submitted_at: 2.weeks.ago
+        first_submitted_at: 2.weeks.ago,
+        siret: '012345678901234'
       }
     )
   end
@@ -93,7 +94,8 @@ class Seeds
         intitule: 'Mairie de Strasbourg',
         external_id: 103,
         status: :validated,
-        first_submitted_at: 1.week.ago
+        first_submitted_at: 1.week.ago,
+        siret: '012345678901235'
       }
     )
   end
@@ -108,7 +110,8 @@ class Seeds
         intitule: 'Mairie de Paris',
         external_id: 104,
         status: :validated,
-        first_submitted_at: 1.week.ago
+        first_submitted_at: 1.week.ago,
+        siret: '012345678901236'
       }
     )
   end
@@ -125,7 +128,8 @@ class Seeds
         status: :validated,
         api: 'entreprise',
         first_submitted_at: 2.years.ago,
-        validated_at: 2.years.ago + 1.week
+        validated_at: 2.years.ago + 1.week,
+        siret: '012345678901237'
       }
     )
   end
