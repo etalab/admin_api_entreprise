@@ -6,6 +6,7 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
     :path,
     :beta,
     :novelty,
+    :new_version,
     :provider_uids,
     :parameters,
     :perimeter,
@@ -90,9 +91,14 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
     novelty.present? && novelty
   end
 
+  def new_version?
+    new_version.present? && new_version
+  end
+
   def pending_status
     return 'novelty' if novelty?
     return 'beta' if beta?
+    return 'new_version' if new_version?
 
     'incoming' if incoming?
   end
