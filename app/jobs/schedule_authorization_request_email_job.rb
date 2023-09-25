@@ -1,35 +1,37 @@
-class ScheduleAuthorizationRequestMailjetEmailJob < ApplicationJob
+class ScheduleAuthorizationRequestEmailJob < ApplicationJob
   include MailjetHelpers
 
   queue_as :default
 
   attr_reader :authorization_request
 
-  def perform(authorization_request_id, authorization_request_status, mailjet_attributes)
+  def perform(authorization_request_id, authorization_request_status, mail_attributes)
     @authorization_request = AuthorizationRequest.find_by(id: authorization_request_id)
 
     return if authorization_request.blank?
     return if authorization_request_status_changed?(authorization_request_status)
 
-    deliver_mailjet_email(
-      build_message(mailjet_attributes.stringify_keys)
-    )
+    deliver_email_using_mailjet(mail_attributes, authorization_request_id)
+  end
+
+  private
+
+  def deliver_email_using_mailjet(mail_attributes, authorization_request_id)
+    deliver_mailjet_email(build_message(mail_attributes.stringify_keys))
   rescue Mailjet::ApiError => e
     affect_mailjet_context_for_sentry(e, authorization_request_id)
     raise
   end
 
-  private
-
-  def build_message(mailjet_attributes)
+  def build_message(mail_attributes)
     {
       from_name: from_name(@authorization_request.api),
       from_email: from_email(@authorization_request.api),
-      to: build_recipient_attributes(mailjet_attributes['to']),
-      cc: build_recipient_attributes(mailjet_attributes['cc']),
-      vars: mailjet_attributes['vars'],
+      to: build_recipient_attributes(mail_attributes['to']),
+      cc: build_recipient_attributes(mail_attributes['cc']),
+      vars: mail_attributes['vars'],
       'Mj-TemplateLanguage' => true,
-      'Mj-TemplateID' => mailjet_attributes['template_id']
+      'Mj-TemplateID' => mail_attributes['template_id']
     }.compact
   end
 

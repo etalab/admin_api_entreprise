@@ -34,7 +34,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
     it 'does not call schedule emails' do
       subject
 
-      expect(ScheduleAuthorizationRequestMailjetEmailJob).not_to have_been_enqueued
+      expect(ScheduleAuthorizationRequestEmailJob).not_to have_been_enqueued
     end
   end
 
@@ -44,9 +44,9 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
     it 'schedules emails according to configuration, to authorization request\'s user' do
       subject
 
-      expect(ScheduleAuthorizationRequestMailjetEmailJob).to have_been_enqueued.exactly(:twice)
+      expect(ScheduleAuthorizationRequestEmailJob).to have_been_enqueued.exactly(:twice)
 
-      expect(ScheduleAuthorizationRequestMailjetEmailJob).to have_been_enqueued.exactly(:once).with(
+      expect(ScheduleAuthorizationRequestEmailJob).to have_been_enqueued.exactly(:once).with(
         authorization_request.id,
         authorization_request.status,
         hash_including(
@@ -60,7 +60,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
         )
       ).at(Time.zone.now)
 
-      expect(ScheduleAuthorizationRequestMailjetEmailJob).to have_been_enqueued.exactly(:once).with(
+      expect(ScheduleAuthorizationRequestEmailJob).to have_been_enqueued.exactly(:once).with(
         authorization_request.id,
         authorization_request.status,
         hash_including(
@@ -105,9 +105,9 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
       it 'schedules only the valid condition' do
         subject
 
-        expect(ScheduleAuthorizationRequestMailjetEmailJob).to have_been_enqueued.exactly(:once)
+        expect(ScheduleAuthorizationRequestEmailJob).to have_been_enqueued.exactly(:once)
 
-        expect(ScheduleAuthorizationRequestMailjetEmailJob).to have_been_enqueued.exactly(:once).with(
+        expect(ScheduleAuthorizationRequestEmailJob).to have_been_enqueued.exactly(:once).with(
           authorization_request.id,
           authorization_request.status,
           hash_including(
@@ -135,9 +135,9 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
         it 'schedules emails according to configuration, with valid recipients attributes' do
           subject
 
-          expect(ScheduleAuthorizationRequestMailjetEmailJob).to have_been_enqueued.exactly(:twice)
+          expect(ScheduleAuthorizationRequestEmailJob).to have_been_enqueued.exactly(:twice)
 
-          expect(ScheduleAuthorizationRequestMailjetEmailJob).to have_been_enqueued.exactly(:once).with(
+          expect(ScheduleAuthorizationRequestEmailJob).to have_been_enqueued.exactly(:once).with(
             authorization_request.id,
             authorization_request.status,
             hash_including(
@@ -151,7 +151,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
             )
           ).at(Time.zone.now)
 
-          expect(ScheduleAuthorizationRequestMailjetEmailJob).to have_been_enqueued.exactly(:once).with(
+          expect(ScheduleAuthorizationRequestEmailJob).to have_been_enqueued.exactly(:once).with(
             authorization_request.id,
             authorization_request.status,
             hash_including(
@@ -198,9 +198,9 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
         it 'schedules emails according to configuration, with valid recipients attributes' do
           subject
 
-          expect(ScheduleAuthorizationRequestMailjetEmailJob).to have_been_enqueued.exactly(:twice)
+          expect(ScheduleAuthorizationRequestEmailJob).to have_been_enqueued.exactly(:twice)
 
-          expect(ScheduleAuthorizationRequestMailjetEmailJob).to have_been_enqueued.exactly(:once).with(
+          expect(ScheduleAuthorizationRequestEmailJob).to have_been_enqueued.exactly(:once).with(
             authorization_request.id,
             authorization_request.status,
             hash_including(
@@ -214,7 +214,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
             )
           ).at(Time.zone.now)
 
-          expect(ScheduleAuthorizationRequestMailjetEmailJob).to have_been_enqueued.exactly(:once).with(
+          expect(ScheduleAuthorizationRequestEmailJob).to have_been_enqueued.exactly(:once).with(
             authorization_request.id,
             authorization_request.status,
             hash_including(

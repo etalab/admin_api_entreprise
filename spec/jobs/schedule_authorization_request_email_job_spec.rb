@@ -2,19 +2,19 @@
 
 require 'rails_helper'
 
-RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob do
+RSpec.describe ScheduleAuthorizationRequestEmailJob do
   describe '#perform' do
     subject do
       described_class.perform_now(
         authorization_request_id,
         authorization_request_status,
-        mailjet_attributes
+        mail_attributes
       )
     end
 
     let(:authorization_request_id) { authorization_request.id }
     let(:authorization_request_status) { 'draft' }
-    let(:mailjet_attributes) do
+    let(:mail_attributes) do
       {
         template_id: mailjet_template_id,
         vars: mailjet_template_vars,
@@ -100,7 +100,7 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob do
         let(:cc_contact_other) { create(:user, :with_full_name) }
 
         before do
-          mailjet_attributes[:cc] = [
+          mail_attributes[:cc] = [
             {
               email: cc_contact_main.email,
               full_name: cc_contact_main.full_name
@@ -133,7 +133,7 @@ RSpec.describe ScheduleAuthorizationRequestMailjetEmailJob do
         let(:cc_contact_main) { create(:user, :with_full_name) }
 
         before do
-          mailjet_attributes[:cc] = [nil]
+          mail_attributes[:cc] = [nil]
         end
 
         it 'do not error' do
