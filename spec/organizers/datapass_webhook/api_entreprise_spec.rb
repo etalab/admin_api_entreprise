@@ -55,10 +55,10 @@ RSpec.describe DatapassWebhook::APIEntreprise, type: :interactor do
       expect(token.api).to eq('entreprise')
     end
 
-    it 'archives previous token' do
+    it 'archives previous authorization_request' do
       expect {
         subject
-      }.to change { token.reload.archived }.to(true)
+      }.to change { AuthorizationRequest.where(status: 'archived').count }
     end
   end
 

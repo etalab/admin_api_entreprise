@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe DatapassWebhook::ArchivePreviousToken, type: :interactor do
+RSpec.describe DatapassWebhook::ArchivePreviousAuthorizationRequest, type: :interactor do
   subject { described_class.call(datapass_webhook_params.merge(authorization_request:)) }
 
   let(:authorization_request) { create(:authorization_request, previous_external_id:) }
@@ -18,10 +18,10 @@ RSpec.describe DatapassWebhook::ArchivePreviousToken, type: :interactor do
     context 'when authorization request has a previous external id' do
       let(:previous_external_id) { rand(9001).to_s }
 
-      it 'archives previous token' do
+      it 'archives previous authorization request' do
         expect {
           subject
-        }.to change { token.reload.archived }.to(true)
+        }.to change { AuthorizationRequest.where(status: 'archived').count }
       end
     end
 
@@ -31,7 +31,7 @@ RSpec.describe DatapassWebhook::ArchivePreviousToken, type: :interactor do
       it 'does nothing' do
         expect {
           subject
-        }.not_to change { Token.where(archived: true).count }
+        }.not_to change { AuthorizationRequest.where(status: 'archived').count }
       end
     end
   end
@@ -45,7 +45,7 @@ RSpec.describe DatapassWebhook::ArchivePreviousToken, type: :interactor do
       it 'does nothing' do
         expect {
           subject
-        }.not_to change { Token.where(archived: true).count }
+        }.not_to change { AuthorizationRequest.where(status: 'archived').count }
       end
     end
   end
