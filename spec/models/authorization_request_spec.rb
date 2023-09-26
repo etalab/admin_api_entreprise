@@ -74,4 +74,23 @@ RSpec.describe AuthorizationRequest do
       expect(authorization_request.contacts_no_demandeur).not_to include(authorization_request.demandeur)
     end
   end
+
+  describe 'scopes' do
+    let!(:authorization_request) { create(:authorization_request) }
+    let!(:archived_authorization_request) { create(:authorization_request, status: 'archived') }
+
+    describe '.archived' do
+      subject { described_class.archived }
+
+      it { is_expected.not_to include(*authorization_request) }
+      it { is_expected.to include(*archived_authorization_request) }
+    end
+
+    describe '.not_archived' do
+      subject { described_class.not_archived }
+
+      it { is_expected.not_to include(*archived_authorization_request) }
+      it { is_expected.to     include(*authorization_request) }
+    end
+  end
 end
