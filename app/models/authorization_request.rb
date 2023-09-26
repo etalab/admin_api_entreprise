@@ -19,10 +19,15 @@ class AuthorizationRequest < ApplicationRecord
 
   validates :api, inclusion: { in: %w[entreprise particulier] }
 
+  scope :with_tokens_for, ->(api) { where(api:).joins(:tokens) }
   scope :submitted_at_least_once, -> { where.not(first_submitted_at: nil) }
 
   def token
-    active_token || tokens.first
+    active_token || most_recent_token
+  end
+
+  def most_recent_token
+    tokens.order(exp: :desc).limit(1).first
   end
 
   has_many :contacts_authorization_request_roles,

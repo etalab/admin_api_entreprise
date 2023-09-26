@@ -22,6 +22,15 @@
       <div class="fr-card__desc">
         <ul>
           <li>
+            <%= t('.intitule', intitule: token.authorization_request.intitule) %>
+          </li>
+          <li>
+            <%= t('.siret', siret: token.authorization_request.siret) %>
+          </li>
+          <li> 
+            <%= t('.demandeur',  first_name: token.demandeur.first_name, last_name: token.demandeur.last_name, email: token.demandeur.email ) %>
+          </li>
+          <li>
             <%= t('.delivered_at', humanized_date: friendly_format_from_timestamp(token.iat)) %>
           </li>
           <li>
@@ -50,8 +59,19 @@
             <%= t('.token') %>
           </strong>
 
-          <br>
+          <span class="fr-text--sm fr-mb-0-5v pull-right">
+            <% if token.expired? %>
+              <%= link_to t('.expired'), token_path(token), class: %w(fr-tag fr-tag--sm fr-tag--purple-glycine fr-icon-arrow-right-line), data: { turbo_frame: '_top' } %>
+            <% elsif token.blacklisted? %>
+              <%= link_to t('.blacklisted'), token_path(token), class: %w(fr-tag fr-tag--sm fr-tag--purple-glycine fr-icon-arrow-right-line), data: { turbo_frame: '_top' } %>
+            <% elsif token.archived? %>
+              <%= link_to t('.archived'), token_path(token), class: %w(fr-tag fr-tag--sm fr-icon-arrow-right-line), data: { turbo_frame: '_top' } %>
+            <% else %>
+              <%= link_to t('.active'), token_path(token), class: %w(fr-tag fr-tag--sm fr-tag--green-emeraude fr-icon-arrow-right-line), data: { turbo_frame: '_top' } %>
+            <% end %>
+          </span>
 
+          <br>
           <input id="<%= dom_id(token, :token_hash) %>" class="fr-input" type="text" data-clipboard-target="source" readonly value="<%= token.rehash %>" />
         </div>
 
