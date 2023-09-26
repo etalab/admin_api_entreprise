@@ -33,7 +33,7 @@ RSpec.describe 'Datapass webhook config formats', type: :acceptance do
           expect(config['emails']).to be_a(Array), "File #{file}: [#{env}] #{event} has an emails key which is not an array"
 
           config['emails'].each_with_index do |email_config, index|
-            expect(email_config['id']).to be_present, "File #{file}: [#{env}] #{event} emails ##{index + 1} has no id key"
+            expect(email_config['id'] || email_config['template']).to be_present, "File #{file}: [#{env}] #{event} emails ##{index + 1} has no id key or template name"
 
             if email_config['when'].present?
               date = Chronic.parse(email_config['when'])

@@ -14,10 +14,17 @@ RSpec.describe ScheduleAuthorizationRequestEmailJob do
 
     let(:authorization_request_id) { authorization_request.id }
     let(:authorization_request_status) { 'draft' }
+
+    let(:authorization_request) { create(:authorization_request, status: authorization_request_status) }
+    let(:to_user) { create(:user, :with_full_name) }
+
+    let(:template_name) { 'email_template' }
+    let(:vars) { {} }
+
     let(:mail_attributes) do
       {
-        template_id: mailjet_template_id,
-        vars: mailjet_template_vars,
+        template_name:,
+        vars:,
         to: [
           {
             email: to_user.email,
@@ -27,16 +34,17 @@ RSpec.describe ScheduleAuthorizationRequestEmailJob do
       }
     end
 
-    let(:authorization_request) { create(:authorization_request, status: authorization_request_status) }
-    let(:to_user) { create(:user, :with_full_name) }
-    let(:mailjet_template_id) { '1234567890' }
-    let(:mailjet_template_vars) { {} }
+    before(:all) do
+      class APIEntreprise::AuthorizationRequestMailer
+        def email_template; end
+      end
+    end
 
     context 'when authorization request does not exist' do
       let(:authorization_request_id) { 'invalid' }
 
       it 'does nothing' do
-        expect(Mailjet::Send).not_to receive(:create)
+        expect(APIEntreprise::AuthorizationRequestMailer).not_to receive(:email_template)
 
         subject
       end
@@ -50,7 +58,7 @@ RSpec.describe ScheduleAuthorizationRequestEmailJob do
       end
 
       it 'does nothing' do
-        expect(Mailjet::Send).not_to receive(:create)
+        expect(APIEntreprise::AuthorizationRequestMailer).not_to receive(:email_template)
 
         subject
       end
@@ -63,39 +71,29 @@ RSpec.describe ScheduleAuthorizationRequestEmailJob do
         )
       end
 
-      it 'calls Mailjet client with valid params' do
-        expect(Mailjet::Send).to receive(:create).with(
+      it 'calls AuthorizationRequestMailer with valid params' do
+        expect(APIEntreprise::AuthorizationRequestMailer).to receive(:email_template).with(
           {
-            from_name: 'API Entreprise',
-            from_email: APIEntrepriseMailer.default_params[:from],
-            to: "#{to_user.full_name} <#{to_user.email}>",
-            vars: mailjet_template_vars,
-            'Mj-TemplateLanguage' => true,
-            'Mj-TemplateID' => mailjet_template_id
-          }.stringify_keys
+            to: [{ email: to_user.email, full_name: to_user.full_name }]
+          }
         )
 
         subject
       end
     end
 
-    context 'when current authorization request status did not changed' do
-      it 'calls Mailjet client with valid params' do
-        expect(Mailjet::Send).to receive(:create).with(
+    context 'when current authorization request status did not change' do
+      it 'calls AuthorizationRequestMailer with valid params' do
+        expect(APIEntreprise::AuthorizationRequestMailer).to receive(:email_template).with(
           {
-            from_name: 'API Entreprise',
-            from_email: APIEntrepriseMailer.default_params[:from],
-            to: "#{to_user.full_name} <#{to_user.email}>",
-            vars: mailjet_template_vars,
-            'Mj-TemplateLanguage' => true,
-            'Mj-TemplateID' => mailjet_template_id
-          }.stringify_keys
+            to: [{ email: to_user.email, full_name: to_user.full_name }]
+          }
         )
 
         subject
       end
 
-      context 'when there is cc field in mailjet attributes' do
+      context 'when there is cc field in attributes' do
         let(:cc_contact_main) { create(:user, :with_full_name) }
         let(:cc_contact_other) { create(:user, :with_full_name) }
 
@@ -112,102 +110,19 @@ RSpec.describe ScheduleAuthorizationRequestEmailJob do
           ]
         end
 
-        it 'calls Mailjet client with the CC field for these users' do
-          expect(Mailjet::Send).to receive(:create).with(
+        it 'calls AuthorizationRequestMailer with the CC field for these users' do
+          expect(APIEntreprise::AuthorizationRequestMailer).to receive(:email_template).with(
             {
-              from_name: anything,
-              from_email: anything,
-              to: "#{to_user.full_name} <#{to_user.email}>",
-              cc: "#{cc_contact_main.full_name} <#{cc_contact_main.email}>, #{cc_contact_other.full_name} <#{cc_contact_other.email}>",
-              vars: mailjet_template_vars,
-              'Mj-TemplateLanguage' => true,
-              'Mj-TemplateID' => mailjet_template_id
-            }.stringify_keys
+              to: [{ email: to_user.email, full_name: to_user.full_name }],
+              cc: [
+                { email: cc_contact_main.email, full_name: cc_contact_main.full_name },
+                { email: cc_contact_other.email, full_name: cc_contact_other.full_name }
+              ]
+            }
           )
 
           subject
         end
-      end
-
-      describe 'non-regression test: when a CC field is empty' do
-        let(:cc_contact_main) { create(:user, :with_full_name) }
-
-        before do
-          mail_attributes[:cc] = [nil]
-        end
-
-        it 'do not error' do
-          expect(Mailjet::Send).to receive(:create)
-
-          expect { subject }.not_to raise_error
-        end
-      end
-
-      context 'when Mailjet raises an error' do
-        let(:mailjet_error) do
-          Mailjet::ApiError.new(
-            code,
-            body,
-            nil,
-            'https://api.mailjet.com/v3/send',
-            params
-          )
-        end
-        let(:code) { 418 }
-        let(:body) { "I'm a teapot!" }
-        let(:params) do
-          {
-            oki: 'lol'
-          }
-        end
-
-        before do
-          allow(Mailjet::Send).to receive(:create).and_raise(mailjet_error)
-          allow(Sentry).to receive(:capture_exception)
-        end
-
-        it 'tracks error through Sentry, with context' do
-          expect(Sentry).to receive(:set_context).with(
-            'mailjet error',
-            hash_including(
-              {
-                mailjet_error_code: code,
-                mailjet_error_reason: body
-              }
-            )
-          ).and_call_original
-          expect(Sentry).to receive(:capture_exception)
-
-          begin
-            subject
-          rescue Mailjet::ApiError
-          end
-        end
-
-        it 'raises this error (which reschedule job exponentially)' do
-          expect {
-            subject
-          }.to raise_error(Mailjet::ApiError)
-        end
-      end
-    end
-
-    describe 'with api Particulier' do
-      let(:authorization_request) { create(:authorization_request, status: authorization_request_status, api: 'particulier') }
-
-      it 'calls Mailjet client with valid params' do
-        expect(Mailjet::Send).to receive(:create).with(
-          {
-            from_name: 'API Particulier',
-            from_email: APIParticulierMailer.default_params[:from],
-            to: "#{to_user.full_name} <#{to_user.email}>",
-            vars: mailjet_template_vars,
-            'Mj-TemplateLanguage' => true,
-            'Mj-TemplateID' => mailjet_template_id
-          }.stringify_keys
-        )
-
-        subject
       end
     end
   end

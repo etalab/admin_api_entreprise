@@ -8,15 +8,13 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
   subject do
     described_class.call(
       datapass_webhook_params.merge(
-        authorization_request:,
-        mailjet_variables:
+        authorization_request:
       )
     )
   end
 
   let(:datapass_webhook_params) { build(:datapass_webhook, event:) }
   let(:authorization_request) { create(:authorization_request, :with_demandeur, :with_contact_metier, :with_contact_technique) }
-  let(:mailjet_variables) { { lol: 'oki' } }
 
   before do
     Timecop.freeze(Time.new(2021, 9, 1, 12).in_time_zone)
@@ -50,7 +48,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
         authorization_request.id,
         authorization_request.status,
         hash_including(
-          template_id: '11',
+          template_name: 'send_application',
           to: [
             {
               'email' => authorization_request.demandeur.email,
@@ -63,8 +61,8 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
       expect(ScheduleAuthorizationRequestEmailJob).to have_been_enqueued.exactly(:once).with(
         authorization_request.id,
         authorization_request.status,
+        'send_application_later',
         hash_including(
-          template_id: '12',
           to: [
             {
               'email' => authorization_request.demandeur.email,
@@ -111,7 +109,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
           authorization_request.id,
           authorization_request.status,
           hash_including(
-            template_id: '51',
+            template_name: 'review_application',
             to: [
               {
                 'email' => authorization_request.demandeur.email,
@@ -141,7 +139,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
             authorization_request.id,
             authorization_request.status,
             hash_including(
-              template_id: '51',
+              template_name: 'review_application',
               to: [
                 {
                   'email' => authorization_request.demandeur.email,
@@ -155,7 +153,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
             authorization_request.id,
             authorization_request.status,
             hash_including(
-              template_id: '52',
+              template_name: 'review_application_2',
               to: [
                 {
                   'email' => authorization_request.contact_metier.email,
@@ -204,7 +202,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
             authorization_request.id,
             authorization_request.status,
             hash_including(
-              template_id: '51',
+              template_name: 'review_application',
               to: [
                 {
                   'email' => authorization_request.demandeur.email,
@@ -217,15 +215,9 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
           expect(ScheduleAuthorizationRequestEmailJob).to have_been_enqueued.exactly(:once).with(
             authorization_request.id,
             authorization_request.status,
+            'review_application_2',
             hash_including(
-              template_id: '52',
               to: [
-                {
-                  'email' => authorization_request.demandeur.email,
-                  'full_name' => authorization_request.demandeur.full_name
-                }
-              ],
-              cc: [
                 {
                   'email' => authorization_request.contact_technique.email,
                   'full_name' => authorization_request.contact_technique.full_name

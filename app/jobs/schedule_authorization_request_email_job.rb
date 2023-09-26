@@ -11,16 +11,22 @@ class ScheduleAuthorizationRequestEmailJob < ApplicationJob
     return if authorization_request.blank?
     return if authorization_request_status_changed?(authorization_request_status)
 
-    deliver_email_using_mailjet(mail_attributes, authorization_request_id)
+    deliver_email(mail_attributes)
   end
 
   private
 
-  def deliver_email_using_mailjet(mail_attributes, authorization_request_id)
-    deliver_mailjet_email(build_message(mail_attributes.stringify_keys))
-  rescue Mailjet::ApiError => e
-    affect_mailjet_context_for_sentry(e, authorization_request_id)
-    raise
+  def deliver_email(mail_attributes)
+    interesting_mail_attributes = {
+      to: mail_attributes[:to],
+      cc: mail_attributes[:cc]
+    }.compact
+
+    api_klass = "#{API}#{@authorization_request.api.capitalize}".constantize
+
+    mail_klass = "#{api_klass}::AuthorizationRequestMailer".constantize
+
+    mail_klass.public_send(mail_attributes[:template_name].to_sym, interesting_mail_attributes)
   end
 
   def build_message(mail_attributes)
