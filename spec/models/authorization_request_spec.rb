@@ -77,7 +77,7 @@ RSpec.describe AuthorizationRequest do
 
   describe 'scopes' do
     let!(:authorization_request) { create(:authorization_request) }
-    let!(:archived_authorization_request) { create(:authorization_request, status: 'archived') }
+    let!(:archived_authorization_request) { create(:authorization_request, status: 'archived', api: 'particulier') }
 
     describe '.archived' do
       subject { described_class.archived }
@@ -91,6 +91,12 @@ RSpec.describe AuthorizationRequest do
 
       it { is_expected.not_to include(*archived_authorization_request) }
       it { is_expected.to     include(*authorization_request) }
+    end
+
+    describe '.for_api' do
+      subject { described_class.for_api('particulier') }
+
+      it { is_expected.to include(*archived_authorization_request) }
     end
   end
 end

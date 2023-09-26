@@ -24,6 +24,7 @@ class AuthorizationRequest < ApplicationRecord
 
   scope :not_archived, -> { where.not(status: 'archived') }
   scope :archived, -> { where(status: 'archived') }
+  scope :for_api, ->(api) { where(api:) }
 
   def token
     active_token || most_recent_token
