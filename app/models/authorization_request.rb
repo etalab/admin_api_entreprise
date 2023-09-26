@@ -64,8 +64,6 @@ class AuthorizationRequest < ApplicationRecord
   end
 
   def archive!
-    token&.update!(archived: true)
-
     update!(status: 'archived')
   end
 
