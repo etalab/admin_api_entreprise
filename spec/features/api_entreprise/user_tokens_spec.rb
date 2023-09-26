@@ -101,7 +101,8 @@ RSpec.describe 'User token listing', app: :api_entreprise do
     end
 
     it 'does not display archived tokens' do
-      archived_token = create(:token, :archived, authorization_request: user.tokens.first.authorization_request)
+      authorization_request = create(:authorization_request, status: 'archived')
+      archived_token = create(:token, authorization_request:)
       token_index
 
       expect(page).not_to have_css("input[value='#{archived_token.rehash}']")

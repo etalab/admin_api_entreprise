@@ -1,5 +1,5 @@
 class Token < ApplicationRecord
-  self.ignored_columns += %w[access_request_survey_sent]
+  self.ignored_columns += %w[access_request_survey_sent archived]
 
   belongs_to :authorization_request, foreign_key: 'authorization_request_model_id', inverse_of: :tokens
   validates :exp, presence: true
@@ -10,10 +10,7 @@ class Token < ApplicationRecord
   scope :blacklisted, -> { where(blacklisted: true) }
   scope :not_blacklisted, -> { where(blacklisted: false) }
 
-  scope :archived, -> { where(blacklisted: false, archived: true) }
-  scope :not_archived, -> { where(archived: false) }
-
-  scope :active, -> { not_blacklisted.not_archived.unexpired }
+  scope :active, -> { not_blacklisted.unexpired }
   scope :active_for, ->(api) { active.joins(:authorization_request).where(authorization_request: { api: }).uniq }
 
   has_many :users, through: :authorization_request
@@ -21,7 +18,7 @@ class Token < ApplicationRecord
   has_many :demandeurs, through: :authorization_request
 
   has_one :demandeur, through: :authorization_request
-  delegate :contacts_no_demandeur, to: :authorization_request
+  delegate :contacts_no_demandeur, :archived?, to: :authorization_request
 
   def rehash
     AccessToken.create(token_payload)

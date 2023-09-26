@@ -67,6 +67,10 @@ class AuthorizationRequest < ApplicationRecord
     contacts.reject { |user| user == demandeur }
   end
 
+  def archived?
+    status == 'archived'
+  end
+
   def archive!
     update!(status: 'archived')
   end
