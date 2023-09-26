@@ -56,12 +56,6 @@ FactoryBot.define do
       end
     end
 
-    trait :with_archived_token do
-      after(:create) do |u|
-        create(:token, :archived, users: [u])
-      end
-    end
-
     trait :with_expired_token do
       after(:create) do |u|
         create(:token, :expired, users: [u])

@@ -31,7 +31,6 @@ class Seeds
     @scopes_entreprise = create_scopes('entreprise')
 
     create_api_entreprise_token_valid
-    create_api_entreprise_token_archived
     create_api_entreprise_token_blacklisted
     create_api_entreprise_token_expired
     create_api_entreprise_authorization_refused

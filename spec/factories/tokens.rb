@@ -2,7 +2,6 @@ FactoryBot.define do
   factory :token do
     iat { Time.zone.now.to_i }
     exp { 18.months.from_now.to_i }
-    archived { false }
     version { '1.0' }
     days_left_notification_sent { [] }
     scopes { [] }
@@ -86,14 +85,6 @@ FactoryBot.define do
 
     trait :blacklisted do
       blacklisted { true }
-    end
-
-    trait :archived do
-      archived { true }
-    end
-
-    trait :not_archived do
-      archived { false }
     end
 
     trait :expired do

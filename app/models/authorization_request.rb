@@ -22,6 +22,10 @@ class AuthorizationRequest < ApplicationRecord
   scope :with_tokens_for, ->(api) { where(api:).joins(:tokens) }
   scope :submitted_at_least_once, -> { where.not(first_submitted_at: nil) }
 
+  scope :not_archived, -> { where.not(status: 'archived') }
+  scope :archived, -> { where(status: 'archived') }
+  scope :for_api, ->(api) { where(api:) }
+
   def token
     active_token || most_recent_token
   end
@@ -63,9 +67,11 @@ class AuthorizationRequest < ApplicationRecord
     contacts.reject { |user| user == demandeur }
   end
 
-  def archive!
-    token&.update!(archived: true)
+  def archived?
+    status == 'archived'
+  end
 
+  def archive!
     update!(status: 'archived')
   end
 

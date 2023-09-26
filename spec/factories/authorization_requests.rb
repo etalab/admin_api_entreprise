@@ -14,8 +14,8 @@ FactoryBot.define do
     trait :with_multiple_tokens_one_valid do
       tokens do
         [
-          create(:token, :blacklisted, :not_archived, :expiring_in_1_year),
-          create(:token, :not_blacklisted, :not_archived)
+          create(:token, :blacklisted, :expiring_in_1_year),
+          create(:token, :not_blacklisted)
         ]
       end
 
