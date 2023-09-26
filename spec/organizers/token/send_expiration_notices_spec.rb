@@ -42,7 +42,9 @@ RSpec.describe Token::SendExpirationNotices, type: :organizer do
     end
 
     it 'does not call the mailer for archived tokens' do
-      archived_token = create(:token, :expiring_within_3_month, archived: true)
+      authorization_request = create(:authorization_request, previous_external_id: 1234, status: 'archived')
+      archived_token = create(:token, :expiring_within_3_month, authorization_request:)
+
       # Expectations for sent notifications are needed, otherwise the code runs against the "dumb" double
       expect(ScheduleExpirationNoticeMailjetEmailJob).to receive(:perform_later).with(one_token_expired_within_3_month, days).and_call_original
       expect(ScheduleExpirationNoticeMailjetEmailJob).to receive(:perform_later).with(another_token_expired_within_3_month, days).and_call_original
