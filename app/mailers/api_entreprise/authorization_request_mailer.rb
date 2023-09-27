@@ -3,7 +3,9 @@ class APIEntreprise::AuthorizationRequestMailer < APIEntrepriseMailer
     @full_name = full_name
     @authorization_request_external_id = authorization_request_external_id
 
-    mail(to:, cc:) do |format|
+    subject = "Votre demande d'accès à l'API Entreprise est en attente, voici quelques contenus pour vous aider à compléter votre demande."
+
+    mail(to:, cc:, subject:) do |format|
       format.html
     end
   end
