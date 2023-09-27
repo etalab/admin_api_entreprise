@@ -74,6 +74,10 @@ bin/rspec
 guard
 ```
 
+## Prévisualisation des mails
+
+Une fois le serveur local lancé, vous pouvez prévisualiser les mails [à cette adresse](http://localhost:3000/rails/mailers)
+
 ### Static security
 
 [brakeman](https://github.com/presidentbeef/brakeman) est installé. Vous pouvez
