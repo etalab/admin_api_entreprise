@@ -67,6 +67,10 @@ RSpec.configure do |config|
     example.run_with_retry retry: example.metadata[:retry] || 3
   end
 
+  config.before(:each, type: :feature) do
+    stub_request(:get, %r{api\.gouv\.fr/ping}).to_return(status: 200)
+  end
+
   config.before do
     Rails.cache.clear
   end
