@@ -1,9 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe 'Endpoints show', app: :api_particulier do
-  let(:uid) { api_particulier_example_uid }
-
   let(:endpoint) { APIParticulier::Endpoint.find(uid) }
+  let(:uid) { api_particulier_example_uid }
+  let(:api_status) { 200 }
+
+  before do
+    stub_request(:get, endpoint.ping_url).to_return(status: api_status) if endpoint.ping_url
+  end
 
   it 'displays basic information, with attributes data' do
     visit endpoint_path(uid:)
@@ -11,6 +15,28 @@ RSpec.describe 'Endpoints show', app: :api_particulier do
     expect(page).to have_content(endpoint.title)
 
     expect(page).to have_css('#property_attribute_allocataires')
+  end
+
+  describe 'real time status' do
+    before do
+      visit endpoint_path(uid:)
+    end
+
+    context 'when endpoint is up' do
+      let(:api_status) { 200 }
+
+      it 'displays UP status' do
+        expect(page).to have_css('.api-status-up')
+      end
+    end
+
+    context 'when endpoint is down' do
+      let(:api_status) { 502 }
+
+      it 'displays UP status' do
+        expect(page).to have_css('.api-status-down')
+      end
+    end
   end
 
   describe 'each endpoint' do

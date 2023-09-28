@@ -1,0 +1,25 @@
+.api-status {
+  padding: 3px 12px;
+
+  color: white;
+
+  &::before {
+    font-weight: 900;
+  }
+}
+
+.api-status-up {
+  &::before {
+    content: 'UP';
+  }
+
+  background-color: var(--success);
+}
+
+.api-status-down {
+  &::before {
+    content: 'DOWN';
+  }
+
+  background-color: var(--error);
+}

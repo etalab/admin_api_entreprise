@@ -1,5 +1,6 @@
 ---
 - uid: 'urssaf/attestation_vigilance'
+  ping_url: 'https://entreprise.api.gouv.fr/ping/urssaf/attestation_sociale'
   old_endpoint_uids:
     - 'urssaf/v3/attestation_vigilance'
   position: 260
@@ -54,13 +55,13 @@
     - 'fraude'
   data: &urssaf_attestations_data
     description: |+
-      Cette API permet de : 
-      - **savoir si l'attestation de vigilance est délivrée par l'Urssaf** et obtenir l'URL de téléchargement de l'**attestation, au format PDF**. 
+      Cette API permet de :
+      - **savoir si l'attestation de vigilance est délivrée par l'Urssaf** et obtenir l'URL de téléchargement de l'**attestation, au format PDF**.
 
         {:.fr-highlight}
         >⚠️ La délivrance de l'attestation ne veut pas forcément dire que l'entité est jour de ses cotisations. L'attestation de vigilance est délivrée sous [certaines conditions](#faq_entry_0_endpoint_urssaf_attestation_vigilance) ; entre autres, si l'entreprise s'est acquitée de ses cotisations et contributions.
 
-      - **obtenir la date de début et de fin de validité de l'attestation**. L'attestation a une durée de validité légale de 6 mois à compter de la date d'analyse indiquée sur le document et qui est différente de la date de délivrance du document. [En&nbsp;savoir&nbsp;plus](#faq_entry_1_endpoint_urssaf_attestation_vigilance). 
+      - **obtenir la date de début et de fin de validité de l'attestation**. L'attestation a une durée de validité légale de 6 mois à compter de la date d'analyse indiquée sur le document et qui est différente de la date de délivrance du document. [En&nbsp;savoir&nbsp;plus](#faq_entry_1_endpoint_urssaf_attestation_vigilance).
 
         {:.fr-highlight.fr-highlight--example}
         >💡 Cette donnée structurée vous permet de reprogrammer automatiquement un appel avant la fin de validité du document
@@ -140,7 +141,7 @@
         Non, dans certain cas, l'API ne peut pas délivrer l'attestation, cela ne signifie pas que l'entreprise n'est pas à jour.
   historique: |+
     **Ce que change cette nouvelle version de l'API par rapport à la précédente :**
-    Ajout d'informations au format stucturé JSON : 
+    Ajout d'informations au format stucturé JSON :
     - Un statut `entity_status` permettant d'indiquer qu'une entité n'est pas à jour de ses cotisations ;
     - Les dates de début et de fin de validité de l'attestation pour relancer un appel avant expiration de l'attestation ;
     - Le code de sécurité de l'attestation.
@@ -149,6 +150,7 @@
     À part l'ajout des champs précédents, rien n'a changé. L'attestation est toujours disponible en PDF par URL. Cette montée en version n'est pas dûe à une évolution de l'API de l'URSSAF, par conséquent, la version précédente est maintenue par API&nbsp;Entreprise.
 - uid: 'urssaf/v3/attestation_vigilance'
   position: 9001
+  ping_url: 'https://entreprise.api.gouv.fr/ping/urssaf/attestation_sociale'
   new_endpoint_uids:
     - 'urssaf/attestation_vigilance'
   path: '/v3/urssaf/unites_legales/{siren}/attestation_vigilance'
@@ -162,12 +164,12 @@
   use_cases_forbidden: *urssaf_attestation_use_cases_forbidden
   provider_uids: *urssaf_attestation_provider_uids
   keywords: *urssaf_attestations_keywords
-  data: 
+  data:
     description: |+
       Cette API permet de **savoir si l'attestation de vigilance est délivrée par l'Urssaf** ou refusée. En cas de délivrance de l'attestation l'API transmet une **URL de téléchargement de l'attestation, au format PDF**.
 
       L'attestation de vigilance est **délivrée sous [certaines conditions](#faq_entry_0_endpoint_urssaf_attestation_vigilance)** ; entre autres, si l'entreprise s'est acquitée de ses cotisations et contributions.
-      
+
       Elle a une **durée de validité légale de 6 mois** à compter de la date d'analyse indiquée sur le document et qui est différente de la date de délivrance du document. [En&nbsp;savoir&nbsp;plus](#faq_entry_1_endpoint_urssaf_attestation_vigilance).
 
       <section class="fr-accordion">

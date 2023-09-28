@@ -6,6 +6,7 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
     :path,
     :beta,
     :novelty,
+    :ping_url,
     :new_version,
     :provider_uids,
     :parameters,
@@ -93,6 +94,14 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
 
   def new_version?
     new_version.present? && new_version
+  end
+
+  def api_status
+    return if ping_url.blank?
+
+    @api_status_code ||= Net::HTTP.get_response(URI(ping_url)).code
+
+    @api_status_code == '200' ? 'up' : 'down'
   end
 
   def pending_status

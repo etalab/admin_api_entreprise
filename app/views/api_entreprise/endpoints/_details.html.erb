@@ -28,10 +28,15 @@
   <h3 class="fr-h6 fr-pt-2w fr-mb-1v">
     <%= t('.availability.title') %>
   </h3>
-  <a class="fr-pt-1v fr-link" title="API Entreprise Status Page" href="https://status.entreprise.api.gouv.fr" target="_blank">
+  <% if @endpoint.ping_url %>
+    <div class="fr-pb-1w">
+      <%= t('.availability.real_time') %> : <span class="api-status api-status-<%= @endpoint.api_status %>"></span>
+    </div>
+  <% end %>
+  <a class="fr-link" title="API Entreprise Status Page" href="https://status.entreprise.api.gouv.fr" target="_blank">
     <%= t('.availability.link') %>
   </a>
-  <div class="fr-pt-2w">
+  <div class="fr-pt-1w">
     <% if @endpoint.maintenances.present? %>
       <%= t('.availability.maintenance', from_hour: @endpoint.maintenances['from_hour'], to_hour: @endpoint.maintenances['to_hour']) %>
     <% else %>
