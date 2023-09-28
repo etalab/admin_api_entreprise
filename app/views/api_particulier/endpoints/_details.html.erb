@@ -27,15 +27,20 @@
   <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" title="Détails des modalités d'appel" href="#parameters_details">
   <%= t('.parameters.link') %>
  </a>
-  
+
 
   <h3 class="fr-h6 fr-pt-4w fr-mb-1v">
     <%= t('.availability.title') %>
   </h3>
+  <% if @endpoint.ping_url %>
+    <div class="fr-pb-1w">
+      <%= t('.availability.real_time') %> : <span class="api-status api-status-<%= @endpoint.api_status %>"></span>
+    </div>
+  <% end %>
   <a class="fr-pt-1v fr-link" title="API Entreprise Status Page" href="https://statut.api.gouv.fr/history/api-particulier" target="_blank">
     <%= t('.availability.link') %>
   </a>
-  <div class="fr-pt-2w">
+  <div class="fr-pt-1w">
     <% if @endpoint.maintenances.present? %>
       <%= t('.availability.maintenance', from_hour: @endpoint.maintenances['from_hour'], to_hour: @endpoint.maintenances['to_hour']) %>
     <% else %>
