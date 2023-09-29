@@ -1,6 +1,7 @@
 ---
 - uid: 'opqibi/qualifications_ingenierie'
   path: '/v3/opqibi/unites_legales/{siren}/certification_ingenierie'
+  ping_url: 'https://entreprise.api.gouv.fr/ping/opqibi/certification_ingenierie'
   position: 340
   perimeter:
     entity_type_description: |+
@@ -27,7 +28,7 @@
   data:
     description: |+
       Le certificat OPQIBI renseigne sur les capacités d'ingénierie d'une organisation. Il permet de connaître les qualifications et qualifications probatoires de l'entité. [En savoir plus](#faq_entry_1_endpoint_opqibi_qualifications_ingenierie).
-      
+
       Cette API délivre :
       - les **informations relatives au certificat OPQIBI**, notamment les dates de délivrance et de validité ;
       - le **détail des qualifications**, dont notamment le code de la qualification, son libellé et sa définition, le statut “RGE Études" initié par l'ADEME s’il est reconnu, et les dates de validité.
@@ -56,9 +57,9 @@
         - code&nbsp;;
         - libellé&nbsp;;
         - date d'effet.
-      
+
         **Des informations liées au certificat&nbsp;:**
-        
+
         - numéro d'identification du certificat&nbsp;;
         - date d'édition;nbsp;;
         - durée de validité.
