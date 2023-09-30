@@ -105,8 +105,8 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.token_renewal_url = 'https://datapass-staging.api.gouv.fr/copy-authorization-request/'
-  config.token_authorization_request_url = 'https://datapass-staging.api.gouv.fr/api-entreprise/'
+  config.token_renewal_url = 'https://staging.datapass.api.gouv.fr/copy-authorization-request/'
+  config.token_authorization_request_url = 'https://staging.datapass.api.gouv.fr/api-entreprise/'
 
   # OAuth API Gouv config
   config.oauth_api_gouv_client_id_entreprise =  '4442bfd8caac8e19ff202d33060edcd248592662d5a8098e28b706ba906fe9e0db95ad336c38248f42896db272990b8dfc969d8b8857101dabf9b2ffe7ec49b9'
