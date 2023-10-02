@@ -44,6 +44,12 @@ jobs:
           bundler-cache: true
           cache-version: 321
 
+      - name: Setup Nodejs
+        uses: actions/setup-node@v3
+
+      - name: Install mjml dependency
+        run: npm install mjml
+
       - name: Install postgres client #and imagemagick
         run: sudo apt-get install libpq-dev #imagemagick
 
