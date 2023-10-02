@@ -1,0 +1,91 @@
+<%= render partial: "header" %> <%= render partial: "banner_demande_valide", locals: { to: "contact_technique" } %>
+<mj-section background-color="#ffffff">
+  <mj-column>
+    <mj-text align="left" font-family="Open Sans" font-size="13px" padding="0px 40px 0px 40px">
+      <%= render partial: "greetings", locals: { to: "contact_technique" } %>
+      <p style="line-height: 22px; margin: 10px 0; margin-top: 10px">
+        <span style="color: #000000; font-family: Open Sans; font-size: 15px">
+          La demande d’habilitation n°<%= @authorization_request.external_id %> à l’API Entreprise, effectuée par un
+          service de votre organisation a bien été validée ✅.
+        </span>
+      </p>
+      <p style="line-height: 22px; margin: 10px 0">
+        <span style="color: #000000; font-family: Open Sans; font-size: 15px">
+          <b>Vous avez été désigné contact technique par le demandeur</b>
+          , qui nous a transmis vos coordonnées. Vous serez contacté en cas d'évolutions techniques, d'incidents et de
+          l'expiration des jetons qui interviendra dans 18 mois.
+        </span>
+      </p>
+      <p style="line-height: 22px; margin: 10px 0; margin-bottom: 10px">
+        <span style="color: #000000; font-family: Open Sans; font-size: 15px">Cette demande concerne :&nbsp;</span>
+      </p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<mj-section background-color="#ffffff" padding="0px 40px 0px 40px" text-align="center">
+  <mj-column>
+    <mj-text
+      align="left"
+      container-background-color="#f0f0f0"
+      font-family="Open Sans"
+      font-size="15px"
+      padding="0px 20px 0px 20px">
+      <p style="line-height: 22px; margin: 10px 0; margin-top: 10px">
+        <span style="color: #000000; font-family: Open Sans; font-size: 15px">
+          <b><%= @authorization_request.intitule %></b>
+        </span>
+      </p>
+      <p style="line-height: 22px; margin: 10px 0; margin-bottom: 10px">
+        <span style="color: #000000; font-family: Open Sans; font-size: 15px">
+          <%= @authorization_request.description %>
+        </span>
+      </p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<mj-section background-color="#ffffff" padding="0px 40px 0px 40px">
+  <mj-column>
+    <mj-text align="left" font-family="Open Sans" font-size="13px">
+      <p style="line-height: 22px; margin: 10px 0; margin-top: 10px; margin-bottom: 10px">
+        <span style="color: #000000; font-family: Open Sans; font-size: 15px">
+          <b>
+            En tant que contact technique, vous pouvez vous connecter dès maintenant au compte API Entreprise et
+            récupérer le jeton d'accès :
+          </b>
+        </span>
+      </p>
+    </mj-text>
+    <%= render partial: "button_tokens" %>
+    <mj-text align="left" font-family="Open Sans" font-size="15px" padding="0px 20px 0px 20px">
+      <p style="line-height: 22px; margin: 10px 0; margin-top: 10px; margin-bottom: 10px">
+        <span style="color: #000000; font-family: Open Sans; font-size: 15px">
+          La liste des prochaines étapes est détaillée ci-dessous ⬇️
+        </span>
+      </p>
+    </mj-text>
+    <%= render partial: "list_scopes" %> <%= render partial: "embarquement_valide_welcome" %>
+  </mj-column>
+</mj-section>
+<mj-section background-color="#ffffff" border="solid #ffffff" padding="0px 0px 10px 0px">
+  <mj-column>
+    <mj-text align="left" font-family="Open Sans" font-size="13px" padding="0px 40px 0px 40px">
+      <p style="line-height: 19px; margin: 10px 0; margin-top: 10px; margin-bottom: 10px">
+        <span style="color: #000000; font-family: Open Sans; font-size: 13px">
+          <i>Vous ne comprenez pas à quoi correspond cette demande ?</i>
+        </span>
+        <a
+          href="mailto:support@entreprise.api.gouv.fr?subject=Erreur de destinataire, je ne suis pas contact technique&amp;body=[Merci d'avoir pris le temps de nous signaler cette erreur. Pourriez-vous préciser dans le corps de ce mail votre prénom et votre nom ?]">
+          <span style="color: #000091; font-family: Open Sans; font-size: 13px">
+            <i><u>Vous pouvez nous écrire directement à support@entreprise.api.gouv.fr</u></i>
+          </span>
+        </a>
+        <a href="mailto:support@entreprise.api.gouv.fr?subject=Erreur de contact technique après demande validée">
+          <span style="color: #000091; font-family: Open Sans; font-size: 13px"><i></i></span>
+        </a>
+        <span style="color: #000000; font-family: Open Sans; font-size: 13px"><i>.</i></span>
+      </p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<%= render partial: "block_mise_en_production" %> <%= render partial: "block_newsletter" %> <%= render partial:
+"block_questions" %> <%= render partial: "footer" %>

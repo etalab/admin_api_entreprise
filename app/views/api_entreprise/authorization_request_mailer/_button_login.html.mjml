@@ -1,0 +1,32 @@
+<mj-button
+  align="center"
+  background-color="#000091"
+  border-radius="0px"
+  border="2px solid #000091"
+  color="#ffffff"
+  container-background-color="#f0f0f0"
+  font-family="Open Sans"
+  font-size="14px"
+  font-weight="normal"
+  href="<%= login_url %>"
+  inner-padding="10px 25px 10px 25px"
+  padding="10px 25px 10px 25px"
+  vertical-align="middle">
+  <span style="background-color: transparent; color: #ffffff; font-family: Open Sans; font-size: 14px">
+    <b>
+      <% if to == "editeur" %> Se connecter au compte API Entreprise
+      <br />
+      et récupérer/transmettre ma clé d'accès &nbsp;🔑 <% else %> Se connecter
+      <br />
+      au compte API Entreprise <% end %>
+    </b>
+  </span>
+</mj-button>
+<mj-text container-background-color="#f0f0f0" font-family="Open Sans" font-size="13px" padding="0px 40px 20px 40px">
+  <p style="text-align: center; margin: 10px 0; margin-top: 10px; margin-bottom: 10px">
+    <span style="color: #000000; font-family: Open Sans; font-size: 15px"><u>&nbsp;➡️</u></span>
+    <a style="color: inherit" target="_blank" href="<%= login_url %>">
+      <span style="color: #000091; font-family: Open Sans; font-size: 13px"><%= login_url %></span>
+    </a>
+  </p>
+</mj-text>

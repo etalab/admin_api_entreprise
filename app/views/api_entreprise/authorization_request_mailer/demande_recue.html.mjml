@@ -1,0 +1,61 @@
+<%= render partial: "header" %>
+<mj-section
+  background-color="#d5dbef"
+  background-repeat="repeat"
+  background-size="auto"
+  padding="0px 0px 20px 0px"
+  text-align="center">
+  <mj-column>
+    <mj-divider
+      border-color="#a6b0d2"
+      border-style="solid"
+      border-width="1px"
+      padding="0px 0px 10px 0px"
+      width="100%"></mj-divider>
+    <mj-text font-family="Open Sans" padding="0px 40px 0px 40px">
+      <h1 style="line-height: 40px; font-size:26px;">
+        Votre demande d'accès
+        <br />
+        a bien été reçue par nos services.
+      </h1>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<mj-section background-color="#ffffff">
+  <mj-column>
+    <mj-text font-family="Open Sans" font-size="13px" padding="0px 40px 0px 40px">
+      <%= render partial: "greetings", locals: { to: "demandeur" } %>
+      <p style="line-height: 22px; margin: 10px 0; margin-top: 10px; margin-bottom: 10px">
+        <span style="color: #000000; font-family: Open Sans; font-size: 15px">
+          <b>
+            Votre demande d’habilitation API Entreprise n°<%= @authorization_request.external_id %> a bien été
+            enregistrée.
+          </b>
+          Notre service juridique va en prendre connaissance dans les meilleurs délais.&nbsp;
+        </span>
+      </p>
+    </mj-text>
+    <mj-text align="left" font-family="Open Sans" font-size="15px" padding="0px 40px 0px 40px">
+      <p style="line-height: 22px; margin: 10px 0; margin-top: 10px; margin-bottom: 10px">
+        <span style="color: #000000; font-family: Open Sans; font-size: 15px">
+          📝 Vous pouvez continuer à consulter et modifier votre demande à tout moment en suivant le lien suivant
+        </span>
+        <span style="color: #000091; font-family: Open Sans; font-size: 15px">➡️</span>
+        <a style="color: inherit" target="_blank" href="<%= @authorization_request_datapass_url %>">
+          <span style="color: #000091; font-family: Open Sans; font-size: 15px">
+            <u><%= @authorization_request_datapass_url %></u>
+          </span>
+        </a>
+      </p>
+      <p style="line-height: 22px; margin: 10px 0; margin-top: 10px">
+        <span style="color: #000000; font-family: Open Sans; font-size: 15px">À bientôt 👋</span>
+      </p>
+      <p style="line-height: 22px; margin: 10px 0; margin-bottom: 10px">
+        <span style="color: #000000; font-family: Open Sans; font-size: 15px"><b>API Entreprise</b></span>
+      </p>
+    </mj-text>
+    <mj-spacer height="20px"></mj-spacer>
+  </mj-column>
+</mj-section>
+<%= render partial: "block_accelerer_demande" %>
+<%= render partial: "block_newsletter" %> <%= render partial: "footer" %>

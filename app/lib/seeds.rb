@@ -63,7 +63,7 @@ class Seeds
   end
 
   def create_magic_link
-    MagicLink.new(email: @user.email)
+    MagicLink.create!(email: @user.email)
   end
 
   def create_api_entreprise_token_valid

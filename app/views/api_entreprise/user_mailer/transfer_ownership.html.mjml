@@ -1,0 +1,35 @@
+<mj-section>
+  <mj-column>
+    <mj-text>Bonjour et bienvenue,</mj-text>
+
+    <mj-text>
+      <%= @old_owner.email %> propose de vous transférer la responsabilité du compte utilisateur API Entreprise de votre
+      organisation. Ce compte vous permettra d'accéder aux jetons (tokens) API Entreprise, à leurs statistiques
+      d'utilisation et à l'interface de téléchargement des attestations si vos jetons sont pourvus de ces droits.
+    </mj-text>
+
+    <mj-text>
+      Votre compte DataPass associé à votre adresse e-mail <%= @new_owner.email %> vous permettra d'accéder au compte
+      API Entreprise. Toute connexion à cet espace utilisateur de votre part vaudra acceptation de nos
+      <a href="https://entreprise.api.gouv.fr/cgu">CGU</a>
+      .
+    </mj-text>
+
+    <mj-text>
+      Le transfert définitif de la responsabilité du compte nécessite une validation manuelle de nos services et peut
+      prendre quelques jours.
+    </mj-text>
+    <mj-text>
+      Vous pourrez ensuite accéder à l'<%= link_to 'espace utilisateur API Entreprise de votre organisation', @login_url
+      %> en utilisant vos identifiants DataPass.
+    </mj-text>
+
+    <mj-text>
+      Vous ne souhaitez pas prendre la responsabilité du compte actuellement détenu par <%= @old_owner.email %> ou avez
+      des interrogations ? Vous pouvez nous écrire par retour de mail.
+
+      <mj-text>Cordialement,</mj-text>
+      <mj-text>L'équipe API Entreprise</mj-text>
+    </mj-text>
+  </mj-column>
+</mj-section>

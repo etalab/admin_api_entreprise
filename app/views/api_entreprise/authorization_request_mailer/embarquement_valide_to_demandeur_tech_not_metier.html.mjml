@@ -1,0 +1,61 @@
+<%= render partial: "header" %> <%= render partial: "banner_demande_valide", locals: { to: "demandeur" } %>
+<mj-section background-color="#ffffff">
+  <mj-column>
+    <mj-text font-family="Open Sans" font-size="13px" padding="0px 40px 0px 40px">
+      <p>
+        <span style="color: #000000; font-family: Open Sans; font-size: 15px">
+          Votre
+          <b>demande d’habilitation n°<%= @authorization_request.external_id %> a bien été validée</b>
+          par notre service juridique !
+        </span>
+      </p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<mj-section background-color="#ffffff">
+  <mj-column>
+    <mj-text
+      align="left"
+      container-background-color="#f0f0f0"
+      font-family="Open Sans"
+      font-size="13px"
+      padding="20px 30px 20px 30px">
+      <%= render partial: "greetings", locals: { to: "demandeur" } %>
+      <h2 style="margin-top: 10px; margin-bottom: 10px">
+        <span style="color: #000000; font-family: Arial; font-size: 18px">
+          <b>Commencez dès maintenant à intégrer l'API Entreprise&nbsp;en récupérant votre jeton d'accès 🔑 :</b>
+        </span>
+      </h2>
+    </mj-text>
+    <%= render partial: "button_login", locals: { to: "demandeur" } %>
+  </mj-column>
+</mj-section>
+<mj-section background-color="#ffffff">
+  <mj-column>
+    <mj-text
+      align="left"
+      container-background-color="#ffffff"
+      font-family="Open Sans"
+      font-size="13px"
+      padding="0px 40px 30px 40px">
+      <p style="margin: 10px 0; margin-top: 10px; margin-bottom: 10px">
+        <span style="color: #000000; font-family: Open Sans; font-size: 15px">
+          <i>Vous avez besoin de transmettre le jeton dans le cadre de l'intégration ?&nbsp;</i>
+        </span>
+        <br />
+        <br />
+        <span style="color: #000000; font-family: Open Sans; font-size: 15px">
+          Une fois connecté, utilisez le bouton prévu à cet effet "Transmettre le jeton à mon équipe technique". ⚠️
+          &nbsp;
+        </span>
+        <span style="color: #ff0000; font-family: Open Sans; font-size: 15px">
+          Le jeton ne doit jamais être relayé autrement que par cette fonctionnalité.
+        </span>
+      </p>
+    </mj-text>
+    <%= render partial: "list_scopes" %> <%= render partial: "info_subscribe_incidents" %> <%= render partial:
+    "embarquement_valide_welcome" %>
+  </mj-column>
+</mj-section>
+<%= render partial: "block_mise_en_production" %> <%= render partial: "block_newsletter" %> <%= render partial:
+"block_questions" %> <%= render partial: "footer" %>

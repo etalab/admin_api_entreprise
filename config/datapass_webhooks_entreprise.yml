@@ -43,21 +43,21 @@ production: &production
   team_member_updated: &team_member_updated {}
   send_application: &send_application
     emails:
-      - id: '3098391'
-      - id: '3098436'
+      - id: '3098391' # demande_recue
+      - id: '3098436' # reassurance_demande_recue
         when: 'in 14 days'
   notify: &notify {}
   review_application: &review_application
     emails:
-      - id: '3098236'
-      - id: '3098155'
+      - id: '3098236' # embarquement_modifications_demandees
+      - id: '3098155' # embarquement_relance_modifications_demandees
         when: 'in 14 days'
   refuse_application: &refuse_application
     emails:
-      - id: '3084277'
+      - id: '3084277' # embarquement_demande_refusee
   validate_application: &validate_application
     emails:
-      - id: '4254728'
+      - id: '4254728' # embarquement_valide_to_editeur
         condition_on_authorization: 'editor_authorization_request'
         to:
           - 'authorization_request.demandeur'
@@ -65,21 +65,21 @@ production: &production
           - 'authorization_request.contact_technique'
           - 'authorization_request.contact_metier'
 
-      - id: '3090261'
+      - id: '3090261' # embarquement_valide_to_demandeur_tech_metier
         condition_on_authorization: 'not_editor_and_all_contacts_have_the_same_email?'
 
 
-      - id: '3090303'
+      - id: '3090303' # embarquement_valide_to_demandeur_seulement
         condition_on_authorization: 'not_editor_and_all_contacts_have_different_emails?'
         to:
           - 'authorization_request.demandeur'
-      - id: '3090321'
+      - id: '3090321' # embarquement_valide_to_tech_cc_metier
         condition_on_authorization: 'not_editor_and_all_contacts_have_different_emails?'
         to:
           - 'authorization_request.contact_technique'
         cc:
           - 'authorization_request.demandeur'
-      - id: '3084241'
+      - id: '3084241' # embarquement_valide_to_metier_cc_demandeur_tech
         condition_on_authorization: 'not_editor_and_all_contacts_have_different_emails?'
         to:
           - 'authorization_request.contact_metier'
@@ -88,11 +88,11 @@ production: &production
           - 'authorization_request.contact_technique'
 
 
-      - id: '3090303'
+      - id: '3090303' # embarquement_valide_to_demandeur_not_tech
         condition_on_authorization: 'not_editor_and_user_is_contact_metier_and_not_contact_technique?'
         to:
           - 'authorization_request.demandeur'
-      - id: '3090321'
+      - id: '3090321' # embarquement_demande_to_tech_cc_demandeur_metier
         condition_on_authorization: 'not_editor_and_user_is_contact_metier_and_not_contact_technique?'
         to:
           - 'authorization_request.contact_technique'
@@ -100,19 +100,18 @@ production: &production
           - 'authorization_request.demandeur'
 
 
-      - id: '3090261'
+      - id: '3090261' # embarquement_valide_to_demandeur_tech_not_metier
         condition_on_authorization: 'not_editor_and_user_is_contact_technique_and_not_contact_metier?'
         to:
           - 'authorization_request.demandeur'
-      - id: '3084241'
+      - id: '3084241' # embarquement_valide_to_metier_cc_demandeur_tech
         condition_on_authorization: 'not_editor_and_user_is_contact_technique_and_not_contact_metier?'
         to:
           - 'authorization_request.contact_metier'
         cc:
           - 'authorization_request.demandeur'
 
-      # Enquête de satisfaction
-      - id: '3251161'
+      - id: '3251161' # enquete_satisfaction
         when: 'in 30 days'
         condition_on_authorization: 'not_editor_authorization_request'
         to:
