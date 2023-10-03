@@ -125,9 +125,7 @@ RSpec.describe Token do
       end
 
       it 'contains all its access scopes into the "scopes" key' do
-        token_scopes = token.scopes.pluck(:code)
-
-        expect(payload.fetch(:scopes)).to eq(token_scopes)
+        expect(payload.fetch(:scopes)).to eq(token.scopes)
       end
 
       describe 'expiration date' do
