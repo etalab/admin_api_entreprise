@@ -5,22 +5,10 @@ require_relative 'config/application'
 
 Rails.application.load_tasks
 
-domains = ['watchdoge1', 'watchdoge2']
-
-task :setup do
-  domains.each do |domain|
-    sh "mina setup domain=#{domain}"
-  end
+begin
+  require 'rspec/core/rake_task'
+  RSpec::Core::RakeTask.new(:spec)
+rescue LoadError
 end
 
-task :deploy do
-  domains.each do |domain|
-    sh "mina deploy domain=#{domain}"
-  end
-end
-
-task :seeds do
-  domains.each do |domain|
-    sh "mina seeds domain=#{domain}"
-  end
-end
+task default: %i[spec]
