@@ -33,6 +33,7 @@ constraints(APIParticulierDomainConstraint.new) do
     get '/compte/apres-deconnexion', to: 'sessions#after_logout', as: :after_logout
 
     get '/compte', to: 'users#profile', as: :user_profile
+    get '/compte/nouveaux-jetons/telecharger', to: "new_tokens#download", as: :new_tokens_download
 
     post 'public/magic_link/create', to: 'public_token_magic_links#create'
     post '/compte/jetons/:id/partager', to: 'restricted_token_magic_links#create', as: :token_create_magic_link
