@@ -18,10 +18,10 @@ info:
 
     Le bac à sable et l'API de production sont appelables par deux adresses distinctes :
 
-    - bac à sable : [https://staging.particulier.api.gouv.fr/api](https://staging.particulier.api.gouv.fr/api)
-    - production : [https://particulier.api.gouv.fr/api](https://particulier.api.gouv.fr/api)
+    - bac à sable : [https://staging.particulier.api.gouv.fr](https://staging.particulier.api.gouv.fr)
+    - production : [https://particulier.api.gouv.fr](https://particulier.api.gouv.fr)
 
-    Pour récupérer le jeton de production un portail développeur est mis à votre disposition à l'adresse suivante : [https://mon.portail.api.gouv.fr](https://mon.portail.api.gouv.fr)
+    Pour récupérer le jeton de production un portail développeur est mis à votre disposition à l'adresse suivante : [https://particulier.api.gouv.fr/compte](https://particulier.api.gouv.fr/compte)
 
     Pour effectuer vos tests sur le bac à sable, référez-vous à ce dépôt github: [etalab/siade_staging_data](https://github.com/etalab/siade_staging_data/) (l'ancien système basé sur Airtable n'est plus maintenu et va être remplacé par le nouveau système). Un jeton nommé default est disponible ici: [tokens](https://github.com/etalab/siade_staging_data/tree/develop/tokens)
 
@@ -44,7 +44,7 @@ info:
     Lors de votre passage en production :
 
     - remplacez l'URL de staging.particulier.api.gouv.fr à particulier.api.gouv.fr
-    - remplacez le jeton de test par le jeton obtenu sur [le portail API Particulier](https://mon.portail.api.gouv.fr)
+    - remplacez le jeton de test par le jeton obtenu sur [le portail API Particulier](https://particulier.api.gouv.fr/compte)
   termsOfService: https://api.gouv.fr/resources/CGU%20API%20Particulier.pdf
   contact:
     name: Contact API Particulier
@@ -59,7 +59,7 @@ paths:
     get:
       summary: Complémentaire santé solidaire
       tags:
-      - Prochainement
+      - Complementaire Sante Solidaire
       parameters:
       - name: X-Api-Key
         in: header
@@ -145,10 +145,10 @@ paths:
         description: Sexe de la personne, masculin ou féminin
         required: true
         example: M
-      description: "Quotient familial et composition de la famille d'un allocataire
-        du régime général et du régime agricole. \n Pour de plus amples informations
-        sur cette api et y avoir accès en avant première, veuillez contacter l'équipe
-        API Particulier. \n **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/api_particulier_v2_cnaf_quotient_familial_v2) "
+      description: "Savoir si un particulier est bénéficiaire de la complémentaire
+        santé solidaire (C2S). \n\n Pour de plus amples informations sur cette api
+        et y avoir accès en avant première, veuillez contacter l'équipe API Particulier.
+        \n **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/complementaire_sante_solidaire) "
       responses:
         '200':
           description: Quotient Familial trouvée
@@ -158,199 +158,43 @@ paths:
               schema:
                 type: object
                 properties:
-                  allocataires:
-                    title: Informations sur les parents composant la famille
-                    type: array
-                    minItems: 1
-                    items:
-                      type: object
-                      properties:
-                        nomNaissance:
-                          title: Nom
-                          type: string
-                          description: Nom de naissance de l'allocataire
-                          example: JACQUES
-                        nomUsuel:
-                          title: Nom d'usage
-                          type: string
-                          description: Nom d'usage de l'allocataire
-                          example: JACQUES
-                          nullable: true
-                        prenoms:
-                          title: Prénoms
-                          type: string
-                          description: Prénoms de l'allocataire
-                          example: JEAN-PIERRE THOMAS
-                        anneeDateDeNaissance:
-                          title: Année de naissance
-                          type: string
-                          example: '2000'
-                          description: Année de la date de naissance de l'allocataire.
-                            Peut-être vide si inconnue.
-                          nullable: true
-                        moisDateDeNaissance:
-                          title: Mois de naissance
-                          type: string
-                          example: '01'
-                          description: Mois de la date de naissance de l'allocataire.
-                            Peut-être vide si inconnue.
-                          nullable: true
-                        jourDateDeNaissance:
-                          title: Jour de naissance
-                          type: string
-                          example: '31'
-                          description: Jour de la date de naissance de l'allocataire.
-                            Peut-être vide si inconnue.
-                          nullable: true
-                        sexe:
-                          title: Sexe
-                          type: string
-                          description: Sexe de l'allocataire
-                          example: M
-                          enum:
-                          - F
-                          - M
-                  enfants:
-                    type: array
-                    title: Informations sur les enfants composant la famille
-                    items:
-                      type: object
-                      properties:
-                        nomNaissance:
-                          title: Nom de naissance
-                          type: string
-                          description: Nom de naissance de l'enfant
-                          example: JACQUES
-                        nomUsuel:
-                          title: Nom d'usage
-                          type: string
-                          description: Nom d'usage de l'enfant
-                          example: JACQUES
-                          nullable: true
-                        prenoms:
-                          title: Prénoms
-                          type: string
-                          description: Prénoms de l'enfant
-                          example: JEAN-PIERRE THOMAS
-                        anneeDateDeNaissance:
-                          title: Année de naissance
-                          type: string
-                          example: '2000'
-                          description: Année de la date de naissance de l'enfant.
-                            Peut-être vide si inconnue.
-                          nullable: true
-                        moisDateDeNaissance:
-                          title: Mois de naissance
-                          type: string
-                          example: '01'
-                          description: Mois de la date de naissance de l'enfant. Peut-être
-                            vide si inconnue.
-                          nullable: true
-                        jourDateDeNaissance:
-                          title: Jour de naissance
-                          type: string
-                          example: '31'
-                          description: Jour de la date de naissance de l'enfant. Peut-être
-                            vide si inconnue.
-                          nullable: true
-                        sexe:
-                          title: Sexe
-                          type: string
-                          description: Sexe de l'enfant
-                          example: M
-                          enum:
-                          - F
-                          - M
-                  adresse:
-                    title: Adresse de la famille
-                    type: object
-                    description: Adresse au format de la poste
-                    properties:
-                      identite:
-                        title: Identité du destinataire
-                        type: string
-                        example: Monsieur JEAN JACQUES
-                        description: 'Identité du destinataire : Civilité, titre ou
-                          qualité + nom et prénom'
-                      complementInformation:
-                        title: Complément d'information du destinataire ou point de
-                          remise
-                        description: Complément d'information du destinataire ou point
-                          de remise.
-                        type: string
-                        nullable: true
-                        example: 
-                      complementInformationGeographique:
-                        title: Complément d'information du point géographique
-                        type: string
-                        nullable: true
-                        example: 
-                        description: Complément d'information du point géographique.
-                      numeroLibelleVoie:
-                        title: Voie
-                        type: string
-                        description: Numéro et libellé de la voie
-                        example: 1 RUE DE LA GARE
-                        nullable: true
-                      lieuDit:
-                        title: Lieu-dit
-                        type: string
-                        nullable: true
-                        example: 
-                        description: 'Lieu-dit ou service particulier de distribution
-                          : poste restante, boîte postale'
-                      codePostalVille:
-                        title: Code postal
-                        type: string
-                        description: Code postale et localité de destination
-                        example: '75002'
-                      pays:
-                        title: Pays
-                        type: string
-                        description: Pays
-                        example: FRANCE
-                    required:
-                    - identite
-                    - complementInformation
-                    - complementInformationGeographique
-                    - numeroLibelleVoie
-                    - lieuDit
-                    - codePostalVille
-                    - pays
-                  regime:
-                    title: Régime de l'allocataire
+                  status:
+                    title: Statut bénéficiaire de la complémentaire santé solidaire
+                      (C2S)
                     type: string
-                    description: Précise le régime de l'allocataire (CNAF ou MSA)
-                    example: MSA
+                    description: "Indique si le particulier est bénéficiaire de la
+                      complémentaire de santé solidaire au moment de l'appel. Cet
+                      indicateur précise sous quelle forme la C2S est attribuée (avec
+                      ou sans participation financière). \n \n - Si le statut est
+                      'beneficiaire_sans_participation_financiere', cela signifie
+                      que le particulier est bénéficiaire d'une C2S sans participation
+                      financière. \n - Si le statut est 'beneficiaire_avec_participation_financiere',
+                      cela signifie que le particulier est d'une bénéficiaire de C2S
+                      avec participation financière. \n - Si le statut est 'non_beneficiaire_css',
+                      cela signifie que le particulier n'est pas concerné par la C2S."
                     enum:
-                    - CNAF
-                    - MSA
-                  quotientFamilial:
-                    title: Quotient familial CAF ou MSA
-                    type: integer
-                    description: Valeur du quotient familial calculé par la CAF ou
-                      la MSA
-                    example: 1045
-                  annee:
-                    title: Année du quotient familial
-                    type: integer
-                    description: Année de calcul du quotient familial
-                    example: 2021
-                  mois:
-                    title: Mois du quotient familial
-                    type: integer
-                    description: Mois de calcul du quotient familial
-                    example: 6
-                  annee_calcul:
-                    title: Année du calcul du quotient familial
-                    type: integer
-                    description: Année à laquelle le quotient familial a été calculé
-                    example: 2021
-                  mois_calcul:
-                    title: Mois du calcul du quotient familial
-                    type: integer
-                    description: Mois auquel le quotient familial a été calculé
-                    example: 3
+                    - beneficiaire_sans_participation_financiere
+                    - beneficiaire_avec_participation_financiere
+                    - non_beneficiaire_css
+                  dateDebut:
+                    title: Date d'ouverture du droit à la C2S
+                    type: string
+                    nullable: true
+                    description: "Date de début de droit à la complémentaire santé
+                      solidaire (C2S) si le particulier est bénéficiaire. \n Ce champs
+                      est null dans le cas où le particulier n'est pas bénéficiaire
+                      de la C2S."
+                    example: '1992-11-29'
+                  dateFin:
+                    title: Date de fermeture du droit à la C2S
+                    type: string
+                    nullable: true
+                    description: "Date de fin de droit à la complémentaire santé solidaire
+                      (C2S) du particulier bénéficiaire. \n Ce champs est calculé
+                      en ajoutant 12 mois à la date de début de droit à la C2S. \n
+                      Ce champs sera null dans le cas où le particulier n'est pas
+                      bénéficiaire de la C2S."
+                    example: '1993-11-29'
         '400':
           description: Mauvais paramètres d'appels
           content:
@@ -362,7 +206,7 @@ paths:
                     - code: '00364'
                       title: Entité non traitable
                       detail: Le sexe n'est pas correctement formaté (m ou f)
-                      source: 
+                      source:
                       meta: {}
                   summary: Entité non traitable
                   description: Le sexe n'est pas correctement formaté (m ou f)
@@ -388,7 +232,7 @@ paths:
                       detail: La réponse retournée par le fournisseur de données est
                         invalide et inconnue de notre service. L'équipe technique
                         a été notifiée de cette erreur pour investigation.
-                      source: 
+                      source:
                       meta:
                         provider: CNAF
                   summary: Erreur inconnue du fournisseur de données
@@ -405,9 +249,9 @@ paths:
                 "$ref": "#/components/schemas/Error"
   "/api/v2/composition-familiale-v2":
     get:
-      summary: Quotient familial CAF & MSA
+      summary: Quotient familial MSA & CAF
       tags:
-      - Prochainement
+      - Quotient familial
       parameters:
       - name: X-Api-Key
         in: header
@@ -510,7 +354,7 @@ paths:
         schema:
           type: integer
       description: "Quotient familial et composition de la famille d'un allocataire
-        du régime général et du régime agricole. \n Pour de plus amples informations
+        du régime agricole (régime général à venir). \n Pour de plus amples informations
         sur cette api et y avoir accès en avant première, veuillez contacter l'équipe
         API Particulier. \n **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/api_particulier_v2_cnaf_quotient_familial_v2) "
       responses:
@@ -643,12 +487,12 @@ paths:
                           de remise.
                         type: string
                         nullable: true
-                        example: 
+                        example:
                       complementInformationGeographique:
                         title: Complément d'information du point géographique
                         type: string
                         nullable: true
-                        example: 
+                        example:
                         description: Complément d'information du point géographique.
                       numeroLibelleVoie:
                         title: Voie
@@ -660,7 +504,7 @@ paths:
                         title: Lieu-dit
                         type: string
                         nullable: true
-                        example: 
+                        example:
                         description: 'Lieu-dit ou service particulier de distribution
                           : poste restante, boîte postale'
                       codePostalVille:
@@ -726,7 +570,7 @@ paths:
                     - code: '00364'
                       title: Entité non traitable
                       detail: Le sexe n'est pas correctement formaté (m ou f)
-                      source: 
+                      source:
                       meta: {}
                   summary: Entité non traitable
                   description: Le sexe n'est pas correctement formaté (m ou f)
@@ -751,7 +595,7 @@ paths:
                       detail: La réponse retournée par le fournisseur de données est
                         invalide et inconnue de notre service. L'équipe technique
                         a été notifiée de cette erreur pour investigation.
-                      source: 
+                      source:
                       meta:
                         provider: CNAF
                   summary: Erreur inconnue du fournisseur de données
@@ -908,7 +752,7 @@ paths:
                     example: 1
                     nullable: true
                     enum:
-                    - 
+                    -
                     - 1
                     - 2
                     - 3
@@ -958,7 +802,7 @@ paths:
                     - code: '00364'
                       title: Entité non traitable
                       detail: Le sexe n'est pas correctement formaté (m ou f)
-                      source: 
+                      source:
                       meta: {}
                   summary: Entité non traitable
                   description: Le sexe n'est pas correctement formaté (m ou f)
@@ -983,7 +827,7 @@ paths:
                       detail: La réponse retournée par le fournisseur de données est
                         invalide et inconnue de notre service. L'équipe technique
                         a été notifiée de cette erreur pour investigation.
-                      source: 
+                      source:
                       meta:
                         provider: MEN
                   summary: Erreur inconnue du fournisseur de données
@@ -1016,7 +860,7 @@ paths:
         required: true
         schema:
           type: string
-      description: Ensemble des paiements versé par Pôle Emploi pour un usager
+      description: Ensemble des paiements versés par Pôle Emploi pour un usager
       responses:
         '200':
           description: Paiements trouvées
@@ -1073,7 +917,7 @@ paths:
                     - code: '00380'
                       title: Entité non traitable
                       detail: L'identifiant Pole Emploi est manquant
-                      source: 
+                      source:
                       meta: {}
                   summary: Entité non traitable
                   description: L'identifiant Pole Emploi est manquant
@@ -1098,7 +942,7 @@ paths:
                       detail: La réponse retournée par le fournisseur de données est
                         invalide et inconnue de notre service. L'équipe technique
                         a été notifiée de cette erreur pour investigation.
-                      source: 
+                      source:
                       meta:
                         provider: Pôle Emploi
                   summary: Erreur inconnue du fournisseur de données
@@ -1367,7 +1211,8 @@ paths:
                       d'un trop grand nombre d'échecs antérieurs.
   "/api/v2/composition-familiale":
     get:
-      summary: Quotient familial CAF
+      summary: Quotient familial (CAF)
+      deprecated: true
       description: |-
         Quotient familial et composition de la famille d'un allocataire de la Caisse nationale des allocations familiales (CNAF). Attention, le quotient familial de la CAF n'a rien à voir avec le quotient familial fiscal utilisé pour le calcul de l'impôt sur le revenu
 
@@ -1395,7 +1240,7 @@ paths:
           format: string
           example: 75001
       tags:
-      - Situation CAF
+      - Quotient familial
       responses:
         '200':
           x-operationId: api_particulier_v2_cnaf_quotient_familial
@@ -1478,12 +1323,12 @@ paths:
                         description: Numéro d'appartement, escalier
                         type: string
                         nullable: true
-                        example: 
+                        example:
                       complementIdentiteGeo:
                         title: Complément d'information du point géographique
                         type: string
                         nullable: true
-                        example: 
+                        example:
                         description: Entrée, tour, immeuble, bâtiment, résidence
                       numeroRue:
                         title: Voie
@@ -1494,7 +1339,7 @@ paths:
                         title: Lieu-dit
                         type: string
                         nullable: true
-                        example: 
+                        example:
                         description: 'Lieu-dit ou service particulier de distribution
                           : poste restante, boîte postale'
                       codePostalVille:
@@ -1610,7 +1455,7 @@ paths:
                     type: string
                     description: Nom d'usage du demandeur d'emploi
                     nullable: true
-                    example: 
+                    example:
                   prenom:
                     title: Prénom
                     type: string
@@ -1647,7 +1492,7 @@ paths:
                     - AC
                     - DC
                     - RC
-                    - 
+                    -
                   telephone:
                     title: Téléphone principal
                     type: string
@@ -1688,15 +1533,15 @@ paths:
                       ligneComplementDestinaire:
                         type: string
                         nullable: true
-                        example: 
+                        example:
                       ligneComplementAdresse:
                         type: string
                         nullable: true
-                        example: 
+                        example:
                       ligneComplementDistribution:
                         type: string
                         nullable: true
-                        example: 
+                        example:
                       ligneNom:
                         type: string
                         example: MARTIN
@@ -2219,13 +2064,13 @@ components:
       properties:
         error:
           type: string
-          example: 
+          example:
         reason:
           type: string
-          example: 
+          example:
         message:
           type: string
-          example: 
+          example:
   securitySchemes:
     apiKey:
       type: apiKey
@@ -2233,4 +2078,4 @@ components:
       in: header
       description: Jeton d'authentification obtenu suite à la validation de votre
         <a href='https://datapass.api.gouv.fr/'>demande d'habilitation</a>, visible
-        sur <a href='https://mon.portail.api.gouv.fr'>le portail API Particulier</a>
+        sur <a href='https://particulier.api.gouv.fr/compte'>le portail API Particulier</a>
