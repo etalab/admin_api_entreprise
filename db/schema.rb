@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_22_102926) do
+ActiveRecord::Schema[7.1].define(version: 2023_10_10_150356) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pgcrypto"
@@ -58,6 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_22_102926) do
     t.uuid "authorization_request_model_id", null: false
     t.json "extra_info"
     t.jsonb "scopes", default: [], null: false
+    t.datetime "blacklisted_at"
     t.index ["access_request_survey_sent"], name: "index_tokens_on_access_request_survey_sent"
     t.index ["archived"], name: "index_tokens_on_archived"
     t.index ["blacklisted"], name: "index_tokens_on_blacklisted"
