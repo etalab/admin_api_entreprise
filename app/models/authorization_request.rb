@@ -76,7 +76,7 @@ class AuthorizationRequest < ApplicationRecord
   end
 
   def blacklist!
-    token&.update!(blacklisted: true)
+    token&.update!(blacklisted_at: Time.zone.now)
 
     update!(status: 'blacklisted')
   end

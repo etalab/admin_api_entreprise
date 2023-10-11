@@ -54,7 +54,7 @@ RSpec.describe Token::SendExpirationNotices, type: :organizer do
     end
 
     it 'does not call the mailer for blacklisted tokens' do
-      blacklisted_token = create(:token, :expiring_within_3_month, blacklisted: true)
+      blacklisted_token = create(:token, :expiring_within_3_month, :blacklisted)
       # Expectations for sent notifications are needed, otherwise the code runs against the "dumb" double
       expect(ScheduleExpirationNoticeMailjetEmailJob).to receive(:perform_later).with(one_token_expired_within_3_month, days).and_call_original
       expect(ScheduleExpirationNoticeMailjetEmailJob).to receive(:perform_later).with(another_token_expired_within_3_month, days).and_call_original
