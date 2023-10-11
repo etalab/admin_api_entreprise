@@ -16,7 +16,7 @@ RSpec.describe DatapassWebhook::RevokeCurrentToken, type: :interactor do
     it 'does not archive current token' do
       expect {
         subject
-      }.not_to change { Token.where(blacklisted: true).count }
+      }.not_to change { Token.where.not(blacklisted_at: nil).count }
     end
   end
 
@@ -28,7 +28,7 @@ RSpec.describe DatapassWebhook::RevokeCurrentToken, type: :interactor do
     it 'does revoke current token' do
       expect {
         subject
-      }.to change { Token.where(blacklisted: true).count }
+      }.to change { Token.where.not(blacklisted_at: nil).count }
     end
 
     it 'does update the authorization request status' do

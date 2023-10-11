@@ -13,7 +13,7 @@ namespace :token do
     copy.iat = Time.zone.now.to_i
     copy.save
 
-    token.update(blacklisted: true)
+    token.update(blacklisted_at: Time.zone.now)
   end
 
   desc "Mark an API Particulier token (which has a legacy id) as migration token:mark_as_migrated\\['UUID'\\]"

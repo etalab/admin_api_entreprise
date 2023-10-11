@@ -1,5 +1,5 @@
 class Token < ApplicationRecord
-  self.ignored_columns += %w[access_request_survey_sent archived]
+  self.ignored_columns += %w[access_request_survey_sent archived blacklisted]
 
   belongs_to :authorization_request, foreign_key: 'authorization_request_model_id', inverse_of: :tokens
   validates :exp, presence: true
@@ -7,8 +7,8 @@ class Token < ApplicationRecord
   scope :issued_in_last_seven_days, -> { where(created_at: 3.weeks.ago..1.week.ago) }
   scope :unexpired, -> { where('exp > ?', Time.zone.now.to_i) }
 
-  scope :blacklisted, -> { where(blacklisted: true) }
-  scope :not_blacklisted, -> { where(blacklisted: false) }
+  scope :blacklisted, -> { where('blacklisted_at < ?', Time.zone.now) }
+  scope :not_blacklisted, -> { where('blacklisted_at > ?', Time.zone.now).or(where(blacklisted_at: nil)) }
 
   scope :active, -> { not_blacklisted.unexpired }
   scope :active_for, ->(api) { active.joins(:authorization_request).where(authorization_request: { api: }).uniq }
@@ -54,6 +54,11 @@ class Token < ApplicationRecord
 
   def legacy_token_migrated?
     extra_info['legacy_token_migrated'].present?
+  end
+
+  def blacklisted?
+    blacklisted_at.present? &&
+      blacklisted_at < Time.zone.now
   end
 
   private

@@ -9,4 +9,4 @@ if Rails.env.staging?
   seeds.create_scopes('entreprise')
 else
   seeds.perform
-end
+end 

@@ -80,11 +80,11 @@ FactoryBot.define do
     end
 
     trait :not_blacklisted do
-      blacklisted { false }
+      blacklisted_at { nil }
     end
 
     trait :blacklisted do
-      blacklisted { true }
+      blacklisted_at { 1.month.ago }
     end
 
     trait :expired do

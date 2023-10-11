@@ -103,7 +103,7 @@ class Seeds
     create_token(
       @scopes_entreprise.sample(2),
       'entreprise',
-      token_params: { blacklisted: true, exp: 14.months.ago },
+      token_params: { blacklisted_at: 6.months.ago, exp: 14.months.ago },
       demandeur: @user,
       authorization_request_params: {
         intitule: 'Mairie de Paris',
