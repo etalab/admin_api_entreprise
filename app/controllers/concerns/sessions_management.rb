@@ -18,7 +18,7 @@ module SessionsManagement
   def destroy
     logout_user
 
-    redirect_to oauth_logout_url
+    redirect_to oauth_logout_url, allow_other_host: true
   end
 
   def after_logout
