@@ -15,7 +15,8 @@ RSpec.describe 'token tasks', type: :rake do
     it 'creates a duplicated token' do
       expect { run_task }.to change(Token, :count).by(1)
 
-      expect(token_to_blacklist.reload).to be_blacklisted
+      expect(token_to_blacklist.reload.blacklisted_at).not_to be_nil
+      expect(token_to_blacklist.reload).not_to be_blacklisted
 
       new_token = Token.last
       expect(new_token).not_to be(token_to_blacklist)
