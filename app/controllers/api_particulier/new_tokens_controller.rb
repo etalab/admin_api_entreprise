@@ -19,7 +19,7 @@ class APIParticulier::NewTokensController < APIParticulier::AuthenticatedUsersCo
   private
 
   def get_file_content(email)
-    file_path = Rails.root.join('./tmp/token_export')
+    file_path = Rails.root.join('./token_export')
 
     [
       "demarche_#{email}",
