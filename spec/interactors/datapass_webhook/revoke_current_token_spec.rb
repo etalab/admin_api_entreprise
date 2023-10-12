@@ -34,7 +34,7 @@ RSpec.describe DatapassWebhook::RevokeCurrentToken, type: :interactor do
     it 'does update the authorization request status' do
       expect {
         subject
-      }.to change { AuthorizationRequest.where(status: 'blacklisted').count }
+      }.to change { AuthorizationRequest.where(status: 'revoked').count }
     end
   end
 end
