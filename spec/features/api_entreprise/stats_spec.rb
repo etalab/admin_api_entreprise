@@ -7,7 +7,7 @@ RSpec.describe 'API Entreprise stats', app: :api_entreprise do
     before { visit stats_path }
 
     it 'renders the stats page' do
-      expect(page).to have_selector('iframe#stats-api-entreprise')
+      expect(page).to have_css('iframe#stats-api-entreprise')
     end
   end
 end

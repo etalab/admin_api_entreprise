@@ -54,7 +54,7 @@ RSpec.describe 'Endpoints show', app: :api_particulier do
       it 'opens modal with example' do
         visit endpoint_path(uid:)
 
-        click_on 'example_link'
+        click_link 'example_link'
 
         within('#main-modal-content') do
           expect(page).to have_content('JEAN JACQUES')

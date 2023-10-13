@@ -38,7 +38,6 @@ FactoryBot.define do
   factory :datapass_webhook_pass_model, class: Hash do
     initialize_with { attributes.stringify_keys }
 
-    sequence(:id, &:to_s)
     intitule { 'intitule from webhook' }
     description { 'description from webhook' }
     demarche { nil }
@@ -69,7 +68,6 @@ FactoryBot.define do
   factory :datapass_webhook_team_member_model, class: Hash do
     initialize_with { attributes.stringify_keys }
 
-    sequence(:id, &:to_s)
     sequence(:uid) { |n| "uid#{n}" }
     type { 'demandeur' }
 
@@ -84,7 +82,6 @@ FactoryBot.define do
   factory :datapass_webhook_event_model, class: Hash do
     initialize_with { attributes.stringify_keys }
 
-    sequence(:id, &:to_s)
     name { 'notify' }
     comment { 'comment' }
     created_at { rand(1..9001).seconds.ago.to_datetime.strftime('%Y-%m-%d %H:%M:%S UTC') }

@@ -40,7 +40,7 @@ module AdminApientreprise
     config.active_job.queue_name_prefix = "admin_api_entreprise_#{Rails.env}"
 
     config.action_mailer.deliver_later_queue_name = :default
-    config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
+    config.action_mailer.preview_paths << "#{Rails.root}/lib/mailer_previews"
 
     config.assets.prefix = '/assets'
     config.assets.version = 'v3'

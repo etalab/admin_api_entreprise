@@ -4,7 +4,7 @@ RSpec.describe 'transfer user account ownership', :js, app: :api_entreprise do
   subject do
     visit user_profile_path
 
-    click_on 'transfer_account_button'
+    click_link 'transfer_account_button'
 
     within form_dom_id do
       fill_in 'email', with: email

@@ -80,7 +80,7 @@ RSpec.describe 'Endpoints show', app: :api_entreprise do
       it 'opens modal with example' do
         visit endpoint_path(uid:)
 
-        click_on 'example_link'
+        click_link 'example_link'
 
         within('#main-modal-content') do
           expect(page).to have_content('"sigle": "DINUM"')
@@ -90,7 +90,7 @@ RSpec.describe 'Endpoints show', app: :api_entreprise do
       it 'open modal with custom example' do
         visit endpoint_path(uid: api_entreprise_example_collection_uid)
 
-        click_on 'example_link'
+        click_link 'example_link'
 
         within('#main-modal-content') do
           expect(page).to have_content('"type": "personne_morale"')
@@ -103,7 +103,7 @@ RSpec.describe 'Endpoints show', app: :api_entreprise do
       it 'opens modal with CGU content' do
         visit endpoint_path(uid:)
 
-        click_on 'cgu_link'
+        click_link 'cgu_link'
 
         within('#main-modal-content') do
           expect(page).to have_content('Conditions générales')
