@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'the signin process', app: :api_particulier do
   subject do
     visit login_path
-    click_on 'login_mon_compte_pro'
+    click_button 'login_mon_compte_pro'
   end
 
   context 'when API Gouv authentication is successful' do
