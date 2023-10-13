@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_10_12_152426) do
+ActiveRecord::Schema[7.1].define(version: 2023_10_13_073346) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pgcrypto"
@@ -49,9 +49,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_12_152426) do
     t.datetime "updated_at", precision: nil, null: false
     t.integer "exp", null: false
     t.string "version"
-    t.boolean "blacklisted", default: false
     t.json "days_left_notification_sent", default: [], null: false
-    t.boolean "archived", default: false
     t.string "temp_use_case"
     t.string "authorization_request_id"
     t.boolean "access_request_survey_sent", default: false, null: false
@@ -60,8 +58,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_12_152426) do
     t.jsonb "scopes", default: [], null: false
     t.datetime "blacklisted_at"
     t.index ["access_request_survey_sent"], name: "index_tokens_on_access_request_survey_sent"
-    t.index ["archived"], name: "index_tokens_on_archived"
-    t.index ["blacklisted"], name: "index_tokens_on_blacklisted"
     t.index ["created_at"], name: "index_tokens_on_created_at"
     t.index ["exp"], name: "index_tokens_on_exp"
     t.index ["iat"], name: "index_tokens_on_iat"
