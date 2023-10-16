@@ -67,5 +67,15 @@ RSpec.describe TokenExport, type: :service do
         expect(subject["demarche_#{authorization_request.demarche}"]).not_to be_nil
       end
     end
+
+    describe 'export token for no one' do
+      let!(:authorization_request) do
+        create(:authorization_request, status: 'validated', demandeur_authorization_request_role: nil, demarche: nil, contact_technique_authorization_request_role: nil)
+      end
+
+      it 'has a without_contact key' do
+        expect(subject['without_contact']).not_to be_nil
+      end
+    end
   end
 end

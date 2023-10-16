@@ -51,14 +51,12 @@ class TokenExport
     end
   end
 
-  def export_filename(token)
-    if token.authorization_request.demarche.present?
-      "demarche_#{token.authorization_request.demarche}"
-    elsif !token.authorization_request.contact_technique.nil?
-      "contact_technique_#{token.authorization_request.contact_technique.email}"
-    else
-      "demandeur_#{token.authorization_request.demandeur.email}"
-    end
+  def export_filename(token) # rubocop:todo Metrics/AbcSize
+    return "demarche_#{token.authorization_request.demarche}" if token.authorization_request.demarche.present?
+    return "contact_technique_#{token.authorization_request.contact_technique.email}" unless token.authorization_request.contact_technique.nil?
+    return "demandeur_#{token.authorization_request.demandeur.email}" unless token.authorization_request.demandeur.nil?
+
+    'without_contact'
   end
 
   def tokens
@@ -69,7 +67,7 @@ class TokenExport
     [
       token.authorization_request.siret,
       token.intitule,
-      token.authorization_request.demandeur.email,
+      token.authorization_request.demandeur.present? ? token.authorization_request.demandeur.email : nil,
       token.authorization_request.external_id,
       token.rehash,
       legacy_token(token)
