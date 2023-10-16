@@ -1,7 +1,7 @@
 require 'csv'
 
 class TokenExport
-  DIR = './tmp/token_export'.freeze
+  DIR = './token_export'.freeze
 
   def initialize(filepath)
     @filepath = filepath
