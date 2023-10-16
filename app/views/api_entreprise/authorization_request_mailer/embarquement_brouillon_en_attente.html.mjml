@@ -1,81 +1,45 @@
 <%= render partial: "header" %>
-<mj-section
-  background-color="#fff9bf"
-  background-repeat="repeat"
-  background-size="auto"
-  padding="0px 0px 20px 0px"
-  text-align="center">
+<mj-section background-color="#fff9bf" padding="0px 0px 20px 0px">
   <mj-column>
-    <mj-divider
-      border-color="#a6b0d2"
-      border-style="solid"
-      border-width="1px"
-      padding="0px 0px 10px 0px"
-      width="100%"></mj-divider>
-    <mj-text align="left" font-family="Open Sans" font-size="26px" padding="0px 40px 0px 40px">
-      <h1 style="line-height: 33px; margin-top: 10px; margin-bottom: 10px; font-size: 26px">
-        Le brouillon de votre demande d'accès
-        <br />
-        à l'API Entreprise
+    <mj-text>
+      <h1>
+        Le brouillon de votre demande d'accès à l'API Entreprise
         <br />
         est en attente depuis une quinzaine de jours
       </h1>
     </mj-text>
   </mj-column>
 </mj-section>
-<mj-section background-color="#ffffff" background-repeat="repeat" background-size="auto" text-align="center">
+<mj-section>
   <mj-column>
-    <mj-text align="left" font-family="Open Sans" font-size="13px" padding="0px 40px 0px 40px">
+    <mj-text>
       <%= render partial: "greetings", locals: { to: "demandeur" } %>
-      <p style="line-height: 22px; margin: 10px 0; margin-top: 10px; margin-bottom: 10px">
-        <span style="color: #000000; font-family: Open Sans; font-size: 15px">
+      <p>
           <b>Le brouillon de votre demande d’habilitation API Entreprise est en attente</b>
           et possède le numéro de référence <%= @authorization_request.external_id %>.
-        </span>
       </p>
     </mj-text>
-    <mj-text align="left" font-family="Open Sans" font-size="15px" padding="0px 40px 0px 40px">
-      <p style="line-height: 22px; margin: 10px 0; margin-top: 10px; margin-bottom: 10px">
+    <mj-text>
+      <p>
         <b>Vous pouvez poursuivre son édition à tout moment :</b>
       </p>
     </mj-text>
-    <mj-button
-      align="center"
-      background-color="#000091"
-      border-radius="0px"
-      border="2px solid #000091"
-      color="#ffffff"
-      font-family="Open Sans"
-      font-size="13px"
-      font-weight="normal"
-      href="<%= @authorization_request_datapass_url %>"
-      inner-padding="10px 25px 10px 25px"
-      padding="10px 25px 10px 25px"
-      text-decoration="none"
-      text-transform="none"
-      vertical-align="middle">
-      <span style="background-color: transparent; color: #ffffff; font-family: Open Sans; font-size: 15px">
-        <b>Terminer ma demande d'accès &nbsp;✍️</b>
-      </span>
+    <mj-button href="<%= @authorization_request_datapass_url %>">
+      Terminer ma demande d'accès &nbsp;✍️
     </mj-button>
-    <mj-text align="left" font-family="Open Sans" font-size="13px" padding="0px 30px 0px 30px">
-      <p style="margin: 10px 0; margin-top: 10px; margin-bottom: 10px">
-        <a style="color: inherit" target="_blank" href="<%= @authorization_request_datapass_url %>">
-          <span style="color: #000091; font-family: Open Sans; font-size: 13px">
+    <mj-text>
+      <p>
+        <a target="_blank" href="<%= @authorization_request_datapass_url %>">
             <%= @authorization_request_datapass_url %>
-          </span>
         </a>
       </p>
     </mj-text>
-    <mj-text align="left" font-family="Open Sans" font-size="13px" padding="0px 30px 0px 30px">
-      <p style="line-height: 22px; margin: 10px 0; margin-top: 10px">
-        <span style="color: #000000; font-family: Open Sans; font-size: 15px">À bientôt 👋</span>
-      </p>
-      <p style="line-height: 22px; margin: 10px 0; margin-bottom: 10px">
-        <span style="color: #000000; font-family: Open Sans; font-size: 15px"><b>API Entreprise</b></span>
+    <mj-text>
+      <p>
+        À bientôt 👋<br />
+      <b>API Entreprise</b>
       </p>
     </mj-text>
-    <mj-spacer height="20px"></mj-spacer>
   </mj-column>
 </mj-section>
 <%= render partial: "block_help_demande" %> <%= render partial: "block_newsletter" %> <%= render partial: "footer" %>

@@ -1,35 +1,27 @@
 <mj-section background-color="#e3ebd3" padding="0px 0px 20px 0px">
   <mj-column>
-    <mj-divider
-      border-color="#a6b0d2"
-      border-style="solid"
-      border-width="1px"
-      padding="0px 0px 10px 0px"
-      ></mj-divider>
-    <mj-text align="left" font-family="Open Sans" font-size="26px" padding="0px 40px 0px 40px">
-      <h1 style="line-height: 27px; margin-top: 10px; margin-bottom: 10px">
-        <span style="font-size: 26px">
-          <% if to == "editeur" %>
-            Votre demande d'accès en tant qu'éditeur a été validée ✅</b></span>
-          <% elsif to == "contact_metier" || to == "contact_technique" %>
-            Votre service a désormais accès à l'API Entreprise  ✅
-          <% else %>
-            Votre demande d'accès a été validée ✅</b></span>
-          <% end %>
-        </span>
-        <br />
-        <span style="font-size: 23px">
-          <b>
-            <% if to == "contact_metier"%>
-              Vous avez été désigné contact métier.
-            <% elsif to == "contact_technique"%>
-              Vous avez été désigné contact technique, récupérez le token 🔑
-            <% else %>
-              Votre clé d'accès est disponible 🔑
-            <% end %>
-          </b>
-        </span>
+    <mj-divider></mj-divider>
+    <mj-text>
+      <h1>
+        <% if to == "editeur" %>
+          Votre demande d'accès en tant qu'éditeur a été validée ✅</b></span>
+        <% elsif to == "contact_metier" || to == "contact_technique" %>
+          Votre service a désormais accès à l'API Entreprise  ✅
+        <% else %>
+          Votre demande d'accès a été validée ✅</b></span>
+        <% end %>
       </h1>
+      <h2>
+        <b>
+          <% if to == "contact_metier"%>
+            Vous avez été désigné contact métier.
+          <% elsif to == "contact_technique"%>
+            Vous avez été désigné contact technique, récupérez le token 🔑
+          <% else %>
+            Votre clé d'accès est disponible 🔑
+          <% end %>
+        </b>
+      </h2>
     </mj-text>
   </mj-column>
 </mj-section>

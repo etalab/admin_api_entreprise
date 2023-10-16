@@ -1,84 +1,36 @@
 <%= render partial: "header" %> <%= render partial: "banner_demande_valide", locals: { to: "demandeur" } %>
-<mj-section background-color="#ffffff">
+<mj-section>
   <mj-column>
-    <mj-text font-family="Open Sans" font-size="15px" padding="0px 40px 0px 40px">
-      <p style="line-height: 22px; margin: 10px 0; margin-top: 10px; margin-bottom: 10px">
-        <span style="color: #000000; font-family: Open Sans; font-size: 15px">
-          Votre demande d’habilitation n°<%= @authorization_request.external_id %> a bien été validée par notre service
-          juridique !&nbsp;
-        </span>
+    <mj-text>
+      <p>
+        Votre demande d’habilitation n°<%= @authorization_request.external_id %> a bien été validée par notre service
+        juridique !
       </p>
     </mj-text>
   </mj-column>
 </mj-section>
-<mj-section background-color="#ffffff" padding="0px 40px 30px 40px">
+<mj-section>
   <mj-column>
-    <mj-text
-      container-background-color="#f0f0f0"
-      font-family="Open Sans"
-      font-size="13px"
-      padding="20px 30px 20px 30px">
+    <mj-text>
       <%= render partial: "greetings", locals: { to: "demandeur" } %>
-      <h2 style="margin-top: 10px">
-        <span style="color: #000000; font-family: Arial; font-size: 18px">
-          <b>Votre équipe technique peut commencer à intégrer l'API Entreprise :</b>
-        </span>
+      <h2>
+        <b>Votre équipe technique peut commencer à intégrer l'API Entreprise&nbsp;:</b>
       </h2>
-      <p style="margin: 10px 0">
-        <span style="color: #000000; font-family: Open Sans; font-size: 15px; line-height: 22px">
-          ☑️
-          <b>Le contact technique indiqué dans votre habilitation a accès au compte API Entreprise</b>
-          , il peut récupérer le jeton en toute autonomie.
-        </span>
+      <p>
+        ☑️
+        <b>Le contact technique indiqué dans votre habilitation a accès au compte API Entreprise</b>
+        il peut récupérer le jeton en toute autonomie.
       </p>
-      <p style="margin: 10px 0; margin-bottom: 10px">
-        <span style="color: #000000; font-family: Open Sans; font-size: 15px; line-height: 22px">
-          ☑️
-          <b>Vous avez également accès à cet espace</b>
-          , avec la possibilité de transmettre votre jeton si cela est nécessaire pour l'intégration. Utilisez le bouton
-          "Transmettre le jeton à mon équipe technique". ⚠️ &nbsp;
-        </span>
-        <span style="color: #ff0000; font-family: Open Sans; font-size: 15px; line-height: 22px">
-          Ce jeton ne doit jamais être relayé autrement que par cette fonctionnalité.
-        </span>
+      <p>
+        ☑️
+        <b>Vous avez également accès à cet espace</b>
+        avec la possibilité de transmettre votre jeton si cela est nécessaire pour l'intégration. Utilisez le bouton
+        "Transmettre le jeton à mon équipe technique". ⚠️ &nbsp;
+        <br />
+        Ce jeton ne doit jamais être relayé autrement que par cette fonctionnalité.
       </p>
     </mj-text>
-    <%= render partial: "button_login", locals: { to: 'demandeur' }  %> <%= render partial: "list_scopes" %> <%= render partial:
-    "embarquement_valide_welcome" %>
+    <%= render partial: "button_login", locals: { to: 'demandeur' } %> <%= render partial: "list_scopes" %> <%= render partial: "embarquement_valide_welcome" %>
   </mj-column>
 </mj-section>
-<mj-section background-color="#ffffff" padding="0px 40px 30px 40px">
-  <mj-column>
-    <mj-text
-      align="left"
-      container-background-color="#d5dbef"
-      font-family="Open Sans"
-      font-size="13px"
-      padding="20px 30px 20px 30px">
-      <h2 style="margin-top: 10px">
-        <span style="color: #000000; font-family: Arial; font-size: 18px">
-          <b>🔔 Lettres d'informations et notifications</b>
-        </span>
-      </h2>
-      <h2 style="margin-bottom: 10px">
-        <span style="color: #000000; font-family: Open Sans; font-size: 15px; line-height: 22px">
-          <b>Vous êtes par défaut abonné à nos lettres d'informations.</b>
-        </span>
-        <br />
-        <br />
-        <span style="color: #000000; font-family: Open Sans; font-size: 15px; line-height: 22px">
-          <b>
-            Pour être informé des maintenances et des incidents de l'API Entreprise, abonnez-vous dès maintenant depuis
-            notre page d'état des API :
-          </b>
-        </span>
-        <a style="color: inherit" target="_blank" href="https://api-entreprise.instatus.com/">
-          <span style="color: #000091; font-family: Open Sans; font-size: 15px; line-height: 22px">
-            <b><u>api-entreprise.instatus.com</u></b>
-          </span>
-        </a>
-      </h2>
-    </mj-text>
-  </mj-column>
-</mj-section>
-<%= render partial: "block_questions" %> <%= render partial: "footer" %>
+<%= render partial: "block_subscribed_newsletter" %> <%= render partial: "block_questions" %> <%= render partial: "footer" %>

@@ -1,59 +1,17 @@
-<mj-section background-color="#f9f8f6">
+<mj-section>
   <mj-column>
-    <mj-divider
-      border-color="#2a15a3"
-      border-style="solid"
-      border-width="2px"
-      container-background-color="transparent"
-      ></mj-divider>
-    <mj-text font-family="Open Sans" font-size="15px" padding="10px 40px 10px 40px">
-      <p style="margin: 10px 0; margin-top: 10px">
-        <a target="_blank" href="<%= endpoints_url %>">
-          <span
-            style="
-              color: #1e1e1e;
-              font-family: Open Sans, sans-serif;
-              font-size: 15px;
-              line-height: 20px;
-            ">
-            <b><u>Catalogue des API</u></b>
-          </span>
-        </a>
-      </p>
-      <p style="margin: 10px 0">
-        <a target="_blank" href="<%= faq_index_url %>">
-          <span
-            style="
-              color: #1e1e1e;
-              font-family: Open Sans, sans-serif;
-              font-size: 15px;
-              line-height: 20px;
-            ">
-            <b><u>FAQ &amp; contact</u></b>
-          </span>
-        </a>
-      </p>
-      <p style="margin: 10px 0; margin-bottom: 10px">
-        <a target="_blank" href="<%= user_profile_url %>">
-          <span
-            style="
-              color: #1e1e1e;
-              font-family: Open Sans, sans-serif;
-              font-size: 15px;
-              line-height: 20px;
-            ">
-            <b>Se connecter</b>
-          </span>
-        </a>
-      </p>
+    <mj-divider mj-class="footer-divider" />
+    <mj-text>
+      <ul class="footer-list">
+        <li><a target="_blank" href="<%= endpoints_url %>">Catalogue des API</a></li>
+        <li><a target="_blank" href="<%= faq_index_url %>">FAQ &amp; contact</a></li>
+        <li><a target="_blank" href="<%= user_profile_url %>">Se connecter</a></li>
+      </ul>
     </mj-text>
     <mj-image
       alt="Bloc-marque avec le logo de la DINUM et d'API Entreprise, le hub des données entreprises et assocations pour les administrations"
       href="<%= root_url %>"
-      padding="20px 40px 20px 40px"
       src="<%= image_url('api_entreprise/mailers/banner.png') %>"
-      target="_blank"
-      ></mj-image>
-    <mj-divider border-color="#E6E6E6" border-style="solid" border-width="2px"></mj-divider>
+      target="_blank" />
   </mj-column>
 </mj-section>

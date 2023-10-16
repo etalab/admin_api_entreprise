@@ -1,100 +1,43 @@
 <%= render partial: "header" %>
-<mj-section
-  background-color="#ffe5cf"
-  padding="20px 0px 20px 0px"
-  >
+<mj-section background-color="#ffe5cf">
   <mj-column>
-    <mj-text
-      font-family="Open Sans"
-      font-size="26px"
-      padding="0px 40px 0px 40px">
-      <h1 style="line-height: 33px; margin-top: 10px; margin-bottom: 10px; font-size: 26px">
-        Votre demande requiert<br /><b>des modifications ✒️</b>
+    <mj-text>
+      <h1>
+        Votre demande requiert
+        <br />
+        <b>des modifications ✒️</b>
       </h1>
     </mj-text>
   </mj-column>
 </mj-section>
-<mj-section background-color="#ffffff">
+<mj-section>
   <mj-column>
-    <mj-text
-      align="left"
-      font-family="Open Sans"
-      font-size="13px"
-      padding="0px 40px 0px 40px">
+    <mj-text>
       <%= render partial: "greetings", locals: { to: "demandeur" } %>
-      <p
-        style="line-height: 22px; margin: 10px 0; margin-top: 10px; margin-bottom: 10px"
-        >
-        <span style="color: #000000; font-family: Open Sans; font-size: 15px">
-          Votre demande d’habilitation API Entreprise n°<%= @authorization_request.external_id %> a été traitée par notre service
-          juridique.
-          <b>Il nous manque cependant certaines informations pour rendre un avis.&nbsp;</b>
-        </span>
+      <p>
+        Votre demande d’habilitation API Entreprise n°<%= @authorization_request.external_id %> a été traitée par notre
+        service juridique.
+        <b>Il nous manque cependant certaines informations pour rendre un avis.&nbsp;</b>
       </p>
     </mj-text>
-    <mj-text
-      align="left"
-      font-family="Open Sans"
-      font-size="15px"
-      padding="0px 40px 0px 40px">
-      <p
-        style="line-height: 22px; margin: 10px 0; margin-top: 10px; margin-bottom: 10px"
-        >
-        <span style="color: #000000; font-family: Open Sans; font-size: 15px">
-          <b>Répondez à notre instructeur depuis l'interface du formulaire :&nbsp;</b>
-        </span>
+    <mj-text>
+      <p>
+        <b>Répondez à notre instructeur depuis l'interface du formulaire&nbsp;:</b>
       </p>
     </mj-text>
-    <mj-button
-      align="center"
-      background-color="#000091"
-      border-radius="0px"
-      border="2px solid #000091"
-      color="#ffffff"
-      font-family="Open Sans"
-      font-size="13px"
-      font-weight="normal"
-      href="<%= @authorization_request_datapass_url %>"
-      inner-padding="10px 25px 10px 25px"
-      padding="10px 25px 10px 25px"
-      text-decoration="none"
-      text-transform="none"
-      vertical-align="middle">
-      <span style="background-color: transparent; color: #ffffff; font-family: Open Sans; font-size: 14px">
-        <b>Compléter ma demande &nbsp;🔑</b>
-      </span>
+    <mj-button href="<%= @authorization_request_datapass_url %>">
+      <b>Compléter ma demande &nbsp;🔑</b>
     </mj-button>
-    <mj-text
-      align="left"
-      font-family="Open Sans"
-      font-size="13px"
-      padding="0px 30px 0px 30px">
-      <p
-        style="margin: 10px 0; margin-top: 10px; margin-bottom: 10px">
-        <a
-          style="color: inherit"
-          target="_blank"
-          href="<%= @authorization_request_datapass_url %>"
-          <span style="color: #000091; font-family: Open Sans; font-size: 13px">
-            <u><%= @authorization_request_datapass_url %></u>
-          </span>
+    <mj-text>
+      <p>
+        <a target="_blank" href="<%= @authorization_request_datapass_url %>">
+          <%= @authorization_request_datapass_url %>
         </a>
       </p>
-    </mj-text>
-    <mj-text
-      align="left"
-      font-family="Open Sans"
-      font-size="15px"
-      padding="0px 40px 0px 40px">
-      <p
-        style="line-height: 22px; margin: 10px 0; margin-top: 10px"
-        >
-        <span style="color: #000000; font-family: Open Sans; font-size: 15px">À bientôt 👋</span>
-      </p>
-      <p
-        style="line-height: 22px; margin: 10px 0; margin-bottom: 10px"
-        >
-        <span style="color: #000000; font-family: Open Sans; font-size: 15px"><b>API Entreprise</b></span>
+      <p>
+        À bientôt 👋
+        <br />
+        <b>API Entreprise</b>
       </p>
     </mj-text>
   </mj-column>

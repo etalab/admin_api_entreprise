@@ -1,82 +1,54 @@
 <%= render partial: "header" %> <%= render partial: "banner_demande_valide", locals: { to: "editeur" } %>
-<mj-section background-color="#ffffff">
+<mj-section>
   <mj-column>
-    <mj-text font-family="Open Sans" font-size="13px" padding="0px 40px 0px 40px">
+    <mj-text>
       <%= render partial: "greetings", locals: { to: "demandeur" } %>
-      <p style="margin: 10px 0; margin-top: 10px">
-        <span style="color: #000000; font-family: Open Sans; font-size: 15px">
-          Votre
-          <b>demande d’habilitation n°<%= @authorization_request.external_id %> a bien été validée</b>
-          par notre service juridique !&nbsp;
-        </span>
-      </p>
       <p>
-        <span style="color: #de0000; font-family: Open Sans; font-size: 15px">
-          Attention, vous êtes désormais connecté à l’API Entreprise en tant que prestataire d'une organisation publique
-          habilitée à utiliser les données.
-          <b>Vous ne devez en aucun cas être destinataire des données issues de l’API Entreprise.</b>
-        </span>
+        Votre
+        <b>demande d’habilitation n°<%= @authorization_request.external_id %> a bien été validée</b>
+        par notre service juridique !
       </p>
-      <p>
-        <span style="color: #de0000; font-family: Open Sans; font-size: 15px">
-          Si votre logiciel éditeur s’adresse aussi à des utilisateurs non-éligibles, tels que des acteurs privés, vous
-          devez &nbsp;vous assurer que les données de l’API Entreprise seront accessibles uniquement à des utilisateurs
-          habilités.
-        </span>
+      <p style="color: red">
+        Attention, vous êtes désormais connecté à l’API Entreprise en tant que prestataire d'une organisation publique
+        habilitée à utiliser les données.
+        <b>Vous ne devez en aucun cas être destinataire des données issues de l’API Entreprise.</b>
+        <br />
+        Si votre logiciel éditeur s’adresse aussi à des utilisateurs non-éligibles, tels que des acteurs privés, vous
+        devez vous assurer que les données de l’API Entreprise seront accessibles uniquement à des utilisateurs
+        habilités.
       </p>
     </mj-text>
   </mj-column>
 </mj-section>
-<mj-section background-color="#ffffff" padding="0px 40px 30px 40px" text-align="center">
+<mj-section>
   <mj-column>
-    <mj-text
-      align="left"
-      container-background-color="#f0f0f0"
-      font-family="Open Sans"
-      font-size="13px"
-      padding="0px 30px 0px 30px">
-      <h2 style="margin-top: 10px">
-        <span style="color: #000000; font-family: Arial; font-size: 18px">
-          <b>Commencez maintenant à intégrer l'API Entreprise&nbsp;</b>
-        </span>
+    <mj-text>
+      <h2>
+        <b>Commencez maintenant à intégrer l'API Entreprise&nbsp;</b>
         <br />
-        <span style="color: #000000; font-family: Arial; font-size: 18px">
-          <b>en récupérant votre jeton d'accès 🔑 :</b>
-        </span>
+        <b>en récupérant votre jeton d'accès&nbsp;🔑&nbsp;:</b>
       </h2>
-      <p style="margin: 10px 0">
-        <span style="color: #000000; font-family: Open Sans; font-size: 15px; line-height: 22px">
-          ☑️
-          <b>Rendez-vous sur votre compte API Entreprise</b>
-          &nbsp;avec les identifiants utilisés lors de votre de demande d'habilitation.
-        </span>
+      <p>
+        ☑️
+        <b>Rendez-vous sur votre compte API Entreprise</b>
+        avec les identifiants utilisés lors de votre de demande d'habilitation.
       </p>
-      <p style="margin: 10px 0; margin-bottom: 10px">
-        <span style="color: #000000; font-family: Open Sans; font-size: 15px; line-height: 22px">
-          ☑️
-          <b>Depuis cet espace, récupérez votre jeton d'accès&nbsp;:</b>
-        </span>
+      <p>
+        ☑️
+        <b>Depuis cet espace, récupérez votre jeton d'accès&nbsp;:</b>
       </p>
       <ul>
         <li>
-          <span style="color: #000000; font-family: Open Sans; font-size: 15px; line-height: 22px">
-            <i><b>Soit vous intégrez vous-même l'API Entreprise</b></i>
-            , utilisez le bouton "Copier" pour récupérer le jeton.
-          </span>
+          <i><b>Soit vous intégrez vous-même l'API Entreprise</b></i>
+          utilisez le bouton "Copier" pour récupérer le jeton.
           <br />
-          <span style="color: #000000; font-family: Arial; font-size: 15px">&nbsp;</span>
         </li>
         <li>
-          <span style="color: #000000; font-family: Open Sans; font-size: 15px; line-height: 22px">
-            <i><b>Soit une équipe technique est en charge de l'intégration</b></i>
-            <b>, transmettez-lui le jeton d'accès</b>
-            , en utilisant le bouton prévu à cet effet "Transmettre le jeton à mon équipe technique".
-          </span>
+          <i><b>Soit une équipe technique est en charge de l'intégration</b></i>
+          <b>, transmettez-lui le jeton d'accès</b>
+          en utilisant le bouton prévu à cet effet "Transmettre le jeton à mon équipe technique".
           <br />
-          <span style="color: #000000; font-family: Open Sans; font-size: 15px; line-height: 22px">⚠️ &nbsp;</span>
-          <span style="color: #ff0000; font-family: Open Sans; font-size: 15px; line-height: 22px">
-            Ce jeton ne doit jamais être relayé autrement que par cette fonctionnalité.
-          </span>
+          ⚠️ Ce jeton ne doit jamais être relayé autrement que par cette fonctionnalité.
         </li>
       </ul>
     </mj-text>
