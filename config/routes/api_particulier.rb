@@ -35,6 +35,8 @@ constraints(APIParticulierDomainConstraint.new) do
     get '/compte', to: 'users#profile', as: :user_profile
     get '/compte/nouveaux-jetons/telecharger', to: "new_tokens#download", as: :new_tokens_download
 
+    get '/compte/demandes/:id', to: 'authorization_requests#show', as: :authorization_requests_show
+
     post 'public/magic_link/create', to: 'public_token_magic_links#create'
     post '/compte/jetons/:id/partager', to: 'restricted_token_magic_links#create', as: :token_create_magic_link
     get 'public/jetons/:access_token', to: 'public_token_magic_links#show', as: :token_show_magic_link

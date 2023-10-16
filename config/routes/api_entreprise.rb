@@ -23,6 +23,7 @@ constraints(APIEntrepriseDomainConstraint.new) do
     get '/compte', to: 'users#profile', as: :user_profile
 
     get '/compte/demandes', to: 'authorization_requests#index', as: :authorization_requests
+    get '/compte/demandes/:id', to: 'authorization_requests#show', as: :authorization_requests_show
 
     get '/compte/telecharcher-documents', to: 'attestations#index', as: :attestations
     post '/compte/telecharcher-documents/rechercher-siret', to: 'attestations#search', as: :search_attestations
