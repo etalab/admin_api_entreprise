@@ -15,7 +15,8 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
     :data,
     :use_cases,
     :historique,
-    :keywords
+    :keywords,
+    :api_cgu
 
   attr_writer :new_endpoint_uids, :old_endpoint_uids
 
