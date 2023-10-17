@@ -64,12 +64,28 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
       end
 
       describe 'when authorization_request is from api_particulier' do
+        describe 'when the authorization request is not viewable by user' do
+          let!(:authorization_request) do
+            create(
+              :authorization_request,
+              demandeur_authorization_request_role: authenticated_user.user_authorization_request_roles.first,
+              status: 'draft',
+              api: 'particulier'
+            )
+          end
+
+          it 'redirects to the profile' do
+            expect(page).to have_current_path(api_particulier_user_profile_path, ignore_query: true)
+          end
+        end
+
         describe 'when the authorization request is valid' do
           let!(:authorization_request) do
             create(
               :authorization_request,
               demandeur_authorization_request_role: authenticated_user.user_authorization_request_roles.first,
-              api: 'particulier'
+              api: 'particulier',
+              status: 'validated',
             )
           end
 

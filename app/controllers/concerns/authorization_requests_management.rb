@@ -5,6 +5,7 @@ module AuthorizationRequestsManagement
     @authorization_request = current_user
       .authorization_requests
       .where(api:)
+      .viewable_by_users
       .find(params[:id])
 
     render 'shared/authorization_requests/show'

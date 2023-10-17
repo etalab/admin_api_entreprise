@@ -33,6 +33,27 @@ RSpec.describe AuthorizationRequest do
     end
   end
 
+  describe '.viewable_by_users scope' do
+    subject { described_class.viewable_by_users }
+
+    let!(:viewable_authorization_requests) do
+      [
+        create(:authorization_request, :with_tokens, api: 'particulier', status: 'archived'),
+        create(:authorization_request, api: 'particulier', status: 'revoked'),
+        create(:authorization_request, status: 'validated')
+      ]
+    end
+
+    let!(:not_viewable_authorization_request) do
+      create(:authorization_request, status: 'draft')
+    end
+
+    it 'returns viewable authorization requests' do
+      expect(subject).to include(*viewable_authorization_requests)
+      expect(subject).not_to include(not_viewable_authorization_request)
+    end
+  end
+
   describe 'fetch token with the most recent expiration date' do
     let(:authorization_request) do
       create(:authorization_request, :with_multiple_tokens_one_valid)
