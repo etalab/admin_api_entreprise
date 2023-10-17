@@ -64,33 +64,31 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
       end
 
       describe 'when authorization_request is from api_particulier' do
+        let!(:authorization_request) do
+          create(
+            :authorization_request,
+            demandeur_authorization_request_role: authenticated_user.user_authorization_request_roles.first,
+            api: 'particulier',
+            status:
+          )
+        end
+
         describe 'when the authorization request is not viewable by user' do
-          let!(:authorization_request) do
-            create(
-              :authorization_request,
-              demandeur_authorization_request_role: authenticated_user.user_authorization_request_roles.first,
-              status: 'draft',
-              api: 'particulier'
-            )
-          end
+          let(:status) { 'draft' }
 
           it 'redirects to the profile' do
             expect(page).to have_current_path(api_particulier_user_profile_path, ignore_query: true)
           end
         end
 
-        describe 'when the authorization request is valid' do
-          let!(:authorization_request) do
-            create(
-              :authorization_request,
-              demandeur_authorization_request_role: authenticated_user.user_authorization_request_roles.first,
-              api: 'particulier',
-              status: 'validated',
-            )
-          end
+        describe 'when the authorization request is validated' do
+          let(:status) { 'validated' }
 
-          it 'diplays the page' do
+          it 'diplays basic information on the page' do
             expect(page).to have_current_path(api_particulier_authorization_requests_show_path(id: authorization_request.id), ignore_query: true)
+            expect(page).to have_content('Habilitation active')
+            expect(page).to have_link(href: datapass_authorization_request_url(authorization_request))
+            expect(page).to have_content(friendly_format_from_timestamp(authorization_request.created_at))
           end
         end
       end

@@ -11,7 +11,7 @@ module AuthorizationRequestsManagement
     render 'shared/authorization_requests/show'
   rescue ActiveRecord::RecordNotFound
     error_message(title: t('.error.title'))
-    
+
     redirect_current_user_to_homepage
   end
 
