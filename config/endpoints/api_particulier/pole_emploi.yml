@@ -101,6 +101,7 @@
 
       <p class="fr-badge fr-badge--purple-glycine">Identifiant</p>
       **Avec l'identifiant Pôle emploi** : Cet identifiant est celui choisi par le particulier lors de la création de son espace personnel en ligne.
+      ⚠️ Pour utiliser cette API, il est indispensable de recouper ce paramètre d'appel avec l'identité du particulier. [Consulter les CGU spécifiques](#api_cgu).
 
       <section class="fr-accordion">
         <h3 class="fr-accordion__title">
@@ -150,4 +151,13 @@
         | 8          | Personnes non immédiatement à la recherche d'un autre emploi, à durée déterminée, temporaire ou saisonnier, y compris de très courte durée, tenues d'accomplir des actes positifs de recherche d'emploi.  |   ✅   |
   api_cgu:
     description: |+
-        test
+        Il est **indispensable de recouper l'identité du particulier avec le numéro d'allocataire** avant d'utiliser cette API.
+        
+        En effet, cette API est appelable avec un seul paramètre d'appel, le numéro d'allocataire. Par conséquent, si vous n'avez pas pu établir que le numéro d'allocataire utilisé en appel correspond bien au particulier concerné, vous prenez le risque de lui transmettre les données d'un autre allocataire.  
+
+        {:.fr-highlight.fr-highlight--caution}
+        > **En utilisant cette API, vous vous engagez à recouper l'identité du particulier avec le numéro d'allocataire** : 
+        > - en ayant fait un appel en parallèle sur l'[API statut demandeur d'emploi](../pole_emploi/situation) ;
+        > - par un autre moyen (guichet, autre API).
+
+        
