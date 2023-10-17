@@ -1,26 +1,26 @@
-<mj-section background-color="#e3ebd3" padding="0px 0px 20px 0px">
+<mj-section mj-class="section-banner" background-color="#e3ebd3">
   <mj-column>
     <mj-divider></mj-divider>
     <mj-text>
       <h1>
+        <b>
         <% if to == "editeur" %>
-          Votre demande d'accès en tant qu'éditeur a été validée ✅</b></span>
+          Votre demande d'accès en tant qu'éditeur a été validée ✅</span>
         <% elsif to == "contact_metier" || to == "contact_technique" %>
           Votre service a désormais accès à l'API Entreprise  ✅
         <% else %>
-          Votre demande d'accès a été validée ✅</b></span>
+          Votre demande d'accès a été validée ✅</span>
         <% end %>
+      </b>
       </h1>
       <h2>
-        <b>
-          <% if to == "contact_metier"%>
-            Vous avez été désigné contact métier.
-          <% elsif to == "contact_technique"%>
-            Vous avez été désigné contact technique, récupérez le token 🔑
-          <% else %>
-            Votre clé d'accès est disponible 🔑
-          <% end %>
-        </b>
+        <% if to == "contact_metier"%>
+          Vous avez été désigné contact métier.
+        <% elsif to == "contact_technique"%>
+          Vous avez été désigné contact technique, récupérez le token 🔑
+        <% else %>
+          Votre clé d'accès est disponible 🔑
+        <% end %>
       </h2>
     </mj-text>
   </mj-column>

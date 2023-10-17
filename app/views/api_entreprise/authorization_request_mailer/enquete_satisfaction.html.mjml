@@ -1,5 +1,5 @@
 <%= render partial: "header" %>
-<mj-section background-color="#d5dbef">
+<mj-section mj-class="section-banner" background-color="#d5dbef">
   <mj-column>
     <mj-text>
       <h1>
@@ -9,7 +9,7 @@
     </mj-text>
   </mj-column>
 </mj-section>
-<mj-section>
+<mj-section mj-class="section-main">
   <mj-column>
     <mj-text>
       <%= render partial: "greetings", locals: { to: "demandeur" } %>
@@ -26,10 +26,10 @@
     </mj-text>
   </mj-column>
 </mj-section>
-<mj-section>
+<mj-section mj-class="section-main">
   <mj-column>
-    <mj-text><%= render partial: "enquete_satisfaction" %></mj-text>
     <mj-text>
+      <%= render partial: "enquete_satisfaction" %>
       <p>
         À bientôt 👋
         <br />

@@ -1,5 +1,5 @@
 <%= render partial: "header" %> <%= render partial: "banner_demande_valide", locals: { to: "contact_technique" } %>
-<mj-section>
+<mj-section mj-class="section-main">
   <mj-column>
     <mj-text>
       <%= render partial: "greetings", locals: { to: "contact_technique" } %>
@@ -17,7 +17,7 @@
   </mj-column>
 </mj-section>
 <%= render partial: "block_authorization_request", locals: { authorization_request: @authorization_request } %>
-<mj-section>
+<mj-section mj-class="section-main">
   <mj-column>
     <mj-text>
       <p>
@@ -30,10 +30,6 @@
     <mj-button>
       <b>Récupérer la clé d'accès 🔑</b>
     </mj-button>
-  </mj-column>
-</mj-section>
-<mj-section>
-  <mj-column>
     <mj-text>
       <p>La liste des prochaines étapes est détaillée ci-dessous ⬇️</p>
     </mj-text>

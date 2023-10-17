@@ -1,5 +1,5 @@
 <%= render partial: "header" %> <%= render partial: "banner_demande_valide", locals: { to: "contact_metier" } %>
-<mj-section>
+<mj-section mj-class="section-main">
   <mj-column>
     <mj-text>
       <%= render partial: "greetings", locals: { to: "contact_metier" } %>
@@ -16,14 +16,9 @@
     </mj-text>
   </mj-column>
 </mj-section>
-<mj-section>
+<%= render partial: "block_authorization_request", locals: { authorization_request: @authorization_request } %>
+<mj-section mj-class="section-main">
   <mj-column>
-    <mj-text>
-      <p>
-        <b><%= @authorization_request.intitule %></b>
-      </p>
-      <p><%= @authorization_request.description %></p>
-    </mj-text>
     <%= render partial: "list_scopes" %> <%= render partial: "embarquement_valide_welcome" %>
     <%= render partial: "info_you_dont_understand" %>
   </mj-column>

@@ -1,17 +1,17 @@
 <%= render partial: "header" %>
-<mj-section background-color="#d5dbef" padding="0px 0px 20px 0px">
+<mj-section mj-class="section-banner" background-color="#d5dbef">
   <mj-column>
     <mj-divider />
     <mj-text>
       <h1>
         Votre demande d'accès
         <br />
-        a bien été reçue par nos services.
+        <b>a bien été reçue par nos services</b>&nbsp;📬
       </h1>
     </mj-text>
   </mj-column>
 </mj-section>
-<mj-section>
+<mj-section mj-class="section-main">
   <mj-column>
     <mj-text>
       <%= render partial: "greetings", locals: { to: "demandeur" } %>
@@ -22,16 +22,15 @@
         </b>
         Notre service juridique va en prendre connaissance dans les meilleurs délais.&nbsp;
       </p>
-    </mj-text>
-    <mj-text>
       <p>
         📝 Vous pouvez continuer à consulter et modifier votre demande à tout moment en suivant le lien suivant&nbsp;:
         <a target="_blank" href="<%= @authorization_request_datapass_url %>">
           <%= @authorization_request_datapass_url %>
         </a>
       </p>
-      <p>
-        À bientôt 👋<br />
+      <p style="margin-top: 20px;">
+        À bientôt 👋
+        <br />
         <b>API Entreprise</b>
       </p>
     </mj-text>

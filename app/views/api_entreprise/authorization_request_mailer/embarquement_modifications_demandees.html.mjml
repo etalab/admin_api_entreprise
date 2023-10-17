@@ -1,5 +1,5 @@
 <%= render partial: "header" %>
-<mj-section background-color="#ffe5cf">
+<mj-section mj-class="section-banner" background-color="#ffe5cf">
   <mj-column>
     <mj-text>
       <h1>
@@ -10,14 +10,14 @@
     </mj-text>
   </mj-column>
 </mj-section>
-<mj-section>
+<mj-section mj-class="section-main">
   <mj-column>
     <mj-text>
       <%= render partial: "greetings", locals: { to: "demandeur" } %>
       <p>
         Votre demande d’habilitation API Entreprise n°<%= @authorization_request.external_id %> a été traitée par notre
         service juridique.
-        <b>Il nous manque cependant certaines informations pour rendre un avis.&nbsp;</b>
+        <b>Il nous manque cependant certaines informations pour rendre un avis.</b>
       </p>
     </mj-text>
     <mj-text>

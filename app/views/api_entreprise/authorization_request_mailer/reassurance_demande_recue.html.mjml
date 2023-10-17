@@ -1,18 +1,18 @@
 <%= render partial: "header" %>
-<mj-section background-color="#d5dbef">
+<mj-section mj-class="section-banner" background-color="#d5dbef">
   <mj-column>
     <mj-text>
       <h1>
         Votre demande d'accès
         <br />
-        est en cours de traitement ⚙️
+          est <b>en cours de traitement ⚙️</b>
         <br />
         Vous devriez recevoir prochainement une réponse.
       </h1>
     </mj-text>
   </mj-column>
 </mj-section>
-<mj-section>
+<mj-section mj-class="section-main">
   <mj-column>
     <mj-text>
       <%= render partial: "greetings", locals: { to: "demandeur" } %>
