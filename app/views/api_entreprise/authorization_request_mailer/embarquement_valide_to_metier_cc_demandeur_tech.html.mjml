@@ -1,4 +1,5 @@
-<%= render partial: "header" %> <%= render partial: "banner_demande_valide", locals: { entity: "contact_metier" } %>
+<%= render partial: "header" %>
+<%= render partial: "banner_demande_valide", locals: { entity: "contact_metier" } %>
 <mj-section mj-class="section-main">
   <mj-column>
     <mj-text>
@@ -19,7 +20,8 @@
 <%= render partial: "block_authorization_request", locals: { authorization_request: @authorization_request } %>
 <mj-section mj-class="section-main">
   <mj-column>
-    <%= render partial: "list_scopes" %> <%= render partial: "embarquement_valide_welcome" %>
+    <%= render partial: "list_scopes" %>
+    <%= render partial: "embarquement_valide_welcome" %>
     <%= render partial: "info_you_dont_understand" %>
   </mj-column>
 </mj-section>
@@ -40,4 +42,6 @@
     </mj-text>
   </mj-column>
 </mj-section>
-<%= render partial: "block_analytics" %> <%= render partial: "block_questions" %> <%= render partial: "footer" %>
+<%= render partial: "block_analytics" %>
+<%= render partial: "block_questions" %>
+<%= render partial: "footer" %>

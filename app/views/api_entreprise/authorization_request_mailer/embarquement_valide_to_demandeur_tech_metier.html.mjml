@@ -1,4 +1,5 @@
-<%= render partial: "header" %> <%= render partial: "banner_demande_valide", locals: { entity: "demandeur" } %>
+<%= render partial: "header" %>
+<%= render partial: "banner_demande_valide", locals: { entity: "demandeur" } %>
 <mj-section mj-class="section-main">
   <mj-column>
     <mj-text>
@@ -32,9 +33,13 @@
         Le jeton ne doit jamais être relayé autrement que par cette fonctionnalité.
       </p>
     </mj-text>
-    <%= render partial: "list_scopes" %> <%= render partial: "info_subscribe_incidents" %> <%= render partial:
+    <%= render partial: "list_scopes" %>
+    <%= render partial: "info_subscribe_incidents" %>
+    <%= render partial:
     "embarquement_valide_welcome" %>
   </mj-column>
 </mj-section>
-<%= render partial: "block_mise_en_production" %> <%= render partial: "block_newsletter" %> <%= render partial:
-"block_questions" %> <%= render partial: "footer" %>
+<%= render partial: "block_mise_en_production" %>
+<%= render partial: "block_newsletter" %>
+<%= render partial: "block_questions" %>
+<%= render partial: "footer" %>
