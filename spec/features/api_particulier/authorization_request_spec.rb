@@ -67,6 +67,7 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
         let!(:authorization_request) do
           create(
             :authorization_request,
+            :with_tokens,
             demandeur_authorization_request_role: authenticated_user.user_authorization_request_roles.first,
             api: 'particulier',
             status:
@@ -89,6 +90,9 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
             expect(page).to have_content('Habilitation active')
             expect(page).to have_link(href: datapass_authorization_request_url(authorization_request))
             expect(page).to have_content(friendly_format_from_timestamp(authorization_request.created_at))
+
+            expect(page).to have_content('Jeton principal :')
+            expect(page).to have_content(authorization_request.token.id)
           end
         end
       end
