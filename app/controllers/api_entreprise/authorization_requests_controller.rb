@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class APIEntreprise::AuthorizationRequestsController < APIEntreprise::AuthenticatedUsersController
+  include AuthorizationRequestsManagement
+
   def index
     @authorization_requests = current_user
       .authorization_requests
