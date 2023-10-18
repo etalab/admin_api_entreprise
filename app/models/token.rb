@@ -16,6 +16,7 @@ class Token < ApplicationRecord
   has_many :users, through: :authorization_request
   has_many :contacts, through: :authorization_request
   has_many :demandeurs, through: :authorization_request
+  has_many :access_logs, inverse_of: :token, dependent: nil
 
   has_one :demandeur, through: :authorization_request
   delegate :contacts_no_demandeur, :archived?, to: :authorization_request
