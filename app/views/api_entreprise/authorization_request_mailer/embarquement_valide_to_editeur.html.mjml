@@ -1,8 +1,8 @@
-<%= render partial: "header" %> <%= render partial: "banner_demande_valide", locals: { to: "editeur" } %>
+<%= render partial: "header" %> <%= render partial: "banner_demande_valide", locals: { entity: "editeur" } %>
 <mj-section mj-class="section-main">
   <mj-column>
     <mj-text>
-      <%= render partial: "greetings", locals: { to: "demandeur" } %>
+      <%= render partial: "greetings", locals: { entity: "demandeur" } %>
       <p>
         Votre
         <b>demande d’habilitation n°<%= @authorization_request.external_id %> a bien été validée</b>
@@ -52,7 +52,7 @@
         </li>
       </ul>
     </mj-text>
-    <%= render partial: "button_login", locals: { to: "editeur" } %> <%= render partial: "list_scopes" %> <%= render partial: "info_subscribe_incidents" %> <%= render partial: "embarquement_valide_welcome" %>
+    <%= render partial: "button_login", locals: { entity: "editeur" } %> <%= render partial: "list_scopes" %> <%= render partial: "info_subscribe_incidents" %> <%= render partial: "embarquement_valide_welcome" %>
   </mj-column>
 </mj-section>
 <%= render partial: "block_mise_en_production" %> <%= render partial: "block_newsletter" %> <%= render partial:

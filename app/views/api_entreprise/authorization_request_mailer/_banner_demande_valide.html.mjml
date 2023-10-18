@@ -4,9 +4,9 @@
     <mj-text>
       <h1>
         <b>
-        <% if to == "editeur" %>
+        <% if entity == "editeur" %>
           Votre demande d'accès en tant qu'éditeur a été validée ✅</span>
-        <% elsif to == "contact_metier" || to == "contact_technique" %>
+        <% elsif entity == "contact_metier" || entity == "contact_technique" %>
           Votre service a désormais accès à l'API Entreprise  ✅
         <% else %>
           Votre demande d'accès a été validée ✅</span>
@@ -14,9 +14,9 @@
       </b>
       </h1>
       <h2>
-        <% if to == "contact_metier"%>
+        <% if entity == "contact_metier"%>
           Vous avez été désigné contact métier.
-        <% elsif to == "contact_technique"%>
+        <% elsif entity == "contact_technique"%>
           Vous avez été désigné contact technique, récupérez le token 🔑
         <% else %>
           Votre clé d'accès est disponible 🔑

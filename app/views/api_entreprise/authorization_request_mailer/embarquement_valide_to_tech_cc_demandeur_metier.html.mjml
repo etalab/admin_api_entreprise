@@ -1,8 +1,8 @@
-<%= render partial: "header" %> <%= render partial: "banner_demande_valide", locals: { to: "contact_technique" } %>
+<%= render partial: "header" %> <%= render partial: "banner_demande_valide", locals: { entity: "contact_technique" } %>
 <mj-section mj-class="section-main">
   <mj-column>
     <mj-text>
-      <%= render partial: "greetings", locals: { to: "contact_technique" } %>
+      <%= render partial: "greetings", locals: { entity: "contact_technique" } %>
       <p>
         La demande d’habilitation n°<%= @authorization_request.external_id %> à l’API Entreprise, effectuée par un
         service de votre organisation a bien été validée ✅.

@@ -1,4 +1,4 @@
-<%= render partial: "header" %> <%= render partial: "banner_demande_valide", locals: { to: "demandeur" } %>
+<%= render partial: "header" %> <%= render partial: "banner_demande_valide", locals: { entity: "demandeur" } %>
 <mj-section mj-class="section-main">
   <mj-column>
     <mj-text>
@@ -12,7 +12,7 @@
 <mj-section mj-class="section-main">
   <mj-column>
     <mj-text>
-      <%= render partial: "greetings", locals: { to: "demandeur" } %>
+      <%= render partial: "greetings", locals: { entity: "demandeur" } %>
       <h2>
         <b>Votre équipe technique peut commencer à intégrer l'API Entreprise&nbsp;:</b>
       </h2>
@@ -30,7 +30,7 @@
         Ce jeton ne doit jamais être relayé autrement que par cette fonctionnalité.
       </p>
     </mj-text>
-    <%= render partial: "button_login", locals: { to: 'demandeur' } %> <%= render partial: "list_scopes" %> <%= render partial: "embarquement_valide_welcome" %>
+    <%= render partial: "button_login", locals: { entity: 'demandeur' } %> <%= render partial: "list_scopes" %> <%= render partial: "embarquement_valide_welcome" %>
   </mj-column>
 </mj-section>
 <%= render partial: "block_subscribed_newsletter" %> <%= render partial: "block_questions" %> <%= render partial: "footer" %>

@@ -1,4 +1,4 @@
-<%= render partial: "header" %> <%= render partial: "banner_demande_valide", locals: { to: "demandeur" } %>
+<%= render partial: "header" %> <%= render partial: "banner_demande_valide", locals: { entity: "demandeur" } %>
 <mj-section mj-class="section-main">
   <mj-column>
     <mj-text>
@@ -13,12 +13,12 @@
 <mj-section mj-class="section-main">
   <mj-column>
     <mj-text>
-      <%= render partial: "greetings", locals: { to: "demandeur" } %>
+      <%= render partial: "greetings", locals: { entity: "demandeur" } %>
       <h2>
         <b>Commencez dès maintenant à intégrer l'API Entreprise&nbsp;en récupérant votre jeton d'accès&nbsp;🔑&nbsp;:</b>
       </h2>
     </mj-text>
-    <%= render partial: "button_login", locals: { to: "demandeur" } %>
+    <%= render partial: "button_login", locals: { entity: "demandeur" } %>
   </mj-column>
 </mj-section>
 <mj-section mj-class="section-main">
