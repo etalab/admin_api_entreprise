@@ -1,0 +1,3 @@
+class APIParticulier::AuthorizationRequestsController < APIParticulier::AuthenticatedUsersController
+  include AuthorizationRequestsManagement
+end
