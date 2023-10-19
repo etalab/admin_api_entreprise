@@ -35,21 +35,29 @@
       </div>
       <div class="fr-card__desc">
         <div class="fr-pb-2v">
-          <p class="fr-badge fr-badge--<%= t(".tokens.status.color.#{@authorization_request.token.status}") %>">
-            <%= t(".tokens.status.label.#{@authorization_request.token.status}") %>
+          <p class="fr-badge fr-badge--<%= t(".tokens.status.color.#{@main_token.status}") %>">
+            <%= t(".tokens.status.label.#{@main_token.status}") %>
           </p>
           <span class="fr-text--xs">
-            idenfitiant: <%= @authorization_request.token.id %>
+            idenfitiant: <%= @main_token.id %>
           </span>
           <span class="fr-text--m fr-text--bold uppercase">
-            | <%= t('.main_token.call_for_a_week', count: @authorization_request.token.access_logs.since(7.days.ago).count) %>
+            | <%= t('.main_token.call_for_a_week', count: @main_token.access_logs.since(7.days.ago).count) %>
           </span>
         </div>
         <p>
-          <%= t(".main_token.remaining_time.#{@authorization_request.token.status}", 
-                remaining_time: distance_of_time_in_words(Time.zone.now, @authorization_request.token.exp)
+          <%= t(".main_token.remaining_time.#{@main_token.status}", 
+                remaining_time: distance_of_time_in_words(Time.zone.now, @main_token.exp)
             ).html_safe %>
         </p>
+        <div class="progress-bar-light-grey progress-bar-round">
+          <div 
+            class="progress-bar-container progress-bar-round progress-bar-<%= @main_token.progress_bar_color %>" 
+            style="width:<%= @main_token.passed_time_as_ratio %>%">
+          </div>
+        </div> 
+        <span class=""><%= friendly_format_from_timestamp(@main_token.created_at)%></span>
+        <span class="pull-right"><%= friendly_format_from_timestamp(@main_token.exp)%></span>
       </div>
     </div>
   </div>

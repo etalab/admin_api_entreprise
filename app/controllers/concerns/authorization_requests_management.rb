@@ -8,6 +8,8 @@ module AuthorizationRequestsManagement
       .viewable_by_users
       .find(params[:id])
 
+    @main_token = TokenShowDecorator.new(@authorization_request.token)
+
     render 'shared/authorization_requests/show'
   rescue ActiveRecord::RecordNotFound
     error_message(title: t('.error.title'))
