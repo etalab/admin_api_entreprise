@@ -13,6 +13,16 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
     )
   end
 
+  let!(:access_logs) do
+    [
+      create(:access_log, token: authorization_request.token, timestamp: 1.day.ago),
+      create(:access_log, token: authorization_request.token, timestamp: 2.days.ago),
+      create(:access_log, token: authorization_request.token, timestamp: 3.days.ago),
+      create(:access_log, token: authorization_request.token, timestamp: 4.days.ago),
+      create(:access_log, token: authorization_request.token, timestamp: 8.days.ago)
+    ]
+  end
+
   describe 'when user is not authenticated' do
     it 'redirects to the login' do
       go_to_authorization_requests_show
@@ -92,7 +102,9 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
             expect(page).to have_content(friendly_format_from_timestamp(authorization_request.created_at))
 
             expect(page).to have_content('Jeton principal :')
+            expect(page).to have_content('Actif')
             expect(page).to have_content(authorization_request.token.id)
+            expect(page).to have_content('4 appels les 7 derniers jours')
           end
         end
       end

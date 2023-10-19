@@ -34,14 +34,15 @@
         </h2>
       </div>
       <div class="fr-card__desc">
-        <p>
         <p class="fr-badge fr-badge--<%= t(".tokens.status.color.#{@authorization_request.token.status}") %>">
           <%= t(".tokens.status.label.#{@authorization_request.token.status}") %>
         </p>
-          <span>
-            idenfitiant: <%= @authorization_request.active_token.id %>
-          </span>
-        </p>
+        <span class="fr-text--xs">
+          idenfitiant: <%= @authorization_request.active_token.id %>
+        </span>
+        <span class="fr-text--m fr-text--bold uppercase">
+          | <%= t('.main_token.call_for_a_week', count: @authorization_request.active_token.access_logs.since(7.days.ago).count) %>
+        </span>
       </div>
     </div>
   </div>
