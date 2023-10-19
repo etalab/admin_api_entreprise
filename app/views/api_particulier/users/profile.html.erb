@@ -1,6 +1,17 @@
+<% if new_token? %>
+  <div class="fr-highlight fr-highlight--pink-tuile fr-ml-0">
+    <p>
+      <%= t('.new_token') %>
+
+      <%= link_to t('.new_token_download'), api_particulier_new_tokens_download_path, class: "fr-btn" %>
+    </p>
+  </div>
+<% end %>
+
 <h3>
   <%= t('.title', count: @tokens.count) %>
 </h3>
+
 
 <% if @tokens.any? %>
   <%= render 'shared/token_share_warning' %>
