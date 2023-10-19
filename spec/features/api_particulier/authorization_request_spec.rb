@@ -15,13 +15,20 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
 
   let!(:access_logs) do
     [
-      create(:access_log, token: authorization_request.token, timestamp: 1.day.ago),
-      create(:access_log, token: authorization_request.token, timestamp: 2.days.ago),
-      create(:access_log, token: authorization_request.token, timestamp: 3.days.ago),
-      create(:access_log, token: authorization_request.token, timestamp: 4.days.ago),
-      create(:access_log, token: authorization_request.token, timestamp: 8.days.ago)
+      create(:access_log, token:, timestamp: 1.day.ago),
+      create(:access_log, token:, timestamp: 2.days.ago),
+      create(:access_log, token:, timestamp: 3.days.ago),
+      create(:access_log, token:, timestamp: 4.days.ago),
+      create(:access_log, token:, timestamp: 8.days.ago)
     ]
   end
+
+  let!(:token) do
+    create(:token, authorization_request:, exp:, blacklisted_at:)
+  end
+
+  let(:exp) { 1.day.from_now.to_i }
+  let(:blacklisted_at) { nil }
 
   describe 'when user is not authenticated' do
     it 'redirects to the login' do
@@ -77,7 +84,6 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
         let!(:authorization_request) do
           create(
             :authorization_request,
-            :with_tokens,
             demandeur_authorization_request_role: authenticated_user.user_authorization_request_roles.first,
             api: 'particulier',
             status:
@@ -103,8 +109,9 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
 
             expect(page).to have_content('Jeton principal :')
             expect(page).to have_content('Actif')
-            expect(page).to have_content(authorization_request.token.id)
+            expect(page).to have_content(token.id)
             expect(page).to have_content('4 appels les 7 derniers jours')
+            expect(page).to have_content(distance_of_time_in_words(Time.zone.now, token.exp))
           end
         end
       end

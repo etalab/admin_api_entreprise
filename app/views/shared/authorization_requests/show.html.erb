@@ -34,15 +34,22 @@
         </h2>
       </div>
       <div class="fr-card__desc">
-        <p class="fr-badge fr-badge--<%= t(".tokens.status.color.#{@authorization_request.token.status}") %>">
-          <%= t(".tokens.status.label.#{@authorization_request.token.status}") %>
+        <div class="fr-pb-2v">
+          <p class="fr-badge fr-badge--<%= t(".tokens.status.color.#{@authorization_request.token.status}") %>">
+            <%= t(".tokens.status.label.#{@authorization_request.token.status}") %>
+          </p>
+          <span class="fr-text--xs">
+            idenfitiant: <%= @authorization_request.token.id %>
+          </span>
+          <span class="fr-text--m fr-text--bold uppercase">
+            | <%= t('.main_token.call_for_a_week', count: @authorization_request.token.access_logs.since(7.days.ago).count) %>
+          </span>
+        </div>
+        <p>
+          <%= t(".main_token.remaining_time.#{@authorization_request.token.status}", 
+                remaining_time: distance_of_time_in_words(Time.zone.now, @authorization_request.token.exp)
+            ).html_safe %>
         </p>
-        <span class="fr-text--xs">
-          idenfitiant: <%= @authorization_request.active_token.id %>
-        </span>
-        <span class="fr-text--m fr-text--bold uppercase">
-          | <%= t('.main_token.call_for_a_week', count: @authorization_request.active_token.access_logs.since(7.days.ago).count) %>
-        </span>
       </div>
     </div>
   </div>
