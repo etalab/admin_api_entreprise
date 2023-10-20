@@ -1,0 +1,35 @@
+<% if title.present? %>
+  <div class="fr-card__title">
+    <h2 class="fr-h3 fr-mb-n0-5v">
+      <%= title %>
+    </h2>
+  </div>
+<% end %>
+<div class="fr-card__desc">
+  <div class="fr-pb-2v">
+    <p class="fr-badge fr-badge--<%= t(".status.color.#{token.status}") %>">
+    <%= t(".status.label.#{token.status}") %>
+    </p>
+    <span class="fr-text--xs">
+      idenfitiant: <%= token.id %>
+    </span>
+    <span class="fr-text--m fr-text--bold uppercase">
+      | <%= t('.call_for_a_week', count: token.access_logs.since(7.days.ago).count) %>
+    </span>
+  </div>
+  <p>
+  <%= t(".remaining_time.#{token.status}", 
+        remaining_time: distance_of_time_in_words(Time.zone.now, token.exp)
+       ).html_safe %>
+  </p>
+  <div class="progress-bar-light-grey progress-bar-round">
+    <div 
+      class="progress-bar-container progress-bar-round progress-bar-<%= token.progress_bar_color %>" 
+      style="width:<%= token.passed_time_as_ratio %>%">
+    </div>
+  </div> 
+  <span class=""><%= friendly_format_from_timestamp(token.created_at)%></span>
+  <span class="pull-right"><%= friendly_format_from_timestamp(token.exp)%></span>
+</div>
+
+

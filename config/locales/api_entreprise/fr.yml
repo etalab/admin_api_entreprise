@@ -4,6 +4,25 @@ fr:
       application:
         title: API Entreprise
   shared:
+    tokens: 
+      detail:
+        remaining_time: 
+          active: "Durée restante du jeton : <strong>%{remaining_time}</strong>"
+          expired: "Durée restante du jeton : <strong>Expiré</strong> ☠️"
+          revoked: "Durée restante du jeton : <strong>Banni</strong> ☠️"
+        call_for_a_week: 
+          zero: "%{count} appel les 7 derniers jours"
+          one: "%{count} appel les 7 derniers jours"
+          other: "%{count} appels les 7 derniers joursS"
+        status:
+          color:
+            revoked: pink-tuile
+            expired: no-specific-color
+            active: green-emeraude
+          label:
+            revoked: Banni
+            expired: Expiré
+            active: Actif
     authorization_requests:
       status:
         color:
@@ -15,29 +34,11 @@ fr:
           archived: 📃 Habilitation archivée
           validated: 📃 Habilitation active
       show:
-        tokens:
-          status:
-            color:
-              revoked: pink-tuile
-              expired: no-specific-color
-              active: green-emeraude
-            label:
-              revoked: Banni
-              expired: Expiré
-              active: Actif
         delivered_at: "Délivré le : %{humanized_date}"
         links:
           to_datapass: "N<sup>o</sup>%{external_id}"
         main_token:
           title: "Jeton principal :"
-          remaining_time: 
-            active: "Durée restante du jeton : <strong>%{remaining_time}</strong>"
-            expired: "Durée restante du jeton : <strong>Expiré</strong> ☠️"
-            revoked: "Durée restante du jeton : <strong>Banni</strong> ☠️"
-          call_for_a_week: 
-            zero: "%{count} appel les 7 derniers jours"
-            one: "%{count} appel les 7 derniers jours"
-            other: "%{count} appels les 7 derniers joursS"
     api_entreprise:
       header:
         title: API Entreprise
