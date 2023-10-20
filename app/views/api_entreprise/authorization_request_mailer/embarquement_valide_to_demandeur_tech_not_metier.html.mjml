@@ -1,0 +1,46 @@
+<%= render partial: "header" %>
+<%= render partial: "banner_demande_valide", locals: { entity: "demandeur" } %>
+<mj-section mj-class="section-main">
+  <mj-column>
+    <mj-text>
+      <p>
+        Votre
+        <b>demande d’habilitation n°<%= @authorization_request.external_id %> a bien été validée</b>
+        par notre service juridique !
+      </p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<mj-section mj-class="section-main">
+  <mj-column>
+    <mj-text>
+      <%= render partial: "greetings", locals: { entity: "demandeur" } %>
+      <h3>
+        <b>
+          Commencez dès maintenant à intégrer l'API Entreprise&nbsp;en récupérant votre jeton d'accès&nbsp;🔑&nbsp;:
+        </b>
+      </h3>
+    </mj-text>
+    <%= render partial: "button_login", locals: { entity: "demandeur" } %>
+  </mj-column>
+</mj-section>
+<mj-section mj-class="section-main">
+  <mj-column>
+    <mj-text>
+      <p>
+        <i>Vous avez besoin de transmettre le jeton dans le cadre de l'intégration ?&nbsp;</i>
+        <br />
+        Une fois connecté, utilisez le bouton prévu à cet effet "Transmettre le jeton à mon équipe technique". ⚠️
+        <br />
+        Le jeton ne doit jamais être relayé autrement que par cette fonctionnalité.
+      </p>
+    </mj-text>
+    <%= render partial: "list_scopes" %>
+    <%= render partial: "info_subscribe_incidents" %>
+    <%= render partial: "embarquement_valide_welcome" %>
+  </mj-column>
+</mj-section>
+<%= render partial: "block_mise_en_production" %>
+<%= render partial: "block_newsletter" %>
+<%= render partial: "block_questions" %>
+<%= render partial: "footer" %>

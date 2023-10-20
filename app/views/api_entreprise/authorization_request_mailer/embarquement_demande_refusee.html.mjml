@@ -1,0 +1,43 @@
+<%= render partial: "header" %>
+<mj-section mj-class="section-banner" background-color="#f7bfc3">
+  <mj-column>
+    <mj-text>
+      <h1>
+        Votre demande d'accès à l'API Entreprise
+        <b>a été refusée 🚫</b>
+      </h1>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<mj-section mj-class="section-main">
+  <mj-column>
+    <mj-text>
+      <%= render partial: "greetings", locals: { entity: "demandeur" } %>
+      <p>
+        Votre demande d’habilitation API Entreprise n°<%= @authorization_request.external_id %> a été
+        <b>refusée par notre service juridique</b>
+        .
+      </p>
+      <p>Pour connaître les raisons de ce refus, veuillez consulter votre demande&nbsp;:</p>
+    </mj-text>
+    <mj-button mj-class="button-secondary" href="<%= @authorization_request_datapass_url %>">
+      Lire les commentaires de l'instructeur&nbsp;📝
+    </mj-button>
+    <mj-text>
+      <p>
+        <a target="_blank" href="<%= @authorization_request_datapass_url %>">
+          <%= @authorization_request_datapass_url %>
+        </a>
+      </p>
+    </mj-text>
+    <mj-text>
+      <p>
+        Bonne continuation,
+        <br />
+        <b>API Entreprise</b>
+      </p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<%= render partial: "block_refusal_might_be_error" %>
+<%= render partial: "footer" %>

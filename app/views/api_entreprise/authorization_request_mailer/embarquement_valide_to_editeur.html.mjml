@@ -1,0 +1,65 @@
+<%= render partial: "header" %>
+<%= render partial: "banner_demande_valide", locals: { entity: "editeur" } %>
+<mj-section mj-class="section-main">
+  <mj-column>
+    <mj-text>
+      <%= render partial: "greetings", locals: { entity: "demandeur" } %>
+      <p>
+        Votre
+        <b>demande d’habilitation n°<%= @authorization_request.external_id %> a bien été validée</b>
+        par notre service juridique !
+      </p>
+      <p style="color: red">
+        Attention, vous êtes désormais connecté à l’API Entreprise en tant que prestataire d'une organisation publique
+        habilitée à utiliser les données.
+        <b>Vous ne devez en aucun cas être destinataire des données issues de l’API Entreprise.</b>
+        <br />
+        Si votre logiciel éditeur s’adresse aussi à des utilisateurs non-éligibles, tels que des acteurs privés, vous
+        devez vous assurer que les données de l’API Entreprise seront accessibles uniquement à des utilisateurs
+        habilités.
+      </p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<mj-section mj-class="section-main">
+  <mj-column>
+    <mj-text>
+      <h2>
+        <b>Commencez maintenant à intégrer l'API Entreprise&nbsp;</b>
+        <br />
+        <b>en récupérant votre jeton d'accès&nbsp;🔑&nbsp;:</b>
+      </h2>
+      <p>
+        ☑️
+        <b>Rendez-vous sur votre compte API Entreprise</b>
+        avec les identifiants utilisés lors de votre de demande d'habilitation.
+      </p>
+      <p>
+        ☑️
+        <b>Depuis cet espace, récupérez votre jeton d'accès&nbsp;:</b>
+      </p>
+      <ul>
+        <li>
+          <i><b>Soit vous intégrez vous-même l'API Entreprise</b></i>
+          utilisez le bouton "Copier" pour récupérer le jeton.
+          <br />
+        </li>
+        <li>
+          <i><b>Soit une équipe technique est en charge de l'intégration</b></i>
+          <b>, transmettez-lui le jeton d'accès</b>
+          en utilisant le bouton prévu à cet effet "Transmettre le jeton à mon équipe technique".
+          <br />
+          ⚠️ Ce jeton ne doit jamais être relayé autrement que par cette fonctionnalité.
+        </li>
+      </ul>
+    </mj-text>
+    <%= render partial: "button_login", locals: { entity: "editeur" } %>
+    <%= render partial: "list_scopes" %>
+    <%= render partial: "info_subscribe_incidents" %>
+    <%= render partial: "embarquement_valide_welcome" %>
+  </mj-column>
+</mj-section>
+<%= render partial: "block_mise_en_production" %>
+<%= render partial: "block_newsletter" %>
+<%= render partial: "block_questions" %>
+<%= render partial: "footer" %>

@@ -9,6 +9,7 @@
 - ruby 3.2.1
 - redis-server >= 6
 - postgresql >= 9
+- Node.js >= 6 pour mjml
 
 ## Install
 
@@ -72,6 +73,10 @@ bin/rspec
 ```sh
 guard
 ```
+
+## Prévisualisation des mails
+
+Une fois le serveur local lancé, vous pouvez prévisualiser les mails [à cette adresse](http://localhost:3000/rails/mailers)
 
 ### Static security
 

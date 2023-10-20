@@ -4,7 +4,7 @@ FactoryBot.define do
     exp { 18.months.from_now.to_i }
     version { '1.0' }
     days_left_notification_sent { [] }
-    scopes { [] }
+    scopes { ['entreprises'] }
     extra_info { {} }
 
     sequence(:authorization_request_id) { |n| "1234#{n}" }
