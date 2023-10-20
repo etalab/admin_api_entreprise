@@ -5,7 +5,7 @@
     </h2>
   </div>
 <% end %>
-<div class="fr-card__desc">
+<div class="fr-card__desc fr-pb-6v">
   <div class="fr-pb-2v">
     <p class="fr-badge fr-badge--<%= t(".status.color.#{token.status}") %>">
     <%= t(".status.label.#{token.status}") %>
@@ -19,7 +19,7 @@
   </div>
   <p>
   <%= t(".remaining_time.#{token.status}", 
-        remaining_time: distance_of_time_in_words(Time.zone.now, token.exp)
+        remaining_time: distance_of_time_in_words(Time.zone.now, token.end_timestamp)
        ).html_safe %>
   </p>
   <div class="progress-bar-light-grey progress-bar-round">
@@ -29,7 +29,7 @@
     </div>
   </div> 
   <span class=""><%= friendly_format_from_timestamp(token.created_at)%></span>
-  <span class="pull-right"><%= friendly_format_from_timestamp(token.exp)%></span>
+  <span class="pull-right"><%= friendly_format_from_timestamp(token.end_timestamp)%></span>
 </div>
 
 

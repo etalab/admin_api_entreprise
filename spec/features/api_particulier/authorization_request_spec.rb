@@ -27,6 +27,8 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
     create(:token, authorization_request:, exp:, blacklisted_at:)
   end
 
+  let!(:banned_token) { create(:token, authorization_request:, exp:, blacklisted_at: 1.day.from_now) }
+
   let(:exp) { 1.day.from_now.to_i }
   let(:blacklisted_at) { nil }
 
@@ -112,6 +114,11 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
             expect(page).to have_content(token.id)
             expect(page).to have_content('4 appels les 7 derniers jours')
             expect(page).to have_content(distance_of_time_in_words(Time.zone.now, token.exp))
+
+            expect(page).to have_content(banned_token.id)
+            expect(page).to have_content('Banni')
+            expect(page).to have_content(distance_of_time_in_words(Time.zone.now, banned_token.blacklisted_at))
+            expect(page).to have_content('0 appel les 7 derniers jours')
           end
         end
       end

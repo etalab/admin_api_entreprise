@@ -35,6 +35,16 @@
             token: @main_token,
           }
       %>
+
+      <% @banned_tokens.each do |banned_token| %>
+        <%=
+          render partial: 'shared/tokens/detail', 
+            locals: {
+              title: nil,
+              token: banned_token,
+            }
+        %>
+      <% end %>
     </div>
   </div>
 </div>
