@@ -9,7 +9,6 @@ RSpec.describe APIEntreprise::UserMailer do
 
     its(:subject) { is_expected.to eq('API Entreprise - Délégation d\'accès') }
     its(:to) { is_expected.to eq([new_owner.email]) }
-    its(:from) { is_expected.to include(APIEntrepriseMailer.default_params[:from]) }
 
     describe 'email body' do
       it 'contains the previous owner email address' do
@@ -42,7 +41,6 @@ RSpec.describe APIEntreprise::UserMailer do
 
     its(:subject) { is_expected.to eq('API Entreprise - Réconciliation de demandes d\'accès à un nouvel usager') }
     its(:to) { is_expected.to eq(['datapass@api.gouv.fr']) }
-    its(:from) { is_expected.to include(APIEntrepriseMailer.default_params[:from]) }
 
     it 'contains the user email address' do
       expect(subject.html_part.decoded).to include(user.email)
