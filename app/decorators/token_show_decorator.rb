@@ -10,6 +10,13 @@ class TokenShowDecorator < ApplicationDecorator
     time_passed.to_f / total_duration * 100
   end
 
+  def status
+    return 'expired' if expired?
+    return 'revoked' if blacklisted? || blacklisted_later?
+
+    'active'
+  end
+
   def progress_bar_color
     day_left = (exp - Time.zone.now.to_i) / 86_400
     if day_left < 30

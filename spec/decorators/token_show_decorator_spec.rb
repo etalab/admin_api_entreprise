@@ -44,4 +44,26 @@ RSpec.describe TokenShowDecorator do
       it { is_expected.to eq('red') }
     end
   end
+
+  describe '#status' do
+    subject { described_class.new(token).status }
+
+    context 'when expired' do
+      let(:token) { create(:token, exp: 1.day.ago) }
+
+      it { is_expected.to eq('expired') }
+    end
+
+    context 'when blacklisted' do
+      let(:token) { create(:token, blacklisted_at: 1.day.ago) }
+
+      it { is_expected.to eq('revoked') }
+    end
+
+    context 'when active' do
+      let(:token) { create(:token) }
+
+      it { is_expected.to eq('active') }
+    end
+  end
 end

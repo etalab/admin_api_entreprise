@@ -63,11 +63,9 @@ class Token < ApplicationRecord
       blacklisted_at < Time.zone.now
   end
 
-  def status
-    return 'expired' if expired?
-    return 'blacklisted' if blacklisted?
-
-    'active'
+  def blacklisted_later?
+    blacklisted_at.present? &&
+      blacklisted_at > Time.zone.now
   end
 
   private
