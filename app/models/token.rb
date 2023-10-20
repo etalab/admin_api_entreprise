@@ -8,7 +8,8 @@ class Token < ApplicationRecord
   scope :unexpired, -> { where('exp > ?', Time.zone.now.to_i) }
 
   scope :blacklisted, -> { where('blacklisted_at < ?', Time.zone.now) }
-  scope :not_blacklisted, -> { where('blacklisted_at > ?', Time.zone.now).or(where(blacklisted_at: nil)) }
+  scope :blacklisted_later, -> { where('blacklisted_at > ?', Time.zone.now) }
+  scope :not_blacklisted, -> { blacklisted_later.or(where(blacklisted_at: nil)) }
 
   scope :active, -> { not_blacklisted.unexpired }
   scope :active_for, ->(api) { active.joins(:authorization_request).where(authorization_request: { api: }).uniq }

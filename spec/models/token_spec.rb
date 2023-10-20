@@ -78,6 +78,7 @@ RSpec.describe Token do
   describe 'scopes' do
     let!(:active) { create_list(:token, 2) }
     let!(:blacklisted) { create_list(:token, 2, :blacklisted) }
+    let!(:blacklisted_later) { create_list(:token, 2, blacklisted_at: 3.days.from_now) }
     let!(:expired) { create_list(:token, 2, :expired) }
 
     describe '.active' do
@@ -85,6 +86,7 @@ RSpec.describe Token do
 
       it { is_expected.to     include(*active) }
       it { is_expected.not_to include(*blacklisted) }
+      it { is_expected.to include(*blacklisted_later) }
       it { is_expected.not_to include(*expired) }
     end
 
@@ -92,7 +94,16 @@ RSpec.describe Token do
       subject { described_class.blacklisted }
 
       it { is_expected.not_to include(*active) }
+      it { is_expected.not_to include(*blacklisted_later) }
       it { is_expected.to     include(*blacklisted) }
+    end
+
+    describe '.blacklisted_later' do
+      subject { described_class.blacklisted_later }
+
+      it { is_expected.not_to include(*active) }
+      it { is_expected.to include(*blacklisted_later) }
+      it { is_expected.not_to include(*blacklisted) }
     end
   end
 
