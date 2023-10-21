@@ -27,8 +27,7 @@ gem 'bcrypt', '~> 3.1.19'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'sidekiq'
-gem 'sidekiq-cron'
+gem 'good_job'
 
 gem 'draper'
 gem 'ip_anonymizer'
