@@ -18,6 +18,7 @@ class Seeds
 
     ActiveRecord::Base.connection.transaction do
       ApplicationRecord.descendants.each(&:delete_all)
+      AccessLog.delete_all
     end
   end
 
@@ -176,7 +177,7 @@ class Seeds
     create_user_authorization_request_role(user: contact_technique, authorization_request:, role: 'contact_technique') if contact_technique
     create_user_authorization_request_role(user: contact_metier, authorization_request:, role: 'contact_metier') if contact_metier
 
-    Token.create!(
+    token = Token.create!(
       Token.default_create_params
         .merge(token_params)
         .merge(scopes:)
@@ -184,8 +185,23 @@ class Seeds
           authorization_request:
         )
     )
+
+    create_access_logs_for_token(token)
   end
   # rubocop:enable Metrics/ParameterLists
+
+  def create_access_logs_for_token(token)
+    [
+      Time.zone.now,
+      3.hours.ago,
+      1.day.ago,
+      2.days.ago,
+      3.days.ago,
+      8.days.ago
+    ].each do |timestamp|
+      AccessLog.create!(token:, timestamp:)
+    end
+  end
 
   def create_authorization_request(params = {})
     AuthorizationRequest.create!(params)

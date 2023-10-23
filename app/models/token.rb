@@ -8,7 +8,8 @@ class Token < ApplicationRecord
   scope :unexpired, -> { where('exp > ?', Time.zone.now.to_i) }
 
   scope :blacklisted, -> { where('blacklisted_at < ?', Time.zone.now) }
-  scope :not_blacklisted, -> { where('blacklisted_at > ?', Time.zone.now).or(where(blacklisted_at: nil)) }
+  scope :blacklisted_later, -> { where('blacklisted_at > ?', Time.zone.now) }
+  scope :not_blacklisted, -> { blacklisted_later.or(where(blacklisted_at: nil)) }
 
   scope :active, -> { not_blacklisted.unexpired }
   scope :active_for, ->(api) { active.joins(:authorization_request).where(authorization_request: { api: }).uniq }
@@ -16,6 +17,7 @@ class Token < ApplicationRecord
   has_many :users, through: :authorization_request
   has_many :contacts, through: :authorization_request
   has_many :demandeurs, through: :authorization_request
+  has_many :access_logs, inverse_of: :token, dependent: nil
 
   has_one :demandeur, through: :authorization_request
   delegate :contacts_no_demandeur, :archived?, to: :authorization_request
@@ -59,6 +61,11 @@ class Token < ApplicationRecord
   def blacklisted?
     blacklisted_at.present? &&
       blacklisted_at < Time.zone.now
+  end
+
+  def blacklisted_later?
+    blacklisted_at.present? &&
+      blacklisted_at > Time.zone.now
   end
 
   private

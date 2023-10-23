@@ -1,23 +1,50 @@
-<div>
-  <%= authorization_request_status_badge(@authorization_request) %>
+<div class="fr-card fr-card--no-arrow token-card">
+  <div id="habilitation_main_info" class="fr-card__body">
+    <div id="habilitation_main_info" class="fr-card__content">
+      <div class="fr-card__title">
+        <%= authorization_request_status_badge(@authorization_request) %>
 
-  <% if @authorization_request.demarche.present? %>
-    <span class="fr-badge fr-text--xs">
-      <i class="fr-icon-attachment-line fr-icon--sm fr-pr-1v" aria-hidden="true"></i>
-      <%= @authorization_request.demarche %>
-    </span>
-  <% end %>
+        <% if @authorization_request.demarche.present? %>
+          <span class="fr-badge fr-text--xs">
+            <i class="fr-icon-attachment-line fr-icon--sm fr-pr-1v" aria-hidden="true"></i>
+            <%= @authorization_request.demarche %>
+          </span>
+        <% end %>
 
-  <h2 class="fr-h3 fr-mb-n0-5v"><%= @authorization_request.intitule %></h3>
+        <h2 class="fr-h3 fr-mb-n0-5v"><%= @authorization_request.intitule %></h3>
+      </div>
+      <div class="fr-card__desc">
+        <span class="fr-text--xs">
+          <b><%= t('.delivered_at', humanized_date: friendly_format_from_timestamp(@authorization_request.created_at)) %></b>
+          - 
+          <%= link_to t('.links.to_datapass', external_id: @authorization_request.external_id).html_safe, 
+            datapass_authorization_request_url(@authorization_request), 
+            id: :authorization_request_link,
+            class: %w(fr-link fr-text--xs), 
+            target: '_blank' 
+          %>
+        </span>
+      </div>
+    </div>
 
-  <span class="fr-text--xs">
-    <b><%= t('.delivered_at', humanized_date: friendly_format_from_timestamp(@authorization_request.created_at)) %></b>
-    - 
-    <%= link_to t('.links.to_datapass', external_id: @authorization_request.external_id).html_safe, 
-      datapass_authorization_request_url(@authorization_request), 
-      id: :authorization_request_link,
-      class: %w(fr-link fr-text--xs), 
-      target: '_blank' 
-    %>
-  </span>
+    <div id="habilitation_main_token_infos" class="fr-card__content">
+      <%=
+        render partial: 'shared/tokens/detail', 
+          locals: {
+            title: t('.main_token.title'),
+            token: @main_token,
+          }
+      %>
+
+      <% @banned_tokens.each do |banned_token| %>
+        <%=
+          render partial: 'shared/tokens/detail', 
+            locals: {
+              title: nil,
+              token: banned_token,
+            }
+        %>
+      <% end %>
+    </div>
+  </div>
 </div>

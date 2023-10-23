@@ -86,6 +86,11 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_13_073346) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  create_table "access_logs", id: false, force: :cascade do |t|
+    t.timestamptz "timestamp"
+    t.uuid "token_id"
+  end
+
   add_foreign_key "magic_links", "tokens"
   add_foreign_key "user_authorization_request_roles", "authorization_requests"
   add_foreign_key "user_authorization_request_roles", "users"
