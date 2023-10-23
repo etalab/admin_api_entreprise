@@ -17,7 +17,7 @@
       | <%= t('.call_for_a_week', count: token.access_logs.since(7.days.ago).count) %>
     </span>
   </div>
-  <p>
+  <p class="fr-mb-1v">
   <%= t(".remaining_time.#{token.status}", 
         remaining_time: distance_of_time_in_words(Time.zone.now, token.end_timestamp)
        ).html_safe %>
