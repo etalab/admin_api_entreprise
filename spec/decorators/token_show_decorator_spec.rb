@@ -60,7 +60,14 @@ RSpec.describe TokenShowDecorator do
       it { is_expected.to eq('revoked') }
     end
 
+    context 'when now_token' do
+      let(:token) { create(:token) }
+
+      it { is_expected.to eq('new_token') }
+    end
+
     context 'when active' do
+      let!(:access_log) { create(:access_log, token:) }
       let(:token) { create(:token) }
 
       it { is_expected.to eq('active') }
