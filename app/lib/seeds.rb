@@ -186,7 +186,7 @@ class Seeds
         )
     )
 
-    create_access_logs_for_token(token) unless AccessLog.new.read_only?
+    create_access_logs_for_token(token) unless AccessLog.new.readonly?
   end
   # rubocop:enable Metrics/ParameterLists
 
