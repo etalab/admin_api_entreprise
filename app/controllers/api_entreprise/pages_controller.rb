@@ -6,7 +6,7 @@ class APIEntreprise::PagesController < APIEntrepriseController
   layout :page_layout
 
   def current_status
-    @current_status = StatusPage.new.current_status
+    @current_status = StatusPage.new(namespace).current_status
 
     respond_to do |format|
       format.html { render layout: false }

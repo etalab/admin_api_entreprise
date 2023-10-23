@@ -1,13 +1,19 @@
 require 'open-uri'
 
 class StatusPage
+  attr_reader :api
+
+  def initialize(namespace)
+    @api = namespace.split('_').last
+  end
+
   def current_status
     case raw_current_status
-    when 'UP'
+    when 'up'
       :up
-    when 'HASISSUES'
+    when 'outage'
       :has_issues
-    when 'UNDERMAINTENANCE'
+    when 'maintenance'
       :maintenance
     else
       :undefined
@@ -24,29 +30,29 @@ class StatusPage
   end
 
   def retrieve_from_status_page
-    status = page_summary['page']['status']
+    status = page_config_data['globals']['topLevelStatus']['status']
 
     cache.write(cache_key, status, expires_in: 5.minutes.to_i)
 
     status
   end
 
-  def page_summary
+  def page_config_data
     JSON.parse(
-      page_summary_body
+      page_config_data_body
     )
   end
 
-  def page_summary_body
-    URI.parse(page_summary_url).open.read
+  def page_config_data_body
+    URI.parse(page_config_data_url).open.read
   end
 
-  def page_summary_url
-    'https://status.entreprise.api.gouv.fr/summary.json'
+  def page_config_data_url
+    "https://api-#{api}.hyperping.app/api/config?hostname=api-#{api}.hyperping.app"
   end
 
   def cache_key
-    'status_page_current_status'
+    "api_#{api}_status_page_current_status"
   end
 
   def cache

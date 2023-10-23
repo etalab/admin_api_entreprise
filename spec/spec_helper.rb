@@ -161,11 +161,13 @@ RSpec.configure do |config|
   end
 
   config.before(:each, app: :api_entreprise, type: :feature) do
-    stub_request(:get, 'https://status.entreprise.api.gouv.fr/summary.json').and_return(
+    stub_request(:get, 'https://api-entreprise.hyperping.app/api/config?hostname=api-entreprise.hyperping.app').and_return(
       status: 200,
       body: {
-        page: {
-          status: :up
+        globals: {
+          topLevelStatus: {
+            status: 'up'
+          }
         }
       }.to_json
     )
