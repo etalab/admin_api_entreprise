@@ -1,6 +1,10 @@
 class TokenShowDecorator < ApplicationDecorator
   delegate_all
 
+  def self.inferred_object_class
+    Token
+  end
+
   def end_timestamp
     return blacklisted_at.to_i if blacklisted_at.present?
 

@@ -46,7 +46,60 @@
             }
           %>
         <% end %>
+        <ul class="fr-btns-group--right fr-btns-group--inline-sm fr-btns-group--inline-reverse fr-btns-group--icon-right">
+          <li>
+            <button id="<%= dom_id(@main_token, :extend_modal) %>" class="fr-btn" data-fr-opened="false" aria-controls="<%= dom_id(@main_token, :extend_modal) %>">
+              <%= t('.modal.extend.display_cta') %>
+              <i class="fr-icon-arrow-right-line fr-icon fr-pl-1v"></i>
+            </button>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
 </div>
+
+<dialog aria-labelledby="fr-modal-2-title" id="<%= dom_id(@main_token, :extend_modal) %>" class="fr-modal">
+  <div class="fr-container fr-container--fluid fr-container-md">
+    <div class="fr-grid-row fr-grid-row--center">
+      <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+        <div class="fr-modal__body">
+          <div class="fr-modal__header">
+            <button class="fr-link--close fr-link" aria-controls="<%= dom_id(@main_token, :extend_modal) %>">Fermer</button>
+          </div>
+          <div class="fr-modal__content">
+            <h1 id="<%= dom_id(@main_token, :extend_modal_title) %>" class="fr-modal__title">
+              <span class="fr-icon-arrow-right-line fr-icon--lg"></span>
+              <%= t('.modal.extend.title') %>
+            </h1>
+            <p>
+            <%= t('.modal.extend.description',
+                  link_to_datapass: link_to(
+                    t('.links.to_datapass', external_id: @authorization_request.external_id).html_safe, 
+                    datapass_authorization_request_url(@authorization_request), 
+                    id: :authorization_request_link,
+                    class: %w(fr-link), 
+                    target: '_blank'),
+                  remaining_time: distance_of_time_in_words(Time.zone.now, @main_token.end_timestamp)
+                  ).html_safe %>
+            </p>
+
+            <p class="fr-mb-1v"><strong><%= t('.modal.extend.warning_description') %></strong></p>
+            <blockquote class="fr-highlight fr-highlight--caution fr-m-0">
+              <p><%= t('.modal.extend.warning') %></p>
+            </blockquote>
+
+          </div>
+
+          <div class="fr-modal__footer">
+            <ul class="fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-lg fr-btns-group--icon-left">
+              <li>
+                <%= link_to( t('.modal.extend.cta'), datapass_extend_authorization_request_url, id: :extend_form_link, class: "fr-btn", target: '_blank') %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>

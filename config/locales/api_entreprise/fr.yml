@@ -8,11 +8,11 @@ fr:
     api_entreprise:
       application:
         title: API Entreprise
-  concerns:
-    authorization_requests_management:
-      show:
-        error:
-          title: "Vous ne pouvez pas accéder à cette habiliation"
+    concerns:
+      authorization_requests_management:
+        show:
+          error:
+            title: "Vous ne pouvez pas accéder à cette habilitation"
   shared:
     tokens:
       detail:
@@ -50,6 +50,17 @@ fr:
           archived: 📃 Habilitation archivée
           validated: 📃 Habilitation active
       show:
+        modal:
+          extend:
+            display_cta: Prolonger le jeton
+            title: Prolonger le jeton
+            description: "Votre jeton %{link_to_datapass} expire dans %{remaining_time}.
+              Avant de prolonger votre jeton, nous avons besoin de savoir si les conditions 
+              indiquées dans votre habilitation %{link_to_datapass}
+              ont évolué."
+            warning_description: "Pour prolonger votre jeton, veuillez compléter le formulaire suivant :"
+            warning: ⚠️ Vos réponses au formulaire <strong>vous engagent</strong> en regard des CGU d'api entrprise.
+            cta: Compléter le formulaire de prolongation
         delivered_at: "Délivré le : %{humanized_date}"
         links:
           to_datapass: "N<sup>o</sup>%{external_id}"
