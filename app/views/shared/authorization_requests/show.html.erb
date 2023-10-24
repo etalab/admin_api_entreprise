@@ -48,9 +48,15 @@
         <% end %>
         <ul class="fr-btns-group--right fr-btns-group--inline-sm fr-btns-group--inline-reverse fr-btns-group--icon-right">
           <li>
+            <button id="<%= dom_id(@main_token, :token_show_technical_user_modal) %>" class="fr-btn fr-btn--secondary" data-fr-opened="false" aria-controls="<%= dom_id(@main_token, :token_show_technical_user_modal) %>">
+              <%= t('.modal.token_show_technical_user.display_cta') %>
+              <i class="fr-icon-eye-fill fr-icon--sm fr-pl-1v" aria-hidden="true"></i>
+            </button>
+          </li>
+          <li>
             <button id="<%= dom_id(@main_token, :extend_modal) %>" class="fr-btn" data-fr-opened="false" aria-controls="<%= dom_id(@main_token, :extend_modal) %>">
               <%= t('.modal.extend.display_cta') %>
-              <i class="fr-icon-arrow-right-line fr-icon fr-pl-1v"></i>
+              <i class="fr-icon-arrow-right-line fr-icon--sm fr-pl-1v" aria-hidden="true"></i>
             </button>
           </li>
         </ul>
@@ -98,6 +104,86 @@
               </li>
             </ul>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<dialog aria-labelledby="fr-modal-2-title" id="<%= dom_id(@main_token, :token_show_technical_user_modal) %>" class="fr-modal" data-controller="clipboard" data-clipboard-alert-message-value="<%= t('commons.copy_token_success_message') %>">
+  <div class="fr-container fr-container--fluid fr-container-md">
+    <div class="fr-grid-row fr-grid-row--center">
+      <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+        <div class="fr-modal__body">
+          <div class="fr-modal__header">
+            <button class="fr-link--close fr-link" aria-controls="<%= dom_id(@main_token, :token_show_technical_user_modal) %>">Fermer</button>
+          </div>
+          <div class="fr-modal__content">
+            <h1 id="<%= dom_id(@main_token, :token_show_technical_user_title) %>" class="fr-modal__title">
+              <span class="fr-icon-arrow-right-line fr-icon--lg"></span>
+              <%= t('.modal.token_show_technical_user.title') %>
+            </h1>
+            <blockquote class="fr-highlight fr-highlight--caution fr-m-0">
+              <p><%= t('.modal.token_show_technical_user.warning').html_safe %></p>
+            </blockquote>
+            <p class="fr-mb-1v">
+                <%= t('.modal.token_show_technical_user.token_label', token_id: @main_token.id).html_safe %>
+                <input id="<%= dom_id(@main_token, :token_hash) %>" class="fr-input" type="text" data-clipboard-target="source" readonly value="<%= @main_token.rehash %>" />
+            </p>
+          </div>
+
+          <div class="fr-modal__footer">
+            <ul class="fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-lg fr-btns-group--icon-left">
+              <li>
+                <%= button_tag class: 'fr-btn fr-icon-window-fill fr-btn--icon-right', id: dom_id(@main_token, :copy_token_button), data: { action: 'click->clipboard#copy' } do %>
+                  <%= t('.modal.token_show_technical_user.cta') %>
+                <% end %>
+              </li>
+              <li>
+                <button id="<%= dom_id(@main_token, :transfer_modal) %>" class="fr-btn fr-btn--secondary" data-fr-opened="false" aria-controls="<%= dom_id(@main_token, :transfer_modal) %>">
+                  <%= t('.modal.transfer.display_cta') %>
+                  <i class="fr-icon-mail-line fr-icon--sm fr-pl-1v" aria-hidden="true"></i>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<dialog aria-labelledby="fr-modal-2-title" id="<%= dom_id(@main_token, :transfer_modal) %>" class="fr-modal">
+  <div class="fr-container fr-container--fluid fr-container-md">
+    <div class="fr-grid-row fr-grid-row--center">
+      <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+        <div class="fr-modal__body">
+          <div class="fr-modal__header">
+            <button class="fr-link--close fr-link" aria-controls="<%= dom_id(@main_token, :transfer_modal) %>">Fermer</button>
+          </div>
+
+          <%= form_with url: token_create_magic_link_path(@main_token), method: :post, id: dom_id(@main_token, :magic_link) do |form| %>
+            <div class="fr-modal__content">
+              <h1 id="<%= dom_id(@main_token, :transfer_modal_title) %>" class="fr-modal__title">
+                <span class="fr-icon-arrow-right-line fr-icon--lg"></span>
+                <%= t('.modal.transfer.title') %>
+              </h1>
+              <p><%= t('.modal.transfer.description').html_safe %></p>
+
+              <div class="fr-input-group">
+                <%= form.label :email, t('.modal.transfer.email.label'), class: %w(fr-label) %>
+                <%= form.email_field :email, placeholder: t('.modal.transfer.email.placeholder'), class: %w(fr-input) %>
+              </div>
+            </div>
+
+            <div class="fr-modal__footer">
+              <ul class="fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-lg fr-btns-group--icon-left">
+                <li>
+                  <%= form.button t('.modal.transfer.cta'), data: { confirm: t('.modal.transfer.confirm') }, class: %w(fr-btn fr-icon-checkbox-line) %>
+                </li>
+              </ul>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
