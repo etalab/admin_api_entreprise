@@ -120,6 +120,59 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
             expect(page).to have_content(distance_of_time_in_words(Time.zone.now, banned_token.blacklisted_at))
             expect(page).to have_content('0 appel les 7 derniers jours')
           end
+
+          describe 'when the user is demandeur' do
+            describe 'when the token has less than 90 days left' do
+              it 'displays the button to extend the token' do
+                expect(page).to have_content('Prolonger le jeton')
+              end
+
+              it 'displays the modal on click' do
+                click_button dom_id(token, :extend_modal_button)
+                expect(page).to have_css("##{dom_id(token, :extend_modal)}")
+              end
+            end
+
+            describe 'when the token has more than 90 days left' do
+              let(:exp) { 93.days.from_now.to_i }
+
+              it 'does not display the button to extend the token' do
+                expect(page).not_to have_content('Prolonger le jeton')
+              end
+            end
+          end
+
+          describe 'when the user is contact technique' do
+            let!(:authorization_request) do
+              create(
+                :authorization_request,
+                demandeur_authorization_request_role: non_authenticated_user.user_authorization_request_roles.first,
+                contact_technique_authorization_request_role: authenticated_user.user_authorization_request_roles.first,
+                api: 'particulier',
+                status:
+              )
+            end
+
+            it 'does not display the button to extend the token' do
+              expect(page).not_to have_content('Prolonger le jeton')
+            end
+          end
+
+          describe 'when the user is contact metier' do
+            let!(:authorization_request) do
+              create(
+                :authorization_request,
+                demandeur_authorization_request_role: non_authenticated_user.user_authorization_request_roles.first,
+                contact_metier_authorization_request_role: authenticated_user.user_authorization_request_roles.first,
+                api: 'particulier',
+                status:
+              )
+            end
+
+            it 'does not display the button to extend the token' do
+              expect(page).not_to have_content('Prolonger le jeton')
+            end
+          end
         end
       end
     end

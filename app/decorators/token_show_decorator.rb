@@ -29,8 +29,11 @@ class TokenShowDecorator < ApplicationDecorator
     'active'
   end
 
+  def day_left
+    @day_left ||= (end_timestamp - Time.zone.now.to_i) / 86_400
+  end
+
   def progress_bar_color
-    day_left = (end_timestamp - Time.zone.now.to_i) / 86_400
     if day_left < 30
       'red'
     elsif day_left < 90
