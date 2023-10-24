@@ -119,9 +119,10 @@
     description: |+
       Cette API délivre la **liste des paiements Pôle emploi** du demandeur d'emploi. L'historique maximal est de 24 mois. Ces paiements sont datés et répartis en 3 catégories (allocations, aides et autres paiements).
 
-      {:.fr-highlight.fr-highlight--caution}
-      > **Des informations à confirmer avec le fournisseur de service :**
-      > Pour certain cas, l'équipe API Particulier a constaté des paiements avec des dates dans le futur. Nous échangeons actuellement avec Pôle emploi pour identifier ces cas et les documenter.
+      {:.fr-highlight}
+      > **Cas particuliers :**
+      > - Si l'API est appelée pour un demandeur d'emploi qui n'est plus inscrit, l'API renvoie uniquement la liste de paiements de sa dernière inscription.
+      > - Comme sur le compte utilisateur du demandeur d'emploi, il peut arriver que pour un appel en fin de mois, un paiement soit visible en anticipation, avec une date le mois suivant.
 
   provider_uids:
     - 'pole_emploi'
@@ -136,7 +137,7 @@
   faq: 
     - q: Périmètre détaillé des catégories de demandeurs d'emploi concernés par l'API.
       a: |+
-        Les catégories de demandeur d'emploi délivrées par l'API correspondent aux 5 premières catégories administratives définies par l’[arrêté du 5 février 1992 portant application de l’article L. 5411-2 du Code du travail](https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000174464/){:target="_blank"} :
+        Les catégories de demandeur d'emploi délivrées par l'API correspondent aux 8 catégories administratives définies par l’[arrêté du 5 février 1992 portant application de l’article L. 5411-2 du Code du travail](https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000174464/){:target="_blank"} :
 
         {:.fr-table}
         | Catégorie administrative    | Description       |  Catégorie présente dans l'API|
