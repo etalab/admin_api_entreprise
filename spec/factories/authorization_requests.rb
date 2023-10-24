@@ -65,7 +65,7 @@ FactoryBot.define do
 
       after(:create) do |authorization_request, evaluator|
         if evaluator.contact_metier.present?
-          create(:user_authorization_request_role, :contact_metier, authorization_request:, user: evaluator.demandeur)
+          create(:user_authorization_request_role, :contact_metier, authorization_request:, user: evaluator.contact_metier)
         else
           create(:user_authorization_request_role, :contact_metier, authorization_request:)
         end
@@ -73,8 +73,16 @@ FactoryBot.define do
     end
 
     trait :with_contact_technique do
-      after(:create) do |authorization_request|
-        create(:user_authorization_request_role, :contact_technique, authorization_request:)
+      transient do
+        contact_technique { nil }
+      end
+
+      after(:create) do |authorization_request, evaluator|
+        if evaluator.contact_technique.present?
+          create(:user_authorization_request_role, :contact_technique, authorization_request:, user: evaluator.contact_technique)
+        else
+          create(:user_authorization_request_role, :contact_technique, authorization_request:)
+        end
       end
     end
 

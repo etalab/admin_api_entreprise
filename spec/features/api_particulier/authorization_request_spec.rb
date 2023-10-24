@@ -3,7 +3,7 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
     visit api_particulier_authorization_requests_show_path(id: authorization_request.id)
   end
 
-  let!(:authenticated_user) { create(:user, :demandeur) }
+  let!(:authenticated_user) { create(:user, :demandeur, :contact_technique, :contact_metier) }
   let!(:non_authenticated_user) { create(:user, :demandeur) }
   let!(:authorization_request) do
     create(
@@ -56,7 +56,8 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
         let!(:authorization_request) do
           create(
             :authorization_request,
-            demandeur_authorization_request_role: authenticated_user.user_authorization_request_roles.first,
+            :with_demandeur,
+            demandeur: authenticated_user,
             api: 'entreprise',
             status: 'draft'
           )
@@ -71,7 +72,8 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
         let!(:authorization_request) do
           create(
             :authorization_request,
-            demandeur_authorization_request_role: authenticated_user.user_authorization_request_roles.first,
+            :with_demandeur,
+            demandeur: authenticated_user,
             api: 'entreprise',
             status: 'validated'
           )
@@ -86,7 +88,8 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
         let!(:authorization_request) do
           create(
             :authorization_request,
-            demandeur_authorization_request_role: authenticated_user.user_authorization_request_roles.first,
+            :with_demandeur,
+            demandeur: authenticated_user,
             api: 'particulier',
             status:
           )
@@ -127,7 +130,7 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
                 expect(page).to have_content('Prolonger le jeton')
               end
 
-              it 'displays the modal on click' do
+              it 'displays the extend modal on click' do
                 click_button dom_id(token, :extend_modal_button)
                 expect(page).to have_css("##{dom_id(token, :extend_modal)}")
               end
@@ -140,21 +143,45 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
                 expect(page).not_to have_content('Prolonger le jeton')
               end
             end
+
+            it 'displays the show for technical user modal button' do
+              expect(page).to have_content('Voir le jeton')
+            end
+
+            it 'displays the show for technical user modal on click' do
+              click_button dom_id(token, :token_show_technical_user_modal_button)
+              expect(page).to have_css("##{dom_id(token, :token_show_technical_user_modal)}")
+            end
           end
 
           describe 'when the user is contact technique' do
             let!(:authorization_request) do
               create(
                 :authorization_request,
-                demandeur_authorization_request_role: non_authenticated_user.user_authorization_request_roles.first,
-                contact_technique_authorization_request_role: authenticated_user.user_authorization_request_roles.first,
+                :with_demandeur,
+                :with_contact_technique,
+                demandeur: non_authenticated_user,
+                contact_technique: authenticated_user,
                 api: 'particulier',
                 status:
               )
             end
 
+            it 'displays the page' do
+              expect(page).to have_current_path(api_particulier_authorization_requests_show_path(id: authorization_request.id), ignore_query: true)
+            end
+
             it 'does not display the button to extend the token' do
               expect(page).not_to have_content('Prolonger le jeton')
+            end
+
+            it 'displays the show for technical user modal button' do
+              expect(page).to have_content('Voir le jeton')
+            end
+
+            it 'displays the show for technical user modal on click' do
+              click_button dom_id(token, :token_show_technical_user_modal_button)
+              expect(page).to have_css("##{dom_id(token, :token_show_technical_user_modal)}")
             end
           end
 
@@ -162,11 +189,17 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
             let!(:authorization_request) do
               create(
                 :authorization_request,
-                demandeur_authorization_request_role: non_authenticated_user.user_authorization_request_roles.first,
-                contact_metier_authorization_request_role: authenticated_user.user_authorization_request_roles.first,
+                :with_demandeur,
+                :with_contact_metier,
+                demandeur: non_authenticated_user,
+                contact_metier: authenticated_user,
                 api: 'particulier',
                 status:
               )
+            end
+
+            it 'displays the page' do
+              expect(page).to have_current_path(api_particulier_authorization_requests_show_path(id: authorization_request.id), ignore_query: true)
             end
 
             it 'does not display the button to extend the token' do
