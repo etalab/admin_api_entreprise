@@ -7,6 +7,9 @@ production: &deployed
   token_expiration_notice:
     cron: '0 */4 * * *'
     class: 'TokenExpirationNoticeJob'
+  healthcheck:
+    cron: '*/5 * * * *'
+    class: 'HealthcheckJob'
 
 staging: *deployed
 sandbox: *deployed
