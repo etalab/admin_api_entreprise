@@ -29,9 +29,9 @@ services:
     links:
       - db
       - redis
-  sidekiq:
+  workers:
     build: .
-    command: bundle exec sidekiq
+    command: bundle exec good_job start
     volumes:
       - .:/app
     depends_on:
@@ -42,6 +42,5 @@ services:
       - redis
     environment:
       - RAILS_ENV=development
-      - REDIS_URL=redis://redis:6379/0
       - POSTGRES_HOST=db
       - REDIS_HOST=redis

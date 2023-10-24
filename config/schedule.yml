@@ -2,13 +2,11 @@ development:
   token_expiration_notice:
     cron: '0 1 * * *'
     class: 'TokenExpirationNoticeJob'
-    queue: default
 
 production: &deployed
   token_expiration_notice:
     cron: '0 */4 * * *'
     class: 'TokenExpirationNoticeJob'
-    queue: default
 
 staging: *deployed
 sandbox: *deployed
