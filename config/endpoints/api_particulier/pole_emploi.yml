@@ -27,7 +27,7 @@
     description: |+
       Cette API propose une seule modalité d'appel :
       <p class="fr-badge fr-badge--purple-glycine">Identifiant</p>
-      **Avec l'identifiant Pôle emploi** : Cet identifiant est celui choisi par le particulier lors de la création de son espace personnel en ligne.
+      **Avec l'identifiant du compte utilisateur Pôle emploi** : Cet identifiant est celui choisi par le particulier lors de la création de son espace personnel en ligne.
 
 
       <section class="fr-accordion">
@@ -100,7 +100,8 @@
       Cette API propose une seule modalité d'appel :
 
       <p class="fr-badge fr-badge--purple-glycine">Identifiant</p>
-      **Avec l'identifiant Pôle emploi** : Cet identifiant est celui choisi par le particulier lors de la création de son espace personnel en ligne.
+      **Avec l'identifiant du compte utilisateur Pôle emploi** : Cet identifiant est celui choisi par le particulier lors de la création de son espace personnel en ligne.
+      ⚠️ Pour utiliser cette API, il est indispensable de recouper ce paramètre d'appel avec l'identité du particulier. [Consulter les CGU spécifiques](#api_cgu).
 
       <section class="fr-accordion">
         <h3 class="fr-accordion__title">
@@ -148,3 +149,16 @@
         | 6          | Personnes non immédiatement disponibles à la recherche d'un autre emploi, à durée indéterminée à plein temps, tenues d'accomplir des actes positifs de recherche d'emploi. |   ✅   |
         | 7          | Personnes non immédiatement disponibles à la recherche d'un autre emploi, à durée indéterminée à temps partiel, tenues d'accomplir des actes positifs de recherche d'emploi.  |   ✅   |
         | 8          | Personnes non immédiatement à la recherche d'un autre emploi, à durée déterminée, temporaire ou saisonnier, y compris de très courte durée, tenues d'accomplir des actes positifs de recherche d'emploi.  |   ✅   |
+  api_cgu:
+    description: |+
+        Il est **indispensable de recouper l'identifiant du compte utilisateur Pôle Emploi avec l'identité du particulier** avant d'utiliser cette API.
+        
+        En effet, cette API est appelable avec un seul paramètre d'appel, l'identifiant du compte utilisateur Pôle Emploi. Par conséquent, si vous n'avez pas pu établir que cet identifiant utilisé en appel correspond bien au particulier concerné, vous prenez le risque de lui transmettre les données d'un autre allocataire.  
+
+        {:.fr-highlight.fr-highlight--caution}
+        > **En utilisant cette API, vous vous engagez donc à recouper l'identifiant du compte utilisateur Pôle Emploi avec l'identité du particulier** en faisant un appel en parallèle sur l'[API statut demandeur d'emploi](../pole_emploi/situation).
+        > En effet, cette autre API permet d'accéder aux deux informations. 
+        >
+        > À notre connaissance, l'identifiant du compte utilisateur est configuré par l'usager au moment de la création de son espace et n'est donc présent sur aucun document ou courriel qui permettrait à un agent de vérifier l'identité. L'appel à l'API statut demandeur d'emploi est donc indispensable pour vérifier l'identité.
+
+        

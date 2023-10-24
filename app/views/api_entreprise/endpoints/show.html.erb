@@ -299,6 +299,15 @@
           <%= t("api_entreprise.endpoint.opening.#{@endpoint.opening}.name", raise: true) %>
         </div>
 
+        <% if @endpoint.api_cgu.present? %>
+          <h3 class="fr-h6 fr-mb-1w fr-mt-3w" id="api_cgu">
+            <%= t('.cgu.api_cgu_title') %>
+          </h3>
+          <div>
+            <%= markdown_to_html(@endpoint.api_cgu['description']) %>
+          </div>
+        <% end %>
+
         <h3 class="fr-h6 fr-mb-1w fr-mt-3w">
           <%= t('.cgu.main_title') %>
         </h3>
