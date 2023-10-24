@@ -151,13 +151,12 @@
         | 8          | Personnes non immédiatement à la recherche d'un autre emploi, à durée déterminée, temporaire ou saisonnier, y compris de très courte durée, tenues d'accomplir des actes positifs de recherche d'emploi.  |   ✅   |
   api_cgu:
     description: |+
-        Il est **indispensable de recouper l'identité du particulier avec le numéro d'allocataire** avant d'utiliser cette API.
+        Il est **indispensable de recouper l'identifiant du compte utilisateur Pôle Emploi avec l'identité du particulier** avant d'utiliser cette API.
         
-        En effet, cette API est appelable avec un seul paramètre d'appel, le numéro d'allocataire. Par conséquent, si vous n'avez pas pu établir que le numéro d'allocataire utilisé en appel correspond bien au particulier concerné, vous prenez le risque de lui transmettre les données d'un autre allocataire.  
+        En effet, cette API est appelable avec un seul paramètre d'appel, l'identifiant du compte utilisateur Pôle Emploi. Par conséquent, si vous n'avez pas pu établir que cet identifiant utilisé en appel correspond bien au particulier concerné, vous prenez le risque de lui transmettre les données d'un autre allocataire.  
 
         {:.fr-highlight.fr-highlight--caution}
-        > **En utilisant cette API, vous vous engagez à recouper l'identité du particulier avec le numéro d'allocataire** : 
-        > - en ayant fait un appel en parallèle sur l'[API statut demandeur d'emploi](../pole_emploi/situation) ;
-        > - par un autre moyen (guichet, autre API).
+        > **En utilisant cette API, vous vous engagez à recouper l'identifiant du compte utilisateur Pôle Emploi avec l'identité du particulier** en ayant fait un appel en parallèle sur l'[API statut demandeur d'emploi](../pole_emploi/situation).
+        > En effet, cette autre API permet d'accéder aux deux informations.
 
         
