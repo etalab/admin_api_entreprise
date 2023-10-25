@@ -4,7 +4,7 @@ class HealthcheckJob < ApplicationJob
 
     http.use_ssl = true if healthcheck_uri.scheme == 'https'
 
-    http.head('/')
+    http.head(healthcheck_uri.path)
   end
 
   private
