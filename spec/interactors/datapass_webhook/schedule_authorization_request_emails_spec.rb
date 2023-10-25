@@ -96,7 +96,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
 
     describe 'when one condition is not met' do
       before do
-        authorization_request.users.first.update!(
+        authorization_request.demandeur.update!(
           first_name: 'run',
           last_name: 'not run'
         )
