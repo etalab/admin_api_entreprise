@@ -5,9 +5,31 @@ RSpec.describe HealthcheckJob do
     stub_request(:head, Rails.application.credentials.healthcheck_url)
   end
 
-  it 'calls the healthcheck url' do
-    healthcheck_job
+  before do
+    allow(Rails.env).to receive(:production?).and_return(true)
+  end
 
-    expect(stubbed_request).to have_been_requested
+  context 'when it is the frontal app' do
+    before do
+      ENV['FRONTAL'] = 'true'
+    end
+
+    it 'calls the healthcheck url' do
+      healthcheck_job
+
+      expect(stubbed_request).to have_been_requested
+    end
+  end
+
+  context 'when it is not the frontal app' do
+    before do
+      ENV['FRONTAL'] = 'false'
+    end
+
+    it 'does not call the healthcheck url' do
+      healthcheck_job
+
+      expect(stubbed_request).not_to have_been_requested
+    end
   end
 end
