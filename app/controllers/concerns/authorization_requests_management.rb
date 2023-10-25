@@ -5,6 +5,11 @@ module AuthorizationRequestsManagement
     @authorization_request = extract_authorization_request
     @main_token = TokenShowDecorator.new(@authorization_request.token)
     @banned_tokens = TokenShowDecorator.decorate_collection(@authorization_request.tokens.blacklisted_later)
+    @authorization_request_facade = AuthorizationRequestShowFacade.new(
+      @authorization_request,
+      @main_token,
+      current_user
+    )
 
     render 'shared/authorization_requests/show'
   rescue ActiveRecord::RecordNotFound

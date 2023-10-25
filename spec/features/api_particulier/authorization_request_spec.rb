@@ -131,8 +131,8 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
               end
 
               it 'displays the extend modal on click' do
-                click_button dom_id(token, :extend_modal_button)
-                expect(page).to have_css("##{dom_id(token, :extend_modal)}")
+                click_button dom_id(token, :extend_token_modal_button)
+                expect(page).to have_css("##{dom_id(token, :extend_token_modal)}")
               end
             end
 
