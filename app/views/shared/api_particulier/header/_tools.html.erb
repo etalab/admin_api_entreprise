@@ -5,6 +5,15 @@
         <%= t('.links.faq_contact.title') %>
       </a>
     </li>
+    <li>
+      <turbo-frame id="current_status" style="display: inherit;" src="<%= api_particulier_current_status_path %>">
+        <a class="fr-link" href="https://status.particulier.api.gouv.fr" title="API Particulier Status Page" target="_blank">
+          <span class="circle circle-undefined fr-mr-1w"></span> <%= t('shared.pages.current_status.title') %>
+        </a>
+      </turbo-frame>
+      <span class="fr-header-separator"></span>
+    </li>
+
     <% if user_signed_in? %>
       <li>
         <a class="fr-link fr-icon-<%= t('.links.user_connected.icon') %>" href="<%= user_profile_path %>">

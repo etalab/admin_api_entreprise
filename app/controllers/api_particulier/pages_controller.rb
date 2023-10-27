@@ -3,6 +3,14 @@ class APIParticulier::PagesController < APIParticulierController
 
   layout :page_layout
 
+  def current_status
+    @current_status = StatusPage.new(namespace).current_status
+
+    respond_to do |format|
+      format.html { render 'shared/pages/current_status', layout: false }
+    end
+  end
+
   def home
     @providers = APIParticulier::Provider.all
     @endpoints_sample = APIParticulier::Endpoint.all.sample(3)
