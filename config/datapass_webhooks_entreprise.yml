@@ -81,7 +81,7 @@ production: &production
           - 'authorization_request.contact_technique'
           - 'authorization_request.contact_metier'
 
-      - id: '3090261' # embarquement_valide_to_demandeur_tech_metier
+      - id: '3090261' # embarquement_valide_to_demandeur_is_tech_is_metier
         condition_on_authorization: 'not_editor_and_all_contacts_have_the_same_email?'
 
       - id: '3090303' # embarquement_valide_to_demandeur_seulement
@@ -111,7 +111,7 @@ production: &production
         cc:
           - 'authorization_request.demandeur'
 
-      - id: '3090303' # embarquement_valide_to_demandeur_not_tech
+      - id: '3090303' # embarquement_valide_to_demandeur_is_metier_not_tech
         condition_on_authorization: 'not_editor_and_user_is_contact_metier_and_not_contact_technique?'
         to:
           - 'authorization_request.demandeur'
@@ -123,7 +123,7 @@ production: &production
         cc:
           - 'authorization_request.demandeur'
 
-      - id: '3090261' # embarquement_valide_to_demandeur_tech_not_metier
+      - id: '3090261' # embarquement_valide_to_demandeur_is_tech_not_metier
         condition_on_authorization: 'not_editor_and_user_is_contact_technique_and_not_contact_metier?'
         to:
           - 'authorization_request.demandeur'

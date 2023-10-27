@@ -18,30 +18,14 @@
   </mj-column>
 </mj-section>
 <%= render partial: "block_authorization_request", locals: { authorization_request: @authorization_request } %>
-<mj-section mj-class="section-main">
+<mj-section>
   <mj-column>
     <%= render partial: "list_scopes" %>
     <%= render partial: "embarquement_valide_welcome" %>
     <%= render partial: "info_you_dont_understand" %>
   </mj-column>
 </mj-section>
-<mj-section mj-class="section-block">
-  <mj-column>
-    <mj-text mj-class="block-blue">
-      <p>
-        🔔 En tant que contact métier, vous êtes par défaut abonné aux lettres d'information API Entreprise.
-        <br />
-        <b>
-          Pour découvrir et éventuellement vous abonner à l'ensemble des lettres d'informations et notifications d'API
-          Entreprise, vous pouvez consulter
-        </b>
-        <a target="_blank" href="<%= newsletter_url %>">
-          <b>cette rubrique.</b>
-        </a>
-      </p>
-    </mj-text>
-  </mj-column>
-</mj-section>
+<%= render partial: "block_subscribed_newsletter" %>
 <%= render partial: "block_analytics" %>
 <%= render partial: "block_questions" %>
 <%= render partial: "footer" %>
