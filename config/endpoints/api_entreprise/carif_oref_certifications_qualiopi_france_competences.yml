@@ -48,19 +48,29 @@
   data:
     description: |+
       Cette API permet de savoir si un établissement est habilité à former. Elle indique :
-      - **si l'établissement est certifié Qualiopi Qualiopi** au moment de l'appel et s'il est qualifié _Action formation_, _Bilan Compétences_, _VAE_ ou _Apprentissage_. Par contre, cette API ne délivre pas le nom de l'organisme certificateur, le numéro de certification et les dates d'obtention et de fin du certificat Qualiopi. 
-      - la **liste des habilitations France Compétences**.
-
-
-     
-
-      {:.fr-highlight}
-      > **La valeur ajoutée de cette API opérée par le réseau des CARIF OREF est** :
-      > - de savoir si les établissements sont certifiés Qualiopi et pas uniquement les unités légales ;
-      > - de véritablement dire si un établissement est habilité à former ou à organiser des épreuves car elle indique également les habilitations France Compétences de l'établissement ;
-      > - d'avoir une donnée plus fiable car le réseau des Carif-Oref effectue une double vérification en croisant ses bases et les bases du Ministère de l'Intérieur. En cas de détection d'anomalie, les Carif-Oref peuvent, grâce à leurs réseaux locaux, prendre contact avec l'établissement concerné et vérifier la situation.
+      - **le numéro de déclaration d'activité** ;
+      - **si l'établissement est certifié Qualiopi Qualiopi** au moment de l'appel et s'il est qualifié _Action formation_, _Bilan Compétences_, _VAE_ ou _Apprentissage_ ;
+      - **la liste des habilitations France Compétences**.
 
       [NDA, Qualiopi, France Compétences, quelles différences ?](../carif_oref/certifications_qualiopi_france_competences#faq_entry_answer_0_api_entreprise_endpoint_carif_oref_certifications_qualiopi_france_competences)
+
+
+  
+      **La valeur ajoutée de cette API opérée par le réseau des CARIF OREF est** :
+      - de savoir si les établissements sont certifiés Qualiopi et pas uniquement les unités légales ;
+      - de véritablement dire si un établissement est habilité à former ou à organiser des épreuves car elle indique également les habilitations France Compétences de l'établissement ;
+      - d'avoir une donnée plus fiable car le réseau des Carif-Oref effectue une double vérification en croisant ses bases et les bases du Ministère de l'Intérieur. En cas de détection d'anomalie, les Carif-Oref peuvent, grâce à leurs réseaux locaux, prendre contact avec l'établissement concerné et vérifier la situation.
+
+
+      <div class="fr-callout fr-fi-information-line">
+        <h3 class="fr-callout__title fr-h5">Besoin de données plus précises sur le certificat Qualiopi ?</h3>
+        <p class="fr-callout__text fr-text--md fr-mb-1w">
+            Cette API ne délivre pas le nom de l'organisme certificateur, le numéro de certification et les dates d'obtention et de fin du certificat Qualiopi car Carif-Oref n'a pas ces informations. <strong>Si vous en avez besoin, dîtes-le nous :</strong>
+        </p>
+        <button data-tf-popup="p8o7oT0F" data-tf-opacity="100" data-tf-size="100" data-tf-iframe-props="title=Infos détaillées Qualiopi" data-tf-transitive-search-params data-tf-medium="snippet" class="fr-btn">
+          Oui, j'en ai besoin !
+        </button><script src="//embed.typeform.com/next/embed.js"></script>
+      </div>
   opening: protected
   use_cases_optional:
     - Portail GRU - Instruction des démarches
