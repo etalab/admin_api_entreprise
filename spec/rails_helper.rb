@@ -68,7 +68,8 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :feature) do
-    stub_request(:get, %r{api\.gouv\.fr/ping}).to_return(status: 200)
+    stub_request(:get, %r{entreprise\.api\.gouv\.fr/ping}).to_return(status: 200)
+    stub_request(:get, %r{particulier\.api\.gouv\.fr/api/ping}).to_return(status: 200)
   end
 
   config.before do
