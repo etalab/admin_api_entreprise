@@ -2,6 +2,7 @@
 - uid: 'cnaf_msa/complementaire_sante_solidaire'
   path: '/api/v2/complementaire-sante-solidaire'
   position: 600
+  ping_url: 'https://particulier.api.gouv.fr/api/securite_sociale_complementaire_sante_solidaire/ping'
   perimeter:
     entity_type_description: |+
       ✅ **Le périmètre de l'API est exhaustif et couvre tous les assurés** de la sphère sociale susceptibles d'être concernés par la complémentaire de santé solidaire ([C2S](#faq_entry_0_api_particulier_endpoint_cnav_complementaire_sante_solidaire)).
@@ -26,7 +27,7 @@
       **Avec FranceConnect**.
   data:
     description: |+
-      Cette API **indique si le particulier est bénéficiaire de la complémentaire santé solidaire**. En précisant : 
+      Cette API **indique si le particulier est bénéficiaire de la complémentaire santé solidaire**. En précisant :
       - si la C2S est avec ou sans participation financière ;
       - la date d'ouverture du droit ;
       - la date de fermeture du droit.
@@ -50,10 +51,10 @@
       a: |+
         La complémentaire santé solidaire est une **aide versée par l'assurance maladie sous conditions de ressources et de résidence**. Elle prend en charge la part des dépenses de santé qui ne sont pas remboursées par la sécurité sociale et permet d'accéder à d'autres avantages.
 
-        La complémentaire santé solidaire peut être : 
-        - gratuite, indiquée par _"sans participation"_ dans cette API ; 
+        La complémentaire santé solidaire peut être :
+        - gratuite, indiquée par _"sans participation"_ dans cette API ;
         - payante à partir d'un certain montant de ressources, indiquée par _"avec participation"_ dans cette API.
 
- 
+
         **En savoir plus sur le dispositif** : [service-public.fr](https://www.service-public.fr/particuliers/vosdroits/F10027){:target="_blank"}.
         **En savoir plus sur les conditions d'accès** : [complementaire-sante-solidaire.gouv.fr](https://www.complementaire-sante-solidaire.gouv.fr/complementairesantesolidaire.php){:target="_blank"}.

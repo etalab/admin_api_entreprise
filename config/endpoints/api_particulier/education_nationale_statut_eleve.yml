@@ -1,21 +1,22 @@
 ---
 - uid: 'education_nationale/statut_eleve_scolarise'
   path: '/api/v2/scolarites'
+  ping_url: 'https://particulier.api.gouv.fr/api/men_scolarite/ping'
   position: 500
   perimeter:
     entity_type_description: |+
       Cette API concerne les **✅ élèves du primaire, du collège et du lycée**.
 
-      Une **large majorité d'établissements** sont concernés : 
+      Une **large majorité d'établissements** sont concernés :
       - ✅ établissements publics ;
       - ✅ établissements privés sous contrat ;
       - ✅ lycées militaires et lycées maritimes ;
       - ✅ une partie des formations à distance du CNED.
 
       **Concernant le statut boursier des élèves** : seules les bourses sur critères sociaux à l'échelle nationale sont couvertes par l'API. Par ailleurs, les bourses ne concernent que les collégiens et lycéens.
-      
 
-      **Les établissements suivants ne sont pas couverts par l'API** : 
+
+      **Les établissements suivants ne sont pas couverts par l'API** :
       - ❌ établissements privés hors contrat ;
       - ❌ lycées agricoles ;
       - ❌ instruction dans la famille.
@@ -24,7 +25,7 @@
       - ✅ DROM-COM
     updating_rules_description: |+
       Cette API délivre les informations de l'[année scolaire en cours et bientôt de l'année scolaire à venir (N+1)](#faq_entry_0_api_particulier_endpoint_education_nationale_statut_eleve_scolarise).
-      
+
       Les données du **premier degré** (primaire) sont mises à jour en **temps réel**. Les données du **second degré** (collèges et lycées) sont mises à jour **quotidiennement toutes les nuits**.
 
       Les informations, même si elles évoluent principalement lors de la rentrée scolaire en septembre, peuvent changer en cours d'année (déménagements, etc.).
@@ -52,32 +53,32 @@
     - Attribution des aides sociales
     - Tarification sociale et solidaire des transports
     - Tarification des services publics municipaux
-  faq: 
+  faq:
     - q: De quelle année scolaire sont les données transmises ?
       a: |+
         #### Année scolaire en cours :
         Cette API permet d'appeler les informations de scolarité d'un élève de l'année scolaire en cours.
-        Il existe toutefois quelques nuances : 
+        Il existe toutefois quelques nuances :
         - ✅ Pour les **élèves du premier et du second degré**, les données de l'année scolaire en cours sont accessibles ; et spécifiquement pour le premier degré, uniquement à partir du premier jour de la rentrée ;
         - ⚠️ Pour les **élèves des établissements privés**, le constat de rentrée obligatoire pour ces établissements se fait fréquemment en octobre. Par conséquent, il peut arriver qu'au mois de septembre, l'API n'ait pas connaissance du statut d'un élève si celui-ci vise à être scolarisé dans l'établissement privé.
         - ⚠️ Le **statut boursier est un peu plus complexe** : du fait d'une purge de la base de donnée en juillet, il peut arriver que les données soient indisponibles jusqu'en septembre inclus.
         <br>
 
         #### Bientôt l'année scolaire N+1 :
-        Dans le cadre de démarches administratives, il peut être utile de connaître le statut scolarisé en avance de phase par rapport à la rentrée. _Par exemple, connaître dès juin, le statut de l'élève pour septembre_. À ce jour l'API n'est pas en mesure de délivrer ces informations pour toutes les situations : 
+        Dans le cadre de démarches administratives, il peut être utile de connaître le statut scolarisé en avance de phase par rapport à la rentrée. _Par exemple, connaître dès juin, le statut de l'élève pour septembre_. À ce jour l'API n'est pas en mesure de délivrer ces informations pour toutes les situations :
         - ❌ Pour les **élèves du premier degré**, l'information n'est pas disponible. Le Ministère de l'éducation nationale travaille à obtenir cette information dès le mois de mai/juin ; le calendrier de livraison dans l'API n'est pas connu à ce jour.
         - ✅ Pour les **élèves du second degré**, il est déjà possible d'interroger l'API sur l'année scolaire N+1 à partir du mois de juin.
-        
+
 
         {:.fr-highlight}
         ⚠️ Les données transmises pour l'année scolaire N+1 sont et seront toujours des informations susceptibles d'évoluer car l'élève peut changer d'avis jusqu'à la rentrée.
     - q: Pourquoi le statut non-boursier est-il fiable seulement à partir de mi-octobre ?
       a: |+
         Pour cette première mouture de l'API scolarité de l'élève, le statut boursier n'est pas encore complètement fiable.
-        Au mois d'août de chaque année, la **base des élèves boursiers est entièrement purgée**. La constitution de la base des élèves boursiers est donc refaite chaque année au compte-goutte, à partir des transmissions des établissements. 
-        
+        Au mois d'août de chaque année, la **base des élèves boursiers est entièrement purgée**. La constitution de la base des élèves boursiers est donc refaite chaque année au compte-goutte, à partir des transmissions des établissements.
+
         **Par conséquent, jusqu'à mi-octobre** :
-        - le **statut non-boursier** (`"est_boursier" : "false"`) peut représenter deux situations : 
+        - le **statut non-boursier** (`"est_boursier" : "false"`) peut représenter deux situations :
             - l'élève n'est pas boursier ;
             - le statut boursier est inconnu par l'API.
         - le **statut boursier positif** (`"est_boursier" : "true"`) **est fiable.**

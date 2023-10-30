@@ -1,6 +1,7 @@
 ---
 - uid: 'pole_emploi/situation'
   path: '/api/v2/situations-pole-emploi'
+  ping_url: 'https://particulier.api.gouv.fr/api/pole_emploi_status/ping'
   position: 700
   perimeter:
     entity_type_description: &pole_emploi__entity_type_description |+
@@ -82,6 +83,7 @@
 
 - uid: 'pole_emploi/indemnites'
   path: '/api/v2/paiements-pole-emploi'
+  ping_url: 'https://particulier.api.gouv.fr/api/pole_emploi_indemnites/ping'
   position: 501
   perimeter:
     entity_type_description: |+
@@ -90,12 +92,12 @@
       **Toutes les [catégories de demandeurs d'emploi](#faq_entry_answer_0_api_particulier_endpoint_pole_emploi_indemnites) sont concernées** par l'API :
       - ✅ en recherche d'emploi ;
       - ✅ disponibles immédiatement ;
-      - ✅ non-tenus de faire des actes positifs de recherche d’emploi ; 
+      - ✅ non-tenus de faire des actes positifs de recherche d’emploi ;
       - ✅ tenues d'accomplir des actes positifs de recherche d'emploi.
 
     geographical_scope_description: *pole_emploi_geographical_scope_description
     updating_rules_description: Les données sont **mises à jour en temps réel**, l'API étant directement reliée au système d'information de Pôle emploi.Les informations obtenues sont représentatives de la situation à date des paiements versés au demandeur d'emploi.
-  parameters_details: 
+  parameters_details:
     description: |+
       Cette API propose une seule modalité d'appel :
 
@@ -134,7 +136,7 @@
     - Attribution des aides sociales
     - Tarification sociale et solidaire des transports
     - Tarification des services publics municipaux
-  faq: 
+  faq:
     - q: Périmètre détaillé des catégories de demandeurs d'emploi concernés par l'API.
       a: |+
         Les catégories de demandeur d'emploi délivrées par l'API correspondent aux 8 catégories administratives définies par l’[arrêté du 5 février 1992 portant application de l’article L. 5411-2 du Code du travail](https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000174464/){:target="_blank"} :
@@ -153,13 +155,13 @@
   api_cgu:
     description: |+
         Il est **indispensable de recouper l'identifiant du compte utilisateur Pôle Emploi avec l'identité du particulier** avant d'utiliser cette API.
-        
-        En effet, cette API est appelable avec un seul paramètre d'appel, l'identifiant du compte utilisateur Pôle Emploi. Par conséquent, si vous n'avez pas pu établir que cet identifiant utilisé en appel correspond bien au particulier concerné, vous prenez le risque de lui transmettre les données d'un autre allocataire.  
+
+        En effet, cette API est appelable avec un seul paramètre d'appel, l'identifiant du compte utilisateur Pôle Emploi. Par conséquent, si vous n'avez pas pu établir que cet identifiant utilisé en appel correspond bien au particulier concerné, vous prenez le risque de lui transmettre les données d'un autre allocataire.
 
         {:.fr-highlight.fr-highlight--caution}
         > **En utilisant cette API, vous vous engagez donc à recouper l'identifiant du compte utilisateur Pôle Emploi avec l'identité du particulier** en faisant un appel en parallèle sur l'[API statut demandeur d'emploi](../pole_emploi/situation).
-        > En effet, cette autre API permet d'accéder aux deux informations. 
+        > En effet, cette autre API permet d'accéder aux deux informations.
         >
         > À notre connaissance, l'identifiant du compte utilisateur est configuré par l'usager au moment de la création de son espace et n'est donc présent sur aucun document ou courriel qui permettrait à un agent de vérifier l'identité. L'appel à l'API statut demandeur d'emploi est donc indispensable pour vérifier l'identité.
 
-        
+
