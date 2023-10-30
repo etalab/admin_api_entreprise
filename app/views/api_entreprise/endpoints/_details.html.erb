@@ -30,7 +30,7 @@
   </h3>
   <% if @endpoint.ping_url %>
     <div class="fr-pb-1w">
-      <%= t('.availability.real_time') %> : <span class="api-status api-status-<%= @endpoint.api_status %>"></span>
+      <%= t('.availability.real_time') %> : <a href="<%= @endpoint.ping_url %>" target="_blank"><span class="api-status api-status-<%= @endpoint.api_status %>"></span></a>
     </div>
   <% end %>
   <a class="fr-link" title="API Entreprise Status Page" href="https://status.entreprise.api.gouv.fr" target="_blank">
