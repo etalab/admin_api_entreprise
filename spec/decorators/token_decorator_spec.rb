@@ -1,4 +1,4 @@
-RSpec.describe TokenShowDecorator do
+RSpec.describe TokenDecorator do
   before do
     Timecop.freeze('01/01/2023')
   end

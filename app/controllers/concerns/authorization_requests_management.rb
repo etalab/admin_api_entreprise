@@ -3,8 +3,8 @@ module AuthorizationRequestsManagement
 
   def show
     @authorization_request = extract_authorization_request
-    @main_token = TokenShowDecorator.new(@authorization_request.token)
-    @banned_tokens = TokenShowDecorator.decorate_collection(@authorization_request.tokens.blacklisted_later)
+    @main_token = @authorization_request.token.decorate
+    @banned_tokens = @authorization_request.tokens.blacklisted_later.decorate
     @authorization_request_facade = AuthorizationRequestShowFacade.new(
       @authorization_request,
       @main_token,
