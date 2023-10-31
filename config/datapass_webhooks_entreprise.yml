@@ -89,7 +89,7 @@ production: &production
         to:
           - 'authorization_request.demandeur'
 
-      - id: '3090321' # embarquement_valide_to_tech_cc_metier
+      - id: '3090321' # embarquement_valide_to_tech_cc_metier (same as embarquement_valide_to_tech_cc_demandeur_metier)
         condition_on_authorization: 'not_editor_and_all_contacts_have_different_emails?'
         to:
           - 'authorization_request.contact_technique'

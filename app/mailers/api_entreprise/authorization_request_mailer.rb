@@ -14,7 +14,6 @@ class APIEntreprise::AuthorizationRequestMailer < APIEntrepriseMailer
     embarquement_valide_to_demandeur_is_metier_not_tech
     embarquement_valide_to_demandeur_is_tech_not_metier
     embarquement_valide_to_tech_cc_demandeur_metier
-    embarquement_valide_to_tech_cc_metier
     demande_recue
     reassurance_demande_recue
   ].each do |method|
