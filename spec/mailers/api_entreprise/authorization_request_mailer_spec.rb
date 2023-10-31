@@ -32,11 +32,11 @@ RSpec.describe APIEntreprise::AuthorizationRequestMailer do
     embarquement_relance_modifications_demandees
     embarquement_demande_refusee
     embarquement_valide_to_editeur
-    embarquement_valide_to_demandeur_tech_metier
+    embarquement_valide_to_demandeur_is_tech_is_metier
     embarquement_valide_to_demandeur_seulement
-    embarquement_valide_to_demandeur_not_tech
+    embarquement_valide_to_demandeur_is_metier_not_tech
     enquete_satisfaction
-    embarquement_valide_to_demandeur_tech_not_metier
+    embarquement_valide_to_demandeur_is_tech_not_metier
   ].each do |method|
     describe "##{method}" do
       subject { described_class.send(method, { to:, cc:, authorization_request: }) }
@@ -47,13 +47,12 @@ RSpec.describe APIEntreprise::AuthorizationRequestMailer do
 
   %w[
     embarquement_valide_to_editeur
-    embarquement_valide_to_demandeur_tech_metier
+    embarquement_valide_to_demandeur_is_tech_is_metier
     embarquement_valide_to_demandeur_seulement
-    embarquement_valide_to_tech_cc_metier
     embarquement_valide_to_metier_cc_demandeur_tech
-    embarquement_valide_to_demandeur_not_tech
+    embarquement_valide_to_demandeur_is_metier_not_tech
     embarquement_valide_to_tech_cc_demandeur_metier
-    embarquement_valide_to_demandeur_tech_not_metier
+    embarquement_valide_to_demandeur_is_tech_not_metier
   ].each do |method|
     describe "##{method}" do
       subject { described_class.send(method, { to:, cc:, authorization_request: }) }
@@ -63,7 +62,6 @@ RSpec.describe APIEntreprise::AuthorizationRequestMailer do
   end
 
   %w[
-    embarquement_valide_to_tech_cc_metier
     embarquement_valide_to_tech_cc_demandeur_metier
   ].each do |method|
     describe "##{method}" do

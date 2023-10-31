@@ -1,14 +1,14 @@
-<%= render partial: "header" %>
+<%= render partial: "header" %> 
 <%= render partial: "banner_demande_valide", locals: { entity: "demandeur" } %>
 <mj-section mj-class="section-main">
   <mj-column>
     <mj-text>
       <%= render partial: "greetings", locals: { entity: "demandeur" } %>
       <mj-text>
-      <p>
+        <p>
           Votre demande d’habilitation n°<%= @authorization_request.external_id %> a bien été validée par notre service
           juridique !
-      </p>
+        </p>
       </mj-text>
     </mj-text>
   </mj-column>
@@ -17,33 +17,33 @@
   <mj-column>
     <mj-text>
       <h2>
-          <b>Votre équipe technique peut commencer à intégrer l'API Entreprise :</b>
+        <b>Votre équipe technique peut commencer à intégrer l'API Entreprise&nbsp;:</b>
       </h2>
       <p>
-          ☑️
-          <b>Le&nbsp;contact technique indiqué dans votre habilitation a accès au compte API Entreprise</b>
-          il peut récupérer le jeton en toute autonomie.&nbsp;
+        ☑️
+        <b>Le contact technique indiqué dans votre habilitation a accès au compte API Entreprise</b>,
+        il peut récupérer le jeton en toute autonomie.
       </p>
       <p>
-          ☑️
-          <b>Vous avez également accès à cet espace</b>
-          avec la possibilité de transmettre votre jeton si cela est nécessaire pour l'intégration. Utilisez le bouton
-          "Transmettre le jeton à mon équipe technique". <span class="warning-red">⚠️&nbsp;
+        ☑️
+        <b>Vous avez également accès à cet espace</b>
+        avec la possibilité de transmettre votre jeton si cela est nécessaire pour l'intégration. Utilisez le bouton
+        "Transmettre le jeton à mon équipe technique". <br /><span class="warning-red">⚠️&nbsp;
         Ce jeton ne doit jamais être relayé autrement que par cette fonctionnalité.</span>
       </p>
     </mj-text>
-    <%= render partial: "button_login", locals: { entity: "demandeur" } %>
+    <%= render partial: "button_login", locals: { entity: 'demandeur' }  %> 
   </mj-column>
 </mj-section>
 <mj-section mj-class="section-main">
   <mj-column>
     <mj-text>
-    <%= render partial: "list_scopes" %>
-    <%= render partial: "embarquement_valide_welcome" %>
+      <%= render partial: "list_scopes" %> 
+      <%= render partial: "embarquement_valide_welcome" %>
     </mj-text>
   </mj-column>
 </mj-section>
-<%= render partial: "block_subscribed_newsletter" %>
+<%= render partial: "block_subscribed_newsletter" %> 
 <%= render partial: "block_analytics" %>
-<%= render partial: "block_questions" %>
+<%= render partial: "block_questions" %> 
 <%= render partial: "footer" %>

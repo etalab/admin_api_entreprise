@@ -20,26 +20,37 @@
 <%= render partial: "block_authorization_request", locals: { authorization_request: @authorization_request } %>
 <mj-section mj-class="section-main">
   <mj-column>
-    <mj-text>
-      <p>
-        <b>
-          En tant que contact technique, vous pouvez vous connecter dès maintenant au compte API Entreprise et récupérer
-          le jeton d'accès :
-        </b>
-      </p>
-    </mj-text>
-    <mj-button>
-      <b>Récupérer la clé d'accès 🔑</b>
-    </mj-button>
-    <mj-text>
-      <p>La liste des prochaines étapes est détaillée ci-dessous ⬇️</p>
-    </mj-text>
-    <%= render partial: "list_scopes" %>
-    <%= render partial: "embarquement_valide_welcome" %>
     <%= render partial: "info_you_dont_understand" %>
   </mj-column>
 </mj-section>
+<mj-section mj-class="section-block-gris-clair">
+  <mj-column>
+    <mj-text>
+      <h2>
+        <b>1. Commencez dès maintenant à intégrer l'API Entreprise&nbsp;en récupérant votre jeton d'accès&nbsp;🔑&nbsp;:</b>
+      </h2>
+    </mj-text>
+    <%= render partial: "button_login", locals: { entity: "demandeur" } %>
+    <mj-text>
+      <p>
+        <b>Vous avez besoin de transmettre le jeton dans le cadre de l'intégration ?&nbsp;</b>
+        <br />
+        Une fois connecté, utilisez le bouton prévu à cet effet "Transmettre le jeton à mon équipe technique".<br /><span class="warning-red">⚠️&nbsp;
+        Ce jeton ne doit jamais être relayé autrement que par cette fonctionnalité.</span>
+      </p>
+    </mj-text>
+  </mj-column>
+</mj-section>
 <%= render partial: "block_mise_en_production" %>
-<%= render partial: "block_newsletter" %>
+<mj-section>
+  <mj-column>
+    <%= render partial: "list_scopes" %>
+    <%= render partial:
+    "embarquement_valide_welcome" %>
+  </mj-column>
+</mj-section>
+<%= render partial: "block_subscribed_newsletter" %>
 <%= render partial: "block_questions" %>
 <%= render partial: "footer" %>
+
+
