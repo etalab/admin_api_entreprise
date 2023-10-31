@@ -4,13 +4,13 @@ class APIEntreprise::AttestationsController < APIEntreprise::AuthenticatedUsersC
   def index
     @tokens = current_user.tokens.active_for('entreprise')
 
-    @best_token = Token.find_best_token_to_retrieve_attestations(@tokens)
+    @best_token = attestations_scope_service.best_token_to_retrieve_attestations(@tokens)
   end
 
   def new; end
 
   def search
-    @token = Token.find(params[:token_id]).decorate
+    @token = Token.find(params[:token_id])
 
     @attestation_facade = EntrepriseWithAttestationsFacade.new(token: @token, siren: siren_no_whitespaces)
 
@@ -52,5 +52,9 @@ class APIEntreprise::AttestationsController < APIEntreprise::AuthenticatedUsersC
 
   def siren_no_whitespaces
     params[:siren].split.join
+  end
+
+  def attestations_scope_service
+    @attestations_scope_service ||= AttestationsScopeService.new
   end
 end

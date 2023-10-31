@@ -52,6 +52,7 @@ RSpec.describe 'User attestations through tokens', app: :api_entreprise do
     let(:entreprise_interesting_fields) { %w[personne_morale_attributs activite_principale forme_juridique categorie_entreprise] }
     let(:user) { create(:user, :with_token, scopes: ['attestations_fiscales']) }
     let(:siren) { siren_valid }
+    let(:with_attestation_sociale) { false }
 
     before do
       allow(EntrepriseWithAttestationsFacade).to receive(:new).and_return(facade_double)
@@ -63,7 +64,9 @@ RSpec.describe 'User attestations through tokens', app: :api_entreprise do
         categorie_entreprise: 'categorie_entreprise',
         entreprise_naf_full: 'whatever',
         attestation_fiscale_url: 'attestation-fiscale-url',
-        attestation_sociale_url: 'attestation-sociale-url'
+        attestation_sociale_url: 'attestation-sociale-url',
+        with_attestation_fiscale?: true,
+        with_attestation_sociale?: with_attestation_sociale
       )
     end
 
@@ -87,6 +90,7 @@ RSpec.describe 'User attestations through tokens', app: :api_entreprise do
         let(:user) do
           create(:user, :with_token, scopes: %w[attestations_sociales attestations_fiscales])
         end
+        let(:with_attestation_sociale) { true }
 
         it 'shows both links to download attestations' do
           expect(page).to have_link('attestation-sociale-download', href: 'attestation-sociale-url')

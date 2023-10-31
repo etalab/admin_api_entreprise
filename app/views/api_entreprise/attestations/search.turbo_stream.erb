@@ -21,7 +21,7 @@
     </p>
 
     <div class="buttons-wrapper">
-      <% if @token.include_attestation_sociale? %>
+      <% if @attestation_facade.with_attestation_sociale? %>
         <%= link_to @attestation_facade.attestation_sociale_url,
           { class: "fr-btn fr-m-1w", id: 'attestation-sociale-download', target: "_blank" } do %>
           <span class="fr-icon-download-line" aria-hidden="true"></span>
@@ -34,7 +34,7 @@
         </span>
       <% end %>
 
-      <% if @token.include_attestation_fiscale? %>
+      <% if @attestation_facade.with_attestation_fiscale? %>
         <%= link_to @attestation_facade.attestation_fiscale_url,
           { class: "fr-btn fr-m-1w", id: 'attestation-fiscale-download', target: "_blank" } do %>
           <span class="fr-icon-download-line" aria-hidden="true"></span>
