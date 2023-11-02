@@ -150,6 +150,10 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
 
               expect(page).to have_content('Utiliser le jeton')
             end
+
+            it 'does not displays the ask for extension modal button' do
+              expect(page).not_to have_content('Relancer le contact principal pour prolonger le jeton')
+            end
           end
 
           describe 'when the user is contact technique' do
@@ -180,6 +184,14 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
 
               expect(page).to have_content('Utiliser le jeton')
             end
+
+            it 'displays the ask for extension modal button' do
+              expect(page).to have_content('Relancer le contact principal pour prolonger le jeton')
+
+              click_link 'ask-for-extension-token-modal-link'
+
+              expect(page).to have_content('Relancer le contact principal')
+            end
           end
 
           describe 'when the user is contact metier' do
@@ -201,6 +213,18 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
 
             it 'does not display the button to prolong the token' do
               expect(page).not_to have_content('Prolonger le jeton')
+            end
+
+            it 'does not display the show for content modal button' do
+              expect(page).not_to have_content('Voir le jeton')
+            end
+
+            it 'displays the ask for extension modal button' do
+              expect(page).to have_content('Relancer le contact principal pour prolonger le jeton')
+
+              click_link 'ask-for-extension-token-modal-link'
+
+              expect(page).to have_content('Relancer le contact principal')
             end
           end
         end

@@ -1,10 +1,14 @@
 class TokenManipulationFacade
-  attr_reader :authorization_request, :main_token, :user
+  attr_reader :authorization_request, :token, :user
 
-  def initialize(main_token, user)
-    @authorization_request = main_token.authorization_request
-    @main_token = main_token
+  def initialize(token, user)
+    @authorization_request = token.authorization_request
+    @token = token
     @user = user
+  end
+
+  def can_ask_for_extension?
+    !demandeur? and token.day_left < 90
   end
 
   def can_show?
@@ -12,7 +16,7 @@ class TokenManipulationFacade
   end
 
   def can_prolong?
-    demandeur? and main_token.day_left < 90
+    demandeur? and token.day_left < 90
   end
 
   private

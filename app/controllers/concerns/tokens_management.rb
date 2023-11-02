@@ -11,6 +11,16 @@ module TokensManagement
     redirect_current_user_to_homepage
   end
 
+  def ask_for_extension
+    token_facade = TokenManipulationFacade.new(@token, current_user)
+
+    raise 'You are not allowed to ask for extension of this token' unless token_facade.can_ask_for_extension?
+
+    render 'shared/tokens/ask_for_extension'
+  rescue StandardError
+    redirect_current_user_to_homepage
+  end
+
   def show
     token_facade = TokenManipulationFacade.new(@token, current_user)
 

@@ -75,6 +75,20 @@
               </a>
             </li>
           <% end %>
+          <% if @token_facade.can_ask_for_extension? %>
+            <li>
+              <a 
+                href="<%= token_ask_for_extension_path(id: @main_token.id) %>" 
+                id="ask-for-extension-token-modal-link"
+                class="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w" 
+                aria-controls="main-modal" 
+                data-fr-opened="false" 
+                data-turbo-frame="main-modal-content"
+              >
+                <%= t('.modal.ask_for_extension.display_cta') %>
+              </a>
+            </li>
+          <% end %>
         </ul>
       </div>
     </div>
