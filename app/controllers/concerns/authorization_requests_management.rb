@@ -5,8 +5,7 @@ module AuthorizationRequestsManagement
     @authorization_request = extract_authorization_request
     @main_token = @authorization_request.token.decorate
     @banned_tokens = @authorization_request.tokens.blacklisted_later.decorate
-    @authorization_request_facade = AuthorizationRequestShowFacade.new(
-      @authorization_request,
+    @token_facade = TokenManipulationFacade.new(
       @main_token,
       current_user
     )

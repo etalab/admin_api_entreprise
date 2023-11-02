@@ -1,8 +1,8 @@
-class AuthorizationRequestShowFacade
+class TokenManipulationFacade
   attr_reader :authorization_request, :main_token, :user
 
-  def initialize(authorization_request, main_token, user)
-    @authorization_request = authorization_request
+  def initialize(main_token, user)
+    @authorization_request = main_token.authorization_request
     @main_token = main_token
     @user = user
   end

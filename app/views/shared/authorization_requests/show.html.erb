@@ -47,7 +47,7 @@
           %>
         <% end %>
         <ul class="fr-btns-group--right fr-btns-group--inline-sm fr-btns-group--inline-reverse fr-btns-group--icon-right">
-          <% if @authorization_request_facade.can_show_technical_user_modal? %>
+          <% if @token_facade.can_show_technical_user_modal? %>
             <li>
               <button id="<%= dom_id(@main_token, :token_show_technical_user_modal_button) %>" class="fr-btn fr-btn--secondary" data-fr-opened="false" aria-controls="<%= dom_id(@main_token, :token_show_technical_user_modal) %>">
                 <%= t('.modal.token_show_technical_user.display_cta') %>
@@ -55,7 +55,7 @@
               </button>
             </li>
           <% end %>
-          <% if @authorization_request_facade.can_show_extend_token_modal %>
+          <% if @token_facade.can_show_extend_token_modal %>
             <li>
               <button id="<%= dom_id(@main_token, :extend_token_modal_button) %>" class="fr-btn" data-fr-opened="false" aria-controls="<%= dom_id(@main_token, :extend_token_modal) %>">
                 <%= t('.modal.extend.display_cta') %>
@@ -69,7 +69,7 @@
   </div>
 </div>
 
-<% if @authorization_request_facade.can_show_extend_token_modal %>
+<% if @token_facade.can_show_extend_token_modal %>
   <dialog aria-labelledby="fr-modal-2-title" id="<%= dom_id(@main_token, :extend_token_modal) %>" class="fr-modal">
     <div class="fr-container fr-container--fluid fr-container-md">
       <div class="fr-grid-row fr-grid-row--center">
@@ -114,7 +114,7 @@
   </dialog>
 <% end %>
 
-<% if @authorization_request_facade.can_show_technical_user_modal? %>
+<% if @token_facade.can_show_technical_user_modal? %>
   <dialog aria-labelledby="fr-modal-2-title" id="<%= dom_id(@main_token, :token_show_technical_user_modal) %>" class="fr-modal" data-controller="clipboard" data-clipboard-alert-message-value="<%= t('commons.copy_token_success_message') %>">
     <div class="fr-container fr-container--fluid fr-container-md">
       <div class="fr-grid-row fr-grid-row--center">
