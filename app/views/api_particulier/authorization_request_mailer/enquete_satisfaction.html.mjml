@@ -1,0 +1,41 @@
+<%= render partial: "header" %>
+<mj-section mj-class="section-banner" background-color="#d5dbef">
+  <mj-column>
+    <mj-text>
+      <h1>
+        Il y a un mois, vous avez reçu votre jeton d'accès à l'API Particulier,
+        <b>tout va bien ?</b>
+      </h1>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<mj-section mj-class="section-main">
+  <mj-column>
+    <mj-text>
+      <%= render partial: "greetings", locals: { entity: "demandeur" } %>
+      <p>
+        Il y a un mois, vous obteniez un accès 🔑 à l'API Particulier dans le
+        <b>cadre d'utilisation "<%= @authorization_request.intitule %>".</b>
+      </p>
+      <p>
+        Nous vous envoyons ce mail pour
+        <b>savoir si tout va bien</b>
+        . Le questionnaire suivant, vous permettra de nous transmettre
+        <b>votre avis, vos besoins et vos manques&nbsp;:</b>
+      </p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<mj-section mj-class="section-main">
+  <mj-column>
+    <mj-text>
+      <%= render partial: "enquete_satisfaction" %>
+      <p>
+        À bientôt 👋
+        <br />
+        <b>L'équipe API Particulier</b>
+      </p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<%= render partial: "footer" %>

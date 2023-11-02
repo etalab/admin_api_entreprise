@@ -1,0 +1,23 @@
+<mj-section mj-class="section-banner" background-color="#e3ebd3">
+  <mj-column>
+    <mj-divider></mj-divider>
+    <mj-text>
+      <h1>
+        <b>
+          <% if entity == "contact_metier" || entity == "contact_technique" %>
+            Votre service a désormais accès à l'API Particulier  ✅
+          <% else %>
+            Votre demande d'accès a été validée ✅
+          <% end %>
+        </b>
+        <% if entity == "contact_metier"%>
+          Vous avez été désigné contact métier.
+        <% elsif entity == "contact_technique"%>
+          Vous avez été désigné contact technique, récupérez le token 🔑
+        <% else %>
+          Votre clé d'accès est disponible 🔑
+        <% end %>
+      </h1>
+    </mj-text>
+  </mj-column>
+</mj-section>
