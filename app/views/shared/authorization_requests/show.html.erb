@@ -18,11 +18,11 @@
           <b><%= t('.delivered_at', humanized_date: friendly_format_from_timestamp(@authorization_request.created_at)) %></b>
           - 
           <%= link_to t('.links.to_datapass', external_id: @authorization_request.external_id).html_safe, 
-          datapass_authorization_request_url(@authorization_request), 
-          id: :authorization_request_link,
-          class: %w(fr-link fr-text--xs), 
-          target: '_blank' 
-        %>
+            datapass_authorization_request_url(@authorization_request), 
+            id: :authorization_request_link,
+            class: %w(fr-link fr-text--xs), 
+            target: '_blank' 
+          %>
         </span>
       </div>
     </div>
@@ -55,12 +55,18 @@
               </button>
             </li>
           <% end %>
-          <% if @token_facade.can_show_extend_token_modal %>
+          <% if @token_facade.can_prolong_token? %>
             <li>
-              <button id="<%= dom_id(@main_token, :extend_token_modal_button) %>" class="fr-btn" data-fr-opened="false" aria-controls="<%= dom_id(@main_token, :extend_token_modal) %>">
-                <%= t('.modal.extend.display_cta') %>
-                <i class="fr-icon-arrow-right-line fr-icon--sm fr-pl-1v" aria-hidden="true"></i>
-              </button>
+              <a 
+                href="<%= token_prolong_path(id: @main_token.id) %>" 
+                id="prolong-token-modal-link"
+                class="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w" 
+                aria-controls="main-modal" 
+                data-fr-opened="false" 
+                data-turbo-frame="main-modal-content"
+              >
+                <%= t('.modal.prolong.display_cta') %>
+              </a>
             </li>
           <% end %>
         </ul>
@@ -68,51 +74,6 @@
     </div>
   </div>
 </div>
-
-<% if @token_facade.can_show_extend_token_modal %>
-  <dialog aria-labelledby="fr-modal-2-title" id="<%= dom_id(@main_token, :extend_token_modal) %>" class="fr-modal">
-    <div class="fr-container fr-container--fluid fr-container-md">
-      <div class="fr-grid-row fr-grid-row--center">
-        <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
-          <div class="fr-modal__body">
-            <div class="fr-modal__header">
-              <button class="fr-link--close fr-link" aria-controls="<%= dom_id(@main_token, :extend_token_modal) %>">Fermer</button>
-            </div>
-            <div class="fr-modal__content">
-              <h1 id="<%= dom_id(@main_token, :extend_token_modal_title) %>" class="fr-modal__title">
-                <span class="fr-icon-arrow-right-line fr-icon--lg"></span>
-                <%= t('.modal.extend.title') %>
-              </h1>
-              <p>
-              <%= t('.modal.extend.description',
-                    link_to_datapass: link_to(
-                      t('.links.to_datapass', external_id: @authorization_request.external_id).html_safe, 
-                      datapass_authorization_request_url(@authorization_request), 
-                      id: :authorization_request_link,
-                      class: %w(fr-link), 
-                      target: '_blank'),
-                    remaining_time: distance_of_time_in_words(Time.zone.now, @main_token.end_timestamp)
-                    ).html_safe %>
-              </p>
-
-              <p class="fr-mb-1v"><strong><%= t('.modal.extend.warning_description') %></strong></p>
-              <blockquote class="fr-highlight fr-highlight--caution fr-m-0">
-                <p><%= t('.modal.extend.warning').html_safe %></p>
-              </blockquote>
-            </div>
-            <div class="fr-modal__footer">
-              <ul class="fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-lg fr-btns-group--icon-right">
-                <li>
-                  <%= link_to( t('.modal.extend.cta'), datapass_extend_authorization_request_url, id: :extend_form_link, class: "fr-btn fr-icon-arrow-right-line") %>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </dialog>
-<% end %>
 
 <% if @token_facade.can_show_technical_user_modal? %>
   <dialog aria-labelledby="fr-modal-2-title" id="<%= dom_id(@main_token, :token_show_technical_user_modal) %>" class="fr-modal" data-controller="clipboard" data-clipboard-alert-message-value="<%= t('commons.copy_token_success_message') %>">

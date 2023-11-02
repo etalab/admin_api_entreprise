@@ -37,8 +37,11 @@ constraints(APIParticulierDomainConstraint.new) do
 
     get '/compte/demandes/:id', to: 'authorization_requests#show', as: :authorization_requests_show
 
+    get '/compte/jetons/:id/prolonger', to: 'tokens#prolong', as: :token_prolong
+
     post 'public/magic_link/create', to: 'public_token_magic_links#create'
     post '/compte/jetons/:id/partager', to: 'restricted_token_magic_links#create', as: :token_create_magic_link
+
     get 'public/jetons/:access_token', to: 'public_token_magic_links#show', as: :token_show_magic_link
 
     get '/status_apis', to: 'pages#current_status', as: :current_status
@@ -47,5 +50,6 @@ constraints(APIParticulierDomainConstraint.new) do
     get '/mentions-legales', to: 'pages#mentions', as: :mentions
     get '/cgu', to: 'pages#cgu', as: :cgu
     get '/accessibilite', to: 'pages#accessibility', as: :accessibilite
+
   end
 end

@@ -126,20 +126,19 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
 
           describe 'when the user is demandeur' do
             describe 'when the token has less than 90 days left' do
-              it 'displays the button to extend the token' do
+              it 'displays the button to prolong the token' do
                 expect(page).to have_content('Prolonger le jeton')
-              end
 
-              it 'displays the extend modal on click' do
-                click_button dom_id(token, :extend_token_modal_button)
-                expect(page).to have_css("##{dom_id(token, :extend_token_modal)}")
+                click_link 'prolong-token-modal-link'
+
+                expect(page).to have_content('Compléter le formulaire de prolongation')
               end
             end
 
             describe 'when the token has more than 90 days left' do
               let(:exp) { 93.days.from_now.to_i }
 
-              it 'does not display the button to extend the token' do
+              it 'does not display the button to prolong the token' do
                 expect(page).not_to have_content('Prolonger le jeton')
               end
             end
@@ -171,7 +170,7 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
               expect(page).to have_current_path(api_particulier_authorization_requests_show_path(id: authorization_request.id), ignore_query: true)
             end
 
-            it 'does not display the button to extend the token' do
+            it 'does not display the button to prolong the token' do
               expect(page).not_to have_content('Prolonger le jeton')
             end
 
@@ -202,7 +201,7 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
               expect(page).to have_current_path(api_particulier_authorization_requests_show_path(id: authorization_request.id), ignore_query: true)
             end
 
-            it 'does not display the button to extend the token' do
+            it 'does not display the button to prolong the token' do
               expect(page).not_to have_content('Prolonger le jeton')
             end
           end

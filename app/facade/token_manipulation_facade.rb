@@ -11,7 +11,7 @@ class TokenManipulationFacade
     demandeur? || contact_technique?
   end
 
-  def can_show_extend_token_modal
+  def can_prolong?
     demandeur? and main_token.day_left < 90
   end
 

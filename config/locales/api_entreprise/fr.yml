@@ -14,7 +14,19 @@ fr:
           error:
             title: "Vous ne pouvez pas accéder à cette habilitation"
   shared:
-    tokens:
+    tokens: 
+      prolong:
+        display_cta: Prolonger le jeton
+        title: Prolonger le jeton
+        description: "Votre jeton expire dans %{remaining_time}.
+          Avant de prolonger votre jeton, nous avons besoin de savoir si les conditions 
+          indiquées dans votre habilitation %{link_to_datapass}
+          ont évolué."
+        links:
+          to_datapass: "N<sup>o</sup>%{external_id}"
+        warning_description: "Pour prolonger votre jeton, veuillez compléter le formulaire suivant :"
+        warning: ⚠️ Vos réponses au formulaire <strong>vous engagent</strong> en regard des CGU d'api entrprise.
+        cta: Compléter le formulaire de prolongation
       detail:
         remaining_time:
           new_token: "Durée restante du jeton : <strong>%{remaining_time}</strong>"
@@ -72,16 +84,8 @@ fr:
               Pour transmettre ce jeton, <strong>merci d'utiliser la fonctionnalité prévue ci-dessous :</strong>"
             token_label: Jeton d'accès n<sup>o</sup> <strong>%{token_id}</strong>
             cta: Copier le jeton
-          extend:
+          prolong:
             display_cta: Prolonger le jeton
-            title: Prolonger le jeton
-            description: "Votre jeton expire dans %{remaining_time}.
-              Avant de prolonger votre jeton, nous avons besoin de savoir si les conditions 
-              indiquées dans votre habilitation %{link_to_datapass}
-              ont évolué."
-            warning_description: "Pour prolonger votre jeton, veuillez compléter le formulaire suivant :"
-            warning: ⚠️ Vos réponses au formulaire <strong>vous engagent</strong> en regard des CGU d'api entrprise.
-            cta: Compléter le formulaire de prolongation
         delivered_at: "Délivré le : %{humanized_date}"
         links:
           to_datapass: "N<sup>o</sup>%{external_id}"

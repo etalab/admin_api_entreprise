@@ -7,7 +7,7 @@ module ExternalUrlHelper
     "#{datapass_base_url}/api-#{authorization_request.api}/#{authorization_request.external_id}"
   end
 
-  def datapass_extend_authorization_request_url
+  def datapass_prolong_authorization_request_url
     datapass_base_url
   end
 
