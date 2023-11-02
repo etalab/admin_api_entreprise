@@ -63,7 +63,6 @@ Rails.application.configure do
 
   config.middleware.use RackSessionAccess::Middleware
 
-  config.account_tokens_list_url  = 'https://sandbox.dashboard.entreprise.api.gouv.fr/me/jetons/'
   config.token_renewal_url  = 'https://datapass-staging.api.gouv.fr/copy-authorization-request/'
   config.token_authorization_request_url  = 'https://datapass-staging.api.gouv.fr/api-entreprise/'
 
