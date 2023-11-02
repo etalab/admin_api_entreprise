@@ -1,4 +1,6 @@
 class APIEntreprise::AuthorizationRequestMailer < APIEntrepriseMailer
+  before_action :attach_logos
+
   include ExternalUrlHelper
 
   %w[
