@@ -38,6 +38,7 @@ constraints(APIParticulierDomainConstraint.new) do
     get '/compte/demandes/:id', to: 'authorization_requests#show', as: :authorization_requests_show
 
     get '/compte/jetons/:id/prolonger', to: 'tokens#prolong', as: :token_prolong
+    get '/compte/jetons/:id', to: 'tokens#show', as: :token
 
     post 'public/magic_link/create', to: 'public_token_magic_links#create'
     post '/compte/jetons/:id/partager', to: 'restricted_token_magic_links#create', as: :token_create_magic_link

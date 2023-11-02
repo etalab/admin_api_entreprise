@@ -7,7 +7,7 @@ class TokenManipulationFacade
     @user = user
   end
 
-  def can_show_technical_user_modal?
+  def can_show?
     demandeur? || contact_technique?
   end
 

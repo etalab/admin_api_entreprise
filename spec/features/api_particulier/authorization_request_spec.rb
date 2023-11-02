@@ -143,13 +143,12 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
               end
             end
 
-            it 'displays the show for technical user modal button' do
+            it 'displays the show token modal button' do
               expect(page).to have_content('Voir le jeton')
-            end
 
-            it 'displays the show for technical user modal on click' do
-              click_button dom_id(token, :token_show_technical_user_modal_button)
-              expect(page).to have_css("##{dom_id(token, :token_show_technical_user_modal)}")
+              click_link 'show-token-modal-link'
+
+              expect(page).to have_content('Utiliser le jeton')
             end
           end
 
@@ -174,13 +173,12 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
               expect(page).not_to have_content('Prolonger le jeton')
             end
 
-            it 'displays the show for technical user modal button' do
+            it 'displays the show for content user modal button' do
               expect(page).to have_content('Voir le jeton')
-            end
 
-            it 'displays the show for technical user modal on click' do
-              click_button dom_id(token, :token_show_technical_user_modal_button)
-              expect(page).to have_css("##{dom_id(token, :token_show_technical_user_modal)}")
+              click_link 'show-token-modal-link'
+
+              expect(page).to have_content('Utiliser le jeton')
             end
           end
 
