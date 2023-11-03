@@ -1,0 +1,51 @@
+<%= render partial: "header" %>
+<mj-section mj-class="section-banner" background-color="#fff9bf">
+  <mj-column>
+    <mj-text>
+      <h1>
+        Votre demande est en attente ⌛️
+        elle requiert des
+        <b>modifications</b>
+        ✒️
+      </h1>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<mj-section mj-class="section-main">
+  <mj-column>
+    <mj-text>
+      <%= render partial: "greetings", locals: { entity: "demandeur" } %>
+      <p>
+        Nous nous permettons de vous relancer car notre service instructeur n'a pas encore reçu de réponse concernant
+        les
+        <b>
+          demandes de modifications de votre demande d’habilitation API Particulier n°<%=
+          @authorization_request.external_id %>.
+        </b>
+        Il nous manque ces informations pour rendre un avis.&nbsp;
+      </p>
+    </mj-text>
+    <mj-text>
+      <p>
+        <b>Répondez à notre instructeur depuis l'interface du formulaire</b>
+        pour soumettre vos modifications et appuyez sur le bouton "Soumettre la demande"&nbsp;:
+      </p>
+    </mj-text>
+    <mj-button href="<%= @authorization_request_datapass_url %>">Compléter ma demande &nbsp;🔑</mj-button>
+    <mj-text>
+      <p>
+        <a target="_blank" href="<%= @authorization_request_datapass_url %>">
+          <% @authorization_request_datapass_url %>
+        </a>
+      </p>
+    </mj-text>
+    <mj-text>
+      <p>
+        À bientôt 👋
+        <br />
+        <b>API Particulier</b>
+      </p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<%= render partial: "footer" %>

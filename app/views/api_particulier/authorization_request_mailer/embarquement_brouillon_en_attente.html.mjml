@@ -1,0 +1,41 @@
+<%= render partial: "header" %>
+<mj-section mj-class="section-banner" background-color="#fff9bf">
+  <mj-column>
+    <mj-text>
+      <h1>
+        Le brouillon de votre demande d'accès à l'API particulier est <b>en attente depuis une quinzaine de jours ⏳</b>
+      </h1>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<mj-section mj-class="section-main">
+  <mj-column>
+    <mj-text>
+      <%= render partial: "greetings", locals: { entity: "demandeur" } %>
+      <p>
+          <b>Le brouillon de votre demande d’habilitation API Particulier est en attente</b>
+          et possède le numéro de référence <%= @authorization_request.external_id %>.
+      </p>
+    </mj-text>
+    <mj-text>
+      <p>
+        <b>Vous pouvez poursuivre son édition à tout moment sur</b>
+        <a target="_blank" href="<%= @authorization_request_datapass_url %>">
+            <%= @authorization_request_datapass_url %>
+        </a>
+      </p>
+    </mj-text>
+    <mj-button href="<%= @authorization_request_datapass_url %>">
+      Terminer ma demande d'accès &nbsp;✍️
+    </mj-button>
+    <mj-text>
+      <p>
+        À bientôt 👋<br />
+      <b>API Particulier</b>
+      </p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<%= render partial: "block_help_demande" %>
+<%= render partial: "block_newsletter" %>
+<%= render partial: "footer" %>

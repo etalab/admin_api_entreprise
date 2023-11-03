@@ -1,0 +1,56 @@
+<%= render partial: "header" %>
+<%= render partial: "banner_demande_valide", locals: { entity: "contact_technique" } %>
+<mj-section mj-class="section-main">
+  <mj-column>
+    <mj-text>
+      <%= render partial: "greetings", locals: { entity: "contact_technique" } %>
+      <p>
+        La demande d’habilitation n°<%= @authorization_request.external_id %> à l’API Particulier, effectuée par un
+        service de votre organisation a bien été validée ✅.
+      </p>
+      <p>
+        <b>Vous avez été désigné contact technique par le demandeur</b>
+        qui nous a transmis vos coordonnées. Vous serez contacté en cas d'évolutions techniques, d'incidents et de
+        l'expiration des jetons qui interviendra dans 18 mois.
+      </p>
+      <p>Cette demande concerne&nbsp;:</p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<%= render partial: "block_authorization_request", locals: { authorization_request: @authorization_request } %>
+<mj-section mj-class="section-main">
+  <mj-column>
+    <%= render partial: "info_you_dont_understand" %>
+  </mj-column>
+</mj-section>
+<mj-section mj-class="section-block-gris-clair">
+  <mj-column>
+    <mj-text>
+      <h2>
+        <b>1. Commencez dès maintenant à intégrer l'API Particulier&nbsp;en récupérant votre jeton d'accès&nbsp;🔑&nbsp;:</b>
+      </h2>
+    </mj-text>
+    <%= render partial: "button_login", locals: { entity: "demandeur" } %>
+    <mj-text>
+      <p>
+        <b>Vous avez besoin de transmettre le jeton dans le cadre de l'intégration ?&nbsp;</b>
+        <br />
+        Une fois connecté, utilisez le bouton prévu à cet effet "Transmettre le jeton à mon équipe technique".<br /><span class="warning-red">⚠️&nbsp;
+        Ce jeton ne doit jamais être relayé autrement que par cette fonctionnalité.</span>
+      </p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<%= render partial: "block_mise_en_production" %>
+<mj-section>
+  <mj-column>
+    <%= render partial: "list_scopes" %>
+    <%= render partial:
+    "embarquement_valide_welcome" %>
+  </mj-column>
+</mj-section>
+<%= render partial: "block_subscribed_newsletter" %>
+<%= render partial: "block_questions" %>
+<%= render partial: "footer" %>
+
+

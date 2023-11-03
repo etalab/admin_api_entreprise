@@ -75,10 +75,6 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 
-  config.account_tokens_list_url  = 'https://sandbox.dashboard.entreprise.api.gouv.fr/me/jetons/'
-  config.token_renewal_url  = 'https://datapass-staging.api.gouv.fr/copy-authorization-request/'
-  config.token_authorization_request_url  = 'https://datapass-staging.api.gouv.fr/api-entreprise/'
-
   # OAuth API Gouv config
   config.oauth_api_gouv_client_id_entreprise = '4442bfd8caac8e19ff202d33060edcd248592662d5a8098e28b706ba906fe9e0db95ad336c38248f42896db272990b8dfc969d8b8857101dabf9b2ffe7ec49b9'
   config.oauth_api_gouv_client_id_particulier = '844e3bff46ebdac9beb18c6cf793dedfdb1776262911b3d927d24871f03e46b38756b5d015d1a693057328d8673408cccf48ef7c5a6e94fa5d101042663fb5b1'
