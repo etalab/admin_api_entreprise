@@ -12,18 +12,17 @@ module TokensManagement
   end
 
   def ask_for_extension
-    token_facade = TokenManipulationFacade.new(@token, current_user)
-
-    raise 'You are not allowed to ask for extension of this token' unless token_facade.can_ask_for_extension?
+    authorize @token
 
     render 'shared/tokens/ask_for_extension'
   end
 
   def show
-    token_facade = TokenManipulationFacade.new(@token, current_user)
+    authorize @token
 
-    render 'shared/tokens/show' if token_facade.can_show?
-    render 'shared/tokens/cannot_show' unless token_facade.can_show?
+    render 'shared/tokens/show'
+  rescue Pundit::NotAuthorizedError
+    render 'shared/tokens/cannot_show'
   rescue StandardError
     redirect_current_user_to_homepage
   end

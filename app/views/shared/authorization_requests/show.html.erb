@@ -52,14 +52,11 @@
               href="<%= token_path(id: @main_token.id) %>" 
               id="show-token-modal-link"
               class="fr-btn fr-btn--secondary fr-icon-eye-fill fr-btn--icon-right fr-mt-2w" 
-              aria-controls="main-modal" 
-              data-fr-opened="false" 
-              data-turbo-frame="main-modal-content"
-            >
-              <%= t('.modal.content.display_cta') %>
+              >
+              <%= t('.modal.show.display_cta') %>
             </a>
           </li>
-          <% if @token_facade.can_prolong? %>
+          <% if policy(@main_token).prolong? %>
             <li>
               <a 
                 href="<%= token_prolong_path(id: @main_token.id) %>" 
@@ -73,7 +70,7 @@
               </a>
             </li>
           <% end %>
-          <% if @token_facade.can_ask_for_extension? %>
+          <% if policy(@main_token).ask_for_extension? %>
             <li>
               <a 
                 href="<%= token_ask_for_extension_path(id: @main_token.id) %>" 
