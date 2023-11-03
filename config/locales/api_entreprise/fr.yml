@@ -1,12 +1,6 @@
 fr:
   concerns:
     tokens_management:
-      show:
-        error:
-          title: "Vous n'avez pas le droit de voir le contenu de ce jeton"
-      extend_token:
-        error:
-          title: "Vous n'avez pas le droit d'étendre ce jeton"
       extract_token:
         error:
           title: "Vous ne pouvez pas accéder à ce jeton"
@@ -20,6 +14,15 @@ fr:
         title: API Entreprise
   shared:
     tokens: 
+      cannot_show: 
+        title: Utiliser le jeton
+        description: "En tant que contact métier, <strong>vous n'avez pas l'autorisation d'utiliser la clé d'accès.</strong>
+          Si le jeton arrive à expriation ou nécessite une action, veuiollez contacter le contact principal et le contact technique de cette habilitation :"
+        demandeur: "<strong>Contact principal</strong> : %{demandeur}"
+        contact_technique: "<strong>Contact technique</strong> : %{contact_technique}"
+        authorization_request_link: "<strong>Lien de l'habilitation à transmettre :</strong>"
+        links:
+          to_datapass: "N<sup>o</sup>%{external_id}"
       ask_for_extension:
         title: Relancer le contact principal
         description: "Malgré nos nombreuses relances, %{demandeur} n'a pas prolongé le jeton ID : %{token_id},

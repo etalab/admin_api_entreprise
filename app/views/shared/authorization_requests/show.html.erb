@@ -47,21 +47,19 @@
           %>
         <% end %>
         <ul class="fr-btns-group--right fr-btns-group--inline-sm fr-btns-group--inline-reverse fr-btns-group--icon-right">
-          <% if @token_facade.can_show? %>
-            <li>
-              <a 
-                href="<%= token_path(id: @main_token.id) %>" 
-                id="show-token-modal-link"
-                class="fr-btn fr-btn--secondary fr-icon-eye-fill fr-btn--icon-right fr-mt-2w" 
-                aria-controls="main-modal" 
-                data-fr-opened="false" 
-                data-turbo-frame="main-modal-content"
-              >
-                <%= t('.modal.content.display_cta') %>
-              </a>
-            </li>
-          <% end %>
-          <% if @token_facade.can_prolong_token? %>
+          <li>
+            <a 
+              href="<%= token_path(id: @main_token.id) %>" 
+              id="show-token-modal-link"
+              class="fr-btn fr-btn--secondary fr-icon-eye-fill fr-btn--icon-right fr-mt-2w" 
+              aria-controls="main-modal" 
+              data-fr-opened="false" 
+              data-turbo-frame="main-modal-content"
+            >
+              <%= t('.modal.content.display_cta') %>
+            </a>
+          </li>
+          <% if @token_facade.can_prolong? %>
             <li>
               <a 
                 href="<%= token_prolong_path(id: @main_token.id) %>" 

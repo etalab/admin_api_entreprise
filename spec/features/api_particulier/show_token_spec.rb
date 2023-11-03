@@ -34,6 +34,8 @@ RSpec.describe 'displays the token', app: :api_particulier do
       let!(:authorization_request) do
         create(
           :authorization_request,
+          :with_demandeur,
+          :with_contact_technique,
           :with_contact_metier,
           contact_metier: authenticated_user,
           api: 'entreprise',
@@ -44,8 +46,10 @@ RSpec.describe 'displays the token', app: :api_particulier do
         create(:token, authorization_request:)
       end
 
-      it 'redirects to the profile' do
-        expect(page).to have_current_path(api_particulier_user_profile_path, ignore_query: true)
+      it 'displays the page' do
+        expect(page).to have_current_path(api_particulier_token_path(id: token.id), ignore_query: true)
+
+        expect(page).to have_content('Contact principal')
       end
     end
   end
@@ -57,6 +61,8 @@ RSpec.describe 'displays the token', app: :api_particulier do
 
     it 'displays the page' do
       expect(page).to have_current_path(api_particulier_token_path(id: token.id), ignore_query: true)
+
+      expect(page).to have_content("Jeton d'accès")
     end
   end
 end

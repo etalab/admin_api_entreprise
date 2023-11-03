@@ -17,16 +17,13 @@ module TokensManagement
     raise 'You are not allowed to ask for extension of this token' unless token_facade.can_ask_for_extension?
 
     render 'shared/tokens/ask_for_extension'
-  rescue StandardError
-    redirect_current_user_to_homepage
   end
 
   def show
     token_facade = TokenManipulationFacade.new(@token, current_user)
 
-    raise 'You are not allowed to see the token' unless token_facade.can_show?
-
-    render 'shared/tokens/show'
+    render 'shared/tokens/show' if token_facade.can_show?
+    render 'shared/tokens/cannot_show' unless token_facade.can_show?
   rescue StandardError
     redirect_current_user_to_homepage
   end
