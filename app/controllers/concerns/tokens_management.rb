@@ -25,8 +25,5 @@ module TokensManagement
 
   def extract_token
     @token = current_user.tokens.find(params[:id]).decorate
-  rescue ActiveRecord::RecordNotFound
-    error_message(title: t('.error.title'))
-    redirect_current_user_to_homepage
   end
 end

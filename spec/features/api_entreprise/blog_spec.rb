@@ -27,9 +27,9 @@ RSpec.describe 'Blog', app: :api_entreprise do
       let(:uid) { 'invalid' }
 
       it 'raises a routing error' do
-        expect {
-          show_blog_post
-        }.to raise_error(ActiveRecord::RecordNotFound)
+        show_blog_post
+
+        expect(page).to have_current_path(root_path, ignore_query: true)
       end
     end
   end

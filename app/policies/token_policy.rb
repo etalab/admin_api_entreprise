@@ -32,8 +32,6 @@ class TokenPolicy < ApplicationPolicy
     authorization_request.contact_metier == user
   end
 
-  private
-
   def authorization_request
     @authorization_request ||= @token.authorization_request
   end
