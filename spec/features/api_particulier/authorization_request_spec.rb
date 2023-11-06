@@ -152,8 +152,8 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
               expect(page).to have_content("Jeton d'accès")
             end
 
-            it 'does not displays the ask for extension modal button' do
-              expect(page).not_to have_css('#ask-for-extension-token-modal-link')
+            it 'does not displays the ask for prolongation modal button' do
+              expect(page).not_to have_css('#ask-for-prolongation-token-modal-link')
             end
           end
 
@@ -187,10 +187,10 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
               expect(page).to have_content("Jeton d'accès")
             end
 
-            it 'displays the ask for extension modal button' do
-              expect(page).to have_css('#ask-for-extension-token-modal-link')
+            it 'displays the ask for prolongation modal button' do
+              expect(page).to have_css('#ask-for-prolongation-token-modal-link')
 
-              click_link 'ask-for-extension-token-modal-link'
+              click_link 'ask-for-prolongation-token-modal-link'
 
               expect(page).to have_content('Relancer le contact principal')
             end
@@ -228,10 +228,10 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
               expect(page).to have_content('Contact principal')
             end
 
-            it 'displays the ask for extension modal button' do
-              expect(page).to have_css('#ask-for-extension-token-modal-link')
+            it 'displays the ask for prolongation modal button' do
+              expect(page).to have_css('#ask-for-prolongation-token-modal-link')
 
-              click_link 'ask-for-extension-token-modal-link'
+              click_link 'ask-for-prolongation-token-modal-link'
 
               expect(page).to have_content('Relancer le contact principal')
             end

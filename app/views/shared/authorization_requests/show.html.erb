@@ -51,8 +51,11 @@
             <a 
               href="<%= token_path(id: @main_token.id) %>" 
               id="show-token-modal-link"
-              class="fr-btn fr-btn--secondary fr-icon-eye-fill fr-btn--icon-right fr-mt-2w" 
-              >
+              class="fr-btn fr-btn--secondary fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w" 
+              aria-controls="main-modal" 
+              data-fr-opened="false" 
+              data-turbo-frame="main-modal-content"
+            >
               <%= t('.modal.show.display_cta') %>
             </a>
           </li>
@@ -70,17 +73,17 @@
               </a>
             </li>
           <% end %>
-          <% if policy(@main_token).ask_for_extension? %>
+          <% if policy(@main_token).ask_for_prolongation? %>
             <li>
               <a 
-                href="<%= token_ask_for_extension_path(id: @main_token.id) %>" 
-                id="ask-for-extension-token-modal-link"
+                href="<%= token_ask_for_prolongation_path(id: @main_token.id) %>" 
+                id="ask-for-prolongation-token-modal-link"
                 class="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w" 
                 aria-controls="main-modal" 
                 data-fr-opened="false" 
                 data-turbo-frame="main-modal-content"
               >
-                <%= t('.modal.ask_for_extension.display_cta') %>
+                <%= t('.modal.ask_for_prolongation.display_cta') %>
               </a>
             </li>
           <% end %>

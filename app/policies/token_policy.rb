@@ -6,8 +6,8 @@ class TokenPolicy < ApplicationPolicy
     @token = token
   end
 
-  def ask_for_extension?
-    !demandeur? and token.day_left < 90
+  def ask_for_prolongation?
+    !demandeur? && token.day_left < 90
   end
 
   def show?
@@ -15,20 +15,26 @@ class TokenPolicy < ApplicationPolicy
   end
 
   def prolong?
-    demandeur? and token.day_left < 90
+    demandeur? && token.day_left < 90
   end
 
   private
 
   def demandeur?
-    @token.authorization_request.demandeur == user
+    authorization_request.demandeur == user
   end
 
   def contact_technique?
-    @token.authorization_request.contact_technique == user
+    authorization_request.contact_technique == user
   end
 
   def contact_metier?
-    @token.authorization_request.contact_metier == user
+    authorization_request.contact_metier == user
+  end
+
+  private
+
+  def authorization_request
+    @authorization_request ||= @token.authorization_request
   end
 end
