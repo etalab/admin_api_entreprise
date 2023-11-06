@@ -48,7 +48,7 @@ RSpec.describe ScheduleExpirationNoticeMailjetEmailJob do
           {
             from_name: 'API Entreprise',
             from_email: APIEntrepriseMailer.default_params[:from],
-            to: "#{demandeur.full_name} <#{demandeur.email}>, #{contact.full_name} <#{contact.email}>",
+            to: token.users.map { |user| "#{user.full_name} <#{user.email}>" }.uniq.join(', '),
             vars: {
               cadre_utilisation_token: token.intitule,
               authorization_request_id: external_id,
@@ -70,7 +70,7 @@ RSpec.describe ScheduleExpirationNoticeMailjetEmailJob do
             {
               from_name: 'API Particulier',
               from_email: APIParticulierMailer.default_params[:from],
-              to: "#{demandeur.full_name} <#{demandeur.email}>, #{contact.full_name} <#{contact.email}>",
+              to: token.users.map { |user| "#{user.full_name} <#{user.email}>" }.uniq.join(', '),
               vars: {
                 cadre_utilisation_token: token.intitule,
                 authorization_request_id: external_id,
