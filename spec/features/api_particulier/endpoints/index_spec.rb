@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Endpoints index', app: :api_particulier do
-  let(:sample_endpoint) { APIParticulier::Endpoint.all.sample }
+  let(:sample_endpoint) { APIParticulier::Endpoint.all.reject(&:deprecated?).sample }
 
   it 'displays endpoints with basic info and link to show' do
     visit endpoints_path
