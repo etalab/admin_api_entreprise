@@ -344,19 +344,17 @@ fr:
         - name: "Rupture de service"
           entries:
             - question: "Le service ne répond plus, que faire ?"
-              # answer: |+
-              #   **1. Vérifiez l'état des API :**
-
-              #   La première chose à faire est de consulter :
-
-              #   - la [page de statuts d’API Particulier](https://status.entreprise.api.gouv.fr/){:target="_blank"} et vérifier si l’indisponibilité n’y est pas annoncée. Toutes les indisponibilités y sont inscrites dans le délai le plus court possible et parfois même anticipées lorsque le fournisseur de donnée nous prévient à l’avance d’une opération de maintenance.
-              #   - la page du [taux de disponibilité des différentes API](https://stats.uptimerobot.com/o717RFXxMM){:target="_blank"} et ainsi vérifier si les API que vous utilisez n'ont pas une chute de disponibilité. ⚠️ Cette page est à consulter en dernier recours car elle est peu fiable : beaucoup d'API ont maintenant un système de cache comme celles de la DGFIP et de l'URSSAF.
-
-              #     {:.fr-highlight}
-              #     > ℹ️ Pour être notifié des différentes indisponibilités n'hésitez pas à vous [abonner depuis notre page de statuts](https://status.entreprise.api.gouv.fr/subscribe/email){:target="_blank"}.
-
               answer: |+
-                **1. Vérifiez votre volumétrie d'appel :**
+                **1. Vérifiez l'état des API :**
+
+                La première chose à faire est de consulter :
+
+                - la [page de statuts d’API Particulier](https://status.particulier.api.gouv.fr/){:target="_blank"} et vérifier si l’indisponibilité n’y est pas annoncée. Toutes les indisponibilités y sont inscrites dans le délai le plus court possible et parfois même anticipées lorsque le fournisseur de donnée nous prévient à l’avance d’une opération de maintenance.
+
+                  {:.fr-highlight}
+                  > ℹ️ Pour être notifié des différentes indisponibilités n'hésitez pas à vous [abonner depuis notre page de statuts](https://status.particulier.api.gouv.fr/subscribe/email){:target="_blank"}.
+
+                **2. Vérifiez votre volumétrie d'appel :**
 
                 Si l'incident n'a pas été annoncé par API Particulier par le biais de l'[infolettre](https://487b4da0.sibforms.com/serve/MUIEADKIZQbixV2PoSlS2VU1cgnh4xihiaswOxPpI0HHRX4F9Wi2C8ojDtqpU70dpyEJF6s1JXYj0oHuHCHTpe-KKzm18PzpaKSBJ7Tq0yyz6FMst27i-kVe_gcvX-pK_rw_6DgRFukOX0HPq4gYVCkglTTjUslLjhGUva9aEN2m9O6CHjgYCuUND2QESrjEeviVzG_Z8Mq6WQwc){:target="_blank"}, et que le service API Particulier semble soudainement rejeter toutes vos requêtes, il est probable que vous ayez effectué un trop grand nombre d'appels et que vous ayez été bannis momentanément.
 
@@ -366,9 +364,13 @@ fr:
                 Au bout de ces 12 heures, vos accès sont automatiquement rétablis ; il est donc inutile d’écrire au support.
                 Nous vous invitons à prendre les mesures nécessaires car le dépassement intervient généralement chez nos utilisateurs lorsque leur programme n’a pas été correctement configuré.
 
-                **2. Contactez le support**
+                **3. Contactez le support**
 
                 Si l'incident n'est pas déjà annoncé par API Particulier et si vous n'avez pas dépassé la volumétrie autorisée, vous pouvez nous contacter sur [api-particulier@api.gouv.fr](mailto:api-particulier@api.gouv.fr)
+                ---------
+
+                A noter que vous pouvez vous référer à la documentation sur la [surveillance de l'état des fournisseurs](<%= api_particulier_developers_path(anchor: 'surveillance-etat-fournisseurs') %>) pour anticiper les potentiels problèmes.
+            - question: "J'ai dépassé la volumétrie, mon IP est bannie, comment faire ?"
 
             - question: "J'ai dépassé la volumétrie, mon IP est bannie, comment faire ?"
               answer: |+

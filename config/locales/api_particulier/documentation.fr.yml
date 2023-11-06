@@ -219,3 +219,36 @@ fr:
                   #### Éléments constitutifs de la requête HTTP d'API&nbsp;Particulier
 
                   Chaque URL de requête est spécifiée dans le [Swagger](<%= developers_openapi_path %>){:target="_blank_"},
+
+              - title: Surveillance de l'état des fournisseurs
+                anchor: 'surveillance-etat-fournisseurs'
+                content: |+
+                  API Particulier mets à disposition un ensemble de routes de "pings" permettant de récupérer l'état des services fournis par les différents fournisseurs de données.
+                  L'ensemble des routes est disponible à l'adresse suivante: [Routes de pings (format JSON)](https://particulier.api.gouv.fr/api/pings).
+
+                  Pour chacune de ces routes, l'équipe d'API Particulier effectue des vérifications spécifiques au fournisseur, permettant d'être au plus près de la réalité quand à la santé dudît fournisseur.
+                  Chacune de ces routes renvoi un json sous le format suivant:
+
+                  ```json
+                  {
+                    "status": "ok",
+                    "last_update": "2023-11-03T12:24:07.185+01:00",
+                    "last_ok_status": "2023-11-03T12:24:07.185+01:00"
+                  }
+                  ```
+
+                  Avec:
+                  - `status`, `string`, qui peut avoir 3 valeurs: `ok` quand tout est OK, `bad_gateway` quand il y a un souci, `unknown` quand on ne peut pas déterminer le status ;
+                  - `last_update`, `datetime`, date de la dernière mise à jour: pour éviter de surcharger nos systèmes nous effectuons de la mise en cache sur les pings ;
+                  - `last_ok_update`, `datetime`, date de la dernière mise à jour en OK: permet de savoir depuis quand le service est en défaut.
+
+                  A noter que le status http est à 200 pour `ok` et `unknown`, 502 pour `bad_gateway` : cela permet à nos systèmes de monitoring de ne pas lever d'alertes en cas de données insuffisantes (et ainsi éviter des potentiels faux positifs).
+
+                  Nous vous conseillons de passer par ces routes de surveillances, et ceci pour plusieurs raisons:
+
+                  1. API Particulier s'occupe de la complexité vis-à-vis de la disponiilité de certains partenaires (limitation sur le nombre d'appels sur certains identifiants, échecs aléatoires etc..) ;
+                  2. Il n'y a pas de limitations sur ces routes
+                  3. L'implémentation est plus simple que d'utiliser les routes officieles
+                  4. Un `bad gateway` d'une route de ping a de forte chance d'être un vrai positif, contrairement à un échec sur les endpoints qui peut être dû à des erreurs réseaux/temporaires.
+
+
