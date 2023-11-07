@@ -18,6 +18,10 @@ class TokenPolicy < ApplicationPolicy
     demandeur? && token.day_left < 90
   end
 
+  def attestations_scopes?
+    (demandeur? || contact_metier?) && attestations_scope_service.attestations_scopes(token).any?
+  end
+
   private
 
   def demandeur?
@@ -34,5 +38,9 @@ class TokenPolicy < ApplicationPolicy
 
   def authorization_request
     @authorization_request ||= @token.authorization_request
+  end
+
+  def attestations_scope_service
+    @attestations_scope_service ||= AttestationsScopeService.new
   end
 end
