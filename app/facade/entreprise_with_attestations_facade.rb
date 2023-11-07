@@ -28,6 +28,14 @@ class EntrepriseWithAttestationsFacade
   delegate :forme_juridique_libelle, to: :entreprise, prefix: true
   delegate :categorie_entreprise, to: :entreprise
 
+  def with_attestation_fiscale?
+    attestation_scope_service.include_attestation_fiscale?(@token)
+  end
+
+  def with_attestation_sociale?
+    attestation_scope_service.include_attestation_sociale?(@token)
+  end
+
   private
 
   def entreprise_result
@@ -53,5 +61,9 @@ class EntrepriseWithAttestationsFacade
 
   def siade_client
     @siade_client ||= Siade.new(token: @token)
+  end
+
+  def attestations_scope_service
+    @attestations_scope_service ||= AttestationsScopeService.new
   end
 end

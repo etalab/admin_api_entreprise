@@ -3,7 +3,7 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
     visit api_particulier_authorization_requests_show_path(id: authorization_request.id)
   end
 
-  let!(:authenticated_user) { create(:user, :demandeur) }
+  let!(:authenticated_user) { create(:user, :demandeur, :contact_technique, :contact_metier) }
   let!(:non_authenticated_user) { create(:user, :demandeur) }
   let!(:authorization_request) do
     create(
@@ -56,7 +56,8 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
         let!(:authorization_request) do
           create(
             :authorization_request,
-            demandeur_authorization_request_role: authenticated_user.user_authorization_request_roles.first,
+            :with_demandeur,
+            demandeur: authenticated_user,
             api: 'entreprise',
             status: 'draft'
           )
@@ -71,7 +72,8 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
         let!(:authorization_request) do
           create(
             :authorization_request,
-            demandeur_authorization_request_role: authenticated_user.user_authorization_request_roles.first,
+            :with_demandeur,
+            demandeur: authenticated_user,
             api: 'entreprise',
             status: 'validated'
           )
@@ -86,7 +88,8 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
         let!(:authorization_request) do
           create(
             :authorization_request,
-            demandeur_authorization_request_role: authenticated_user.user_authorization_request_roles.first,
+            :with_demandeur,
+            demandeur: authenticated_user,
             api: 'particulier',
             status:
           )
@@ -119,6 +122,119 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
             expect(page).to have_content('Banni')
             expect(page).to have_content(distance_of_time_in_words(Time.zone.now, banned_token.blacklisted_at))
             expect(page).to have_content('0 appel les 7 derniers jours')
+          end
+
+          describe 'when the user is demandeur' do
+            describe 'when the token has less than 90 days left' do
+              it 'displays the button to prolong the token' do
+                expect(page).to have_css('#prolong-token-modal-link')
+
+                click_link 'prolong-token-modal-link'
+
+                expect(page).to have_content('Compléter le formulaire de prolongation')
+              end
+            end
+
+            describe 'when the token has more than 90 days left' do
+              let(:exp) { 93.days.from_now.to_i }
+
+              it 'does not display the button to prolong the token' do
+                expect(page).not_to have_css('#prolong-token-modal-link')
+              end
+            end
+
+            it 'displays the show token modal button' do
+              expect(page).to have_css('#show-token-modal-link')
+
+              click_link 'show-token-modal-link'
+
+              expect(page).to have_content('Utiliser le jeton')
+              expect(page).to have_content("Jeton d'accès")
+            end
+
+            it 'does not displays the ask for prolongation modal button' do
+              expect(page).not_to have_css('#ask-for-prolongation-token-modal-link')
+            end
+          end
+
+          describe 'when the user is contact technique' do
+            let!(:authorization_request) do
+              create(
+                :authorization_request,
+                :with_demandeur,
+                :with_contact_technique,
+                demandeur: non_authenticated_user,
+                contact_technique: authenticated_user,
+                api: 'particulier',
+                status:
+              )
+            end
+
+            it 'displays the page' do
+              expect(page).to have_current_path(api_particulier_authorization_requests_show_path(id: authorization_request.id), ignore_query: true)
+            end
+
+            it 'does not display the button to prolong the token' do
+              expect(page).not_to have_css('#prolong-token-modal-link')
+            end
+
+            it 'displays the show modal button' do
+              expect(page).to have_css('#show-token-modal-link')
+
+              click_link 'show-token-modal-link'
+
+              expect(page).to have_content('Utiliser le jeton')
+              expect(page).to have_content("Jeton d'accès")
+            end
+
+            it 'displays the ask for prolongation modal button' do
+              expect(page).to have_css('#ask-for-prolongation-token-modal-link')
+
+              click_link 'ask-for-prolongation-token-modal-link'
+
+              expect(page).to have_content('Relancer le contact principal')
+            end
+          end
+
+          describe 'when the user is contact metier' do
+            let!(:authorization_request) do
+              create(
+                :authorization_request,
+                :with_demandeur,
+                :with_contact_technique,
+                :with_contact_metier,
+                demandeur: non_authenticated_user,
+                contact_metier: authenticated_user,
+                contact_technique: non_authenticated_user,
+                api: 'particulier',
+                status:
+              )
+            end
+
+            it 'displays the page' do
+              expect(page).to have_current_path(api_particulier_authorization_requests_show_path(id: authorization_request.id), ignore_query: true)
+            end
+
+            it 'does not display the button to prolong the token' do
+              expect(page).not_to have_css('#prolong-token-modal-link')
+            end
+
+            it 'displays the show modal button' do
+              expect(page).to have_css('#show-token-modal-link')
+
+              click_link 'show-token-modal-link'
+
+              expect(page).to have_content('Utiliser le jeton')
+              expect(page).to have_content('Contact principal')
+            end
+
+            it 'displays the ask for prolongation modal button' do
+              expect(page).to have_css('#ask-for-prolongation-token-modal-link')
+
+              click_link 'ask-for-prolongation-token-modal-link'
+
+              expect(page).to have_content('Relancer le contact principal')
+            end
           end
         end
       end

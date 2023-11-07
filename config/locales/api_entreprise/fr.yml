@@ -1,4 +1,8 @@
 fr:
+  application_controller:
+    error:
+      unauthorize: "Vous n'avez les autorisations pour accéder à ces informations"
+      record_not_found: "L'élément auquel vous essayez d'accéder est introuvable"
   concerns:
     authorization_requests_management:
       show:
@@ -8,13 +12,58 @@ fr:
     api_entreprise:
       application:
         title: API Entreprise
-  concerns:
-    authorization_requests_management:
-      show:
-        error:
-          title: "Vous ne pouvez pas accéder à cette habiliation"
   shared:
-    tokens:
+    tokens: 
+      cannot_show: 
+        title: Utiliser le jeton
+        description: "En tant que contact métier, <strong>vous n'avez pas l'autorisation d'utiliser la clé d'accès.</strong>
+          Si le jeton arrive à expriation ou nécessite une action, veuiollez contacter le contact principal et le contact technique de cette habilitation :"
+        demandeur: "<strong>Contact principal</strong> : %{demandeur}"
+        contact_technique: "<strong>Contact technique</strong> : %{contact_technique}"
+        authorization_request_link: "<strong>Lien de l'habilitation à transmettre :</strong>"
+        links:
+          to_datapass: "N<sup>o</sup>%{external_id}"
+      ask_for_prolongation:
+        title: Relancer le contact principal
+        description: "Malgré nos nombreuses relances, %{demandeur} n'a pas prolongé le jeton ID : %{token_id},
+          celui-ci expirera dans %{remaining_time}. Seul le contact principal peut prolonger le jeton.
+          <strong>Écrivez-lui en lui transmettant le lien vers le formulaire de prolongation :</strong>"
+        demandeur: "<strong>Contact principal</strong> : %{demandeur}"
+        ask_for_token_prolongation_description: "<strong>Lien du questionnaire de prolongation</strong> :"
+        links:
+          to_datapass: "N<sup>o</sup>%{external_id}"
+      show:
+        title: Utiliser le jeton
+        warning: "Vous ne devez <strong> jamais copier-coller un token 
+          dans un moteur de recherche on dans un email.</strong> L'usage de votre token 
+          se fait uniquement dans votre logiciel métier sécurisé utilisé pour réaliser vos appels. 
+          Pour transmettre ce jeton, <strong>merci d'utiliser la fonctionnalité prévue ci-dessous :</strong>"
+        token_label: Jeton d'accès n<sup>o</sup> <strong>%{token_id}</strong>
+        cta: Copier le jeton
+        modal:
+          transfer:
+            display_cta: Transmettre le jeton en sécurité
+            title: Transférer le jeton d'accès
+            description: Cette fonctionnalité vous permet d'envoyer un e-mail contenant un lien d'accès au jeton. L'URL transmise a une durée limitée de 4 heures.
+              <br>
+              <br>
+              Attention, nos <a href="https://entreprise.api.gouv.fr/cgu/">CGU</a> vous engagent ! Vous ne devez pas divulguer cet accès à des tiers non-habilités. Pour en savoir plus, consultez <a href='https://entreprise.api.gouv.fr/faq#comment-transmettre-le-jeton-d-acces-en-tout-securite' target='_blank'>cette rubrique de notre FAQ</a>.
+            email:
+              label: Adresse e-mail du destinataire
+              placeholder: jean@dupont.fr
+            cta: Envoyer le lien d'accès au jeton
+            confirm: Êtes-vous sûr de vouloir transférer votre jeton à cette adresse ?
+      prolong:
+        title: Prolonger le jeton
+        description: "Votre jeton expire dans %{remaining_time}.
+          Avant de prolonger votre jeton, nous avons besoin de savoir si les conditions 
+          indiquées dans votre habilitation %{link_to_datapass}
+          ont évolué."
+        links:
+          to_datapass: "N<sup>o</sup>%{external_id}"
+        warning_description: "Pour prolonger votre jeton, veuillez compléter le formulaire suivant :"
+        warning: ⚠️ Vos réponses au formulaire <strong>vous engagent</strong> en regard des CGU d'api entreprise.
+        cta: Compléter le formulaire de prolongation
       detail:
         remaining_time:
           new_token: "Durée restante du jeton : <strong>%{remaining_time}</strong>"
@@ -25,7 +74,7 @@ fr:
         call_for_a_week:
           zero: "%{count} appel les 7 derniers jours"
           one: "%{count} appel les 7 derniers jours"
-          other: "%{count} appels les 7 derniers joursS"
+          other: "%{count} appels les 7 derniers jours"
         status:
           color:
             revoked: pink-tuile
@@ -50,6 +99,13 @@ fr:
           archived: 📃 Habilitation archivée
           validated: 📃 Habilitation active
       show:
+        modal:
+          show:
+            display_cta: "Voir le jeton"
+          prolong:
+            display_cta: Prolonger le jeton
+          ask_for_prolongation:
+            display_cta: Relancer le contact principal pour prolonger le jeton
         delivered_at: "Délivré le : %{humanized_date}"
         links:
           to_datapass: "N<sup>o</sup>%{external_id}"
@@ -157,10 +213,6 @@ fr:
           zero: "Habilitation et jetons d'accès inactif"
           one: "Habilitation et jetons d'accès inactif"
           other: "Habilitations et jetons inactif (%{count})"
-
-      extract_token:
-        error:
-          title: Accès au jeton non autorisé
       renew:
         title: Renouveler ou étendre mes droits
         description: |+

@@ -44,10 +44,6 @@ class Token < ApplicationRecord
     }
   end
 
-  def self.find_best_token_to_retrieve_attestations(tokens)
-    tokens.max_by { |token| token.decorate.attestations_scopes }
-  end
-
   delegate :intitule, :siret, to: :authorization_request
 
   def legacy_token?

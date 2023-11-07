@@ -1,4 +1,6 @@
 class APIEntreprise::TokensController < APIEntreprise::AuthenticatedUsersController
+  include TokensManagement
+
   before_action :extract_token, except: %i[index]
 
   def index
@@ -19,12 +21,5 @@ class APIEntreprise::TokensController < APIEntreprise::AuthenticatedUsersControl
 
   def period_to_display
     params[:period]&.to_sym || :last_8_days
-  end
-
-  def extract_token
-    @token = current_user.tokens.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    error_message(title: t('.error.title'))
-    redirect_current_user_to_homepage
   end
 end

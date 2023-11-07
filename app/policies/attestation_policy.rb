@@ -12,6 +12,10 @@ class AttestationPolicy < ApplicationPolicy
   private
 
   def any_token_with_attestation_scopes?
-    user.tokens.flat_map { |token| token.decorate.attestations_scopes }.any?
+    user.tokens.flat_map { |token| attestations_scope_service.attestations_scopes(token) }.any?
+  end
+
+  def attestations_scope_service
+    @attestations_scope_service ||= AttestationsScopeService.new
   end
 end

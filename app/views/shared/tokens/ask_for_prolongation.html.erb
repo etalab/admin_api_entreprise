@@ -1,0 +1,32 @@
+<turbo-frame id="main-modal-content">
+  <div class="single-page">
+    <h3 id="<%= dom_id(@token, :token_use_title) %>">
+      <span class="fr-icon-arrow-right-line fr-icon--lg"></span>
+      <%= t('.title') %>
+    </h3>
+    <p class="fr-mb-4v">
+    <%= t('.description', 
+        demandeur: @token.demandeur.full_name, 
+        token_id: @token.id,
+        remaining_time: distance_of_time_in_words(Time.zone.now, @token.end_timestamp)
+      ).html_safe %>
+    </p>
+    <p class="fr-mb-4v">
+      <%= t('.demandeur', demandeur: @token.demandeur.full_name).html_safe %>
+      <br />
+      <span data-clipboard-target="source">
+        <%= @token.demandeur.email %>
+      </span>
+    </p>
+    <p>
+      <%= t('.ask_for_token_prolongation_description').html_safe %>
+      <%= link_to(
+            t('.links.to_datapass', external_id: @token.authorization_request.external_id).html_safe, 
+            datapass_authorization_request_url(@token.authorization_request), 
+            id: :authorization_request_link,
+            class: %w(fr-link), 
+            target: '_blank')
+          %>
+    </p>
+  </div>
+</turbo-frame>

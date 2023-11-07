@@ -8,6 +8,20 @@ class ApplicationController < ActionController::Base
 
   helper_method :namespace
 
+  rescue_from Pundit::NotAuthorizedError do |_|
+    error_message(title: t('.error.unauthorize'))
+    redirect_current_user_to_homepage
+  end
+
+  rescue_from ActiveRecord::RecordNotFound do |_|
+    error_message(title: t('.error.record_not_found'))
+    if user_signed_in?
+      redirect_current_user_to_homepage
+    else
+      redirect_to_root
+    end
+  end
+
   def error_message(title:, description: nil, id: nil)
     flash_message(:error, title:, description:, id:)
   end
