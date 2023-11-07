@@ -10,11 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_10_20_161819) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_07_094324) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "access_logs", id: false, force: :cascade do |t|
+    t.timestamptz "timestamp"
+    t.uuid "token_id"
+  end
 
   create_table "authorization_requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "intitule"
@@ -129,12 +134,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_20_161819) do
     t.json "days_left_notification_sent", default: [], null: false
     t.string "temp_use_case"
     t.string "authorization_request_id"
-    t.boolean "access_request_survey_sent", default: false, null: false
     t.uuid "authorization_request_model_id", null: false
     t.json "extra_info"
     t.jsonb "scopes", default: [], null: false
     t.datetime "blacklisted_at"
-    t.index ["access_request_survey_sent"], name: "index_tokens_on_access_request_survey_sent"
     t.index ["created_at"], name: "index_tokens_on_created_at"
     t.index ["exp"], name: "index_tokens_on_exp"
     t.index ["iat"], name: "index_tokens_on_iat"
@@ -161,11 +164,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_20_161819) do
     t.string "phone_number"
     t.index ["created_at"], name: "index_users_on_created_at"
     t.index ["email"], name: "index_users_on_email", unique: true
-  end
-
-  create_table "access_logs", id: false, force: :cascade do |t|
-    t.timestamptz "timestamp"
-    t.uuid "token_id"
   end
 
   add_foreign_key "magic_links", "tokens"
