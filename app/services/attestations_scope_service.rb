@@ -8,16 +8,24 @@ class AttestationsScopeService
   end
 
   def include_attestation_sociale?(token)
-    attestations_scopes(token).include? 'attestations_sociales'
+    attestations_scopes(token).intersect? attestation_sociale_scopes
   end
 
   def include_attestation_fiscale?(token)
-    attestations_scopes(token).include? 'attestations_fiscales'
+    attestations_scopes(token).intersect? attestation_fiscale_scopes
   end
 
   private
 
+  def attestation_sociale_scopes
+    %w[attestations_sociales attestation_sociale_urssaf]
+  end
+
+  def attestation_fiscale_scopes
+    %w[attestations_fiscales attestation_fiscale_dgfip]
+  end
+
   def attestations_codes
-    %w[attestations_sociales attestations_fiscales]
+    attestation_sociale_scopes + attestation_fiscale_scopes
   end
 end
