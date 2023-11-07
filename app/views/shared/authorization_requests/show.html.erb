@@ -104,4 +104,105 @@
       </blockquote>
     </section>
   <% end %>
+
+  <section id="habilitation_contacts_infos" class="fr-pb-8v">
+    <h2 class="fr-h3 fr-mb-n-1v">
+      <%= t('.contacts.title') %>
+    </h2>
+    <div class="fr-container--fluid">
+      <div class="fr-grid-row fr-grid-row--gutters">
+        <div id="contact_demandeur" class="fr-col">
+          <h3 class="fr-h4 fr-mb-n-1v">
+            <i class="fr-icon fr-icon-user-star-line fr-mr-1v" aria-hidden="true"></i>
+            <%= t('.contacts.demandeur.title') %>
+          </h3>
+          <div class="fr-card">
+            <% if @authorization_request.demandeur == current_user %>
+              <div class="fr-card__header">
+                <ul class="fr-badges-group fr-badges-group--right">
+                  <li>
+                    <p id="contact_demandeur_its_me" class="fr-badge fr-badge--blue-ecume">
+                      <%= t('.contacts.its_me') %>
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            <% end %>
+            <div class="fr-card__body">
+              <div class="fr-card__content">
+                  <h4 class="fr-h5 fr-card__title">
+                    <%= @authorization_request.demandeur.full_name %>
+                  </h4>
+                  <p class="fr-card__desc">
+                    <%= @authorization_request.demandeur.email %>
+                  </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% if @authorization_request.contact_metier.present? %>
+          <div id="contact_metier" class="fr-col">
+            <h3 class="fr-h4 fr-mb-n-1v">
+              <i class="fr-icon fr-icon-user-star-line fr-mr-1v" aria-hidden="true"></i>
+              <%= t('.contacts.contact_metier.title') %>
+            </h3>
+            <div class="fr-card">
+              <% if @authorization_request.contact_metier == current_user %>
+                <div class="fr-card__header">
+                  <ul class="fr-badges-group fr-badges-group--right">
+                    <li>
+                      <p id="contact_metier_its_me" class="fr-badge fr-badge--blue-ecume">
+                        <%= t('.contacts.its_me') %>
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+              <% end %>
+              <div class="fr-card__body">
+                <div class="fr-card__content">
+                    <h4 class="fr-h5 fr-card__title">
+                      <%= @authorization_request.contact_metier.full_name %>
+                    </h4>
+                    <p class="fr-card__desc">
+                      <%= @authorization_request.contact_metier.email %>
+                    </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <% if @authorization_request.contact_technique.present? %>
+          <div id="contact_technique" class="fr-col">
+            <h3 class="fr-h4">
+              <i class="fr-icon fr-icon-user-star-line fr-mr-1v" aria-hidden="true"></i>
+              <%= t('.contacts.contact_technique.title') %>
+            </h3>
+            <div class="fr-card">
+              <% if @authorization_request.contact_technique == current_user %>
+                <div class="fr-card__header">
+                  <ul class="fr-badges-group fr-badges-group--right">
+                    <li>
+                      <p id="contact_technique_its_me" class="fr-badge fr-badge--blue-ecume">
+                        <%= t('.contacts.its_me') %>
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+              <% end %>
+              <div class="fr-card__body">
+                <div class="fr-card__content">
+                    <h4 class="fr-h5 fr-card__title">
+                      <%= @authorization_request.contact_technique.full_name %>
+                    </h4>
+                    <p class="fr-card__desc">
+                      <%= @authorization_request.contact_technique.email %>
+                    </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
 </article>
