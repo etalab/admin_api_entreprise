@@ -90,5 +90,25 @@
         </ul>
       </div>
     </div>
+
+    <% if policy(@main_token).attestations_scopes? %>
+      <div id="attestations_sociales_et_fiscales" class="fr-card__content">
+        <blockquote class="fr-highlight fr-m-0">
+          <div class="fr-card__title">
+            <h2 class="fr-h3 fr-mb-n0-5v">
+              <%= t('.attestations.title') %>
+            </h2>
+          </div>
+          <div class="fr-card__desc">
+            <p>
+              <%= t('.attestations.description') %>
+              <br />
+              <%= link_to t('.attestations.cta'), attestations_path(selected_token: @main_token.id),class: %w[fr-btn fr-btn--secondary fr-mt-2w] %>
+            </p>
+          </div>
+        </blockquote>
+      </div>
+    <% end %>
+
   </div>
 </div>

@@ -2,7 +2,11 @@ class APIEntreprise::AttestationsController < APIEntreprise::AuthenticatedUsersC
   before_action :authorize!
 
   def index
-    @tokens = current_user.tokens.active_for('entreprise')
+    @tokens = if params[:token_id].present?
+                current_user.tokens.where(id: params[:token_id])
+              else
+                current_user.tokens.active_for('entreprise')
+              end
 
     @best_token = attestations_scope_service.best_token_to_retrieve_attestations(@tokens)
   end
