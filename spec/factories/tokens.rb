@@ -55,14 +55,6 @@ FactoryBot.define do
       scopes { specific_scopes }
     end
 
-    trait :access_request_survey_not_sent do
-      access_request_survey_sent { false }
-    end
-
-    trait :access_request_survey_sent do
-      access_request_survey_sent { true }
-    end
-
     trait :less_than_seven_days_ago do
       created_at { 6.days.ago }
     end
