@@ -105,6 +105,15 @@ RSpec.describe Token do
       it { is_expected.to include(*blacklisted_later) }
       it { is_expected.not_to include(*blacklisted) }
     end
+
+    describe '.expired' do
+      subject { described_class.expired }
+
+      it { is_expected.not_to include(*active) }
+      it { is_expected.not_to include(*blacklisted) }
+      it { is_expected.not_to include(*blacklisted_later) }
+      it { is_expected.to include(*expired) }
+    end
   end
 
   describe '#rehash' do

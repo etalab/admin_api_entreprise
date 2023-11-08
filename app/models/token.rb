@@ -6,6 +6,7 @@ class Token < ApplicationRecord
 
   scope :issued_in_last_seven_days, -> { where(created_at: 3.weeks.ago..1.week.ago) }
   scope :unexpired, -> { where('exp > ?', Time.zone.now.to_i) }
+  scope :expired, -> { where('exp <= ?', Time.zone.now.to_i) }
 
   scope :blacklisted, -> { where('blacklisted_at < ?', Time.zone.now) }
   scope :blacklisted_later, -> { where('blacklisted_at > ?', Time.zone.now) }
