@@ -46,6 +46,8 @@ constraints(APIParticulierDomainConstraint.new) do
 
     get 'public/jetons/:access_token', to: 'public_token_magic_links#show', as: :token_show_magic_link
 
+    get '/blog/:id', to: 'blog_posts#show', as: :blog_post
+
     get '/status_apis', to: 'pages#current_status', as: :current_status
 
     get '/infolettre', to: 'pages#newsletter', as: :newsletter
