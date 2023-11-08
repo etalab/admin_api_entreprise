@@ -87,9 +87,39 @@
       </ul>
     </div>
   </section>
+  <section id="habilitation_old_tokens_infos" class="fr-accordion fr-mb-8v">
+    <h3 class="fr-accordion__title">
+      <button id="old_tokens_accordion_button" class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106">
+        <%= t('.old_tokens.title') %>
+      </button>
+    </h3>
+    <div class="fr-collapse" id="accordion-106">
+    <div class="fr-table fr-table--bordered fr-table--layout-fixed fr-m-0 fr-p-0">
+      <table>
+        <thead>
+            <tr>
+              <th scope="col"><%= t('.old_tokens.table.identifier')%></th>
+              <th scope="col"><%= t('.old_tokens.table.created_at')%></th>
+              <th scope="col"><%= t('.old_tokens.table.exp')%></th>
+              <th scope="col"><%= t('.old_tokens.table.total_calls')%></th>
+            </tr>
+        </thead>
+        <tbody>
+          <% @inactive_tokens.each do |token| %>
+            <tr id="<%= dom_id(token) %>" >
+              <td><%= token.id %></td>
+              <td><%= friendly_date_from_timestamp(token.created_at) %></td>
+              <td><%= friendly_date_from_timestamp(token.exp) %></td>
+              <td><%= token.access_logs.count %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </section>
 
   <% if policy(@main_token).attestations_scopes? %>
-    <section id="attestations_sociales_et_fiscales" class="fr-pb-8v">
+    <section id="attestations_sociales_et_fiscales" class="fr-mb-8v">
       <blockquote class="fr-highlight fr-m-0">
         <h2 class="fr-h3 fr-mb-n0-5v">
           <%= t('.attestations.title') %>

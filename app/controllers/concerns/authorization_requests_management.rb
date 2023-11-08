@@ -4,6 +4,7 @@ module AuthorizationRequestsManagement
   def show
     @authorization_request = extract_authorization_request
     @main_token = @authorization_request.token.decorate
+    @inactive_tokens = @authorization_request.tokens.inactive.order(exp: :desc)
     @banned_tokens = @authorization_request.tokens.blacklisted_later.decorate
 
     render 'shared/authorization_requests/show'
