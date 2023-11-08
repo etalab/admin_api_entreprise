@@ -1,6 +1,7 @@
 <div class="fr-container" data-controller="anchor-buttons">
   <div class="fr-grid-row">
     <div class="fr-col-12 fr-col-md-3">
+      <%= render partial: 'shared/authorization_requests/breadcrumb', locals: { authorization_request: @authorization_request } %>
       <%= render partial: 'shared/authorization_requests/side_menu', locals: { token: @main_token } %>
     </div>
     <div class="fr-col-12 fr-col-md-9">
@@ -111,11 +112,11 @@
               </thead>
               <tbody>
                 <% @inactive_tokens.each do |token| %>
-                  <tr id="<%= dom_id(token, :old_token_row) %>" >
+                  <tr id="<%= dom_id(token) %>" >
                     <td><%= token.id %></td>
                     <td><%= friendly_date_from_timestamp(token.created_at) %></td>
                     <td><%= friendly_date_from_timestamp(token.exp) %></td>
-                    <td><%= token.access_logs.count %></td>
+                    <td><%= @access_logs_counts[token] %></td>
                   </tr>
                 <% end %>
               </tbody>
