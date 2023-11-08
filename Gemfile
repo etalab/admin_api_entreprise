@@ -82,6 +82,7 @@ group :development, :test do
   gem 'rack_session_access'
   gem 'i18n-tasks'
   gem 'brakeman'
+  gem 'bullet'
 end
 
 group :development do
