@@ -23,7 +23,7 @@ class Token < ApplicationRecord
   delegate :contacts_no_demandeur, :archived?, to: :authorization_request
 
   def rehash
-    AccessToken.create(token_payload)
+    AccessToken.create(jwt_data)
   end
 
   def access_scopes
@@ -66,9 +66,9 @@ class Token < ApplicationRecord
 
   private
 
-  def token_payload
+  def jwt_data
     payload = {
-      uid: demandeur&.id,
+      uid: id,
       jti: id,
       scopes:,
       sub: intitule,

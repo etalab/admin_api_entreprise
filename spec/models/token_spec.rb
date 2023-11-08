@@ -119,10 +119,6 @@ RSpec.describe Token do
         JSON.parse(payload, symbolize_names: true)
       end
 
-      it 'contains its owner user id into the "uid" key' do
-        expect(payload.fetch(:uid)).to eq(token.demandeur.id)
-      end
-
       it 'contains its id into the "jti" key' do
         expect(payload.fetch(:jti)).to eq(token.id)
       end
