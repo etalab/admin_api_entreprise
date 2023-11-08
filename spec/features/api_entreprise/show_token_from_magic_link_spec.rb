@@ -31,24 +31,15 @@ RSpec.describe 'show token from magic link', app: :api_entreprise do
 
         before { magic_link.update!(token_id: token_linked.id) }
 
-        it 'shows the linked token details' do
+        it 'shows only the linked token details' do
           subject
 
-          expect(page).to have_css("input[value='#{token_linked.rehash}']")
-        end
-
-        it 'doesnt show the details for other tokens' do
-          subject
-
-          expect(page).not_to have_css("input[value='#{tokens.first.rehash}']")
+          expect(page).to have_css("##{dom_id(token_linked)}")
+          expect(page).to have_css('.token-card', count: 1)
         end
       end
 
       context 'when it is not linked to one token' do
-        it 'has the right number of tokens' do
-          expect(tokens.count).to eq(2)
-        end
-
         it 'shows the tokens details' do
           subject
 

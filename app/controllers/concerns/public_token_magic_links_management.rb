@@ -3,6 +3,7 @@ module PublicTokenMagicLinksManagement
 
   def show
     @magic_link = MagicLink.find_by(access_token: magic_token_show_params[:access_token])
+    @tokens = @magic_link.tokens(api:).includes([:demandeur]) if @magic_link
 
     handle_invalid_magic_link!
   end
@@ -31,5 +32,9 @@ module PublicTokenMagicLinksManagement
     {
       access_token: params.require(:access_token)
     }
+  end
+
+  def api
+    namespace.split('_').last
   end
 end
