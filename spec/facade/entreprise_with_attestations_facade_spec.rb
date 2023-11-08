@@ -58,4 +58,36 @@ RSpec.describe EntrepriseWithAttestationsFacade do
       its(:attestation_fiscale_url) { is_expected.to be_nil }
     end
   end
+
+  describe '#with_attestation_fiscale?' do
+    subject { described_class.new(token:, siren:).with_attestation_fiscale? }
+
+    context 'when token has attestations_fiscales scope' do
+      let(:token) { create(:token, :with_specific_scopes, specific_scopes: ['attestations_fiscales']) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context 'when token doesnt have attestations_fiscales scope' do
+      let(:token) { create(:token, scopes: []) }
+
+      it { is_expected.to be_falsy }
+    end
+  end
+
+  describe '#with_attestation_sociale?' do
+    subject { described_class.new(token:, siren:).with_attestation_sociale? }
+
+    context 'when token has attestations sociales scope' do
+      let(:token) { create(:token, :with_specific_scopes, specific_scopes: ['attestations_sociales']) }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context 'when token doesnt have attestations sociales scope' do
+      let(:token) { create(:token, scopes: []) }
+
+      it { is_expected.to be_falsy }
+    end
+  end
 end
