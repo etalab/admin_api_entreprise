@@ -12,7 +12,7 @@ class Token < ApplicationRecord
   scope :not_blacklisted, -> { blacklisted_later.or(where(blacklisted_at: nil)) }
 
   scope :active, -> { not_blacklisted.unexpired }
-  scope :active_for, ->(api) { active.joins(:authorization_request).where(authorization_request: { api: }).uniq }
+  scope :active_for, ->(api) { distinct.active.joins(:authorization_request).where(authorization_request: { api: }).reorder(created_at: :desc) }
 
   has_many :users, through: :authorization_request
   has_many :contacts, through: :authorization_request
