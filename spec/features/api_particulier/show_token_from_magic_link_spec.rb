@@ -23,7 +23,7 @@ RSpec.describe 'show token from magic link', app: :api_particulier do
   context 'when the magic link token exists' do
     let!(:magic_link) { create(:magic_link, email:) }
     let(:magic_token) { magic_link.access_token }
-    let(:tokens) { magic_link.tokens_from_email }
+    let(:tokens) { magic_link.tokens }
 
     context 'when the magic token is still active' do
       it 'has the right number of tokens' do

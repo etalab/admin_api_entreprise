@@ -13,7 +13,7 @@ RSpec.describe TokensAssociatedToEmailQuery do
   context 'when email is not provided' do
     let(:email) { nil }
 
-    it { is_expected.to eq(Token.none) }
+    it { is_expected.to be_empty }
   end
 
   context 'when email is provided from a contact' do
@@ -42,7 +42,7 @@ RSpec.describe TokensAssociatedToEmailQuery do
     context 'without tokens' do
       let!(:contact) { create(:user, email:) }
 
-      it { is_expected.to eq(Token.none) }
+      it { is_expected.to be_empty }
     end
   end
 
@@ -72,7 +72,7 @@ RSpec.describe TokensAssociatedToEmailQuery do
     context 'without tokens' do
       let!(:user) { create(:user, email:) }
 
-      it { is_expected.to eq(Token.none) }
+      it { is_expected.to be_empty }
     end
   end
 
@@ -106,7 +106,7 @@ RSpec.describe TokensAssociatedToEmailQuery do
     context 'without tokens' do
       let!(:user) { create(:user, email:) }
 
-      it { is_expected.to eq(Token.none) }
+      it { is_expected.to be_empty }
     end
   end
 end
