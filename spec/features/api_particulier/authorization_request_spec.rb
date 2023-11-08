@@ -171,6 +171,13 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
                 expect(page).to have_css('#attestations_sociales_et_fiscales')
               end
             end
+
+            it 'displays the contact informations' do
+              expect(page).to have_css('#contact_demandeur')
+              expect(page).to have_css('#contact_demandeur_its_me')
+              expect(page).not_to have_css('#contact_metier')
+              expect(page).not_to have_css('#contact_technique')
+            end
           end
 
           describe 'when the user is contact technique' do
@@ -223,6 +230,14 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
               it 'does not display the attestations block' do
                 expect(page).not_to have_css('#attestations_sociales_et_fiscales')
               end
+            end
+
+            it 'displays the contact informations' do
+              expect(page).to have_css('#contact_demandeur')
+              expect(page).not_to have_css('#contact_demandeur_its_me')
+              expect(page).not_to have_css('#contact_metier')
+              expect(page).to have_css('#contact_technique')
+              expect(page).to have_css('#contact_technique_its_me')
             end
           end
 
@@ -278,6 +293,15 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
               it 'displays the attestations block' do
                 expect(page).to have_css('#attestations_sociales_et_fiscales')
               end
+            end
+
+            it 'displays the contact informations' do
+              expect(page).to have_css('#contact_demandeur')
+              expect(page).not_to have_css('#contact_demandeur_its_me')
+              expect(page).to have_css('#contact_metier')
+              expect(page).to have_css('#contact_metier_its_me')
+              expect(page).to have_css('#contact_technique')
+              expect(page).not_to have_css('#contact_technique_its_me')
             end
           end
         end
