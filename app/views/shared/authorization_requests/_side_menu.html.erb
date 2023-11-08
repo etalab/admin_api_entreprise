@@ -1,0 +1,36 @@
+<nav id="side_menu" class="fr-sidemenu fr-sidemenu--sticky fr-mb-8v" aria-labelledby="fr-sidemenu-title">
+  <div class="fr-sidemenu__inner fr-pl-0">
+    <button
+      class="fr-sidemenu__btn"
+      hidden
+      aria-controls="fr-sidemenu-wrapper"
+      aria-expanded="false"
+    >
+      <%= t('.menu') %>
+    </button>
+    <div class="fr-collapse" id="fr-sidemenu-wrapper">
+      <div class="fr-sidemenu__title" id="fr-sidemenu-title">
+        <%= t('.title') %>
+      </div>
+      <ul class="fr-sidemenu__list">
+        <li class="fr-sidemenu__item">
+          <a class="fr-sidemenu__link" id="habilitation_main_token_infos_link" href="#habilitation_main_token_infos" target="_self">
+            <%= t('.active_tokens') %>
+          </a>
+        </li>
+        <% if policy(@main_token).attestations_scopes? %>
+          <li class="fr-sidemenu__item">
+            <a class="fr-sidemenu__link" id="attestations_sociales_et_fiscales_link" href="#attestations_sociales_et_fiscales" target="_self">
+              <%= t('.attestations') %>
+            </a>
+          </li>
+        <% end %>
+        <li class="fr-sidemenu__item">
+          <a class="fr-sidemenu__link" id="habilitation_contacts_infos_link" href="#habilitation_contacts_infos" target="_self" >
+            <%= t('.contacts') %>
+          </a >
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

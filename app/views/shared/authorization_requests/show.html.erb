@@ -1,238 +1,246 @@
-<article class="article">
-  <header id="habilitation_main_info" class="fr-pb-8v">
-    <div>
-      <%= authorization_request_status_badge(@authorization_request) %>
-
-      <% if @authorization_request.demarche.present? %>
-        <span class="fr-badge fr-text--xs">
-          <i class="fr-icon-attachment-line fr-icon--sm fr-pr-1v" aria-hidden="true"></i>
-          <%= @authorization_request.demarche %>
-        </span>
-      <% end %>
-
-      <h2 class="fr-h3 fr-mb-n0-5v"><%= @authorization_request.intitule %></h3>
+<div class="fr-container" data-controller="anchor-buttons">
+  <div class="fr-grid-row">
+    <div class="fr-col-12 fr-col-md-3">
+      <%= render partial: 'shared/authorization_requests/side_menu', locals: { token: @main_token } %>
     </div>
-    <div>
-      <span class="fr-text--xs">
-        <b><%= t('.delivered_at', humanized_date: friendly_format_from_timestamp(@authorization_request.created_at)) %></b>
-        - 
-        <%= link_to t('.links.to_datapass', external_id: @authorization_request.external_id).html_safe, 
-          datapass_authorization_request_url(@authorization_request), 
-          id: :authorization_request_link,
-          class: %w(fr-link fr-text--xs), 
-          target: '_blank' 
-        %>
-      </span>
-    </div>
-  </header>
-
-  <section id="habilitation_main_token_infos" class="fr-pb-8v">
-    <h2 class="fr-h3 fr-mb-n-1v">
-      <%= t('.main_token.title') %>
-    </h2>
-    <div>
-      <%= render partial: 'shared/tokens/detail', 
-        locals: {
-          token: @main_token,
-        }
-      %>
-      <% @banned_tokens.each do |banned_token| %>
-        <%= render partial: 'shared/tokens/detail', 
-          locals: {
-            token: banned_token,
-          }
-        %>
-      <% end %>
-      <ul class="fr-btns-group--right fr-btns-group--inline-sm fr-btns-group--inline-reverse fr-btns-group--icon-right">
-        <li>
-          <a 
-            href="<%= token_path(id: @main_token.id) %>" 
-            id="show-token-modal-link"
-            class="fr-btn fr-btn--secondary fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w" 
-            aria-controls="main-modal" 
-            data-fr-opened="false" 
-            data-turbo-frame="main-modal-content"
-          >
-            <%= t('.modal.show.display_cta') %>
-          </a>
-        </li>
-        <% if policy(@main_token).prolong? %>
-          <li>
-            <a 
-              href="<%= token_prolong_path(id: @main_token.id) %>" 
-              id="prolong-token-modal-link"
-              class="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w" 
-              aria-controls="main-modal" 
-              data-fr-opened="false" 
-              data-turbo-frame="main-modal-content"
-            >
-              <%= t('.modal.prolong.display_cta') %>
-            </a>
-          </li>
-        <% end %>
-        <% if policy(@main_token).ask_for_prolongation? %>
-          <li>
-            <a 
-              href="<%= token_ask_for_prolongation_path(id: @main_token.id) %>" 
-              id="ask-for-prolongation-token-modal-link"
-              class="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w" 
-              aria-controls="main-modal" 
-              data-fr-opened="false" 
-              data-turbo-frame="main-modal-content"
-            >
-              <%= t('.modal.ask_for_prolongation.display_cta') %>
-            </a>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-  </section>
-  <section id="habilitation_old_tokens_infos" class="fr-accordion fr-mb-8v">
-    <h3 class="fr-accordion__title">
-      <button id="old_tokens_accordion_button" class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106">
-        <%= t('.old_tokens.title') %>
-      </button>
-    </h3>
-    <div class="fr-collapse" id="accordion-106">
-    <div class="fr-table fr-table--bordered fr-table--layout-fixed fr-m-0 fr-p-0">
-      <table>
-        <thead>
-            <tr>
-              <th scope="col"><%= t('.old_tokens.table.identifier')%></th>
-              <th scope="col"><%= t('.old_tokens.table.created_at')%></th>
-              <th scope="col"><%= t('.old_tokens.table.exp')%></th>
-              <th scope="col"><%= t('.old_tokens.table.total_calls')%></th>
-            </tr>
-        </thead>
-        <tbody>
-          <% @inactive_tokens.each do |token| %>
-            <tr id="<%= dom_id(token) %>" >
-              <td><%= token.id %></td>
-              <td><%= friendly_date_from_timestamp(token.created_at) %></td>
-              <td><%= friendly_date_from_timestamp(token.exp) %></td>
-              <td><%= @access_logs_counts[token] %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <% if policy(@main_token).attestations_scopes? %>
-    <section id="attestations_sociales_et_fiscales" class="fr-mb-8v">
-      <blockquote class="fr-highlight fr-m-0">
-        <h2 class="fr-h3 fr-mb-n0-5v">
-          <%= t('.attestations.title') %>
-        </h2>
-        <div>
-          <p>
-            <%= t('.attestations.description') %>
-            <br />
-            <%= link_to t('.attestations.cta'), attestations_path(selected_token: @main_token.id),class: %w[fr-btn fr-btn--secondary fr-mt-2w] %>
-          </p>
-        </div>
-      </blockquote>
-    </section>
-  <% end %>
-
-  <section id="habilitation_contacts_infos" class="fr-pb-8v">
-    <h2 class="fr-h3 fr-mb-n-1v">
-      <%= t('.contacts.title') %>
-    </h2>
-    <div class="fr-container--fluid">
-      <div class="fr-grid-row fr-grid-row--gutters">
-        <div id="contact_demandeur" class="fr-col">
-          <h3 class="fr-h4 fr-mb-n-1v">
-            <i class="fr-icon fr-icon-user-star-line fr-mr-1v" aria-hidden="true"></i>
-            <%= t('.contacts.demandeur.title') %>
-          </h3>
-          <div class="fr-card">
-            <% if @authorization_request.demandeur == current_user %>
-              <div class="fr-card__header">
-                <ul class="fr-badges-group fr-badges-group--right">
-                  <li>
-                    <p id="contact_demandeur_its_me" class="fr-badge fr-badge--blue-ecume">
-                      <%= t('.contacts.its_me') %>
-                    </p>
-                  </li>
-                </ul>
-              </div>
+    <div class="fr-col-12 fr-col-md-9">
+      <article class="article">
+        <header id="habilitation_main_info" class="fr-pb-8v">
+          <div>
+            <%= authorization_request_status_badge(@authorization_request) %>
+            <% if @authorization_request.demarche.present? %>
+              <span class="fr-badge fr-text--xs">
+                <i class="fr-icon-attachment-line fr-icon--sm fr-pr-1v" aria-hidden="true"></i>
+                <%= @authorization_request.demarche %>
+              </span>
             <% end %>
-            <div class="fr-card__body">
-              <div class="fr-card__content">
-                  <h4 class="fr-h5 fr-card__title">
-                    <%= @authorization_request.demandeur.full_name %>
-                  </h4>
-                  <p class="fr-card__desc">
-                    <%= @authorization_request.demandeur.email %>
-                  </p>
-              </div>
-            </div>
+            <h2 class="fr-h3 fr-mb-n0-5v"><%= @authorization_request.intitule %></h3>
           </div>
-        </div>
-        <% if @authorization_request.contact_metier.present? %>
-          <div id="contact_metier" class="fr-col">
-            <h3 class="fr-h4 fr-mb-n-1v">
-              <i class="fr-icon fr-icon-user-star-line fr-mr-1v" aria-hidden="true"></i>
-              <%= t('.contacts.contact_metier.title') %>
-            </h3>
-            <div class="fr-card">
-              <% if @authorization_request.contact_metier == current_user %>
-                <div class="fr-card__header">
-                  <ul class="fr-badges-group fr-badges-group--right">
-                    <li>
-                      <p id="contact_metier_its_me" class="fr-badge fr-badge--blue-ecume">
-                        <%= t('.contacts.its_me') %>
-                      </p>
-                    </li>
-                  </ul>
+          <div>
+            <span class="fr-text--xs">
+              <b><%= t('.delivered_at', humanized_date: friendly_format_from_timestamp(@authorization_request.created_at)) %></b>
+              - 
+              <%= link_to t('.links.to_datapass', external_id: @authorization_request.external_id).html_safe, 
+                datapass_authorization_request_url(@authorization_request), 
+                id: :authorization_request_link,
+                class: %w(fr-link fr-text--xs), 
+                target: '_blank' 
+              %>
+            </span>
+          </div>
+        </header>
+
+        <section id="habilitation_main_token_infos" class="fr-pb-8v">
+          <h2 class="fr-h3 fr-mb-n-1v">
+            <%= t('.main_token.title') %>
+          </h2>
+          <div>
+            <%= render partial: 'shared/tokens/detail', 
+              locals: {
+                token: @main_token,
+              }
+            %>
+            <% @banned_tokens.each do |banned_token| %>
+              <%= render partial: 'shared/tokens/detail', 
+                locals: {
+                  token: banned_token,
+                }
+              %>
+            <% end %>
+            <ul class="fr-btns-group--right fr-btns-group--inline-sm fr-btns-group--inline-reverse fr-btns-group--icon-right">
+              <li>
+                <a 
+                  href="<%= token_path(id: @main_token.id) %>" 
+                  id="show-token-modal-link"
+                  class="fr-btn fr-btn--secondary fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w" 
+                  aria-controls="main-modal" 
+                  data-fr-opened="false" 
+                  data-turbo-frame="main-modal-content"
+                >
+                  <%= t('.modal.show.display_cta') %>
+                </a>
+              </li>
+              <% if policy(@main_token).prolong? %>
+                <li>
+                  <a 
+                    href="<%= token_prolong_path(id: @main_token.id) %>" 
+                    id="prolong-token-modal-link"
+                    class="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w" 
+                    aria-controls="main-modal" 
+                    data-fr-opened="false" 
+                    data-turbo-frame="main-modal-content"
+                  >
+                    <%= t('.modal.prolong.display_cta') %>
+                  </a>
+                </li>
+              <% end %>
+              <% if policy(@main_token).ask_for_prolongation? %>
+                <li>
+                  <a 
+                    href="<%= token_ask_for_prolongation_path(id: @main_token.id) %>" 
+                    id="ask-for-prolongation-token-modal-link"
+                    class="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w" 
+                    aria-controls="main-modal" 
+                    data-fr-opened="false" 
+                    data-turbo-frame="main-modal-content"
+                  >
+                    <%= t('.modal.ask_for_prolongation.display_cta') %>
+                  </a>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </section>
+
+        <section id="habilitation_old_tokens_infos" class="fr-accordion fr-mb-8v">
+          <h3 class="fr-accordion__title">
+            <button id="old_tokens_accordion_button" class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106">
+              <%= t('.old_tokens.title') %>
+            </button>
+          </h3>
+          <div class="fr-collapse" id="accordion-106" />
+          <div class="fr-table fr-table--bordered fr-table--layout-fixed fr-m-0 fr-p-0">
+            <table>
+              <thead>
+                  <tr>
+                    <th scope="col"><%= t('.old_tokens.table.identifier')%></th>
+                    <th scope="col"><%= t('.old_tokens.table.created_at')%></th>
+                    <th scope="col"><%= t('.old_tokens.table.exp')%></th>
+                    <th scope="col"><%= t('.old_tokens.table.total_calls')%></th>
+                  </tr>
+              </thead>
+              <tbody>
+                <% @inactive_tokens.each do |token| %>
+                  <tr id="<%= dom_id(token, :old_token_row) %>" >
+                    <td><%= token.id %></td>
+                    <td><%= friendly_date_from_timestamp(token.created_at) %></td>
+                    <td><%= friendly_date_from_timestamp(token.exp) %></td>
+                    <td><%= token.access_logs.count %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <% if policy(@main_token).attestations_scopes? %>
+          <section id="attestations_sociales_et_fiscales" class="fr-mb-8v">
+            <blockquote class="fr-highlight fr-m-0">
+              <h2 class="fr-h3 fr-mb-n0-5v">
+                <%= t('.attestations.title') %>
+              </h2>
+              <div>
+                <p>
+                  <%= t('.attestations.description') %>
+                  <br />
+                  <%= link_to t('.attestations.cta'), attestations_path(selected_token: @main_token.id),class: %w[fr-btn fr-btn--secondary fr-mt-2w] %>
+                </p>
+              </div>
+            </blockquote>
+          </section>
+        <% end %>
+
+        <section id="habilitation_contacts_infos" class="fr-pb-8v">
+          <h2 class="fr-h3 fr-mb-n-1v">
+            <%= t('.contacts.title') %>
+          </h2>
+          <div class="fr-container--fluid">
+            <div class="fr-grid-row fr-grid-row--gutters">
+              <div id="contact_demandeur" class="fr-col">
+                <h3 class="fr-h4 fr-mb-n-1v">
+                  <i class="fr-icon fr-icon-user-star-line fr-mr-1v" aria-hidden="true"></i>
+                  <%= t('.contacts.demandeur.title') %>
+                </h3>
+                <div class="fr-card">
+                  <% if @authorization_request.demandeur == current_user %>
+                    <div class="fr-card__header">
+                      <ul class="fr-badges-group fr-badges-group--right">
+                        <li>
+                          <p id="contact_demandeur_its_me" class="fr-badge fr-badge--blue-ecume">
+                            <%= t('.contacts.its_me') %>
+                          </p>
+                        </li>
+                      </ul>
+                    </div>
+                  <% end %>
+                  <div class="fr-card__body">
+                    <div class="fr-card__content">
+                        <h4 class="fr-h5 fr-card__title">
+                          <%= @authorization_request.demandeur.full_name %>
+                        </h4>
+                        <p class="fr-card__desc">
+                          <%= @authorization_request.demandeur.email %>
+                        </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <% if @authorization_request.contact_metier.present? %>
+                <div id="contact_metier" class="fr-col">
+                  <h3 class="fr-h4 fr-mb-n-1v">
+                    <i class="fr-icon fr-icon-user-star-line fr-mr-1v" aria-hidden="true"></i>
+                    <%= t('.contacts.contact_metier.title') %>
+                  </h3>
+                  <div class="fr-card">
+                    <% if @authorization_request.contact_metier == current_user %>
+                      <div class="fr-card__header">
+                        <ul class="fr-badges-group fr-badges-group--right">
+                          <li>
+                            <p id="contact_metier_its_me" class="fr-badge fr-badge--blue-ecume">
+                              <%= t('.contacts.its_me') %>
+                            </p>
+                          </li>
+                        </ul>
+                      </div>
+                    <% end %>
+                    <div class="fr-card__body">
+                      <div class="fr-card__content">
+                          <h4 class="fr-h5 fr-card__title">
+                            <%= @authorization_request.contact_metier.full_name %>
+                          </h4>
+                          <p class="fr-card__desc">
+                            <%= @authorization_request.contact_metier.email %>
+                          </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               <% end %>
-              <div class="fr-card__body">
-                <div class="fr-card__content">
-                    <h4 class="fr-h5 fr-card__title">
-                      <%= @authorization_request.contact_metier.full_name %>
-                    </h4>
-                    <p class="fr-card__desc">
-                      <%= @authorization_request.contact_metier.email %>
-                    </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        <% end %>
-        <% if @authorization_request.contact_technique.present? %>
-          <div id="contact_technique" class="fr-col">
-            <h3 class="fr-h4">
-              <i class="fr-icon fr-icon-user-star-line fr-mr-1v" aria-hidden="true"></i>
-              <%= t('.contacts.contact_technique.title') %>
-            </h3>
-            <div class="fr-card">
-              <% if @authorization_request.contact_technique == current_user %>
-                <div class="fr-card__header">
-                  <ul class="fr-badges-group fr-badges-group--right">
-                    <li>
-                      <p id="contact_technique_its_me" class="fr-badge fr-badge--blue-ecume">
-                        <%= t('.contacts.its_me') %>
-                      </p>
-                    </li>
-                  </ul>
+              <% if @authorization_request.contact_technique.present? %>
+                <div id="contact_technique" class="fr-col">
+                  <h3 class="fr-h4">
+                    <i class="fr-icon fr-icon-user-star-line fr-mr-1v" aria-hidden="true"></i>
+                    <%= t('.contacts.contact_technique.title') %>
+                  </h3>
+                  <div class="fr-card">
+                    <% if @authorization_request.contact_technique == current_user %>
+                      <div class="fr-card__header">
+                        <ul class="fr-badges-group fr-badges-group--right">
+                          <li>
+                            <p id="contact_technique_its_me" class="fr-badge fr-badge--blue-ecume">
+                              <%= t('.contacts.its_me') %>
+                            </p>
+                          </li>
+                        </ul>
+                      </div>
+                    <% end %>
+                    <div class="fr-card__body">
+                      <div class="fr-card__content">
+                          <h4 class="fr-h5 fr-card__title">
+                            <%= @authorization_request.contact_technique.full_name %>
+                          </h4>
+                          <p class="fr-card__desc">
+                            <%= @authorization_request.contact_technique.email %>
+                          </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               <% end %>
-              <div class="fr-card__body">
-                <div class="fr-card__content">
-                    <h4 class="fr-h5 fr-card__title">
-                      <%= @authorization_request.contact_technique.full_name %>
-                    </h4>
-                    <p class="fr-card__desc">
-                      <%= @authorization_request.contact_technique.email %>
-                    </p>
-                </div>
-              </div>
             </div>
           </div>
-        <% end %>
-      </div>
+        </section>
+      </article>
     </div>
-  </section>
-</article>
+  </div>
+</div>
