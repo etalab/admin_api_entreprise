@@ -13,13 +13,11 @@ class MagicLink < ApplicationRecord
   end
 
   def tokens(api: nil)
-    return [token] if token.present?
-
-    tokens_from_email(api:).to_a
-  end
-
-  def tokens_from_email(api: nil)
-    TokensAssociatedToEmailQuery.new(email:, api:).call
+    if token_id
+      Token.where(id: token_id)
+    else
+      TokensAssociatedToEmailQuery.new(email:, api:).call
+    end
   end
 
   def expired?

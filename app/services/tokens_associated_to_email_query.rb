@@ -7,14 +7,16 @@ class TokensAssociatedToEmailQuery
   end
 
   def call
-    return tokens.active_for(api).uniq if api
-
-    tokens.uniq
+    if api
+      tokens.active_for(api)
+    else
+      tokens
+    end
   end
 
   private
 
   def tokens
-    Token.joins(:users).where(users: { email: })
+    Token.distinct.joins(:users).where(users: { email: })
   end
 end

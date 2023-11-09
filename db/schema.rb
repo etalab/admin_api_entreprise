@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_07_094324) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_08_173009) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pgcrypto"
@@ -131,11 +131,11 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_07_094324) do
     t.datetime "updated_at", precision: nil, null: false
     t.integer "exp", null: false
     t.string "version"
-    t.json "days_left_notification_sent", default: [], null: false
+    t.jsonb "days_left_notification_sent", default: [], null: false
     t.string "temp_use_case"
     t.string "authorization_request_id"
     t.uuid "authorization_request_model_id", null: false
-    t.json "extra_info"
+    t.jsonb "extra_info", default: {}
     t.jsonb "scopes", default: [], null: false
     t.datetime "blacklisted_at"
     t.index ["created_at"], name: "index_tokens_on_created_at"

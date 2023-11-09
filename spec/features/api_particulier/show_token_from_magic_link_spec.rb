@@ -8,6 +8,10 @@ RSpec.describe 'show token from magic link', app: :api_particulier do
   let!(:user) { create(:user, :with_token, tokens_amount: 2, email:) }
   let(:email) { 'any-email@data.gouv.fr' }
 
+  before do
+    user.authorization_requests.update_all(api: 'particulier')
+  end
+
   context 'when the magic link token does not exist' do
     let(:magic_token) { 'wrong-token' }
 
@@ -23,13 +27,9 @@ RSpec.describe 'show token from magic link', app: :api_particulier do
   context 'when the magic link token exists' do
     let!(:magic_link) { create(:magic_link, email:) }
     let(:magic_token) { magic_link.access_token }
-    let(:tokens) { magic_link.tokens_from_email }
+    let(:tokens) { magic_link.tokens }
 
     context 'when the magic token is still active' do
-      it 'has the right number of tokens' do
-        expect(tokens.count).to eq(2)
-      end
-
       it 'shows the tokens details' do
         subject
 

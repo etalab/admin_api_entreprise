@@ -12,7 +12,7 @@ class Token < ApplicationRecord
   scope :not_blacklisted, -> { blacklisted_later.or(where(blacklisted_at: nil)) }
 
   scope :active, -> { not_blacklisted.unexpired }
-  scope :active_for, ->(api) { active.joins(:authorization_request).where(authorization_request: { api: }).uniq }
+  scope :active_for, ->(api) { distinct.active.joins(:authorization_request).where(authorization_request: { api: }).reorder(created_at: :desc) }
 
   has_many :users, through: :authorization_request
   has_many :contacts, through: :authorization_request
@@ -23,7 +23,7 @@ class Token < ApplicationRecord
   delegate :contacts_no_demandeur, :archived?, to: :authorization_request
 
   def rehash
-    AccessToken.create(token_payload)
+    AccessToken.create(jwt_data)
   end
 
   def access_scopes
@@ -66,9 +66,9 @@ class Token < ApplicationRecord
 
   private
 
-  def token_payload
+  def jwt_data
     payload = {
-      uid: demandeur&.id,
+      uid: id,
       jti: id,
       scopes:,
       sub: intitule,
