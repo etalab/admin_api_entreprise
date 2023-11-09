@@ -8,6 +8,7 @@ RSpec.describe 'token contacts page', app: :api_entreprise do
 
   before do
     login_as(user)
+
     visit token_contacts_path(token)
   end
 
@@ -18,19 +19,15 @@ RSpec.describe 'token contacts page', app: :api_entreprise do
       let(:authorization_request) { create(:authorization_request, :with_contact_metier, :with_contact_technique, :with_roles, roles: %i[demandeur contact_technique]) }
       let(:token) { create(:token, authorization_request:) }
 
-      it 'displays the metier contact data' do
+      it 'displays the metier contact, tech contact, and no button to update the contact data' do
         within('#' << dom_id(contact_metier)) do
           expect(page).to have_css("input[value='#{contact_metier.email}']")
         end
-      end
 
-      it 'displays the tech contact data' do
         within('#' << dom_id(contact_technique)) do
           expect(page).to have_css("input[value='#{contact_technique.email}']")
         end
-      end
 
-      it 'does not have a button to update the contact data' do
         expect(page).not_to have_button(dom_id(contact_technique, :edit_button))
       end
     end
