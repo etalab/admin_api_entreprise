@@ -4,6 +4,7 @@
   old_endpoint_uids:
     - 'dgfip/v3/attestations_fiscales'
   path: '/v4/dgfip/unites_legales/{siren}/attestation_fiscale'
+  ping_url: &dgfip_attestation_ping_url 'https://entreprise.api.gouv.fr/ping/dgfip/attestation_fiscale'
   perimeter: &dgfip_attestation_perimeter
     entity_type_description: |+
       Cette API délivre uniquement les attestations fiscales aux **✅ entreprises assujettis à l'impôt sur les sociétés (IS) et à la TVA.**.
@@ -153,7 +154,7 @@
         Plus d'informations disponibles dans le [BOFIP - Dispositions juridiques communes - Attestation de régularité fiscale](https://bofip.impots.gouv.fr/bofip/8485-PGP.html/identifiant%3DBOI-DJC-ARF-20161207){:target="_blank"}.
   historique: |+
     **Ce que change cette nouvelle version de l'API par rapport à la précédente :**
-    Ajout de nouvelles informations lorsque l'attestation est délivrée : 
+    Ajout de nouvelles informations lorsque l'attestation est délivrée :
     - Un champ `date_delivrance_attestation`, généralement la date de l'appel de l'attestation ;
     - Un champ `date_periode_analysee` indiquant la date butoire à laquelle la situation de l'entreprise a été analysée, ayant induit la délivrance de l'attestation.
 
@@ -164,6 +165,7 @@
   new_endpoint_uids:
     - 'dgfip/attestations_fiscales'
   path: '/v3/dgfip/unites_legales/{siren}/attestation_fiscale'
+  ping_url: *dgfip_attestation_ping_url
   perimeter: *dgfip_attestation_perimeter
   opening: *dgfip_attestation_opening
   call_id: *dgfip_attestation_call_id
