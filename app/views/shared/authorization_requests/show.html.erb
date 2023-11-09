@@ -110,7 +110,7 @@
               <td><%= token.id %></td>
               <td><%= friendly_date_from_timestamp(token.created_at) %></td>
               <td><%= friendly_date_from_timestamp(token.exp) %></td>
-              <td><%= token.access_logs.count %></td>
+              <td><%= @access_logs_counts[token] %></td>
             </tr>
           <% end %>
         </tbody>
