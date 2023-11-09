@@ -1,0 +1,15 @@
+<nav role="navigation" class="fr-breadcrumb fr-mb-0" aria-label="vous êtes ici :">
+  <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">Voir le fil d’Ariane</button>
+  <div class="fr-collapse" id="breadcrumb-1">
+    <ol class="fr-breadcrumb__list">
+      <li>
+        <%= link_to t('.index'), user_profile_path, class: %w(fr-breadcrumb__link) %>
+      </li>
+      <li>
+        <a class="fr-breadcrumb__link" aria-current="page">
+          <%= t('.current_page', datapass_id: authorization_request.external_id).html_safe %>
+        </a>
+      </li>
+    </ol>
+  </div>
+</nav>

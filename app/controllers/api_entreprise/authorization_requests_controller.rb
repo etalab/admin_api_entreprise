@@ -3,6 +3,8 @@
 class APIEntreprise::AuthorizationRequestsController < APIEntreprise::AuthenticatedUsersController
   include AuthorizationRequestsManagement
 
+  layout :resolve_layout
+
   def index
     @authorization_requests = current_user
       .authorization_requests
@@ -13,5 +15,16 @@ class APIEntreprise::AuthorizationRequestsController < APIEntreprise::Authentica
       .order(
         first_submitted_at: :desc
       )
+  end
+
+  private
+
+  def resolve_layout
+    case action_name
+    when 'index'
+      'api_entreprise/authenticated_user'
+    else
+      'api_entreprise/application'
+    end
   end
 end
