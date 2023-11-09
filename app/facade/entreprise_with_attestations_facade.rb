@@ -29,11 +29,11 @@ class EntrepriseWithAttestationsFacade
   delegate :categorie_entreprise, to: :entreprise
 
   def with_attestation_fiscale?
-    attestation_scope_service.include_attestation_fiscale?(@token)
+    attestations_scope_service.include_attestation_fiscale?(@token)
   end
 
   def with_attestation_sociale?
-    attestation_scope_service.include_attestation_sociale?(@token)
+    attestations_scope_service.include_attestation_sociale?(@token)
   end
 
   private
