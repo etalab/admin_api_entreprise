@@ -47,8 +47,8 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
       expect(ScheduleAuthorizationRequestEmailJob).to have_been_enqueued.exactly(:once).with(
         authorization_request.id,
         authorization_request.status,
+        'send_application',
         hash_including(
-          template_name: 'send_application',
           to: [
             {
               'email' => authorization_request.demandeur.email,
@@ -108,8 +108,8 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
         expect(ScheduleAuthorizationRequestEmailJob).to have_been_enqueued.exactly(:once).with(
           authorization_request.id,
           authorization_request.status,
+          'review_application',
           hash_including(
-            template_name: 'review_application',
             to: [
               {
                 'email' => authorization_request.demandeur.email,
@@ -138,8 +138,8 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
           expect(ScheduleAuthorizationRequestEmailJob).to have_been_enqueued.exactly(:once).with(
             authorization_request.id,
             authorization_request.status,
+            'review_application',
             hash_including(
-              template_name: 'review_application',
               to: [
                 {
                   'email' => authorization_request.demandeur.email,
@@ -152,8 +152,8 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
           expect(ScheduleAuthorizationRequestEmailJob).to have_been_enqueued.exactly(:once).with(
             authorization_request.id,
             authorization_request.status,
+            'review_application_2',
             hash_including(
-              template_name: 'review_application_2',
               to: [
                 {
                   'email' => authorization_request.contact_metier.email,
@@ -201,8 +201,8 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
           expect(ScheduleAuthorizationRequestEmailJob).to have_been_enqueued.exactly(:once).with(
             authorization_request.id,
             authorization_request.status,
+            'review_application',
             hash_including(
-              template_name: 'review_application',
               to: [
                 {
                   'email' => authorization_request.demandeur.email,

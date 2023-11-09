@@ -8,7 +8,8 @@ RSpec.describe ScheduleAuthorizationRequestEmailJob do
       described_class.perform_now(
         authorization_request_id,
         authorization_request_status,
-        mail_attributes
+        template_name,
+        recipients
       )
     end
 
@@ -21,10 +22,8 @@ RSpec.describe ScheduleAuthorizationRequestEmailJob do
     let(:template_name) { 'email_template' }
     let(:vars) { {} }
 
-    let(:mail_attributes) do
+    let(:recipients) do
       {
-        template_name:,
-        vars:,
         to: [
           {
             email: to_user.email,
@@ -91,38 +90,6 @@ RSpec.describe ScheduleAuthorizationRequestEmailJob do
         )
 
         subject
-      end
-
-      context 'when there is cc field in attributes' do
-        let(:cc_contact_main) { create(:user, :with_full_name) }
-        let(:cc_contact_other) { create(:user, :with_full_name) }
-
-        before do
-          mail_attributes[:cc] = [
-            {
-              email: cc_contact_main.email,
-              full_name: cc_contact_main.full_name
-            },
-            {
-              email: cc_contact_other.email,
-              full_name: cc_contact_other.full_name
-            }
-          ]
-        end
-
-        it 'calls AuthorizationRequestMailer with the CC field for these users' do
-          expect(APIEntreprise::AuthorizationRequestMailer).to receive(:email_template).with(
-            {
-              to: [{ email: to_user.email, full_name: to_user.full_name }],
-              cc: [
-                { email: cc_contact_main.email, full_name: cc_contact_main.full_name },
-                { email: cc_contact_other.email, full_name: cc_contact_other.full_name }
-              ]
-            }
-          )
-
-          subject
-        end
       end
     end
   end

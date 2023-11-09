@@ -13,7 +13,8 @@ class DatapassWebhook::ScheduleAuthorizationRequestEmails < ApplicationInteracto
     ScheduleAuthorizationRequestEmailJob.set(wait_until: extract_when_time(email_config['when'])).perform_later(
       context.authorization_request.id,
       context.authorization_request.status,
-      build_attributes(email_config)
+      email_config['template'],
+      recipients_payload(email_config)
     )
   end
 
@@ -21,12 +22,6 @@ class DatapassWebhook::ScheduleAuthorizationRequestEmails < ApplicationInteracto
     return true if condition_on_authorization.nil?
 
     AuthorizationRequestConditionFacade.new(context.authorization_request).public_send(condition_on_authorization)
-  end
-
-  def build_attributes(email_config)
-    {
-      template_name: email_config['template']
-    }.compact.merge(recipients_payload(email_config))
   end
 
   def recipients_payload(email_config)
