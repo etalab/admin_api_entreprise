@@ -69,8 +69,9 @@ class Seeds
 
   def create_api_entreprise_token_valid
     create_token(
-      @scopes_entreprise.sample(2),
+      %w[open_data unites_legales_etablissements_insee attestation_sociale_urssaf attestation_fiscale_dgfip],
       'entreprise',
+      token_params: { id: '00000000-0000-0000-0000-000000000000' },
       demandeur: @user,
       contact_technique: @contact,
       authorization_request_params: {
@@ -78,7 +79,7 @@ class Seeds
         external_id: 102,
         status: :validated,
         first_submitted_at: 2.weeks.ago,
-        siret: '012345678901234'
+        siret: '12000101100010'
       }
     )
   end

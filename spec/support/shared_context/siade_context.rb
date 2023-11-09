@@ -1,5 +1,5 @@
 RSpec.shared_context 'with siade payloads' do
-  let(:payload_error) { { errors: ['Siade error msg'] }.to_json }
+  let(:payload_error) { { errors: [{ detail: 'Siade error msg' }] }.to_json }
 
   let(:payload_entreprise) do
     File.read('spec/fixtures/insee_unite_legale_example.json')
