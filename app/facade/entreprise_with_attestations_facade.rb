@@ -13,11 +13,11 @@ class EntrepriseWithAttestationsFacade
   end
 
   def retrieve_attestation_sociale
-    @attestation_sociale_url = attestation_sociale_result if @token_scopes.include? 'attestations_sociales'
+    @attestation_sociale_url = attestation_sociale_result if @token_scopes.intersect?(attestation_sociale_scopes)
   end
 
   def retrieve_attestation_fiscale
-    @attestation_fiscale_url = attestation_fiscale_result if @token_scopes.include? 'attestations_fiscales'
+    @attestation_fiscale_url = attestation_fiscale_result if @token_scopes.intersect?(attestation_fiscale_scopes)
   end
 
   def entreprise_naf_full
@@ -61,6 +61,14 @@ class EntrepriseWithAttestationsFacade
 
   def siade_client
     @siade_client ||= Siade.new(token: @token)
+  end
+
+  def attestation_sociale_scopes
+    attestations_scope_service.attestation_sociale_scopes
+  end
+
+  def attestation_fiscale_scopes
+    attestations_scope_service.attestation_fiscale_scopes
   end
 
   def attestations_scope_service
