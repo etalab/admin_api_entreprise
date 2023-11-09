@@ -1,4 +1,4 @@
-RSpec.describe 'displays authorization requests', app: :api_particulier do
+RSpec.describe 'displays show of authorization request', app: :api_particulier do
   subject(:go_to_authorization_requests_show) do
     visit api_particulier_authorization_requests_show_path(id: authorization_request.id)
   end
