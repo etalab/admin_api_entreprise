@@ -1,0 +1,13 @@
+<div class="fr-container">
+  <div class="fr-row">
+    <div class="fr-col-12">
+      <h1 class="fr-h1">
+        <% if @authorization_requests.empty? %>
+          <%= t('.no_authorization_requests') %>
+        <% else %>
+          <%= t('.title', api_label: t(".#{@authorization_requests.first.api}"), count: @authorization_requests.count) %>
+        <% end %>
+      </h1>
+    </div>
+  </div>
+</div>
