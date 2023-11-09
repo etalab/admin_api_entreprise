@@ -27,6 +27,14 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
     create(:token, authorization_request:, exp:, blacklisted_at:, scopes:)
   end
 
+  let!(:old_tokens) do
+    [
+      create(:token, authorization_request:, exp: 1.day.ago, blacklisted_at: 1.day.from_now, scopes:),
+      create(:token, authorization_request:, exp: 1.day.from_now, blacklisted_at: 1.day.ago, scopes:),
+      create(:token, authorization_request:, exp: 1.day.ago, blacklisted_at: 1.day.ago, scopes:)
+    ]
+  end
+
   let!(:scopes) { [] }
 
   let!(:banned_token) { create(:token, authorization_request:, exp:, blacklisted_at: 1.day.from_now) }
@@ -238,6 +246,16 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
               expect(page).not_to have_css('#contact_metier')
               expect(page).to have_css('#contact_technique')
               expect(page).to have_css('#contact_technique_its_me')
+            end
+
+            it 'displays old tokens accordion' do
+              expect(page).to have_css('#old_tokens_accordion_button')
+
+              old_tokens.each do |old_token|
+                expect(page).to have_css('#' << dom_id(old_token))
+              end
+
+              expect(page).not_to have_css('#' << dom_id(token))
             end
           end
 
