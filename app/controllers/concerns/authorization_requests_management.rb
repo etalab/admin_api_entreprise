@@ -15,6 +15,18 @@ module AuthorizationRequestsManagement
     redirect_current_user_to_homepage
   end
 
+  def list
+    @authorization_requests = current_user
+      .authorization_requests
+      .where(api:)
+      .submitted_at_least_once
+      .order(
+        first_submitted_at: :desc
+      )
+
+    render 'shared/authorization_requests/index', layout: "#{namespace}/application"
+  end
+
   private
 
   def extract_authorization_request
