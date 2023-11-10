@@ -40,6 +40,7 @@ Contrairement aux personnes gravitant dans la sphère administrative, **les usag
 - [API Statut étudiant](https://particulier.api.gouv.fr/catalogue/mesri/statut_etudiant#parameters_details) - _Code COG facultatif_
 
 L'utilisation du code COG comme référence pour appeler les API est peu susceptible d'évoluer. En intégrant ces API dans vos démarches, il est donc nécessaire de bien concevoir le parcours d'un usager ne passant pas par FranceConnect afin que la saisie de son code COG de naissance ne pose pas de problème.
+<br/>
 
 ## <a name="ne-pas-faire"></a>❌ Ne pas faire : un champ "Code COG" sans explication
 
@@ -53,7 +54,7 @@ Ce n'est pas anodin pour votre démarche car cela peut avoir les conséquences s
 **Dans ce guide, nous vous proposons donc deux parcours différents conçus pour faciliter le renseignement de ce paramètre d'appel** : 
 - **[Le parcours 1](#option-1)** nécessite peu de développement informatique, l'expérience usager est correcte, même si elle fait reposer sur l'usager la contrainte de retrouver son code COG ; 
 - **[Le parcours 2](#option-2)** est d'un niveau d'intégration plus complexe, l'expérience usager est privéligiée.
-
+<br/>
 
 ## <a name="option-1"></a> ✅ Option 1 : Saisie du code COG par l'usager, accompagné d'un tutoriel
 
@@ -153,6 +154,7 @@ Dans cette seconde option, le renseignement du code COG pour appeler l'API est t
 > - **Séparer les champs "lieu de naissance" des particuliers nés en France et ceux nés à l'étranger**. En effet, un champ commun risque de mettre en difficulté les usagers nés à l'étranger qui vont peut-être saisir leur commune de naissance à l'étranger. L'auto-compléteur ne pourra pas gérer une telle complexité.
 > - **Proposer un auto-compléteur**, pour permettre à l'usager de saisir son code postal ou sa commune en toutes lettres. Afficher systématiquement le code postal, le nom de la commune et le département pour s'assurer que l'usager sélectionnera la bonne commune de naissance.
 
+<br/>
 
 {:.fr-h5}
 ### Certaines difficultés à considérer :
@@ -162,6 +164,7 @@ Le Code COG et le nom d'une commune peut varier dans le temps pour cause de fusi
 Ces difficultés sont quasi inexistantes pour :
 -  l'[API Statut étudiant](https://particulier.api.gouv.fr/catalogue/mesri/statut_etudiant#parameters_details), simplement parce que la majorité des particuliers concernés sont jeunes, leur code COG est donc facile à retrouver
 - les personnes nées à l'étranger car les codes COG des pays étrangers n'ont jamais varié.
+<br/>
 
 {:.fr-h5}
 ### Des outils déjà disponibles pour vous aider à intégrer cette solution :
