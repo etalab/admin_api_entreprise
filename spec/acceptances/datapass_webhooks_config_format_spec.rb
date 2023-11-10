@@ -33,7 +33,7 @@ RSpec.describe 'Datapass webhook config formats', type: :acceptance do
           expect(config['emails']).to be_a(Array), "File #{file}: [#{env}] #{event} has an emails key which is not an array"
 
           config['emails'].each_with_index do |email_config, index|
-            expect(email_config['id']).to be_present, "File #{file}: [#{env}] #{event} emails ##{index + 1} has no id key"
+            expect(email_config['template']).to be_present, "File #{file}: [#{env}] #{event} emails ##{index + 1} has no template name"
 
             if email_config['when'].present?
               date = Chronic.parse(email_config['when'])
@@ -65,6 +65,26 @@ RSpec.describe 'Datapass webhook config formats', type: :acceptance do
 
             result = AuthorizationRequestConditionFacade.new(dummy_authorization_request).public_send(method)
             expect(result).to be_an_instance_of(TrueClass).or(be_an_instance_of(FalseClass)), "File #{file}: [#{env}] #{event} emails ##{index + 1} condition_on_authorization: AuthorizationRequestConditionFacade##{method} does not returns a boolean"
+          end
+        end
+      end
+    end
+  end
+
+  it 'has only template names corresponding to AuthorizationRequestMailer methods' do
+    files.each do |file|
+      config = YAML.load_file(file, aliases: true)
+
+      mailer_klass = file.to_path.include?('particulier') ? APIParticulier::AuthorizationRequestMailer : APIEntreprise::AuthorizationRequestMailer
+
+      config.each_key do |env|
+        next if %w[development test].include?(env)
+
+        config[env].each_key do |event|
+          next if config[env][event].blank?
+
+          config[env][event]['emails'].each do |email|
+            expect(mailer_klass).to respond_to(email['template'].to_sym)
           end
         end
       end
