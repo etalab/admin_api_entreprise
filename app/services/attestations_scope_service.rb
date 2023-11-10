@@ -15,8 +15,6 @@ class AttestationsScopeService
     attestations_scopes(token).intersect? attestation_fiscale_scopes
   end
 
-  private
-
   def attestation_sociale_scopes
     %w[attestations_sociales attestation_sociale_urssaf]
   end
@@ -24,6 +22,8 @@ class AttestationsScopeService
   def attestation_fiscale_scopes
     %w[attestations_fiscales attestation_fiscale_dgfip]
   end
+
+  private
 
   def attestations_codes
     attestation_sociale_scopes + attestation_fiscale_scopes

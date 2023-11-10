@@ -1,11 +1,7 @@
 class Siade
   def initialize(token:)
     @token = token
-    @token_rehash = if Rails.env.development?
-                      File.read('config/apientreprise_test_token')
-                    else
-                      token.rehash
-                    end
+    @token_rehash = token.rehash
   end
 
   def entreprises(siren:)
@@ -75,7 +71,7 @@ class Siade
   end
 
   def extract_error_msg(error)
-    JSON.parse(error.http_body)['errors'].first
+    JSON.parse(error.http_body)['errors'].first['detail']
   end
 
   def check_presence!(siret_or_siren)
