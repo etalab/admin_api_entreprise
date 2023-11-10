@@ -1,10 +1,4 @@
 class AttestationPolicy < ApplicationPolicy
-  attr_reader :user
-
-  def initialize(user, _attestation)
-    @user = user
-  end
-
   def any?
     any_token_with_attestation_scopes?
   end

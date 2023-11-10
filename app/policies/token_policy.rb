@@ -1,10 +1,5 @@
 class TokenPolicy < ApplicationPolicy
-  attr_reader :user, :token
-
-  def initialize(user, token)
-    @user = user
-    @token = token
-  end
+  alias_method :token, :record
 
   def ask_for_prolongation?
     !demandeur? && token.day_left < 90
