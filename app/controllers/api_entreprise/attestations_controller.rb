@@ -42,7 +42,7 @@ class APIEntreprise::AttestationsController < APIEntreprise::AuthenticatedUsersC
   end
 
   def authorize!
-    authorize :attestation, :any?
+    authorize :download_attestations, :any?
   end
 
   def flash_error(error)

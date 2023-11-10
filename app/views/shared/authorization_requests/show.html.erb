@@ -20,12 +20,12 @@
           <div>
             <span class="fr-text--xs">
               <b><%= t('.delivered_at', humanized_date: friendly_format_from_timestamp(@authorization_request.created_at)) %></b>
-              - 
-              <%= link_to t('.links.to_datapass', external_id: @authorization_request.external_id).html_safe, 
-                datapass_authorization_request_url(@authorization_request), 
+              -
+              <%= link_to t('.links.to_datapass', external_id: @authorization_request.external_id).html_safe,
+                datapass_authorization_request_url(@authorization_request),
                 id: :authorization_request_link,
-                class: %w(fr-link fr-text--xs), 
-                target: '_blank' 
+                class: %w(fr-link fr-text--xs),
+                target: '_blank'
               %>
             </span>
           </div>
@@ -36,13 +36,13 @@
             <%= t('.main_token.title') %>
           </h2>
           <div>
-            <%= render partial: 'shared/tokens/detail', 
+            <%= render partial: 'shared/tokens/detail',
               locals: {
                 token: @main_token,
               }
             %>
             <% @banned_tokens.each do |banned_token| %>
-              <%= render partial: 'shared/tokens/detail', 
+              <%= render partial: 'shared/tokens/detail',
                 locals: {
                   token: banned_token,
                 }
@@ -50,12 +50,12 @@
             <% end %>
             <ul class="fr-btns-group--right fr-btns-group--inline-sm fr-btns-group--inline-reverse fr-btns-group--icon-right">
               <li>
-                <a 
-                  href="<%= token_path(id: @main_token.id) %>" 
+                <a
+                  href="<%= token_path(id: @main_token.id) %>"
                   id="show-token-modal-link"
-                  class="fr-btn fr-btn--secondary fr-icon-eye-fill fr-btn--icon-right fr-mt-2w" 
-                  aria-controls="main-modal" 
-                  data-fr-opened="false" 
+                  class="fr-btn fr-btn--secondary fr-icon-eye-fill fr-btn--icon-right fr-mt-2w"
+                  aria-controls="main-modal"
+                  data-fr-opened="false"
                   data-turbo-frame="main-modal-content"
                 >
                   <%= t('.modal.show.display_cta') %>
@@ -63,12 +63,12 @@
               </li>
               <% if policy(@main_token).prolong? %>
                 <li>
-                  <a 
-                    href="<%= token_prolong_path(id: @main_token.id) %>" 
+                  <a
+                    href="<%= token_prolong_path(id: @main_token.id) %>"
                     id="prolong-token-modal-link"
-                    class="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w" 
-                    aria-controls="main-modal" 
-                    data-fr-opened="false" 
+                    class="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w"
+                    aria-controls="main-modal"
+                    data-fr-opened="false"
                     data-turbo-frame="main-modal-content"
                   >
                     <%= t('.modal.prolong.display_cta') %>
@@ -77,12 +77,12 @@
               <% end %>
               <% if policy(@main_token).ask_for_prolongation? %>
                 <li>
-                  <a 
-                    href="<%= token_ask_for_prolongation_path(id: @main_token.id) %>" 
+                  <a
+                    href="<%= token_ask_for_prolongation_path(id: @main_token.id) %>"
                     id="ask-for-prolongation-token-modal-link"
-                    class="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w" 
-                    aria-controls="main-modal" 
-                    data-fr-opened="false" 
+                    class="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w"
+                    aria-controls="main-modal"
+                    data-fr-opened="false"
                     data-turbo-frame="main-modal-content"
                   >
                     <%= t('.modal.ask_for_prolongation.display_cta') %>
@@ -124,7 +124,7 @@
           </div>
         </section>
 
-        <% if policy(@main_token).attestations_scopes? %>
+        <% if policy(@main_token).download_attestations? %>
           <section id="attestations_sociales_et_fiscales" class="fr-mb-8v">
             <blockquote class="fr-highlight fr-m-0">
               <h2 class="fr-h3 fr-mb-n0-5v">
