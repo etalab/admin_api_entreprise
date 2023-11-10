@@ -88,7 +88,7 @@ production: &production
         to:
           - 'authorization_request.demandeur'
 
-      - template: 'embarquement_valide_to_tech_cc_metier'
+      - template: 'embarquement_valide_to_tech_cc_demandeur_metier'
         condition_on_authorization: 'not_editor_and_all_contacts_have_different_emails?'
         to:
           - 'authorization_request.contact_technique'
@@ -115,7 +115,7 @@ production: &production
         to:
           - 'authorization_request.demandeur'
 
-      - template: 'embarquement_demande_to_tech_cc_demandeur_metier'
+      - template: 'embarquement_valide_to_tech_cc_demandeur_metier'
         condition_on_authorization: 'not_editor_and_user_is_contact_metier_and_not_contact_technique?'
         to:
           - 'authorization_request.contact_technique'

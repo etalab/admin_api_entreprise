@@ -10,7 +10,7 @@ class APIParticulier::AuthorizationRequestMailerPreview < ActionMailer::Preview
 
     embarquement_valide_to_demandeur_is_tech
     embarquement_valide_to_demandeur_seulement
-    embarquement_valide_to_tech_cc_demandeur_metier
+    embarquement_valide_to_tech_cc_demandeur
 
     enquete_satisfaction
   ].each do |method|
