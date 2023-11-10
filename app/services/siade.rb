@@ -1,32 +1,23 @@
 class Siade
   def initialize(token:)
     @token = token
-    @token_rehash = token.rehash
   end
 
   def entreprises(siren:)
-    check_presence!(siren)
-
     siade_result("v3/insee/sirene/unites_legales/#{siren}")
   end
 
   def attestations_sociales(siren:)
-    check_presence!(siren)
-
     siade_result("v4/urssaf/unites_legales/#{siren}/attestation_vigilance")
   end
 
   def attestations_fiscales(siren:)
-    check_presence!(siren)
-
     siade_result("v4/dgfip/unites_legales/#{siren}/attestation_fiscale")
   end
 
   private
 
   def siade_result(endpoint)
-    return unless endpoint && @token_rehash
-
     result = siade_request(endpoint)
 
     JSON.parse(result).try(:[], 'data')
@@ -43,11 +34,17 @@ class Siade
   end
 
   def siade_params
-    { context:, recipient:, object: }
+    {
+      context:,
+      recipient:,
+      object:
+    }
   end
 
   def siade_headers
-    { Authorization: "Bearer #{@token_rehash}" }
+    {
+      Authorization: "Bearer #{@token.rehash}"
+    }
   end
 
   def domain
@@ -72,9 +69,5 @@ class Siade
 
   def extract_error_msg(error)
     JSON.parse(error.http_body)['errors'].first['detail']
-  end
-
-  def check_presence!(siret_or_siren)
-    raise SiadeClientError.new(422, 'Champ SIRET ou SIREN non rempli') if siret_or_siren.blank?
   end
 end
