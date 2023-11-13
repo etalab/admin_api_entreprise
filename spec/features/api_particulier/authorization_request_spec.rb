@@ -188,8 +188,8 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
               expect(page).not_to have_css('#contact_technique')
             end
 
-            it 'displays the side menu' do
-              expect(page).to have_css('#side_menu')
+            it 'displays the summary' do
+              expect(page).to have_css('#summary')
               expect(page).to have_css('#habilitation_main_token_infos_link')
               expect(page).to have_css('#habilitation_contacts_infos_link')
               expect(page).not_to have_css('#attestations_sociales_et_fiscales_link')
