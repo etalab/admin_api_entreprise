@@ -5,7 +5,7 @@
     <%= t(".no_token.description", status: t(".no_token.status.#{token.authorization_request.status}")) %>
   </div>
 <% else %>
-  <div class="fr-pb-6v">
+  <div id="<%= dom_id(token) %>" class="fr-pb-6v">
     <div class="fr-pb-2v">
       <p class="fr-badge fr-badge--<%= t(".status.color.#{token.status}") %>">
       <%= t(".status.label.#{token.status}") %>

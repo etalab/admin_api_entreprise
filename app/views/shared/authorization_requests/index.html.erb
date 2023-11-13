@@ -65,6 +65,13 @@
                   token: authorization_request.token.decorate
                 }
               %>
+              <% authorization_request.tokens.blacklisted_later.decorate.each do |banned_token| %> 
+                <%= render partial: 'shared/tokens/detail_short', 
+                  locals: {
+                    token: banned_token.decorate
+                  }
+                %>
+            <% end %>
             </div>
             <div class="fr-col-12 fr-col-md-6 fr-col-lg-3">
             </div>

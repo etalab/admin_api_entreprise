@@ -54,13 +54,23 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
     end
 
     describe 'when the user has authorization requests' do
+      let!(:tokens) do
+        [
+          token_active,
+          token_blacklisted_later,
+          token_expired,
+          token_blacklisted
+        ]
+      end
+
       let!(:token_active) { create(:token, authorization_request:) }
+      let!(:token_blacklisted_later) { create(:token, :blacklisted, blacklisted_at: 1.day.from_now, authorization_request:) }
       let!(:authorization_request_active) do
         create(
           :authorization_request,
           :with_demandeur,
           :validated,
-          tokens: [token_active],
+          tokens: [token_active, token_blacklisted_later],
           demandeur: authenticated_user,
           api: 'particulier'
         )
@@ -111,6 +121,12 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
         authorization_requests.each do |ar|
           expect(page).to have_css('#' << dom_id(ar))
         end
+
+        tokens.each do |token|
+          expect(page).to have_css('#' << dom_id(token))
+        end
+
+        expect(page).not_to have_css('#' << dom_id(token_archived))
 
         expect(page).to have_text('☠️ Expiré')
         expect(page).to have_text('🚫 Banni')
