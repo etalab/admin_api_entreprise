@@ -38,12 +38,12 @@
             <div class="fr-col-12 fr-col-md-6 fr-col-lg-3">
               <%= authorization_request_status_badge(authorization_request) %>
               <span class="fr-hint-text">
-              <%= link_to t('.links.to_datapass', external_id: authorization_request.external_id).html_safe, 
-                datapass_authorization_request_url(authorization_request), 
-                id: dom_id(authorization_request, :authorization_request_link),
-                class: %w(fr-link fr-text--xs), 
-                target: '_blank' 
-              %>
+                <%= link_to t('.links.to_datapass', external_id: authorization_request.external_id).html_safe, 
+                  datapass_authorization_request_url(authorization_request), 
+                  id: dom_id(authorization_request, :authorization_request_link),
+                  class: %w(fr-link fr-text--xs), 
+                  target: '_blank' 
+                %>
               </span>
               <strong><%= authorization_request.intitule %></strong>
               <br />
@@ -62,7 +62,7 @@
             <div class="fr-col-12 fr-col-md-6 fr-col-lg-4">
               <%= render partial: 'shared/tokens/detail_short', 
                 locals: {
-                  token: authorization_request.token.decorate,
+                  token: authorization_request.token.decorate
                 }
               %>
             </div>

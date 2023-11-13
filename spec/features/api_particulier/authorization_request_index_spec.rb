@@ -18,11 +18,13 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
   let!(:authorization_request_active) { nil }
   let!(:authorization_request_expired) { nil }
   let!(:authorization_request_blacklisted) { nil }
+  let!(:authorization_request_archived) { nil }
   let!(:authorization_requests) do
     [
       authorization_request_active,
       authorization_request_expired,
-      authorization_request_blacklisted
+      authorization_request_blacklisted,
+      authorization_request_archived
     ]
   end
 
@@ -88,10 +90,23 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
         )
       end
 
+      let!(:token_archived) { create(:token, authorization_request:) }
+      let!(:authorization_request_archived) do
+        create(
+          :authorization_request,
+          :with_demandeur,
+          :submitted,
+          status: 'archived',
+          tokens: [token_archived],
+          demandeur: authenticated_user,
+          api: 'particulier'
+        )
+      end
+
       it 'displays the page' do
         expect(page).to have_current_path(api_particulier_authorization_requests_list_path, ignore_query: true)
 
-        expect(page).to have_content('Habilitations API Particulier (3)')
+        expect(page).to have_content('Habilitations API Particulier (4)')
 
         authorization_requests.each do |ar|
           expect(page).to have_css('#' << dom_id(ar))
@@ -100,6 +115,8 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
         expect(page).to have_text('☠️ Expiré')
         expect(page).to have_text('🚫 Banni')
         expect(page).to have_text('🔑 Nouveau jeton à utiliser')
+
+        expect(page).to have_text('Cette demande ayant été archivée, aucun jeton ne peut être demandé')
       end
     end
   end
