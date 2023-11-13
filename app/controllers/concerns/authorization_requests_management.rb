@@ -20,9 +20,10 @@ module AuthorizationRequestsManagement
       .authorization_requests
       .where(api:)
       .submitted_at_least_once
+      .viewable_by_users
       .order(
         first_submitted_at: :desc
-      )
+      ).includes(:active_token)
 
     render 'shared/authorization_requests/index', layout: "#{namespace}/application"
   end

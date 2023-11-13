@@ -1,0 +1,20 @@
+<div class="fr-pb-6v">
+  <div class="fr-pb-2v">
+    <p class="fr-badge fr-badge--<%= t(".status.color.#{token.status}") %>">
+    <%= t(".status.label.#{token.status}") %>
+    </p>
+    <span class="fr-text--xs">
+      <%= friendly_date_from_timestamp(token.end_timestamp)%>
+    </span>
+  </div>
+  <p class="fr-mb-1v">
+  |  <%= t(".expiration_date", 
+        expiration_date: friendly_date_from_timestamp(token.end_timestamp)
+       ).html_safe %>
+  </p>
+  <p class="fr-mb-1v">
+    <span class="fr-text--xs">ID: <%= token.id %></span>
+  </p>
+</div>
+
+
