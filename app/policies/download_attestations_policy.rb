@@ -12,6 +12,21 @@ class DownloadAttestationsPolicy < ApplicationPolicy
       )
   end
 
+  def attestation_sociale?
+    %w[attestations_sociales attestation_sociale_urssaf].intersect?(scopes)
+  end
+
+  def attestation_fiscale?
+    %w[attestations_fiscales attestation_fiscale_dgfip].intersect?(scopes)
+  end
+
+  def possible_attestations_count
+    count = 0
+    count += 1 if attestation_sociale?
+    count += 1 if attestation_fiscale?
+    count
+  end
+
   private
 
   def demandeur?
@@ -29,14 +44,6 @@ class DownloadAttestationsPolicy < ApplicationPolicy
       user:,
       role:
     ).any?
-  end
-
-  def attestation_sociale?
-    %w[attestations_sociales attestation_sociale_urssaf].intersect?(scopes)
-  end
-
-  def attestation_fiscale?
-    %w[attestations_fiscales attestation_fiscale_dgfip].intersect?(scopes)
   end
 
   def scopes

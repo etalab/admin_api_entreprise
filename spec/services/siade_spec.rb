@@ -1,7 +1,27 @@
 require 'rails_helper'
 
 RSpec.describe Siade, type: :service do
-  include_context 'with siade payloads'
+  let(:payload_error) { { errors: [{ detail: 'error' }] }.to_json }
+
+  let(:payload_entreprise) do
+    File.read('spec/fixtures/insee_unite_legale_example.json')
+  end
+
+  let(:payload_attestation_sociale) do
+    {
+      data: {
+        document_url: 'https://entreprise.api.gouv.fr/files/attestation-vigilance-urssaf-exemple.pdf'
+      }
+    }.to_json
+  end
+
+  let(:payload_attestation_fiscale) do
+    {
+      data: {
+        document_url: 'https://entreprise.api.gouv.fr/files/attestation-fiscale-dgfip-exemple.pdf'
+      }
+    }.to_json
+  end
 
   let(:authorization_request) { create(:authorization_request, siret: siret_valid) }
   let(:token) { create(:token, authorization_request:) }
@@ -20,7 +40,7 @@ RSpec.describe Siade, type: :service do
   end
   let(:siren) { siren_valid }
 
-  describe '#entreprise', type: :request do
+  describe '#entreprise' do
     subject { described_class.new(token:).entreprises(siren:) }
 
     let(:endpoint_url) { "#{siade_url}/v3/insee/sirene/unites_legales/#{siren}" }
@@ -46,13 +66,13 @@ RSpec.describe Siade, type: :service do
 
       it 'raises SiadeClientError' do
         expect { subject }.to raise_error(
-          an_instance_of(SiadeClientError).and(having_attributes(code: 404, message: 'Siade error msg'))
+          an_instance_of(SiadeClientError).and(having_attributes(code: 404, message: 'error'))
         )
       end
     end
   end
 
-  describe '#attestations_sociales', type: :request do
+  describe '#attestations_sociales' do
     subject { described_class.new(token:).attestations_sociales(siren:) }
 
     let(:endpoint_url) { "#{siade_url}/v4/urssaf/unites_legales/#{siren}/attestation_vigilance" }
@@ -65,7 +85,7 @@ RSpec.describe Siade, type: :service do
       end
 
       it 'returns correct result' do
-        expect(subject['document_url']).to eq('https://storage.entreprise.api.gouv.fr/url-de-telechargement-attestation-vigilance.pdf')
+        expect(subject['document_url']).to eq('https://entreprise.api.gouv.fr/files/attestation-vigilance-urssaf-exemple.pdf')
       end
     end
 
@@ -78,13 +98,13 @@ RSpec.describe Siade, type: :service do
 
       it 'raises SiadeClientError' do
         expect { subject }.to raise_error(
-          an_instance_of(SiadeClientError).and(having_attributes(code: 401, message: 'Siade error msg'))
+          an_instance_of(SiadeClientError).and(having_attributes(code: 401, message: 'error'))
         )
       end
     end
   end
 
-  describe '#attestations_fiscales', type: :request do
+  describe '#attestations_fiscales' do
     subject { described_class.new(token:).attestations_fiscales(siren:) }
 
     let(:endpoint_url) { "#{siade_url}/v4/dgfip/unites_legales/#{siren}/attestation_fiscale" }
@@ -110,7 +130,7 @@ RSpec.describe Siade, type: :service do
 
       it 'raises SiadeClientError' do
         expect { subject }.to raise_error(
-          an_instance_of(SiadeClientError).and(having_attributes(code: 422, message: 'Siade error msg'))
+          an_instance_of(SiadeClientError).and(having_attributes(code: 422, message: 'error'))
         )
       end
     end
