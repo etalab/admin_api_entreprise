@@ -47,17 +47,12 @@
               </span>
               <strong><%= authorization_request.intitule %></strong>
               <br />
-<<<<<<< Updated upstream
-              <br />
-              <span class="fr-text--regular">demandeur</span>
-=======
               <span class="fr-text--sm">
                 <%= authorization_request.user_authorization_request_roles.for_user(@current_user).map { |uarr|
                   I18n.t("user_authorization_request_roles.role.#{uarr.role}")
                   }.join(', ')
                 %>
               </span>
->>>>>>> Stashed changes
             </div>
             <div class="fr-col-12 fr-col-md-6 fr-col-lg-4">
               <%= render partial: 'shared/tokens/detail_short', 

@@ -1,5 +1,10 @@
 class AuthorizationRequest < ApplicationRecord
-  has_many :user_authorization_request_roles, dependent: :nullify
+  has_many :user_authorization_request_roles, dependent: :nullify do
+    def for_user(user)
+      where(user:)
+    end
+  end
+
   has_many :users, through: :user_authorization_request_roles, source: :user
 
   has_many :tokens,
