@@ -19,7 +19,7 @@ class APIEntreprise::DownloadAttestationsController < APIEntreprise::Authenticat
         format.html { render 'create' }
       end
     else
-      affect_error(@attestation_facade.error)
+      display_error(@attestation_facade.error)
 
       redirect_to attestations_path
     end
@@ -46,7 +46,7 @@ class APIEntreprise::DownloadAttestationsController < APIEntreprise::Authenticat
     end
   end
 
-  def affect_error(error)
+  def display_error(error)
     flash_message(
       :error,
       title: 'Erreur lors de la recherche',
