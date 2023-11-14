@@ -13,20 +13,7 @@ RSpec.describe APIParticulier::NewTokensController do
         session[:current_user_id] = user_id
       end
 
-      context 'when there is not matching csv file' do
-        let(:user_id) { '1234567890' }
-
-        it { is_expected.to have_http_status(:found) }
-      end
-
       context 'when there is a matching csv file' do
-        before do
-          allow(File).to receive_messages(
-            read: true,
-            exist?: true
-          )
-        end
-
         let!(:user) { create(:user) }
         let(:user_id) { user.id }
 
