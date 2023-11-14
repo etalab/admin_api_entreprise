@@ -79,7 +79,7 @@ RSpec.describe 'Download attestations', app: :api_entreprise do
       )
     end
 
-    context 'when it succeed' do
+    context 'when it succeeds' do
       let(:success) { true }
 
       it 'calls facade with valid attributes' do

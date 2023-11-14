@@ -18,7 +18,7 @@ RSpec.describe EntrepriseWithAttestationsFacade do
     allow(siade_double).to receive(:attestations_fiscales).and_raise(SiadeClientError.new('403', 'Forbidden'))
   end
 
-  context 'when entreprise can be retrieve' do
+  context 'when entreprise can be retrieved' do
     before do
       allow(siade_double).to receive(:entreprises).and_return(attributes_for(:entreprise))
     end
