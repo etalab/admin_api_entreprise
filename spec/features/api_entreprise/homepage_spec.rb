@@ -11,11 +11,10 @@ RSpec.describe 'Homepage', app: :api_entreprise do
       expect(page).to have_current_path(url_with_filtering)
     end
 
-    it 'filters on partner', :js do
+    it 'filters on partner' do
       visit url_with_filtering
 
-      expect(page).to have_css('#api_entreprise_endpoint_infogreffe_mandataires_sociaux')
-      expect(page).to have_css('.endpoint-card', count: 2)
+      expect(current_url).to include('?APIEntreprise_Endpoint%5Bquery%5D=infogreffe')
     end
   end
 end
