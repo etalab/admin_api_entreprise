@@ -1,0 +1,43 @@
+<div class="fr-callout fr-mt-4w fr-text--regular" id="attestations-result">
+  <p class="fr-callout__title">
+    <%= @attestation_facade.entreprise.raison_sociale %>
+  </p>
+  <p>
+    <strong><%= t('.company_type.label') %></strong>
+    <%= @attestation_facade.entreprise.forme_juridique_libelle %>
+  </p>
+  <p>
+    <strong><%= t('.company_category.label') %></strong>
+    <%= @attestation_facade.entreprise.categorie_entreprise %>
+  </p>
+  <p>
+    <strong><%= t('.naf_code.label') %></strong>
+    <%= @attestation_facade.entreprise.naf %>
+  </p>
+
+  <div class="buttons-wrapper">
+    <% if @attestation_facade.attestation_sociale_url  %>
+      <%= link_to @attestation_facade.attestation_sociale_url, class: "fr-btn fr-m-1w", id: 'attestation-sociale-download', target: "_blank" do %>
+        <span class="fr-icon-download-line" aria-hidden="true"></span>
+        &nbsp;
+        <%= t('.download_attestation_sociale_cta') %>
+      <% end %>
+    <% else %>
+      <span class="fr-btn fr-m-1w fr-btn--secondary cta-button-disabled center" disabled>
+        <%= t('.attestation_sociale_not_downloadable') %>
+      </span>
+    <% end %>
+
+    <% if @attestation_facade.attestation_fiscale_url %>
+      <%= link_to @attestation_facade.attestation_fiscale_url, class: "fr-btn fr-m-1w", id: 'attestation-fiscale-download', target: "_blank"  do %>
+        <span class="fr-icon-download-line" aria-hidden="true"></span>
+        &nbsp;
+        <%= t('.download_attestation_fiscale_cta') %>
+      <% end %>
+    <% else %>
+      <span class="fr-btn fr-m-1w fr-btn--secondary cta-button-disabled center" disabled>
+        <%= t('.attestation_fiscale_not_downloadable') %>
+      </span>
+    <% end %>
+  </div>
+</div>

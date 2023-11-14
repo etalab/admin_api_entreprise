@@ -22,6 +22,11 @@ FactoryBot.define do
       elsif token.authorization_request_id
         token.authorization_request.external_id = token.authorization_request_id
       end
+
+      if evaluator.intitule != token.authorization_request.intitule
+        token.authorization_request.intitule = evaluator.intitule
+        token.authorization_request.save! if token.authorization_request.persisted?
+      end
     end
 
     trait :with_api_particulier do

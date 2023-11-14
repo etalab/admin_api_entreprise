@@ -25,8 +25,8 @@ constraints(APIEntrepriseDomainConstraint.new) do
     get '/compte/demandes', to: 'authorization_requests#index', as: :authorization_requests
     get '/compte/demandes/:id', to: 'authorization_requests#show', as: :authorization_requests_show
 
-    get '/compte/telecharcher-documents', to: 'attestations#index', as: :attestations
-    post '/compte/telecharcher-documents/rechercher-siret', to: 'attestations#search', as: :search_attestations
+    get '/compte/telecharcher-documents', to: 'download_attestations#new', as: :attestations
+    post '/compte/telecharcher-documents', to: 'download_attestations#create', as: :search_attestations
 
     get '/compte/jetons', to: 'tokens#index', as: :user_tokens
     post '/compte/jetons/:id/partager', to: 'restricted_token_magic_links#create', as: :token_create_magic_link

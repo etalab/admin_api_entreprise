@@ -17,9 +17,9 @@
           </a>
         </li>
 
-        <% if policy(:attestation).any? %>
-          <li class="fr-sidemenu__item <%= current_page?(controller: 'attestations', action: 'index') ? 'fr-sidemenu__item--active' : '' %>">
-            <a class="fr-sidemenu__link" id='attestations-download'href="<%= attestations_path %>" target="_self" <%= current_page?(controller: 'attestations', action: 'index') ? 'aria-current=page' : '' %>>
+        <% if policy(:download_attestations).any? %>
+          <li class="fr-sidemenu__item <%= current_page?(controller: 'download_attestations', action: 'new') ? 'fr-sidemenu__item--active' : '' %>">
+            <a class="fr-sidemenu__link" id='attestations-download' href="<%= attestations_path %>" target="_self" <%= current_page?(controller: 'download_attestations', action: 'new') ? 'aria-current=page' : '' %>>
             <%= t('.download_attestations') %>
             </a>
           </li>

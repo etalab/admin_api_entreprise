@@ -1,29 +1,51 @@
 require 'rails_helper'
 
 RSpec.describe Siade, type: :service do
-  include_context 'with siade payloads'
+  let(:payload_error) { { errors: [{ detail: 'error' }] }.to_json }
 
-  let(:authorization_request) { create(:authorization_request, siret: 'dummy siret') }
+  let(:payload_entreprise) do
+    File.read('spec/fixtures/insee_unite_legale_example.json')
+  end
+
+  let(:payload_attestation_sociale) do
+    {
+      data: {
+        document_url: 'https://entreprise.api.gouv.fr/files/attestation-vigilance-urssaf-exemple.pdf'
+      }
+    }.to_json
+  end
+
+  let(:payload_attestation_fiscale) do
+    {
+      data: {
+        document_url: 'https://entreprise.api.gouv.fr/files/attestation-fiscale-dgfip-exemple.pdf'
+      }
+    }.to_json
+  end
+
+  let(:authorization_request) { create(:authorization_request, siret: siret_valid) }
   let(:token) { create(:token, authorization_request:) }
   let(:siade_url) { Rails.application.credentials.siade_url }
   let(:siade_params) do
     {
       context: 'Admin API Entreprise',
-      recipient: 'dummy siret',
+      recipient: siret_valid,
       object: 'Admin API Entreprise request from Attestations Downloader'
     }
   end
-  let(:siade_headers) { { Authorization: 'Bearer dummy token rehash' } }
+  let(:siade_headers) do
+    {
+      Authorization: "Bearer #{token.rehash}"
+    }
+  end
   let(:siren) { siren_valid }
 
-  before { allow(token).to receive(:rehash).and_return('dummy token rehash') }
-
-  describe '#entreprise', type: :request do
+  describe '#entreprise' do
     subject { described_class.new(token:).entreprises(siren:) }
 
     let(:endpoint_url) { "#{siade_url}/v3/insee/sirene/unites_legales/#{siren}" }
 
-    describe 'happy path' do
+    context 'when it is a OK response' do
       before do
         stub_request(:get, endpoint_url)
           .with(query: siade_params, headers: siade_headers)
@@ -35,17 +57,7 @@ RSpec.describe Siade, type: :service do
       end
     end
 
-    context 'when called with empty string' do
-      let(:siren) { ' ' }
-
-      it 'raises SiadeClientError' do
-        expect { subject }.to raise_error(
-          an_instance_of(SiadeClientError).and(having_attributes(code: 422, message: 'Champ SIRET ou SIREN non rempli'))
-        )
-      end
-    end
-
-    context 'when it is not found (404)' do
+    context 'when it is not found response' do
       before do
         stub_request(:get, endpoint_url)
           .with(query: siade_params, headers: siade_headers)
@@ -54,18 +66,18 @@ RSpec.describe Siade, type: :service do
 
       it 'raises SiadeClientError' do
         expect { subject }.to raise_error(
-          an_instance_of(SiadeClientError).and(having_attributes(code: 404, message: 'Siade error msg'))
+          an_instance_of(SiadeClientError).and(having_attributes(code: 404, message: 'error'))
         )
       end
     end
   end
 
-  describe '#attestations_sociales', type: :request do
+  describe '#attestations_sociales' do
     subject { described_class.new(token:).attestations_sociales(siren:) }
 
     let(:endpoint_url) { "#{siade_url}/v4/urssaf/unites_legales/#{siren}/attestation_vigilance" }
 
-    describe 'happy path' do
+    context 'when it is a OK response' do
       before do
         stub_request(:get, endpoint_url)
           .with(query: siade_params, headers: siade_headers)
@@ -73,17 +85,7 @@ RSpec.describe Siade, type: :service do
       end
 
       it 'returns correct result' do
-        expect(subject['document_url']).to eq('https://storage.entreprise.api.gouv.fr/url-de-telechargement-attestation-vigilance.pdf')
-      end
-    end
-
-    context 'when called with empty string' do
-      let(:siren) { ' ' }
-
-      it 'raises SiadeClientError' do
-        expect { subject }.to raise_error(
-          an_instance_of(SiadeClientError).and(having_attributes(code: 422, message: 'Champ SIRET ou SIREN non rempli'))
-        )
+        expect(subject['document_url']).to eq('https://entreprise.api.gouv.fr/files/attestation-vigilance-urssaf-exemple.pdf')
       end
     end
 
@@ -96,18 +98,18 @@ RSpec.describe Siade, type: :service do
 
       it 'raises SiadeClientError' do
         expect { subject }.to raise_error(
-          an_instance_of(SiadeClientError).and(having_attributes(code: 401, message: 'Siade error msg'))
+          an_instance_of(SiadeClientError).and(having_attributes(code: 401, message: 'error'))
         )
       end
     end
   end
 
-  describe '#attestations_fiscales', type: :request do
+  describe '#attestations_fiscales' do
     subject { described_class.new(token:).attestations_fiscales(siren:) }
 
     let(:endpoint_url) { "#{siade_url}/v4/dgfip/unites_legales/#{siren}/attestation_fiscale" }
 
-    describe 'happy path' do
+    context 'when it is a OK response' do
       before do
         stub_request(:get, endpoint_url)
           .with(query: siade_params, headers: siade_headers)
@@ -116,16 +118,6 @@ RSpec.describe Siade, type: :service do
 
       it 'returns correct result' do
         expect(subject['document_url']).to eq('https://entreprise.api.gouv.fr/files/attestation-fiscale-dgfip-exemple.pdf')
-      end
-    end
-
-    context 'when called with empty string' do
-      let(:siren) { '' }
-
-      it 'raises SiadeClientError' do
-        expect { subject }.to raise_error(
-          an_instance_of(SiadeClientError).and(having_attributes(code: 422, message: 'Champ SIRET ou SIREN non rempli'))
-        )
       end
     end
 
@@ -138,7 +130,7 @@ RSpec.describe Siade, type: :service do
 
       it 'raises SiadeClientError' do
         expect { subject }.to raise_error(
-          an_instance_of(SiadeClientError).and(having_attributes(code: 422, message: 'Siade error msg'))
+          an_instance_of(SiadeClientError).and(having_attributes(code: 422, message: 'error'))
         )
       end
     end

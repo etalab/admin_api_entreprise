@@ -1,10 +1,5 @@
 class TokenPolicy < ApplicationPolicy
-  attr_reader :user, :token
-
-  def initialize(user, token)
-    @user = user
-    @token = token
-  end
+  alias token record
 
   def ask_for_prolongation?
     !demandeur? && token.day_left < 90
@@ -18,8 +13,8 @@ class TokenPolicy < ApplicationPolicy
     demandeur? && token.day_left < 90
   end
 
-  def attestations_scopes?
-    (demandeur? || contact_metier?) && attestations_scope_service.attestations_scopes(token).any?
+  def download_attestations?
+    DownloadAttestationsPolicy.new(user, token).any?
   end
 
   private
@@ -37,10 +32,6 @@ class TokenPolicy < ApplicationPolicy
   end
 
   def authorization_request
-    @authorization_request ||= @token.authorization_request
-  end
-
-  def attestations_scope_service
-    @attestations_scope_service ||= AttestationsScopeService.new
+    @authorization_request ||= token.authorization_request
   end
 end

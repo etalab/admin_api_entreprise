@@ -38,12 +38,12 @@ FactoryBot.define do
       end
 
       after(:create) do |u, evaluator|
-        evaluator.tokens_amount.times do
+        evaluator.tokens_amount.times do |i|
           create(
             :token,
             :with_specific_scopes,
             specific_scopes: evaluator.scopes,
-            intitule: "Token with scopes: #{evaluator.scopes}",
+            intitule: "Token ##{i + 1} with scopes: #{evaluator.scopes}",
             authorization_request: create(:authorization_request, :with_demandeur, demandeur: u)
           )
         end
