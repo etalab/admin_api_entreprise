@@ -16,8 +16,8 @@ RSpec.describe 'token contacts page', app: :api_entreprise do
     let(:user) { authorization_request.demandeur }
 
     context 'when accessing his own data' do
-      let(:authorization_request) { create(:authorization_request, :with_contact_metier, :with_contact_technique, :with_roles, roles: %i[demandeur contact_technique]) }
-      let(:token) { create(:token, authorization_request:) }
+      let!(:authorization_request) { create(:authorization_request, :with_contact_metier, :with_contact_technique, :with_roles, roles: %i[demandeur contact_technique]) }
+      let!(:token) { create(:token, authorization_request:) }
 
       it 'displays the metier contact, tech contact, and no button to update the contact data' do
         within('#' << dom_id(contact_metier)) do
