@@ -69,20 +69,34 @@
             <% end %>
             </div>
             <div class="fr-col-12 fr-col-md-6 fr-col-lg-3 center">
-              <% if authorization_request.tokens.blacklisted_later.any? %>
-                <p class="fr-text--sm fr-mb-1v fr-text-default--warning">
-                  <%= t('.modal.show.description') %>
-                </p>
-                <a
-                  href="<%= token_path(id: authorization_request.token.id) %>"
-                  id="<%= dom_id(authorization_request, :show_token_modal_link) %>"
-                  class="fr-btn fr-icon-eye-fill fr-btn--icon-right fr-mt-2w"
-                  aria-controls="main-modal"
-                  data-fr-opened="false"
-                  data-turbo-frame="main-modal-content"
-                >
-                  <%= t('.modal.show.display_cta') %>
-                </a>
+              <% if authorization_request.status == 'validated' %>
+                <% if authorization_request.tokens.blacklisted_later.any? %>
+                  <p class="fr-text--sm fr-mb-1v fr-text-default--warning">
+                    <%= t('.modal.show.description') %>
+                  </p>
+                  <a
+                    href="<%= token_path(id: authorization_request.token.id) %>"
+                    id="<%= dom_id(authorization_request, :show_token_modal_link) %>"
+                    class="fr-btn fr-icon-eye-fill fr-btn--icon-right fr-mt-2w"
+                    aria-controls="main-modal"
+                    data-fr-opened="false"
+                    data-turbo-frame="main-modal-content"
+                  >
+                    <%= t('.modal.show.display_cta') %>
+                  </a>
+                <% end %>
+                <% if policy(authorization_request.token).prolong? %>
+                  <a
+                    href="<%= token_prolong_path(id: authorization_request.token.id) %>"
+                    id="<%= dom_id(authorization_request, :prolong_token_modal_link) %>"
+                    class="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w"
+                    aria-controls="main-modal"
+                    data-fr-opened="false"
+                    data-turbo-frame="main-modal-content"
+                  >
+                    <%= t('.modal.prolong.display_cta') %>
+                  </a>
+                <% end %>
               <% end %>
             </div>
             <div class="fr-col-12 fr-col-md-6 fr-col-lg-2 center">

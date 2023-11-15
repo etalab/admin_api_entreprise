@@ -63,7 +63,7 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
         ]
       end
 
-      let!(:token_active) { create(:token, authorization_request:) }
+      let!(:token_active) { create(:token, authorization_request:, exp: 70.days.from_now) }
       let!(:token_blacklisted_later) { create(:token, :blacklisted, blacklisted_at: 1.day.from_now, authorization_request:) }
       let!(:authorization_request_active) do
         create(
@@ -137,6 +137,13 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
 
       it 'displays the button to view the token details' do
         expect(page).to have_css('#' << dom_id(authorization_request_active, :show_token_modal_link))
+        expect(page).not_to have_css('#' << dom_id(authorization_request_blacklisted, :show_token_modal_link))
+        expect(page).not_to have_css('#' << dom_id(authorization_request_archived, :show_token_modal_link))
+      end
+
+      it 'displays the button to prolong the token' do
+        expect(page).to have_css('#' << dom_id(authorization_request_active, :prolong_token_modal_link))
+        expect(page).not_to have_css('#' << dom_id(authorization_request_archived, :prolong_token_modal_link))
       end
     end
   end

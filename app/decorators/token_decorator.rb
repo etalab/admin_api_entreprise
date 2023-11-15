@@ -1,10 +1,8 @@
 class TokenDecorator < ApplicationDecorator
   delegate_all
 
-  def end_timestamp
-    return blacklisted_at.to_i if blacklisted_at.present?
-
-    exp
+  def day_left
+    @day_left ||= (end_timestamp - Time.zone.now.to_i) / 86_400
   end
 
   def passed_time_as_ratio
@@ -23,10 +21,6 @@ class TokenDecorator < ApplicationDecorator
     return 'new_token' if access_logs.empty?
 
     'active'
-  end
-
-  def day_left
-    @day_left ||= (end_timestamp - Time.zone.now.to_i) / 86_400
   end
 
   def progress_bar_color
