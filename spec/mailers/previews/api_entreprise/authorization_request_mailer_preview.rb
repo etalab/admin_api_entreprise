@@ -29,6 +29,6 @@ class APIEntreprise::AuthorizationRequestMailerPreview < ActionMailer::Preview
   def cc; end
 
   def authorization_request
-    AuthorizationRequest.where(api: 'entreprise').first
+    AuthorizationRequest.with_tokens_for('entreprise').first
   end
 end
