@@ -134,6 +134,10 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
 
         expect(page).to have_text('Cette demande ayant été archivée, aucun jeton ne peut être demandé')
       end
+
+      it 'displays the button to view the token details' do
+        expect(page).to have_css('#' << dom_id(authorization_request_active, :show_token_modal_link))
+      end
     end
   end
 end
