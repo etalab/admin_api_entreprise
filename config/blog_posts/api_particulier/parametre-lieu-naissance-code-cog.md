@@ -45,14 +45,14 @@ L'utilisation du code COG comme référence pour appeler les API est peu suscept
 ## <a name="ne-pas-faire"></a>❌ Ne pas faire : un champ "Code COG" sans explication
 
 {:.fr-text--lg}
-Il faut éviter de proposer un champ "Code COG" brut, sans explication. Ce champ pourrait être incompris par l'usager et donc être mal complété. 
+Il faut éviter de proposer un champ "Code COG" brut, sans explication. Ce champ pourrait être incompris par l'usager et donc être mal complété.
 
 Ce n'est pas anodin pour votre démarche car cela peut avoir les conséquences suivantes :
-- L'usager fait demi-tour car l'interface ne fonctionne pas ; 
+- L'usager fait demi-tour car l'interface ne fonctionne pas ;
 - L'usager renseigne un autre code COG, et ces informations correpondent à l'identité d'un autre individu. Même si, bien sûr, ce cas est peu probable et que votre interface ne divulgue en aucun cas les informations de l'API sans que l'identification de l'usager n'ait été certifiée, cela est susceptible d'entrainer une confusion auprès des agents habilités qui traiteront le dossier.
 
-**Dans ce guide, nous vous proposons donc deux parcours différents conçus pour faciliter le renseignement de ce paramètre d'appel** : 
-- **[Le parcours 1](#option-1)** nécessite peu de développement informatique, l'expérience usager est correcte, même si elle fait reposer sur l'usager la contrainte de retrouver son code COG ; 
+**Dans ce guide, nous vous proposons donc deux parcours différents conçus pour faciliter le renseignement de ce paramètre d'appel** :
+- **[Le parcours 1](#option-1)** nécessite peu de développement informatique, l'expérience usager est correcte, même si elle fait reposer sur l'usager la contrainte de retrouver son code COG ;
 - **[Le parcours 2](#option-2)** est d'un niveau d'intégration plus complexe, l'expérience usager est privéligiée.
 <br/>
 
@@ -69,10 +69,10 @@ Le code COG correspond aux 6, 7, 8, 9 et 10<sup>èmes</sup> chiffres du numéro 
 - Les personnes étrangères n'ont pas de numéro de sécurité sociale tant qu'elles n'ont pas effectué les [démarches nécessaires].
 
 **Cependant, pour la majorité des cas, le numéro de sécurité sociale figure sur :**
-- **la carte Vitale**, qui est attribuée à tous les ayant droits de plus de 15 ans français ou résidant en France, accessible dès 12 ans ; 
+- **la carte Vitale**, qui est attribuée à tous les ayant droits de plus de 15 ans français ou résidant en France, accessible dès 12 ans ;
 - **l'attestation de droits** (attestation Vitale) et sur les bulletins de salaires.
 
-Et pour les personnes nées à l'étranger, le code COG est trouvable dans [cette liste de l'Insee](https://www.insee.fr/fr/information/2028273){:target="_blank"}. 
+Et pour les personnes nées à l'étranger, le code COG est trouvable dans [cette liste de l'Insee](https://www.insee.fr/fr/information/2028273){:target="_blank"}.
 
 {:.fr-h5}
 #### Exemple d'interface recommandée
@@ -82,7 +82,7 @@ Le parcours 1 propose donc de s'appuyer sur le numéro de sécurité sociale pou
 
 
 {:.fr-highlight}
-> 💡 **Caractéristiques** : 
+> 💡 **Caractéristiques** :
 > - Proposer un champ "Code COG de votre lieu de naissance" et montrer un exemple du format attendu.
 > - Rendre accessible, à côté du champ de saisie, un tutoriel pour que l'usager retrouve son code COG.
 
@@ -91,7 +91,7 @@ Le parcours 1 propose donc de s'appuyer sur le numéro de sécurité sociale pou
  <div class="fr-grid-row fr-grid-row--gutters">
   <div class="fr-col-md-6 fr-col-12">
    <img src="<%= image_path('api_particulier/blog/lieu-naissance-code-cog-carte-vitale-1.png') %>" class="fr-responsive-img" alt="[Maquette du champ COG à partir de la carte vitale]"/>
-  </div> 
+  </div>
   <div class="fr-col-12 fr-col-md-6">
    <img src="<%= image_path('api_particulier/blog/lieu-naissance-code-cog-carte-vitale-2.png') %>" class="fr-responsive-img" alt="[Maquette du tutoriel pour récupérer le code COG à partir de la carte Vitale]"/>
   </div>
@@ -104,16 +104,16 @@ Le parcours 1 propose donc de s'appuyer sur le numéro de sécurité sociale pou
   </button>
  </h3>
  <div class="fr-collapse" id="accordion-1">
-  
+
   **Comment retrouver mon code COG ?**
-  
+
   Le code COG de votre lieu de naissance est un identifiant géographique administratif. ⚠️ Ce code est différent du code postal.
   - **Si vous êtes né en France**, les deux premiers chiffres correspondent à votre département de naissance. Les trois suivants codifient votre commune de naissance.
   - **Si vous êtes né à l’étranger**, les deux premiers chiffres sont 99, les trois suivants codifient votre pays de naissance.
 
   **À partir de votre numéro de sécurité sociale, sur votre carte Vitale :**
   Votre code COG de naissance correspond aux 6, 7, 8, 9 et 10ème chiffres de votre numéro de sécurité sociale. Exemple : Pour ce numéro de sécurité sociale fictif 1 85 05 78 006 084 36,  le code COG est 78 006.
-   
+
   **Vous n’avez pas de carte Vitale ?**
   Si vous êtes assuré à la sécurité sociale française, votre numéro de sécurité sociale figure sur votre attestation de droit disponible sur ameli.fr [https://assure.ameli.fr](https://assure.ameli.fr){:target="_blank"}. Si vous êtes salarié, il figure également sur vos bulletins de salaires.<br/>
   Si vous êtes né à l’étranger, vous pouvez trouver le code COG de votre pays de naissance dans cette liste de l’Insee : [https://www.insee.fr/fr/information/2028273](https://www.insee.fr/fr/information/2028273){:target="_blank"}.
@@ -131,7 +131,7 @@ Le parcours 1 propose donc de s'appuyer sur le numéro de sécurité sociale pou
 ## <a name="option-2"></a>✅ Option 2 : Année et lieu de naissance saisis par l'usager, code code déduit en arrière-plan
 
 {:.fr-text--lg}
-Dans cette seconde option, le renseignement du code COG pour appeler l'API est totalement transparent pour l'usager, qui n'aura qu'à compléter sa date et son lieu de naissance. 
+Dans cette seconde option, le renseignement du code COG pour appeler l'API est totalement transparent pour l'usager, qui n'aura qu'à compléter sa date et son lieu de naissance.
 
 {:.fr-h5}
 ### Exemple d'interface recommandée :
@@ -140,7 +140,7 @@ Dans cette seconde option, le renseignement du code COG pour appeler l'API est t
  <div class="fr-grid-row fr-grid-row--gutters">
   <div class="fr-col-md-6 fr-col-12">
    <img src="<%= image_path('api_particulier/blog/lieu-naissance-code-cog-backoffice-1.png') %>" class="fr-responsive-img" alt="[Maquette saisie date et lieu de naissance]"/>
-  </div> 
+  </div>
   <div class="fr-col-12 fr-col-md-6">
    <img src="<%= image_path('api_particulier/blog/lieu-naissance-code-cog-backoffice-3.png') %>" class="fr-responsive-img" alt="[Maquette saisie date et lieu de naissance, autocompléteur ouvert]"/>
   </div>
@@ -148,7 +148,7 @@ Dans cette seconde option, le renseignement du code COG pour appeler l'API est t
 </div>
 
 {:.fr-highlight}
-> **💡 Caractéristiques** : 
+> **💡 Caractéristiques** :
 > - **Retrouver le code COG en arrière-plan, à partir des informations saisies par l'usager** : une fois que l'année et le lieu de naissance ont été complétés par l'usager et que celui-ci clique pour passer à l'étape suivante, les informations obtenues (*nom de la commune* & *code département de naissance* ou *pays de naissance* ; *année de naissance*) sont traitées en arrière-plan pour être converties en code COG.
 > - **Rendre l'année de naissance obligatoire**, car elle est indispensable pour retrouver le code COG. En revanche, le jour et le mois de naissance restent facultatifs.
 > - **Séparer les champs "lieu de naissance" des particuliers nés en France et ceux nés à l'étranger**. En effet, un champ commun risque de mettre en difficulté les usagers nés à l'étranger qui vont peut-être saisir leur commune de naissance à l'étranger. L'auto-compléteur ne pourra pas gérer une telle complexité.
@@ -171,8 +171,9 @@ Ces difficultés sont quasi inexistantes pour :
 
 - **📍 Une Webapp pour retrouver le code COG**
   Cette [webapp](https://github.com/skelz0r/identite_pivot_code_insee_naissance_lookup){:target="_blank"}, gérée par l'équipe API Particulier, permet de retrouver le code COG à partir des informations *nom de la commune* & *code département de naissance* ou *pays de naissance* ; *année de naissance*.
-- **📍 Les autocompléteurs, déjà disponibles sur data.gouv.fr**
-  TODO
+- **📍 L'API Adresse**
+  Cette API vous permet de récupérer facilement le code COG pour une adresse donnée (clé `citycode`). Plus d'info à l'adresse suivante: [API
+  Adresse](https://adresse.data.gouv.fr/api-doc/adresse)
 
 
 
