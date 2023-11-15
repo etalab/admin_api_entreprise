@@ -10,7 +10,7 @@ class TokenPolicy < ApplicationPolicy
   end
 
   def prolong?
-    demandeur? && token.day_left < 90
+    demandeur? && token.day_left < 90 && !token.blacklisted?
   end
 
   def download_attestations?
