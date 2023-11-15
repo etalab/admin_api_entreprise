@@ -142,7 +142,7 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
       end
 
       it 'displays the button to prolong the token' do
-        expect(page).to have_css('#' << dom_id(authorization_request_active, :prolong_token_modal_link))
+        expect(page).not_to have_css('#' << dom_id(authorization_request_active, :prolong_token_modal_link))
         expect(page).not_to have_css('#' << dom_id(authorization_request_archived, :prolong_token_modal_link))
       end
     end
