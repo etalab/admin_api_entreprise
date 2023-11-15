@@ -1,66 +1,44 @@
 require 'csv'
 
 class TokenExport
-  DIR = './token_export'.freeze
+  FILEPATH = 'config/api_particulier_legacy_tokens.yml'.freeze
 
-  def initialize(filepath)
-    @filepath = filepath
+  def initialize(user)
+    @user = user
   end
 
   def perform
-    FileUtils.mkdir_p(DIR)
-
-    @legacy_tokens = load_legacy_tokens
-    files_to_export = {}
-    tokens_to_export.find_each do |token|
-      export_filename = export_filename(token)
-      files_to_export[export_filename] ||= []
-      files_to_export[export_filename] << token_payload(token)
+    CSV.generate(headers: true, force_quotes: true) do |csv|
+      csv << headers
+      tokens_to_export.each do |token|
+        csv << token_payload(token)
+      end
     end
+  end
 
-    files_to_export.each_pair do |export_filename, tokens|
-      write_file(export_filename, tokens)
-    end
+  def tokens_to_export?
+    tokens_to_export.present?
   end
 
   private
 
-  def tokens_to_export
-    Token
-      .includes(:authorization_request)
-      .where("extra_info->'legacy_token_id' IS NOT NULL")
-      .where(authorization_request: { status: 'validated' })
-  end
-
-  def write_file(filename, tokens)
-    file = Rails.root.join("#{DIR}/#{filename}.csv")
-
-    headers = %w[
+  def headers
+    %w[
       siret
       intitule
       demandeur
       datapass_id
       nouveau_token
       ancien_token
+      demarche
     ]
-
-    CSV.open(file, 'w', write_headers: true, headers:, force_quotes: true) do |writer|
-      tokens.each do |token|
-        writer << token
-      end
-    end
   end
 
-  def export_filename(token) # rubocop:todo Metrics/AbcSize
-    return "demarche_#{token.authorization_request.demarche}" if token.authorization_request.demarche.present?
-    return "contact_technique_#{token.authorization_request.contact_technique.email}" unless token.authorization_request.contact_technique.nil?
-    return "demandeur_#{token.authorization_request.demandeur.email}" unless token.authorization_request.demandeur.nil?
-
-    'without_contact'
-  end
-
-  def tokens
-    Token.includes(:authorization_request)
+  def tokens_to_export
+    Token
+      .includes(:authorization_request)
+      .where('extra_info @> ?', { emails: [@user.email.downcase] }.to_json)
+      .where(authorization_request: { status: 'validated' })
   end
 
   def token_payload(token)
@@ -70,21 +48,22 @@ class TokenExport
       token.authorization_request.demandeur.present? ? token.authorization_request.demandeur.email : nil,
       token.authorization_request.external_id,
       token.rehash,
-      legacy_token(token)
+      legacy_token(token),
+      token.authorization_request.demarche
     ]
   end
 
   def legacy_token(token)
-    @legacy_tokens.each_pair do |legacy_token, params|
+    legacy_tokens.each_pair do |legacy_token, params|
       return legacy_token if params['token_id'] == token.id && params['legacy_token_id'] == token.extra_info['legacy_token_id']
     end
 
     nil
   end
 
-  def load_legacy_tokens
-    YAML.load_file(
-      Rails.root.join(@filepath)
+  def legacy_tokens
+    @legacy_tokens ||= YAML.load_file(
+      Rails.root.join(FILEPATH)
     )
   end
 end

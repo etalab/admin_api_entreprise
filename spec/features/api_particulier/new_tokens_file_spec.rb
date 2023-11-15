@@ -1,18 +1,27 @@
 RSpec.describe 'API Particulier: new tokens button download on profile page', app: :api_particulier do
   let(:user) { create(:user) }
-  let(:valid_file_path) { Rails.root.join('token_export', "demarche_#{user.email}.csv") }
+
+  let!(:authorization_request) do
+    create(
+      :authorization_request,
+      :with_demandeur,
+      demandeur: user,
+      status: 'validated'
+    )
+  end
 
   before do
     login_as(user)
   end
 
   context 'when there is a file to download' do
-    before do
-      File.write(valid_file_path, 'whatever')
-    end
-
-    after do
-      File.delete(valid_file_path)
+    let!(:token) do
+      create(
+        :token,
+        id: '22222222-2222-2222-2222-222222222220',
+        extra_info: { emails: [user.email] },
+        authorization_request:
+      )
     end
 
     it 'displays a button to download the file' do
@@ -23,6 +32,15 @@ RSpec.describe 'API Particulier: new tokens button download on profile page', ap
   end
 
   context 'when there is no file to download' do
+    let!(:token) do
+      create(
+        :token,
+        id: '22222222-2222-2222-2222-222222222220',
+        extra_info: { emails: ['watever.wherever@witness.forever'] },
+        authorization_request:
+      )
+    end
+
     it 'does not display a button to download the file' do
       visit api_particulier_user_profile_path
 
