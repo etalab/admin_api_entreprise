@@ -1,20 +1,9 @@
 class APIParticulier::AuthenticatedUsersController < APIParticulierController
   include AuthenticatedUserManagement
 
-  helper_method :new_tokens_file_path
+  helper_method :tokens_to_export?
 
-  def new_tokens_file_path
-    file_path = Rails.root.join('./token_export')
-
-    [
-      "demarche_#{current_user.email}",
-      "contact_technique_#{current_user.email}",
-      "demandeur_#{current_user.email}"
-    ].each do |filename|
-      full_path = "#{file_path}/#{filename}.csv"
-      return File.read(full_path) if File.exist?(full_path)
-    end
-
-    nil
+  def tokens_to_export?
+    TokenExport.new(current_user).tokens_to_export?
   end
 end

@@ -2,79 +2,66 @@ require 'csv'
 
 RSpec.describe TokenExport, type: :service do
   describe 'Token export process' do
-    subject(:token_export) { described_class.new('watever').perform }
-
     let!(:user) { create(:user, :demandeur) }
-    let!(:token) do
-      create(
-        :token,
-        id: '12131415-1111-1111-1111-111111111110',
-        extra_info: { legacy_token_id: '11111111-1111-1111-1111-111111111111' },
-        authorization_request:
-      )
-    end
+
     let!(:legacy_tokens) do
       {
         '1_scope' => {
-          'token_id' => '12131415-1111-1111-1111-111111111110',
-          'legacy_token_id' => '11111111-1111-1111-1111-111111111111',
+          'token_id' => '22222222-2222-2222-2222-222222222220',
+          'legacy_token_id' => '99999999-9999-9999-9999-999999999999',
           'scopes' => ['scope1']
         }
       }
     end
 
+    let!(:authorization_request) do
+      create(
+        :authorization_request,
+        :with_demandeur,
+        demandeur: user,
+        status: 'validated'
+      )
+    end
+
     before do
-      allow(CSV).to receive(:open).and_return(true)
       allow(YAML).to receive(:load_file).and_return(legacy_tokens)
     end
 
-    describe 'export token for a demandeur' do
-      let!(:authorization_request) do
+    describe 'export nothing for a user without token' do
+      subject(:token_export) { described_class.new(user).perform }
+
+      let!(:token) do
         create(
-          :authorization_request,
-          status: 'validated',
-          demandeur_authorization_request_role: user.user_authorization_request_roles.first
+          :token,
+          id: '22222222-2222-2222-2222-222222222220',
+          extra_info: { emails: ['watever'] },
+          authorization_request:
         )
       end
 
-      it 'has a demandeur key' do
-        expect(subject["demandeur_#{user.email}"]).not_to be_nil
+      it 'returns a CSV' do
+        expect(subject).to be_a(String)
+        expect(CSV.parse(subject).size).to eq(1)
       end
     end
 
-    describe 'export token for a contact_technique' do
-      let!(:user_tech) { create(:user, :contact_technique) }
+    describe 'should export tokens for a user' do
+      subject(:token_export) { described_class.new(user).perform }
 
-      let!(:authorization_request) do
+      let!(:token) do
         create(
-          :authorization_request, status: 'validated',
-          demandeur_authorization_request_role: user.user_authorization_request_roles.first,
-          contact_technique_authorization_request_role: user_tech.user_authorization_request_roles.first
+          :token,
+          id: '22222222-2222-2222-2222-222222222220',
+          extra_info: { legacy_token_id: '99999999-9999-9999-9999-999999999999', emails: [user.email, 'watever.wherever@witness.forever'] },
+          authorization_request:
         )
       end
 
-      it 'has a contact key' do
-        expect(subject["contact_technique_#{user_tech.email}"]).not_to be_nil
-      end
-    end
-
-    describe 'export token for a demarche' do
-      let!(:authorization_request) do
-        create(:authorization_request, status: 'validated', demandeur_authorization_request_role: user.user_authorization_request_roles.first, demarche: 1234)
-      end
-
-      it 'has a demarche key' do
-        expect(subject["demarche_#{authorization_request.demarche}"]).not_to be_nil
-      end
-    end
-
-    describe 'export token for no one' do
-      let!(:authorization_request) do
-        create(:authorization_request, status: 'validated', demandeur_authorization_request_role: nil, demarche: nil, contact_technique_authorization_request_role: nil)
-      end
-
-      it 'has a without_contact key' do
-        expect(subject['without_contact']).not_to be_nil
+      it 'returns a CSV' do
+        expect(subject).to be_a(String)
+        expect(CSV.parse(subject).size).to eq(2)
+        expect(CSV.parse(subject).first).to eq(%w[siret intitule demandeur datapass_id nouveau_token ancien_token demarche])
+        expect(CSV.parse(subject).last).to include(authorization_request.siret)
       end
     end
   end
