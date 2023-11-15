@@ -1,0 +1,40 @@
+<%= render partial: "shared/api_entreprise/mailers/header" %>
+<%= render partial: "banner",
+    locals: {
+      color: '#d1d3de',
+      title: "Votre accès à l'API Entreprise <b>expire dans 2 mois</b>",
+      subtitle: "Faîtes votre demande de renouvellement en un clic&nbsp;⬇️"
+    }
+%>
+<mj-section mj-class="section-main">
+  <mj-column>
+    <mj-text>
+      <p>Bonjour <%= @full_name %>,</p>
+      <p>
+          Vous avez obtenu une habilitation à l'API Entreprise il y a 16 mois pour le <b>cadre d'utilisation "<%= @intitule %>"</b>.
+        <br />
+          Chaque clé d'accès a une durée irréversible de 18 mois.
+          <b>Effectuez dès maintenant une demande de renouvellement de vos accès&nbsp;:</b>
+    </mj-text>
+    <mj-button href="<%= @authorization_request_datapass_url %>">
+      <b>Renouveler sa demande d'accès&nbsp;🔑</b>
+    </mj-button>
+    <mj-text mj-class="secondary-link">
+      <a target="_blank" href="<%= @authorization_request_datapass_url %>">
+        <%= @authorization_request_datapass_url %>
+      </a>
+    </mj-text>
+    <mj-text>
+      <p>
+        Quelque soit le moment où vous effectuez votre renouvellement, votre jeton actuel conserve sa date d'expiration initiale. Effectuer ce renouvellement en amont vous évite d'agir dans la précipitation et de risquer la coupure de service.
+      </p>
+      <p>
+        À bientôt 👋
+        <br />
+        <b>L'équipe API Entreprise</b>
+      </p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<%= render partial: "block_help_renewal" %>
+<%= render partial: "shared/api_entreprise/mailers/footer" %>
