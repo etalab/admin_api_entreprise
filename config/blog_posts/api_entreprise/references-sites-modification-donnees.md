@@ -21,7 +21,7 @@ Vendredi 02 juin 2023 - Publication
 <div class="fr-container--fluid">
  <div class="fr-grid-row fr-grid-row--gutters">
   <div class="fr-col-md-6 fr-col-12">
-   <img src="<%= image_path('api_entreprise/blog/references-sites-modification-donnees-exemple-maquette.png') %>" class="fr-responsive-img" alt="[À MODIFIER | vide ou texte alternatif de l’image]" />
+   <img src="<%= image_path('api_entreprise/blog/references-sites-modification-donnees-exemple-maquette.png') %>" class="fr-responsive-img" alt="Exemple d'interface présentant les bonnes pratiques" />
         <!-- L’alternative de l’image (attribut alt) doit toujours être présent, sa valeur peut-être vide ou non selon votre contexte -->
   </div> 
   <div class="fr-col-12 fr-col-md-6">
