@@ -1,0 +1,13 @@
+<section class="fr-accordion faq-entry" data-algolia-search-with-accordion-hit="<%= faq_entry.algolia_search_id %>" id="<%= dom_id(faq_entry) %>">
+  <h3 class="fr-accordion__title">
+    <button class="fr-accordion__btn" aria-expanded="false" aria-controls="<%= dom_id(faq_entry, :answer) %>">
+      <div data-algolia-search-with-accordion-hit-attribute="question">
+        <%= faq_entry.question %>
+      </div>
+    </button>
+  </h3>
+  <div class="fr-collapse" id="<%= dom_id(faq_entry, :answer) %>" data-algolia-search-with-accordion-hit-attribute="answer_markdownify">
+    <%= raw faq_entry.answer_markdownify %>
+  </div>
+</section>
+
