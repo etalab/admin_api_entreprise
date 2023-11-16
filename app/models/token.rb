@@ -66,6 +66,12 @@ class Token < ApplicationRecord
       blacklisted_at > Time.zone.now
   end
 
+  def end_timestamp
+    return blacklisted_at.to_i if blacklisted_at.present?
+
+    exp
+  end
+
   private
 
   def jwt_data

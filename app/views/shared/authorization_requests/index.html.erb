@@ -1,0 +1,110 @@
+<div class="fr-container">
+  <div class="fr-grid-row">
+    <div class="fr-col-12">
+      <h1 class="fr-h1">
+        <% if @authorization_requests.empty? %>
+          <%= t('.no_authorization_requests') %>
+        <% else %>
+          <%= t('.title', api_label: t(".#{@authorization_requests.first.api}"), count: @authorization_requests.count) %>
+        <% end %>
+      </h1>
+    </div>
+  </div>
+  <div class="fr-row">
+    <div class="fr-col-12">
+      <div class="fr-container fr-container--bordered">
+        <div class="fr-grid-row fr-p-4v fr-grid-row--middle">
+          <div class="fr-col-12 fr-col-md-6 fr-col-lg-3">
+            <span class="fr-hint-text"><%= t('.table.head.datapass').html_safe %></span>
+            <strong><%= t('.table.head.authorization_request') %></strong>
+            <br />
+            <span class="fr-text--sm"><%= t('.table.head.role') %></span>
+          </div>
+          <div class="fr-col-12 fr-col-md-6 fr-col-lg-4">
+            <strong><%= t('.table.head.token') %></strong>
+            <br />
+            <span class="fr-hint-text"><%= t('.table.head.exp') %></span>
+            <span class="fr-text--regular"><%= t('.table.head.id') %></span>
+          </div>
+          <div class="fr-col-12 fr-col-md-6 fr-col-lg-3">
+              <strong><%= t('.table.head.actions') %></strong>
+          </div>
+          <div class="fr-col-12 fr-col-md-6 fr-col-lg-2">
+              <strong><%= t('.table.head.detail') %></strong>
+          </div>
+        </div>
+        <% @authorization_requests.each do |authorization_request| %>
+          <div id="<%= dom_id(authorization_request) %>" class="fr-grid-row fr-grid-row--middle fr-p-4v">
+            <div class="fr-col-12 fr-col-md-6 fr-col-lg-3">
+              <%= authorization_request_status_badge(authorization_request) %>
+              <span class="fr-hint-text">
+                <%= link_to t('.links.to_datapass', external_id: authorization_request.external_id).html_safe, 
+                  datapass_authorization_request_url(authorization_request), 
+                  id: dom_id(authorization_request, :authorization_request_link),
+                  class: %w(fr-link fr-text--xs), 
+                  target: '_blank' 
+                %>
+              </span>
+              <strong><%= authorization_request.intitule %></strong>
+              <br />
+              <span class="fr-text--sm">
+                <%= authorization_request.user_authorization_request_roles.for_user(@current_user).map { |uarr|
+                  I18n.t("user_authorization_request_roles.role.#{uarr.role}")
+                  }.join(', ')
+                %>
+              </span>
+            </div>
+            <div class="fr-col-12 fr-col-md-6 fr-col-lg-4">
+              <%= render partial: 'shared/tokens/detail_short', 
+                locals: {
+                  token: authorization_request.token.decorate
+                }
+              %>
+              <% authorization_request.tokens.blacklisted_later.decorate.each do |banned_token| %> 
+                <%= render partial: 'shared/tokens/detail_short', 
+                  locals: {
+                    token: banned_token.decorate
+                  }
+                %>
+            <% end %>
+            </div>
+            <div class="fr-col-12 fr-col-md-6 fr-col-lg-3 center">
+              <% if authorization_request.status == 'validated' %>
+                <% if authorization_request.tokens.blacklisted_later.any? %>
+                  <p class="fr-text--sm fr-mb-1v fr-text-default--error">
+                    <%= t('.modal.show.description') %>
+                  </p>
+                  <a
+                    href="<%= token_path(id: authorization_request.token.id) %>"
+                    id="<%= dom_id(authorization_request, :show_token_modal_link) %>"
+                    class="fr-btn fr-icon-eye-fill fr-btn--icon-right fr-mt-2w"
+                    aria-controls="main-modal"
+                    data-fr-opened="false"
+                    data-turbo-frame="main-modal-content"
+                  >
+                    <%= t('.modal.show.display_cta') %>
+                  </a>
+                <% end %>
+                <% if policy(authorization_request.token).prolong? %>
+                  <a
+                    href="<%= token_prolong_path(id: authorization_request.token.id) %>"
+                    id="<%= dom_id(authorization_request, :prolong_token_modal_link) %>"
+                    class="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w"
+                    aria-controls="main-modal"
+                    data-fr-opened="false"
+                    data-turbo-frame="main-modal-content"
+                  >
+                    <%= t('.modal.prolong.display_cta') %>
+                  </a>
+                <% end %>
+              <% end %>
+            </div>
+            <div class="fr-col-12 fr-col-md-6 fr-col-lg-2 center">
+              <%= link_to "", authorization_requests_show_path(authorization_request), class: %w[fr-btn fr-btn--lg fr-btn--tertiary-no-outline fr-icon-arrow-right-line] %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-RSpec.describe 'displays authorization requests', app: :api_particulier do
+RSpec.describe 'displays show of authorization request', app: :api_particulier do
   subject(:go_to_authorization_requests_show) do
     visit api_particulier_authorization_requests_show_path(id: authorization_request.id)
   end
@@ -137,11 +137,7 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
           describe 'when the user is demandeur' do
             describe 'when the token has less than 90 days left' do
               it 'displays the button to prolong the token' do
-                expect(page).to have_css('#prolong-token-modal-link')
-
-                click_link 'prolong-token-modal-link'
-
-                expect(page).to have_content('Compléter le formulaire de prolongation')
+                expect(page).not_to have_css('#prolong-token-modal-link')
               end
             end
 

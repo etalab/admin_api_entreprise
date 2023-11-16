@@ -64,6 +64,27 @@ fr:
         warning_description: "Pour prolonger votre jeton, veuillez compléter le formulaire suivant :"
         warning: ⚠️ Vos réponses au formulaire <strong>vous engagent</strong> en regard des CGU d'api entreprise.
         cta: Compléter le formulaire de prolongation
+      detail_short:
+        no_token:
+          title: Aucun jeton actif
+          description: Cette demande ayant été %{status}, aucun jeton ne peut être demandé
+          status:
+            revoked: revoquée
+            archived: archivée
+        expiration_date: "Expire le : <strong>%{expiration_date}</strong>"
+        status:
+          color:
+            revoked: pink-tuile
+            revoked_later: pink-tuile
+            expired: no-specific-color
+            active: green-emeraude
+            new_token: green-emeraude
+          label:
+            revoked: 🚫 Banni
+            revoked_later: 🚫 Banni
+            expired: ☠️  Expiré
+            active: 🔑 Actif
+            new_token: 🔑 Nouveau jeton à utiliser
       detail:
         remaining_time:
           new_token: "Durée restante du jeton : <strong>%{remaining_time}</strong>"
@@ -85,10 +106,33 @@ fr:
           label:
             revoked: 🚫 Banni
             revoked_later: 🚫 Banni
-            expired: 🔑 Expiré
+            expired: ☠️  Expiré
             active: 🔑 Actif
             new_token: 🔑 Nouveau jeton à utiliser
     authorization_requests:
+      index:
+        modal:
+          show:
+            description: "Remplacez maintenant le jeton banni par le nouveau jeton"
+            display_cta: "Voir le jeton"
+          prolong:
+            display_cta: Prolonger le jeton
+        no_authorization_requests: "Vous n'avez aucune habilitations"
+        title: "Habilitations %{api_label} (%{count})"
+        entreprise: API Entreprise
+        particulier: API Particulier
+        links:
+          to_datapass: "Datapass N<sup>o</sup>%{external_id}"
+        table: 
+          head:
+            datapass: "N<sup>o</sup> Demande Datapass"
+            authorization_request: "Nom de l'habilitation"
+            role: Votre rôle
+            token: État du jeton principal
+            exp: Expiration
+            id: Identifiant
+            actions: Actions attendues
+            detail: Page détaillées
       breadcrumb:
         index: Habilitations
         current_page: Habilitation N<sup>o</sup>%{datapass_id}
@@ -176,6 +220,12 @@ fr:
         profil: "Compte utilisateur"
         tokens: "Habilitations et jetons d'accès"
         download_attestations: 'Télécharger attestations'
+
+  user_authorization_request_roles:
+    role:
+      demandeur: Demandeur
+      contact_technique: Contact technique
+      contact_metier: Contact metier
 
   api_entreprise:
     users:
