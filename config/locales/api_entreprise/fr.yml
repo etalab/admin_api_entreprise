@@ -14,6 +14,18 @@ fr:
         title: API Entreprise
   shared:
     tokens:
+      stats:
+        title: "Cas d'usage du jeton : %{title}"
+        tabs:
+          last_10_minutes: 10 dernières minutes
+          last_30_hours: 30 dernières heures
+          last_8_days: 8 derniers jours
+        links:
+          user_tokens: Retour à la liste des jetons
+        details:
+          internal_id: "Identifiant technique du jeton : %{id}"
+        requests_details:
+          title: Détails des %{limit} dernières requêtes
       cannot_show:
         title: Utiliser le jeton
         description: "En tant que contact métier, <strong>vous n'avez pas l'autorisation d'utiliser la clé d'accès.</strong>
@@ -86,6 +98,8 @@ fr:
             active: 🔑 Actif
             new_token: 🔑 Nouveau jeton à utiliser
       detail:
+        links:
+          stats: Voir les statistiques
         remaining_time:
           new_token: "Durée restante du jeton : <strong>%{remaining_time}</strong>"
           active: "Durée restante du jeton : <strong>%{remaining_time}</strong>"
@@ -151,6 +165,7 @@ fr:
           archived: 📃 Habilitation archivée
           validated: 📃 Habilitation active
       show:
+        access: Voir vos accès
         modal:
           show:
             display_cta: "Voir le jeton"
@@ -233,7 +248,7 @@ fr:
         title: "Compte utilisateur"
         transfer_account:
           disclaimer: "Votre équipe évolue ? Vous quittez votre service ? Vous pouvez léguer votre compte à une autre personne :"
-          cta: Transférer mon compte
+          cta: Transférer mes habilitations
         demandeur: "Demandeur"
         contact_metier: "Contact métier"
         contact_technique: "Contact technique"
@@ -264,15 +279,17 @@ fr:
 
     transfer_user_account:
       new:
-        title: Déléguer mon compte utilisateur
-        description: Cette fonctionnalité vous permet de transmettre définitivement votre compte API Entreprise à une tierce personne. Une fois le transfert effectué, vous n'aurez plus accès au compte.
-            <br>
-            <br>
-            Attention, nos <a href="https://entreprise.api.gouv.fr/cgu/">CGU</a> vous engagent ! Vous ne devez pas transférer ce compte à un tiers non-habilité. Pour en savoir plus, consultez <a href='https://entreprise.api.gouv.fr/faq#comment-transferer-mon-compte-a-une-autre-personne' target='_blank'>cette rubrique de notre FAQ</a>.
+        title: Transférer mes habilitations
+        description: Cette fonctionnalité vous permet de transmettre définitivement les habilitations pour lesquelles vous êtes contact principal à une tierce personne (qui sera le nouveau contact principal).
+          Une fois le transfert effectué, vous n'aurez plus accès à ces habilitations en tant que contact principal.
+          <br>
+          <br>
+          Attention, nos <a href="https://entreprise.api.gouv.fr/cgu/">CGU</a> vous engagent ! Vous ne devez pas transférer ces habilitations à un tiers non-habilité. Pour en savoir plus,
+          consultez <a href='https://entreprise.api.gouv.fr/faq#comment-transferer-mon-compte-a-une-autre-personne' target='_blank'>cette rubrique de notre FAQ</a>.
         email:
           label: Adresse e-mail du futur propriétaire du compte
           placeholder: jean.dupont@gouv.fr
-        cta: Transférer mon compte
+        cta: Transférer mes habilitations
         confirm: Êtes-vous sûr de vouloir transférer votre compte ?
       create:
         success:
@@ -360,18 +377,6 @@ fr:
           entreprises_artisanales: RNM CMA France - Entreprises artisanales
           eori_douanes: Immatriculation EORI - Douanes
           certificat_agence_bio: Certificats BIO
-      stats:
-        title: "Cas d'usage du jeton : %{title}"
-        tabs:
-          last_10_minutes: 10 dernières minutes
-          last_30_hours: 30 dernières heures
-          last_8_days: 8 derniers jours
-        links:
-          user_tokens: Retour à la liste des jetons
-        details:
-          internal_id: "Identifiant technique du jeton : %{id}"
-        requests_details:
-          title: Détails des %{limit} dernières requêtes
 
     authorization_requests:
       index:
