@@ -21,6 +21,12 @@ module TokensManagement
     render 'shared/tokens/cannot_show'
   end
 
+  def stats
+    @stats_facade = TokenStatsFacade.new(@token)
+
+    render 'shared/tokens/stats'
+  end
+
   private
 
   def extract_token

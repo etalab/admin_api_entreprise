@@ -11,10 +11,6 @@ class APIEntreprise::TokensController < APIEntreprise::AuthenticatedUsersControl
 
   def show; end
 
-  def stats
-    @stats_facade = TokenStatsFacade.new(@token)
-  end
-
   def renew; end
 
   private
