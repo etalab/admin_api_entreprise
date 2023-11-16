@@ -22,7 +22,6 @@ constraints(APIEntrepriseDomainConstraint.new) do
 
     get '/compte', to: 'users#profile', as: :user_profile
 
-    get '/compte/demandes', to: 'authorization_requests#index', as: :authorization_requests
     get '/compte/demandes/:id', to: 'authorization_requests#show', as: :authorization_requests_show
     get '/compte/demandes_list', to: 'authorization_requests#list', as: :authorization_requests_list
 

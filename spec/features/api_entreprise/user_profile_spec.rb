@@ -33,23 +33,5 @@ RSpec.describe 'user profile page', app: :api_entreprise do
 
       expect(page).to have_css('#transfer_account_button')
     end
-
-    it 'displays authorizations requests which are submitted', :js do
-      valid_authorization_request
-      invalid_authorization_request
-
-      show_profile
-
-      expect(page).to have_css("##{dom_id(valid_authorization_request, :list)}")
-      expect(page).not_to have_css("##{dom_id(invalid_authorization_request, :list)}")
-    end
-
-    it 'non regression test : does not display api particulier authorization request' do
-      authorization_request_particulier
-
-      show_profile
-
-      expect(page).not_to have_css("##{dom_id(authorization_request_particulier, :list)}")
-    end
   end
 end
