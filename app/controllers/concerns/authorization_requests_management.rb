@@ -15,7 +15,7 @@ module AuthorizationRequestsManagement
     redirect_current_user_to_homepage
   end
 
-  def list
+  def index
     @authorization_requests = current_user
       .authorization_requests
       .where(api:)
