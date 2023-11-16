@@ -31,6 +31,26 @@
           </div>
         </header>
 
+        <section id="habilitation_access_infos" class="fr-accordion fr-mb-8v">
+          <h3 class="fr-accordion__title">
+            <button id="access_accordion_button" class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106">
+              <%= t('.access') %>
+            </button>
+          </h3>
+          <div class="fr-collapse" id="accordion-106" />
+          <div class="fr-mb-2v">
+            <ul class="fr-tags-group">
+              <% @authorization_request.token.scopes.each do |scope| %>
+                <li>
+                  <span class="fr-tag">
+                    <%= humanize_scope(scope, 'entreprise') %>
+                  </span>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </section>
+
         <section id="habilitation_main_token_infos" class="fr-pb-8v">
           <h2 class="fr-h3 fr-mb-n-1v">
             <%= t('.main_token.title') %>
