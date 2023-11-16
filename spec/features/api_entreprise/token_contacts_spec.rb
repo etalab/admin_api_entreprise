@@ -1,22 +1,33 @@
 require 'rails_helper'
 
 RSpec.describe 'token contacts page', app: :api_entreprise do
-  let(:authorization_request) { create(:authorization_request, :with_demandeur, :with_contact_metier, :with_contact_technique) }
-  let(:user) { authorization_request.demandeur }
-  let(:contact_metier) { authorization_request.contact_metier }
-  let(:contact_technique) { authorization_request.contact_technique }
+  subject(:show_token_contact_page) { visit token_contacts_path(token) }
 
-  before do
-    login_as(user)
+  let(:authorization_request) do
+    create(:authorization_request,
+      :with_demandeur,
+      :with_contact_technique,
+      :with_contact_metier,
+      demandeur:,
+      contact_metier:,
+      contact_technique:)
+  end
+  let(:demandeur) { create(:user, :demandeur) }
+  let(:contact_metier) { create(:user, :contact_metier) }
+  let(:contact_technique) { create(:user, :contact_technique) }
 
-    visit token_contacts_path(token)
+  after do
+    logout
   end
 
   describe 'connected as a demandeur' do
-    let(:user) { authorization_request.demandeur }
+    before do
+      login_as(demandeur)
+
+      show_token_contact_page
+    end
 
     context 'when accessing his own data' do
-      let(:authorization_request) { create(:authorization_request, :with_contact_metier, :with_contact_technique, :with_roles, roles: %i[demandeur contact_technique]) }
       let(:token) { create(:token, authorization_request:) }
 
       it 'displays the metier contact, tech contact, and no button to update the contact data' do
@@ -44,8 +55,12 @@ RSpec.describe 'token contacts page', app: :api_entreprise do
   end
 
   describe 'connected as a contact (metier)' do
-    let(:user) { contact_metier }
-    let(:authorization_request) { create(:authorization_request, :with_contact_metier, :with_contact_technique, :with_roles, roles: %i[demandeur contact_technique]) }
+    before do
+      login_as(contact_metier)
+
+      show_token_contact_page
+    end
+
     let(:token) { create(:token, authorization_request:) }
 
     it 'do not displays the metier contact data' do
