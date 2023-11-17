@@ -36,7 +36,7 @@ RSpec.describe TokenExpirationNoticeJob do
       it 'sent the notification for 7 days' do
         expect {
           subject
-        }.to have_enqueued_job(ScheduleExpirationNoticeMailjetEmailJob).with(token, 7)
+        }.to have_enqueued_job(ScheduleExpirationNoticeEmailJob).with(token, 7)
       end
 
       it 'only sent one email' do
