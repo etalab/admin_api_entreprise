@@ -7,8 +7,9 @@
     entity_type_description: |+
       Cette API permet d’accéder aux effectifs annuels de ✅ **toutes les unités légales du régime général et du régime agricole** ayant des salariés.
 
-      ✅ Les associations ayant un SIREN et des salariés sont concernées par cette API.
-      ❌ Les régimes spéciaux ne sont pas couverts.
+      - ✅ Les associations ayant un SIREN et des salariés sont concernées par cette API ;
+      - ❌ Les régimes spéciaux ne sont pas couverts ;
+      - ❌ Certaines catégories d'unités légales n'ont tout simplement d'effectif, [en savoir plus](#faq_entry_answer_1_api_entreprise_endpoint_gip_mds_effectifs_annuels_unite_legale).
 
     geographical_scope_description:  |+
       - ✅ France métropolitaine
@@ -114,8 +115,12 @@
           </div>
 
           Le [bulletin officiel de la Sécurité sociale](https://boss.gouv.fr/portail/accueil/regles-dassujettissement/effectif.html#titre-chapitre-2---modalites-dapprecia-section-2---effectif-moyen-annue){:target="_blank"} présente les formules de calcul illustrées par des exemples types.
-
-
+      - q: Liste des catégories d'unités légales qui n'ont pas d'effectif
+        a: &gip_mds_effectifs_a2 |+
+          - Les établissements fermés n'ont pas d'effectifs ;
+          - Les auto-entrepreneurs non plus ;
+          - Les entreprises indiquées par l'Insee comme "unité non-employeuse" non plus, même si de rares erreurs sont parfois observées ;
+          - Certaines administrations et collectivités territoriales n'ont pas de salariés, car elles n'ont que des fonctionnaires, qui ne sont pas au régime général (et donc ne sont pas couverts par cette API). Celles qui embauchent des contractuels (en CDD ou CDI) ont un effectif qui ne couvre que cette catégorie de personnel.
 
 - uid: 'gip_mds/effectifs_mensuels_etablissement'
   path: '/v3/gip_mds/etablissements/{siret}/effectifs_mensuels/{month}/annee/{year}'
@@ -125,8 +130,9 @@
     entity_type_description: |+
       Cette API permet d’accéder aux effectifs mensuels de ✅ **tous les établissements du régime général et du régime agricole** ayant des salariés.
 
-      ✅ Les associations ayant un SIREN et des salariés sont concernées par cette API.
-      ❌ Les régimes spéciaux ne sont pas couverts.
+      - ✅ Les associations ayant un SIREN et des salariés sont concernées par cette API ;
+      - ❌ Les régimes spéciaux ne sont pas couverts ;
+      - ❌ Certaines catégories d'établissements n'ont tout simplement d'effectif, [en savoir plus](#faq_entry_answer_2_api_entreprise_endpoint_gip_mds_effectifs_mensuels_etablissement).
     geographical_scope_description:  |+
       - ✅ France métropolitaine
       - ✅ DROM-COM
@@ -234,3 +240,5 @@
           > - Effectif du mois de mai de l'année N ;
           > - Effectif du mois de avril de l'année N ;
           > - Effectif du mois de mars de l'année N.
+    - q: Liste des catégories d'établissements qui n'ont pas d'effectif
+      a: *gip_mds_effectifs_a2
