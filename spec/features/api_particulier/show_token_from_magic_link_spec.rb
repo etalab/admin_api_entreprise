@@ -42,7 +42,7 @@ RSpec.describe 'show token from magic link', app: :api_particulier do
         subject
 
         tokens.each do |token|
-          expect(page).to have_css("##{dom_id(token, :copy_button)}")
+          expect(page).to have_css("##{dom_id(token, :copy_token_button)}")
         end
       end
     end

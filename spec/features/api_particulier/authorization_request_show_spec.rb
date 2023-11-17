@@ -1,6 +1,6 @@
 RSpec.describe 'displays show of authorization request', app: :api_particulier do
-  subject(:go_to_authorization_requests_show) do
-    visit api_particulier_authorization_requests_show_path(id: authorization_request.id)
+  subject(:go_to_authorization_request) do
+    visit api_particulier_authorization_request_path(id: authorization_request.id)
   end
 
   let!(:authenticated_user) { create(:user, :demandeur, :contact_technique, :contact_metier) }
@@ -44,7 +44,7 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
 
   describe 'when user is not authenticated' do
     it 'redirects to the login' do
-      go_to_authorization_requests_show
+      go_to_authorization_request
       expect(page).to have_current_path(api_particulier_login_path, ignore_query: true)
     end
   end
@@ -52,7 +52,7 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
   describe 'when user is authenticated' do
     before do
       login_as(authenticated_user)
-      go_to_authorization_requests_show
+      go_to_authorization_request
     end
 
     describe 'when authorization_request does not belong to current_user' do
@@ -117,7 +117,7 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
           let(:status) { 'validated' }
 
           it 'diplays basic information on the page' do
-            expect(page).to have_current_path(api_particulier_authorization_requests_show_path(id: authorization_request.id), ignore_query: true)
+            expect(page).to have_current_path(api_particulier_authorization_request_path(id: authorization_request.id), ignore_query: true)
             expect(page).to have_content('Habilitation active')
             expect(page).to have_link(href: datapass_authorization_request_url(authorization_request))
             expect(page).to have_content(friendly_format_from_timestamp(authorization_request.created_at))
@@ -208,7 +208,7 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
             end
 
             it 'displays the page' do
-              expect(page).to have_current_path(api_particulier_authorization_requests_show_path(id: authorization_request.id), ignore_query: true)
+              expect(page).to have_current_path(api_particulier_authorization_request_path(id: authorization_request.id), ignore_query: true)
             end
 
             it 'does not display the button to prolong the token' do
@@ -281,7 +281,7 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
             end
 
             it 'displays the page' do
-              expect(page).to have_current_path(api_particulier_authorization_requests_show_path(id: authorization_request.id), ignore_query: true)
+              expect(page).to have_current_path(api_particulier_authorization_request_path(id: authorization_request.id), ignore_query: true)
             end
 
             it 'does not display the button to prolong the token' do

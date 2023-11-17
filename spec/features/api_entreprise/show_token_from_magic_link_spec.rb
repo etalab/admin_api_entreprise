@@ -35,7 +35,6 @@ RSpec.describe 'show token from magic link', app: :api_entreprise do
           subject
 
           expect(page).to have_css("##{dom_id(token_linked)}")
-          expect(page).to have_css('.token-card', count: 1)
         end
       end
 
@@ -62,7 +61,7 @@ RSpec.describe 'show token from magic link', app: :api_entreprise do
         subject
 
         tokens.each do |token|
-          expect(page).to have_css("##{dom_id(token, :copy_button)}")
+          expect(page).to have_css("##{dom_id(token, :copy_token_button)}")
         end
       end
 
@@ -79,14 +78,6 @@ RSpec.describe 'show token from magic link', app: :api_entreprise do
 
         tokens.each do |token|
           expect(page).not_to have_link(href: datapass_authorization_request_url(token.authorization_request))
-        end
-      end
-
-      it 'does not show the links to the tokens contacts' do
-        subject
-
-        tokens.each do |token|
-          expect(page).not_to have_link(href: token_contacts_path(token))
         end
       end
 

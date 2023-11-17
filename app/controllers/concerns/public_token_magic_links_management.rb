@@ -3,12 +3,24 @@ module PublicTokenMagicLinksManagement
 
   def show
     @magic_link = MagicLink.find_by(access_token: magic_token_show_params[:access_token])
-    @tokens = @magic_link.tokens(api:).includes([:demandeur]) if @magic_link
 
-    handle_invalid_magic_link!
+    if @magic_link
+      @tokens = @magic_link.tokens(api:)
+        .includes([:demandeur])
+        .includes([:access_logs])
+        .decorate
+    end
+
+    return handle_invalid_magic_link! if invlid_magic_link?
+
+    render 'shared/public_token_magic_links/show'
   end
 
   private
+
+  def invlid_magic_link?
+    @magic_link.blank? || @magic_link.expired? || @magic_link.tokens.blank?
+  end
 
   def handle_invalid_magic_link!
     if @magic_link.blank?

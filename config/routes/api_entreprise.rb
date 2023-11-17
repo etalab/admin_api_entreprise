@@ -22,20 +22,18 @@ constraints(APIEntrepriseDomainConstraint.new) do
 
     get '/compte', to: 'users#profile', as: :user_profile
 
-    get '/compte/demandes/:id', to: 'authorization_requests#show', as: :authorization_requests_show
+    get '/compte/demandes/:id', to: 'authorization_requests#show', as: :authorization_request
     get '/compte/demandes', to: 'authorization_requests#index', as: :authorization_requests
 
     get '/compte/telecharcher-documents', to: 'download_attestations#new', as: :attestations
     post '/compte/telecharcher-documents', to: 'download_attestations#create', as: :search_attestations
 
-    get '/compte/jetons', to: 'tokens#index', as: :user_tokens
     post '/compte/jetons/:id/partager', to: 'restricted_token_magic_links#create', as: :token_create_magic_link
-    get '/compte/jetons/:id/stats', to: 'tokens#stats', as: :token_stats
     get '/compte/jetons/:id', to: 'tokens#show', as: :token
+    get '/compte/jetons/:id/stats', to: 'tokens#stats', as: :token_stats
     get '/compte/jetons/:id/renew', to: 'tokens#renew', as: :token_renew
     get '/compte/jetons/:id/prolonger', to: 'tokens#prolong', as: :token_prolong
     get '/compte/jetons/:id/demande-prolongation', to: 'tokens#ask_for_prolongation', as: :token_ask_for_prolongation
-    get '/compte/jetons/:id/contacts', to: 'contacts#index', as: :token_contacts
 
     post 'public/magic_link/create', to: 'public_token_magic_links#create'
     get 'public/jetons/:access_token', to: 'public_token_magic_links#show', as: :token_show_magic_link

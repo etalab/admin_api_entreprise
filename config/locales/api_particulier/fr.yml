@@ -5,6 +5,21 @@ fr:
         title: API Particulier
 
   shared:
+    public_token_magic_links:
+      show:
+        error:
+          expired:
+            title: Lien expiré
+            description: Le lien d'accès au jeton a expiré. Les liens magiques ont une durée de vie de %{initial_expiration_delay_in_hours} heures. Veuillez redemander un accès à votre responsable de compte.
+          unknown:
+            title: Une erreur est survenue à la récupération du jeton.
+            description: Une erreur inconnue est survenue. Veuillez contacter le support à api-particulier@api.gouv.fr
+          missing:
+            title: Jeton(s) non trouvés
+            description: Le jeton ou les jetons demandé(s) n'ont pas été trouvés. Veuillez contacter le support à api-particulier@api.gouv.fr
+        disclaimer:
+          title: Durée de validité du lien
+          description: Cette page contient votre jeton d'accès à API Particulier et ne doit en aucun cas être partagée avec un tiers non habilité ! Ce lien expirera dans %{expiration_time}.
     api_particulier:
       header:
         title: API Particulier
@@ -162,23 +177,11 @@ fr:
           button: "Recherche"
     users:
       profile:
+        new_token_download: Téléchargez vos nouveaux jetons
         new_token: De nouveaux jetons vous ont été attribués. Un fichier
           a été généré afin que vous puissiez faire le lien entre les nouveaux et les anciens jetons.
-        new_token_download: Téléchargez vos nouveaux jetons
-        title:
-          zero: Vos jetons d'accès
-          one: Votre jeton d'accès
-          other: Vos jetons d'accès
-        no_token_disclaimer: Vous n'avez pas de jeton associé à votre email <strong>%{user_email}</strong>.
     tokens:
       token:
-        title: "Cadre d'utilisation : %{intitule}"
-        links:
-          datapass: Demande d'accès initiale (N° %{id})
-        delivered_at: "Délivré le : %{humanized_date}"
-        expired_at: "Expire le : %{humanized_date}"
-        access: Accès
-        token: Jeton
         scope:
           dgfip_declarant1_nom: DGFIP - État civil - déclarant 1 - Nom
           dgfip_declarant1_nom_naissance: DGFIP - État civil - déclarant 1 - Nom de naissance
@@ -225,19 +228,6 @@ fr:
           cnous_statut_bourse: CNOUS - Statut définitif de la bourse
           cnous_ville_etudes: CNOUS - Ville d'étude et établissement
           cnous_identite: CNOUS - Identité
-        actions:
-          transfer: Transmettre le jeton
-        magic_link:
-          title: Transférer le jeton d'accès
-          description: Cette fonctionnalité vous permet d'envoyer un e-mail contenant un lien d'accès au jeton. L'URL transmise a une durée limitée de 4 heures.
-            <br>
-            <br>
-            Attention, nos <a href="https://particulier.api.gouv.fr/cgu/">CGU</a> vous engagent ! Vous ne devez pas divulguer cet accès à des tiers non-habilités. Pour en savoir plus, consultez <a href='https://particulier.api.gouv.fr/faq#comment-transmettre-le-jeton-d-acces-en-tout-securite' target='_blank'>cette rubrique de notre FAQ</a>.
-          email:
-            label: Adresse e-mail du destinataire
-            placeholder: jean@dupont.fr
-          cta: Envoyer le lien d'accès au jeton
-          confirm: Êtes-vous sûr de vouloir transférer votre jeton à cette adresse ?
     sessions:
       create_from_oauth:
         not_found:
@@ -249,21 +239,6 @@ fr:
         unknown: Une erreur inconnue est survenue, veuillez contacter le support.
       after_logout:
         success: Déconnexion réussie.
-    public_token_magic_links:
-      show:
-        error:
-          expired:
-            title: Lien expiré
-            description: Le lien d'accès au jeton a expiré. Les liens magiques ont une durée de vie de %{initial_expiration_delay_in_hours} heures. Veuillez redemander un accès à votre responsable de compte.
-          unknown:
-            title: Une erreur est survenue à la récupération du jeton.
-            description: Une erreur inconnue est survenue. Veuillez contacter le support à api-particulier@api.gouv.fr
-          missing:
-            title: Jeton(s) non trouvés
-            description: Le jeton ou les jetons demandé(s) n'ont pas été trouvés. Veuillez contacter le support à api-particulier@api.gouv.fr
-        disclaimer:
-          title: Durée de validité du lien
-          description: Cette page contient votre jeton d'accès à API Particulier et ne doit en aucun cas être partagée avec un tiers non habilité ! Ce lien expirera dans %{expiration_time}.
     documentation:
       index:
         card_swagger_link: 🕹 Swagger
