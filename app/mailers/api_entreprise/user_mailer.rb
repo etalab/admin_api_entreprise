@@ -4,7 +4,7 @@ class APIEntreprise::UserMailer < APIEntrepriseMailer
   def transfer_ownership(old_owner, new_owner)
     @new_owner = new_owner
     @old_owner = old_owner
-    @login_url = 'https://dashboard.entreprise.api.gouv.fr/login'
+    @login_url = 'https://entreprise.api.gouv.fr/compte/se-connecter'
     @datapass_signup_url = 'https://app.moncomptepro.beta.gouv.fr/users/sign-up'
     subject = 'API Entreprise - Délégation d\'accès'
 
