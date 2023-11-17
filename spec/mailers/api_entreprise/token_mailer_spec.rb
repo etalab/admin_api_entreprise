@@ -6,12 +6,12 @@ RSpec.describe APIEntreprise::TokenMailer do
   let(:cc) { 'anything2@email.com' }
 
   %w[
-    expiration_notice_J-90
-    expiration_notice_J-60
-    expiration_notice_J-30
-    expiration_notice_J-15
-    expiration_notice_J-7
-    expiration_notice_J-0_expired
+    expiration_notice_90J
+    expiration_notice_60J
+    expiration_notice_30J
+    expiration_notice_15J
+    expiration_notice_7J
+    expiration_notice_0J_expired
   ].each do |method|
     describe "##{method}" do
       subject(:generate_email) { described_class.send(method, { to:, cc:, authorization_request: }) }
