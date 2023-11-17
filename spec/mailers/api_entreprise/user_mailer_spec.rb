@@ -17,10 +17,10 @@ RSpec.describe APIEntreprise::UserMailer do
       end
 
       it 'notifies the user to login to access his tokens' do
-        signin_link = 'https://dashboard.entreprise.api.gouv.fr/login'
+        login_url = 'https://entreprise.api.gouv.fr/compte/se-connecter'
 
-        expect(subject.html_part.decoded).to include(signin_link)
-        expect(subject.text_part.decoded).to include(signin_link)
+        expect(subject.html_part.decoded).to include(login_url)
+        expect(subject.text_part.decoded).to include(login_url)
       end
 
       context 'when the new owner already has an API Gouv account' do
