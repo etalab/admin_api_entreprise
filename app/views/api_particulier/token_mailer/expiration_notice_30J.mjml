@@ -1,0 +1,41 @@
+<%= render partial: "shared/api_particulier/mailers/header" %>
+<%= render partial: "banner",
+    locals: {
+      color: '#ffe5cf',
+      title: "Votre accès à l'API Particulier <b>expire dans 1 mois</b>",
+      subtitle: "Faîtes votre demande de renouvellement en un clic&nbsp;⬇️"
+    }
+%>
+<mj-section mj-class="section-main">
+  <mj-column>
+    <mj-text>
+      <p>Bonjour <%= @full_name %>,</p>
+        <p>
+          ⚠️ Il est temps de nous transmettre votre demande, surtout si vous effectuez des changements par rapport à la demande initiale (<b>cadre d'utilisation "<%= @intitule %>"</b>). Le temps de traitement est normalement de quelques jours ouvrés et dépend de la charge de nos instructeurs.
+        </p>
+        <p>
+          Votre habilitation expire le <%= @expiration_date %>,
+          <b>effectuez dès maintenant une demande de renouvellement de vos accès&nbsp;:</b>
+    </mj-text>
+    <mj-button href="<%= @authorization_request_datapass_url %>">
+      <b>Renouveler sa demande d'accès&nbsp;🔑</b>
+    </mj-button>
+    <mj-text mj-class="secondary-link">
+      <a target="_blank" href="<%= @authorization_request_datapass_url %>">
+        <%= @authorization_request_datapass_url %>
+      </a>
+    </mj-text>
+    <mj-text>
+      <p>
+        Quelque soit le moment où vous effectuez votre renouvellement, votre jeton actuel conserve sa date d'expiration initiale. Effectuer ce renouvellement en amont vous évite d'agir dans la précipitation et de risquer la coupure de service.
+      </p>
+      <p>
+        À bientôt 👋
+        <br />
+        <b>L'équipe API Particulier</b>
+      </p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<%= render partial: "block_help_renewal" %>
+<%= render partial: "shared/api_particulier/mailers/footer" %>

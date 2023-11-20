@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe APIEntreprise::TokenMailer do
-  let(:authorization_request) { create(:authorization_request, :with_all_contacts, :with_tokens) }
+RSpec.describe APIParticulier::TokenMailer do
+  let(:authorization_request) { create(:authorization_request, :with_all_contacts, :with_tokens, api: 'particulier') }
   let(:token) { authorization_request.token }
 
   %w[
@@ -33,9 +33,9 @@ RSpec.describe APIEntreprise::TokenMailer do
     let(:magic_link) { create(:magic_link, email:) }
     let(:magic_link_url) { '' }
     let(:email) { 'muchemail@wow.com' }
-    let(:host) { 'entreprise.api.gouv.fr' }
+    let(:host) { 'particulier.api.gouv.fr' }
 
-    its(:subject) { is_expected.to eq('API Entreprise - Lien d\'accès à votre jeton !') }
+    its(:subject) { is_expected.to eq('API Particulier - Lien d\'accès à votre jeton !') }
     its(:to) { is_expected.to contain_exactly(email) }
 
     it 'contains the magic link to the token' do
