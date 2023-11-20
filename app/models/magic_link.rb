@@ -12,14 +12,6 @@ class MagicLink < ApplicationRecord
     self.access_token ||= access_token_for(:access_token)
   end
 
-  def tokens(api: nil)
-    if token_id
-      Token.where(id: token_id)
-    else
-      TokensAssociatedToEmailQuery.new(email:, api:).call
-    end
-  end
-
   def expired?
     Time.zone.now >= expires_at
   end

@@ -5,7 +5,8 @@ RSpec.describe 'show token from magic link', app: :api_entreprise do
     visit token_show_magic_link_path(access_token: magic_token)
   end
 
-  let!(:user) { create(:user, :with_token, tokens_amount: 2, email:) }
+  let!(:user) { create(:user, :with_token, email:) }
+  let!(:token) { create(:token) }
   let(:email) { 'any-email@data.gouv.fr' }
 
   context 'when the magic link token does not exist' do
@@ -21,9 +22,8 @@ RSpec.describe 'show token from magic link', app: :api_entreprise do
   end
 
   context 'when the magic link token exists' do
-    let!(:magic_link) { create(:magic_link, email:) }
+    let!(:magic_link) { create(:magic_link, email:, token:) }
     let(:magic_token) { magic_link.access_token }
-    let(:tokens) { magic_link.tokens }
 
     context 'when the magic token is still active' do
       context 'when it is linked to one token' do
@@ -39,12 +39,10 @@ RSpec.describe 'show token from magic link', app: :api_entreprise do
       end
 
       context 'when it is not linked to one token' do
-        it 'shows the tokens details' do
+        it 'shows the token details' do
           subject
 
-          tokens.each do |token|
-            expect(page).to have_css("input[value='#{token.rehash}']")
-          end
+          expect(page).to have_css("input[value='#{token.rehash}']")
         end
       end
 
@@ -57,36 +55,10 @@ RSpec.describe 'show token from magic link', app: :api_entreprise do
         expect(page).to have_content(expiration_time)
       end
 
-      it 'has a button to copy the tokens hash' do
+      it 'has a button to copy the token hash' do
         subject
 
-        tokens.each do |token|
-          expect(page).to have_css("##{dom_id(token, :copy_token_button)}")
-        end
-      end
-
-      it 'does not show the tokens renewal button' do
-        subject
-
-        tokens.each do |token|
-          expect(page).not_to have_button(dom_id(token, :renew))
-        end
-      end
-
-      it 'does not show the link to the associated authorization requests' do
-        subject
-
-        tokens.each do |token|
-          expect(page).not_to have_link(href: datapass_authorization_request_url(token.authorization_request))
-        end
-      end
-
-      it 'does not allow the magic link creation' do
-        subject
-
-        tokens.each do |token|
-          expect(page).not_to have_button(dom_id(token, :modal_button))
-        end
+        expect(page).to have_css("##{dom_id(token, :copy_token_button)}")
       end
     end
 
