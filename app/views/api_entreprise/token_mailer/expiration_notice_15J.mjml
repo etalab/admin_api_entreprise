@@ -1,0 +1,42 @@
+<%= render partial: "shared/api_entreprise/mailers/header" %>
+<%= render partial: "banner",
+    locals: {
+      color: '#ffe5cf',
+      title: "Votre accès à l'API Entreprise <b>expire dans 2 semaines&nbsp;🚨</b>",
+      subtitle: "Faîtes votre demande de renouvellement en un clic&nbsp;⬇️"
+    }
+%>
+<mj-section mj-class="section-main">
+  <mj-column>
+    <mj-text>
+      <p>Bonjour <%= @full_name %>,</p>
+      <p>⚠️ &nbsp;Transmettez-nous maintenant votre demande de renouvellement pour éviter la coupure de service !</p>
+      <p>Le temps de traitement est normalement de quelques jours ouvrés et dépend de la charge de nos instructeurs.</p>
+      <p>
+        <b>Votre jeton</b> (cadre d'utilisation "<%= @intitule %>") <b> expire le <%= @expiration_date %>, le délai est maintenant très serré, surtout si vous demandez un élargissement du périmètre ou que la finalité de votre service a évolué.
+        </b>
+      </p>
+      <p>Nous ferons notre possible ! effectuez dès maintenant une demande de renouvellement de vos accès&nbsp;:</p>
+    </mj-text>
+    <mj-button href="<%= @authorization_request_datapass_url %>">
+      <b>Renouveler sa demande d'accès&nbsp;🔑</b>
+    </mj-button>
+    <mj-text mj-class="secondary-link">
+      <a target="_blank" href="<%= @authorization_request_datapass_url %>">
+        <%= @authorization_request_datapass_url %>
+      </a>
+    </mj-text>
+    <mj-text>
+      <p>
+        Quelque soit le moment où vous effectuez votre renouvellement, votre jeton actuel conserve sa date d'expiration initiale.
+      </p>
+      <p>
+        À bientôt 👋
+        <br />
+        <b>L'équipe API Entreprise</b>
+      </p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<%= render partial: "block_help_renewal" %>
+<%= render partial: "shared/api_entreprise/mailers/footer" %>

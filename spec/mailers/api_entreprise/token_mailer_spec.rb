@@ -1,6 +1,31 @@
 require 'rails_helper'
 
 RSpec.describe APIEntreprise::TokenMailer do
+  let(:authorization_request) { create(:authorization_request, :with_all_contacts, :with_tokens) }
+  let(:to) { 'anything@email.com' }
+  let(:cc) { 'anything2@email.com' }
+
+  %w[
+    expiration_notice_90J
+    expiration_notice_60J
+    expiration_notice_30J
+    expiration_notice_15J
+    expiration_notice_7J
+    expiration_notice_0J
+  ].each do |method|
+    describe "##{method}" do
+      subject(:generate_email) { described_class.send(method, { to:, cc:, authorization_request: }) }
+
+      it 'generates an email' do
+        expect { generate_email }.not_to raise_error
+      end
+
+      it 'display demandeur full name' do
+        expect(subject.html_part.decoded).to include(authorization_request.demandeur.full_name)
+      end
+    end
+  end
+
   describe '#magic_link' do
     subject(:mailer) { described_class.magic_link(magic_link, host) }
 

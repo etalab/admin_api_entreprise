@@ -26,6 +26,10 @@ RSpec.describe APIParticulier::AuthorizationRequestMailer do
       it 'generates an email' do
         expect { generate_email }.not_to raise_error
       end
+
+      it 'display authorization_request external id' do
+        expect(subject.html_part.decoded).to include(authorization_request.external_id) unless method == 'enquete_satisfaction'
+      end
     end
   end
 end

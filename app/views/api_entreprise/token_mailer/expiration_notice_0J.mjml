@@ -1,0 +1,34 @@
+<%= render partial: "shared/api_entreprise/mailers/header" %>
+<%= render partial: "banner",
+    locals: {
+      color: '#ffdbd2',
+      title: "<b>Votre jeton a expiré ⌛️</b>",
+      subtitle: "Vous n'avez plus accès à l'API Entreprise."
+    }
+%>
+<mj-section mj-class="section-main">
+  <mj-column>
+    <mj-text>
+      <p>Bonjour <%= @full_name %>,</p>
+      <p>Votre jeton au <b>cadre d'utilisation "<%= @intitule %>"</b> a expiré. Votre accès à l'API Entreprise est coupé.</p>
+      <p>Pour obtenir un nouveau jeton, veuillez faire une demande de renouvellement d'accès&nbsp;:</p>
+    </mj-text>
+    <mj-button href="<%= @authorization_request_datapass_url %>">
+      <b>Renouveler sa demande d'accès&nbsp;🔑</b>
+    </mj-button>
+    <mj-text mj-class="secondary-link">
+      <a target="_blank" href="<%= @authorization_request_datapass_url %>">
+        <%= @authorization_request_datapass_url %>
+      </a>
+    </mj-text>
+    <mj-text>
+      <p>
+        À bientôt 👋
+        <br />
+        <b>L'équipe API Entreprise</b>
+      </p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<%= render partial: "block_help_renewal" %>
+<%= render partial: "shared/api_entreprise/mailers/footer" %>

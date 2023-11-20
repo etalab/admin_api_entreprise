@@ -15,9 +15,9 @@ RSpec.describe Token::SendExpirationNotices, type: :organizer do
       let!(:token_expired_within_1_year) { create(:token, :expiring_in_1_year, :with_api_particulier) }
 
       it 'doesnt send anything' do
-        expect(ScheduleExpirationNoticeMailjetEmailJob).not_to receive(:perform_later).with(one_token_expired_within_3_month, days).and_call_original
-        expect(ScheduleExpirationNoticeMailjetEmailJob).not_to receive(:perform_later).with(another_token_expired_within_3_month, days).and_call_original
-        expect(ScheduleExpirationNoticeMailjetEmailJob).not_to receive(:perform_later).with(token_expired_within_1_year, days).and_call_original
+        expect(ScheduleExpirationNoticeEmailJob).not_to receive(:perform_later).with(one_token_expired_within_3_month, days).and_call_original
+        expect(ScheduleExpirationNoticeEmailJob).not_to receive(:perform_later).with(another_token_expired_within_3_month, days).and_call_original
+        expect(ScheduleExpirationNoticeEmailJob).not_to receive(:perform_later).with(token_expired_within_1_year, days).and_call_original
 
         subject
       end
@@ -26,17 +26,17 @@ RSpec.describe Token::SendExpirationNotices, type: :organizer do
     it { is_expected.to be_success }
 
     it 'calls the mailer for the affected tokens only' do
-      expect(ScheduleExpirationNoticeMailjetEmailJob).to receive(:perform_later).with(one_token_expired_within_3_month, days).and_call_original
-      expect(ScheduleExpirationNoticeMailjetEmailJob).to receive(:perform_later).with(another_token_expired_within_3_month, days).and_call_original
-      expect(ScheduleExpirationNoticeMailjetEmailJob).not_to receive(:perform_later).with(token_expired_within_1_year, days).and_call_original
+      expect(ScheduleExpirationNoticeEmailJob).to receive(:perform_later).with(one_token_expired_within_3_month, days).and_call_original
+      expect(ScheduleExpirationNoticeEmailJob).to receive(:perform_later).with(another_token_expired_within_3_month, days).and_call_original
+      expect(ScheduleExpirationNoticeEmailJob).not_to receive(:perform_later).with(token_expired_within_1_year, days).and_call_original
 
       subject
     end
 
     it 'does not send the same notification twice' do
       described_class.call(expire_in: days)
-      expect(ScheduleExpirationNoticeMailjetEmailJob).not_to receive(:perform_later).with(one_token_expired_within_3_month, days)
-      expect(ScheduleExpirationNoticeMailjetEmailJob).not_to receive(:perform_later).with(another_token_expired_within_3_month, days)
+      expect(ScheduleExpirationNoticeEmailJob).not_to receive(:perform_later).with(one_token_expired_within_3_month, days)
+      expect(ScheduleExpirationNoticeEmailJob).not_to receive(:perform_later).with(another_token_expired_within_3_month, days)
 
       subject
     end
@@ -46,9 +46,9 @@ RSpec.describe Token::SendExpirationNotices, type: :organizer do
       archived_token = create(:token, :expiring_within_3_month, authorization_request:)
 
       # Expectations for sent notifications are needed, otherwise the code runs against the "dumb" double
-      expect(ScheduleExpirationNoticeMailjetEmailJob).to receive(:perform_later).with(one_token_expired_within_3_month, days).and_call_original
-      expect(ScheduleExpirationNoticeMailjetEmailJob).to receive(:perform_later).with(another_token_expired_within_3_month, days).and_call_original
-      expect(ScheduleExpirationNoticeMailjetEmailJob).not_to receive(:perform_later).with(archived_token, days)
+      expect(ScheduleExpirationNoticeEmailJob).to receive(:perform_later).with(one_token_expired_within_3_month, days).and_call_original
+      expect(ScheduleExpirationNoticeEmailJob).to receive(:perform_later).with(another_token_expired_within_3_month, days).and_call_original
+      expect(ScheduleExpirationNoticeEmailJob).not_to receive(:perform_later).with(archived_token, days)
 
       subject
     end
@@ -56,9 +56,9 @@ RSpec.describe Token::SendExpirationNotices, type: :organizer do
     it 'does not call the mailer for blacklisted tokens' do
       blacklisted_token = create(:token, :expiring_within_3_month, :blacklisted)
       # Expectations for sent notifications are needed, otherwise the code runs against the "dumb" double
-      expect(ScheduleExpirationNoticeMailjetEmailJob).to receive(:perform_later).with(one_token_expired_within_3_month, days).and_call_original
-      expect(ScheduleExpirationNoticeMailjetEmailJob).to receive(:perform_later).with(another_token_expired_within_3_month, days).and_call_original
-      expect(ScheduleExpirationNoticeMailjetEmailJob).not_to receive(:perform_later).with(blacklisted_token, days)
+      expect(ScheduleExpirationNoticeEmailJob).to receive(:perform_later).with(one_token_expired_within_3_month, days).and_call_original
+      expect(ScheduleExpirationNoticeEmailJob).to receive(:perform_later).with(another_token_expired_within_3_month, days).and_call_original
+      expect(ScheduleExpirationNoticeEmailJob).not_to receive(:perform_later).with(blacklisted_token, days)
 
       subject
     end
