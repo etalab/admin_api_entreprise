@@ -19,6 +19,10 @@ RSpec.describe APIEntreprise::TokenMailer do
       it 'generates an email' do
         expect { generate_email }.not_to raise_error
       end
+
+      it 'display demandeur full name' do
+        expect(subject.html_part.decoded).to include(authorization_request.demandeur.full_name)
+      end
     end
   end
 
