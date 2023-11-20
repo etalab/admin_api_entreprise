@@ -11,7 +11,7 @@ class APIEntreprise::TokenMailer < APIEntrepriseMailer
     expiration_notice_30J
     expiration_notice_15J
     expiration_notice_7J
-    expiration_notice_0J_expired
+    expiration_notice_0J
   ].each do |method|
     send('define_method', method) do |args|
       @authorization_request = args[:authorization_request]

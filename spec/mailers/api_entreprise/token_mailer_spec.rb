@@ -11,7 +11,7 @@ RSpec.describe APIEntreprise::TokenMailer do
     expiration_notice_30J
     expiration_notice_15J
     expiration_notice_7J
-    expiration_notice_0J_expired
+    expiration_notice_0J
   ].each do |method|
     describe "##{method}" do
       subject(:generate_email) { described_class.send(method, { to:, cc:, authorization_request: }) }
