@@ -21,7 +21,6 @@ constraints(APIEntrepriseDomainConstraint.new) do
     get '/compte/apres-deconnexion', to: 'sessions#after_logout', as: :after_logout
 
     get '/compte', to: 'users#profile', as: :user_profile
-
     get '/compte/demandes/:id', to: 'authorization_requests#show', as: :authorization_request
     get '/compte/demandes', to: 'authorization_requests#index', as: :authorization_requests
 

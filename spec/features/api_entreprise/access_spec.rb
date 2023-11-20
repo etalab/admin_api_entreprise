@@ -18,7 +18,7 @@ RSpec.describe 'page access', app: :api_entreprise do
       it 'is redirected to the user details while accessing the login page' do
         visit login_path
 
-        expect(page).to have_current_path(user_profile_path, ignore_query: true)
+        expect(page).to have_current_path(authorization_requests_path, ignore_query: true)
       end
     end
 
@@ -30,7 +30,7 @@ RSpec.describe 'page access', app: :api_entreprise do
       it 'is redirected to the user details while accessing the login page' do
         visit login_path
 
-        expect(page).to have_current_path(user_profile_path, ignore_query: true)
+        expect(page).to have_current_path(authorization_requests_path, ignore_query: true)
       end
     end
   end

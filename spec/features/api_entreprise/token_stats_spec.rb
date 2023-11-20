@@ -18,8 +18,8 @@ RSpec.describe 'Stats page for a token', app: :api_entreprise do
   context 'with another user' do
     let(:user) { create(:user) }
 
-    it 'redirects to account main page' do
-      expect(page).to have_current_path(user_profile_path)
+    it 'redirects to account homepage' do
+      expect(page).to have_current_path(authorization_requests_path, ignore_query: true)
     end
   end
 end

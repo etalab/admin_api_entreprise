@@ -32,6 +32,7 @@ constraints(APIParticulierDomainConstraint.new) do
     get '/compte/deconnexion', to: 'sessions#destroy', as: :logout
     get '/compte/apres-deconnexion', to: 'sessions#after_logout', as: :after_logout
 
+
     get '/compte', to: 'users#profile', as: :user_profile
     get '/compte/nouveaux-jetons/telecharger', to: "new_tokens#download", as: :new_tokens_download
 

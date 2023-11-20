@@ -8,7 +8,7 @@ module AuthorizationRequestsManagement
     @access_logs_counts = AccessLogsCounts.new(@inactive_tokens)
     @banned_tokens = @authorization_request.tokens.blacklisted_later.decorate
 
-    render 'shared/authorization_requests/show', layout: "#{namespace}/application"
+    render 'shared/authorization_requests/show'
   rescue ActiveRecord::RecordNotFound
     error_message(title: t('.error.title'))
 
@@ -25,7 +25,7 @@ module AuthorizationRequestsManagement
         first_submitted_at: :desc
       ).includes(:active_token)
 
-    render 'shared/authorization_requests/index', layout: "#{namespace}/application"
+    render 'shared/authorization_requests/index'
   end
 
   private

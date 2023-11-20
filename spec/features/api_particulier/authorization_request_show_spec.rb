@@ -57,7 +57,7 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
 
     describe 'when authorization_request does not belong to current_user' do
       it 'redirects to the profile' do
-        expect(page).to have_current_path(api_particulier_user_profile_path, ignore_query: true)
+        expect(page).to have_current_path(api_particulier_authorization_requests_path, ignore_query: true)
       end
     end
 
@@ -74,7 +74,7 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
         end
 
         it 'redirects to the profile' do
-          expect(page).to have_current_path(api_particulier_user_profile_path, ignore_query: true)
+          expect(page).to have_current_path(api_particulier_authorization_requests_path, ignore_query: true)
         end
       end
 
@@ -90,7 +90,7 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
         end
 
         it 'redirects to the profile' do
-          expect(page).to have_current_path(api_particulier_user_profile_path, ignore_query: true)
+          expect(page).to have_current_path(api_particulier_authorization_requests_path, ignore_query: true)
         end
       end
 
@@ -109,7 +109,7 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
           let(:status) { 'draft' }
 
           it 'redirects to the profile' do
-            expect(page).to have_current_path(api_particulier_user_profile_path, ignore_query: true)
+            expect(page).to have_current_path(api_particulier_authorization_requests_path, ignore_query: true)
           end
         end
 

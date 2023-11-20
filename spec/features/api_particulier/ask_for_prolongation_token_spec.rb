@@ -26,7 +26,7 @@ RSpec.describe 'displays ask_for_prolongation token content', app: :api_particul
     end
 
     it 'redirects to the profile' do
-      expect(page).to have_current_path(api_particulier_user_profile_path, ignore_query: true)
+      expect(page).to have_current_path(api_particulier_authorization_requests_path, ignore_query: true)
     end
   end
 
@@ -46,7 +46,7 @@ RSpec.describe 'displays ask_for_prolongation token content', app: :api_particul
       end
 
       it 'redirects to the profile' do
-        expect(page).to have_current_path(api_particulier_user_profile_path, ignore_query: true)
+        expect(page).to have_current_path(api_particulier_authorization_requests_path, ignore_query: true)
       end
     end
 
@@ -56,7 +56,7 @@ RSpec.describe 'displays ask_for_prolongation token content', app: :api_particul
       end
 
       it 'redirects to the profile' do
-        expect(page).to have_current_path(api_particulier_user_profile_path, ignore_query: true)
+        expect(page).to have_current_path(api_particulier_authorization_requests_path, ignore_query: true)
       end
     end
   end
