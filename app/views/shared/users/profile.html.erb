@@ -1,4 +1,4 @@
-<% if tokens_to_export? %>
+<% if namespace == 'api_particulier' && tokens_to_export? %>
   <div class="fr-highlight fr-highlight--pink-tuile fr-ml-0">
     <p>
       <%= t('.new_token') %>
@@ -7,3 +7,5 @@
     </p>
   </div>
 <% end %>
+
+<%= render partial: 'shared/users/user', locals: { user: current_user, user_roles: @user_roles } %>
