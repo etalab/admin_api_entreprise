@@ -36,7 +36,7 @@ RSpec.describe 'the signin process', app: :api_entreprise do
             expect(latest_user.send(attr)).to eq(user.send(attr))
           end
 
-          expect(page).to have_current_path(user_profile_path, ignore_query: true)
+          expect(page).to have_current_path(authorization_requests_path, ignore_query: true)
         end
       end
 
@@ -46,7 +46,7 @@ RSpec.describe 'the signin process', app: :api_entreprise do
         it 'redirects to the user profile' do
           subject
 
-          expect(page).to have_current_path(user_profile_path, ignore_query: true)
+          expect(page).to have_current_path(authorization_requests_path, ignore_query: true)
         end
       end
     end
@@ -72,7 +72,7 @@ RSpec.describe 'the signin process', app: :api_entreprise do
         it 'redirects to the user profile' do
           subject
 
-          expect(page).to have_current_path(user_profile_path, ignore_query: true)
+          expect(page).to have_current_path(authorization_requests_path, ignore_query: true)
         end
       end
 
@@ -87,7 +87,7 @@ RSpec.describe 'the signin process', app: :api_entreprise do
         it 'redirects to the user profile' do
           subject
 
-          expect(page).to have_current_path(user_profile_path, ignore_query: true)
+          expect(page).to have_current_path(authorization_requests_path, ignore_query: true)
         end
       end
     end

@@ -5,8 +5,9 @@ RSpec.describe 'show token from magic link', app: :api_particulier do
     visit api_particulier_token_show_magic_link_path(access_token: magic_token)
   end
 
-  let!(:user) { create(:user, :with_token, tokens_amount: 2, email:) }
+  let!(:user) { create(:user, email:) }
   let(:email) { 'any-email@data.gouv.fr' }
+  let(:token) { create(:token) }
 
   before do
     user.authorization_requests.update_all(api: 'particulier')
@@ -25,25 +26,20 @@ RSpec.describe 'show token from magic link', app: :api_particulier do
   end
 
   context 'when the magic link token exists' do
-    let!(:magic_link) { create(:magic_link, email:) }
+    let!(:magic_link) { create(:magic_link, email:, token:) }
     let(:magic_token) { magic_link.access_token }
-    let(:tokens) { magic_link.tokens }
 
     context 'when the magic token is still active' do
-      it 'shows the tokens details' do
+      it 'shows the token details' do
         subject
 
-        tokens.each do |token|
-          expect(page).to have_css("input[value='#{token.rehash}']")
-        end
+        expect(page).to have_css("input[value='#{token.rehash}']")
       end
 
-      it 'has a button to copy the tokens hashes' do
+      it 'has a button to copy the token hashes' do
         subject
 
-        tokens.each do |token|
-          expect(page).to have_css("##{dom_id(token, :copy_button)}")
-        end
+        expect(page).to have_css("##{dom_id(token, :copy_token_button)}")
       end
     end
 

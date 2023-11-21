@@ -32,16 +32,18 @@ constraints(APIParticulierDomainConstraint.new) do
     get '/compte/deconnexion', to: 'sessions#destroy', as: :logout
     get '/compte/apres-deconnexion', to: 'sessions#after_logout', as: :after_logout
 
+
     get '/compte', to: 'users#profile', as: :user_profile
     get '/compte/nouveaux-jetons/telecharger', to: "new_tokens#download", as: :new_tokens_download
 
-    get '/compte/demandes_list', to: 'authorization_requests#list', as: :authorization_requests_list
-    get '/compte/demandes/:id', to: 'authorization_requests#show', as: :authorization_requests_show
+    get '/compte/demandes', to: 'authorization_requests#index', as: :authorization_requests
+    get '/compte/demandes/:id', to: 'authorization_requests#show', as: :authorization_request
 
     get '/compte/jetons/:id/prolonger', to: 'tokens#prolong', as: :token_prolong
     get '/compte/jetons/:id', to: 'tokens#show', as: :token
     get '/compte/jetons/:id/demande-prolongation', to: 'tokens#ask_for_prolongation', as: :token_ask_for_prolongation
     get '/compte/jetons/:id/stats', to: 'tokens#stats', as: :token_stats
+    get '/compte/jetons/:id/renew', to: 'tokens#renew', as: :token_renew
 
     post 'public/magic_link/create', to: 'public_token_magic_links#create'
     post '/compte/jetons/:id/partager', to: 'restricted_token_magic_links#create', as: :token_create_magic_link

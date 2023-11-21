@@ -20,6 +20,6 @@ module AuthenticatedUserManagement
   def logged_user_not_authorized
     error_message(title: t('concerns.sessions_management.unauthorized.signed_in.error.title'))
 
-    redirect_to user_profile_path
+    redirect_to authorization_requests_path
   end
 end

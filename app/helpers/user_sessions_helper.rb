@@ -23,7 +23,7 @@ module UserSessionsHelper
   end
 
   def redirect_current_user_to_homepage
-    redirect_to user_profile_path
+    redirect_to authorization_requests_path
   end
 
   def redirect_to_root

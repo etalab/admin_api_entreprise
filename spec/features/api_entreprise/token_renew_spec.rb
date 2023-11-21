@@ -18,7 +18,7 @@ RSpec.describe 'token renew page', app: :api_entreprise do
     let(:user) { create(:user) }
 
     it 'redirects to account main page' do
-      expect(page).to have_current_path(user_profile_path)
+      expect(page).to have_current_path(authorization_requests_path, ignore_query: true)
     end
   end
 end

@@ -32,22 +32,256 @@ fr:
           title: Le jeton a été transféré avec succès à l'adresse %{target_email}
         error:
           title: Une erreur est survenue lors du transfert du jeton. Vérifiez que l'adresse e-mail est valide ou contactez le support à %{support_email} si le problème persiste.
-  commons:
-    copy_token_success_message: Le jeton a été copié avec succès
-
   shared:
+    users:
+      user:
+        links:
+          authorization_requests: Accéder à la liste de vos habilitations
+        title: "Compte utilisateur"
+        transfer_account:
+          disclaimer: "Votre équipe évolue ? Vous quittez votre service ? Vous pouvez léguer votre compte à une autre personne :"
+          cta: Transférer mes habilitations
+        demandeur: "Demandeur"
+        contact_metier: "Contact métier"
+        contact_technique: "Contact technique"
+      profile:
+        new_token_download: Téléchargez vos nouveaux jetons
+        new_token: De nouveaux jetons vous ont été attribués. Un fichier
+          a été généré afin que vous puissiez faire le lien entre les nouveaux et les anciens jetons.
     sessions:
       new:
         title: Accéder à mon compte<br>et aux jetons d'accès 🔑
         faq: Une difficulté à vous connecter ? Consultez %{link}
         faq_link: notre FAQ
-    token_share_warning:
-      notice: <strong>Ne transmettez jamais votre jeton par email</strong>, il permet d'accéder à des informations sensibles et vous êtes responsable de l'utilisation qui en est faite. Utilisez le bouton "Transmettre le jeton" ou utilisez une messagerie sécurisée.
     public_token_magic_links:
       show:
+        notice: <strong>Ne transmettez jamais votre jeton par email</strong>, il permet d'accéder à des informations sensibles et vous êtes responsable de l'utilisation qui en est faite. Utilisez le bouton "Transmettre le jeton" ou utilisez une messagerie sécurisée.
         disclaimer:
           title: Durée de validité du lien
           description: Cette page contient votre jeton d'accès à %{api_name} et ne doit en aucun cas être partagée avec un tiers non habilité ! Ce lien expirera dans %{expiration_time}.
+        error:
+          expired:
+            title: Lien expiré
+            description: Le lien d'accès au jeton a expiré. Les liens magiques ont une durée de vie de %{initial_expiration_delay_in_hours} heures. Veuillez redemander un accès à votre responsable de compte.
+          unknown:
+            title: Une erreur est survenue à la récupération du jeton.
+            description: Une erreur inconnue est survenue. Veuillez contacter le support à api-particulier@api.gouv.fr
+          missing:
+            title: Jeton(s) non trouvés
+            description: Le jeton ou les jetons demandé(s) n'ont pas été trouvés. Veuillez contacter le support à api-particulier@api.gouv.fr
+    tokens:
+      renew:
+        title: Renouveler ou étendre mes droits
+        description: |+
+          Vous souhaitez renouveler votre jeton arrivant à expiration ou demander de nouvelles données pour le même cas d'usaee ? Cette fonctionnalité vous permet de <strong>dupliquer le formulaire de demande d'accès déjà rempli</strong> pour ce jeton et de le modifier. <strong>En cliquant sur "Continuer" vous serez transféré sur le site DataPass</strong>.
+          <br>
+          <br>
+          💡 Le renouvellement d'un jeton ne supprime pas votre jeton actuel. Ce dernier continue de fonctionner jusqu'à sa date d'expiration.
+          <br>
+          <br>
+          Pour en savoir plus, consultez <a href='https://entreprise.api.gouv.fr/faq#comment-renouveler-mon-jeton-arrivant-a-expiration' target='_blank'>cette rubrique de notre FAQ</a>.
+        continue: ⬜ Continuer
+      stats:
+        title: "Cas d'usage du jeton : %{title}"
+        tabs:
+          last_10_minutes: 10 dernières minutes
+          last_30_hours: 30 dernières heures
+          last_8_days: 8 derniers jours
+        links:
+          user_tokens: Retour à l'habilitation N<sup>o</sup>%{external_id}
+        details:
+          internal_id: "Identifiant technique du jeton : %{id}"
+        requests_details:
+          title: Détails des %{limit} dernières requêtes
+      cannot_show:
+        title: Utiliser le jeton
+        description: "En tant que contact métier, <strong>vous n'avez pas l'autorisation d'utiliser la clé d'accès.</strong>
+          Si le jeton arrive à expriation ou nécessite une action, veuiollez contacter le contact principal et le contact technique de cette habilitation :"
+        demandeur: "<strong>Contact principal</strong> : %{demandeur}"
+        contact_technique: "<strong>Contact technique</strong> : %{contact_technique}"
+        authorization_request_link: "<strong>Lien de l'habilitation à transmettre :</strong>"
+        links:
+          to_datapass: "N<sup>o</sup>%{external_id}"
+      ask_for_prolongation:
+        title: Relancer le contact principal
+        description: "Malgré nos nombreuses relances, %{demandeur} n'a pas prolongé le jeton ID : %{token_id},
+          celui-ci expirera dans %{remaining_time}. Seul le contact principal peut prolonger le jeton.
+          <strong>Écrivez-lui en lui transmettant le lien vers le formulaire de prolongation :</strong>"
+        demandeur: "<strong>Contact principal</strong> : %{demandeur}"
+        ask_for_token_prolongation_description: "<strong>Lien du questionnaire de prolongation</strong> :"
+        links:
+          to_datapass: "N<sup>o</sup>%{external_id}"
+      show:
+        title: Utiliser le jeton
+        warning: "Vous ne devez <strong> jamais copier-coller un token
+          dans un moteur de recherche on dans un email.</strong> L'usage de votre token
+          se fait uniquement dans votre logiciel métier sécurisé utilisé pour réaliser vos appels.
+          Pour transmettre ce jeton, <strong>merci d'utiliser la fonctionnalité prévue ci-dessous :</strong>"
+        token_label: Jeton d'accès n<sup>o</sup> <strong>%{token_id}</strong>
+        cta: Copier le jeton
+        modal:
+          transfer:
+            display_cta: Transmettre le jeton en sécurité
+            title: Transférer le jeton d'accès
+            description: Cette fonctionnalité vous permet d'envoyer un e-mail contenant un lien d'accès au jeton. L'URL transmise a une durée limitée de 4 heures.
+              <br>
+              <br>
+              Attention, nos <a href="https://entreprise.api.gouv.fr/cgu/">CGU</a> vous engagent ! Vous ne devez pas divulguer cet accès à des tiers non-habilités. Pour en savoir plus, consultez <a href='https://entreprise.api.gouv.fr/faq#comment-transmettre-le-jeton-d-acces-en-tout-securite' target='_blank'>cette rubrique de notre FAQ</a>.
+            email:
+              label: Adresse e-mail du destinataire
+              placeholder: jean@dupont.fr
+            cta: Envoyer le lien d'accès au jeton
+            confirm: Êtes-vous sûr de vouloir transférer votre jeton à cette adresse ?
+        status:
+          color:
+            revoked: pink-tuile
+            revoked_later: pink-tuile
+            expired: no-specific-color
+            active: green-emeraude
+            new_token: green-emeraude
+          label:
+            revoked: 🚫 Banni
+            revoked_later: 🚫 Banni
+            expired: ☠️  Expiré
+            active: 🔑 Actif
+            new_token: 🔑 Nouveau jeton à utiliser
+      prolong:
+        title: Prolonger le jeton
+        description: "Votre jeton expire dans %{remaining_time}.
+          Avant de prolonger votre jeton, nous avons besoin de savoir si les conditions
+          indiquées dans votre habilitation %{link_to_datapass}
+          ont évolué."
+        links:
+          to_datapass: "N<sup>o</sup>%{external_id}"
+        warning_description: "Pour prolonger votre jeton, veuillez compléter le formulaire suivant :"
+        warning: ⚠️ Vos réponses au formulaire <strong>vous engagent</strong> en regard des CGU d'api entreprise.
+        cta: Compléter le formulaire de prolongation
+      detail_short:
+        no_token:
+          title: Aucun jeton actif
+          description: Cette demande ayant été %{status}, aucun jeton ne peut être demandé
+          status:
+            revoked: revoquée
+            archived: archivée
+        expiration_date: "Expire le : <strong>%{expiration_date}</strong>"
+        status:
+          color:
+            revoked: pink-tuile
+            revoked_later: pink-tuile
+            expired: no-specific-color
+            active: green-emeraude
+            new_token: green-emeraude
+          label:
+            revoked: 🚫 Banni
+            revoked_later: 🚫 Banni
+            expired: ☠️  Expiré
+            active: 🔑 Actif
+            new_token: 🔑 Nouveau jeton à utiliser
+      detail:
+        links:
+          stats: Voir les statistiques
+        remaining_time:
+          new_token: "Durée restante du jeton : <strong>%{remaining_time}</strong>"
+          active: "Durée restante du jeton : <strong>%{remaining_time}</strong>"
+          expired: "Durée restante du jeton : <strong>Expiré</strong> ☠️"
+          revoked_later: "Durée restante du jeton : 🔥 <strong>%{remaining_time}</strong>"
+          revoked: "Durée restante du jeton : <strong>Banni</strong> ☠️"
+        call_for_a_week:
+          zero: "%{count} appel les 7 derniers jours"
+          one: "%{count} appel les 7 derniers jours"
+          other: "%{count} appels les 7 derniers jours"
+        status:
+          color:
+            revoked: pink-tuile
+            revoked_later: pink-tuile
+            expired: no-specific-color
+            active: green-emeraude
+            new_token: green-emeraude
+          label:
+            revoked: 🚫 Banni
+            revoked_later: 🚫 Banni
+            expired: ☠️  Expiré
+            active: 🔑 Actif
+            new_token: 🔑 Nouveau jeton à utiliser
+    authorization_requests:
+      index:
+        modal:
+          show:
+            description: "Remplacez maintenant le jeton banni par le nouveau jeton"
+            display_cta: "Voir le jeton"
+          prolong:
+            display_cta: Prolonger le jeton
+        no_authorization_requests: "Vous n'avez aucune habilitations"
+        title: "Habilitations %{api_label} (%{count})"
+        entreprise: API Entreprise
+        particulier: API Particulier
+        links:
+          to_datapass: "Datapass N<sup>o</sup>%{external_id}"
+          profile: Accéder à vos informations
+        table: 
+          head:
+            datapass: "N<sup>o</sup> Demande Datapass"
+            authorization_request: "Nom de l'habilitation"
+            role: Votre rôle
+            token: État du jeton principal
+            exp: Expiration
+            id: Identifiant
+            actions: Actions attendues
+            detail: Page détaillées
+      breadcrumb:
+        index: Habilitations
+        current_page: Habilitation N<sup>o</sup>%{datapass_id}
+      summary:
+        menu: Dans cette rubrique
+        active_tokens: Jetons
+        attestations: Attestation sociales et fiscales
+        contacts: Contacts
+      status:
+        color:
+          revoked: pink-tuile
+          archived: no-specific-color
+          validated: green-emeraude
+        label:
+          revoked: 📃 Habilitation révoquée
+          archived: 📃 Habilitation archivée
+          validated: 📃 Habilitation active
+      header:
+        delivered_at: "Délivré le : %{humanized_date}"
+        links:
+          to_datapass: "N<sup>o</sup>%{external_id}"
+      show:
+        access: Voir vos accès
+        modal:
+          renew:
+            display_cta: Demander l'accès à d'autre API
+          show:
+            display_cta: "Voir le jeton"
+          prolong:
+            display_cta: Prolonger le jeton
+          ask_for_prolongation:
+            display_cta: Relancer le contact principal pour prolonger le jeton
+        main_token:
+          title: "Jeton principal :"
+        attestations:
+          title: "Télécharger manuellement les attestations sociales et fiscales"
+          description: "Saississez manuellement le SIREN de l'unite légale recherchée et vous aurez directement accès aux PDF des attestations"
+          cta: "Utiliser l'inferface de téléchargement"
+        old_tokens:
+          title: Voir les anciens jetons
+          table:
+            identifier: "Identifiant du jeton"
+            created_at: "Date de délivrance"
+            exp: "Date d'expiration"
+            total_calls: "Nombre d'appel total"
+        contacts:
+          title: "Contacts associés:"
+          demandeur:
+            title: "Contact principal:"
+          contact_technique:
+            title: "Contact technique:"
+          contact_metier:
+            title: "Contact metier :"
+          its_me: "✋ C'est moi !"
     pages:
       redoc:
         title: "Swagger 📟"

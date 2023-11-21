@@ -12,7 +12,7 @@ RSpec.describe 'Download attestations', app: :api_entreprise do
       it 'redirect to profile' do
         visit attestations_path
 
-        expect(page).to have_current_path(user_profile_path)
+        expect(page).to have_current_path(authorization_requests_path, ignore_query: true)
       end
     end
 

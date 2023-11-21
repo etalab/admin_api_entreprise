@@ -27,6 +27,10 @@ module TokensManagement
     render 'shared/tokens/stats'
   end
 
+  def renew
+    render 'shared/tokens/renew'
+  end
+
   private
 
   def extract_token

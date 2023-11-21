@@ -1,6 +1,6 @@
 RSpec.describe 'displays authorization requests', app: :api_particulier do
   subject(:go_to_authorization_requests_index) do
-    visit api_particulier_authorization_requests_list_path
+    visit api_particulier_authorization_requests_path
   end
 
   let!(:authenticated_user) { create(:user) }
@@ -47,7 +47,7 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
 
     describe 'when the user does not have authorization requests' do
       it 'displays the page' do
-        expect(page).to have_current_path(api_particulier_authorization_requests_list_path, ignore_query: true)
+        expect(page).to have_current_path(api_particulier_authorization_requests_path, ignore_query: true)
 
         expect(page).to have_content("Vous n'avez aucune habilitations")
       end
@@ -114,7 +114,7 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
       end
 
       it 'displays the page' do
-        expect(page).to have_current_path(api_particulier_authorization_requests_list_path, ignore_query: true)
+        expect(page).to have_current_path(api_particulier_authorization_requests_path, ignore_query: true)
 
         expect(page).to have_content('Habilitations API Particulier (4)')
 

@@ -7,6 +7,7 @@
         <% else %>
           <%= t('.title', api_label: t(".#{@authorization_requests.first.api}"), count: @authorization_requests.count) %>
         <% end %>
+        <%= link_to t('.links.profile'), user_profile_path, class: %w(fr-icon-arrow-right-line fr-link--icon-right fr-text--xs pull-right) %>
       </h1>
     </div>
   </div>
@@ -100,7 +101,7 @@
               <% end %>
             </div>
             <div class="fr-col-12 fr-col-md-6 fr-col-lg-2 center">
-              <%= link_to "", authorization_requests_show_path(authorization_request), class: %w[fr-btn fr-btn--lg fr-btn--tertiary-no-outline fr-icon-arrow-right-line] %>
+              <%= link_to "", authorization_request_path(authorization_request), class: %w[fr-btn fr-btn--lg fr-btn--tertiary-no-outline fr-icon-arrow-right-line] %>
             </div>
           </div>
         <% end %>

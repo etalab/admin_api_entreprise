@@ -1,25 +1,26 @@
 <div id="user_details">
-  <h1>
+  <h1 class="fr-col">
     <%= t('.title') %>
+    <%= link_to t('.links.authorization_requests'), authorization_requests_path, class: %w(fr-icon-arrow-right-line fr-link--icon-right fr-text--xs pull-right) %>
   </h1>
 
   <div class="main-content">
     <h3>
-      <%= @user.full_name %>
+      <%= user.full_name %>
 
-      <% if @user_roles.include?(:demandeur) %>
+      <% if user_roles.include?(:demandeur) %>
         <span class="fr-tag">
           <%= t('.demandeur') %>
         </span>
       <% end %>
 
-      <% if @user_roles.include?(:contact_metier) %>
+      <% if user_roles.include?(:contact_metier) %>
         <span class="fr-tag">
           <%= t('.contact_metier') %>
         </span>
       <% end %>
 
-      <% if @user_roles.include?(:contact_technique) %>
+      <% if user_roles.include?(:contact_technique) %>
         <span class="fr-tag">
           <%= t('.contact_technique') %>
         </span>
@@ -31,7 +32,7 @@
         <ul class="list-unstyled user-general-infos">
           <li>
             <%= icon('fr-icon-mail-line') %>
-            <%= @user.email %>
+            <%= user.email %>
           </li>
         </ul>
       </div>
@@ -49,9 +50,5 @@
         </p>
       </div>
     </div>
-
-    <turbo-frame class="fr-mt-5w" id="authorization_requests" src="<%= authorization_requests_path %>">
-      <%= render partial: 'shared/loader' %>
-    </turbo-frame>
   </div>
 </div>
