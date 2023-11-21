@@ -27,6 +27,18 @@
                 </li>
               <% end %>
             </ul>
+            <div>
+                <a
+                  href="<%= token_renew_path(id: @main_token.id) %>"
+                  id="renew-token-modal-link"
+                  class="fr-btn fr-icon-arrow-right-line fr-btn--icon-right pull-right fr-mt-2w"
+                  aria-controls="main-modal"
+                  data-fr-opened="false"
+                  data-turbo-frame="main-modal-content"
+                >
+                  <%= t('.modal.renew.display_cta') %>
+                </a>
+            </div>
           </div>
         </section>
 

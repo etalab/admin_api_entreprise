@@ -43,6 +43,7 @@ constraints(APIParticulierDomainConstraint.new) do
     get '/compte/jetons/:id', to: 'tokens#show', as: :token
     get '/compte/jetons/:id/demande-prolongation', to: 'tokens#ask_for_prolongation', as: :token_ask_for_prolongation
     get '/compte/jetons/:id/stats', to: 'tokens#stats', as: :token_stats
+    get '/compte/jetons/:id/renew', to: 'tokens#renew', as: :token_renew
 
     post 'public/magic_link/create', to: 'public_token_magic_links#create'
     post '/compte/jetons/:id/partager', to: 'restricted_token_magic_links#create', as: :token_create_magic_link

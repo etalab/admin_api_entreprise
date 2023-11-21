@@ -2,6 +2,4 @@ class APIEntreprise::TokensController < APIEntreprise::AuthenticatedUsersControl
   include TokensManagement
 
   before_action :extract_token
-
-  def renew; end
 end
