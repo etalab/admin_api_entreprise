@@ -58,22 +58,13 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
   end
 
   def authorization_request_attributes_for_current_event
-    case context.event
-    when 'send_application', 'submit'
-      if context.authorization_request.first_submitted_at.nil?
-        {
-          'first_submitted_at' => fired_at_as_datetime
-        }
-      else
-        {}
-      end
-    when 'validate_application', 'validate'
-      {
-        'validated_at' => fired_at_as_datetime
-      }
-    else
-      {}
-    end
+    authorization_request_attributes_for_current_event = {}
+
+    authorization_request_attributes_for_current_event['first_submitted_at'] = fired_at_as_datetime if context.event != 'draft' && context.authorization_request.first_submitted_at.nil?
+
+    authorization_request_attributes_for_current_event['validated_at'] = fired_at_as_datetime if %w[validate_application validate].include?(context.event)
+
+    authorization_request_attributes_for_current_event
   end
 
   def contact_payload_for(kind)
