@@ -6,7 +6,6 @@ class Token::RetrieveExpiring < ApplicationInteractor
       .not_blacklisted
       .joins(:authorization_request)
       .merge(AuthorizationRequest.not_archived)
-      .merge(AuthorizationRequest.for_api('entreprise'))
       .where('exp <= ?', expiration_period)
       .where('NOT EXISTS (SELECT 1 FROM jsonb_array_elements_text(tokens.days_left_notification_sent::jsonb) AS elem WHERE elem::integer <= ?)', expiration_period)
   end

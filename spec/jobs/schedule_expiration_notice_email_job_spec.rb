@@ -39,7 +39,7 @@ RSpec.describe ScheduleExpirationNoticeEmailJob do
       end
 
       it 'sends the correct mail' do
-        expect { subject }.to have_enqueued_mail(APIEntreprise::TokenMailer, :expiration_notice_90J)
+        expect { subject }.to have_enqueued_mail(APIEntreprise::TokenMailer, :expiration_notice_90J).with(token:)
 
         subject
       end
@@ -49,7 +49,7 @@ RSpec.describe ScheduleExpirationNoticeEmailJob do
       let(:expires_in) { 0 }
 
       it 'sends the correct mail' do
-        expect { subject }.to have_enqueued_mail(APIEntreprise::TokenMailer, :expiration_notice_0J)
+        expect { subject }.to have_enqueued_mail(APIEntreprise::TokenMailer, :expiration_notice_0J).with(token:)
 
         subject
       end

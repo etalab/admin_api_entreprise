@@ -11,12 +11,20 @@ class ScheduleExpirationNoticeEmailJob < ApplicationJob
 
     return if token.nil? || token.authorization_request.nil?
 
-    return unless APIEntreprise::TokenMailer.respond_to?(template)
+    return unless mailer_klass.respond_to?(template)
 
-    APIEntreprise::TokenMailer.send(template, token).deliver_later
+    mailer_klass.send(template, { token: }).deliver_later
   end
 
   private
+
+  def mailer_klass
+    "API#{api.capitalize}::TokenMailer".constantize
+  end
+
+  def api
+    token.api
+  end
 
   def token
     @token ||= Token.find_by(id: @token_id)
