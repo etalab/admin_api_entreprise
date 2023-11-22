@@ -1,0 +1,3 @@
+class APIParticulier::TransferUserAccountController < APIParticulier::AuthenticatedUsersController
+  include TransferUserAccountManagement
+end
