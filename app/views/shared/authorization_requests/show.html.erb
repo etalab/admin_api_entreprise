@@ -12,11 +12,11 @@
 
         <section id="habilitation_access_infos" class="fr-accordion fr-mb-8v">
           <h3 class="fr-accordion__title">
-            <button id="access_accordion_button" class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106">
+            <button id="access_accordion_button" class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-107">
               <%= t('.access') %>
             </button>
           </h3>
-          <div class="fr-collapse" id="accordion-106" />
+          <div class="fr-collapse" id="accordion-107" />
           <div class="fr-mb-2v">
             <ul class="fr-tags-group">
               <% @authorization_request.token.scopes.each do |scope| %>
@@ -31,7 +31,7 @@
                 <a
                   href="<%= token_renew_path(id: @main_token.id) %>"
                   id="renew-token-modal-link"
-                  class="fr-btn fr-icon-arrow-right-line fr-btn--icon-right pull-right fr-mt-2w"
+                  class="fr-btn fr-btn--secondary fr-icon-arrow-right-line fr-btn--icon-right pull-right fr-mt-2w"
                   aria-controls="main-modal"
                   data-fr-opened="false"
                   data-turbo-frame="main-modal-content"
@@ -44,7 +44,7 @@
 
         <section id="habilitation_main_token_infos" class="fr-pb-8v">
           <h2 class="fr-h3 fr-mb-n-1v">
-            <%= t('.main_token.title') %>
+            <%= t('.main_token.title').html_safe %>
           </h2>
           <div>
             <%= render partial: 'shared/tokens/detail',
@@ -137,31 +137,28 @@
 
         <% if policy(@main_token).download_attestations? %>
           <section id="attestations_sociales_et_fiscales" class="fr-mb-8v">
-            <blockquote class="fr-highlight fr-m-0">
-              <h2 class="fr-h3 fr-mb-n0-5v">
+            <div class="fr-callout fr-m-0">
+              <h2 class="fr-callout__title fr-h3 fr-mb-n0-5v">
                 <%= t('.attestations.title') %>
-              </h2>authoshow
-              <div>
-                <p>
-                  <%= t('.attestations.description') %>
-                  <br />
-                  <%= link_to t('.attestations.cta'), attestations_path(selected_token: @main_token.id),class: %w[fr-btn fr-btn--secondary fr-mt-2w] %>
-                </p>
-              </div>
-            </blockquote>
+              </h2>
+              <p class="fr-callout__text">
+                <%= t('.attestations.description').html_safe %>
+              </p>
+              <%= link_to t('.attestations.cta'), attestations_path(selected_token: @main_token.id),class: %w[fr-btn fr-btn--secondary fr-mt-2w] %>
+            </div>
           </section>
         <% end %>
 
         <section id="habilitation_contacts_infos" class="fr-pb-8v">
           <h2 class="fr-h3 fr-mb-n-1v">
-            <%= t('.contacts.title') %>
+            <%= t('.contacts.title').html_safe %>
           </h2>
           <div class="fr-container--fluid">
             <div class="fr-grid-row fr-grid-row--gutters">
               <div id="contact_demandeur" class="fr-col-12 fr-col-md-6 fr-col-lg-4 fr-mb-16v">
                 <h3 class="fr-h6 fr-mb-n-1v">
                   <i class="fr-icon fr-icon-user-star-line fr-mr-1v" aria-hidden="true"></i>
-                  <%= t('.contacts.demandeur.title') %>
+                  <%= t('.contacts.demandeur.title').html_safe %>
                 </h3>
                 <div class="fr-card">
                   <% if @authorization_request.demandeur == current_user %>
@@ -191,7 +188,7 @@
                 <div id="contact_metier" class="fr-col-12 fr-col-md-6 fr-col-lg-4 fr-mb-16v">
                   <h3 class="fr-h6 fr-mb-n-1v">
                     <i class="fr-icon fr-icon-user-star-line fr-mr-1v" aria-hidden="true"></i>
-                    <%= t('.contacts.contact_metier.title') %>
+                    <%= t('.contacts.contact_metier.title').html_safe %>
                   </h3>
                   <div class="fr-card">
                     <% if @authorization_request.contact_metier == current_user %>
@@ -222,7 +219,7 @@
                 <div id="contact_technique" class="fr-col-12 fr-col-md-6 fr-col-lg-4 fr-mb-16v">
                   <h3 class="fr-h6">
                     <i class="fr-icon fr-icon-user-star-line fr-mr-1v" aria-hidden="true"></i>
-                    <%= t('.contacts.contact_technique.title') %>
+                    <%= t('.contacts.contact_technique.title').html_safe %>
                   </h3>
                   <div class="fr-card">
                     <% if @authorization_request.contact_technique == current_user %>
