@@ -3,25 +3,19 @@
     <mj-text>Bonjour et bienvenue,</mj-text>
 
     <mj-text>
-      <%= @old_owner.email %> propose de vous transférer la responsabilité du compte utilisateur API Entreprise de votre
-      organisation. Ce compte vous permettra d'accéder aux jetons (tokens) API Entreprise, à leurs statistiques
-      d'utilisation et à l'interface de téléchargement des attestations si vos jetons sont pourvus de ces droits.
+      <%= @old_owner.email %> propose de vous transférer les habilitations API Entreprise de votre
+      organisation en vous transmettant sa place de contact principal. Ce rôle vous permet d'accéder aux clés d'accès (tokens) API Entreprise, à leurs statistiques
+      d'utilisation et à l'interface de téléchargement des attestations fiscales et sociales si vos jetons sont pourvus de ces droits. Vous serez également en charge de valider la prolongation des clés d'accès et aurez la possibilité de demander des évolutions de l'habilitation comme par exemple l'accès à d'autres API.
     </mj-text>
-
     <mj-text>
-      Votre compte DataPass associé à votre adresse e-mail <%= @new_owner.email %> vous permettra d'accéder au compte
-      API Entreprise. Toute connexion à cet espace utilisateur de votre part vaudra acceptation de nos
-      <a href="https://entreprise.api.gouv.fr/cgu">CGU</a>
-      .
+      Le transfert définitif de la responsabilité des habilitations nécessite que vous vous connectiez à <%= link_to 'votre espace usager API Entreprise', @login_url
+      %> avec votre adresse e-mail <%= @new_owner.email %>
+      Toute connexion à ce compte de votre part vaut acceptation de nos
+      <a href="https://entreprise.api.gouv.fr/cgu">CGU</a>. 
     </mj-text>
-
     <mj-text>
-      Le transfert définitif de la responsabilité du compte nécessite une validation manuelle de nos services et peut
+      Une fois cette connexion effectuée, une validation manuelle de nos services sera nécessaire pour relier les habilitations à votre compte. Cette validation peut
       prendre quelques jours.
-    </mj-text>
-    <mj-text>
-      Vous pourrez ensuite accéder à l'<%= link_to 'espace utilisateur API Entreprise de votre organisation', @login_url
-      %> en utilisant vos identifiants DataPass.
     </mj-text>
 
     <mj-text>
