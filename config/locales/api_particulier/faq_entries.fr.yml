@@ -441,7 +441,7 @@ fr:
                 Configurez votre mot de passe ou utilisez le mode de connexion par lien magique.
 
                 {:.fr-highlight}
-                _Dans certains cas spécifiques comme le départ du demandeur, un changement de poste, etc.,_ un transfert de compte peut être nécessaire. Cette opération nécessite l’accord explicite du demandeur et est instruite manuellement par nos services. [En savoir plus.](#comment-transferer-mon-compte-a-une-autre-personne)
+                _Dans certains cas spécifiques comme le départ du demandeur, un changement de poste, etc.,_ un transfert des habilitations par le contact principal (demandeur) à un tiers peut être nécessaire. Cette opération nécessite l’accord explicite du demandeur et est instruite manuellement par nos services. [En savoir plus.](#comment-transferer-mes-habilitations-a-une-autre-personne)
 
                 **Le compte utilisateur vous permet de :**
                 - copier/coller le jeton d'accès à l'API, en [respectant les règles indispensables de sécurité](#qu-est-ce-qu-un-token-ou-jeton) ;
@@ -451,23 +451,33 @@ fr:
 
           #     A ajouter plus tard : - [renouveler votre jeton d'accès arrivé à expiration](#comment-renouveler-mon-jeton-arrivant-a-expiration),  _fonctionnalité actuellement seulement disponible pour le contact demandeur_ ;
 
-            - question: "Comment transférer mon compte à une autre personne ?"
+            - question: "Comment transférer mes habilitations à une autre personne ?"
               answer: |+
-                _Votre équipe évolue ? Vous quittez votre service ?_ Vous pouvez léguer votre compte à une autre personne de la même organisation.
+                _Votre équipe évolue ? Vous quittez votre service ?_ Vous pouvez léguer vos habilitations à une autre personne de la même organisation.
 
-                Pour cela **utilisez la fonctionnalité prévue à cet effet** :
-                - Rendez-vous dans votre [espace](<%= user_profile_path %>), onglet \"Compte utilisateur\".
-                - Cliquez sur le bouton dédié \"Transférer mon compte\".
-                - Une fenêtre s'ouvre, vous rappelle vos engagements et vous permet de renseigner l'adresse e-mail du futur propriétaire du compte. Validez.
-                - Le destinataire reçoit un e-mail indiquant les démarches à suivre. Le transfert du compte est désormais de son côté. S'il n'a pas déjà un compte sur Datapass, il devra s'en créer un, en renseignant bien le SIRET de votre organisation commune. C'est indispensable pour que le compte soit bien appareillé. Toute connexion par le destinataire à l'espace utilisateur API Particulier vaut acceptation de nos <a href="https://entreprise.api.gouv.fr/cgu/">CGU</a>.
-                - L'étape finale est effectuée par le service API Particulier. Informé automatiquement de la demande, il doit effectuer une validation manuelle pour que le transfert soit effectif.
+                #### Vous êtes contact métier et/ou contact technique de l'habilitation : 
 
-                Le transfert du compte peut prendre quelques jours.
+                Si vous n'êtes pas le contact principal de l'habilitation, vous devez demander à celui-ci d'effectuer la modification. Pour retrouver le contact principal en charge de vos habilitations, rendez-vous sur [votre espace usager](<%= user_profile_path %>), le contact principal est indiqué dans la liste des contacts.
+
+                Le contact principal (à l'origine de la demande d'habilitation) est la seule personne qui peut demander une modification de l'habilitation. Le changement d'un contact métier ou technique est très rapide si le nouveau contact est dans la même organisation.
+
+                #### Vous le contact principal de la demande d'habilitation : 
+
+                En tant que contact principal d'une habilitation, vous avez la possibilité de demander le transfert de celle-ci à un tiers qui deviendra alors le contact principal à son tour.
+                
+                **Pour cela, utilisez la fonctionnalité prévue à cet effet** :
+                - Rendez-vous dans votre [espace usager](<%= user_profile_path %>), cliquez sur \"Accéder à vos informations\".
+                - Cliquez sur le bouton dédié \"Transférer mes habilitations\".
+                - Une fenêtre s'ouvre, vous rappelle vos engagements et vous permet de renseigner l'adresse e-mail du futur contact principal des habilitations. Validez.
+                - Le destinataire reçoit un e-mail indiquant les démarches à suivre. Le transfert des habilitations est désormais de son côté. S'il n'a pas déjà un compte \"MonComptePro\", il devra s'en créer un, **en renseignant bien le SIRET de votre organisation commune. C'est indispensable pour que le compte soit bien appareillé**. Toute connexion par le destinataire à l'espace utilisateur API Particulier vaut acceptation de nos <a href="https://particulier.api.gouv.fr/cgu/">CGU</a>.
+                - L'étape finale est effectuée manuellement par le service API Particulier. Informé automatiquement de la demande, il doit réaliser une validation manuelle pour que le transfert soit effectif.
+
+                Le transfert des habilitations peut prendre quelques jours.
 
                 {:.fr-highlight.fr-highlight--caution}
-                > ⚠️ Vous êtes responsable de votre compte utilisateur et de vos jetons au titre des engagements pris au moment de votre habilitation en signant nos <a href="https://entreprise.api.gouv.fr/cgu/">CGU</a>. L'utilisation de la fonctionnalité "Transférer mon compte" a pour objectif de permettre la continuité du compte utilisateur de votre organisation. Vous ne devez pas transmettre votre compte à une personne qui n'est pas en mesure de prendre le relais des responsabilités qui vous engagent.
+                > ⚠️ Vous êtes responsable de vos habilitations et de vos jetons au titre des engagements pris au moment de votre demande d'accès en signant nos <a href="https://particulier.api.gouv.fr/cgu/">CGU</a>. L'utilisation de la fonctionnalité "Transférer habilitations" a pour objectif de permettre la continuité de l'habilitation de votre organisation. Vous ne devez pas transmettre votre habilitation à une personne qui n'est pas en mesure de prendre le relais des responsabilités qui vous engagent.
 
-                Si vous avez débuté le transfert de votre compte par erreur, écrivez rapidement à <a href="mailto:api-particulier@api.gouv.fr">api-particulier@api.gouv.fr</a>.
+                Si vous avez débuté le transfert de votre habilitation par erreur, écrivez rapidement à <a href="mailto:api-particulier@api.gouv.fr">api-particulier@api.gouv.fr</a>.
 
 
 
