@@ -49,7 +49,7 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
       it 'displays the page' do
         expect(page).to have_current_path(api_particulier_authorization_requests_path, ignore_query: true)
 
-        expect(page).to have_content("Vous n'avez aucune habilitations")
+        expect(page).to have_content("Vous n'avez aucune habilitation")
       end
     end
 

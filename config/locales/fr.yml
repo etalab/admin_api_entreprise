@@ -33,13 +33,32 @@ fr:
         error:
           title: Une erreur est survenue lors du transfert du jeton. Vérifiez que l'adresse e-mail est valide ou contactez le support à %{support_email} si le problème persiste.
   shared:
+    transfer_user_account:
+      new:
+        title: Transférer mes habilitations
+        description: Cette fonctionnalité vous permet de transmettre définitivement les habilitations pour lesquelles vous êtes contact principal à une tierce personne (qui sera le nouveau contact principal).
+          Une fois le transfert effectué, vous n'aurez plus accès à ces habilitations en tant que contact principal.
+          <br>
+          <br>
+          Attention, nos <a href="https://entreprise.api.gouv.fr/cgu/">CGU</a> vous engagent ! Vous ne devez pas transférer ces habilitations à un tiers non-habilité. Pour en savoir plus,
+          consultez <a href='https://entreprise.api.gouv.fr/faq#comment-transferer-mon-compte-a-une-autre-personne' target='_blank'>cette rubrique de notre FAQ</a>.
+        email:
+          label: Adresse e-mail du futur contact principal
+          placeholder: jean.dupont@gouv.fr
+        cta: Transférer mes habilitations
+        confirm: Êtes-vous sûr de vouloir transférer votre compte ?
+      create:
+        success:
+          title: Un e-mail a été envoyé avec succès au destinataire. Assurez-vous qu'il effectue les démarches indiquées dans le mail qu'il a reçu pour que le transfert soit possible. Une fois ces démarches effectuées, une validation manuelle par nos services finalisera le transfert.
+        error:
+          title: Quelque chose s'est mal passé. Veuillez envoyer un e-mail à support@entreprises.api.gouv.fr
     users:
       user:
         links:
           authorization_requests: Accéder à la liste de vos habilitations
         title: "Compte utilisateur"
         transfer_account:
-          disclaimer: "Votre équipe évolue ? Vous quittez votre service ? Vous pouvez léguer votre compte à une autre personne :"
+          disclaimer: "Votre équipe évolue ? Vous quittez votre service ? Vous pouvez transmettre vos habilitations à une autre personne :"
           cta: Transférer mes habilitations
         demandeur: "Demandeur"
         contact_metier: "Contact métier"
@@ -211,7 +230,7 @@ fr:
             display_cta: "Voir le jeton"
           prolong:
             display_cta: Prolonger le jeton
-        no_authorization_requests: "Vous n'avez aucune habilitations"
+        no_authorization_requests: "Vous n'avez aucune habilitation"
         title: "Habilitations %{api_label} (%{count})"
         entreprise: API Entreprise
         particulier: API Particulier
@@ -227,7 +246,7 @@ fr:
             exp: Expiration
             id: Identifiant
             actions: Actions attendues
-            detail: Page détaillées
+            detail: Page détaillée
       breadcrumb:
         index: Habilitations
         current_page: Habilitation N<sup>o</sup>%{datapass_id}
@@ -253,7 +272,7 @@ fr:
         access: Voir vos accès
         modal:
           renew:
-            display_cta: Demander l'accès à d'autre API
+            display_cta: Demander l'accès à d'autres API
           show:
             display_cta: "Voir le jeton"
           prolong:
@@ -261,10 +280,10 @@ fr:
           ask_for_prolongation:
             display_cta: Relancer le contact principal pour prolonger le jeton
         main_token:
-          title: "Jeton principal :"
+          title: "Jeton principal&nbsp;:"
         attestations:
           title: "Télécharger manuellement les attestations sociales et fiscales"
-          description: "Saississez manuellement le SIREN de l'unite légale recherchée et vous aurez directement accès aux PDF des attestations"
+          description: "Saississez manuellement le SIREN de l'unite légale recherchée et vous aurez directement accès aux PDF des attestations&nbsp;:"
           cta: "Utiliser l'inferface de téléchargement"
         old_tokens:
           title: Voir les anciens jetons
@@ -274,13 +293,13 @@ fr:
             exp: "Date d'expiration"
             total_calls: "Nombre d'appel total"
         contacts:
-          title: "Contacts associés:"
+          title: "Contacts associés&nbsp;:"
           demandeur:
-            title: "Contact principal:"
+            title: "Contact principal&nbsp;:"
           contact_technique:
-            title: "Contact technique:"
+            title: "Contact technique&nbsp;:"
           contact_metier:
-            title: "Contact metier :"
+            title: "Contact metier&nbsp;:"
           its_me: "✋ C'est moi !"
     pages:
       redoc:

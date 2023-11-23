@@ -36,6 +36,9 @@ constraints(APIParticulierDomainConstraint.new) do
     get '/compte', to: 'users#profile', as: :user_profile
     get '/compte/nouveaux-jetons/telecharger', to: "new_tokens#download", as: :new_tokens_download
 
+    get '/compte/transferer', to: 'transfer_user_account#new', as: :transfer_account
+    post '/compte/transferer', to: 'transfer_user_account#create'
+
     get '/compte/demandes', to: 'authorization_requests#index', as: :authorization_requests
     get '/compte/demandes/:id', to: 'authorization_requests#show', as: :authorization_request
 
