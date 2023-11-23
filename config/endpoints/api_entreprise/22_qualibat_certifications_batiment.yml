@@ -1,18 +1,20 @@
 ---
-- uid: 'qualibat/certifications_batiment'
+- uid: 'qualibat/v3/certifications_batiment'
   path: '/v3/qualibat/etablissements/{siret}/certification_batiment'
-  ping_url: 'https://entreprise.api.gouv.fr/ping/qualibat/certifications'
-  position: 330
-  perimeter:
+  new_endpoint_uids:
+    - 'qualibat/certifications_batiment'
+  ping_url: &qualibat_ping_url 'https://entreprise.api.gouv.fr/ping/qualibat/certifications'
+  position: &qualibat_position 330
+  perimeter: &qualibat_perimeter
     entity_type_description: |+
       ✅ Toutes les **entreprises et les artisans du bâtiment** ayant obtenu le label de fiabilité [Qualibat](https://www.qualibat.com/){:target="_blank"}.
     entities:
       - associations
       - entreprises
-  call_id: "SIRET"
-  provider_uids:
+  call_id: &qualibat_call_id "SIRET"
+  provider_uids: &qualibat_provider_uids
     - 'qualibat'
-  keywords:
+  keywords: &qualibat_keywords
     - 'btp'
     - 'bâtiment'
     - 'travaux'
@@ -82,13 +84,92 @@
   opening: public
   format:
     - URL vers le certificat en PDF
-  use_cases_optional:
+  use_cases_optional: &qualibat_use_cases_optional
     - Marchés publics
     - Aides publiques
     - Détection de la fraude
     - Portail GRU - Préremplissage
     - Portail GRU - Instruction des démarches
     - Subventions associations
-  parameters:
+  parameters: &qualibat_parameters
     - Numéro de SIRET de l'établissement
+- uid: 'qualibat/certifications_batiment'
+  old_endpoint_uids:
+    - 'qualibat/v3/certifications_batiment'
+  path: '/v4/qualibat/etablissements/{siret}/certification_batiment'
+  historique: |+
+    **Ce que change cette nouvelle version de l'API par rapport à la précédente :**
+    L'ajout de données extraites directement du PDF.
 
+    **Ce qui ne change pas :**
+    Le lien vers le PDF est toujours présent.
+
+  ping_url: *qualibat_ping_url
+  position: *qualibat_position
+  perimeter: *qualibat_perimeter
+  call_id: *qualibat_call_id
+  provider_uids: *qualibat_provider_uids
+  keywords: *qualibat_keywords
+  data:
+    description: |+
+      Cette API délivre le certificat Qualibat de l'entreprise au **format PDF** ainsi que de la donnée structurée extraite par l'équipe d'API Entreprise directement du PDF.
+
+      Si une des données est absente, une erreur système est ajouté dans la balise `meta`.
+
+      <section class="fr-accordion">
+        <h3 class="fr-accordion__title">
+          <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-1">Liste des informations disponibles sur le certificat</button>
+        </h3>
+        <div class="fr-collapse" id="accordion-1">
+
+        **Des informations sur l'entreprise&nbsp;:**
+
+        - raison sociale, date de création, forme juridique, code NACE et capital social&nbsp;;
+        - nom et fonction des dirigeants responsables&nbsp;;
+        - adresse et coordonnées de l'entreprise&nbsp;;
+        - registre de commerce ou de répertoire des métiers auquel l'entreprise est rattachée&nbsp;;
+        - numéro d'affiliation à la caisse de congés payés&nbsp;;
+        - régularité de la situation fiscale et sociale&nbsp;;
+        - assurances responsabilité civile et travaux&nbsp;;
+        - effectif moyen et chiffre d'affaires hors taxes.
+
+        **Des informations sur la qualification&nbsp;:**
+
+        - code à quatre chiffres de la capacité technique reconnue à l'entreprise dans une des 9 activités détaillées dans la [nomenclature Qualibat](https://www.qualibat.com/nomenclature/){:target="_blank"}&nbsp;;
+        - titre de cette capacité&nbsp;;
+        - niveau de technicité&nbsp;;
+        - classification partielle : les moyens humains dont dispose l'entreprise dans l'activité pour laquelle elle est qualifiée sont précisés&nbsp;;
+        - date d'attribution : date à laquelle la qualification a été attribuée ou dernièrement renouvellée&nbsp;;
+        - date d'échéance : date d'expiration de validité de la qualification&nbsp;;
+        - système qualité : dans la mesure où l'entreprise a mis en place une démarche qualité certifiée par Qualibat, la certification de son système qualité est mentionnée en annexe.
+
+        **Des informations liées au certificat&nbsp;:**
+
+        - millésime du certificat&nbsp;;
+        - date d'édition;nbsp;;
+        - durée de validité&nbsp;;
+        - numéro d'identification du certificat.
+
+        **Source&nbsp;:** [Qualibat](https://www.qualibat.com/){:target="_blank"}
+        </div>
+      </section>
+
+
+      {:.fr-h6 .fr-mt-4w}
+      ### Exemple de certificat PDF&nbsp;:
+
+      <div class="fr-download">
+       <p>
+        <a href="/files/exemple-qualibat-certificat.pdf" download class="fr-download__link">
+         Télécharger un exemple de certificat Qualibat
+         <span class="fr-download__detail">
+         PDF – 756 Ko
+         </span>
+        </a>
+       </p>
+      </div>
+  opening: public
+  format:
+    - Donnée structurée JSON
+  use_cases_optional: *qualibat_use_cases_optional
+  parameters: *qualibat_parameters
