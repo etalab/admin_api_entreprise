@@ -5,7 +5,8 @@ class OpenAPISchemaToExample
     @schema = schema
   end
 
-  def perform # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/MethodLength
+  def perform
     case schema['type']
     when 'array'
       [
@@ -21,10 +22,13 @@ class OpenAPISchemaToExample
       extract_value(schema, rand(50))
     when 'boolean'
       extract_value(schema, true)
+    when 'date'
+      extract_value(schema, Time.zone.today.to_s)
     else
       'ipsum'
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/MethodLength
 
   private
 
