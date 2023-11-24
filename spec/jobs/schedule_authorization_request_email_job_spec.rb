@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe ScheduleAuthorizationRequestEmailJob do
+  include ActiveJob::TestHelper
+
   describe '#perform' do
     subject do
       described_class.perform_now(
@@ -15,11 +17,11 @@ RSpec.describe ScheduleAuthorizationRequestEmailJob do
 
     let(:authorization_request_id) { authorization_request.id }
     let(:authorization_request_status) { 'draft' }
+    let(:template_name) { 'demande_recue' }
 
-    let(:authorization_request) { create(:authorization_request, status: authorization_request_status) }
+    let(:authorization_request) { create(:authorization_request, :with_demandeur, status: authorization_request_status) }
     let(:to_user) { create(:user, :with_full_name) }
 
-    let(:template_name) { 'email_template' }
     let(:vars) { {} }
 
     let(:recipients) do
@@ -33,17 +35,15 @@ RSpec.describe ScheduleAuthorizationRequestEmailJob do
       }
     end
 
-    before(:all) do
-      class APIEntreprise::AuthorizationRequestMailer
-        def email_template; end
-      end
+    before do
+      allow(APIEntreprise::AuthorizationRequestMailer).to receive(:demande_recue).and_call_original
     end
 
     context 'when authorization request does not exist' do
       let(:authorization_request_id) { 'invalid' }
 
-      it 'does nothing' do
-        expect(APIEntreprise::AuthorizationRequestMailer).not_to receive(:email_template)
+      it 'does not call mailer' do
+        expect(APIEntreprise::AuthorizationRequestMailer).not_to receive(:demande_recue)
 
         subject
       end
@@ -56,8 +56,8 @@ RSpec.describe ScheduleAuthorizationRequestEmailJob do
         )
       end
 
-      it 'does nothing' do
-        expect(APIEntreprise::AuthorizationRequestMailer).not_to receive(:email_template)
+      it 'does not call mailer' do
+        expect(APIEntreprise::AuthorizationRequestMailer).not_to receive(:demande_recue)
 
         subject
       end
@@ -70,26 +70,34 @@ RSpec.describe ScheduleAuthorizationRequestEmailJob do
         )
       end
 
-      it 'calls AuthorizationRequestMailer with valid params' do
-        expect(APIEntreprise::AuthorizationRequestMailer).to receive(:email_template).with(
-          {
-            to: [{ email: to_user.email, full_name: to_user.full_name }]
-          }
-        )
+      it 'calls mailer with valid template name' do
+        expect(APIEntreprise::AuthorizationRequestMailer).to receive(:demande_recue)
 
         subject
+      end
+
+      it 'delivers email' do
+        expect {
+          perform_enqueued_jobs do
+            subject
+          end
+        }.to change { ActionMailer::Base.deliveries.count }.by(1)
       end
     end
 
     context 'when current authorization request status did not change' do
-      it 'calls AuthorizationRequestMailer with valid params' do
-        expect(APIEntreprise::AuthorizationRequestMailer).to receive(:email_template).with(
-          {
-            to: [{ email: to_user.email, full_name: to_user.full_name }]
-          }
-        )
+      it 'calls mailer with valid template name' do
+        expect(APIEntreprise::AuthorizationRequestMailer).to receive(:demande_recue)
 
         subject
+      end
+
+      it 'delivers email' do
+        expect {
+          perform_enqueued_jobs do
+            subject
+          end
+        }.to change { ActionMailer::Base.deliveries.count }.by(1)
       end
     end
   end
