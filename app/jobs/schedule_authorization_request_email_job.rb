@@ -9,10 +9,16 @@ class ScheduleAuthorizationRequestEmailJob < ApplicationJob
     return if authorization_request.blank?
     return if authorization_request_status_changed?(authorization_request_status)
 
-    mailer_klass.public_send(template_name, recipients)
+    mailer_klass.public_send(template_name, build_mailer_params(recipients)).deliver_later
   end
 
   private
+
+  def build_mailer_params(recipients)
+    {
+      authorization_request:
+    }.merge(recipients)
+  end
 
   def mailer_klass
     "#{api_klass}::AuthorizationRequestMailer".constantize
