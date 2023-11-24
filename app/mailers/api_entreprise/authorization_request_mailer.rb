@@ -22,7 +22,7 @@ class APIEntreprise::AuthorizationRequestMailer < APIEntrepriseMailer
     send('define_method', method) do |args|
       @all_scopes = I18n.t('api_entreprise.tokens.token.scope')
       @authorization_request = args[:authorization_request]
-      @authorization_request_scopes = @authorization_request.token.scopes.map(&:to_sym)
+      @authorization_request_scopes = @authorization_request.token.scopes.map(&:to_sym) if @authorization_request.token.present?
       @authorization_request_datapass_url = datapass_authorization_request_url(@authorization_request)
 
       @full_name_demandeur = @authorization_request.demandeur.full_name

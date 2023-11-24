@@ -4,7 +4,7 @@
   </h2>
   <ul>
     <% @all_scopes.each do |scope_key, scope_label| %>
-      <% if @authorization_request_scopes.include?(scope_key) %>
+      <% if (@authorization_request_scopes || []).include?(scope_key) %>
         <li>
           <%= scope_label %>
         </li>

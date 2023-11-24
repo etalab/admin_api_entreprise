@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe APIEntreprise::AuthorizationRequestMailer do
-  let(:authorization_request) { create(:authorization_request, :with_all_contacts, :with_tokens) }
+  let(:authorization_request) { create(:authorization_request, :with_all_contacts) }
   let(:to) { 'anything@email.com' }
   let(:cc) { 'anything2@email.com' }
 
