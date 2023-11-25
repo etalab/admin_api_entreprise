@@ -53,11 +53,11 @@
       - **si l'établissement est certifié Qualiopi Qualiopi** au moment de l'appel et s'il est qualifié _Action formation_, _Bilan Compétences_, _VAE_ ou _Apprentissage_ ;
       - **la liste des habilitations France Compétences**, pour les établissements certifiés.
 
-      [NDA, Qualiopi, France Compétences, quelles différences ?](../carif_oref/certifications_qualiopi_france_competences#faq_entry_answer_0_api_entreprise_endpoint_carif_oref_certifications_qualiopi_france_competences)
+      [NDA, Qualiopi, France Compétences, quelles différences ?](#faq_entry_0_api_entreprise_endpoint_carif_oref_certifications_qualiopi_france_competences)
 
 
 
-      **La valeur ajoutée de cette API opérée par le réseau des CARIF OREF est** :
+      **La valeur ajoutée de cette API, opérée par le réseau des CARIF OREF, et croisant [plusieurs sources de données](#faq_entry_1_api_entreprise_endpoint_carif_oref_certifications_qualiopi_france_competences) est** :
       - de savoir si les établissements sont certifiés Qualiopi et pas uniquement les unités légales ;
       - de véritablement dire si un établissement est habilité à former ou à organiser des épreuves car elle indique également les habilitations France Compétences de l'établissement ;
       - d'avoir une donnée plus fiable car le réseau des Carif-Oref effectue une double vérification en croisant ses bases et les bases du Ministère de l'Intérieur. En cas de détection d'anomalie, les Carif-Oref peuvent, grâce à leurs réseaux locaux, prendre contact avec l'établissement concerné et vérifier la situation.
@@ -115,6 +115,14 @@
          Les organismes porteurs de certifications (comme par exemple des CAP, des diplômes publiques, des titres du ministère du Travail, etc.) inscrites au répertoire national des compétences professionnelles (RNCP) et au répertoire spécifique (RS) délivrent :
          - des "habilitations à former", *c'est-à-dire qu'un établissement qui revendique avoir les capacités de former à la certification de l'organisme porteur, doit au préalable avoir reçu cette habilitation*.
          - des "habilitations à organiser", *c'est-à-dire qu'un établissement qui revendique avoir les capacités d'organiser des épreuves visant à valider une certification de l'organisme porteur, doit au préalable avoir reçu cette habilitation*.
+    - q: Plusieurs sources de données
+      a: |+
+          Cette API s'appuie sur différentes sources, qui diffèrent selon les modalités de déclaration et de validation de l'établissement&nbsp;:
+          - La [table ListOf](https://dgefp.opendatasoft.com/api/v2/catalog/datasets/liste-publique-des-of-v2){:target="_blank"} alimentée par la liste des organismes de formation provenant de l’api de la DGEFP (Délégation générale à l’emploi et à la formation professionnelle du ministère du travail)&nbsp;;
+          - Le [référentiel fourni par l’Onisep](https://referentiel.apprentissage.onisep.fr){:target="_blank"} qui permet la correspondance Siret/UAI&nbsp;;
+          - Les fiches RNCP et RS fournies par France compétences : [https://www.francecompetences.fr/](https://www.francecompetences.fr/){:target="_blank"} pour récupérer les habilitations&nbsp;;
+          - L’annuaire des établissements l’éducation nationale [https://data.education.gouv.fr/explore/dataset/fr-en-annuaire-education](https://data.education.gouv.fr/explore/dataset/fr-en-annuaire-education){:target="_blank"}.
+       
     - q: Nomenclature des spécialités
       a: |+
          La nomenclature des spécialités indiquées dans le bilan pédagogique et financier est la suivante (à jour en juillet 2023):
