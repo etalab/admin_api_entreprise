@@ -3,6 +3,16 @@
     <%= render partial: 'shared/alerts' %>
   </turbo-frame>
 
+  <% if  user_signed_in? && tokens_to_export? %>
+    <div class="fr-highlight fr-highlight--pink-tuile fr-ml-0">
+      <p>
+        <%= t('shared.users.new_token') %>
+
+        <%= link_to t('shared.users.new_token_download'), api_particulier_new_tokens_download_path, class: "fr-btn", id: 'download_new_tokens_file' %>
+      </p>
+    </div>
+  <% end %>
+
   <% if content_for?(:body) %>
     <%= yield(:body) %>
   <% else %>
