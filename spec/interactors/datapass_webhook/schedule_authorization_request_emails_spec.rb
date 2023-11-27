@@ -39,7 +39,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
   context 'with an event which trigger emails, no conditions, a when key and no attributes on recipients' do
     let(:event) { %w[send_application submit].sample }
 
-    it 'schedules emails according to configuration, to authorization request\'s user' do
+    it 'schedules emails according to configuration, to authorization request\'s demandeur' do
       subject
 
       expect(ScheduleAuthorizationRequestEmailJob).to have_been_enqueued.exactly(:twice)
@@ -49,12 +49,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
         authorization_request.status,
         'send_application',
         hash_including(
-          to: [
-            {
-              'email' => authorization_request.demandeur.email,
-              'full_name' => authorization_request.demandeur.full_name
-            }
-          ]
+          to: [authorization_request.demandeur.email]
         )
       ).at(Time.zone.now)
 
@@ -63,12 +58,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
         authorization_request.status,
         'send_application_later',
         hash_including(
-          to: [
-            {
-              'email' => authorization_request.demandeur.email,
-              'full_name' => authorization_request.demandeur.full_name
-            }
-          ]
+          to: [authorization_request.demandeur.email]
         )
       ).at(14.days.from_now)
     end
@@ -110,12 +100,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
           authorization_request.status,
           'review_application',
           hash_including(
-            to: [
-              {
-                'email' => authorization_request.demandeur.email,
-                'full_name' => authorization_request.demandeur.full_name
-              }
-            ]
+            to: [authorization_request.demandeur.email]
           )
         ).at(Time.zone.now)
       end
@@ -140,12 +125,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
             authorization_request.status,
             'review_application',
             hash_including(
-              to: [
-                {
-                  'email' => authorization_request.demandeur.email,
-                  'full_name' => authorization_request.demandeur.full_name
-                }
-              ]
+              to: [authorization_request.demandeur.email]
             )
           ).at(Time.zone.now)
 
@@ -154,22 +134,8 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
             authorization_request.status,
             'review_application_2',
             hash_including(
-              to: [
-                {
-                  'email' => authorization_request.contact_metier.email,
-                  'full_name' => authorization_request.contact_metier.full_name
-                }
-              ],
-              cc: [
-                {
-                  'email' => authorization_request.contact_technique.email,
-                  'full_name' => authorization_request.contact_technique.full_name
-                },
-                {
-                  'email' => authorization_request.demandeur.email,
-                  'full_name' => authorization_request.demandeur.full_name
-                }
-              ]
+              to: [authorization_request.contact_metier.email],
+              cc: [authorization_request.contact_technique.email, authorization_request.demandeur.email]
             )
           ).at(Time.zone.now)
         end
@@ -203,12 +169,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
             authorization_request.status,
             'review_application',
             hash_including(
-              to: [
-                {
-                  'email' => authorization_request.demandeur.email,
-                  'full_name' => authorization_request.demandeur.full_name
-                }
-              ]
+              to: [authorization_request.demandeur.email]
             )
           ).at(Time.zone.now)
 
@@ -217,12 +178,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
             authorization_request.status,
             'review_application_2',
             hash_including(
-              to: [
-                {
-                  'email' => authorization_request.contact_technique.email,
-                  'full_name' => authorization_request.contact_technique.full_name
-                }
-              ]
+              to: [authorization_request.contact_technique.email]
             )
           ).at(Time.zone.now)
         end
