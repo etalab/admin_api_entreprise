@@ -22,16 +22,10 @@ RSpec.describe ScheduleAuthorizationRequestEmailJob do
     let(:authorization_request) { create(:authorization_request, :with_demandeur, status: authorization_request_status) }
     let(:to_user) { create(:user, :with_full_name) }
 
-    let(:vars) { {} }
-
     let(:recipients) do
       {
-        to: [
-          {
-            email: to_user.email,
-            full_name: to_user.full_name
-          }
-        ]
+        to: [to_user.email],
+        cc: nil
       }
     end
 

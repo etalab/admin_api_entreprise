@@ -41,17 +41,12 @@ class DatapassWebhook::ScheduleAuthorizationRequestEmails < ApplicationInteracto
 
       next unless contact
 
-      {
-        'email' => contact.email,
-        'full_name' => contact.full_name
-      }
+      contact.email
     }.compact
   end
 
   def default_recipients
-    [
-      'authorization_request.demandeur'
-    ]
+    ['authorization_request.demandeur']
   end
 
   def extract_when_time(when_time)
