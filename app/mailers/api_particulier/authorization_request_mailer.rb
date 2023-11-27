@@ -25,7 +25,21 @@ class APIParticulier::AuthorizationRequestMailer < APIParticulierMailer
       @full_name_demandeur = @authorization_request.demandeur.full_name
       @full_name_contact_technique = @authorization_request.contact_technique&.full_name
 
-      mail(to: args[:to], cc: args[:cc], subject: t('.subject')) { |format| format.html }
+      mail(to: extract_recipients(args[:to]), cc: extract_recipients(args[:cc]), subject: t('.subject')) { |format| format.html }
+    end
+  end
+
+  private
+
+  def extract_recipients(recipients)
+    return if recipients.blank?
+
+    Array(recipients).map do |recipient|
+      if recipient.is_a?(Hash)
+        recipient[:email] || recipient['email']
+      else
+        recipient
+      end
     end
   end
 end
