@@ -4,7 +4,7 @@ FactoryBot.define do
 
     event { %w[refuse_application refuse].sample }
     model_type { 'Pass' }
-    fired_at { Time.now.to_i }
+    fired_at { Time.zone.now.to_i }
     data do
       {
         'pass' => build(:datapass_webhook_pass_model)

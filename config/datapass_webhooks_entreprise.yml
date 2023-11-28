@@ -25,7 +25,11 @@ development: &development
           - 'authorization_request.contact_technique'
           - 'authorization_request.demandeur'
 
-  validate_application: &validate_application {}
+  validate_application: &validate_application
+    emails:
+      - template: 'embarquement_valide_to_editeur'
+        to:
+          - 'authorization_request.demandeur'
 
   create: *created
   update: *updated
