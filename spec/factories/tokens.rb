@@ -7,20 +7,16 @@ FactoryBot.define do
     scopes { ['entreprises'] }
     extra_info { {} }
 
-    sequence(:authorization_request_id) { |n| "1234#{n}" }
-
     transient do
       users { nil }
       intitule { 'Token' }
     end
 
     after(:build) do |token, evaluator|
-      if token.authorization_request_id && token.authorization_request.nil?
+      if token.authorization_request.nil?
         token.authorization_request = create(
           :authorization_request, :with_demandeur, tokens: [token], intitule: evaluator.intitule
         )
-      elsif token.authorization_request_id
-        token.authorization_request.external_id = token.authorization_request_id
       end
 
       if evaluator.intitule != token.authorization_request.intitule
