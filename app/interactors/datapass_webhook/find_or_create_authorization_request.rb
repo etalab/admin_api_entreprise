@@ -74,6 +74,6 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
   end
 
   def fired_at_as_datetime
-    @fired_at_as_datetime ||= Time.zone.at(context.fired_at).to_datetime
+    @fired_at_as_datetime ||= Time.zone.at(context.fired_at.to_i).to_datetime
   end
 end
