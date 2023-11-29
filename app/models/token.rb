@@ -1,6 +1,4 @@
 class Token < ApplicationRecord
-  self.ignored_columns += %w[access_request_survey_sent]
-
   belongs_to :authorization_request, foreign_key: 'authorization_request_model_id', inverse_of: :tokens
   validates :exp, presence: true
 
