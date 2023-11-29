@@ -83,5 +83,13 @@ FactoryBot.define do
     trait :expired do
       exp { 20.months.ago.to_i }
     end
+
+    trait :legacy_token do
+      extra_info { { legacy_token_id: SecureRandom.uuid } }
+    end
+
+    trait :legacy_token_migrated do
+      extra_info { { legacy_token_id: SecureRandom.uuid, legacy_token_migrated: true } }
+    end
   end
 end

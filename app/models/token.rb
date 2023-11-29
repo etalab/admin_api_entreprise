@@ -42,7 +42,8 @@ class Token < ApplicationRecord
     {
       iat: Time.zone.now.to_i,
       version: '1.0',
-      exp: 18.months.from_now.to_i
+      exp: 18.months.from_now.to_i,
+      extra_info: {}
     }
   end
 
