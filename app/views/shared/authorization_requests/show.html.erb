@@ -1,10 +1,10 @@
-<div class="fr-container" data-controller="anchor-buttons">
-  <div class="fr-grid-row fr-grid-row--gutters">
-    <div class="fr-col-12 fr-col-md-3">
+<div class="fr-container fr-pr-0 fr-pl-0" data-controller="anchor-buttons">
+  <div class="fr-grid-row">
+    <div class="fr-col-12 fr-col-md-3 fr-pr-0 fr-pl-0">
       <%= render partial: 'shared/authorization_requests/breadcrumb', locals: { authorization_request: @authorization_request } %>
       <%= render partial: 'shared/authorization_requests/summary', locals: { token: @main_token } %>
     </div>
-    <div class="fr-col-12 fr-col-md-9">
+    <div class="fr-col-12 fr-col-md-9 fr-p-4w" style="background-color: var(--background-default-grey)">
       <article class="article">
         <header id="habilitation_main_info" class="fr-pb-8v">
           <%= render partial: 'shared/authorization_requests/header', locals: { authorization_request: @authorization_request, to_datapass: true } %>
