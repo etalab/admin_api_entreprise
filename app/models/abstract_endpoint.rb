@@ -13,7 +13,6 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
     :perimeter,
     :parameters_details,
     :data,
-    :use_cases,
     :historique,
     :keywords,
     :api_cgu
@@ -186,6 +185,10 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
 
   def providers
     Kernel.const_get(api.classify)::Provider.filter_by_uid(provider_uids)
+  end
+
+  def use_cases
+    Kernel.const_get(api.classify)::CasUsage
   end
 
   def use_case?(cas_usage_name)

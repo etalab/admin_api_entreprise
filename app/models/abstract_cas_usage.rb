@@ -2,16 +2,23 @@ class AbstractCasUsage
   include ActiveModel::Model
   include AbstractAPIClass
 
-  attr_accessor :uid,
-    :name,
-    :introduction,
-    :role,
-    :user_types,
-    :comments_endpoints,
-    :use_case_examples,
-    :list_api,
-    :users,
-    :request_access
+  CAS_USAGE_KEYS = %i[
+    uid
+    name
+    introduction
+    role
+    user_types
+    comments_endpoints
+    use_case_examples
+    list_api
+    users
+    request_access
+    endpoints
+    endpoints_optional
+    endpoints_forbidden
+  ].freeze
+
+  attr_accessor(*CAS_USAGE_KEYS)
 
   def self.all
     backend.map do |uid, entry|
@@ -34,15 +41,7 @@ class AbstractCasUsage
   def self.build_from_yaml(uid, entry)
     new(
       entry.slice(
-        :name,
-        :introduction,
-        :role,
-        :user_types,
-        :comments_endpoints,
-        :use_case_examples,
-        :list_api,
-        :users,
-        :request_access
+        *CAS_USAGE_KEYS
       ).merge(
         uid: uid.to_s
       )

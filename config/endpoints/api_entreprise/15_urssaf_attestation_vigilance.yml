@@ -34,14 +34,6 @@
     - Numéro de SIREN de l'entreprise
   format:
     - URL vers l'attestation en PDF
-  use_cases: &urssaf_attestation_use_cases
-    - Marchés publics
-    - Aides publiques
-    - Détection de la fraude
-    - Portail GRU - Instruction des démarches
-  use_cases_forbidden: &urssaf_attestation_use_cases_forbidden
-    - Portail GRU - Préremplissage
-    - Subventions associations
   provider_uids: &urssaf_attestation_provider_uids
     - 'acoss'
   keywords: &urssaf_attestations_keywords
@@ -160,8 +152,6 @@
   parameters: *urssaf_attestation_parameters
   format:
     - Payload JSON
-  use_cases: *urssaf_attestation_use_cases
-  use_cases_forbidden: *urssaf_attestation_use_cases_forbidden
   provider_uids: *urssaf_attestation_provider_uids
   keywords: *urssaf_attestations_keywords
   data:
