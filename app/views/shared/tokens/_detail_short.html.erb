@@ -1,26 +1,24 @@
 <% if token.authorization_request.status != 'validated' %>
-  <div class="fr-pb-6v">
+  <div class="fr-pt-6v">
     <strong> <%= t(".no_token.title") %></strong>
     <br />
     <%= t(".no_token.description", status: t(".no_token.status.#{token.authorization_request.status}")) %>
   </div>
 <% else %>
-  <div id="<%= dom_id(token) %>" class="fr-pb-6v">
-    <div class="fr-pb-2v">
+  <div id="<%= dom_id(token) %>" class="fr-pt-6v">
+    <p>
       <p class="fr-badge fr-badge--<%= t(".status.color.#{token.status}") %>">
       <%= t(".status.label.#{token.status}") %>
-      </p>
-      <span class="fr-text--xs">
-        <%= friendly_date_from_timestamp(token.end_timestamp)%>
-      </span>
-    </div>
-    <p class="fr-mb-1v">
+      </p>     
+      <span class="fr-mb-1v fr-text--sm">
     |  <%= t(".expiration_date", 
           expiration_date: friendly_date_from_timestamp(token.end_timestamp)
         ).html_safe %>
-    </p>
-    <p class="fr-mb-1v">
-      <span class="fr-text--xs">ID: <%= token.id %></span>
+      </span>
+      <p class="fr-mb-1v" style="text-overflow: ellipsis; overflow: hidden;
+white-space: nowrap;">
+        <span class="fr-text--xs" >ID: <%= token.id %></span>
+      </p>
     </p>
   </div>
 <% end %>

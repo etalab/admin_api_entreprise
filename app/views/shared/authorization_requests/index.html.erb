@@ -17,22 +17,22 @@
     <div class="fr-col-12">
       <div class="fr-container fr-container--bordered fr-p-0">
         <div class="fr-grid-row fr-p-4v fr-grid-row--middle">
-          <div class="fr-col-12 fr-col-md-6 fr-col-lg-3">
+          <div class="fr-col-12 fr-col-md-3">
             <strong><%= t('.table.head.authorization_request') %></strong>
           </div>
-          <div class="fr-col-12 fr-col-md-6 fr-col-lg-4">
+          <div class="fr-col-12 fr-col-md-4">
             <strong><%= t('.table.head.token') %></strong>
           </div>
-          <div class="fr-col-12 fr-col-md-6 fr-col-lg-3">
+          <div class="fr-col-12 fr-col-md-3">
               <strong><%= t('.table.head.actions') %></strong>
           </div>
-          <div class="fr-col-12 fr-col-md-6 fr-col-lg-2">
+          <div class="fr-col-12 fr-col-md-2">
               <strong><%= t('.table.head.detail') %></strong>
           </div>
         </div>
         <% @authorization_requests.each do |authorization_request| %>
           <div id="<%= dom_id(authorization_request) %>" class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle fr-p-4v">
-            <div class="fr-col-12 fr-col-md-6 fr-col-lg-3 fr-p-0">
+            <div class="fr-col-12 fr-col-md-3 fr-p-0">
             <h2 class="fr-h6 fr-mb-0"><%= authorization_request.intitule %></h2>
               <%= authorization_request_status_badge(authorization_request) %>
               <span class="fr-hint-text">
@@ -50,7 +50,7 @@
                 %>
               </span>
             </div>
-            <div class="fr-col-12 fr-col-md-6 fr-col-lg-4">
+            <div class="fr-col-12 fr-col-md-4 fr-p-0">
               <%= render partial: 'shared/tokens/detail_short', 
                 locals: {
                   token: authorization_request.token.decorate
@@ -64,7 +64,7 @@
                 %>
             <% end %>
             </div>
-            <div class="fr-col-12 fr-col-md-6 fr-col-lg-3 center">
+            <div class="fr-col-12 fr-col-md-3 center">
               <% if authorization_request.status == 'validated' %>
                 <% if authorization_request.tokens.blacklisted_later.any? %>
                   <p class="fr-text--sm fr-mb-1v fr-text-default--error">
@@ -95,7 +95,7 @@
                 <% end %>
               <% end %>
             </div>
-            <div class="fr-col-12 fr-col-md-6 fr-col-lg-2 center">
+            <div class="fr-col-12 fr-col-md-2 center">
               <%= link_to "", authorization_request_path(authorization_request), class: %w[fr-btn fr-btn--lg fr-btn--tertiary-no-outline fr-icon-arrow-right-line] %>
             </div>
           </div>
