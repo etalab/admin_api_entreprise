@@ -78,33 +78,46 @@ fr:
     tokens:
       token:
         scope:
-          attestations_agefiph: Attestations AGEFIPH
-          attestations_fiscales: Attestations Fiscales
-          attestations_sociales: Attestation Sociale
-          certificat_cnetp: Certificat CNETP
-          associations: Association
-          certificat_opqibi: Certificat OPQIBI
-          documents_association: Document association
-          etablissements: INSEE Etablissement
-          entreprises: INSEE Entreprise
-          extrait_court_inpi: Extrait INPI
-          extraits_rcs: Extrait RCS
+          #Fournisseur || API Nom || open data ou obsolète
+          etablissements: INSEE || API Données établissements dont les non diffusibles 
+          entreprises: INSEE || API Données unités légales dont les non diffusibles 
+          unites_legales_etablissements_insee: INSEE || API Données unités légales et établissements dont les non diffusibles 
+          extraits_rcs: Infogreffe || Extrait RCS
+          mandataires_sociaux_infogreffe: Infogreffe || Mandataires sociaux
+          associations_donnees_protegees: Djepva || Données association
+          associations_djepva: Djepva || Données ouvertes association
+          associations: Djepva || Données ouvertes association || open data
+          documents_association: Djepva || Données ouvertes association || open data
+          effectifs_urssaf: GIP-MDS || Effectifs unité légale et établissement
+          conventions_collectives: FabNum des ministères sociaux || Conventions Collectives || open data
+          eori_douanes: Douanes || Immatriculation EORI || open data
           exercices: Exercice
-          liasse_fiscale: Liasse fiscale
-          fntp_carte_pro: Carte Pro FNTP
-          qualibat: Certificat Qualibat
-          probtp: Certificat PROBTP
-          msa_cotisations: Cotisation MSA
-          bilans_entreprise_bdf: Bilans Entreprises BDF
-          certificat_rge_ademe: Certificat RGE (ADEME)
-          conventions_collectives: Conventions Collectives
-          actes_inpi: Actes INPI
-          bilans_inpi: Bilans INPI
-          effectifs_acoss: Effectifs Entreprise ACOSS
-          entreprises_artisanales: RNM CMA France - Entreprises artisanales
-          eori_douanes: Immatriculation EORI - Douanes
-          certificat_agence_bio: Certificats BIO
-
+          chiffre_affaires_dgfip: DGFIP || Chiffre d'affaires
+          bilans_entreprise_bdf: Banque de France || 3 derniers bilans annuels
+          bilans_bdf: Banque de France || 3 derniers bilans annuels
+          liasse_fiscale: DGFIP || Liasses fiscales
+          liasses_fiscales_dgfip: DGFIP || Liasses fiscales
+          attestations_fiscales: DGFIP || Attestation fiscale
+          attestation_fiscale_dgfip: DGFIP || Attestation fiscale
+          attestations_sociales: URSSAF || Attestation de vigilance
+          attestation_sociale_urssaf: URSSAF || Attestation de vigilance
+          msa_cotisations: MSA || Conformité cotisations de sécurité sociale agricole
+          cotisations_msa: MSA || Conformité cotisations de sécurité sociale agricole
+          probtp: PROBTP || Conformité cotisations retraite complémentaire
+          cotisations_probtp: PROBTP || Conformité cotisations retraite complémentaire
+          certifications_qualiopi_france_competences: Carif-Oref || Qualiopi & habilitations France compétences
+          fntp_carte_pro: FNTP || Carte professionnelle travaux publics || open data
+          certificat_cnetp: CNETP || Attestation de cotisations congés payés & chômage-intempéries
+          certification_cnetp: CNETP || Attestation de cotisations congés payés & chômage-intempéries
+          certificat_agence_bio: Agence BIO || Certificats en BIO || open data
+          certificat_rge_ademe: ADEME || Certification RGE || open data
+          qualibat: Qualibat || Certification Qualibat || open data
+          certificat_opqibi: OPQIBI || Certification d'ingénierie OPQIBI || open data
+          extrait_court_inpi: Inpi || Brevets, marques et modèles déposés
+          open_data: Toutes les API dont les données sont publiques
+          #Obsolètes 
+          actes_inpi: Inpi || Actes || obsolète
+          entreprises_artisanales: CMA France || Données entreprises artisanales || obsolète
     sessions:
       create_from_oauth:
         not_found:
