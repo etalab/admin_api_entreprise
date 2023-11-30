@@ -18,16 +18,10 @@
       <div class="fr-container fr-container--bordered fr-p-0">
         <div class="fr-grid-row fr-p-4v fr-grid-row--middle">
           <div class="fr-col-12 fr-col-md-6 fr-col-lg-3">
-            <span class="fr-hint-text"><%= t('.table.head.datapass').html_safe %></span>
             <strong><%= t('.table.head.authorization_request') %></strong>
-            <br />
-            <span class="fr-text--sm"><%= t('.table.head.role') %></span>
           </div>
           <div class="fr-col-12 fr-col-md-6 fr-col-lg-4">
             <strong><%= t('.table.head.token') %></strong>
-            <br />
-            <span class="fr-hint-text"><%= t('.table.head.exp') %></span>
-            <span class="fr-text--regular"><%= t('.table.head.id') %></span>
           </div>
           <div class="fr-col-12 fr-col-md-6 fr-col-lg-3">
               <strong><%= t('.table.head.actions') %></strong>
@@ -37,20 +31,19 @@
           </div>
         </div>
         <% @authorization_requests.each do |authorization_request| %>
-          <div id="<%= dom_id(authorization_request) %>" class="fr-grid-row fr-grid-row--middle fr-p-4v">
-            <div class="fr-col-12 fr-col-md-6 fr-col-lg-3">
+          <div id="<%= dom_id(authorization_request) %>" class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle fr-p-4v">
+            <div class="fr-col-12 fr-col-md-6 fr-col-lg-3 fr-p-0">
+            <h2 class="fr-h6 fr-mb-0"><%= authorization_request.intitule %></h2>
               <%= authorization_request_status_badge(authorization_request) %>
               <span class="fr-hint-text">
                 <%= link_to t('.links.to_datapass', external_id: authorization_request.external_id).html_safe, 
                   datapass_authorization_request_url(authorization_request), 
                   id: dom_id(authorization_request, :authorization_request_link),
-                  class: %w(fr-link fr-text--xs), 
+                  class: %w(fr-link fr-text--sm fr-mt-2v), 
                   target: '_blank' 
                 %>
               </span>
-              <strong><%= authorization_request.intitule %></strong>
-              <br />
-              <span class="fr-text--sm">
+              <span class="fr-text--xs"><span class="fr-icon-user-fill fr-icon--xs fr-pr-1v" aria-hidden="true"></span>Vous êtes  
                 <%= authorization_request.user_authorization_request_roles.for_user(@current_user).map { |uarr|
                   I18n.t("user_authorization_request_roles.role.#{uarr.role}")
                   }.join(', ')

@@ -1,6 +1,6 @@
 module AuthorizationRequestHelper
   def authorization_request_status_badge(authorization_request)
-    "<p class=\"fr-badge fr-badge--#{authorization_request_status_color(authorization_request)}\">#{authorization_request_status_label(authorization_request)}</p>".html_safe
+    "<p class=\"fr-badge fr-mb-1v fr-badge--sm fr-badge--#{authorization_request_status_color(authorization_request)}\">#{authorization_request_status_label(authorization_request)}</p>".html_safe
   end
 
   private
