@@ -18,6 +18,6 @@ namespace :token do
 
   desc 'Mark an API Particulier tokens (which has a legacy id) as migration token:mark_as_migrated\\[UUID1. UUID2, ...\\]'
   task :mark_as_migrated, [] => :environment do |_, args|
-    MigrateLegacyTokenService.new.migrate_legacy_tokens(Token.where(id: args.extras))
+    MigrateLegacyTokenService.new(Token.where(id: args.extras)).perform
   end
 end
