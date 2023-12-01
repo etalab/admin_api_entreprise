@@ -441,7 +441,7 @@ fr:
                 Configurez votre mot de passe ou utilisez le mode de connexion par lien magique.
 
                 {:.fr-highlight}
-                _Dans certains cas spécifiques comme le départ du demandeur, un changement de poste, etc.,_ un transfert des habilitations par le contact principal (demandeur) à un tiers peut être nécessaire. Cette opération nécessite l’accord explicite du demandeur et est instruite manuellement par nos services. [En savoir plus.](#comment-transferer-mes-habilitations-a-une-autre-personne)
+                _Dans certains cas spécifiques comme le départ du demandeur, un changement de poste, etc.,_ un transfert des habilitations par le demandeur à un tiers peut être nécessaire. Cette opération nécessite l’accord explicite du demandeur et est instruite manuellement par nos services. [En savoir plus.](#comment-transferer-mes-habilitations-a-une-autre-personne)
 
                 **Le compte utilisateur vous permet de :**
                 - copier/coller le jeton d'accès à l'API, en [respectant les règles indispensables de sécurité](#qu-est-ce-qu-un-token-ou-jeton) ;
@@ -457,22 +457,21 @@ fr:
 
                 #### Vous êtes contact métier et/ou contact technique de l'habilitation : 
 
-                Si vous n'êtes pas le contact principal de l'habilitation, vous devez demander à celui-ci d'effectuer la modification. Pour retrouver le contact principal en charge de vos habilitations, rendez-vous sur [votre espace usager](<%= user_profile_path %>), le contact principal est indiqué dans la liste des contacts.
+                Si vous n'êtes pas le demandeur de l'habilitation, vous devez demander à celui-ci d'effectuer la modification. Pour retrouver le demandeur en charge de vos habilitations, rendez-vous sur [votre espace usager](<%= user_profile_path %>), le demandeur est indiqué dans la liste des contacts.
 
-                Le contact principal (à l'origine de la demande d'habilitation) est la seule personne qui peut demander une modification de l'habilitation. Le changement d'un contact métier ou technique est très rapide si le nouveau contact est dans la même organisation.
+                Le demandeur (contact principal à l'origine de la demande d'habilitation) est la seule personne qui peut demander une modification de l'habilitation. Le changement d'un contact métier ou technique est très rapide si le nouveau contact est dans la même organisation.
 
-                #### Vous le contact principal de la demande d'habilitation : 
+                #### Vous êtes le demandeur de la demande d'habilitation : 
 
-                En tant que contact principal d'une habilitation, vous avez la possibilité de demander le transfert de celle-ci à un tiers qui deviendra alors le contact principal à son tour.
+                En tant que demandeur d'une habilitation, vous avez la possibilité de demander le transfert de celle-ci à un tiers qui obtiendra alors à son tour le rôle de demandeur.
                 
                 **Pour cela, utilisez la fonctionnalité prévue à cet effet** :
-                - Rendez-vous dans votre [espace usager](<%= user_profile_path %>), cliquez sur \"Accéder à vos informations\".
+                - Rendez-vous dans votre [espace usager](<%= user_profile_path %>), cliquez sur \"Vos informations\".
                 - Cliquez sur le bouton dédié \"Transférer mes habilitations\".
-                - Une fenêtre s'ouvre, vous rappelle vos engagements et vous permet de renseigner l'adresse e-mail du futur contact principal des habilitations. Validez.
-                - Le destinataire reçoit un e-mail indiquant les démarches à suivre. Le transfert des habilitations est désormais de son côté. S'il n'a pas déjà un compte \"MonComptePro\", il devra s'en créer un, **en renseignant bien le SIRET de votre organisation commune. C'est indispensable pour que le compte soit bien appareillé**. Toute connexion par le destinataire à l'espace utilisateur API Particulier vaut acceptation de nos <a href="https://particulier.api.gouv.fr/cgu/">CGU</a>.
-                - L'étape finale est effectuée manuellement par le service API Particulier. Informé automatiquement de la demande, il doit réaliser une validation manuelle pour que le transfert soit effectif.
-
-                Le transfert des habilitations peut prendre quelques jours.
+                - Une fenêtre s'ouvre, vous rappelle vos engagements et vous permet de renseigner l'adresse e-mail du futur demandeur des habilitations. Validez.
+                - Le destinataire reçoit un e-mail indiquant les démarches à suivre. Le transfert des habilitations est désormais de son côté. S'il n'a pas déjà un compte \"MonComptePro\", il devra s'en créer un, **avec l'adresse mail que vous aurez indiquée et en renseignant bien le SIRET de votre organisation commune. C'est indispensable pour que le compte soit bien appareillé**.
+                - Une fois cette connexion faite, l'étape suivante est effectuée manuellement par le service API Particulier. Informé automatiquement de la demande, il doit réaliser une validation manuelle pour que le transfert soit effectif. Cette étape peut prendre quelques jours.
+                - Enfin, toute connexion par le destinataire à l'espace utilisateur API Particulier vaut acceptation de nos <a href="https://particulier.api.gouv.fr/cgu/">CGU</a> pour l'ensemble des habilitations nouvellement obtenues.
 
                 {:.fr-highlight.fr-highlight--caution}
                 > ⚠️ Vous êtes responsable de vos habilitations et de vos jetons au titre des engagements pris au moment de votre demande d'accès en signant nos <a href="https://particulier.api.gouv.fr/cgu/">CGU</a>. L'utilisation de la fonctionnalité "Transférer habilitations" a pour objectif de permettre la continuité de l'habilitation de votre organisation. Vous ne devez pas transmettre votre habilitation à une personne qui n'est pas en mesure de prendre le relais des responsabilités qui vous engagent.
