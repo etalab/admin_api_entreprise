@@ -229,7 +229,7 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
 
               click_link 'ask-for-prolongation-token-modal-link'
 
-              expect(page).to have_content('Relancer le contact principal')
+              expect(page).to have_content('Relancer le demandeur')
             end
 
             describe 'when the token has no attestations scopes' do
@@ -294,7 +294,7 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
               click_link 'show-token-modal-link'
 
               expect(page).to have_content('Utiliser le jeton')
-              expect(page).to have_content('Contact principal')
+              expect(page).to have_content('Demandeur')
             end
 
             it 'displays the ask for prolongation modal button' do
@@ -302,7 +302,7 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
 
               click_link 'ask-for-prolongation-token-modal-link'
 
-              expect(page).to have_content('Relancer le contact principal')
+              expect(page).to have_content('Relancer le demandeur')
             end
 
             describe 'when the token has no attestations scopes' do

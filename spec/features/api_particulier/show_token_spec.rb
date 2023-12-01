@@ -49,7 +49,7 @@ RSpec.describe 'displays the token', app: :api_particulier do
       it 'displays the page' do
         expect(page).to have_current_path(api_particulier_token_path(id: token.id), ignore_query: true)
 
-        expect(page).to have_content('Contact principal')
+        expect(page).to have_content('Demandeur')
       end
     end
   end

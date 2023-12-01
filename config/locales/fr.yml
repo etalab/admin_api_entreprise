@@ -36,14 +36,14 @@ fr:
     transfer_user_account:
       new:
         title: Transférer mes habilitations
-        description: Cette fonctionnalité vous permet de transmettre définitivement les habilitations pour lesquelles vous êtes contact principal à une tierce personne (qui sera le nouveau contact principal).
-          Une fois le transfert effectué, vous n'aurez plus accès à ces habilitations en tant que contact principal.
+        description: Cette fonctionnalité vous permet de transmettre définitivement les habilitations pour lesquelles vous êtes demandeur à une tierce personne (qui sera le nouveau demandeur).
+          Une fois le transfert effectué, vous n'aurez plus accès à ces habilitations en tant que demandeur.
           <br>
           <br>
           Attention, nos <a href="https://entreprise.api.gouv.fr/cgu/">CGU</a> vous engagent ! Vous ne devez pas transférer ces habilitations à un tiers non-habilité. Pour en savoir plus,
           consultez <a href='https://entreprise.api.gouv.fr/faq#comment-transferer-mon-compte-a-une-autre-personne' target='_blank'>cette rubrique de notre FAQ</a>.
         email:
-          label: Adresse e-mail du futur contact principal
+          label: Adresse e-mail du futur demandeur
           placeholder: jean.dupont@gouv.fr
         cta: Transférer mes habilitations
         confirm: Êtes-vous sûr de vouloir transférer votre compte ?
@@ -115,18 +115,18 @@ fr:
       cannot_show:
         title: Utiliser le jeton
         description: "En tant que contact métier, <strong>vous n'avez pas l'autorisation d'utiliser la clé d'accès.</strong>
-          Si le jeton arrive à expriation ou nécessite une action, veuiollez contacter le contact principal et le contact technique de cette habilitation :"
-        demandeur: "<strong>Contact principal</strong> : %{demandeur}"
+          Si le jeton arrive à expriation ou nécessite une action, veuillez contacter le demandeur et le contact technique de cette habilitation :"
+        demandeur: "<strong>demandeur</strong> : %{demandeur}"
         contact_technique: "<strong>Contact technique</strong> : %{contact_technique}"
         authorization_request_link: "<strong>Lien de l'habilitation à transmettre :</strong>"
         links:
           to_datapass: "N<sup>o</sup>%{external_id}"
       ask_for_prolongation:
-        title: Relancer le contact principal
+        title: Relancer le demandeur
         description: "Malgré nos nombreuses relances, %{demandeur} n'a pas prolongé le jeton ID : %{token_id},
-          celui-ci expirera dans %{remaining_time}. Seul le contact principal peut prolonger le jeton.
+          celui-ci expirera dans %{remaining_time}. Seul le demandeur peut prolonger le jeton.
           <strong>Écrivez-lui en lui transmettant le lien vers le formulaire de prolongation :</strong>"
-        demandeur: "<strong>Contact principal</strong> : %{demandeur}"
+        demandeur: "<strong>demandeur</strong> : %{demandeur}"
         ask_for_token_prolongation_description: "<strong>Lien du questionnaire de prolongation</strong> :"
         links:
           to_datapass: "N<sup>o</sup>%{external_id}"
@@ -273,7 +273,7 @@ fr:
           prolong:
             display_cta: Prolonger le jeton
           ask_for_prolongation:
-            display_cta: Relancer le contact principal pour prolonger le jeton
+            display_cta: Relancer le demandeur pour prolonger le jeton
         main_token:
           title: "Jeton principal&nbsp;:"
         attestations:
@@ -290,7 +290,7 @@ fr:
         contacts:
           title: "Contacts associés&nbsp;:"
           demandeur:
-            title: "Contact principal&nbsp;:"
+            title: "Demandeur&nbsp;:"
           contact_technique:
             title: "Contact technique&nbsp;:"
           contact_metier:
