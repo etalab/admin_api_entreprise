@@ -2,7 +2,7 @@ class AbstractCasUsage
   include ActiveModel::Model
   include AbstractAPIClass
 
-  AbstractCasUsage::ATTRIBUTES = %i[
+  ATTRIBUTES = %i[
     uid
     name
     introduction
@@ -18,7 +18,7 @@ class AbstractCasUsage
     endpoints_forbidden
   ].freeze
 
-  attr_accessor(*AbstractCasUsage::ATTRIBUTES)
+  attr_accessor(*ATTRIBUTES)
 
   def self.all
     backend.map do |uid, entry|
@@ -53,7 +53,7 @@ class AbstractCasUsage
   def self.build_from_yaml(uid, entry)
     new(
       entry.slice(
-        *AbstractCasUsage::ATTRIBUTES
+        *ATTRIBUTES
       ).merge(
         uid: uid.to_s
       )
