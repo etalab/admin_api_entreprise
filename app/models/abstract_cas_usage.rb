@@ -2,7 +2,7 @@ class AbstractCasUsage
   include ActiveModel::Model
   include AbstractAPIClass
 
-  CAS_USAGE_KEYS = %i[
+  AbstractCasUsage::ATTRIBUTES = %i[
     uid
     name
     introduction
@@ -18,7 +18,7 @@ class AbstractCasUsage
     endpoints_forbidden
   ].freeze
 
-  attr_accessor(*CAS_USAGE_KEYS)
+  attr_accessor(*AbstractCasUsage::ATTRIBUTES)
 
   def self.all
     backend.map do |uid, entry|
@@ -34,6 +34,18 @@ class AbstractCasUsage
     cas_usage
   end
 
+  def self.for_endpoint(endpoint_uid)
+    all.select { |cas_usage| cas_usage.endpoints&.include?(endpoint_uid) }
+  end
+
+  def self.optional_for_endpoint(endpoint_uid)
+    all.select { |cas_usage| cas_usage.endpoints_optional&.include?(endpoint_uid) }
+  end
+
+  def self.forbidden_for_endpoint(endpoint_uid)
+    all.select { |cas_usage| cas_usage.endpoints_forbidden&.include?(endpoint_uid) }
+  end
+
   def self.not_found(uid)
     ActiveRecord::RecordNotFound.new("CasUsage '#{uid}' does not exist")
   end
@@ -41,7 +53,7 @@ class AbstractCasUsage
   def self.build_from_yaml(uid, entry)
     new(
       entry.slice(
-        *CAS_USAGE_KEYS
+        *AbstractCasUsage::ATTRIBUTES
       ).merge(
         uid: uid.to_s
       )

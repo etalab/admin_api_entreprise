@@ -188,14 +188,22 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
   end
 
   def use_cases
-    Kernel.const_get(api.classify)::CasUsage
+    @use_cases ||= Kernel.const_get(api.classify)::CasUsage.for_endpoint(uid)
+  end
+
+  def use_cases_optional
+    @use_cases_optional ||= Kernel.const_get(api.classify)::CasUsage.optional_for_endpoint(uid)
+  end
+
+  def use_cases_forbidden
+    @use_cases_forbidden ||= Kernel.const_get(api.classify)::CasUsage.forbidden_for_endpoint(uid)
   end
 
   def use_case?(cas_usage_name)
     use_cases&.include?(cas_usage_name)
   end
 
-  def use_case_optionnal?(cas_usage_name)
+  def use_case_optional?(cas_usage_name)
     use_cases_optional&.include?(cas_usage_name)
   end
 

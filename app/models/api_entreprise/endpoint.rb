@@ -4,8 +4,6 @@ class APIEntreprise::Endpoint < AbstractEndpoint
     :format,
     :call_id,
     :parameters,
-    :use_cases_optional,
-    :use_cases_forbidden,
     :opening
 
   def initialize(params)
