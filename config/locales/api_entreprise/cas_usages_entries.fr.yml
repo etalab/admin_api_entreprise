@@ -7,6 +7,53 @@ fr:
         user_types:
           - administrations
           - collectivités
+        endpoints:
+          - insee/etablissements
+          - infogreffe/rcs/extrait
+          - ministere_interieur/rna
+          - insee/etablissements_diffusibles
+          - insee/siege_social_diffusibles
+          - infogreffe/rcs/extrait
+          - insee/siege_social
+          - ministere_interieur/rna
+          - ministere_interieur/documents_associations
+          - djepva/associations
+          - inpi/rne/beneficiaires_effectifs
+          - fabrique_numerique_ministeres_sociaux/conventions_collectives
+          - cma_france/rnm
+          - dgfip/chiffres_affaires
+          - dgfip/attestations_fiscales
+          - dgfip/v3/attestations_fiscales
+          - urssaf/attestation_vigilance
+          - urssaf/v3/attestation_vigilance
+          - msa/conformites_cotisations
+          - probtp/conformites_cotisations_retraite
+          - fntp/carte_professionnelle_travaux_public
+          - cnetp/attestations_cotisations_conges_payes_chomage_intemperies
+          - qualifelec/certificats
+          - inpi/brevets
+          - carif_oref/certifications_qualiopi_france_competences
+        endpoints_optional:
+          - infogreffe/mandataires_sociaux
+          - insee/adresse_etablissements
+          - insee/adresse_etablissements_diffusibles
+          - insee/unites_legales
+          - insee/unites_legales_diffusibles
+          - douanes/immatriculation_eori
+          - banque_de_france/bilans
+          - dgfip/liasses_fiscales
+          - agence_bio/certifications_bio
+          - ademe/certifications_rge
+          - qualibat/v3/certifications_batiment
+          - qualibat/certifications_batiment
+          - opqibi/qualifications_ingenierie
+          - inpi/marques
+          - inpi/modeles
+          - djepva/associations_open_data
+          - commission_europeenne/numero_tva
+          - gip_mds/effectifs_annuels_unite_legale
+          - gip_mds/effectifs_mensuels_etablissement
+        use_cases_forbidden: []
         comments_endpoints:
           "insee/etablissements_diffusibles": "<span class='fr-badge fr-badge--sm fr-badge--new'>Candidature</span> **Données utiles DC1, DC2, DC4 & DUME** : _raison sociale, forme juridique, catégorie micro/TPE/PME de l'unité légale. Tranche effectif (année N-2 ou N-3), activité principale et date de création de l'établissement et de l'unité légale. Indique aussi si l'unité légale est de l'économie sociale et solidaire (ESS)._<br><br>📝 Utilisable pour du **préremplissage de formulaire** car donnée publique."
 
@@ -227,6 +274,51 @@ fr:
         user_types:
           - administrations
           - collectivités
+        endpoints:
+          - insee/etablissements
+          - insee/etablissements_diffusibles
+          - infogreffe/mandataires_sociaux
+          - infogreffe/rcs/extrait
+          - ministere_interieur/rna
+          - ministere_interieur/documents_associations
+          - djepva/associations
+          - inpi/rne/beneficiaires_effectifs
+          - cma_france/rnm
+          - dgfip/chiffres_affaires
+          - dgfip/attestations_fiscales
+          - dgfip/v3/attestations_fiscales
+          - urssaf/attestation_vigilance
+          - urssaf/v3/attestation_vigilance
+          - msa/conformites_cotisations
+          - carif_oref/certifications_qualiopi_france_competences
+        endpoints_optional:
+          - insee/adresse_etablissements
+          - insee/adresse_etablissements_diffusibles
+          - insee/siege_social
+          - insee/unites_legales
+          - insee/unites_legales_diffusibles
+          - insee/siege_social_diffusibles
+          - fabrique_numerique_ministeres_sociaux/conventions_collectives
+          - douanes/immatriculation_eori
+          - banque_de_france/bilans
+          - dgfip/liasses_fiscales
+          - probtp/conformites_cotisations_retraite
+          - fntp/carte_professionnelle_travaux_public
+          - cnetp/attestations_cotisations_conges_payes_chomage_intemperies
+          - agence_bio/certifications_bio
+          - ademe/certifications_rge
+          - qualibat/v3/certifications_batiment
+          - qualibat/certifications_batiment
+          - opqibi/qualifications_ingenierie
+          - qualifelec/certificats
+          - inpi/brevets
+          - inpi/marques
+          - inpi/modeles
+          - djepva/associations_open_data
+          - commission_europeenne/numero_tva
+          - gip_mds/effectifs_annuels_unite_legale
+          - gip_mds/effectifs_mensuels_etablissement
+        use_cases_forbidden: []
         comments_endpoints:
             "insee/etablissements_diffusibles": "<span class='fr-badge fr-badge--sm fr-badge--new'>Préremplissage</span> _raison sociale, forme juridique, catégorie micro/TPE/PME de l'unité légale. Tranche effectif (année N-2 ou N-3), activité principale et date de création de l'établissement et de l'unité légale. Indique aussi si l'unité légale est de l'économie sociale et solidaire (ESS)._<br><br>📝 Utilisable pour du **préremplissage de formulaire** car donnée publique."
 
@@ -451,6 +543,47 @@ fr:
         user_types:
           - administrations
           - collectivités
+        endpoints:
+          - insee/etablissements
+          - insee/etablissements_diffusibles
+          - insee/siege_social
+          - insee/siege_social_diffusibles
+          - djepva/associations
+        endpoints_optional:
+          - insee/adresse_etablissements
+          - insee/adresse_etablissements_diffusibles
+          - insee/unites_legales
+          - insee/unites_legales_diffusibles
+          - fabrique_numerique_ministeres_sociaux/conventions_collectives
+          - agence_bio/certifications_bio
+          - ademe/certifications_rge
+          - qualibat/v3/certifications_batiment
+          - qualibat/certifications_batiment
+          - opqibi/qualifications_ingenierie
+          - qualifelec/certificats
+          - inpi/brevets
+          - inpi/marques
+          - inpi/modeles
+          - carif_oref/certifications_qualiopi_france_competences
+          - gip_mds/effectifs_annuels_unite_legale
+          - gip_mds/effectifs_mensuels_etablissement
+        endpoints_forbidden:
+          - infogreffe/mandataires_sociaux
+          - infogreffe/rcs/extrait
+          - cma_france/rnm
+          - douanes/immatriculation_eori
+          - dgfip/chiffres_affaires
+          - banque_de_france/bilans
+          - dgfip/liasses_fiscales
+          - dgfip/attestations_fiscales
+          - dgfip/v3/attestations_fiscales
+          - urssaf/attestation_vigilance
+          - urssaf/v3/attestation_vigilance
+          - msa/conformites_cotisations
+          - probtp/conformites_cotisations_retraite
+          - fntp/carte_professionnelle_travaux_public
+          - cnetp/attestations_cotisations_conges_payes_chomage_intemperies
+          - commission_europeenne/numero_tva
         comments_endpoints:
             "insee/etablissements_diffusibles": "<span class='fr-badge fr-badge--sm fr-badge--new'>Préremplissage</span> **Utile pré-remplissage du formulaire unique**&nbsp;: _Numéro de SIREN/SIRET, dénomination sociale, sigle de l'association, activités, adresse et date de création, économie sociale et solidaire (ESS)_."
 
@@ -610,6 +743,51 @@ fr:
         name: 'Détection de la fraude'
         user_types:
           - administrations
+        endpoints:
+          - insee/etablissements
+          - infogreffe/mandataires_sociaux
+          - infogreffe/rcs/extrait
+          - insee/siege_social
+          - ministere_interieur/rna
+          - ministere_interieur/documents_associations
+          - djepva/associations
+          - inpi/rne/beneficiaires_effectifs
+          - cma_france/rnm
+          - douanes/immatriculation_eori
+          - dgfip/chiffres_affaires
+          - banque_de_france/bilans
+          - dgfip/liasses_fiscales
+          - dgfip/attestations_fiscales
+          - dgfip/v3/attestations_fiscales
+          - urssaf/attestation_vigilance
+          - urssaf/v3/attestation_vigilance
+          - msa/conformites_cotisations
+          - commission_europeenne/numero_tva
+          - carif_oref/certifications_qualiopi_france_competences
+          - gip_mds/effectifs_annuels_unite_legale
+          - gip_mds/effectifs_mensuels_etablissement
+        endpoints_optional:
+          - insee/etablissements_diffusibles
+          - insee/adresse_etablissements
+          - insee/adresse_etablissements_diffusibles
+          - insee/unites_legales
+          - insee/unites_legales_diffusibles
+          - insee/siege_social_diffusibles
+          - fabrique_numerique_ministeres_sociaux/conventions_collectives
+          - probtp/conformites_cotisations_retraite
+          - fntp/carte_professionnelle_travaux_public
+          - cnetp/attestations_cotisations_conges_payes_chomage_intemperies
+          - agence_bio/certifications_bio
+          - ademe/certifications_rge
+          - qualibat/v3/certifications_batiment
+          - qualibat/certifications_batiment
+          - opqibi/qualifications_ingenierie
+          - qualifelec/certificats
+          - inpi/brevets
+          - inpi/marques
+          - inpi/modeles
+          - djepva/associations_open_data
+        use_cases_forbidden: []
         introduction:
           title: Simplifier les procédures de détection de la fraude
           content: |
@@ -656,6 +834,51 @@ fr:
         user_types:
           - administrations
           - collectivités
+        endpoints:
+          - insee/etablissements_diffusibles
+          - infogreffe/rcs/extrait
+          - ministere_interieur/rna
+          - cma_france/rnm
+          - djepva/associations_open_data
+        endpoints_optional:
+          - insee/adresse_etablissements_diffusibles
+          - insee/unites_legales_diffusibles
+          - insee/siege_social_diffusibles
+          - inpi/rne/beneficiaires_effectifs
+          - fabrique_numerique_ministeres_sociaux/conventions_collectives
+          - douanes/immatriculation_eori
+          - ministere_interieur/documents_associations
+          - fntp/carte_professionnelle_travaux_public
+          - agence_bio/certifications_bio
+          - ademe/certifications_rge
+          - qualibat/v3/certifications_batiment
+          - qualibat/certifications_batiment
+          - opqibi/qualifications_ingenierie
+          - qualifelec/certificats
+          - inpi/brevets
+          - inpi/marques
+          - inpi/modeles
+          - commission_europeenne/numero_tva
+        endpoints_forbidden:
+          - insee/etablissements
+          - infogreffe/mandataires_sociaux
+          - insee/adresse_etablissements
+          - insee/siege_social
+          - insee/unites_legales
+          - djepva/associations
+          - dgfip/chiffres_affaires
+          - banque_de_france/bilans
+          - dgfip/liasses_fiscales
+          - dgfip/attestations_fiscales
+          - dgfip/v3/attestations_fiscales
+          - urssaf/attestation_vigilance
+          - urssaf/v3/attestation_vigilance
+          - msa/conformites_cotisations
+          - probtp/conformites_cotisations_retraite
+          - cnetp/attestations_cotisations_conges_payes_chomage_intemperies
+          - carif_oref/certifications_qualiopi_france_competences
+          - gip_mds/effectifs_annuels_unite_legale
+          - gip_mds/effectifs_mensuels_etablissement
         comments_endpoints:
           "insee/etablissements_diffusibles": "Préremplir les informations d'un **établissement et de son unité légale, à partir de son numéro de SIRET** : _raison sociale, forme juridique, catégorie micro/TPE/PME de l'unité légale. Tranche effectif (année N-2 ou N-3), activité principale et date de création de l'établissement et de l'unité légale. Indique aussi si l'unité légale est de l'économie sociale et solidaire (ESS)._"
 
@@ -846,6 +1069,51 @@ fr:
         user_types:
           - administrations
           - collectivités
+        endpoints:
+          - insee/etablissements
+          - insee/etablissements_diffusibles
+          - infogreffe/rcs/extrait
+          - ministere_interieur/rna
+          - ministere_interieur/documents_associations
+          - djepva/associations
+          - cma_france/rnm
+          - dgfip/attestations_fiscales
+          - dgfip/v3/attestations_fiscales
+          - urssaf/attestation_vigilance
+          - urssaf/v3/attestation_vigilance
+          - msa/conformites_cotisations
+        endpoints_optional:
+          - infogreffe/mandataires_sociaux
+          - insee/adresse_etablissements
+          - insee/adresse_etablissements_diffusibles
+          - insee/siege_social
+          - insee/unites_legales
+          - insee/unites_legales_diffusibles
+          - insee/siege_social_diffusibles
+          - inpi/rne/beneficiaires_effectifs
+          - fabrique_numerique_ministeres_sociaux/conventions_collectives
+          - douanes/immatriculation_eori
+          - dgfip/chiffres_affaires
+          - probtp/conformites_cotisations_retraite
+          - fntp/carte_professionnelle_travaux_public
+          - cnetp/attestations_cotisations_conges_payes_chomage_intemperies
+          - agence_bio/certifications_bio
+          - ademe/certifications_rge
+          - qualibat/v3/certifications_batiment
+          - qualibat/certifications_batiment
+          - opqibi/qualifications_ingenierie
+          - qualifelec/certificats
+          - inpi/brevets
+          - inpi/marques
+          - inpi/modeles
+          - djepva/associations_open_data
+          - commission_europeenne/numero_tva
+          - carif_oref/certifications_qualiopi_france_competences
+          - gip_mds/effectifs_annuels_unite_legale
+          - gip_mds/effectifs_mensuels_etablissement
+        endpoints_forbidden:
+          - banque_de_france/bilans
+          - dgfip/liasses_fiscales
         comments_endpoints:
             "insee/etablissements_diffusibles": "<span class='fr-badge fr-badge--sm fr-badge--new'>Préremplissage</span> Préremplir les informations d'un **établissement et de son unité légale, à partir de son numéro de SIRET** : _raison sociale, forme juridique, catégorie micro/TPE/PME de l'unité légale. Tranche effectif (année N-2 ou N-3), activité principale et date de création de l'établissement et de l'unité légale. Indique aussi si l'unité légale est de l'économie sociale et solidaire (ESS)._"
 
@@ -1049,6 +1317,51 @@ fr:
         name: 'Accès spécifique éditeurs de logiciels'
         user_types:
           - éditeurs de logiciels
+        endpoints:
+          -  insee/etablissements_diffusibles
+          -  insee/etablissements
+          -  infogreffe/rcs/extrait
+          -  inpi/rne/beneficiaires_effectifs
+          -  infogreffe/mandataires_sociaux
+          -  insee/unites_legales_diffusibles
+          -  insee/unites_legales
+          -  insee/siege_social_diffusibles
+          -  insee/siege_social
+          -  insee/adresse_etablissements_diffusibles
+          -  insee/adresse_etablissements
+          -  ministere_interieur/rna
+          -  djepva/associations
+          -  djepva/associations_open_data
+          -  gip_mds/effectifs_annuels_unite_legale
+          -  gip_mds/effectifs_mensuels_etablissement
+          -  ministere_interieur/documents_associations
+          -  commission_europeenne/numero_tva
+          -  fabrique_numerique_ministeres_sociaux/conventions_collectives
+          -  cma_france/rnm
+          -  douanes/immatriculation_eori
+          -  dgfip/chiffres_affaires
+          -  banque_de_france/bilans
+          -  dgfip/liasses_fiscales
+          -  dgfip/attestations_fiscales
+          -  urssaf/attestation_vigilance
+          -  msa/conformites_cotisations
+          -  probtp/conformites_cotisations_retraite
+          -  fntp/carte_professionnelle_travaux_public
+          -  cnetp/attestations_cotisations_conges_payes_chomage_intemperies
+          -  carif_oref/certifications_qualiopi_france_competences
+          -  agence_bio/certifications_bio
+          -  ademe/certifications_rge
+          -  qualibat/v3/certifications_batiment
+          -  qualibat/certifications_batiment
+          -  opqibi/qualifications_ingenierie
+          -  qualifelec/certificats
+          -  inpi/brevets
+          -  inpi/marques
+          -  inpi/modeles
+          -  urssaf/v3/attestation_vigilance
+          -  dgfip/v3/attestations_fiscales
+        endpoints_optional: []
+        endpoints_forbidden: []
         comments_endpoints:
           "insee/etablissements_diffusibles": "Préremplir des démarches en ligne sans authentification de l'usager."
           "insee/etablissements": "**API principale pour récupérer les données de l'Insee**, les autres API Insee étant ciblées sur un périmètre plus restreint, par exemple les adresses pour `Insee/adresse_etablissements`"
