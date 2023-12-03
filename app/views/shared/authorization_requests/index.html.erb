@@ -77,7 +77,8 @@
                   >
                     <%= t('.modal.show.display_cta') %>
                   </a>
-                <% elsif policy(authorization_request.token).prolong? %>
+                <% end %>
+                <% if policy(authorization_request.token).prolong? %>
                   <a
                     href="<%= token_prolong_path(id: authorization_request.token.id) %>"
                     id="<%= dom_id(authorization_request, :prolong_token_modal_link) %>"
@@ -88,9 +89,12 @@
                   >
                     <%= t('.modal.prolong.display_cta') %>
                   </a>
-                <% else %>
+                <% end %>
+                <% if !authorization_request.tokens.blacklisted_later.any? && !policy(authorization_request.token).prolong? %>
                   <span class="fr-text--sm fr-text--italic" style="color: var(--text-mention-grey)">
-                    <i>Aucune action attendue</i>
+                    <i>
+                      <%= t('.no_action') %>
+                    </i>
                   </span>
                 <% end %>
               <% end %>

@@ -294,7 +294,7 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
               click_link 'show-token-modal-link'
 
               expect(page).to have_content('Utiliser le jeton')
-              expect(page).to have_content('Demandeur')
+              expect(page).to have_content('demandeur')
             end
 
             it 'displays the ask for prolongation modal button' do
