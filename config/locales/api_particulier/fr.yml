@@ -178,65 +178,163 @@ fr:
     tokens:
       token:
         scope:
-          # Fournisseur || API Nom || scope || obsolete
-          cnaf_quotient_familial: CNAF & MSA || API Quotient familial || QF
-          cnaf_allocataires: CNAF & MSA || API Quotient familial || Identités allocataire et conjoint
-          cnaf_enfants: CNAF & MSA || API Quotient familial || Identités enfants
-          cnaf_adresse: CNAF & MSA || API Quotient familial || Adresse du foyer
-          pole_emploi_identite: Pôle emploi || API statut demandeur d'emploi || Statut et identité du demandeur
-          pole_emploi_contact: Pôle emploi || API statut demandeur d'emploi || Téléphone et e||mail
-          pole_emploi_adresse: Pôle emploi || API statut demandeur d'emploi || Adresse
-          pole_emploi_inscription: Pôle emploi || API statut demandeur d'emploi || Date d'inscription et de cessation, catégorie du demandeur d'emploi
-          pole_emploi_paiements: Pôle emploi || API paiements Pôle emploi
-          men_statut_scolarite: Min. éducation nationale || API Statut élève scolarisé et boursier || Statut scolarisé et identité de l'élève
-          men_statut_boursier: Min. éducation nationale || API Statut élève scolarisé et boursier || Statut boursier
-          men_echelon_bourse: Min. éducation nationale || API Statut élève scolarisé et boursier ||  Échelon de la bourse
-          mesri_identite: Min. enseignement supérieur || API Statut étudiant || Statut inscrit et identité de l'étudiant
-          mesri_admission: Min. enseignement supérieur || API Statut étudiant || Périmètre étudiants admis
-          mesri_inscription_etudiant: Min. enseignement supérieur || API Statut étudiant || Périmètre étudiants en formation initiale
-          mesri_inscription_autre: Min. enseignement supérieur || API Statut étudiant || Périmètre étudiants en formation continue
-          mesri_etablissements: Min. enseignement supérieur || API Statut étudiant || Liste des établissements
-          cnous_statut_boursier: Cnous || API Statut étudiant boursier || Statut boursier
-          cnous_echelon_bourse: Cnous || API Statut étudiant boursier || Échelon de la bourse
-          cnous_identite: Cnous || API Statut étudiant boursier || Identité du boursier
-          cnous_email: Cnous || API Statut étudiant boursier || E-mail
-          cnous_periode_versement: Cnous || API Statut étudiant boursier || Période de versement
-          cnous_statut_bourse: Cnous || API Statut étudiant boursier || Statut définitif de la bourse
-          cnous_ville_etudes: Cnous || API Statut étudiant boursier || Ville d'études et établissement
-          complementaire_sante_solidaire: Sécurité sociale || API Complémentaire santé solidaire
-          # obsolète
-          mesri_identifiant: Min. enseignement supérieur || API Statut étudiant || INE || obsolete
-          dgfip_declarant1_nom: DGFIP || État civil || déclarant 1 - Nom || obsolete
-          dgfip_declarant1_nom_naissance: DGFIP || État civil || déclarant 1 - Nom de naissance || obsolete
-          dgfip_declarant1_prenoms: DGFIP || État civil || déclarant 1 - Prénom(s) || obsolete
-          dgfip_declarant1_date_naissance: DGFIP || État civil || déclarant 1 - Date de naissance || obsolete
-          dgfip_declarant2_nom: DGFIP || État civil || déclarant 2 - Nom || obsolete
-          dgfip_declarant2_nom_naissance: DGFIP || État civil || déclarant 2 - Nom de naissance || obsolete
-          dgfip_declarant2_prenoms: DGFIP || État civil || déclarant 2 - Prénom(s) || obsolete
-          dgfip_declarant2_date_naissance: DGFIP || État civil || déclarant 2 - Date de naissance
-          dgfip_date_recouvrement: DGFIP || Échéances de l’avis d’imposition || Date de recouvrement || obsolete
-          dgfip_date_etablissement: DGFIP || Échéances de l’avis d’imposition || Date d'établissement || obsolete
-          dgfip_adresse_fiscale_taxation: DGFIP || Situation du foyer fiscal || Adresse || obsolete
-          dgfip_adresse_fiscale_annee: DGFIP || Situation du foyer fiscal || Année de déclaration || obsolete
-          dgfip_nombre_parts: DGFIP || Situation du foyer fiscal || Nombre de parts || obsolete
-          dgfip_nombre_personnes_a_charge: DGFIP || Situation du foyer fiscal || Nombre de personnes à charge || obsolete
-          dgfip_situation_familiale: DGFIP || Situation du foyer fiscal || Situation de famille || obsolete
-          dgfip_revenu_brut_global: DGFIP || Agrégats fiscaux || Revenu brut global || obsolete
-          dgfip_revenu_imposable: DGFIP || Agrégats fiscaux || Revenu imposable || obsolete
-          dgfip_impot_revenu_net_avant_corrections: DGFIP || Agrégats fiscaux || Impôt sur le revenun et avant corrections || obsolete
-          dgfip_montant_impot: DGFIP || Agrégats fiscaux || Montant de l'impôt || obsolete
-          dgfip_revenu_fiscal_reference: DGFIP || Agrégats fiscaux || Revenu fiscal de référence || obsolete
-          dgfip_annee_impot: DGFIP || Agrégats fiscaux || Année de l'impôt || obsolete
-          dgfip_annee_revenus: DGFIP || Agrégats fiscaux || Année des revenus || obsolete
-          dgfip_erreur_correctif: DGFIP - Compléments - Erreur correctif || obsolete
-          dgfip_situation_partielle: DGFIP - Compléments - Situation partielle || obsolete
+          cnaf_quotient_familial: 
+            label: CNAF & MSA || API Quotient familial || QF
+          cnaf_allocataires: 
+            label: CNAF & MSA || API Quotient familial || Identités allocataire et conjoint
+          cnaf_enfants: 
+            label: CNAF & MSA || API Quotient familial || Identités enfants
+          cnaf_adresse: 
+            label: CNAF & MSA || API Quotient familial || Adresse du foyer
+          pole_emploi_identite: 
+            label: Pôle emploi || API statut demandeur d'emploi || Statut et identité du demandeur
+          pole_emploi_contact: 
+            label: Pôle emploi || API statut demandeur d'emploi || Téléphone et e||mail
+          pole_emploi_adresse: 
+            label: Pôle emploi || API statut demandeur d'emploi || Adresse
+          pole_emploi_inscription: 
+            label: Pôle emploi || API statut demandeur d'emploi || Date d'inscription et de cessation, catégorie du demandeur d'emploi
+          pole_emploi_paiements: 
+            label: Pôle emploi || API paiements Pôle emploi
+          men_statut_scolarite: 
+            label: Min. éducation nationale || API Statut élève scolarisé et boursier || Statut scolarisé et identité de l'élève
+          men_statut_boursier: 
+            label: Min. éducation nationale || API Statut élève scolarisé et boursier || Statut boursier
+          men_echelon_bourse: 
+            label: Min. éducation nationale || API Statut élève scolarisé et boursier ||  Échelon de la bourse
+          mesri_identite: 
+            label: Min. enseignement supérieur || API Statut étudiant || Statut inscrit et identité de l'étudiant
+          mesri_admission: 
+            label: Min. enseignement supérieur || API Statut étudiant || Périmètre étudiants admis
+          mesri_inscription_etudiant: 
+            label: Min. enseignement supérieur || API Statut étudiant || Périmètre étudiants en formation initiale
+          mesri_inscription_autre: 
+            label: Min. enseignement supérieur || API Statut étudiant || Périmètre étudiants en formation continue
+          mesri_etablissements: 
+            label: Min. enseignement supérieur || API Statut étudiant || Liste des établissements
+          cnous_statut_boursier: 
+            label: Cnous || API Statut étudiant boursier || Statut boursier
+          cnous_echelon_bourse: 
+            label: Cnous || API Statut étudiant boursier || Échelon de la bourse
+          cnous_identite: 
+            label: Cnous || API Statut étudiant boursier || Identité du boursier
+          cnous_email: 
+            label: Cnous || API Statut étudiant boursier || E-mail
+          cnous_periode_versement: 
+            label: Cnous || API Statut étudiant boursier || Période de versement
+          cnous_statut_bourse: 
+            label: Cnous || API Statut étudiant boursier || Statut définitif de la bourse
+          cnous_ville_etudes: 
+            label: Cnous || API Statut étudiant boursier || Ville d'études et établissement
+          complementaire_sante_solidaire: 
+            label: Sécurité sociale || API Complémentaire santé solidaire
+          mesri_identifiant: 
+            label: Min. enseignement supérieur || API Statut étudiant || INE 
+            tag:
+              - obsolete
+          dgfip_declarant1_nom: 
+            label: DGFIP || État civil || déclarant 1 || Nom 
+            tag:
+              - obsolete
+          dgfip_declarant1_nom_naissance: 
+            label: DGFIP || État civil || déclarant 1 || Nom de naissance 
+            tag:
+              - obsolete
+          dgfip_declarant1_prenoms: 
+            label: DGFIP || État civil || déclarant 1 || Prénom(s) 
+            tag:
+              - obsolete
+          dgfip_declarant1_date_naissance: 
+            label: DGFIP || État civil || déclarant 1 || Date de naissance 
+            tag:
+              - obsolete
+          dgfip_declarant2_nom: 
+            label: DGFIP || État civil || déclarant 2 || Nom 
+            tag:
+              - obsolete
+          dgfip_declarant2_nom_naissance: 
+            label: DGFIP || État civil || déclarant 2 || Nom de naissance 
+            tag:
+              - obsolete
+          dgfip_declarant2_prenoms: 
+            label: DGFIP || État civil || déclarant 2 || Prénom(s) 
+            tag:
+              - obsolete
+          dgfip_declarant2_date_naissance: 
+            label: DGFIP || État civil || déclarant 2 || Date de naissance
+            tag:
+              - obsolete
+          dgfip_date_recouvrement: 
+            label: DGFIP || Échéances de l’avis d’imposition || Date de recouvrement 
+            tag:
+              - obsolete
+          dgfip_date_etablissement: 
+            label: DGFIP || Échéances de l’avis d’imposition || Date d'établissement 
+            tag:
+              - obsolete
+          dgfip_adresse_fiscale_taxation: 
+            label: DGFIP || Situation du foyer fiscal || Adresse 
+            tag:
+              - obsolete
+          dgfip_adresse_fiscale_annee: 
+            label: DGFIP || Situation du foyer fiscal || Année de déclaration 
+            tag:
+              - obsolete
+          dgfip_nombre_parts: 
+            label: DGFIP || Situation du foyer fiscal || Nombre de parts 
+            tag:
+              - obsolete
+          dgfip_nombre_personnes_a_charge: 
+            label: DGFIP || Situation du foyer fiscal || Nombre de personnes à charge 
+            tag:
+              - obsolete
+          dgfip_situation_familiale: 
+            label: DGFIP || Situation du foyer fiscal || Situation de famille 
+            tag:
+              - obsolete
+          dgfip_revenu_brut_global: 
+            label: DGFIP || Agrégats fiscaux || Revenu brut global 
+            tag:
+              - obsolete
+          dgfip_revenu_imposable: 
+            label: DGFIP || Agrégats fiscaux || Revenu imposable 
+            tag:
+              - obsolete
+          dgfip_impot_revenu_net_avant_corrections: 
+            label: DGFIP || Agrégats fiscaux || Impôt sur le revenun et avant corrections 
+            tag:
+              - obsolete
+          dgfip_montant_impot: 
+            label: DGFIP || Agrégats fiscaux || Montant de l'impôt 
+            tag:
+              - obsolete
+          dgfip_revenu_fiscal_reference: 
+            label: DGFIP || Agrégats fiscaux || Revenu fiscal de référence 
+            tag:
+              - obsolete
+          dgfip_annee_impot: 
+            label: DGFIP || Agrégats fiscaux || Année de l'impôt 
+            tag:
+              - obsolete
+          dgfip_annee_revenus: 
+            label: DGFIP || Agrégats fiscaux || Année des revenus 
+            tag:
+              - obsolete
+          dgfip_erreur_correctif: 
+            label: DGFIP || Compléments || Erreur correctif 
+            tag:
+              - obsolete
+          dgfip_situation_partielle: 
+            label: DGFIP || Compléments || Situation partielle 
+            tag:
+              - obsolete
     sessions:
       create_from_oauth:
         not_found:
           title: "Votre compte ne semble pas être rattaché à une habilitation API Particulier."
           description: "Veuillez vérifier que l'e-mail %{email} utilisé ici correspond à l'e-mail utilisé lors de votre demande d'habilitation API Particulier \n\n
-          Si vous êtes un nouvel utilisateur, veuillez déposer une demande en suivant le lien suivant : https://api.gouv.fr/les-api/api-particulier/demande-acces\n
-          Après validation de celle-ci, vous pourrez vous connecter au compte API Particulier."
+            Si vous êtes un nouvel utilisateur, veuillez déposer une demande en suivant le lien suivant : https://api.gouv.fr/les-api/api-particulier/demande-acces\n
+            Après validation de celle-ci, vous pourrez vous connecter au compte API Particulier."
       failure:
         unknown: Une erreur inconnue est survenue, veuillez contacter le support.
       after_logout:

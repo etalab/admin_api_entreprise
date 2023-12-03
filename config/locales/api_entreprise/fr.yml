@@ -78,53 +78,118 @@ fr:
     tokens:
       token:
         scope:
-          #Fournisseur || API Nom || open data ou obsolete
-          etablissements: INSEE || API Données établissements dont les non diffusibles 
-          entreprises: INSEE || API Données unités légales dont les non diffusibles 
-          unites_legales_etablissements_insee: INSEE || API Données unités légales et établissements dont les non diffusibles 
-          extraits_rcs: Infogreffe || Extrait RCS
-          mandataires_sociaux_infogreffe: Infogreffe || Mandataires sociaux
-          associations_donnees_protegees: Djepva || Données association
-          associations_djepva: Djepva || Données ouvertes association || open data
-          associations: Djepva || Données ouvertes association || open data
-          documents_association: Djepva || Données ouvertes association || open data
-          effectifs_urssaf: GIP-MDS || Effectifs unité légale et établissement
-          conventions_collectives: FabNum des ministères sociaux || Conventions Collectives || open data
-          eori_douanes: Douanes || Immatriculation EORI || open data
-          exercices: Exercice
-          chiffre_affaires_dgfip: DGFIP || Chiffre d'affaires
-          bilans_entreprise_bdf: Banque de France || 3 derniers bilans annuels
-          bilans_bdf: Banque de France || 3 derniers bilans annuels
-          liasse_fiscale: DGFIP || Liasses fiscales
-          liasses_fiscales_dgfip: DGFIP || Liasses fiscales
-          attestations_fiscales: DGFIP || Attestation fiscale
-          attestation_fiscale_dgfip: DGFIP || Attestation fiscale
-          attestations_sociales: URSSAF || Attestation de vigilance
-          attestation_sociale_urssaf: URSSAF || Attestation de vigilance
-          msa_cotisations: MSA || Conformité cotisations de sécurité sociale agricole
-          cotisations_msa: MSA || Conformité cotisations de sécurité sociale agricole
-          probtp: PROBTP || Conformité cotisations retraite complémentaire
-          cotisations_probtp: PROBTP || Conformité cotisations retraite complémentaire
-          certifications_qualiopi_france_competences: Carif-Oref || Qualiopi & habilitations France compétences
-          fntp_carte_pro: FNTP || Carte professionnelle travaux publics || open data
-          certificat_cnetp: CNETP || Attestation de cotisations congés payés & chômage-intempéries
-          certification_cnetp: CNETP || Attestation de cotisations congés payés & chômage-intempéries
-          certificat_agence_bio: Agence BIO || Certificats en BIO || open data
-          certificat_rge_ademe: ADEME || Certification RGE || open data
-          qualibat: Qualibat || Certification Qualibat || open data
-          certificat_opqibi: OPQIBI || Certification d'ingénierie OPQIBI || open data
-          extrait_court_inpi: Inpi || Brevets, marques et modèles déposés || open data
-          open_data: API dont les données sont publiques || open data
-          #Obsolètes 
-          actes_inpi: Inpi || Actes || obsolete
-          entreprises_artisanales: CMA France || Données entreprises artisanales || obsolete
+          etablissements: 
+            label: INSEE || API Données établissements dont les non diffusibles 
+          entreprises: 
+            label: INSEE || API Données unités légales dont les non diffusibles 
+          unites_legales_etablissements_insee: 
+            label: INSEE || API Données unités légales et établissements dont les non diffusibles 
+          extraits_rcs: 
+            label: Infogreffe || Extrait RCS
+          mandataires_sociaux_infogreffe: 
+            label: Infogreffe || Mandataires sociaux
+          associations_donnees_protegees: 
+            label: Djepva || Données association
+          associations_djepva: 
+            label: Djepva || Données ouvertes association 
+            tags:
+              - open data
+          associations: 
+            label: Djepva || Données ouvertes association 
+            tags:
+              - open data
+          documents_association: 
+            label: Djepva || Données ouvertes association 
+            tags:
+              - open data
+          effectifs_urssaf: 
+            label: GIP-MDS || Effectifs unité légale et établissement
+          conventions_collectives: 
+            label: FabNum des ministères sociaux || Conventions Collectives 
+            tags:
+              - open data
+          eori_douanes: 
+            label: Douanes || Immatriculation EORI 
+            tags:
+              - open data
+          exercices: 
+            label: Exercice
+          chiffre_affaires_dgfip: 
+            label: DGFIP || Chiffre d'affaires
+          bilans_entreprise_bdf: 
+            label: Banque de France || 3 derniers bilans annuels
+          bilans_bdf: 
+            label: Banque de France || 3 derniers bilans annuels
+          liasse_fiscale: 
+            label: DGFIP || Liasses fiscales
+          liasses_fiscales_dgfip: 
+            label: DGFIP || Liasses fiscales
+          attestations_fiscales: 
+            label: DGFIP || Attestation fiscale
+          attestation_fiscale_dgfip: 
+            label: DGFIP || Attestation fiscale
+          attestations_sociales: 
+            label: URSSAF || Attestation de vigilance
+          attestation_sociale_urssaf: 
+            label: URSSAF || Attestation de vigilance
+          msa_cotisations: 
+            label: MSA || Conformité cotisations de sécurité sociale agricole
+          cotisations_msa: 
+            label: MSA || Conformité cotisations de sécurité sociale agricole
+          probtp: 
+            label:PROBTP || Conformité cotisations retraite complémentaire 
+          cotisations_probtp: 
+            label: PROBTP || Conformité cotisations retraite complémentaire
+          certifications_qualiopi_france_competences: 
+            label: Carif-Oref || Qualiopi & habilitations France compétences
+          fntp_carte_pro: 
+            label: FNTP || Carte professionnelle travaux publics 
+            tags:
+              - open data
+          certificat_cnetp: 
+            label: CNETP || Attestation de cotisations congés payés & chômage-intempéries
+          certification_cnetp: 
+            label: CNETP || Attestation de cotisations congés payés & chômage-intempéries
+          certificat_agence_bio: 
+            label: Agence BIO || Certificats en BIO 
+            tags:
+              - open data
+          certificat_rge_ademe: 
+            label: ADEME || Certification RGE 
+            tags:
+              - open data
+          qualibat: 
+            label: Qualibat || Certification Qualibat 
+            tags:
+              - open data
+          certificat_opqibi: 
+            label: OPQIBI || Certification d'ingénierie OPQIBI 
+            tags:
+              - open data
+          extrait_court_inpi: 
+            label: Inpi || Brevets, marques et modèles déposés 
+            tags:
+              - open data
+          open_data: 
+            label: API dont les données sont publiques 
+            tags:
+              - open data
+          actes_inpi: 
+            label: Inpi || Actes 
+            tags:
+              - obsolete
+          entreprises_artisanales: 
+            label: CMA France || Données entreprises artisanales
+            tags:
+              - obsolete
+
     sessions:
       create_from_oauth:
         not_found:
           title: "Votre compte ne semble pas être rattaché à une habilitation API Entreprise."
           description: "Veuillez vérifier que l'e-mail %{email} utilisé ici correspond à l'e-mail utilisé lors de votre demande d'habilitation API Entreprise. \n\n
-          Si vous êtes un nouvel utilisateur, veuillez déposer une demande en suivant le lien suivant : https://api.gouv.fr/les-api/api-entreprise/demande-acces\n
-          Après validation de celle-ci, vous pourrez vous connecter au compte API Entreprise."
+            Si vous êtes un nouvel utilisateur, veuillez déposer une demande en suivant le lien suivant : https://api.gouv.fr/les-api/api-entreprise/demande-acces\n
+            Après validation de celle-ci, vous pourrez vous connecter au compte API Entreprise."
 
       failure:
         unknown: Une erreur inconnue est survenue, veuillez contacter le support.
