@@ -1,11 +1,1 @@
-<% if namespace == 'api_particulier' && tokens_to_export? %>
-  <div class="fr-highlight fr-highlight--pink-tuile fr-ml-0">
-    <p>
-      <%= t('.new_token') %>
-
-      <%= link_to t('.new_token_download'), api_particulier_new_tokens_download_path, class: "fr-btn", id: 'download_new_tokens_file' %>
-    </p>
-  </div>
-<% end %>
-
 <%= render partial: 'shared/users/user', locals: { user: current_user, user_roles: @user_roles } %>
