@@ -31,6 +31,6 @@ class ScheduleExpirationNoticeEmailJob < ApplicationJob
   end
 
   def template
-    "expiration_notice_#{@expires_in}J".to_sym
+    :"expiration_notice_#{@expires_in}J"
   end
 end
