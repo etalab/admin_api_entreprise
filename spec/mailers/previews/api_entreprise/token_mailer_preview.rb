@@ -8,7 +8,7 @@ class APIEntreprise::TokenMailerPreview < ActionMailer::Preview
     expiration_notice_0J
   ].each do |method|
     send('define_method', method) do
-      APIEntreprise::TokenMailer.send(method, { to:, cc:, authorization_request: })
+      APIEntreprise::TokenMailer.send(method, { to:, cc:, token: })
     end
   end
 
@@ -24,8 +24,8 @@ class APIEntreprise::TokenMailerPreview < ActionMailer::Preview
 
   def cc; end
 
-  def authorization_request
-    AuthorizationRequest.with_tokens_for('entreprise').first
+  def token
+    AuthorizationRequest.with_tokens_for('entreprise').first.token
   end
 
   def magic_link_record
