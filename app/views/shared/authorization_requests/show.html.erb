@@ -10,35 +10,50 @@
           <%= render partial: 'shared/authorization_requests/header', locals: { authorization_request: @authorization_request, to_datapass: true } %>
         </header>
 
-        <section id="habilitation_access_infos" class="fr-accordion fr-mb-8v">
-          <h2 class="fr-h3 fr-accordion__title">
-            <button id="access_accordion_button" class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-107">
-              <%= t('.access') %>
-            </button>
-          </h2>
-          <div class="fr-collapse" id="accordion-107" />
+        <section id="habilitation_access_infos" class="fr-mb-8v">
+          <h3>
+            <%= t('.access') %>
+          </h3>
           <div class="fr-mb-2v">
-            <ul class="fr-tags-group">
-              <% @authorization_request.token.scopes.each do |scope| %>
-                <li>
-                  <span class="fr-tag">
-                    <%= humanize_scope(scope, 'entreprise') %>
-                  </span>
-                </li>
-              <% end %>
-            </ul>
-            <div>
+            <div class="fr-container">
+              <div class="fr-grid-row fr-grid-row--gutters fr-mb-3w">
+                <% build_scopes(@authorization_request.token.scopes, namespace == 'api_entreprise' ? 'entreprise' : 'particulier').each_pair do |key, values| %>
+                  <div class="fr-col">
+                    <div class="fr-card">
+                      <div class="fr-card__body">
+                        <div class="fr-card__content">
+                          <h4 class="fr-card__title">
+                            <%= key %>
+                          </h4>
+                          <div class="fr-card__desc fr-accordions-group">
+                            <%= render partial: 'shared/tokens/scopes',
+                              locals: {
+                                scopes: values,
+                                scope_type: key,
+                              }
+                            %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            <ul class="fr-btns-group--right fr-btns-group--inline-sm fr-btns-group--inline-reverse fr-btns-group--icon-right">
+              <li>
                 <a
                   href="<%= token_renew_path(id: @main_token.id) %>"
                   id="renew-token-modal-link"
-                  class="fr-btn fr-btn--secondary fr-icon-arrow-right-line fr-btn--icon-right pull-right fr-mt-2w"
+                  class="fr-btn fr-btn--secondary fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w"
                   aria-controls="main-modal"
                   data-fr-opened="false"
                   data-turbo-frame="main-modal-content"
                 >
                   <%= t('.modal.renew.display_cta') %>
                 </a>
-            </div>
+              </li>
+            </ul>
           </div>
         </section>
 
