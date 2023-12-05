@@ -22,6 +22,11 @@ class InitialSchema < ActiveRecord::Migration[7.0]
       t.index ["external_id"], name: "index_authorization_requests_on_external_id", unique: true, where: "(external_id IS NOT NULL)"
     end
 
+    create_table "access_logs", id: false, force: :cascade do |t|
+      t.timestamptz "timestamp"
+      t.uuid "token_id"
+    end
+
     create_table "contacts", id: :uuid, default: -> { "gen_random_uuid()" } do |t|
       t.string "email", null: false
       t.string "phone_number"
