@@ -1,14 +1,17 @@
 <nav id="summary" class="fr-summary fr-summary--sticky fr-mb-8v" aria-labelledby="fr-summary-title">
-  <p class="fr-summary__title" id="fr-summaru-title">
-    <%= t('.menu') %>
-  </p>
+ <%= render partial: 'shared/authorization_requests/breadcrumb', locals: { authorization_request: @authorization_request } %>
   <ol class="fr-summary__list">
+    <li class="fr-summary__item">
+      <a class="fr-summary__link" id="habilitation_access_infos" href="#habilitation_access_infos" target="_self">
+        <%= t('.access') %>
+      </a>
+    </li>
     <li class="fr-summary__item">
       <a class="fr-summary__link" id="habilitation_main_token_infos_link" href="#habilitation_main_token_infos" target="_self">
         <%= t('.active_tokens') %>
       </a>
     </li>
-    <% if policy(@main_token).download_attestations? %>
+    <% if policy(token).download_attestations? %>
       <li class="fr-summary__item">
         <a class="fr-summary__link" id="attestations_sociales_et_fiscales_link" href="#attestations_sociales_et_fiscales" target="_self">
           <%= t('.attestations') %>

@@ -1,0 +1,25 @@
+  <% if scopes.is_a?(Array) %>
+    <ul>
+      <% scopes.each do |scope| %>
+        <li><%= scope %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <% scopes.each_pair do |key, values| %>
+      <section class="fr-accordion">
+        <span class="fr-accordion__title" tabindex="0" >
+          <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-<%= key %>">
+            <%= key %>
+          </button>
+        </span>
+        <div class="fr-collapse" id="accordion-<%= key %>">
+          <%= render partial: 'shared/tokens/scopes',
+            locals: {
+              scopes: values,
+              scope_type: key,
+            }
+          %>
+        </div>
+      </section>
+    <% end %>
+  <% end %>
