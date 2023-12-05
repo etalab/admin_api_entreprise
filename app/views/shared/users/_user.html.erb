@@ -1,10 +1,13 @@
-<div id="user_details">
-  <h1 class="fr-col">
-    <%= t('.title') %>
-    <%= link_to t('.links.authorization_requests'), authorization_requests_path, class: %w(fr-icon-arrow-right-line fr-link--icon-right fr-text--xs pull-right) %>
-  </h1>
-
-  <div class="main-content">
+<div class="fr-container" id="user_details">
+  <div class="fr-grid-row">
+   <%= link_to t('.links.authorization_requests'), authorization_requests_path, class: %w(fr-link fr-icon-arrow-left-line fr-link--icon-left fr-text--lg pull-right fr-mb-2w) %>
+    <div class="fr-col-12">
+      <h1 class="fr-h1 fr-mb-4w">
+        <%= t('.title').html_safe %>
+      </h1>
+    </div>
+  </div>
+  <div class="main-content fr-p-4w" style="background-color: var(--background-default-grey)">
     <h3>
       <%= user.full_name %>
 
@@ -28,7 +31,7 @@
     </h3>
 
     <div class="fr-grid-row">
-      <div class="fr-col-6">
+      <div class="fr-col-12 fr-col-md-6">
         <ul class="list-unstyled user-general-infos">
           <li>
             <%= icon('fr-icon-mail-line') %>
@@ -36,7 +39,7 @@
           </li>
         </ul>
       </div>
-      <div class="fr-col-6">
+      <div class="fr-col-12 fr-col-md-6">
         <p class="center fr-m-1w">
           <%= t('.transfer_account.disclaimer') %>
 

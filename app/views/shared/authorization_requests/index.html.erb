@@ -1,61 +1,56 @@
 <div class="fr-container">
   <div class="fr-grid-row">
     <div class="fr-col-12">
-      <h1 class="fr-h1">
+    <%= link_to t('.links.profile'), user_profile_path, class: %w(fr-link fr-icon-account-fill fr-link--icon-left fr-text--lg pull-right fr-mb-2w ) %>
+    </div>
+    <div class="fr-col-12">
+      <h1 class="fr-h1 fr-mb-4w">
         <% if @authorization_requests.empty? %>
           <%= t('.no_authorization_requests') %>
         <% else %>
-          <%= t('.title', api_label: t(".#{@authorization_requests.first.api}"), count: @authorization_requests.count) %>
+          <%= t('.title', api_label: t(".#{@authorization_requests.first.api}"), count: @authorization_requests.count).html_safe %>
         <% end %>
-        <%= link_to t('.links.profile'), user_profile_path, class: %w(fr-icon-arrow-right-line fr-link--icon-right fr-text--xs pull-right) %>
       </h1>
     </div>
   </div>
   <div class="fr-row">
     <div class="fr-col-12">
-      <div class="fr-container fr-container--bordered">
-        <div class="fr-grid-row fr-p-4v fr-grid-row--middle">
-          <div class="fr-col-12 fr-col-md-6 fr-col-lg-3">
-            <span class="fr-hint-text"><%= t('.table.head.datapass').html_safe %></span>
+      <div class="fr-container fr-container--bordered fr-p-0">
+        <div class="fr-grid-row fr-p-4v fr-grid-row--middle fr-grid-row--gutters">
+          <div class="fr-col-12 fr-col-sm-3 center">
             <strong><%= t('.table.head.authorization_request') %></strong>
-            <br />
-            <span class="fr-text--sm"><%= t('.table.head.role') %></span>
           </div>
-          <div class="fr-col-12 fr-col-md-6 fr-col-lg-4">
+          <div class="fr-col-12 fr-col-sm-4 center">
             <strong><%= t('.table.head.token') %></strong>
-            <br />
-            <span class="fr-hint-text"><%= t('.table.head.exp') %></span>
-            <span class="fr-text--regular"><%= t('.table.head.id') %></span>
           </div>
-          <div class="fr-col-12 fr-col-md-6 fr-col-lg-3">
+          <div class="fr-col-12 fr-col-sm-3 center">
               <strong><%= t('.table.head.actions') %></strong>
           </div>
-          <div class="fr-col-12 fr-col-md-6 fr-col-lg-2">
+          <div class="fr-col-12 fr-col-sm-2 center">
               <strong><%= t('.table.head.detail') %></strong>
           </div>
         </div>
         <% @authorization_requests.each do |authorization_request| %>
-          <div id="<%= dom_id(authorization_request) %>" class="fr-grid-row fr-grid-row--middle fr-p-4v">
-            <div class="fr-col-12 fr-col-md-6 fr-col-lg-3">
+          <div id="<%= dom_id(authorization_request) %>" class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle fr-p-4v">
+            <div class="fr-col-12 fr-col-sm-3 fr-p-0 center">
+            <h2 class="fr-h6 fr-mb-0"><%= authorization_request.intitule %></h2>
               <%= authorization_request_status_badge(authorization_request) %>
               <span class="fr-hint-text">
                 <%= link_to t('.links.to_datapass', external_id: authorization_request.external_id).html_safe, 
                   datapass_authorization_request_url(authorization_request), 
                   id: dom_id(authorization_request, :authorization_request_link),
-                  class: %w(fr-link fr-text--xs), 
+                  class: %w(fr-link fr-text--sm fr-mt-2v), 
                   target: '_blank' 
                 %>
               </span>
-              <strong><%= authorization_request.intitule %></strong>
-              <br />
-              <span class="fr-text--sm">
+              <span class="fr-text--xs"><span class="fr-icon-user-fill fr-icon--xs fr-pr-1v" aria-hidden="true"></span>Vous êtes  
                 <%= authorization_request.user_authorization_request_roles.for_user(@current_user).map { |uarr|
                   I18n.t("user_authorization_request_roles.role.#{uarr.role}")
                   }.join(', ')
                 %>
               </span>
             </div>
-            <div class="fr-col-12 fr-col-md-6 fr-col-lg-4">
+            <div class="fr-col-12 fr-col-sm-4 fr-p-0 center">
               <%= render partial: 'shared/tokens/detail_short', 
                 locals: {
                   token: authorization_request.token.decorate
@@ -69,12 +64,9 @@
                 %>
             <% end %>
             </div>
-            <div class="fr-col-12 fr-col-md-6 fr-col-lg-3 center">
+            <div class="fr-col-12 fr-col-sm-3 center">
               <% if authorization_request.status == 'validated' %>
                 <% if authorization_request.tokens.blacklisted_later.any? %>
-                  <p class="fr-text--sm fr-mb-1v fr-text-default--error">
-                    <%= t('.modal.show.description') %>
-                  </p>
                   <a
                     href="<%= token_path(id: authorization_request.token.id) %>"
                     id="<%= dom_id(authorization_request, :show_token_modal_link) %>"
@@ -98,9 +90,16 @@
                     <%= t('.modal.prolong.display_cta') %>
                   </a>
                 <% end %>
+                <% if !authorization_request.tokens.blacklisted_later.any? && !policy(authorization_request.token).prolong? %>
+                  <span class="fr-text--sm fr-text--italic" style="color: var(--text-mention-grey)">
+                    <i>
+                      <%= t('.no_action') %>
+                    </i>
+                  </span>
+                <% end %>
               <% end %>
             </div>
-            <div class="fr-col-12 fr-col-md-6 fr-col-lg-2 center">
+            <div class="fr-col-12 fr-col-sm-2 center">
               <%= link_to "", authorization_request_path(authorization_request), class: %w[fr-btn fr-btn--lg fr-btn--tertiary-no-outline fr-icon-arrow-right-line] %>
             </div>
           </div>
