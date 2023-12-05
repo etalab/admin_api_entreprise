@@ -128,7 +128,7 @@ Le parcours 1 propose donc de s'appuyer sur le numéro de sécurité sociale pou
 </div>
 <br/>
 
-## <a name="option-2"></a>✅ Option 2 : Année et lieu de naissance saisis par l'usager, code code déduit en arrière-plan
+## <a name="option-2"></a>✅ Option 2 : Année et lieu de naissance saisis par l'usager, code COG déduit en arrière-plan
 
 {:.fr-text--lg}
 Dans cette seconde option, le renseignement du code COG pour appeler l'API est totalement transparent pour l'usager, qui n'aura qu'à compléter sa date et son lieu de naissance.
