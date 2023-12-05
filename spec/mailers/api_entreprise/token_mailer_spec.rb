@@ -35,7 +35,7 @@ RSpec.describe APIEntreprise::TokenMailer do
     let(:email) { 'muchemail@wow.com' }
     let(:host) { 'entreprise.api.gouv.fr' }
 
-    its(:subject) { is_expected.to eq('API Entreprise - Lien d\'accès à votre jeton !') }
+    its(:subject) { is_expected.to eq("🔑 Lien d'accès temporaire au jeton API Entreprise") }
     its(:to) { is_expected.to contain_exactly(email) }
 
     it 'contains the magic link to the token' do

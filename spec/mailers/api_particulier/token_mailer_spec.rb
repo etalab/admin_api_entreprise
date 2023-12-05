@@ -35,7 +35,7 @@ RSpec.describe APIParticulier::TokenMailer do
     let(:email) { 'muchemail@wow.com' }
     let(:host) { 'particulier.api.gouv.fr' }
 
-    its(:subject) { is_expected.to eq('API Particulier - Lien d\'accès à votre jeton !') }
+    its(:subject) { is_expected.to eq("🔑 Lien d'accès temporaire au jeton API Particulier") }
     its(:to) { is_expected.to contain_exactly(email) }
 
     it 'contains the magic link to the token' do
