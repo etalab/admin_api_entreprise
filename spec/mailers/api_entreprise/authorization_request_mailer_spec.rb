@@ -33,4 +33,26 @@ RSpec.describe APIEntreprise::AuthorizationRequestMailer do
       end
     end
   end
+
+  describe 'scopes in mails' do
+    subject(:generate_email) { described_class.embarquement_valide_to_demandeur_is_metier_not_tech({ to:, cc:, authorization_request: }) }
+
+    let(:scope_label) { I18n.t('api_entreprise.tokens.token.scope.entreprises.label') }
+
+    describe 'when there is no token' do
+      it 'doesnt display scopes' do
+        expect(subject.html_part.decoded).not_to include('Cette habilitation donne accès aux API suivantes')
+        expect(subject.html_part.decoded).not_to include(scope_label)
+      end
+    end
+
+    describe 'when there is a token' do
+      let(:authorization_request) { create(:authorization_request, :with_all_contacts, :with_tokens) }
+
+      it 'display scopes' do
+        expect(subject.html_part.decoded).to include('Cette habilitation donne accès aux API suivantes')
+        expect(subject.html_part.decoded).to include(scope_label)
+      end
+    end
+  end
 end
