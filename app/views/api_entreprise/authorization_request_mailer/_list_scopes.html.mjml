@@ -1,14 +1,16 @@
-<mj-text mj-class="section-block">
-  <h2>
-    🔐 Cette habilitation donne accès aux API suivantes&nbsp;:</b>
-  </h2>
-  <ul>
-    <% @all_scopes.each do |scope_key, scope_label| %>
-      <% if (@authorization_request_scopes || []).include?(scope_key) %>
-        <li>
-          <%= scope_label %>
-        </li>
+<% if @authorization_request_scopes %>
+  <mj-text mj-class="section-block">
+    <h2>
+      🔐 Cette habilitation donne accès aux API suivantes&nbsp;:</b>
+    </h2>
+    <ul>
+      <% @all_scopes.each do |scope_key, scope_data| %>
+        <% if (@authorization_request_scopes || []).include?(scope_key) %>
+          <li>
+            <%= scope_data[:label] %>
+          </li>
+        <% end %>
       <% end %>
-    <% end %>
-  </ul>
-</mj-text>
+    </ul>
+  </mj-text>
+<% end %>
