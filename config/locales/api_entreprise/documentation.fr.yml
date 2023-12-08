@@ -720,11 +720,7 @@ fr:
                   - **Une volumétrie par jeton par groupe d’endpoints&nbsp;:**
                         - **1er groupe**&nbsp;:&nbsp;Les endpoints renvoyant du JSON constituent un premier groupe. Vous pouvez effectuer jusqu’à 250 requêtes/min/jeton sur ce groupe.
                         - **2ème groupe**&nbsp;:&nbsp;Les endpoints transmettant des documents constituent un autre groupe. La volumétrie maximale d’appel concernant ce groupe est de 50 requêtes/min/jeton.
-                        - **Exceptions**&nbsp;:&nbsp;Certains endpoints échappent à cette règle et présentent une volumétrie spécifique par endpoint&nbsp;:&nbsp;
-                                - L’[attestation fiscale de la DGFIP](<%= developers_openapi_path(anchor: 'tag/Attestations-sociales-et-fiscales/paths/~1v3~1dgfip~1unites_legales~1{siren}~1attestation_fiscale/get') %>)&nbsp;:&nbsp;5 requêtes/min/jeton ;
-                                - Les [actes de l’INPI](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1inpi~1unites_legales~1{siren}~1actes/get') %>)&nbsp;:&nbsp;5 requêtes/min/jeton ;
-                                - Les [comptes annuels du RNCS de l’INPI](<%= endpoint_path(uid: 'inpi/comptes_annuels_rncs') %>)&nbsp;:&nbsp;5 requêtes/min/jeton ;
-                                - Les [effectifs de l’URSSAF](<%= endpoint_path(uid: 'urssaf/effectifs') %>)&nbsp;:&nbsp;250 requêtes/min/jeton ;
+                        - **Exceptions**&nbsp;:&nbsp;Certains endpoints échappent à cette règle et présentent une volumétrie spécifique par endpoint. Il s'agit notamment de l’[API attestation fiscale de la DGFIP](<%= developers_openapi_path(anchor: 'tag/Attestations-sociales-et-fiscales/paths/~1v4~1dgfip~1unites_legales~1{siren}~1attestation_fiscale/get') %>){:target="_blank"}, de l'[API dépréciée Actes de l’INPI](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1inpi~1unites_legales~1{siren}~1actes/get') %>){:target="_blank"}{:target="_blank"} ou encore des [API effectifs du GIP-MDS](<%= developers_openapi_path(anchor: 'tag/Informations-generales/paths/~1v3~1gip_mds~1unites_legales~1{siren}~1effectifs_annuels~1{year}/get') %>){:target="_blank"}. Comme pour toutes les API du bouquet, la volumétrie exacte figure dans le header.
 
                   #### Informations volumétrie dans le header
 
