@@ -40,6 +40,10 @@ class Token < ApplicationRecord
     !access_logs.limit(1).empty?
   end
 
+  def active?
+    !blacklisted? && !expired?
+  end
+
   delegate :api, to: :authorization_request
 
   def self.default_create_params
