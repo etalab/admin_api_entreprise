@@ -36,6 +36,14 @@ class Token < ApplicationRecord
     exp < Time.zone.now.to_i
   end
 
+  def used?
+    !access_logs.limit(1).empty?
+  end
+
+  def active?
+    !blacklisted? && !expired?
+  end
+
   delegate :api, to: :authorization_request
 
   def self.default_create_params

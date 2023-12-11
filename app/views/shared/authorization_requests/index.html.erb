@@ -70,12 +70,23 @@
                   <a
                     href="<%= token_path(id: authorization_request.token.id) %>"
                     id="<%= dom_id(authorization_request, :show_token_modal_link) %>"
-                    class="fr-btn fr-icon-eye-fill fr-btn--icon-right fr-mt-2w"
+                    class="fr-btn fr-btn--icon-right fr-mt-2w"
                     aria-controls="main-modal"
                     data-fr-opened="false"
                     data-turbo-frame="main-modal-content"
                   >
-                    <%= t('.modal.show.display_cta') %>
+                    <%= t('.modal.show.display_cta_replace') %>
+                  </a>
+                <% elsif !authorization_request.token.used?  && authorization_request.token.active?%>
+                  <a
+                    href="<%= token_path(id: authorization_request.token.id) %>"
+                    id="<%= dom_id(authorization_request, :show_token_modal_link) %>"
+                    class="fr-btn fr-btn--secondary fr-btn--icon-right fr-mt-2w"
+                    aria-controls="main-modal"
+                    data-fr-opened="false"
+                    data-turbo-frame="main-modal-content"
+                  >
+                    <%= t('.modal.show.display_cta_new_token') %>
                   </a>
                 <% end %>
                 <% if policy(authorization_request.token).prolong? %>
@@ -90,7 +101,7 @@
                     <%= t('.modal.prolong.display_cta') %>
                   </a>
                 <% end %>
-                <% if !authorization_request.tokens.blacklisted_later.any? && !policy(authorization_request.token).prolong? %>
+                <% if !authorization_request.tokens.blacklisted_later.any? && !policy(authorization_request.token).prolong? && authorization_request.token.used? %>
                   <span class="fr-text--sm fr-text--italic" style="color: var(--text-mention-grey)">
                     <i>
                       <%= t('.no_action') %>
