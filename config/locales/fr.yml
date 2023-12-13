@@ -35,8 +35,8 @@ fr:
   shared:
     transfer_user_account:
       new:
-        title: Transférer mes habilitations
-        description: Cette fonctionnalité vous permet de transmettre définitivement les habilitations pour lesquelles vous êtes demandeur à une tierce personne (qui sera le nouveau demandeur).
+        title: Transférer toutes mes habilitations
+        description: Cette fonctionnalité vous permet de transmettre définitivement toutes les habilitations pour lesquelles vous êtes demandeur à une tierce personne (qui sera le nouveau demandeur).
           Une fois le transfert effectué, vous n'aurez plus accès à ces habilitations en tant que demandeur.
           <br>
           <br>
@@ -45,21 +45,26 @@ fr:
         email:
           label: Adresse e-mail du futur demandeur
           placeholder: jean.dupont@gouv.fr
-        cta: Transférer mes habilitations
-        confirm: Êtes-vous sûr de vouloir transférer votre compte ?
+        cta: Transférer toutes mes habilitations
+        confirm: Êtes-vous sûr de vouloir transférer toutes vos habilitations ?
       create:
         success:
           title: Un e-mail a été envoyé avec succès au destinataire. Assurez-vous qu'il effectue les démarches indiquées dans le mail qu'il a reçu pour que le transfert soit possible. Une fois ces démarches effectuées, une validation manuelle par nos services finalisera le transfert.
         error:
-          title: Quelque chose s'est mal passé. Veuillez envoyer un e-mail à support@entreprises.api.gouv.fr
+          title: Quelque chose s'est mal passé. Veuillez envoyer un e-mail à support@entreprise.api.gouv.fr
     users:
       user:
         links:
           authorization_requests: Vos habilitations
         title: "Vos&nbsp;informations"
         transfer_account:
-          disclaimer: "Votre équipe évolue ? Vous quittez votre service ? Vous pouvez transmettre vos habilitations à une autre personne :"
-          cta: Transférer mes habilitations
+          title: "Votre équipe évolue ? Vous quittez votre service ? Transmettez vos habilitations à une autre personne&nbsp;:"
+          subtitle_if_demandeur: "Habilitations où je suis demandeur&nbsp;:"
+          description_if_demandeur: "Pour transmettre votre rôle de demandeur à une autre personne de votre organisation, utilisez la fonctionnalité suivante&nbsp;:"
+          description_if_demandeur_transfer_not_all: "Pour léguer une partie de vos habilitations uniquement, veuillez contacter le support."
+          cta: Transférer toutes mes habilitations
+          subtitle_if_other_roles: "Habilitations où je ne suis pas demandeur&nbsp;:"
+          description_if_other_roles: "Vous êtes contact métier et/ou technique d'une habilitation et souhaitez léguer ce rôle à une autre personne de votre organisation ? C'est au demandeur de l'habilitation d'effectuer une demande de modification des contacts."
         demandeur: "Demandeur"
         contact_metier: "Contact métier"
         contact_technique: "Contact technique"
