@@ -1,0 +1,10 @@
+<div class="fr-alert fr-alert--success">
+    <h3 class="fr-alert__title"><%= t('.title', humanized_date: friendly_format_from_timestamp(@prolong_token_wizard.token.exp)) %></h3>
+    <p><%= t('.description', api_name: t("#{namespace}.name")) %></p>
+</div>
+
+<ul class="fr-btns-group fr-btns-group--inline fr-btns-group--right fr-pt-3v">
+  <li>
+    <%= link_to t('.link.authorization_request'), authorization_request_path(id: @prolong_token_wizard.token.authorization_request.id), id: :prolonged_to_authorization_request, class: %w(fr-btn fr-btn--icon-right) %>
+  </li>
+</ul>

@@ -1,0 +1,63 @@
+<%= render partial: 'shared/prolong_token_wizard/build/header', locals: { prolong_token_wizard: @prolong_token_wizard } %>
+
+<div class="fr-p-4v" style="background-color: var(--background-default-grey)">
+  <%= render partial: 'shared/prolong_token_wizard/build/stepper', locals: { prolong_token_wizard: @prolong_token_wizard } %>
+  <%= form_for @prolong_token_wizard, url: wizard_path, method: :put do |f| %>
+    <h4>
+      <%= t('.subtitle') %>
+    </h4>
+    <fieldset class="fr-fieldset">
+      <div class="fr-container--fluid">
+        <div class="fr-grid-row">
+          <div class="fr-col-12">
+            <legend class="fr-fieldset__legend--regular fr-fieldset__legend fr-mb-0">
+              <%= f.label :contact_metier, t('.contact_metier.label') %>
+              <div class="fr-background-alt--grey fr-p-3v fr-pb-0">
+                <div class="fr-highlight fr-highlight--default-grey fr-pt-1v fr-ml-1v fr-pl-3v">
+                  <%= render partial: 'shared/prolong_token_wizard/contact', locals: { contact: @prolong_token_wizard.token.authorization_request.contact_metier, type: 'contact_metier' } %>
+                </div>
+              </div>
+            </legend>
+          </div>
+        </div>
+      </div>
+
+      <div class="fr-fieldset__element">
+        <%= f.radio_button :contact_metier, true %>
+        <%= label_tag :contact_metier, t('.radio.contact_metier') %>
+      </div>
+      <div class="fr-fieldset__element">
+        <%= f.radio_button :contact_metier, false, checked: true %>
+        <%= label_tag :contact_metier, t('.radio.change_contact_metier') %>
+      </div>
+    </fieldset>
+
+    <fieldset class="fr-fieldset fr-mt-6v">
+      <div class="fr-container--fluid">
+        <div class="fr-grid-row">
+          <div class="fr-col-12">
+            <legend class="fr-fieldset__legend--regular fr-fieldset__legend fr-mb-0">
+              <%= f.label :contact_technique, t('.contact_technique.label') %>
+              <div class="fr-background-alt--grey fr-p-3v fr-pb-0">
+                <div class="fr-highlight fr-highlight--default-grey fr-pt-1v fr-ml-1v fr-pl-3v">
+                  <%= render partial: 'shared/prolong_token_wizard/contact', locals: { contact: @prolong_token_wizard.token.authorization_request.contact_technique, type: 'contact_technique' } %>
+                </div>
+              </div>
+            </legend>
+          </div>
+        </div>
+      </div>
+
+      <div class="fr-fieldset__element">
+        <%= f.radio_button :contact_technique, true %>
+        <%= label_tag :contact_technique, t('.radio.contact_technique') %>
+      </div>
+      <div class="fr-fieldset__element">
+        <%= f.radio_button :contact_technique, false, checked: true %>
+        <%= label_tag :contact_technique, t('.radio.change_contact_technique') %>
+      </div>
+    </fieldset>
+
+    <%= render partial: 'shared/prolong_token_wizard/build/wizard_buttons', locals: { f: f } %>
+  <% end %>
+</div>

@@ -29,6 +29,8 @@ fr:
           error:
             title: Vous n'avez pas les droits pour accéder à cette page.
   shared:
+    links:
+      to_datapass: "N<sup>o</sup>%{external_id}"
     transfer_tokens:
       create:
         success:
@@ -48,7 +50,71 @@ fr:
               placeholder: jean@dupont.fr
             cta: Envoyer le lien d'accès au jeton
             confirm: Êtes-vous sûr de vouloir transférer votre jeton à cette adresse ?
-
+    wizard:
+      next_step: "Étape suivante :"
+    prolong_token_wizard:
+      header:
+        title: Prolonger le jeton
+        description: Votre jeton expire dans %{humanize_date}. Avant de prolonger votre jeton, nous avons besoin de savoir si les conditions indiquées dans votre habilitation %{link_to_datapass} ont évolué. 
+          Veuillez répondre aux questions suivantes, ce formulaire vous engage en regard des <a href="https://%{api}.api.gouv.fr/cgu/">CGU d'%{api_name}</a>
+      steps:
+        owner: Responsable de la demande
+        project_purpose: Vérification du projet
+        contacts: Vérification des contacts
+        summary: Bilan et confirmation
+      prolonged:
+        title: Votre jeton a été prolongé jusqu'au %{humanized_date} 
+        description: Merci ! Suite à vos reponses, les conditions de votre habilitation a l'%{api_name} n'ayant pas évolué, votre jeton a été prolongé de 18 mois.
+        link:
+          authorization_request: Revenir à votre demande d'habilitation
+      summary:
+        prolonged:
+          description: Suite aux réponses indiquées, vous déclarez qu'aucune des informations indiquées dans votre habilitation n<sup>o</sup>%{external_id} n'a évolué.
+          cgu: ⚠️  Vos réponses vous engagent en regard des <a href="https://entreprise.api.gouv.fr/cgu/">CGU</a>
+          finished: Confirmer
+        requires_update:
+          description: "Suite aux réponses indiquées, vous declarez que des changements ont eu lieu au niveau&nbsp;:"
+          owner: du contact principal
+          project_purpose: de la raison d'être du projet
+          contact_metier: du contact métier
+          contact_technique: du contact technique
+          finished: Confirmer et apporter les modifications
+        previous: Précédent
+      contact:
+        first_name: Prénom :&nbsp;
+        last_name: Nom :&nbsp;
+        email: E-mail :&nbsp;
+        contact_metier:
+          no_contact: Vous n'avez aucun contact métier renseigné
+        contact_technique:
+          no_contact: Vous n'avez aucun contact métier renseigné
+      contacts:
+        contact_metier:
+          label: "Contact métier :"
+        contact_technique:
+          label: "Contact technique :"
+        subtitle: "Vérifier si les contacts sont bien les mêmes et que leur coordonnées n'ont pas changé :"
+        radio:
+          contact_technique: Valide
+          contact_metier: Valide
+          change_contact_technique: A changé
+          change_contact_metier: A changé
+      project_purpose:
+        label: "Cette habilitation a été attribuée pour la finalité suivante :"
+        no_description: Vous n'avez pas renseigné de description pour cette habilitation.
+        radio:
+          project_purpose: Oui, le projet bénéficiant de cette habilitation a toujours la même finalité.
+          change_project_purpose: Non, le projet a changé.
+      owner:
+        label: Êtes vous toujours en charge de la demande %{link_to_datapass} ?
+        radio:
+          still_in_charge: Oui, je suis toujours en charge
+          will_change_soon: Oui, je suis toujours en charge mais pourrait passer la main d'ici quelques mois
+          not_in_charge: Non, je ne suis plus en charge de cette habilitation %{api}
+      build:
+        wizard_buttons:
+          previous: Précédent
+          next: Suivant
     transfer_user_account:
       new:
         title: Transférer toutes mes habilitations
@@ -139,8 +205,6 @@ fr:
         demandeur: "<strong>demandeur</strong> : %{demandeur}"
         contact_technique: "<strong>Contact technique</strong> : %{contact_technique}"
         authorization_request_link: "<strong>Lien de l'habilitation à transmettre :</strong>"
-        links:
-          to_datapass: "N<sup>o</sup>%{external_id}"
       ask_for_prolongation:
         title: Relancer le demandeur
         description: "Malgré nos nombreuses relances, %{demandeur} n'a pas prolongé le jeton ID : %{token_id},
@@ -148,8 +212,6 @@ fr:
           <strong>Écrivez-lui en lui transmettant le lien vers le formulaire de prolongation :</strong>"
         demandeur: "<strong>demandeur</strong> : %{demandeur}"
         ask_for_token_prolongation_description: "<strong>Lien du questionnaire de prolongation</strong> :"
-        links:
-          to_datapass: "N<sup>o</sup>%{external_id}"
       show:
         title: Utiliser le jeton
         warning: "Vous ne devez <strong> jamais copier-coller un token
@@ -180,8 +242,6 @@ fr:
           Avant de prolonger votre jeton, nous avons besoin de savoir si les conditions
           indiquées dans votre habilitation %{link_to_datapass}
           ont évolué."
-        links:
-          to_datapass: "N<sup>o</sup>%{external_id}"
         warning_description: "Pour prolonger votre jeton, veuillez compléter le formulaire suivant :"
         warning: ⚠️ Vos réponses au formulaire <strong>vous engagent</strong> en regard des CGU d'api entreprise.
         cta: Compléter le formulaire de prolongation
@@ -274,8 +334,6 @@ fr:
           validated: 📃 Habilitation active
       header:
         delivered_at: "Délivré le : %{humanized_date}"
-        links:
-          to_datapass: "n°%{external_id}"
       show:
         access: "Vos droits d'accès&nbsp;:"
         modal:

@@ -1,0 +1,3 @@
+class APIEntreprise::ProlongTokenWizardController < APIEntreprise::AuthenticatedUsersController
+  include ProlongTokenWizardManagement
+end

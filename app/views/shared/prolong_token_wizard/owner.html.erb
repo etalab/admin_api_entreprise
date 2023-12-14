@@ -1,0 +1,34 @@
+<%= render partial: 'shared/prolong_token_wizard/build/header', locals: { prolong_token_wizard: @prolong_token_wizard } %>
+
+<div class="fr-p-4v" style="background-color: var(--background-default-grey)">
+  <%= render partial: 'shared/prolong_token_wizard/build/stepper', locals: { prolong_token_wizard: @prolong_token_wizard } %>
+  <%= form_for @prolong_token_wizard, url: wizard_path, method: :put  do |f| %>
+    <fieldset class="fr-fieldset">
+      <legend class="fr-fieldset__legend--regular fr-fieldset__legend">
+      <%= f.label :owner, 
+        t('.label',
+          link_to_datapass: link_to(
+            t('shared.links.to_datapass', external_id: @prolong_token_wizard.token.authorization_request.external_id).html_safe, 
+            datapass_authorization_request_url(@prolong_token_wizard.token.authorization_request), 
+            id: :authorization_request_link,
+            class: %w(fr-link), 
+            target: '_blank')
+          ).html_safe %>
+      </legend>
+      <div class="fr-fieldset__element">
+        <%= f.radio_button :owner, "still_in_charge", checked: true %>
+        <%= label_tag :owner, t('.radio.still_in_charge') %>
+      </div>
+      <div class="fr-fieldset__element">
+        <%= f.radio_button :owner, "will_change_soon" %>
+        <%= label_tag :owner, t('.radio.will_change_soon') %>
+      </div>
+      <div class="fr-fieldset__element">
+        <%= f.radio_button :owner, "not_in_charge" %>
+        <%= label_tag :owner, t('.radio.not_in_charge', api: t("#{namespace}.name")) %>
+      </div>
+    </fieldset>
+
+    <%= render partial: 'shared/prolong_token_wizard/build/wizard_buttons', locals: { f: f } %>
+  <% end %>
+</div>

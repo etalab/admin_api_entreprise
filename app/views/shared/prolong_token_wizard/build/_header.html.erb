@@ -1,0 +1,20 @@
+<div class="fr-pb-4v">
+  <h2>
+    <%= t('shared.prolong_token_wizard.header.title') %>
+  </h2>
+  <p>
+  <%= t(
+    'shared.prolong_token_wizard.header.description', 
+    humanize_date: friendly_format_from_timestamp(prolong_token_wizard.token.exp), 
+    link_to_datapass: link_to(
+      t('shared.links.to_datapass', external_id: prolong_token_wizard.token.authorization_request.external_id).html_safe, 
+      datapass_authorization_request_url(prolong_token_wizard.token.authorization_request), 
+      id: :authorization_request_link,
+      class: %w(fr-link), 
+      target: '_blank'
+    ).html_safe, 
+    api_name: t("#{namespace}.name")
+    ).html_safe
+  %>
+  </p>
+</div>
