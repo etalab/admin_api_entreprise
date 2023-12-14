@@ -14,7 +14,7 @@ module TransferUserAccountManagement
       redirect_to user_profile_path,
         status: :see_other
     else
-      error_message(title: t('shared.transfer_user_account.create.error.title'))
+      error_message(title: t('shared.transfer_user_account.create.error.title', target_email: t("#{namespace}.support_email")))
 
       render 'shared/transfer_user_account/new',
         status: :unprocessable_entity

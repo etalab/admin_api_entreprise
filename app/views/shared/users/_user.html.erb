@@ -40,7 +40,7 @@
   </div>
   <section class="fr-accordion fr-mt-2w">
     <h2 class="fr-accordion__title" id="transfer_account">
-        <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-1"><%= t('.transfer_account.title').html_safe %></button>
+        <button id="transfer_account_accordion" class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-1"><%= t('.transfer_account.title').html_safe %></button>
     </h2>
     <div class="fr-collapse" id="accordion-1">
          <ul>
@@ -55,7 +55,7 @@
           <%= t('.transfer_account.cta') %>
         </a>
         <p>
-          <%= t('.transfer_account.description_if_demandeur_transfer_not_all').html_safe %>
+          <%= t('.transfer_account.description_if_demandeur_transfer_not_all', api: t("#{namespace}.api")).html_safe %>
         </p>
       </li>
       <li>
@@ -63,7 +63,7 @@
           <%= t('.transfer_account.subtitle_if_other_roles').html_safe %>
         </h3>
         <p class="fr-mb-1w">
-          <%= t('.transfer_account.description_if_other_roles').html_safe %>
+          <%= t('.transfer_account.description_if_other_roles', api: t("#{namespace}.api")).html_safe %>
         </p>
       </li>
     </ul>
