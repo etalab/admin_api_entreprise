@@ -8,7 +8,7 @@
     </div>
   </div>
   <div class="main-content fr-p-4w" style="background-color: var(--background-default-grey)">
-    <h3>
+    <h2>
       <%= user.full_name %>
 
       <% if user_roles.include?(:demandeur) %>
@@ -28,30 +28,45 @@
           <%= t('.contact_technique') %>
         </span>
       <% end %>
-    </h3>
-
-    <div class="fr-grid-row">
-      <div class="fr-col-12 fr-col-md-6">
-        <ul class="list-unstyled user-general-infos">
-          <li>
-            <%= icon('fr-icon-mail-line') %>
-            <%= user.email %>
-          </li>
-        </ul>
-      </div>
-      <div class="fr-col-12 fr-col-md-6">
-        <p class="center fr-m-1w">
-          <%= t('.transfer_account.disclaimer') %>
-
-          <br>
-          <br>
-
-          <a id="transfer_account_button" href="<%= transfer_account_path %>" data-turbo-frame="main-modal-content" class="fr-btn fr-btn--secondary fr-btn--icon-left" data-fr-opened="false" aria-controls="main-modal">
-            <span class="ri-user-shared-line"></span>
-            <%= t('.transfer_account.cta') %>
-          </a>
-        </p>
-      </div>
+    </h2>
+    <div class="fr-col-12 fr-mb-3w">
+      <ul class="list-unstyled user-general-infos">
+        <li>
+          <%= icon('fr-icon-mail-line') %>
+          <%= user.email %>
+        </li>
+      </ul>
     </div>
   </div>
+  <section class="fr-accordion fr-mt-2w">
+    <h2 class="fr-accordion__title" id="transfer_account">
+        <button id="transfer_account_accordion" class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-1"><%= t('.transfer_account.title').html_safe %></button>
+    </h2>
+    <div class="fr-collapse" id="accordion-1">
+         <ul>
+      <li>
+      <h3 class="fr-h6"> <%= t('.transfer_account.subtitle_if_demandeur').html_safe %>
+      </h3>
+        <p class="fr-mb-1w">
+          <%= t('.transfer_account.description_if_demandeur').html_safe %>
+        </p>
+        <a id="transfer_account_button" href="<%= transfer_account_path %>" data-turbo-frame="main-modal-content" class="fr-btn fr-btn--secondary fr-btn--icon-left fr-mb-2w" data-fr-opened="false" aria-controls="main-modal">
+          <span class="ri-user-shared-line"></span>
+          <%= t('.transfer_account.cta') %>
+        </a>
+        <p>
+          <%= t('.transfer_account.description_if_demandeur_transfer_not_all', api: t("#{namespace}.api")).html_safe %>
+        </p>
+      </li>
+      <li>
+        <h3 class="fr-h6"> 
+          <%= t('.transfer_account.subtitle_if_other_roles').html_safe %>
+        </h3>
+        <p class="fr-mb-1w">
+          <%= t('.transfer_account.description_if_other_roles', api: t("#{namespace}.api")).html_safe %>
+        </p>
+      </li>
+    </ul>
+    </div>
+  </section>
 </div>

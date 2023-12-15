@@ -4,6 +4,8 @@ RSpec.describe 'transfer user account ownership', :js, app: :api_entreprise do
   subject do
     visit user_profile_path
 
+    click_button 'transfer_account_accordion'
+    sleep 1
     click_link 'transfer_account_button'
 
     within form_dom_id do
@@ -16,7 +18,7 @@ RSpec.describe 'transfer user account ownership', :js, app: :api_entreprise do
   end
 
   let(:user) { create(:user, :with_token) }
-  let(:form_dom_id) { '#transfer_account' }
+  let(:form_dom_id) { '#transfer_account_form' }
   let(:email) { 'valid@email.com' }
 
   before { login_as(user) }

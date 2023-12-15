@@ -1,4 +1,4 @@
-<%= form_with url: transfer_account_path, method: :post, id: :transfer_account, data: { turbo_frame: '_top' } do |form| %>
+<%= form_with url: transfer_account_path, method: :post, id: :transfer_account_form, data: { turbo_frame: '_top' } do |form| %>
   <div class="fr-modal__content">
     <h1 id="modal_title" class="fr-modal__title">
       <span class="fr-icon-arrow-right-line fr-icon--lg"></span>
@@ -7,8 +7,8 @@
 
     <%= render partial: 'shared/alerts' %>
     
-    <p><%= t('.description').html_safe %></p>
-
+    <p><%= t('.description', api: t("#{namespace}.api")).html_safe %></p>
+.
     <div class="fr-input-group">
       <%= form.label :email, t('.email.label'), class: %w(fr-label) %>
       <%= form.email_field :email, placeholder: t('.email.placeholder'), class: %w(fr-input) %>
