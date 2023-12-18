@@ -296,6 +296,21 @@ fr:
 
         - name: "Jetons d’accès"
           entries:
+            - question: "Comment récupérer son jeton après validation de la demande d'habilitation ?"
+              answer: |+
+                  1. Une fois la demande d'habilitation validée, un e-mail est envoyé au demandeur et au contact technique avec un lien vers leur [compte utilisateur](<%= user_profile_path %>).
+
+                  2. Une fenêtre de connexion MonComptePro s'ouvre. Le demandeur doit renseigner les identifiants utilisés lors du dépôt de la demande d'habilitation ; le contact technique, ceux indiqués dans la demande.
+
+                  3. Le jeton est disponible depuis le [compte utilisateur](<%= user_profile_path %>) et peut-être copié. Le contact métier n'a pas accès au jeton.
+
+                  {:.fr-highlight.fr-highlight--caution}
+                  > ⚠️ Le token vous est propre, il ne faut pas le diffuser. Vous ne devez jamais copier-coller un token dans un moteur de recherche ou dans un e-mail. L’usage de votre token se fait uniquement dans votre logiciel métier sécurisé utilisé pour réaliser vos appels.
+
+                  **Vous devez transmettre ce jeton à votre éditeur ? Ou à votre équipe technique ?** Utilisez la [fonctionnalité prévue à cet effet](<%= faq_index_path(anchor: 'comment-transmettre-le-jeton-d-acces-en-tout-securite') %>).
+
+                  **Le jeton est valable 18 mois, il devra ensuite être renouvelé par le demandeur tous les 18 mois, avant sa date d'expiration**. Autrement, vous ne pourrez plus accéder aux API tant que le renouvellement n'aura pas été effectué. Pour en savoir plus sur la procédure de renouvellement, veuillez lire [cette rubrique](<%= faq_index_path(anchor: 'comment-prolonger-mon-jeton-arrivant-a-expiration') %>).
+
             - question: "Comment transmettre le jeton d’accès en tout sécurité ?"
               answer: |+
                 Dans le cadre de l'intégration de l’API, il peut arriver qu'il y ait besoin ponctuellement de transmettre le jeton à une personne qui n'a pas accès au [compte utilisateur](<%= user_profile_path %>).
