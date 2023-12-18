@@ -6,6 +6,7 @@ SitemapGenerator::Sitemap.create do
 
   add mentions_path
   add cgu_path
+  add donnees_personnelles_path
   add accessibilite_path
 
   add login_path

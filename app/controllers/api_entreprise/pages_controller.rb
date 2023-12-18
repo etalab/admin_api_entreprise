@@ -23,6 +23,8 @@ class APIEntreprise::PagesController < APIEntrepriseController
 
   def cgu; end
 
+  def donnees_personnelles; end
+
   def mentions
     render 'shared/pages/mentions'
   end

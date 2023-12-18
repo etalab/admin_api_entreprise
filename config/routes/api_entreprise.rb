@@ -62,6 +62,7 @@ constraints(APIEntrepriseDomainConstraint.new) do
     get '/infolettre', to: 'pages#newsletter', as: :newsletter
     get '/mentions-legales', to: 'pages#mentions', as: :mentions
     get '/cgu', to: 'pages#cgu', as: :cgu
+    get '/donnees_personnelles', to: 'pages#donnees_personnelles', as: :donnees_personnelles
     get '/accessibilite', to: 'pages#accessibility', as: :accessibilite
   end
 end
