@@ -57,6 +57,10 @@ class Token < ApplicationRecord
 
   delegate :intitule, :siret, to: :authorization_request
 
+  def extra_info
+    super || {}
+  end
+
   def legacy_token?
     extra_info['legacy_token_id'].present?
   end
