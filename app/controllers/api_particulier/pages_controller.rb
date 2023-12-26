@@ -22,6 +22,8 @@ class APIParticulier::PagesController < APIParticulierController
       filename: 'cgu-api-particulier-2022-03.pdf'
   end
 
+  def donnees_personnelles; end
+
   def redoc
     render 'shared/pages/redoc'
   end

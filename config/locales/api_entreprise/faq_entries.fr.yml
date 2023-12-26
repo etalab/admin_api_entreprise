@@ -296,6 +296,21 @@ fr:
 
         - name: "Jetons d’accès"
           entries:
+            - question: "Comment récupérer son jeton après validation de la demande d'habilitation ?"
+              answer: |+
+                  1. Une fois la demande d'habilitation validée, un e-mail est envoyé au demandeur et au contact technique avec un lien vers leur [compte utilisateur](<%= user_profile_path %>).
+
+                  2. Une fenêtre de connexion MonComptePro s'ouvre. Le demandeur doit renseigner les identifiants utilisés lors du dépôt de la demande d'habilitation ; le contact technique, ceux indiqués dans la demande.
+
+                  3. Le jeton est disponible depuis le [compte utilisateur](<%= user_profile_path %>) et peut-être copié. Le contact métier n'a pas accès au jeton.
+
+                  {:.fr-highlight.fr-highlight--caution}
+                  > ⚠️ Le token vous est propre, il ne faut pas le diffuser. Vous ne devez jamais copier-coller un token dans un moteur de recherche ou dans un e-mail. L’usage de votre token se fait uniquement dans votre logiciel métier sécurisé utilisé pour réaliser vos appels.
+
+                  **Vous devez transmettre ce jeton à votre éditeur ? Ou à votre équipe technique ?** Utilisez la [fonctionnalité prévue à cet effet](<%= faq_index_path(anchor: 'comment-transmettre-le-jeton-d-acces-en-tout-securite') %>).
+
+                  **Le jeton est valable 18 mois, il devra ensuite être renouvelé par le demandeur tous les 18 mois, avant sa date d'expiration**. Autrement, vous ne pourrez plus accéder aux API tant que le renouvellement n'aura pas été effectué. Pour en savoir plus sur la procédure de renouvellement, veuillez lire [cette rubrique](<%= faq_index_path(anchor: 'comment-prolonger-mon-jeton-arrivant-a-expiration') %>).
+
             - question: "Comment transmettre le jeton d’accès en tout sécurité ?"
               answer: |+
                 Dans le cadre de l'intégration de l’API, il peut arriver qu'il y ait besoin ponctuellement de transmettre le jeton à une personne qui n'a pas accès au [compte utilisateur](<%= user_profile_path %>).
@@ -307,36 +322,51 @@ fr:
                 - En cliquant sur "Envoyer", un courriel sera transmis à cette adresse, avec, à l’intérieur, **un lien d’une durée de 4 heures, qui permettra à l’utilisateur de récupérer le jeton**.
 
                 {:.fr-highlight.fr-highlight--caution}
-                > ⚠️ Vous êtes responsable de votre clé d'accès au titre des engagements pris au moment de l'habilitation de votre organisation en signant nos <a href="https://entreprise.api.gouv.fr/cgu/">CGU</a>. L'utilisation de la fonctionnalité "Transmettre le jeton" a pour objectif de sécuriser l'envoi de votre jeton aux services techniques qui intègreront l'API Entreprise. Vous ne devez pas divulguer cet accès à des tiers non-habilités.
+                > ⚠️ Vous êtes responsable de votre clé d'accès au titre des engagements pris au moment de l'habilitation de votre organisation en signant nos [CGU](<%= cgu_path %>). L'utilisation de la fonctionnalité "Transmettre le jeton" a pour objectif de sécuriser l'envoi de votre jeton aux services techniques qui intègreront l'API Entreprise. Vous ne devez pas divulguer cet accès à des tiers non-habilités.
 
                 Si vous avez divulgué votre jeton par erreur, le renouvellement d’un jeton est très facile et rapide. Écrivez rapidement à <a href="mailto:support@entreprise.api.gouv.fr">support@entreprise.api.gouv.fr</a>.
 
-            - question: "Comment renouveler mon jeton arrivant à expiration ?"
+            - question: "Comment prolonger mon jeton arrivant à expiration ?"
               answer: |+
-                Tous les jetons API Entreprise ont une durée de vie de 18 mois ⌛️.
+                Tous les jetons API Entreprise ont une durée de vie de 18 mois ⌛️. Cette durée de vie peut être prolongée de 18 mois en effectuant la démarche de demande de prolongation suivante :
 
-                Quelque soit le moment où vous effectuez votre renouvellement, **votre jeton actuel conserve sa date d’expiration initiale** et **votre nouveau jeton fonctionne donc en parallèle du premier** jusqu’à son expiration. Effectuer un renouvellement en amont vous évite d’agir dans la précipitation et de risquer la coupure de service.
+                #### Se rendre sur le formulaire de prolongation
 
-                #### Se rendre sur le formulaire de renouvellement
+                Trois mois avant l’arrivée à terme d’un jeton, le demandeur **reçoit des notifications automatiques** l'informant de l’expiration à venir de votre jeton ainsi qu’**une invitation à le renouveler**.
+                Les notifications sont envoyées régulièrement jusqu’à l'expiration (90 jours avant la date d’expiration, puis 60 jours avant, puis 30, 15, …). Les contacts métiers et techniques sont en copie de ces e-mails, mais ils ne peuvent pas compléter le formulaire. Seul le demandeur peut le faire.
 
-                Trois mois avant l’arrivée à terme d’un jeton, vous **recevez des notifications automatiques** vous informant de l’expiration à venir de votre jeton ainsi qu’**une invitation à le renouveler**.
-                Les notifications sont envoyées régulièrement jusqu’au renouvellement (90 jours avant la date d’expiration, puis 60 jours avant, puis 30, 15, …).
+                Si le jeton expire dans moins de 90 jours et qu'aucune notification n'a été reçue, veuillez vérifier si celle-ci n’est pas arrivée dans vos "spams" 🗑.
 
-                Si votre jeton expire dans moins de 90 jours et que vous n’avez pas reçu de notifications, veuillez vérifier si celle-ci n’est pas arrivée dans vos "spams" 🗑.
+                Le demandeur peut également accéder au formulaire de prolongation **depuis son [compte utilisateur](<%= user_profile_path %>)**. Trois mois avant l'expiration, un bouton _“Prolonger le jeton”_ apparaîtra en page d'accueil, au niveau de la liste de vos habilitations, dans la colonne des actions attendues. Ce bouton sera également visible à côté du jeton d’accès. Il mène directement vers le formulaire pré-rempli.
 
-                Vous pouvez également accéder au formulaire de renouvellement **depuis votre compte utilisateur**. Un bouton _“Renouveler ou étendre mes droits”_ se situe à côté de votre jeton d’accès et vous mènera directement vers le formulaire pré-rempli.
+                #### Remplir le formulaire de prolongation
 
-                #### Remplir le formulaire de renouvellement
+                Le formulaire de prolongation permet au demandeur d'indiquer si des changements sont intervenus depuis la dernière demande d'habilitation à l'API Entreprise : 
 
-                Un renouvellement de jeton est en pratique une nouvelle demande d’accès. Le formulaire de renouvellement de token est **directement pré-rempli avec les informations renseignées lors de votre demande initiale**.
+                - **Si des changements sont intervenus**, ce formulaire permet de déposer rapidement une demande de modification de l'habilitation. Cette demande sera traitée en priorité par les services instructeurs. Après validation, le jeton sera prolongé de 18 mois.
 
-                Pensez à **mettre à jour les informations de contacts**. Si votre situation d’usage de l’API Entreprise a changé, il vous faudra mettre à jour la demande.
+                - **Si aucun changement n'est intervenu**, le jeton sera prolongé de 18 mois à la suite de l'envoi du formulaire de prolongation.
 
-                {:.fr-highlight}
-                > ℹ️ Le renouvellement d’un jeton est aussi une bonne occasion de faire la demande de nouvelles données si celles-ci correspondent à votre cas d’usage. Vous pouvez parcourir le catalogue des données pour voir si API Entreprise propose de nouvelles API.
+                {:.fr-h6}
+                ##### Qu'est-ce qu'API Entreprise entend par «&nbsp;changements intervenus depuis la signature de l'habilitation&nbsp;» ?
 
-                Une fois la demande de renouvellement envoyée, un instructeur API Entreprise doit valider votre demande. Le temps de validation est normalement plus court que pour une demande initiale, mais il est **plus prudent de nous transmettre votre demande le plus tôt possible** pour éviter toute rupture de service.
+                L'accès de votre organisation à l'API Entreprise a été concretisé suite à une demande d'habilitation instruite et validée par l'API Entreprise.
 
+                Dans cette demande, le demandeur a spécifié : 
+                - un projet, un cas d'usage et son cadre juridique ;
+                - un contact technique et un contact métier ;
+                - parfois un éditeur de logiciel ;
+                - des responsables des données et de leur traitement.
+
+                Ces éléments, importants pour justifier de l'accès aux données et pour assurer une bonne gestion de l'API, sont au coeur du contrat avec l'API Entreprise. L'utilisation d'un jeton doit donc être en cohérence avec l'habilitation obtenue, comme le stipulent les [CGU](<%= cgu_path %>) signées au moment de la demande. Si ces éléments évoluent, ce qui arrive fréquemment, vous êtes tenus de les mettre à jour. La prolongation du jeton est un bonne occasion. Vous pouvez toutefois faire une demande de modification à tout moment depuis votre espace Datapass.
+
+                Dans le cas d'une évolution majeure, il est possible que le service instructeur vous demande d'ouvrir une nouvelle demande.
+                La demande d'habilitation obtenue initialement ne sera pas supprimée, et continuera d'être valide à partir du moment où son contenu est respecté.
+            - question: "Qui peut prolonger un jeton et demander de nouvelles données ?"
+              answer: |+
+                Seul le demandeur est habilité à compléter le formulaire de prolongation du jeton, modifier une habilitation et/ou demander l'ajout de données supplémentaires.
+
+                Les contacts technique, métier et l'éditeur ne sont pas habilités à effectuer ces démarches.
             - question: "Comment élargir le périmètre des API disponibles avec mon jeton / obtenir de nouvelles données ?"
               answer: |+
                 Il est tout à fait possible d’élargir le périmètre des données auxquelles vous avez accès, ce nouveau périmètre engendrera la création d’un nouveau jeton.
@@ -354,18 +384,6 @@ fr:
                 Pour des **raisons de sécurité**, tous les jetons émis sont valables pour une **durée de 18 mois**. Au delà de ce délai, ils ne fonctionnent plus, et votre accès à l’API Entreprise est donc totalement arrêté.
 
                 En réalité, cette situation n’est pas censée arriver car API Entreprise a mis en place une [procédure simple de renouvellement de token](<%= faq_index_path(anchor: 'comment-renouveler-mon-jeton-arrivant-a-expiration') %>).
-
-
-
-
-
-
-
-
-
-
-
-
 
         - name: "Rupture de service"
           entries:
@@ -467,10 +485,10 @@ fr:
                 - Une fenêtre s'ouvre, vous rappelle vos engagements et vous permet de renseigner l'adresse e-mail du futur demandeur des habilitations. Validez.
                 - Le destinataire reçoit un e-mail indiquant les démarches à suivre. Le transfert des habilitations est désormais de son côté. S'il n'a pas déjà un compte \"MonComptePro\", il devra s'en créer un, **avec l'adresse mail que vous aurez indiquée et en renseignant bien le SIRET de votre organisation commune. C'est indispensable pour que le compte soit bien appareillé**.
                 - Une fois cette connexion faite, l'étape suivante est effectuée manuellement par le service API Entreprise. Informé automatiquement de la demande, il doit réaliser une validation manuelle pour que le transfert soit effectif. Cette étape peut prendre quelques jours.
-                - Enfin, toute connexion par le destinataire à l'espace utilisateur API Entreprise vaut acceptation de nos <a href="https://entreprise.api.gouv.fr/cgu/">CGU</a> pour l'ensemble des habilitations nouvellement obtenues.
+                - Enfin, toute connexion par le destinataire à l'espace utilisateur API Entreprise vaut acceptation de nos [CGU](<%= cgu_path %>) pour l'ensemble des habilitations nouvellement obtenues.
 
                  {:.fr-highlight.fr-highlight--caution}
-                > ⚠️ Vous êtes responsable de vos habilitations et de vos jetons au titre des engagements pris au moment de votre demande d'accès en signant nos <a href="https://entreprise.api.gouv.fr/cgu/">CGU</a>. L'utilisation de la fonctionnalité "Transférer habilitations" a pour objectif de permettre la continuité de l'habilitation de votre organisation. Vous ne devez pas transmettre votre habilitation à une personne qui n'est pas en mesure de prendre le relais des responsabilités qui vous engagent.
+                > ⚠️ Vous êtes responsable de vos habilitations et de vos jetons au titre des engagements pris au moment de votre demande d'accès en signant nos [CGU](<%= cgu_path %>). L'utilisation de la fonctionnalité "Transférer habilitations" a pour objectif de permettre la continuité de l'habilitation de votre organisation. Vous ne devez pas transmettre votre habilitation à une personne qui n'est pas en mesure de prendre le relais des responsabilités qui vous engagent.
 
                 Si vous avez débuté le transfert de votre habilitation par erreur, écrivez rapidement à <a href="mailto:support@entreprise.api.gouv.fr">support@entreprise.api.gouv.fr</a>.
 
