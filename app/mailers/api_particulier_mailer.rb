@@ -1,5 +1,5 @@
 class APIParticulierMailer < ApplicationMailer
-  default from: 'API Particulier <support@particulier.api.gouv.fr>'
+  default from: 'API Particulier <api-particulier@api.gouv.fr>'
 
   before_action :attach_logos
 
