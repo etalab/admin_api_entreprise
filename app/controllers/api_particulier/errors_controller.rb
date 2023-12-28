@@ -1,4 +1,4 @@
-class APIParticulier::ErrorsController < ApplicationController
+class APIParticulier::ErrorsController < APIParticulierController
   include GlobalHTTPErrorsManagement
 
   layout 'api_particulier/no_container'
