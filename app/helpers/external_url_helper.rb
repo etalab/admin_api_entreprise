@@ -11,10 +11,6 @@ module ExternalUrlHelper
     url
   end
 
-  def datapass_prolong_authorization_request_url
-    datapass_base_url
-  end
-
   private
 
   def highlight_section(prolong_token_wizard)

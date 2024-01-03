@@ -66,7 +66,9 @@ RSpec.describe 'displays prolong token content', app: :api_particulier do
     end
 
     it 'displays the page' do
-      expect(page).to have_current_path(api_particulier_authorization_requests_path, ignore_query: true)
+      expect(page).to have_current_path(api_particulier_token_prolong_path(id: token.id), ignore_query: true)
+
+      click_link('prolong_form_link')
     end
   end
 end
