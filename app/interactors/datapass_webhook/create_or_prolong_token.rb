@@ -1,9 +1,8 @@
-class DatapassWebhook::CreateToken < ApplicationInteractor
+class DatapassWebhook::CreateOrProlongToken < ApplicationInteractor
   def call
     return if %w[validate_application validate].exclude?(context.event)
-    return if token_already_exists?
 
-    token = create_token
+    token = create_or_prolong_token
 
     if token.persisted?
       affect_scopes(token)
@@ -14,6 +13,23 @@ class DatapassWebhook::CreateToken < ApplicationInteractor
   end
 
   private
+
+  def create_or_prolong_token
+    if token_already_exists?
+      prolong_token!
+      context.authorization_request.token
+    else
+      create_token
+    end
+  end
+
+  def prolong_token!
+    if context.authorization_request.token.last_prolong_token_wizard.present?
+      context.authorization_request.token.last_prolong_token_wizard.prolong!
+    else
+      context.authorization_request.token.prolong!
+    end
+  end
 
   def create_token
     authorization_request.tokens.create(

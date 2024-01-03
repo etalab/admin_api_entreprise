@@ -1,6 +1,8 @@
 class ProlongTokenWizard < ApplicationRecord
   belongs_to :token
 
+  delegate :prolong!, to: :token
+
   enum status: {
     owner: 0,
     project_purpose: 10,
@@ -48,14 +50,14 @@ class ProlongTokenWizard < ApplicationRecord
       contact_technique
   end
 
+  def prolong!
+    update!(status: 'prolonged')
+    token.prolong!
+  end
+
   private
 
   def requires_update!
     update!(status: 'requires_update')
-  end
-
-  def prolong!
-    update!(status: 'prolonged')
-    token.prolong!
   end
 end

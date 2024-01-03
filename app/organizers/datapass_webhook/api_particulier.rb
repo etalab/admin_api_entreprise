@@ -12,8 +12,10 @@ module DatapassWebhook
 
     organize ::DatapassWebhook::FindOrCreateUser,
       ::DatapassWebhook::FindOrCreateAuthorizationRequest,
-      ::DatapassWebhook::CreateToken,
+      ::DatapassWebhook::CreateOrProlongToken,
       ::DatapassWebhook::ArchiveCurrentAuthorizationRequest,
+      ::DatapassWebhook::RefuseCurrentAuthorizationRequest,
+      ::DatapassWebhook::ReopenAuthorizationRequest,
       ::DatapassWebhook::RevokeCurrentToken,
       ::DatapassWebhook::UpdateMailjetContacts,
       ::DatapassWebhook::ExtractMailjetVariables,

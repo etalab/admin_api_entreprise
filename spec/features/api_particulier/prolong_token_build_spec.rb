@@ -56,7 +56,7 @@ RSpec.describe 'follows the prolong token wizard', app: :api_particulier do
         expect(page).to have_content('Votre jeton a été prolongé')
         expect(page).to have_css('#prolonged_to_authorization_request')
 
-        expect(token.reload.exp).to eq((exp + 18.months))
+        expect(token.reload.exp).to eq(18.months.from_now.to_i)
       end
 
       it 'is on happy path and it requires update' do
