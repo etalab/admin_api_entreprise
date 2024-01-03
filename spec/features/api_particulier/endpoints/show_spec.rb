@@ -21,6 +21,10 @@ RSpec.describe 'Endpoints show', app: :api_particulier do
     expect(page).to have_content('Tarification sociale et solidaire des transports')
   end
 
+  it 'displays link to test cases' do
+    expect(page).to have_link(I18n.t('api_particulier.endpoints.show.test_cases'), href: endpoint.test_cases_external_url)
+  end
+
   describe 'real time status' do
     context 'when endpoint is up' do
       let(:api_status) { 200 }

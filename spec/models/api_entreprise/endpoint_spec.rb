@@ -87,4 +87,10 @@ RSpec.describe APIEntreprise::Endpoint do
       end
     end
   end
+
+  describe '#test_cases_external_url' do
+    subject { described_class.find(api_entreprise_example_uid).test_cases_external_url }
+
+    it { is_expected.to eq('https://github.com/etalab/siade_staging_data/tree/develop/payloads/api_entreprise_v3_insee_unites_legales') }
+  end
 end

@@ -178,6 +178,10 @@
           <a href="<%= endpoint_example_path(uid: @endpoint.uid) %>" id="example_link" class="fr-btn fr-btn--secondary fr-icon-eye-line fr-btn--icon-left fr-mt-2w" aria-controls="main-modal" data-fr-opened="false" data-turbo-frame="main-modal-content">
             Aperçu d'un exemple de réponse JSON
           </a>
+
+          <a href="<%= @endpoint.test_cases_external_url %>" target="_blank" class="fr-btn fr-btn--secondary fr-icon-eye-line fr-btn--icon-left fr-mt-2w">
+            <%= t('.test_cases') %>
+          </a>
         </div>
 
         <div class="keep-within-block-mobile">

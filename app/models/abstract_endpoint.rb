@@ -211,6 +211,14 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
     use_cases_forbidden&.include?(cas_usage_name)
   end
 
+  def test_cases_external_url
+    "https://github.com/etalab/siade_staging_data/tree/develop/payloads/#{operation_id}"
+  end
+
+  def operation_id
+    open_api_definition['responses']['200']['x-operationId']
+  end
+
   private
 
   def tag_for_redoc

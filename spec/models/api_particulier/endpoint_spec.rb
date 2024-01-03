@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe APIParticulier::Endpoint do
+  let(:uid) { 'cnaf/quotient_familial' }
+
   describe '.find' do
     subject { described_class.find(uid) }
-
-    let(:uid) { 'cnaf/quotient_familial' }
 
     it { is_expected.to be_an_instance_of(described_class) }
 
@@ -15,5 +15,11 @@ RSpec.describe APIParticulier::Endpoint do
 
     its(:attributes) { is_expected.to be_an_instance_of(Hash) }
     its(:attributes) { is_expected.to have_key('quotientFamilial') }
+  end
+
+  describe '#test_cases_external_url' do
+    subject { described_class.find(uid).test_cases_external_url }
+
+    it { is_expected.to eq('https://github.com/etalab/siade_staging_data/tree/develop/payloads/api_particulier_v2_cnaf_quotient_familial') }
   end
 end
