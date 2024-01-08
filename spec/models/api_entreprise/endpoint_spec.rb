@@ -93,4 +93,10 @@ RSpec.describe APIEntreprise::Endpoint do
 
     it { is_expected.to eq('https://github.com/etalab/siade_staging_data/tree/develop/payloads/api_entreprise_v3_insee_unites_legales') }
   end
+
+  describe '#redoc_anchor' do
+    subject { described_class.find(api_entreprise_example_uid).redoc_anchor }
+
+    it { is_expected.to eq('tag/Informations-generales/paths/~1v3~1insee~1sirene~1unites_legales~1{siren}/get') }
+  end
 end

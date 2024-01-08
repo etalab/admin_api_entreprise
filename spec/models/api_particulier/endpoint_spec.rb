@@ -22,4 +22,10 @@ RSpec.describe APIParticulier::Endpoint do
 
     it { is_expected.to eq('https://github.com/etalab/siade_staging_data/tree/develop/payloads/api_particulier_v2_cnaf_quotient_familial') }
   end
+
+  describe '#redoc_anchor' do
+    subject { described_class.find(uid).redoc_anchor }
+
+    it { is_expected.to eq('tag/Quotient-familial/paths/~1api~1v2~1composition-familiale/get') }
+  end
 end
