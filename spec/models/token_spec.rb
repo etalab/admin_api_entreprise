@@ -50,13 +50,13 @@ RSpec.describe Token do
     context 'when the token was issued up to maximum 6 days ago' do
       let(:datetime_of_issue) { :less_than_seven_days_ago }
 
-      its(:issued_in_last_seven_days) { is_expected.not_to be_exist token.id }
+      its(:issued_in_last_seven_days) { is_expected.not_to exist token.id }
     end
 
     context 'when the token was issued since at least 7 days ago' do
       let(:datetime_of_issue) { :seven_days_ago }
 
-      its(:issued_in_last_seven_days) { is_expected.to be_exist token.id }
+      its(:issued_in_last_seven_days) { is_expected.to exist token.id }
     end
   end
 

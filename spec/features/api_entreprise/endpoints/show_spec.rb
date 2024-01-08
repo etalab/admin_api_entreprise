@@ -62,7 +62,7 @@ RSpec.describe 'Endpoints show', app: :api_entreprise do
       let(:uid) { 'fabrique_numerique_ministeres_sociaux/conventions_collectives' }
 
       it 'does not display errors part' do
-        expect(page).not_to have_css('#erreurs')
+        expect(page).to have_no_css('#erreurs')
       end
     end
 
