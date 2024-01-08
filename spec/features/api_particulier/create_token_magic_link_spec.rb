@@ -66,7 +66,7 @@ RSpec.describe 'create a token magic link', app: :api_particulier do
       describe 'with javascript actived', :js do
         it 'displays modal on click' do
           visit token_path(token)
-          expect(page).not_to have_css("##{dom_id(token, :magic_link)}")
+          expect(page).to have_no_css("##{dom_id(token, :magic_link)}")
           click_button dom_id(token, :transfer_modal_button)
           expect(page).to have_css("##{dom_id(token, :magic_link)}")
         end

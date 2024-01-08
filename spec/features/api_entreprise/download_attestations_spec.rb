@@ -95,7 +95,7 @@ RSpec.describe 'Download attestations', app: :api_entreprise do
         search
 
         expect(page).to have_content(entreprise.raison_sociale)
-        expect(page).not_to have_link('attestation-sociale-download')
+        expect(page).to have_no_link('attestation-sociale-download')
         expect(page).to have_link('attestation-fiscale-download', href: 'https://attestation-fiscale.com/file.pdf')
       end
     end
@@ -108,9 +108,9 @@ RSpec.describe 'Download attestations', app: :api_entreprise do
 
         expect(page).to have_content('Some error')
 
-        expect(page).not_to have_content(entreprise.raison_sociale)
-        expect(page).not_to have_link('attestation-sociale-download')
-        expect(page).not_to have_link('attestation-fiscale-download')
+        expect(page).to have_no_content(entreprise.raison_sociale)
+        expect(page).to have_no_link('attestation-sociale-download')
+        expect(page).to have_no_link('attestation-fiscale-download')
       end
     end
   end

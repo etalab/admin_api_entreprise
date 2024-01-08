@@ -139,7 +139,7 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
           describe 'when the user is demandeur' do
             describe 'when the token has less than 90 days left' do
               it 'displays the button to prolong the token' do
-                expect(page).not_to have_css('#prolong-token-modal-link')
+                expect(page).to have_no_css('#prolong-token-modal-link')
               end
             end
 
@@ -147,7 +147,7 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
               let(:exp) { 93.days.from_now.to_i }
 
               it 'does not display the button to prolong the token' do
-                expect(page).not_to have_css('#prolong-token-modal-link')
+                expect(page).to have_no_css('#prolong-token-modal-link')
               end
             end
 
@@ -161,12 +161,12 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
             end
 
             it 'does not displays the ask for prolongation modal button' do
-              expect(page).not_to have_css('#ask-for-prolongation-token-modal-link')
+              expect(page).to have_no_css('#ask-for-prolongation-token-modal-link')
             end
 
             describe 'when the token has no attestations scopes' do
               it 'does not display the attestations block' do
-                expect(page).not_to have_css('#attestations_sociales_et_fiscales')
+                expect(page).to have_no_css('#attestations_sociales_et_fiscales')
               end
             end
 
@@ -182,15 +182,15 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
             it 'displays the contact informations' do
               expect(page).to have_css('#contact_demandeur')
               expect(page).to have_css('#contact_demandeur_its_me')
-              expect(page).not_to have_css('#contact_metier')
-              expect(page).not_to have_css('#contact_technique')
+              expect(page).to have_no_css('#contact_metier')
+              expect(page).to have_no_css('#contact_technique')
             end
 
             it 'displays the summary' do
               expect(page).to have_css('#summary')
               expect(page).to have_css('#habilitation_main_token_infos_link')
               expect(page).to have_css('#habilitation_contacts_infos_link')
-              expect(page).not_to have_css('#attestations_sociales_et_fiscales_link')
+              expect(page).to have_no_css('#attestations_sociales_et_fiscales_link')
             end
           end
 
@@ -212,7 +212,7 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
             end
 
             it 'does not display the button to prolong the token' do
-              expect(page).not_to have_css('#prolong-token-modal-link')
+              expect(page).to have_no_css('#prolong-token-modal-link')
             end
 
             it 'displays the show modal button' do
@@ -234,7 +234,7 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
 
             describe 'when the token has no attestations scopes' do
               it 'does not display the attestations block' do
-                expect(page).not_to have_css('#attestations_sociales_et_fiscales')
+                expect(page).to have_no_css('#attestations_sociales_et_fiscales')
               end
             end
 
@@ -242,14 +242,14 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
               let!(:scopes) { %w[attestations_sociales attestations_fiscales] }
 
               it 'does not display the attestations block' do
-                expect(page).not_to have_css('#attestations_sociales_et_fiscales')
+                expect(page).to have_no_css('#attestations_sociales_et_fiscales')
               end
             end
 
             it 'displays the contact informations' do
               expect(page).to have_css('#contact_demandeur')
-              expect(page).not_to have_css('#contact_demandeur_its_me')
-              expect(page).not_to have_css('#contact_metier')
+              expect(page).to have_no_css('#contact_demandeur_its_me')
+              expect(page).to have_no_css('#contact_metier')
               expect(page).to have_css('#contact_technique')
               expect(page).to have_css('#contact_technique_its_me')
             end
@@ -261,7 +261,7 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
                 expect(page).to have_css('#' << dom_id(old_token))
               end
 
-              expect(page).not_to have_css('#' << dom_id(token))
+              expect(page).to have_no_css('#' << dom_id(token))
             end
           end
 
@@ -285,7 +285,7 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
             end
 
             it 'does not display the button to prolong the token' do
-              expect(page).not_to have_css('#prolong-token-modal-link')
+              expect(page).to have_no_css('#prolong-token-modal-link')
             end
 
             it 'displays the show modal button' do
@@ -307,7 +307,7 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
 
             describe 'when the token has no attestations scopes' do
               it 'does not display the attestations block' do
-                expect(page).not_to have_css('#attestations_sociales_et_fiscales')
+                expect(page).to have_no_css('#attestations_sociales_et_fiscales')
               end
             end
 
@@ -321,11 +321,11 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
 
             it 'displays the contact informations' do
               expect(page).to have_css('#contact_demandeur')
-              expect(page).not_to have_css('#contact_demandeur_its_me')
+              expect(page).to have_no_css('#contact_demandeur_its_me')
               expect(page).to have_css('#contact_metier')
               expect(page).to have_css('#contact_metier_its_me')
               expect(page).to have_css('#contact_technique')
-              expect(page).not_to have_css('#contact_technique_its_me')
+              expect(page).to have_no_css('#contact_technique_its_me')
             end
           end
         end

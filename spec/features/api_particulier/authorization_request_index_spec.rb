@@ -126,7 +126,7 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
           expect(page).to have_css('#' << dom_id(token))
         end
 
-        expect(page).not_to have_css('#' << dom_id(token_archived))
+        expect(page).to have_no_css('#' << dom_id(token_archived))
 
         expect(page).to have_text('☠️ Expiré')
         expect(page).to have_text('🚫 Banni')
@@ -137,13 +137,13 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
 
       it 'displays the button to view the token details' do
         expect(page).to have_css('#' << dom_id(authorization_request_active, :show_token_modal_link))
-        expect(page).not_to have_css('#' << dom_id(authorization_request_blacklisted, :show_token_modal_link))
-        expect(page).not_to have_css('#' << dom_id(authorization_request_archived, :show_token_modal_link))
+        expect(page).to have_no_css('#' << dom_id(authorization_request_blacklisted, :show_token_modal_link))
+        expect(page).to have_no_css('#' << dom_id(authorization_request_archived, :show_token_modal_link))
       end
 
       it 'displays the button to prolong the token' do
-        expect(page).not_to have_css('#' << dom_id(authorization_request_active, :prolong_token_modal_link))
-        expect(page).not_to have_css('#' << dom_id(authorization_request_archived, :prolong_token_modal_link))
+        expect(page).to have_no_css('#' << dom_id(authorization_request_active, :prolong_token_modal_link))
+        expect(page).to have_no_css('#' << dom_id(authorization_request_archived, :prolong_token_modal_link))
       end
     end
   end

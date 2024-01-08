@@ -44,7 +44,7 @@ RSpec.describe 'API Particulier: new tokens button download on profile page', ap
     it 'does not display a button to download the file' do
       visit api_particulier_user_profile_path
 
-      expect(page).not_to have_css('a#download_new_tokens_file')
+      expect(page).to have_no_css('a#download_new_tokens_file')
     end
   end
 end
