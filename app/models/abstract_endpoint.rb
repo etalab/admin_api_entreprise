@@ -224,7 +224,7 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
   def tag_for_redoc
     return unless open_api_definition['tags']
 
-    open_api_definition['tags'].first.parameterize(separator: '-').capitalize
+    open_api_definition['tags'].first.parameterize(separator: '-', preserve_case: true)
   end
 
   def path_for_redoc
