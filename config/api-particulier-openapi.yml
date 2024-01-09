@@ -65,16 +65,26 @@ paths:
         in: header
         schema:
           type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
       - name: nomUsage
         in: query
-        description: Nom d'usage
+        description: Nom d'usage. Ne pas renseigner si présence de jeton FranceConnect.
         example: DUPONT
         required: false
         schema:
           type: string
       - name: nomNaissance
         in: query
-        description: Nom de naissance
+        description: Nom de naissance. Ne pas renseigner si présence de jeton FranceConnect.
         example: JEAN
         required: false
         schema:
@@ -89,28 +99,30 @@ paths:
           example:
           - PIERRE
           - RICHARD
-        description: Liste des prénoms
+        description: Liste des prénoms. Ne pas renseigner si présence de jeton FranceConnect.
         required: false
       - name: anneeDateDeNaissance
         in: query
         description: Année de naissance. Ne pas la renseigner si celle-ci est inconnue
+          ou en cas de présence de jeton FranceConnect.
         example: 1990
         required: false
         schema:
           type: integer
       - name: moisDateDeNaissance
         in: query
-        description: Mois de naissance. Ne pas le renseigner si celui-ci est inconnu.
-          Cette valeur est ignorée si anneeDateDeNaissance est vide.
+        description: Mois de naissance. Ne pas le renseigner si celui-ci est inconnu
+          ou en cas de présence de jeton FranceConnect. Cette valeur est ignorée si
+          anneeDateDeNaissance est vide.
         example: 1
         required: false
         schema:
           type: integer
       - name: jourDateDeNaissance
         in: query
-        description: Jour de naissance. Ne pas le renseigner si celui-ci est inconnu.
-          Cette valeur est ignorée si moisDateDeNaissance ou anneeDateDeNaissance
-          est vide.
+        description: Jour de naissance. Ne pas le renseigner si celui-ci est inconnu
+          ou en cas de présence de jeton FranceConnect. Cette valeur est ignorée si
+          moisDateDeNaissance ou anneeDateDeNaissance est vide.
         example: 1
         required: false
         schema:
@@ -123,8 +135,9 @@ paths:
           maxLength: 5
           example: '08480'
         description: Code Insee à 5 chiffres du lieu de naissance de la personne sur
-          5 chiffres. Ne pas remplir si la personne est née à l'étranger. Le champs
-          est obligatoire si la personne est née en France
+          5 chiffres. Ne pas remplir si la personne est née à l'étranger ou si présence
+          de jeton FranceConnect. En l'absence de jeton FranceConnect, le champs est
+          obligatoire si la personne est née en France
         required: false
       - name: codePaysLieuDeNaissance
         in: query
@@ -133,8 +146,9 @@ paths:
           minLength: 5
           maxLength: 5
           example: '99100'
-        description: Code Insee à 5 chiffres du pays de naissance (France = 99100)
-        required: true
+        description: Code Insee à 5 chiffres du pays de naissance (France = 99100).
+          Obligatoire si absence de jeton FranceConnect.
+        required: false
       - name: sexe
         in: query
         schema:
@@ -142,13 +156,19 @@ paths:
           enum:
           - M
           - F
-        description: Sexe de la personne, masculin ou féminin
-        required: true
+        description: Sexe de la personne, masculin ou féminin. Obligatoire si absence
+          de jeton FranceConnect.
         example: M
+        required: false
+      security:
+      - franceConnectToken: []
+        apiKey: []
       description: "Savoir si un particulier est bénéficiaire de la complémentaire
         santé solidaire (C2S). \n\n Pour de plus amples informations sur cette api
         et y avoir accès en avant première, veuillez contacter l'équipe API Particulier.
-        \n **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/complementaire_sante_solidaire) "
+        \n **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/complementaire_sante_solidaire)
+        \n L'API peut être appellée avec les données identité pivot ou avec un jeton
+        FranceConnect. "
       responses:
         '200':
           description: Quotient Familial trouvée
@@ -247,6 +267,23 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              examples:
+                acces_non_autorise_50002:
+                  value:
+                    errors:
+                    - code: '50002'
+                      title: Accès non autorisé
+                      detail: Le jeton d'accès n'a pas été trouvé ou est expiré.
+                      source:
+                      meta: {}
+                  summary: Accès non autorisé
+                  description: Le jeton d'accès n'a pas été trouvé ou est expiré.
+              schema:
+                "$ref": "#/components/schemas/Error"
   "/api/v2/composition-familiale-v2":
     get:
       summary: Quotient familial MSA & CAF
@@ -257,16 +294,26 @@ paths:
         in: header
         schema:
           type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
       - name: nomUsage
         in: query
-        description: Nom d'usage
+        description: Nom d'usage. Ne pas renseigner si présence de jeton FranceConnect.
         example: DUPONT
         required: false
         schema:
           type: string
       - name: nomNaissance
         in: query
-        description: Nom de naissance
+        description: Nom de naissance. Ne pas renseigner si présence de jeton FranceConnect.
         example: JEAN
         required: false
         schema:
@@ -281,28 +328,30 @@ paths:
           example:
           - PIERRE
           - RICHARD
-        description: Liste des prénoms
+        description: Liste des prénoms. Ne pas renseigner si présence de jeton FranceConnect.
         required: false
       - name: anneeDateDeNaissance
         in: query
         description: Année de naissance. Ne pas la renseigner si celle-ci est inconnue
+          ou si présence de jeton FranceConnect.
         example: 1990
         required: false
         schema:
           type: integer
       - name: moisDateDeNaissance
         in: query
-        description: Mois de naissance. Ne pas le renseigner si celui-ci est inconnu.
-          Cette valeur est ignorée si anneeDateDeNaissance est vide.
+        description: Mois de naissance. Ne pas le renseigner si celui-ci est inconnu
+          ou si présence de jeton FranceConnect. Cette valeur est ignorée si anneeDateDeNaissance
+          est vide.
         example: 1
         required: false
         schema:
           type: integer
       - name: jourDateDeNaissance
         in: query
-        description: Jour de naissance. Ne pas le renseigner si celui-ci est inconnu.
-          Cette valeur est ignorée si moisDateDeNaissance ou anneeDateDeNaissance
-          est vide.
+        description: Jour de naissance. Ne pas le renseigner si celui-ci est inconnu
+          ou si présence de jeton FranceConnect. Cette valeur est ignorée si moisDateDeNaissance
+          ou anneeDateDeNaissance est vide.
         example: 1
         required: false
         schema:
@@ -315,8 +364,9 @@ paths:
           maxLength: 5
           example: '08480'
         description: Code Insee à 5 chiffres du lieu de naissance de la personne sur
-          5 chiffres. Ne pas remplir si la personne est née à l'étranger. Le champs
-          est obligatoire si la personne est née en France
+          5 chiffres. Ne pas remplir si la personne est née à l'étranger. Ne pas renseigner
+          si présence de jeton FranceConnect. En l'absence de jeton FranceConnect,
+          ce champs est obligatoire si la personne est née en France.
         required: false
       - name: codePaysLieuDeNaissance
         in: query
@@ -325,8 +375,9 @@ paths:
           minLength: 5
           maxLength: 5
           example: '99100'
-        description: Code Insee à 5 chiffres du pays de naissance (France = 99100)
-        required: true
+        description: Code Insee à 5 chiffres du pays de naissance (France = 99100).
+          Obligatoire si absence de jeton FranceConnect.
+        required: false
       - name: sexe
         in: query
         schema:
@@ -334,9 +385,10 @@ paths:
           enum:
           - M
           - F
-        description: Sexe de la personne, masculin ou féminin
-        required: true
+        description: Sexe de la personne, masculin ou féminin. Obligatoire si absence
+          de jeton FranceConnect.
         example: M
+        required: false
       - name: annee
         in: query
         description: Année du quotient familial recherché. Si l'année n'est pas renseignée,
@@ -353,13 +405,18 @@ paths:
         required: false
         schema:
           type: integer
+      security:
+      - franceConnectToken: []
+        apiKey: []
       description: "Quotient familial et composition de la famille d'un allocataire
         du régime agricole (régime général à venir). \n Pour de plus amples informations
         sur cette api et y avoir accès en avant première, veuillez contacter l'équipe
-        API Particulier. \n **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/api_particulier_v2_cnaf_quotient_familial_v2) "
+        API Particulier. \n **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/api_particulier_v2_cnaf_quotient_familial_v2)
+        \n L'API peut être appellée avec les données identité pivot ou avec un jeton
+        FranceConnect. "
       responses:
         '200':
-          description: Quotient Familial trouvée
+          description: Quotient Familial trouvé
           x-operationId: api_particulier_v2_cnaf_quotient_familial_v2
           content:
             application/json:
@@ -610,6 +667,23 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              examples:
+                acces_non_autorise_50002:
+                  value:
+                    errors:
+                    - code: '50002'
+                      title: Accès non autorisé
+                      detail: Le jeton d'accès n'a pas été trouvé ou est expiré.
+                      source:
+                      meta: {}
+                  summary: Accès non autorisé
+                  description: Le jeton d'accès n'a pas été trouvé ou est expiré.
+              schema:
+                "$ref": "#/components/schemas/Error"
   "/api/v2/scolarites":
     get:
       summary: Statut élève scolarisé et boursier
@@ -618,6 +692,16 @@ paths:
       parameters:
       - name: X-Api-Key
         in: header
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: false
         schema:
           type: string
       - name: nom
@@ -852,6 +936,16 @@ paths:
         in: header
         schema:
           type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: false
+        schema:
+          type: string
       - name: identifiant
         in: query
         description: Identifiant Pôle emploi choisi par le particulier lors de la
@@ -860,7 +954,7 @@ paths:
         required: true
         schema:
           type: string
-      description: Ensemble des paiements versés par Pôle Emploi pour un usager
+      description: Ensemble des paiements versés par Pôle Emploi au particulier
       responses:
         '200':
           description: Paiements trouvées
@@ -880,6 +974,7 @@ paths:
                     example: jean.dupont33
                   paiements:
                     title: Paiements
+                    description: Liste des paiements versés
                     type: array
                     minItems: 1
                     items:
@@ -891,19 +986,42 @@ paths:
                           type: string
                           example: '2021-01-01'
                         montant:
-                          title: Montant
+                          title: Montant total
+                          description: Montant total du paiement. Il s'agit de la
+                            somme des allocations, aides et autres paiements, moins
+                            le prélèvement de l'impôt à la source.
                           type: number
                           example: 123.4
                         allocations:
                           title: Allocations
+                          description: Part du montant correspondant aux paiements
+                            d’allocations (Allocation d'aide au retour à l'emploi,
+                            Allocation de sécurisation professionnelle, Allocation
+                            de solidarité spécifique, Allocation pour les travailleurs
+                            indépendants, Rémunération de formation pole emploi, Rémunération
+                            de fin de formation, Allocation de fin de droit, Allocation
+                            d'accompagnement personnalisé, Allocation de professionnalisation
+                            et de solidarité, Allocation décès, Allocation contrat
+                            engagement jeune).
                           type: number
                           example: 45.1
                         aides:
                           title: Aides
+                          description: Part du montant correspondant aux paiements
+                            d’aides (Aide à la reprise et à la création d’entreprise,
+                            Aide à la mobilité, Aide à la garde d'enfant pour parent
+                            isolé, Aide fin de droit, Aide aux congés non payés, Aide
+                            à la valorisation des acquis par l'expérience, Aide du
+                            fond de sécurisation du secteur automobile, Aide ponctuelle
+                            jeune, Aide régionale, Aide aux demandeurs d'emploi longue
+                            durée, Aide exceptionnelle de solidarité, Prime de reclassement).
                           type: number
                           example: 12.21
                         autres:
                           title: Autres paiements
+                          description: Part du montant correspondant à d’autres paiements
+                            (Prime de Noel, Indemnité différentielle de reclassement,
+                            Acompte, Avance, Reversement).
                           type: number
                           example: 2.34
         '400':
@@ -979,6 +1097,16 @@ paths:
           caractères). Si l'avis est un avis de dégrèvement, l'identifiant est alors
           composé de 14 caractères.
         required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: false
         schema:
           type: string
       tags:
@@ -1239,6 +1367,16 @@ paths:
           type: number
           format: string
           example: 75001
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: false
+        schema:
+          type: string
       tags:
       - Quotient familial
       responses:
@@ -1416,6 +1554,16 @@ paths:
         in: query
         description: Identifiant Pôle emploi choisi par le particulier lors de la
           création de son espace personnel en ligne.
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: false
         schema:
           type: string
       tags:
@@ -1658,6 +1806,16 @@ paths:
         in: query
         schema:
           type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: false
+        schema:
+          type: string
       summary: Statut étudiant
       description: |-
         Admissions et inscriptions d'un étudiant aux établissements d'enseignement supérieur.
@@ -1822,6 +1980,7 @@ paths:
         required: false
         schema:
           type: string
+          example: Angers
       - name: sexe
         description: Sexe de l'étudiant
         in: query
@@ -1830,6 +1989,16 @@ paths:
           enum:
           - M
           - F
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: false
+        schema:
+          type: string
       summary: Statut étudiant boursier
       description: |-
         Statut et échelon boursier d'un étudiant, délivrés par le Cnous.
@@ -2078,4 +2247,14 @@ components:
       in: header
       description: Jeton d'authentification obtenu suite à la validation de votre
         <a href='https://datapass.api.gouv.fr/'>demande d'habilitation</a>, visible
-        sur <a href='https://particulier.api.gouv.fr/compte'>le portail API Particulier</a>
+        sur <a href='https://particulier.api.gouv.fr/compte'>le portail API Particulier</a>.
+        Obligatoire, sauf sur une API FranceConnectée lorsqu'un jeton FranceConnect
+        est présent.
+    franceConnectToken:
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: Jeton FranceConnect
+      description: Jeton FranceConnect obtenu suite à une cinématique de connexion
+        FranceConnect. Ne fonctionne que sur les APIs FranceConnectées. Remplace l'authentification
+        par X-Api-Key sur les APIs FranceConnectées.

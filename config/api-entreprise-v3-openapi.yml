@@ -23,6 +23,83 @@ tags:
 - name: Certifications professionnelles
 - name: Propriété intellectuelle
 paths:
+  "/privileges":
+    get:
+      summary: Privileges associés au jeton
+      description: Renvoi la liste des droits associé au jeton
+      security:
+      - jwt_bearer_token: []
+      responses:
+        '200':
+          description: Liste des droits
+          x-operationId: api_entreprise_vrivileges_
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                old_token_error:
+                  value:
+                    errors:
+                    - code: '00102'
+                      title: Format de jeton plus supporté
+                      detail: Vous avez utilisé un token à l'ancien format. Ce format
+                        n'est plus supporté depuis avril 2019. Vous devez refaire
+                        une demande à API Entreprise, un guide est disponible sur
+                        https://entreprise.api.gouv.fr/demander_un_acces/
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Format de jeton plus supporté
+                  description: Vous avez utilisé un token à l'ancien format. Ce format
+                    n'est plus supporté depuis avril 2019. Vous devez refaire une
+                    demande à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/demander_un_acces/
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                        à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/faq#comment-renouveler-mon-jeton-arrivant-a-expiration
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                    à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/faq#comment-renouveler-mon-jeton-arrivant-a-expiration
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/privileges"
   "/v3/urssaf/unites_legales/{siren}/attestation_vigilance":
     get:
       summary: Attestation de vigilance
@@ -570,9 +647,6 @@ paths:
           siret_non_diffusible:
             value: '00557246600026'
             summary: SIRET établissement non diffusible
-          siret_agefiph:
-            value: '39332832300059'
-            summary: SIRET pour AGEFIPH
           siret_msa:
             value: '81104725700019'
             summary: SIRET pour MSA
@@ -1753,9 +1827,6 @@ paths:
           siret_non_diffusible:
             value: '00557246600026'
             summary: SIRET établissement non diffusible
-          siret_agefiph:
-            value: '39332832300059'
-            summary: SIRET pour AGEFIPH
           siret_msa:
             value: '81104725700019'
             summary: SIRET pour MSA
@@ -1949,7 +2020,8 @@ paths:
                         example: '12000101100010'
                       code_uai:
                         title: Code UAI de l'établissement
-                        description: Code UAI de l'établissement agrée
+                        description: Code UAI de l'établissement agrée. Cet identifiant
+                          unique est affecté aux établissements de l'éducation nationale.
                         example: 0123456A
                         type: string
                         nullable: true
@@ -1967,9 +2039,10 @@ paths:
                       declarations_activites_etablissement:
                         type: array
                         description: Informations relatives au numéro de déclaration
-                          d'activité de l'établissement (NDA). Cette clé renvoie un
-                          tableau car, dans de rares cas, un établissement peut avoir
-                          plusieurs NDA (environ 30 établissements sur 120 000).
+                          d'activité de l'établissement (NDA) si celui-ci en possède
+                          un. Cette clé renvoie un tableau car, dans de rares cas,
+                          un établissement peut avoir plusieurs NDA (environ 30 établissements
+                          sur 120 000).
                         items:
                           type: object
                           properties:
@@ -2141,8 +2214,9 @@ paths:
                       habilitations_france_competence:
                         type: array
                         description: Informations relatives aux habilitations France
-                          Compétences obtenues par l'établissement. La liste des habilitations
-                          France Compétences n'est pas figée et est mise à jour régulièrement
+                          Compétences obtenues par l'établissement lorsque celui-ci
+                          a demandé à être certifié. La liste des habilitations France
+                          Compétences n'est pas figée et est mise à jour régulièrement
                           par les organismes certificateurs.
                         items:
                           type: object
@@ -4120,9 +4194,6 @@ paths:
           siret_non_diffusible:
             value: '00557246600026'
             summary: SIRET établissement non diffusible
-          siret_agefiph:
-            value: '39332832300059'
-            summary: SIRET pour AGEFIPH
           siret_msa:
             value: '81104725700019'
             summary: SIRET pour MSA
@@ -8633,9 +8704,6 @@ paths:
           siret_non_diffusible:
             value: '00557246600026'
             summary: SIRET établissement non diffusible
-          siret_agefiph:
-            value: '39332832300059'
-            summary: SIRET pour AGEFIPH
           siret_msa:
             value: '81104725700019'
             summary: SIRET pour MSA
@@ -9874,9 +9942,6 @@ paths:
           siret_non_diffusible:
             value: '00557246600026'
             summary: SIRET établissement non diffusible
-          siret_agefiph:
-            value: '39332832300059'
-            summary: SIRET pour AGEFIPH
           siret_msa:
             value: '81104725700019'
             summary: SIRET pour MSA
@@ -10349,7 +10414,8 @@ paths:
       security:
       - jwt_bearer_token: []
       description: Extrait d'une partie des données du registre du commerce et des
-        sociétés (RCS) ; ainsi que les commentaires laissés par les greffiers.
+        sociétés (RCS), informations générales des mandataires sociaux, ainsi que
+        les commentaires laissés par les greffiers.
       responses:
         '401':
           description: Non autorisé
@@ -11151,8 +11217,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Liste des mandataires sociaux d'une société inscrite au RCS, délivrée
-        par Infogreffe.
+      description: Liste des mandataires sociaux d'une société inscrite au registre
+        du commerce et des sociétés (RCS), délivrée par Infogreffe.
       responses:
         '401':
           description: Non autorisé
@@ -13585,6 +13651,15 @@ paths:
                               required:
                               - annee
                               - mois
+                            nationalite:
+                              type: string
+                              title: Nationalité du bénéficiaire effectif
+                              example: France
+                            pays_residence:
+                              type: string
+                              title: Pays de résidence du bénéficiaire effectif
+                              example: FRANCE
+                              nullable: true
                             modalites:
                               title: Liste des modalités de contrôle du bénéficiaire
                                 effectif
@@ -14197,6 +14272,8 @@ paths:
                           - nom_usage
                           - prenoms
                           - date_naissance
+                          - nationalite
+                          - pays_residence
                           - modalites
                         links:
                           type: object
@@ -14378,9 +14455,6 @@ paths:
           siret_non_diffusible:
             value: '00557246600026'
             summary: SIRET établissement non diffusible
-          siret_agefiph:
-            value: '39332832300059'
-            summary: SIRET pour AGEFIPH
           siret_msa:
             value: '81104725700019'
             summary: SIRET pour MSA
@@ -14981,9 +15055,6 @@ paths:
           siret_non_diffusible:
             value: '00557246600026'
             summary: SIRET établissement non diffusible
-          siret_agefiph:
-            value: '39332832300059'
-            summary: SIRET pour AGEFIPH
           siret_msa:
             value: '81104725700019'
             summary: SIRET pour MSA
@@ -15612,9 +15683,6 @@ paths:
           siret_non_diffusible:
             value: '00557246600026'
             summary: SIRET établissement non diffusible
-          siret_agefiph:
-            value: '39332832300059'
-            summary: SIRET pour AGEFIPH
           siret_msa:
             value: '81104725700019'
             summary: SIRET pour MSA
@@ -16908,9 +16976,6 @@ paths:
           siret_non_diffusible:
             value: '00557246600026'
             summary: SIRET établissement non diffusible
-          siret_agefiph:
-            value: '39332832300059'
-            summary: SIRET pour AGEFIPH
           siret_msa:
             value: '81104725700019'
             summary: SIRET pour MSA
@@ -23510,9 +23575,6 @@ paths:
           siret_non_diffusible:
             value: '00557246600026'
             summary: SIRET établissement non diffusible
-          siret_agefiph:
-            value: '39332832300059'
-            summary: SIRET pour AGEFIPH
           siret_msa:
             value: '81104725700019'
             summary: SIRET pour MSA
@@ -23861,6 +23923,9 @@ paths:
                   description: Problème de résolution DNS de l'adresse du serveur
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-maintenances:
+        from_hour: '03:00'
+        to_hour: '03:30'
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -24330,9 +24395,6 @@ paths:
           siret_non_diffusible:
             value: '00557246600026'
             summary: SIRET établissement non diffusible
-          siret_agefiph:
-            value: '39332832300059'
-            summary: SIRET pour AGEFIPH
           siret_msa:
             value: '81104725700019'
             summary: SIRET pour MSA
@@ -25082,7 +25144,7 @@ paths:
             --url "https://entreprise.api.gouv.fr/v3/probtp/etablissements/13002526500013/conformite_cotisations_retraite?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/qualibat/etablissements/{siret}/certification_batiment":
     get:
-      summary: Certification Qualibat
+      summary: Certification Qualibat (PDF seulement)
       tags:
       - Certifications professionnelles
       parameters:
@@ -25096,9 +25158,6 @@ paths:
           siret_non_diffusible:
             value: '00557246600026'
             summary: SIRET établissement non diffusible
-          siret_agefiph:
-            value: '39332832300059'
-            summary: SIRET pour AGEFIPH
           siret_msa:
             value: '81104725700019'
             summary: SIRET pour MSA
@@ -25153,6 +25212,7 @@ paths:
         required: true
         schema:
           type: string
+      deprecated: true
       security:
       - jwt_bearer_token: []
       description: Certification délivrée par l'association Qualibat, attestant de
@@ -25508,6 +25568,529 @@ paths:
           curl -X GET \
             -H "Authorization: Bearer $token" \
             --url "https://entreprise.api.gouv.fr/v3/qualibat/etablissements/13002526500013/certification_batiment?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
+  "/v4/qualibat/etablissements/{siret}/certification_batiment":
+    get:
+      summary: Certification Qualibat
+      tags:
+      - Certifications professionnelles
+      parameters:
+      - name: siret
+        in: path
+        description: Siret de l'établissement
+        examples:
+          siret_octo_technology:
+            value: '41816609600069'
+            summary: SIRET Octo Technology
+          siret_non_diffusible:
+            value: '00557246600026'
+            summary: SIRET établissement non diffusible
+          siret_msa:
+            value: '81104725700019'
+            summary: SIRET pour MSA
+          siret_probtp:
+            value: '43841606700017'
+            summary: SIRET pour ProBTP
+          siret_qualibat:
+            value: '78824266700020'
+            summary: SIRET pour Qualibat
+          siret_entrepreneur_individuel:
+            value: '38983993700015'
+            summary: SIRET d'un entrepreneur individuel (fermé)
+          siret_ademe:
+            value: '42878198300039'
+            summary: SIRET pour ADEME RGE
+          siret_qualifelec:
+            value: '42054064300376'
+            summary: SIRET pour Qualifelec
+          siret_qualiopi:
+            value: '81841109200013'
+            summary: SIRET pour Qualiopi
+        required: true
+        schema:
+          type: string
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Certification délivrée par l'association Qualibat, attestant de
+        la qualification d’une entreprise dans le bâtiment.
+      responses:
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                old_token_error:
+                  value:
+                    errors:
+                    - code: '00102'
+                      title: Format de jeton plus supporté
+                      detail: Vous avez utilisé un token à l'ancien format. Ce format
+                        n'est plus supporté depuis avril 2019. Vous devez refaire
+                        une demande à API Entreprise, un guide est disponible sur
+                        https://entreprise.api.gouv.fr/demander_un_acces/
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Format de jeton plus supporté
+                  description: Vous avez utilisé un token à l'ancien format. Ce format
+                    n'est plus supporté depuis avril 2019. Vous devez refaire une
+                    demande à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/demander_un_acces/
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                        à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/faq#comment-renouveler-mon-jeton-arrivant-a-expiration
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                    à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/faq#comment-renouveler-mon-jeton-arrivant-a-expiration
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '403':
+          description: Accès interdit
+          content:
+            application/json:
+              examples:
+                insufficient_privileges_error:
+                  value:
+                    errors:
+                    - code: '00100'
+                      title: Privilèges insuffisants
+                      detail: Votre token est valide mais vos privilèges sont insuffisants.
+                        Listez vos privilèges sur /v2/privileges
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Privilèges insuffisants
+                  description: Votre token est valide mais vos privilèges sont insuffisants.
+                    Listez vos privilèges sur /v2/privileges
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
+                  value:
+                    errors:
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
+                      source: 
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '200':
+          description: Certification trouvée
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          x-operationId: api_entreprise_v4_qualibat_certifications_batiment
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      document_url:
+                        title: Lien vers la certification batiment Qualibat
+                        type: string
+                        description: Cette URL permet de télécharger la certification
+                          Qualibat au format PDF.
+                        example: https://storage.entreprise.api.gouv.fr/siade/1635521735-1a675fc210d09e04604aabe5e93b452fb56865f5-certificat_qualibat.pdf
+                      document_url_expires_in:
+                        title: Nombre de secondes avant expiration du document référencé
+                          dans 'document_url'
+                        description: 'Il s''agit d''une expiration technique: cette
+                          valeur n''a aucun lien avec les dates de fin de validité
+                          ou d''émission.'
+                        type: integer
+                        example: 86400
+                      date_emission:
+                        title: Date d'émission du document
+                        type: date
+                        nullable: true
+                        example: '2023-01-01'
+                      date_fin_validite:
+                        title: Date de fin de validité du document
+                        type: date
+                        nullable: true
+                        example: '2024-02-02'
+                      entity:
+                        type: object
+                        title: Informations sur l'entité référencée dans le document
+                        properties:
+                          assurance_responsabilite_travaux:
+                            title: Informations relatives à l'assurance responsabilité
+                              travaux
+                            description: Les attributs peuvent être nuls si les informations
+                              sont absentes du PDF ou si l'assurance est inconnue
+                              de notre service.
+                            type: object
+                            properties:
+                              nom:
+                                title: Nom de l'assurance
+                                example: GROUPAMA
+                                type: string
+                                nullable: true
+                              identifiant:
+                                title: Numéro d'identification de l'entité enregistrée
+                                  auprès de l'assurance
+                                example: '1234567890'
+                                type: string
+                                nullable: true
+                            required:
+                            - nom
+                            - identifiant
+                          assurance_responsabilite_civile:
+                            title: Informations relatives à l'assurance responsabilité
+                              civile
+                            type: object
+                            description: Les attributs peuvent être nuls si les informations
+                              sont absentes du PDF ou si l'assurance est inconnue
+                              de notre service.
+                            properties:
+                              nom:
+                                title: Nom de l'assurance
+                                example: GROUPAMA
+                                type: string
+                                nullable: true
+                              identifiant:
+                                title: Numéro d'identification de l'entité enregistrée
+                                  auprès de l'assurance
+                                example: '1234567890'
+                                type: string
+                                nullable: true
+                            required:
+                            - nom
+                            - identifiant
+                          certifications:
+                            type: array
+                            title: Tableau des certifications associées à l'entité
+                            items:
+                              type: object
+                              title: Certification
+                              nullable: true
+                              properties:
+                                code:
+                                  type: string
+                                  title: Code associé à la certification
+                                  example: '4322'
+                                libelle:
+                                  title: Libellé de la certification
+                                  type: string
+                                  example: Fabrication et pose de menuiserie intérieure
+                                    en bois
+                                rge:
+                                  title: Indique si la certification est RGE
+                                  description: Ce champ indique si la certification
+                                    est labellisée RGE (reconnu garant de l'environnement)
+                                  type: boolean
+                                  example: false
+                                  enum:
+                                  - true
+                                  - false
+                                date_attribution:
+                                  title: Date d'attribution
+                                  type: date
+                                  example: '2022-03-03'
+                        required:
+                        - assurance_responsabilite_travaux
+                        - assurance_responsabilite_civile
+                        - certifications
+                    required:
+                    - document_url
+                    - document_url_expires_in
+                    - date_emission
+                    - date_fin_validite
+                    - entity
+                    additionalProperties: false
+                  links:
+                    type: object
+                  meta:
+                    type: object
+                required:
+                - data
+                - links
+                - meta
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                unprocessable_entity_error_siret_error:
+                  value:
+                    errors:
+                    - code: '00302'
+                      title: Entité non traitable
+                      detail: Le numéro de siret n'est pas correctement formatté
+                      source:
+                        parameter: siret
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le numéro de siret n'est pas correctement formatté
+                missing_mandatory_params_context_error:
+                  value:
+                    errors:
+                    - code: '00201'
+                      title: Entité non traitable
+                      detail: Le paramètre context est obligatoire
+                      source:
+                        parameter: context
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre context est obligatoire
+                missing_mandatory_params_object_error:
+                  value:
+                    errors:
+                    - code: '00202'
+                      title: Entité non traitable
+                      detail: Le paramètre object est obligatoire
+                      source:
+                        parameter: object
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre object est obligatoire
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '502':
+          description: Erreur du fournisseur
+          content:
+            application/json:
+              examples:
+                unknown_error:
+                  value:
+                    errors:
+                    - code: '06999'
+                      title: Erreur inconnue du fournisseur de données
+                      detail: La réponse retournée par le fournisseur de données est
+                        invalide et inconnue de notre service. L'équipe technique
+                        a été notifiée de cette erreur pour investigation.
+                      source: 
+                      meta:
+                        provider: Qualibat
+                  summary: Erreur inconnue du fournisseur de données
+                  description: La réponse retournée par le fournisseur de données
+                    est invalide et inconnue de notre service. L'équipe technique
+                    a été notifiée de cette erreur pour investigation.
+                fichier_renvoye_par_le_fournisseur_de_donnees_non_valide_06051:
+                  value:
+                    errors:
+                    - code: '06051'
+                      title: Fichier renvoyé par le fournisseur de données non valide
+                      detail: 'Erreur lors du décodage : la chaîne de caractères en
+                        base64 est invalide'
+                      source: 
+                      meta: {}
+                  summary: Fichier renvoyé par le fournisseur de données non valide
+                  description: 'Erreur lors du décodage : la chaîne de caractères
+                    en base64 est invalide'
+                fichier_renvoye_par_le_fournisseur_de_donnees_non_valide_06052:
+                  value:
+                    errors:
+                    - code: '06052'
+                      title: Fichier renvoyé par le fournisseur de données non valide
+                      detail: Temps d'attente de téléchargement du document écoulé
+                      source: 
+                      meta: {}
+                  summary: Fichier renvoyé par le fournisseur de données non valide
+                  description: Temps d'attente de téléchargement du document écoulé
+                fichier_renvoye_par_le_fournisseur_de_donnees_non_valide_06053:
+                  value:
+                    errors:
+                    - code: '06053'
+                      title: Fichier renvoyé par le fournisseur de données non valide
+                      detail: Erreur de connexion sur le server distant
+                      source: 
+                      meta: {}
+                  summary: Fichier renvoyé par le fournisseur de données non valide
+                  description: Erreur de connexion sur le server distant
+                fichier_renvoye_par_le_fournisseur_de_donnees_non_valide_06054:
+                  value:
+                    errors:
+                    - code: '06054'
+                      title: Fichier renvoyé par le fournisseur de données non valide
+                      detail: L'URL vers le document renvoyée par le fournisseur de
+                        données est invalide
+                      source: 
+                      meta: {}
+                  summary: Fichier renvoyé par le fournisseur de données non valide
+                  description: L'URL vers le document renvoyée par le fournisseur
+                    de données est invalide
+                fichier_renvoye_par_le_fournisseur_de_donnees_non_valide_06055:
+                  value:
+                    errors:
+                    - code: '06055'
+                      title: Fichier renvoyé par le fournisseur de données non valide
+                      detail: Le fichier n'est pas au format attendu
+                      source: 
+                      meta: {}
+                  summary: Fichier renvoyé par le fournisseur de données non valide
+                  description: Le fichier n'est pas au format attendu
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Certification non trouvée
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '504':
+          description: Erreur d'intermédiaire
+          content:
+            application/json:
+              examples:
+                timeout_error:
+                  value:
+                    errors:
+                    - code: '06002'
+                      title: Intermédiaire hors-délai
+                      detail: Temps d’attente d’une réponse du fournisseur de données
+                        écoulé.
+                      source: 
+                      meta:
+                        provider: Qualibat
+                  summary: Intermédiaire hors-délai
+                  description: Temps d’attente d’une réponse du fournisseur de données
+                    écoulé.
+                provider_unavailable_error:
+                  value:
+                    errors:
+                    - code: '06001'
+                      title: Service non disponible
+                      detail: Service du fournisseur de données temporairement indisponible
+                        ou en maintenance.
+                      source: 
+                      meta:
+                        provider: Qualibat
+                  summary: Service non disponible
+                  description: Service du fournisseur de données temporairement indisponible
+                    ou en maintenance.
+                network_error:
+                  value:
+                    errors:
+                    - code: '00501'
+                      title: Erreur réseau
+                      detail: Problème de connexion au serveur distant. L'erreur peut
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
+                      source: 
+                      meta:
+                        retry_in: 10
+                  summary: Erreur réseau
+                  description: Problème de connexion au serveur distant. L'erreur
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
+                dns_resolution_error:
+                  value:
+                    errors:
+                    - code: '06004'
+                      title: Erreur de résolution DNS
+                      detail: Problème de résolution DNS de l'adresse du serveur
+                      source: 
+                      meta:
+                        provider: Qualibat
+                  summary: Erreur de résolution DNS
+                  description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v4/qualibat/etablissements/13002526500013/certification_batiment?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/qualifelec/etablissements/{siret}/certificats":
     get:
       summary: Certification Qualifelec
@@ -25524,9 +26107,6 @@ paths:
           siret_non_diffusible:
             value: '00557246600026'
             summary: SIRET établissement non diffusible
-          siret_agefiph:
-            value: '39332832300059'
-            summary: SIRET pour AGEFIPH
           siret_msa:
             value: '81104725700019'
             summary: SIRET pour MSA
