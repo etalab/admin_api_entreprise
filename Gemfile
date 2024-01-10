@@ -1,10 +1,9 @@
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
-
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 7.1'
@@ -34,14 +33,14 @@ gem 'ip_anonymizer'
 gem 'jwt'
 gem 'mailjet'
 gem 'mjml-rails'
-gem 'pundit'
 gem 'omniauth-oauth2'
 gem 'omniauth-rails_csrf_protection'
+gem 'pundit'
 gem 'sitemap_generator'
 
 gem 'pastel'
 
-gem 'rails-i18n','~> 7.0.8'
+gem 'rails-i18n', '~> 7.0.8'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
@@ -54,12 +53,12 @@ gem 'interactor'
 
 gem 'chronic'
 
-gem 'sentry-ruby'
 gem 'sentry-rails'
+gem 'sentry-ruby'
 
 gem 'kramdown-parser-gfm'
 
-gem "algoliasearch-rails"
+gem 'algoliasearch-rails'
 
 gem 'listen'
 
@@ -71,18 +70,18 @@ gem 'gaffe'
 
 group :development, :test do
   gem 'awesome_print'
+  gem 'brakeman'
+  gem 'bullet'
   gem 'colorize'
   gem 'factory_bot_rails'
+  gem 'guard-rspec'
+  gem 'i18n-tasks'
   gem 'pry'
   gem 'pry-byebug'
   gem 'pry-rails'
-  gem 'unindent'
-  gem 'guard-rspec'
-  gem 'timecop'
   gem 'rack_session_access'
-  gem 'i18n-tasks'
-  gem 'brakeman'
-  gem 'bullet'
+  gem 'timecop'
+  gem 'unindent'
 end
 
 group :development do
@@ -101,14 +100,14 @@ end
 
 group :test do
   gem 'capybara', '>= 3.26'
-  gem "cuprite"
-  gem 'webmock'
+  gem 'cuprite'
   gem 'rspec-collection_matchers'
-  gem 'rspec-rails', '6.1.0'
   gem 'rspec-its'
+  gem 'rspec-rails', '6.1.0'
+  gem 'rspec-retry'
+  gem 'shoulda-matchers'
   gem 'simplecov', require: false
   gem 'simplecov-console', require: false
-  gem 'shoulda-matchers'
   gem 'super_diff'
-  gem 'rspec-retry'
+  gem 'webmock'
 end
