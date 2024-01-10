@@ -184,20 +184,23 @@ fr:
               - title: Tester l'API en préproduction
                 anchor: 'tester-api-preproduction'
                 content: |+
-                  L'API&nbsp;Particulier est **testable avec un jeton accessible à tous depuis notre environnement de staging**. Ce bac à sable retourne des données fictives, les données de tests sont disponibles depuis [ce dépôt Github](https://github.com/etalab/siade_staging_data){:target="_blank"}.
+                  {:.fr-text--lg}
+                  L'API&nbsp;Particulier propose un environnement de test ou bac à sable pour vous permettre de tester le branchement de l'API avec votre système d'informations. 
+                   
+                  {:.fr-highlight}
+                  > 💡 L'environnement de test est une fonctionnalité à destination des usagers techniques. Si vous êtes un profil métier, veuillez vous référer aux fiches métier de chaque API disponibles depuis le [catalogue](<%= endpoints_path %>).
 
-                  Pour utiliser l'environnement de test, plusieurs moyens sont possibles :
-                  * **Utilisez l'interface disponible depuis [API.gouv](https://api.gouv.fr/documentation/api-particulier){:target="_blank"}** :
-                      1. Copiez le jeton de test disponible dans les premiers paragraphes de la page.
-                      2. Sélectionnez _"https://staging.particulier.api.gouv.fr - Environnement de staging"_ dans le menu déroulant situé un peu plus bas du jeton de test, à gauche.
-                      3. Cliquez sur le bouton à droite _"Authorize"_, et entrez le jeton de test dans le champ _"Value"_ de la modale qui s'est ouverte ; validez en cliquant sur _"Authorize"_. L'environnement de test est configuré, fermez la modale.
-                      4. Pour terminer, pour chacune des API, un bouton _"Try it out"_ vous permet de préremplir les paramètres d'appel avec différents exemples. Appuyez sur _"Execute"_ pour obtenir les différentes réponses possibles.
+                  {:.fr-text--lg}
+                  **Les informations essentielles du bac à sable :**
 
-                  * **Utilisez un logiciel de type _Postman_ à partir du fichier OpenAPI :**
-                      1. Téléchargez le fichier OpenAPI de l'API&nbsp;Particulier depuis la [page de swagger](<%= developers_openapi_path %>), avec le bouton "Download" situé en début de page.
-                      2. Importer ce fichier dans un logiciel de test de type _Postman_.
-                      3. Configurez votre environnement avec l'url de l'environnement de staging `https://staging.particulier.api.gouv.fr`.
-                      API&nbsp;Particulier ne recommande pas un logiciel plus qu'un autre, de nombreux tutoriels sont disponibles sur internet.
+                  - **Une URL :** L''environnement de staging est appelable avec `https://staging.particulier.api.gouv.fr`.
+
+                  - **Les jetons d'accès** : Pour être fidèle au fonctionnement de l'API en production, cet environnement de test nécessite aussi un jeton d'accès, mais celui-ci, contrairement aux [jetons de production](#récupérer-le-jeton-jwt), est public car la donnée renvoyée en bac à sable est fictive. Un jeton ayant tous les droits est accessible [ici](https://github.com/etalab/siade_staging_data/blob/develop/tokens/default){:target="_blank"}. Pour générer un jeton spécifique, veuillez vous référer à ce [tutoriel](https://github.com/etalab/siade_staging_data/tree/develop/tokens){:target="_blank"}.
+                  
+                  - **Les données fictives de réponse :** Les données retournées par cet environnement de test sont totalement fictives et disponibles depuis [ce dépôt Github](https://github.com/etalab/siade_staging_data/tree/develop/payloads){:target="_blank"}.
+
+                  **Pour en savoir plus, veuillez consulter le [README du dépôt Github dédié](https://github.com/etalab/siade_staging_data){:target="_blank"}.**
+
 
               - title: Récupérer le jeton JWT&nbsp;🔑
                 anchor: 'récupérer-le-jeton-jwt'
