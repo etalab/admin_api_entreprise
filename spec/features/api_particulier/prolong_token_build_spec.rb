@@ -33,8 +33,8 @@ RSpec.describe 'follows the prolong token wizard', app: :api_particulier do
       login_as(authenticated_user)
     end
 
-    describe 'when following the wizard' do
-      it 'is on happy path and is prolonged' do
+    describe 'when contact_technique or contact_metier is not present' do
+      it 'does not allow to keep contacts' do
         go_to_prolong_token_start
 
         choose('prolong_token_wizard_owner_still_in_charge')
@@ -45,7 +45,45 @@ RSpec.describe 'follows the prolong token wizard', app: :api_particulier do
         click_button('next_prolong_token_wizard')
         expect(current_url).to include('contacts')
 
+        expect(page).not_to have_css('#prolong_token_wizard_contact_metier_true')
+        expect(page).not_to have_css('#prolong_token_wizard_contact_technique_true')
+
+        expect(page).to have_css('#prolong_token_wizard_contact_metier_false')
+        expect(page).to have_css('#prolong_token_wizard_contact_technique_false')
+      end
+    end
+
+    describe 'when on happy path' do
+      let!(:authenticated_user) { create(:user, :demandeur, :contact_metier, :contact_technique) }
+
+      let!(:authorization_request) do
+        create(
+          :authorization_request,
+          :with_demandeur,
+          :with_contact_metier,
+          :with_contact_technique,
+          demandeur: authenticated_user,
+          contact_metier: authenticated_user,
+          contact_technique: authenticated_user,
+          api: 'entreprise',
+          status: 'validated'
+        )
+      end
+
+      it 'is prolonged' do
+        go_to_prolong_token_start
+
+        choose('prolong_token_wizard_owner_still_in_charge')
+        click_button('next_prolong_token_wizard')
+        expect(current_url).to include('project_purpose')
+
+        choose('prolong_token_wizard_project_purpose_true')
+        click_button('next_prolong_token_wizard')
+        expect(current_url).to include('contacts')
+
+        expect(page).to have_css('#prolong_token_wizard_contact_metier_true')
         choose('prolong_token_wizard_contact_metier_true')
+        expect(page).to have_css('#prolong_token_wizard_contact_technique_true')
         choose('prolong_token_wizard_contact_technique_true')
         click_button('next_prolong_token_wizard')
         expect(current_url).to include('summary')
@@ -59,7 +97,7 @@ RSpec.describe 'follows the prolong token wizard', app: :api_particulier do
         expect(token.reload.exp).to eq(18.months.from_now.to_i)
       end
 
-      it 'is on happy path and it requires update' do
+      it 'requires update' do
         go_to_prolong_token_start
 
         choose('prolong_token_wizard_owner_still_in_charge')
