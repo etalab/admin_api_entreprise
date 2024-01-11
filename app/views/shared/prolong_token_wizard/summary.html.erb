@@ -7,8 +7,14 @@
       <%= t('.prolonged.description', external_id: @prolong_token_wizard.token.authorization_request.external_id).html_safe %>
     </p>
     <p class="fr-text--sm">
-      <%= t('.prolonged.cgu').html_safe %>
+      <%= t('.prolonged.cgu', api: t("#{namespace}.api")).html_safe %>
     </p>
+
+    <% if @prolong_token_wizard.owner == 'not_in_charge' %>
+    <p>
+      <%= t('.prolonged.owner_not_in_charge', api: t("#{namespace}.api")).html_safe %>
+    </p>
+    <% end %>
 
     <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--right">
       <% if !current_page?(previous_wizard_path) %>

@@ -45,10 +45,9 @@ class ProlongTokenWizard < ApplicationRecord
   end
 
   def should_prolong_token?
-    owner != 'not_in_charge' &&
-      project_purpose &&
-      contact_metier &&
-      contact_technique
+    project_purpose &&
+    contact_metier &&
+    contact_technique
   end
 
   def prolong!
