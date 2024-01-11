@@ -6,13 +6,14 @@ RSpec.describe 'follows the prolong token wizard', app: :api_particulier do
   let!(:authenticated_user) { create(:user) }
   let!(:non_authenticated_user) { create(:user, :demandeur) }
   let!(:exp) { 88.days.from_now.to_i }
+  let!(:api) { 'entreprise' }
 
   let!(:authorization_request) do
     create(
       :authorization_request,
       :with_demandeur,
       demandeur: authenticated_user,
-      api: 'entreprise',
+      api:,
       status: 'validated'
     )
   end
@@ -53,7 +54,7 @@ RSpec.describe 'follows the prolong token wizard', app: :api_particulier do
       end
     end
 
-    describe 'when on happy path' do
+    describe 'when on happy path with api entreprise' do
       let!(:authenticated_user) { create(:user, :demandeur, :contact_metier, :contact_technique) }
 
       let!(:authorization_request) do
@@ -65,7 +66,7 @@ RSpec.describe 'follows the prolong token wizard', app: :api_particulier do
           demandeur: authenticated_user,
           contact_metier: authenticated_user,
           contact_technique: authenticated_user,
-          api: 'entreprise',
+          api:,
           status: 'validated'
         )
       end
@@ -109,6 +110,68 @@ RSpec.describe 'follows the prolong token wizard', app: :api_particulier do
         expect(current_url).to include('contacts')
 
         choose('prolong_token_wizard_contact_metier_true')
+        choose('prolong_token_wizard_contact_technique_true')
+        click_button('next_prolong_token_wizard')
+        expect(current_url).to include('summary')
+
+        expect(page).to have_content("de la raison d'être du projet")
+
+        expect(token.reload.exp).to eq(exp)
+      end
+    end
+
+    describe 'when on happy path with api particulier' do
+      let!(:api) { 'particulier' }
+      let!(:authenticated_user) { create(:user, :demandeur, :contact_technique) }
+
+      let!(:authorization_request) do
+        create(
+          :authorization_request,
+          :with_demandeur,
+          :with_contact_technique,
+          demandeur: authenticated_user,
+          contact_technique: authenticated_user,
+          api:,
+          status: 'validated'
+        )
+      end
+
+      it 'is prolonged' do
+        go_to_prolong_token_start
+
+        choose('prolong_token_wizard_owner_still_in_charge')
+        click_button('next_prolong_token_wizard')
+        expect(current_url).to include('project_purpose')
+
+        choose('prolong_token_wizard_project_purpose_true')
+        click_button('next_prolong_token_wizard')
+        expect(current_url).to include('contacts')
+
+        expect(page).to have_css('#prolong_token_wizard_contact_technique_true')
+        choose('prolong_token_wizard_contact_technique_true')
+        click_button('next_prolong_token_wizard')
+        expect(current_url).to include('summary')
+
+        click_link('finished_prolong_token_wizard')
+        expect(current_url).to include('finished')
+
+        expect(page).to have_content('Votre jeton a été prolongé')
+        expect(page).to have_css('#prolonged_to_authorization_request')
+
+        expect(token.reload.exp).to eq(18.months.from_now.to_i)
+      end
+
+      it 'requires update' do
+        go_to_prolong_token_start
+
+        choose('prolong_token_wizard_owner_still_in_charge')
+        click_button('next_prolong_token_wizard')
+        expect(current_url).to include('project_purpose')
+
+        choose('prolong_token_wizard_project_purpose_false')
+        click_button('next_prolong_token_wizard')
+        expect(current_url).to include('contacts')
+
         choose('prolong_token_wizard_contact_technique_true')
         click_button('next_prolong_token_wizard')
         expect(current_url).to include('summary')

@@ -6,33 +6,40 @@
     <h4>
       <%= t('.subtitle') %>
     </h4>
-    <fieldset class="fr-fieldset">
-      <div class="fr-container--fluid">
-        <div class="fr-grid-row">
-          <div class="fr-col-12">
-            <legend class="fr-fieldset__legend--regular fr-fieldset__legend fr-mb-0">
-              <%= f.label :contact_metier, t('.contact_metier.label') %>
-              <div class="fr-background-alt--grey fr-p-3v fr-pb-0">
-                <div class="fr-highlight fr-highlight--default-grey fr-pt-1v fr-ml-1v fr-pl-3v">
-                  <%= render partial: 'shared/prolong_token_wizard/contact', locals: { contact: @prolong_token_wizard.authorization_request.contact_metier, type: 'contact_metier' } %>
+
+    <% if @prolong_token_wizard.authorization_request.api == 'particulier' %>
+      <div class="fr-fieldset__element">
+        <%= f.radio_button :contact_metier, true, checked: true, hidden: true %>
+      </div>
+    <% else %>
+      <fieldset class="fr-fieldset">
+        <div class="fr-container--fluid">
+          <div class="fr-grid-row">
+            <div class="fr-col-12">
+              <legend class="fr-fieldset__legend--regular fr-fieldset__legend fr-mb-0">
+                <%= f.label :contact_metier, t('.contact_metier.label') %>
+                <div class="fr-background-alt--grey fr-p-3v fr-pb-0">
+                  <div class="fr-highlight fr-highlight--default-grey fr-pt-1v fr-ml-1v fr-pl-3v">
+                    <%= render partial: 'shared/prolong_token_wizard/contact', locals: { contact: @prolong_token_wizard.authorization_request.contact_metier, type: 'contact_metier' } %>
+                  </div>
                 </div>
-              </div>
-            </legend>
+              </legend>
+            </div>
           </div>
         </div>
-      </div>
 
-      <% if @prolong_token_wizard.authorization_request.contact_metier %>
+        <% if @prolong_token_wizard.authorization_request.contact_metier %>
+          <div class="fr-fieldset__element">
+            <%= f.radio_button :contact_metier, true %>
+            <%= label_tag :contact_metier, t('.radio.contact_metier') %>
+          </div>
+        <% end %>
         <div class="fr-fieldset__element">
-          <%= f.radio_button :contact_metier, true %>
-          <%= label_tag :contact_metier, t('.radio.contact_metier') %>
+          <%= f.radio_button :contact_metier, false, checked: true %>
+          <%= label_tag :contact_metier, t('.radio.change_contact_metier') %>
         </div>
-      <% end %>
-      <div class="fr-fieldset__element">
-        <%= f.radio_button :contact_metier, false, checked: true %>
-        <%= label_tag :contact_metier, t('.radio.change_contact_metier') %>
-      </div>
-    </fieldset>
+      </fieldset>
+    <% end %>
 
     <fieldset class="fr-fieldset fr-mt-6v">
       <div class="fr-container--fluid">
