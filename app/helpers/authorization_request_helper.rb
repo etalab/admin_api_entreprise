@@ -15,6 +15,14 @@ module AuthorizationRequestHelper
     expected_actions
   end
 
+  def prolong_token_label(token)
+    return I18n.t('shared.prolong_token_wizard.display_cta') if token.last_prolong_token_wizard.nil?
+    return I18n.t('shared.prolong_token_wizard.requires_update_cta') if token.last_prolong_token_wizard.requires_update?
+    return I18n.t('shared.prolong_token_wizard.updates_requested_cta') if token.last_prolong_token_wizard.updates_requested?
+
+    I18n.t('shared.prolong_token_wizard.display_cta')
+  end
+
   private
 
   def no_action
@@ -29,7 +37,7 @@ module AuthorizationRequestHelper
 
     {
       action: 'prolong',
-      label: I18n.t('shared.authorization_requests.index.modal.prolong.display_cta')
+      label: prolong_token_label(authorization_request.token)
     }
   end
 

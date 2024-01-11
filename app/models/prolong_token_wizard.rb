@@ -46,8 +46,8 @@ class ProlongTokenWizard < ApplicationRecord
 
   def should_prolong_token?
     project_purpose &&
-    contact_metier &&
-    contact_technique
+      contact_metier &&
+      contact_technique
   end
 
   def prolong!

@@ -46,8 +46,8 @@ RSpec.describe 'follows the prolong token wizard', app: :api_particulier do
         click_button('next_prolong_token_wizard')
         expect(current_url).to include('contacts')
 
-        expect(page).not_to have_css('#prolong_token_wizard_contact_metier_true')
-        expect(page).not_to have_css('#prolong_token_wizard_contact_technique_true')
+        expect(page).to have_no_css('#prolong_token_wizard_contact_metier_true')
+        expect(page).to have_no_css('#prolong_token_wizard_contact_technique_true')
 
         expect(page).to have_css('#prolong_token_wizard_contact_metier_false')
         expect(page).to have_css('#prolong_token_wizard_contact_technique_false')

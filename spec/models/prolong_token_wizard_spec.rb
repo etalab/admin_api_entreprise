@@ -12,8 +12,8 @@ RSpec.describe ProlongTokenWizard do
         create(:prolong_token_wizard, status: 'owner', owner: 'watever'),
         create(:prolong_token_wizard, status: 'project_purpose', owner: 'watever', project_purpose: true),
         create(:prolong_token_wizard, status: 'contacts', owner: 'watever', project_purpose: true, contact_technique: true, contact_metier: true),
-        create(:prolong_token_wizard, status: 'prolonged', owner: 'watever', project_purpose: true, contact_technique: true, contact_metier: true),
-        create(:prolong_token_wizard, status: 'updates_refused', owner: 'watever', project_purpose: true, contact_technique: true, contact_metier: false)
+        create(:prolong_token_wizard, :prolonged),
+        create(:prolong_token_wizard, :requires_update, status: 'updates_refused')
       ]
     end
 
