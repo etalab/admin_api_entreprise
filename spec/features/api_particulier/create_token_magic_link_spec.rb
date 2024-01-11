@@ -34,7 +34,7 @@ RSpec.describe 'create a token magic link', app: :api_particulier do
             visit authorization_request_path(authorization_request)
             click_link 'show-token-modal-link'
             click_link dom_id(token, :transfer_modal_button)
-            expect(page).to have_button(I18n.t('shared.restricted_token_magic_links.new.modal.transfer.cta'))
+            expect(page).to have_button(I18n.t('shared.transfer_tokens.new.modal.transfer.cta'))
           end
         end
 
