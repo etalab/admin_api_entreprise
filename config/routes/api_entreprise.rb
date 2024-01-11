@@ -28,6 +28,7 @@ constraints(APIEntrepriseDomainConstraint.new) do
     post '/compte/telecharcher-documents', to: 'download_attestations#create', as: :search_attestations
 
     post '/compte/jetons/:id/partager', to: 'restricted_token_magic_links#create', as: :token_create_magic_link
+    get '/compte/jetons/:id/partager', to: 'restricted_token_magic_links#new', as: :token_transfer
     get '/compte/jetons/:id', to: 'tokens#show', as: :token
     get '/compte/jetons/:id/stats', to: 'tokens#stats', as: :token_stats
     get '/compte/jetons/:id/renew', to: 'tokens#renew', as: :token_renew

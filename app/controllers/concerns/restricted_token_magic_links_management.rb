@@ -1,4 +1,10 @@
 module RestrictedTokenMagicLinksManagement
+  def new
+    @token = Token.find(params[:id])
+
+    render 'shared/restricted_token_magic_links/new'
+  end
+
   def create
     @token = Token.find(params[:id])
 
@@ -9,7 +15,7 @@ module RestrictedTokenMagicLinksManagement
         error_message(title: t('concerns.restricted_token_magic_links_management.create.error.title', support_email: t("#{namespace}.support_email")))
       end
 
-      redirect_back fallback_location: root_path
+      redirect_to authorization_requests_path
     else
       head :forbidden
     end
