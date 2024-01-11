@@ -1,3 +1,0 @@
-class APIEntreprise::RestrictedTokenMagicLinksController < APIEntreprise::AuthenticatedUsersController
-  include RestrictedTokenMagicLinksManagement
-end

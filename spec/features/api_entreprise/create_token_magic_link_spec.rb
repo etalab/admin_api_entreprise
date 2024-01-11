@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'create a token magic link', app: :api_entreprise do
   subject do
-    visit token_path(token)
+    visit token_transfer_path(token)
     within("##{dom_id(token, :magic_link)}") do
       fill_in 'email', with: email
       click_button
@@ -10,36 +10,40 @@ RSpec.describe 'create a token magic link', app: :api_entreprise do
   end
 
   let(:user) { create(:user) }
-  let(:token) { create(:token, :with_scopes) }
+  let(:authorization_request) { create(:authorization_request, :with_tokens, :with_demandeur, :validated, demandeur: user) }
+  let(:token) { authorization_request.token }
   let(:new_magic_link) { MagicLink.find_by(email:) }
 
   context 'when the user is not logged in' do
     it 'redirects to the login page' do
-      visit token_path(token)
+      visit token_transfer_path(token)
 
       expect(page).to have_current_path(login_path, ignore_query: true)
     end
   end
 
   context 'when the user is logged in' do
-    before { login_as(user) }
-
     context 'when the current user is the token owner' do
-      let(:user) do
-        user = create(:user, :demandeur)
-        create(:authorization_request, :with_demandeur, demandeur: user, tokens: [token])
-        user
-      end
+      before { login_as(user) }
 
       context 'when the email address is valid' do
         let(:email) { 'valid@email.com' }
 
+        describe 'with javascript actived', :js do
+          it 'from authorization_request page, displays modal on click' do
+            visit authorization_request_path(authorization_request)
+            click_link 'show-token-modal-link'
+            click_link dom_id(token, :transfer_modal_button)
+            expect(page).to have_button(I18n.t('shared.transfer_tokens.new.modal.transfer.cta'))
+          end
+        end
+
         it_behaves_like 'it creates a magic link'
 
-        it 'redirects to the user token index page' do
+        it 'redirects to the user authorization_request index page' do
           subject
 
-          expect(page).to have_current_path(token_path(token))
+          expect(page).to have_current_path(authorization_requests_path)
         end
 
         it 'saves the token_id in the magic link' do
@@ -54,21 +58,6 @@ RSpec.describe 'create a token magic link', app: :api_entreprise do
 
         it_behaves_like 'it aborts magic link'
         it_behaves_like 'display alert', :error
-
-        it 'redirects to the user token index page' do
-          subject
-
-          expect(page).to have_current_path(token_path(token))
-        end
-      end
-
-      describe 'with javascript actived', :js do
-        it 'displays modal on click' do
-          visit token_path(token)
-          expect(page).to have_no_css("##{dom_id(token, :magic_link)}")
-          click_button dom_id(token, :transfer_modal_button)
-          expect(page).to have_css("##{dom_id(token, :magic_link)}")
-        end
       end
     end
 
@@ -78,6 +67,8 @@ RSpec.describe 'create a token magic link', app: :api_entreprise do
           email: 'much@hack.ack'
         })
       end
+
+      before { login_as(create(:user)) }
 
       let(:user) { create(:user) }
       let(:email) { 'valid@email.com' }

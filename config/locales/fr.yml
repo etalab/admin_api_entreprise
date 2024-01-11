@@ -28,13 +28,27 @@ fr:
         signed_in:
           error:
             title: Vous n'avez pas les droits pour accéder à cette page.
-    restricted_token_magic_links_management:
+  shared:
+    transfer_tokens:
       create:
         success:
           title: Le jeton a été transféré avec succès à l'adresse %{target_email}
         error:
           title: Une erreur est survenue lors du transfert du jeton. Vérifiez que l'adresse e-mail est valide ou contactez le support à %{support_email} si le problème persiste.
-  shared:
+      new:
+        modal:
+          transfer:
+            title: Transférer le jeton d'accès
+            description: Cette fonctionnalité vous permet d'envoyer un e-mail contenant un lien d'accès au jeton. L'URL transmise a une durée limitée de 4 heures.
+              <br>
+              <br>
+              Attention, nos <a href="https://entreprise.api.gouv.fr/cgu/">CGU</a> vous engagent ! Vous ne devez pas divulguer cet accès à des tiers non-habilités. Pour en savoir plus, consultez <a href='https://entreprise.api.gouv.fr/faq#comment-transmettre-le-jeton-d-acces-en-tout-securite' target='_blank'>cette rubrique de notre FAQ</a>.
+            email:
+              label: Adresse e-mail du destinataire
+              placeholder: jean@dupont.fr
+            cta: Envoyer le lien d'accès au jeton
+            confirm: Êtes-vous sûr de vouloir transférer votre jeton à cette adresse ?
+
     transfer_user_account:
       new:
         title: Transférer toutes mes habilitations
@@ -144,19 +158,6 @@ fr:
           Pour transmettre ce jeton, <strong>merci d'utiliser la fonctionnalité prévue ci-dessous :</strong>"
         token_label: Jeton d'accès n<sup>o</sup> <strong>%{token_id}</strong>
         cta: Copier le jeton
-        modal:
-          transfer:
-            display_cta: Transmettre le jeton en sécurité
-            title: Transférer le jeton d'accès
-            description: Cette fonctionnalité vous permet d'envoyer un e-mail contenant un lien d'accès au jeton. L'URL transmise a une durée limitée de 4 heures.
-              <br>
-              <br>
-              Attention, nos <a href="https://entreprise.api.gouv.fr/cgu/">CGU</a> vous engagent ! Vous ne devez pas divulguer cet accès à des tiers non-habilités. Pour en savoir plus, consultez <a href='https://entreprise.api.gouv.fr/faq#comment-transmettre-le-jeton-d-acces-en-tout-securite' target='_blank'>cette rubrique de notre FAQ</a>.
-            email:
-              label: Adresse e-mail du destinataire
-              placeholder: jean@dupont.fr
-            cta: Envoyer le lien d'accès au jeton
-            confirm: Êtes-vous sûr de vouloir transférer votre jeton à cette adresse ?
         status:
           color:
             revoked: pink-tuile
@@ -170,6 +171,9 @@ fr:
             expired: ☠️  Expiré
             active: 🔑 Actif
             new_token: 🔑 Nouveau jeton à utiliser
+        modal:
+          transfer:
+            display_cta: 'Transmettre le jeton en sécurité'
       prolong:
         title: Prolonger le jeton
         description: "Votre jeton expire dans %{remaining_time}.
@@ -288,7 +292,7 @@ fr:
         attestations:
           title: "Télécharger manuellement les attestations sociales et fiscales"
           description: "Saississez manuellement le SIREN de l'unite légale recherchée et vous aurez directement accès aux PDF des attestations&nbsp;:"
-          cta: "Utiliser l'inferface de téléchargement"
+          cta: "Utiliser l'interface de téléchargement"
         old_tokens:
           title: Voir les anciens jetons
           table:
