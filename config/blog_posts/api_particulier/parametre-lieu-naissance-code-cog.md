@@ -35,7 +35,7 @@ Contrairement aux personnes gravitant dans la sphère administrative, **les usag
 
 **Pourtant, une majorité des API du bouquet API Particulier nécessitent la saisie du code COG en paramètre d'appel pour identifier le particulier** :
 
-- [API Quotient familial CAF & MSA](https://particulier.api.gouv.fr/catalogue/cnaf-msa/quotient_familial_v2#parameters_details) - _Code COG obligatoire_
+- [API Quotient familial CAF & MSA](https://particulier.api.gouv.fr/catalogue/cnaf_msa/quotient_familial_v2#parameters_details) - _Code COG obligatoire_
 - [API Complémentaire Santé solidaire](https://particulier.api.gouv.fr/catalogue/cnaf_msa/complementaire_sante_solidaire#parameters_details) - _Code COG obligatoire_
 - [API Statut étudiant](https://particulier.api.gouv.fr/catalogue/mesri/statut_etudiant#parameters_details) - _Code COG facultatif_
 
