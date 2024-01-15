@@ -4,7 +4,11 @@ module TokensManagement
   def prolong
     authorize @token
 
-    render 'shared/tokens/prolong'
+    if token_wizard.present? && (token_wizard.requires_update? || token_wizard.updates_requested?)
+      redirect_to token_prolong_start_path(token_id: @token.id)
+    else
+      render 'shared/tokens/prolong'
+    end
   end
 
   def ask_for_prolongation
@@ -35,5 +39,9 @@ module TokensManagement
 
   def extract_token
     @token = current_user.tokens.find(params[:id]).decorate
+  end
+
+  def token_wizard
+    @token_wizard ||= @token.last_prolong_token_wizard
   end
 end
