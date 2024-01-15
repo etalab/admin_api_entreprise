@@ -29,6 +29,28 @@
       </div>
     </fieldset>
 
+    <div class="hidden">
+      <a
+        href="<%= transfer_account_path %>"
+        id="<%= dom_id(@prolong_token_wizard, :prolong_token_owner_not_in_charge) %>"
+        class="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w"
+        aria-controls="main-modal"
+        data-fr-opened="false"
+        data-turbo-frame="main-modal-content"
+      >
+      </a>
+    </div>
+
     <%= render partial: 'shared/prolong_token_wizard/build/wizard_buttons', locals: { f: f } %>
   <% end %>
 </div>
+
+<script type="text/javascript">
+ (function() {
+   document.getElementById('prolong_token_wizard_owner_not_in_charge').addEventListener('click', function() {
+      if (this.value == 'not_in_charge') {
+        document.getElementById('<%= dom_id(@prolong_token_wizard, :prolong_token_owner_not_in_charge) %>').click();
+      }
+    });
+  })();
+</script>
