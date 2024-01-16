@@ -25,6 +25,18 @@ class User < ApplicationRecord
     where('email ilike (?)', email.strip).limit(1).first
   end
 
+  def self.ransackable_attributes(_)
+    %w[
+      email
+    ]
+  end
+
+  def self.ransackable_associations(_)
+    %w[
+      authorization_requests
+    ]
+  end
+
   def confirmed?
     oauth_api_gouv_id.present?
   end

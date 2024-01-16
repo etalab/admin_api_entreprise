@@ -24,6 +24,13 @@ class AuthorizationRequest < ApplicationRecord
 
   validates :api, inclusion: { in: %w[entreprise particulier] }
 
+  def self.ransackable_attributes(_)
+    %w[
+      siret
+      external_id
+    ]
+  end
+
   scope :with_tokens_for, ->(api) { where(api:).joins(:tokens) }
   scope :submitted_at_least_once, -> { where.not(first_submitted_at: nil) }
 

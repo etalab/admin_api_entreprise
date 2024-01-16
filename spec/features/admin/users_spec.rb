@@ -21,4 +21,25 @@ RSpec.describe 'Admin: users', app: :api_entreprise do
       expect(page).to have_current_path(root_path)
     end
   end
+
+  describe 'search' do
+    subject(:search) do
+      visit admin_users_path
+
+      fill_in 'search_main_input', with: valid_user.email
+
+      click_on 'Rechercher'
+    end
+
+    let!(:valid_user) { create(:user) }
+    let!(:invalid_user) { create(:user) }
+
+    it 'displays the valid user' do
+      search
+
+      expect(page).to have_css('.user', count: 1)
+      expect(page).to have_content(valid_user.email)
+      expect(page).to have_no_content(invalid_user.email)
+    end
+  end
 end
