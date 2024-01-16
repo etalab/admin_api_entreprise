@@ -27,6 +27,16 @@
             </a>
           </li>
 
+          <% if user_signed_in? && current_user.admin? %>
+            <li class="fr-nav__item">
+              <a class="fr-nav__link center" href="<%= admin_path %>" target="_self">
+                <strong>Espace admin</strong>
+                <br />
+                La puissance est par là
+              </a>
+            </li>
+          <% end %>
+
           <li class="ask-access-link fr-nav__item">
             <a class="fr-nav__link center" href="https://api.gouv.fr/les-api/api-entreprise/demande-acces" target="_blank">
               <%= t('.ask_access').html_safe %>

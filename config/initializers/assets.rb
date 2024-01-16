@@ -16,4 +16,7 @@ Rails.application.config.assets.precompile += %w(
 
   api_particulier.scss
   api_particulier.js
+
+  admin.scss
+  admin.js
 )

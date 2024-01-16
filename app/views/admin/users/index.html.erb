@@ -1,0 +1,46 @@
+<div class="fr-table fr-table--bordered fr-table--layout-fixed">
+  <table>
+    <caption>
+      Utilisateurs
+    </caption>
+    <thead>
+      <tr>
+        <%
+          %w[
+            id
+            first_name
+            last_name
+            email
+            actions
+          ].each do |attr|
+        %>
+          <th scope="col">
+            <%= attr.humanize %>
+          </th>
+        <% end %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+        <tr id="<%= dom_id(user) %>" class="user">
+          <td class="user-id">
+            <%= user.id %>
+          </td>
+          <td class="user-first_name">
+            <%= user.first_name %>
+          </td>
+          <td class="user-last_name">
+            <%= user.last_name %>
+          </td>
+          <td class="user-email">
+            <%= user.email %>
+          </td>
+          <td class="user-actions">
+            Se logguer en tant que
+          </td>
+        </div>
+      <% end %>
+    </tbody>
+  </table>
+</div>

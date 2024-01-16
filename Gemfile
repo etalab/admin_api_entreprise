@@ -68,6 +68,8 @@ gem 'strong_migrations'
 
 gem 'gaffe'
 
+gem 'pretender'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'brakeman'

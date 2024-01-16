@@ -50,6 +50,11 @@ class User < ApplicationRecord
   def admin?
     if Rails.env.production?
       Rails.application.credentials.admin_emails.include?(email)
+    elsif Rails.env.development?
+      %w[
+        api-entreprise@yopmail.com
+        api-particulier@yopmail.com
+      ].include?(email)
     else
       email =~ /@beta.gouv.fr$/
     end

@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   end
   mount GoodJob::Engine => '/workers'
 
+  namespace :admin do
+    resources :users, only: %i[index]
+  end
+
   draw(:api_entreprise)
   draw(:api_particulier)
 end
