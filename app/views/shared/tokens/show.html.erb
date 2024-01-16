@@ -8,8 +8,8 @@
       <p><%= t('.warning').html_safe %></p>
     </blockquote>
     <p class="fr-mb-1v">
-        <%= t('.token_label', token_id: @token.id).html_safe %>
-        <input id="<%= dom_id(@token, :token_hash) %>" class="fr-input" type="text" data-clipboard-target="source" readonly value="<%= @token.rehash %>" />
+      <%= t('.token_label', token_id: @token.id).html_safe %>
+      <%= render partial: 'shared/tokens/hashed_value_input', locals: { token: @token } %>
     </p>
 
     <div>
