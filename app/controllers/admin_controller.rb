@@ -8,6 +8,6 @@ class AdminController < ApplicationController
   private
 
   def user_is_admin?
-    redirect_to_root unless current_user.admin?
+    redirect_to_root unless true_user.admin?
   end
 end
