@@ -70,6 +70,8 @@ gem 'gaffe'
 
 gem 'pretender'
 
+gem 'kaminari'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'brakeman'
