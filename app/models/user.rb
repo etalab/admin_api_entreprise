@@ -46,4 +46,12 @@ class User < ApplicationRecord
 
     self.email = email.downcase.strip
   end
+
+  def admin?
+    if Rails.env.production?
+      Rails.application.credentials.admin_emails.include?(email)
+    else
+      email =~ /@beta.gouv.fr$/
+    end
+  end
 end
