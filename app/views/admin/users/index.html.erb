@@ -16,16 +16,16 @@
     <thead>
       <tr>
         <%
-          %w[
-            id
-            first_name
-            last_name
-            email
-            actions
+          [
+            'ID',
+            'Prénom',
+            'Nom',
+            'Email',
+            'Actions',
           ].each do |attr|
         %>
           <th scope="col">
-            <%= attr.humanize %>
+            <%= attr %>
           </th>
         <% end %>
       </tr>
