@@ -33,16 +33,17 @@
       ⚠️ **Les informations obtenues sont représentatives de la situation connue par la CNAF et la MSA au moment de l'appel**, il est donc possible qu'un quotient familial appelé pour un mois donné à un instant T, soit différent s'il est redemandé à un instant T+. [En savoir plus](faq_entry_1_api_particulier_endpoint_cnaf_msa_quotient_familial_v2).
   data:
     description: |+
-      Cette API délivre la **composition familiale de l'allocataire et son quotient familial CAF ou MSA**. Par défaut, le quotient familial du **mois en cours** est transmis. Le QF de l'allocataire est disponible pour les 24 mois précédents en précisant le mois et l'année dans l'appel.
+      **Cette API délivre** : 
+      - **la composition familiale** du particulier, [en savoir plus](#faq_entry_answer_2_api_particulier_endpoint_cnaf_msa_quotient_familial_v2) ;
+      - **le quotient familial CAF ou MSA** du particulier. Par défaut, le quotient familial du **mois en cours** est transmis. Le QF de l'allocataire est disponible pour les 24 mois précédents en précisant le mois et l'année dans l'appel.
 
       {:.fr-highlight}
-      > Le quotient familial au sens de la CNAF ou de la MSA a une définition différente du quotient familial de l'administration fiscale, [en  savoir plus](#faq_entry_1_api_particulier_endpoint_cnaf_quotient_familial).
+      > Le quotient familial au sens de la CNAF ou de la MSA a une définition différente du quotient familial de l'administration fiscale, [en savoir plus](#faq_entry_answer_0_api_particulier_endpoint_cnaf_msa_quotient_familial_v2).
 
       {:.fr-highlight.fr-highlight--caution}
       > **Le QF CNAF est calculé seulement pour les allocataires dont les ressources sont déclarées**. En effet, pour calculer le quotient familial, la CNAF collecte tous les mois auprès de la DGFIP les ressources de l'individu (revenus salariés et non-salariés, du capital, rentes ...). Elle récupère le bilan en fin d'année. Sans la réception de ces ressources, le QF CNAF ne peut être calculé : une erreur est renvoyée par l'API.
       >
       > Si le particulier n'a plus d'allocations, son QF n'est pas renvoyé. Une erreur est transmise par l'API.
-
 
 
   parameters_details:
@@ -79,7 +80,7 @@
 
         Calcul du QF CAF/MSA : Revenu imposable de l’année N-2 divisé par 12 + **les prestations familiales du mois de référence**, le tout divisé par le nombre de parts fiscales du foyer.
 
-        Source : [Caf.fr](https://caf.fr/allocataires/vies-de-famille/articles/quotient-familial-caf-impots-quelles-differences)
+        Source : [Caf.fr](https://caf.fr/allocataires/vies-de-famille/articles/quotient-familial-caf-impots-quelles-differences){:target="_blank"}
 
     - q: Variations du quotient familial au cours du temps et dates de calcul
       a: |+
@@ -97,16 +98,22 @@
             {:.fr-highlight.fr-highlight--example}
             > Par exemple, un appel le 28 juin 2023 du quotient familial du mois en cours (juin 2023) : la MSA recalculera le QF le 28 juin 2023.
 
-    - q: Qu'est-ce qu'un enfant au sens de la CNAF ?
+    - q: Quelle est la composition familiale renvoyée par cette API ?
       a: |+
-        La liste des enfants transmis par l'API correspond à la notion d'enfant à charge au sens de la législation familiale. Pour qu'un enfant soit considéré comme "à charge", l’allocataire doit assurer financièrement son entretien de manière effective et permanente et assumer à son égard la responsabilité affective et éducative. Il n'y a pas d'obligation de lien de parenté avec l’enfant.
+        La notion de «&nbsp;composition familiale&nbsp;» peut correspondre à différentes définitions dans les administrations qui n'y comptent pas les mêmes personnes. _Par exemple, pour calculer l'impôt sur le revenu d'un foyer, le service des impôts s'intéresse à une composition familiale appelée «&nbsp;foyer fiscal&nbsp;»_, et dont la nature est différente de celle renvoyée par cette API.
+        
+        **La composition familiale renvoyée par cette API correspond à celle établie pour effectuer le calcul du quotient familial, et donc à celle déclarée par les allocataires à la CAF et à la MSA.** 
+        Dans cette composition familiale, les personnes suivantes sont comprises : 
+        - L'adulte allocataire de la CAF ;
+        - Son ou sa conjointe le cas échéant ;
+        - Son ou ses enfants, dès la grossesse, jusqu'à 21 ans en métropole (22 dans les DROM) et sous les conditions détaillées dans [ce guide de la Caf](https://www.caf.fr/allocataires/aides-et-demarches/thematique-libre/les-enfants-charge){:target="_blank"}.
 
-        Deux notions d’enfant à charge cohabitent :
+        **Pour chacune des personnes de cette famille**, cette API renvoie les informations suivantes : 
+        - Nom d'usage ; 
+        - Prénoms ; 
+        - Jour, mois et année de naissance ;
+        - Sexe.
 
-        * enfant à charge au sens des prestations familiales (Pf) : un enfant est reconnu à charge s’il est âgé d’un mois à moins de 20 ans quelle que soit sa situation, dès lors que son salaire net mensuel ne dépasse pas 55 % du Smic brut ;
-        * enfant à charge au sens de la législation familiale: en plus des enfants à charge au sens des Pf, sont également considérés à charge pour les aides au logement, les enfants âgés de moins de 21 ans en Métropole (22 ans dans les Dom), les enfants âgés de 20 à 25 ans pour le calcul du Rmi/Rsa, et dès le mois de leur naissance, les enfants bénéficiaires de l’allocation de base de la Paje.
-
-        Source: [data.caf.fr](http://data.caf.fr/dataset/population-des-foyers-allocataires-par-commune/resource/3baa3b5b-8376-4b24-a79b-10ee364e956f)
   historique: |+
     **Ce que change cette API CNAF-MSA par rapport à l'API précédente de la CNAF :**
     - Le périmètre des particuliers concernés s'élargit avec l'**ajout des bénéficiaires de la MSA** qui sont au régime agricole.
