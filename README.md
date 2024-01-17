@@ -235,7 +235,7 @@ produits pour itérer sur le site (que ce soit en terme de contenu ou fonctionne
   - [Ajout d'un nouvel endpoint dans le catalogue](docs/endpoint.md)
 
 ## Les mails transactionnels 
-Les templates de mails sont disponbiles ici : 
+Les templates de mails transactionnels sont disponibles ici : 
 
 **API Entreprise :** 
 - Mails de demande d'accès : [./api_entreprise/authorization_request_mailer](https://github.com/etalab/admin_api_entreprise/tree/develop/app/views/api_entreprise/authorization_request_mailer)
