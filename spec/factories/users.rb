@@ -1,9 +1,14 @@
 FactoryBot.define do
   sequence(:email) { |n| "user_#{n}@example.org" }
+  sequence(:admin_email) { |n| "user_#{n}@beta.gouv.fr" }
 
   factory :user do
     email
     sequence(:oauth_api_gouv_id, &:to_s)
+
+    trait :admin do
+      email { generate(:admin_email) }
+    end
 
     trait :with_full_name do
       first_name { 'Jean-Marie' }

@@ -1,0 +1,60 @@
+<%= search_form_for(@q, url: admin_users_path, html: { method: :get, data: { turbo: false }, class: %w[search-box] }) do |f| %>
+  <div class="fr-input-group input">
+    <%= f.search_field :email_or_authorization_requests_siret_or_authorization_requests_external_id_cont, placeholder: 'email, siret, datapass id..', id: 'search_main_input', class: %[fr-input] %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit 'Rechercher', class: %w[fr-btn fr-btn--primary] %>
+  </div>
+<% end %>
+
+<div class="fr-table fr-table--bordered fr-table--layout-fixed">
+  <table>
+    <caption>
+      Utilisateurs
+    </caption>
+    <thead>
+      <tr>
+        <%
+          %w[
+            id
+            first_name
+            last_name
+            email
+            actions
+          ].each do |attr|
+        %>
+          <th scope="col">
+            <%= attr.humanize %>
+          </th>
+        <% end %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+        <tr id="<%= dom_id(user) %>" class="user">
+          <td class="user-id">
+            <%= user.id %>
+          </td>
+          <td class="user-first_name">
+            <%= user.first_name %>
+          </td>
+          <td class="user-last_name">
+            <%= user.last_name %>
+          </td>
+          <td class="user-email">
+            <%= user.email %>
+          </td>
+          <td class="user-actions">
+            <% if current_user != user %>
+              <%= button_to 'Se connecter en tant que cet utilisateur', impersonate_admin_user_path(user), data: { turbo: false }, class: 'fr-btn', id: dom_id(user, :impersonate) %>
+            <% end %>
+          </td>
+        </div>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @users %>

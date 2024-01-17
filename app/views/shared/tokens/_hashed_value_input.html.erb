@@ -1,0 +1,4 @@
+<% hashed_value = true_user == current_user ? token.rehash : 'NotAValidValue' %>
+
+<input id="<%= dom_id(token, :token_hash) %>" class="fr-input" type="text" data-clipboard-target="source" readonly value="<%= hashed_value %>" />
+

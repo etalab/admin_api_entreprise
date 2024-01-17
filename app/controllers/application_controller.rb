@@ -6,7 +6,21 @@ class ApplicationController < ActionController::Base
 
   helper ActiveLinks
 
-  helper_method :namespace
+  helper_method :namespace, :current_user, :user_signed_in?
+
+  def current_user
+    @current_user ||= session[:current_user_id] &&
+                      User.find(session[:current_user_id])
+  rescue ActiveRecord::RecordNotFound
+    session[:current_user_id] = nil
+    nil
+  end
+
+  impersonates :user
+
+  def user_signed_in?
+    !current_user.nil?
+  end
 
   rescue_from Pundit::NotAuthorizedError do |_|
     error_message(title: t('.error.unauthorize'))

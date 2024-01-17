@@ -5,6 +5,15 @@ Rails.application.routes.draw do
   end
   mount GoodJob::Engine => '/workers'
 
+  get '/admin', to: redirect('/admin/users')
+
+  namespace :admin do
+    resources :users, only: %i[index] do
+      post :impersonate, on: :member
+      post :stop_impersonating, on: :collection
+    end
+  end
+
   draw(:api_entreprise)
   draw(:api_particulier)
 end

@@ -25,6 +25,18 @@ class User < ApplicationRecord
     where('email ilike (?)', email.strip).limit(1).first
   end
 
+  def self.ransackable_attributes(_)
+    %w[
+      email
+    ]
+  end
+
+  def self.ransackable_associations(_)
+    %w[
+      authorization_requests
+    ]
+  end
+
   def confirmed?
     oauth_api_gouv_id.present?
   end
@@ -45,5 +57,18 @@ class User < ApplicationRecord
     return if email.blank?
 
     self.email = email.downcase.strip
+  end
+
+  def admin?
+    if Rails.env.production?
+      Rails.application.credentials.admin_emails.include?(email)
+    elsif Rails.env.development?
+      %w[
+        api-entreprise@yopmail.com
+        api-particulier@yopmail.com
+      ].include?(email)
+    else
+      email =~ /@beta.gouv.fr$/
+    end
   end
 end

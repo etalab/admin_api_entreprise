@@ -1,0 +1,9 @@
+<% if current_user != true_user %>
+  <div id="impersonate_warning" class="fr-alert fr-alert--warning">
+    <div class="fr-alert__body">
+      Vous (<%= true_user.email %>) êtes connecté en tant que <%= current_user.email %>
+
+      <%= button_to "Retour à l'espace admin", stop_impersonating_admin_users_path, data: { turbo: false }, id: 'stop_impersonate', class: 'fr-btn--secondary' %>
+    </div>
+  </div>
+<% end %>
