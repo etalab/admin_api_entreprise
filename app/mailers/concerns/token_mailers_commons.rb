@@ -18,7 +18,7 @@ module TokenMailersCommons
       token = args[:token]
       @authorization_request = token.authorization_request
 
-      @authorization_request_datapass_url = datapass_authorization_request_url(@authorization_request)
+      @datapass_renewal_url = datapass_renewal_url(@authorization_request)
       @expiration_date = Time.at(token.exp).in_time_zone.strftime('%d/%m/%Y')
       @full_name = @authorization_request.demandeur.full_name
       @intitule = token.intitule

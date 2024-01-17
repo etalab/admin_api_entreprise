@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe APIParticulier::TokenMailer do
+RSpec.describe APIParticulier::TokenMailer, type: :feature do
   let(:authorization_request) { create(:authorization_request, :with_all_contacts, :with_tokens, api: 'particulier') }
   let(:token) { authorization_request.token }
 
@@ -23,6 +23,10 @@ RSpec.describe APIParticulier::TokenMailer do
 
       it 'display demandeur full name' do
         expect(subject.html_part.decoded).to include(authorization_request.demandeur.full_name)
+      end
+
+      it 'has a link to datapass authorization_request copy' do
+        expect(subject.html_part.decoded).to include(datapass_renewal_url(authorization_request))
       end
     end
   end
