@@ -14,11 +14,11 @@ RSpec.describe 'Admin: users', app: :api_entreprise do
 
     let!(:user) { create(:user) }
 
-    it 'redirects to home page as the user, with a warning' do
+    it 'redirects to user\'s account as the user, with a warning' do
       impersonate
 
       expect(page).to have_content("connecté en tant que #{user.email}")
-      expect(page).to have_current_path(root_path)
+      expect(page).to have_current_path(authorization_requests_path)
     end
   end
 

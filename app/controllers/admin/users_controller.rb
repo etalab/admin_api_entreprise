@@ -9,7 +9,7 @@ class Admin::UsersController < AdminController
 
     impersonate_user(user)
 
-    redirect_to root_path
+    redirect_to authorization_requests_path
   end
 
   def stop_impersonating
