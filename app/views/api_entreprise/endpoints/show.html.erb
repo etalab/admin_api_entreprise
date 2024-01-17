@@ -9,6 +9,10 @@
     <div class="fr-col-md-<%= layout_main_bloc %> fr-col-12">
       <p class="fr-text--lead fr-mt-md-2w">
         <%= @endpoint.description %>
+          <span class="fr-mb-0 fr-text--sm">
+            <%= icon(t("api_entreprise.endpoint.opening.#{@endpoint.opening}.included_icon", raise: true)) rescue nil %>
+            <%= link_to t("api_entreprise.endpoint.opening.#{@endpoint.opening}.included", raise: true), faq_index_path(anchor: 'qu-est-ce-que-les-api-incluses-par-defaut') rescue nil %>
+          </span>
 
         <% if @endpoint.incoming? %>
           <div class="fr-alert fr-alert--info fr-alert--sm fr-mb-2w">
@@ -296,7 +300,7 @@
 
         <div>
           <%= icon(t("api_entreprise.endpoint.opening.#{@endpoint.opening}.icon", raise: true)) rescue nil %>
-          <%= t("api_entreprise.endpoint.opening.#{@endpoint.opening}.name", raise: true) %>
+          <%= t("api_entreprise.endpoint.opening.#{@endpoint.opening}.name", raise: true) %><br/>
         </div>
 
         <% if @endpoint.api_cgu.present? %>
