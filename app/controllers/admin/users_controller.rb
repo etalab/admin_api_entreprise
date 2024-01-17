@@ -1,7 +1,7 @@
 class Admin::UsersController < AdminController
   def index
     @q = User.ransack(params[:q])
-    @users = @q.result(distinct: true).includes(:authorization_requests).page(params[:page])
+    @users = @q.result(distinct: true).page(params[:page])
   end
 
   def impersonate
