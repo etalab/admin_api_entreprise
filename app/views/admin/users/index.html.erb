@@ -21,6 +21,8 @@
             'Prénom',
             'Nom',
             'Email',
+            'Organizations',
+            'DataPass ID',
             'Actions',
           ].each do |attr|
         %>
@@ -46,6 +48,32 @@
           <td class="user-email">
             <%= user.email %>
           </td>
+          <td class="user-organizations">
+            <% if user.authorization_requests.any? %>
+              <ul>
+                <% user.authorization_requests.each do |authorization_request| %>
+                  <% if authorization_request.siret %>
+                    <li>
+                      <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/<%= authorization_request.siret %>" target="_blank"><%= authorization_request.siret %></a>
+                    </li>
+                  <% end %>
+                <% end %>
+              </ul>
+            <% end %>
+          </td>
+
+          <td class="user-organizations">
+            <% if user.authorization_requests.any? %>
+              <ul>
+                <% user.authorization_requests.each do |authorization_request| %>
+                  <li>
+                    <a href="https://datapass.api.gouv.fr/api-<%= authorization_request.api %>/<%= authorization_request.external_id %>" target="_blank">DataPass #<%= authorization_request.external_id %></a>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
+          </td>
+
           <td class="user-actions">
             <% if current_user != user %>
               <%= button_to 'Se connecter en tant que cet utilisateur', impersonate_admin_user_path(user), data: { turbo: false }, class: 'fr-btn', id: dom_id(user, :impersonate) %>
