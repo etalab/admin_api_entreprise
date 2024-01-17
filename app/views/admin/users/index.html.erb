@@ -49,9 +49,9 @@
             <%= user.email %>
           </td>
           <td class="user-organizations">
-            <% if user.authorization_requests.any? %>
+            <% if user.authorization_requests.where(api: namespace).any? %>
               <ul>
-                <% user.authorization_requests.each do |authorization_request| %>
+                <% user.authorization_requests.where(api: namespace).each do |authorization_request| %>
                   <% if authorization_request.siret %>
                     <li>
                       <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/<%= authorization_request.siret %>" target="_blank"><%= authorization_request.siret %></a>
@@ -63,9 +63,9 @@
           </td>
 
           <td class="user-organizations">
-            <% if user.authorization_requests.any? %>
+            <% if user.authorization_requests.where(api: namespace).any? %>
               <ul>
-                <% user.authorization_requests.each do |authorization_request| %>
+                <% user.authorization_requests.where(api: namespace).each do |authorization_request| %>
                   <li>
                     <a href="https://datapass.api.gouv.fr/api-<%= authorization_request.api %>/<%= authorization_request.external_id %>" target="_blank">DataPass #<%= authorization_request.external_id %></a>
                   </li>
