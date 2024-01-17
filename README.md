@@ -234,6 +234,24 @@ produits pour itérer sur le site (que ce soit en terme de contenu ou fonctionne
   - [Gestion des wordings (layouts, templates, FAQ)](docs/wordings.md)
   - [Ajout d'un nouvel endpoint dans le catalogue](docs/endpoint.md)
 
+## Les mails transactionnels 
+Les templates de mails transactionnels sont disponibles ici : 
+
+**API Entreprise :** 
+- Mails de demande d'accès : [./api_entreprise/authorization_request_mailer](https://github.com/etalab/admin_api_entreprise/tree/develop/app/views/api_entreprise/authorization_request_mailer)
+- Mail de prolongement des jetons : [./api_entreprise/token_mailer](https://github.com/etalab/admin_api_entreprise/tree/develop/app/views/api_entreprise/token_mailer)
+- Mails de transfert d'habilitation : 
+[./api_entreprise/user_mailer](https://github.com/etalab/admin_api_entreprise/tree/develop/app/views/api_entreprise/user_mailer)
+
+**API Particulier :**
+- Mails de demande d'accès : 
+[./api_particulier/authorization_request_mailer](https://github.com/etalab/admin_api_entreprise/tree/develop/app/views/api_particulier/authorization_request_mailer)
+- Mail de prolongement des jetons : [./api_particulier/token_mailer](https://github.com/etalab/admin_api_entreprise/tree/develop/app/views/api_particulier/token_mailer)
+- Mails de transfert d'habilitation : 
+_En attente_
+
+Une grande partie des contenus écrits est ici : [./config/locales/mailers.fr.yml](https://github.com/etalab/admin_api_entreprise/blob/develop/config/locales/mailers.fr.yml)
+
 ## Outils de production
 
 Il y a plusieurs scripts utiles pour faire des manipulations en production pour des usages bien précis.
