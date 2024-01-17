@@ -1,6 +1,6 @@
 <%= search_form_for(@q, url: admin_users_path, html: { method: :get, data: { turbo: false }, class: %w[search-box] }) do |f| %>
   <div class="fr-input-group input">
-    <%= f.search_field :email_or_authorization_requests_siret_or_authorization_requests_external_id_cont, placeholder: 'email, siret, datapass id..', id: 'search_main_input', class: %[fr-input] %>
+    <%= f.search_field :email_or_authorization_requests_siret_or_authorization_requests_external_id_eq, placeholder: 'email, siret, datapass id..', id: 'search_main_input', class: %[fr-input] %>
   </div>
 
   <div class="actions">
