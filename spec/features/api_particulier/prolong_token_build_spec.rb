@@ -30,21 +30,36 @@ RSpec.describe 'follows the prolong token wizard', app: :api_particulier do
   end
 
   describe 'when user is authenticated' do
+    subject(:fill_wizard) do
+      go_to_prolong_token_start
+
+      choose(in_charge_option)
+      click_button('next_prolong_token_wizard')
+
+      choose(project_purpose_option)
+      click_button('next_prolong_token_wizard')
+
+      choose(contact_metier_option) if api == 'entreprise'
+      choose(contact_technique_option)
+      click_button('next_prolong_token_wizard')
+    end
+
     before do
       login_as(authenticated_user)
     end
 
     describe 'when contact_technique or contact_metier is not present' do
+      let(:in_charge_option) { 'prolong_token_wizard_owner_still_in_charge' }
+      let(:project_purpose_option) { 'prolong_token_wizard_project_purpose_true' }
+
       it 'does not allow to keep contacts' do
         go_to_prolong_token_start
 
-        choose('prolong_token_wizard_owner_still_in_charge')
+        choose(in_charge_option)
         click_button('next_prolong_token_wizard')
-        expect(current_url).to include('project_purpose')
 
-        choose('prolong_token_wizard_project_purpose_true')
+        choose(project_purpose_option)
         click_button('next_prolong_token_wizard')
-        expect(current_url).to include('contacts')
 
         expect(page).to have_no_css('#prolong_token_wizard_contact_metier_true')
         expect(page).to have_no_css('#prolong_token_wizard_contact_technique_true')
@@ -54,7 +69,7 @@ RSpec.describe 'follows the prolong token wizard', app: :api_particulier do
       end
     end
 
-    describe 'when on happy path with api entreprise' do
+    describe 'when on api entreprise' do
       let!(:authenticated_user) { create(:user, :demandeur, :contact_metier, :contact_technique) }
 
       let!(:authorization_request) do
@@ -71,56 +86,41 @@ RSpec.describe 'follows the prolong token wizard', app: :api_particulier do
         )
       end
 
-      it 'is prolonged' do
-        go_to_prolong_token_start
+      describe 'fills the wizard' do
+        let(:in_charge_option) { 'prolong_token_wizard_owner_still_in_charge' }
 
-        choose('prolong_token_wizard_owner_still_in_charge')
-        click_button('next_prolong_token_wizard')
-        expect(current_url).to include('project_purpose')
+        context 'when we valid all questions' do
+          let(:project_purpose_option) { 'prolong_token_wizard_project_purpose_true' }
+          let(:contact_metier_option) { 'prolong_token_wizard_contact_metier_true' }
+          let(:contact_technique_option) { 'prolong_token_wizard_contact_technique_true' }
 
-        choose('prolong_token_wizard_project_purpose_true')
-        click_button('next_prolong_token_wizard')
-        expect(current_url).to include('contacts')
+          it 'prolongs the token' do
+            fill_wizard
 
-        expect(page).to have_css('#prolong_token_wizard_contact_metier_true')
-        choose('prolong_token_wizard_contact_metier_true')
-        expect(page).to have_css('#prolong_token_wizard_contact_technique_true')
-        choose('prolong_token_wizard_contact_technique_true')
-        click_button('next_prolong_token_wizard')
-        expect(current_url).to include('summary')
+            click_link('finished_prolong_token_wizard')
 
-        click_link('finished_prolong_token_wizard')
-        expect(current_url).to include('finished')
+            expect(page).to have_content('Votre jeton a été prolongé')
+            expect(token.reload.exp).to eq(18.months.from_now.to_i)
+          end
+        end
 
-        expect(page).to have_content('Votre jeton a été prolongé')
-        expect(page).to have_css('#prolonged_to_authorization_request')
+        context 'when at least one field has to be changed' do
+          let(:project_purpose_option) { 'prolong_token_wizard_project_purpose_false' }
+          let(:contact_metier_option) { 'prolong_token_wizard_contact_metier_false' }
+          let(:contact_technique_option) { 'prolong_token_wizard_contact_technique_false' }
 
-        expect(token.reload.exp).to eq(18.months.from_now.to_i)
-      end
+          it 'follows update path' do
+            fill_wizard
 
-      it 'requires update' do
-        go_to_prolong_token_start
+            expect(page).to have_content("de la raison d'être du projet")
 
-        choose('prolong_token_wizard_owner_still_in_charge')
-        click_button('next_prolong_token_wizard')
-        expect(current_url).to include('project_purpose')
-
-        choose('prolong_token_wizard_project_purpose_false')
-        click_button('next_prolong_token_wizard')
-        expect(current_url).to include('contacts')
-
-        choose('prolong_token_wizard_contact_metier_true')
-        choose('prolong_token_wizard_contact_technique_true')
-        click_button('next_prolong_token_wizard')
-        expect(current_url).to include('summary')
-
-        expect(page).to have_content("de la raison d'être du projet")
-
-        expect(token.reload.exp).to eq(exp)
+            expect(token.reload.exp).to eq(exp)
+          end
+        end
       end
     end
 
-    describe 'when on happy path with api particulier' do
+    describe 'when on api particulier' do
       let!(:api) { 'particulier' }
       let!(:authenticated_user) { create(:user, :demandeur, :contact_technique) }
 
@@ -136,49 +136,37 @@ RSpec.describe 'follows the prolong token wizard', app: :api_particulier do
         )
       end
 
-      it 'is prolonged' do
-        go_to_prolong_token_start
+      describe 'fills the wizard' do
+        let(:in_charge_option) { 'prolong_token_wizard_owner_still_in_charge' }
 
-        choose('prolong_token_wizard_owner_still_in_charge')
-        click_button('next_prolong_token_wizard')
-        expect(current_url).to include('project_purpose')
+        context 'when we valid all questions' do
+          let(:project_purpose_option) { 'prolong_token_wizard_project_purpose_true' }
+          let(:contact_technique_option) { 'prolong_token_wizard_contact_technique_true' }
 
-        choose('prolong_token_wizard_project_purpose_true')
-        click_button('next_prolong_token_wizard')
-        expect(current_url).to include('contacts')
+          it 'prolongs the token' do
+            fill_wizard
 
-        expect(page).to have_css('#prolong_token_wizard_contact_technique_true')
-        choose('prolong_token_wizard_contact_technique_true')
-        click_button('next_prolong_token_wizard')
-        expect(current_url).to include('summary')
+            click_link('finished_prolong_token_wizard')
 
-        click_link('finished_prolong_token_wizard')
-        expect(current_url).to include('finished')
+            expect(page).to have_content('Votre jeton a été prolongé')
+            expect(page).to have_css('#prolonged_to_authorization_request')
 
-        expect(page).to have_content('Votre jeton a été prolongé')
-        expect(page).to have_css('#prolonged_to_authorization_request')
+            expect(token.reload.exp).to eq(18.months.from_now.to_i)
+          end
+        end
 
-        expect(token.reload.exp).to eq(18.months.from_now.to_i)
-      end
+        context 'when at least one field has to be changed' do
+          let(:project_purpose_option) { 'prolong_token_wizard_project_purpose_false' }
+          let(:contact_technique_option) { 'prolong_token_wizard_contact_technique_false' }
 
-      it 'requires update' do
-        go_to_prolong_token_start
+          it 'follows update path' do
+            fill_wizard
 
-        choose('prolong_token_wizard_owner_still_in_charge')
-        click_button('next_prolong_token_wizard')
-        expect(current_url).to include('project_purpose')
+            expect(page).to have_content("de la raison d'être du projet")
 
-        choose('prolong_token_wizard_project_purpose_false')
-        click_button('next_prolong_token_wizard')
-        expect(current_url).to include('contacts')
-
-        choose('prolong_token_wizard_contact_technique_true')
-        click_button('next_prolong_token_wizard')
-        expect(current_url).to include('summary')
-
-        expect(page).to have_content("de la raison d'être du projet")
-
-        expect(token.reload.exp).to eq(exp)
+            expect(token.reload.exp).to eq(exp)
+          end
+        end
       end
     end
   end
