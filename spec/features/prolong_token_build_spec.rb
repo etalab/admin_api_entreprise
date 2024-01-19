@@ -1,6 +1,6 @@
-RSpec.describe 'follows the prolong token wizard', app: :api_particulier do
+RSpec.describe 'follows the prolong token wizard' do
   subject(:go_to_prolong_token_start) do
-    visit api_particulier_token_prolong_start_path(token_id: token.id)
+    visit token_prolong_start_path(token_id: token.id)
   end
 
   let!(:authenticated_user) { create(:user) }
@@ -22,14 +22,14 @@ RSpec.describe 'follows the prolong token wizard', app: :api_particulier do
     create(:token, authorization_request:, exp:)
   end
 
-  describe 'when user is not authenticated' do
+  describe 'when user is not authenticated', app: :api_entreprise do
     it 'redirects to the login' do
       go_to_prolong_token_start
       expect(page).to have_current_path(api_particulier_login_path, ignore_query: true)
     end
   end
 
-  describe 'when user is authenticated' do
+  describe 'when user is authenticated', app: :api_entreprise do
     subject(:fill_wizard) do
       go_to_prolong_token_start
 
@@ -69,7 +69,7 @@ RSpec.describe 'follows the prolong token wizard', app: :api_particulier do
       end
     end
 
-    describe 'when on api entreprise' do
+    describe 'when on api entreprise', app: :api_entreprise do
       let!(:authenticated_user) { create(:user, :demandeur, :contact_metier, :contact_technique) }
 
       let!(:authorization_request) do
@@ -120,7 +120,7 @@ RSpec.describe 'follows the prolong token wizard', app: :api_particulier do
       end
     end
 
-    describe 'when on api particulier' do
+    describe 'when on api particulier', app: :api_particulier do
       let!(:api) { 'particulier' }
       let!(:authenticated_user) { create(:user, :demandeur, :contact_technique) }
 

@@ -1,6 +1,6 @@
-RSpec.describe 'retrieve and sets the current prolong token', app: :api_particulier do
+RSpec.describe 'retrieve and sets the current prolong token' do
   subject(:go_to_prolong_token_start) do
-    visit api_particulier_token_prolong_start_path(token_id: token.id)
+    visit token_prolong_start_path(token_id: token.id)
   end
 
   let!(:authenticated_user) { create(:user) }
@@ -21,14 +21,14 @@ RSpec.describe 'retrieve and sets the current prolong token', app: :api_particul
     create(:token, authorization_request:, exp:)
   end
 
-  describe 'when user is not authenticated' do
+  describe 'when user is not authenticated', app: :api_entreprise do
     it 'redirects to the login' do
       go_to_prolong_token_start
       expect(page).to have_current_path(api_particulier_login_path, ignore_query: true)
     end
   end
 
-  describe 'when user is authenticated' do
+  describe 'when user is authenticated', app: :api_entreprise do
     before do
       login_as(authenticated_user)
     end

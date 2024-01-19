@@ -1,6 +1,6 @@
-RSpec.describe 'displays prolong token content', app: :api_particulier do
+RSpec.describe 'displays prolong token content' do
   subject(:got_to_prolong_token_page) do
-    visit api_particulier_token_prolong_path(id: token.id)
+    visit token_prolong_path(id: token.id)
   end
 
   let!(:authenticated_user) { create(:user, :demandeur, :contact_technique, :contact_metier) }
@@ -19,17 +19,17 @@ RSpec.describe 'displays prolong token content', app: :api_particulier do
     got_to_prolong_token_page
   end
 
-  describe 'when token is not found' do
+  describe 'when token is not found', app: :api_entreprise do
     let!(:token) do
       create(:token)
     end
 
     it 'redirects to the profile' do
-      expect(page).to have_current_path(api_particulier_authorization_requests_path, ignore_query: true)
+      expect(page).to have_current_path(authorization_requests_path, ignore_query: true)
     end
   end
 
-  describe 'when the token cannot be prolonged' do
+  describe 'when the token cannot be prolonged', app: :api_entreprise do
     describe 'when the user is not demandeur' do
       let!(:authorization_request) do
         create(
@@ -45,7 +45,7 @@ RSpec.describe 'displays prolong token content', app: :api_particulier do
       end
 
       it 'redirects to the profile' do
-        expect(page).to have_current_path(api_particulier_authorization_requests_path, ignore_query: true)
+        expect(page).to have_current_path(authorization_requests_path, ignore_query: true)
       end
     end
 
@@ -55,18 +55,18 @@ RSpec.describe 'displays prolong token content', app: :api_particulier do
       end
 
       it 'redirects to the profile' do
-        expect(page).to have_current_path(api_particulier_authorization_requests_path, ignore_query: true)
+        expect(page).to have_current_path(authorization_requests_path, ignore_query: true)
       end
     end
   end
 
-  describe 'when the token can be prolonged' do
+  describe 'when the token can be prolonged', app: :api_entreprise do
     let!(:token) do
       create(:token, authorization_request:, exp: 83.days.from_now.to_i)
     end
 
     it 'displays the page' do
-      expect(page).to have_current_path(api_particulier_token_prolong_path(id: token.id), ignore_query: true)
+      expect(page).to have_current_path(token_prolong_path(id: token.id), ignore_query: true)
 
       click_link('prolong_form_link')
     end
