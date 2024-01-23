@@ -60,36 +60,21 @@
     - 'participation'
   data:
     description: |+
-      Cette API délivre les liasses fiscales d'une entreprise pour l'année renseignée. Pour chaque numéro d'imprimé, les règles d'imposition applicables à l'entreprise, ainsi que le millésime, la durée de l'exercice en jours et sa date de fin, ou encore la date de dépôt de la déclaration, sont transmis.
+      Cette API délivre **les liasses fiscales d'une entreprise** pour l'année renseignée. Elle ne permet pas d'accéder à tous les imprimés, mais seulement aux **imprimés utiles pour les démarches des marchés publics et aides publiques [listés ici](#faq_entry_0_api_entreprise_endpoint_dgfip_liasses_fiscales)**. 
+      
+      Pour chaque numéro d'imprimé, les règles d'imposition applicables à l'entreprise, ainsi que le millésime, la durée de l'exercice en jours et sa date de fin, ou encore la date de dépôt de la déclaration, sont transmis.
 
       **Les données présentes dans les imprimés sont variables et de différente nature**&nbsp;:
         - des **informations financières, fiscales et comptables** ;
         - des **données sur l'entreprise et son réseau** (filiale, société-mère, participation) dont les effectifs.
         - des **données de personnes**, nom, prénom, date et lieu de naissance, adresses postales, certaines rémunérations, etc.
-
-      <div class="fr-download fr-mb-1v">
-        <p><strong>🔎 Pour avoir un aperçu exhaustif des données disponibles</strong>, vous pouvez consulter ce document&nbsp;:<br>
-          <a href="/files/api-entreprise_liasses_fiscales_liste-des-champs-par-imprime.xls" download class="fr-download__link">Télécharger la liste des données possibles par imprimé
-            <span class="fr-download__detail">XLSX – 22 ko</span>
-          </a>
-        </p>
-        <p class="fr-text--xs">Source : Document basé sur le [dictionnaire TDFC 2022 de la DGFIP](https://www.impots.gouv.fr/cahier-des-charges-edi-tdfc-0){:target="_blank"}</p>
-      </div>
+      
   opening: protected
   format:
     - Donnée structurée JSON
   parameters:
     - Numéro de SIREN de l'entreprise
   faq:
-    - q: Comment distinguer l'imprimé rectificatif de l'initial ?
-      a: |+
-        Pour un même exercice, il y a parfois plusieurs fois le même imprimé : il s'agit de corrections qui ont été apportées par une déclaration ultérieure.
-
-        Les déclarations dans la réponse JSON de l'API sont alors triées de l'imprimé le plus récent au plus ancien. Ainsi **le premier imprimé est toujours le plus récent**.
-
-
-        {:.fr-highlight.fr-highlight--caution}
-        > La date de déclaration ne vous permet donc pas de distinguer l'imprimé rectificatif de l'imprimé initial car les deux imprimés ont toujours la même date de déclaration. Celle-ci correspond à la date du correctif.
     - q: Quels sont les imprimés renvoyés par cette API ? Pourquoi certains imprimés ne sont pas renvoyés ?
       a: |+
         Cette API a été conçue et négociée dans le cadre spécifique des marchés publics et des aides publiques. Par conséquence, et en accord avec la DGFIP, seule la liste ci-dessous des imprimés est disponible:
@@ -110,3 +95,21 @@
         * 2146BIS
         * 2147BIS 
         * 2139BIS
+
+        <div class="fr-download fr-mb-1v">
+          <p><strong>🔎 Pour avoir un aperçu exhaustif des données disponibles par imprimé</strong>, vous pouvez consulter ce document&nbsp;:<br>
+            <a href="/files/api-entreprise_liasses_fiscales_liste-des-champs-par-imprime.xls" download class="fr-download__link">Télécharger la liste des données possibles par imprimé
+              <span class="fr-download__detail">XLSX – 22 ko</span>
+            </a>
+          </p>
+          <p class="fr-text--xs">Source : Document basé sur le [dictionnaire TDFC 2022 de la DGFIP](https://www.impots.gouv.fr/cahier-des-charges-edi-tdfc-0){:target="_blank"}</p>
+        </div>
+    - q: Comment distinguer l'imprimé rectificatif de l'initial ?
+      a: |+
+        Pour un même exercice, il y a parfois plusieurs fois le même imprimé : il s'agit de corrections qui ont été apportées par une déclaration ultérieure.
+
+        Les déclarations dans la réponse JSON de l'API sont alors triées de l'imprimé le plus récent au plus ancien. Ainsi **le premier imprimé est toujours le plus récent**.
+
+
+        {:.fr-highlight.fr-highlight--caution}
+        > La date de déclaration ne vous permet donc pas de distinguer l'imprimé rectificatif de l'imprimé initial car les deux imprimés ont toujours la même date de déclaration. Celle-ci correspond à la date du correctif.
