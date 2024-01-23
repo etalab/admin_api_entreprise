@@ -60,21 +60,13 @@
     - 'participation'
   data:
     description: |+
-      Cette API délivre les liasses fiscales d'une entreprise pour l'année renseignée. Pour chaque numéro d'imprimé, les règles d'imposition applicables à l'entreprise, ainsi que le millésime, la durée de l'exercice en jours et sa date de fin, ou encore la date de dépôt de la déclaration, sont transmis.
+      Cette API délivre **les liasses fiscales d'une entreprise** pour l'année renseignée. Les imprimés disponibles sont ceux qui sont utiles pour les démarches des marchés publics et aides publiques, et sont [listés ici](#)  Pour chaque numéro d'imprimé, les règles d'imposition applicables à l'entreprise, ainsi que le millésime, la durée de l'exercice en jours et sa date de fin, ou encore la date de dépôt de la déclaration, sont transmis.
 
       **Les données présentes dans les imprimés sont variables et de différente nature**&nbsp;:
         - des **informations financières, fiscales et comptables** ;
         - des **données sur l'entreprise et son réseau** (filiale, société-mère, participation) dont les effectifs.
         - des **données de personnes**, nom, prénom, date et lieu de naissance, adresses postales, certaines rémunérations, etc.
-
-      <div class="fr-download fr-mb-1v">
-        <p><strong>🔎 Pour avoir un aperçu exhaustif des données disponibles</strong>, vous pouvez consulter ce document&nbsp;:<br>
-          <a href="/files/api-entreprise_liasses_fiscales_liste-des-champs-par-imprime.xls" download class="fr-download__link">Télécharger la liste des données possibles par imprimé
-            <span class="fr-download__detail">XLSX – 22 ko</span>
-          </a>
-        </p>
-        <p class="fr-text--xs">Source : Document basé sur le [dictionnaire TDFC 2022 de la DGFIP](https://www.impots.gouv.fr/cahier-des-charges-edi-tdfc-0){:target="_blank"}</p>
-      </div>
+      
   opening: protected
   format:
     - Donnée structurée JSON
@@ -110,3 +102,12 @@
         * 2146BIS
         * 2147BIS 
         * 2139BIS
+
+        <div class="fr-download fr-mb-1v">
+          <p><strong>🔎 Pour avoir un aperçu exhaustif des données disponibles par imprimé</strong>, vous pouvez consulter ce document&nbsp;:<br>
+            <a href="/files/api-entreprise_liasses_fiscales_liste-des-champs-par-imprime.xls" download class="fr-download__link">Télécharger la liste des données possibles par imprimé
+              <span class="fr-download__detail">XLSX – 22 ko</span>
+            </a>
+          </p>
+          <p class="fr-text--xs">Source : Document basé sur le [dictionnaire TDFC 2022 de la DGFIP](https://www.impots.gouv.fr/cahier-des-charges-edi-tdfc-0){:target="_blank"}</p>
+        </div>
