@@ -112,10 +112,22 @@ l’<a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI00003136735
 </p>
 
 <p>
-  Le jeton est émis pour une durée maximum de deux ans, sauf révocation. Trois mois avant l’échéance,
-  le <strong>Partenaire</strong> est invité à reformuler une demande d’adhésion au service s’il le souhaite. L’API Entreprise envoie des notifications de renouvellement par emails trois mois avant l'expiration
+  Le jeton est émis avec une durée de vie de 18 mois, son expiration est programmée à cette date sauf en cas de révocation précoce. Trois mois avant l’expiration,
+  le <strong>Partenaire</strong> est invité à formuler une demande de prolongation du jeton s’il le souhaite. Pour l'informer, l’API Entreprise envoie des notifications par emails trois mois avant l'expiration
   d'un jeton. Ces derniers sont valables pour une durée de 18 mois.
 </p>
+
+<p>
+Le formulaire de prolongation permet au <strong>Partenaire</strong> d’indiquer si des changements sont intervenus depuis la dernière demande d’habilitation à l’API Entreprise et donc de vérifier que les conditions pour lesquelles l'habiliation a été délivrée sont toujours valables. Une fois le formulaire complété par le <strong>Partenaire</strong> :
+</p>
+<ul> 
+  <li>
+    Si des changements sont signalés, le <strong>Partenaire</strong> est invité à lancer une demande de modification de l’habilitation. Cette demande sera traitée en priorité par les services instructeurs de la <strong>DINUM</strong>. Après validation, le jeton sera prolongé de 18 mois.
+  </li>
+  <li>
+    Si aucun changement n’est signalé, le jeton est prolongé de 18 mois à la suite de l’envoi du formulaire de prolongation.
+  </li>
+</ul>
 
 <h5>
   Engagements
@@ -290,7 +302,7 @@ légales en vigueur, ne correspond pas aux exigences de sécurité ou porte pré
     <br>
     <br>
     Ces informations permettent d’assurer l’accès du <strong>Partenaire</strong> au compte utilisateur privé,
-    de récupérer ses jetons, de recevoir les notifications de renouvellement, d’accéder aux lettres
+    de récupérer ses jetons, de recevoir les notifications de prolongation du jeton, d’accéder aux lettres
     d'informations, de consulter les invitations aux évènements organisés par API Entreprise.
   </li>
   <li>

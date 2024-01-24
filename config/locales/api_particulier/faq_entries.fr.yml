@@ -296,7 +296,7 @@ fr:
 
                   **Vous devez transmettre ce jeton à votre éditeur ? Ou à votre équipe technique ?** Utilisez la [fonctionnalité prévue à cet effet](<%= faq_index_path(anchor: 'comment-transmettre-le-jeton-d-acces-en-tout-securite') %>).
 
-                  **Le jeton est valable 18 mois, il devra ensuite être renouvelé par le demandeur tous les 18 mois, avant sa date d'expiration**. Autrement, vous ne pourrez plus accéder aux API tant que le renouvellement n'aura pas été effectué. Pour en savoir plus sur la procédure de renouvellement, veuillez lire [cette rubrique](<%= faq_index_path(anchor: 'comment-prolonger-mon-jeton-arrivant-a-expiration') %>).
+                  **Le jeton est valable 18 mois, il devra ensuite être prolongé par le demandeur tous les 18 mois, avant sa date d'expiration**. Autrement, vous ne pourrez plus accéder aux API tant que la prolongation n'aura pas été effectuée. Pour en savoir plus sur la procédure de prolongation, veuillez lire [cette rubrique](<%= faq_index_path(anchor: 'comment-prolonger-mon-jeton-arrivant-a-expiration') %>).
 
             - question: "Comment transmettre le jeton d’accès en tout sécurité ?"
               answer: |+
@@ -319,7 +319,7 @@ fr:
 
                 #### Se rendre sur le formulaire de prolongation
 
-                Trois mois avant l’arrivée à terme d’un jeton, le demandeur **reçoit des notifications automatiques** l'informant de l’expiration à venir de votre jeton ainsi qu’**une invitation à le renouveler**.
+                Trois mois avant l’arrivée à terme d’un jeton, le demandeur **reçoit des notifications automatiques** l'informant de l’expiration à venir de votre jeton ainsi qu’**une invitation à le prolonger**.
                 Les notifications sont envoyées régulièrement jusqu’à l'expiration (90 jours avant la date d’expiration, puis 60 jours avant, puis 30, 15, …). Le contact technique est en copie de ces e-mails, mais il ne peut pas compléter le formulaire. Seul le demandeur peut le faire.
 
                 Si le jeton expire dans moins de 90 jours et qu'aucune notification n'a été reçue, veuillez vérifier si celle-ci n’est pas arrivée dans vos "spams" 🗑.
@@ -356,22 +356,22 @@ fr:
                 Le contact technique et l'éditeur ne sont pas habilités à effectuer ces démarches.
             - question: "Comment élargir le périmètre des API disponibles avec mon jeton / obtenir de nouvelles données ?"
               answer: |+
-                Il est tout à fait possible d’élargir le périmètre des données auxquelles vous avez accès, ce nouveau périmètre engendrera la création d’un nouveau jeton.
+                Pour élargir le périmètre des données auxquelles vous avez accès, vous devez effectuer une **demande de modification de votre habilitation**&nbsp;:
 
-                Pour demander de nouvelles données, vous devez donc **refaire une demande d’habilitation**&nbsp;:
+                1. Connectez-vous à votre compte API Particulier avec vos identifiants MonCompte Pro ; 
+                2. Rendez-vous sur la page détaillée de l'habilitation concernée ; 
+                3. Dans la première partie de cette page "Vos droits d'accès", cliquez sur le bouton  "Demander l'accès à d'autres API". Une fenêtre s'ouvre et vous indique la suite de la démarche. Vous allez en effet être redirigé sur le site Datapass, sur lequel vous aviez fait votre demande d'habilitation. Sur Datapass, une demande de modification de votre habilitation est alors ouverte.
+                4. Sélectionnez les données dont votre service à besoin.
+                5. Soumettez la demande. API Particulier va instruire votre demande notamment pour s'assurer que les nouvelles données demandées correspondent au cas d'usage de votre habilitation.
+                
+                {:.fr-highlight}
+                > _Si les nouvelles données demandées concernent un nouveau cadre d’utilisation_, l'instructeur vous demandera certainement de faire une [nouvelle demande](https://datapass.api.gouv.fr/api-particulier#head){:target="_blank"} plutôt que de modifier l'habilitation déjà validée.
 
-                - _Si les nouvelles données demandées entrent dans le même cas d’usage que celui de votre demande initiale_, vous pouvez vous connecter, et cliquer sur "Renouveler mon jeton". Cette action vous conduit sur un nouveau formulaire, pré-rempli des informations de votre demande initiale. Ajoutez vos données et surtout spécifiez dans la description pourquoi vous avez besoin de ces données et à quoi serviront-elles. N’oubliez pas de compléter le cadre juridique si nécessaire.
+            - question: "Pourquoi mon jeton a une date d’expiration ?"
+              answer: |+
+                Pour des **raisons de sécurité**, tous les jetons émis sont valables pour une **durée de 18 mois**. Au delà de ce délai, ils ne fonctionnent plus, et votre accès à l’API Particulier est donc totalement arrêté.
 
-                  {:.fr-highlight}
-                  > ℹ️ L’action de renouvellement du jeton ne supprimera pas le jeton initial, qui garde sa validité jusqu’à sa date d’expiration.
-                - _Si les nouvelles données demandées concernent un nouveau cadre d’utilisation_, faîtes simplement une [nouvelle demande](https://datapass.api.gouv.fr/api-entreprise#head){:target="_blank"}.
-
-            # - question: "Pourquoi mon jeton a une date d’expiration ?"
-            #   answer: |+
-            #     Pour des **raisons de sécurité**, tous les jetons émis sont valables pour une **durée de 18 mois**. Au delà de ce délai, ils ne fonctionnent plus, et votre accès à l’API Particulier est donc totalement arrêté.
-
-            #     En réalité, cette situation n’est pas censée arriver car API Particulier a mis en place une [procédure simple de renouvellement de token](<%= faq_index_path(anchor: 'comment-renouveler-mon-jeton-arrivant-a-expiration') %>).
-
+                En réalité, cette situation n’est pas censée arriver car API Particulier a mis en place une [procédure simple de prolongation de token](<%= faq_index_path(anchor: 'comment-prolonger-mon-jeton-arrivant-a-expiration') %>).
 
         - name: "Rupture de service"
           entries:
