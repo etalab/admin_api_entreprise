@@ -3,7 +3,7 @@
     locals: {
       color: '#ffe5cf',
       title: "Votre accès à l'API Entreprise <b>expire dans une semaine&nbsp;🔑🚨</b>",
-      subtitle: "Faîtes votre demande de renouvellement en un clic&nbsp;⬇️"
+      subtitle: "Faîtes votre demande de prolongation maintenant&nbsp;⬇️"
     }
 %>
 <mj-section mj-class="section-main">
@@ -11,22 +11,20 @@
     <mj-text>
       <p>Bonjour <%= @full_name %>,</p>
       <p>
-        ⚠️ &nbsp;Transmettez-nous maintenant votre demande de renouvellement pour éviter la coupure de service !
+       <b>⚠️ &nbsp;Complétez maintenant votre demande de prolongation pour éviter la coupure de service !</b>
       </p>
       <p>
         Passée la date du <%= @expiration_date %>, les appels à API Entreprise avec votre jeton (cadre d'utilisation : "<%= @intitule %>") seront rejetés.
       </p>
       <p>
-        À 7 jours de l'expiration, surtout si vous demandez un élargissement de son périmètre ou que la finalité de
-        votre service a évolué,
         <b>
-          le délai est maintenant trop serré pour vous garantir l'activation d'un nouveau jeton avant l'expiration de l'actuel.
+          À 7 jours de l'expiration, il n'est plus possible de vous garantir que votre jeton sera prolongé avant son expiration.
         </b>
       </p>
-      <p>Nous ferons néanmoins notre possible ! Il vous faut soumettre votre demande de renouvellement maintenant :</p>
+      <p>Nous ferons néanmoins notre possible ! Il vous faut soumettre votre demande de prolongation maintenant :</p>
     </mj-text>
     <mj-button href="<%= @datapass_renewal_url %>">
-      <b>Renouveler sa demande d'accès&nbsp;🔑</b>
+      <b>Demander la prolongation du jeton d'accès&nbsp;🔑</b>
     </mj-button>
     <mj-text mj-class="secondary-link">
       <a target="_blank" href="<%= @datapass_renewal_url %>">
