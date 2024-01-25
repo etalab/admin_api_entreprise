@@ -1,0 +1,21 @@
+Bonjour et bienvenue,
+
+<%= @old_owner.email %> propose de vous transférer les habilitations API Particulier de votre organisation en vous transmettant sa place de «&nbsp;Demandeur&nbsp;», c'est-à-dire de contact principal en charge des demandes d'habilitation. Ce rôle vous permet d'accéder aux clés d'accès (tokens) API Particulier, à leurs statistiques d'utilisation et à l'interface de téléchargement des attestations fiscales et sociales si vos jetons sont pourvus de ces droits. Ce rôle vous attribue également la responsabilité de valider la prolongation des clés d'accès et vous permettra de demander des évolutions de l'habilitation comme par exemple l'accès à d'autres API.
+
+
+Pour obtenir le rôle de demandeur pour ces habilitations, il est nécessaire que vous ayez un <%= link_to 'compte chez «&nbsp;MonComptePro&nbsp;»', @login_url
+%> (Solution d'identification des professionnels du privé ou du public créée par la DINUM) <strong>avec votre adresse e-mail <%= @new_owner.email %> et en renseignant le numéro de Siret de l'organisation à laquelle sont rattachées ces habilitations</strong>.
+Veuillez donc vérifier en cliquant sur <%= link_to 'ce lien', @login_url
+%> si vous avez un compte avec cette adresse e-mail <%= @new_owner.email %> et avec le bon numéro de SIRET, ou, le cas échéant, vous en créer un.
+
+
+Une fois cette connexion effectuée, une validation manuelle de nos services sera nécessaire pour relier les habilitations à votre compte. Cette validation peut prendre quelques jours.
+
+Par la suite, toute connexion à votre espace utilisateur API Particulier, où se trouvent vos habilitations et vos clés d'accès, vaut acceptation de votre part de nos
+<a href="https://particulier.api.gouv.fr/cgu">CGU</a> pour chacune des habilitations qui vous auront été transférées. 
+
+Vous ne souhaitez pas prendre la responsabilité du compte actuellement détenu par <%= @old_owner.email %> ou avez
+des interrogations ? Vous pouvez nous écrire par retour de mail.
+
+Cordialement,
+L'équipe API Particulier

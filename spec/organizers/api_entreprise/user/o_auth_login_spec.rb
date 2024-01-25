@@ -7,7 +7,8 @@ RSpec.describe APIEntreprise::User::OAuthLogin, type: :organizer do
     {
       oauth_api_gouv_email: user.email,
       oauth_api_gouv_id:,
-      oauth_api_gouv_info:
+      oauth_api_gouv_info:,
+      namespace: 'api_entreprise'
     }
   end
 
@@ -76,7 +77,7 @@ RSpec.describe APIEntreprise::User::OAuthLogin, type: :organizer do
       it 'sends an email to datapass for authorization request ownership update' do
         expect { sync! }
           .to have_enqueued_mail(APIEntreprise::UserMailer, :notify_datapass_for_data_reconciliation)
-          .with(user)
+          .with(user, 'api_entreprise')
       end
 
       it 'does not send emails on second login' do
