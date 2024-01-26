@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class APIParticulier::CasUsagesController < APIParticulierController
-  layout 'api_entreprise/no_container'
+  layout 'api_particulier/no_container'
 
   def index
     @cas_usages = APIParticulier::CasUsage.all
