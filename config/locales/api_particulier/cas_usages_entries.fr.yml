@@ -9,20 +9,30 @@ fr:
           - cnous/statut_etudiant_boursier
           - education_nationale/statut_eleve_scolarise
           - mesri/statut_etudiant
-          - pole_emploi/situation
         endpoints_optional:
         endpoints_forbidden:
         introduction:
-          title: TODO
+          title: Collectivités, simplifiez l'attribution des aides facultatives pour les élèves et étudiants
           content: |
             {:.fr-text--lead}
-            TODO
+            Intégrez l'API Particulier pour récupérer directement les certificats de scolarité des élèves et/ou carte d'étudiant ; les justificatifs de bourse et les justificatifs de revenus.
         link_api_gouv:
-          link: 'simplification-des-demarches'
-          link_url: "TODO"
-          content: |+
-            TODO
-      aides_sociales:
+          link_url: "https://api.gouv.fr/guides/aides-facultatives-scolarite"
+      cantines-colleges-lycees-tarification:
+        name: 'Tarification des services publics municipaux'
+        endpoints:
+          - cnaf_msa/quotient_familial_v2
+          - cnaf/quotient_familial
+        endpoints_optional:
+        endpoints_forbidden:
+        introduction:
+          title: Départements et régions, simplifiez les démarches des familles en calculant automatiquement le tarif de restauration scolaire des collégiens et lycéens
+          content: |
+            {:.fr-text--lead}
+            Intégrez l'API Particulier pour accéder directement au quotient familial CAF/MSA des familles.
+        link_api_gouv:
+          link_url: "https://api.gouv.fr/guides/cantines-colleges-lycees-tarification"
+      ccas:
         name: 'Attribution des aides sociales'
         endpoints:
           - cnaf_msa/quotient_familial_v2
@@ -35,15 +45,12 @@ fr:
         endpoints_optional:
         endpoints_forbidden:
         introduction:
-          title: TODO
+          title: CCAS, simplifiez le dépôt et l'instruction des dossiers d'aides sociales
           content: |
             {:.fr-text--lead}
-            TODO
+            Intégrez l'API Particulier pour accéder directement au statut demandeur d'emploi, au certificat de scolarité collège/lycée/étudiant et au statut élève boursie, au statut bénéficiaire de la complémentaire santé solidaire, au  quotient familial CAF/MSA.
         link_api_gouv:
-          link: 'simplification-des-demarches'
-          link_url: "TODO"
-          content: |+
-            TODO
+          link_url: "https://api.gouv.fr/guides/ccas"
       tarification_transports:
         name: 'Tarification sociale et solidaire des transports'
         endpoints:
@@ -57,56 +64,23 @@ fr:
         endpoints_optional:
         endpoints_forbidden:
         introduction:
-          title: TODO
+          title: AOM, obtenez automatiquement les données nécessaires à l'attribution des tarifs réduits de transports collectifs.
           content: |
             {:.fr-text--lead}
-            TODO
+            Intégrez l'API Particulier pour accéder directement au statut demandeur d'emploi, au certificat de scolarité collège/lycée/étudiant et au statut élève boursie, au statut bénéficiaire de la complémentaire santé solidaire, au  quotient familial CAF/MSA.
         link_api_gouv:
-          link: 'simplification-des-demarches'
-          link_url: "TODO"
-          content: |+
-            TODO
-      tarification_services_publics:
-        name: 'Tarification des services publics municipaux'
-        endpoints:
-          - cnaf_msa/quotient_familial_v2
-          - cnaf/quotient_familial
-          - cnaf_msa/complementaire_sante_solidaire
-          - cnous/statut_etudiant_boursier
-          - education_nationale/statut_eleve_scolarise
-          - mesri/statut_etudiant
-          - pole_emploi/situation
-        endpoints_optional:
-        endpoints_forbidden:
-        introduction:
-          title: TODO
-          content: |
-            {:.fr-text--lead}
-            TODO
-        link_api_gouv:
-          link: 'simplification-des-demarches'
-          link_url: "TODO"
-          content: |+
-            TODO
+          link_url: "https://api.gouv.fr/guides/delivrance-titres-transport"
       portail_famille:
         name: 'Portail famille des communes'
         endpoints:
           - cnaf_msa/quotient_familial_v2
           - cnaf/quotient_familial
-          - cnaf_msa/complementaire_sante_solidaire
-          - cnous/statut_etudiant_boursier
-          - education_nationale/statut_eleve_scolarise
-          - mesri/statut_etudiant
-          - pole_emploi/situation
         endpoints_optional:
         endpoints_forbidden:
         introduction:
-          title: TODO
+          title: Communes et intercommunalités, simplifiez les démarches des familles en calculant automatiquement leur tarif de restauration scolaire, de crèches ou d'activités périscolaires ou municipales
           content: |
             {:.fr-text--lead}
-            TODO
+            Intégrez l'API Particulier pour accéder directement au quotient familial CAF/MSA des familles.
         link_api_gouv:
-          link: 'simplification-des-demarches'
-          link_url: "TODO"
-          content: |+
-            TODO
+          link_url: "https://api.gouv.fr/guides/portail-famille-tarification"
