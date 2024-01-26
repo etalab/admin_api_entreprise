@@ -2,7 +2,6 @@
   <div class="banner fr-pt-5w fr-pb-8w">
     <div class="fr-container">
       <h1><%= t('.title') %></h1>
-
       <p class="fr-text--lead"><%= t('.description').html_safe %></p>
     </div>
   </div>
@@ -16,6 +15,13 @@
               <%= link_to t(".cards.#{cas_usage.uid}.title"), cas_usage_path(cas_usage.uid) %>
             </h2>
             <p class="fr-card__desc fr-text--lg"><%= t(".cards.#{cas_usage.uid}.description") %></p>
+            <div class="fr-card__end">
+              <ul class="fr-badges-group">
+                <% cas_usage.user_types.each do |user_type| %>
+                  <li class="fr-m-0-5v"><p class="fr-badge fr-badge--sm fr-badge--<%= user_type_tag_color(user_type) %>"><%= user_type %></p></li>
+                <% end %>
+              </ul>
+            </div>
           </div>
         </div>
         <div class="fr-card__header">
