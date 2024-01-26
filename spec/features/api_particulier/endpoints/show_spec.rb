@@ -18,7 +18,7 @@ RSpec.describe 'Endpoints show', app: :api_particulier do
   end
 
   it "displays cas d'usage" do
-    expect(page).to have_content('Tarification sociale et solidaire des transports')
+    expect(page).to have_content('Tarification des transports')
   end
 
   it 'displays link to test cases' do
