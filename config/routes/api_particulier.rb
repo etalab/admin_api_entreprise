@@ -26,12 +26,13 @@ constraints(APIParticulierDomainConstraint.new) do
     get '/faq', to: 'faq#index', as: :faq_index
     get '/developpeurs', to: 'documentation#developers', as: :developers
     get '/developpeurs/openapi', to: 'pages#redoc', as: :developers_openapi
+    get '/cas_usages', to: 'cas_usages#index'
+    get '/cas_usages/:uid', to: 'cas_usages#show', as: :cas_usage
 
     get '/compte/se-connecter', to: 'sessions#new', as: :login
     get '/compte/se-connecter/lien-magique', to: 'sessions#create_from_magic_link', as: :login_magic_link
     get '/compte/deconnexion', to: 'sessions#destroy', as: :logout
     get '/compte/apres-deconnexion', to: 'sessions#after_logout', as: :after_logout
-
 
     get '/compte', to: 'users#profile', as: :user_profile
     get '/compte/nouveaux-jetons/telecharger', to: "new_tokens#download", as: :new_tokens_download
@@ -56,13 +57,14 @@ constraints(APIParticulierDomainConstraint.new) do
 
     get '/blog/:id', to: 'blog_posts#show', as: :blog_post
 
-    get '/status_apis', to: 'pages#current_status', as: :current_status
+    get '/apis/status', to: 'pages#current_status', as: :current_status
 
     get '/infolettre', to: 'pages#newsletter', as: :newsletter
     get '/mentions-legales', to: 'pages#mentions', as: :mentions
     get '/cgu', to: 'pages#cgu', as: :cgu
     get '/donnees_personnelles', to: 'pages#donnees_personnelles', as: :donnees_personnelles
     get '/accessibilite', to: 'pages#accessibility', as: :accessibilite
+
 
   end
 end

@@ -1,0 +1,29 @@
+<div id="cas-usages" class="fr-container--fluid">
+  <div class="banner fr-pt-5w fr-pb-8w">
+    <div class="fr-container">
+      <h1><%= t('.title') %></h1>
+
+      <p class="fr-text--lead"><%= t('.description').html_safe %></p>
+    </div>
+  </div>
+
+  <div class="content fr-container fr-mt-5w fr-mb-5w">
+    <% @cas_usages.each do |cas_usage| %>
+      <div class="fr-card fr-enlarge-link">
+        <div class="fr-card__body">
+          <div class="fr-card__content">
+            <h2 class="fr-card__title fr-h5">
+              <%= link_to t(".cards.#{cas_usage.uid}.title"), cas_usage_path(cas_usage.uid) %>
+            </h2>
+            <p class="fr-card__desc fr-text--lg"><%= t(".cards.#{cas_usage.uid}.description") %></p>
+          </div>
+        </div>
+        <div class="fr-card__header">
+          <div class="fr-card__img">
+            <%= image_tag("api_particulier/cas_usages/pictos/#{cas_usage.uid}.svg", class: %w(card-image fr-responsive-img), alt: cas_usage.uid) %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

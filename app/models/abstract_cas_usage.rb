@@ -6,6 +6,7 @@ class AbstractCasUsage
     uid
     name
     introduction
+    link_api_gouv
     role
     user_types
     comments_endpoints
