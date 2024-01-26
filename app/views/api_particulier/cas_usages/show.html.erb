@@ -1,0 +1,21 @@
+<div id="cas-usage" class="fr-container--fluid">
+  <div class="banner"></div>
+
+  <div class="fr-container doc_markdown_to_html" data-controller="anchor-buttons" data-anchor-buttons-tags-value='["h2", "h3", "h4", "section"]'>
+    <section class="introduction fr-grid-row fr-background-default-white">
+      <div class="introduction_image fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-2 fr-col-xl-2">
+        <%= image_tag("api_particulier/cas_usages/pictos/#{params[:uid]}.svg", alt: params[:uid]) %>
+      </div>
+      <div class="introduction_text fr-col-xs-12 fr-col-sm-12 fr-col-md-12 fr-col-lg-10 fr-col-xl-10">
+        <label class="introduction_text--label"><%= t('.label') %></label>
+        <h1 class="fr-h2 introduction_text--title fr-mt-1v"><%= @cas_usage.introduction[:title] %></h1>
+        <div class="introduction_text--content"><%= markdown_to_html(@cas_usage.introduction[:content]) %></div>
+        <a href="<%= @cas_usage.link_api_gouv %>" class="fr-btn fr-mt-10v fr-mb-4w" target='_blank'>Découvrir ce cas d'usage sur API.gouv</span></a>
+      <div class="role--content">
+      </div>
+    </section>
+    <section class="other-use-cases fr-background-grey">
+      <%= render partial: 'api_particulier/cas_usages/others' %>
+    </section>
+  </div>
+</div>

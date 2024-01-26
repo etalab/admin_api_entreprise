@@ -3,7 +3,7 @@ module TagColorHelper
     case user_type
     when 'administrations'
       'pink-tuile'
-    when 'collectivités'
+    when 'collectivités', 'régions', 'départements', 'intercommunalités', 'communes'
       'pink-macaron'
     when 'éditeurs de logiciels'
       'green-archipel'

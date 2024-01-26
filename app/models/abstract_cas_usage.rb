@@ -56,8 +56,16 @@ class AbstractCasUsage
         *ATTRIBUTES
       ).merge(
         uid: uid.to_s
+      ).merge(
+        entry.slice(
+          *extra_attributes
+        )
       )
     )
+  end
+
+  def self.extra_attributes
+    {}
   end
 
   def self.backend

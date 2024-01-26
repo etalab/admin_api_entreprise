@@ -13,9 +13,7 @@
     <ul class="fr-tags-group fr-mt-2w">
       <% @endpoint.use_cases.each do |use_case| %>
         <li class="fr-mb-1w">
-          <span class="fr-tag">
-            <%= use_case.name %>
-          </span>
+          <%= link_to use_case.name, cas_usage_path(uid: use_case.uid), class: %w[fr-tag] %>
         </li>
       <% end %>
     </ul>
