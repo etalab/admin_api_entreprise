@@ -6,7 +6,6 @@ class AbstractCasUsage
     uid
     name
     introduction
-    link_api_gouv
     role
     user_types
     comments_endpoints
@@ -57,8 +56,16 @@ class AbstractCasUsage
         *ATTRIBUTES
       ).merge(
         uid: uid.to_s
+      ).merge(
+        entry.slice(
+          *extra_attributes
+        )
       )
     )
+  end
+
+  def self.extra_attributes
+    {}
   end
 
   def self.backend
