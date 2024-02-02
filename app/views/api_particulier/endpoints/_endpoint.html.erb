@@ -27,13 +27,15 @@
      <section class="metadata fr-mt-2w fr-pb-0">
       <strong>Modalités d'appel :</strong>  
       <ul >
-      <% endpoint.parameters.each do |parameter| %>
-      <li class="fr-text--sm fr-mb-0 fr-pb-0">
-        
-      <%= parameter %><% if parameter == "FranceConnect" %><%= image_tag("api_particulier/cas_usages/pictos/modalite_appel_france_connect.svg", style: 'vertical-align: middle; margin-left: 2px;', size: '25x25', alt: 'Pictogramme fournisseurs de données regroupés') %><% end %>
-      </li>
-     <% end %>
-     </ul>
+        <% endpoint.parameters.each do |parameter| %>
+        <li class=" fr-mb-0 fr-pb-0">
+          <%= parameter %>
+          <% if parameter == "FranceConnect" %>
+            <%= image_tag("api_particulier/cas_usages/pictos/modalite_appel_france_connect.svg", style: 'vertical-align: middle; margin-left: 2px;', size: '25x25', alt: 'Pictogramme fournisseurs de données regroupés') %>
+          <% end %>
+        </li>
+        <% end %>
+      </ul>
     </section>
 
     <footer>
