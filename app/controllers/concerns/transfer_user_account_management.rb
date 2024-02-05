@@ -6,7 +6,7 @@ module TransferUserAccountManagement
   end
 
   def create
-    transfer = APIEntreprise::User::TransferAccount.call(transfer_account_params)
+    transfer = User::TransferAccount.call(transfer_account_params)
 
     if transfer.success?
       success_message(title: t('shared.transfer_user_account.create.success.title'))
@@ -26,7 +26,13 @@ module TransferUserAccountManagement
   def transfer_account_params
     {
       current_owner: current_user,
-      target_user_email: params[:email]
+      target_user_email: params[:email],
+      authorization_requests: current_user.authorization_requests.for_api(api),
+      namespace:
     }
+  end
+
+  def api
+    namespace.slice(4..-1)
   end
 end

@@ -1,5 +1,11 @@
 class User::NotifyNewTokensOwner < ApplicationInteractor
   def call
-    APIEntreprise::UserMailer.transfer_ownership(context.current_owner, context.target_user).deliver_later
+    mailer_klass.transfer_ownership(context.current_owner, context.target_user, context.namespace).deliver_later
+  end
+
+  private
+
+  def mailer_klass
+    "#{context.namespace.classify}::UserMailer".constantize
   end
 end

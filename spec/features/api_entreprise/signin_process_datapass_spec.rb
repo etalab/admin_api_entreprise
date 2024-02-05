@@ -66,7 +66,7 @@ RSpec.describe 'the signin process', app: :api_entreprise do
         it 'sends an email to DataPass to update the authorization request owner' do
           expect { subject }
             .to have_enqueued_mail(APIEntreprise::UserMailer, :notify_datapass_for_data_reconciliation)
-            .with(user)
+            .with(user, 'api_entreprise')
         end
 
         it 'redirects to the user profile' do

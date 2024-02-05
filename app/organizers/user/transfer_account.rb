@@ -1,4 +1,4 @@
-class APIEntreprise::User::TransferAccount < ApplicationOrganizer
+class User::TransferAccount < ApplicationOrganizer
   organize User::FindOrCreateNewOwner,
     User::TransferTokens,
     User::NotifyNewTokensOwner

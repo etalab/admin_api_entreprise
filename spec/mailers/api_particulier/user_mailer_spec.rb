@@ -1,17 +1,17 @@
 require 'rails_helper'
 
-RSpec.describe APIEntreprise::UserMailer do
+RSpec.describe APIParticulier::UserMailer do
   describe '#transfer_ownership' do
-    subject { described_class.transfer_ownership(old_owner, new_owner, 'api_entreprise') }
+    subject { described_class.transfer_ownership(old_owner, new_owner, 'api_particulier') }
 
     let(:new_owner) { create(:user) }
     let(:old_owner) { create(:user) }
 
     let!(:authorization_requests) do
-      create_list(:authorization_request, 3, :with_tokens, :with_demandeur, demandeur: old_owner, api: 'entreprise')
+      create_list(:authorization_request, 3, :with_tokens, :with_demandeur, demandeur: old_owner, api: 'particulier')
     end
 
-    its(:subject) { is_expected.to eq('API Entreprise - Délégation d\'accès') }
+    its(:subject) { is_expected.to eq('API Particulier - Délégation d\'accès') }
     its(:to) { is_expected.to eq([new_owner.email]) }
 
     describe 'email body' do
@@ -21,7 +21,7 @@ RSpec.describe APIEntreprise::UserMailer do
       end
 
       it 'notifies the user to login to access his tokens' do
-        login_url = 'https://entreprise.api.gouv.fr/compte/se-connecter'
+        login_url = 'https://particulier.api.gouv.fr/compte/se-connecter'
 
         expect(subject.html_part.decoded).to include(login_url)
         expect(subject.text_part.decoded).to include(login_url)
@@ -39,17 +39,17 @@ RSpec.describe APIEntreprise::UserMailer do
   end
 
   describe '#notify_datapass_for_data_reconciliation' do
-    subject { described_class.notify_datapass_for_data_reconciliation(user, 'api_entreprise') }
+    subject { described_class.notify_datapass_for_data_reconciliation(user, 'api_particulier') }
 
     let(:user) { create(:user) }
 
     let!(:authorization_requests) do
-      create_list(:authorization_request, 3, :with_tokens, :with_demandeur, demandeur: user, api: 'entreprise')
+      create_list(:authorization_request, 3, :with_tokens, :with_demandeur, demandeur: user, api: 'particulier')
     end
 
-    let(:datapass_ids) { user.authorization_requests.for_api('entreprise').map(&:external_id).map(&:to_i) }
+    let(:datapass_ids) { user.authorization_requests.for_api('particulier').map(&:external_id).map(&:to_i) }
 
-    its(:subject) { is_expected.to eq('API Entreprise - Réconciliation de demandes d\'accès à un nouvel usager') }
+    its(:subject) { is_expected.to eq('API Particulier - Réconciliation de demandes d\'accès à un nouvel usager') }
     its(:to) { is_expected.to eq(['datapass@api.gouv.fr']) }
 
     it 'contains the user email address' do

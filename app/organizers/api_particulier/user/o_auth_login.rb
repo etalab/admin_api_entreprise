@@ -1,4 +1,5 @@
 class APIParticulier::User::OAuthLogin < ApplicationOrganizer
   organize User::FindOrCreateThroughOAuth,
-    User::UpdateOAuthAPIGouvId
+    User::UpdateOAuthAPIGouvId,
+    User::NotifyDatapassOfTokenOwnership
 end
