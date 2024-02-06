@@ -20,10 +20,12 @@
   <ul >
     <% @endpoint.parameters.each do |parameter| %>
     <li class=" fr-mb-0 fr-pb-0">
-      <%= parameter %>
-      <% if parameter == "FranceConnect" %>
-        <%= image_tag("api_particulier/cas_usages/pictos/modalite_appel_france_connect.svg", style: 'vertical-align: middle; margin-left: 2px;', size: '25x25', alt: 'Pictogramme fournisseurs de données regroupés') %>
-      <% end %>
+      <span class="fr-grid-row">
+        <%= parameter %>
+        <% if parameter == "FranceConnect" %>
+          <%= image_tag("api_particulier/cas_usages/pictos/modalite_appel_france_connect.svg", size: '25x25', alt: 'Pictogramme fournisseurs de données regroupés', class: %w(fr-ml-1w))%>
+        <% end %>
+      </span>
     </li>
     <% end %>
   </ul>
