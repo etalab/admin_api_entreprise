@@ -17,13 +17,19 @@
     <%= t('.parameters.title', count: @endpoint.parameters.count) %>
   </h3>
 
-  <ul>
+  <ul >
     <% @endpoint.parameters.each do |parameter| %>
-      <li>
+    <li class=" fr-mb-0 fr-pb-0">
+      <span class="fr-grid-row">
         <%= parameter %>
-      </li>
+        <% if parameter == "FranceConnect" %>
+          <%= image_tag("api_particulier/cas_usages/pictos/modalite_appel_france_connect.svg", size: '25x25', alt: 'Pictogramme fournisseurs de données regroupés', class: %w(fr-ml-1w))%>
+        <% end %>
+      </span>
+    </li>
     <% end %>
   </ul>
+
   <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" title="Détails des modalités d'appel" href="#parameters_details">
   <%= t('.parameters.link') %>
  </a>
