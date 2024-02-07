@@ -198,32 +198,41 @@ fr:
             ### Du côté de l'usager : les boutons FranceConnect
 
             {:.fr-text--lg}
-            Plutôt que de renseigner ses données personnelles dans différents champs de saisie, vos usagers auront simplement à s'identifier avec les boutons FranceConnect pour récupérer leurs données API Particulier. L'appel aux données de l'API Particulier par le biais de FranceConnect peut se faire à deux moments différents de la démarche en ligne :
+            Plutôt que de renseigner ses données personnelles dans différents champs de saisie, vos usagers auront simplement à utiliser les boutons FranceConnect pour récupérer leurs données API Particulier. L'appel aux données de l'API Particulier par le biais de FranceConnect peut se faire à deux moments différents de la démarche en ligne :
 
              <div class="fr-grid-row fr-grid-row--gutters">
               <div class="fr-col-md-6 fr-col-12">
-              **Au moment de la connexion** : <br/>En cliquant sur le bouton _"S'identifier avec FranceConnect"_, les données API Particulier nécessaires sont alors téléchargées en parallèle de l'authentification de l'usager.<br/>
+              **Au moment de la connexion** : 
               <button class="fr-connect fr-mt-2w">
                 <span class="fr-connect__login">S’identifier avec</span>
                 <span class="fr-connect__brand">FranceConnect</span>
-              </button>
+              </button>En cliquant sur le bouton _"S'identifier avec FranceConnect"_, les données API Particulier nécessaires sont téléchargées en parallèle de l'authentification de l'usager.<br/>
+              <div class="fr-highlight">
+              <p class="fr-text--sm">
               ℹ️ L'utilisation de la modalité d'appel FranceConnect pour récupérer les données de l'API Particulier n'oblige pas votre service à utilier FranceConnect comme mode d'identification de vos comptes utilisateurs. Vous pourrez alors utiliser le second bouton ci-contre.
+              </p>
+              </div>
               </div>
               <div class="fr-col-12 fr-col-md-6">
-              **Au cours de la démarche, après la connexion** : <br/>_Si l'usager s'est déjà FranceConnecté en début de démarche_ et a besoin d'informations supplémentaires à celles récupérées au moment de sa FranceConnection, il peut relancer un appel à API Particulier en cliquant sur le bouton _"Récupérer mes données avec FranceConnect"_.               
-              ⏳ Si cette nouvelle demande de donnée intervient dans les 30 minutes après la première FranceConnexion, l'usager n'aura pas à se reconnecter. Il n'aura qu'une seule étape à faire : confirmer le transfert de ses données.
-              
+              **Au cours de la démarche, après la connexion** : 
               <button class="fr-connect fr-mt-2w">
                 <span class="fr-connect__login">Récupérer mes données avec</span>
                 <span class="fr-connect__brand">FranceConnect</span>
               </button>
-              _Si l'usager utilise un autre mode de connexion que FranceConnect_, l'utilisation de ce bouton est tout à fait possible. L'usager effectuera toutes les étapes d'authentification FranceConnect et votre service devra s'assurer de l'adéquation entre le compte de l'usager et FranceConnect.
+              <ul>
+              <li><i>Si l'usager s'est déjà FranceConnecté en début de démarche</i> et a besoin d'informations supplémentaires à celles récupérées au moment de sa FranceConnection, il peut relancer un appel à API Particulier en cliquant sur le bouton <i>"Récupérer mes données avec FranceConnect"</i>.<br/>    
+      
+              <p class="fr-text--sm fr-mt-2v">           
+              ⏳ Si cette nouvelle demande de donnée intervient dans les 30 minutes après la première FranceConnexion, l'usager n'aura pas à se reconnecter. Il n'aura qu'une seule étape à faire : confirmer le transfert de ses données.
+              </p>
+      
+              </li>
+              <li>
+              <i>Si l'usager utilise un autre mode de connexion que FranceConnect</i>, l'usager effectuera les étapes d'authentification FranceConnect pour débloquer la récupération des documents. Votre service devra s'assurer de l'adéquation entre le compte de l'usager et FranceConnect.</li>
+              </ul>
               </div>
             </div>
             <br/>
-            .<br/>
-
-            #### Cas d'utilisation n°1 : Votre service propose
 
             
             {:.fr-h6}
@@ -233,6 +242,41 @@ fr:
             Ce schéma présente les interractions entre les différents acteurs impliqués dans les API Particulier FranceConnectées et leur utilisation par l'usager durant vos démarches :
 
             ![Diagramme expliquant le rôle d'API Particulier, de FranceConnect, du fournisseur de service et du fournisseur de données à chaque étape du parcours usager](<%= image_path('api_particulier/diagramme-modalite-appel-france-connect.png') %>)
+
+            <section class="fr-accordion fr-p-0">
+            <h3 class="fr-accordion__title fr-m-0">
+            <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-1">
+            Étapes de fonctionnement des API Particulier FranceConnectées
+            </button>
+            </h3>
+            <div class="fr-collapse" id="accordion-1">
+
+              **Étape 1 :**  Le particulier entame sa démarche sur votre service.
+
+              **Étape 2 :**  Pour récupérer ses données API Particulier, il clique sur le bouton FranceConnect _"S'identifier avec FranceConnect"_ ou _"Récupérer mes données avec FranceConnect"_.
+
+              **Étape 3 :**  La fenêtre FranceConnect s'ouvre, l'usager choisit sur la mire son fournisseur d'identité ; par exemple _le compte impots.gouv.fr_, _le compte Ameli_ ou _l'Identité numérique de la Poste_. L'usager entre alors son identifiant et son mot de passe du compte choisit. [Plus d'information sur les fédérateurs d'identité de FranceConnect](https://franceconnect.gouv.fr/franceconnect#partner-info){:target="_blank"}. 
+              <p class="fr-text--sm fr">
+              ⚙️ **En arrière plan :** Votre système d'information demande à FranceConnect un accès à la donnée personnelle de l'usager.
+              </p>
+
+              **Étape 4 :**  L'usager confirme le transfert de ses données personnelles en cliquant sur _"Continuer"_.
+              <p class="fr-text--sm">
+              ⚙️ **En arrière plan :** <br/>
+              1. FranceConnect affiche à l'usager la liste de ses données personnelles, dont celles d'API Particulier, qui vont être transmises à votre service si il continue. Lorsque l'usager clique sur _"Continuer"_., FranceConnect récupère la confirmation de l'usager.<br/>
+              2. FranceConnect donne un jeton de consentement à votre Système d'information (SI).<br/>
+              3. Votre SI utilise ce jeton pour appeler l'API Particulier.<br/>
+              4. API particulier transmet le jeton à FranceConnect. <br/>
+              5. FC vérifie le jeton et retourne l'identité pivot et le périmètre des données demandées par votre service.<br/>
+              6. Avec l'identité pivot, API Particulier demande les données à l'administration fournisseur des données (FD) présentent sur API Particulier.<br/>
+              7. Le FD retourne les données du particulier à API Particulier.<br/>
+              8. API Particulier transmet les données du particulier à votre SI.
+              </p>
+
+              **Étape 5 :** Les données API Particulier de l'usager sont renseignées dans votre démarche.
+
+            </div>
+            </section>
 
 
             {:.fr-h3}
