@@ -300,22 +300,23 @@ fr:
             ## <a name="5-acces-implementation"></a>Étapes d'accès et d'intégration
 
             {:.fr-h4}
-            ### Avec un éditeur
-            
-            {:.fr-h6}
-            #### Cas n°1 : Mon éditeur propose déjà les API Particulier FranceConnectées
+            ### Je suis un acteur public
 
-            Si votre éditeur a déjà intégré la modalité d'appel FranceConnect pour API Particulier, cela signifie que l'intégration technique est déjà disponible. Il ne manque que les droits d'accès, que votre service (et non votre éditeur) doit demander :
-            1. **Habilitation FranceConnect**&nbsp;: Soumettez une [demande d’habilitation FranceConnect](https://api.gouv.fr/les-api/franceconnect/demande-acces){:target="_blank"}. L'instruction est de 7 jours ouvrés en moyenne.
+            {:.fr-h6}
+            #### Avec un éditeur
+
+            **Cas n°1 : Mon éditeur propose déjà les API Particulier FranceConnectées :**
+
+            Si votre éditeur a déjà intégré la modalité d'appel FranceConnect pour API Particulier, cela signifie que l'intégration technique est déjà disponible et que le logiciel de votre éditeur a déjà été certifié par FranceConnect. Il ne manque que les droits d'accès aux données, que votre service (et non votre éditeur) doit demander :
+            1. **Habilitation FranceConnect**&nbsp;: Soumettez une [demande d’habilitation FranceConnect avec le formulaire de votre éditeur](https://api.gouv.fr/les-api/franceconnect/demande-acces){:target="_blank"}. L'instruction est de 7 jours ouvrés en moyenne. Le contact technique sera le responsable technique de votre éditeur.
             2. **Habilitation API Particulier** : Soumettez votre [demande d'accès API Particulier avec le formulaire de votre éditeur](https://api.gouv.fr/les-api/api-particulier/demande-acces){:target="_blank"}. Une fois la validation reçue, écrivez à [api-particulier@api.gouv.fr](mailto:api-particulier@api.gouv.fr){:target="_blank"} pour demander la modalité FranceConnect. Vous serez recontacté par le service API Particulier effectuera l'appariemment de vos deux demandes.
-            3. **Mise en production** : Une fois l'appariemment effectué, vous n'aurez plus qu'à [transmettre les jetons de façon sécurisée](<%= faq_index_path(anchor: 'comment-transmettre-le-jeton-d-acces-en-tout-securite') %>) à votre éditeur pour qu'il les intègre dans votre SI.
+            3. **Mise en production** : Une fois l'appariemment effectué, votre éditeur, qui aura été mentionné en tant que contact technique dans chacune des deux demandes recevra le jeton API Particulier et les accès FranceConnect pour les intégrer dans votre SI.
 
-            {:.fr-h6}
-            #### Cas n°2 : Mon éditeur n'a pas encore intégré les API Particulier FranceConnectées 
+            **Cas n°2 : Mon éditeur n'a pas encore intégré les API Particulier FranceConnectées :**
             
             Contactez-nous à [api-particulier@api.gouv.fr](mailto:api-particulier@api.gouv.fr){:target="_blank"} en mentionnant le nom de votre éditeur et ses coordonnées, nous prendrons attache avec lui.
             
-            {:.fr-h4}
+            {:.fr-h6 }
             ### Sans éditeur
 
             _Votre service implémente lui-même les API Particulier FranceConnectée ?_ Pour y accéder, vous devez être habilité à FranceConnect et à API Particulier. Voici les étapes : 
@@ -327,12 +328,30 @@ fr:
                 - **Mise en production FranceConnect** :
                       1. **Intégration et tests** : Accéder à votre [espace partenaire](https://partenaires.franceconnect.gouv.fr/login){:target="_blank"} avec le mail de confirmation envoyé par FranceConnect. Vous pouvez mettre en place les développements nécessaires grâce aux ressources et environnement de test disponibles.
                       2. **Certification de votre intégration** : Présentez vos développements à FranceConnect pour une qualification en complétant ce [formulaire](https://www.demarches-simplifiees.fr/commencer/demande-qualification-fs){:target="_blank"}
-                      3. **Demande de mise en production**&nbsp;: Votre implémentation est validée par notre équipe.Remplissez le [formulaire de demande de mise en production](https://partenaires.franceconnect.gouv.fr/){:target="_blank"} sur votre espace partenaire à l'onglet « Paramétrer mon FS en Production ».
+                      3. **Demande de mise en production**&nbsp;: Votre implémentation est validée par notre équipe. Remplissez le [formulaire de demande de mise en production](https://partenaires.franceconnect.gouv.fr/){:target="_blank"} sur votre espace partenaire à l'onglet « Paramétrer mon FS en Production ».
                       4. **Mise en production**&nbsp;: Après 7 jours ouvrés, vous recevez vos secrets pour passer en production. Le responsable technique reçoit le `client_id` par mail et le `client_secret` par SMS.
 
-      
+
+            {:.fr-h4}
+            ### Je suis un éditeur de logiciel
 
 
+            {:.fr-highlight.fr-highlight--caution}
+            Attention, en tant qu'éditeur, **vous ne pouvez en aucun cas être destinataire des données** issues de l’API Particulier et de FranceConnect.
+
+            Vous éditez un logiciel pour un service public et vous souhaitez proposer API Particulier à vos clients avec la modalité d'appel FranceConnect ? Voici les étapes à suivre : 
+            1. **Demande FranceConnect**&nbsp;: Soumettez une [demande FranceConnect](https://api.gouv.fr/les-api/franceconnect/demande-acces){:target="_blank"} en précisant dans la description à FranceConnect qu'il s'agit d'une demande : 
+            - pour FranceConnecter API Particulier ;
+            - en vue d'une qualification seulement (les accès pour la mise en production seront demandés par vos clients publics).
+            2. **Demande API Particulier** : Complétez le [formulaire de prise de contact](https://api.gouv.fr/les-api/api-particulier/demande-acces){:target="_blank"} dans l'objectif d'être référencé par API Particulier et de pouvoir proposer un formulaire d'habilitation rapide pour vos clients.
+            3. **Configuration de votre logiciel** : 
+                - **Développement API Particulier** : Consultez notre [Kit d'intégration](<%= developers_path(anchor: 'kit-de-mise-en-production') %>).
+                - **Développement FranceConnect** :
+                      1. **Intégration et tests** : Accéder à votre [espace partenaire](https://partenaires.franceconnect.gouv.fr/login){:target="_blank"} avec le mail de confirmation envoyé par FranceConnect. Vous pouvez mettre en place les développements nécessaires grâce aux ressources et environnement de test disponibles.
+                      2. **Certification de votre intégration** : Présentez vos développements à FranceConnect pour une qualification en complétant ce [formulaire](https://www.demarches-simplifiees.fr/commencer/demande-qualification-fs){:target="_blank"}
+            4. **Mise en production pour vos clients** : vos clients publics devront effectuer les demandes d'habiliation API Particulier et FranceConnect en utilisant les formulaires configurés pour votre logiciel, [en savoir plus sur les étapes pour vos clients](#avec-un-éditeur). Une fois leur habilitation délivrée, les accès techniques vous seront transmis.
+
+            
 
 
 
