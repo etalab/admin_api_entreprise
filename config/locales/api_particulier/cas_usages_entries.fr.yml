@@ -106,22 +106,25 @@ fr:
               <p class="fr-summary__title fr-text--lg" id="fr-summary-title">Sommaire</p>
               <ol class="fr-summary__list">
                   <li>
-                      <a class="fr-summary__link fr-text--md" href="#une-modalité-dappel-complémentaire-aux-données-api-particulier">Une modalité d'appel complémentaire aux données API Particulier</a>
+                      <a class="fr-summary__link fr-text--md" href="#1-modalite-appel-majeure">Une modalité d'appel majeure aux données API Particulier</a>
                   </li>
                   <li>
-                      <a class="fr-summary__link fr-text--md" href="#ce-que-cela-change-pour-vous-et-vos-usagers">Ce que cela change pour vous et vos usagers</a>
+                      <a class="fr-summary__link fr-text--md" href="#2-ce-que-cela-change-pour-vous">Ce que cela change pour vous et vos usagers</a>
                   </li>
                   <li>
-                      <a class="fr-summary__link fr-text--md" href="#fonctionnement-des-api-franceconnectées">Fonctionnement des API FranceConnectées</a>
+                      <a class="fr-summary__link fr-text--md" href="#3-fonctionnement-api-franceconnectees">Fonctionnement des API FranceConnectées</a>
                   </li>
                   <li>
-                      <a class="fr-summary__link fr-text--md" href="#synthèse--franceconnect-vs-les-autres-modalités">Synthèse : FranceConnect VS les autres modalités</a>
+                      <a class="fr-summary__link fr-text--md" href="#4-synthese">Synthèse : FranceConnect VS les autres modalités</a>
+                  </li>
+                  <li>
+                      <a class="fr-summary__link fr-text--md" href="#5-acces-implementation">Étapes d'accès et d'intégration</a>
                   </li>
               </ol>
             </nav>
 
             {:.fr-h3}
-            ## Une modalité d'appel complémentaire aux données API Particulier
+            ## <a name="1-modalite-appel-majeure"></a>Une modalité d'appel majeure aux données API Particulier
 
             {:.fr-h6}
             ### Qu'est-ce qu'une modalité d'appel ?
@@ -136,23 +139,25 @@ fr:
             - **FranceConnect** : <br/> ✒️ L'usager se connecte à FranceConnect pour la transmission de ses données. <br/> ⚙️ Votre SI interragit avec FranceConnect. L'appel est effectué sans aucun paramètre renseigné par l'usager. 
 
             {:.fr-text--lg}
-            **Par conséquent, dans le cas de la modalité d'appel FranceConnect**, l'usager, en cliquant sur le bouton FranceConnect, permet à FranceConnect de transmettre ses informations pour appeller l'API. L'identité pivot de l'usager ne transitera pas par votre système d'information, ce qui constitue un avantage d'un point de vue de la sécurité des données personnelles.
+            **Par conséquent, dans le cas de la modalité d'appel FranceConnect**, l'usager, en cliquant sur le bouton FranceConnect, permet à FranceConnect de transmettre ses informations pour appeler l'API. L'identité pivot de l'usager ne transitera pas par votre système d'information, ce qui constitue un avantage d'un point de vue de la sécurité des données personnelles.
 
             {:.fr-h6}
-            ### FranceConnect : une modalité en complément, et non de substitution
+            ### FranceConnect : une modalité d'appel majeure, à proposer avec les autres modalités
 
             {:.fr-text--lg}
-            Le périmètre de FranceConnect est étendu (40 millions d'usagers) mais n'est pas exhaustif. 
-            Par conséquent, il est essentiel de voir la modalité d'appel FranceConnect comme complémentaire aux autres modalités d'appel afin de ne pas exclure des usagers de votre démarche.
+            Le périmètre de la modalité d'appel FranceConnect est étendu à plus 40 millions d’usagers uniques actifs.
+            Une alternative d'appel est donc obligatoire afin de ne pas exclure les usagers qui n'utilisent pas FranceConnect ou qui ne sont pas éligibles.
 
-            Ces usagers n'ont pas FranceConnect et nécessitent donc l'utilisation des autres modalités d'appel&nbsp;: 
-            - Information à venir
-            - Information à venir
+            **Les particuliers suivants ne peuvent pas utiliser FranceConnect** :
+            - Les personnes homonymes ou sans prénom ou sans nom de famille (environ 200 000 personnes) ne sont pas éligibles ; 
+            - Les personnes mineures sont peu utilisatrices, même si FranceConnect est accessible théoriquement à partir de 16 ans ;
+            - Les personnes de nationalité étrangère, qui n'ont jamais travaillé ou été soignées en France ne sont pas éligibles. _A contrario, les citoyens étrangers ayant un compte Ameli ou un titre de séjour de plus de 5 ans, sont référencés dans le RNIPP et peuvent donc utiliser FranceConnect_.
+
 
             Par ailleurs, toutes les API du bouquet API Particulier ne bénéficient pas de la modalité d'appel FranceConnect : 
 
             {:.fr-h6}
-            ### Liste des API FranceConnectées
+            ### <a name="liste-api-particulier-franceconnectees"></a>Liste des API FranceConnectées
             
             {:.fr-table}
             |  API du bouquet API Particulier |   Modalité d'appel <br/>Identité pivot ou Indentifiant   | Modalité d'appel <br/>FranceConnect |
@@ -167,7 +172,7 @@ fr:
 
 
             {:.fr-h3}
-            ## Ce que cela change pour vous et vos usagers
+            ## <a name="2-ce-que-cela-change-pour-vous"></a>Ce que cela change pour vous et vos usagers
 
             {:.fr-h6}
             ### Pour vos usagers : un accès simple et instantané aux données API&nbsp;Particulier
@@ -185,37 +190,66 @@ fr:
 
             - **🔎 aucune identification à effectuer** : FranceConnect s'assure que les données retournées par l'API sont bien celles de l'internaute connecté. Contrairement aux autres modalités d'appel, vos agents n'ont donc pas besoin de vérifier cette adéquation.
             - **🎢 une augmentation des démarches accomplies** : La simplification du parcours pour les usagers évite les erreurs de saisie, les arrêts de parcours et les besoins de relance. 
-            - **🪪 moins de données personnelles à traiter** : Avec FranceConnect vos services ne manipulent pas les données de l'identité pivot de l'usager. Ces informations transiteront uniquement entre FranceConnect, le fournisseur de la donnée, et API Particulier ([Voir diagramme](#diagramme-de-fonctionnement)).
             - **⚙️ une intégration moins contraignante dans votre SI** qui n'aura pas à gérer le formatage des données personnelles en appel qui peut être fastidieux (accents, tirets, etc.).
 
 
             {:.fr-h3}
-            ## Fonctionnement des API FranceConnectées
+            ## <a name="3-fonctionnement-api-franceconnectees"></a>Fonctionnement des API FranceConnectées
 
             {:.fr-h6}
             ### Du côté de l'usager : les boutons FranceConnect
 
             {:.fr-text--lg}
-            Plutôt que de renseigner ses données personnelles dans différents champs de saisie, vos usagers auront simplement à s'identifier avec les boutons FranceConnect pour récupérer leurs données API Particulier. L'appel aux données de l'API Particulier par le biais de FranceConnect peut se faire à deux moments différents de la démarche en ligne :
+            Plutôt que de renseigner ses données personnelles dans différents champs de saisie, vos usagers auront simplement à utiliser les boutons FranceConnect pour récupérer leurs données API Particulier. L'appel aux données de l'API Particulier par le biais de FranceConnect peut se faire à deux moments différents de la démarche en ligne :
 
              <div class="fr-grid-row fr-grid-row--gutters">
               <div class="fr-col-md-6 fr-col-12">
-              **Au début de la démarche, au moment de la connexion** : <br/>En cliquant sur le bouton _"S'identifier avec FranceConnect"_, les données API Particulier nécessaires sont alors téléchargées en parallèle de l'authentification de l'usager.<br/>
+              ![Schéma illustrant les écrans que va rencontrer l'usager lors de sa récupération de données par FranceConnect](<%= image_path('api_particulier/parcours-usagers-franceconnect.png') %>)
+              <div class="fr-download fr-mb-1v">
+              <a href="<%= image_path('api_particulier/parcours-usagers-franceconnect.png') %>" download class="fr-download__link">Télécharger l'image du parcours usager
+                <span class="fr-download__detail">PNG – 272 ko</span>
+              </a>
+              </div>
+              </div>
+              <div class="fr-col-12 fr-col-md-6">
+              <p class="fr-text--lg">
+              **Au moment de la connexion** : 
+              </p>
               <button class="fr-connect fr-mt-2w">
                 <span class="fr-connect__login">S’identifier avec</span>
                 <span class="fr-connect__brand">FranceConnect</span>
-              </button>
+              </button>En cliquant sur le bouton _"S'identifier avec FranceConnect"_, les données API Particulier nécessaires sont téléchargées en parallèle de l'authentification de l'usager.<br/>
+              <div class="fr-highlight">
+              <p class="fr-text--sm">
+              ℹ️ L'utilisation de la modalité d'appel FranceConnect pour récupérer les données de l'API Particulier n'oblige pas votre service à utiliser FranceConnect comme mode d'identification de vos comptes utilisateurs. Vous pourrez alors utiliser le second bouton ci-contre.
+              </p>
               </div>
-              <div class="fr-col-12 fr-col-md-6">
-              **Au cours de la démarche, après la connexion** : <br/>Si l'usager a besoin d'informations supplémentaires à celles récupérées au moment de sa FranceConnection, il peut relancer un appel à API Particulier en cliquant sur le bouton _"Transmettre mes données avec FranceConnect"_.
+              <br/>
+              <p class="fr-text--lg">
+              **Au cours de la démarche, après la connexion** : 
+              </p>
               <button class="fr-connect fr-mt-2w">
-                <span class="fr-connect__login">Transmettre mes données avec</span>
+                <span class="fr-connect__login">Récupérer mes données avec</span>
                 <span class="fr-connect__brand">FranceConnect</span>
               </button>
-              ⚠️ Si l'usager s'est connecté avec un compte spécifique à votre service et non le compte FranceConnect, il va falloir que vous vérifiez l'adéquation entre le compte de l'usager et le compte FC.
+              <ul>
+              <li><i>Si l'usager s'est déjà FranceConnecté en début de démarche</i> et a besoin d'informations supplémentaires à celles récupérées au moment de sa FranceConnection, il peut relancer un appel à API Particulier en cliquant sur le bouton <i>"Récupérer mes données avec FranceConnect"</i>.<br/>    
+      
+              <p class="fr-text--sm fr-mt-2v">           
+              ⏳ Si cette nouvelle demande de donnée intervient dans les 30 minutes après la première FranceConnexion, l'usager n'aura pas à se reconnecter. Il n'aura qu'une seule étape à faire : confirmer le transfert de ses données.
+              </p>
+      
+              </li>
+              <li>
+              <i>Si l'usager utilise un autre mode de connexion que FranceConnect</i>, l'usager effectuera les étapes d'authentification FranceConnect pour débloquer la récupération des documents. Votre service devra s'assurer de l'adéquation entre le compte de l'usager et FranceConnect.</li>
+              </ul>
               </div>
             </div>
+
+          
+
             <br/>
+            📟 **D'un point de vue technique**, ces deux boutons sont identiques et nécessitent la même intégration. [Consulter la documentation technique de FranceConnect](https://docs.partenaires.franceconnect.gouv.fr/fs/){:target="_blank""}
 
             
             {:.fr-h6}
@@ -225,10 +259,50 @@ fr:
             Ce schéma présente les interractions entre les différents acteurs impliqués dans les API Particulier FranceConnectées et leur utilisation par l'usager durant vos démarches :
 
             ![Diagramme expliquant le rôle d'API Particulier, de FranceConnect, du fournisseur de service et du fournisseur de données à chaque étape du parcours usager](<%= image_path('api_particulier/diagramme-modalite-appel-france-connect.png') %>)
+            
+            <div class="fr-download fr-m-2w">
+            <a href="<%= image_path('api_particulier/diagramme-modalite-appel-france-connect.png') %>" download class="fr-download__link">Télécharger le diagramme de fonctionnement
+              <span class="fr-download__detail">PNG – 455 ko</span>
+            </a>
+            </div>
 
+            <section class="fr-accordion fr-p-0">
+            <h3 class="fr-accordion__title fr-m-0">
+            <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-1">
+            Version écrite : Étapes de fonctionnement des API Particulier FranceConnectées
+            </button>
+            </h3>
+            <div class="fr-collapse" id="accordion-1">
+
+              **Étape 1 :**  Le particulier entame sa démarche sur votre service.
+
+              **Étape 2 :**  Pour récupérer ses données API Particulier, il clique sur le bouton FranceConnect _"S'identifier avec FranceConnect"_ ou _"Récupérer mes données avec FranceConnect"_.
+
+              **Étape 3 :**  La fenêtre FranceConnect s'ouvre, l'usager choisit sur la mire son fournisseur d'identité ; par exemple _le compte impots.gouv.fr_, _le compte Ameli_ ou _l'Identité numérique de la Poste_. L'usager entre alors son identifiant et son mot de passe du compte choisit. [Plus d'information sur les fédérateurs d'identité de FranceConnect](https://franceconnect.gouv.fr/franceconnect#partner-info){:target="_blank"}. 
+              <p class="fr-text--sm fr">
+              ⚙️ **En arrière plan :** Votre système d'information demande à FranceConnect un accès à la donnée personnelle de l'usager.
+              </p>
+
+              **Étape 4 :**  L'usager confirme le transfert de ses données personnelles en cliquant sur _"Continuer"_.
+              <p class="fr-text--sm">
+              ⚙️ **En arrière plan :** <br/>
+              1. FranceConnect affiche à l'usager la liste de ses données personnelles, dont celles d'API Particulier, qui vont être transmises à votre service si il continue. Lorsque l'usager clique sur _"Continuer"_., FranceConnect récupère la confirmation de l'usager.<br/>
+              2. FranceConnect donne un jeton de consentement à votre Système d'information (SI).<br/>
+              3. Votre SI utilise ce jeton pour appeler l'API Particulier.<br/>
+              4. API particulier transmet le jeton à FranceConnect. <br/>
+              5. FC vérifie le jeton et retourne l'identité pivot et le périmètre des données demandées par votre service.<br/>
+              6. Avec l'identité pivot, API Particulier demande les données à l'administration fournisseur des données (FD) présentent sur API Particulier.<br/>
+              7. Le FD retourne les données du particulier à API Particulier.<br/>
+              8. API Particulier transmet les données du particulier à votre SI.
+              </p>
+
+              **Étape 5 :** Les données API Particulier de l'usager sont renseignées dans votre démarche.
+
+            </div>
+            </section>
 
             {:.fr-h3}
-            ## Synthèse : FranceConnect VS les autres modalités
+            ## <a name="4-synthese"></a>Synthèse : FranceConnect VS les autres modalités
 
             {:.fr-table}
             |   |   Modalité d'appel <br/>Identité pivot ou Indentifiant   | Modalité d'appel <br/>FranceConnect |
@@ -239,6 +313,74 @@ fr:
             |  **Moins de données personnelles dans votre système d'information** | ❌ Les données personnelles renseignées par l'usager pour appeler l'API Particulier transitent par votre SI | ✅ L'identité pivot ne transite pas par vos systèmes | 
             |  **Périmètre des usagers couverts** | ✅ La totalité | ⚠️ Seulement les usagers ayant FranceConnect |
             |  **Démonstrateur API Particulier** |  Kevin bénéficie du tarif réduit pour la cantine de ses enfants, grâce à API Particulier. Il renseigne son **identité pivot** <br/><br/>[Voir la démo](https://demonstrateur.particulier.api.gouv.fr/cantine/souscription?user=4){:.fr-btn}{:target="_blank"} | Camille bénéficie du tarif réduit pour la cantine de ses enfants, grâce à API Particulier. Elle utilise la **modalité d'appel FranceConnect** <br/>[Voir la démo](https://demonstrateur.particulier.api.gouv.fr/cantine/souscription?user=3){:.fr-btn}{:target="_blank"}  |
+
+            
+            {:.fr-h3}
+            ## <a name="5-acces-implementation"></a>Étapes d'accès et d'intégration
+
+            {:.fr-h4}
+            ### Je suis un acteur public
+
+            {:.fr-h6}
+            #### Avec un éditeur
+
+            {:.fr-text--lg}
+            **Cas n°1 : Mon éditeur propose déjà les API Particulier FranceConnectées :**
+
+            Si votre éditeur a déjà intégré la modalité d'appel FranceConnect pour API Particulier, cela signifie que l'intégration technique est déjà disponible et que le logiciel de votre éditeur a déjà été certifié par FranceConnect. Il ne manque que les droits d'accès aux données, que votre service (et non votre éditeur) doit demander :
+            1. **Habilitation FranceConnect**&nbsp;: Soumettez une [demande d’habilitation FranceConnect avec le formulaire de votre éditeur](https://api.gouv.fr/les-api/franceconnect/demande-acces){:target="_blank"}{:rel="noopener external"}. L'instruction est de 7 jours ouvrés en moyenne. ⚠️ Le contact technique doit être le responsable technique de votre éditeur et non de votre organisation.
+            2. **Habilitation API Particulier** : Soumettez votre [demande d'accès API Particulier avec le formulaire de votre éditeur](https://api.gouv.fr/les-api/api-particulier/demande-acces){:target="_blank"}{:rel="noopener external"}. Une fois la validation reçue, écrivez à [api-particulier@api.gouv.fr](mailto:api-particulier@api.gouv.fr){:target="_blank"}{:rel="noopener external"} pour demander la modalité FranceConnect. Vous serez recontacté par le service API Particulier effectuera l'appariemment de vos deux demandes.
+            3. **Mise en production** : Une fois l'appariemment effectué, votre éditeur, qui aura été mentionné en tant que contact technique dans chacune des deux demandes recevra le jeton API Particulier et les accès FranceConnect pour les intégrer dans votre SI.
+
+            <br/>
+
+            {:.fr-text--lg}
+            **Cas n°2 : Mon éditeur n'a pas encore intégré les API Particulier FranceConnectées :**
+            
+            Contactez-nous à [api-particulier@api.gouv.fr](mailto:api-particulier@api.gouv.fr){:target="_blank"}{:rel="noopener external"} en mentionnant le nom de votre éditeur et ses coordonnées, nous prendrons attache avec lui.
+            
+            {:.fr-h6 }
+            ### Sans éditeur
+
+            _Votre service implémente lui-même les API Particulier FranceConnectée ?_ Pour y accéder, vous devez être habilité à FranceConnect et à API Particulier. Voici les étapes : 
+
+            1. **Habilitation FranceConnect**&nbsp;: Soumettez une [demande d’habilitation FranceConnect](https://api.gouv.fr/les-api/franceconnect/demande-acces){:target="_blank"}{:rel="noopener external"}, en mentionnant pour cadre juridique l’[arrêté du 8 novembre 2018 relatif à FranceConnect](https://www.legifrance.gouv.fr/loda/id/JORFTEXT000037611479){:target="_blank"}{:rel="noopener external"} qui confirme que toute administration publique peut utiliser FranceConnect. L'instruction de l'habilitation est de 7 jours ouvrés en moyenne.
+            2. **Habilitation API Particulier** : Soumettez votre [demande d'accès API Particulier](https://api.gouv.fr/les-api/api-particulier/demande-acces){:target="_blank"}{:rel="noopener external"}. Une fois la validation reçue, écrivez à [api-particulier@api.gouv.fr](mailto:api-particulier@api.gouv.fr){:target="_blank"}{:rel="noopener external"} pour demander la modalité FranceConnect. Vous serez recontacté par le service API Particulier effectuera l'appariemment de vos deux demandes.
+            3. **Mise en production**&nbsp;: la mise en production des API FranceConnectées nécessite d'effectuer l'intégration côté FranceConnect et l'intégration du côté d'API Particulier.
+                - **Mise en production API Particulier** : Consultez notre [Kit d'intégration](<%= developers_path(anchor: 'kit-de-mise-en-production') %>).
+                - **Mise en production FranceConnect** :
+                      1. **Intégration et tests** : Accéder à votre [espace partenaire](https://partenaires.franceconnect.gouv.fr/login){:target="_blank"}{:rel="noopener external"} avec le mail de confirmation envoyé par FranceConnect au contact technique renseigné dans la demande. Vous pouvez mettre en place les développements nécessaires grâce aux ressources et environnement de test disponibles.
+                      2. **Certification de votre intégration** : Présentez vos développements à FranceConnect pour une qualification en complétant ce [formulaire](https://www.demarches-simplifiees.fr/commencer/demande-qualification-fs){:target="_blank"}{:rel="noopener external"}
+                      3. **Demande de mise en production**&nbsp;: Votre implémentation est validée par notre équipe. Remplissez le [formulaire de demande de mise en production](https://partenaires.franceconnect.gouv.fr/){:target="_blank"}{:rel="noopener external"} sur votre espace partenaire à l'onglet « Paramétrer mon FS en Production ».
+                      4. **Mise en production**&nbsp;: Après 7 jours ouvrés, vous recevez vos secrets pour passer en production. Le responsable technique reçoit le `client_id` par mail et le `client_secret` par SMS.
+
+
+            {:.fr-h4}
+            ### Je suis un éditeur de logiciel
+
+
+            {:.fr-highlight.fr-highlight--caution}
+            Attention, en tant qu'éditeur, **vous ne pouvez en aucun cas être destinataire des données** issues de l’API Particulier et de FranceConnect.
+
+            Vous éditez un logiciel pour un service public et vous souhaitez proposer API Particulier à vos clients avec la modalité d'appel FranceConnect ? Voici les étapes à suivre : 
+            1. **Demande FranceConnect**&nbsp;: Soumettez une [demande FranceConnect](https://api.gouv.fr/les-api/franceconnect/demande-acces){:target="_blank"}{:rel="noopener external"} en précisant dans la description à FranceConnect qu'il s'agit d'une demande : 
+            - pour FranceConnecter API Particulier ;
+            - en vue d'une qualification seulement (les accès pour la mise en production seront demandés par vos clients publics).
+            2. **Demande API Particulier** : Complétez le [formulaire de prise de contact](https://api.gouv.fr/les-api/api-particulier/demande-acces){:target="_blank"}{:rel="noopener external"} dans l'objectif d'être référencé par API Particulier et de pouvoir proposer un formulaire d'habilitation rapide pour vos clients.
+            3. **Configuration de votre logiciel** : 
+                - **Développement API Particulier** : Consultez notre [Kit d'intégration](<%= developers_path(anchor: 'kit-de-mise-en-production') %>).
+                - **Développement FranceConnect** :
+                      1. **Intégration et tests** : Accéder à votre [espace partenaire](https://partenaires.franceconnect.gouv.fr/login){:target="_blank"}{:rel="noopener external"} avec le mail de confirmation envoyé par FranceConnect. Vous pouvez mettre en place les développements nécessaires grâce aux ressources et environnement de test disponibles.
+                      2. **Certification de votre intégration** : Présentez vos développements à FranceConnect pour une qualification en complétant ce [formulaire](https://www.demarches-simplifiees.fr/commencer/demande-qualification-fs){:target="_blank"}{:rel="noopener external"}
+            4. **Mise en production pour vos clients** : vos clients publics devront effectuer les demandes d'habiliation API Particulier et FranceConnect en utilisant les formulaires configurés pour votre logiciel, [en savoir plus sur les étapes pour vos clients](#avec-un-éditeur). Une fois leur habilitation délivrée, les accès techniques vous seront transmis.
+
+            
+
+
+
+
+
+
 
 
 
