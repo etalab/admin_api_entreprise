@@ -3,8 +3,12 @@ module ExternalUrlHelper
     "#{datapass_base_url}/copy-authorization-request/#{authorization_request.external_id}"
   end
 
-  def datapass_authorization_request_url(authorization_request, prolong_token_wizard = nil)
-    url = "#{datapass_base_url}/api-#{authorization_request.api}/#{authorization_request.external_id}"
+  def datapass_authorization_request_url(authorization_request)
+    "#{datapass_base_url}/api-#{authorization_request.api}/#{authorization_request.external_id}"
+  end
+
+  def datapass_reopen_authorization_request_url(authorization_request, prolong_token_wizard = nil)
+    url = "#{datapass_base_url}/reopen-enrollment-request/#{authorization_request.external_id}"
 
     url += "?highlightedSections=#{highlight_section(prolong_token_wizard).join(',')}" unless prolong_token_wizard.nil?
 

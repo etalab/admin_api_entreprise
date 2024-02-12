@@ -28,7 +28,7 @@ module ProlongTokenWizardManagement
     if @prolong_token_wizard.prolonged?
       render 'shared/prolong_token_wizard/prolonged'
     else
-      redirect_to datapass_authorization_request_url(@prolong_token_wizard.token.authorization_request, @prolong_token_wizard), allow_other_host: true
+      redirect_to datapass_reopen_authorization_request_url(@prolong_token_wizard.token.authorization_request, @prolong_token_wizard), allow_other_host: true
     end
   end
 
