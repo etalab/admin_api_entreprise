@@ -6,7 +6,7 @@ module ExternalUrlHelper
   def datapass_authorization_request_url(authorization_request, prolong_token_wizard = nil)
     url = "#{datapass_base_url}/api-#{authorization_request.api}/#{authorization_request.external_id}"
 
-    url += "?highlight=#{highlight_section(prolong_token_wizard).join(',')}" unless prolong_token_wizard.nil?
+    url += "?highlightedSections=#{highlight_section(prolong_token_wizard).join(',')}" unless prolong_token_wizard.nil?
 
     url
   end
