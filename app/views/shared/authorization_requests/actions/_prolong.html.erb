@@ -1,10 +1,18 @@
-<a
-  href="<%= token_prolong_path(id: authorization_request.token.id) %>"
-  id="<%= dom_id(authorization_request, :prolong_token_modal_link) %>"
-  class="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w"
-  aria-controls="main-modal"
-  data-fr-opened="false"
-  data-turbo-frame="main-modal-content"
->
+<% if to_datapass_reopen %>
+  <a
+    href="<%= token_prolong_path(id: authorization_request.token.id) %>"
+    id="<%= dom_id(authorization_request, :prolong_token_modal_link) %>"
+    class="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w"
+  >
+<% else %>
+  <a
+    href="<%= token_prolong_path(id: authorization_request.token.id) %>"
+    id="<%= dom_id(authorization_request, :prolong_token_modal_link) %>"
+    class="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w"
+    aria-controls="main-modal"
+    data-fr-opened="false"
+    data-turbo-frame="main-modal-content"
+  >
+<% end %>
   <%= label %>
 </a>

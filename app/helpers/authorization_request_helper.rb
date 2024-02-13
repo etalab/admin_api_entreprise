@@ -23,6 +23,12 @@ module AuthorizationRequestHelper
     I18n.t('shared.prolong_token_wizard.display_cta')
   end
 
+  def should_redirect_to_datapass(token)
+    token.last_prolong_token_wizard.present? &&
+      (token.last_prolong_token_wizard.requires_update? ||
+      token.last_prolong_token_wizard.updates_requested?)
+  end
+
   private
 
   def no_action
@@ -37,7 +43,8 @@ module AuthorizationRequestHelper
 
     {
       action: 'prolong',
-      label: prolong_token_label(authorization_request.token)
+      label: prolong_token_label(authorization_request.token),
+      to_datapass_reopen: should_redirect_to_datapass(authorization_request.token)
     }
   end
 
