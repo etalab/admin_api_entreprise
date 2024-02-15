@@ -112,7 +112,7 @@ RSpec.describe 'follows the prolong token wizard' do
           it 'follows update path' do
             fill_wizard
 
-            expect(page).to have_content("de la raison d'être du projet")
+            expect(page).to have_content('de la nature du projet (titre et description)')
 
             expect(token.reload.exp).to eq(exp)
           end
@@ -162,7 +162,7 @@ RSpec.describe 'follows the prolong token wizard' do
           it 'follows update path' do
             fill_wizard
 
-            expect(page).to have_content("de la raison d'être du projet")
+            expect(page).to have_content('de la nature du projet (titre et description)')
 
             expect(token.reload.exp).to eq(exp)
           end

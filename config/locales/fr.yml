@@ -54,11 +54,11 @@ fr:
       next_step: "Étape suivante :"
     prolong_token_wizard:
       display_cta: Prolonger le jeton
-      requires_update_cta: Terminer la modification pour prolonger votre jeton
-      updates_requested_cta: Demande de modification de l'habilitation en attente d'instruction
+      requires_update_cta: Terminer la mise à jour pour prolonger votre jeton
+      updates_requested_cta: Demande de mise à jour de l'habilitation en attente d'instruction
       header:
         title: Prolonger le jeton
-        description: Votre jeton expire dans %{humanize_date}. Avant de prolonger votre jeton, nous avons besoin de savoir si les conditions indiquées dans votre habilitation %{link_to_datapass} ont évolué. 
+        description: Votre jeton expire le %{humanize_date}. Avant de prolonger votre jeton, nous avons besoin de savoir si les conditions indiquées dans votre habilitation %{link_to_datapass} ont évolué. 
           Veuillez répondre aux questions suivantes, ce formulaire vous engage en regard des <a href="https://%{api}.api.gouv.fr/cgu/">CGU d'%{api_name}</a>
       steps:
         owner: Responsable de la demande
@@ -67,7 +67,7 @@ fr:
         summary: Bilan et confirmation
       prolonged:
         title: Votre jeton a été prolongé jusqu'au %{humanized_date} 
-        description: Merci ! Suite à vos reponses, les conditions de votre habilitation a l'%{api_name} n'ayant pas évolué, votre jeton a été prolongé de 18 mois.
+        description: Merci ! Suite à vos réponses, les conditions de votre habilitation a l'%{api_name} n'ayant pas évolué, votre jeton a été prolongé de 18 mois.
         link:
           authorization_request: Revenir à votre demande d'habilitation
       summary:
@@ -75,13 +75,13 @@ fr:
           owner_not_in_charge: "Suite aux réponses indiquées, vous declarez que le contact principal à changé. Bien que cela ne soit pas bloquant pour 
             poursuivre la prolongation de votre jetons, l'équipe support vous contactera rapidement afin de procéder au transfert de vos habilitations. Vous pouvez démarrer cette démarche en autonomie 
             via votre <a href='https://%{api}.api.gouv.fr/compte'>espace personnel</a>."
-          description: Suite aux réponses indiquées, vous déclarez qu'aucune des informations indiquées dans votre habilitation n<sup>o</sup>%{external_id} n'a évolué.
+          description: Suite aux réponses indiquées, déclare qu'aucune des informations indiquées dans votre habilitation n<sup>o</sup>%{external_id} n'a évolué.
           cgu: ⚠️  Vos réponses vous engagent en regard des <a href="https://%{api}.api.gouv.fr/cgu/">CGU</a>
           finished: Confirmer
         requires_update:
           description: "Suite aux réponses indiquées, vous declarez que des changements ont eu lieu au niveau&nbsp;:"
           owner: du contact principal
-          project_purpose: de la raison d'être du projet
+          project_purpose: de la nature du projet (titre et description)
           contact_metier: du contact métier
           contact_technique: du contact technique
           finished: Confirmer et apporter les modifications
@@ -99,7 +99,7 @@ fr:
           label: "Contact métier :"
         contact_technique:
           label: "Contact technique :"
-        subtitle: "Vérifier si les contacts sont bien les mêmes et que leur coordonnées n'ont pas changé :"
+        subtitle: "Vérifier si les contacts sont bien les mêmes et que leurs coordonnées n'ont pas changé :"
         radio:
           contact_technique: Valide
           contact_metier: Valide
@@ -115,7 +115,7 @@ fr:
         label: Êtes vous toujours en charge de la demande %{link_to_datapass} ?
         radio:
           still_in_charge: Oui, je suis toujours en charge
-          will_change_soon: Oui, je suis toujours en charge mais pourrait passer la main d'ici quelques mois
+          will_change_soon: Oui, je suis toujours en charge mais pourrais passer la main d'ici quelques mois
           not_in_charge: Non, je ne suis plus en charge de cette habilitation %{api}
       build:
         wizard_buttons:
@@ -252,7 +252,7 @@ fr:
           indiquées dans votre habilitation %{link_to_datapass}
           ont évolué."
         warning_description: "Pour prolonger votre jeton, veuillez compléter le formulaire suivant :"
-        warning: ⚠️ Vos réponses au formulaire <strong>vous engagent</strong> en regard des CGU d'api entreprise.
+        warning: ⚠️ Vos réponses au formulaire <strong>vous engagent</strong> en regard des CGU d'%{api_name}.
         cta: Compléter le formulaire de prolongation
       detail_short:
         no_token:

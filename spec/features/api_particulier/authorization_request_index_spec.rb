@@ -171,7 +171,7 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
           it 'displays the correct label' do
             go_to_authorization_requests_index
 
-            expect(page).to have_text('Terminer la modification')
+            expect(page).to have_text('Terminer la mise à jour')
           end
         end
 
@@ -181,7 +181,7 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
           it 'displays the correct label' do
             go_to_authorization_requests_index
 
-            expect(page).to have_text('Demande de modification')
+            expect(page).to have_text('Demande de mise à jour')
           end
         end
       end
