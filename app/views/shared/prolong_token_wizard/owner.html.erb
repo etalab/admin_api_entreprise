@@ -15,17 +15,23 @@
             target: '_blank')
           ).html_safe %>
       </legend>
-      <div class="fr-fieldset__element">
-        <%= f.radio_button :owner, "still_in_charge", checked: true %>
-        <%= label_tag :owner, t('.radio.still_in_charge') %>
+      <div class="fr-fieldset__element fr-fieldset__element--inline">
+        <div class="fr-radio-group">
+          <%= f.radio_button :owner, "still_in_charge", checked: true %>
+          <%= label_tag :owner, t('.radio.still_in_charge'), :for => "prolong_token_wizard_owner_still_in_charge", :class => %w[fr-label] %>
+        </div>
       </div>
-      <div class="fr-fieldset__element">
-        <%= f.radio_button :owner, "will_change_soon" %>
-        <%= label_tag :owner, t('.radio.will_change_soon') %>
+      <div class="fr-fieldset__element fr-fieldset__element--inline">
+        <div class="fr-radio-group">
+          <%= f.radio_button :owner, "will_change_soon" %>
+          <%= label_tag :owner, t('.radio.will_change_soon'), :for => "prolong_token_wizard_owner_will_change_soon", :class => %w[fr-label] %>
+        </div>
       </div>
-      <div class="fr-fieldset__element">
-        <%= f.radio_button :owner, "not_in_charge" %>
-        <%= label_tag :owner, t('.radio.not_in_charge', api: t("#{namespace}.name")) %>
+      <div class="fr-fieldset__element fr-fieldset__element--inline">
+        <div class="fr-radio-group">
+          <%= f.radio_button :owner, "not_in_charge" %>
+          <%= label_tag :owner, t('.radio.not_in_charge', api: t("#{namespace}.name")), :for => "prolong_token_wizard_owner_not_in_charge", :class => %w[fr-label] %>
+        </div>
       </div>
     </fieldset>
 

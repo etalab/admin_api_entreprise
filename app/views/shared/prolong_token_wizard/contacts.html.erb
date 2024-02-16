@@ -29,14 +29,18 @@
         </div>
 
         <% if @prolong_token_wizard.authorization_request.contact_metier %>
-          <div class="fr-fieldset__element">
-            <%= f.radio_button :contact_metier, true %>
-            <%= label_tag :contact_metier, t('.radio.contact_metier') %>
+          <div class="fr-fieldset__element fr-fieldset__element--inline">
+            <div class="fr-radio-group">
+              <%= f.radio_button :contact_metier, true %>
+              <%= label_tag :contact_metier, t('.radio.contact_metier'), :for => "prolong_token_wizard_contact_metier_true", :class => %w[fr-label] %>
+            </div>
           </div>
         <% end %>
-        <div class="fr-fieldset__element">
-          <%= f.radio_button :contact_metier, false, checked: true %>
-          <%= label_tag :contact_metier, t('.radio.change_contact_metier') %>
+        <div class="fr-fieldset__element fr-fieldset__element--inline">
+          <div class="fr-radio-group">
+            <%= f.radio_button :contact_metier, false, checked: true %>
+            <%= label_tag :contact_metier, t('.radio.change_contact_metier'), :for => "prolong_token_wizard_contact_metier_false", :class => %w[fr-label] %>
+          </div>
         </div>
       </fieldset>
     <% end %>
@@ -58,14 +62,18 @@
       </div>
 
       <% if @prolong_token_wizard.authorization_request.contact_technique %>
-        <div class="fr-fieldset__element">
-          <%= f.radio_button :contact_technique, true %>
-          <%= label_tag :contact_technique, t('.radio.contact_technique') %>
+        <div class="fr-fieldset__element fr-fieldset__element--inline">
+          <div class="fr-radio-group">
+            <%= f.radio_button :contact_technique, true %>
+            <%= label_tag :contact_technique, t('.radio.contact_technique'), :for => "prolong_token_wizard_contact_technique_true", :class => %w[fr-label] %>
+          </div>
         </div>
       <% end %>
-      <div class="fr-fieldset__element">
-        <%= f.radio_button :contact_technique, false, checked: true %>
-        <%= label_tag :contact_technique, t('.radio.change_contact_technique') %>
+      <div class="fr-fieldset__element fr-fieldset__element--inline">
+        <div class="fr-radio-group">
+          <%= f.radio_button :contact_technique, false, checked: true %>
+          <%= label_tag :contact_technique, t('.radio.change_contact_technique'), :for => "prolong_token_wizard_contact_technique_false", :class => %w[fr-label] %>
+        </div>
       </div>
     </fieldset>
 

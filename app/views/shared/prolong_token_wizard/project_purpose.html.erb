@@ -27,14 +27,17 @@
           </div>
         </div>
       </div>
-
-      <div class="fr-fieldset__element">
-        <%= f.radio_button :project_purpose, true %>
-        <%= label_tag :project_purpose, t('.radio.project_purpose') %>
+      <div class="fr-fieldset__element fr-fieldset__element--inline">
+        <div class="fr-radio-group">
+          <%= f.radio_button :project_purpose, true %>
+          <%= label_tag :project_purpose, t('.radio.project_purpose'), :for => "prolong_token_wizard_project_purpose_true", :class => %w[fr-label] %>
+        </div>
       </div>
-      <div class="fr-fieldset__element">
-        <%= f.radio_button :project_purpose, false, checked: true %>
-        <%= label_tag :change_project_purpose, t('.radio.change_project_purpose') %>
+      <div class="fr-fieldset__element fr-fieldset__element--inline">
+        <div class="fr-radio-group">
+          <%= f.radio_button :project_purpose, false, checked: true %>
+          <%= label_tag :project_purpose, t('.radio.change_project_purpose'), :for => "prolong_token_wizard_project_purpose_false", :class => %w[fr-label] %>
+        </div>
       </div>
     </fieldset>
 
