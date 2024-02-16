@@ -141,11 +141,30 @@ fr:
                   | Code HTTP                        |      Signification                     |
                   |----------------------------------|----------------------------------------|
                   |`500` | **Erreur interne à API&nbsp;Particulier** – Une erreur interne du serveur d’API&nbsp;Particulier est survenue.
-                  |`503` | **Service non disponible** – Le service est temporairement indisponible ou en maintenance.
+                  |`502` | **Erreur interne fournisseur** – Une erreur interne du serveur du ou des fournisseurs est survenue. [Consultez votre compte utilisateur](<%= authorization_requests_path %>){:target="_blank"}, l’historique de l’incident devrait y être affiché ; ainsi que les actions à venir.
+                  |`503` | **Service non disponible** – Le service est temporairement indisponible ou en maintenance. Pour connaître l’historique de disponibilité et les incidents type de l’endpoint, vous pouvez [consulter le catalogue de données](../catalogue/).
                   |`504` | **Intermédiaire hors délai** – Le(s) producteur(s) de données ont mis trop de temps à répondre. Notre temps d’attente, nous permettant de ne pas immobiliser le serveur sur un appel sans réponse, est fixé à 10 secondes et a été dépassé.|
 
                   Retrouvez tous les codes erreurs pour chaque endpoint dans [notre swagger, partie "Response samples"](<%= developers_openapi_path %>){:target="_blank"}.
                   La liste des codes spécifiques à chaque endpoint y est disponible.
+              - title: Renseigner les paramètres d'appel et de traçabilité
+                anchor: 'renseigner-les-paramètres-dappel-et-de-traçabilité'
+                content: |+
+                  API&nbsp;Particulier vous permet d’accéder à des données protégées. C’est pourquoi, dans un **objectif de traçabilité**, nous vous demandons de renseigner dans chacune de vos requêtes, non seulement un jeton d’accès, mais aussi **certaines informations qualifiant votre requête**.
+
+
+                  {:.fr-highlight.fr-highlight--caution}
+                  > ⚠️ **Ces paramètres sont obligatoires**. Les appels ne comportant pas ces paramètres sont rejetés, et un code erreur vous est renvoyé.
+
+
+                  Pour chaque endpoint, nous précisons dans le [swagger, rubrique "Query parameters"](<%= developers_openapi_path %>){:target="_blank"} les paramètres obligatoires spécifiques, ci-dessous une explication détaillée des éléments à fournir pour chaque paramètre de traçabilité :
+
+                  {:.fr-table}
+                  | Paramètre                                                  |      Information à renseigner           |
+                  |:----------------------------------------------------------:|-----------------------------------------|
+                  |`&context=CadreDeLaRequête`|**Le cadre de la requête** <br><br>Par exemple : tarification transport, tarification cantine, portail famille, etc.
+                  |`&recipient=BénéficaireDeL'Appel`|**Le bénéficiaire de l'appel** <br><br>Ce paramètre permet la traçabilité de l'appel et doit correspondre au _SIRET de l'organisation publique habilitée à utiliser la donnée_. <br><br>Si vous êtes une collectivité ou une administration, ce paramètre doit donc être votre numéro de SIRET. Si vous êtes un éditeur, il s'agit du SIRET de l'organisation publique cliente demandant la donnée.<br><br>Une vérification est effectuée par API Particulier pour refuser tout format qui ne serait pas un numéro de SIRET.
+                  |`&object= RaisonDeL'AppelOuIdentifiant`|**La raison de l'appel** <br> ou l'identifiant de la procédure. <br><br> L'identifiant peut être interne à votre organisation ou bien un numéro ou nom de procédure ; l'essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l'appel. En effet, vous devez pouvoir justifier de la raison d'un appel auprès du fournisseur de données. <br> Description courte (< 50 caractères).
 
               - title: Retrouver les droits d'un jeton
                 anchor: 'retrouver-les-droits-dun-jeton'
