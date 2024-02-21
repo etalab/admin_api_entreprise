@@ -26,7 +26,7 @@ RSpec.describe APIEntreprise::TokenMailer, type: :feature do
       end
 
       it 'has a link to datapass authorization_request copy' do
-        expect(subject.html_part.decoded).to include(datapass_renewal_url(authorization_request))
+        expect(subject.html_part.decoded).to include(token_prolong_start_path(token_id: token.id))
       end
     end
   end

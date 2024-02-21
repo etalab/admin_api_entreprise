@@ -1,8 +1,4 @@
 module ExternalUrlHelper
-  def datapass_renewal_url(authorization_request)
-    "#{datapass_base_url}/copy-authorization-request/#{authorization_request.external_id}"
-  end
-
   def datapass_authorization_request_url(authorization_request)
     "#{datapass_base_url}/api-#{authorization_request.api}/#{authorization_request.external_id}"
   end

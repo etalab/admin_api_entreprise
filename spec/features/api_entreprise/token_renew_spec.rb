@@ -11,7 +11,7 @@ RSpec.describe 'token renew page', app: :api_entreprise do
   end
 
   it 'displays tokens datapass renew link' do
-    expect(page).to have_link(href: datapass_renewal_url(token.authorization_request))
+    expect(page).to have_link(href:  datapass_reopen_authorization_request_url(token.authorization_request))
   end
 
   context 'with another user' do

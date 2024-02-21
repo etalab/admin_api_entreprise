@@ -1,9 +1,9 @@
 <%= render partial: "shared/api_particulier/mailers/header" %>
 <%= render partial: "banner",
     locals: {
-      color: '#ffe5cf',
-      title: "🔑⚠️ Votre accès à l'API Particulier <b>expire dans 1 mois</b>",
-      subtitle: Faîtes votre demande de prolongation maintenant&nbsp;⬇️"
+      color: '#d1d3de',
+      title: "🔑 Votre accès à l'API Particulier <b>expire dans 1 mois</b>",
+      subtitle: "Faîtes votre demande de prolongation maintenant&nbsp;⬇️"
     }
 %>
 <mj-section mj-class="section-main">
@@ -18,12 +18,12 @@
         <b>Effectuez dès maintenant une demande de prolongation du jeton&nbsp;:</b>
       </p>
     </mj-text>
-    <mj-button href="<%= @datapass_renewal_url %>">
+    <mj-button href="<%= @prolong_token_url %>">
       <b>Demander la prolongation du jeton d'accès&nbsp;🔑</b>
     </mj-button>
     <mj-text mj-class="secondary-link">
-      <a target="_blank" href="<%= @datapass_renewal_url %>">
-        <%= @datapass_renewal_url %>
+      <a target="_blank" href="<%= @prolong_token_url %>">
+        <%= @prolong_token_url %>
       </a>
     </mj-text>
     <mj-text>
