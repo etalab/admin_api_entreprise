@@ -141,11 +141,60 @@ fr:
                   | Code HTTP                        |      Signification                     |
                   |----------------------------------|----------------------------------------|
                   |`500` | **Erreur interne à API&nbsp;Particulier** – Une erreur interne du serveur d’API&nbsp;Particulier est survenue.
-                  |`503` | **Service non disponible** – Le service est temporairement indisponible ou en maintenance.
+                  |`502` | **Erreur interne fournisseur** – Une erreur interne du serveur du ou des fournisseurs est survenue. [Consultez votre compte utilisateur](<%= authorization_requests_path %>){:target="_blank"}, l’historique de l’incident devrait y être affiché ; ainsi que les actions à venir.
+                  |`503` | **Service non disponible** – Le service est temporairement indisponible ou en maintenance. Pour connaître l’historique de disponibilité et les incidents type de l’endpoint, vous pouvez [consulter le catalogue de données](../catalogue/).
                   |`504` | **Intermédiaire hors délai** – Le(s) producteur(s) de données ont mis trop de temps à répondre. Notre temps d’attente, nous permettant de ne pas immobiliser le serveur sur un appel sans réponse, est fixé à 10 secondes et a été dépassé.|
 
                   Retrouvez tous les codes erreurs pour chaque endpoint dans [notre swagger, partie "Response samples"](<%= developers_openapi_path %>){:target="_blank"}.
                   La liste des codes spécifiques à chaque endpoint y est disponible.
+              - title: Renseigner les paramètres d'appel et de traçabilité
+                anchor: 'renseigner-les-paramètres-dappel-et-de-traçabilité'
+                content: |+
+                  API&nbsp;Particulier vous permet d’accéder à des données protégées. C’est pourquoi, dans un **objectif de traçabilité**, nous vous demandons de renseigner dans chacune de vos requêtes, non seulement un jeton d’accès, mais aussi **certaines informations qualifiant votre requête**.
+
+
+                  {:.fr-highlight.fr-highlight--caution}
+                  > ⚠️ **Ces paramètres sont obligatoires**. Les appels ne comportant pas ces paramètres sont rejetés, et un code erreur vous est renvoyé.
+
+
+                  Pour chaque endpoint, nous précisons dans le [swagger, rubrique "Query parameters"](<%= developers_openapi_path %>){:target="_blank"} les paramètres obligatoires spécifiques, ci-dessous une explication détaillée des éléments à fournir pour chaque paramètre de traçabilité :
+
+                  {:.fr-table}
+                  | Paramètre                                                  |      Information à renseigner           |
+                  |:----------------------------------------------------------:|-----------------------------------------|
+                  |`&context=CadreDeLaRequête`|**Le cadre de la requête** <br><br>Par exemple : tarification transport, tarification cantine, portail famille, etc.
+                  |`&recipient=BénéficaireDeL'Appel`|**Le bénéficiaire de l'appel** <br><br>Ce paramètre permet la traçabilité de l'appel et doit correspondre au _SIRET de l'organisation publique habilitée à utiliser la donnée_. <br><br>Si vous êtes une collectivité ou une administration, ce paramètre doit donc être votre numéro de SIRET. Si vous êtes un éditeur, il s'agit du SIRET de l'organisation publique cliente demandant la donnée.<br><br>Une vérification est effectuée par API Particulier pour refuser tout format qui ne serait pas un numéro de SIRET.
+                  |`&object= RaisonDeL'AppelOuIdentifiant`|**La raison de l'appel** <br> ou l'identifiant de la procédure. <br><br> L'identifiant peut être interne à votre organisation ou bien un numéro ou nom de procédure ; l'essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l'appel. En effet, vous devez pouvoir justifier de la raison d'un appel auprès du fournisseur de données. <br> Description courte (< 50 caractères).
+              - title: Surveiller l'état des fournisseurs
+                anchor: 'surveillance-etat-fournisseurs'
+                content: |+
+                  API Particulier met à disposition un ensemble de routes de "pings" permettant de récupérer l'état des services fournis par les différents fournisseurs de données.
+                  L'ensemble des routes est disponible à l'adresse suivante: [Routes de pings (format JSON)](https://particulier.api.gouv.fr/api/pings).
+
+                  Pour chacune de ces routes, l'équipe d'API Particulier effectue des vérifications spécifiques au fournisseur, permettant d'être au plus près de la réalité quand à la santé dudît fournisseur.
+                  Chacune de ces routes renvoi un json sous le format suivant:
+
+                  ```json
+                  {
+                    "status": "ok",
+                    "last_update": "2023-11-03T12:24:07.185+01:00",
+                    "last_ok_status": "2023-11-03T12:24:07.185+01:00"
+                  }
+                  ```
+
+                  Avec:
+                  - `status`, `string`, qui peut avoir 3 valeurs: `ok` quand tout est OK, `bad_gateway` quand il y a un souci, `unknown` quand on ne peut pas déterminer le status ;
+                  - `last_update`, `datetime`, date de la dernière mise à jour: pour éviter de surcharger nos systèmes nous effectuons de la mise en cache sur les pings ;
+                  - `last_ok_update`, `datetime`, date de la dernière mise à jour en OK: permet de savoir depuis quand le service est en défaut.
+
+                  A noter que le status http est à 200 pour `ok` et `unknown`, 502 pour `bad_gateway` : cela permet à nos systèmes de monitoring de ne pas lever d'alertes en cas de données insuffisantes (et ainsi éviter des potentiels faux positifs).
+
+                  Nous vous conseillons de passer par ces routes de surveillances, et ceci pour plusieurs raisons:
+
+                  1. API Particulier s'occupe de la complexité vis-à-vis de la disponibilité de certains partenaires (limitation sur le nombre d'appels sur certains identifiants, échecs aléatoires etc..) ;
+                  2. Il n'y a pas de limitations sur ces routes
+                  3. L'implémentation est plus simple que d'utiliser les routes officieles
+                  4. Un `bad gateway` d'une route de ping a de forte chance d'être un vrai positif, contrairement à un échec sur les endpoints qui peut être dû à des erreurs réseaux/temporaires.
 
               - title: Retrouver les droits d'un jeton
                 anchor: 'retrouver-les-droits-dun-jeton'
@@ -225,38 +274,23 @@ fr:
 
                   #### Éléments constitutifs de la requête HTTP d'API&nbsp;Particulier
 
-                  Chaque URL de requête est spécifiée dans le [Swagger](<%= developers_openapi_path %>){:target="_blank_"},
+                  Chaque URL de requête est spécifiée dans le [Swagger](<%= developers_openapi_path %>){:target="_blank_"}.
 
-              - title: Surveillance de l'état des fournisseurs
-                anchor: 'surveillance-etat-fournisseurs'
+                  #### Constatez votre première trace d’appel depuis le compte utilisateur
+
+                  Une fois que vous avez fait un premier appel, celui-ci est **répertorié** dans votre [compte utilisateur](<%= authorization_requests_path %>){:target="_blank"}, dans la page détaillée de l'habilitation concernée, au niveau du jeton. Un lien vous permet d'accéder aux statistiques.
+
+              - title: Configurer le logiciel métier
+                anchor: 'configurer-le-logiciel-métier'
                 content: |+
-                  API Particulier met à disposition un ensemble de routes de "pings" permettant de récupérer l'état des services fournis par les différents fournisseurs de données.
-                  L'ensemble des routes est disponible à l'adresse suivante: [Routes de pings (format JSON)](https://particulier.api.gouv.fr/api/pings).
+                  Documentation en construction&nbsp;🚧
 
-                  Pour chacune de ces routes, l'équipe d'API Particulier effectue des vérifications spécifiques au fournisseur, permettant d'être au plus près de la réalité quand à la santé dudît fournisseur.
-                  Chacune de ces routes renvoi un json sous le format suivant:
-
-                  ```json
-                  {
-                    "status": "ok",
-                    "last_update": "2023-11-03T12:24:07.185+01:00",
-                    "last_ok_status": "2023-11-03T12:24:07.185+01:00"
-                  }
-                  ```
-
-                  Avec:
-                  - `status`, `string`, qui peut avoir 3 valeurs: `ok` quand tout est OK, `bad_gateway` quand il y a un souci, `unknown` quand on ne peut pas déterminer le status ;
-                  - `last_update`, `datetime`, date de la dernière mise à jour: pour éviter de surcharger nos systèmes nous effectuons de la mise en cache sur les pings ;
-                  - `last_ok_update`, `datetime`, date de la dernière mise à jour en OK: permet de savoir depuis quand le service est en défaut.
-
-                  A noter que le status http est à 200 pour `ok` et `unknown`, 502 pour `bad_gateway` : cela permet à nos systèmes de monitoring de ne pas lever d'alertes en cas de données insuffisantes (et ainsi éviter des potentiels faux positifs).
-
-                  Nous vous conseillons de passer par ces routes de surveillances, et ceci pour plusieurs raisons:
-
-                  1. API Particulier s'occupe de la complexité vis-à-vis de la disponiilité de certains partenaires (limitation sur le nombre d'appels sur certains identifiants, échecs aléatoires etc..) ;
-                  2. Il n'y a pas de limitations sur ces routes
-                  3. L'implémentation est plus simple que d'utiliser les routes officieles
-                  4. Un `bad gateway` d'une route de ping a de forte chance d'être un vrai positif, contrairement à un échec sur les endpoints qui peut être dû à des erreurs réseaux/temporaires.
+              - title: Monitorer la disponibilité des API
+                anchor: 'monitorer-la-disponibilité-des-api'
+                content: |+
+                  Dès l'intégration d'API Particulier, prenez un temps pour vous assurer d'être informé de la disponibilité de nos API&nbsp;:
+                  - Ajoutez des routes de pings pour automatiser la surveillance des API par vous-même. Pour en savoir plus, consulter la rubrique [_"surveiller l'état des fournisseurs"_](<%= developers_path(anchor: 'surveillance-etat-fournisseurs') %>) ;
+                  - abonnez-vous aux incidents et opérations de maintenance directement depuis notre [page de statut](https://status.entreprise.api.gouv.fr/){:target="_blank"}.
 
           - anchor: 'incidents-et-maintenances'
             title: Incidents et maintenances&nbsp;🚧
@@ -265,5 +299,21 @@ fr:
                 anchor: 'que-faire-en-cas-de-rupture-de-service-'
                 content: |+
                   Le service ne répond plus ? consultez [cette rubrique de notre FAQ](<%= api_particulier_faq_index_path(anchor: 'le-service-ne-repond-plus-que-faire') %>){:target="_blank"}.
+              - title: Être informé des ruptures de service
+                anchor: 'être-informé-des-ruptures-de-service'
+                content: |+
+                  1. **Abonnez-vous aux notifications** par e-mail depuis [notre page de statut](https://status.particulier.api.gouv.fr/subscribe/email){:target="_blank"}.
+
+                  2. **Ajoutez des routes de pings pour automatiser la surveillance** des API par vous-même. Plutôt que de consulter ponctuellement notre page de statuts, vous pouvez vous branchez directement à nos routes afin d'avoir un suivi encore plus précis. Pour en savoir plus, consulter la rubrique [surveiller l'état des fournisseurs](<%= developers_path(anchor: 'surveillance-etat-fournisseurs') %>) ;
+
+                  3. Si vous rencontrez un problème et avez besoin d'échanger avec nous en transmettant des données sensibles, utilisez le [formulaire de transfert d'informations sécurisées (Démarches simplifiées)](https://www.demarches-simplifiees.fr/commencer/api-particulier-transfert-securise-d-informations){:target="_blank"}. 
+                  Si vous n'avez pas de réponse sous 72h, n'hésitez pas à nous envoyer votre numéro de demande Démarches simplifiées à l'adresse [api-particulier@api.gouv.fr](mailto:api-particulier@api.gouv.fr).
+
+          - anchor: 'prolongation-du-jwt'
+            title: Prolongation de la durée de vie du JWT&nbsp;🔑
+            content: >-
+              Pour comprendre comment prolonger votre jeton, consultez [cette rubrique de notre FAQ](<%= faq_index_path(anchor: 'comment-prolonger-mon-jeton-arrivant-a-expiration') %>){:target="_blank"}.
+
+
 
 

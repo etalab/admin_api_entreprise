@@ -63,7 +63,7 @@ fr:
                 - ✅ Vous n’avez plus besoin de demander certaines informations aux particuliers, comme le certificat de scolarité ou l'attestation CAF ;
                 - ✅ Vous n’avez pas de saisie ou de vérification supplémentaire à réaliser ;
                 - ✅ Les informations sont certifiées ;
-                - ✅ Vous accédez avec une seule habilitation aux données de différents fournisseurs : la Caisse nationale des allocations familiales (CNAF), la sécurité sociale agricole (MSA), Pôle emploi, le ministère de l'enseignement supérieur et de la recherche (MESR), le ministère de l'éduction nationale (MEN) et enfin le Centre national des œuvres universitaires et scolaires (Cnous).
+                - ✅ Vous accédez avec une seule habilitation aux données de différents fournisseurs : la Caisse nationale des allocations familiales (CNAF), la sécurité sociale agricole (MSA), France Travail, le ministère de l'enseignement supérieur et de la recherche (MESR), le ministère de l'éduction nationale (MEN) et enfin le Centre national des œuvres universitaires et scolaires (Cnous).
 
                  **API Particulier facilite plusieurs types de démarches :**
                 - [Aide facultatives à la scolarité](https://api.gouv.fr/guides/aides-facultatives-scolarite){:target="_blank"} ;
@@ -87,7 +87,7 @@ fr:
 
                 [Vérifier son éligibilité](https://api.gouv.fr/les-api/api-entreprise/demande-acces}{:target="_blank"}){:.fr-btn fr-btn--secondary}
 
-                L’accès à l’API Particulier est modéré et régulé par la DINUM, qui attribue des autorisations de récupération d’informations selon la nature des démarches à traiter ([cas d’usages](/les-api/api-particulier#exemples-d’application){:target="_blank"}).
+                L’accès à l’API Particulier est modéré et régulé par la DINUM, qui attribue des autorisations de récupération d’informations selon la nature des démarches à traiter ([cas d’usages](<%= cas_usages_path %>)).
 
             - question: "Combien coûte l’API Particulier ?"
               answer: |+
@@ -181,7 +181,7 @@ fr:
               answer: |+
                   #### Je suis une collectivité ou une administration :
 
-                  1. **Je consulte [les cas d’usages de l'API Particulier](/les-api/api-particulier#exemples-d’application)** :
+                  1. **Je consulte [les cas d’usages de l'API Particulier](<%= cas_usages_path %>)** :
                     - Si j'ai un éditeur de logiciel, je consulte le tableau en bas du cas d'usage pour savoir si mon éditeur intègre déjà l’API Particulier.
                     - Sinon je contacte mon éditeur et je lui transmets le lien vers la documentation technique pour m'assurer qu'il peut intégrer l'API.
 
@@ -209,7 +209,7 @@ fr:
                   Vous pouvez nous demander de vous référencer sur un cas d'usage afin de proposer un formulaire pré-rempli qui simplifiera l'expérience de vos clients. Voici la procédure à suivre :
                   - Je repère les données dont mes clients publics ont besoin pour un cas d'usage précis que je peux ou pourrai proposer dans ma solution logicielle ;
                   - Je consulte la documentation technique, et j'utilise le bac à sable pour tester les appels d'API ;
-                  - J'écris à [cette adresse](https://api.gouv.fr/parcours-client?source=preFooter) pour être référencé sur le cas d'usage associé et avoir un formulaire pré-rempli à disposition de mes clients.
+                  - J'écris à [api-particulier@api.gouv.fr](mailto:api-particulier@api.gouv.fr) pour être référencé sur le cas d'usage associé et avoir un formulaire pré-rempli à disposition de mes clients.
 
         - name: "Demande d’habilitation"
           entries:
@@ -231,11 +231,11 @@ fr:
                   > ℹ️ Pour les identifier, vous pouvez vous aider :
                   >   - du [catalogue de données](<%= endpoints_path %>). Il présente l’ensemble des API disponibles accompagnées d’une documentation fonctionnelle et technique.
                   >   - des cas d’usages proposés par API Particulier. Nous y décrivons les données utiles :
-                  >          - [Aide facultatives à la scolarité](https://api.gouv.fr/guides/aides-facultatives-scolarite){:target="_blank"} ;
-                  >          - [Tarification cantine des collèges et lycées](https://api.gouv.fr/guides/cantines-colleges-lycees-tarification){:target="_blank"} ;
-                  >          - [Aides des centres communaux d'action sociale (CCAS)](https://api.gouv.fr/guides/ccas){:target="_blank"} ;
-                  >          - [Tarification sociale et solidaire des transports](https://api.gouv.fr/guides/delivrance-titres-transport){:target="_blank"} ;
-                  >          - [Portail famille des communes](https://api.gouv.fr/guides/portail-famille-tarification){:target="_blank"}.
+                  >          - [Aide facultatives à la scolarité](<%= cas_usage_path(uid: 'aides_scolarite')%>) ;
+                  >          - [Tarification cantine des collèges et lycées](<%= cas_usage_path(uid: 'cantines-colleges-lycees-tarification')%>) ;
+                  >          - [Aides des centres communaux d'action sociale (CCAS)](<%= cas_usage_path(uid: 'ccas')%>) ;
+                  >          - [Tarification sociale et solidaire des transports](<%= cas_usage_path(uid: 'tarification_transports')%>) ;
+                  >          - [Portail famille des communes](<%= cas_usage_path(uid: 'portail_famille')%>).
 
                 - **Le traitement des données personnelles**
                   Qui seront les destinataires de données reçues de l’API Particulier ? Le destinataire étant, selon la [définition de la CNIL](https://www.cnil.fr/fr/definition/destinataire){:target="_blank"}, _"la personne habilitée à obtenir communication de données enregistrées dans un fichier ou un traitement en raison de ses fonctions."_
@@ -296,7 +296,7 @@ fr:
 
                   **Vous devez transmettre ce jeton à votre éditeur ? Ou à votre équipe technique ?** Utilisez la [fonctionnalité prévue à cet effet](<%= faq_index_path(anchor: 'comment-transmettre-le-jeton-d-acces-en-tout-securite') %>).
 
-                  **Le jeton est valable 18 mois, il devra ensuite être renouvelé par le demandeur tous les 18 mois, avant sa date d'expiration**. Autrement, vous ne pourrez plus accéder aux API tant que le renouvellement n'aura pas été effectué. Pour en savoir plus sur la procédure de renouvellement, veuillez lire [cette rubrique](<%= faq_index_path(anchor: 'comment-prolonger-mon-jeton-arrivant-a-expiration') %>).
+                  **Le jeton est valable 18 mois, il devra ensuite être prolongé par le demandeur tous les 18 mois, avant sa date d'expiration**. Autrement, vous ne pourrez plus accéder aux API tant que la prolongation n'aura pas été effectuée. Pour en savoir plus sur la procédure de prolongation, veuillez lire [cette rubrique](<%= faq_index_path(anchor: 'comment-prolonger-mon-jeton-arrivant-a-expiration') %>).
 
             - question: "Comment transmettre le jeton d’accès en tout sécurité ?"
               answer: |+
@@ -319,7 +319,7 @@ fr:
 
                 #### Se rendre sur le formulaire de prolongation
 
-                Trois mois avant l’arrivée à terme d’un jeton, le demandeur **reçoit des notifications automatiques** l'informant de l’expiration à venir de votre jeton ainsi qu’**une invitation à le renouveler**.
+                Trois mois avant l’arrivée à terme d’un jeton, le demandeur **reçoit des notifications automatiques** l'informant de l’expiration à venir de votre jeton ainsi qu’**une invitation à le prolonger**.
                 Les notifications sont envoyées régulièrement jusqu’à l'expiration (90 jours avant la date d’expiration, puis 60 jours avant, puis 30, 15, …). Le contact technique est en copie de ces e-mails, mais il ne peut pas compléter le formulaire. Seul le demandeur peut le faire.
 
                 Si le jeton expire dans moins de 90 jours et qu'aucune notification n'a été reçue, veuillez vérifier si celle-ci n’est pas arrivée dans vos "spams" 🗑.
@@ -356,22 +356,22 @@ fr:
                 Le contact technique et l'éditeur ne sont pas habilités à effectuer ces démarches.
             - question: "Comment élargir le périmètre des API disponibles avec mon jeton / obtenir de nouvelles données ?"
               answer: |+
-                Il est tout à fait possible d’élargir le périmètre des données auxquelles vous avez accès, ce nouveau périmètre engendrera la création d’un nouveau jeton.
+                Pour élargir le périmètre des données auxquelles vous avez accès, vous devez effectuer une **demande de mise à jour de votre habilitation**&nbsp;:
 
-                Pour demander de nouvelles données, vous devez donc **refaire une demande d’habilitation**&nbsp;:
+                1. Connectez-vous à votre [compte utilisateur API Entreprise](<%= user_profile_path %>) ; 
+                2. Depuis la page "Habilitations", cliquez sur la flèche de l'habilitation dont vous souhaitez étendre les droits pour accéder à sa page détaillée  ; 
+                3. Dans la première partie de cette page "Vos droits d'accès", cliquez sur le lien "Demander l'accès à d'autres API". Une fenêtre s'ouvre et vous indique la suite de la démarche. Vous allez en effet être redirigé sur le site Datapass, sur lequel vous aviez fait votre demande d'habilitation. Sur Datapass, une demande de mise à jour de votre habilitation est alors ouverte.
+                4. Sélectionnez les données dont votre service à besoin.
+                5. Soumettez la demande. API Particulier va instruire votre demande notamment pour s'assurer que les nouvelles données demandées correspondent au cas d'usage de votre habilitation.
+                
+                {:.fr-highlight}
+                > _Si les nouvelles données demandées concernent un nouveau cadre d’utilisation_, l'instructeur vous demandera certainement de faire une [nouvelle demande](https://datapass.api.gouv.fr/api-particulier#head){:target="_blank"} plutôt que de modifier l'habilitation déjà validée.
 
-                - _Si les nouvelles données demandées entrent dans le même cas d’usage que celui de votre demande initiale_, vous pouvez vous connecter, et cliquer sur "Renouveler mon jeton". Cette action vous conduit sur un nouveau formulaire, pré-rempli des informations de votre demande initiale. Ajoutez vos données et surtout spécifiez dans la description pourquoi vous avez besoin de ces données et à quoi serviront-elles. N’oubliez pas de compléter le cadre juridique si nécessaire.
+            - question: "Pourquoi mon jeton a une date d’expiration ?"
+              answer: |+
+                Pour des **raisons de sécurité**, tous les jetons émis sont valables pour une **durée de 18 mois**. Au delà de ce délai, ils ne fonctionnent plus, et votre accès à l’API Particulier est donc totalement arrêté.
 
-                  {:.fr-highlight}
-                  > ℹ️ L’action de renouvellement du jeton ne supprimera pas le jeton initial, qui garde sa validité jusqu’à sa date d’expiration.
-                - _Si les nouvelles données demandées concernent un nouveau cadre d’utilisation_, faîtes simplement une [nouvelle demande](https://datapass.api.gouv.fr/api-entreprise#head){:target="_blank"}.
-
-            # - question: "Pourquoi mon jeton a une date d’expiration ?"
-            #   answer: |+
-            #     Pour des **raisons de sécurité**, tous les jetons émis sont valables pour une **durée de 18 mois**. Au delà de ce délai, ils ne fonctionnent plus, et votre accès à l’API Particulier est donc totalement arrêté.
-
-            #     En réalité, cette situation n’est pas censée arriver car API Particulier a mis en place une [procédure simple de renouvellement de token](<%= faq_index_path(anchor: 'comment-renouveler-mon-jeton-arrivant-a-expiration') %>).
-
+                En réalité, cette situation n’est pas censée arriver car API Particulier a mis en place une [procédure simple de prolongation de token](<%= faq_index_path(anchor: 'comment-prolonger-mon-jeton-arrivant-a-expiration') %>).
 
         - name: "Rupture de service"
           entries:
@@ -399,9 +399,8 @@ fr:
                 **3. Contactez le support**
 
                 Si l'incident n'est pas déjà annoncé par API Particulier et si vous n'avez pas dépassé la volumétrie autorisée, vous pouvez nous contacter sur [api-particulier@api.gouv.fr](mailto:api-particulier@api.gouv.fr)
-                ---------
 
-                A noter que vous pouvez vous référer à la documentation sur la [surveillance de l'état des fournisseurs](<%= api_particulier_developers_path(anchor: 'surveillance-etat-fournisseurs') %>) pour anticiper les potentiels problèmes.
+                À noter que vous pouvez vous référer à la documentation sur la [surveillance de l'état des fournisseurs](<%= api_particulier_developers_path(anchor: 'surveillance-etat-fournisseurs') %>) pour anticiper les potentiels problèmes.
 
             - question: "J'ai dépassé la volumétrie, mon IP est bannie, comment faire ?"
               answer: |+
@@ -417,11 +416,13 @@ fr:
                 Ce n’est pas possible ! **La [volumétrie indiquée](<%= developers_path(anchor: 'respecter-la-volumétrie') %>) est le maximum possible** pour que nous puissions garantir la qualité du service à tous nos utilisateurs.
 
             - question: "Comment être averti des incidents et maintenances ?"
-              # answer: |+
-              #   Pour être informé des différentes indisponibilités, [abonnez-vous aux notifications par e-mail depuis notre page de statuts](https://status.entreprise.api.gouv.fr/subscribe/email){:target="_blank"}.
-
               answer: |+
-                Pour être informé des différentes indisponibilités, [abonnez-vous à l'infolettre API Particulier](https://487b4da0.sibforms.com/serve/MUIEADKIZQbixV2PoSlS2VU1cgnh4xihiaswOxPpI0HHRX4F9Wi2C8ojDtqpU70dpyEJF6s1JXYj0oHuHCHTpe-KKzm18PzpaKSBJ7Tq0yyz6FMst27i-kVe_gcvX-pK_rw_6DgRFukOX0HPq4gYVCkglTTjUslLjhGUva9aEN2m9O6CHjgYCuUND2QESrjEeviVzG_Z8Mq6WQwc){:target="_blank"}.
+                1. **Abonnez-vous aux notifications** par e-mail depuis [notre page de statuts](https://status.particulier.api.gouv.fr/subscribe/email){:target="_blank"}.
+
+                2. Plutôt que de consulter mnauellement la page de statuts, vous pouvez aussi **automatiser informatiquement la surveillance**, pour en savoir plus, consultez cette rubrique de l'[espace développeur](<%= developers_path(anchor: 'surveillance-etat-fournisseurs') %>).
+
+                3. Enfin, si vous rencontrez un problème et avez **besoin d'échanger avec nous en transmettant des données sensibles**, utilisez le [formulaire de transfert d'informations sécurisées (Démarches simplifiées)](https://www.demarches-simplifiees.fr/commencer/api-particulier-transfert-securise-d-informations){:target="_blank"}. 
+                Si vous n'avez pas de réponse sous 72h, n'hésitez pas à nous envoyer votre numéro de demande Démarches simplifiées à l'adresse [api-particulier@api.gouv.fr](mailto:api-particulier@api.gouv.fr).
 
             - question: "Quels sont les engagements de l’API Particulier en termes de disponibilité ?"
               answer: |+
@@ -446,11 +447,10 @@ fr:
 
                 **Le compte utilisateur vous permet de :**
                 - copier/coller le jeton d'accès à l'API, en [respectant les règles indispensables de sécurité](#qu-est-ce-qu-un-token-ou-jeton) ;
+                - [prolonger votre jeton d'accès arrivé à expiration](#comment-prolonger-mon-jeton-arrivant-a-expiration),  _fonctionnalité actuellement seulement disponible pour le contact demandeur_ ;
                 - [étendre/modifier vos droits d'accès](#comment-elargir-le-perimetre-des-api-disponibles-avec-mon-jeton-obtenir-de-nouvelles-donnees), _fonctionnalité actuellement seulement disponible pour le contact demandeur_ ;
                 - consulter les statistiques d'utilisation de votre jeton ;
                 - consulter la liste de vos habilitations à API Particulier.
-
-          #     A ajouter plus tard : - [renouveler votre jeton d'accès arrivé à expiration](#comment-renouveler-mon-jeton-arrivant-a-expiration),  _fonctionnalité actuellement seulement disponible pour le contact demandeur_ ;
 
             - question: "Comment transférer mes habilitations à une autre personne ?"
               answer: |+
@@ -479,21 +479,18 @@ fr:
 
                 Si vous avez débuté le transfert de votre habilitation par erreur, écrivez rapidement à <a href="mailto:api-particulier@api.gouv.fr">api-particulier@api.gouv.fr</a>.
 
-
-
         - name: "Autre"
           entries:
-            # - question: "Quand et pourquoi un bureau ouvert ?"
-            #   answer: |+
-            #     **Tous les 1ers et 3èmes mardis du mois entre 10h et 10h30**, une personne "tech" et une personne "métier" de l'API Particulier sont disponibles pour répondre à vos questions par visio.
-            #     **C'est le bureau ouvert !**
-            #     Dans le cadre de la sortie de la nouvelle version d'API Particulier, la V.3, l'objectif est de rencontrer l'équipe et d'avoir un point de contact régulier où discuter des aspects métiers et techniques.
-            #     C'est un espace d'échange.
+            - question: "Quand et pourquoi un bureau ouvert ?"
+              answer: |+
+                 **Tous les 1ers et 3èmes mardis du mois entre 10h et 10h30**, une personne "tech" et une personne "métier" de l'API Particulier et de l'[API Entreprise](https://entreprise.api.gouv.fr/){:target="_blank"} sont disponibles pour répondre à vos questions par visio.
+                 L'objectif est de rencontrer l'équipe et d'avoir un point de contact régulier où discuter des aspects métiers et techniques.
+                 C'est un espace d'échange.
 
-            #     Pour nous rejoindre, utilisez le lien suivant : [https://webconf.numerique.gouv.fr/APIEntreprise00Version3](https://webconf.numerique.gouv.fr/APIEntreprise00Version3){:target="_blank"}
+                 Pour nous rejoindre, utilisez le lien suivant : [https://webconf.numerique.gouv.fr/APIEntreprise00Version3](https://webconf.numerique.gouv.fr/APIEntreprise00Version3){:target="_blank"}
 
-            #     {:.fr-highlight}
-            #     Pour nos confrères des Outre-mer à l'Ouest de la métropole, ce créneau horaire n'étant pas adapté, n'hésitez pas à nous écrire et nous vous proposerons un autre horaire sur-mesure. Contactez-nous à cette adresse : [api-particulier@api.gouv.fr](mailto:api-particulier@api.gouv.fr).
+                 {:.fr-highlight}
+                 Pour nos confrères des Outre-mer à l'Ouest de la métropole, ce créneau horaire n'étant pas adapté, n'hésitez pas à nous écrire et nous vous proposerons un autre horaire sur-mesure. Contactez-nous à cette adresse : [api-particulier@api.gouv.fr](mailto:api-particulier@api.gouv.fr).
 
             - question: "J'aimerais rejoindre l'équipe, comment je postule ?"
               answer: |+
@@ -504,7 +501,6 @@ fr:
                 _Vous ne trouvez pas de fiches de poste adéquates et souhaitez tout de même postuler ?_ Vous pouvez nous envoyer un mail expliquant votre motivation, attaché de votre CV. Nous reviendrons vers vous dès qu’un poste correspondant sera ouvert.
             - question: "Une autre question ?"
               answer: |+
-
                 Vous pouvez contacter le support d'API Particulier.
 
                 **Si vous rencontrez une difficulté concernant un appel à l'API Particulier (erreurs sur les données, refus de réponses, etc.)**, il est important de nous fournir, au travers de cet [outil sécurisé de transfert d'informations](https://www.demarches-simplifiees.fr/commencer/api-particulier-transfert-securise-d-informations){:target="_blank"}, les informations suivantes :
@@ -526,10 +522,3 @@ fr:
 
                 Écrivez nous à [api-particulier@api.gouv.fr](mailto:api-particulier@api.gouv.fr).
 
-        #        {:.fr-highlight}
-        #         Votre question porte sur la V.3 de l'API Particulier ? N'hésitez pas à passer au [bureau ouvert](<%= faq_index_path(anchor: 'quand-et-pourquoi-un-bureau-ouvert') %>)
-
-        # - name: ""
-        #   entries:
-        #     - question: ""
-        #       answer: |+

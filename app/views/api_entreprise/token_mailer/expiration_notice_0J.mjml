@@ -11,14 +11,14 @@
     <mj-text>
       <p>Bonjour <%= @full_name %>,</p>
       <p>Votre jeton au <b>cadre d'utilisation "<%= @intitule %>"</b> a expiré. Votre accès à l'API Entreprise est coupé.</p>
-      <p>Pour obtenir un nouveau jeton, veuillez faire une demande de renouvellement d'accès&nbsp;:</p>
+      <p>Pour restaurer votre jeton, veuillez faire une demande de prolongation d'accès&nbsp;:</p>
     </mj-text>
-    <mj-button href="<%= @datapass_renewal_url %>">
-      <b>Renouveler sa demande d'accès&nbsp;🔑</b>
+    <mj-button href="<%= @prolong_token_url %>">
+      <b>Demander la prolongation du jeton d'accès&nbsp;🔑</b>
     </mj-button>
     <mj-text mj-class="secondary-link">
-      <a target="_blank" href="<%= @datapass_renewal_url %>">
-        <%= @datapass_renewal_url %>
+      <a target="_blank" href="<%= @prolong_token_url %>">
+        <%= @prolong_token_url %>
       </a>
     </mj-text>
     <mj-text>
