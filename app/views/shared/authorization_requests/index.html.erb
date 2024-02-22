@@ -65,7 +65,7 @@
             <% end %>
             </div>
             <div class="fr-col-12 fr-col-sm-3 center">
-              <% authorization_request_expected_actions(authorization_request, @current_user).each do |action| %>
+              <% authorization_request_expected_actions(authorization_request, current_user).each do |action| %>
                 <%= render partial: "shared/authorization_requests/actions/#{action[:action]}", locals: { label: action[:label], authorization_request:, to_datapass_reopen: action[:to_datapass_reopen] } %>
               <% end %>
             </div>
