@@ -29,6 +29,8 @@ fr:
           error:
             title: Vous n'avez pas les droits pour accéder à cette page.
   shared:
+    links:
+      to_datapass: "N<sup>o</sup>%{external_id}"
     transfer_tokens:
       create:
         success:
@@ -48,7 +50,77 @@ fr:
               placeholder: jean@dupont.fr
             cta: Envoyer le lien d'accès au jeton
             confirm: Êtes-vous sûr de vouloir transférer votre jeton à cette adresse ?
-
+    wizard:
+      next_step: "Étape suivante :"
+    prolong_token_wizard:
+      display_cta: Prolonger le jeton
+      requires_update_cta: Terminer la mise à jour pour prolonger votre jeton
+      updates_requested_cta: Demande de mise à jour de l'habilitation en attente d'instruction
+      header:
+        title: Prolonger le jeton
+        description: Votre jeton expire le %{humanize_date}. Avant de prolonger votre jeton, nous avons besoin de savoir si les conditions indiquées dans votre habilitation %{link_to_datapass} ont évolué. 
+          Veuillez répondre aux questions suivantes, ce formulaire vous engage en regard des <a href="https://%{api}.api.gouv.fr/cgu/">CGU d'%{api_name}</a>
+      steps:
+        owner: Responsable de la demande
+        project_purpose: Vérification du projet
+        contacts: Vérification des contacts
+        summary: Bilan et confirmation
+      prolonged:
+        title: Votre jeton a été prolongé jusqu'au %{humanized_date} 
+        description: Merci ! Suite à vos réponses, les conditions de votre habilitation a l'%{api_name} n'ayant pas évolué, votre jeton a été prolongé de 18 mois.
+        link:
+          authorization_request: Revenir à votre demande d'habilitation
+      summary:
+        prolonged:
+          owner_not_in_charge: "Suite aux réponses indiquées, vous declarez que le contact principal à changé. Bien que cela ne soit pas bloquant pour 
+            poursuivre la prolongation de votre jetons, l'équipe support vous contactera rapidement afin de procéder au transfert de vos habilitations. Vous pouvez démarrer cette démarche en autonomie 
+            via votre <a href='https://%{api}.api.gouv.fr/compte'>espace personnel</a>."
+          description: Suite aux réponses indiquées, déclare qu'aucune des informations indiquées dans votre habilitation n<sup>o</sup>%{external_id} n'a évolué.
+          cgu: ⚠️  Vos réponses vous engagent en regard des <a href="https://%{api}.api.gouv.fr/cgu/">CGU</a>
+          finished: Confirmer
+        requires_update:
+          description: "Suite aux réponses indiquées, vous declarez que des changements ont eu lieu au niveau&nbsp;:"
+          owner: du contact principal
+          project_purpose: de la nature du projet (titre et description)
+          contact_metier: du contact métier
+          contact_technique: du contact technique
+          finished: Confirmer et apporter les modifications
+        previous: Précédent
+      contact:
+        first_name: Prénom :&nbsp;
+        last_name: Nom :&nbsp;
+        email: E-mail :&nbsp;
+        contact_metier:
+          no_contact: Vous n'avez aucun contact métier renseigné
+        contact_technique:
+          no_contact: Vous n'avez aucun contact métier renseigné
+      contacts:
+        contact_metier:
+          label: "Contact métier :"
+        contact_technique:
+          label: "Contact technique :"
+        subtitle: "Vérifier si les contacts sont bien les mêmes et que leurs coordonnées n'ont pas changé :"
+        radio:
+          contact_technique: Valide
+          contact_metier: Valide
+          change_contact_technique: A changé
+          change_contact_metier: A changé
+      project_purpose:
+        label: "Cette habilitation a été attribuée pour la finalité suivante :"
+        no_description: Vous n'avez pas renseigné de description pour cette habilitation.
+        radio:
+          project_purpose: Oui, le projet bénéficiant de cette habilitation a toujours la même finalité.
+          change_project_purpose: Non, le projet a changé.
+      owner:
+        label: Êtes vous toujours en charge de la demande %{link_to_datapass} ?
+        radio:
+          still_in_charge: Oui, je suis toujours en charge
+          will_change_soon: Oui, je suis toujours en charge mais pourrais passer la main d'ici quelques mois
+          not_in_charge: Non, je ne suis plus en charge de cette habilitation %{api}
+      build:
+        wizard_buttons:
+          previous: Précédent
+          next: Suivant
     transfer_user_account:
       new:
         title: Transférer toutes mes habilitations
@@ -58,6 +130,9 @@ fr:
           <br>
           Attention, nos <a href="https://%{api}.api.gouv.fr/cgu/">CGU</a> vous engagent ! Vous ne devez pas transférer ces habilitations à un tiers non-habilité. Pour en savoir plus sur la procédure,
           consultez <a href='https://%{api}.api.gouv.fr/faq#comment-transferer-mes-habilitations-a-une-autre-personne' target='_blank'>notre FAQ</a>.
+          <br>
+          <br>
+          Si vous souhaitez ne transférer qu'une seule de vos habilitations, nous vous invitons à contacter <a href='https://%{api}.api.gouv.fr/faq#une-autre-question'>le support</a>. 
         email:
           label: Adresse e-mail du futur demandeur
           placeholder: jean.dupont@gouv.fr
@@ -107,18 +182,16 @@ fr:
             description: Une erreur inconnue est survenue. Veuillez contacter le support à api-particulier@api.gouv.fr
           missing:
             title: Jeton(s) non trouvés
-            description: Le jeton ou les jetons demandé(s) n'ont pas été trouvés. Veuillez contacter le support à api-particulier@api.gouv.fr
+            description: Le jeton ou les jetons demandé(s) n'ont pas été trouvés. Veuillez contacter <a href='https://%{api}.api.gouv.fr/faq#une-autre-question'>le support</a>.
     tokens:
       renew:
-        title: Renouveler ou étendre mes droits
+        title: Demander l'accès à d'autres API
         description: |+
-          Vous souhaitez renouveler votre jeton arrivant à expiration ou demander de nouvelles données pour le même cas d'usaee ? Cette fonctionnalité vous permet de <strong>dupliquer le formulaire de demande d'accès déjà rempli</strong> pour ce jeton et de le modifier. <strong>En cliquant sur "Continuer" vous serez transféré sur le site DataPass</strong>.
+          Vous souhaitez demander de nouvelles API pour le même cas d'usage ? Cette fonctionnalité vous permet de <strong>demander une mise à jour de votre habilitation, dans laquelle vous pourrez cocher de nouvelles API</strong>.
           <br>
+          <strong>En cliquant sur "Continuer" vous serez transféré sur le site DataPass</strong>.
           <br>
-          💡 Le renouvellement d'un jeton ne supprime pas votre jeton actuel. Ce dernier continue de fonctionner jusqu'à sa date d'expiration.
-          <br>
-          <br>
-          Pour en savoir plus, consultez <a href='https://entreprise.api.gouv.fr/faq#comment-renouveler-mon-jeton-arrivant-a-expiration' target='_blank'>cette rubrique de notre FAQ</a>.
+          Pour en savoir plus, consultez <a href='https://%{api}.api.gouv.fr/faq#comment-elargir-le-perimetre-des-api-disponibles-avec-mon-jeton-obtenir-de-nouvelles-donnees' target='_blank'>cette rubrique de notre FAQ</a>.
         continue: ⬜ Continuer
       stats:
         title: "Cas d'usage du jeton : %{title}"
@@ -139,8 +212,6 @@ fr:
         demandeur: "<strong>demandeur</strong> : %{demandeur}"
         contact_technique: "<strong>Contact technique</strong> : %{contact_technique}"
         authorization_request_link: "<strong>Lien de l'habilitation à transmettre :</strong>"
-        links:
-          to_datapass: "N<sup>o</sup>%{external_id}"
       ask_for_prolongation:
         title: Relancer le demandeur
         description: "Malgré nos nombreuses relances, %{demandeur} n'a pas prolongé le jeton ID : %{token_id},
@@ -148,8 +219,6 @@ fr:
           <strong>Écrivez-lui en lui transmettant le lien vers le formulaire de prolongation :</strong>"
         demandeur: "<strong>demandeur</strong> : %{demandeur}"
         ask_for_token_prolongation_description: "<strong>Lien du questionnaire de prolongation</strong> :"
-        links:
-          to_datapass: "N<sup>o</sup>%{external_id}"
       show:
         title: Utiliser le jeton
         warning: "Vous ne devez <strong> jamais copier-coller un token
@@ -180,10 +249,8 @@ fr:
           Avant de prolonger votre jeton, nous avons besoin de savoir si les conditions
           indiquées dans votre habilitation %{link_to_datapass}
           ont évolué."
-        links:
-          to_datapass: "N<sup>o</sup>%{external_id}"
         warning_description: "Pour prolonger votre jeton, veuillez compléter le formulaire suivant :"
-        warning: ⚠️ Vos réponses au formulaire <strong>vous engagent</strong> en regard des CGU d'api entreprise.
+        warning: ⚠️ Vos réponses au formulaire <strong>vous engagent</strong> en regard des CGU d'%{api_name}.
         cta: Compléter le formulaire de prolongation
       detail_short:
         no_token:
@@ -239,8 +306,6 @@ fr:
             display_cta_replace_legacy: "Remplacer votre ancien jeton avec le nouveau jeton"
             display_cta_new_token: "Utiliser le nouveau jeton"
             display_cta_replace: "Remplacer le jeton banni par le nouveau jeton"
-          prolong:
-            display_cta: Prolonger le jeton
         no_authorization_requests: "Vous n'avez aucune habilitation"
         title: "Habilitations %{api_label} (%{count})"
         entreprise: API&nbsp;Entreprise
@@ -274,8 +339,6 @@ fr:
           validated: 📃 Habilitation active
       header:
         delivered_at: "Délivré le : %{humanized_date}"
-        links:
-          to_datapass: "n°%{external_id}"
       show:
         access: "Vos droits d'accès&nbsp;:"
         modal:
@@ -283,8 +346,6 @@ fr:
             display_cta: Demander l'accès à d'autres API
           show:
             display_cta: "Voir le jeton"
-          prolong:
-            display_cta: Prolonger le jeton
           ask_for_prolongation:
             display_cta: Relancer le demandeur pour prolonger le jeton
         main_token:

@@ -1,0 +1,8 @@
+<% if defined?(wizard_steps) %>
+  <%=
+    dsfr_stepper(
+      current_step: prolong_token_wizard_step_name(step),
+      steps: wizard_steps.map { |wizard_step| prolong_token_wizard_step_name(wizard_step) }
+    )
+  %>
+<% end %>

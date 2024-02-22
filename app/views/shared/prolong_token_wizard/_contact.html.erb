@@ -1,0 +1,15 @@
+<% if contact.present? %>
+  <ul>
+    <li>
+      <%= t('.first_name').html_safe %><%= contact.first_name %>
+    </li>
+    <li>
+      <%= t('.last_name').html_safe %><%= contact.last_name %>
+    </li>
+    <li>
+      <%= t('.email').html_safe %><%= contact.email %>
+    </li>
+  </ul>
+<% else %>
+  <%= t(".#{type}.no_contact") %>
+<% end %>

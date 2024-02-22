@@ -1,0 +1,67 @@
+<%= render partial: 'shared/prolong_token_wizard/build/header', locals: { prolong_token_wizard: @prolong_token_wizard } %>
+
+<div class="fr-p-4v" style="background-color: var(--background-default-grey)">
+  <%= render partial: 'shared/prolong_token_wizard/build/stepper', locals: { prolong_token_wizard: @prolong_token_wizard } %>
+  <% if  @prolong_token_wizard.should_prolong_token? %>
+    <p>
+      <%= t('.prolonged.description', external_id: @prolong_token_wizard.token.authorization_request.external_id).html_safe %>
+    </p>
+    <p class="fr-text--sm">
+      <%= t('.prolonged.cgu', api: t("#{namespace}.api")).html_safe %>
+    </p>
+
+    <% if @prolong_token_wizard.owner == 'not_in_charge' %>
+    <p>
+      <%= t('.prolonged.owner_not_in_charge', api: t("#{namespace}.api")).html_safe %>
+    </p>
+    <% end %>
+
+    <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--right">
+      <% if !current_page?(previous_wizard_path) %>
+        <li>
+          <%= link_to t('.previous'), previous_wizard_path, id: :previous_prolong_token_wizard, class: %w(fr-btn fr-btn--secondary) %>
+        </li>
+      <% end %>
+      <li>
+        <%= link_to t('.prolonged.finished'), token_prolong_finished_path, id: :finished_prolong_token_wizard, class: %w(fr-btn fr-btn--icon-right) %>
+      </li>
+    </ul>
+  <% else %>
+    <p>
+      <%= t('.requires_update.description').html_safe %>
+      <ul>
+        <% if @prolong_token_wizard.owner == 'not_in_charge' %>
+          <li>
+            <%= t('.requires_update.owner') %>
+          </li>
+        <% end %>
+        <% if !@prolong_token_wizard.project_purpose %>
+          <li>
+            <%= t('.requires_update.project_purpose') %>
+          </li>
+        <% end %>
+        <% if !@prolong_token_wizard.contact_metier %>
+          <li>
+            <%= t('.requires_update.contact_metier') %>
+          </li>
+        <% end %>
+        <% if !@prolong_token_wizard.contact_technique %>
+          <li>
+            <%= t('.requires_update.contact_technique') %>
+          </li>
+        <% end %>
+      </ul>
+    </p>
+
+    <ul class="fr-btns-group fr-btns-group--inline fr-btns-group--right">
+      <% if !current_page?(previous_wizard_path) %>
+        <li>
+          <%= link_to t('.previous'), previous_wizard_path, id: :previous_prolong_token_wizard, class: %w(fr-btn fr-btn--secondary) %>
+        </li>
+      <% end %>
+      <li>
+        <%= link_to t('.requires_update.finished'), token_prolong_finished_path, id: :finished_prolong_token_wizard, class: %w(fr-btn fr-btn--icon-right) %>
+      </li>
+    </ul>
+  <% end %>
+</div>

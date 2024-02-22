@@ -3,33 +3,33 @@
     locals: {
       color: '#ffe5cf',
       title: "🔑🚨 Votre accès à l'API Entreprise <b>expire dans 2 semaines</b>",
-      subtitle: "Faîtes votre demande de renouvellement en un clic&nbsp;⬇️"
+      subtitle: "Faîtes votre demande de prolongation maintenant&nbsp;⬇️"
     }
 %>
 <mj-section mj-class="section-main">
   <mj-column>
     <mj-text>
       <p>Bonjour <%= @full_name %>,</p>
-      <p>⚠️ &nbsp;Transmettez-nous maintenant votre demande de renouvellement pour éviter la coupure de service !</p>
-      <p>Le temps de traitement est normalement de quelques jours ouvrés et dépend de la charge de nos instructeurs.</p>
       <p>
-        <b>Votre jeton</b> (cadre d'utilisation "<%= @intitule %>") <b> expire le <%= @expiration_date %>, le délai est maintenant très serré, surtout si vous demandez un élargissement du périmètre ou que la finalité de votre service a évolué.
+        <b>⚠️ &nbsp;Complétez maintenant votre demande de prolongation pour éviter la coupure de service !</b>
+      </p>
+      <p>
+        <b>Votre jeton</b> (cadre d'utilisation "<%= @intitule %>") <b> expire le <%= @expiration_date %>, le délai est maintenant très serré et ne nous permet pas de vous garantir que votre jeton sera prolongé avant son expiration.
         </b>
       </p>
-      <p>Nous ferons notre possible ! effectuez dès maintenant une demande de renouvellement de vos accès&nbsp;:</p>
+      <p>
+        Nous ferons notre possible ! effectuez dès maintenant une demande de prolongation de vos accès&nbsp;:
+      </p>
     </mj-text>
-    <mj-button href="<%= @datapass_renewal_url %>">
-      <b>Renouveler sa demande d'accès&nbsp;🔑</b>
+    <mj-button href="<%= @prolong_token_url %>">
+      <b>Demander la prolongation du jeton d'accès&nbsp;🔑</b>
     </mj-button>
     <mj-text mj-class="secondary-link">
-      <a target="_blank" href="<%= @datapass_renewal_url %>">
-        <%= @datapass_renewal_url %>
+      <a target="_blank" href="<%= @prolong_token_url %>">
+        <%= @prolong_token_url %>
       </a>
     </mj-text>
     <mj-text>
-      <p>
-        Quelque soit le moment où vous effectuez votre renouvellement, votre jeton actuel conserve sa date d'expiration initiale.
-      </p>
       <p>
         À bientôt 👋
         <br />

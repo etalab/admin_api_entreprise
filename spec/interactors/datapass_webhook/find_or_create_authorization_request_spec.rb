@@ -9,8 +9,9 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
     build(:datapass_webhook, fired_at:, authorization_request_attributes: {
       id: authorization_id,
       team_members: team_members_payload
-    })
+    }, event:)
   end
+
   let(:team_members_payload) do
     [
       demandeur,
@@ -18,6 +19,7 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
       responsable_technique
     ]
   end
+
   let(:demandeur) { build(:datapass_webhook_team_member_model, type: 'demandeur') }
   let(:responsable_technique) { build(:datapass_webhook_team_member_model, type: 'responsable_technique') }
   let(:contact_metier) { build(:datapass_webhook_team_member_model, type: 'contact_metier') }
@@ -26,60 +28,95 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
   let(:fired_at) { 2.minutes.ago.to_i }
 
   context 'when authorization request already exists' do
-    let!(:authorization_request) do
-      create(:authorization_request, :with_all_contacts, external_id: authorization_id)
-    end
+    context 'when authorization request is a draft' do
+      let!(:event) { %w[refuse_application refuse].sample }
+      let!(:authorization_request) do
+        create(:authorization_request, :with_all_contacts, external_id: authorization_id)
+      end
 
-    it { is_expected.to be_a_success }
-    it { expect(subject.authorization_request).to eq(authorization_request) }
+      it { is_expected.to be_a_success }
+      it { expect(subject.authorization_request).to eq(authorization_request) }
 
-    it 'updates attributes on existing authorization request' do
-      expect {
-        subject
-      }.to change { authorization_request.reload.intitule }.to(datapass_webhook_params['data']['pass']['intitule'])
-
-      expect(authorization_request.last_update.to_i).to eq(fired_at)
-      expect(authorization_request.status).to eq('sent')
-    end
-
-    it 'updates contacts associated to authorization request' do
-      expect(authorization_request.contact_metier.full_name).not_to eq('CONTACT_METIER LAST NAME contact_metier first name')
-      expect(authorization_request.contact_technique.full_name).not_to eq('RESPONSABLE_TECHNIQUE LAST NAME responsable_technique first name')
-
-      expect(authorization_request.contact_technique.email).not_to match(/technique\d+@/)
-      expect(authorization_request.contact_metier.email).not_to match(/metier\d+@/)
-
-      expect {
-        subject
-      }.not_to change { authorization_request.reload.contacts.count }
-
-      expect(authorization_request.contact_technique.email).to match(/technique\d+@/)
-      expect(authorization_request.contact_metier.email).to match(/metier\d+@/)
-
-      expect(authorization_request.contact_metier.full_name).to eq('CONTACT_METIER LAST NAME contact_metier first name')
-      expect(authorization_request.contact_technique.full_name).to eq('RESPONSABLE_TECHNIQUE LAST NAME responsable_technique first name')
-    end
-
-    context 'when it is the same demandeur' do
-      let(:demandeur) { build(:datapass_webhook_team_member_model, type: 'demandeur', email: authorization_request.demandeur.email) }
-
-      it 'does not update demandeur' do
+      it 'updates attributes on existing authorization request' do
         expect {
           subject
-        }.not_to change { authorization_request.reload.demandeur }
+        }.to change { authorization_request.reload.intitule }.to(datapass_webhook_params['data']['pass']['intitule'])
+
+        expect(authorization_request.last_update.to_i).to eq(fired_at)
+        expect(authorization_request.status).to eq('sent')
+      end
+
+      it 'updates contacts associated to authorization request' do
+        expect(authorization_request.contact_metier.full_name).not_to eq('CONTACT_METIER LAST NAME contact_metier first name')
+        expect(authorization_request.contact_technique.full_name).not_to eq('RESPONSABLE_TECHNIQUE LAST NAME responsable_technique first name')
+
+        expect(authorization_request.contact_technique.email).not_to match(/technique\d+@/)
+        expect(authorization_request.contact_metier.email).not_to match(/metier\d+@/)
+
+        expect {
+          subject
+        }.not_to change { authorization_request.reload.contacts.count }
+
+        expect(authorization_request.contact_technique.email).to match(/technique\d+@/)
+        expect(authorization_request.contact_metier.email).to match(/metier\d+@/)
+
+        expect(authorization_request.contact_metier.full_name).to eq('CONTACT_METIER LAST NAME contact_metier first name')
+        expect(authorization_request.contact_technique.full_name).to eq('RESPONSABLE_TECHNIQUE LAST NAME responsable_technique first name')
+      end
+
+      context 'when it is the same demandeur' do
+        let(:demandeur) { build(:datapass_webhook_team_member_model, type: 'demandeur', email: authorization_request.demandeur.email) }
+
+        it 'does not update demandeur' do
+          expect {
+            subject
+          }.not_to change { authorization_request.reload.demandeur }
+        end
+      end
+
+      context 'when it is not the same demandeur' do
+        it 'updates demandeur' do
+          expect {
+            subject
+          }.to change { authorization_request.reload.demandeur }
+        end
       end
     end
 
-    context 'when it is not the same demandeur' do
-      it 'updates demandeur' do
-        expect {
-          subject
-        }.to change { authorization_request.reload.demandeur }
+    context 'when authorization request is already validated' do
+      let!(:authorization_request) do
+        create(:authorization_request, :with_all_contacts, status: 'validated', external_id: authorization_id)
+      end
+
+      context 'when event is not validate_application or validate' do
+        let!(:event) { 'draft' }
+
+        it { is_expected.to be_a_success }
+
+        it 'does not update the authorization request' do
+          expect {
+            subject
+          }.not_to change { authorization_request.reload.last_update.to_i }
+        end
+      end
+
+      context 'when event is validate_application or validate' do
+        let!(:event) { 'validate' }
+
+        it { is_expected.to be_a_success }
+
+        it 'updates the authorization request' do
+          expect {
+            subject
+          }.to change { authorization_request.reload.last_update.to_i }
+        end
       end
     end
   end
 
   context 'when authorization request does not exist' do
+    let!(:event) { %w[refuse_application refuse].sample }
+
     it { is_expected.to be_a_success }
     it { expect(subject.authorization_request).to an_instance_of(AuthorizationRequest) }
 

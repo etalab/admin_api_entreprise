@@ -1,0 +1,46 @@
+<%= render partial: 'shared/prolong_token_wizard/build/header', locals: { prolong_token_wizard: @prolong_token_wizard } %>
+
+<div class="fr-p-4v" style="background-color: var(--background-default-grey)">
+  <%= render partial: 'shared/prolong_token_wizard/build/stepper', locals: { prolong_token_wizard: @prolong_token_wizard } %>
+  <%= form_for @prolong_token_wizard, url: wizard_path, method: :put do |f| %>
+    <fieldset class="fr-fieldset">
+      <div class="fr-container--fluid">
+        <div class="fr-grid-row">
+          <div class="fr-col-12">
+            <legend class="fr-fieldset__legend--regular fr-fieldset__legend">
+              <%= f.label :project_purpose, t('.label') %>
+              <div class="fr-background-alt--grey fr-p-3v fr-pb-0">
+                <div class="fr-highlight fr-highlight--default-grey fr-pt-1v fr-ml-1v fr-pl-3v">
+                  <p class="fr-mb-1v">
+                    <strong><%= @prolong_token_wizard.token.authorization_request.intitule %></strong>
+                  </p>
+                  <p class="fr-text--sm fr-mb-0">
+                    <% if @prolong_token_wizard.token.authorization_request.description.blank? %>
+                      <%= t('.no_description') %>
+                    <% else %>
+                      <%= @prolong_token_wizard.token.authorization_request.description %>
+                    <% end %>
+                  </p>
+                </div>
+              </div>
+            </legend>
+          </div>
+        </div>
+      </div>
+      <div class="fr-fieldset__element fr-fieldset__element--inline">
+        <div class="fr-radio-group">
+          <%= f.radio_button :project_purpose, true %>
+          <%= label_tag :project_purpose, t('.radio.project_purpose'), :for => "prolong_token_wizard_project_purpose_true", :class => %w[fr-label] %>
+        </div>
+      </div>
+      <div class="fr-fieldset__element fr-fieldset__element--inline">
+        <div class="fr-radio-group">
+          <%= f.radio_button :project_purpose, false, checked: true %>
+          <%= label_tag :project_purpose, t('.radio.change_project_purpose'), :for => "prolong_token_wizard_project_purpose_false", :class => %w[fr-label] %>
+        </div>
+      </div>
+    </fieldset>
+
+    <%= render partial: 'shared/prolong_token_wizard/build/wizard_buttons', locals: { f: f } %>
+  <% end %>
+</div>

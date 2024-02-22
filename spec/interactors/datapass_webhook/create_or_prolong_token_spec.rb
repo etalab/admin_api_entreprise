@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe DatapassWebhook::CreateToken, type: :interactor do
+RSpec.describe DatapassWebhook::CreateOrProlongToken, type: :interactor do
   subject { described_class.call(datapass_webhook_params.merge(authorization_request:)) }
 
   let(:authorization_request) { create(:authorization_request) }
@@ -47,6 +47,28 @@ RSpec.describe DatapassWebhook::CreateToken, type: :interactor do
       expect(token.exp).to eq(18.months.from_now.to_i)
       expect(token.iat).to eq(Time.zone.now.to_i)
       expect(token.scopes.sort).to eq(%w[associations entreprises])
+    end
+
+    context 'when token already exists' do
+      let!(:token) { create(:token, authorization_request:, exp: Time.zone.local(2024, 1, 1)) }
+
+      it 'prolongs existings token' do
+        subject
+
+        expect(token.reload.exp).to eq(18.months.from_now.to_i)
+      end
+    end
+
+    context 'when prolong_token_wizard is expecteing validation already exists' do
+      let!(:prolong_token_wizard) { create(:prolong_token_wizard, token:, status: 'updates_requested', owner: 'still_in_charge', project_purpose: false, contact_metier: true, contact_technique: true) }
+      let!(:token) { create(:token, authorization_request:, exp: Time.zone.local(2024, 1, 1)) }
+
+      it 'prolongs existings token' do
+        subject
+
+        expect(token.reload.exp).to eq(18.months.from_now.to_i)
+        expect(prolong_token_wizard.reload.status).to eq('prolonged')
+      end
     end
   end
 end

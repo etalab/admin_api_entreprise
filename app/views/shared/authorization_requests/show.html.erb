@@ -89,15 +89,23 @@
               </li>
               <% if policy(@main_token).prolong? %>
                 <li>
-                  <a
-                    href="<%= token_prolong_path(id: @main_token.id) %>"
-                    id="prolong-token-modal-link"
-                    class="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w"
-                    aria-controls="main-modal"
-                    data-fr-opened="false"
-                    data-turbo-frame="main-modal-content"
-                  >
-                    <%= t('.modal.prolong.display_cta') %>
+                  <% if should_redirect_to_datapass(@main_token) %>
+                    <a
+                      href="<%= token_prolong_path(id: @main_token.id) %>"
+                      id="prolong-token-modal-link"
+                      class="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w"
+                    >
+                  <% else %>
+                    <a
+                      href="<%= token_prolong_path(id: @main_token.id) %>"
+                      id="prolong-token-modal-link"
+                      class="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w"
+                      aria-controls="main-modal"
+                      data-fr-opened="false"
+                      data-turbo-frame="main-modal-content"
+                    >
+                  <% end %>
+                    <%= prolong_token_label(@main_token) %>
                   </a>
                 </li>
               <% end %>

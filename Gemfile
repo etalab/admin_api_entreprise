@@ -74,6 +74,8 @@ gem 'kaminari'
 
 gem 'ransack'
 
+gem 'wicked'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'brakeman'

@@ -35,6 +35,12 @@ constraints(APIEntrepriseDomainConstraint.new) do
     get '/compte/jetons/:id/prolonger', to: 'tokens#prolong', as: :token_prolong
     get '/compte/jetons/:id/demande-prolongation', to: 'tokens#ask_for_prolongation', as: :token_ask_for_prolongation
 
+    get '/compte/jetons/:token_id/demarche_prolongation/finished', to: 'prolong_token_wizard#finished', as: :token_prolong_finished
+    get '/compte/jetons/:token_id/demarche_prolongation/:id', to: 'prolong_token_wizard#show', as: :token_prolong_build
+    get '/compte/jetons/:token_id/demarche_prolongation', to: 'prolong_token_wizard#start', as: :token_prolong_start
+    patch '/compte/jetons/:token_id/demarche_prolongation/:id', to: 'prolong_token_wizard#update'
+    put '/compte/jetons/:token_id/demarche_prolongation/:id', to: 'prolong_token_wizard#update'
+
     post 'public/magic_link/create', to: 'public_token_magic_links#create'
     get 'public/jetons/:access_token', to: 'public_token_magic_links#show', as: :token_show_magic_link
 

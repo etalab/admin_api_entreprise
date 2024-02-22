@@ -28,7 +28,7 @@
     <p>
       <%= t('.authorization_request_link').html_safe %>
       <%= link_to(
-            t('.links.to_datapass', external_id: @token.authorization_request.external_id).html_safe, 
+            t('shared.links.to_datapass', external_id: @token.authorization_request.external_id).html_safe, 
             datapass_authorization_request_url(@token.authorization_request), 
             id: :authorization_request_link,
             class: %w(fr-link), 

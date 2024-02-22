@@ -2,6 +2,7 @@ class Token < ApplicationRecord
   self.ignored_columns += %w[authorization_request_id]
 
   belongs_to :authorization_request, foreign_key: 'authorization_request_model_id', inverse_of: :tokens
+  has_many :prolong_token_wizards, inverse_of: :token, dependent: :destroy
   validates :exp, presence: true
 
   scope :issued_in_last_seven_days, -> { where(created_at: 3.weeks.ago..1.week.ago) }
@@ -83,6 +84,24 @@ class Token < ApplicationRecord
     return blacklisted_at.to_i if blacklisted_at.present?
 
     exp
+  end
+
+  def create_prolong_token_wizard
+    prolong_token_wizards.create!(token_id: id)
+  end
+
+  def current_prolong_token_wizard
+    return create_prolong_token_wizard if last_prolong_token_wizard.nil? || last_prolong_token_wizard.renew?
+
+    last_prolong_token_wizard
+  end
+
+  def last_prolong_token_wizard
+    prolong_token_wizards.order(created_at: :desc).first
+  end
+
+  def prolong!
+    update!(exp: 18.months.from_now.to_i)
   end
 
   private

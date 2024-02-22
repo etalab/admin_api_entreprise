@@ -5,7 +5,7 @@
   position: 501
   perimeter:
     entity_type_description: &pole_emploi__entity_type_description |+
-      L'API concerne **les demandeurs d'emploi ayant été inscrits à Pôle emploi depuis 2010**, y compris ceux dont l'inscription a pris fin.
+      L'API concerne **les demandeurs d'emploi ayant été inscrits à France Travail depuis 2010**, y compris ceux dont l'inscription a pris fin.
 
       **Seules les [cinq premières catégories de demandeurs d'emploi](#faq_entry_answer_0_api_particulier_endpoint_pole_emploi_situation) sont concernées** par l'API :
       - ✅ en recherche d'emploi ;
@@ -17,18 +17,18 @@
     geographical_scope_description: &pole_emploi_geographical_scope_description |+
       - ✅ France métropolitaine ;
       - ✅ DROM COM ;
-      - ✅ travailleurs étrangers ressortissant d'un pays européen (membre de l’Union Européenne, de l’espace économique européen, de la Suisse, Monaco, Andorre ou Saint-Martin) ou ayant [les titres et autorisations nécessaires](https://www.pole-emploi.fr/candidat/mes-droits-aux-aides-et-allocati/a-chaque-situation-son-allocatio/quelle-est-ma-situation-personne/je-suis-travailleur-etranger--pu.html) pour être inscrit à Pôle emploi.
+      - ✅ travailleurs étrangers ressortissant d'un pays européen (membre de l’Union Européenne, de l’espace économique européen, de la Suisse, Monaco, Andorre ou Saint-Martin) ou ayant [les titres et autorisations nécessaires](https://www.francetravail.fr/candidat/mes-droits-aux-aides-et-allocati/a-chaque-situation-son-allocatio/quelle-est-ma-situation-personne/je-suis-travailleur-etranger--pu.html) pour être inscrit à France Travail.
 
 
     updating_rules_description: &pole_emploi_updating_rules_description |+
-      Les données sont **mises à jour en temps réel**, l'API étant directement reliée au système d'information de Pôle emploi.
+      Les données sont **mises à jour en temps réel**, l'API étant directement reliée au système d'information de France Travail.
 
       Les informations obtenues sont représentatives de la situation à date du demandeur d'emploi. Par exemple, la catégorie d'inscription, donnée qui peut évoluer au cours du temps, est mise à jour en temps réel également.
   parameters_details:
     description: |+
       Cette API propose une seule modalité d'appel :
       <p class="fr-badge fr-badge--purple-glycine">Identifiant</p>
-      **Avec l'identifiant du compte utilisateur Pôle emploi** : Cet identifiant est celui choisi par le particulier lors de la création de son espace personnel en ligne.
+      **Avec l'identifiant du compte utilisateur France Travail** : Cet identifiant est celui choisi par le particulier lors de la création de son espace personnel en ligne.
 
 
       <section class="fr-accordion">
@@ -40,7 +40,7 @@
        <div class="fr-collapse" id="accordion-106">
         La modalité d'appel FranceConnect n'est pas disponible pour l'API demandeur d'emploi sur API Particulier.
 
-        Vous pouvez utiliser l'[API dédiée de Pôle emploi](https://api.gouv.fr/les-api/api-statut-demandeur-emploi){:target="_blank"} ! Cette API, qui n'appartient pas au bouquet API Particulier, permet d'accéder au statut demandeur d'emploi avec FranceConnect. Il vous faudra faire une habilitiation spécifique.
+        Vous pouvez utiliser l'[API dédiée de France Travail](https://api.gouv.fr/les-api/api-statut-demandeur-emploi){:target="_blank"} ! Cette API, qui n'appartient pas au bouquet API Particulier, permet d'accéder au statut demandeur d'emploi avec FranceConnect. Il vous faudra faire une habilitiation spécifique.
        </div>
       </section>
 
@@ -57,7 +57,7 @@
   provider_uids:
     - 'pole_emploi'
   parameters:
-    - Identifiant Pôle emploi
+    - Identifiant France Travail
   keywords: []
   faq:
     - q: &pole_emploi_faq_q_1 Périmètre détaillé des catégories de demandeurs d'emploi concernés par l'API.
@@ -82,7 +82,7 @@
   position: 502
   perimeter:
     entity_type_description: |+
-      L'API concerne **les demandeurs d'emploi ayant été inscrits à Pôle emploi depuis 2010**, y compris ceux dont l'inscription a pris fin.
+      L'API concerne **les demandeurs d'emploi ayant été inscrits à France Travail depuis 2010**, y compris ceux dont l'inscription a pris fin.
 
       **Toutes les [catégories de demandeurs d'emploi](#faq_entry_answer_0_api_particulier_endpoint_pole_emploi_indemnites) sont concernées** par l'API :
       - ✅ en recherche d'emploi ;
@@ -91,13 +91,13 @@
       - ✅ tenues d'accomplir des actes positifs de recherche d'emploi.
 
     geographical_scope_description: *pole_emploi_geographical_scope_description
-    updating_rules_description: Les données sont **mises à jour en temps réel**, l'API étant directement reliée au système d'information de Pôle emploi.Les informations obtenues sont représentatives de la situation à date des paiements versés au demandeur d'emploi.
+    updating_rules_description: Les données sont **mises à jour en temps réel**, l'API étant directement reliée au système d'information de France Travail.Les informations obtenues sont représentatives de la situation à date des paiements versés au demandeur d'emploi.
   parameters_details:
     description: |+
       Cette API propose une seule modalité d'appel :
 
       <p class="fr-badge fr-badge--purple-glycine">Identifiant</p>
-      **Avec l'identifiant du compte utilisateur Pôle emploi** : Cet identifiant est celui choisi par le particulier lors de la création de son espace personnel en ligne.
+      **Avec l'identifiant du compte utilisateur France Travail** : Cet identifiant est celui choisi par le particulier lors de la création de son espace personnel en ligne.
       ⚠️ Pour utiliser cette API, il est indispensable de recouper ce paramètre d'appel avec l'identité du particulier. [Consulter les CGU spécifiques](#api_cgu).
 
       <section class="fr-accordion">
@@ -109,12 +109,12 @@
         <div class="fr-collapse" id="accordion-106">
         La modalité d'appel FranceConnect n'est pas disponible pour l'API demandeur d'emploi sur API Particulier.
 
-        Vous pouvez utiliser l'[API dédiée de Pôle emploi](https://api.gouv.fr/les-api/api-indemnisation-pole-emploi){:target="_blank"} ! Cette API, qui n'appartient pas au bouquet API Particulier, permet d'accéder à la liste des paiements versés avec FranceConnect. Il vous faudra faire une habilitiation spécifique.
+        Vous pouvez utiliser l'[API dédiée de France Travail](https://api.gouv.fr/les-api/api-indemnisation-pole-emploi){:target="_blank"} ! Cette API, qui n'appartient pas au bouquet API Particulier, permet d'accéder à la liste des paiements versés avec FranceConnect. Il vous faudra faire une habilitiation spécifique.
         </div>
       </section>
   data:
     description: |+
-      Cette API délivre la **liste des paiements Pôle emploi** du demandeur d'emploi. L'historique maximal est de 24 mois. Ces paiements sont datés et répartis en 3 catégories (allocations, aides et autres paiements).
+      Cette API délivre la **liste des paiements France Travail** du demandeur d'emploi. L'historique maximal est de 24 mois. Ces paiements sont datés et répartis en 3 catégories (allocations, aides et autres paiements).
 
       {:.fr-highlight}
       > **Cas particuliers :**
@@ -124,7 +124,7 @@
   provider_uids:
     - 'pole_emploi'
   parameters:
-    - Identifiant Pôle emploi
+    - Identifiant France Travail
   keywords: []
   faq:
     - q: Périmètre détaillé des catégories de demandeurs d'emploi concernés par l'API.
@@ -144,12 +144,12 @@
         | 8          | Personnes non immédiatement à la recherche d'un autre emploi, à durée déterminée, temporaire ou saisonnier, y compris de très courte durée, tenues d'accomplir des actes positifs de recherche d'emploi.  |   ✅   |
   api_cgu:
     description: |+
-        Il est **indispensable de recouper l'identifiant du compte utilisateur Pôle Emploi avec l'identité du particulier** avant d'utiliser cette API.
+        Il est **indispensable de recouper l'identifiant du compte utilisateur France Travail avec l'identité du particulier** avant d'utiliser cette API.
 
-        En effet, cette API est appelable avec un seul paramètre d'appel, l'identifiant du compte utilisateur Pôle Emploi. Par conséquent, si vous n'avez pas pu établir que cet identifiant utilisé en appel correspond bien au particulier concerné, vous prenez le risque de lui transmettre les données d'un autre allocataire.
+        En effet, cette API est appelable avec un seul paramètre d'appel, l'identifiant du compte utilisateur France Travail. Par conséquent, si vous n'avez pas pu établir que cet identifiant utilisé en appel correspond bien au particulier concerné, vous prenez le risque de lui transmettre les données d'un autre allocataire.
 
         {:.fr-highlight.fr-highlight--caution}
-        > **En utilisant cette API, vous vous engagez donc à recouper l'identifiant du compte utilisateur Pôle Emploi avec l'identité du particulier** en faisant un appel en parallèle sur l'[API statut demandeur d'emploi](../pole_emploi/situation).
+        > **En utilisant cette API, vous vous engagez donc à recouper l'identifiant du compte utilisateur France Travail avec l'identité du particulier** en faisant un appel en parallèle sur l'[API statut demandeur d'emploi](../pole_emploi/situation).
         > En effet, cette autre API permet d'accéder aux deux informations.
         >
         > À notre connaissance, l'identifiant du compte utilisateur est configuré par l'usager au moment de la création de son espace et n'est donc présent sur aucun document ou courriel qui permettrait à un agent de vérifier l'identité. L'appel à l'API statut demandeur d'emploi est donc indispensable pour vérifier l'identité.

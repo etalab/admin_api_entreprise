@@ -42,11 +42,11 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
   describe 'when user is authenticated' do
     before do
       login_as(authenticated_user)
-      go_to_authorization_requests_index
     end
 
     describe 'when the user does not have authorization requests' do
       it 'displays the page' do
+        go_to_authorization_requests_index
         expect(page).to have_current_path(api_particulier_authorization_requests_path, ignore_query: true)
 
         expect(page).to have_content("Vous n'avez aucune habilitation")
@@ -70,6 +70,7 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
           :authorization_request,
           :with_demandeur,
           :validated,
+          intitule: 'active',
           tokens: [token_active, token_blacklisted_later],
           demandeur: authenticated_user,
           api: 'particulier'
@@ -113,7 +114,12 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
         )
       end
 
+      let!(:prolong_wizard) { create(:prolong_token_wizard, :requires_update, token: token_active, status:) }
+      let!(:status) { 'owner' }
+
       it 'displays the page' do
+        go_to_authorization_requests_index
+
         expect(page).to have_current_path(api_particulier_authorization_requests_path, ignore_query: true)
 
         expect(page).to have_content('Habilitations API Particulier (4)')
@@ -136,14 +142,48 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
       end
 
       it 'displays the button to view the token details' do
+        go_to_authorization_requests_index
+
         expect(page).to have_css('#' << dom_id(authorization_request_active, :show_token_modal_link))
         expect(page).to have_no_css('#' << dom_id(authorization_request_blacklisted, :show_token_modal_link))
         expect(page).to have_no_css('#' << dom_id(authorization_request_archived, :show_token_modal_link))
       end
 
-      it 'displays the button to prolong the token' do
-        expect(page).to have_no_css('#' << dom_id(authorization_request_active, :prolong_token_modal_link))
-        expect(page).to have_no_css('#' << dom_id(authorization_request_archived, :prolong_token_modal_link))
+      describe 'displays the button to prolong the token' do
+        it 'displays the button to prolong the token' do
+          go_to_authorization_requests_index
+
+          expect(page).to have_css('#' << dom_id(authorization_request_active, :prolong_token_modal_link))
+          expect(page).to have_no_css('#' << dom_id(authorization_request_archived, :prolong_token_modal_link))
+        end
+
+        describe 'when there is no prolong wizard' do
+          it 'displays the default label' do
+            go_to_authorization_requests_index
+
+            expect(page).to have_text('Prolonger le jeton')
+          end
+        end
+
+        describe 'when there is a requires update prolong wizard' do
+          let!(:status) { 'requires_update' }
+
+          it 'displays the correct label' do
+            go_to_authorization_requests_index
+
+            expect(page).to have_text('Terminer la mise à jour')
+          end
+        end
+
+        describe 'when there is a changes requested prolong wizard' do
+          let!(:status) { 'updates_requested' }
+
+          it 'displays the correct label' do
+            go_to_authorization_requests_index
+
+            expect(page).to have_text('Demande de mise à jour')
+          end
+        end
       end
     end
   end

@@ -4,7 +4,7 @@ module TokenMailersCommons
   included { before_action :attach_logos }
 
   include FriendlyDateHelper
-  include ExternalUrlHelper
+  include Rails.application.routes.url_helpers
 
   %w[
     expiration_notice_90J
@@ -18,7 +18,7 @@ module TokenMailersCommons
       token = args[:token]
       @authorization_request = token.authorization_request
 
-      @datapass_renewal_url = datapass_renewal_url(@authorization_request)
+      @prolong_token_url = token_prolong_start_path(token_id: token.id)
       @expiration_date = Time.at(token.exp).in_time_zone.strftime('%d/%m/%Y')
       @full_name = @authorization_request.demandeur.full_name
       @intitule = token.intitule

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_08_173009) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_14_133032) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pgcrypto"
@@ -125,6 +125,18 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_08_173009) do
     t.index ["token_id"], name: "index_magic_links_on_token_id"
   end
 
+  create_table "prolong_token_wizards", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "token_id", null: false
+    t.string "owner"
+    t.boolean "project_purpose"
+    t.boolean "contact_metier"
+    t.boolean "contact_technique"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["token_id"], name: "index_prolong_token_wizards_on_token_id"
+  end
+
   create_table "tokens", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "iat"
     t.datetime "created_at", precision: nil, null: false
@@ -167,6 +179,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_08_173009) do
   end
 
   add_foreign_key "magic_links", "tokens"
+  add_foreign_key "prolong_token_wizards", "tokens"
   add_foreign_key "user_authorization_request_roles", "authorization_requests"
   add_foreign_key "user_authorization_request_roles", "users"
 end

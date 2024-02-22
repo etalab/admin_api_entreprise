@@ -28,7 +28,7 @@ fr:
 
                 #### Un token a une fin de vie
 
-                La durée de vie d’un token est limitée, elle est de **18 mois**. La date d’expiration de votre jeton est indiquée dans votre [espace personnel](<%= user_profile_path %>).
+                La durée de vie d’un token est limitée, elle est de **18 mois**. La date d’expiration de votre jeton est indiquée dans votre [espace personnel](<%= user_profile_path %>). Trois mois avant l'expiration du jeton, vous serez notifié par e-mail et pourrez faire une [demande de prolongation du jeton](<%= faq_index_path(anchor: 'comment-prolonger-mon-jeton-arrivant-a-expiration') %>).
 
                 Un token peut également être supprimé s’il a été diffusé par mégarde. Le renouvellement d’un token est très facile et rapide. C’est pourquoi, si vous avez divulgué votre token par erreur, n’hésitez pas à écrire rapidement à [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr).
 
@@ -85,18 +85,6 @@ fr:
                 > D’une part, la recherche peut être difficile, d’autre part, l’implémentation est plus complexe : Vous devez comprendre plusieurs systèmes techniques, générer plusieurs mots de passe, utiliser plusieurs clés d’accès et collaborer avec plusieurs contacts techniques et métiers.
                 >
                 > Ce travail, l’API Entreprise le fait pour vous.
-
-
-
-
-
-
-
-
-
-
-
-
 
         - name: "Conditions d’utilisation de l’API Entreprise"
           entries:
@@ -208,16 +196,39 @@ fr:
                 {:.fr-highlight}
                 > ☝️ _Vous êtes éditeur de logiciel, proposez l’API Entreprise à vos clients mais ne figurez pas sur cette liste ?_ Écrivez nous à [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr)
 
+            - question: "Quelles sont les étapes pour utiliser l'API Entreprise ?"
+              answer: |+
+                  #### Je suis une collectivité ou une administration :
 
+                  1. **Je consulte [les cas d’usages de l'API Entreprise](<%= cas_usages_path %>)** :
+                    - Si j'ai un éditeur de logiciel, je consulte le tableau en bas du cas d'usage pour savoir si mon éditeur intègre déjà l’API Entreprise.
+                    - Sinon je contacte mon éditeur et je lui transmets le lien vers la documentation technique pour m'assurer qu'il peut intégrer l'API.
 
+                    {:.fr-highlight}
+                    > **Je peux même tester l'API Entreprise en préproduction.** Pour en savoir plus, consulter [cette rubrique de l'espace développeur](<%= developers_path(anchor: 'tester-api-preproduction') %>).
 
+                  2. **Je clique sur le bouton "[faire une demande d'habilitation](https://datapass.api.gouv.fr/api-entreprise)"**, je crée mon compte DataPass ou je me connecte.
 
+                  3. **Une fois sur la première page du formulaire d'accès à l'API Entreprise, je complète l'encadré "Qui implémentera l'API ?"** :
+                    - Si j'ai un éditeur, je coche "Votre éditeur de logiciel" et je le sélectionne dans la liste déroulante s'il est disponible.
+                    - Si je n'ai pas d'éditeur, je coche "Votre équipe de développeurs". Je clique sur "Suivant".
 
+                  4. **À la page suivante, rubrique "Modèles pré-remplis", je sélectionne le formulaire pré-rempli adéquat** :
+                    - Si j'ai un éditeur, je retrouve son nom et le nom de la solution dans la liste déroulante.
+                    - Si je n'ai pas d'éditeur, je laisse le mode par défaut "Demande libre".
 
+                  5. **Je complète mon formulaire** : informations sur le projet, données nécessaires, traitement des données, cadre juridique - dont délibération -, coordonnées de l'équipe dont responsable technique, responsable métier, délégué à la protection des données et responsable de traitement. Les informations qui vous seront demandées pour compléter le formulaire sont décrites dans [cette rubrique](<%= faq_index_path(anchor: 'quelles-informations-me-seront-demandees') %>).
 
+                  6. **Une fois ma demande instruite et validée par l'équipe API Entreprise**, je reçois un e-mail m'indiquant où récupérer mon jeton. Je le transmets à mon éditeur ou à mes développeurs.
 
+                  #### Je suis un éditeur et je ne suis pas encore référencé :
 
+                  ℹ️ Si vous êtes **éditeur de logiciels, c'est à votre client public, collectivité ou administration, de faire sa demande d'habilitation auprès de l'API Entreprise**.
 
+                  Vous pouvez nous demander de vous référencer sur un cas d'usage afin de proposer un formulaire pré-rempli qui simplifiera l'expérience de vos clients. Voici la procédure à suivre :
+                  - Je repère les données dont mes clients publics ont besoin pour un cas d'usage précis que je peux ou pourrai proposer dans ma solution logicielle ;
+                  - Je consulte la documentation technique, et j'utilise le bac à sable pour tester les appels d'API ;
+                  - J'écris à [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr) pour être référencé sur le cas d'usage associé et avoir un formulaire pré-rempli à disposition de mes clients.
 
 
         - name: "Demande d’habilitation"
@@ -290,16 +301,6 @@ fr:
                 - _Si vous attendez depuis plus de trois semaines_, votre dossier demande probablement plus de temps à notre équipe juridique. Toutefois, aucune demande ne reste sans réponse et le tableau de bord qui accompagne les instructeurs classe les demandes par ordre d’ancienneté. Vous ne pouvez donc pas être oublié.
 
 
-
-
-
-
-
-
-
-
-
-
         - name: "Jetons d’accès"
           entries:
             - question: "Comment récupérer son jeton après validation de la demande d'habilitation ?"
@@ -315,7 +316,7 @@ fr:
 
                   **Vous devez transmettre ce jeton à votre éditeur ? Ou à votre équipe technique ?** Utilisez la [fonctionnalité prévue à cet effet](<%= faq_index_path(anchor: 'comment-transmettre-le-jeton-d-acces-en-tout-securite') %>).
 
-                  **Le jeton est valable 18 mois, il devra ensuite être renouvelé par le demandeur tous les 18 mois, avant sa date d'expiration**. Autrement, vous ne pourrez plus accéder aux API tant que le renouvellement n'aura pas été effectué. Pour en savoir plus sur la procédure de renouvellement, veuillez lire [cette rubrique](<%= faq_index_path(anchor: 'comment-prolonger-mon-jeton-arrivant-a-expiration') %>).
+                  **Le jeton est valable 18 mois, il devra ensuite être prolongé par le demandeur tous les 18 mois, avant sa date d'expiration**. Autrement, vous ne pourrez plus accéder aux API tant que la prolongation n'aura pas été effectuée. Pour en savoir plus sur la procédure de prolongation, veuillez lire [cette rubrique](<%= faq_index_path(anchor: 'comment-prolonger-mon-jeton-arrivant-a-expiration') %>).
 
             - question: "Comment transmettre le jeton d’accès en tout sécurité ?"
               answer: |+
@@ -338,7 +339,7 @@ fr:
 
                 #### Se rendre sur le formulaire de prolongation
 
-                Trois mois avant l’arrivée à terme d’un jeton, le demandeur **reçoit des notifications automatiques** l'informant de l’expiration à venir de votre jeton ainsi qu’**une invitation à le renouveler**.
+                Trois mois avant l’arrivée à terme d’un jeton, le demandeur **reçoit des notifications automatiques** l'informant de l’expiration à venir de votre jeton ainsi qu’**une invitation à le prolongerr**.
                 Les notifications sont envoyées régulièrement jusqu’à l'expiration (90 jours avant la date d’expiration, puis 60 jours avant, puis 30, 15, …). Les contacts métiers et techniques sont en copie de ces e-mails, mais ils ne peuvent pas compléter le formulaire. Seul le demandeur peut le faire.
 
                 Si le jeton expire dans moins de 90 jours et qu'aucune notification n'a été reçue, veuillez vérifier si celle-ci n’est pas arrivée dans vos "spams" 🗑.
@@ -375,21 +376,22 @@ fr:
                 Les contacts technique, métier et l'éditeur ne sont pas habilités à effectuer ces démarches.
             - question: "Comment élargir le périmètre des API disponibles avec mon jeton / obtenir de nouvelles données ?"
               answer: |+
-                Il est tout à fait possible d’élargir le périmètre des données auxquelles vous avez accès, ce nouveau périmètre engendrera la création d’un nouveau jeton.
+                Pour élargir le périmètre des données auxquelles vous avez accès, vous devez effectuer une **demande de mise à jour de votre habilitation**&nbsp;:
 
-                Pour demander de nouvelles données, vous devez donc **refaire une demande d’habilitation**&nbsp;:
-
-                - _Si les nouvelles données demandées entrent dans le même cas d’usage que celui de votre demande initiale_, vous pouvez vous connecter, et cliquer sur "Renouveler mon jeton". Cette action vous conduit sur un nouveau formulaire, pré-rempli des informations de votre demande initiale. Ajoutez vos données et surtout spécifiez dans la description pourquoi vous avez besoin de ces données et à quoi serviront-elles. N’oubliez pas de compléter le cadre juridique si nécessaire.
-
-                  {:.fr-highlight}
-                  > ℹ️ L’action de renouvellement du jeton ne supprimera pas le jeton initial, qui garde sa validité jusqu’à sa date d’expiration.
-                - _Si les nouvelles données demandées concernent un nouveau cadre d’utilisation_, faîtes simplement une [nouvelle demande](https://datapass.api.gouv.fr/api-entreprise#head){:target="_blank"}.
+                1. Connectez-vous à votre [compte utilisateur API Entreprise](<%= user_profile_path %>) ; 
+                2. Depuis la page "Habilitations", cliquez sur la flèche de l'habilitation dont vous souhaitez étendre les droits pour accéder à sa page détaillée ; 
+                3. Dans la première partie de cette page "Vos droits d'accès", cliquez sur le lien "Demander l'accès à d'autres API". Une fenêtre s'ouvre et vous indique la suite de la démarche. Vous allez en effet être redirigé sur le site Datapass, sur lequel vous aviez fait votre demande d'habilitation. Sur Datapass, une demande de mise à jour de votre habilitation est alors ouverte.
+                4. Sélectionnez les données dont votre service à besoin.
+                5. Soumettez la demande. API Entreprise va instruire votre demande notamment pour s'assurer que les nouvelles données demandées correspondent au cas d'usage de votre habilitation.
+                
+                {:.fr-highlight}
+                > _Si les nouvelles données demandées concernent un nouveau cadre d’utilisation_, l'instructeur vous demandera certainement de faire une [nouvelle demande](https://datapass.api.gouv.fr/api-entreprise#head){:target="_blank"} plutôt que de modifier l'habilitation déjà validée.
 
             - question: "Pourquoi mon jeton a une date d’expiration ?"
               answer: |+
                 Pour des **raisons de sécurité**, tous les jetons émis sont valables pour une **durée de 18 mois**. Au delà de ce délai, ils ne fonctionnent plus, et votre accès à l’API Entreprise est donc totalement arrêté.
 
-                En réalité, cette situation n’est pas censée arriver car API Entreprise a mis en place une [procédure simple de renouvellement de token](<%= faq_index_path(anchor: 'comment-renouveler-mon-jeton-arrivant-a-expiration') %>).
+                En réalité, cette situation n’est pas censée arriver car API Entreprise a mis en place une [procédure simple de prolongation de token](<%= faq_index_path(anchor: 'comment-prolonger-mon-jeton-arrivant-a-expiration') %>).
 
         - name: "Rupture de service"
           entries:
@@ -418,8 +420,6 @@ fr:
 
                 Si l'incident n'est pas déjà repertorié par API Entreprise et si vous n'avez pas dépassé la volumétrie autorisée, vous pouvez nous contacter sur [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr)
 
-                ---------
-
                 A noter que vous pouvez vous référer à la documentation sur la [surveillance de l'état des fournisseurs](<%= developers_path(anchor: 'surveillance-etat-fournisseurs') %>) pour anticiper les potentiels problèmes.
             - question: "J'ai dépassé la volumétrie, mon IP est bannie, comment faire ?"
               answer: |+
@@ -436,7 +436,9 @@ fr:
 
             - question: "Comment être averti des incidents et maintenances ?"
               answer: |+
-                Pour être informé des différentes indisponibilités, [abonnez-vous aux notifications par e-mail depuis notre page de statuts](https://status.entreprise.api.gouv.fr/subscribe/email){:target="_blank"}.
+                1. **Abonnez-vous aux notifications** par e-mail depuis [notre page de statut](https://status.particulier.api.gouv.fr/subscribe/email){:target="_blank"}.
+
+                2. Plutôt que de consulter mnauellement la page de statuts, vous pouvez aussi **automatiser informatiquement la surveillance**, pour en savoir plus, consultez cette rubrique de l'[espace développeur](<%= developers_path(anchor: 'surveillance-etat-fournisseurs') %>).
 
             - question: "Quels sont les engagements de l’API Entreprise en termes de disponibilité ?"
               answer: |+
@@ -466,8 +468,8 @@ fr:
 
                 **Le compte utilisateur vous permet de :**
                 - copier/coller le jeton d'accès à l'API, en [respectant les règles indispensables de sécurité](#qu-est-ce-qu-un-token-ou-jeton) ;
-                - [renouveler votre jeton d'accès arrivé à expiration](#comment-renouveler-mon-jeton-arrivant-a-expiration),  _fonctionnalité actuellement seulement disponible pour le contact demandeur_ ;
-                - [étendre/modifier vos droits d'accès](#comment-elargir-le-perimetre-des-api-disponibles-avec-mon-jeton-obtenir-de-nouvelles-donnees), _fonctionnalité actuellement seulement disponible pour le contact demandeur_ ;
+                - [prolonger votre jeton d'accès arrivé à expiration](#comment-prolonger-mon-jeton-arrivant-a-expiration),  _fonctionnalité actuellement seulement disponible pour le contact demandeur_ ;
+                - [étendre vos droits d'accès](#comment-elargir-le-perimetre-des-api-disponibles-avec-mon-jeton-obtenir-de-nouvelles-donnees), _fonctionnalité actuellement seulement disponible pour le contact demandeur_ ;
                 - consulter les statistiques d'utilisation de votre jeton ;
                 - consulter la liste de vos habilitations à API Entreprise.
 
@@ -477,7 +479,7 @@ fr:
 
                 #### Vous êtes contact métier et/ou contact technique de l'habilitation : 
 
-                Si vous n'êtes pas le demandeur de l'habilitation, vous devez demander à celui-ci d'effectuer la modification. Pour retrouver le demandeur en charge de vos habilitations, rendez-vous sur [votre espace usager](<%= user_profile_path %>), le demandeur est indiqué dans la liste des contacts.
+                Si vous n'êtes pas le demandeur de l'habilitation, vous devez demander à celui-ci d'effectuer la modification. Pour retrouver le demandeur en charge de vos habilitations, rendez-vous sur [votre espace utilisateur](<%= user_profile_path %>), le demandeur est indiqué dans la liste des contacts.
 
                 Le demandeur (contact principal à l'origine de la demande d'habilitation) est la seule personne qui peut demander une modification de l'habilitation. Le changement d'un contact métier ou technique est très rapide si le nouveau contact est dans la même organisation.
 
@@ -486,7 +488,7 @@ fr:
                 En tant que demandeur d'une habilitation, vous avez la possibilité de demander le transfert de celle-ci à un tiers qui obtiendra alors à son tour le rôle de demandeur.
                 
                 **Pour cela, utilisez la fonctionnalité prévue à cet effet** :
-                - Rendez-vous dans votre [espace usager](<%= user_profile_path %>), cliquez sur \"Accéder à vos informations\".
+                - Rendez-vous dans votre [espace utilisateur](<%= user_profile_path %>), cliquez sur \"Accéder à vos informations\".
                 - Cliquez sur le bouton dédié \"Transférer mes habilitations\".
                 - Une fenêtre s'ouvre, vous rappelle vos engagements et vous permet de renseigner l'adresse e-mail du futur demandeur des habilitations. Validez.
                 - Le destinataire reçoit un e-mail indiquant les démarches à suivre. Le transfert des habilitations est désormais de son côté. S'il n'a pas déjà un compte \"MonComptePro\", il devra s'en créer un, **avec l'adresse mail que vous aurez indiquée et en renseignant bien le SIRET de votre organisation commune. C'est indispensable pour que le compte soit bien appareillé**.
@@ -513,9 +515,8 @@ fr:
           entries:
             - question: "Quand et pourquoi un bureau ouvert ?"
               answer: |+
-                **Tous les 1ers et 3èmes mardis du mois entre 10h et 10h30**, une personne "tech" et une personne "métier" de l'API Entreprise sont disponibles pour répondre à vos questions par visio.
-                **C'est le bureau ouvert !**
-                Dans le cadre de la sortie de la nouvelle version d'API Entreprise, la V.3, l'objectif est de rencontrer l'équipe et d'avoir un point de contact régulier où discuter des aspects métiers et techniques.
+                **Tous les 1ers et 3èmes mardis du mois entre 10h et 10h30**, une personne "tech" et une personne "métier" de l'API Entreprise et de l'[API Particulier](https://particulier.api.gouv.fr/){:target="_blank"} sont disponibles pour répondre à vos questions par visio.
+                L'objectif est de rencontrer l'équipe et d'avoir un point de contact régulier où discuter des aspects métiers et techniques.
                 C'est un espace d'échange.
 
                 Pour nous rejoindre, utilisez le lien suivant : [https://webconf.numerique.gouv.fr/APIEntreprise00Version3](https://webconf.numerique.gouv.fr/APIEntreprise00Version3){:target="_blank"}
@@ -532,7 +533,6 @@ fr:
                 _Vous ne trouvez pas de fiches de poste adéquates et souhaitez tout de même postuler ?_ Vous pouvez nous envoyer un mail expliquant votre motivation, attaché de votre CV. Nous reviendrons vers vous dès qu’un poste correspondant sera ouvert.
             - question: "Une autre question ?"
               answer: |+
-
                 Vous pouvez contacter le support d'API Entreprise.
 
                 Pour améliorer le temps de traitement de votre demande, il est important de nous fournir, au minimum, les informations suivantes :
@@ -550,8 +550,3 @@ fr:
 
                 {:.fr-highlight}
                 Votre question porte sur la V.3 de l'API Entreprise ? N'hésitez pas à passer au [bureau ouvert](<%= faq_index_path(anchor: 'quand-et-pourquoi-un-bureau-ouvert') %>)
-
-        # - name: ""
-        #   entries:
-        #     - question: ""
-        #       answer: |+

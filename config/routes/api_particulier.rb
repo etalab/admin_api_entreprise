@@ -50,6 +50,13 @@ constraints(APIParticulierDomainConstraint.new) do
     get '/compte/jetons/:id/stats', to: 'tokens#stats', as: :token_stats
     get '/compte/jetons/:id/renew', to: 'tokens#renew', as: :token_renew
 
+
+    get '/compte/jetons/:token_id/demarche_prolongation/finished', to: 'prolong_token_wizard#finished', as: :token_prolong_finished
+    get '/compte/jetons/:token_id/demarche_prolongation/:id', to: 'prolong_token_wizard#show', as: :token_prolong_build
+    get '/compte/jetons/:token_id/demarche_prolongation', to: 'prolong_token_wizard#start', as: :token_prolong_start
+    patch '/compte/jetons/:token_id/demarche_prolongation/:id', to: 'prolong_token_wizard#update'
+    put '/compte/jetons/:token_id/demarche_prolongation/:id', to: 'prolong_token_wizard#update'
+
     post 'public/magic_link/create', to: 'public_token_magic_links#create'
     post '/compte/jetons/:id/partager', to: 'transfer_tokens#create', as: :token_create_magic_link
 
