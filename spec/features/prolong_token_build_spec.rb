@@ -151,7 +151,7 @@ RSpec.describe 'follows the prolong token wizard' do
             expect(page).to have_content('Votre jeton a été prolongé')
             expect(page).to have_css('#prolonged_to_authorization_request')
 
-            expect(token.reload.exp).to eq(18.months.from_now.to_i)
+            expect(token.reload.exp).to be_within(2.seconds).of(18.months.from_now.to_i)
           end
         end
 
