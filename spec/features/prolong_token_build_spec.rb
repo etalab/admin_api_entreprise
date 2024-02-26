@@ -22,6 +22,14 @@ RSpec.describe 'follows the prolong token wizard' do
     create(:token, authorization_request:, exp:)
   end
 
+  before do
+    Timecop.freeze
+  end
+
+  after do
+    Timecop.return
+  end
+
   describe 'when user is not authenticated', app: :api_entreprise do
     it 'redirects to the login' do
       go_to_prolong_token_start
