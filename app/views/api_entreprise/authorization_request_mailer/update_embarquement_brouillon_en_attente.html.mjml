@@ -1,0 +1,30 @@
+<%= render partial: "shared/api_entreprise/mailers/header" %>
+<mj-section mj-class="section-banner" background-color="#fff9bf">
+  <mj-column>
+    <mj-text>
+      <h1>
+        Le brouillon de votre demande de mise à jour API Entreprise est <b>en attente depuis une quinzaine de jours ⏳</b>
+      </h1>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<mj-section mj-class="section-main">
+  <mj-column>
+    <mj-text>
+      <%= render partial: "greetings", locals: { entity: "demandeur" } %>
+      <p>
+        Le brouillon de votre demande de mise à jour de l'<a target="_blank" href="<%= @authorization_request_datapass_url %>">habilitation API Entreprise n°<%= @authorization_request.external_id %> </a> est en attente. <b>Si vous rencontrez une difficulté, n'hésitez pas à poser vos questions en répondant à cet e-mail ou directement sur la messagerie de la demande.</b>
+      </p>
+    </mj-text>
+    <mj-button href="<%= @authorization_request_datapass_url %>">
+      Terminer ma demande de mise à jour &nbsp;✍️
+    </mj-button>
+    <mj-text>
+      <p>
+        À bientôt 👋<br />
+      <b>API Entreprise</b>
+      </p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<%= render partial: "shared/api_particulier/mailers/footer" %>

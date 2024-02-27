@@ -3,16 +3,23 @@ class APIParticulier::AuthorizationRequestMailer < APIParticulierMailer
 
   %w[
     embarquement_brouillon_en_attente
+    update_embarquement_brouillon_en_attente
     demande_recue
+    update_demande_recue
     reassurance_demande_recue
+    update_reassurance_demande_recue
 
     embarquement_demande_refusee
     embarquement_modifications_demandees
     embarquement_relance_modifications_demandees
+    update_embarquement_demande_refusee
+    update_embarquement_modifications_demandees
+    update_embarquement_relance_modifications_demandees
 
     embarquement_valide_to_demandeur_is_tech
     embarquement_valide_to_demandeur_seulement
     embarquement_valide_to_tech_cc_demandeur
+    update_embarquement_valide_to_demandeur
 
     enquete_satisfaction
   ].each do |method|
@@ -25,7 +32,7 @@ class APIParticulier::AuthorizationRequestMailer < APIParticulierMailer
       @full_name_demandeur = @authorization_request.demandeur.full_name
       @full_name_contact_technique = @authorization_request.contact_technique&.full_name
 
-      mail(to: extract_recipients(args[:to]), cc: extract_recipients(args[:cc]), subject: t('.subject')) { |format| format.html }
+      mail(to: extract_recipients(args[:to]), cc: extract_recipients(args[:cc]), subject: "n°#{@authorization_request.external_id} | #{t('.subject')} ") { |format| format.html }
     end
   end
 

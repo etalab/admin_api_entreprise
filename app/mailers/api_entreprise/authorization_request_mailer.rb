@@ -6,9 +6,13 @@ class APIEntreprise::AuthorizationRequestMailer < APIEntrepriseMailer
   %w[
     enquete_satisfaction
     embarquement_brouillon_en_attente
+    update_embarquement_brouillon_en_attente
     embarquement_demande_refusee
+    update_embarquement_demande_refusee
     embarquement_modifications_demandees
+    update_embarquement_modifications_demandees
     embarquement_relance_modifications_demandees
+    update_embarquement_relance_modifications_demandees
     embarquement_valide_to_editeur
     embarquement_valide_to_demandeur_is_tech_is_metier
     embarquement_valide_to_demandeur_seulement
@@ -16,8 +20,11 @@ class APIEntreprise::AuthorizationRequestMailer < APIEntrepriseMailer
     embarquement_valide_to_demandeur_is_metier_not_tech
     embarquement_valide_to_demandeur_is_tech_not_metier
     embarquement_valide_to_tech_cc_demandeur_metier
+    update_embarquement_valide_to_demandeur
     demande_recue
+    update_demande_recue
     reassurance_demande_recue
+    update_reassurance_demande_recue
   ].each do |method|
     send('define_method', method) do |args|
       @all_scopes = I18n.t('api_entreprise.tokens.token.scope')
@@ -29,7 +36,7 @@ class APIEntreprise::AuthorizationRequestMailer < APIEntrepriseMailer
       @full_name_contact_technique = @authorization_request.contact_technique&.full_name
       @full_name_contact_metier = @authorization_request.contact_metier&.full_name
 
-      mail(to: extract_recipients(args[:to]), cc: extract_recipients(args[:cc]), subject: t('.subject')) { |format| format.html }
+      mail(to: extract_recipients(args[:to]), cc: extract_recipients(args[:cc]), subject: "n°#{@authorization_request.external_id} | #{t('.subject')} ") { |format| format.html }
     end
   end
 

@@ -8,9 +8,13 @@ RSpec.describe APIEntreprise::AuthorizationRequestMailer do
   %w[
     enquete_satisfaction
     embarquement_brouillon_en_attente
+    update_embarquement_brouillon_en_attente
     embarquement_demande_refusee
+    update_embarquement_demande_refusee
     embarquement_modifications_demandees
+    update_embarquement_modifications_demandees
     embarquement_relance_modifications_demandees
+    update_embarquement_relance_modifications_demandees
     embarquement_valide_to_editeur
     embarquement_valide_to_demandeur_is_tech_is_metier
     embarquement_valide_to_demandeur_seulement
@@ -18,8 +22,11 @@ RSpec.describe APIEntreprise::AuthorizationRequestMailer do
     embarquement_valide_to_demandeur_is_metier_not_tech
     embarquement_valide_to_demandeur_is_tech_not_metier
     embarquement_valide_to_tech_cc_demandeur_metier
+    update_embarquement_valide_to_demandeur
     demande_recue
+    update_demande_recue
     reassurance_demande_recue
+    update_reassurance_demande_recue
   ].each do |method|
     describe "##{method}" do
       subject(:generate_email) { described_class.send(method, { to:, cc:, authorization_request: }) }

@@ -45,6 +45,7 @@ production: &production
   created: &created
     emails:
       - template: 'embarquement_brouillon_en_attente'
+        on_update: true
         when: 'in 14 days'
 
   updated: &updated {}
@@ -52,21 +53,26 @@ production: &production
   send_application: &send_application
     emails:
       - template: 'demande_recue'
+        on_update: true
 
       - template: 'reassurance_demande_recue'
+        on_update: true
         when: 'in 14 days'
 
   notify: &notify {}
   review_application: &review_application
     emails:
       - template: 'embarquement_modifications_demandees'
+        on_update: true
 
       - template: 'embarquement_relance_modifications_demandees'
+        on_update: true
         when: 'in 14 days'
 
   refuse_application: &refuse_application
     emails:
       - template: 'embarquement_demande_refusee'
+        on_update: true
 
   validate_application: &validate_application
     emails:
@@ -83,6 +89,15 @@ production: &production
         cc:
           - 'authorization_request.contact_technique'
           - 'authorization_request.contact_metier'
+
+      - template: 'update_embarquement_valide_to_demandeur'
+        only_on_update: true
+        condition_on_authorization: 'not_editor_authorization_request'
+        to:
+          - 'authorization_request.contact_metier'
+        cc:
+          - 'authorization_request.contact_technique'
+          - 'authorization_request.demandeur'
 
       - template: 'embarquement_valide_to_demandeur_is_tech_is_metier'
         condition_on_authorization: 'not_editor_and_all_contacts_have_the_same_email?'

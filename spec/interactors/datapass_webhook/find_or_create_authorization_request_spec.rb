@@ -64,6 +64,10 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
         expect(authorization_request.contact_technique.full_name).to eq('RESPONSABLE_TECHNIQUE LAST NAME responsable_technique first name')
       end
 
+      it 'sets the reopening flag to false' do
+        expect(subject.reopening).to be_falsey
+      end
+
       context 'when it is the same demandeur' do
         let(:demandeur) { build(:datapass_webhook_team_member_model, type: 'demandeur', email: authorization_request.demandeur.email) }
 
@@ -92,6 +96,10 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
         let!(:event) { 'draft' }
 
         it { is_expected.to be_a_success }
+
+        it 'sets the reopening flag to true' do
+          expect(subject.reopening).to be_truthy
+        end
 
         it 'does not update the authorization request' do
           expect {
