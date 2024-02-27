@@ -233,6 +233,7 @@ produits pour itérer sur le site (que ce soit en terme de contenu ou fonctionne
 - Contenu
   - [Gestion des wordings (layouts, templates, FAQ)](docs/wordings.md)
   - [Ajout d'un nouvel endpoint dans le catalogue](docs/endpoint.md)
+  - [Proposer des modifications de la doc](config/locales)
 
 ## Les mails transactionnels 
 Les templates de mails transactionnels sont disponibles ici : 
