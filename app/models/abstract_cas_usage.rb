@@ -16,6 +16,7 @@ class AbstractCasUsage
     endpoints
     endpoints_optional
     endpoints_forbidden
+    link_api_gouv
   ].freeze
 
   attr_accessor(*ATTRIBUTES)
