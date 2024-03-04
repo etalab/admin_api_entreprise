@@ -26,8 +26,16 @@ class DatapassWebhook::ScheduleAuthorizationRequestEmails < ApplicationInteracto
   end
 
   def condition_on_update_met?(email_config)
-    return !email_config['on_update'].nil? && email_config['on_update'] if context.reopening
+    return with_a_reopening_template?(email_config) if context.reopening
 
+    with_a_standard_template?(email_config)
+  end
+
+  def with_a_reopening_template?(email_config)
+    email_config['on_update']
+  end
+
+  def with_a_standard_template?(email_config)
     email_config['only_on_update'].nil? || !email_config['only_on_update']
   end
 
