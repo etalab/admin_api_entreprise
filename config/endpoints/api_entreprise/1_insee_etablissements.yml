@@ -5,22 +5,16 @@
   ping_url: 'https://entreprise.api.gouv.fr/ping/insee/sirene'
   perimeter:
     entity_type_description: &insee_etablissements_entity_type_description |+
-      Cette API concerne les établissements inscrits au répertoire Sirene :
-
-      - ✅ les établissements des personnes morales de droit privé : **les entreprises et les entrepreneurs individuels**, dont toutes celles et ceux immatriculés au registre du commerce et des sociétés (RCS) et/ou au répertoire des métiers (RM).
-      - ✅ les établissements des **associations ayant un numéro de SIRET**, délivré lorsqu'elles :
+      **Cette API concerne les établissements inscrits au répertoire Sirene** :
+      - ✅ **les établissements des personnes morales de droit privé** : les entreprises et les entrepreneurs individuels, dont toutes celles et ceux immatriculés au registre du commerce et des sociétés (RCS) et/ou au répertoire des métiers (RM) ;
+      - ✅ **les établissements des associations ayant un numéro de SIRET** délivré lorsqu'elles :
         * emploient du personnel salarié ;
         * sont soumises à la TVA ;
         * ont demandé ou bénéficient de transferts financiers publics.
-      - ✅ les établissements des personnes morales de droit public : les **institutions et services de l'État** et les collectivités territoriales ;
-      - ✅ Les établissements des organismes publics ou privés et les entreprises étrangères qui ont une représentation ou une activité en France.
-
-
-      {:.fr-highlight}
-      ✅ Depuis janvier 2022, les loueurs de meublés non professionnels (LMNP) et les particuliers employeurs, à l'exception des cas mentionnés au [2° de l'Article R123-220 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000030783425/2022-05-31/){:target="_blank"}, ont l'obligation d'être inscrits au répertoire Sirene. Cette modification intervient suite au [Décret n° 2021-1500 du 17 novembre 2021](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000044340276){:target="_blank"}.
-
-
-      ❌ Les établissements de gestion de paye de la fonction publique, bien que présents dans la base Sirene, ne sont pas concernés par cette API. Ils ont été immatriculés pour les seuls besoins de certaines administrations (les impôts, les URSSAF, la DGCP …).
+      - ✅ **les établissements des personnes morales de droit public** : les institutions et services de l'État et les collectivités territoriales ;
+      - ✅ **Les établissements des organismes publics ou privés et les entreprises étrangères** qui ont une représentation ou une activité en France.
+      - ✅ **Les établissements des loueurs de meublés non professionnels (LMNP) et les particuliers employeurs** (depuis 2022), à l'exception des cas mentionnés au [2° de l'Article R123-220 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000030783425/2022-05-31/){:target="_blank"}, ont l'obligation d'être inscrits au répertoire Sirene. Cette modification intervient suite au [Décret n° 2021-1500 du 17 novembre 2021](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000044340276){:target="_blank"}.
+      - ❌ Les établissements de gestion de paye de la fonction publique, bien que présents dans la base Sirene, ne sont pas concernés par cette API. Ils ont été immatriculés pour les seuls besoins de certaines administrations (les impôts, les URSSAF, la DGCP …).
       Leur diffusion à d'autres administrations n'est donc pas prévue.
 
     geographical_scope_description: &insee_etablissements_geographical_scope_description |+
@@ -78,10 +72,13 @@
     - 'ess'
     - 'économie sociale et solidaire'
   data:
-    description: &insee_etablissement_data_description |+
+    description: |+
       À partir du numéro de SIRET de l'établissement, cette API délivre les **informations générales de celui-ci** et les **informations générales de l'unité légale** à laquelle l'établissement est rattaché. 
       
-      Les données protégées des unités légales en ["diffusion partielle"](#faq_entry_1_endpoint_insee_etablissements) sont accessibles avec cette API.
+      {:.fr-highlight.fr-highlight--caution}
+      > ⚠️ **Cette API délivre des informations protégées**
+      > **Pour faire du pré-remplissage dans un formulaire public**, nous vous recommandons d'utiliser l'[API délivrant uniquement de l'open data](<%= endpoint_path(uid: 'insee/etablissements_diffusibles')%>).
+      Pour en savoir plus sur la façon d'utiliser les données des établissements "en diffusion partielle", consultez [cette rubrique](#utilisation-diffusion-partielle).
   faq:
     - q: &insee_etablissements_faq_q1 À quoi correspondent les états administratifs ? Une unité légale peut-elle être en activité alors que tous ses établissements sont fermés ?
       a: &insee_etablissements_faq_a1 |+
@@ -103,7 +100,7 @@
            La distinction "en sommeil" ou "présumée inactive" n'est pas une information transmise par l'Insee.
         - **une unité légale est cessée alors qu'un établissement est actif**. Cette situation est une erreur à signaler au pôle du répertoire Sirene à l'Insee. Une unité légale cessée ne peut avoir d'établissements actifs.
 
-    - q: &insee_etablissements_faq_q2 Qu'est-ce qu'un établissement "en diffusion partielle" ?
+    - q: &insee_etablissements_faq_q2 <a name="definition-diffusion-partielle"></a>Qu'est-ce qu'un établissement "en diffusion partielle" ?
       a: &insee_etablissements_faq_a2 |+
         **La diffusion partielle commerciale :**
 
@@ -124,14 +121,14 @@
         - des établissements de gestion de paye de la fonction publique immatriculés pour les seuls besoins de certaines administrations (les impôts, les URSSAF, la DGCP …) et donc uniquement accessibles à ces administrations fiscales.
         - des unités de la Défense nationale, accessibles sur autorisation du Ministère de la Défense, conformément à l’[article A 123-95 du Code du commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000020165032/2010-07-02){:target="_blank"}. **Ces unités ne sont pas diffusées par l'API Entreprise**.
 
-    - q: &insee_etablissements_faq_q3 Comment utiliser les informations des établissements "en diffusion partielle" ?
-      a: &insee_etablissements_faq_a3 |+
+    - q: &insee_etablissements_faq_q3 <a name="utilisation-diffusion-partielle"></a>Comment utiliser les informations des établissements "en diffusion partielle" ?
+      a: |+
         En utilisant cette API, vous vous engagez à **tenir compte du statut de diffusion le plus récent** de l'entité appelée.
         Dans le cas où l'entité est indiquée comme \"en diffusion partielle\", vous vous engagez à n'utiliser leurs informations protégées que dans le cadre strict de vos missions de service public, à ne pas les rediffuser ni les divulguer auprès de tiers non autorisés.
 
         {:.fr-highlight.fr-highlight--caution}
         > ⚠️ **Vous ne pouvez pas donc pas faire usage des données protégées d'une entité "en diffusion partielle" pour du préremplissage.** Seules les données diffusibles peuvent être utilisées pour du préremplissage, c'est-à-dire : le SIREN, SIRET, la commune et le pays, ainsi que l'état administratif et les variables économiques.
-        > Pour faire du pré-remplissage dans un formulaire public, nous vous recommandons d'utiliser l'[API délivrant uniquement de l'open data](<%= endpoint_path(uid: 'insee/etablissements_diffusibles') pour ne pas faire d'erreur.
+        > Pour faire du pré-remplissage dans un formulaire public, nous vous recommandons d'utiliser l'[API délivrant uniquement de l'open data](<%= endpoint_path(uid: 'insee/etablissements_diffusibles') %>) pour ne pas faire d'erreur.
 
         {:.fr-highlight}
         > **Depuis 2023, les personnes morales sont concernées par la \"diffusion partielle\"**. Si elles ont exercé ce droit, vous n'avez pas le droit de pré-remplir leur données de localisation : géolocalisation, numéro et voie de l'adresse postale. La commune reste diffusible.
@@ -142,20 +139,19 @@
   path: '/v3/insee/sirene/etablissements/diffusibles/{siret}'
   perimeter:
     entity_type_description: |+
-      Cette API concerne les établissements inscrits au répertoire Sirene :
-      - ✅ les établissements des personnes morales de droit privé : **les entreprises et les entrepreneurs individuels**, dont toutes celles et ceux immatriculés au registre du commerce et des sociétés (RCS) et/ou au répertoire des métiers (RM) ;
-      - ✅ les établissements des personnes morales de droit public : les **institutions et services de l'État** et les collectivités territoriales ;
-      - ✅ les établissements des **associations ayant un numéro de SIRET** délivré lorsqu'elles :
+      **Cette API concerne les établissements inscrits au répertoire Sirene** :
+      - ✅ **les établissements des personnes morales de droit privé** : les entreprises et les entrepreneurs individuels, dont toutes celles et ceux immatriculés au registre du commerce et des sociétés (RCS) et/ou au répertoire des métiers (RM) ;
+      - ✅ **les établissements des associations ayant un numéro de SIRET** délivré lorsqu'elles :
         * emploient du personnel salarié ;
         * sont soumises à la TVA ;
         * ont demandé ou bénéficient de transferts financiers publics.
-      - ✅ Les établissements des organismes publics ou privés et les entreprises étrangères qui ont une représentation ou une activité en France.
-
+      - ✅ **les établissements des personnes morales de droit public** : les institutions et services de l'État et les collectivités territoriales ;
+      - ✅ **Les établissements des organismes publics ou privés et les entreprises étrangères** qui ont une représentation ou une activité en France.
+      - ✅ **Les établissements des loueurs de meublés non professionnels (LMNP) et les particuliers employeurs** (depuis 2022), à l'exception des cas mentionnés au [2° de l'Article R123-220 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000030783425/2022-05-31/){:target="_blank"}, ont l'obligation d'être inscrits au répertoire Sirene. Cette modification intervient suite au [Décret n° 2021-1500 du 17 novembre 2021](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000044340276){:target="_blank"}.
 
       {:.fr-highlight}
-      ✅ Depuis janvier 2022, les loueurs de meublés non professionnels (LMNP) et les particuliers employeurs, à l'exception des cas mentionnés au [2° de l'Article R123-220 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000030783425/2022-05-31/){:target="_blank"}, ont l'obligation d'être inscrits au répertoire Sirene. Cette modification intervient suite au [Décret n° 2021-1500 du 17 novembre 2021](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000044340276){:target="_blank"}.
-
-      ❌ **Pour les établissements ["en diffusion partielle"](#faq_entry_1_endpoint_insee_etablissements_diffusibles), seules leurs données publiques sont disponibles avec cette API**, leurs informations protégées sont appelables avec [cette API](<%= endpoint_path(uid: 'insee/etablissements') %>).
+      > 💡 **Seules des données publiques sont disponibles avec cette API**. 
+      > Pour obtenir les données protégées des établissements ["en diffusion partielle"](#definition-diffusion-partielle), veuillez utiliser [cette API](<%= endpoint_path(uid: 'insee/etablissements') %>).
 
     geographical_scope_description: *insee_etablissements_geographical_scope_description
     updating_rules_description: *insee_etablissements_updating_rules_description
@@ -170,11 +166,17 @@
   provider_uids: *insee_etablissements_provider_uids
   keywords: *insee_etablissements_keywords
   data:
-    description: *insee_etablissement_data_description
+    description: |+
+      À partir du numéro de SIRET de l'établissement, cette API délivre les **informations générales de celui-ci** et les **informations générales de l'unité légale** à laquelle l'établissement est rattaché. 
+      
+      **Cette API délivre uniquement des données publiques**. Pour obtenir les données protégées des établissements en ["diffusion partielle"](#definition-diffusion-partielle), utilisez [cette API](<%= endpoint_path(uid: 'insee/etablissements') %>).
   faq:
     - q: *insee_etablissements_faq_q1
       a: *insee_etablissements_faq_a1
     - q: *insee_etablissements_faq_q2
       a: *insee_etablissements_faq_a2
     - q: *insee_etablissements_faq_q3
-      a: *insee_etablissements_faq_a3
+      a: |+
+        Cette API délivre uniquement des données **publiques**. Par conséquent, vous pouvez utiliser les données disponibles dans tous vos services, qu'ils soient accessibles avec ou sans authentification.
+        
+        Pour obtenir les données protégées des établissements en "diffusion partielle", utilisez [cette API](<%= endpoint_path(uid: 'insee/etablissements') %>).

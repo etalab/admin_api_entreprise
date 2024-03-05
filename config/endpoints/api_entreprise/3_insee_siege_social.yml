@@ -5,22 +5,16 @@
   position: 135
   perimeter:
     entity_type_description: |+
-      Cette API concerne les sièges sociaux des unités légales inscrites au répertoire Sirene :
-
-      - ✅ les sièges sociaux des personnes morales de droit privé : **les entreprises et les entrepreneurs individuels**, dont toutes celles et ceux immatriculés au registre du commerce et des sociétés (RCS) et/ou au répertoire des métiers (RM) ;
-      - ✅ les sièges sociaux **associations ayant un numéro de SIRET** délivré lorsqu'elles :
+      **Cette API concerne les sièges sociaux des unités légales inscrites au répertoire Sirene** :
+      - ✅ **les sièges sociaux des personnes morales de droit privé** : les entreprises et les entrepreneurs individuels, dont toutes celles et ceux immatriculés au registre du commerce et des sociétés (RCS) et/ou au répertoire des métiers (RM) ;
+      - ✅ **les sièges sociaux des associations ayant un numéro de SIRET** délivré lorsqu'elles :
         * emploient du personnel salarié ;
         * sont soumises à la TVA ;
         * ont demandé ou bénéficient de transferts financiers publics.
-      - ✅ les sièges sociaux des personnes morales de droit public : les **institutions et services de l'État** et les collectivités territoriales ;
-      - ✅ Les sièges sociaux des organismes publics ou privés et les entreprises étrangères qui ont une représentation ou une activité en France.
-
-
-      {:.fr-highlight}
-      ✅ Depuis janvier 2022, les loueurs de meublés non professionnels (LMNP) et les particuliers employeurs, à l'exception des cas mentionnés au [2° de l'Article R123-220 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000030783425/2022-05-31/){:target="_blank"}, ont l'obligation d'être inscrits au répertoire Sirene. Cette modification intervient suite au [Décret n° 2021-1500 du 17 novembre 2021](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000044340276){:target="_blank"}.
-
-
-      ❌ Les établissements de gestion de paye de la fonction publique, bien que présents dans la base Sirene, ne sont pas concernés par cette API. Ils ont été immatriculés pour les seuls besoins de certaines administrations (les impôts, les URSSAF, la DGCP …).
+      - ✅ **les sièges sociaux des personnes morales de droit public** : les institutions et services de l'État et les collectivités territoriales ;
+      - ✅ **Les sièges sociaux des organismes publics ou privés et les entreprises étrangères** qui ont une représentation ou une activité en France.
+      - ✅ **Les sièges sociaux des loueurs de meublés non professionnels (LMNP) et les particuliers employeurs** (depuis 2022), à l'exception des cas mentionnés au [2° de l'Article R123-220 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000030783425/2022-05-31/){:target="_blank"}, ont l'obligation d'être inscrits au répertoire Sirene. Cette modification intervient suite au [Décret n° 2021-1500 du 17 novembre 2021](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000044340276){:target="_blank"}.
+      - ❌ Les établissements de gestion de paye de la fonction publique, bien que présents dans la base Sirene, ne sont pas concernés par cette API. Ils ont été immatriculés pour les seuls besoins de certaines administrations (les impôts, les URSSAF, la DGCP …).
       Leur diffusion à d'autres administrations n'est donc pas prévue.
 
     geographical_scope_description: &insee_siege_social_geographical_scope_description |+
@@ -77,10 +71,13 @@
     - 'aides'
     - 'marchés'
   data:
-    description: &insee_siege_social_provider_uids_data_description |+
+    description: |+
       Cette API délivre les **informations générales d'un siège social à partir du numéro de SIREN de son unité légale**.
 
-      Les données protégées des sièges sociaux en ["diffusion partielle"](#faq_entry_2_endpoint_insee_siege_social) sont accessibles avec cette API.
+      {:.fr-highlight.fr-highlight--caution}
+      > ⚠️ **Cette API délivre des informations protégées**
+      > **Pour faire du pré-remplissage dans un formulaire public**, nous vous recommandons d'utiliser l'[API délivrant uniquement de l'open data](<%= endpoint_path(uid: 'insee/siege_social_diffusibles') %>).
+      Pour en savoir plus sur la façon d'utiliser les données des établissements "en diffusion partielle", consultez [cette rubrique](#utilisation-diffusion-partielle).
   faq:
     - q: &insee_siege_social_provider_uids_faq_q1 À quoi correspondent les états administratifs ? Une unité légale peut-elle être en activité alors que tous ses établissements sont fermés ?
       a: &insee_siege_social_provider_uids_faq_a1 |+
@@ -108,7 +105,7 @@
 
         Une réactivation est même encore possible. Le SIREN de l'unité légale continue donc d'avoir un statut "actif" au répertoire."
 
-    - q: &insee_siege_social_provider_uids_faq_q3 Qu'est-ce qu'un siège social "en diffusion partielle" ?
+    - q: &insee_siege_social_provider_uids_faq_q3 <a name="definition-diffusion-partielle"></a>Qu'est-ce qu'un siège social "en diffusion partielle" ?
       a: &insee_siege_social_provider_uids_faq_a3 |+
         **La diffusion partielle commerciale :**
 
@@ -129,7 +126,7 @@
         - des établissements de gestion de paye de la fonction publique immatriculés pour les seuls besoins de certaines administrations (les impôts, les URSSAF, la DGCP …) et donc uniquement accessibles à ces administrations fiscales.
         - des unités de la Défense nationale, accessibles sur autorisation du Ministère de la Défense, conformément à l’[article A 123-95 du Code du commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000020165032/2010-07-02){:target="_blank"}. **Ces unités ne sont pas diffusées par l'API Entreprise**.
 
-    - q: &insee_siege_social_provider_uids_faq_q4 des sièges sociaux "en diffusion partielle" ?
+    - q: &insee_siege_social_provider_uids_faq_q4 <a name="utilisation-diffusion-partielle"></a>Comment utiliser les informations des sièges sociaux "en diffusion partielle" ?
       a: &insee_siege_social_provider_uids_faq_a4 |+
         En utilisant cette API, vous vous engagez à **tenir compte du statut de diffusion le plus récent** de l'entité appelée.
         Dans le cas où l'entité est indiquée comme \"en diffusion partielle\", vous vous engagez à n'utiliser leurs informations protégées que dans le cadre strict de vos missions de service public, à ne pas les rediffuser ni les divulguer auprès de tiers non autorisés.
@@ -147,20 +144,19 @@
   position: 130
   perimeter:
     entity_type_description: |+
-      Cette API concerne les sièges sociaux des unités légales inscrites au répertoire Sirene et **"diffusibles" commercialement** :
-      - ✅ les sièges sociaux des personnes morales de droit privé : **les entreprises et les entrepreneurs individuels**, dont toutes celles et ceux immatriculés au registre du commerce et des sociétés (RCS) et/ou au répertoire des métiers (RM) ;
-      - ✅ les sièges sociaux **associations ayant un numéro de SIRET** délivré lorsqu'elles :
+      **Cette API concerne les sièges sociaux des unités légales inscrites au répertoire Sirene**&nbsp;:
+      - ✅ **les sièges sociaux des personnes morales de droit privé** : les entreprises et les entrepreneurs individuels, dont toutes celles et ceux immatriculés au registre du commerce et des sociétés (RCS) et/ou au répertoire des métiers (RM) ;
+      - ✅ **les sièges sociaux des associations ayant un numéro de SIRET** délivré lorsqu'elles :
         * emploient du personnel salarié ;
         * sont soumises à la TVA ;
         * ont demandé ou bénéficient de transferts financiers publics.
-      - ✅ les sièges sociaux des personnes morales de droit public : les **institutions et services de l'État** et les collectivités territoriales ;
-      - ✅ Les sièges sociaux des organismes publics ou privés et les entreprises étrangères qui ont une représentation ou une activité en France.
-
+      - ✅ **les sièges sociaux des personnes morales de droit public** : les institutions et services de l'État et les collectivités territoriales ;
+      - ✅ **Les sièges sociaux des organismes publics ou privés et les entreprises étrangères** qui ont une représentation ou une activité en France.
+      - ✅ **Les sièges sociaux des loueurs de meublés non professionnels (LMNP) et les particuliers employeurs** (depuis 2022), à l'exception des cas mentionnés au [2° de l'Article R123-220 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000030783425/2022-05-31/){:target="_blank"}, ont l'obligation d'être inscrits au répertoire Sirene. Cette modification intervient suite au [Décret n° 2021-1500 du 17 novembre 2021](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000044340276){:target="_blank"}.
 
       {:.fr-highlight}
-      ✅ Depuis janvier 2022, les loueurs de meublés non professionnels (LMNP) et les particuliers employeurs, à l'exception des cas mentionnés au [2° de l'Article R123-220 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000030783425/2022-05-31/){:target="_blank"}, ont l'obligation d'être inscrits au répertoire Sirene. Cette modification intervient suite au [Décret n° 2021-1500 du 17 novembre 2021](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000044340276){:target="_blank"}.
-
-      ❌ **Pour les sièges sociaux ["en diffusion partielle"](#faq_entry_2_endpoint_insee_siege_social_diffusibles), seules leurs données publiques sont disponibles avec cette API**, leurs informations protégées sont appelables avec [cette API](<%= endpoint_path(uid: 'insee/siege_social') %>).
+      > 💡 **Seules des données publiques sont disponibles avec cette API**. 
+      > Pour obtenir les données protégées des sièges sociaux ["en diffusion partielle"](#definition-diffusion-partielle), veuillez utiliser [cette API](<%= endpoint_path(uid: 'insee/siege_social') %>).
 
     geographical_scope_description: *insee_siege_social_geographical_scope_description
     updating_rules_description: *insee_siege_social_updating_rules_description
@@ -173,7 +169,10 @@
   provider_uids: *insee_siege_social_provider_uids
   keywords: *insee_siege_social_keywords
   data:
-    description: *insee_siege_social_provider_uids_data_description
+    description: |+
+      À partir du numéro de SIRET de l'établissement, cette API délivre les **informations générales de celui-ci** et les **informations générales de l'unité légale** à laquelle l'établissement est rattaché. 
+      
+      **Cette API délivre uniquement des données publiques**. Pour obtenir les données protégées des établissements en ["diffusion partielle"](#definition-diffusion-partielle), utilisez [cette API](<%= endpoint_path(uid: 'insee/siege_social') %>).
   faq:
     - q: *insee_siege_social_provider_uids_faq_q1
       a: *insee_siege_social_provider_uids_faq_a1
