@@ -1,0 +1,36 @@
+<%= render partial: "shared/api_particulier/mailers/header" %>
+<mj-section mj-class="section-banner" background-color="#d5dbef">
+  <mj-column>
+    <mj-text>
+      <h1>
+        Votre demande de mise à jour
+        <br />
+          est <b>en cours de traitement ⚙️</b>
+        <br />
+        Vous devriez recevoir prochainement une réponse.
+      </h1>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<mj-section mj-class="section-main">
+  <mj-column>
+    <mj-text>
+      <%= render partial: "greetings", locals: { entity: "demandeur" } %>
+      <p>
+          <b>
+            Votre demande de mise à jour de l'<a target="_blank" href="<%= @authorization_request_datapass_url %>">habilitation API Particulier n°<%= @authorization_request.external_id %></a> est en cours de
+            traitement par notre service juridique.
+          </b>
+        <br />
+          Vous devriez donc recevoir une réponse de notre part dans les prochains jours.
+      </p>
+    </mj-text>
+    <mj-text>
+      <p>À bientôt 👋</p>
+      <br />
+        <b>API Particulier</b>
+      </p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<%= render partial: "shared/api_particulier/mailers/footer" %>

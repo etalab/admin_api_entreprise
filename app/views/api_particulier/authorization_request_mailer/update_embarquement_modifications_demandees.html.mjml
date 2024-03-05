@@ -1,0 +1,43 @@
+<%= render partial: "shared/api_particulier/mailers/header" %>
+<mj-section mj-class="section-banner" background-color="#ffe5cf">
+  <mj-column>
+    <mj-text>
+      <h1>
+        Votre demande de mise à jour requiert
+        <b>des modifications ✒️</b>
+      </h1>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<mj-section mj-class="section-main">
+  <mj-column>
+    <mj-text>
+      <%= render partial: "greetings", locals: { entity: "demandeur" } %>
+      <p>
+        Votre demande de mise à jour de l'habilitation API Particulier n°<%= @authorization_request.external_id %> a été traitée par notre
+        service juridique.
+        <b>Il nous manque cependant certaines informations pour rendre un avis.</b>
+      </p>
+    </mj-text>
+    <mj-text>
+      <p>
+        <b>Répondez à notre instructeur depuis
+        <a target="_blank" href="<%= @authorization_request_datapass_url %>">
+          <%= @authorization_request_datapass_url %>
+        </a>
+        &nbsp;:</b>
+      </p>
+    </mj-text>
+    <mj-button href="<%= @authorization_request_datapass_url %>">
+      <b>Compléter ma demande de mise à jour&nbsp;✒️</b>
+    </mj-button>
+    <mj-text>
+      <p>
+        À bientôt 👋
+        <br />
+        <b>API Particulier</b>
+      </p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<%= render partial: "shared/api_particulier/mailers/footer" %>

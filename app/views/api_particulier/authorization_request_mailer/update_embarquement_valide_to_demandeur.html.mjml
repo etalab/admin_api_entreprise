@@ -1,0 +1,37 @@
+<%= render partial: "shared/api_particulier/mailers/header" %>
+<mj-section mj-class="section-banner" background-color="#e3ebd3">
+  <mj-column>
+    <mj-text>
+      <h1>
+        Votre habilitation API Particulier
+        <b>a été mise à jour ✅</b>
+      </h1>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<mj-section mj-class="section-main">
+  <mj-column>
+    <mj-text>
+      <%= render partial: "greetings", locals: { entity: "demandeur" } %>
+      <mj-text>
+        <p>
+          Votre
+          <b>demande de mise à jour de l'<a target="_blank" href="<%= @authorization_request_datapass_url %>">habilitation API Particulier n°<%= @authorization_request.external_id %></a> a bien été validée</b>
+          par notre service juridique !
+        </p>
+        <p>
+          Suite à cette mise à jour, la durée de vie de votre
+          <b>jeton d'accès technique&nbsp;🔑</b> a été prolongée de 18 mois.
+        </p>
+      </mj-text>
+    </mj-text>
+    <mj-text>
+      <p>
+        À bientôt
+        <br />
+        <b>API Particulier</b>
+      </p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<%= render partial: "shared/api_particulier/mailers/footer" %>

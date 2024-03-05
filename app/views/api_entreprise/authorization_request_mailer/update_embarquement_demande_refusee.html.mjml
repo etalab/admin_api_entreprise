@@ -1,0 +1,45 @@
+<%= render partial: "shared/api_entreprise/mailers/header" %>
+<mj-section mj-class="section-banner" background-color="#FFB7A5">
+  <mj-column>
+    <mj-text>
+      <h1>
+        Votre demande de mise à jour API Entreprise
+        <b>a été refusée ✒️</b>
+      </h1>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<mj-section mj-class="section-main">
+  <mj-column>
+    <mj-text>
+      <%= render partial: "greetings", locals: { entity: "demandeur" } %>
+      <p>
+        Votre demande de mise à jour de l'habilitation API Entreprise n°<%= @authorization_request.external_id %> a été
+        <b>refusée par notre service juridique</b>
+        .
+      </p>
+      <p>Pour connaître les raisons de ce refus, veuillez consulter votre demande sur 
+        <a target="_blank" href="<%= @authorization_request_datapass_url %>">
+          <%= @authorization_request_datapass_url %>
+        </a>
+        &nbsp;:
+      </p>
+    </mj-text>
+    <mj-button mj-class="button-secondary" href="<%= @authorization_request_datapass_url %>">
+      Lire les commentaires de l'instructeur&nbsp;📝
+    </mj-button>
+    <mj-text>
+      <p>
+        Votre habilitation n°<a target="_blank" href="<%= @authorization_request_datapass_url %>"><%= @authorization_request.external_id %></a> <b>reste valide dans les termes validés initialement</b>.
+      </p>
+    </mj-text>
+    <mj-text>
+      <p>
+        À bientôt
+        <br />
+        <b>API Entreprise</b>
+      </p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+<%= render partial: "shared/api_entreprise/mailers/footer" %>

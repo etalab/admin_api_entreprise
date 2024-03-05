@@ -3,6 +3,8 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
   def call # rubocop:disable Metrics/AbcSize
     context.authorization_request = AuthorizationRequest.find_or_initialize_by(external_id: context.data['pass']['id'])
 
+    set_reopening_event_flag
+
     if should_update_authorization_request?
       context.authorization_request.assign_attributes(authorization_request_attributes)
 
@@ -16,9 +18,17 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
 
   private
 
+  def set_reopening_event_flag
+    context.reopening = reopening_event?
+  end
+
+  def reopening_event?
+    context.authorization_request.status == 'validated' &&
+      %w[archive revoke].exclude?(context.event)
+  end
+
   def should_update_authorization_request?
-    context.authorization_request.status != 'validated' ||
-      %w[validate_application validate].include?(context.event)
+    !context.reopening || (context.reopening && %w[validate_application validate].include?(context.event))
   end
 
   def create_or_update_contacts_with_roles
