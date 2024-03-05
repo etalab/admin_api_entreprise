@@ -5,7 +5,7 @@
   ping_url: 'https://entreprise.api.gouv.fr/ping/insee/sirene'
   perimeter:
     entity_type_description: &insee_etablissements_entity_type_description |+
-      Cette API concerne les établissements inscrits au répertoire Sirene, qu'ils soient **"diffusibles" ou ["non-diffusibles"](#faq_entry_1_endpoint_insee_etablissements)** :
+      Cette API concerne les établissements inscrits au répertoire Sirene, qu'ils soient **"diffusibles totalement" ou ["en diffusion partielle"](#faq_entry_1_endpoint_insee_etablissements)** :
 
       - ✅ les établissements des personnes morales de droit privé : **les entreprises et les entrepreneurs individuels**, dont toutes celles et ceux immatriculés au registre du commerce et des sociétés (RCS) et/ou au répertoire des métiers (RM).
       - ✅ les établissements des **associations ayant un numéro de SIRET**, délivré lorsqu'elles :
@@ -101,37 +101,38 @@
            La distinction "en sommeil" ou "présumée inactive" n'est pas une information transmise par l'Insee.
         - **une unité légale est cessée alors qu'un établissement est actif**. Cette situation est une erreur à signaler au pôle du répertoire Sirene à l'Insee. Une unité légale cessée ne peut avoir d'établissements actifs.
 
-    - q: &insee_etablissements_faq_q2 Qu'est-ce qu'un "non-diffusible" ?
+    - q: &insee_etablissements_faq_q2 Qu'est-ce qu'un établissement "en diffusion partielle" ?
       a: &insee_etablissements_faq_a2 |+
+        **La diffusion partielle commerciale :**
 
-        **La non-diffusion commerciale :**
-        Parmi les entités présentes dans le répertoire Sirene, certaines, très majoritairement des personnes physiques, ont explicitement demandé de ne pas figurer en diffusion commerciale, en vertu de l'[article A123-96 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031043097/){:target="_blank"}.
+        Parmi les entités présentes dans le répertoire Sirene, certaines, très majoritairement des personnes physiques, ont explicitement demandé de ne pas figurer en diffusion totale, afin de ne pas rendre publiques leurs données d'identification et de localisation.
 
-        Cela signifie qu'elles donnent accord de la diffusion de leur données uniquement à des organismes habilités et à des administrations. **De fait, leurs données ne sont pas publiques**.
+        Ce [droit d'opposition tel que décrit à l'Article 21 du RGPD](https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre3#Article21){:target="_blank"} est valable pour les personnes physiques et morales mais s'applique de façon différente : 
+        - pour les personnes morale, seuls les éléments de localisation sont protégés (géolocalisation, numéro et voie de l'adresse postale - la commune reste diffusible) ; 
+        - pour les personnes physiques, les éléments de localisation précédents sont protégés, ainsi que les éléments d'identification (nom, prénom, pseudonyme).
+
+        **Ces données protégées sont alors uniquement accessibles à des organismes habilités et à des administrations.** Elles sont disponibles dans l'API Entreprise.
 
         {:.fr-highlight}
-        > À partir de mars 2024, le fonctionnement des non-diffusibles commerciaux évolue, certaines données seront disponibles pour du pré-remplissage et les personnes morales pourront décider de passer en diffusion partielle. <br>Lire notre publication du 14/12/2022 : [🦸&nbsp;**Le futur des “non-diffusibles”**](https://entreprise.api.gouv.fr/blog/insee-non-diffusibles).
+        > Le statut de diffusion partielle est nouveau, il est venu remplacer le statut “non-diffusible” en 2023. Ce nouveau statut rend public plus d'informations, dont, pour les personnes physiques, le SIREN, SIRET, la commune et le pays, ainsi que l'état administratif et les variables économiques. Il a élargi la possibilité de la diffusion partielle aux personnes morales, pour leur permettre de cacher leurs données de localisation.<br>Lire notre publication du 14/12/2022 : [🦸&nbsp;**Le futur des “non-diffusibles”**](https://entreprise.api.gouv.fr/blog/insee-non-diffusibles).
 
 
-        **La non-diffusion pour d'autres raisons :**
+        **La non-diffusion totale disponibles pour des cas spécifiques :**
         Certaines entités ne sont pas diffusibles pour d'autres raisons que la non-diffusion commerciale. C'est par exemple le cas :
         - des établissements de gestion de paye de la fonction publique immatriculés pour les seuls besoins de certaines administrations (les impôts, les URSSAF, la DGCP …) et donc uniquement accessibles à ces administrations fiscales.
         - des unités de la Défense nationale, accessibles sur autorisation du Ministère de la Défense, conformément à l’[article A 123-95 du Code du commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000020165032/2010-07-02){:target="_blank"}. **Ces unités ne sont pas diffusées par l'API Entreprise**.
 
-
-
-    - q: &insee_etablissements_faq_q3 Comment utiliser les informations des établissements "non-diffusibles" ?
+    - q: &insee_etablissements_faq_q3 Comment utiliser les informations des établissements "en diffusion partielle" ?
       a: &insee_etablissements_faq_a3 |+
         En utilisant cette API, vous vous engagez à **tenir compte du statut de diffusion le plus récent** de l'entité appelée.
-        Dans le cas où l'entité est indiquée comme \"non-diffusible\", vous vous engagez à n'utiliser leurs informations que dans le cadre strict de vos missions de service public, à ne pas les rediffuser ni les divulguer auprès de tiers non autorisés.
+        Dans le cas où l'entité est indiquée comme \"en diffusion partielle\", vous vous engagez à n'utiliser leurs informations protégées que dans le cadre strict de vos missions de service public, à ne pas les rediffuser ni les divulguer auprès de tiers non autorisés.
 
         {:.fr-highlight.fr-highlight--caution}
-        > ⚠️ **Vous ne pouvez pas donc pas faire usage des données d'une entité "non-diffusible" pour du préremplissage.**
+        > ⚠️ **Vous ne pouvez pas donc pas faire usage des données protégées d'une entité "en diffusion partielle" pour du préremplissage.** Seules les données diffusibles peuvent être utilisées pour du préremplissage, c'est-à-dire : le SIREN, SIRET, la commune et le pays, ainsi que l'état administratif et les variables économiques.
+        > ⚠️ **Depuis 2023, les personnes morales sont concernées par la \"diffusion partielle\"**. Si elles ont exercé ce droit, vous n'avez pas le droit de pré-remplir leur données de localisation : géolocalisation, numéro et voie de l'adresse postale. La commune reste diffusible
 
         {:.fr-highlight}
-        > Il vous est par contre possible d'indiquer à l'entité "non-diffusible" qu'elle peut modifier son statut, même provisoirement, auprès de l'Insee à l'adresse suivante : [https://statut-diffusion-sirene.insee.fr](https://statut-diffusion-sirene.insee.fr){:target="_blank"}.
-
-        À partir de mars 2024, le fonctionnement des non-diffusibles commerciaux évolue, certaines données seront disponibles pour du pré-remplissage et les personnes morales pourront décider de passer en diffusion partielle. Lire notre publication du 14/12/2022 : [🦸&nbsp;**Le futur des “non-diffusibles”**](https://entreprise.api.gouv.fr/blog/insee-non-diffusibles).
+        > Il vous est par contre possible d'indiquer à l'entité "en diffusion partielle" qu'elle peut modifier son statut, même provisoirement, auprès de l'Insee à l'adresse suivante : [https://statut-diffusion-sirene.insee.fr](https://statut-diffusion-sirene.insee.fr){:target="_blank"}.
 
 - uid: 'insee/etablissements_diffusibles'
   position: 100
@@ -152,7 +153,7 @@
       {:.fr-highlight}
       ✅ Depuis janvier 2022, les loueurs de meublés non professionnels (LMNP) et les particuliers employeurs, à l'exception des cas mentionnés au [2° de l'Article R123-220 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000030783425/2022-05-31/){:target="_blank"}, ont l'obligation d'être inscrits au répertoire Sirene. Cette modification intervient suite au [Décret n° 2021-1500 du 17 novembre 2021](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000044340276){:target="_blank"}.
 
-      ❌ **Les établissements ["non-diffusibles"](#faq_entry_1_endpoint_insee_etablissements_diffusibles) ne sont pas couverts par cette API**, leurs informations sont appelables avec [cette API](<%= endpoint_path(uid: 'insee/etablissements') %>).
+      ❌ **Les établissements ["en diffusion partielle"](#faq_entry_1_endpoint_insee_etablissements_diffusibles) ne sont pas couverts par cette API**, leurs informations sont appelables avec [cette API](<%= endpoint_path(uid: 'insee/etablissements') %>).
 
     geographical_scope_description: *insee_etablissements_geographical_scope_description
     updating_rules_description: *insee_etablissements_updating_rules_description
