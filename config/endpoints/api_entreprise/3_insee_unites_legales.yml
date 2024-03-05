@@ -5,7 +5,7 @@
   ping_url: 'https://entreprise.api.gouv.fr/ping/insee/sirene'
   perimeter:
     entity_type_description: |+
-      Cette API concerne les unités légales inscrites au répertoire Sirene, qu'elles soient **"diffusibles totalement" ou ["en diffusion partielle"](#faq_entry_3_endpoint_insee_unites_legales)** :
+      Cette API concerne les unités légales inscrites au répertoire Sirene :
 
       - ✅ les personnes morales de droit privé : les **entreprises** dont toutes celles immatriculées au registre du commerce et des sociétés (RCS) et au répertoire des métiers (RM) figurent dans la base Sirene ;
       - ✅ les **associations ayant un numéro de SIREN**, délivré lorsqu'elles :
@@ -71,7 +71,7 @@
     - 'économie sociale et solidaire'
   data:
     description: &insee_unites_legales_data_description |+
-      Cette API délivre **uniquement les informations de référence des unités légales**.
+      Cette API délivre **uniquement les informations de référence des unités légales**. Les données protégées des unités légales en ["diffusion partielle"](#faq_entry_3_endpoint_insee_unites_legales) sont accessibles avec cette API.
 
       Pour obtenir :
       - les informations des établissements, utilisez [cette API pour les "diffusibles totalement"](<%= endpoint_path(uid: 'insee/etablissements') %>) et [cette API pour tous les établissements, y compris les "diffusion partielle"](<%= endpoint_path(uid: 'insee/etablissements_diffusibles') %>) ;
@@ -141,10 +141,10 @@
 
         {:.fr-highlight.fr-highlight--caution}
         > ⚠️ **Vous ne pouvez pas donc pas faire usage des données protégées d'une entité "en diffusion partielle" pour du préremplissage.** Seules les données diffusibles peuvent être utilisées pour du préremplissage, c'est-à-dire : le SIREN, SIRET, la commune et le pays, ainsi que l'état administratif et les variables économiques.
-        > ⚠️ **Depuis 2023, les personnes morales sont concernées par la \"diffusion partielle\"**. Si elles ont exercé ce droit, vous n'avez pas le droit de pré-remplir leur données de localisation : géolocalisation, numéro et voie de l'adresse postale. La commune reste diffusible
+        > Pour faire du pré-remplissage dans un formulaire public, nous vous recommandons d'utiliser l'[API délivrant uniquement de l'open data](<%= endpoint_path(uid: 'insee/unites_legales_diffusibles') %>) pour ne pas faire d'erreur.
 
         {:.fr-highlight}
-        > Il vous est par contre possible d'indiquer à l'entité "en diffusion partielle" qu'elle peut modifier son statut, même provisoirement, auprès de l'Insee à l'adresse suivante : [https://statut-diffusion-sirene.insee.fr](https://statut-diffusion-sirene.insee.fr){:target="_blank"}.
+        > **Depuis 2023, les personnes morales sont concernées par la \"diffusion partielle\"**. Si elles ont exercé ce droit, vous n'avez pas le droit de pré-remplir leur données de localisation : géolocalisation, numéro et voie de l'adresse postale. La commune reste diffusible.
 
 
     - q: &insee_unites_legales_faq_q6 Le numéro de TVA intracommunataire disponible en V.2.n'est plus disponible en V.3, où puis-je le trouver ?
@@ -171,7 +171,7 @@
       {:.fr-highlight}
       ✅ Depuis janvier 2022, les loueurs de meublés non professionnels (LMNP) et les particuliers employeurs, à l'exception des cas mentionnés au [2° de l'Article R123-220 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000030783425/2022-05-31/){:target="_blank"}, ont l'obligation d'être inscrits au répertoire Sirene. Cette modification intervient suite au [Décret n° 2021-1500 du 17 novembre 2021](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000044340276){:target="_blank"}.
 
-      ❌ **Les unités légales ["en diffusion partielle"](#faq_entry_3_endpoint_insee_unites_legales_diffusibles) ne sont pas concernées par cette API**, leurs informations sont appelables avec [cette API](<%= endpoint_path(uid: 'insee/unites_legales') %>).
+      ❌ **Pour les unités légales ["en diffusion partielle"](#faq_entry_3_endpoint_insee_unites_legales_diffusibles), seules leurs données publiques sont disponibles avec cette API**, leurs informations protégées sont appelables avec [cette API](<%= endpoint_path(uid: 'insee/unites_legales') %>).
 
     geographical_scope_description: *insee_unites_legales_geographical_scope_description
     updating_rules_description: *insee_unites_legales_updating_rules_description
