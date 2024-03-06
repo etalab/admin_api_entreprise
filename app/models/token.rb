@@ -101,7 +101,7 @@ class Token < ApplicationRecord
   end
 
   def prolong!
-    update!(exp: 18.months.from_now.to_i)
+    update!(exp: 18.months.from_now.to_i, days_left_notification_sent: [])
   end
 
   private
