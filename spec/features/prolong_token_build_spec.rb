@@ -19,7 +19,7 @@ RSpec.describe 'follows the prolong token wizard' do
   end
 
   let!(:token) do
-    create(:token, authorization_request:, exp:)
+    create(:token, authorization_request:, exp:, days_left_notification_sent: [30])
   end
 
   before do
@@ -109,6 +109,7 @@ RSpec.describe 'follows the prolong token wizard' do
 
             expect(page).to have_content('Votre jeton a été prolongé')
             expect(token.reload.exp).to eq(18.months.from_now.to_i)
+            expect(token.reload.days_left_notification_sent).to be_empty
           end
         end
 

@@ -50,12 +50,13 @@ RSpec.describe DatapassWebhook::CreateOrProlongToken, type: :interactor do
     end
 
     context 'when token already exists' do
-      let!(:token) { create(:token, authorization_request:, exp: Time.zone.local(2024, 1, 1)) }
+      let!(:token) { create(:token, authorization_request:, exp: Time.zone.local(2024, 1, 1), days_left_notification_sent: [30]) }
 
       it 'prolongs existings token' do
         subject
 
         expect(token.reload.exp).to eq(18.months.from_now.to_i)
+        expect(token.days_left_notification_sent).to be_empty
       end
     end
 
