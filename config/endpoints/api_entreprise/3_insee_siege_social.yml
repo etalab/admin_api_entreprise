@@ -124,7 +124,7 @@
         - des unités de la Défense nationale, accessibles sur autorisation du Ministère de la Défense, conformément à l’[article A 123-95 du Code du commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000020165032/2010-07-02){:target="_blank"}. **Ces unités ne sont pas diffusées par l'API Entreprise**.
 
     - q: &insee_siege_social_provider_uids_faq_q4 <a name="utilisation-diffusion-partielle"></a>Comment utiliser les informations des sièges sociaux "en diffusion partielle" ?
-      a: &insee_siege_social_provider_uids_faq_a4 |+
+      a: |+
         En utilisant cette API, vous vous engagez à **tenir compte du statut de diffusion le plus récent** de l'entité appelée.
         Dans le cas où l'entité est indiquée comme \"en diffusion partielle\", vous vous engagez à n'utiliser leurs informations protégées que dans le cadre strict de vos missions de service public, à ne pas les rediffuser ni les divulguer auprès de tiers non autorisés.
 
@@ -178,4 +178,7 @@
     - q: *insee_siege_social_provider_uids_faq_q3
       a: *insee_siege_social_provider_uids_faq_a3
     - q: *insee_siege_social_provider_uids_faq_q4
-      a: *insee_siege_social_provider_uids_faq_a4
+      a: |+
+        Cette API délivre uniquement des données **publiques**. Par conséquent, vous pouvez utiliser les données disponibles dans tous vos services, qu'ils soient accessibles avec ou sans authentification.
+        
+        Pour obtenir les données protégées des unités légales en "diffusion partielle", utilisez [cette API](<%= endpoint_path(uid: 'insee/siege_social') %>).
