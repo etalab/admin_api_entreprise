@@ -4,16 +4,73 @@
     - 'cnaf_msa/allocation_soutien_familial'
   path: '/api/v2/allocation-soutien-familial'
   ping_url: 'https://particulier.api.gouv.fr/api/caf/ping'
-  position: 100
+  position: 900
   perimeter:
     entity_type_description:
-    geographical_scope_description:
+        ✅ Le périmètre de l’API est _a priori_ exhaustif et couvre tous les bénéficiaires de l'allocation de soutien familial (ASF).
+
+        ⚙️ Vérification en cours avec le fournisseur de données pour confirmer le périmètre exact.
+    geographical_scope_description: |+
+      - ✅ France Métropolitaine
+      - ✅ Départements d’Outre-mer
+      - ❌ Les collectivités d’Outre-mer, ayant un autre système de sécurité sociale, ne sont pas concernées par cette API.
+      - ⚙️ Personne de nationalité étrangère - Vérification en cours avec le fournisseur de la donnée pour confirmer la prise en charge. D'un point de vue métier, des prestations sont bien délivrées à une personne étrangère ayant un numéro d'immatriculation en attente (NIA) mais nous ne savons pas encore si le NIA est supporté par l'API.
     updating_rules_description:
+      Les données sont **mises à jour en temps réel** et issues du répertoire national commun de la protection sociale (RNCPS) opéré par la CNAV (Caisse nationale d’assurance vieillesse). Les données du répertoire sont remontées directement par les différents organismes comme la CNAF pour les assurés du régime général et la MSA pour les assurés au régime agricole.
   parameters_details:
-    description:
+    description: |+
+      Cette API propose deux modalités d'appel :
+      <p class="fr-badge fr-badge--blue-ecume">![Cette API est FranceConnectée](<%= image_path('api_particulier/cas_usages/pictos/modalite_appel_france_connect.svg') %>){:width="20px"} FranceConnect</p>
+      **Avec la [modalité d'appel FranceConnect](<%= cas_usage_path('modalite_appel_france_connect') %>)**.
+
+      <p class="fr-badge fr-badge--brown-cafe-creme">Identité pivot</p>
+      **Avec les données d'identité** : 
+        
+        {:.fr-mb-0}
+        - Nom, prénoms<sup>1</sup>, sexe<sup>\*</sup>, date de naissance de l'allocataire<sup>\**</sup>.
+        - Lieu de naissance qui peut être renseigné de deux façons différentes :
+            - {:.fr-text--sm .fr-mb-0} Option 1 : Code COG* de la commune de naissance si le lieu de naissance est en France ou du pays de naissance pour les personnes nées à l'étranger. [En savoir plus](#renseigner-lieu-de-naissance) ;
+            - {:.fr-text--sm .fr-mb-0} Option 2 : Nom* de la commune de naissance et code* du département de naissance*. Pour cette option, la date de naissance est obligatoire. [En savoir plus](#renseigner-lieu-de-naissance).
+
+      <span class="fr-text--xs">
+      <sup>\*</sup> Obligatoire | <sup>\**</sup> Obligatoire pour l'option 2 du lieu de naissance.
+      </span>
+      <span class="fr-text--xs fr-m-0">
+      <sup>1</sup> Fournir plusieurs prénoms permet de limiter les risques d'homonymie mais un seul prénom peut fonctionner. Attention, l'usager doit compléter chaque prénom dans un champ distinct.
+      </span>
   data:
-    description:
+    description: |+
+      Cette API **indique si le particulier est bénéficiaire de l'allocation de soutien familial**. En précisant :
+        - la date d'ouverture du droit ;
+        - la date de fermeture du droit.
   provider_uids:
     - 'cnaf'
   keywords:
-  parameters: Recipient + soit Identité pivot ou jeton FranceConnect
+    - allocation
+    - aides
+    - famille
+    - asf
+  parameters: 
+    - Identité pivot
+    - FranceConnect
+  faq:
+    - q: <a name="renseigner-lieu-de-naissance"></a> Appel avec l'identité pivot, comment renseigner le lieu de naissance ?
+      a: |+
+        Lorsque l'API est appelée avec l'identité pivot, pour identifier correctement le particulier, le système d'information a besoin de récupérer le code COG du lieu de naissance de l'usager.
+        
+        La déduction du code COG peut être obtenue via deux options différentes :
+          
+        **Option 1 : L'API est appelée avec le code COG lui-même**
+
+        Cette option est à privilégier car elle couvre l'ensemble des usagers, y compris ceux nés à l'étranger et ceux nés dans un pays étranger autrefois rattaché à la France.
+        
+        Toutefois, cette option nécessite de disposer du code COG de la commune ou du pays de naissance. Pour aider les usagers à renseigner leur code COG, consultez la publication suivante :
+
+        {:.fr-icon-arrow-right-line .fr-link--icon-right}
+        [✒️ **Aider les usagers à renseigner leur lieu de naissance par code COG** - Lire la publication du 08/11/2023](https://particulier.api.gouv.fr/blog/parametre-lieu-naissance-code-cog){:target="_blank"}
+
+        **Option 2 : L'API est appelée avec le nom de la commune de naissance et code* du département de naissance**
+
+        Cette option à pour objectif de faciliter vos développements, mais elle n'est pas exhaustive puisque les usagers nés à l'étranger ne pourront pas être identifiés. 
+
+        Avec cette option, vous pouvez appeler l'API avec le nom de la commune de naissance et le code du département de naissance. La date de naissance est obligatoire car c'est elle qui permettra à l'API de faire la correspondance avec le bon code COG.
