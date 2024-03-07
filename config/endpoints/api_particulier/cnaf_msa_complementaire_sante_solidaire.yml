@@ -20,9 +20,13 @@
       **Avec la [modalité d'appel FranceConnect](<%= cas_usage_path('modalite_appel_france_connect') %>)**.
 
       <p class="fr-badge fr-badge--brown-cafe-creme">Identité pivot</p>
-      **Avec les données d'identité** : Noms, prénoms<sup>1</sup>, sexe<sup>\*</sup>, date de naissance, code COG de la commune de naissance (COG)<sup>\**</sup> et code COG du pays de naissance<sup>\*</sup> de l'allocataire.
+      **Avec les données d'identité** : 
+        - Noms, prénoms<sup>1</sup>, sexe<sup>\*</sup>, date de naissance de l'allocataire<sup>\**</sup>.
+        - Lieu de naissance qui peut être renseigné de deux façons différentes :
+            - Option 1 : Code COG* de la commune de naissance (COG) si le lieu de naissance est en France ou du pays de naissance pour les personnes nées à l'étranger ;
+            - Option 2 : Département de naissance* et commune*. Le nom de la commune n'a pas besoin d'être le nom de celle-ci au moment de la naissance, et vous permet de proposer facilement de l'autocomplétion. Pour cette option, la date de naissance est obligatoire.
       <span class="fr-text--xs">
-      <sup>\*</sup> Obligatoire | <sup>\**</sup> Obligatoire si la personne est née en France.
+      <sup>\*</sup> Obligatoire | <sup>\**</sup> Obligatoire pour l'option 2 du lieu de naissance.
       </span>
       <span class="fr-text--xs fr-m-0">
       <sup>1</sup> Fournir plusieurs prénoms permet de limiter les risques d'homonymie mais un seul prénom peut fonctionner. Attention, l'usager doit compléter chaque prénom dans un champ distinct.
