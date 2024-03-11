@@ -18,7 +18,7 @@ module TokenMailersCommons
       token = args[:token]
       @authorization_request = token.authorization_request
 
-      @prolong_token_url = token_prolong_start_path(token_id: token.id)
+      @prolong_token_url = token_prolong_start_url(token_id: token.id)
       @expiration_date = Time.at(token.exp).in_time_zone.strftime('%d/%m/%Y')
       @full_name = @authorization_request.demandeur.full_name
       @intitule = token.intitule
