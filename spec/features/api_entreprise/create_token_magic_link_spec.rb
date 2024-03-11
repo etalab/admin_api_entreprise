@@ -56,7 +56,7 @@ RSpec.describe 'create a token magic link', app: :api_entreprise do
       context 'when the email address is invalid' do
         let(:email) { 'not an email' }
 
-        it_behaves_like 'it aborts magic link'
+        it_behaves_like 'it aborts magic link', APIEntreprise::TokenMailer
         it_behaves_like 'display alert', :error
       end
     end
@@ -73,7 +73,7 @@ RSpec.describe 'create a token magic link', app: :api_entreprise do
       let(:user) { create(:user) }
       let(:email) { 'valid@email.com' }
 
-      it_behaves_like 'it aborts magic link'
+      it_behaves_like 'it aborts magic link', APIEntreprise::TokenMailer
 
       it 'returns an error' do
         subject

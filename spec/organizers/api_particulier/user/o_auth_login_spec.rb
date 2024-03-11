@@ -72,6 +72,8 @@ RSpec.describe APIParticulier::User::OAuthLogin, type: :organizer do
       let!(:user) { create(:user, :new_token_owner) }
       let(:oauth_api_gouv_id) { user.oauth_api_gouv_id }
 
+      let(:another_sync) { described_class.call(params) }
+
       it { is_expected.to be_a_success }
 
       it 'sends an email to datapass for authorization request ownership update' do
@@ -81,7 +83,7 @@ RSpec.describe APIParticulier::User::OAuthLogin, type: :organizer do
       end
 
       it 'does not send emails on second login' do
-        sync!
+        another_sync
 
         expect { sync! }
           .not_to have_enqueued_mail(APIParticulier::UserMailer, :notify_datapass_for_data_reconciliation)
