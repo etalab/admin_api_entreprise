@@ -14,11 +14,9 @@ RSpec.shared_examples 'it creates a magic link' do
   end
 end
 
-RSpec.shared_examples 'it aborts magic link' do
-  it 'does not send the magic link email' do
-    expect { subject }.not_to have_enqueued_mail(APIEntreprise::TokenMailer, :magic_link)
-    expect { subject }.not_to have_enqueued_mail(APIParticulier::TokenMailer, :magic_link)
-    expect { subject }.not_to have_enqueued_mail(APIEntreprise::UserMailer, :magic_link_signin)
+RSpec.shared_examples 'it aborts magic link' do |mailer_klass|
+  it 'does not send magic link email' do
+    expect { subject }.not_to have_enqueued_mail(mailer_klass, :magic_link)
   end
 
   it 'does not create a new magic link record' do
