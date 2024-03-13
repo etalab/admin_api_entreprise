@@ -53,7 +53,6 @@ constraints(APIEntrepriseDomainConstraint.new) do
 
     get '/faq', to: 'faq#index', as: :faq_index
     get '/developpeurs', to: 'documentation#developers', as: :developers
-    get '/developpeurs/guide-migration', to: 'documentation#guide_migration', as: :guide_migration
     get '/developpeurs/openapi', to: 'pages#redoc', as: :developers_openapi
     get '/cas_usages', to: 'cas_usages#index'
     get '/cas_usages/:uid', to: 'cas_usages#show', as: :cas_usage

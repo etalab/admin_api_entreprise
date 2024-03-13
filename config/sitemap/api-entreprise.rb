@@ -16,7 +16,6 @@ SitemapGenerator::Sitemap.create do
   add stats_path
 
   add developers_path
-  add guide_migration_path
   add developers_openapi_path
 
   APIEntreprise::BlogPost.all.each do |blog_post|

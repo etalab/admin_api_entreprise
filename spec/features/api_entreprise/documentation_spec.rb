@@ -10,12 +10,4 @@ RSpec.describe 'Documentation pages', app: :api_entreprise do
       }.not_to raise_error
     end
   end
-
-  describe 'guide migration' do
-    it 'does not raise error' do
-      expect {
-        visit guide_migration_path
-      }.not_to raise_error
-    end
-  end
 end
