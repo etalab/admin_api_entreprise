@@ -20,16 +20,21 @@
       **Avec la [modalité d'appel FranceConnect](<%= cas_usage_path('modalite_appel_france_connect') %>)**.
 
       <p class="fr-badge fr-badge--brown-cafe-creme">Identité pivot</p>
-      **Avec les données d'identité** : Noms, prénoms<sup>1</sup>, sexe<sup>\*</sup>, date de naissance, code COG de la commune de naissance (COG)<sup>\**</sup> et code COG du pays de naissance<sup>\*</sup> de l'allocataire.
+      **Avec les données d'identité** : 
+        
+        {:.fr-mb-0}
+        - Nom, prénoms<sup>1</sup>, sexe<sup>\*</sup>, date de naissance de l'allocataire<sup>\**</sup>.
+        - Lieu de naissance qui peut être renseigné de deux façons différentes :
+            - {:.fr-text--sm .fr-mb-0} Option 1 : Code COG* de la commune de naissance si le lieu de naissance est en France ou du pays de naissance pour les personnes nées à l'étranger. [En savoir plus](#renseigner-lieu-de-naissance) ;
+            - {:.fr-text--sm .fr-mb-0} Option 2 : Nom* de la commune de naissance et code* du département de naissance*. Pour cette option, la date de naissance est obligatoire. [En savoir plus](#renseigner-lieu-de-naissance).
+
       <span class="fr-text--xs">
-      <sup>\*</sup> Obligatoire | <sup>\**</sup> Obligatoire si la personne est née en France.
+      <sup>\*</sup> Obligatoire | <sup>\**</sup> Obligatoire pour l'option 2 du lieu de naissance.
       </span>
       <span class="fr-text--xs fr-m-0">
       <sup>1</sup> Fournir plusieurs prénoms permet de limiter les risques d'homonymie mais un seul prénom peut fonctionner. Attention, l'usager doit compléter chaque prénom dans un champ distinct.
       </span>
 
-      {:.fr-icon-arrow-right-line .fr-link--icon-right}
-      [✒️ **Aider les usagers à renseigner leur lieu de naissance par code COG** - Lire la publication du 08/11/2023](https://particulier.api.gouv.fr/blog/parametre-lieu-naissance-code-cog){:target="_blank"}
   data:
     description: |+
       Cette API **indique si le particulier est bénéficiaire de la complémentaire santé solidaire**. En précisant :
@@ -61,3 +66,23 @@
 
         **En savoir plus sur le dispositif** : [service-public.fr](https://www.service-public.fr/particuliers/vosdroits/F10027){:target="_blank"}.
         **En savoir plus sur les conditions d'accès** : [complementaire-sante-solidaire.gouv.fr](https://www.complementaire-sante-solidaire.gouv.fr/complementairesantesolidaire.php){:target="_blank"}.
+    - q: <a name="renseigner-lieu-de-naissance"></a> Appel avec l'identité pivot, comment renseigner le lieu de naissance ?
+      a: |+
+       Lorsque l'API est appelée avec l'identité pivot, pour identifier correctement le particulier, le système d'information a besoin de récupérer le code COG du lieu de naissance de l'usager.
+       
+       La déduction du code COG peut être obtenue via deux options différentes :
+        
+        **Option 1 : L'API est appelée avec le code COG lui-même**
+
+        Cette option est à privilégier car elle couvre l'ensemble des usagers, y compris ceux nés à l'étranger et ceux nés dans un pays étranger autrefois rattaché à la France.
+        
+        Toutefois, cette option nécessite de disposer du code COG de la commune ou du pays de naissance. Pour aider les usagers à renseigner leur code COG, consultez la publication suivante :
+
+        {:.fr-icon-arrow-right-line .fr-link--icon-right}
+        [✒️ **Aider les usagers à renseigner leur lieu de naissance par code COG** - Lire la publication du 08/11/2023](https://particulier.api.gouv.fr/blog/parametre-lieu-naissance-code-cog){:target="_blank"}
+
+        **Option 2 : L'API est appelée avec le nom de la commune de naissance et code* du département de naissance**
+
+        Cette option à pour objectif de faciliter vos développements, mais elle n'est pas exhaustive puisque les usagers nés à l'étranger ne pourront pas être identifiés. 
+
+        Avec cette option, vous pouvez appeler l'API avec le nom de la commune de naissance et le code du département de naissance. La date de naissance est obligatoire car c'est elle qui permettra à l'API de faire la correspondance avec le bon code COG.
