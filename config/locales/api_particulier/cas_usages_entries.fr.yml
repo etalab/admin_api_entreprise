@@ -157,17 +157,17 @@ fr:
             Par ailleurs, toutes les API du bouquet API Particulier ne bénéficient pas de la modalité d'appel FranceConnect : 
 
             {:.fr-h6}
-            ### <a name="liste-api-particulier-franceconnectees"></a>Liste des API FranceConnectées
+            ### <a name="liste-api-particulier-franceconnectees"></a>Liste des API : API FranceConnectées et non FranceConnectées
             
             {:.fr-table}
-            |  API du bouquet API Particulier |   Modalité d'appel <br/>Identité pivot ou Indentifiant   | Modalité d'appel <br/>FranceConnect |
+            |  API du bouquet API Particulier |   Modalité d'appel <br/>Identité pivot ou Identifiant   | Modalité d'appel <br/>FranceConnect |
             | :--------------- | :--------------------------------: | :-----------: |
             |  **Quotient familial MSA & CAF** - Cnaf & msa<br/> [Fiche métier](<%= endpoint_path(uid: 'cnaf_msa/quotient_familial_v2') %>) |  Identité pivot |   ![Cette API est FranceConnectée](<%= image_path('api_particulier/cas_usages/pictos/modalite_appel_france_connect.svg') %>){:width="40px"} |
             |  **Statut étudiant** - Mesri<br/> [Fiche métier](<%= endpoint_path(uid: 'mesri/statut_etudiant') %>) |  Identité pivot & Identifiant INE | ![Cette API est FranceConnectée](<%= image_path('api_particulier/cas_usages/pictos/modalite_appel_france_connect.svg') %>){:width="40px"} |
             |  **Statut étudiant boursier** - Cnous<br/> [Fiche métier](<%= endpoint_path(uid: 'cnous/statut_etudiant_boursier') %>) | Identité pivot & Identifiant INE | ![Cette API est FranceConnectée](<%= image_path('api_particulier/cas_usages/pictos/modalite_appel_france_connect.svg') %>){:width="40px"} |
             |  **Statut élève scolarisé et boursier** - Ministère de l'éducation nationale<br/> [Fiche métier](<%= endpoint_path(uid: 'cnous/education_nationale/statut_eleve_scolarise') %>) | Identité pivot | ❌ N'est pas FranceConnectée |
-            |  **Statut demandeur d'emploi** - France Travail<br/> [Fiche métier](<%= endpoint_path(uid: 'cnous/education_nationale/statut_eleve_scolarise') %>) | Identifiant France Travail | ❌ FranceConnect sur API Particulier <br/> ✅ FranceConnect en dehors du bouquet avec l'[API statut demandeur d'emploi](https://api.gouv.fr/les-api/api-statut-demandeur-emploi){:target="_blank"} |
-            |  **Paiements versés par France Travail** - France Travail<br/> [Fiche métier](<%= endpoint_path(uid: 'cnous/education_nationale/statut_eleve_scolarise') %>) | Identifiant France Travail | ❌ FranceConnect sur API Particulier <br/> ✅ FranceConnect en dehors du bouquet avec l'[API Indemnisation France Travail](https://api.gouv.fr/les-api/api-indemnisation-pole-emploi){:target="_blank"} |
+            |  **Statut demandeur d'emploi** - France Travail<br/> [Fiche métier](<%= endpoint_path(uid: 'cnous/education_nationale/statut_eleve_scolarise') %>) | Identifiant France Travail | ❌ N'est pas FranceConnectée sur API Particulier <br/> ✅ FranceConnect en dehors du bouquet avec l'[API statut demandeur d'emploi](https://api.gouv.fr/les-api/api-statut-demandeur-emploi){:target="_blank"} |
+            |  **Paiements versés par France Travail** - France Travail<br/> [Fiche métier](<%= endpoint_path(uid: 'cnous/education_nationale/statut_eleve_scolarise') %>) | Identifiant France Travail | ❌ N'est pas FranceConnectée sur API Particulier <br/> ✅ FranceConnect en dehors du bouquet avec l'[API Indemnisation France Travail](https://api.gouv.fr/les-api/api-indemnisation-pole-emploi){:target="_blank"} |
             |  **Complémentaire santé solidaire** - La sécurité sociale<br/> [Fiche métier](<%= endpoint_path(uid: 'cnaf_msa/complementaire_sante_solidaire') %>) | Identité pivot | ![Cette API est FranceConnectée](<%= image_path('api_particulier/cas_usages/pictos/modalite_appel_france_connect.svg') %>){:width="40px"} |
 
 
@@ -180,7 +180,7 @@ fr:
             **Pour vos usagers, proposer la modalité d'appel FranceConnect, c'est&nbsp;:**
 
             - **⭐️ un mode de connexion répandu et populaire**. Vos usagers en sont familiers et l'utiliseront facilement ;
-            - **🔐 aucun nouveau mot de passe** ; l'usager se connecte avec l'identifiant et le mot de passe d'un service administratif qu'il choisit&nbsp;: le compte impots.gouv.fr, ameli.fr, l'Identité Numérique La Poste, msa.fr et Yris. Pour en savoir plus sur les étapes de connection à FranceConnect pour vos usagers, veuillez lire [ce guide FranceConnect](https://franceconnect.gouv.fr/franceconnect){:target="_blank"}.
+            - **🔐 aucun nouveau mot de passe** ; l'usager se connecte avec l'identifiant et le mot de passe d'un service administratif qu'il choisit&nbsp;: le compte impots.gouv.fr, ameli.fr, l'Identité Numérique La Poste, msa.fr et Yris. Pour en savoir plus sur les étapes de connexion à FranceConnect pour vos usagers, veuillez lire [ce guide FranceConnect](https://franceconnect.gouv.fr/franceconnect){:target="_blank"}.
             - **🎯 un traitement instantané de la démarche**. L'usager étant authentifié par FranceConnect, il n'y a pas de temps de traitement manuel à effectuer par vos agents. Par conséquent, les données API Particulier peuvent être versées instantanément dans la démarche, ce qui permet à l'usager de la terminer dans la foulée. 
 
             {:.fr-h6}
@@ -322,14 +322,14 @@ fr:
             ### Je suis un acteur public
 
             {:.fr-h6}
-            #### Avec un éditeur
+            ####  Mon éditeur est en charge techniquement de l’intégration de l’API Particulier
 
             {:.fr-text--lg}
             **Cas n°1 : Mon éditeur propose déjà les API Particulier FranceConnectées :**
 
             Si votre éditeur a déjà intégré la modalité d'appel FranceConnect pour API Particulier, cela signifie que l'intégration technique est déjà disponible et que le logiciel de votre éditeur a déjà été certifié par FranceConnect. Il ne manque que les droits d'accès aux données, que votre service (et non votre éditeur) doit demander :
             1. **Habilitation FranceConnect**&nbsp;: Soumettez une [demande d’habilitation FranceConnect avec le formulaire de votre éditeur](https://api.gouv.fr/les-api/franceconnect/demande-acces){:target="_blank"}{:rel="noopener external"}. L'instruction est de 7 jours ouvrés en moyenne. ⚠️ Le contact technique doit être le responsable technique de votre éditeur et non de votre organisation.
-            2. **Habilitation API Particulier** : Soumettez votre [demande d'accès API Particulier avec le formulaire de votre éditeur](https://api.gouv.fr/les-api/api-particulier/demande-acces){:target="_blank"}{:rel="noopener external"}. Une fois la validation reçue, écrivez à [api-particulier@api.gouv.fr](mailto:api-particulier@api.gouv.fr){:target="_blank"}{:rel="noopener external"} pour demander la modalité FranceConnect. Vous serez recontacté par le service API Particulier effectuera l'appariemment de vos deux demandes.
+            2. **Habilitation API Particulier** : Soumettez votre [demande d'accès API Particulier avec le formulaire de votre éditeur](https://api.gouv.fr/les-api/api-particulier/demande-acces){:target="_blank"}{:rel="noopener external"}. Une fois la validation reçue, écrivez à [api-particulier@api.gouv.fr](mailto:api-particulier@api.gouv.fr){:target="_blank"}{:rel="noopener external"} pour demander la modalité FranceConnect. Vous serez recontacté par le service API Particulier qui effectuera l'appariemment de vos deux demandes.
             3. **Mise en production** : Une fois l'appariemment effectué, votre éditeur, qui aura été mentionné en tant que contact technique dans chacune des deux demandes recevra le jeton API Particulier et les accès FranceConnect pour les intégrer dans votre SI.
 
             <br/>
@@ -340,9 +340,10 @@ fr:
             Contactez-nous à [api-particulier@api.gouv.fr](mailto:api-particulier@api.gouv.fr){:target="_blank"}{:rel="noopener external"} en mentionnant le nom de votre éditeur et ses coordonnées, nous prendrons attache avec lui.
             
             {:.fr-h6 }
-            ### Sans éditeur
+            ### Mon équipe technique ou mes développeurs prestataires sont en charge techniquement de l’intégration de l’API Particulier
 
-            _Votre service implémente lui-même les API Particulier FranceConnectée ?_ Pour y accéder, vous devez être habilité à FranceConnect et à API Particulier. Voici les étapes : 
+            _Votre service ou un service de prestataires implémente lui-même les API Particulier FranceConnectée ?_ Pour y accéder, vous devez être habilité à FranceConnect et à API Particulier. Voici les étapes : 
+            ⚠️ Si vous faites appel à des prestataires, il n'y a que votre organisation qui peut effectuer les étapes suivantes.
 
             1. **Habilitation FranceConnect**&nbsp;: Soumettez une [demande d’habilitation FranceConnect](https://api.gouv.fr/les-api/franceconnect/demande-acces){:target="_blank"}{:rel="noopener external"}, en mentionnant pour cadre juridique l’[arrêté du 8 novembre 2018 relatif à FranceConnect](https://www.legifrance.gouv.fr/loda/id/JORFTEXT000037611479){:target="_blank"}{:rel="noopener external"} qui confirme que toute administration publique peut utiliser FranceConnect. L'instruction de l'habilitation est de 7 jours ouvrés en moyenne.
             2. **Habilitation API Particulier** : Soumettez votre [demande d'accès API Particulier](https://api.gouv.fr/les-api/api-particulier/demande-acces){:target="_blank"}{:rel="noopener external"}. Une fois la validation reçue, écrivez à [api-particulier@api.gouv.fr](mailto:api-particulier@api.gouv.fr){:target="_blank"}{:rel="noopener external"} pour demander la modalité FranceConnect. Vous serez recontacté par le service API Particulier effectuera l'appariemment de vos deux demandes.
