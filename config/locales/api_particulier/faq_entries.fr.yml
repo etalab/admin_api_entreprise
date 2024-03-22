@@ -188,7 +188,7 @@ fr:
                     {:.fr-highlight}
                     > **Je peux même tester l'API Particulier en préproduction.** Pour en savoir plus, consulter [cette rubrique de l'espace développeur](<%= developers_path(anchor: 'tester-api-preproduction') %>).
 
-                  2. **Je clique sur le bouton "[faire une demande d'habilitation](https://datapass.api.gouv.fr/api-particulier)"**, je crée mon compte DataPass ou je me connecte.
+                  2. **Je clique sur le bouton "[faire une demande d'habilitation](<% datapass_base_url %>/api-particulier)"**, je crée mon compte DataPass ou je me connecte.
 
                   3. **Une fois sur la première page du formulaire d'accès à l'API Particulier, je complète l'encadré "Qui implémentera l'API ?"** :
                     - Si j'ai un éditeur, je coche "Votre éditeur de logiciel" et je le sélectionne dans la liste déroulante s'il est disponible.
@@ -328,7 +328,7 @@ fr:
 
                 #### Remplir le formulaire de prolongation
 
-                Le formulaire de prolongation permet au demandeur d'indiquer si des changements sont intervenus depuis la dernière demande d'habilitation à l'API Particulier : 
+                Le formulaire de prolongation permet au demandeur d'indiquer si des changements sont intervenus depuis la dernière demande d'habilitation à l'API Particulier :
 
                 - **Si des changements sont intervenus**, ce formulaire permet de déposer rapidement une demande de modification de l'habilitation. Cette demande sera traitée en priorité par les services instructeurs. Après validation, le jeton sera prolongé de 18 mois.
 
@@ -339,7 +339,7 @@ fr:
 
                 L'accès de votre organisation à l'API Particulier a été concretisé suite à une demande d'habilitation instruite et validée par l'API Particulier.
 
-                Dans cette demande, le demandeur a spécifié : 
+                Dans cette demande, le demandeur a spécifié :
                 - un projet, un cas d'usage et son cadre juridique ;
                 - un contact technique ;
                 - parfois un éditeur de logiciel ;
@@ -358,14 +358,14 @@ fr:
               answer: |+
                 Pour élargir le périmètre des données auxquelles vous avez accès, vous devez effectuer une **demande de mise à jour de votre habilitation**&nbsp;:
 
-                1. Connectez-vous à votre [compte utilisateur API Entreprise](<%= user_profile_path %>) ; 
-                2. Depuis la page "Habilitations", cliquez sur la flèche de l'habilitation dont vous souhaitez étendre les droits pour accéder à sa page détaillée  ; 
+                1. Connectez-vous à votre [compte utilisateur API Entreprise](<%= user_profile_path %>) ;
+                2. Depuis la page "Habilitations", cliquez sur la flèche de l'habilitation dont vous souhaitez étendre les droits pour accéder à sa page détaillée  ;
                 3. Dans la première partie de cette page "Vos droits d'accès", cliquez sur le lien "Demander l'accès à d'autres API". Une fenêtre s'ouvre et vous indique la suite de la démarche. Vous allez en effet être redirigé sur le site Datapass, sur lequel vous aviez fait votre demande d'habilitation. Sur Datapass, une demande de mise à jour de votre habilitation est alors ouverte.
                 4. Sélectionnez les données dont votre service à besoin.
                 5. Soumettez la demande. API Particulier va instruire votre demande notamment pour s'assurer que les nouvelles données demandées correspondent au cas d'usage de votre habilitation.
-                
+
                 {:.fr-highlight}
-                > _Si les nouvelles données demandées concernent un nouveau cadre d’utilisation_, l'instructeur vous demandera certainement de faire une [nouvelle demande](https://datapass.api.gouv.fr/api-particulier#head){:target="_blank"} plutôt que de modifier l'habilitation déjà validée.
+                > _Si les nouvelles données demandées concernent un nouveau cadre d’utilisation_, l'instructeur vous demandera certainement de faire une [nouvelle demande](<% datapass_base_url %>/api-particulier#head){:target="_blank"} plutôt que de modifier l'habilitation déjà validée.
 
             - question: "Pourquoi mon jeton a une date d’expiration ?"
               answer: |+
@@ -421,7 +421,7 @@ fr:
 
                 2. Plutôt que de consulter mnauellement la page de statuts, vous pouvez aussi **automatiser informatiquement la surveillance**, pour en savoir plus, consultez cette rubrique de l'[espace développeur](<%= developers_path(anchor: 'surveillance-etat-fournisseurs') %>).
 
-                3. Enfin, si vous rencontrez un problème et avez **besoin d'échanger avec nous en transmettant des données sensibles**, utilisez le [formulaire de transfert d'informations sécurisées (Démarches simplifiées)](https://www.demarches-simplifiees.fr/commencer/api-particulier-transfert-securise-d-informations){:target="_blank"}. 
+                3. Enfin, si vous rencontrez un problème et avez **besoin d'échanger avec nous en transmettant des données sensibles**, utilisez le [formulaire de transfert d'informations sécurisées (Démarches simplifiées)](https://www.demarches-simplifiees.fr/commencer/api-particulier-transfert-securise-d-informations){:target="_blank"}.
                 Si vous n'avez pas de réponse sous 72h, n'hésitez pas à nous envoyer votre numéro de demande Démarches simplifiées à l'adresse [api-particulier@api.gouv.fr](mailto:api-particulier@api.gouv.fr).
 
             - question: "Quels sont les engagements de l’API Particulier en termes de disponibilité ?"
@@ -456,16 +456,16 @@ fr:
               answer: |+
                 _Votre équipe évolue ? Vous quittez votre service ?_ Vous pouvez léguer vos habilitations à une autre personne de la même organisation.
 
-                #### Vous êtes contact métier et/ou contact technique de l'habilitation : 
+                #### Vous êtes contact métier et/ou contact technique de l'habilitation :
 
                 Si vous n'êtes pas le demandeur de l'habilitation, vous devez demander à celui-ci d'effectuer la modification. Pour retrouver le demandeur en charge de vos habilitations, rendez-vous sur [votre espace usager](<%= user_profile_path %>), le demandeur est indiqué dans la liste des contacts.
 
                 Le demandeur (contact principal à l'origine de la demande d'habilitation) est la seule personne qui peut demander une modification de l'habilitation. Le changement d'un contact métier ou technique est très rapide si le nouveau contact est dans la même organisation.
 
-                #### Vous êtes le demandeur de la demande d'habilitation : 
+                #### Vous êtes le demandeur de la demande d'habilitation :
 
                 En tant que demandeur d'une habilitation, vous avez la possibilité de demander le transfert de celle-ci à un tiers qui obtiendra alors à son tour le rôle de demandeur.
-                
+
                 **Pour cela, utilisez la fonctionnalité prévue à cet effet** :
                 - Rendez-vous dans votre [espace usager](<%= user_profile_path %>), cliquez sur \"Vos informations\".
                 - Cliquez sur le bouton dédié \"Transférer mes habilitations\".
