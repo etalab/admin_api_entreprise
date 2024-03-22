@@ -3,6 +3,7 @@ require 'kramdown'
 
 class MarkdownInterpolator
   include Rails.application.routes.url_helpers
+  include ExternalUrlHelper
 
   def initialize(content)
     @content = content

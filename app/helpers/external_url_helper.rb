@@ -11,17 +11,6 @@ module ExternalUrlHelper
     url
   end
 
-  private
-
-  def highlight_section(prolong_token_wizard)
-    highlight_section = []
-    highlight_section << 'description' unless prolong_token_wizard.project_purpose
-    highlight_section << 'contact_metier' unless prolong_token_wizard.contact_metier
-    highlight_section << 'contact_technique' unless prolong_token_wizard.contact_technique
-
-    highlight_section
-  end
-
   def datapass_base_url
     case Rails.env
     when 'staging'
@@ -31,5 +20,16 @@ module ExternalUrlHelper
     else
       'https://datapass.api.gouv.fr'
     end
+  end
+
+  private
+
+  def highlight_section(prolong_token_wizard)
+    highlight_section = []
+    highlight_section << 'description' unless prolong_token_wizard.project_purpose
+    highlight_section << 'contact_metier' unless prolong_token_wizard.contact_metier
+    highlight_section << 'contact_technique' unless prolong_token_wizard.contact_technique
+
+    highlight_section
   end
 end
