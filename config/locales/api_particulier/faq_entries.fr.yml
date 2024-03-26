@@ -236,14 +236,17 @@ fr:
                   >          - [Aides des centres communaux d'action sociale (CCAS)](<%= cas_usage_path(uid: 'ccas')%>) ;
                   >          - [Tarification sociale et solidaire des transports](<%= cas_usage_path(uid: 'tarification_transports')%>) ;
                   >          - [Portail famille des communes](<%= cas_usage_path(uid: 'portail_famille')%>).
+                  Votre cas d'usage peut ne pas être encore listé dans les cas d'usages proposés par API Particulier. 
+                  Les données que vous cocherez doivent être mentionnés dans la délibération que vous fournirez pour justifier votre demande d'accès aux données. Par exemple, si vous demandez accès au quotient famille pour la facturation de la cantine, on doit voir dans votre délibération que la tarification se fait selon le quotient familial des familles.
 
                 - **Le traitement des données personnelles**
                   Qui seront les destinataires de données reçues de l’API Particulier ? Le destinataire étant, selon la [définition de la CNIL](https://www.cnil.fr/fr/definition/destinataire){:target="_blank"}, _"la personne habilitée à obtenir communication de données enregistrées dans un fichier ou un traitement en raison de ses fonctions."_
                   Il peut s’agir d’un agent de votre administration, d’un usager de service public ...
-                  Le temps de conservation des données en mois sera également à spécifier.
+                  Le temps de conservation des données en mois sera également à spécifier. Nous recommandons de ne pas dépasser 36 mois, selon les recommondations de la CNIL. Vous pouvez dépasser cette durée si vous avez une justification, comme un potentiel contrôle de la CAF.
                 - **Le cadre juridique**
                   L’accès à l’API Particulier se fait sous réserve que son utilisation soit justifiée. L’accès à la donnée requiert la fourniture d’un cadre juridique précis, c’est pourquoi, il vous sera demandé de spécifier la nature et les références du texte vous autorisant à traiter les données.
-                Si vous êtes une administration centrale, une agence d’État, un opérateur, ou un service déconcentré, il vous faudra transmettre le **décrêt** ou l’**arrêté** justifiant votre demande.
+                  Dans la partie "Précisez la nature et les références du texte vous autorisant à traiter les données", vous devrez renseigner le cadre légal général : "l'Article L114-8 du Code des relations entre le public et l'administration fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager".
+                Si vous êtes une administration centrale, une agence d’État, un opérateur, ou un service déconcentré, il vous faudra également transmettre le **décrêt**, l’**arrêté** ou **la délibération** justifiant votre demande. Vous n'avez pas besoin de délibérer spécifiquement pour votre demande d'habilitation. Vous pouvez joindre votre dernière délibération. Cela peut être, par exemple, une délibération tarifaire pour le cas d'usage [tarification sociale et solidaire des transports](https://api.gouv.fr/guides/delivrance-titres-transport) ou le cas d'usage [tarification cantine des collèges et lycées](https://api.gouv.fr/guides/delivrance-titres-transport).
 
                   {:.fr-highlight}
                   > ⚠️ Attention, quel que soit votre statut, le [**CRPA** (Code des relations entre le public et l’administration)](https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000031366350/2020-12-14/){:target="_blank"}, la [**loi ESSOC** (pour un État au service d’une société de confiance)](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000037307624/){:target="_blank"} ou la **loi Lemaire** (pour une République numérique) **ne sont pas suffisants** car ils indiquent un principe d’échange qui doit être complété par un cadre juridique précis pour l’utilisation envisagée.
@@ -260,7 +263,7 @@ fr:
                     </details>
 
                   - **le contact métier**. C’est une personne en responsabilité du projet, il peut s’agir du demandeur. API Particulier contactera cette personne pour avertir de nouvelles fonctionnalités, de nouvelles données et API, ou d’incidents majeurs sur nos APIs.
-                  - **le contact technique**. C’est une personne ou l’équipe en charge du développement de l’interface logicielle qui va permettre l’interconnection effective avec API Particulier. API Particulier contactera cette personne pour avertir d’évolutions techniques, d’incidents et de l’expiration des jetons.
+                  - **le contact technique**. C’est une personne ou l’équipe en charge du développement de l’interface logicielle qui va permettre l’interconnection effective avec API Particulier. Cette personne recevra le jeton d'accès aux données, tout comme le demandeur. API Particulier contactera cette personne pour avertir d’évolutions techniques, d’incidents et de l’expiration des jetons.
 
                     {:.fr-highlight}
                     > ℹ️ Le contact métier et le contact technique peuvent être confondus, notamment si vous passez par un éditeur.
