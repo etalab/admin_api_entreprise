@@ -67,7 +67,7 @@
               <ul>
                 <% user.authorization_requests.where(api: namespace).each do |authorization_request| %>
                   <li>
-                    <a href="<% datapass_base_url %>/api-<%= authorization_request.api %>/<%= authorization_request.external_id %>" target="_blank">DataPass #<%= authorization_request.external_id %></a>
+                    <a href="<%= datapass_base_url %>/api-<%= authorization_request.api %>/<%= authorization_request.external_id %>" target="_blank">DataPass #<%= authorization_request.external_id %></a>
                   </li>
                 <% end %>
               </ul>
