@@ -1,6 +1,7 @@
 class AbstractCasUsage
   include ActiveModel::Model
   include AbstractAPIClass
+  include ExternalUrlHelper
 
   ATTRIBUTES = %i[
     uid
@@ -32,6 +33,10 @@ class AbstractCasUsage
     raise not_found(uid) if cas_usage.nil?
 
     cas_usage
+  end
+
+  def datapass_url
+    ERB.new(request_access[:link_datapass]).result(binding)
   end
 
   def self.for_endpoint(endpoint_uid)
