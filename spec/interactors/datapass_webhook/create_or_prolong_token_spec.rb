@@ -7,10 +7,17 @@ RSpec.describe DatapassWebhook::CreateOrProlongToken, type: :interactor do
 
   let(:authorization_request) { create(:authorization_request) }
   let(:datapass_webhook_params) { build(:datapass_webhook, event:) }
-  let(:scopes) { build(:datapass_webhook_pass_model)['scopes'].keys }
+  let(:scopes) do
+    {
+      'associations' => true,
+      'entreprises' => true
+    }
+  end
 
   before do
     Timecop.freeze
+
+    datapass_webhook_params['data']['pass']['scopes'] = scopes
   end
 
   after do
@@ -47,6 +54,25 @@ RSpec.describe DatapassWebhook::CreateOrProlongToken, type: :interactor do
       expect(token.exp).to eq(18.months.from_now.to_i)
       expect(token.iat).to eq(Time.zone.now.to_i)
       expect(token.scopes.sort).to eq(%w[associations entreprises])
+    end
+
+    context 'when there is some scopes starting with open_data_' do
+      let(:scopes) do
+        {
+          'open_data_associations' => true,
+          'entreprises' => true
+        }
+      end
+
+      it 'adds open_data scope and removes the entries starting with open_data_' do
+        expect {
+          subject
+        }.to change(Token, :count)
+
+        token = Token.last
+
+        expect(token.scopes).to contain_exactly('open_data', 'entreprises')
+      end
     end
 
     context 'when token already exists' do

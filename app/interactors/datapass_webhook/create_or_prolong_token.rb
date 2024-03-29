@@ -48,9 +48,16 @@ class DatapassWebhook::CreateOrProlongToken < ApplicationInteractor
   end
 
   def scopes
-    context.data['pass']['scopes'].map { |code, bool|
+    valid_scopes = extract_checked_scopes
+    valid_scopes << 'open_data' if valid_scopes.any? { |scope| scope.start_with?('open_data_') }
+    valid_scopes.reject! { |scope| scope.start_with?('open_data_') }
+    valid_scopes.compact.uniq
+  end
+
+  def extract_checked_scopes
+    context.data['pass']['scopes'].map do |code, bool|
       code if bool
-    }.compact
+    end
   end
 
   def authorization_request
