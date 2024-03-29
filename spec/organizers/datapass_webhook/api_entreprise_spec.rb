@@ -7,7 +7,7 @@ RSpec.describe DatapassWebhook::APIEntreprise, type: :interactor do
 
   let(:datapass_webhook_params) do
     build(:datapass_webhook,
-      event: 'validate_application',
+      event: 'approve',
       demarche: 'editeurs',
       authorization_request_attributes: {
         copied_from_enrollment_id: previous_enrollment_id

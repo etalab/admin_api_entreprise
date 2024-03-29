@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'datapass webhook trigger mails', type: :request do
   include ActiveJob::TestHelper
 
-  let(:datapass_webhook_params) { build(:datapass_webhook, event: 'validate_application') }
+  let(:datapass_webhook_params) { build(:datapass_webhook, event: 'approve') }
 
   let(:headers) do
     {

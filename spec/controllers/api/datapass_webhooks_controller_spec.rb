@@ -95,8 +95,8 @@ RSpec.describe API::DatapassWebhooksController do
           expect(response).to have_http_status(:ok)
         end
 
-        context 'when event is validate_application' do
-          let(:event) { 'validate_application' }
+        context 'when event is approve' do
+          let(:event) { 'approve' }
 
           it 'renders a json with a token id' do
             subject
@@ -105,7 +105,7 @@ RSpec.describe API::DatapassWebhooksController do
           end
         end
 
-        context 'when event is not validate_application' do
+        context 'when event is not approve' do
           let(:event) { 'whatever' }
 
           it 'renders an empty json' do
@@ -134,7 +134,7 @@ RSpec.describe API::DatapassWebhooksController do
     end
 
     describe 'happy path, on validation' do
-      let(:event) { 'validate_application' }
+      let(:event) { 'approve' }
       let(:token_id) { 'token id' }
       let(:success) { true }
 
@@ -155,8 +155,8 @@ RSpec.describe API::DatapassWebhooksController do
         expect(response).to have_http_status(:ok)
       end
 
-      context 'when event is validate_application' do
-        let(:event) { 'validate_application' }
+      context 'when event is approve' do
+        let(:event) { 'approve' }
 
         it 'renders a json with a token id' do
           subject

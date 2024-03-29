@@ -7,7 +7,7 @@ RSpec.describe DatapassWebhook::APIParticulier, type: :interactor do
 
   let(:datapass_webhook_params) do
     build(:datapass_webhook,
-      event: 'validate_application',
+      event: 'approve',
       authorization_request_attributes: {
         scopes: { 'cnaf_quotient_familial' => true },
         team_members: team_members_payload

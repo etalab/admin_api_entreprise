@@ -24,7 +24,7 @@ development: &development
         cc:
           - 'authorization_request.demandeur'
 
-  validate_application: &validate_application {}
+  approve: &approve {}
 
   create: *created
   update: *updated
@@ -32,7 +32,7 @@ development: &development
   submit: *send_application
   request_changes: *review_application
   refuse: *refuse_application
-  validate: *validate_application
+  validate: *approve
 
 test: *development
 
@@ -69,7 +69,7 @@ production: &production
       - template: 'embarquement_demande_refusee'
         on_update: true
 
-  validate_application: &validate_application
+  approve: &approve
     emails:
       - template: 'enquete_satisfaction'
         when: 'in 30 days'
@@ -107,7 +107,7 @@ production: &production
   submit: *send_application
   request_changes: *review_application
   refuse: *refuse_application
-  validate: *validate_application
+  validate: *approve
 
 sandbox: *production
 staging: *production

@@ -12,8 +12,8 @@ RSpec.describe DatapassWebhook::ArchivePreviousAuthorizationRequest, type: :inte
     create(:authorization_request, tokens: [token], external_id: previous_external_id) if previous_external_id
   end
 
-  context 'when event is validate_application or validate' do
-    let(:event) { %w[validate_application validate].sample }
+  context 'when event is approve or validate' do
+    let(:event) { %w[approve validate].sample }
 
     context 'when authorization request has a previous external id' do
       let(:previous_external_id) { rand(9001).to_s }
@@ -36,7 +36,7 @@ RSpec.describe DatapassWebhook::ArchivePreviousAuthorizationRequest, type: :inte
     end
   end
 
-  context 'when event is not validate_application' do
+  context 'when event is not approve' do
     let(:event) { %w[send_application submit] }
 
     context 'when authorization request has a previous external id' do

@@ -69,7 +69,7 @@ class DatapassWebhook::ExtractMailjetVariables < ApplicationInteractor
     %w[
       refuse_application
       review_application
-      validate_application
+      approve
       notify
 
       refuse

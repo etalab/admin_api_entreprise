@@ -23,7 +23,7 @@ class API::DatapassWebhooksController < APIController
   end
 
   def handle_success(result)
-    if event == 'validate_application'
+    if event == 'approve'
       render json: {
         token_id: result.token_id
       }.compact

@@ -17,7 +17,7 @@ RSpec.describe DatapassWebhook::CreateOrProlongToken, type: :interactor do
     Timecop.return
   end
 
-  context 'when event is not validate_application' do
+  context 'when event is not approve' do
     let(:event) { 'whatever' }
 
     it { is_expected.to be_a_success }
@@ -29,8 +29,8 @@ RSpec.describe DatapassWebhook::CreateOrProlongToken, type: :interactor do
     end
   end
 
-  context 'when event is validate_application' do
-    let(:event) { 'validate_application' }
+  context 'when event is approve' do
+    let(:event) { 'approve' }
 
     it { is_expected.to be_a_success }
 

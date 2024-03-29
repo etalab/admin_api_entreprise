@@ -28,7 +28,7 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
   end
 
   def should_update_authorization_request?
-    !context.reopening || (context.reopening && %w[validate_application validate].include?(context.event))
+    !context.reopening || (context.reopening && %w[approve validate].include?(context.event))
   end
 
   def create_or_update_contacts_with_roles
@@ -80,7 +80,7 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
 
     authorization_request_attributes_for_current_event['first_submitted_at'] = fired_at_as_datetime if context.event != 'draft' && context.authorization_request.first_submitted_at.nil?
 
-    authorization_request_attributes_for_current_event['validated_at'] = fired_at_as_datetime if %w[validate_application validate].include?(context.event)
+    authorization_request_attributes_for_current_event['validated_at'] = fired_at_as_datetime if %w[approve validate].include?(context.event)
 
     authorization_request_attributes_for_current_event
   end

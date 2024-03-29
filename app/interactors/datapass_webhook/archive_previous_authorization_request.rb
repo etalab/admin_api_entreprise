@@ -2,7 +2,7 @@
 
 class DatapassWebhook::ArchivePreviousAuthorizationRequest < ApplicationInteractor
   def call
-    return if %w[validate_application validate].exclude?(context.event)
+    return if %w[approve validate].exclude?(context.event)
     return if context.authorization_request.previous_external_id.blank?
     return if previous_authorization_request.blank?
 
