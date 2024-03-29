@@ -35,9 +35,9 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
     {
       'demandeur' => 'demandeur',
       'contact_metier' => 'contact_metier',
-      'responsable_technique' => 'contact_technique'
+      %w[responsable_technique contact_technique] => 'contact_technique'
     }.each do |contact_kind, role|
-      contact_payload = contact_payload_for(contact_kind)
+      contact_payload = contact_payload_for(Array(contact_kind))
 
       next if contact_payload.blank?
 
@@ -85,9 +85,9 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
     authorization_request_attributes_for_current_event
   end
 
-  def contact_payload_for(kind)
+  def contact_payload_for(kinds)
     context.data['pass']['team_members'].find do |contact_payload|
-      contact_payload['type'] == kind.to_s
+      kinds.include?(contact_payload['type'])
     end
   end
 
