@@ -1,5 +1,5 @@
 class AuthorizationRequest < ApplicationRecord
-  has_many :user_authorization_request_roles, dependent: :nullify do
+  has_many :user_authorization_request_roles, dependent: :destroy do
     def for_user(user)
       where(user:)
     end
@@ -11,14 +11,14 @@ class AuthorizationRequest < ApplicationRecord
     class_name: 'Token',
     foreign_key: 'authorization_request_model_id',
     inverse_of: :authorization_request,
-    dependent: :nullify
+    dependent: :destroy
 
   has_one :active_token, -> { active },
     class_name: 'Token',
     inverse_of: :authorization_request,
     required: false,
     foreign_key: 'authorization_request_model_id',
-    dependent: :nullify
+    dependent: :destroy
 
   validates :external_id, uniqueness: true, allow_blank: true
 

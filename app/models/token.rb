@@ -21,6 +21,7 @@ class Token < ApplicationRecord
   has_many :contacts, through: :authorization_request
   has_many :demandeurs, through: :authorization_request
   has_many :access_logs, inverse_of: :token, dependent: nil
+  has_many :magic_links, inverse_of: :token, dependent: :destroy
 
   has_one :demandeur, through: :authorization_request
   delegate :contacts_no_demandeur, :archived?, to: :authorization_request

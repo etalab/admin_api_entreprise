@@ -5,6 +5,22 @@ RSpec.describe AuthorizationRequest do
     expect(build(:authorization_request)).to be_valid
   end
 
+  describe 'destroy' do
+    subject(:destroy) { authorization_request.destroy }
+
+    context 'with an authorization request which is linked to multiple models' do
+      let!(:authorization_request) { create(:authorization_request, :with_tokens, :validated, :with_all_contacts) }
+
+      before do
+        create(:magic_link, token: authorization_request.token)
+      end
+
+      it 'does not raise error due to db integrity checks' do
+        expect { destroy }.not_to raise_error
+      end
+    end
+  end
+
   describe 'contacts associations' do
     let(:contact_technique) { create(:user, :contact_technique) }
     let(:contact_metier) { create(:user, :contact_metier) }
