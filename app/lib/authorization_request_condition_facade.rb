@@ -1,11 +1,11 @@
 class AuthorizationRequestConditionFacade < SimpleDelegator
-  def not_editor_and_all_contacts_have_different_emails?
+  def not_editor_and_demandeur_different_to_other_contacts?
     not_editor_authorization_request &&
-      [
-        demandeur.email,
-        contact_technique&.email,
-        contact_metier&.email
-      ].uniq.count == 3
+      (
+        same_contact_everywhere? ||
+          (demandeur.email != contact_technique&.email &&
+            contact_technique&.email == contact_metier&.email)
+      )
   end
 
   def not_editor_and_all_contacts_have_the_same_email?
@@ -35,5 +35,13 @@ class AuthorizationRequestConditionFacade < SimpleDelegator
 
   def not_editor_authorization_request
     !editor_authorization_request
+  end
+
+  def same_contact_everywhere?
+    [
+      demandeur.email,
+      contact_technique&.email,
+      contact_metier&.email
+    ].uniq.count == 3
   end
 end

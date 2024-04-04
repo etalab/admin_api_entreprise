@@ -103,19 +103,19 @@ production: &production
         condition_on_authorization: 'not_editor_and_all_contacts_have_the_same_email?'
 
       - template: 'embarquement_valide_to_demandeur_seulement'
-        condition_on_authorization: 'not_editor_and_all_contacts_have_different_emails?'
+        condition_on_authorization: 'not_editor_and_demandeur_different_to_other_contacts?'
         to:
           - 'authorization_request.demandeur'
 
       - template: 'embarquement_valide_to_tech_cc_demandeur_metier'
-        condition_on_authorization: 'not_editor_and_all_contacts_have_different_emails?'
+        condition_on_authorization: 'not_editor_and_demandeur_different_to_other_contacts?'
         to:
           - 'authorization_request.contact_technique'
         cc:
           - 'authorization_request.demandeur'
 
       - template: 'embarquement_valide_to_metier_cc_demandeur_tech'
-        condition_on_authorization: 'not_editor_and_all_contacts_have_different_emails?'
+        condition_on_authorization: 'not_editor_and_demandeur_different_to_other_contacts?'
         to:
           - 'authorization_request.contact_metier'
         cc:
