@@ -16,6 +16,8 @@ class Seeds
 
     load_all_models!
 
+    ProlongTokenWizard.destroy_all
+
     ActiveRecord::Base.connection.transaction do
       ApplicationRecord.descendants.each(&:delete_all)
       AccessLog.delete_all
