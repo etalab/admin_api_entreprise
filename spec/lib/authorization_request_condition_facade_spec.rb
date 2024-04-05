@@ -7,7 +7,7 @@ RSpec.describe AuthorizationRequestConditionFacade do
 
     let(:methods) do
       %i[
-        not_editor_and_all_contacts_have_different_emails?
+        not_editor_and_demandeur_different_to_other_contacts?
         not_editor_and_all_contacts_have_the_same_email?
         not_editor_and_user_is_contact_technique_and_not_contact_metier?
         not_editor_and_user_is_contact_metier_and_not_contact_technique?
