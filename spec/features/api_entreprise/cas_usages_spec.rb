@@ -21,5 +21,13 @@ RSpec.describe 'Cas usages pages', app: :api_entreprise do
       visit cas_usage_path(uid: '0123456789')
       expect(page).to have_current_path root_path
     end
+
+    it 'displays icons on API lists' do
+      visit cas_usage_path(uid: 'marches_publics')
+
+      within('[@id="insee/etablissements_diffusibles"]') do
+        expect(page).to have_css('.fr-icon-checkbox-circle-fill')
+      end
+    end
   end
 end

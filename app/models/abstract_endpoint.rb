@@ -199,18 +199,6 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
     @use_cases_forbidden ||= Kernel.const_get(api.classify)::CasUsage.forbidden_for_endpoint(uid)
   end
 
-  def use_case?(cas_usage_name)
-    use_cases&.include?(cas_usage_name)
-  end
-
-  def use_case_optional?(cas_usage_name)
-    use_cases_optional&.include?(cas_usage_name)
-  end
-
-  def use_case_forbidden?(cas_usage_name)
-    use_cases_forbidden&.include?(cas_usage_name)
-  end
-
   def test_cases_external_url
     "https://github.com/etalab/siade_staging_data/tree/develop/payloads/#{operation_id}"
   end
