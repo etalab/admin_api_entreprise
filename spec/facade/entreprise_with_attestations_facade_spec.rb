@@ -44,5 +44,13 @@ RSpec.describe EntrepriseWithAttestationsFacade do
 
       its(:attestation_fiscale_url) { is_expected.to be_nil }
     end
+
+    context 'with a siren containing whitespaces' do
+      let(:siren) { '123 456789  ' }
+
+      it 'removes whitespaces' do
+        expect(subject.siren).to eq('123456789')
+      end
+    end
   end
 end

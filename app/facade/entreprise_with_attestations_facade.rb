@@ -7,7 +7,7 @@ class EntrepriseWithAttestationsFacade
 
   def initialize(token:, siren:)
     @token = token
-    @siren = siren.try(:strip)
+    @siren = (siren || '').gsub(/\s+/, '')
   end
 
   def success?
