@@ -1,13 +1,16 @@
 ---
-- uid: 'cnaf/allocation_soutien_familial'
+- uid: 'cnav/allocation_adulte_handicape'
   new_endpoint_uids:
-    - 'cnaf_msa/allocation_soutien_familial'
-  path: '/api/v2/allocation-soutien-familial'
+    - 'cnav_msa/allocation_adulte_handicape'
+  path: '/api/v2/allocation-adulte-handicape'
   ping_url: 'https://particulier.api.gouv.fr/api/caf/ping'
-  position: 900
+  position: 800
   perimeter:
-    entity_type_description:
-        ✅ Le périmètre de l’API est _a priori_ exhaustif et couvre tous les bénéficiaires de l'allocation de soutien familial (ASF).
+    entity_type_description: |+
+        ✅ Le périmètre de l’API est _a priori_ exhaustif et couvre tous les bénéficiaires de l'allocation adulte handicapé (AAH).
+
+        {:.fr-highlight}
+        > Pour les ménages en couple, il peut y avoir plusieurs attributaires, c'est-à-dire, plusieurs personnes auxquelles l'AAH est versée. Dans ce cas, quelque soit l'attributaire qui sera intérrogé, l'API indiquera qu'il est bénéficiaire.
 
         ⚙️ Vérification en cours avec le fournisseur de données pour confirmer le périmètre exact.
     geographical_scope_description: |+
@@ -40,16 +43,16 @@
       </span>
   data:
     description: |+
-      Cette API **indique si le particulier est bénéficiaire de l'allocation de soutien familial**. En précisant :
+      Cette API **indique si le particulier est bénéficiaire de l'allocation adulte handicapé**. En précisant :
         - la date d'ouverture du droit ;
         - la date de fermeture du droit.
   provider_uids:
-    - 'cnaf'
+    - 'cnav'
   keywords:
+    - handicap
     - allocation
     - aides
-    - famille
-    - asf
+    - aah
   parameters: 
     - Identité pivot
     - FranceConnect

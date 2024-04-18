@@ -35,8 +35,8 @@ Contrairement aux personnes gravitant dans la sphère administrative, **les usag
 
 **Pourtant, une majorité des API du bouquet API Particulier nécessitent la saisie du code COG en paramètre d'appel pour identifier le particulier** :
 
-- [API Quotient familial CAF & MSA](https://particulier.api.gouv.fr/catalogue/cnaf_msa/quotient_familial_v2#parameters_details) - _Code COG obligatoire_
-- [API Complémentaire Santé solidaire](https://particulier.api.gouv.fr/catalogue/cnaf_msa/complementaire_sante_solidaire#parameters_details) - _Code COG obligatoire_
+- [API Quotient familial CAF & MSA](https://particulier.api.gouv.fr/catalogue/cnav/quotient_familial_v2#parameters_details) - _Code COG obligatoire_
+- [API Complémentaire Santé solidaire](https://particulier.api.gouv.fr/catalogue/cnav/complementaire_sante_solidaire#parameters_details) - _Code COG obligatoire_
 - [API Statut étudiant](https://particulier.api.gouv.fr/catalogue/mesri/statut_etudiant#parameters_details) - _Code COG facultatif_
 
 L'utilisation du code COG comme référence pour appeler les API est peu susceptible d'évoluer. En intégrant ces API dans vos démarches, il est donc nécessaire de bien concevoir le parcours d'un usager ne passant pas par FranceConnect afin que la saisie de son code COG de naissance ne pose pas de problème.
