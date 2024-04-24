@@ -1,10 +1,10 @@
 ---
-- uid: 'cnaf_msa/quotient_familial_v2'
+- uid: 'cnav/quotient_familial_v2'
   new_version: true
   old_endpoint_uids:
     - 'cnaf/quotient_familial'
   path: '/api/v2/composition-familiale-v2'
-  ping_url: 'https://particulier.api.gouv.fr/api/cnaf_msa_quotient_familial/ping'
+  ping_url: 'https://particulier.api.gouv.fr/api/cnav_quotient_familial/ping'
   position: 200
   perimeter:
     entity_type_description: |+
@@ -30,15 +30,15 @@
     updating_rules_description: |+
       Les données sont **mises à jour en temps réel**, cette API opérée par la CNAV (Caisse nationale d'assurance vieillesse) est reliée au système d'information de la Caisse nationale des allocations familiales (CNAF) et à celui de la mutualité sociale agricole (MSA).
 
-      ⚠️ **Les informations obtenues sont représentatives de la situation connue par la CNAF et la MSA au moment de l'appel**, il est donc possible qu'un quotient familial appelé pour un mois donné à un instant T, soit différent s'il est redemandé à un instant T+. [En savoir plus](faq_entry_1_api_particulier_endpoint_cnaf_msa_quotient_familial_v2).
+      ⚠️ **Les informations obtenues sont représentatives de la situation connue par la CNAF et la MSA au moment de l'appel**, il est donc possible qu'un quotient familial appelé pour un mois donné à un instant T, soit différent s'il est redemandé à un instant T+. [En savoir plus](faq_entry_1_api_particulier_endpoint_cnav_quotient_familial_v2).
   data:
     description: |+
       **Cette API délivre** : 
-      - **la composition familiale** du particulier, [en savoir plus](#faq_entry_answer_2_api_particulier_endpoint_cnaf_msa_quotient_familial_v2) ;
+      - **la composition familiale** du particulier, [en savoir plus](#faq_entry_answer_2_api_particulier_endpoint_cnav_quotient_familial_v2) ;
       - **le quotient familial CAF ou MSA** du particulier. Par défaut, le quotient familial du **mois en cours** est transmis. Le QF de l'allocataire est disponible pour les 24 mois précédents en précisant le mois et l'année dans l'appel.
 
       {:.fr-highlight}
-      > Le quotient familial au sens de la CNAF ou de la MSA a une définition différente du quotient familial de l'administration fiscale, [en savoir plus](#faq_entry_answer_0_api_particulier_endpoint_cnaf_msa_quotient_familial_v2).
+      > Le quotient familial au sens de la CNAF ou de la MSA a une définition différente du quotient familial de l'administration fiscale, [en savoir plus](#faq_entry_answer_0_api_particulier_endpoint_cnav_quotient_familial_v2).
 
       {:.fr-highlight.fr-highlight--caution}
       > **Le QF CNAF est calculé seulement pour les allocataires dont les ressources sont déclarées**. En effet, pour calculer le quotient familial, la CNAF collecte tous les mois auprès de la DGFIP les ressources de l'individu (revenus salariés et non-salariés, du capital, rentes ...). Elle récupère le bilan en fin d'année. Sans la réception de ces ressources, le QF CNAF ne peut être calculé : une erreur est renvoyée par l'API.
@@ -68,7 +68,7 @@
       <sup>1</sup> Fournir plusieurs prénoms permet de limiter les risques d'homonymie mais un seul prénom peut fonctionner. Attention, l'usager doit compléter chaque prénom dans un champ distinct.
       </span>
   provider_uids:
-    - 'cnaf_msa'
+    - 'cnav'
   parameters:
     - Identité pivot
     - FranceConnect

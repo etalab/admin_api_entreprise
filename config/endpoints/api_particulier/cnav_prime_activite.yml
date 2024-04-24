@@ -1,16 +1,16 @@
 ---
-- uid: 'cnaf/revenu_solidarite_active'
+- uid: 'cnav/prime_activite'
   new_endpoint_uids:
-    - 'cnaf_msa/revenu_solidarite_active'
-  path: '/api/v2/revenu-solidarite-active'
+    - 'cnav_msa/prime_activite'
+  path: '/api/v2/prime-activite'
   ping_url: 'https://particulier.api.gouv.fr/api/caf/ping'
-  position: 600
+  position: 700
   perimeter:
     entity_type_description: |+
-        ✅ Le périmètre de l’API est _a priori_ exhaustif et couvre tous les bénéficiaires du revenu de solidarité active (RSA).
+        ✅ Le périmètre de l’API est _a priori_ exhaustif et couvre tous les bénéficiaires de la prime d'activité (PPA).
 
         {:.fr-highlight}
-        > Les enfants d'un allocataire du RSA ne sont pas considérés comme bénéficiaires.
+        > Les enfants d'un allocataire de la prime d'activité ne sont pas considérés comme des bénéficiaires.
 
         ⚙️ Vérification en cours avec le fournisseur de données pour confirmer le périmètre exact.
     geographical_scope_description: |+
@@ -43,17 +43,17 @@
       </span>
   data:
     description: |+
-      Cette API **indique si le particulier est bénéficiaire du revenu de solidarité active**. En précisant :
+      Cette API **indique si le particulier est bénéficiaire de la prime d'activité**. En précisant :
         - la date d'ouverture du droit ;
         - la date de fermeture du droit.
   provider_uids:
-    - 'cnaf'
+    - 'cnav'
   keywords:
-    - rsa
-    - solidarité
-    - revenu
-    - aides
+    - prime
     - emploi
+    - activité
+    - ppa
+    - pa
   parameters: 
     - Identité pivot
     - FranceConnect
