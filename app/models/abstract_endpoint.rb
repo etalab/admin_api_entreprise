@@ -108,6 +108,7 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
     return 'novelty' if novelty?
     return 'beta' if beta?
     return 'new_version' if new_version?
+    return 'deprecated' if deprecated?
 
     'incoming' if incoming?
   end
