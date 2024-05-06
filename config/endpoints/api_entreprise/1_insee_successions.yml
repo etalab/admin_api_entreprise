@@ -1,0 +1,22 @@
+---
+- uid: 'insee/successions'
+  position: 143
+  path: '/v3/insee/sirene/successions/{siret}'
+  ping_url: 'https://entreprise.api.gouv.fr/ping/insee/sirene'
+  perimeter:
+    entity_type_description: |+
+    geographical_scope_description: &insee_etablissements_geographical_scope_description |+
+    updating_rules_description: &insee_etablissements_updating_rules_description |+
+    know_more_description: &insee_etablissements_know_more_description |+
+    entities:
+  opening: protected
+  call_id: &insee_etablissements_call_id SIRET
+  parameters: &insee_etablissements_parameters
+    - Numéro de SIRET de l'établissement
+  format: &insee_etablissements_format
+    - Donnée structurée JSON
+  provider_uids: &insee_etablissements_provider_uids
+    - 'insee'
+  keywords: &insee_etablissements_keywords
+  data:
+    description: |+
