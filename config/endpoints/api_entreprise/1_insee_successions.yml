@@ -60,14 +60,15 @@
       > - Lorsque deux établissements d'unités légales différentes se succèdent à une même adresse (ex: un commerçant cède son fonds de commerce à un autre commerçant) ;
       > - Lorsque deux établissements d'une même unité légale se succèdent à une adresse différente (ex: un commerçant change de local commercial). 
       
-      
       {:.fr-highlight.fr-highlight--caution}
       > ⚠️ **Tous les liens de successions ne sont pas connus par l'Insee**. La construction de la base de données repose sur le traitement des déclarations des entrepreneurs. La norme de déclaration prévoir qu'en cas de vente ou d'achat, la destination ou l'origine soit précisée mais ceci reste déclaratif.
 
   faq:
     - q: <a name="definition-transfert-siege"></a>Qu'est ce qu'un transfert de siège ?
       a: |+
-       LOREM
+       Il y a transfert de siège lorsque : 
+       - la qualité "siège social" d'un établissement a été transférée à un autre établissement ;
+       - un établissement ayant la qualité "siège social" a été transféré.
     - q: <a name="definition-continuite-economique"></a> Qu'est ce que la continuité économique ?
       a: |+
         Il y a continuité économique entre deux établissements qui se succèdent dès lors que deux des trois critères
@@ -75,6 +76,13 @@
         - les deux établissements appartiennent à la même unité légale (même Siren) ;
         - les deux établissements exercent la même activité (même code APE) ;
         - les deux établissements sont situés dans un même lieu (numéro et libellé de voie, code commune).
+
+        Cet indicateur cherche à identifier, si : 
+        - Dans le cas d'une cession (ex: cession de fonds de commerce), est-ce que le repreneur poursuit l'activité du cédant ?
+        - Dans le cas d'un transfert, est-ce que le changement d'adresse ou d'activité est susceptible de modifier la clientèle ?
+
+        En cas de transfert de siège, la variable de continuité économique est toujours à 'true'.
+
     - q: Pourquoi un établissement a plusieurs prédécesseurs ou successeurs ?
       a: |+
        Un établissement est susceptible de transférer une partie de ses activités seulement, ce qui peut entraine plusieurs prédécesseurs ou successeurs.
