@@ -3,6 +3,9 @@
   <head>
     <title><%= t('.title') %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <% unless Rails.env.production? %>
+      <meta name="robots" content="noindex">
+    <% end %>
 
     <%= render partial: 'shared/favicons' %>
 
