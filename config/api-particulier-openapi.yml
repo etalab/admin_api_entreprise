@@ -173,7 +173,7 @@ paths:
       responses:
         '200':
           description: Particulier trouvé
-          x-operationId: api_particulier_v2_cnaf_allocation_adulte_handicape
+          x-operationId: api_particulier_v2_cnav_allocation_adulte_handicape
           content:
             application/json:
               schema:
@@ -226,14 +226,14 @@ paths:
                 unknown_error:
                   value:
                     errors:
-                    - code: '23999'
+                    - code: '37999'
                       title: Erreur inconnue du fournisseur de données
                       detail: La réponse retournée par le fournisseur de données est
                         invalide et inconnue de notre service. L'équipe technique
                         a été notifiée de cette erreur pour investigation.
                       source:
                       meta:
-                        provider: CNAF
+                        provider: CNAV
                   summary: Erreur inconnue du fournisseur de données
                   description: La réponse retournée par le fournisseur de données
                     est invalide et inconnue de notre service. L'équipe technique
@@ -381,7 +381,7 @@ paths:
       responses:
         '200':
           description: Dossier trouvé
-          x-operationId: api_particulier_v2_cnaf_allocation_soutien_familial
+          x-operationId: api_particulier_v2_cnav_allocation_soutien_familial
           content:
             application/json:
               schema:
@@ -445,14 +445,14 @@ paths:
                 unknown_error:
                   value:
                     errors:
-                    - code: '23999'
+                    - code: '37999'
                       title: Erreur inconnue du fournisseur de données
                       detail: La réponse retournée par le fournisseur de données est
                         invalide et inconnue de notre service. L'équipe technique
                         a été notifiée de cette erreur pour investigation.
                       source:
                       meta:
-                        provider: CNAF
+                        provider: CNAV
                   summary: Erreur inconnue du fournisseur de données
                   description: La réponse retournée par le fournisseur de données
                     est invalide et inconnue de notre service. L'équipe technique
@@ -622,7 +622,7 @@ paths:
       responses:
         '200':
           description: Quotient Familial trouvée
-          x-operationId: api_particulier_v2_cnaf_complementaire_sante_solidaire
+          x-operationId: api_particulier_v2_cnav_complementaire_sante_solidaire
           content:
             application/json:
               schema:
@@ -749,12 +749,12 @@ paths:
                           de remise.
                         type: string
                         nullable: true
-                        example: 
+                        example:
                       complementInformationGeographique:
                         title: Complément d'information du point géographique
                         type: string
                         nullable: true
-                        example: 
+                        example:
                         description: Complément d'information du point géographique.
                       numeroLibelleVoie:
                         title: Voie
@@ -766,7 +766,7 @@ paths:
                         title: Lieu-dit
                         type: string
                         nullable: true
-                        example: 
+                        example:
                         description: 'Lieu-dit ou service particulier de distribution
                           : poste restante, boîte postale'
                       codePostalVille:
@@ -805,7 +805,7 @@ paths:
                     title: Année du quotient familial
                     type: integer
                     description: Année de calcul du quotient familial
-                    example: 2021
+                    example: 2023
                   mois:
                     title: Mois du quotient familial
                     type: integer
@@ -815,7 +815,7 @@ paths:
                     title: Année du calcul du quotient familial
                     type: integer
                     description: Année à laquelle le quotient familial a été calculé
-                    example: 2021
+                    example: 2023
                   mois_calcul:
                     title: Mois du calcul du quotient familial
                     type: integer
@@ -869,7 +869,7 @@ paths:
                     - code: '00364'
                       title: Entité non traitable
                       detail: Le sexe n'est pas correctement formaté (m ou f)
-                      source: 
+                      source:
                       meta: {}
                   summary: Entité non traitable
                   description: Le sexe n'est pas correctement formaté (m ou f)
@@ -890,14 +890,14 @@ paths:
                 unknown_error:
                   value:
                     errors:
-                    - code: '23999'
+                    - code: '37999'
                       title: Erreur inconnue du fournisseur de données
                       detail: La réponse retournée par le fournisseur de données est
                         invalide et inconnue de notre service. L'équipe technique
                         a été notifiée de cette erreur pour investigation.
-                      source: 
+                      source:
                       meta:
-                        provider: CNAF
+                        provider: CNAV
                   summary: Erreur inconnue du fournisseur de données
                   description: La réponse retournée par le fournisseur de données
                     est invalide et inconnue de notre service. L'équipe technique
@@ -921,7 +921,7 @@ paths:
                     - code: '50002'
                       title: Accès non autorisé
                       detail: Le jeton d'accès n'a pas été trouvé ou est expiré.
-                      source: 
+                      source:
                       meta: {}
                   summary: Accès non autorisé
                   description: Le jeton d'accès n'a pas été trouvé ou est expiré.
@@ -1045,7 +1045,7 @@ paths:
       responses:
         '200':
           description: Dossier trouvé
-          x-operationId: api_particulier_v2_cnaf_prime_activite
+          x-operationId: api_particulier_v2_cnav_prime_activite
           content:
             application/json:
               schema:
@@ -1118,14 +1118,14 @@ paths:
                 unknown_error:
                   value:
                     errors:
-                    - code: '23999'
+                    - code: '37999'
                       title: Erreur inconnue du fournisseur de données
                       detail: La réponse retournée par le fournisseur de données est
                         invalide et inconnue de notre service. L'équipe technique
                         a été notifiée de cette erreur pour investigation.
                       source:
                       meta:
-                        provider: CNAF
+                        provider: CNAV
                   summary: Erreur inconnue du fournisseur de données
                   description: La réponse retournée par le fournisseur de données
                     est invalide et inconnue de notre service. L'équipe technique
@@ -1286,8 +1286,8 @@ paths:
       - name: annee
         in: query
         description: Année du quotient familial recherché. Si l'année n'est pas renseignée,
-          le dernier QF est transmis.
-        example: 2021
+          le dernier QF est transmis. Remonte au maximum à 2 ans.
+        example: 2023
         required: false
         schema:
           type: integer
@@ -1305,7 +1305,7 @@ paths:
       description: "Quotient familial et composition de la famille d'un allocataire
         du régime agricole (régime général à venir). \n Pour de plus amples informations
         sur cette api et y avoir accès en avant première, veuillez contacter l'équipe
-        API Particulier. \n **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/api_particulier_v2_cnaf_quotient_familial_v2)
+        API Particulier. \n **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/api_particulier_v2_cnav_quotient_familial_v2)
         \n L'API peut être appellée avec les données identité pivot ou avec un jeton
         FranceConnect."
       responses:
@@ -1328,7 +1328,7 @@ paths:
                       jourDateDeNaissance: '12'
                       sexe: M
                     - nomNaissance: NIDOUILLET
-                      nomUsuel: 
+                      nomUsuel:
                       prenoms: JOSIANE
                       anneeDateDeNaissance: '1981'
                       moisDateDeNaissance: '05'
@@ -1336,25 +1336,25 @@ paths:
                       sexe: F
                     enfants:
                     - nomNaissance: CHAMPION
-                      nomUsuel: 
+                      nomUsuel:
                       prenoms: AURELIE
                       anneeDateDeNaissance: '2014'
                       moisDateDeNaissance: '05'
                       jourDateDeNaissance: '02'
                       sexe: F
                     - nomNaissance: CHAMPION
-                      nomUsuel: 
+                      nomUsuel:
                       prenoms: AURELIEN
                       anneeDateDeNaissance: '2012'
                       moisDateDeNaissance: '04'
-                      jourDateDeNaissance: 
+                      jourDateDeNaissance:
                       sexe: M
                     adresse:
                       identite: DU MONDE JEAN-PASCAL
                       complementInformation: APPARTEMENT 2
-                      complementInformationGeographique: 
-                      numeroLibelleVoie: 
-                      lieuDit: 
+                      complementInformationGeographique:
+                      numeroLibelleVoie:
+                      lieuDit:
                       codePostalVille: 81700 GARREVAQUES
                       pays: FRANCE
               schema:
@@ -1481,12 +1481,12 @@ paths:
                           de remise.
                         type: string
                         nullable: true
-                        example: 
+                        example:
                       complementInformationGeographique:
                         title: Complément d'information du point géographique
                         type: string
                         nullable: true
-                        example: 
+                        example:
                         description: Complément d'information du point géographique.
                       numeroLibelleVoie:
                         title: Voie
@@ -1498,7 +1498,7 @@ paths:
                         title: Lieu-dit
                         type: string
                         nullable: true
-                        example: 
+                        example:
                         description: 'Lieu-dit ou service particulier de distribution
                           : poste restante, boîte postale'
                       codePostalVille:
@@ -1537,7 +1537,7 @@ paths:
                     title: Année du quotient familial
                     type: integer
                     description: Année de calcul du quotient familial
-                    example: 2021
+                    example: 2023
                   mois:
                     title: Mois du quotient familial
                     type: integer
@@ -1547,13 +1547,13 @@ paths:
                     title: Année du calcul du quotient familial
                     type: integer
                     description: Année à laquelle le quotient familial a été calculé
-                    example: 2021
+                    example: 2023
                   mois_calcul:
                     title: Mois du calcul du quotient familial
                     type: integer
                     description: Mois auquel le quotient familial a été calculé
                     example: 3
-          x-operationId: api_particulier_v2_cnaf_quotient_familial_v2
+          x-operationId: api_particulier_v2_cnav_quotient_familial_v2
         '400':
           description: Mauvais paramètres d'appels
           content:
@@ -1585,13 +1585,13 @@ paths:
                       MSA.
                     message: Le dossier allocataire n'a pas été trouvé auprès de la
                       MSA.
-                Dossier non trouvé CNAF:
+                Dossier non trouvé CNAV:
                   value:
                     error: not_found
                     reason: Le dossier allocataire n'a pas été trouvé auprès de la
-                      CNAF.
+                      CNAV.
                     message: Le dossier allocataire n'a pas été trouvé auprès de la
-                      CNAF.
+                      CNAV.
               schema:
                 "$ref": "#/components/schemas/Error"
         '503':
@@ -1635,7 +1635,7 @@ paths:
                     - code: '50002'
                       title: Accès non autorisé
                       detail: Le jeton d'accès n'a pas été trouvé ou est expiré.
-                      source: 
+                      source:
                       meta: {}
                   summary: Accès non autorisé
                   description: Le jeton d'accès n'a pas été trouvé ou est expiré.
@@ -1759,7 +1759,7 @@ paths:
       responses:
         '200':
           description: Dossier trouvé
-          x-operationId: api_particulier_v2_cnaf_revenu_solidarite_active
+          x-operationId: api_particulier_v2_cnav_revenu_solidarite_active
           content:
             application/json:
               schema:
@@ -1831,14 +1831,14 @@ paths:
                 unknown_error:
                   value:
                     errors:
-                    - code: '23999'
+                    - code: '37999'
                       title: Erreur inconnue du fournisseur de données
                       detail: La réponse retournée par le fournisseur de données est
                         invalide et inconnue de notre service. L'équipe technique
                         a été notifiée de cette erreur pour investigation.
                       source:
                       meta:
-                        provider: CNAF
+                        provider: CNAV
                   summary: Erreur inconnue du fournisseur de données
                   description: La réponse retournée par le fournisseur de données
                     est invalide et inconnue de notre service. L'équipe technique
@@ -2020,7 +2020,7 @@ paths:
                     example: 1
                     nullable: true
                     enum:
-                    - 
+                    -
                     - 1
                     - 2
                     - 3
@@ -2070,7 +2070,7 @@ paths:
                     - code: '00364'
                       title: Entité non traitable
                       detail: Le sexe n'est pas correctement formaté (m ou f)
-                      source: 
+                      source:
                       meta: {}
                   summary: Entité non traitable
                   description: Le sexe n'est pas correctement formaté (m ou f)
@@ -2095,7 +2095,7 @@ paths:
                       detail: La réponse retournée par le fournisseur de données est
                         invalide et inconnue de notre service. L'équipe technique
                         a été notifiée de cette erreur pour investigation.
-                      source: 
+                      source:
                       meta:
                         provider: MEN
                   summary: Erreur inconnue du fournisseur de données
@@ -2219,7 +2219,7 @@ paths:
                     - code: '00380'
                       title: Entité non traitable
                       detail: L'identifiant France Travail est manquant
-                      source: 
+                      source:
                       meta: {}
                   summary: Entité non traitable
                   description: L'identifiant France Travail est manquant
@@ -2244,7 +2244,7 @@ paths:
                       detail: La réponse retournée par le fournisseur de données est
                         invalide et inconnue de notre service. L'équipe technique
                         a été notifiée de cette erreur pour investigation.
-                      source: 
+                      source:
                       meta:
                         provider: France Travail
                   summary: Erreur inconnue du fournisseur de données
@@ -2264,7 +2264,7 @@ paths:
       summary: Quotient familial (CAF)
       deprecated: true
       description: |-
-        Quotient familial et composition de la famille d'un allocataire de la Caisse nationale des allocations familiales (CNAF). Attention, le quotient familial de la CAF n'a rien à voir avec le quotient familial fiscal utilisé pour le calcul de l'impôt sur le revenu
+        Quotient familial et composition de la famille d'un allocataire de la Caisse nationale des allocations familiales (CNAV). Attention, le quotient familial de la CAF n'a rien à voir avec le quotient familial fiscal utilisé pour le calcul de l'impôt sur le revenu
 
         **Paramètres d'appel :** numéro d'allocataire et code postal
 
@@ -2341,7 +2341,7 @@ paths:
                     description: 'La liste des enfants correspond à la notion d''enfant
                       à charge au sens de la législation familiale. Il n''y a notamment
                       pas d''obligation de lien de parenté avec l’enfant. Pour en
-                      savoir plus, consultez la FAQ https://particulier.api.gouv.fr/catalogue/cnaf/quotient_familial#faq_entry_2_api_particulier_endpoint_cnaf_quotient_familial:'
+                      savoir plus, consultez la FAQ https://particulier.api.gouv.fr/catalogue/cnav/quotient_familial#faq_entry_2_api_particulier_endpoint_cnav_quotient_familial:'
                     type: array
                     items:
                       type: object
@@ -2369,7 +2369,7 @@ paths:
                     title: Adresse de la famille
                     type: object
                     description: Adresse structurée au format de la poste. C'est l'adresse
-                      connue de la CNAF, il s'agit d'une information déclarative.
+                      connue de la CNAV, il s'agit d'une information déclarative.
                     properties:
                       identite:
                         title: Identité du destinataire
@@ -2383,12 +2383,12 @@ paths:
                         description: Numéro d'appartement, escalier
                         type: string
                         nullable: true
-                        example: 
+                        example:
                       complementIdentiteGeo:
                         title: Complément d'information du point géographique
                         type: string
                         nullable: true
-                        example: 
+                        example:
                         description: Entrée, tour, immeuble, bâtiment, résidence
                       numeroRue:
                         title: Voie
@@ -2399,7 +2399,7 @@ paths:
                         title: Lieu-dit
                         type: string
                         nullable: true
-                        example: 
+                        example:
                         description: 'Lieu-dit ou service particulier de distribution
                           : poste restante, boîte postale'
                       codePostalVille:
@@ -2478,7 +2478,7 @@ paths:
                     type: string
                     example: Une erreur interne s'est produite, l'équipe a été prévenue.
         '503':
-          description: Erreur inconnue du fournisseur de donnée (CNAF)
+          description: Erreur inconnue du fournisseur de donnée (CNAV)
           content:
             application/json:
               schema:
@@ -2492,7 +2492,7 @@ paths:
                     example: Unknown error code 134
                   message:
                     type: string
-                    example: Erreur inconnue du fournisseur de donnée (CNAF)
+                    example: Erreur inconnue du fournisseur de donnée (CNAV)
   "/api/v2/situations-pole-emploi":
     get:
       summary: Statut demandeur d'emploi
@@ -2555,7 +2555,7 @@ paths:
                     type: string
                     description: Nom d'usage du demandeur d'emploi
                     nullable: true
-                    example: 
+                    example:
                   prenom:
                     title: Prénom
                     type: string
@@ -2593,7 +2593,7 @@ paths:
                     - AC
                     - DC
                     - RC
-                    - 
+                    -
                   telephone:
                     title: Téléphone principal
                     type: string
@@ -2634,15 +2634,15 @@ paths:
                       ligneComplementDestinaire:
                         type: string
                         nullable: true
-                        example: 
+                        example:
                       ligneComplementAdresse:
                         type: string
                         nullable: true
-                        example: 
+                        example:
                       ligneComplementDistribution:
                         type: string
                         nullable: true
-                        example: 
+                        example:
                       ligneNom:
                         type: string
                         example: MARTIN
@@ -3223,13 +3223,13 @@ components:
       properties:
         error:
           type: string
-          example: 
+          example:
         reason:
           type: string
-          example: 
+          example:
         message:
           type: string
-          example: 
+          example:
   securitySchemes:
     apiKey:
       type: apiKey

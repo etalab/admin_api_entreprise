@@ -1,0 +1,89 @@
+---
+- uid: "insee/successions"
+  position: 143
+  path: "/v3/insee/sirene/etablissements/{siret}/successions"
+  ping_url: "https://entreprise.api.gouv.fr/ping/insee/sirene"
+  perimeter:
+    entity_type_description: |+
+      **Cette API concerne les établissements inscrits au répertoire Sirene, quel que soit leur statut de diffusion** :
+      - ✅ **les établissements des personnes morales de droit privé** : les entreprises et les entrepreneurs individuels, dont toutes celles et ceux immatriculés au registre du commerce et des sociétés (RCS) et/ou au répertoire des métiers (RM) ;
+      - ✅ **les établissements des associations ayant un numéro de SIRET** délivré lorsqu'elles :
+        * emploient du personnel salarié ;
+        * sont soumises à la TVA ;
+        * ont demandé ou bénéficient de transferts financiers publics.
+      - ✅ **les établissements des personnes morales de droit public** : les institutions et services de l'État et les collectivités territoriales ;
+      - ✅ **Les établissements des organismes publics ou privés et les entreprises étrangères** qui ont une représentation ou une activité en France.
+      - ✅ **Les établissements des loueurs de meublés non professionnels (LMNP) et les particuliers employeurs** (depuis 2022), à l'exception des cas mentionnés au [2° de l'Article R123-220 du Code du Commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000030783425/2022-05-31/){:target="_blank"}, ont l'obligation d'être inscrits au répertoire Sirene. Cette modification intervient suite au [Décret n° 2021-1500 du 17 novembre 2021](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000044340276){:target="_blank"}.
+      - ❌ Les établissements de gestion de paye de la fonction publique, bien que présents dans la base Sirene, ne sont pas concernés par cette API. Ils ont été immatriculés pour les seuls besoins de certaines administrations (les impôts, les URSSAF, la DGCP …).
+      Leur diffusion à d'autres administrations n'est donc pas prévue.
+
+    geographical_scope_description: |+
+      La base Sirene concerne les établissements implantés en métropole, dans les DROM et dans les collectivités d'Outre-Mer de Saint-Pierre-et-Miquelon, Saint-Barthélémy et Saint-Martin.
+
+      ⚠️ Pour la Nouvelle-Calédonie, la Polynésie française, et Wallis-et-Futuna, seul le secteur public administratif, de l'État ou des communes est répertorié ;
+      ❌ les entreprises ne sont donc pas disponibles.
+    updating_rules_description: |+
+      La mise à jour des données est faite **quotidiennement entre 0h et 3h** à l'Insee.
+    entities:
+      - entreprises
+      - associations
+  opening: public
+  call_id: SIRET
+  parameters:
+    - Numéro de SIRET de l'établissement
+  format:
+    - Donnée structurée JSON
+  provider_uids:
+    - "insee"
+  keywords:
+    - "etablissement"
+    - "changement"
+    - "succession"
+    - "sirene"
+    - "siret"
+    - "entreprise"
+    - "association"
+    - "adresse"
+    - "cession"
+    - "prédecesseur"
+    - "successeur"
+    - "transfert"
+    - "reprise"
+  data:
+    description: |+
+      À partir du numéro de SIRET de l'établissement, cette API délivre la liste des établissements prédecesseurs et successeurs, la date d'effet de la succession et précise :
+      - s'il s'agit d'un [transfert de siège](#definition-transfert-siege) ;
+      - s'il y a [continuité économique](#definition-continuite-economique).
+
+      {:.fr-highlight}
+      > Les liens de succession identifiés par l'Insee sont créés dans deux cas :
+      > - Lorsque deux établissements d'unités légales différentes se succèdent à une même adresse (ex: un commerçant cède son fonds de commerce à un autre commerçant) ;
+      > - Lorsque deux établissements d'une même unité légale se succèdent à une adresse différente (ex: un commerçant change de local commercial).
+
+      {:.fr-highlight.fr-highlight--caution}
+      > ⚠️ **Tous les liens de successions ne sont pas connus par l'Insee**. La construction de la base de données repose sur le traitement des déclarations des entrepreneurs. La norme de déclaration prévoir qu'en cas de vente ou d'achat, la destination ou l'origine soit précisée mais ceci reste déclaratif.
+
+  faq:
+    - q: <a name="definition-transfert-siege"></a>Qu'est ce qu'un transfert de siège ?
+      a: |+
+        Il y a transfert de siège lorsque :
+        - la qualité "siège social" d'un établissement a été transférée à un autre établissement ;
+        - un établissement ayant la qualité "siège social" a été transféré.
+    - q: <a name="definition-continuite-economique"></a> Qu'est ce que la continuité économique ?
+      a: |+
+        Il y a continuité économique entre deux établissements qui se succèdent dès lors que deux des trois critères
+        suivants sont vérifiés :
+        - les deux établissements appartiennent à la même unité légale (même Siren) ;
+        - les deux établissements exercent la même activité (même code APE) ;
+        - les deux établissements sont situés dans un même lieu (numéro et libellé de voie, code commune).
+
+        Cet indicateur cherche à identifier, si :
+        - Dans le cas d'une cession (ex: cession de fonds de commerce), est-ce que le repreneur poursuit l'activité du cédant ?
+        - Dans le cas d'un transfert, est-ce que le changement d'adresse ou d'activité est susceptible de modifier la clientèle ?
+
+        En cas de transfert de siège, la variable de continuité économique est toujours à 'true'.
+
+    - q: Pourquoi un établissement a plusieurs prédécesseurs ou successeurs ?
+      a: |+
+        Un établissement est susceptible de transférer une partie de ses activités seulement, ce qui peut entraine plusieurs prédécesseurs ou successeurs.
+

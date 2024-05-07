@@ -21104,6 +21104,423 @@ paths:
           curl -X GET \
             -H "Authorization: Bearer $token" \
             --url "https://entreprise.api.gouv.fr/v3/insee/sirene/unites_legales/130025265/siege_social?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
+  "/v3/insee/sirene/etablissements/{siret}/successions":
+    get:
+      summary: Liens de succession
+      tags:
+      - Informations générales
+      parameters:
+      - name: siret
+        in: path
+        description: Siret de l'établissement
+        examples:
+          siret_octo_technology:
+            value: '41816609600069'
+            summary: SIRET Octo Technology
+          siret_non_diffusible:
+            value: '00557246600026'
+            summary: SIRET établissement non diffusible
+          siret_msa:
+            value: '81104725700019'
+            summary: SIRET pour MSA
+          siret_probtp:
+            value: '43841606700017'
+            summary: SIRET pour ProBTP
+          siret_qualibat:
+            value: '78824266700020'
+            summary: SIRET pour Qualibat
+          siret_entrepreneur_individuel:
+            value: '38983993700015'
+            summary: SIRET d'un entrepreneur individuel (fermé)
+          siret_ademe:
+            value: '42878198300039'
+            summary: SIRET pour ADEME RGE
+          siret_qualifelec:
+            value: '42054064300376'
+            summary: SIRET pour Qualifelec
+          siret_qualiopi:
+            value: '81841109200013'
+            summary: SIRET pour Qualiopi
+        required: true
+        schema:
+          type: string
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Informations sur les liens de succession entre les établissements.
+      responses:
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                old_token_error:
+                  value:
+                    errors:
+                    - code: '00102'
+                      title: Format de jeton plus supporté
+                      detail: Vous avez utilisé un token à l'ancien format. Ce format
+                        n'est plus supporté depuis avril 2019. Vous devez refaire
+                        une demande à API Entreprise, un guide est disponible sur
+                        https://entreprise.api.gouv.fr/demander_un_acces/
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Format de jeton plus supporté
+                  description: Vous avez utilisé un token à l'ancien format. Ce format
+                    n'est plus supporté depuis avril 2019. Vous devez refaire une
+                    demande à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/demander_un_acces/
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                        à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/faq#comment-renouveler-mon-jeton-arrivant-a-expiration
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                    à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/faq#comment-renouveler-mon-jeton-arrivant-a-expiration
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '403':
+          description: Accès interdit
+          content:
+            application/json:
+              examples:
+                insufficient_privileges_error:
+                  value:
+                    errors:
+                    - code: '00100'
+                      title: Privilèges insuffisants
+                      detail: Votre token est valide mais vos privilèges sont insuffisants.
+                        Listez vos privilèges sur /v2/privileges
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Privilèges insuffisants
+                  description: Votre token est valide mais vos privilèges sont insuffisants.
+                    Listez vos privilèges sur /v2/privileges
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
+                  value:
+                    errors:
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
+                      source: 
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '200':
+          description: Successions trouvées
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          x-operationId: api_entreprise_v3_insee_successions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      predecesseurs:
+                        title: Établissements prédécesseurs
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            siret:
+                              title: Siret de l'établissement prédécesseur/successeur
+                              type: string
+                              example: '30613890001294'
+                              description: Siret de l'établissement prédécesseur ou
+                                successeur
+                            date_succession:
+                              title: Date de succession
+                              type: date
+                              example: '2021-10-15'
+                              description: Date de succession entre les établissements
+                            transfert_siege:
+                              title: Transfert de siège
+                              type: boolean
+                              example: true
+                              description: Indique si la succession est un transfert
+                                de siège.
+                            continuite_economique:
+                              title: Continuité économique
+                              type: boolean
+                              example: true
+                              description: Indique si la succession est une continuité
+                                économique.
+                      successeurs:
+                        title: Établissements successeurs
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            siret:
+                              title: Siret de l'établissement prédécesseur/successeur
+                              type: string
+                              example: '30613890001294'
+                              description: Siret de l'établissement prédécesseur ou
+                                successeur
+                            date_succession:
+                              title: Date de succession
+                              type: date
+                              example: '2021-10-15'
+                              description: Date de succession entre les établissements
+                            transfert_siege:
+                              title: Transfert de siège
+                              type: boolean
+                              example: true
+                              description: Indique si la succession est un transfert
+                                de siège.
+                            continuite_economique:
+                              title: Continuité économique
+                              type: boolean
+                              example: true
+                              description: Indique si la succession est une continuité
+                                économique.
+                    required:
+                    - predecesseurs
+                    - successeurs
+                    additionalProperties: false
+                  links:
+                    type: object
+                  meta:
+                    type: object
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          description: Non trouvée
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                unprocessable_entity_error_siret_error:
+                  value:
+                    errors:
+                    - code: '00302'
+                      title: Entité non traitable
+                      detail: Le numéro de siret n'est pas correctement formatté
+                      source:
+                        parameter: siret
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le numéro de siret n'est pas correctement formatté
+                missing_mandatory_params_context_error:
+                  value:
+                    errors:
+                    - code: '00201'
+                      title: Entité non traitable
+                      detail: Le paramètre context est obligatoire
+                      source:
+                        parameter: context
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre context est obligatoire
+                missing_mandatory_params_object_error:
+                  value:
+                    errors:
+                    - code: '00202'
+                      title: Entité non traitable
+                      detail: Le paramètre object est obligatoire
+                      source:
+                        parameter: object
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre object est obligatoire
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '502':
+          description: Erreur du fournisseur
+          content:
+            application/json:
+              examples:
+                unknown_error:
+                  value:
+                    errors:
+                    - code: '01999'
+                      title: Erreur inconnue du fournisseur de données
+                      detail: La réponse retournée par le fournisseur de données est
+                        invalide et inconnue de notre service. L'équipe technique
+                        a été notifiée de cette erreur pour investigation.
+                      source: 
+                      meta:
+                        provider: INSEE
+                  summary: Erreur inconnue du fournisseur de données
+                  description: La réponse retournée par le fournisseur de données
+                    est invalide et inconnue de notre service. L'équipe technique
+                    a été notifiée de cette erreur pour investigation.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '504':
+          description: Erreur d'intermédiaire
+          content:
+            application/json:
+              examples:
+                timeout_error:
+                  value:
+                    errors:
+                    - code: '01002'
+                      title: Intermédiaire hors-délai
+                      detail: Temps d’attente d’une réponse du fournisseur de données
+                        écoulé.
+                      source: 
+                      meta:
+                        provider: INSEE
+                  summary: Intermédiaire hors-délai
+                  description: Temps d’attente d’une réponse du fournisseur de données
+                    écoulé.
+                provider_unavailable_error:
+                  value:
+                    errors:
+                    - code: '01001'
+                      title: Service non disponible
+                      detail: Service du fournisseur de données temporairement indisponible
+                        ou en maintenance.
+                      source: 
+                      meta:
+                        provider: INSEE
+                  summary: Service non disponible
+                  description: Service du fournisseur de données temporairement indisponible
+                    ou en maintenance.
+                network_error:
+                  value:
+                    errors:
+                    - code: '00501'
+                      title: Erreur réseau
+                      detail: Problème de connexion au serveur distant. L'erreur peut
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
+                      source: 
+                      meta:
+                        retry_in: 10
+                  summary: Erreur réseau
+                  description: Problème de connexion au serveur distant. L'erreur
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
+                dns_resolution_error:
+                  value:
+                    errors:
+                    - code: '01004'
+                      title: Erreur de résolution DNS
+                      detail: Problème de résolution DNS de l'adresse du serveur
+                      source: 
+                      meta:
+                        provider: INSEE
+                  summary: Erreur de résolution DNS
+                  description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/insee/sirene/etablissements/13002526500013/successions?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/insee/sirene/unites_legales/{siren}":
     get:
       summary: Données unité légale
