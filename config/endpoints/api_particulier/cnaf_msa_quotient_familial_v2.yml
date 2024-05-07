@@ -33,7 +33,7 @@
       ⚠️ **Les informations obtenues sont représentatives de la situation connue par la CNAF et la MSA au moment de l'appel**, il est donc possible qu'un quotient familial appelé pour un mois donné à un instant T, soit différent s'il est redemandé à un instant T+. [En savoir plus](faq_entry_1_api_particulier_endpoint_cnav_quotient_familial_v2).
   data:
     description: |+
-      **Cette API délivre** : 
+      **Cette API délivre** :
       - **la composition familiale** du particulier, [en savoir plus](#faq_entry_answer_2_api_particulier_endpoint_cnav_quotient_familial_v2) ;
       - **le quotient familial CAF ou MSA** du particulier. Par défaut, le quotient familial du **mois en cours** est transmis. Le QF de l'allocataire est disponible pour les 24 mois précédents en précisant le mois et l'année dans l'appel.
 
@@ -53,8 +53,8 @@
       **Avec la [modalité d'appel FranceConnect](<%= cas_usage_path('modalite_appel_france_connect') %>)**.
 
       <p class="fr-badge fr-badge--brown-cafe-creme">Identité pivot</p>
-      **Avec les données d'identité** : 
-        
+      **Avec les données d'identité** :
+
         {:.fr-mb-0}
         - Nom, prénoms<sup>1</sup>, sexe<sup>\*</sup>, date de naissance de l'allocataire<sup>\**</sup>.
         - Lieu de naissance qui peut être renseigné de deux façons différentes :
@@ -108,34 +108,34 @@
     - q: Quelle est la composition familiale renvoyée par cette API ?
       a: |+
         La notion de «&nbsp;composition familiale&nbsp;» peut correspondre à différentes définitions dans les administrations qui n'y comptent pas les mêmes personnes. _Par exemple, pour calculer l'impôt sur le revenu d'un foyer, le service des impôts s'intéresse à une composition familiale appelée «&nbsp;foyer fiscal&nbsp;»_, et dont la nature est différente de celle renvoyée par cette API.
-        
-        **La composition familiale renvoyée par cette API correspond à celle établie pour effectuer le calcul du quotient familial, et donc à celle déclarée par les allocataires à la CAF et à la MSA.** 
-        Dans cette composition familiale, les personnes suivantes sont comprises : 
+
+        **La composition familiale renvoyée par cette API correspond à celle établie pour effectuer le calcul du quotient familial, et donc à celle déclarée par les allocataires à la CAF et à la MSA.**
+        Dans cette composition familiale, les personnes suivantes sont comprises :
         - L'adulte allocataire de la CAF ou de la MSA ;
         - Son ou sa conjointe le cas échéant ;
-        - le ou les enfants dont la responsabilité affective et éducative, les frais liés au logement, à la nourriture et à l'éducation, sont assumés par l'allocataire qui n'est pas obligé d'avoir un lien de parenté direct. Les enfants sont pris en compte dès la grossesse, jusqu'à 21 ans en métropole (22 dans les DROM) et sous les conditions détaillées dans [ce guide de la Caf](https://www.caf.fr/allocataires/aides-et-demarches/thematique-libre/les-enfants-charge){:target="_blank"}. 
-        
+        - le ou les enfants dont la responsabilité affective et éducative, les frais liés au logement, à la nourriture et à l'éducation, sont assumés par l'allocataire qui n'est pas obligé d'avoir un lien de parenté direct. Les enfants sont pris en compte dès la grossesse, jusqu'à 21 ans en métropole (22 dans les DROM) et sous les conditions détaillées dans [ce guide de la Caf](https://www.caf.fr/allocataires/aides-et-demarches/thematique-libre/les-enfants-charge){:target="_blank"}.
+
         {:.fr-highlight.fr-highlight--example}
-        > **Cette notion d'enfant à charge est différente de celle retenue par l'administration fiscale** : par exemple, un enfant peut être toujours rattaché fiscalement à ses parents, mais ne plus faire partie de la composition familiale au sens de la CAF ou de la MSA. 
+        > **Cette notion d'enfant à charge est différente de celle retenue par l'administration fiscale** : par exemple, un enfant peut être toujours rattaché fiscalement à ses parents, mais ne plus faire partie de la composition familiale au sens de la CAF ou de la MSA.
         > C'est le cas d'un enfant ayant quitté le foyer de ses parents et ayant ouvert son propre dossier d'allocataire pour bénéficier d'une aide (par exemple les APL ou le RSA), mais qui souhaite tout de même être rattaché à la déclaration fiscale de ses parents.
         > _Cet enfant appartiendra au même foyer fiscal que ses parents au sens de l'administration fiscale, mais à une famille différente selon la CAF ou la MSA._
 
 
-        **Pour chacune des personnes de cette «&nbsp;famille&nbsp;» au sens de la CAF ou de la MSA**, cette API renvoie les informations suivantes : 
-        - Nom d'usage ; 
-        - Prénoms ; 
+        **Pour chacune des personnes de cette «&nbsp;famille&nbsp;» au sens de la CAF ou de la MSA**, cette API renvoie les informations suivantes :
+        - Nom d'usage ;
+        - Prénoms ;
         - Jour, mois et année de naissance ;
         - Sexe.
     - q: <a name="renseigner-lieu-de-naissance"></a> Appel avec l'identité pivot, comment renseigner le lieu de naissance ?
       a: |+
        Lorsque l'API est appelée avec l'identité pivot, pour identifier correctement le particulier, le système d'information a besoin de récupérer le code COG du lieu de naissance de l'usager.
-       
+
        La déduction du code COG peut être obtenue via deux options différentes :
-        
+
         **Option 1 : L'API est appelée avec le code COG lui-même**
 
         Cette option est à privilégier car elle couvre l'ensemble des usagers, y compris ceux nés à l'étranger et ceux nés dans un pays étranger autrefois rattaché à la France.
-        
+
         Toutefois, cette option nécessite de disposer du code COG de la commune ou du pays de naissance. Pour aider les usagers à renseigner leur code COG, consultez la publication suivante :
 
         {:.fr-icon-arrow-right-line .fr-link--icon-right}
@@ -143,7 +143,7 @@
 
         **Option 2 : L'API est appelée avec le nom de la commune de naissance et code* du département de naissance**
 
-        Cette option à pour objectif de faciliter vos développements, mais elle n'est pas exhaustive puisque les usagers nés à l'étranger ne pourront pas être identifiés. 
+        Cette option à pour objectif de faciliter vos développements, mais elle n'est pas exhaustive puisque les usagers nés à l'étranger ne pourront pas être identifiés.
 
         Avec cette option, vous pouvez appeler l'API avec le nom de la commune de naissance et le code du département de naissance. La date de naissance est obligatoire car c'est elle qui permettra à l'API de faire la correspondance avec le bon code COG.
 
