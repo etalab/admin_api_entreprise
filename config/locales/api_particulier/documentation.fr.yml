@@ -306,6 +306,34 @@ fr:
                   3. Si vous rencontrez un problème et avez besoin d'échanger avec nous en transmettant des données sensibles, utilisez le [formulaire de transfert d'informations sécurisées (Démarches simplifiées)](https://www.demarches-simplifiees.fr/commencer/api-particulier-transfert-securise-d-informations){:target="_blank"}. 
                   Si vous n'avez pas de réponse sous 72h, n'hésitez pas à nous envoyer votre numéro de demande Démarches simplifiées à l'adresse [api-particulier@api.gouv.fr](mailto:api-particulier@api.gouv.fr).
 
+          - anchor: 'gestion-du-cache'
+            title: Gestion du cache
+            subesctions:
+              - title: Fonctionnement du cache
+                anchor: 'fonctionnement-du-cache'
+                content: |+
+                  L'implémentation du cache suit les normes standard sur l'ensemble des apis via l'utilisation headers spécifiques : 
+
+                  1. Dans toutes les réponses de nos APIs, l'entête vous transmet des informations sur le cache&nbsp;:
+
+                  {:.fr-table}
+                  | Champs du header    |   Signification    |     Format           |
+                  |:------------------------------|:------------------|:------------:|
+                  | `X-Response-Cached` |Indique si la réponse a été caché. | Booléen|
+                  | `X-Cache-Expires-in` | Nombre de secondes avant que le cache n'expire. Si le cache est vide, cet entête est vide (mais présent). La validité du cache est variable selon l'API, veuillez vous référer à l'API en question pour plus de détail | Nombre |
+
+                  2. Il est possible de forcer un appel sans utiliser le cache
+
+                  {:.fr-table}
+                  | Champs du header    |   Signification    |     Format           |
+                  |:------------------------------|:------------------|
+                  | `Cache-Control` | Si cette valeur est fixée à "no-cache", le système de cache est alors ignoré et la donnée est directement récupérée depuis le fournisseur de données. |
+              - title: Est ce que toutes les APIs ont du cache ?
+                anchor: est-ce-que-toutes-les-api-ont-du-cache
+                content: |+
+                  Non, l'activation et la durée du cache est fonction de l'API et dépend de la fréquence de rafraichissement de la données chez le fournisseur. Pour plus d'informations, veuillez vous référer à la documentation de l'API en question.
+
+
           - anchor: 'prolongation-du-jwt'
             title: Prolongation de la durée de vie du JWT&nbsp;🔑
             content: >-
