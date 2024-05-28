@@ -50,7 +50,7 @@ class AbstractFAQEntry < ApplicationAlgoliaSearchableActiveModel
   end
 
   def initialize(params = {})
-    super(params)
+    super
 
     @slug = params[:question].parameterize
   end

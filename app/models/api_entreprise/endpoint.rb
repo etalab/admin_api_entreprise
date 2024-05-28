@@ -7,7 +7,7 @@ class APIEntreprise::Endpoint < AbstractEndpoint
     :opening
 
   def initialize(params)
-    super(params)
+    super
     load_dummy_definition! if open_api_definition.blank? || response_schema.blank? || force_dummy_load?
   end
 
