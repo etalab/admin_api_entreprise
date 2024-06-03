@@ -59,9 +59,9 @@
       **Avec les données d'identité** :
 
         {:.fr-mb-0}
-        - Nom de naissance, nom d'usage, prénoms<sup>1</sup>, sexe<sup>\*</sup>, date de naissance de l'allocataire<sup>\**</sup>.
-        - Lieu de naissance qui peut être renseigné de deux façons différentes :
-            - {:.fr-text--sm .fr-mb-0} Option 1 : Code COG* de la commune de naissance si le lieu de naissance est en France ou du pays de naissance pour les personnes nées à l'étranger. [En savoir plus](#renseigner-lieu-de-naissance) ;
+        - Nom de naissance<sup>\*</sup>, nom d'usage, prénoms<sup>1</sup>, sexe<sup>\*</sup>, date de naissance de l'allocataire<sup>\**</sup>, code COG du pays de naissance<sup>\*</sup>.
+        - La commune de naissance qui peut être renseignée de deux façons différentes :
+            - {:.fr-text--sm .fr-mb-0} Option 1 : Code COG* de la commune de naissance si le lieu de naissance est en France. [En savoir plus](#renseigner-lieu-de-naissance) ;
             - {:.fr-text--sm .fr-mb-0} Option 2 : Nom* de la commune de naissance et code* du département de naissance*. Pour cette option, la date de naissance est obligatoire. [En savoir plus](#renseigner-lieu-de-naissance).
 
       <span class="fr-text--xs">
@@ -72,7 +72,7 @@
       </span>
 
       {:.fr-highlight.fr-highlight--caution}
-      > ⚠️ **Message API Particulier du 17.05.2024** : Nous constatons actuellement que les appels effectués sans nom de naissance et **avec le nom d'usage ne fonctionnent pas**. Nous sommes en train d'investiguer ce sujet avec l'opérateur de l'API source, la CNAV. En attendant, nous recommandons de renseigner le nom de naissance dans les paramètres d'appel.
+      > ⚠️ **Message API Particulier du 05.06.2024** : Nous avons constaté que les appels effectués sans nom de naissance et **avec le nom d'usage ne fonctionnent pas**. **Le nom de naissance est donc devenu un champ obligatoire**.
   provider_uids:
     - 'cnav'
   parameters:
