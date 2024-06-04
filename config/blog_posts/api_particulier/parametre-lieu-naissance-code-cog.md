@@ -5,7 +5,7 @@ Mercredi 8 novembre 2023 - Publication
 
 {:.fr-highlight}
 **Qu'est que le code COG ?**
-Le code COG (Code Officiel Géographique) est un code permettant de repérer notamment les communes et les territoires étrangers. Ce code est différent du code postal et peut évoluer dans le temps. C'est pourquoi, le code COG demandé pour identifier un particulier est le **code COG de naissance** de la commune de naissance ou du pays de naissance si le particulier est né à l'étranger.
+Le code COG (Code Officiel Géographique) est un code permettant de repérer notamment les communes et les territoires étrangers. Ce code est différent du code postal et peut évoluer dans le temps. C'est pourquoi, le code COG demandé pour identifier un particulier est le **code COG du pays de naissance et de la commune de naissance si le particulier est né à en France**.
 *Pour en savoir plus : [Code COG - Insee.fr](https://www.insee.fr/fr/information/2560452){:target="_blank"} et [Codification des pays et territoires étrangers - Insee.fr](https://www.insee.fr/fr/information/2028273){:target="_blank"}*.
 
 <nav class="fr-summary" role="navigation" aria-labelledby="fr-summary-title">
@@ -35,8 +35,12 @@ Contrairement aux personnes gravitant dans la sphère administrative, **les usag
 
 **Pourtant, une majorité des API du bouquet API Particulier nécessitent la saisie du code COG en paramètre d'appel pour identifier le particulier** :
 
-- [API Quotient familial CAF & MSA](https://particulier.api.gouv.fr/catalogue/cnav/quotient_familial_v2#parameters_details) - _Code COG obligatoire_
-- [API Complémentaire Santé solidaire](https://particulier.api.gouv.fr/catalogue/cnav/complementaire_sante_solidaire#parameters_details) - _Code COG obligatoire_
+- [API Quotient familial CAF & MSA](https://particulier.api.gouv.fr/catalogue/cnav/quotient_familial_v2#parameters_details) - _Code COG pays obligatoire & Code COG commune obligatoire si né en France_
+- [API Statut revenu de solidarité active](https://particulier.api.gouv.fr/catalogue/cnav/revenu_solidarite_active#parameters_details) - _Code COG pays obligatoire & Code COG commune obligatoire si né en France_
+- [API Statut prime d'activité](https://particulier.api.gouv.fr/catalogue/cnav/prime_activite#parameters_details) - _Code COG pays obligatoire & Code COG commune obligatoire si né en France_
+- [API Statut allocation_adulte_handicape](https://particulier.api.gouv.fr/catalogue/cnav/allocation_adulte_handicape#parameters_details) - _Code COG pays obligatoire & Code COG commune obligatoire si né en France_
+- [API Statut allocation de soutien familial](https://particulier.api.gouv.fr/catalogue/cnav/allocation_soutien_familial#parameters_details) - _Code COG pays obligatoire & Code COG commune obligatoire si né en France_
+- [API Statut complémentaire Santé solidaire](https://particulier.api.gouv.fr/catalogue/cnav/complementaire_sante_solidaire#parameters_details) - _Code COG pays obligatoire & Code COG commune obligatoire si né en France_
 - [API Statut étudiant](https://particulier.api.gouv.fr/catalogue/mesri/statut_etudiant#parameters_details) - _Code COG facultatif_
 
 L'utilisation du code COG comme référence pour appeler les API est peu susceptible d'évoluer. En intégrant ces API dans vos démarches, il est donc nécessaire de bien concevoir le parcours d'un usager ne passant pas par FranceConnect afin que la saisie de son code COG de naissance ne pose pas de problème.
@@ -85,6 +89,7 @@ Le parcours 1 propose donc de s'appuyer sur le numéro de sécurité sociale pou
 > 💡 **Caractéristiques** :
 > - Proposer un champ "Code COG de votre lieu de naissance" et montrer un exemple du format attendu.
 > - Rendre accessible, à côté du champ de saisie, un tutoriel pour que l'usager retrouve son code COG.
+> - Dans le cas d'un particulier né en France et pour appeler les API de CAF&MSA, veillez à bien paramètrer en plus le code COG de la France `99100`, car le paramètre du code COG pays est obligatoire pour appeler les API. Vous n'avez pas besoin de demander à l'usager s'il est né en France et encore moins ce code COG pays, car vous pouvez le déduire à partir du code COG de la commune qu'il aura renseigné. Si celui-ci ne débute pas par `99`, cela signifie qu'il a renseigné le code COG d'une commune française et donc vous pouvez renseigner automatiquement le paramètre code COG pays avec `99100`.
 
 
 <div class="fr-container--fluid">
@@ -108,8 +113,8 @@ Le parcours 1 propose donc de s'appuyer sur le numéro de sécurité sociale pou
   **Comment retrouver mon code COG ?**
 
   Le code COG de votre lieu de naissance est un identifiant géographique administratif. ⚠️ Ce code est différent du code postal.
-  - **Si vous êtes né en France**, les deux premiers chiffres correspondent à votre département de naissance. Les trois suivants codifient votre commune de naissance.
-  - **Si vous êtes né à l’étranger**, les deux premiers chiffres sont 99, les trois suivants codifient votre pays de naissance.
+  - **Si vous êtes né en France**, il s'agit du code COG de votre commune de naissance&nbsp;: les deux premiers chiffres correspondent à votre département de naissance. Les trois suivants codifient votre commune de naissance.
+  - **Si vous êtes né à l’étranger**, il s'agit du code COG de votre pays de naissance&nbsp;: les deux premiers chiffres sont 99, les trois suivants codifient votre pays de naissance.
 
   **À partir de votre numéro de sécurité sociale, sur votre carte Vitale :**
   Votre code COG de naissance correspond aux 6, 7, 8, 9 et 10ème chiffres de votre numéro de sécurité sociale. Exemple : Pour ce numéro de sécurité sociale fictif 1 85 05 78 006 084 36,  le code COG est 78 006.
@@ -149,7 +154,7 @@ Dans cette seconde option, le renseignement du code COG pour appeler l'API est t
 
 {:.fr-highlight}
 > **💡 Caractéristiques** :
-> - **Retrouver le code COG en arrière-plan, à partir des informations saisies par l'usager** : une fois que l'année et le lieu de naissance ont été complétés par l'usager et que celui-ci clique pour passer à l'étape suivante, les informations obtenues (*nom de la commune* & *code département de naissance* ou *pays de naissance* ; *année de naissance*) sont traitées en arrière-plan pour être converties en code COG.
+> - **Retrouver les codes COG en arrière-plan, à partir des informations saisies par l'usager** : une fois que l'année et le lieu de naissance ont été complétés par l'usager et que celui-ci clique pour passer à l'étape suivante, les informations obtenues (*nom de la commune* & *code département de naissance* ou *pays de naissance* ; *année de naissance*) sont traitées en arrière-plan pour être converties en code COG. Pour les API CAF & MSA, dans le cas d'un particulier né en France, veillez à bien ajouter en paramètre d'appel de l'API le code COG de la France `99100`, car le paramètre du code COG pays est obligatoire.
 > - **Rendre l'année de naissance obligatoire**, car elle est indispensable pour retrouver le code COG. En revanche, le jour et le mois de naissance restent facultatifs.
 > - **Séparer les champs "lieu de naissance" des particuliers nés en France et ceux nés à l'étranger**. En effet, un champ commun risque de mettre en difficulté les usagers nés à l'étranger qui vont peut-être saisir leur commune de naissance à l'étranger. L'auto-compléteur ne pourra pas gérer une telle complexité.
 > - **Proposer un auto-compléteur**, pour permettre à l'usager de saisir son code postal ou sa commune en toutes lettres. Afficher systématiquement le code postal, le nom de la commune et le département pour s'assurer que l'usager sélectionnera la bonne commune de naissance.
