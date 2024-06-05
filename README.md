@@ -6,7 +6,7 @@
 
 ## Requirements
 
-- ruby 3.3.0
+- ruby 3.3.2
 - redis-server >= 6
 - postgresql >= 9
 - Node.js >= 6 pour mjml
@@ -235,20 +235,20 @@ produits pour itérer sur le site (que ce soit en terme de contenu ou fonctionne
   - [Ajout d'un nouvel endpoint dans le catalogue](docs/endpoint.md)
   - [Proposer des modifications de la doc](config/locales)
 
-## Les mails transactionnels 
-Les templates de mails transactionnels sont disponibles ici : 
+## Les mails transactionnels
+Les templates de mails transactionnels sont disponibles ici :
 
-**API Entreprise :** 
+**API Entreprise :**
 - Mails de demande d'accès : [./api_entreprise/authorization_request_mailer](https://github.com/etalab/admin_api_entreprise/tree/develop/app/views/api_entreprise/authorization_request_mailer)
 - Mail de prolongement des jetons : [./api_entreprise/token_mailer](https://github.com/etalab/admin_api_entreprise/tree/develop/app/views/api_entreprise/token_mailer)
-- Mails de transfert d'habilitation : 
+- Mails de transfert d'habilitation :
 [./api_entreprise/user_mailer](https://github.com/etalab/admin_api_entreprise/tree/develop/app/views/api_entreprise/user_mailer)
 
 **API Particulier :**
-- Mails de demande d'accès : 
+- Mails de demande d'accès :
 [./api_particulier/authorization_request_mailer](https://github.com/etalab/admin_api_entreprise/tree/develop/app/views/api_particulier/authorization_request_mailer)
 - Mail de prolongement des jetons : [./api_particulier/token_mailer](https://github.com/etalab/admin_api_entreprise/tree/develop/app/views/api_particulier/token_mailer)
-- Mails de transfert d'habilitation : 
+- Mails de transfert d'habilitation :
 _En attente_
 
 Une grande partie des contenus écrits est ici : [./config/locales/mailers.fr.yml](https://github.com/etalab/admin_api_entreprise/blob/develop/config/locales/mailers.fr.yml)
