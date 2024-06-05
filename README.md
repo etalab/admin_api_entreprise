@@ -236,6 +236,7 @@ produits pour itérer sur le site (que ce soit en terme de contenu ou fonctionne
   - [Proposer des modifications de la doc](config/locales)
 
 ## Les mails transactionnels 
+
 Les templates de mails transactionnels sont disponibles ici : 
 
 **API Entreprise :** 
