@@ -15,7 +15,7 @@ RSpec.describe ExternalUrlHelper, type: :helper do
 
     describe '#datapass_reopen_authorization_request_url' do
       it 'returns the DataPass\' authorization request URL with highlight sections' do
-        expect(datapass_reopen_authorization_request_url(authorization_request, prolong_token_wizard)).to include("datapass.api.gouv.fr/reopen-enrollment-request/#{external_id}?highlightedSections=description,contact_metier,contact_technique")
+        expect(datapass_reopen_authorization_request_url(authorization_request, prolong_token_wizard)).to include("datapass.api.gouv.fr/reopen-enrollment-request-api_#{authorization_request.api}/#{external_id}?highlightedSections=description,contact_metier,contact_technique")
       end
     end
   end
