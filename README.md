@@ -149,26 +149,14 @@ Le résultat de la recherche est donc toujours le même (et constitué des fauss
 
 ## Déploiements
 
-Effectuer la commande suivante pour déployer en production:
-
 ```sh
-./bin/deploy
+./bin/deploy [env] [branch]
 ```
 
-Dans le cas d'un test sur sandbox sur la machine frontale avec la branche `features/whatever`
+`env` est par défaut à `production`, et accepte uniquement `sandbox`, `staging`
+et `production`
+`branch` est pris en compte uniquement si `env` est `sandbox`
 
-```sh
-./bin/deploy-sandbox features/whatever
-```
-
-Si vous voulez déployer sur une machine spécifique pour un environnement
-spécifique
-
-Par exemple watchdoge1, en staging:
-
-```sh
-ssh -A watchdoge1 -- /usr/local/bin/rails_deploy_admin_apientreprise_staging.sh features/whatever
-```
 
 ## Ajout de credentials via rails:credentials
 
