@@ -101,6 +101,8 @@ group :development do
   gem 'rubocop', require: false
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
+  gem 'rubocop-capybara'
+  gem 'rubocop-factory_bot'
 
   gem 'better_errors'
   gem 'binding_of_caller'
