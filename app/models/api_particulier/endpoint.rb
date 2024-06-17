@@ -1,4 +1,7 @@
 class APIParticulier::Endpoint < AbstractEndpoint
+  attr_accessor :call_id,
+    :opening
+
   def description
     "#{super.split('.').first}."
   end

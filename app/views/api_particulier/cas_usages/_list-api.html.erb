@@ -1,0 +1,44 @@
+<div id="table-api" class="fr-table fr-table--no-caption">
+  <table style="height:450px">
+  <caption>Liste des données utiles pour le cas d'usage <%= @cas_usage.name %></caption>
+    <thead>
+      <tr>
+        <th scope="col"><%= t('.col_endpoint') %></th>
+        <th scope="col"><%= t('.col_useful').html_safe %></th>
+        <th scope="col"><%= t('.col_opening') %></th>
+        <th scope="col"><%= t('.col_call_id') %></th>
+        <th scope="col"><%= t('.col_comments') %></th>
+        <th scope="col"><%= t('.col_links') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @active_endpoints.each do |endpoint| %>
+        <tr id="<%= endpoint.uid %>">
+          <td style="vertical-align:initial">
+            <strong><%= endpoint.providers.map(&:name).join(' & ') %></strong><br>
+            <%= endpoint.title %><br>
+            <%= endpoint_status_badge(endpoint) %>
+          </td>
+          <td style="vertical-align:initial">
+            <%= h(endpoint.cas_usage_icon(@cas_usage).html_safe) %>
+          </td>
+          <td style="vertical-align:initial">
+            <%= icon(t("api_particulier.endpoint.opening.#{endpoint.opening}.icon", raise: true)) rescue nil %>
+            <%= t("api_particulier.endpoint.opening.#{endpoint.opening}.name") %>
+          </td>
+          <td style="vertical-align:initial">
+            <%= icon (t("api_particulier.endpoint.call_id.#{endpoint.call_id}.icon", raise: true)) rescue nil %>
+            <%= t("api_particulier.endpoint.call_id.#{endpoint.call_id}") %>
+          </td style="vertical-align:initial">
+          <td style="vertical-align:initial">
+            <%= markdown_to_html(@cas_usage.comments_endpoints.try(:[], endpoint.uid.to_sym)) %>
+          </td>
+          <td style="vertical-align:baseline">
+            <%= link_to t('.documentation'), "#{endpoints_path}/#{endpoint.uid}" %><br/>
+            <%= link_to t('.swagger'), "#{developers_openapi_path}##{endpoint.redoc_anchor}" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
