@@ -10,7 +10,7 @@ RSpec.describe 'Cas usages pages', app: :api_particulier do
   end
 
   describe 'show' do
-    it 'does not raise error and' do
+    it 'does not raise error' do
       APIParticulier::CasUsage.all.each do |cas_usage|
         visit api_particulier_cas_usage_path(uid: cas_usage.uid)
 
