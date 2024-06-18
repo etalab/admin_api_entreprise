@@ -26,24 +26,6 @@ RSpec.describe DatapassWebhook::ExtractMailjetVariables, type: :interactor do
     expect(subject.mailjet_variables['token_scopes']).to be_nil
   end
 
-  context 'when event is from an instructor' do
-    let(:event) { %w[refuse_application refuse].sample }
-
-    it 'sets instructor first and last name' do
-      expect(subject.mailjet_variables['instructor_first_name']).to eq('Instructor first name')
-      expect(subject.mailjet_variables['instructor_last_name']).to eq('Instructor last name')
-    end
-  end
-
-  context 'when event is not from an instructor' do
-    let(:event) { %w[created create].sample }
-
-    it 'does not set instructor first and last name' do
-      expect(subject.mailjet_variables['instructor_first_name']).to be_nil
-      expect(subject.mailjet_variables['instructor_last_name']).to be_nil
-    end
-  end
-
   context 'when authorization request has a token' do
     let!(:token) { create(:token, authorization_request:) }
 

@@ -2,7 +2,6 @@ class DatapassWebhook::ExtractMailjetVariables < ApplicationInteractor
   def call
     context.mailjet_variables = build_common_mailjet_variables
 
-    add_instructors_variables if event_from_instructor?
     add_token_scopes if token_present?
   end
 
@@ -32,19 +31,6 @@ class DatapassWebhook::ExtractMailjetVariables < ApplicationInteractor
       "#{contact_kind}_last_name" => model.last_name,
       "#{contact_kind}_email" => model.email
     }
-  end
-
-  def add_instructors_variables
-    instructor_payload = latest_authorization_request_event['user']
-
-    context.mailjet_variables['instructor_first_name'] = instructor_payload['given_name']
-    context.mailjet_variables['instructor_last_name'] = instructor_payload['family_name']
-  end
-
-  def latest_authorization_request_event
-    context.data['pass']['events'].min do |event1, event2|
-      DateTime.parse(event2['created_at']).to_i <=> DateTime.parse(event1['created_at']).to_i
-    end
   end
 
   def event_from_instructor?
