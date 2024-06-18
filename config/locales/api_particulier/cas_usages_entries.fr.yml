@@ -40,7 +40,7 @@ fr:
             Collectivitiés, API Particulier permet de récupérer directement les certificats de scolarité des élèves et étudiants ; ainsi que les justificatifs de bourse et leur quotient familial CAF/MSA.
 
             <span class="fr-accordion__title">
-                <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106">Qu'est-ce que les aides facultatives à la scolarité ?</button>
+                <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106"><span class="fr-icon-questionnaire-fill fr-mr-1w" aria-hidden="true"></span>Qu'est-ce que les aides facultatives à la scolarité ?</button>
             </span>
             <div class="fr-collapse" id="accordion-106">
               <p>Les communes, départements et régions ont mis en place des aides sociales pour aider les familles à financer la scolarité des enfants ou des étudiants.
@@ -83,13 +83,49 @@ fr:
 
             {:.fr-highlight.fr-highlight--caution}
             Lors de votre demande d'habilitation, **vous vous engagez à ne demander que les données strictement nécessaires** à la réalisation de la démarche administrative. Consulter [nos conditions générales d'utilisation](<%= cgu_path %>){:target="_blank"}.
-        users:
+        users: 
           title: Ils utilisent l’API Particulier
           anchor: 'users'
           content: |+
-            des gens
+            <figure class="fr-quote--column ">
+            {:.fr-quote}
+            >
+            > <blockquote>«&nbsp;Nous utilisons l'API Particulier pour délivrer des bourses aux collégiens. Cette aide est soumise à un barème dépendant des ressources de la famille. L'API Particulier est utilisée actuellement pour récupérer le quotient familial CAF et la composition de la famille.&nbsp;»
+            > </blockquote>
+            >
+            > <figcaption>
+            > Département de la Drôme - Bourse départementale des collèges
+            > {:.fr-quote__author}
+            >
+            > [Lire la suite du témoignage](https://www.ladrome.fr/mon-quotidien/education/le-departement-aide){:target="_blank"}
+            > {:.fr-quote__source}
+            >
+            > {:.fr-quote__image}
+            >  ![Logo de la drôme](<%= image_path('api_particulier/cas_usages/images/logo-dep-drome.png') %>){:width="100px"}
+            > </figcaption>
+            >
+            </figure>
+
+            <figure class="fr-quote--column ">
+            {:.fr-quote}
+            >
+            > <blockquote>«&nbsp;Nous utilisons l'API Particulier pour connaître le quotient familial d'un étudiant ou de ses parents (s'il en est dépendant fiscalement) afin de vérifier l'éligibilité de sa demande de prêt.&nbsp;»
+            > </blockquote>
+            >
+            > <figcaption>
+            > Département de la Haute-Savoie - Délivrer des prêts étudiants
+            > {:.fr-quote__author}
+            >
+            > [Lire la suite du témoignage](https://actu.hautesavoie.fr/explorez-actu/le-pret-etudiant-il-est-encore-temps){:target="_blank"}
+            > {:.fr-quote__source}
+            >
+            > {:.fr-quote__image}
+            >  ![Logo de la Haute Savoie](<%= image_path('api_particulier/cas_usages/images/logo-dep-haute-savoie.png') %>){:width="100px"}
+            > </figcaption>
+            >
+            </figure>
         request_access:
-          link_datapass: "<%= datapass_base_url %>/api-entreprise?demarche=marches_publics"
+          link_datapass: "<%= datapass_base_url %>/api-particulier?demarche=aides_scolarite"
       cantines-colleges-lycees-tarification:
         user_types:
           - régions
