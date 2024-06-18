@@ -1,4 +1,4 @@
-class API::DatapassWebhooksController < APIController
+class API::DatapassWebhooksV2Controller < APIController
   include DatapassWebhooks
 
   protected
@@ -7,16 +7,17 @@ class API::DatapassWebhooksController < APIController
     params.permit(
       :event,
       :model_type,
+      :model_id,
       :fired_at,
       data: {}
     ).to_h.symbolize_keys
   end
 
   def datapass_id
-    params[:data][:pass][:id]
+    params[:model_id]
   end
 
   def extract_organizer(kind)
-    DatapassWebhook.const_get(kind.classify)
+    DatapassWebhook::V2.const_get(kind.classify)
   end
 end

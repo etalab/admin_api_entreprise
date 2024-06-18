@@ -2,6 +2,8 @@ constraints(APIEntrepriseDomainConstraint.new) do
   namespace :api do
     post '/datapass/api_entreprise/webhook' => 'datapass_webhooks#api_entreprise'
     post '/datapass/api_particulier/webhook' => 'datapass_webhooks#api_particulier'
+
+    post '/datapass/v2/api_entreprise/webhook' => 'datapass_webhooks_v2#api_entreprise'
   end
 
   post '/auth/api_gouv_entreprise', as: :login_api_gouv_entreprise
