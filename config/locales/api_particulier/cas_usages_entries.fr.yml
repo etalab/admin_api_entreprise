@@ -13,24 +13,55 @@ fr:
           - mesri/statut_etudiant
         endpoints_optional:
         endpoints_forbidden:
+          - pole_emploi/situation
+          - pole_emploi/indemnites
+          - cnav/prime_activite
+          - cnav/revenu_solidarite_active
+          - cnav/complementaire_sante_solidaire
+          - cnav/allocation_adulte_handicape
+          - cnav/allocation_soutien_familial
         introduction:
-          title: Collectivités, simplifiez l'attribution des aides facultatives pour les élèves et étudiants
+          title: Simplifiez l'attribution d'aides facultatives aux élèves et étudiants !
           content: |
             {:.fr-text--lead}
-            Intégrez l'API Particulier pour récupérer directement les certificats de scolarité des élèves et/ou carte d'étudiant ; les justificatifs de bourse et les justificatifs de revenus.
-        link_api_gouv: "https://api.gouv.fr/guides/aides-facultatives-scolarite"
+            Collectivitiés, API Particulier permet de récupérer directement les certificats de scolarité des élèves et étudiants ; ainsi que les justificatifs de bourse et leur quotient familial CAF/MSA.
         role:
-          title: Aide scolarité
-          anchor: 'aide_scolarité'
+          title: Une simplification des démarches
+          anchor: 'simplification-des-demarches'
           content: |+
-            El famoso description de l'aide à la scolarité
+             {:.fr-text--lg}
+              Collectivités, en intégrant la brique API Particulier dans vos formulaires en ligne et votre système d'information&nbsp;:
+
+              - 🗄 **Vous accédez facilement aux données administratives des élèves et des étudiants** des ministères de l'éducation nationale et l'enseignement supérieur, du Cnous, de la CAF, de la MSA... ;
+
+              - 😃 **Pour instruire les dossiers, il n'est plus nécessaire de collecter** :
+                - les certificats de scolarité des élèves et/ou carte d'étudiant ;
+                - les justificatifs de bourse ;
+                - l'attestation quotient familial de la CAF ou de la MSA.
+
+              - ⏰ **Vous accélérez ou même automatisez l'instruction** car vos agents instructeurs n'ont plus à vérifier les pièces justificatives fournies, les informations obtenues de l'API Particulier étant certifiées 🔎 ;
+
+              - 🎢 **Vous augmentez le pourcentage des démarches finalisées** et participez ainsi à la réduction du non-recours car vous faîtes gagner du temps à l'usager ;
+
+              - 🎯 **Enfin, vous participez à la simplification des démarches pour les citoyens** en mettant en oeuvre le [«&nbsp;Dites-le-nous une fois&nbsp;»](https://www.numerique.gouv.fr/services/guichet-dites-le-nous-une-fois/){:target="_blank"}, en application de l' l'[article L114-8 du Code des relations entre le public et l’administration.](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000045213315){:target="_blank"}.
         use_case_examples:
           title: null
           anchor: null
           content: null
         list_api:
           content: |+
-            ultra list api content
+            "cnav/quotient_familial_v2" : "Permet de récupérer le quotient familial CAF ou MSA, ainsi que les données d'identité de membres de la famille."
+            "cnaf/quotient_familial" : ""
+            "cnous/statut_etudiant_boursier" : "Indique si l'étudiant est boursier et donne l'échelon de sa bourse."
+            "education_nationale/statut_eleve_scolarise" : "Indique si l'élève est scolarisé au primaire, collège ou lycée. Précise si l'élève est boursier et donne l'échelon de sa bourse."
+            "mesri/statut_etudiant" : "Indique si un étiduant est inscrit dans un établissement."
+            "pole_emploi/situation" : ""
+            "pole_emploi/indemnites" : ""
+            "cnav/prime_activite" : ""
+            "cnav/revenu_solidarite_active" : ""
+            "cnav/complementaire_sante_solidaire" : ""
+            "cnav/allocation_adulte_handicape" : ""
+            "cnav/allocation_soutien_familial" : ""
         users:
           title: Ils utilisent l’API Particulier
           anchor: 'users'
