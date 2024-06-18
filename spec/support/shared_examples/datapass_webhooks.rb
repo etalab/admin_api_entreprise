@@ -1,4 +1,4 @@
-RSpec.shared_examples 'datapass webhooks' do
+RSpec.shared_examples 'datapass webhooks' do |version|
   it { is_expected.to be_a_success }
 
   it 'creates one demandeur' do
@@ -17,14 +17,22 @@ RSpec.shared_examples 'datapass webhooks' do
     expect { subject }.to change(Token, :count).by(1)
   end
 
-  describe 'when demandeur, contact technique and contact metier are the same' do
+  describe 'when all contacts are the same' do
     let(:email) { generate(:email) }
 
     before do
-      datapass_webhook_params['data']['pass']['team_members'].map do |team_member_json|
-        team_member_json['family_name'] = 'Dupont'
-        team_member_json['given_name'] = 'Jean'
-        team_member_json['email'] = email
+      if version == 'v2'
+        %w[contact_metier contact_technique].each do |role|
+          %w[family_name given_name email].each do |attribute|
+            datapass_webhook_params['data']['data']["#{role}_#{attribute}"] = datapass_webhook_params['data']['applicant'][attribute]
+          end
+        end
+      else
+        datapass_webhook_params['data']['pass']['team_members'].map do |team_member_json|
+          team_member_json['family_name'] = 'Dupont'
+          team_member_json['given_name'] = 'Jean'
+          team_member_json['email'] = email
+        end
       end
     end
 
@@ -37,12 +45,18 @@ RSpec.shared_examples 'datapass webhooks' do
 
   describe 'when contact metier is empty (non-regression test)' do
     before do
-      datapass_webhook_params['data']['pass']['team_members'].each do |team_member_json|
-        next unless team_member_json['type'] == 'contact_metier'
+      if version == 'v2'
+        %w[family_name given_name email].each do |attribute|
+          datapass_webhook_params['data']['data']["contact_metier_#{attribute}"] = nil
+        end
+      else
+        datapass_webhook_params['data']['pass']['team_members'].each do |team_member_json|
+          next unless team_member_json['type'] == 'contact_metier'
 
-        team_member_json['family_name'] = nil
-        team_member_json['given_name'] = nil
-        team_member_json['email'] = nil
+          team_member_json['family_name'] = nil
+          team_member_json['given_name'] = nil
+          team_member_json['email'] = nil
+        end
       end
     end
 
@@ -66,7 +80,11 @@ RSpec.shared_examples 'datapass webhooks' do
   end
 
   context 'with a revoke token event' do
-    let(:datapass_webhook_params) { build(:datapass_webhook, event: 'revoke') }
+    if version == 'v2'
+      let(:datapass_webhook_params) { build(:datapass_webhook_v2, event: 'revoke') }
+    else
+      let(:datapass_webhook_params) { build(:datapass_webhook, event: 'revoke') }
+    end
 
     it { is_expected.to be_a_success }
 
@@ -76,7 +94,11 @@ RSpec.shared_examples 'datapass webhooks' do
   end
 
   context 'with an archive token event' do
-    let(:datapass_webhook_params) { build(:datapass_webhook, event: 'archive') }
+    if version == 'v2'
+      let(:datapass_webhook_params) { build(:datapass_webhook_v2, event: 'archive') }
+    else
+      let(:datapass_webhook_params) { build(:datapass_webhook, event: 'archive') }
+    end
 
     it { is_expected.to be_a_success }
 
@@ -86,7 +108,11 @@ RSpec.shared_examples 'datapass webhooks' do
   end
 
   context 'with a delete token event' do
-    let(:datapass_webhook_params) { build(:datapass_webhook, event: 'delete') }
+    if version == 'v2'
+      let(:datapass_webhook_params) { build(:datapass_webhook_v2, event: 'delete') }
+    else
+      let(:datapass_webhook_params) { build(:datapass_webhook, event: 'delete') }
+    end
 
     it { is_expected.to be_a_success }
 
