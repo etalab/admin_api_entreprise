@@ -1,7 +1,6 @@
 ---
 - uid: 'cnav/quotient_familial_v2'
   opening: protected
-  call_id: "SIREN"
   new_version: true
   old_endpoint_uids:
     - 'cnaf/quotient_familial'
@@ -81,6 +80,9 @@
       > ⚠️ **Message API Particulier du 04.06.2024** : Nous avons constaté que les appels effectués sans nom de naissance et **avec le nom d'usage ne fonctionnent pas** dans une très grande partie des cas. Après investigation auprès de la CNAV (opérateur de l'API source), API Particulier a donc décidé de passer le paramètre "Nom de naissance" en obligatoire.
   provider_uids:
     - 'cnav'
+  call_id: 
+    - Identité pivot
+    - FranceConnect
   parameters:
     - Identité pivot
     - FranceConnect
