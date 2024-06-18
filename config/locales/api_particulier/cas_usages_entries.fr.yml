@@ -20,6 +20,19 @@ fr:
           - cnav/complementaire_sante_solidaire
           - cnav/allocation_adulte_handicape
           - cnav/allocation_soutien_familial
+        comments_endpoints:
+            "cnav/quotient_familial_v2" : "Permet de récupérer le quotient familial CAF ou MSA, ainsi que les données d'identité de membres de la famille."
+            "cnaf/quotient_familial" : ""
+            "cnous/statut_etudiant_boursier" : "Indique si l'étudiant est boursier et donne l'échelon de sa bourse."
+            "education_nationale/statut_eleve_scolarise" : "Indique si l'élève est scolarisé au primaire, collège ou lycée. Précise si l'élève est boursier et donne l'échelon de sa bourse."
+            "mesri/statut_etudiant" : "Indique si un étudiant est inscrit dans un établissement."
+            "pole_emploi/situation" : ""
+            "pole_emploi/indemnites" : ""
+            "cnav/prime_activite" : ""
+            "cnav/revenu_solidarite_active" : ""
+            "cnav/complementaire_sante_solidaire" : ""
+            "cnav/allocation_adulte_handicape" : ""
+            "cnav/allocation_soutien_familial" : ""
         introduction:
           title: Simplifiez l'attribution d'aides facultatives aux élèves et étudiants !
           content: |
@@ -50,18 +63,12 @@ fr:
           content: null
         list_api:
           content: |+
-            "cnav/quotient_familial_v2" : "Permet de récupérer le quotient familial CAF ou MSA, ainsi que les données d'identité de membres de la famille."
-            "cnaf/quotient_familial" : ""
-            "cnous/statut_etudiant_boursier" : "Indique si l'étudiant est boursier et donne l'échelon de sa bourse."
-            "education_nationale/statut_eleve_scolarise" : "Indique si l'élève est scolarisé au primaire, collège ou lycée. Précise si l'élève est boursier et donne l'échelon de sa bourse."
-            "mesri/statut_etudiant" : "Indique si un étiduant est inscrit dans un établissement."
-            "pole_emploi/situation" : ""
-            "pole_emploi/indemnites" : ""
-            "cnav/prime_activite" : ""
-            "cnav/revenu_solidarite_active" : ""
-            "cnav/complementaire_sante_solidaire" : ""
-            "cnav/allocation_adulte_handicape" : ""
-            "cnav/allocation_soutien_familial" : ""
+            Les API **<span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> indispensables seront précochées** par défaut dans le formulaire d'accès.
+            Les API **️<span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span> utiles** seront à cocher par vos soins si votre cas d'usage le justifie.
+            Les API **<span style="color:#d64d00" class="fr-icon-close-circle-line" aria-hidden="true"></span> injustifiées** ne peuvent être demandées pour ce cas d'usage.
+
+            {:.fr-highlight.fr-highlight--caution}
+            Lors de votre demande d'habilitation, **vous vous engagez à ne demander que les données strictement nécessaires** à la réalisation de la démarche administrative. Consulter [nos conditions générales d'utilisation](<%= cgu_path %>){:target="_blank"}.
         users:
           title: Ils utilisent l’API Particulier
           anchor: 'users'
