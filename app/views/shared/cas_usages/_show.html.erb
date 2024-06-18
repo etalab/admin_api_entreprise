@@ -27,7 +27,7 @@
     <section class="list_api fr-background-default-white">
       <h2 id="list-api"><%= t('.link_list_api') %><span class="fr-ml-2v fr-text--light">"<%= @cas_usage.name %>"</span></h2>
       <div class="list_api--content"><%= markdown_to_html(@cas_usage.list_api[:content]) %></div>
-      <%= render partial: 'shared/cas_usages/list-api' %>
+      <%= render partial: 'shared/cas_usages/list-api', locals: { api: }%>
     </section>
 
     <section class="users fr-background-grey">
