@@ -41,6 +41,18 @@ RSpec.describe DatapassWebhook::V2::APIParticulier, type: :interactor do
     expect(last_token.api).to eq('particulier')
   end
 
+  context 'when modalities does no include params' do
+    before do
+      datapass_webhook_params['data']['data']['modalities'] = ['formulaire_qf']
+    end
+
+    it 'does not create a token' do
+      expect {
+        subject
+      }.not_to change(Token, :count)
+    end
+  end
+
   describe 'Mailjet adding contacts' do
     it 'adds contacts to Entreprise mailjet list' do
       expect(Mailjet::Contactslist_managemanycontacts).to receive(:create).with(
