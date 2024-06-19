@@ -1,6 +1,7 @@
 class DatapassWebhook::AdaptV2ToV1 < ApplicationInteractor
   def call
     context.event = context.event.sub('authorization_request', 'enrollment')
+    context.authorization_request_data = generic_data.dup
     context.data = build_data
   end
 
