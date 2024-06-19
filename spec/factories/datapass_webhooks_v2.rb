@@ -58,5 +58,9 @@ FactoryBot.define do
     contact_metier_given_name { 'Jacques' }
     contact_metier_family_name { 'Metier' }
     contact_metier_job_title { 'CMO' }
+
+    modalities do
+      %w[params]
+    end
   end
 end
