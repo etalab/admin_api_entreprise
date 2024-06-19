@@ -1,6 +1,7 @@
 constraints(APIParticulierDomainConstraint.new) do
   namespace :api do
     post '/datapass/api_particulier/webhook' => 'datapass_webhooks#api_particulier'
+    post '/datapass/v2/api_particulier/webhook' => 'datapass_webhooks_v2#api_particulier'
   end
 
   post '/auth/api_gouv_particulier', as: :login_api_gouv_particulier
