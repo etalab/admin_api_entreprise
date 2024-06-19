@@ -71,4 +71,8 @@ RSpec.describe DatapassWebhook::V2::APIParticulier, type: :interactor do
       subject
     end
   end
+
+  it 'affects authorization request data to authorization_request_data on context' do
+    expect(subject.authorization_request_data).to eq(datapass_webhook_params['data']['data'])
+  end
 end
