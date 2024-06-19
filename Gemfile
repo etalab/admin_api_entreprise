@@ -77,6 +77,9 @@ gem 'ransack'
 gem 'wicked'
 
 gem 'rest-client'
+gem 'faraday'
+gem 'faraday-net_http'
+gem 'faraday-retry'
 
 group :development, :test do
   gem 'awesome_print'
