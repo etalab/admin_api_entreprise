@@ -26,10 +26,24 @@
             <%= icon(t("endpoint.opening.#{endpoint.opening}.icon", raise: true)) rescue nil %>
             <%= t("endpoint.opening.#{endpoint.opening}.name") %>
           </td>
+
           <td style="vertical-align:initial">
-            <%= icon (t("#{api}.endpoint.call_id.#{endpoint.call_id}.icon", raise: true)) rescue nil %>
-            <%= t("#{api}.endpoint.call_id.#{endpoint.call_id}") %>
-          </td style="vertical-align:initial">
+            <ul>
+              <% if endpoint.call_id.is_a?(Array) %> 
+                <% endpoint.call_id.each do |call_id| %>
+                  <li>
+                    <%= icon (t("#{api}.endpoint.call_id.#{call_id}.icon", raise: true)) rescue nil %>
+                    <%= t("#{api}.endpoint.call_id.#{call_id}") %>
+                  </li>
+                <% end %>
+              <% else %>
+                <li>
+                  <%= icon (t("#{api}.endpoint.call_id.#{endpoint.call_id}.icon", raise: true)) rescue nil %>
+                  <%= t("#{api}.endpoint.call_id.#{endpoint.call_id}") %>
+                </li>
+              <% end %>
+            </ul> 
+          </td>
           <td style="vertical-align:initial">
             <%= markdown_to_html(@cas_usage.comments_endpoints.try(:[], endpoint.uid.to_sym)) %>
           </td>
