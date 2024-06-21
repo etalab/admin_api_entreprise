@@ -86,6 +86,7 @@ RSpec.configure do |config|
   config.include ExternalUrlHelper, type: :feature
   config.include FixturesHelpers
   config.include INSEESireneAPIMocks
+  config.include HubEEAPIMocks
 
   config.around(:each, :js) do |example|
     example.run_with_retry retry: example.metadata[:retry] || 3
