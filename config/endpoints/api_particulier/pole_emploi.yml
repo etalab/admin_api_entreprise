@@ -1,5 +1,6 @@
 ---
 - uid: 'pole_emploi/situation'
+  opening: protected
   path: '/api/v2/situations-pole-emploi'
   ping_url: 'https://particulier.api.gouv.fr/api/pole_emploi_status/ping'
   position: 501
@@ -56,6 +57,7 @@
 
   provider_uids:
     - 'pole_emploi'
+  call_id: "Identifiant France Travail"
   parameters:
     - Identifiant France Travail
   keywords: []
@@ -77,6 +79,7 @@
         | 8          | Personnes non immédiatement à la recherche d'un autre emploi, à durée déterminée, temporaire ou saisonnier, y compris de très courte durée, tenues d'accomplir des actes positifs de recherche d'emploi.  |  ❌  |
 
 - uid: 'pole_emploi/indemnites'
+  opening: protected
   path: '/api/v2/paiements-pole-emploi'
   ping_url: 'https://particulier.api.gouv.fr/api/pole_emploi_indemnites/ping'
   position: 502
@@ -123,6 +126,7 @@
 
   provider_uids:
     - 'pole_emploi'
+  call_id: "Identifiant France Travail"
   parameters:
     - Identifiant France Travail
   keywords: []
