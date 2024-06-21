@@ -18,4 +18,6 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
 
   inflect.acronym 'HubEE'
   inflect.acronym 'INSEE'
+
+  inflect.acronym 'QF'
 end
