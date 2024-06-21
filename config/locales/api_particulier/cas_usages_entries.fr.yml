@@ -575,10 +575,21 @@ fr:
                ⚙️ **En arrière-plan** : Un appel à l'API quotient familial CAF du bouquet API Particulier est effectué et permet de récupérer le quotient familial du mois en cours ou choisi.
 
             2. **Étape 2&nbsp;:** Le parent est automatiquement positionné dans la grille tarifaire de la collectivité. Le parent n'a plus qu'à terminer l'envoi de sa demande d'inscription.
+        list_api:
+          content: |+
+            Les API **<span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> indispensables seront précochées** par défaut dans le formulaire d'accès.
+            Les API **️<span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span> utiles** seront à cocher par vos soins si votre cas d'usage le justifie.
+            Les API **<span style="color:#d64d00" class="fr-icon-close-circle-line" aria-hidden="true"></span> injustifiées** ne peuvent être demandées pour ce cas d'usage.
 
-            {:.fr-h5}
-            ### Liste des éditeurs
+            {:.fr-highlight.fr-highlight--caution}
+            Lors de votre demande d'habilitation, **vous vous engagez à ne demander que les données strictement nécessaires** à la réalisation de la démarche administrative. Consulter [nos conditions générales d'utilisation](<%= cgu_path %>){:target="_blank"}.
 
+        users:
+          title: Ils utilisent l’API Particulier
+          anchor: 'users'
+          content: |+
+            De nombreux éditeurs de logiciels de gestion de la restauration scolaire et des activités périscolaires utilisent déjà des API et ont ainsi dématérialisé la tarification des services proposés par les communes et intercommunalités :
+            
             {:.fr-table}
             | Éditeur                      | Nom de la solution            |
             | ---------------------------- | ----------------------------- |
@@ -602,14 +613,6 @@ fr:
             | Cosoluce                     | Fluo                          |
             
             Vous êtes un éditeur et vous souhaitez apparaître dans cette liste ? Écrivez-nous à [api-particulier@api.gouv.fr](api-particulier@api.gouv.fr)
-        list_api:
-          content: |+
-            Les API **<span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> indispensables seront précochées** par défaut dans le formulaire d'accès.
-            Les API **️<span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span> utiles** seront à cocher par vos soins si votre cas d'usage le justifie.
-            Les API **<span style="color:#d64d00" class="fr-icon-close-circle-line" aria-hidden="true"></span> injustifiées** ne peuvent être demandées pour ce cas d'usage.
-
-            {:.fr-highlight.fr-highlight--caution}
-            Lors de votre demande d'habilitation, **vous vous engagez à ne demander que les données strictement nécessaires** à la réalisation de la démarche administrative. Consulter [nos conditions générales d'utilisation](<%= cgu_path %>){:target="_blank"}.
         request_access:
           link_datapass: "<%= datapass_base_url %>/api-particulier?demarche=portail_famille"
           content: |+
