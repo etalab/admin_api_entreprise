@@ -8,10 +8,10 @@ fr:
         endpoints:
           - cnav/quotient_familial_v2
           - cnaf/quotient_familial
+        endpoints_optional:
           - cnous/statut_etudiant_boursier
           - education_nationale/statut_eleve_scolarise
           - mesri/statut_etudiant
-        endpoints_optional:
         endpoints_forbidden:
           - pole_emploi/situation
           - pole_emploi/indemnites
@@ -21,11 +21,11 @@ fr:
           - cnav/allocation_adulte_handicape
           - cnav/allocation_soutien_familial
         comments_endpoints:
-            "cnav/quotient_familial_v2" : "Permet de récupérer le quotient familial CAF ou MSA, ainsi que les données d'identité de membres de la famille."
+            "cnav/quotient_familial_v2" : "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Aides primaire, collège et lycées</span><span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Aides études supérieures</span> Permet de récupérer le quotient familial CAF ou MSA, ainsi que les données d'identité de membres de la famille."
             "cnaf/quotient_familial" : ""
-            "cnous/statut_etudiant_boursier" : "Indique si l'étudiant est boursier et donne l'échelon de sa bourse."
-            "education_nationale/statut_eleve_scolarise" : "Indique si l'élève est scolarisé au primaire, collège ou lycée. Précise si l'élève est boursier et donne l'échelon de sa bourse."
-            "mesri/statut_etudiant" : "Indique si un étudiant est inscrit dans un établissement."
+            "cnous/statut_etudiant_boursier" : "<span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Aides études supérieures</span> Indique si le particulier est étudiant boursier et donne l'échelon de sa bourse."
+            "education_nationale/statut_eleve_scolarise" : "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Aides primaire, collège et lycées</span> Indique si l'élève est scolarisé au primaire, collège ou lycée. Précise si l'élève est boursier et donne l'échelon de sa bourse."
+            "mesri/statut_etudiant" : "<span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Aides études supérieures</span> Indique si le particulier est étudiant et peut préciser l'établissement où il est inscrit."
             "pole_emploi/situation" : ""
             "pole_emploi/indemnites" : ""
             "cnav/prime_activite" : ""
@@ -137,9 +137,9 @@ fr:
           - cnav/quotient_familial_v2
           - cnaf/quotient_familial
         endpoints_optional:
+          - education_nationale/statut_eleve_scolarise
         endpoints_forbidden:
           - cnous/statut_etudiant_boursier
-          - education_nationale/statut_eleve_scolarise
           - mesri/statut_etudiant
           - pole_emploi/situation
           - pole_emploi/indemnites
@@ -152,7 +152,7 @@ fr:
             "cnav/quotient_familial_v2" : "Permet de récupérer le quotient familial CAF ou MSA, ainsi que les données d'identité de membres de la famille."
             "cnaf/quotient_familial" : ""
             "cnous/statut_etudiant_boursier" : ""
-            "education_nationale/statut_eleve_scolarise" : ""
+            "education_nationale/statut_eleve_scolarise" : "Permet de savoir si l'enfant est scolarisé au primaire, collège ou lycée et s'il est boursier."
             "mesri/statut_etudiant" : ""
             "pole_emploi/situation" : ""
             "pole_emploi/indemnites" : ""
@@ -366,12 +366,12 @@ fr:
           - mesri/statut_etudiant
           - pole_emploi/situation
           - pole_emploi/indemnites
-          - cnav/prime_activite
           - cnav/revenu_solidarite_active
           - cnav/complementaire_sante_solidaire
           - cnav/allocation_adulte_handicape
-          - cnav/allocation_soutien_familial
         endpoints_forbidden:
+          - cnav/prime_activite
+          - cnav/allocation_soutien_familial
         comments_endpoints:
             "cnav/quotient_familial_v2" : "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Tarification solidaire</span> Indique le quotient familial CAF ou MSA, ainsi que les données d'identité de membres de la famille et l'adresse déclarée à la caisse."
             "cnaf/quotient_familial" : "Indique le quotient familial CAF, ainsi que les données d'identité de membres de la famille et l'adresse déclarée à la caisse."
@@ -380,11 +380,11 @@ fr:
             "mesri/statut_etudiant" : "<span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Tarification sociale</span> Indique si un étudiant est inscrit dans un établissement."
             "pole_emploi/situation" : "<span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Tarification sociale</span> Indique si la personne est demandeur d'emploi."
             "pole_emploi/indemnites" : "<span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Tarification sociale</span> Indique le montant des paiements effectués par France Travail."
-            "cnav/prime_activite" : "<span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Tarification sociale</span> Indique si le particulier est bénéficiaire de la prime d'activité, majorée ou non."
+            "cnav/prime_activite" : "N'est pas utile pour déterminer la tarification."
             "cnav/revenu_solidarite_active" : "<span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Tarification sociale</span> Indique si le particulier est bénéficiaire du revenu de solidarité active, majoré ou non."
             "cnav/complementaire_sante_solidaire" : "<span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Tarification sociale</span> Indique si le particulier est bénéficiaire de la complémentaire santé solidaire avec ou sans participation."
             "cnav/allocation_adulte_handicape" : "<span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Tarification sociale</span> Indique si le particulier est bénéficiaire de l'allocation adulte handicapé."
-            "cnav/allocation_soutien_familial" : "<span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Tarification sociale</span> Indique si le particulier est bénéficiaire de l'allocation de soutien familial."
+            "cnav/allocation_soutien_familial" : "N'est pas utile pour déterminer la tarification."
         introduction:
           title: Simplifiez les démarches des particuliers en calculant automatiquement leur tarif de transports collectifs
           content: |
@@ -491,6 +491,7 @@ fr:
           - cnav/quotient_familial_v2
           - cnaf/quotient_familial
         endpoints_optional:
+          - cnav/revenu_solidarite_active
         endpoints_forbidden:
           - cnous/statut_etudiant_boursier
           - education_nationale/statut_eleve_scolarise
@@ -498,7 +499,6 @@ fr:
           - pole_emploi/situation
           - pole_emploi/indemnites
           - cnav/prime_activite
-          - cnav/revenu_solidarite_active
           - cnav/complementaire_sante_solidaire
           - cnav/allocation_adulte_handicape
           - cnav/allocation_soutien_familial
@@ -589,7 +589,7 @@ fr:
           anchor: 'users'
           content: |+
             De nombreux éditeurs de logiciels de gestion de la restauration scolaire et des activités périscolaires utilisent déjà des API et ont ainsi dématérialisé la tarification des services proposés par les communes et intercommunalités :
-            
+
             {:.fr-table}
             | Éditeur                      | Nom de la solution            |
             | ---------------------------- | ----------------------------- |
