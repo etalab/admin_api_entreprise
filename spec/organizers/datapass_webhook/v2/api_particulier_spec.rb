@@ -53,6 +53,50 @@ RSpec.describe DatapassWebhook::V2::APIParticulier, type: :interactor do
     end
   end
 
+  describe 'modalities' do
+    context 'when modalities does not include formulaire_qf' do
+      before do
+        datapass_webhook_params['data']['data']['modalities'] = ['params']
+      end
+
+      it 'does not schedule a job to create formulaire qf access on HubEE' do
+        expect {
+          subject
+        }.not_to have_enqueued_job(CreateFormulaireQFHubEESubscriptionJob)
+      end
+    end
+
+    context 'when modalities include formulaire_qf' do
+      before do
+        datapass_webhook_params['data']['data']['modalities'] = ['formulaire_qf']
+      end
+
+      context 'when event is approve' do
+        before do
+          datapass_webhook_params['event'] = 'approve'
+        end
+
+        it 'schedules a job to create formulaire qf access on HubEE' do
+          expect {
+            subject
+          }.to have_enqueued_job(CreateFormulaireQFHubEESubscriptionJob)
+        end
+      end
+
+      context 'when event not approve' do
+        before do
+          datapass_webhook_params['event'] = 'reject'
+        end
+
+        it 'does not schedule a job to create formulaire qf access on HubEE' do
+          expect {
+            subject
+          }.not_to have_enqueued_job(CreateFormulaireQFHubEESubscriptionJob)
+        end
+      end
+    end
+  end
+
   describe 'Mailjet adding contacts' do
     it 'adds contacts to Entreprise mailjet list' do
       expect(Mailjet::Contactslist_managemanycontacts).to receive(:create).with(
