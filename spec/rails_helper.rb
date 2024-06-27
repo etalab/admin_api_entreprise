@@ -84,7 +84,6 @@ RSpec.configure do |config|
   config.include SpecsHelper
   config.include FeatureHelper, type: :feature
   config.include ExternalUrlHelper, type: :feature
-  config.include FixturesHelpers
   config.include INSEESireneAPIMocks
   config.include HubEEAPIMocks
 
