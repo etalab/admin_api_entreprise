@@ -645,130 +645,6 @@ fr:
             - **Cadre légal général** : l'[article L114-8 du Code des relations entre le public et l'administration](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000045213315){:target="_blank"} fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager ;
             - **Cadre légal spécifique aux téléservices** : En tant que collectivités territoriales vous avez donc un droit d'accès à certaines données dans le cadre de demandes, services pro-actifs et déclarations usagers. L'[arrêté du 04/07/13 sur les téléservices](https://www.legifrance.gouv.fr/loda/id/JORFTEXT000027697207/#:~:text=Dans%20les%20r%C3%A9sum%C3%A9s-,Arr%C3%AAt%C3%A9%20du%204%20juillet%202013%20autorisant%20la%20mise%20en%20%C5%93uvre,publiques%20locales%20dont%20ils%20sont){:target="_blank"} détaille à l'article 1 la liste des démarches par secteur. Aidez-vous de cet arrêté pour justifier de votre cadre légal.
             - **Fournir la délibération** qui fixe les critères de la tarification.
-      pass_sport_citoyen:
-        user_types:
-          - Départements
-        name: 'Pass’Sports Citoyen'
-        endpoints:
-          - cnous/statut_etudiant_boursier
-          - education_nationale/statut_eleve_scolarise
-          - mesri/statut_etudiant
-          - cnav/allocation_adulte_handicape
-        endpoints_optional:
-        endpoints_forbidden:
-          - cnav/quotient_familial_v2
-          - cnaf/quotient_familial
-          - pole_emploi/situation
-          - pole_emploi/indemnites
-          - cnav/prime_activite
-          - cnav/revenu_solidarite_active
-          - cnav/complementaire_sante_solidaire
-          - cnav/allocation_soutien_familial
-        comments_endpoints:
-            "cnav/quotient_familial_v2" : "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Aides primaire, collège et lycées</span><span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Aides études supérieures</span> Permet de récupérer le quotient familial CAF ou MSA.<br/><br/>Les données d'identité des membres de la famille et l'adresse postale sont aussi disponibles sous réserve d'un cadre légal précis."
-            "cnaf/quotient_familial" : ""
-            "cnous/statut_etudiant_boursier" : "<span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Aides études supérieures</span> Indique si le particulier est étudiant boursier et donne l'échelon de sa bourse."
-            "education_nationale/statut_eleve_scolarise" : "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Aides primaire, collège et lycées</span> Indique si l'élève est scolarisé au primaire, collège ou lycée. Précise si l'élève est boursier et donne l'échelon de sa bourse."
-            "mesri/statut_etudiant" : "<span class='fr-badge fr-badge--sm fr-badge--new fr-badge--purple-glycine'>Aides études supérieures</span> Indique si le particulier est étudiant et peut préciser l'établissement où il est inscrit."
-            "pole_emploi/situation" : ""
-            "pole_emploi/indemnites" : ""
-            "cnav/prime_activite" : ""
-            "cnav/revenu_solidarite_active" : ""
-            "cnav/complementaire_sante_solidaire" : ""
-            "cnav/allocation_adulte_handicape" : ""
-            "cnav/allocation_soutien_familial" : ""
-        introduction:
-          title: Simplifiez le dépôt et l'instruction des demandes du Pass’Sports Citoyen par les jeunes.
-          content: |+
-            {:.fr-text--lead}
-            Départements, avec API Particulier, récupérez directement les certificats de scolarité et de bourses des éléves/étudiants, ainsi que leur statut AAH.
-
-            <span class="fr-accordion__title">
-                <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106"><span class="fr-icon-questionnaire-fill fr-mr-1w" aria-hidden="true"></span>Qu'est-ce que le Pass’Sports Citoyen ?</button>
-            </span>
-            <div class="fr-collapse" id="accordion-106">
-              <p>En plus du Pass'Sports national, les départements peuvent décider de proposer en complément une aide facultative locale pour le sports aux jeunes du territoire.
-              <br/>
-              Cette aide peut prendre différentes formes, comme par exemple le remboursement d'une partie de la licence sportive ou d'inscription à une association sportive.
-              </p>   
-            </div>
-           
-        role:
-          title: Une simplification des démarches
-          anchor: 'simplification-des-demarches'
-          content: |+
-              {:.fr-text--lg}
-              Collectivités, en intégrant la brique API Particulier dans vos formulaires en ligne et votre système d'information&nbsp;:
-
-              - 🗄 **Vous accédez facilement aux données des élèves et des étudiants issues de différentes administrations** telles que les ministères de l'éducation nationale et l'enseignement supérieur, le Cnous, la CAF, la MSA... ;
-
-              - 😃 **Pour instruire les dossiers, il n'est plus nécessaire de collecter** :
-                - les certificats de scolarité des élèves et/ou carte d'étudiant ;
-                - les justificatifs de bourse ;
-                - l'attestation quotient familial de la CAF ou de la MSA.
-
-              - ⏰ **Vous accélérez ou même automatisez l'instruction** car vos agents instructeurs n'ont plus à vérifier les pièces justificatives fournies, les informations obtenues de l'API Particulier étant certifiées 🔎 ;
-
-              - 🎢 **Vous augmentez le pourcentage des démarches finalisées** et participez ainsi à la réduction du non-recours car vous faîtes gagner du temps à l'usager ;
-
-              - 🎯 **Enfin, vous participez à la simplification des démarches pour les citoyens** en mettant en oeuvre le [«&nbsp;Dites-le-nous une fois&nbsp;»](https://www.numerique.gouv.fr/services/guichet-dites-le-nous-une-fois/){:target="_blank"}, en application de l' l'[article L114-8 du Code des relations entre le public et l’administration.](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000045213315){:target="_blank"}.
-        list_api:
-          content: |+
-            Les API **<span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> indispensables seront précochées** par défaut dans le formulaire d'accès.
-            Les API **️<span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span> utiles** seront à cocher par vos soins si votre cas d'usage le justifie.
-            Les API **<span style="color:#d64d00" class="fr-icon-close-circle-line" aria-hidden="true"></span> injustifiées** ne peuvent être demandées pour ce cas d'usage.
-
-            {:.fr-highlight.fr-highlight--caution}
-            Lors de votre demande d'habilitation, **vous vous engagez à ne demander que les données strictement nécessaires** à la réalisation de la démarche administrative. Consulter [nos conditions générales d'utilisation](<%= cgu_path %>){:target="_blank"}.
-        users: 
-          title: Ils utilisent l’API Particulier
-          anchor: 'users'
-          content: |+
-            <figure class="fr-quote--column ">
-            {:.fr-quote}
-            >
-            > <blockquote>«&nbsp;Nous utilisons l'API Particulier pour délivrer des bourses aux collégiens. Cette aide est soumise à un barème dépendant des ressources de la famille. L'API Particulier est utilisée actuellement pour récupérer le quotient familial CAF et la composition de la famille.&nbsp;»
-            > </blockquote>
-            >
-            > <figcaption>
-            > Département de la Drôme - Bourse départementale des collèges
-            > {:.fr-quote__author}
-            >
-            > [Lire la suite du témoignage](https://www.ladrome.fr/mon-quotidien/education/le-departement-aide){:target="_blank"}
-            > {:.fr-quote__source}
-            >
-            > {:.fr-quote__image}
-            >  ![Logo de la drôme](<%= image_path('api_particulier/cas_usages/images/logo-dep-drome.png') %>){:width="100px"}
-            > </figcaption>
-            >
-            </figure>
-
-            <figure class="fr-quote--column ">
-            {:.fr-quote}
-            >
-            > <blockquote>«&nbsp;Nous utilisons l'API Particulier pour connaître le quotient familial d'un étudiant ou de ses parents (s'il en est dépendant fiscalement) afin de vérifier l'éligibilité de sa demande de prêt.&nbsp;»
-            > </blockquote>
-            >
-            > <figcaption>
-            > Département de la Haute-Savoie - Délivrer des prêts étudiants
-            > {:.fr-quote__author}
-            >
-            > [Lire la suite du témoignage](https://actu.hautesavoie.fr/explorez-actu/le-pret-etudiant-il-est-encore-temps){:target="_blank"}
-            > {:.fr-quote__source}
-            >
-            > {:.fr-quote__image}
-            >  ![Logo de la Haute Savoie](<%= image_path('api_particulier/cas_usages/images/logo-dep-haute-savoie.png') %>){:width="100px"}
-            > </figcaption>
-            >
-            </figure>
-        request_access:
-          link_datapass: "<%= datapass_base_url %>/api-particulier?demarche=aides_scolarite"
-          content: |+
-            L'utilisation des données est encadrée légalement. Vous devez formuler une demande auprès de l'API Particulier et/ou des autres API en justifiant du cadre légal de l'utilisation des données :
-            - **Cadre légal général** : l'[article L114-8 du Code des relations entre le public et l'administration](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000045213315){:target="_blank"} fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager ;
-            - **Cadre réglementaire** qui permet à la collectivité de mettre en place l'aide.
-            - **Fournir la délibération** qui justifie les données nécessaires à l'attribution de l'aide.
-
 
       modalite_appel_france_connect:
         user_types:
@@ -1054,7 +930,7 @@ fr:
                       1. **Intégration et tests** : Accéder à votre [espace partenaire](https://partenaires.franceconnect.gouv.fr/login){:target="_blank"}{:rel="noopener external"} avec le mail de confirmation envoyé par FranceConnect. Vous pouvez mettre en place les développements nécessaires dont l'intégration du ou des [boutons FranceConnect](#du-côté-de-lusager--les-boutons-franceconnect) grâce aux ressources et environnement de test disponibles.
                       2. **Certification de votre intégration** : Présentez vos développements à FranceConnect pour une qualification en complétant ce [formulaire](https://www.demarches-simplifiees.fr/commencer/demande-qualification-fs){:target="_blank"}{:rel="noopener external"}
             4. **Mise en production pour vos clients** : vos clients publics devront effectuer les demandes d'habiliation API Particulier et FranceConnect en utilisant les formulaires configurés pour votre logiciel, [en savoir plus sur les étapes pour vos clients](#avec-un-éditeur). Une fois leur habilitation délivrée, les accès techniques vous seront transmis.
-      formulaire_qf:
+      modalite_formulaire_qf:
         user_types:
           - Modalité d'appel
         name: "Formulaire de collecte du quotient familial"
@@ -1068,15 +944,15 @@ fr:
           anchor: 'introduction-formulaire-qf'
           content: |+
             <div class="fr-callout">
-              <p class="fr-callout__title">Une solution en phase de test</p>
+              <p class="fr-callout__title">Une solution en cours de déploiement</p>
               <p class="fr-callout__text">
-                  La solution _quotient-familial.numerique.gouv.fr_ est en cours de test auprès d'éditeurs et de communes pilotes. Un déploiement de la solution est prévu début 2025.
+                  La solution _quotient-familial.numerique.gouv.fr_ est en cours de déploiement auprès d'éditeurs et de communes pilotes.
               </p>
             </div>
 
             {:.fr-text--lg}
             API Particulier propose une solution pour collecter le quotient familial des usagers et leur identité pivot, via FranceConnect. Cette solution est composée de deux éléments&nbsp;:  
-            - Un formulaire à destination des usagers et disponible sur _[quotient-familial.numerique.gouv.fr](https://quotient-familial.numerique.gouv.fr){:target="_blank"}_ ;
+            - Un formulaire à destination des usagers est disponible sur _[quotient-familial.numerique.gouv.fr](https://quotient-familial.numerique.gouv.fr){:target="_blank"}_ ;
             - Un espace de stockage temporaire de la donnée, sur [Hubee](https://www.hubee.numerique.gouv.fr/){:target="_blank"}, permettant aux collectivités de récupérer les informations collectées. 
 
             {:.fr-text--lg}
@@ -1092,7 +968,7 @@ fr:
             <div class="fr-card__body">
              <div class="fr-card__content">
               <p class="fr-card__title">
-               <a download href="[À MODIFIER - example/img/image.jpg]">
+               <a download href="/files/modalite_formulaire_qf_kit_communication.pptx">
                   Télécharger le kit de communication
                </a>
               </p>
@@ -1112,7 +988,7 @@ fr:
             <div class="fr-card__body">
              <div class="fr-card__content">
               <p class="fr-card__title">
-               <a download href="[À MODIFIER - example/img/image.jpg]">
+               <a download href="/files/modalite_formulaire_qf_guide_editeurs.pdf">
                   Télécharger le guide d'intégration - Éditeurs
                </a>
               </p>
