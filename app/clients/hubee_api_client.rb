@@ -45,7 +45,12 @@ class HubEEAPIClient < AbstractHubEEAPIClient
         status: 'Actif',
         localAdministrator: {
           email: authorization_request.demandeur.email
-        }
+        },
+        delegationActor: {
+          branchCode: organization_payload['branchCode'],
+          companyRegister: organization_payload['companyRegister'],
+          type: 'EDT'
+        },
       }.to_json,
       'Content-Type' => 'application/json'
     )
