@@ -956,8 +956,9 @@ fr:
             - Un espace de stockage temporaire de la donnée, sur [Hubee](https://www.hubee.numerique.gouv.fr/){:target="_blank"}, permettant aux collectivités de récupérer les informations collectées. 
 
             {:.fr-text--lg}
-            Cette solution interroge l'[API quotient familial MSA & CAF](<%= endpoint_path(uid: 'cnav/quotient_familial_v2') %>) et FranceConnect pour récupérer les informations de l'usager.
-            Elle permet ainsi à la collectvité d'interroger l'[API quotient familial MSA & CAF](<%= endpoint_path(uid: 'cnav/quotient_familial_v2') %>) avec une identité pivot vérifiée, sans avoir à intégrer tout de suite la [modalité d'appel FranceConnect](<%= cas_usages_path(anchor: 'modalite-appel-franceconnect') %>).
+            Cette solution interroge l'[API quotient familial MSA & CAF](<%= endpoint_path(uid: 'cnav/quotient_familial_v2') %>) et FranceConnect pour récupérer les informations de l'usager, à savoir son identité pivot et son quotient familial. La collectivité pourra ensuite utiliser l'identité pivot pour mettre à jour les quotients familiaux. 
+
+            Cette solution permet ainsi à la collectvité d'interroger l'[API quotient familial MSA & CAF](<%= endpoint_path(uid: 'cnav/quotient_familial_v2') %>) avec une identité pivot vérifiée, sans avoir à intégrer tout de suite la [modalité d'appel FranceConnect](<%= cas_usages_path(anchor: 'modalite-appel-franceconnect') %>).
 
 
 
