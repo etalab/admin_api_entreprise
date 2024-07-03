@@ -17,7 +17,20 @@
       - Pour les ✅ entreprises ayant réalisé leur immatriculation EORI en France, vous pouvez utiliser le numéro de SIRET comme paramètre d'appel.
       - Pour les ❌ entreprises françaises immatriculées EORI dans un autre pays européen ; l'appel par SIRET ne fonctionne pas. Il renverra toujours un négatif, même si l'entreprise possède un numéro EORI actif.
 
-        ℹ️ Plus d'informations sur le site des [douanes](https://www.douane.gouv.fr/fiche/numero-eori-economic-operator-registration-and-identification){:target="_blank"} ou sur le site de l'[Union Européenne](https://ec.europa.eu/taxation_customs/business/customs-procedures/general-overview/economic-operators-registration-identification-number-eori_fr){:target="_blank"}. Il est possible de vérifier en ligne un numéro EORI sur le [site de la Commission Européenne](https://ec.europa.eu/taxation_customs/dds2/eos/eori_validation.jsp?Lang=fr){:target="_blank"}.
+    updating_rules_description: |+
+      Le numéro EORI est un numéro unique d'identification, il n'a donc pas vocation à changer durant la vie de l'entreprise. En revanche, la base de données EORI évolue au fil des enregistrements des entreprises auprès de la douane, des modifcations et radiations des entreprises. 
+      
+      Les données sont mises à jour :
+      - au fil de l'eau pour les numéros EORI des opérateurs économiques établis en France TODO PRECISER DOC 
+      - par un système de push de la commission européenne pour les EORI étrangers sur un rythme aléatoire.TODO PRECISER DOC 
+    know_more_description: |+
+      {:.fr-highlight}
+      > **L'immatriculation EORI bascule du numéro de SIRET au numéro de Siren**
+      > Par souci de simplification et d'harmonisation avec les autres États-membre, tel qu'expliqué sur le [site de la Douane](https://www.douane.gouv.fr/vers-un-eori-siren-unique-et-un-portail-europeen-pour-les-autorisations-douanieres){:target="_blank"}, le numério EORI ne sera plus rattaché au SIRET de l'établissement mais au SIREN de l'entreprise.
+      > Les EORI rattaché à des SIRET ne pourront plus être utilisés à compter de 2025.
+      > **Ce changement n'a pas d'impact sur l'API**, qui continuera d'être appelable avec le numéro de SIRET, et renvoie le numéro EORI rattaché au SIREN.
+
+      ℹ️ Plus d'informations sur le site des [douanes](https://www.douane.gouv.fr/fiche/numero-eori-economic-operator-registration-and-identification){:target="_blank"} ou sur le site de l'[Union Européenne](https://ec.europa.eu/taxation_customs/business/customs-procedures/general-overview/economic-operators-registration-identification-number-eori_fr){:target="_blank"}. Il est possible de vérifier en ligne un numéro EORI sur le [site de la Commission Européenne](https://ec.europa.eu/taxation_customs/dds2/eos/eori_validation.jsp?Lang=fr){:target="_blank"}.
     entities:
       - entreprises
   call_id: "N°EORI / SIRET"
