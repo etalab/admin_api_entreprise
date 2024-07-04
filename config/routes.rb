@@ -14,6 +14,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :api do
+    resources :frontal, only: :index
+  end
+
   draw(:api_entreprise)
   draw(:api_particulier)
 end
