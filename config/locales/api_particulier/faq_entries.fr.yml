@@ -213,12 +213,27 @@ fr:
 
         - name: "Demande d’habilitation"
           entries:
+            - question: "Quel formulaire utiliser pour faire la demande ?"
+              answer: |+
+                {:.fr-h6}
+                #### Vous avez un éditeur de logiciel :
+
+                En tant qu'administration, vous souhaitez obtenir un accès à l'API Particulier qui sera intégrée par votre éditeur :
+                - **Si celui-ci a déjà intégré l'API Particulier**, il vous a sûrement déjà transmis le lien vers le formulaire pré-rempli dédié. Vous pouvez retrouver ce formulaire en sélectionnant le nom de l'éditeur depuis [Datapass](https://datapass.api.gouv.fr/api-particulier){:target="_blank"}.
+                - **Si celui-ci ne propose pas déjà l'API Particulier**, nous vous recommandons de le contacter votre éditeur et de lui transmettre le [lien](<%= developers_path %>) vers la documentation technique pour s'assurer qu'il peut intégrer l'API. 
+
+                {:.fr-h6}
+                #### Vous n'avez pas d'éditeur de logiciel :
+
+                En tant qu'administration, vous souhaitez obtenir un accès à l'API Particulier que vous allez intégrer par vous même dans votre système d'information : 
+                - **Si vous avez un cas d'usage précis**, vous pouvez utiliser le formulaire pré-rempli associé à ce cas d'usage. Vous retrouverez le formulaire en bas de chaque fiche cas d'usage présente sur [cette page](<%= cas_usages_path %>).
+                - **Si votre service ne correpond à aucun cas d'usage défini [ici](<%= cas_usages_path %>)**, vous pouvez utiliser le formulaire de demande libre. ⚠️ Les demandes libres sont plus longues à traiter car elles nécessitent une instruction plus approfondie.
             - question: "Quelles informations sont demandées ?"
               answer: |+
                 Les informations que vous aurez à compléter lors de votre demande d'habilitation varient selon le formulaire que vous allez choisir. En effet, les champs de certains formulaires sont déjà pré-remplis. C'est par exemple le cas des formulaires associés à un éditeur de logiciel, ou encore des formulaires conçus pour un cas d'usage délimité.
                 Dans tous les cas, à la fin de la démarche, avant l'envoi de votre demande à nos services, une page récapitulative vous permettra de vérifier les informations qui seront transmises.
 
-                Que vous ayez à les saisir ou quelles soient déjà complétées, voici l'ensemble des informations qui constituent une demande d'habilitation : 
+                Que vous ayez à les saisir ou qu'elles soient déjà complétées, voici l'ensemble des informations qui constituent une demande d'habilitation : 
                 - **L’identité de votre organisation** : Le numéro de SIRET de l'organistation pour laquelle la demande est effectuée.
                   Toutes les organisations n’étant pas [éligibles à accéder à l'API Particulier](<%= faq_index_path(anchor: 'quelles-sont-les-conditions-d-eligibilite') %>).
                 - **L’équipe technique qui implémentera l’API** : c'est-à-dire l'organisation/le service qui sera en charge techniquement de l’API. Il peut s’agir de développeurs en interne dans votre administration, externes ou d’un éditeur de logiciel.
