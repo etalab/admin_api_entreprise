@@ -35,8 +35,16 @@ class AbstractCasUsage
     cas_usage
   end
 
-  def datapass_url
-    ERB.new(request_access[:link_datapass]).result(binding)
+  def datapass_url_1
+    ERB.new(request_access[:link_datapass_1]).result(binding)
+  end
+
+  def datapass_url_2
+    if request_access.key?(:link_datapass_2) && request_access[:link_datapass_2].is_a?(String)
+      ERB.new(request_access[:link_datapass_2]).result(binding)
+    else
+      nil
+    end
   end
 
   def self.for_endpoint(endpoint_uid)
