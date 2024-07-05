@@ -44,12 +44,16 @@ fr:
                 <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106"><span class="fr-icon-questionnaire-fill fr-mr-1w" aria-hidden="true"></span>Qu'est-ce que la tarification des services municipaux à l'enfance ?</button>
             </span>
             <div class="fr-collapse" id="accordion-106">
-              <p>Les communes et intercommunalités ont pour compétences l'attribution et la tarification de différents services : la crèche, l'halte-garderie, les centres de loisirs, la restauration scolaire, les goûters, les études, le conservatoire, l'atelier beaux-arts etc..</p>
-              <p>De nombreuses communes permettent aux habitants d'accéder à ces services directement depuis un portail, souvent appelé "Portail familles", pour gérer l'inscription et la facturation des services proposés.
+              <p>
+                Les communes et intercommunalités ont pour compétences l'attribution et la tarification de différents services : la crèche, l'halte-garderie, les centres de loisirs, la restauration scolaire, les goûters, les études, le conservatoire, l'atelier beaux-arts etc..
               </p>
-              <br/>
-              Ce type de portail permet généralement de réserver et payer en ligne les factures liées aux activités péri- et extra-scolaires, de suivre les paiements et de gérer les informations liées au compte de la famille. La tarification de ces activités est adaptée aux ressources de la famille.
-              <br/>
+              <p>
+                De nombreuses communes permettent aux habitants d'accéder à ces services directement depuis un portail, souvent appelé "Portail familles", pour gérer l'inscription et la facturation des services proposés. Ce type de portail permet généralement de réserver et payer en ligne les factures liées aux activités péri- et extra-scolaires, de suivre les paiements et de gérer les informations liées au compte de la famille. La tarification de ces activités est adaptée aux ressources de la famille.
+              </p>
+              <p>
+                D'autres communes utilisent des logiciels de gestion en back-office.
+              </p>
+              <p>
               Selon la politique tarifaire choisie, le calcul des tarifs est réalisé grâce au quotient familial de la Caisse d’allocations familiales (CAF) ou de la sécurité sociale agricole (MSA) et/ou du revenu fiscal de référence figurant sur l'avis d'imposition du foyer. L'API Particulier permet d'accéder facilement au quotient familial de la CAF et de la MSA.
               </p>   
             </div>
@@ -96,6 +100,23 @@ fr:
                ⚙️ **En arrière-plan** : Un appel à l'API quotient familial CAF du bouquet API Particulier est effectué et permet de récupérer le quotient familial du mois en cours ou choisi.
 
             2. **Étape 2&nbsp;:** Le parent est automatiquement positionné dans la grille tarifaire de la collectivité. Le parent n'a plus qu'à terminer l'envoi de sa demande d'inscription.
+
+            {:.fr-h5}
+            ### Un parent souhaite inscire son enfant à la cantine de l'école, sa commune est connectée à l'API Particulier via un back-office et va traiter son dossier&nbsp;:
+
+            1. **Étape 1&nbsp;:** L'école envoie un e-mail aux parents pour leurs demander de transmettre leur quotient familial CAF ou MSA via le [formulaire de collecte](<=% cas_usage_path('formulaire_qf') %>). _Une alternative sur place à l'école ou par envoi des données d'identité par e-mail est proposée car ce formulaire est disponible uniquement via FranceConnect_.
+
+            2. **Étape 3&nbsp;:** Le parent se rend sur [Quotient-familial.numerique.gouv.fr](<=% cas_usage_path('formulaire_qf') %>). Il se FranceConnecte, ses données d'identité et son quotient familial récupérés grâce à FranceConnect et API Particulier sont affichés. Il valide pour envoyer ces informations à la commune.
+
+               {:.fr-highlight.fr-highlight--example}
+               ⚙️ **En arrière-plan** : Un appel à l'API quotient familial CAF du bouquet API Particulier est effectué au moment de la FranceConnexion du parent. Les données sont stockées dans Hubee le temps que l'éditeur de la commune les récupère et les affiche dans le back-office de la commune
+
+            2. **Étape 4&nbsp;:**Le logiciel de la commune reçoit les informations, et calcule automatiquement le tarif de la cantine. L'envoi de ce tarif est directement transmis à l'école.&nbsp;:
+
+               {:.fr-highlight.fr-highlight--example}
+               ⚙️ **En arrière-plan** : Cette étape est réalisée par le logiciel de la commune et plus ou moins automatisée. Les données peuvent aussi être traitées par un agent.
+
+            2. **Étape 3&nbsp;:** Le parent reçoit un e-mail de confirmation de l'école avec le tarif de la cantine. Il n'a plus qu'à payer.
         list_api:
           content: |+
             Les API **<span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> indispensables seront précochées** par défaut dans le formulaire d'accès.
@@ -160,12 +181,12 @@ fr:
             
             Vous êtes un éditeur et vous souhaitez apparaître dans cette liste ? Écrivez-nous à [api-particulier@api.gouv.fr](api-particulier@api.gouv.fr)
         request_access:
-          link_datapass: "<%= datapass_base_url %>/api-particulier?demarche=portail_famille"
+          link_datapass: "<%= datapass_base_url %>/api-particulier?demarche= tarification_municipale_enfance_departement"
           content: |+
             L'utilisation des données est encadrée légalement. Vous devez formuler une demande auprès de l'API Particulier en justifiant du cadre légal de l'utilisation des données :
             - **Cadre légal général** : l'[article L114-8 du Code des relations entre le public et l'administration](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000045213315){:target="_blank"} fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager ;
-            - **Cadre légal spécifique aux téléservices** : En tant que collectivités territoriales vous avez donc un droit d'accès à certaines données dans le cadre de demandes, services pro-actifs et déclarations usagers. L'[arrêté du 04/07/13 sur les téléservices](https://www.legifrance.gouv.fr/loda/id/JORFTEXT000027697207/#:~:text=Dans%20les%20r%C3%A9sum%C3%A9s-,Arr%C3%AAt%C3%A9%20du%204%20juillet%202013%20autorisant%20la%20mise%20en%20%C5%93uvre,publiques%20locales%20dont%20ils%20sont){:target="_blank"} détaille à l'article 1 la liste des démarches par secteur. Aidez-vous de cet arrêté pour justifier de votre cadre légal.
-            - **Fournir la délibération** qui fixe les critères de la tarification.
+            - **Cadre légal spécifique aux départements** : TODO.
+            - **Cadre légal spécifique aux régions** : TODO.
 
       cantines-colleges-lycees-tarification:
         user_types:
