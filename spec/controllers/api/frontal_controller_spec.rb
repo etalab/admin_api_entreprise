@@ -1,4 +1,4 @@
-RSpec.describe API::FrontalController, type: :controller do
+RSpec.describe API::FrontalController do
   describe 'GET #index' do
     subject { get :index }
 
