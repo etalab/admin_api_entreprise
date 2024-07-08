@@ -122,7 +122,7 @@ RSpec.describe API::DatapassWebhooksController do
         it 'renders 422' do
           subject
 
-          expect(response).to have_http_status(422)
+          expect(response).to have_http_status(:unprocessable_content)
         end
       end
     end

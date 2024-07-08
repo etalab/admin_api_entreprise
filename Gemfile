@@ -103,6 +103,7 @@ group :development do
   gem 'rubocop-rspec'
   gem 'rubocop-capybara'
   gem 'rubocop-factory_bot'
+  gem 'rubocop-rspec_rails'
 
   gem 'better_errors'
   gem 'binding_of_caller'
