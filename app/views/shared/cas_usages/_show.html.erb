@@ -42,12 +42,28 @@
         <div class="users--content"><%= markdown_to_html(@cas_usage.users[:content]) %></div>
       </section>
     <% end %>
+
+    <% if @cas_usage.legal_context.present? %>
+      <section class="legal_context fr-background-default-white fr-pb-1v">
+        <h2 id="legal_context" class="legal_context--title"><%= t('.legal_context.title') %></h2>
+        <div class="legal_context--content "><%= markdown_to_html(@cas_usage.legal_context[:content]) %></div>
+      </section>
+    <% end %>
+
     
     <% if @cas_usage.request_access.present? %>
       <section class="request_access fr-background-default-white">
         <h2 id="request-access" class="request_access--title"><%= t('.request_access.title') %></h2>
-        <div class="request_access--content"><p class="fr-text--lg fr-mb-0-5v"><%= t('.request_access.description') %></p></div>
-        <a href="<%= @cas_usage.datapass_url %>" class="fr-btn fr-mt-10v fr-mb-4w" target='_blank'><%= t('.request_access.link')%><span class="fr-text--bold fr-ml-1v"><%= @cas_usage.name %></span></a>
+        <div class="request_access--content">
+          <p class="fr-text--lg"><%= t('.request_access.description') %>
+          </p>
+          <a href="<%= @cas_usage.datapass_url %>" class="fr-btn fr-mt-5v fr-mb-4w" target='_blank'>
+            <%= t('.request_access.link')%><span class="fr-text--bold fr-ml-1v"><%= @cas_usage.name %></span>
+          </a>
+          <p class="fr-mb-0-5v">
+            <%= t('.request_access.sub_description') %>
+          </p>
+        </div>
         <div class="request_access--content"><%= markdown_to_html(@cas_usage.request_access[:content]) %></div>
       </section>
     <% end %>
