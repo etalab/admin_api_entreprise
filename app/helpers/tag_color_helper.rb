@@ -7,6 +7,8 @@ module TagColorHelper
       'pink-macaron'
     when 'éditeurs de logiciels'
       'green-archipel'
+    when 'modalité d’appel'
+      'blue-cumulus'
     else
       'brown-cafe-creme'
     end

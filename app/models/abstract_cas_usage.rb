@@ -14,6 +14,7 @@ class AbstractCasUsage
     list_api
     users
     request_access
+    legal_context
     endpoints
     endpoints_optional
     endpoints_forbidden
