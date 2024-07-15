@@ -26,7 +26,7 @@ gem 'bcrypt', '~> 3.1.20'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'good_job', '~> 3.99'
+gem 'good_job', '~> 4.0'
 
 gem 'draper'
 gem 'ip_anonymizer'
