@@ -196,84 +196,60 @@ fr:
                 {:.fr-highlight}
                 > ☝️ _Vous êtes éditeur de logiciel, proposez l’API Entreprise à vos clients mais ne figurez pas sur cette liste ?_ Écrivez nous à [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr)
 
-            - question: "Quelles sont les étapes pour utiliser l'API Entreprise ?"
+            - question: "Je suis un éditeur de logiciel et je souhaite proposer l'API Particulier à mes clients"
               answer: |+
-                  #### Je suis une collectivité ou une administration :
-
-                  1. **Je consulte [les cas d’usages de l'API Entreprise](<%= cas_usages_path %>)** :
-                    - Si j'ai un éditeur de logiciel, je consulte le tableau en bas du cas d'usage pour savoir si mon éditeur intègre déjà l’API Entreprise.
-                    - Sinon je contacte mon éditeur et je lui transmets le lien vers la documentation technique pour m'assurer qu'il peut intégrer l'API.
-
-                    {:.fr-highlight}
-                    > **Je peux même tester l'API Entreprise en préproduction.** Pour en savoir plus, consulter [cette rubrique de l'espace développeur](<%= developers_path(anchor: 'tester-api-preproduction') %>).
-
-                      2. **Je clique sur le bouton "[faire une demande d'habilitation](<%= datapass_base_url %>/api-entreprise)"**, je crée mon compte DataPass ou je me connecte.
-
-                  3. **Une fois sur la première page du formulaire d'accès à l'API Entreprise, je complète l'encadré "Qui implémentera l'API ?"** :
-                    - Si j'ai un éditeur, je coche "Votre éditeur de logiciel" et je le sélectionne dans la liste déroulante s'il est disponible.
-                    - Si je n'ai pas d'éditeur, je coche "Votre équipe de développeurs". Je clique sur "Suivant".
-
-                  4. **À la page suivante, rubrique "Modèles pré-remplis", je sélectionne le formulaire pré-rempli adéquat** :
-                    - Si j'ai un éditeur, je retrouve son nom et le nom de la solution dans la liste déroulante.
-                    - Si je n'ai pas d'éditeur, je laisse le mode par défaut "Demande libre".
-
-                  5. **Je complète mon formulaire** : informations sur le projet, données nécessaires, traitement des données, cadre juridique - dont délibération -, coordonnées de l'équipe dont responsable technique, responsable métier, délégué à la protection des données et responsable de traitement. Les informations qui vous seront demandées pour compléter le formulaire sont décrites dans [cette rubrique](<%= faq_index_path(anchor: 'quelles-informations-me-seront-demandees') %>).
-
-                  6. **Une fois ma demande instruite et validée par l'équipe API Entreprise**, je reçois un e-mail m'indiquant où récupérer mon jeton. Je le transmets à mon éditeur ou à mes développeurs.
-
-                  #### Je suis un éditeur et je ne suis pas encore référencé :
-
                   ℹ️ Si vous êtes **éditeur de logiciels, c'est à votre client public, collectivité ou administration, de faire sa demande d'habilitation auprès de l'API Entreprise**.
 
                   Vous pouvez nous demander de vous référencer sur un cas d'usage afin de proposer un formulaire pré-rempli qui simplifiera l'expérience de vos clients. Voici la procédure à suivre :
-                  - Je repère les données dont mes clients publics ont besoin pour un cas d'usage précis que je peux ou pourrai proposer dans ma solution logicielle ;
-                  - Je consulte la documentation technique, et j'utilise le bac à sable pour tester les appels d'API ;
-                  - J'écris à [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr) pour être référencé sur le cas d'usage associé et avoir un formulaire pré-rempli à disposition de mes clients.
-
+                  - Répérer les données dont vos clients publics ont besoin pour un [cas d'usage](<%= cas_usages_path %>) précis qui seront proposées dans votre solution logicielle ;
+                  - Consulter l'[espace développeurs](<%= developers_path %>), et utiliser le [bac à sable](<%= developers_path(anchor: 'kit-de-mise-en-production') %>) pour tester les appels d'API ;
+                  - Écrire à [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr) pour être référencé sur le cas d'usage associé et avoir un formulaire pré-rempli à disposition de mes clients.
 
         - name: "Demande d’habilitation"
           entries:
+            - question: "Quel formulaire utiliser pour faire la demande ?"
+              answer: |+
+                {:.fr-h6}
+                #### Vous avez un éditeur de logiciel :
+
+                En tant qu'administration, vous souhaitez obtenir un accès à l'API Entreprise qui sera intégrée par votre éditeur :
+                - **Si celui-ci a déjà intégré l'API Entreprise**, il vous a sûrement déjà transmis le lien vers le formulaire pré-rempli dédié. Vous pouvez retrouver ce formulaire en sélectionnant le nom de l'éditeur depuis [Datapass](https://datapass.api.gouv.fr/api-entreprise){:target="_blank"}.
+                - **Si celui-ci ne propose pas déjà l'API Entreprise**, nous vous recommandons de contacter votre éditeur et de lui transmettre le [lien vers l'espace développeurs](<%= developers_path %>) pour s'assurer qu'il peut intégrer l'API. 
+
+                {:.fr-h6}
+                #### Vous n'avez pas d'éditeur de logiciel :
+
+                En tant qu'administration, vous souhaitez obtenir un accès à l'API Entreprise que vous allez intégrer par vous même dans votre système d'information : 
+                - **Si vous avez un cas d'usage précis**, vous pouvez utiliser le formulaire pré-rempli associé à ce cas d'usage. Vous retrouverez le formulaire en bas de chaque fiche cas d'usage présente sur [cette page](<%= cas_usages_path %>).
+                - **Si votre service ne correpond à aucun cas d'usage défini [à cette page](<%= cas_usages_path %>)**, vous pouvez utiliser le formulaire de demande libre. ⚠️ Les demandes libres sont plus longues à traiter car elles nécessitent une instruction plus approfondie.
             - question: "Quelles informations me seront demandées ?"
               answer: |+
-                Voici la liste des informations à compléter lors de votre demande d’habilitation :
+                Les informations que vous aurez à compléter lors de votre demande d'habilitation varient selon le formulaire que vous allez choisir. En effet, les champs de certains formulaires sont déjà pré-remplis. C'est par exemple le cas des formulaires associés à un éditeur de logiciel, ou encore des formulaires conçus pour un cas d'usage prédéfini.
+                Dans tous les cas, à la fin de la démarche, avant l'envoi de votre demande à nos services, une page récapitulative vous permettra de vérifier les informations qui seront transmises.
 
-                - **L’identité de votre organisation**
-                  Le numéro de SIRET de votre organisation.
+                Que vous ayez à les saisir ou qu'elles soient déjà complétées, voici l'ensemble des informations qui constituent une demande d'habilitation : 
+                - **L’identité de votre organisation** : Le numéro de SIRET de l'organistation pour laquelle la demande est effectuée.
                   Toutes les organisations n’étant pas [éligibles à accéder à l'API Entreprise](<%= faq_index_path(anchor: 'quelles-sont-les-conditions-d-eligibilite') %>).
-                - **L’équipe technique qui implémentera l’API**
-                  Qui sera en charge techniquement de l’API ? Il peut s’agir de développeurs en interne, externes ou d’un éditeur de logiciel (son nom vous sera demandé).
-                - **Le cas d’usage de votre demande**
+                - **L’équipe technique qui implémentera l’API** : c'est-à-dire l'organisation/le service qui sera en charge techniquement de l’API. Il peut s’agir de développeurs en interne dans votre administration, externes ou d’un éditeur de logiciel.
+                - **Le formulaire choisi** : cas d'usages, formulaires d'un éditeur ou demande libre.
+                - **Le nom du projet et une description précise de votre service** : Dans ces deux champs textes, il s'agit d'expliciter pourquoi et comment les données de l'API Entreprise seront utilisées. Qui utilisera le service intégrant les données ? à quoi serviront les données démandées ? Il est possible d'ajouter une pièce jointe.
+                - **La date de mise en production prévue, et la volumétrie approximative** : Ces informations facultatives permettent de mieux appréhender les besoins et les contraintes du projet.
+                - **La liste des données souhaitées** : Les droits qui seront attribués après validation de l'habilitation correspondront aux cases cochées dans la demande d'habilitation. Pour toutes les demandes, seules les données strictement utiles à la finalité du service sont autorisées. Chaque donnée demandée devra être justifiée par le cadre juridique qui vous autorise à accéder à ces données (délibération tarifaire, décrets etc.).
+                - **Le traitement des données personnelles** : Pour indiquer qui seront les destinataires de données reçues de l’API Entreprise. Le destinataire est, selon la [définition de la CNIL](https://www.cnil.fr/fr/definition/destinataire){:target="_blank"}, _"la personne habilitée à obtenir communication de données enregistrées dans un fichier ou un traitement en raison de ses fonctions."_ Il peut donc s’agir d’un agent de l'administration, d’un usager de service public ... Le temps de conservation des données en mois doit également être précisé.
+                - **Le cadre juridique** : 
+                  - **la description** : L’accès à l’API Entreprise se fait sous réserve que son utilisation soit justifiée. L’accès à la donnée requiert la fourniture d’un cadre juridique précis, c’est pourquoi, il vous sera demandé de spécifier la nature et les références du texte vous autorisant à traiter les données.
+                  - **les justificatifs, une URL de la référence légilsative ou une pièce jointe**.
+                  Si vous êtes une administration centrale, une agence d’État, un opérateur ou service déconcentré_, il vous faudra transmettre le **décrêt** ou l’**arrêté** justifiant votre demande.
+                      
+                      {:.fr-highlight}
+                      > ⚠️ Attention, quel que soit votre statut, le [**CRPA** (Code des relations entre le public et l’administration)](https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000031366350/2020-12-14/){:target="_blank"}, la [**loi ESSOC** (pour un État au service d’une société de confiance)](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000037307624/){:target="_blank"} ou la **loi Lemaire** (pour une République numérique) **ne sont pas suffisants** car ils indiquent un principe d’échange qui doit être complété par un cadre juridique précis pour l’utilisation envisagée.
 
-                  {:.fr-highlight}
-                  > ℹ️ Dans le cas où votre cas d’usage correspond aux [cas d’usages expliqués ici](<%= cas_usages_path %>), vous pourrez cocher une case qui préremplira une partie du formulaire et vous permettra de gagner du temps et d’accélerer le temps d’instruction de votre dossier.
-                - **Le nom et une description précise de votre service**
-                  Quel est l’objectif de votre service ? qui l’utilisera ? et à quoi serviront les données que vous nous demandez ?
-                - **La liste des données souhaitées**
-
-                  {:.fr-highlight}
-                  > ℹ️ Pour les identifier, vous pouvez vous aider :
-                  >   - du [catalogue des API](<%= endpoints_path %>). Il présente l’ensemble des API disponibles accompagnées d’une documentation fonctionnelle et technique.
-                  >   - des [cas d’usage](<%= cas_usages_path %>) proposés par API Entreprise.
-                  > Nous y décrivons les données utiles. Si votre besoin correspond à l’un de ces cas d’usage, vous pourrez vous appuyez sur le formulaire pré-rempli adéquat.
-
-                - **Le traitement des données personnelles**
-                  Qui seront les destinataires de données reçues de l’API Entreprise ? Le destinataire étant, selon la [définition de la CNIL](https://www.cnil.fr/fr/definition/destinataire){:target="_blank"}, _"la personne habilitée à obtenir communication de données enregistrées dans un fichier ou un traitement en raison de ses fonctions."_
-                  Il peut s’agir d’un agent de votre administration, d’un usager de service public ...
-                  Le temps de conservation des données en mois sera également à spécifier.
-                - **Le cadre juridique**
-                  L’accès à l’API Entreprise se fait sous réserve que son utilisation soit justifiée. L’accès à la donnée requiert la fourniture d’un cadre juridique précis, c’est pourquoi, il vous sera demandé de spécifier la nature et les références du texte vous autorisant à traiter les données.
-                Si vous êtes une administration centrale, une agence d’État, un opérateur, ou un service déconcentré, il vous faudra transmettre le **décrêt** ou l’**arrêté** justifiant votre demande.
-
-                  {:.fr-highlight}
-                  > ⚠️ Attention, quel que soit votre statut, le [**CRPA** (Code des relations entre le public et l’administration)](https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000031366350/2020-12-14/){:target="_blank"}, la [**loi ESSOC** (pour un État au service d’une société de confiance)](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000037307624/){:target="_blank"} ou la **loi Lemaire** (pour une République numérique) **ne sont pas suffisants** car ils indiquent un principe d’échange qui doit être complété par un cadre juridique précis pour l’utilisation envisagée.
-                - **Les coordonnées des différents contacts**
-                  L’ensemble des coordonnées renseignées seront strictement utilisées pour communiquer avec vous.
-                  - **Le responsable du traitement des données**. Le responsable de traitement est la personne physique ou morale qui, seule ou conjointement avec d’autres, détermine les finalités et les moyens du traitement des données à caractère personnel. Cette personne renseignée doit obligatoirement appartenir à l’organisation déclarée dans la demande.
-                  - **Le délégué à la protection des données**. Le DPD est la personne qui s’assure que l’organisation protège convenablement les données à caractère personnel, conformément à la législation en vigueur. C’est généralement une personne appartenant à l’organisation effectuant la demande.
+                - **Les coordonnées des différents contacts** :
+                  - **Le délégué à la protection des données**. Le DPD est la personne qui s’assure que l’organisation protège convenablement les données à caractère personnel, conformément à la législation en vigueur. C’est généralement une personne appartenant à l’organisation effectuant la demande, qui doit pouvoir exercer sa mission en toute indépendance et à l'abri des conflits d'intérêt.. Cette [fiche de la CNIL](https://www.cnil.fr/fr/designer-un-delegue-la-protection-des-donnees-dans-une-collectivite){:target="_blank"} détaille précisément le rôle du DPD.
 
                     <details class="fr-details">
                     <summary>
-                    Je n’ai pas de DPD, que faire ?
+                    Vous n'avez pas de DPD, que faire ?
                     </summary>
                     Si vous n’avez pas de DPD, c’est que vous n’êtes probablement pas habilité à pouvoir utiliser API Entreprise. En effet, la nomination d’un DPD est obligatoire pour toute autorité publique ou tout organisme public, ainsi que pour toute entreprise effectuant un suivi régulier et systématique de données personnelles à grande échelle ou de données personnelles sensibles. Ce qui est au coeur de l’usage d’API Entreprise.
                     </details>
@@ -283,9 +259,10 @@ fr:
 
                     {:.fr-highlight}
                     > ℹ️ Le contact métier et le contact technique peuvent être confondus, notamment si vous passez par un éditeur.
-                - **L’acceptation des conditions d’utilisation API Entreprise**
-                  Avant tout envoi de votre demande, vous devez **[accepter nos conditions générales d’utilisation](<%= cgu_path %>)**.
-                  Nous vous invitons à les lire attentivement car une grande partie des données circulant par le biais d’API Entreprise sont sensibles. **Votre futur accès à l’API s’accompagne d’engagements**, notamment celui de présenter les données uniquement aux agents habilités et celui de tracer l’accès de ces données.
+                - **Les conditions d’utilisation API Entreprise**
+                  Avant tout envoi de votre demande, vous devez **[accepter nos conditions générales d’utilisation](<%= cgu_path %>)** ainsi que toutes celles qui figurent à la fin de la demande d'habilitation.
+                  Nous vous invitons à les lire attentivement car les données circulant par le biais d’API Entreprise sont sensibles. **Votre futur accès à l’API s’accompagne d’engagements**, notamment celui de présenter les données uniquement aux agents habilités ou à l'usager préalablement identifié, et celui de tracer l’accès de ces données.
+              
 
             - question: "Je n’ai pas de nouvelles de ma demande d’habilitation"
               answer: |+
