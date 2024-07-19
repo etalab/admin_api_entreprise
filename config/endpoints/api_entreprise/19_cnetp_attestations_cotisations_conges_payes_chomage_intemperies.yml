@@ -5,16 +5,24 @@
   position: 300
   perimeter:
     entity_type_description: |+
-      Cette API couvre les **entreprises exerçant une ou plusieurs activités entrant dans le champ d'application des conventions collectives nationales étendues des Travaux Publics et du Bâtiment** :
-      - ✅ Convention collective nationale des ouvriers des travaux publics du 15 décembre 1992 (étendue par arrêté du 27 mai 1993) ;
-      - ✅ Convention collective nationale des ETAM des travaux publics du 12 juillet 2006 (étendue par arrêté du 28 juin 2007) ;
-      - ✅ Convention collective nationale des cadres des travaux publics du 20 novembre 2015 (étendue par arrêté du 5 juin 2020).
+      Cette API couvre les **entreprises cotisant à la caisse nationale pour les entrepreneurs de travaux publics (CNETP)** dont la particularité est d'exercer une ou plusieurs activités entrant dans le champ d'application des conventions collectives nationales des Travaux Publics** :
+      - ✅ [Convention collective nationale des ouvriers des travaux publics] du 15 décembre 1992 (étendue par arrêté du 27 mai 1993) ;
+      - ✅ [Convention collective nationale des employés, techniciens et agents de maîtrise des travaux publics](https://www.legifrance.gouv.fr/conv_coll/id/KALICONT000018926209) du 12 juillet 2006 (étendue par arrêté du 28 juin 2007) ;
+      - ✅ [Convention collective nationale des cadres des travaux publics](https://www.legifrance.gouv.fr/conv_coll/id/KALISCTA000032426777/?idConteneur=KALICONT000032437525) du 20 novembre 2015 (étendue par arrêté du 5 juin 2020).
 
-      Toutes les attestations sont disponibles pour les **entreprises en situation régulière** ❌ sauf pour celles qui règlent les cotisations dues à la CNETP au travers de l’URSSAF dans le cadre du Titre Emploi Service Entreprise (TESE).
+      **❌ Ne sont pas concernées par cette API :**
+      - les entreprises relevant des conventions collectives du bâitment** qui dépendent de la caisse CIBTP. Pour accéder aux attestations de ces entreprises, veuillez consulter l'[API de la CIBTP](<%= endpoint_path(uid: 'cibtp/attestations_cotisations_conges_payes_chomage_intemperies') %>)
+      - les entreprises qui règlent les cotisations dues à la CNETP au travers de l’URSSAF dans le cadre du Titre Emploi Service Entreprise (TESE) et dont le système d'information de la CNETP n'a pas l'attestation.
+    geographical_scope_description: |+
+      La caisse CNETP couvre les entreprises de :
+      - ✅ Métropole
+      - ✅ Guadeloupe, Guyane, Martinique, la Réunion.
     know_more_description: |+
-      - le [site de la CNETP](https://www.cnetp.org/category/affiliation/){:target="_blank"} est une source d'information ;
-      - l'[article D.3141-12 du code du travail](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000020572124/){:target="_blank"} définit les entreprises qui sont tenues d’adhérer auprès d'une Caisse de Congés Payés du BTP ;
-        Dans les entreprises exerçant une ou plusieurs activités entrant dans le champ d'application des conventions collectives nationales étendues du bâtiment et des travaux publics, le service des congés est assuré, sur la base de celles-ci, par des caisses constituées à cet effet.
+      La CNETP est adhérente de la [CIBTP France (Réseau des Caisses de congés payés)](https://www.cibtp.fr){:target="_blank"} qui fédère l’ensemble des caisses de congés payés existant dans le Bâtiment et les Travaux Publics. La CNETP a reçu le mandat d’assurer, pour le compte de CIBTP France qui en a la responsabilité, l’indemnisation du chômage-intempéries et le recouvrement des cotisations correspondantes. Elle est donc légalement en charge du service des congés payés dans le secteur des Travaux Publics.
+
+      **Liens utiles :**
+      - le [site de la CNETP](https://www.cnetp.org/category/affiliation/){:target="_blank"} ;
+      - l'[article D.3141-12 du code du travail](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000020572124/){:target="_blank"} qui définit les entreprises qui sont tenues d’adhérer auprès d'une caisse de congés payés du BTP.
     entities:
       - entreprises
   call_id: "SIREN"
