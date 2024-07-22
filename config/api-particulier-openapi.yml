@@ -57,11 +57,17 @@ tags: []
 paths:
   "/api/v2/allocation-adulte-handicape":
     get:
-      summary: Allocation Adulte Handicapé
+      summary: Statut allocation adulte handicapé (AAH)
       tags:
-      - AAH
-      - Prochainement
+      - Prestations sociales
       parameters:
+      - name: Cache-Control
+        in: header
+        description: Si cette valeur est fixée à "no-cache", le système de cache est
+          alors ignoré et la donnée est directement récupérée depuis le fournisseur
+          de données.
+        schema:
+          type: string
       - name: X-Api-Key
         in: header
         schema:
@@ -76,6 +82,7 @@ paths:
       - name: nomNaissance
         in: query
         description: Nom de naissance. Ne pas renseigner si présence de jeton FranceConnect.
+          Le champ est obligatoire pour les appels non FranceConnecté
         example: JEAN
         required: false
         schema:
@@ -129,7 +136,7 @@ paths:
           5 chiffres. Ne pas remplir si la personne est née à l'étranger ou si présence
           de jeton FranceConnect. En l'absence de jeton FranceConnect et du triplet
           (nomCommuneNaissance, anneeDateDeNaissance, codeInseeDepartementNaissance),
-          le champs est obligatoire si la personne est née en France
+          le champ est obligatoire si la personne est née en France
         required: false
       - name: codePaysLieuDeNaissance
         in: query
@@ -152,6 +159,27 @@ paths:
           de jeton FranceConnect.
         example: M
         required: false
+      - name: nomCommuneNaissance
+        in: query
+        schema:
+          type: string
+          minLength: 1
+          example: Gennevilliers
+        description: Nom de la commune de naissance. En l'absence de jeton FranceConnect
+          et du codeInseeLieuDeNaissance, ce paramètre est obligatoire si la personne
+          est née en France
+        required: false
+      - name: codeInseeDepartementNaissance
+        in: query
+        schema:
+          type: string
+          minLength: 2
+          maxLength: 3
+          example: '92'
+        description: Code INSEE du département de naissance. En l'absence de jeton
+          FranceConnect et du codeInseeLieuDeNaissance, ce paramètre est obligatoire
+          si la personne est née en France
+        required: false
       - name: recipient
         in: query
         description: |-
@@ -166,13 +194,30 @@ paths:
       security:
       - franceConnectToken: []
         apiKey: []
-      description: Savoir si un particulier est bénéficiaire de l'Allocation Adulte
-        Handicapé (AAH). Retourne également des informations sur les dates d'ouverture
-        des droits. L'API peut être appellée avec les données identité pivot ou avec
-        un jeton FranceConnect.
+      description: "Statut bénéficiaire de l'allocation adulte handicapé (AAH). \n\n
+        Retourne également des informations sur les dates d'ouverture des droits.
+        \n L'API peut être appellée avec les données identité pivot ou avec un jeton
+        FranceConnect."
       responses:
         '200':
           description: Particulier trouvé
+          headers:
+            X-Response-Cached:
+              schema:
+                type: boolean
+                example: true
+                enum:
+                - true
+                - false
+                default: false
+              description: Indique si la réponse a été caché.
+            X-Cache-Expires-in:
+              schema:
+                type: number
+                nullable: true
+                example: 9001
+              description: Secondes avant que le cache n'expire. Si le cache est vide,
+                ce header est vide (mais présent). La durée du cache est de 1 heure.
           x-operationId: api_particulier_v2_cnav_allocation_adulte_handicape
           content:
             application/json:
@@ -180,7 +225,7 @@ paths:
                 type: object
                 properties:
                   status:
-                    title: Statut bénéficiaire de l'Allocation Adulte Handicapé (AAH)
+                    title: Statut bénéficiaire de l'allocation adulte handicapé (AAH)
                     type: string
                     description: Indique si le particulier est bénéficiaire de la
                       complémentaire de santé solidaire au moment de l'appel.
@@ -191,9 +236,9 @@ paths:
                     title: Date d'ouverture du droit à l'AAH
                     type: string
                     nullable: true
-                    description: "Date de début de droit à l'AAH si le particulier
-                      est bénéficiaire. \n Ce champs est null dans le cas où le particulier
-                      n'est pas bénéficiaire de l'AAH."
+                    description: |
+                      "Date de début de droit à l'AAH si le particulier est bénéficiaire.
+                      Ce champs est null dans le cas où le particulier n'est pas bénéficiaire de l'AAH."
                     example: '1992-11-29'
         '400':
           description: Mauvais paramètres d'appels
@@ -265,11 +310,17 @@ paths:
                 "$ref": "#/components/schemas/Error"
   "/api/v2/allocation-soutien-familial":
     get:
-      summary: Allocation de Soutien Familial
+      summary: Statut allocation de soutien familial (ASF)
       tags:
-      - ASF
-      - Prochainement
+      - Prestations sociales
       parameters:
+      - name: Cache-Control
+        in: header
+        description: Si cette valeur est fixée à "no-cache", le système de cache est
+          alors ignoré et la donnée est directement récupérée depuis le fournisseur
+          de données.
+        schema:
+          type: string
       - name: X-Api-Key
         in: header
         schema:
@@ -295,6 +346,7 @@ paths:
       - name: nomNaissance
         in: query
         description: Nom de naissance. Ne pas renseigner si présence de jeton FranceConnect.
+          Le champ est obligatoire pour les appels non FranceConnecté
         example: JEAN
         required: false
         schema:
@@ -348,7 +400,7 @@ paths:
           5 chiffres. Ne pas remplir si la personne est née à l'étranger ou si présence
           de jeton FranceConnect. En l'absence de jeton FranceConnect et du triplet
           (nomCommuneNaissance, anneeDateDeNaissance, codeInseeDepartementNaissance),
-          le champs est obligatoire si la personne est née en France
+          le champ est obligatoire si la personne est née en France
         required: false
       - name: codePaysLieuDeNaissance
         in: query
@@ -371,16 +423,54 @@ paths:
           de jeton FranceConnect.
         example: M
         required: false
+      - name: nomCommuneNaissance
+        in: query
+        schema:
+          type: string
+          minLength: 1
+          example: Gennevilliers
+        description: Nom de la commune de naissance. En l'absence de jeton FranceConnect
+          et du codeInseeLieuDeNaissance, ce paramètre est obligatoire si la personne
+          est née en France
+        required: false
+      - name: codeInseeDepartementNaissance
+        in: query
+        schema:
+          type: string
+          minLength: 2
+          maxLength: 3
+          example: '92'
+        description: Code INSEE du département de naissance. En l'absence de jeton
+          FranceConnect et du codeInseeLieuDeNaissance, ce paramètre est obligatoire
+          si la personne est née en France
+        required: false
       security:
       - franceConnectToken: []
         apiKey: []
-      description: Savoir si un particulier est bénéficiaire de l'Allocation de Soutien
-        Familial (ASF). Retourne également des informations sur les dates d'ouverture
+      description: Savoir si un particulier est bénéficiaire de l'allocation de soutien
+        familial (ASF). Retourne également des informations sur les dates d'ouverture
         et de fermeture des droits. L'API peut être appellée avec les données identité
         pivot ou avec un jeton FranceConnect.
       responses:
         '200':
           description: Dossier trouvé
+          headers:
+            X-Response-Cached:
+              schema:
+                type: boolean
+                example: true
+                enum:
+                - true
+                - false
+                default: false
+              description: Indique si la réponse a été caché.
+            X-Cache-Expires-in:
+              schema:
+                type: number
+                nullable: true
+                example: 9001
+              description: Secondes avant que le cache n'expire. Si le cache est vide,
+                ce header est vide (mais présent). La durée du cache est de 1 heure.
           x-operationId: api_particulier_v2_cnav_allocation_soutien_familial
           content:
             application/json:
@@ -388,11 +478,11 @@ paths:
                 type: object
                 properties:
                   status:
-                    title: Statut bénéficiaire de l'Allocation de Soutien Familial
+                    title: Statut bénéficiaire de l'allocation de soution familial
                       (ASF)
                     type: string
-                    description: Indique si le particulier est bénéficiaire de l'Allocation
-                      de Soutien Familial au moment de l'appel.
+                    description: Indique si le particulier est bénéficiaire de l'allocation
+                      de soution familial au moment de l'appel.
                     enum:
                     - beneficiaire
                     - non_beneficiaire
@@ -401,16 +491,16 @@ paths:
                     type: string
                     nullable: true
                     description: "Date de début de droit à l'ASF si le particulier
-                      est bénéficiaire. \n Ce champs est null dans le cas où le particulier
+                      est bénéficiaire. \n Ce champ est null dans le cas où le particulier
                       n'est pas bénéficiaire de l'ASF."
                     example: '1992-11-29'
                   dateFin:
                     title: Date de fermeture du droit à l'ASF
                     type: string
                     nullable: true
-                    description: "Date de fin de droit à l'Allocation de Soutien Familial
-                      du particulier bénéficiaire. \n Ce champs est calculé en ajoutant
-                      12 mois à la date de début de droit à l'ASF. \n Ce champs sera
+                    description: "Date de fin de droit à l'allocation de soution familial
+                      du particulier bénéficiaire. \n Ce champ est calculé en ajoutant
+                      12 mois à la date de début de droit à l'ASF. \n Ce champ sera
                       null dans le cas où le particulier n'est pas bénéficiaire de
                       l'ASF."
                     example: '1993-11-29'
@@ -484,10 +574,17 @@ paths:
                 "$ref": "#/components/schemas/Error"
   "/api/v2/complementaire-sante-solidaire":
     get:
-      summary: Complémentaire santé solidaire
+      summary: Statut complémentaire santé solidaire (C2S)
       tags:
-      - Complementaire Sante Solidaire
+      - Prestations sociales
       parameters:
+      - name: Cache-Control
+        in: header
+        description: Si cette valeur est fixée à "no-cache", le système de cache est
+          alors ignoré et la donnée est directement récupérée depuis le fournisseur
+          de données.
+        schema:
+          type: string
       - name: X-Api-Key
         in: header
         schema:
@@ -513,6 +610,7 @@ paths:
       - name: nomNaissance
         in: query
         description: Nom de naissance. Ne pas renseigner si présence de jeton FranceConnect.
+          Le champ est obligatoire pour les appels non FranceConnecté
         example: JEAN
         required: false
         schema:
@@ -566,7 +664,7 @@ paths:
           5 chiffres. Ne pas remplir si la personne est née à l'étranger ou si présence
           de jeton FranceConnect. En l'absence de jeton FranceConnect et du triplet
           (nomCommuneNaissance, anneeDateDeNaissance, codeInseeDepartementNaissance),
-          le champs est obligatoire si la personne est née en France
+          le champ est obligatoire si la personne est née en France
         required: false
       - name: codePaysLieuDeNaissance
         in: query
@@ -613,217 +711,41 @@ paths:
       security:
       - franceConnectToken: []
         apiKey: []
-      description: "Savoir si un particulier est bénéficiaire de la complémentaire
-        santé solidaire (C2S). \n\n Pour de plus amples informations sur cette api
-        et y avoir accès en avant première, veuillez contacter l'équipe API Particulier.
-        \n **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/complementaire_sante_solidaire)
+      description: "Statut bénéficiaire de la complémentaire santé solidaire (C2S).
+        \n\n Retourne également des informations sur les dates d'ouverture des droits.
+        \n Pour plus d'informations sur cette API et obtenir un accès en avant-première,
+        veuillez contacter l'équipe API Particulier. \n **Données disponibles en bac
+        à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/complementaire_sante_solidaire)
         \n L'API peut être appellée avec les données identité pivot ou avec un jeton
-        FranceConnect. "
+        FranceConnect."
       responses:
         '200':
-          description: Quotient Familial trouvée
+          description: Complementaire Santé Solidaire trouvée
+          headers:
+            X-Response-Cached:
+              schema:
+                type: boolean
+                example: true
+                enum:
+                - true
+                - false
+                default: false
+              description: Indique si la réponse a été caché.
+            X-Cache-Expires-in:
+              schema:
+                type: number
+                nullable: true
+                example: 9001
+              description: Secondes avant que le cache n'expire. Si le cache est vide,
+                ce header est vide (mais présent). La durée du cache est de 1 heure.
           x-operationId: api_particulier_v2_cnav_complementaire_sante_solidaire
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  allocataires:
-                    title: Informations sur les parents composant la famille
-                    type: array
-                    minItems: 1
-                    items:
-                      type: object
-                      properties:
-                        nomNaissance:
-                          title: Nom
-                          type: string
-                          description: Nom de naissance de l'allocataire
-                          example: JACQUES
-                        nomUsuel:
-                          title: Nom d'usage
-                          type: string
-                          description: Nom d'usage de l'allocataire
-                          example: JACQUES
-                          nullable: true
-                        prenoms:
-                          title: Prénoms
-                          type: string
-                          description: Prénoms de l'allocataire
-                          example: JEAN-PIERRE THOMAS
-                        anneeDateDeNaissance:
-                          title: Année de naissance
-                          type: string
-                          example: '2000'
-                          description: Année de la date de naissance de l'allocataire.
-                            Peut-être vide si inconnue.
-                          nullable: true
-                        moisDateDeNaissance:
-                          title: Mois de naissance
-                          type: string
-                          example: '01'
-                          description: Mois de la date de naissance de l'allocataire.
-                            Peut-être vide si inconnue.
-                          nullable: true
-                        jourDateDeNaissance:
-                          title: Jour de naissance
-                          type: string
-                          example: '31'
-                          description: Jour de la date de naissance de l'allocataire.
-                            Peut-être vide si inconnue.
-                          nullable: true
-                        sexe:
-                          title: Sexe
-                          type: string
-                          description: Sexe de l'allocataire
-                          example: M
-                          enum:
-                          - F
-                          - M
-                  enfants:
-                    type: array
-                    title: Informations sur les enfants composant la famille
-                    items:
-                      type: object
-                      properties:
-                        nomNaissance:
-                          title: Nom de naissance
-                          type: string
-                          description: Nom de naissance de l'enfant
-                          example: JACQUES
-                        nomUsuel:
-                          title: Nom d'usage
-                          type: string
-                          description: Nom d'usage de l'enfant
-                          example: JACQUES
-                          nullable: true
-                        prenoms:
-                          title: Prénoms
-                          type: string
-                          description: Prénoms de l'enfant
-                          example: JEAN-PIERRE THOMAS
-                        anneeDateDeNaissance:
-                          title: Année de naissance
-                          type: string
-                          example: '2000'
-                          description: Année de la date de naissance de l'enfant.
-                            Peut-être vide si inconnue.
-                          nullable: true
-                        moisDateDeNaissance:
-                          title: Mois de naissance
-                          type: string
-                          example: '01'
-                          description: Mois de la date de naissance de l'enfant. Peut-être
-                            vide si inconnue.
-                          nullable: true
-                        jourDateDeNaissance:
-                          title: Jour de naissance
-                          type: string
-                          example: '31'
-                          description: Jour de la date de naissance de l'enfant. Peut-être
-                            vide si inconnue.
-                          nullable: true
-                        sexe:
-                          title: Sexe
-                          type: string
-                          description: Sexe de l'enfant
-                          example: M
-                          enum:
-                          - F
-                          - M
-                  adresse:
-                    title: Adresse de la famille
-                    type: object
-                    description: Adresse au format de la poste
-                    properties:
-                      identite:
-                        title: Identité du destinataire
-                        type: string
-                        example: Monsieur JEAN JACQUES
-                        description: 'Identité du destinataire : Civilité, titre ou
-                          qualité + nom et prénom'
-                      complementInformation:
-                        title: Complément d'information du destinataire ou point de
-                          remise
-                        description: Complément d'information du destinataire ou point
-                          de remise.
-                        type: string
-                        nullable: true
-                        example:
-                      complementInformationGeographique:
-                        title: Complément d'information du point géographique
-                        type: string
-                        nullable: true
-                        example:
-                        description: Complément d'information du point géographique.
-                      numeroLibelleVoie:
-                        title: Voie
-                        type: string
-                        description: Numéro et libellé de la voie
-                        example: 1 RUE DE LA GARE
-                        nullable: true
-                      lieuDit:
-                        title: Lieu-dit
-                        type: string
-                        nullable: true
-                        example:
-                        description: 'Lieu-dit ou service particulier de distribution
-                          : poste restante, boîte postale'
-                      codePostalVille:
-                        title: Code postal
-                        type: string
-                        description: Code postale et localité de destination
-                        example: '75002'
-                      pays:
-                        title: Pays
-                        type: string
-                        description: Pays
-                        example: FRANCE
-                    required:
-                    - identite
-                    - complementInformation
-                    - complementInformationGeographique
-                    - numeroLibelleVoie
-                    - lieuDit
-                    - codePostalVille
-                    - pays
-                  regime:
-                    title: Régime de l'allocataire
-                    type: string
-                    description: Précise le régime de l'allocataire (CNAF ou MSA)
-                    example: MSA
-                    enum:
-                    - CNAF
-                    - MSA
-                  quotientFamilial:
-                    title: Quotient familial CAF ou MSA
-                    type: integer
-                    description: Valeur du quotient familial calculé par la CAF ou
-                      la MSA
-                    example: 1045
-                  annee:
-                    title: Année du quotient familial
-                    type: integer
-                    description: Année de calcul du quotient familial
-                    example: 2023
-                  mois:
-                    title: Mois du quotient familial
-                    type: integer
-                    description: Mois de calcul du quotient familial
-                    example: 6
-                  annee_calcul:
-                    title: Année du calcul du quotient familial
-                    type: integer
-                    description: Année à laquelle le quotient familial a été calculé
-                    example: 2023
-                  mois_calcul:
-                    title: Mois du calcul du quotient familial
-                    type: integer
-                    description: Mois auquel le quotient familial a été calculé
-                    example: 3
                   status:
-                    title: Statut bénéficiaire de la complémentaire santé solidaire
-                      (C2S)
+                    title: Statut bénéficiaire de la C2S
                     type: string
                     description: "Indique si le particulier est bénéficiaire de la
                       complémentaire de santé solidaire au moment de l'appel. Cet
@@ -844,7 +766,7 @@ paths:
                     type: string
                     nullable: true
                     description: "Date de début de droit à la complémentaire santé
-                      solidaire (C2S) si le particulier est bénéficiaire. \n Ce champs
+                      solidaire (C2S) si le particulier est bénéficiaire. \n Ce champ
                       est null dans le cas où le particulier n'est pas bénéficiaire
                       de la C2S."
                     example: '1992-11-29'
@@ -853,10 +775,10 @@ paths:
                     type: string
                     nullable: true
                     description: "Date de fin de droit à la complémentaire santé solidaire
-                      (C2S) du particulier bénéficiaire. \n Ce champs est calculé
-                      en ajoutant 12 mois à la date de début de droit à la C2S. \n
-                      Ce champs sera null dans le cas où le particulier n'est pas
-                      bénéficiaire de la C2S."
+                      (C2S) du particulier bénéficiaire. \n Ce champ est calculé en
+                      ajoutant 12 mois à la date de début de droit à la C2S. \n Ce
+                      champ sera null dans le cas où le particulier n'est pas bénéficiaire
+                      de la C2S."
                     example: '1993-11-29'
         '400':
           description: Mauvais paramètres d'appels
@@ -929,11 +851,17 @@ paths:
                 "$ref": "#/components/schemas/Error"
   "/api/v2/prime-activite":
     get:
-      summary: Prime d'activité
+      summary: Statut prime d'activité
       tags:
-      - Prime d'activité
-      - Prochainement
+      - Prestations sociales
       parameters:
+      - name: Cache-Control
+        in: header
+        description: Si cette valeur est fixée à "no-cache", le système de cache est
+          alors ignoré et la donnée est directement récupérée depuis le fournisseur
+          de données.
+        schema:
+          type: string
       - name: X-Api-Key
         in: header
         schema:
@@ -959,6 +887,7 @@ paths:
       - name: nomNaissance
         in: query
         description: Nom de naissance. Ne pas renseigner si présence de jeton FranceConnect.
+          Le champ est obligatoire pour les appels non FranceConnecté
         example: JEAN
         required: false
         schema:
@@ -1012,7 +941,7 @@ paths:
           5 chiffres. Ne pas remplir si la personne est née à l'étranger ou si présence
           de jeton FranceConnect. En l'absence de jeton FranceConnect et du triplet
           (nomCommuneNaissance, anneeDateDeNaissance, codeInseeDepartementNaissance),
-          le champs est obligatoire si la personne est née en France
+          le champ est obligatoire si la personne est née en France
         required: false
       - name: codePaysLieuDeNaissance
         in: query
@@ -1035,16 +964,54 @@ paths:
           de jeton FranceConnect.
         example: M
         required: false
+      - name: nomCommuneNaissance
+        in: query
+        schema:
+          type: string
+          minLength: 1
+          example: Gennevilliers
+        description: Nom de la commune de naissance. En l'absence de jeton FranceConnect
+          et du codeInseeLieuDeNaissance, ce paramètre est obligatoire si la personne
+          est née en France
+        required: false
+      - name: codeInseeDepartementNaissance
+        in: query
+        schema:
+          type: string
+          minLength: 2
+          maxLength: 3
+          example: '92'
+        description: Code INSEE du département de naissance. En l'absence de jeton
+          FranceConnect et du codeInseeLieuDeNaissance, ce paramètre est obligatoire
+          si la personne est née en France
+        required: false
       security:
       - franceConnectToken: []
         apiKey: []
-      description: Savoir si un particulier est bénéficiaire de la Prime d'activité
-        (PA). Précise également si la PA est majorée ainsi que les dates d'ouverture
-        et de fermeture des droits. L'API peut être appellée avec les données identité
-        pivot ou avec un jeton FranceConnect.
+      description: "Statut bénéficiaire de la prime d'activité, majorée ou non. \n\n
+        Retourne également des informations sur les dates d'ouverture des droits.
+        \n L'API peut être appellée avec les données identité pivot ou avec un jeton
+        FranceConnect."
       responses:
         '200':
           description: Dossier trouvé
+          headers:
+            X-Response-Cached:
+              schema:
+                type: boolean
+                example: true
+                enum:
+                - true
+                - false
+                default: false
+              description: Indique si la réponse a été caché.
+            X-Cache-Expires-in:
+              schema:
+                type: number
+                nullable: true
+                example: 9001
+              description: Secondes avant que le cache n'expire. Si le cache est vide,
+                ce header est vide (mais présent). La durée du cache est de 1 heure.
           x-operationId: api_particulier_v2_cnav_prime_activite
           content:
             application/json:
@@ -1052,7 +1019,7 @@ paths:
                 type: object
                 properties:
                   status:
-                    title: Statut bénéficiaire de la Prime d'activité
+                    title: Statut bénéficiaire de la prime d'activité
                     type: string
                     description: Indique si le particulier est bénéficiaire de la
                       prime d'activité au moment de l'appel.
@@ -1060,32 +1027,32 @@ paths:
                     - beneficiaire
                     - non_beneficiaire
                   majoration:
-                    title: Majoration de la prime d'activité
+                    title: Statut bénéficiaire de la majoration de la prime d'activité
                     type: boolean
                     nullable: true
                     description: Indique si le particulier est bénéficiaire de la
-                      prime d'activité majorée au moment de l'appel. Nécessite un
-                      scope spécifique pour être envoyé. Sera null si le particulier
-                      n'est pas bénéficiaire de la prime d'activité.
+                      prime d'activité majorée au moment de l'appel. Ce champ est
+                      renvoyé si les droits du jeton (obtenus par habilitation) le
+                      permettent. Ce champ sera null si le particulier n'est pas bénéficiaire
+                      de la prime d'activité.
                     example: false
                   dateDebut:
                     title: Date d'ouverture du droit à la prime d'activité
                     type: string
                     nullable: true
                     description: "Date de début de droit à la prime d'activité si
-                      le particulier est bénéficiaire. \n Ce champs est null dans
-                      le cas où le particulier n'est pas bénéficiaire de la prime
-                      d'activité."
+                      le particulier est bénéficiaire. \n Ce champ est null dans le
+                      cas où le particulier n'est pas bénéficiaire de la prime d'activité."
                     example: '1992-11-20'
                   dateFin:
                     title: Date de fermeture du droit à la prime d'activité
                     type: string
                     nullable: true
                     description: "Date de fin de droit à la prime d'activité du particulier
-                      bénéficiaire. \n Ce champs est calculé en ajoutant 3 mois à
-                      la date de début de droit de la prime d'activité. \n Ce champs
-                      sera null dans le cas où le particulier n'est pas bénéficiaire
-                      de la prime d'activité."
+                      bénéficiaire. \n Ce champ est calculé en ajoutant 3 mois à la
+                      date de début de droit de la prime d'activité. \n Ce champ sera
+                      null dans le cas où le particulier n'est pas bénéficiaire de
+                      la prime d'activité."
                     example: '1993-02-20'
         '400':
           description: Mauvais paramètres d'appels
@@ -1161,6 +1128,13 @@ paths:
       tags:
       - Quotient familial
       parameters:
+      - name: Cache-Control
+        in: header
+        description: Si cette valeur est fixée à "no-cache", le système de cache est
+          alors ignoré et la donnée est directement récupérée depuis le fournisseur
+          de données.
+        schema:
+          type: string
       - name: X-Api-Key
         in: header
         schema:
@@ -1186,6 +1160,7 @@ paths:
       - name: nomNaissance
         in: query
         description: Nom de naissance. Ne pas renseigner si présence de jeton FranceConnect.
+          Le champ est obligatoire pour les appels non FranceConnecté
         example: JEAN
         required: false
         schema:
@@ -1239,7 +1214,7 @@ paths:
           5 chiffres. Ne pas remplir si la personne est née à l'étranger ou si présence
           de jeton FranceConnect. En l'absence de jeton FranceConnect et du triplet
           (nomCommuneNaissance, anneeDateDeNaissance, codeInseeDepartementNaissance),
-          le champs est obligatoire si la personne est née en France
+          le champ est obligatoire si la personne est née en France
         required: false
       - name: codePaysLieuDeNaissance
         in: query
@@ -1286,15 +1261,16 @@ paths:
       - name: annee
         in: query
         description: Année du quotient familial recherché. Si l'année n'est pas renseignée,
-          le dernier QF est transmis. Remonte au maximum à 2 ans.
+          l'année utilisée par défaut est celle en cours. L'API permet d'accéder à
+          un historique de maximum 2 ans.
         example: 2023
         required: false
         schema:
           type: integer
       - name: mois
         in: query
-        description: Mois pour le quotient, si non renseigné renvoie le dernier QF
-          calculé
+        description: Mois du quotient familial recherché. Si le mois n'est pas renseigné,
+          le mois utilisé par défaut est celui en cours.
         example: 12
         required: false
         schema:
@@ -1303,14 +1279,31 @@ paths:
       - franceConnectToken: []
         apiKey: []
       description: "Quotient familial et composition de la famille d'un allocataire
-        du régime agricole (régime général à venir). \n Pour de plus amples informations
-        sur cette api et y avoir accès en avant première, veuillez contacter l'équipe
+        du régime agricole (régime général à venir). \n Pour plus d'informations sur
+        cette API et obtenir un accès en avant-première, veuillez contacter l'équipe
         API Particulier. \n **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/api_particulier_v2_cnav_quotient_familial_v2)
         \n L'API peut être appellée avec les données identité pivot ou avec un jeton
         FranceConnect."
       responses:
         '200':
           description: Quotient Familial trouvé
+          headers:
+            X-Response-Cached:
+              schema:
+                type: boolean
+                example: true
+                enum:
+                - true
+                - false
+                default: false
+              description: Indique si la réponse a été caché.
+            X-Cache-Expires-in:
+              schema:
+                type: number
+                nullable: true
+                example: 9001
+              description: Secondes avant que le cache n'expire. Si le cache est vide,
+                ce header est vide (mais présent). La durée du cache est de 24 heure.
           content:
             application/json:
               examples:
@@ -1395,14 +1388,14 @@ paths:
                           type: string
                           example: '01'
                           description: Mois de la date de naissance de l'allocataire.
-                            Peut-être vide si inconnue.
+                            Peut-être vide si inconnu.
                           nullable: true
                         jourDateDeNaissance:
                           title: Jour de naissance
                           type: string
                           example: '31'
                           description: Jour de la date de naissance de l'allocataire.
-                            Peut-être vide si inconnue.
+                            Peut-être vide si inconnu.
                           nullable: true
                         sexe:
                           title: Sexe
@@ -1446,14 +1439,14 @@ paths:
                           type: string
                           example: '01'
                           description: Mois de la date de naissance de l'enfant. Peut-être
-                            vide si inconnue.
+                            vide si inconnu.
                           nullable: true
                         jourDateDeNaissance:
                           title: Jour de naissance
                           type: string
                           example: '31'
                           description: Jour de la date de naissance de l'enfant. Peut-être
-                            vide si inconnue.
+                            vide si inconnu.
                           nullable: true
                         sexe:
                           title: Sexe
@@ -1477,8 +1470,6 @@ paths:
                       complementInformation:
                         title: Complément d'information du destinataire ou point de
                           remise
-                        description: Complément d'information du destinataire ou point
-                          de remise.
                         type: string
                         nullable: true
                         example:
@@ -1504,7 +1495,7 @@ paths:
                       codePostalVille:
                         title: Code postal
                         type: string
-                        description: Code postale et localité de destination
+                        description: Code postal et localité de destination
                         example: '75002'
                       pays:
                         title: Pays
@@ -1522,7 +1513,8 @@ paths:
                   regime:
                     title: Régime de l'allocataire
                     type: string
-                    description: Précise le régime de l'allocataire (CNAF ou MSA)
+                    description: Précise le régime de l'allocataire, régime général
+                      (CNAF) ou agricole (MSA).
                     example: MSA
                     enum:
                     - CNAF
@@ -1534,25 +1526,44 @@ paths:
                       la MSA
                     example: 1045
                   annee:
-                    title: Année du quotient familial
+                    title: Année effective du QF
                     type: integer
-                    description: Année de calcul du quotient familial
+                    description: "Année effective du quotient familial appelé. \n\n
+                      - Si aucune année et aucun mois n'ont été renseignés en paramètres
+                      d'appel, le quotient familial retourné sera celui du mois de
+                      l'année en cours. - Si aucune année, ni aucun mois sont renseignés,
+                      l'appel est effectué par défaut avec l'année et le mois en cours.
+                      - Si aucune année n'a été renseignée, et que le mois est renseigné,
+                      le quotient familial retourné sera celui du mois spécifié pour
+                      l'année en cours. En revanche, si la date finalement composée
+                      avec cette règle s'avère dans le futur (mois postérieur au moins
+                      en cours), l'API renvoie un erreur 400. "
                     example: 2023
                   mois:
-                    title: Mois du quotient familial
+                    title: Mois effectif du QF
                     type: integer
-                    description: Mois de calcul du quotient familial
+                    description: "Mois effectif du quotient familial. \n\n - Si aucun
+                      mois n'est renseigné, le mois en cours est utilisé par défaut.
+                      - Si le mois renseigné est postérieur au mois en cours, et qu'il
+                      compose une date dans le futur avec l'année appelée, l'API renvoie
+                      une erreur 400. \n - Si aucun mois n'a été renseigné mais que
+                      l'année a été spécifiée en paramètres d'appel, le quotient familial
+                      retourné sera celui du mois en cours pour l'année spécifiée."
                     example: 6
                   annee_calcul:
-                    title: Année du calcul du quotient familial
+                    title: Année du calcul du QF
                     type: integer
-                    description: Année à laquelle le quotient familial a été calculé
+                    description: Année lors de laquelle le calcul du quotient familial
+                      demandé a été effectué. Cette année peut différer de l'année
+                      effective du quotient familial.
                     example: 2023
                   mois_calcul:
-                    title: Mois du calcul du quotient familial
+                    title: Mois du calcul du QF
                     type: integer
-                    description: Mois auquel le quotient familial a été calculé
-                    example: 3
+                    description: Mois lors duquel le calcul du quotient familial demandé
+                      a été effectué. Ce mois peut différer du mois effectif du quotient
+                      familial.
+                    example: 9
           x-operationId: api_particulier_v2_cnav_quotient_familial_v2
         '400':
           description: Mauvais paramètres d'appels
@@ -1562,8 +1573,10 @@ paths:
                 Mauvais paramètres d'appels:
                   value:
                     error: bad_request
-                    reason: Le sexe n'est pas correctement formaté (m ou f)
-                    message: Le sexe n'est pas correctement formaté (m ou f)
+                    reason: L'année demandée n'est pas correctement formatée ou est
+                      dans le futur.
+                    message: L'année demandée n'est pas correctement formatée ou est
+                      dans le futur.
               schema:
                 "$ref": "#/components/schemas/Error"
         '404':
@@ -1585,13 +1598,13 @@ paths:
                       MSA.
                     message: Le dossier allocataire n'a pas été trouvé auprès de la
                       MSA.
-                Dossier non trouvé CNAV:
+                Dossier non trouvé CNAF:
                   value:
                     error: not_found
                     reason: Le dossier allocataire n'a pas été trouvé auprès de la
-                      CNAV.
+                      CNAF.
                     message: Le dossier allocataire n'a pas été trouvé auprès de la
-                      CNAV.
+                      CNAF.
               schema:
                 "$ref": "#/components/schemas/Error"
         '503':
@@ -1601,7 +1614,7 @@ paths:
               examples:
                 Erreur du fournisseur:
                   value:
-                    error: data_provider_error
+                    error: provider_unknown_error
                     reason: La réponse retournée par le fournisseur de données est
                       invalide et inconnue de notre service. L'équipe technique a
                       été notifiée de cette erreur pour investigation.
@@ -1643,11 +1656,17 @@ paths:
                 "$ref": "#/components/schemas/Error"
   "/api/v2/revenu-solidarite-active":
     get:
-      summary: Revenu de solidarité active
+      summary: Statut revenu de solidarité active (RSA)
       tags:
-      - RSA
-      - Prochainement
+      - Prestations sociales
       parameters:
+      - name: Cache-Control
+        in: header
+        description: Si cette valeur est fixée à "no-cache", le système de cache est
+          alors ignoré et la donnée est directement récupérée depuis le fournisseur
+          de données.
+        schema:
+          type: string
       - name: X-Api-Key
         in: header
         schema:
@@ -1673,6 +1692,7 @@ paths:
       - name: nomNaissance
         in: query
         description: Nom de naissance. Ne pas renseigner si présence de jeton FranceConnect.
+          Le champ est obligatoire pour les appels non FranceConnecté
         example: JEAN
         required: false
         schema:
@@ -1726,7 +1746,7 @@ paths:
           5 chiffres. Ne pas remplir si la personne est née à l'étranger ou si présence
           de jeton FranceConnect. En l'absence de jeton FranceConnect et du triplet
           (nomCommuneNaissance, anneeDateDeNaissance, codeInseeDepartementNaissance),
-          le champs est obligatoire si la personne est née en France
+          le champ est obligatoire si la personne est née en France
         required: false
       - name: codePaysLieuDeNaissance
         in: query
@@ -1749,16 +1769,54 @@ paths:
           de jeton FranceConnect.
         example: M
         required: false
+      - name: nomCommuneNaissance
+        in: query
+        schema:
+          type: string
+          minLength: 1
+          example: Gennevilliers
+        description: Nom de la commune de naissance. En l'absence de jeton FranceConnect
+          et du codeInseeLieuDeNaissance, ce paramètre est obligatoire si la personne
+          est née en France
+        required: false
+      - name: codeInseeDepartementNaissance
+        in: query
+        schema:
+          type: string
+          minLength: 2
+          maxLength: 3
+          example: '92'
+        description: Code INSEE du département de naissance. En l'absence de jeton
+          FranceConnect et du codeInseeLieuDeNaissance, ce paramètre est obligatoire
+          si la personne est née en France
+        required: false
       security:
       - franceConnectToken: []
         apiKey: []
-      description: Savoir si un particulier est bénéficiaire du Revenu de solidarité
-        active (RSA) et si le montant du RSA est majoré ou non. Retourne également
-        des informations sur les dates d'ouverture des droits. L'API peut être appellée
-        avec les données identité pivot ou avec un jeton FranceConnect.
+      description: "Statut bénéficiaire du revenu de solidarité active (RSA), majoré
+        ou non. \n\n Retourne également des informations sur les dates d'ouverture
+        des droits. \n L'API peut être appellée avec les données identité pivot ou
+        avec un jeton FranceConnect."
       responses:
         '200':
           description: Dossier trouvé
+          headers:
+            X-Response-Cached:
+              schema:
+                type: boolean
+                example: true
+                enum:
+                - true
+                - false
+                default: false
+              description: Indique si la réponse a été caché.
+            X-Cache-Expires-in:
+              schema:
+                type: number
+                nullable: true
+                example: 9001
+              description: Secondes avant que le cache n'expire. Si le cache est vide,
+                ce header est vide (mais présent). La durée du cache est de 1 heure.
           x-operationId: api_particulier_v2_cnav_revenu_solidarite_active
           content:
             application/json:
@@ -1766,15 +1824,15 @@ paths:
                 type: object
                 properties:
                   status:
-                    title: Statut bénéficiaire du Revenu de solidarité active (RSA)
+                    title: Statut bénéficiaire du revenu de solidarité active (RSA)
                     type: string
-                    description: Indique si le particulier est bénéficiaire du Revenu
+                    description: Indique si le particulier est bénéficiaire du revenu
                       de solidarité active au moment de l'appel.
                     enum:
                     - beneficiaire
                     - non_beneficiaire
                   majoration:
-                    title: Majoration du RSA
+                    title: Statut bénéficiaire de la majoration du RSA
                     type: boolean
                     nullable: true
                     description: Indique si le particulier est bénéficiaire du RSA
@@ -1787,16 +1845,16 @@ paths:
                     type: string
                     nullable: true
                     description: "Date de début de droit au RSA si le particulier
-                      est bénéficiaire. \n Ce champs est null dans le cas où le particulier
+                      est bénéficiaire. \n Ce champ est null dans le cas où le particulier
                       n'est pas bénéficiaire du RSA."
                     example: '1992-11-29'
                   dateFin:
-                    title: Date de fermeture du droit au Revenue de solidarité active
+                    title: Date de fermeture du droit au revenu de solidarité active
                     type: string
                     nullable: true
-                    description: "Date de fin de droit au Revenue de solidarité active
-                      du particulier bénéficiaire. \n Ce champs est calculé en ajoutant
-                      3 mois à la date de début de droit du RSA. \n Ce champs sera
+                    description: "Date de fin de droit au revenu de solidarité active
+                      du particulier bénéficiaire. \n Ce champ est calculé en ajoutant
+                      3 mois à la date de début de droit du RSA. \n Ce champ sera
                       null dans le cas où le particulier n'est pas bénéficiaire du
                       RSA."
                     example: '1993-02-20'
@@ -1872,7 +1930,7 @@ paths:
     get:
       summary: Statut élève scolarisé et boursier
       tags:
-      - Scolarité étudiant
+      - Éducation et études
       parameters:
       - name: X-Api-Key
         in: header
@@ -2114,7 +2172,7 @@ paths:
     get:
       summary: Paiements versés par France Travail
       tags:
-      - Paiements France Travail
+      - Demandeurs d'emploi
       parameters:
       - name: X-Api-Key
         in: header
@@ -2270,6 +2328,13 @@ paths:
 
         **Données disponibles en bac à sable :** [liste](https://github.com/etalab/siade_staging_data/blob/develop/payloads/api_particulier_v2_cnaf_quotient_familial)
       parameters:
+      - name: Cache-Control
+        in: header
+        description: Si cette valeur est fixée à "no-cache", le système de cache est
+          alors ignoré et la donnée est directement récupérée depuis le fournisseur
+          de données.
+        schema:
+          type: string
       - name: numeroAllocataire
         in: query
         description: Numéro d'allocataire. Numéro de 1 à 7 chiffres. Le numéro d'allocataire
@@ -2305,6 +2370,23 @@ paths:
         '200':
           x-operationId: api_particulier_v2_cnaf_quotient_familial
           description: Foyer tel qu'il est déclaré à la CAF
+          headers:
+            X-Response-Cached:
+              schema:
+                type: boolean
+                example: true
+                enum:
+                - true
+                - false
+                default: false
+              description: Indique si la réponse a été caché.
+            X-Cache-Expires-in:
+              schema:
+                type: number
+                nullable: true
+                example: 9001
+              description: Secondes avant que le cache n'expire. Si le cache est vide,
+                ce header est vide (mais présent). La durée du cache est de 1 heure.
           content:
             application/json:
               schema:
@@ -2519,7 +2601,7 @@ paths:
         schema:
           type: string
       tags:
-      - Situation France Travail
+      - Demandeurs d'emploi
       responses:
         '200':
           x-operationId: api_particulier_v2_pole_emploi_statut
@@ -2744,7 +2826,7 @@ paths:
   "/api/v2/etudiants":
     get:
       tags:
-      - Statut étudiant
+      - Éducation et études
       parameters:
       - name: ine
         description: Identifiant National Étudiant (INE). Cet identifiant est unique
@@ -2872,10 +2954,8 @@ paths:
                           type: string
                           description: |
                             Régime de formation de l'étudiant. Il existe deux modalités différentes :
-
-                              - formation initiale : Ce champ indique que l'étudiant est en formation initiale sous statut étudiant (y compris dans le cadre de reprise d’études) ou en en apprentissage ;
-
-                              - formation continue : Ce champ indique que l'étudiant est en formation continue ou en contrat de professionalisation."
+                            - formation initiale : Ce champ indique que l'étudiant est en formation initiale, soit dans une des situations suivantes : formation initiale classique, reprise d'études non financée sans convention et contrat d'apprentissage ;
+                            - formation continue : Ce champ indique que l'étudiant est en formation continue ou en contrat de professionalisation."
                           example: formation initiale
                           enum:
                           - formation initiale
@@ -2930,7 +3010,7 @@ paths:
   "/api/v2/etudiants-boursiers":
     get:
       tags:
-      - Statut étudiant boursier
+      - Éducation et études
       parameters:
       - name: ine
         description: Identifiant National Étudiant (INE). Cet identifiant est unique
