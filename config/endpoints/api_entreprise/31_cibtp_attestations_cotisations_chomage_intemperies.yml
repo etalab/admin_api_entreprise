@@ -5,13 +5,9 @@
   position: 299
   perimeter:
     entity_type_description: |+
-      Cette API couvre les **entreprises cotisant à la CIBTP et exerçant une ou plusieurs activités entrant dans le champ d'application des conventions collectives nationales du Bâtiment** :
-      - ✅ [Convention collective nationale des ouvriers employés par les entreprises du bâtiment](https://www.legifrance.gouv.fr/conv_coll/id/KALICONT000005635221) visées par le décret du 1er mars 1962 (c’est-à-dire occupant jusqu’à 10 salariés) du 8 octobre 1990, étendue par arrêté du 12 février 1991 ;
-      - ✅ [Convention collective nationale des ouvriers employés par les entreprises du bâtiment](https://www.legifrance.gouv.fr/conv_coll/id/KALICONT000005635220) non visées par le décret du 1er mars 1962 (c’est-à-dire occupant plus de 10 salariés) du 8 octobre 1990, étendue par arrêté du 8 février 1991 ;
-      - ✅ [Convention collective nationale des employés, techniciens et agents de maîtrise du bâtiment](https://www.legifrance.gouv.fr/conv_coll/id/KALICONT000018773893) du 12 juillet 2006 ;
-      - ✅ [Convention collective des cadres du bâtiment](https://www.legifrance.gouv.fr/conv_coll/id/KALICONT000017941839) du 1er juin 2004.
+      Cette API couvre les **✅ entreprises cotisant à la CIBTP et exerçant une ou plusieurs activités entrant dans le champ d'application des conventions collectives nationales du Bâtiment**. <a class=" fr-icon-arrow-down-line fr-link--icon-right" href="#conventions-collectives">Consulter les conventions concernées</a>.
 
-      **❌ Ne sont pas concernées par cette API, les entreprises relevant des conventions collectives des travaux publics** et qui dépendent de la caisse CNETP. Pour accéder aux attestations de ces entreprises, veuillez consulter l'[API de la CNETP](<%= endpoint_path(uid: 'cnetp/attestations_cotisations_conges_payes_chomage_intemperies') %>)
+      **❌ Ne sont pas concernées par cette API, les entreprises relevant des conventions collectives des travaux publics** et qui dépendent de la caisse CNETP. Pour accéder aux attestations de ces entreprises, veuillez consulter l'[API de la CNETP](<%= endpoint_path(uid: 'cnetp/attestations_cotisations_conges_payes_chomage_intemperies') %>).
     geographical_scope_description: |+
       La caisse CIBTP couvre les entreprises de :
       - ✅ Métropole
@@ -58,6 +54,14 @@
   format:
     - URL vers l'attestation en PDF
   faq:
+    - q: <a name="conventions-collectives"></a>Conventions collectives des entreprises concernées par cette API
+      a: |+
+        Les entreprises concernées par cette API sont celles qui exercent une ou plusieurs activités entrant dans le champ d'application des conventions collectives nationales du Bâtiment : 
+
+        - ✅ [Convention collective nationale des ouvriers employés par les entreprises du bâtiment](https://www.legifrance.gouv.fr/conv_coll/id/KALICONT000005635221) visées par le décret du 1er mars 1962 (c’est-à-dire occupant jusqu’à 10 salariés) du 8 octobre 1990, étendue par arrêté du 12 février 1991 ;
+        - ✅ [Convention collective nationale des ouvriers employés par les entreprises du bâtiment](https://www.legifrance.gouv.fr/conv_coll/id/KALICONT000005635220) non visées par le décret du 1er mars 1962 (c’est-à-dire occupant plus de 10 salariés) du 8 octobre 1990, étendue par arrêté du 8 février 1991 ;
+        - ✅ [Convention collective nationale des employés, techniciens et agents de maîtrise du bâtiment](https://www.legifrance.gouv.fr/conv_coll/id/KALICONT000018773893) du 12 juillet 2006 ;
+        - ✅ [Convention collective des cadres du bâtiment](https://www.legifrance.gouv.fr/conv_coll/id/KALICONT000017941839) du 1er juin 2004.
     - q: L'API ne renvoie pas de pièce, peut-on considérer que l'entreprise n'est pas à jour ?
       a: |+
         Non, dans certains cas nous ne pouvons pas récupérer l’attestation. Notamment, cette API ne permet de récupérer les attestations des entreprises réglant leurs cotisations à la CNETP au travers de l'URSSAF (dans le cadre du TESE).
