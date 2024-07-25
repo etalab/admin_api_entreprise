@@ -34,6 +34,7 @@ class APIEntreprise::PagesController < APIEntrepriseController
   end
 
   def redoc
+    @large_container = true
     render 'shared/pages/redoc'
   end
 
