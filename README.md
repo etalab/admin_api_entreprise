@@ -27,6 +27,12 @@ installer les paquets et importer les tables de la base de données :
 Installer `Docker` et `docker-compose` (sur Mac tout est
 [ici](https://docs.docker.com/desktop/mac/install/))
 
+Pour installer l'application :
+
+```sh
+make install
+```
+
 Pour lancer l'application :
 
 ```sh
@@ -39,12 +45,6 @@ Pour arrêter:
 
 ```sh
 make stop
-```
-
-Lors du premier lancement, il faut initialiser la base de donnée (après `make start`):
-
-```sh
-make install_database
 ```
 
 En cas de problème, pour réinstaller la base de données:
@@ -118,9 +118,9 @@ Vous pouvez accéder ensuite accéder au site via les adresses suivantes:
 
 ```
 # Pour visualiser le site d'API Entreprise
-http://entreprise.api.localtest.me:3000/
+http://entreprise.api.localtest.me:5000/
 # Pour visualiser le site d'API Particulier
-http://particulier.api.localtest.me:3000/
+http://particulier.api.localtest.me:5000/
 ```
 
 ### Avec Docker
