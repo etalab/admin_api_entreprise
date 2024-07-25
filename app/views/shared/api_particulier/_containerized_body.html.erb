@@ -1,4 +1,6 @@
-<div class="fr-container<%= '-fluid' if @large_container%> fr-mb-5w fr-mt-5w">
+<% container_class = action_name == 'redoc' ? 'fr-container-fluid' : 'fr-container' %>
+
+<div class="<%= container_class %> fr-mb-5w fr-mt-5w">
   <turbo-frame id="alerts">
     <%= render partial: 'shared/alerts' %>
   </turbo-frame>

@@ -26,7 +26,6 @@ class APIParticulier::PagesController < APIParticulierController
   def donnees_personnelles; end
 
   def redoc
-    @large_container = true
     render 'shared/pages/redoc'
   end
 
