@@ -73,6 +73,6 @@ constraints(APIParticulierDomainConstraint.new) do
     get '/donnees_personnelles', to: 'pages#donnees_personnelles', as: :donnees_personnelles
     get '/accessibilite', to: 'pages#accessibility', as: :accessibilite
 
-
+    get '/datapass/:id', to: 'reporters#show', as: :dashboard_reporter
   end
 end
