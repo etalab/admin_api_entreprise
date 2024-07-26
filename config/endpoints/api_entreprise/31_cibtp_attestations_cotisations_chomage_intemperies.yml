@@ -7,11 +7,13 @@
     entity_type_description: |+
       Cette API couvre les **✅ entreprises cotisant à la CIBTP et exerçant une ou plusieurs activités entrant dans le champ d'application des conventions collectives nationales du Bâtiment**. <a class=" fr-icon-arrow-down-line fr-link--icon-right" href="#conventions-collectives">Consulter les conventions concernées</a>.
 
-      **❌ Ne sont pas concernées par cette API, les entreprises relevant des conventions collectives des travaux publics** et qui dépendent de la caisse CNETP. Pour accéder aux attestations de ces entreprises, veuillez consulter l'[API de la CNETP](<%= endpoint_path(uid: 'cnetp/attestations_cotisations_conges_payes_chomage_intemperies') %>).
+      **❌ Ne sont pas concernées par cette API, les entreprises relevant des conventions collectives des travaux publics** et qui dépendent de la caisse CNETP. Pour accéder aux certficats de ces entreprises, veuillez consulter l'[API de la CNETP](<%= endpoint_path(uid: 'cnetp/attestations_cotisations_conges_payes_chomage_intemperies') %>).
     geographical_scope_description: |+
       La caisse CIBTP couvre les entreprises de :
       - ✅ Métropole
       - ✅ Guadeloupe, Guyane, Martinique, la Réunion.
+    updating_rules_description: |+
+      Les certificats transmis par cette API sont **mis à jour en temps réel**, directement depuis le système d’information de la CIBTP et correspondent donc à la situation de l'entreprise telle que connue par la CIBTP.
     know_more_description: |+
       - le [site de la CIBTP](https://www.cnetp.org/category/affiliation/){:target="_blank"} est une source d'information ;
       - l'[article D.3141-12 du code du travail](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000020572124/){:target="_blank"} définit les entreprises sont tenues d’adhérer auprès d'une caisse de congés payés du BTP.
@@ -33,7 +35,9 @@
     - 'fraude'
   data:
     description: |+
-      Cette API permet d'obtenir au format PDF une attestation délivrée à l'entreprise sous réserve que celle-ci&nbsp; soit à jour de ses déclarations et du paiement de cotisations congés payés et chômage-intempéries.
+      Cette API permet : 
+      - d'obtenir au format PDF un certificat délivré à l'entreprise sous réserve que celle-ci soit à jour de ses déclarations et du paiement de cotisations congés payés et chômage-intempéries.
+      - de savoir si une entreprise n'est pas à jour de ses cotisations, avec l'envoi d'une réponse spécifique (`code 422`).
 
       {:.fr-h6 .fr-mt-4w}
       ### Exemple d'attestation PDF&nbsp;:
@@ -48,6 +52,9 @@
         </a>
        </p>
       </div>
+
+      {:.fr-highlight}
+      > La durée de validité du certificat est d'un mois à compter de la date figurant sur le certificar
   opening: protected
   parameters:
     - Numéro de SIREN de l'établissement
@@ -64,4 +71,4 @@
         - ✅ [Convention collective des cadres du bâtiment](https://www.legifrance.gouv.fr/conv_coll/id/KALICONT000017941839) du 1er juin 2004.
     - q: L'API ne renvoie pas de pièce, peut-on considérer que l'entreprise n'est pas à jour ?
       a: |+
-        Non, dans certains cas nous ne pouvons pas récupérer l’attestation. Notamment, cette API ne permet de récupérer les attestations des entreprises réglant leurs cotisations à la CNETP au travers de l'URSSAF (dans le cadre du TESE).
+        Vous pouvez considérer que l'entreprise n'est pas à jour si l'API renvoie une réponse spécifique (`code 422`).
