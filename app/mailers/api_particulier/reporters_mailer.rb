@@ -9,7 +9,7 @@ class APIParticulier::ReportersMailer < APIParticulierMailer
       return if reporters_config[group].blank?
 
       mail(
-        to: reporters_config[group],
+        bcc: reporters_config[group],
         subject: t('.subject', group:)
       )
     end

@@ -9,7 +9,7 @@ RSpec.describe APIParticulier::ReportersMailer do
     end
 
     it 'sends an email to reporters associated to this group' do
-      expect(mail.to).to include('user@yopmail.com')
+      expect(mail.bcc).to include('user@yopmail.com')
     end
   end
 end
