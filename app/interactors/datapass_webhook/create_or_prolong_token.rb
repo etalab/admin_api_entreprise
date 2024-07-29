@@ -1,6 +1,11 @@
 class DatapassWebhook::CreateOrProlongToken < ApplicationInteractor
+  before do
+    context.modalities ||= %w[params]
+  end
+
   def call
     return if %w[approve validate].exclude?(context.event)
+    return if context.modalities.exclude?('params')
 
     token = create_or_prolong_token
 
