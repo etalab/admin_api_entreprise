@@ -1,4 +1,6 @@
 class APIParticulier::ReportersMailer < APIParticulierMailer
+  skip_before_action :attach_logos
+
   %w[
     submit
     approve
