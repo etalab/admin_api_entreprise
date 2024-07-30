@@ -36,7 +36,7 @@
   data:
     description: |+
       Cette API permet : 
-      - d'obtenir au format PDF un certificat délivré à l'entreprise sous réserve que celle-ci soit à jour de ses déclarations et du paiement de cotisations congés payés et chômage-intempéries.
+      - d'obtenir, au format PDF, le certificat délivré à l'entreprise sous réserve que celle-ci soit à jour de ses déclarations et du paiement de cotisations congés payés et chômage-intempéries.
       - de savoir si une entreprise n'est pas à jour de ses cotisations, avec l'envoi d'une réponse spécifique (`code 422`).
 
       {:.fr-h6 .fr-mt-4w}
@@ -57,24 +57,24 @@
       > La durée de validité du certificat est d'un mois à compter de la date figurant sur le certificar
   opening: protected
   parameters:
-    - Numéro de SIREN de l'établissement
+    - Numéro de SIRET de l'établissement
   format:
-    - URL vers l'attestation en PDF
+    - URL vers le certificat en PDF
   faq:
     - q: <a name="caisses-cibtp"></a>Caisses de la CIBTP et distinction avec la CNETP
       a: |+
         **D'un point de vue du réseau**, l’Union des caisses de France CIBTP est composée de l’ensemble des caisses Congés Intempéries BTP, c'est-à-dire :
         - deux caisses nationales : la caisse nationale pour les entrepreneurs de travaux publics (CNETP) et la caisse nationale pour les sociétés coopératives de production du BTP ;
         - **des caisses métropolitaines** pour les entreprises du Bâtiment (une par région) ;
-        - **4 caisses dans les départements d'Outremer** : Guadeloupe, Guyane, Martinique, la Réunion.
+        - **de quatre caisses dans les départements d'Outremer** : Guadeloupe, Guyane, Martinique, la Réunion.
 
         L'ensemble des entreprises du BTP, environ 200 000, sont affiliées à une de ces caisses. 
 
-        **D'un point de vue informatique**, toutes les caisses à l'exception de la CNETP transmettent leurs certificats à CIBTP France, qui les redistribue au travers de cette API. Pour des raisons historiques, la CNETP gère elle-même ses certificats et propose donc une API différente, disponible [ici](<%= endpoint_path(uid: 'cnetp/attestations_cotisations_conges_payes_chomage_intemperies') %>).
+        **D'un point de vue informatique**, toutes les caisses, à l'exception de la CNETP, transmettent leurs certificats à CIBTP France qui les redistribue au travers de cette API. Pour des raisons historiques, la CNETP gère elle-même ses certificats et propose donc une API différente, disponible [ici](<%= endpoint_path(uid: 'cnetp/attestations_cotisations_conges_payes_chomage_intemperies') %>).
 
     - q: <a name="conventions-collectives"></a>Conventions collectives des entreprises concernées par cette API
       a: |+
-        Cette API, comme [celle de la CNETP](<%= endpoint_path(uid: 'cnetp/attestations_cotisations_conges_payes_chomage_intemperies') %>) couvre des **entreprises dont la particularité est d'exercer une ou plusieurs activités entrant dans le champ d'application des conventions collectives nationales des Bâtiment et des Travaux Publics** :
+        Cette API, comme [celle de la CNETP](<%= endpoint_path(uid: 'cnetp/attestations_cotisations_conges_payes_chomage_intemperies') %>) couvre des **entreprises dont la particularité est d'exercer une ou plusieurs activités entrant dans le champ d'application des conventions collectives nationales du Bâtiment et des Travaux Publics** :
 
         - **Bâtiment :**
           - ✅ [Convention collective nationale des ouvriers employés par les entreprises du bâtiment](https://www.legifrance.gouv.fr/conv_coll/id/KALICONT000005635221) visées par le décret du 1er mars 1962 (c’est-à-dire occupant jusqu’à 10 salariés) du 8 octobre 1990, étendue par arrêté du 12 février 1991 ;
@@ -89,4 +89,4 @@
 
     - q: L'API ne renvoie pas de pièce, peut-on considérer que l'entreprise n'est pas à jour ?
       a: |+
-        Vous pouvez considérer que l'entreprise n'est pas à jour si l'API renvoie une réponse spécifique (`code 422`).
+        Vous pouvez considérer que l'entreprise n'est pas à jour si l'API renvoie la réponse spécifique dédiée (`code 422`).
