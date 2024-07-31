@@ -1,0 +1,17 @@
+<h1>
+  Habilitations
+</h1>
+
+<p>
+  La liste des habilitations ci-dessous concernent les groupes de données suivants :
+
+  <ul>
+    <% groups_for_reporter.each do |group| %>
+      <li>
+        <%= t("groups_for_reporter.#{group}") %>
+      </li>
+    <% end %>
+  </ul>
+</p>
+
+<%= render partial: 'shared/metabase', locals: { metabase_url: @datapasses_for_group_url } %>
