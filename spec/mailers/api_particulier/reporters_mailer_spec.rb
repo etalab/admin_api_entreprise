@@ -5,11 +5,13 @@ RSpec.describe APIParticulier::ReportersMailer do
 
   describe '#submit' do
     subject(:mail) do
-      described_class.with(group: 'cnaf').submit
+      described_class.with(groups: %w[cnaf men]).submit
     end
 
-    it 'sends an email to reporters associated to this group' do
+    it 'sends an email to reporters associated to these groups' do
       expect(mail.bcc).to include('user@yopmail.com')
+      expect(mail.bcc).to include('api-particulier@yopmail.com')
+      expect(mail.bcc).not_to include('datapass@yopmail.com')
     end
   end
 end

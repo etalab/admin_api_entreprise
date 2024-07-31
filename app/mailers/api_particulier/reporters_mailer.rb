@@ -6,18 +6,22 @@ class APIParticulier::ReportersMailer < APIParticulierMailer
     approve
   ].each do |event|
     define_method(event) do
-      group = params[:group]
+      groups = params[:groups].map(&:to_sym)
 
-      return if reporters_config[group].blank?
+      return if reporter_emails(groups).empty?
 
       mail(
-        bcc: reporters_config[group],
-        subject: t('.subject', group:)
+        bcc: reporter_emails(groups),
+        subject: t('.subject')
       )
     end
   end
 
   private
+
+  def reporter_emails(groups)
+    reporters_config.values_at(*groups).flatten
+  end
 
   def reporters_config
     Rails.application.credentials.api_particulier_reporters

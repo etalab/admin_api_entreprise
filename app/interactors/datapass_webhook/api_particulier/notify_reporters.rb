@@ -1,18 +1,21 @@
 class DatapassWebhook::APIParticulier::NotifyReporters < ApplicationInteractor
   def call
     return if %w[submit approve].exclude?(context.event)
+    return if groups_to_notify.empty?
 
-    reporters_config.each_key do |group_name|
-      next unless scopes.any? { |scope| scope.start_with?("#{group_name}_") }
-
-      APIParticulier::ReportersMailer.with(group: group_name).send(context.event).deliver_later
-    end
+    APIParticulier::ReportersMailer.with(groups: groups_to_notify).send(context.event).deliver_later
   end
 
   private
 
-  def reporters_config
-    Rails.application.credentials.api_particulier_reporters
+  def groups_to_notify
+    reporters_groups_config.select do |group_name|
+      scopes.any? { |scope| scope.start_with?(group_name.to_s) }
+    end
+  end
+
+  def reporters_groups_config
+    Rails.application.credentials.api_particulier_reporters.keys
   end
 
   def scopes

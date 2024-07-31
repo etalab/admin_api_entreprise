@@ -1,20 +1,33 @@
 class APIParticulier::ReportersController < APIParticulier::AuthenticatedUsersController
-  def show
-    if reporters_config.exclude?(reporter_group) || reporters_config[reporter_group].exclude?(current_user.email)
-      redirect_to_root
-      return
-    end
+  before_action :check_if_reporter_or_admin
 
-    @datapasses_for_group_url = MetabaseEmbedService.new(487, { group: params[:id] }).url
+  helper_method :groups_for_reporter
+
+  def index
+    @datapasses_for_group_url = MetabaseEmbedService.new(487, { groups: groups_for_reporter.join('|') }).url
   end
 
   private
 
-  def reporter_group
-    params[:id].to_sym
+  def check_if_reporter_or_admin
+    return if current_user.admin? || reporter_emails.include?(current_user.email)
+
+    redirect_to root_path
+  end
+
+  def groups_for_reporter
+    if current_user.admin?
+      reporters_config.keys
+    else
+      reporters_config.select { |_, emails| emails.include?(current_user.email) }.keys
+    end
+  end
+
+  def reporter_emails
+    reporters_config.values.flatten.uniq
   end
 
   def reporters_config
-    Rails.application.credentials.api_particulier_reporters
+    @reporters_config ||= Rails.application.credentials.api_particulier_reporters
   end
 end
