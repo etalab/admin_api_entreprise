@@ -533,6 +533,23 @@ paths:
           description: Entreprise non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_04003:
+                  value:
+                    errors:
+                    - code: '04003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: ACOSS
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '504':
@@ -1059,6 +1076,23 @@ paths:
           description: Non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_19003:
+                  value:
+                    errors:
+                    - code: '19003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: ADEME
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -1721,6 +1755,23 @@ paths:
           description: Non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_17003:
+                  value:
+                    errors:
+                    - code: '17003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: Banque de France
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -2350,6 +2401,23 @@ paths:
           description: Non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_33003:
+                  value:
+                    errors:
+                    - code: '33003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: CARIF-OREF
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -2440,9 +2508,356 @@ paths:
           curl -X GET \
             -H "Authorization: Bearer $token" \
             --url "https://entreprise.api.gouv.fr/v3/carif_oref/etablissements/13002526500013/certifications_qualiopi_france_competences?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
+  "/v3/cibtp/etablissements/{siret}/attestation_cotisations_conges_payes_chomage_intemperies":
+    get:
+      summary: Certificat cotisations CIBTP
+      tags:
+      - Attestations sociales et fiscales
+      parameters:
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      - name: siret
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Certificat indiquant qu'une entreprise du BTP affiliée à la caisse
+        CIBTP est en règle de ses cotisations congés payés et au chômage-intempéries.
+      responses:
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                old_token_error:
+                  value:
+                    errors:
+                    - code: '00102'
+                      title: Format de jeton plus supporté
+                      detail: Vous avez utilisé un token à l'ancien format. Ce format
+                        n'est plus supporté depuis avril 2019. Vous devez refaire
+                        une demande à API Entreprise, un guide est disponible sur
+                        https://entreprise.api.gouv.fr/demander_un_acces/
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Format de jeton plus supporté
+                  description: Vous avez utilisé un token à l'ancien format. Ce format
+                    n'est plus supporté depuis avril 2019. Vous devez refaire une
+                    demande à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/demander_un_acces/
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                        à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/faq#comment-renouveler-mon-jeton-arrivant-a-expiration
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                    à API Entreprise, un guide est disponible sur https://entreprise.api.gouv.fr/faq#comment-renouveler-mon-jeton-arrivant-a-expiration
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '403':
+          description: Accès interdit
+          content:
+            application/json:
+              examples:
+                insufficient_privileges_error:
+                  value:
+                    errors:
+                    - code: '00100'
+                      title: Privilèges insuffisants
+                      detail: Votre token est valide mais vos privilèges sont insuffisants.
+                        Listez vos privilèges sur /v2/privileges
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Privilèges insuffisants
+                  description: Votre token est valide mais vos privilèges sont insuffisants.
+                    Listez vos privilèges sur /v2/privileges
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
+                  value:
+                    errors:
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
+                      source: 
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '200':
+          description: Entreprise trouvée
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          x-operationId: api_entreprise_v3_cibtp_attestation_cotisations_conges_payes_chomage_intemperies
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      document_url:
+                        title: Lien vers le certificat CIBTP
+                        type: string
+                        nullable: true
+                        description: Ce lien délivre l'attestation au format PDF.
+                          Ce document est automatiquement supprimé après 24h.
+                        example: https://storage.entreprise.api.gouv.fr/siade/1569139162-b99824d9c764aae19a862a0af-attestation_cotisations_conges_payes_chomage_intemperies_cibtp.pdf
+                      expires_in:
+                        title: Expiration du lien
+                        description: Nombre de secondes avant expiration du document
+                          référencé dans 'document_url'. Il s'agit d'une expiration
+                          technique. Ce champ n'est pas une date de fin de validité
+                          de l'attestation
+                        type: integer
+                        nullable: true
+                        example: 3600
+                    required:
+                    - document_url
+                    - expires_in
+                    additionalProperties: false
+                  links:
+                    type: object
+                  meta:
+                    type: object
+                required:
+                - data
+                - links
+                - meta
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                unprocessable_entity_error_siret_error:
+                  value:
+                    errors:
+                    - code: '00302'
+                      title: Entité non traitable
+                      detail: Le numéro de siret n'est pas correctement formatté
+                      source:
+                        parameter: siret
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le numéro de siret n'est pas correctement formatté
+                missing_mandatory_params_context_error:
+                  value:
+                    errors:
+                    - code: '00201'
+                      title: Entité non traitable
+                      detail: Le paramètre context est obligatoire
+                      source:
+                        parameter: context
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre context est obligatoire
+                missing_mandatory_params_object_error:
+                  value:
+                    errors:
+                    - code: '00202'
+                      title: Entité non traitable
+                      detail: Le paramètre object est obligatoire
+                      source:
+                        parameter: object
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre object est obligatoire
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Missing payments
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '502':
+          description: Erreur du fournisseur
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              examples:
+                provider_unknown_error:
+                  value:
+                    errors:
+                    - code: '38999'
+                      title: Erreur inconnue du fournisseur de données
+                      detail: La réponse retournée par le fournisseur de données est
+                        invalide et inconnue de notre service. L'équipe technique
+                        a été notifiée de cette erreur pour investigation.
+                      source: 
+                      meta:
+                        provider: CIBTP
+                  summary: Erreur inconnue du fournisseur de données
+                  description: La réponse retournée par le fournisseur de données
+                    est invalide et inconnue de notre service. L'équipe technique
+                    a été notifiée de cette erreur pour investigation.
+        '504':
+          description: Erreur d'intermédiaire
+          content:
+            application/json:
+              examples:
+                timeout_error:
+                  value:
+                    errors:
+                    - code: '38002'
+                      title: Intermédiaire hors-délai
+                      detail: Temps d’attente d’une réponse du fournisseur de données
+                        écoulé.
+                      source: 
+                      meta:
+                        provider: CIBTP
+                  summary: Intermédiaire hors-délai
+                  description: Temps d’attente d’une réponse du fournisseur de données
+                    écoulé.
+                provider_unavailable_error:
+                  value:
+                    errors:
+                    - code: '38001'
+                      title: Service non disponible
+                      detail: Service du fournisseur de données temporairement indisponible
+                        ou en maintenance.
+                      source: 
+                      meta:
+                        provider: CIBTP
+                  summary: Service non disponible
+                  description: Service du fournisseur de données temporairement indisponible
+                    ou en maintenance.
+                network_error:
+                  value:
+                    errors:
+                    - code: '00501'
+                      title: Erreur réseau
+                      detail: Problème de connexion au serveur distant. L'erreur peut
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
+                      source: 
+                      meta:
+                        retry_in: 10
+                  summary: Erreur réseau
+                  description: Problème de connexion au serveur distant. L'erreur
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
+                dns_resolution_error:
+                  value:
+                    errors:
+                    - code: '38004'
+                      title: Erreur de résolution DNS
+                      detail: Problème de résolution DNS de l'adresse du serveur
+                      source: 
+                      meta:
+                        provider: CIBTP
+                  summary: Erreur de résolution DNS
+                  description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/cibtp/etablissements/13002526500013/attestation_cotisations_conges_payes_chomage_intemperies?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/cnetp/unites_legales/{siren}/attestation_cotisations_conges_payes_chomage_intemperies":
     get:
-      summary: Attestation de cotisations congés payés & chômage-intempéries
+      summary: Certificat cotisations CNETP
       tags:
       - Attestations sociales et fiscales
       parameters:
@@ -2483,9 +2898,8 @@ paths:
           type: string
       security:
       - jwt_bearer_token: []
-      description: Attestation de cotisations, délivrée par la Caisse nationale des
-        entrepreneurs de travaux publics (CNETP), attestant le respect des obligations
-        relatives aux congés payés et au chômage-intempéries.
+      description: Certificat indiquant qu'une entreprise du BTP affiliée à la caisse
+        CNETP est en règle de ses cotisations congés payés et au chômage-intempéries.
       responses:
         '401':
           description: Non autorisé
@@ -2617,10 +3031,10 @@ paths:
                     properties:
                       document_url:
                         type: string
-                        title: Lien vers l'attestation de cotisation retraite ProBTP
-                        description: Ce document est automatiquement supprimé au bout
-                          de 3 mois.
-                        example: https://storage.entreprise.api.gouv.fr/siade/1569139162-b99824d9c764aae19a862a0af-attestation_cotisation_retraite_probtp.pdf
+                        title: Lien vers l'attestation de cotisations
+                        description: Ce lien délivre l'attestation au format PDF.
+                          Ce document est automatiquement supprimé au bout de 24h.
+                        example: https://storage.entreprise.api.gouv.fr/siade/1569139162-b99824d9c764aae19a862a0af-certificat_cnetp.pdf
                       expires_in:
                         type: integer
                         example: 7889238
@@ -2769,6 +3183,23 @@ paths:
           description: Non trouvé
           content:
             application/json:
+              examples:
+                entite_non_trouvee_08003:
+                  value:
+                    errors:
+                    - code: '08003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: CNETP
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '504':
@@ -3133,6 +3564,23 @@ paths:
           description: Non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_16003:
+                  value:
+                    errors:
+                    - code: '16003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: DGDDI
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -3477,6 +3925,23 @@ paths:
           description: Non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_03003:
+                  value:
+                    errors:
+                    - code: '03003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: DGFIP - Adélie
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '422':
@@ -3946,6 +4411,23 @@ paths:
           description: Non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_03003:
+                  value:
+                    errors:
+                    - code: '03003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: DGFIP - Adélie
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '422':
@@ -4400,6 +4882,23 @@ paths:
           description: Non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_03003:
+                  value:
+                    errors:
+                    - code: '03003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: DGFIP - Adélie
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '422':
@@ -5001,6 +5500,23 @@ paths:
           description: Pas de liasses fiscales pour cette unité légale
           content:
             application/json:
+              examples:
+                entite_non_trouvee_03003:
+                  value:
+                    errors:
+                    - code: '03003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: DGFIP - Adélie
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '422':
@@ -6880,6 +7396,23 @@ paths:
           description: Association non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_29003:
+                  value:
+                    errors:
+                    - code: '29003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: DJEPVA
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '504':
@@ -8292,6 +8825,23 @@ paths:
           description: Association non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_29003:
+                  value:
+                    errors:
+                    - code: '29003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: DJEPVA
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '504':
@@ -8559,6 +9109,23 @@ paths:
           description: Non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_28003:
+                  value:
+                    errors:
+                    - code: '28003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: Commission Européenne
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '422':
@@ -9043,6 +9610,23 @@ paths:
           description: Non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_14003:
+                  value:
+                    errors:
+                    - code: '14003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: Fabrique numérique des Ministères Sociaux
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -9462,6 +10046,23 @@ paths:
           description: Non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_12003:
+                  value:
+                    errors:
+                    - code: '12003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: FNTP
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '504':
@@ -9848,6 +10449,23 @@ paths:
           description: Effectifs non trouvés
           content:
             application/json:
+              examples:
+                entite_non_trouvee_31003:
+                  value:
+                    errors:
+                    - code: '31003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: GIP-MDS
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -10295,6 +10913,23 @@ paths:
           description: Effectifs non trouvés
           content:
             application/json:
+              examples:
+                entite_non_trouvee_31003:
+                  value:
+                    errors:
+                    - code: '31003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: GIP-MDS
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -11099,6 +11734,23 @@ paths:
           description: Non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_02003:
+                  value:
+                    errors:
+                    - code: '02003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: Infogreffe
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -11631,6 +12283,23 @@ paths:
           description: Entreprise non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_02003:
+                  value:
+                    errors:
+                    - code: '02003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: Infogreffe
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -12005,6 +12674,23 @@ paths:
           description: Actes non trouvés
           content:
             application/json:
+              examples:
+                entite_non_trouvee_05003:
+                  value:
+                    errors:
+                    - code: '05003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: INPI
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -12505,6 +13191,23 @@ paths:
           description: Brevets non trouvés
           content:
             application/json:
+              examples:
+                entite_non_trouvee_05003:
+                  value:
+                    errors:
+                    - code: '05003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: INPI
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -12905,6 +13608,23 @@ paths:
           description: Marques non trouvées
           content:
             application/json:
+              examples:
+                entite_non_trouvee_05003:
+                  value:
+                    errors:
+                    - code: '05003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: INPI
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -13327,6 +14047,23 @@ paths:
           description: Modèles non trouvés
           content:
             application/json:
+              examples:
+                entite_non_trouvee_05003:
+                  value:
+                    errors:
+                    - code: '05003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: INPI
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -13756,6 +14493,23 @@ paths:
           description: Non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_34003:
+                  value:
+                    errors:
+                    - code: '34003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: INPI - RNE
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -14785,6 +15539,23 @@ paths:
           description: Bénéficiaires effectifs non trouvés
           content:
             application/json:
+              examples:
+                entite_non_trouvee_34003:
+                  value:
+                    errors:
+                    - code: '34003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: INPI - RNE
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '422':
@@ -15443,6 +16214,23 @@ paths:
           description: Non trouvé
           content:
             application/json:
+              examples:
+                entite_non_trouvee_01003:
+                  value:
+                    errors:
+                    - code: '01003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: INSEE
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -16080,6 +16868,23 @@ paths:
           description: Non trouvé
           content:
             application/json:
+              examples:
+                entite_non_trouvee_01003:
+                  value:
+                    errors:
+                    - code: '01003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: INSEE
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -17412,6 +18217,23 @@ paths:
           description: Non trouvé
           content:
             application/json:
+              examples:
+                entite_non_trouvee_01003:
+                  value:
+                    errors:
+                    - code: '01003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: INSEE
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '451':
@@ -18798,6 +19620,23 @@ paths:
           description: Non trouvé
           content:
             application/json:
+              examples:
+                entite_non_trouvee_01003:
+                  value:
+                    errors:
+                    - code: '01003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: INSEE
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -20176,6 +21015,23 @@ paths:
           description: Non trouvé
           content:
             application/json:
+              examples:
+                entite_non_trouvee_01003:
+                  value:
+                    errors:
+                    - code: '01003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: INSEE
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -21507,6 +22363,23 @@ paths:
           description: Non trouvé
           content:
             application/json:
+              examples:
+                entite_non_trouvee_01003:
+                  value:
+                    errors:
+                    - code: '01003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: INSEE
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -21879,6 +22752,23 @@ paths:
           description: Non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_01003:
+                  value:
+                    errors:
+                    - code: '01003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: INSEE
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '422':
@@ -22761,6 +23651,23 @@ paths:
           description: Non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_01003:
+                  value:
+                    errors:
+                    - code: '01003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: INSEE
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -23616,6 +24523,23 @@ paths:
           description: Non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_01003:
+                  value:
+                    errors:
+                    - code: '01003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: INSEE
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -24117,6 +25041,23 @@ paths:
           description: Association not found
           content:
             application/json:
+              examples:
+                entite_non_trouvee_21003:
+                  value:
+                    errors:
+                    - code: '21003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: MI
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '504':
@@ -24583,6 +25524,23 @@ paths:
           description: Association not found
           content:
             application/json:
+              examples:
+                entite_non_trouvee_21003:
+                  value:
+                    errors:
+                    - code: '21003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: MI
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '504':
@@ -24954,6 +25912,23 @@ paths:
           description: Non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_10003:
+                  value:
+                    errors:
+                    - code: '10003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: MSA
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -25403,6 +26378,23 @@ paths:
           description: Non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_11003:
+                  value:
+                    errors:
+                    - code: '11003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: OPQIBI
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -25850,6 +26842,23 @@ paths:
           description: Attestation non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_09003:
+                  value:
+                    errors:
+                    - code: '09003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: ProBTP
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '504':
@@ -26166,6 +27175,23 @@ paths:
           description: Non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_09003:
+                  value:
+                    errors:
+                    - code: '09003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: ProBTP
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -26614,6 +27640,23 @@ paths:
           description: Certification non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_06003:
+                  value:
+                    errors:
+                    - code: '06003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: Qualibat
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '504':
@@ -27161,6 +28204,23 @@ paths:
           description: Certification non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_06003:
+                  value:
+                    errors:
+                    - code: '06003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: Qualibat
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '504':
@@ -27743,6 +28803,23 @@ paths:
           description: Non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_32003:
+                  value:
+                    errors:
+                    - code: '32003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: Qualifelec
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -28124,6 +29201,23 @@ paths:
           description: Entreprise non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_22003:
+                  value:
+                    errors:
+                    - code: '22003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: RNM
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -28694,6 +29788,23 @@ paths:
           description: Entreprise non trouvée
           content:
             application/json:
+              examples:
+                entite_non_trouvee_04003:
+                  value:
+                    errors:
+                    - code: '04003'
+                      title: Entité non trouvée
+                      detail: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                        ou ne comporte aucune information pour cet appel. Veuillez
+                        vérifier que l'identifiant correspond au périmètre couvert
+                        par l'API.
+                      source: 
+                      meta:
+                        provider: ACOSS
+                  summary: Entité non trouvée
+                  description: Le siret ou siren indiqué n'existe pas, n'est pas connu
+                    ou ne comporte aucune information pour cet appel. Veuillez vérifier
+                    que l'identifiant correspond au périmètre couvert par l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
         '504':
