@@ -4,13 +4,13 @@ class APIParticulier::ReportersMailerPreview < ActionMailer::Preview
     approve
   ].each do |event|
     define_method(event) do
-      APIParticulier::ReportersMailer.with(group:).send(event)
+      APIParticulier::ReportersMailer.with(groups:).send(event)
     end
   end
 
   private
 
-  def group
-    'cnaf'
+  def groups
+    %w[cnaf men]
   end
 end
