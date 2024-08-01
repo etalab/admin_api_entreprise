@@ -5,7 +5,7 @@ RSpec.describe APIParticulier::ReportersMailer do
 
   describe '#submit' do
     subject(:mail) do
-      described_class.with(groups: %w[cnaf men]).submit
+      described_class.with(groups: %w[cnaf_ men_]).submit
     end
 
     it 'sends an email to reporters associated to these groups' do
