@@ -13,12 +13,12 @@ binaire `bin/download_latest_open_api_definition.sh`)
 ## Ajout d'un nouveau endpoint
 
 1. Copier le fichier `template.yml.example` situé dans `config/endpoints` et lui
-   donner le nom `provider_resource.yml` (par exemple: `inpi_actes.yml`) ;
+   donner le nom `provider_resource.yml` (par exemple: `infogreffe_extrait_rcs.yml`) ;
 2. Choissisez un `uid` pour votre endpoint: celui-ci servira pour l'URL du
-   endpoint (par exemple: `inpi_actes` et donnera donc `/endpoints/inpi_actes`)
+   endpoint (par exemple: `infogreffe/rcs/extrait` et donnera donc `/endpoints/infogreffe/rcs/extrait`)
 3. Mettez le `path` **exact** présent dans le fichier OpenAPI correspondant au
    endpoint: cette variable permet de retrouver automatiquement les infos du
-   fichier OpenAPI (par exemple: `/v3/inpi/actes/{siren}`)
+   fichier OpenAPI (par exemple: `/v3/infogreffe/rcs/unites_legales/{siren}/extrait_kbis`)
 4. Finir de remplir les infos dans les clés
 
 A partir de ce moment, le endpoint devrait apparaître sur `/endpoints`.

@@ -8,7 +8,7 @@ class APIEntreprise::Endpoint < AbstractEndpoint
 
   def initialize(params)
     super
-    load_dummy_definition! if open_api_definition.blank? || response_schema.blank? || force_dummy_load?
+    load_dummy_definition! if open_api_definition.blank? || response_schema.blank?
   end
 
   def maintenances
@@ -35,12 +35,6 @@ class APIEntreprise::Endpoint < AbstractEndpoint
         999
       ].include?(error_payload['code'][2..])
     end
-  end
-
-  def force_dummy_load?
-    %w[
-      /v3/inpi/unites_legales/{siren}/actes
-    ].include?(path)
   end
 
   def load_dummy_definition!
