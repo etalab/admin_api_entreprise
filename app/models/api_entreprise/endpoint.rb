@@ -38,7 +38,8 @@ class APIEntreprise::Endpoint < AbstractEndpoint
   end
 
   def load_dummy_definition!
-    missing_endpoints_definition = I18n.t("api_entreprise.missing_endpoints.#{path}")
+    missing_endpoints_definition = I18n.t("api_entreprise.missing_endpoints.#{path}", default: nil)
+
     raise 'Endpoint(s) not found, check endpoints paths are available in OpenAPI file or in missing_endpoints.yml' if missing_endpoints_definition.nil?
 
     @open_api_definition = missing_endpoints_definition.stringify_keys
