@@ -5,6 +5,7 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
   attr_accessor :uid,
     :path,
     :beta,
+    :alert,
     :novelty,
     :ping_url,
     :new_version,
