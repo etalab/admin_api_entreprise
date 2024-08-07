@@ -44,6 +44,8 @@ class APIEntreprise::Endpoint < AbstractEndpoint
 
     @open_api_definition = missing_endpoints_definition.stringify_keys
     @dummy_definition = true
+  rescue I18n::MissingTranslationData
+    raise "There is no #{path} definition in OpenAPI file. Make sure path is valid or add the temporary data in config/locales/*/missing_endpoints.fr.yml"
   end
 
   def dummy?
