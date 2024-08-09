@@ -5,7 +5,7 @@
   position: 300
   perimeter:
     entity_type_description: |+
-      Cette API couvre les **✅ entreprises cotisant à la caisse nationale pour les entrepreneurs de travaux publics (CNETP)** appartenant au réseau CIBTP France. Ces entreprises entrent dans le champ d'application des conventions collectives nationales du bâtiment et des travaux publics. <a class=" fr-icon-arrow-down-line fr-link--icon-right" href="#conventions-collectives">Consulter les conventions concernées</a>.
+      Cette API couvre les **✅ entreprises cotisant à la caisse nationale pour les entrepreneurs de travaux publics (CNETP)** appartenant au réseau CIBTP France. Ces entreprises entrent dans le champ d'application des <a class=" fr-icon-arrow-down-line fr-link--icon-right" href="#conventions-collectives">conventions collectives nationales des travaux publics</a>.
 
       **Ne sont pas concernées par cette API :**
       - ❌ les entreprises relevant des [autres caisses du réseau CIBTP France](#caisses-cibtp). Il est difficile d'anticiper si une entreprise du BTP cotise à la CNETP ou aux autres caisses de la CIBTP. Il est donc recommandé de faire un appel aux deux API systématiquement. Pour accéder aux certificats CIBTP, veuillez consulter [cette API](<%= endpoint_path(uid: 'cibtp/attestations_cotisations_conges_payes_chomage_intemperies') %>) ;
@@ -53,31 +53,26 @@
   parameters:
     - Numéro de SIREN de l'entreprise
   faq:
-    - q: <a name="caisses-cibtp"></a>Caisses de la CIBTP et distinction avec la CNETP
+    - q: <a name="caisses-cibtp"></a>Périmètre de la CIBTP France et de la CNETP
       a: |+
-        **D'un point de vue du réseau**, l’Union des caisses de France CIBTP est composée de l’ensemble des caisses Congés Intempéries BTP, c'est-à-dire :
-        - deux caisses nationales : la caisse nationale pour les entrepreneurs de travaux publics (CNETP) et la caisse nationale pour les sociétés coopératives de production du BTP ;
-        - **des caisses métropolitaines** pour les entreprises du Bâtiment (une par région) ;
-        - **de quatre caisses dans les départements d'Outremer** : Guadeloupe, Guyane, Martinique, la Réunion.
+        **D'un point de vue du réseau**, CIBTP France est composée de l’ensemble des caisses Congés Intempéries du bâtiment, c'est-à-dire :
+        - deux caisses nationales : la caisse nationale pour les entrepreneurs de travaux publics (CNETP) et la caisse nationale des Coopératives ;
+        - **de 8 caisses métropolitaines** pour les entreprises du Bâtiment (une par région) ;
+        - **de 2 caisses dans les départements et régions d’Outremer** : Antilles-Guyane et Réunion.
 
         L'ensemble des entreprises du BTP, environ 200 000, sont affiliées à une de ces caisses. 
 
-        **D'un point de vue informatique**, toutes les caisses, à l'exception de la CNETP, transmettent leurs certificats à CIBTP France qui les redistribue au travers de [cette autre API](<%= endpoint_path(uid: 'cibtp/attestations_cotisations_conges_payes_chomage_intemperies') %>). Pour des raisons historiques, la CNETP gère elle-même ses certificats et propose donc cette API.
+        **D'un point de vue informatique**, toutes les caisses, à l'exception de la CNETP et des caisses CIBTP Outre-mer, transmettent leurs certificats à CIBTP France qui les redistribue au travers de [cette autre API](<%= endpoint_path(uid: 'cibtp/attestations_cotisations_conges_payes_chomage_intemperies') %>). La CNETP gère elle-même ses certificats et propose donc cette API dans le bouquet API Entreprise.
 
     - q: <a name="conventions-collectives"></a>Conventions collectives des entreprises concernées par cette API
       a: |+
-        Cette API, comme [celle de la CIBTP](<%= endpoint_path(uid: 'cibtp/attestations_cotisations_conges_payes_chomage_intemperies') %>) couvre des **entreprises dont la particularité est d'exercer une ou plusieurs activités entrant dans le champ d'application des conventions collectives nationales du Bâtiment et des Travaux Publics** :
+        Cette API, comme [celle de la CIBTP](<%= endpoint_path(uid: 'cibtp/attestations_cotisations_conges_payes_chomage_intemperies') %>) couvre des **entreprises dont la particularité est d'exercer une ou plusieurs activités entrant dans le champ d'application des conventions collectives nationales du Bâtiment** :
 
-        - **Bâtiment :**
-          - ✅ [Convention collective nationale des ouvriers employés par les entreprises du bâtiment](https://www.legifrance.gouv.fr/conv_coll/id/KALICONT000005635221) visées par le décret du 1er mars 1962 (c’est-à-dire occupant jusqu’à 10 salariés) du 8 octobre 1990, étendue par arrêté du 12 février 1991 ;
-          - ✅ [Convention collective nationale des ouvriers employés par les entreprises du bâtiment](https://www.legifrance.gouv.fr/conv_coll/id/KALICONT000005635220) non visées par le décret du 1er mars 1962 (c’est-à-dire occupant plus de 10 salariés) du 8 octobre 1990, étendue par arrêté du 8 février 1991 ;
-          - ✅ [Convention collective nationale des employés, techniciens et agents de maîtrise du bâtiment](https://www.legifrance.gouv.fr/conv_coll/id/KALICONT000018773893) du 12 juillet 2006 ;
-          - ✅ [Convention collective des cadres du bâtiment](https://www.legifrance.gouv.fr/conv_coll/id/KALICONT000017941839) du 1er juin 2004.
+        - ✅ [Convention collective nationale des ouvriers des travaux publics](https://www.legifrance.gouv.fr/conv_coll/id/KALICONT000005635467) du 15 décembre 1992, étendue par arrêté du 27 mai 1993 ;
+        - ✅ [Convention collective nationale des employés, techniciens et agents de maîtrise des travaux publics](https://www.legifrance.gouv.fr/conv_coll/id/KALICONT000018926209) du 12 juillet 2006
+        - ✅ [Convention collective nationale des cadres des travaux publics](https://www.legifrance.gouv.fr/conv_coll/id/KALISCTA000032426777/?idConteneur=KALICONT000032437525) du 20 novembre 2015.
 
-        - **Travaux publics :**
-          - ✅ [Convention collective nationale des ouvriers des travaux publics](https://www.legifrance.gouv.fr/conv_coll/id/KALICONT000005635467) du 15 décembre 1992, étendue par arrêté du 27 mai 1993 ;
-          - ✅ [Convention collective nationale des employés, techniciens et agents de maîtrise des travaux publics](https://www.legifrance.gouv.fr/conv_coll/id/KALICONT000018926209) du 12 juillet 2006
-          - ✅ [Convention collective nationale des cadres des travaux publics](https://www.legifrance.gouv.fr/conv_coll/id/KALISCTA000032426777/?idConteneur=KALICONT000032437525) du 20 novembre 2015.
+        Pour couvrir le périmètre des entreprises entrant dans le champ du secteur du bâtiment, veuillez appeler [l'API de la CIBTP](<%= endpoint_path(uid: 'cibtp/attestations_cotisations_conges_payes_chomage_intemperies') %>).
 
     - q: L'API ne renvoie pas de pièce, peut-on considérer que l'entreprise n'est pas à jour ?
       a: |+
