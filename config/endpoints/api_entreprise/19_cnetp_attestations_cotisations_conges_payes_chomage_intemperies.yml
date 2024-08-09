@@ -5,10 +5,10 @@
   position: 300
   perimeter:
     entity_type_description: |+
-      Cette API couvre les **✅ entreprises cotisant à la caisse nationale pour les entrepreneurs de travaux publics (CNETP)** appartenant au réseau CIBTP France. Ces entreprises entrent dans le champ d'application des <a class=" fr-icon-arrow-down-line fr-link--icon-right" href="#conventions-collectives">conventions collectives nationales des travaux publics</a>.
+      Cette API couvre les **✅ entreprises cotisant à la caisse nationale pour les entrepreneurs de travaux publics (CNETP)**. Ces entreprises entrent dans le champ d'application des <a class=" fr-icon-arrow-down-line fr-link--icon-right" href="#conventions-collectives">conventions collectives nationales des travaux publics</a>.
 
       **Ne sont pas concernées par cette API :**
-      - ❌ les entreprises relevant des [autres caisses du réseau CIBTP France](#caisses-cibtp). Il est difficile d'anticiper si une entreprise du BTP cotise à la CNETP ou aux autres caisses de la CIBTP. Il est donc recommandé de faire un appel aux deux API systématiquement. Pour accéder aux certificats CIBTP, veuillez consulter [cette API](<%= endpoint_path(uid: 'cibtp/attestations_cotisations_conges_payes_chomage_intemperies') %>) ;
+      - ❌ les entreprises du bâtiment qui relèvent des [autres caisses du réseau CIBTP France](#caisses-cibtp). Pour les quelques entreprises relevant des secteurs du bâtiment et des travaux publiques, il est recommandé de faire un appel aux deux API systématiquement. Pour accéder aux certificats CIBTP, veuillez consulter [cette API](<%= endpoint_path(uid: 'cibtp/attestations_cotisations_conges_payes_chomage_intemperies') %>) ;
       - ❌ les entreprises qui règlent les cotisations dues à la CNETP au travers de l’URSSAF dans le cadre du Titre Emploi Service Entreprise (TESE) et dont le système d'information de la CNETP n'a pas l'attestation.
 
     know_more_description: |+
@@ -55,14 +55,14 @@
   faq:
     - q: <a name="caisses-cibtp"></a>Périmètre de la CIBTP France et de la CNETP
       a: |+
-        **D'un point de vue du réseau**, CIBTP France est composée de l’ensemble des caisses Congés Intempéries du bâtiment, c'est-à-dire :
+        **D'un point de vue du réseau**, CIBTP France est composée de l’ensemble des caisses Congés Intempéries du bâtiment et des travaux publics, c'est-à-dire :
         - deux caisses nationales : la caisse nationale pour les entrepreneurs de travaux publics (CNETP) et la caisse nationale des Coopératives ;
         - **de 8 caisses métropolitaines** pour les entreprises du Bâtiment (une par région) ;
         - **de 2 caisses dans les départements et régions d’Outremer** : Antilles-Guyane et Réunion.
 
         L'ensemble des entreprises du BTP, environ 200 000, sont affiliées à une de ces caisses. 
 
-        **D'un point de vue informatique**, toutes les caisses, à l'exception de la CNETP et des caisses CIBTP Outre-mer, transmettent leurs certificats à CIBTP France qui les redistribue au travers de [cette autre API](<%= endpoint_path(uid: 'cibtp/attestations_cotisations_conges_payes_chomage_intemperies') %>). La CNETP gère elle-même ses certificats et propose donc cette API dans le bouquet API Entreprise.
+        **D'un point de vue informatique**, toutes les caisses, à l'exception de la CNETP et des caisses CIBTP Outre-mer, transmettent leurs certificats à CIBTP France qui les redistribue au travers de [cette autre API](<%= endpoint_path(uid: 'cibtp/attestations_cotisations_conges_payes_chomage_intemperies') %>). La CNETP, qui couvre les entreprises de travaux publics, gère elle-même ses certificats et propose donc cette API dans le bouquet API Entreprise.
 
     - q: <a name="conventions-collectives"></a>Conventions collectives des entreprises concernées par cette API
       a: |+
