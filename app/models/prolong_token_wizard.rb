@@ -4,7 +4,7 @@ class ProlongTokenWizard < ApplicationRecord
   delegate :prolong!, to: :token
   delegate :authorization_request, to: :token
 
-  enum status: {
+  enum :status, {
     owner: 0,
     project_purpose: 10,
     contacts: 20,

@@ -20,8 +20,8 @@ require 'super_diff/rspec-rails'
 # option on the command line or in ~/.rspec, .rspec or `.rspec-local`.
 
 # Require helpers files containing factories
-Dir[Rails.root.join('spec/helpers/**/*.rb')].each { |f| require f }
-Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+Rails.root.glob('spec/helpers/**/*.rb').each { |f| require f }
+Rails.root.glob('spec/support/**/*.rb').each { |f| require f }
 
 # Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.

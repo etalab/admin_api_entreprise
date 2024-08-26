@@ -215,6 +215,6 @@ class Seeds
   end
 
   def load_all_models!
-    Dir[Rails.root.join('app/models/**/*.rb')].each { |f| require f }
+    Rails.root.glob('app/models/**/*.rb').each { |f| require f }
   end
 end
