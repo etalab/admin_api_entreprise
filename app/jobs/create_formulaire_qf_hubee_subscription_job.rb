@@ -34,7 +34,7 @@ class CreateFormulaireQFHubEESubscriptionJob < ApplicationJob
   end
 
   def process_code
-    'FORMULAIRE_QF'
+    'FormulaireQF'
   end
 
   def hubee_api_client
