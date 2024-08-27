@@ -6,6 +6,8 @@ class APIParticulier::ReportersMailer < APIParticulierMailer
     approve
   ].each do |event|
     define_method(event) do
+      return if reporters_config.blank?
+
       groups = params[:groups].map(&:to_sym)
 
       return if reporter_emails(groups).empty?

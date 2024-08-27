@@ -15,7 +15,11 @@ class DatapassWebhook::APIParticulier::NotifyReporters < ApplicationInteractor
   end
 
   def reporters_groups_config
-    Rails.application.credentials.api_particulier_reporters.keys
+    reporters_config.keys
+  end
+
+  def reporters_config
+    Rails.application.credentials.api_particulier_reporters || {}
   end
 
   def scopes

@@ -28,6 +28,6 @@ class APIParticulier::ReportersController < APIParticulier::AuthenticatedUsersCo
   end
 
   def reporters_config
-    @reporters_config ||= Rails.application.credentials.api_particulier_reporters
+    Rails.application.credentials.api_particulier_reporters || {}
   end
 end
