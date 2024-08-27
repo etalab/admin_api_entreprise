@@ -12,27 +12,6 @@
 # the additional setup, and require it from the spec files that actually need
 # it.
 
-# Configuration for simplecov
-# Test coverage options (activated only if rspec is run without arguments)
-if ARGV.grep(/spec\.rb/).empty? || ENV['CI'] || ENV['COVERAGE']
-  require 'simplecov'
-  require 'simplecov-console'
-
-  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
-    [
-      SimpleCov::Formatter::HTMLFormatter,
-      SimpleCov::Formatter::Console
-    ]
-  )
-
-  SimpleCov.start 'rails' do
-    add_filter 'app/jobs/application_job.rb'
-    add_filter 'app/mailers/application_mailer.rb'
-    add_filter 'lib/tasks/'
-    add_filter 'lib/mailer_previews/'
-  end
-end
-
 require 'rspec/retry'
 require 'webmock/rspec'
 require 'pundit/rspec'
