@@ -21,6 +21,6 @@ class AbstractBlogPost
   end
 
   def self.blog_posts_files
-    Dir[Rails.root.join('config/blog_posts', api, '*.md')]
+    Rails.root.glob("config/blog_posts/#{api}/*.md")
   end
 end
