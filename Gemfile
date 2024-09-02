@@ -76,6 +76,8 @@ gem 'ransack'
 
 gem 'wicked'
 
+gem 'rest-client'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'brakeman'
