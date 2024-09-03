@@ -1,6 +1,6 @@
 Bonjour,
 
-Une nouvelle demande vient d'être déposée pour un ensemble de données associé à un groupe auquel vous êtes abonné.
+<%= @authorization_request.demandeur.full_name %> (<%= @authorization_request.demandeur.email %>) a soumis une nouvelle demande d'habilitation sur DataPass pour le compte de l'organisation https://annuaire-entreprises.data.gouv.fr/etablissement/<%= @authorization_request.siret %>.
 
 Vous pouvez consulter la liste des demandes relatives aux données associé aux groupes où vous êtes abonné sur le lien suivant : <%= api_particulier_dashboard_reporter_url %>
 

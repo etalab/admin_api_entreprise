@@ -12,6 +12,8 @@ class APIParticulier::ReportersMailer < APIParticulierMailer
 
       return if reporter_emails(groups).empty?
 
+      @authorization_request = params[:authorization_request]
+
       mail(
         bcc: reporter_emails(groups),
         subject: t('.subject')
