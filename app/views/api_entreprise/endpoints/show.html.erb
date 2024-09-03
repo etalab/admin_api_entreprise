@@ -9,10 +9,11 @@
     <div class="fr-col-md-<%= layout_main_bloc %> fr-col-12">
       <p class="fr-text--lead fr-mt-md-2w">
         <%= @endpoint.description %>
-          <span class="fr-mb-0 fr-text--sm">
-            <%= icon(t("endpoint.opening.#{@endpoint.opening}.included_icon", raise: true)) rescue nil %>
-            <%= link_to t("endpoint.opening.#{@endpoint.opening}.included", raise: true), faq_index_path(anchor: 'qu-est-ce-que-les-api-incluses-par-defaut') rescue nil %>
-          </span>
+
+        <span class="fr-mb-0 fr-text--sm">
+          <%= icon(t("endpoint.opening.#{@endpoint.opening}.included_icon", raise: true)) rescue nil %>
+          <%= link_to t("endpoint.opening.#{@endpoint.opening}.included", raise: true), faq_index_path(anchor: 'qu-est-ce-que-les-api-incluses-par-defaut') rescue nil %>
+        </span>
 
         <% if @endpoint.incoming? %>
           <div class="fr-alert fr-alert--info fr-alert--sm fr-mb-2w">
@@ -58,10 +59,12 @@
           </div>
 
           <p class="fr-text--lg fr-text--bold">
-            <% @endpoint.providers.map do |provider| %>
+            <% provider_names = @endpoint.providers.map do |provider| %>
               <%= t("providers.#{provider.name}") %>
-            <% end.join(' & ') %>
-          <p>
+            <% end %>
+
+            <%= provider_names.join(' & ') %>
+          </p>
         </div>
       </div>
     </div>

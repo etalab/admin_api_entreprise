@@ -70,10 +70,12 @@
           </div>
 
           <p class="fr-text--lg fr-text--bold">
-            <% @endpoint.providers.map do |provider| %>
+            <% provider_names = @endpoint.providers.map do |provider| %>
               <%= t("providers.#{provider.name}") %>
-            <% end.join(' & ') %>
-          <p>
+            <% end %>
+
+            <%= provider_names.join(' & ') %>
+          </p>
         </div>
       </div>
     </div>
