@@ -53,7 +53,7 @@
               </li>
             </ul>
             </div>
-           
+
           </div>
         </section>
 
@@ -95,6 +95,8 @@
                       id="prolong-token-modal-link"
                       class="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w"
                     >
+                      <%= prolong_token_label(@main_token) %>
+                    </a>
                   <% else %>
                     <a
                       href="<%= token_prolong_path(id: @main_token.id) %>"
@@ -104,9 +106,9 @@
                       data-fr-opened="false"
                       data-turbo-frame="main-modal-content"
                     >
+                      <%= prolong_token_label(@main_token) %>
+                    </a>
                   <% end %>
-                    <%= prolong_token_label(@main_token) %>
-                  </a>
                 </li>
               <% end %>
               <% if policy(@main_token).ask_for_prolongation? %>
