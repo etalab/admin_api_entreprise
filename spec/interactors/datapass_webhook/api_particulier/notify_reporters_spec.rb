@@ -1,7 +1,7 @@
 RSpec.describe DatapassWebhook::APIParticulier::NotifyReporters, type: :interactor do
   include ActiveJob::TestHelper
 
-  subject { described_class.call(datapass_webhook_params) }
+  subject { described_class.call(datapass_webhook_params.merge(authorization_request:)) }
 
   let(:datapass_webhook_params) do
     build(:datapass_webhook,
@@ -12,6 +12,7 @@ RSpec.describe DatapassWebhook::APIParticulier::NotifyReporters, type: :interact
   end
   let(:event) { 'approve' }
   let(:scopes) { { 'cnaf_quotient_familial' => true } }
+  let(:authorization_request) { create(:authorization_request, :with_demandeur) }
 
   describe 'reporters notification' do
     describe 'when it is a submit event' do
@@ -22,7 +23,7 @@ RSpec.describe DatapassWebhook::APIParticulier::NotifyReporters, type: :interact
 
         it { is_expected.to be_success }
 
-        it 'notifies reporters' do
+        it 'notifies reporters with applicant email' do
           expect {
             perform_enqueued_jobs do
               subject
@@ -32,6 +33,7 @@ RSpec.describe DatapassWebhook::APIParticulier::NotifyReporters, type: :interact
           mail = ActionMailer::Base.deliveries.last
 
           expect(mail.subject).to match(/Une nouvelle demande a été déposé pour API Particulier/)
+          expect(mail.body).to include(authorization_request.demandeur.email)
         end
 
         context 'when authorization request has no scopes from reporters group' do

@@ -3,10 +3,14 @@ class DatapassWebhook::APIParticulier::NotifyReporters < ApplicationInteractor
     return if %w[submit approve].exclude?(context.event)
     return if groups_to_notify.empty?
 
-    APIParticulier::ReportersMailer.with(groups: groups_to_notify).send(context.event).deliver_later
+    APIParticulier::ReportersMailer.with(groups: groups_to_notify, authorization_request:).send(context.event).deliver_later
   end
 
   private
+
+  def authorization_request
+    context.authorization_request
+  end
 
   def groups_to_notify
     reporters_groups_config.select do |group_name|
