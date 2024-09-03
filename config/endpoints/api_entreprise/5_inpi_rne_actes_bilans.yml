@@ -5,23 +5,59 @@
   position: 113
   perimeter:
     entity_type_description: |+
-      Lorem
+      - Actes depuis 1993 des **personnes physiques et morales**
+      - Bilans depuis 2017 des **entreprises commerciales**
     geographical_scope_description:  |+
       - Lorem
     updating_rules_description: |+
-      Lorem
+      La mise à jour des données est **quotidienne**. Dès qu'un nouveau document est disponible concernant une entreprise, ce document est disponible dans la journée et s'ajoute à la liste des actes et bilans de l'entreprise concernée.
     entities:
       - entreprises
   call_id: "SIREN"
   provider_uids:
     - 'inpi'
   keywords:
-    - 'Lorem'
+    - 'acte'
+    - 'bilan'
+    - 'compte'
+    - 'statut'
+    - 'procès-verbal'
+    - 'capital'
+    - 'fonds'
+    - 'modification'
+    - 'statut'
+    - 'administrateur'
+    - 'nomination'
+    - 'pouvoir'
+    - 'délégation'
+    - 'assemblée générale'
+    - 'modificatif'
+    - 'constitutif'
+    - 'passif'
+    - 'actif'
+    - 'comptes'
+    - 'résultat'
+    - 'immobilisation'
+    - 'ammortissement'
+    - 'provisions'
+    - 'declaration'
   data:
     description: |+
-      Lorem Ipsum
-  opening: 'Lorem'
+      Cette API délivre la **liste des comptes annuels et des actes d'une entreprise** et permet de télécharger chacun des **document au format PDF**.
+      
+      Bilans déposés depuis le 1er janvier 2017 : 
+      - données relatives aux bilans (actif/passif) ;
+      - comptes de résultat ;
+      - immobilisations ;
+      - amortissements et provisions.
+
+      Liste des actes et statuts depuis 1993 :
+      - statuts, 
+      - procès-verbaux d’assemblée générale
+      - actes constitutifs
+      - actes modificatifs
+  opening: 'open'
   parameters:
     - Numéro de SIREN de l'unité légale
   format:
-    - Donnée structurée JSON
+    - URL vers le document en PDF
