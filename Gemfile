@@ -116,7 +116,7 @@ group :test do
   gem 'cuprite'
   gem 'rspec-collection_matchers'
   gem 'rspec-its'
-  gem 'rspec-rails', '6.1.4'
+  gem 'rspec-rails', '7.0.1'
   gem 'rspec-retry'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
