@@ -6,6 +6,7 @@ FactoryBot.define do
     status { 'draft' }
     api { 'entreprise' }
     siret { '13002526500013' }
+    public_id { SecureRandom.uuid }
 
     trait :without_external_id do
       external_id { nil }

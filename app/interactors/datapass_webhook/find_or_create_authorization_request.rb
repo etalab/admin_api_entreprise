@@ -63,6 +63,7 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
 
   def authorization_request_attributes
     context.data['pass'].slice(
+      'public_id',
       'intitule',
       'description',
       'demarche',

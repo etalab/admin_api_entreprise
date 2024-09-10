@@ -25,9 +25,10 @@ RSpec.describe DatapassWebhook::V2::APIEntreprise, type: :interactor do
     expect { subject }.to change(UserAuthorizationRequestRole.where(role: 'contact_metier'), :count).by(1)
   end
 
-  it 'creates an authorization request with entreprise api and demarche' do
+  it 'creates an authorization request with entreprise api, demarche and public id' do
     expect(subject.authorization_request.api).to eq('entreprise')
     expect(subject.authorization_request.demarche).to eq('api-entreprise')
+    expect(subject.authorization_request.public_id).to be_present
   end
 
   describe 'when contact metier is empty (non-regression test)' do
