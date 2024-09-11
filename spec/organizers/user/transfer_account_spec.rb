@@ -73,7 +73,9 @@ RSpec.describe User::TransferAccount, type: :organizer do
         existing_tokens_id = target_user.token_ids
         subject
 
-        expect(target_user.token_ids).to include(*existing_tokens_id)
+        existing_tokens_id.each do |token_id|
+          expect(target_user.token_ids).to include(token_id)
+        end
       end
 
       it 'removes all token ownership from the previous user on the targeted api' do
@@ -169,7 +171,9 @@ RSpec.describe User::TransferAccount, type: :organizer do
         existing_tokens_id = target_user.token_ids
         subject
 
-        expect(target_user.token_ids).to include(*existing_tokens_id)
+        existing_tokens_id.each do |token_id|
+          expect(target_user.token_ids).to include(token_id)
+        end
       end
 
       it 'removes all token ownership from the previous user on the targeted api' do
