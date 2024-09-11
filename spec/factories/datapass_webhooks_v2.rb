@@ -1,10 +1,12 @@
 FactoryBot.define do
   sequence(:datapass_webhook_v2_id, &:to_i)
+  sequence(:datapass_webhook_v2_public_id) { SecureRandom.uuid }
 
   factory :datapass_webhook_v2, class: Hash do
     initialize_with { attributes.stringify_keys }
 
     event { %w[refuse_application refuse].sample }
+    public_id { generate(:datapass_webhook_v2_public_id) }
     model_id { generate(:datapass_webhook_v2_id) }
     model_type { 'authorization_request/api_entreprise' }
     fired_at { Time.zone.now.to_i }

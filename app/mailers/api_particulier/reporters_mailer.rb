@@ -1,6 +1,8 @@
 class APIParticulier::ReportersMailer < APIParticulierMailer
   skip_before_action :attach_logos
 
+  helper_method :datapass_v2_public_authorization_request_url
+
   %w[
     submit
     approve
@@ -22,6 +24,21 @@ class APIParticulier::ReportersMailer < APIParticulierMailer
   end
 
   private
+
+  def datapass_v2_public_authorization_request_url(authorization_request)
+    "#{datapass_v2_base_url(authorization_request.api)}/public/demandes/#{authorization_request.public_id}"
+  end
+
+  def datapass_v2_base_url(api)
+    case Rails.env
+    when 'staging'
+      "https://staging.api-#{api}.v2.datapass.api.gouv.fr"
+    when 'sandbox'
+      "https://sandbox.api-#{api}.v2.datapass.api.gouv.fr"
+    else
+      "https://api-#{api}.v2.datapass.api.gouv.fr"
+    end
+  end
 
   def reporter_emails(groups)
     reporters_config.values_at(*groups).flatten
