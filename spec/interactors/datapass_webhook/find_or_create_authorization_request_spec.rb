@@ -92,7 +92,7 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
         create(:authorization_request, :with_all_contacts, status: 'validated', external_id: authorization_id)
       end
 
-      context 'when event is not approve or validate' do
+      context 'when event is not approve, validate or transfer' do
         let!(:event) { 'draft' }
 
         it { is_expected.to be_a_success }
@@ -108,8 +108,20 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
         end
       end
 
-      context 'when event is approve or validate' do
+      context 'when event is validate' do
         let!(:event) { 'validate' }
+
+        it { is_expected.to be_a_success }
+
+        it 'updates the authorization request' do
+          expect {
+            subject
+          }.to change { authorization_request.reload.last_update.to_i }
+        end
+      end
+
+      context 'when event is transfer' do
+        let!(:event) { 'transfer' }
 
         it { is_expected.to be_a_success }
 

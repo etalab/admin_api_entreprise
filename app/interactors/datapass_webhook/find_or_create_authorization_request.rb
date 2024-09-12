@@ -28,7 +28,7 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
   end
 
   def should_update_authorization_request?
-    !context.reopening || (context.reopening && %w[approve validate].include?(context.event))
+    !context.reopening || (context.reopening && %w[transfer approve validate].include?(context.event))
   end
 
   def create_or_update_contacts_with_roles
