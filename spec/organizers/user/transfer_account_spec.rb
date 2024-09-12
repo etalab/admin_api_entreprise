@@ -57,7 +57,7 @@ RSpec.describe User::TransferAccount, type: :organizer do
     let(:target_user_email) { 'already@known.com' }
 
     context 'when the target user already exists' do
-      let!(:target_user) { create(:user, email: target_user_email) }
+      let!(:target_user) { create(:user, :with_token, email: target_user_email) }
 
       it { is_expected.to be_a_success }
 
@@ -153,7 +153,7 @@ RSpec.describe User::TransferAccount, type: :organizer do
     let(:target_user_email) { 'already@known.com' }
 
     context 'when the target user already exists' do
-      let!(:target_user) { create(:user, email: target_user_email) }
+      let!(:target_user) { create(:user, :with_token, email: target_user_email) }
 
       it { is_expected.to be_a_success }
 
