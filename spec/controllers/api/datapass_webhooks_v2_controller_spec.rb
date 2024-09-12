@@ -6,12 +6,15 @@ RSpec.describe API::DatapassWebhooksV2Controller do
       'event' => event,
       'model_id' => 9001,
       'model_type' => 'Pass',
+      'public_id' => public_id,
       'fired_at' => Time.now.to_i.to_s,
       'data' => {
         'what' => 'ever'
       }
     }
   end
+
+  let(:public_id) { SecureRandom.uuid }
 
   describe '#api_entreprise' do
     subject do
@@ -56,8 +59,15 @@ RSpec.describe API::DatapassWebhooksV2Controller do
         )
       end
 
-      it 'calls DatapassWebhook::V2::APIEntreprise' do
-        expect(DatapassWebhook::V2::APIEntreprise).to receive(:call)
+      it 'calls DatapassWebhook::V2::APIEntreprise with public id and data)' do
+        expect(DatapassWebhook::V2::APIEntreprise).to receive(:call).with(
+          hash_including(
+            public_id:,
+            data: {
+              'what' => 'ever'
+            }
+          )
+        )
 
         subject
       end
