@@ -6,7 +6,6 @@ FactoryBot.define do
     initialize_with { attributes.stringify_keys }
 
     event { %w[refuse_application refuse].sample }
-    public_id { generate(:datapass_webhook_v2_public_id) }
     model_id { generate(:datapass_webhook_v2_id) }
     model_type { 'authorization_request/api_entreprise' }
     fired_at { Time.zone.now.to_i }
@@ -17,6 +16,7 @@ FactoryBot.define do
     initialize_with { attributes.stringify_keys }
 
     state { %w[approved refused].sample }
+    public_id { generate(:datapass_webhook_v2_public_id) }
     form_uid { 'api-entreprise' }
     applicant factory: :datapass_webhook_applicant_v2
     organization factory: :datapass_webhook_organization_v2
