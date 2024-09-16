@@ -11,7 +11,7 @@ class DatapassWebhook::AdaptV2ToV1 < ApplicationInteractor
     {
       'pass' => {
         'id' => context.model_id,
-        'public_id' => context.public_id,
+        'public_id' => context.data['public_id'],
         'intitule' => generic_data['intitule'],
         'description' => generic_data['description'],
         'demarche' => context.data['form_uid'],
