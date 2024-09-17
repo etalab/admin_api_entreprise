@@ -1,6 +1,6 @@
 ---
 - uid: 'banque_de_france/bilans'
-  path: '/v3/banque_de_france/unites_legales/{siret}/bilans'
+  path: '/v3/banque_de_france/unites_legales/{siren}/bilans'
   ping_url: 'https://entreprise.api.gouv.fr/ping/banque_de_france/bilans'
   position: 220
   perimeter:
@@ -9,7 +9,7 @@
        Même si la Banque de France connaît un ou deux bilans de l'entreprise, ces derniers ne seront pas transmis.
     entities:
       - entreprises
-  call_id: "SIRET"
+  call_id: "SIREN"
   provider_uids:
     - 'bdf'
   keywords:
@@ -46,4 +46,4 @@
   format:
     - Donnée structurée JSON
   parameters:
-    - Numéro de SIRET de l'établissement.
+    - Numéro de SIREN de l'unité légale.
