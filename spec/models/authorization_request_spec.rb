@@ -56,7 +56,8 @@ RSpec.describe AuthorizationRequest do
       [
         create(:authorization_request, :with_tokens, api: 'particulier', status: 'archived'),
         create(:authorization_request, api: 'particulier', status: 'revoked'),
-        create(:authorization_request, status: 'validated')
+        create(:authorization_request, status: 'validated'),
+        create(:authorization_request, status: 'draft', validated_at: 1.month.ago)
       ]
     end
 
