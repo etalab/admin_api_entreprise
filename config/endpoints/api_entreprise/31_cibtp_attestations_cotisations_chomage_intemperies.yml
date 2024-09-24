@@ -20,7 +20,9 @@
 
       **Ne sont pas concernées par cette API** :
       - **❌ les entreprises de bâtiment adhérentes aux caisses CIBTP DROM Réunion et Antilles-Guyane**, - aucun raccordement n'est prévu car leur système d'information est différent ; 
-      - **❌ les entreprises de travaux publics adhérentes à la caisse CNETP**. Pour les quelques entreprises relevant des secteurs du bâtiment et des travaux publiques, il est recommandé de faire un appel aux deux API systématiquement. Pour accéder aux certificats CNETP, veuillez consulter [cette API](<%= endpoint_path(uid: 'cnetp/attestations_cotisations_conges_payes_chomage_intemperies') %>).
+      - **❌ les entreprises de travaux publics adhérentes à la caisse CNETP** dont l'attestation doit être récupérée avec l'[API de la CNETP](<%= endpoint_path(uid: 'cnetp/attestations_cotisations_conges_payes_chomage_intemperies') %>).
+      
+      ***️⃣ Sont en partie concernées par cette API**, les quelques entreprises relevant à la fois du secteur du bâtiment et du secteur des travaux publics (environ 50 entreprises). Pour ces dernières, il est recommandé de faire un appel aux deux API systématiquement : cette API de la CIBTP et [celle de la CNETP](<%= endpoint_path(uid: 'cnetp/attestations_cotisations_conges_payes_chomage_intemperies') %>).
     geographical_scope_description: |+
       - ✅ Métropole 
       - ❌ Outre-mer
