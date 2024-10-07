@@ -7,6 +7,7 @@ on: [push]
 jobs:
   security:
     name: Brakeman
+    if: "${{ github.actor != 'dependabot[bot]' }}"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -103,6 +104,7 @@ jobs:
         run: bundle exec rspec
 
       - uses: joshmfrankel/simplecov-check-action@main
+        if: "${{ github.actor != 'dependabot[bot]' }}"
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           minimum_suite_coverage: 95
