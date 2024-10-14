@@ -47,12 +47,22 @@ RSpec.describe OpenBureauDate, type: :service do
     end
 
     describe 'non-regression tests' do
-      context 'when first tuesday is on 1st of month' do
+      context 'when first tuesday is on 1st of month, before this date' do
         before do
           Timecop.freeze(Date.new(2022, 10, 31))
         end
 
         let(:next_date) { Date.new(2022, 11, 1) }
+
+        it { is_expected.to eq(next_date.to_s) }
+      end
+
+      context 'when first tuesday is on 1st of month, after this date' do
+        before do
+          Timecop.freeze(Date.new(2024, 10, 2))
+        end
+
+        let(:next_date) { Date.new(2024, 10, 15) }
 
         it { is_expected.to eq(next_date.to_s) }
       end
