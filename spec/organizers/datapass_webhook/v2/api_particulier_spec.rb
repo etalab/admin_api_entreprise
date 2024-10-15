@@ -64,6 +64,12 @@ RSpec.describe DatapassWebhook::V2::APIParticulier, type: :interactor do
           subject
         }.not_to have_enqueued_job(CreateFormulaireQFHubEESubscriptionJob)
       end
+
+      it 'does not schedule a job to create formulaire qf access on HubEE' do
+        expect {
+          subject
+        }.not_to have_enqueued_job(CreateFormulaireQFCollectivityJob)
+      end
     end
 
     context 'when modalities include formulaire_qf' do
@@ -81,6 +87,12 @@ RSpec.describe DatapassWebhook::V2::APIParticulier, type: :interactor do
             subject
           }.to have_enqueued_job(CreateFormulaireQFHubEESubscriptionJob)
         end
+
+        it 'schedules a job to create the collectivity on formulaire qf' do
+          expect {
+            subject
+          }.to have_enqueued_job(CreateFormulaireQFCollectivityJob)
+        end
       end
 
       context 'when event not approve' do
@@ -92,6 +104,12 @@ RSpec.describe DatapassWebhook::V2::APIParticulier, type: :interactor do
           expect {
             subject
           }.not_to have_enqueued_job(CreateFormulaireQFHubEESubscriptionJob)
+        end
+
+        it 'does not schedule a job to create formulaire qf access on HubEE' do
+          expect {
+            subject
+          }.not_to have_enqueued_job(CreateFormulaireQFCollectivityJob)
         end
       end
     end

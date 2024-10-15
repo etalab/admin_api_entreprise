@@ -68,6 +68,10 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
         expect(subject.reopening).to be_falsey
       end
 
+      it 'stores the service provider in extra_infos' do
+        expect { subject }.to change { authorization_request.reload.extra_infos['service_provider'] }
+      end
+
       context 'when it is the same demandeur' do
         let(:demandeur) { build(:datapass_webhook_team_member_model, type: 'demandeur', email: authorization_request.demandeur.email) }
 

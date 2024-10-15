@@ -7,7 +7,23 @@ class CreateFormulaireQFHubEESubscriptionJob < ApplicationJob
     authorization_request.extra_infos['hubee_organization_id'] = build_hubee_organization_id(hubee_organization_payload)
     authorization_request.save!
 
-    create_subscription_on_hubee(authorization_request, hubee_organization_payload)
+    subscription_payload = find_or_create_subscription_on_hubee(authorization_request, hubee_organization_payload)
+
+    service_provider = authorization_request.extra_infos['service_provider']
+    subscription_update_payload = {}
+
+    if service_provider.present? && service_provider['type'] == 'editor'
+      subscription_update_payload.merge!({
+        delegationActor: {
+          branchCode: service_provider['code_cog'],
+          companyRegister: service_provider['siret'],
+          type: 'EDT'
+        },
+        accessMode: 'API'
+      })
+    end
+
+    update_subscription_on_hubee(authorization_request, subscription_payload, subscription_update_payload)
   rescue ActiveRecord::RecordNotFound
     # do nothing
   end
@@ -20,13 +36,18 @@ class CreateFormulaireQFHubEESubscriptionJob < ApplicationJob
     hubee_api_client.create_organization(authorization_request.organization, authorization_request.demandeur.email)
   end
 
-  def create_subscription_on_hubee(authorization_request, hubee_organization)
-    hubee_subscription_payload = hubee_api_client.create_subscription(authorization_request, hubee_organization, process_code)
-
-    authorization_request.extra_infos['hubee_subscription_id'] = hubee_subscription_payload['id']
+  def find_or_create_subscription_on_hubee(authorization_request, hubee_organization)
+    payload = hubee_api_client.create_subscription(authorization_request, hubee_organization, process_code)
+    authorization_request.extra_infos['hubee_subscription_id'] = payload['id']
     authorization_request.save!
   rescue HubEEAPIClient::AlreadyExists
-    # do nothing
+    payload = hubee_api_client.find_subscription(authorization_request, hubee_organization, process_code)
+    authorization_request.extra_infos['hubee_subscription_id'] = payload['id']
+    authorization_request.save!
+  end
+
+  def update_subscription_on_hubee(authorization_request, subscription_payload, editor_payload)
+    hubee_api_client.update_subscription(authorization_request, subscription_payload, editor_payload)
   end
 
   def build_hubee_organization_id(hubee_organization_payload)

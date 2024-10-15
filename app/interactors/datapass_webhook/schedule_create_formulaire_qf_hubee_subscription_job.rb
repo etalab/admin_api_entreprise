@@ -4,5 +4,6 @@ class DatapassWebhook::ScheduleCreateFormulaireQFHubEESubscriptionJob < Applicat
     return unless context.modalities.include?('formulaire_qf')
 
     CreateFormulaireQFHubEESubscriptionJob.perform_later(context.authorization_request.id)
+    CreateFormulaireQFCollectivityJob.perform_later(context.authorization_request.id)
   end
 end

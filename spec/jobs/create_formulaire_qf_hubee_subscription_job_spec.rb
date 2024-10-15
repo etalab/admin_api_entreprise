@@ -20,6 +20,7 @@ RSpec.describe CreateFormulaireQFHubEESubscriptionJob, type: :job do
       before do
         allow(hubee_api_client).to receive(:find_organization).and_raise(HubEEAPIClient::NotFound)
         allow(hubee_api_client).to receive_messages(create_organization: organization_payload, create_subscription: subscription_payload)
+        allow(hubee_api_client).to receive(:update_subscription)
       end
 
       it 'creates an organization on HubEE' do
@@ -50,6 +51,7 @@ RSpec.describe CreateFormulaireQFHubEESubscriptionJob, type: :job do
     context 'when organization exists on HubEE' do
       before do
         allow(hubee_api_client).to receive_messages(find_organization: hubee_organization_payload, create_subscription: subscription_payload)
+        allow(hubee_api_client).to receive(:update_subscription)
       end
 
       it 'does not create an organization on HubEE' do
@@ -77,8 +79,12 @@ RSpec.describe CreateFormulaireQFHubEESubscriptionJob, type: :job do
       end
 
       context 'when subscription already exists' do
+        let(:hubee_subscription_payload) { { 'id' => 123 } }
+
         before do
           allow(hubee_api_client).to receive(:create_subscription).and_raise(HubEEAPIClient::AlreadyExists)
+          allow(hubee_api_client).to receive(:find_subscription).and_return(hubee_subscription_payload)
+          allow(hubee_api_client).to receive(:update_subscription)
         end
 
         it 'does not raise an error' do

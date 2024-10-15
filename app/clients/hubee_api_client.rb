@@ -17,6 +17,7 @@ class HubEEAPIClient < AbstractHubEEAPIClient
         branchCode: organization.code_commune_etablissement,
         email:,
         name: organization.denomination,
+        country: 'France',
         postalCode: organization.code_postal_etablissement,
         territory: organization.code_commune_etablissement,
         status: 'Actif'
@@ -34,7 +35,7 @@ class HubEEAPIClient < AbstractHubEEAPIClient
       "#{host}/referential/v1/subscriptions",
       {
         datapassId: authorization_request.external_id.to_i,
-        notificationFrequency: 'unitaire',
+        notificationFrequency: 'Aucune',
         processCode: process_code,
         subscriber: {
           type: 'SI',
@@ -42,15 +43,12 @@ class HubEEAPIClient < AbstractHubEEAPIClient
           branchCode: organization_payload['branchCode']
         },
         email: authorization_request.demandeur.email,
-        status: 'Actif',
+        status: 'Inactif',
         localAdministrator: {
           email: authorization_request.demandeur.email
         },
-        delegationActor: {
-          branchCode: organization_payload['branchCode'],
-          companyRegister: organization_payload['companyRegister'],
-          type: 'EDT'
-        },
+        validateDateTime: DateTime.now.iso8601,
+        updateDateTime: DateTime.now.iso8601
       }.to_json,
       'Content-Type' => 'application/json'
     )
@@ -58,6 +56,37 @@ class HubEEAPIClient < AbstractHubEEAPIClient
     raise AlreadyExists if already_exists_error?(e)
 
     raise
+  end
+
+  def find_subscription(_authorization_request, organization_payload, process_code)
+    request = http_connection { |conn| conn.request :gzip }.get(
+      "#{host}/referential/v1/subscriptions",
+      companyRegister: organization_payload['companyRegister'],
+      processCode: process_code
+    )
+    request.body.first
+  end
+
+  def update_subscription(authorization_request, subscription_payload, editor_payload = {})
+    subscription_id = authorization_request.extra_infos['hubee_subscription_id']
+    return if subscription_id.blank?
+
+    payload = subscription_payload.with_indifferent_access.merge({
+      status: 'Actif',
+      activateDateTime: DateTime.now.iso8601,
+      accessMode: 'API',
+      notificationFrequency: 'Aucune'
+    }.with_indifferent_access)
+
+    payload.delete('id')
+    payload.delete('creationDateTime')
+    payload.merge!(editor_payload.with_indifferent_access) if editor_payload.present?
+
+    http_connection.put(
+      "#{host}/referential/v1/subscriptions/#{subscription_id}",
+      payload.to_json,
+      'Content-Type' => 'application/json'
+    )
   end
 
   protected
@@ -72,9 +101,10 @@ class HubEEAPIClient < AbstractHubEEAPIClient
     end
   end
 
-  def http_connection
+  def http_connection(&block)
     super do |conn|
       conn.request :authorization, 'Bearer', -> { HubEEAPIAuthentication.new.access_token }
+      yield(conn) if block
     end
   end
 end
