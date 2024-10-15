@@ -4,7 +4,7 @@ class AbstractHubEEAPIClient
   protected
 
   def http_connection(&block)
-    @http_connection ||= Faraday.new do |conn|
+    Faraday.new do |conn|
       conn.request :retry, max: 5
       conn.response :raise_error
       conn.response :json

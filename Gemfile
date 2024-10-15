@@ -78,8 +78,10 @@ gem 'wicked'
 
 gem 'rest-client'
 gem 'faraday'
+gem 'faraday-gzip'
 gem 'faraday-net_http'
 gem 'faraday-retry'
+gem 'faraday-encoding'
 
 group :development, :test do
   gem 'awesome_print'
@@ -104,10 +106,10 @@ group :development do
   # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
   gem 'rack-mini-profiler', '~> 3.3'
   gem 'rubocop', require: false
-  gem 'rubocop-rails'
-  gem 'rubocop-rspec'
   gem 'rubocop-capybara'
   gem 'rubocop-factory_bot'
+  gem 'rubocop-rails'
+  gem 'rubocop-rspec'
   gem 'rubocop-rspec_rails'
 
   gem 'better_errors'

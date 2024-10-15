@@ -83,8 +83,15 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
     ).merge(authorization_request_attributes_for_current_event).merge(
       'last_update' => fired_at_as_datetime,
       'previous_external_id' => context.data['pass']['copied_from_enrollment_id'],
-      'api' => context.api
+      'api' => context.api,
+      'extra_infos' => extra_infos_with_service_provider
     )
+  end
+
+  def extra_infos_with_service_provider
+    context.authorization_request.extra_infos.merge({
+      'service_provider' => Hash(context.data.dig('pass', 'service_provider'))
+    })
   end
 
   def authorization_request_attributes_for_current_event

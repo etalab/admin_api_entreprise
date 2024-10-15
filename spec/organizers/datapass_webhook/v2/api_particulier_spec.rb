@@ -59,10 +59,10 @@ RSpec.describe DatapassWebhook::V2::APIParticulier, type: :interactor do
         datapass_webhook_params['data']['data']['modalities'] = ['params']
       end
 
-      it 'does not schedule a job to create formulaire qf access on HubEE' do
+      it 'does not schedule a job to create formulaire qf resources' do
         expect {
           subject
-        }.not_to have_enqueued_job(CreateFormulaireQFHubEESubscriptionJob)
+        }.not_to have_enqueued_job(CreateFormulaireQFResourcesJob)
       end
     end
 
@@ -76,10 +76,10 @@ RSpec.describe DatapassWebhook::V2::APIParticulier, type: :interactor do
           datapass_webhook_params['event'] = 'approve'
         end
 
-        it 'schedules a job to create formulaire qf access on HubEE' do
+        it 'schedules a job to create formulaire qf resources' do
           expect {
             subject
-          }.to have_enqueued_job(CreateFormulaireQFHubEESubscriptionJob)
+          }.to have_enqueued_job(CreateFormulaireQFResourcesJob)
         end
       end
 
@@ -88,10 +88,10 @@ RSpec.describe DatapassWebhook::V2::APIParticulier, type: :interactor do
           datapass_webhook_params['event'] = 'reject'
         end
 
-        it 'does not schedule a job to create formulaire qf access on HubEE' do
+        it 'does not schedule a job to create formulaire qf resources' do
           expect {
             subject
-          }.not_to have_enqueued_job(CreateFormulaireQFHubEESubscriptionJob)
+          }.not_to have_enqueued_job(CreateFormulaireQFResourcesJob)
         end
       end
     end

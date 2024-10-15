@@ -22,7 +22,8 @@ class DatapassWebhook::AdaptV2ToV1 < ApplicationInteractor
         'previous_enrollment_id' => nil,
         'scopes' => generic_data['scopes'].index_with { |_scope| true },
         'team_members' => build_team_members,
-        'events' => []
+        'events' => [],
+        'service_provider' => context.data['service_provider']
       }
     }
   end

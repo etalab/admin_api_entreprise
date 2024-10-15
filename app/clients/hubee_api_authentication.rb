@@ -18,4 +18,11 @@ class HubEEAPIAuthentication < AbstractHubEEAPIClient
   def encoded_client_id_and_secret
     Base64.strict_encode64("#{consumer_key}:#{consumer_secret}")
   end
+
+  def http_connection(&block)
+    @http_connection ||= super do |conn|
+      conn.response :json
+      yield(conn) if block
+    end
+  end
 end

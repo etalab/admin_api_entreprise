@@ -25,4 +25,8 @@ module INSEESireneAPIMocks
       }
     }
   end
+
+  def read_json_fixture(file)
+    JSON.parse(Rails.root.join('spec', 'fixtures', file).read)
+  end
 end
