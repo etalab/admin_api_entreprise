@@ -30,7 +30,7 @@ class HubEEAPIClient < AbstractHubEEAPIClient
     raise
   end
 
-  def create_subscription(authorization_request, organization_payload, process_code)
+  def create_subscription(authorization_request, organization_payload, process_code) # rubocop:disable Metrics/AbcSize
     http_connection.post(
       "#{host}/referential/v1/subscriptions",
       {
@@ -67,7 +67,7 @@ class HubEEAPIClient < AbstractHubEEAPIClient
     request.body.first
   end
 
-  def update_subscription(authorization_request, subscription_payload, editor_payload = {})
+  def update_subscription(authorization_request, subscription_payload, editor_payload = {}) # rubocop:disable Metrics/AbcSize
     subscription_id = authorization_request.extra_infos['hubee_subscription_id']
     return if subscription_id.blank?
 

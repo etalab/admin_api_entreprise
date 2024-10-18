@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CreateFormulaireQFCollectivityJob, type: :job do
+RSpec.describe CreateFormulaireQFCollectivityJob do
   describe '#perform' do
     subject(:job) { described_class.perform_now(authorization_request.id) }
 

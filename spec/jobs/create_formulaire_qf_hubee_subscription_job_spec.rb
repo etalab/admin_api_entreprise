@@ -1,4 +1,4 @@
-RSpec.describe CreateFormulaireQFHubEESubscriptionJob, type: :job do
+RSpec.describe CreateFormulaireQFHubEESubscriptionJob do
   describe '#perform' do
     subject(:create_formulaire_qf_hubee_subscription_job) do
       described_class.perform_now(authorization_request.id)
