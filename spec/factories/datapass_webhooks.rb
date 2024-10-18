@@ -63,6 +63,15 @@ FactoryBot.define do
         'entreprises' => true
       }
     end
+
+    service_provider do
+      {
+        'id' => '3d_ouest',
+        'type' => 'editor',
+        'siret' => '44973625500018',
+        'code' => '22113'
+      }
+    end
   end
 
   factory :datapass_webhook_team_member_model, class: Hash do
