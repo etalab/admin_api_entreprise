@@ -1510,15 +1510,6 @@ paths:
                     - lieuDit
                     - codePostalVille
                     - pays
-                  regime:
-                    title: Régime de l'allocataire
-                    type: string
-                    description: Précise le régime de l'allocataire, régime général
-                      (CNAF) ou agricole (MSA).
-                    example: MSA
-                    enum:
-                    - CNAF
-                    - MSA
                   quotientFamilial:
                     title: Quotient familial CAF ou MSA
                     type: integer
@@ -1550,20 +1541,6 @@ paths:
                       l'année a été spécifiée en paramètres d'appel, le quotient familial
                       retourné sera celui du mois en cours pour l'année spécifiée."
                     example: 6
-                  annee_calcul:
-                    title: Année du calcul du QF
-                    type: integer
-                    description: Année lors de laquelle le calcul du quotient familial
-                      demandé a été effectué. Cette année peut différer de l'année
-                      effective du quotient familial.
-                    example: 2023
-                  mois_calcul:
-                    title: Mois du calcul du QF
-                    type: integer
-                    description: Mois lors duquel le calcul du quotient familial demandé
-                      a été effectué. Ce mois peut différer du mois effectif du quotient
-                      familial.
-                    example: 9
           x-operationId: api_particulier_v2_cnav_quotient_familial_v2
         '400':
           description: Mauvais paramètres d'appels
@@ -2067,8 +2044,11 @@ paths:
                       Indique si l'élève est boursier dans l'établissement. Les bourses concernent uniquement les élèves des collèges et lycées.
 
                       ⚠️ Si le statut boursier est à "false" avant mi-octobre, cela ne signifie pas forcément que l'élève n'est pas boursier. Il peut s'agir d'un faux négatif lié à une absence de l'information en base. Pour en savoir plus consulter la fiche métier : https://particulier.api.gouv.fr/catalogue/education_nationale/statut_eleve_scolarise#faq_entry_answer_1_api_particulier_endpoint_education_nationale_statut_eleve_scolarise.
+
+                      Ce champs prend la valeur null lorsque l'on ne sait pas si l'élève est boursier ou non
                     type: boolean
                     example: true
+                    nullable: true
                   niveau_bourse:
                     description: |
                       Indique l'échelon de la bourse de l'élève. Est à "null" quand "est_boursier" est "false". Les bourses concernent uniquement les élèves des collèges et lycées.
@@ -2078,7 +2058,7 @@ paths:
                     example: 1
                     nullable: true
                     enum:
-                    -
+                    - null
                     - 1
                     - 2
                     - 3
@@ -2713,7 +2693,7 @@ paths:
                       ligneVoie:
                         type: string
                         example: 21 RUE DES MARMOTS
-                      ligneComplementDestinaire:
+                      ligneComplementDestinataire:
                         type: string
                         nullable: true
                         example:
