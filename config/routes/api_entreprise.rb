@@ -47,9 +47,6 @@ constraints(APIEntrepriseDomainConstraint.new) do
     post 'public/magic_link/create', to: 'public_token_magic_links#create'
     get 'public/jetons/:access_token', to: 'public_token_magic_links#show', as: :token_show_magic_link
 
-    get '/compte/transferer', to: 'transfer_user_account#new', as: :transfer_account
-    post '/compte/transferer', to: 'transfer_user_account#create'
-
     get '/catalogue', as: :endpoints, to: 'endpoints#index'
     get '/catalogue/*uid/exemple', as: :endpoint_example, to: 'endpoints#example'
     get '/catalogue/*uid', as: :endpoint, to: 'endpoints#show'
