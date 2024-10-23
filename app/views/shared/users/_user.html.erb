@@ -48,18 +48,11 @@
       <h3 class="fr-h6"> <%= t('.transfer_account.subtitle_if_demandeur').html_safe %>
       </h3>
         <p class="fr-mb-1w">
-          <%= t('.transfer_account.description_if_demandeur').html_safe %>
-        </p>
-        <a id="transfer_account_button" href="<%= transfer_account_path %>" data-turbo-frame="main-modal-content" class="fr-btn fr-btn--secondary fr-btn--icon-left fr-mb-2w" data-fr-opened="false" aria-controls="main-modal">
-          <span class="ri-user-shared-line"></span>
-          <%= t('.transfer_account.cta') %>
-        </a>
-        <p>
-          <%= t('.transfer_account.description_if_demandeur_transfer_not_all', api: t("#{namespace}.api")).html_safe %>
+          <%= t('.transfer_account.description_if_demandeur', api: namespace.gsub('_', '-')).html_safe %>
         </p>
       </li>
       <li>
-        <h3 class="fr-h6"> 
+        <h3 class="fr-h6">
           <%= t('.transfer_account.subtitle_if_other_roles').html_safe %>
         </h3>
         <p class="fr-mb-1w">

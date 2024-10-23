@@ -27,11 +27,5 @@ RSpec.describe 'user profile page', app: :api_entreprise do
 
       expect(page).to have_content(user.email)
     end
-
-    it 'has a button to transfer the account ownership' do
-      show_profile
-
-      expect(page).to have_css('#transfer_account_button')
-    end
   end
 end

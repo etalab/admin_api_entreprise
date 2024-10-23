@@ -1,3 +1,0 @@
-class APIEntreprise::TransferUserAccountController < APIEntreprise::AuthenticatedUsersController
-  include TransferUserAccountManagement
-end
