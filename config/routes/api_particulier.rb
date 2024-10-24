@@ -10,6 +10,7 @@ constraints(APIParticulierDomainConstraint.new) do
     get '/auth/api_gouv_particulier/callback', to: 'sessions#create_from_oauth'
     get '/auth/failure', to: 'sessions#failure'
     get '/robots.txt', to: ->(env) { [200, {}, [File.read('config/seo/robots.txt') % { app: 'particulier' }]] }
+    get '/apis/status', to: 'pages#current_status', as: :api_particulier_current_status
   end
 
   namespace :api_particulier, path: '' do
@@ -64,8 +65,6 @@ constraints(APIParticulierDomainConstraint.new) do
     get 'public/jetons/:access_token', to: 'public_token_magic_links#show', as: :token_show_magic_link
 
     get '/blog/:id', to: 'blog_posts#show', as: :blog_post
-
-    get '/apis/status', to: 'pages#current_status', as: :current_status
 
     get '/infolettre', to: 'pages#newsletter', as: :newsletter
     get '/mentions-legales', to: 'pages#mentions', as: :mentions
