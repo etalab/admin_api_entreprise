@@ -1,0 +1,68 @@
+---
+- uid: 'inpi/rne/actes_bilans'
+  path: '/v3/inpi/rne/unites_legales/open_data/{siren}/actes_bilans'
+  ping_url: 'https://entreprise.api.gouv.fr/ping/inpi/rne'
+  position: 113
+  perimeter:
+    entity_type_description: |+
+      **Pour les actes :** 
+      - ✅ les entreprises dont les micro-entreprises sont concernées par cette API : ;
+      - ❌ les associations ne sont pas concernées.
+
+      **Pour les bilans :**
+      - L'API ne peut retourner les bilans de 2017 à 2023 que pour les entreprises immatriculées au registre national du commerce et des sociétés (RNCS) ;
+      - Depuis 2023, l'API retourne tous les bilans déposés par les entreprises et transmis à l'Inpi.
+    geographical_scope_description:  |+
+      ✅ Ensemble du territoire français, ❌ à l'exception de Wallis et Futuna, Nouvelle-Calédonie et Polynésie Française.
+    updating_rules_description: |+
+      La mise à jour des données est **quotidienne**. Dès qu'un nouveau document est disponible concernant une entreprise, ce document est disponible dans la journée et s'ajoute à la liste des actes et bilans de l'entreprise concernée.
+    entities:
+      - entreprises
+  call_id: "SIREN"
+  provider_uids:
+    - 'inpi'
+  keywords:
+    - 'acte'
+    - 'bilan'
+    - 'compte'
+    - 'statut'
+    - 'procès-verbal'
+    - 'capital'
+    - 'fonds'
+    - 'modification'
+    - 'statut'
+    - 'administrateur'
+    - 'nomination'
+    - 'pouvoir'
+    - 'délégation'
+    - 'assemblée générale'
+    - 'modificatif'
+    - 'constitutif'
+    - 'passif'
+    - 'actif'
+    - 'comptes'
+    - 'résultat'
+    - 'immobilisation'
+    - 'ammortissement'
+    - 'provisions'
+    - 'declaration'
+  data:
+    description: |+
+      Cette API délivre la **liste des comptes annuels et des actes d'une entreprise** et permet de télécharger chacun des **documents au format PDF**.
+      
+      Bilans déposés depuis le 1er janvier 2017 : 
+      - données relatives aux bilans (actif/passif) ;
+      - comptes de résultat ;
+      - immobilisations ;
+      - amortissements et provisions.
+
+      Liste des actes et statuts depuis 1993 :
+      - statuts, 
+      - procès-verbaux d’assemblée générale
+      - actes constitutifs
+      - actes modificatifs
+  opening: public
+  parameters:
+    - Numéro de SIREN de l'unité légale
+  format:
+    - URL vers le document en PDF
