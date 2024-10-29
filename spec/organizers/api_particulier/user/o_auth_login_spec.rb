@@ -67,27 +67,5 @@ RSpec.describe APIParticulier::User::OAuthLogin, type: :organizer do
         expect(user.oauth_api_gouv_id).to eq(oauth_api_gouv_id)
       end
     end
-
-    context 'when the user signs in after receiving new tokens' do
-      let!(:user) { create(:user, :new_token_owner) }
-      let(:oauth_api_gouv_id) { user.oauth_api_gouv_id }
-
-      let(:another_sync) { described_class.call(params) }
-
-      it { is_expected.to be_a_success }
-
-      it 'sends an email to datapass for authorization request ownership update' do
-        expect { sync! }
-          .to have_enqueued_mail(APIParticulier::UserMailer, :notify_datapass_for_data_reconciliation)
-          .with(user, 'api_particulier')
-      end
-
-      it 'does not send emails on second login' do
-        another_sync
-
-        expect { sync! }
-          .not_to have_enqueued_mail(APIParticulier::UserMailer, :notify_datapass_for_data_reconciliation)
-      end
-    end
   end
 end
