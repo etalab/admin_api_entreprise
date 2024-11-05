@@ -15,7 +15,6 @@ module DatapassWebhook
       ::DatapassWebhook::CreateOrProlongToken,
       ::DatapassWebhook::ArchiveCurrentAuthorizationRequest,
       ::DatapassWebhook::RefuseCurrentAuthorizationRequest,
-      ::DatapassWebhook::ReopenAuthorizationRequest,
       ::DatapassWebhook::RevokeCurrentToken,
       ::DatapassWebhook::UpdateMailjetContacts,
       ::DatapassWebhook::ExtractMailjetVariables,
