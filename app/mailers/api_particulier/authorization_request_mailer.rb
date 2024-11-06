@@ -7,10 +7,8 @@ class APIParticulier::AuthorizationRequestMailer < APIParticulierMailer
 
     embarquement_demande_refusee
     embarquement_modifications_demandees
-    embarquement_relance_modifications_demandees
     update_embarquement_demande_refusee
     update_embarquement_modifications_demandees
-    update_embarquement_relance_modifications_demandees
 
     embarquement_valide_to_demandeur_is_tech
     embarquement_valide_to_demandeur_seulement

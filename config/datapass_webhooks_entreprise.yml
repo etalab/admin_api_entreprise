@@ -54,10 +54,6 @@ production: &production
       - template: 'embarquement_modifications_demandees'
         on_update: true
 
-      - template: 'embarquement_relance_modifications_demandees'
-        on_update: true
-        when: 'in 14 days'
-
   refuse_application: &refuse_application
     emails:
       - template: 'embarquement_demande_refusee'

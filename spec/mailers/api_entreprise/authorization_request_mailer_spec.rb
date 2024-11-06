@@ -11,8 +11,6 @@ RSpec.describe APIEntreprise::AuthorizationRequestMailer do
     update_embarquement_demande_refusee
     embarquement_modifications_demandees
     update_embarquement_modifications_demandees
-    embarquement_relance_modifications_demandees
-    update_embarquement_relance_modifications_demandees
     embarquement_valide_to_editeur
     embarquement_valide_to_demandeur_is_tech_is_metier
     embarquement_valide_to_demandeur_seulement
