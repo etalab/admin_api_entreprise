@@ -4,7 +4,6 @@ class APIEntreprise::AuthorizationRequestMailer < APIEntrepriseMailer
   include ExternalUrlHelper
 
   %w[
-    enquete_satisfaction
     embarquement_demande_refusee
     update_embarquement_demande_refusee
     embarquement_modifications_demandees

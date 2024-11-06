@@ -12,8 +12,6 @@ class APIParticulier::AuthorizationRequestMailerPreview < ActionMailer::Preview
     embarquement_valide_to_demandeur_seulement
     embarquement_valide_to_tech_cc_demandeur
     update_embarquement_valide_to_demandeur
-
-    enquete_satisfaction
   ].each do |method|
     send('define_method', method) do
       APIParticulier::AuthorizationRequestMailer.send(method, { to:, cc:, authorization_request: })

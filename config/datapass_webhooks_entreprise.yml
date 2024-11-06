@@ -61,12 +61,6 @@ production: &production
 
   approve: &approve
     emails:
-      - template: 'enquete_satisfaction'
-        when: 'in 30 days'
-        condition_on_authorization: 'not_editor_authorization_request'
-        to:
-          - 'authorization_request.demandeur'
-
       - template: 'embarquement_valide_to_editeur'
         condition_on_authorization: 'editor_authorization_request'
         to:

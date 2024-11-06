@@ -6,7 +6,6 @@ RSpec.describe APIEntreprise::AuthorizationRequestMailer do
   let(:cc) { 'anything2@email.com' }
 
   %w[
-    enquete_satisfaction
     embarquement_demande_refusee
     update_embarquement_demande_refusee
     embarquement_modifications_demandees
@@ -30,7 +29,7 @@ RSpec.describe APIEntreprise::AuthorizationRequestMailer do
       end
 
       it 'display authorization_request external id' do
-        expect(subject.html_part.decoded).to include(authorization_request.external_id) unless method == 'enquete_satisfaction'
+        expect(subject.html_part.decoded).to include(authorization_request.external_id)
       end
     end
   end

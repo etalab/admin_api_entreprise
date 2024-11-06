@@ -14,8 +14,6 @@ class APIParticulier::AuthorizationRequestMailer < APIParticulierMailer
     embarquement_valide_to_demandeur_seulement
     embarquement_valide_to_tech_cc_demandeur
     update_embarquement_valide_to_demandeur
-
-    enquete_satisfaction
   ].each do |method|
     send('define_method', method) do |args|
       @all_scopes = I18n.t('api_particulier.tokens.token.scope')
