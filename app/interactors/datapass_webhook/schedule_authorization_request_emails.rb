@@ -11,7 +11,7 @@ class DatapassWebhook::ScheduleAuthorizationRequestEmails < ApplicationInteracto
     return unless condition_on_update_met?(email_config)
     return unless condition_on_authorization_met?(email_config['condition_on_authorization'])
 
-    ScheduleAuthorizationRequestEmailJob.set(wait_until: extract_when_time(email_config['when'])).perform_later(
+    ScheduleAuthorizationRequestEmailJob.perform_later(
       context.authorization_request.id,
       context.authorization_request.status,
       template_name(email_config),
@@ -68,10 +68,6 @@ class DatapassWebhook::ScheduleAuthorizationRequestEmails < ApplicationInteracto
 
   def default_recipients
     ['authorization_request.demandeur']
-  end
-
-  def extract_when_time(when_time)
-    Chronic.parse(when_time) || Time.zone.now
   end
 
   def datapass_webhooks_config_for_event
