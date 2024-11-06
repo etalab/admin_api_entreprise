@@ -1,7 +1,7 @@
 # Check https://github.com/betagouv/signup-back/tree/master/docs/webhooks.md for all events and their details
 ---
 development: &development
-  created: &created {}
+  created: {}
   updated: &updated {}
   team_member_updated: &team_member_updated {}
   send_application: &send_application
@@ -29,7 +29,7 @@ development: &development
         to:
           - 'authorization_request.demandeur'
 
-  create: *created
+  create: {}
   update: *updated
   team_member_update: *team_member_updated
   submit: *send_application
@@ -40,12 +40,7 @@ development: &development
 test: *development
 
 production: &production
-  created: &created
-    emails:
-      - template: 'embarquement_brouillon_en_attente'
-        on_update: true
-        when: 'in 14 days'
-
+  created: {}
   updated: &updated {}
   team_member_updated: &team_member_updated {}
   send_application: &send_application
@@ -144,7 +139,6 @@ production: &production
         to:
           - 'authorization_request.demandeur'
 
-  create: *created
   update: *updated
   team_member_update: *team_member_updated
   submit: *send_application

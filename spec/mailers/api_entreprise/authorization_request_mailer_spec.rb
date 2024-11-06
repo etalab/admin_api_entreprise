@@ -7,8 +7,6 @@ RSpec.describe APIEntreprise::AuthorizationRequestMailer do
 
   %w[
     enquete_satisfaction
-    embarquement_brouillon_en_attente
-    update_embarquement_brouillon_en_attente
     embarquement_demande_refusee
     update_embarquement_demande_refusee
     embarquement_modifications_demandees

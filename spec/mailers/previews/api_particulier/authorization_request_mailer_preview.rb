@@ -1,7 +1,5 @@
 class APIParticulier::AuthorizationRequestMailerPreview < ActionMailer::Preview
   %w[
-    embarquement_brouillon_en_attente
-    update_embarquement_brouillon_en_attente
     demande_recue
     update_demande_recue
     reassurance_demande_recue
