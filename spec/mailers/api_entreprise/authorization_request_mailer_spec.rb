@@ -23,8 +23,6 @@ RSpec.describe APIEntreprise::AuthorizationRequestMailer do
     update_embarquement_valide_to_demandeur
     demande_recue
     update_demande_recue
-    reassurance_demande_recue
-    update_reassurance_demande_recue
   ].each do |method|
     describe "##{method}" do
       subject(:generate_email) { described_class.send(method, { to:, cc:, authorization_request: }) }

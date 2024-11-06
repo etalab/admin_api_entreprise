@@ -21,8 +21,6 @@ class APIEntreprise::AuthorizationRequestMailer < APIEntrepriseMailer
     update_embarquement_valide_to_demandeur
     demande_recue
     update_demande_recue
-    reassurance_demande_recue
-    update_reassurance_demande_recue
   ].each do |method|
     send('define_method', method) do |args|
       @all_scopes = I18n.t('api_entreprise.tokens.token.scope')

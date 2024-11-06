@@ -43,10 +43,6 @@ production: &production
       - template: 'demande_recue'
         on_update: true
 
-      - template: 'reassurance_demande_recue'
-        on_update: true
-        when: 'in 14 days'
-
   notify: &notify {}
   review_application: &review_application
     emails:

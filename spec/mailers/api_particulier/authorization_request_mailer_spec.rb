@@ -8,8 +8,6 @@ RSpec.describe APIParticulier::AuthorizationRequestMailer do
   %w[
     demande_recue
     update_demande_recue
-    reassurance_demande_recue
-    update_reassurance_demande_recue
 
     embarquement_demande_refusee
     embarquement_modifications_demandees

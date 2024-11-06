@@ -17,8 +17,6 @@ class APIEntreprise::AuthorizationRequestMailerPreview < ActionMailer::Preview
     update_embarquement_valide_to_demandeur
     demande_recue
     update_demande_recue
-    reassurance_demande_recue
-    update_reassurance_demande_recue
   ].each do |method|
     send('define_method', method) do
       APIEntreprise::AuthorizationRequestMailer.send(method, { to:, cc:, authorization_request: })
