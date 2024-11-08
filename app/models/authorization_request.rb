@@ -93,4 +93,9 @@ class AuthorizationRequest < ApplicationRecord
 
     update!(status: 'revoked')
   end
+
+  def prolong_token_expecting_updates?
+    token&.last_prolong_token_wizard.present? &&
+      token.last_prolong_token_wizard.requires_update?
+  end
 end

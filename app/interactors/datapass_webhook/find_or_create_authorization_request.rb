@@ -11,12 +11,23 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
       create_or_update_contacts_with_roles
     end
 
+    flag_updates_as_requested if expecting_updates? && %w[submit].include?(context.event)
+
     return if context.authorization_request.save
 
     fail!('Authorization request not valid', 'error', context.authorization_request.errors.to_hash)
   end
 
   private
+
+  def flag_updates_as_requested
+    context.authorization_request.token.last_prolong_token_wizard.update!(status: 'updates_requested')
+  end
+
+  def expecting_updates?
+    context.reopening &&
+      context.authorization_request.prolong_token_expecting_updates?
+  end
 
   def set_reopening_event_flag
     context.reopening = reopening_event?

@@ -112,6 +112,36 @@ RSpec.describe AuthorizationRequest do
     end
   end
 
+  describe '.prolong_token_expecting_updates' do
+    subject { authorization_request.prolong_token_expecting_updates? }
+
+    let!(:authorization_request) { create(:authorization_request) }
+
+    context 'when there is no token' do
+      it { is_expected.to be_falsey }
+    end
+
+    context 'when there is a token' do
+      let!(:token) { create(:token, authorization_request:) }
+
+      context 'when there is no last prolong token wizard' do
+        it { is_expected.to be_falsey }
+      end
+
+      context 'when the last prolong token wizard requires update' do
+        let!(:prolong_token_wizard) { create(:prolong_token_wizard, :requires_update, token:) }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context 'when the last prolong token wizard does not require update' do
+        let(:last_prolong_token_wizard) { create(:prolong_token_wizard, token:, status: 'owner') }
+
+        it { is_expected.to be_falsey }
+      end
+    end
+  end
+
   describe 'scopes' do
     let!(:authorization_request) { create(:authorization_request) }
     let!(:archived_authorization_request) { create(:authorization_request, status: 'archived', api: 'particulier') }
