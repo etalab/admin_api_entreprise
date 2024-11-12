@@ -2,6 +2,16 @@ class OpenBureauDate
   include DateAndTime::Calculations
 
   def next_date
+    date = next_theoretical_date
+
+    date = date.next_occurring(:tuesday).next_occurring(:tuesday) while cancelled_dates.include?(date)
+
+    date
+  end
+
+  private
+
+  def next_theoretical_date
     return Time.zone.today if open_bureau_today?
 
     next_tuesday = Time.zone.today.next_occurring(:tuesday)
@@ -11,7 +21,9 @@ class OpenBureauDate
     next_tuesday.next_occurring(:tuesday)
   end
 
-  private
+  def cancelled_dates
+    YAML.load_file(Rails.root.join('config/cancelled_open_bureau_dates.yml')).map(&:to_date)
+  end
 
   def open_bureau_today?
     today = Time.zone.today
