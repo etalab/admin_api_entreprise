@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.2'
+gem 'rails', '~> 8.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use Puma as the app server
@@ -40,7 +40,7 @@ gem 'sitemap_generator'
 
 gem 'pastel'
 
-gem 'rails-i18n', '~> 7.0.10'
+gem 'rails-i18n'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
