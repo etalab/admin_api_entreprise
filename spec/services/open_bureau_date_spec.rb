@@ -67,5 +67,16 @@ RSpec.describe OpenBureauDate, type: :service do
         it { is_expected.to eq(next_date.to_s) }
       end
     end
+
+    describe 'when it is a cancelled date' do
+      before do
+        Timecop.freeze(Date.new(2024, 11, 12))
+        allow(YAML).to receive(:load_file).and_return(['2024-11-19'])
+      end
+
+      let(:next_date) { Date.new(2024, 12, 3) }
+
+      it { is_expected.to eq(next_date.to_s) }
+    end
   end
 end
