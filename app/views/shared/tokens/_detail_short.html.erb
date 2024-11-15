@@ -9,16 +9,12 @@
     <p>
       <p class="fr-badge fr-badge--<%= t(".status.color.#{token.status}") %>">
       <%= t(".status.label.#{token.status}") %>
-      </p>     
+      </p>
       <span class="fr-mb-1v fr-text--sm">
-    |  <%= t(".expiration_date", 
+    |  <%= t(".expiration_date",
           expiration_date: friendly_date_from_timestamp(token.end_timestamp)
         ).html_safe %>
       </span>
-      <p class="fr-mb-1v" style="text-overflow: ellipsis; overflow: hidden;
-white-space: nowrap;">
-        <span class="fr-text--xs" >ID: <%= token.id %></span>
-      </p>
     </p>
   </div>
 <% end %>
