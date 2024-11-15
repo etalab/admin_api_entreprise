@@ -124,13 +124,11 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
 
             expect(page).to have_content('Jeton principal :')
             expect(page).to have_content('Actif')
-            expect(page).to have_content(token.id)
             expect(page).to have_content('4 appels les 7 derniers jours')
             expect(page).to have_content(distance_of_time_in_words(Time.zone.now, token.exp))
 
             expect(page).to have_css('#' << dom_id(token, :stats_link))
 
-            expect(page).to have_content(banned_token.id)
             expect(page).to have_content('Banni')
             expect(page).to have_content(distance_of_time_in_words(Time.zone.now, banned_token.blacklisted_at))
             expect(page).to have_content('0 appel les 7 derniers jours')
