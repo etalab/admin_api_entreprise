@@ -46,5 +46,7 @@ module AdminApientreprise
     config.assets.version = 'v3'
 
     config.cache_store = :redis_cache_store, config_for(:cache_redis)
+
+    config.active_support.to_time_preserves_timezone = :zone
   end
 end
