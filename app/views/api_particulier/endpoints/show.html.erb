@@ -71,7 +71,7 @@
 
           <p class="fr-text--lg fr-text--bold">
             <% provider_names = @endpoint.providers.map do |provider| %>
-              <%= t("providers.#{provider.name}") %>
+              <%= provider.name %>
             <% end %>
 
             <%= provider_names.join(' & ') %>
