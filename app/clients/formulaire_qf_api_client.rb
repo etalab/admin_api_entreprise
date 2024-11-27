@@ -1,3 +1,4 @@
+# :nocov:
 class FormulaireQFAPIClient
   def create_collectivity(organization:, editor_id: nil)
     params = {

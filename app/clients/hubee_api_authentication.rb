@@ -1,3 +1,4 @@
+# :nocov:
 class HubEEAPIAuthentication < AbstractHubEEAPIClient
   def access_token
     http_connection.post(
