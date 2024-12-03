@@ -34,6 +34,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_10_082154) do
     t.string "siret"
     t.string "api", null: false
     t.string "demarche"
+    t.jsonb "extra_infos", default: {}
     t.uuid "public_id"
     t.index ["external_id"], name: "index_authorization_requests_on_external_id", unique: true, where: "(external_id IS NOT NULL)"
   end

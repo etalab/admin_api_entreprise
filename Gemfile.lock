@@ -157,11 +157,18 @@ GEM
       faraday-net_http (>= 2.0, < 3.4)
       json
       logger
+    faraday-encoding (0.0.6)
+      faraday
+    faraday-gzip (2.0.1)
+      faraday (>= 1.0)
+      zlib (~> 3.0)
     faraday-net_http (3.3.0)
       net-http
     faraday-net_http_persistent (2.3.0)
       faraday (~> 2.5)
       net-http-persistent (>= 4.0.4, < 5)
+    faraday-retry (2.2.1)
+      faraday (~> 2.0)
     ferrum (0.15)
       addressable (~> 2.5)
       concurrent-ruby (~> 1.1)
@@ -561,6 +568,7 @@ GEM
       nokogiri (~> 1.8)
     yajl-ruby (1.4.3)
     zeitwerk (2.7.1)
+    zlib (3.1.1)
 
 PLATFORMS
   aarch64-linux
@@ -585,6 +593,11 @@ DEPENDENCIES
   cuprite
   draper
   factory_bot_rails
+  faraday
+  faraday-encoding
+  faraday-gzip
+  faraday-net_http
+  faraday-retry
   gaffe
   good_job (~> 3.99)
   guard-rspec
