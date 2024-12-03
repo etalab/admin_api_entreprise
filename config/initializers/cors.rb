@@ -9,6 +9,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
     origins 'localhost:8080'
     origins 'https://status.entreprise.api.gouv.fr/'
+    origins 'https://data.gouv.fr/'
 
     resource '*',
       headers: :any,
