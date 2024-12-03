@@ -23,11 +23,13 @@ constraints(APIParticulierDomainConstraint.new) do
     get '/catalogue/*uid', as: :endpoint, to: 'endpoints#show'
 
     get '/open-api.yml', to: ->(env) { [200, {}, [APIParticulier::OpenAPIDefinition.instance.open_api_definition_content]] }, as: :openapi_definition
+    get '/open-api-v3.yml', to: ->(env) { [200, {}, [APIParticulier::OpenAPIDefinition.instance.open_api_v3_definition_content]] }, as: :openapi_v3_definition
     get '/open-api-without-deprecated-paths.yml', to: ->(env) { [200, {}, [APIParticulier::OpenAPIDefinition.instance.open_api_without_deprecated_paths_definition_content]] }, as: :openapi_without_deprecated_definition
 
     get '/faq', to: 'faq#index', as: :faq_index
     get '/developpeurs', to: 'documentation#developers', as: :developers
     get '/developpeurs/openapi', to: 'pages#redoc', as: :developers_openapi
+    get '/developpeurs/openapi-v3', to: 'pages#redoc_v3', as: :developers_openapi_v3
     get '/cas_usages', to: 'cas_usages#index'
     get '/cas_usages/:uid', to: 'cas_usages#show', as: :cas_usage
 
