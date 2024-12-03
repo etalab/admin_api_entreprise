@@ -38,13 +38,17 @@ class AbstractOpenAPIDefinition
     backend.merge('paths' => paths).to_yaml
   end
 
-  # rubocop:disable Security/Open
   def open_api_definition_content
+    open_api_remote_url_definition_content(remote_url)
+  end
+
+  # rubocop:disable Security/Open
+  def open_api_remote_url_definition_content(url)
     if load_local?
       local_path.read
     else
-      Rails.cache.fetch(remote_url, expires_in: 1.hour) do
-        URI.open(remote_url).read
+      Rails.cache.fetch(url, expires_in: 1.hour) do
+        URI.open(url).read
       end
     end
   rescue StandardError, OpenURI::HTTPError => e

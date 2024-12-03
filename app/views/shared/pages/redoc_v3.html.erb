@@ -1,0 +1,42 @@
+<div class="fr-container">
+  <div class="">
+    <h1>
+      <%= t('.title') %>
+    </h1>
+
+    <p>
+      <%= t('.description', api_name: api_name).html_safe %>
+    </p>
+  </div>
+</div>
+
+<div class="fr-mt-5w" id="redoc_container">
+</div>
+
+<script>
+  function initRedoc() {
+    var uri = '<%= api_particulier_openapi_v3_definition_path %>';
+
+    Redoc.init(
+      uri,
+      {
+        jsonSampleExpandLevel: 'all',
+        expandResponses: '200',
+        expandSingleSchemaField: true,
+        schemaExpansionLevel: 'all'
+      },
+      document.getElementById('redoc_container')
+    )
+  }
+
+  var redocScript = document.createElement("script");
+
+  redocScript.src = "https://cdn.jsdelivr.net/npm/redoc@latest/bundles/redoc.standalone.js";
+
+  redocScript.onload = function () {
+    initRedoc();
+  };
+
+  document.documentElement.firstChild.appendChild(redocScript);
+</script>
+
