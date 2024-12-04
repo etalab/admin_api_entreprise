@@ -10,7 +10,7 @@ constraints(APIParticulierDomainConstraint.new) do
     get '/auth/api_gouv_particulier/callback', to: 'sessions#create_from_oauth'
     get '/auth/failure', to: 'sessions#failure'
     get '/robots.txt', to: ->(env) { [200, {}, [File.read('config/seo/robots.txt') % { app: 'particulier' }]] }
-    get '/apis/status', to: 'pages#current_status', as: :api_particulier_current_status
+    get '/status/apis', to: 'pages#current_status', as: :api_particulier_current_status
   end
 
   namespace :api_particulier, path: '' do
