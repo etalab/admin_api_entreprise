@@ -1,4 +1,6 @@
-<div class="fr-container fr-mb-5w fr-mt-5w">
+<% container_class = action_name.include?('redoc') ? 'fr-container-fluid' : 'fr-container' %>
+
+<div class="<%= container_class %> fr-mb-5w fr-mt-5w">
   <turbo-frame id="alerts">
     <%= render partial: 'shared/alerts' %>
   </turbo-frame>

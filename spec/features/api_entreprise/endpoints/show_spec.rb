@@ -73,6 +73,14 @@ RSpec.describe 'Endpoints show', app: :api_entreprise do
         expect(page).to have_css('#erreurs')
       end
     end
+
+    context 'with an endpoint which has extra specific errors' do
+      let(:uid) { 'cibtp/attestations_cotisations_conges_payes_chomage_intemperies' }
+
+      it 'displays errors part' do
+        expect(page).to have_css('#erreurs')
+      end
+    end
   end
 
   describe 'actions' do

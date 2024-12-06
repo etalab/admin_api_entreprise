@@ -32,7 +32,7 @@ class StatusPage
   def retrieve_from_status_page
     status = page_config_data['globals']['topLevelStatus']['status']
 
-    cache.write(cache_key, status, expires_in: 5.minutes.to_i)
+    cache.write(cache_key, status, expires_in: 60.minutes.to_i)
 
     status
   end
@@ -44,7 +44,7 @@ class StatusPage
   end
 
   def page_config_data_body
-    URI.parse(page_config_data_url).open.read
+    URI.parse(page_config_data_url).open(open_timeout: 10, read_timeout: 10).read
   end
 
   def page_config_data_url

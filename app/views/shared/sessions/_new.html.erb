@@ -7,13 +7,13 @@
     <div class="fr-col-md-6 fr-col-offset-md-3 fr-col-12 center">
       <div class="fr-connect-group">
         <%= form_with(url: oauth_url, method: :post, data: { turbo: false }) do |f| %>
-          <%= f.button class: %w(fr-connect fr-connect-moncomptepro fr-m-auto), id: 'login_mon_compte_pro' do %>
+          <%= f.button class: %w(fr-connect fr-connect-proconnect fr-m-auto), id: 'login_pro_connect' do %>
             <span class="fr-connect__login">S’identifier avec</span>
-            <span class="fr-connect__brand">MonComptePro</span>
+            <span class="fr-connect__brand">ProConnect</span>
           <% end %>
             <p>
-              <a href="https://moncomptepro.beta.gouv.fr/" target="_blank"  rel="noopener" title="Qu’est-ce que MonComptePro ? - Nouvelle fenêtre">
-                Qu’est-ce que MonComptePro ?
+              <a href="https://www.proconnect.gouv.fr/" target="_blank"  rel="noopener" title="Qu’est-ce que ProConnect ? - Nouvelle fenêtre">
+                Qu’est-ce que ProConnect ?
               </a>
             </p>
         <% end %>

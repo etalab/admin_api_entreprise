@@ -68,6 +68,10 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
         expect(subject.reopening).to be_falsey
       end
 
+      it 'stores the service provider in extra_infos' do
+        expect { subject }.to change { authorization_request.reload.extra_infos['service_provider'] }
+      end
+
       context 'when it is the same demandeur' do
         let(:demandeur) { build(:datapass_webhook_team_member_model, type: 'demandeur', email: authorization_request.demandeur.email) }
 
@@ -92,7 +96,7 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
         create(:authorization_request, :with_all_contacts, status: 'validated', external_id: authorization_id)
       end
 
-      context 'when event is not approve or validate' do
+      context 'when event is not approve, validate or transfer' do
         let!(:event) { 'draft' }
 
         it { is_expected.to be_a_success }
@@ -108,8 +112,51 @@ RSpec.describe DatapassWebhook::FindOrCreateAuthorizationRequest, type: :interac
         end
       end
 
-      context 'when event is approve or validate' do
+      context 'when event is submit' do
+        let!(:event) { 'submit' }
+
+        context 'when there is no token wizard' do
+          it { is_expected.to be_a_success }
+
+          it 'doest not update the authorization request' do
+            expect {
+              subject
+            }.not_to change { authorization_request.reload.last_update.to_i }
+          end
+        end
+
+        context 'when there is a token wizard expecting updates' do
+          let!(:token) { create(:token, authorization_request: authorization_request) }
+          let!(:last_prolong_token_wizard) { create(:prolong_token_wizard, :requires_update, token:) }
+
+          it 'doest not update the authorization request' do
+            expect {
+              subject
+            }.not_to change { authorization_request.reload.last_update.to_i }
+          end
+
+          it 'updates the prolong_token_wizard status' do
+            expect {
+              subject
+            }.to change { authorization_request.token.last_prolong_token_wizard.status }
+          end
+        end
+      end
+
+      context 'when event is validate' do
         let!(:event) { 'validate' }
+
+        it { is_expected.to be_a_success }
+
+        it 'updates the authorization request' do
+          expect {
+            subject
+          }.to change { authorization_request.reload.last_update.to_i }
+        end
+      end
+
+      context 'when event is transfer' do
+        let!(:event) { 'transfer' }
 
         it { is_expected.to be_a_success }
 

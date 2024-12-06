@@ -34,7 +34,7 @@ fr:
         label: "Cas d'usage"
         link_access: "Demander un accès"
         link_list_api: "Liste des API utiles"
-        legal_context: 
+        legal_context:
           title: "Cadre juridique"
         request_access:
           title: "Demander un accès"
@@ -127,7 +127,7 @@ fr:
       updates_requested_cta: Demande de mise à jour de l'habilitation en attente d'instruction
       header:
         title: Prolonger le jeton
-        description: Votre jeton expire le %{humanize_date}. Avant de prolonger votre jeton, nous avons besoin de savoir si les conditions indiquées dans votre habilitation %{link_to_datapass} ont évolué. 
+        description: Votre jeton expire le %{humanize_date}. Avant de prolonger votre jeton, nous avons besoin de savoir si les conditions indiquées dans votre habilitation %{link_to_datapass} ont évolué.
           Veuillez répondre aux questions suivantes, ce formulaire vous engage en regard des <a href="https://%{api}.api.gouv.fr/cgu/">CGU d'%{api_name}</a>
       steps:
         owner: Responsable de la demande
@@ -135,14 +135,14 @@ fr:
         contacts: Vérification des contacts
         summary: Bilan et confirmation
       prolonged:
-        title: Votre jeton a été prolongé jusqu'au %{humanized_date} 
+        title: Votre jeton a été prolongé jusqu'au %{humanized_date}
         description: Merci ! Suite à vos réponses, les conditions de votre habilitation a l'%{api_name} n'ayant pas évolué, votre jeton a été prolongé de 18 mois.
         link:
           authorization_request: Revenir à votre demande d'habilitation
       summary:
         prolonged:
-          owner_not_in_charge: "Suite aux réponses indiquées, vous declarez que le contact principal à changé. Bien que cela ne soit pas bloquant pour 
-            poursuivre la prolongation de votre jetons, l'équipe support vous contactera rapidement afin de procéder au transfert de vos habilitations. Vous pouvez démarrer cette démarche en autonomie 
+          owner_not_in_charge: "Suite aux réponses indiquées, vous declarez que le contact principal à changé. Bien que cela ne soit pas bloquant pour
+            poursuivre la prolongation de votre jetons, l'équipe support vous contactera rapidement afin de procéder au transfert de vos habilitations. Vous pouvez démarrer cette démarche en autonomie
             via votre <a href='https://%{api}.api.gouv.fr/compte'>espace personnel</a>."
           description: Suite aux réponses indiquées, déclare qu'aucune des informations indiquées dans votre habilitation n<sup>o</sup>%{external_id} n'a évolué.
           cgu: ⚠️  Vos réponses vous engagent en regard des <a href="https://%{api}.api.gouv.fr/cgu/">CGU</a>
@@ -186,32 +186,12 @@ fr:
           still_in_charge: Oui, je suis toujours en charge
           will_change_soon: Oui, je suis toujours en charge mais pourrais passer la main d'ici quelques mois
           not_in_charge: Non, je ne suis plus en charge de cette habilitation %{api}
+        not_in_charge_alert:
+          text: Si vous n'êtes plus en charge de cette habilitation, vous devez la transférer à une autre personne de votre organisation depuis le site de <a href="https://%{api}.v2.datapass.api.gouv.fr" target="_blank">DataPass</a>.<br/><br/>Cette démarche prend 2 minutes. La nouvelle personne en charge devra alors effectuer la prolongation du jeton.
       build:
         wizard_buttons:
           previous: Précédent
           next: Suivant
-    transfer_user_account:
-      new:
-        title: Transférer toutes mes habilitations
-        description: Cette fonctionnalité vous permet de transmettre définitivement toutes les habilitations pour lesquelles vous êtes demandeur à une tierce personne (qui sera le nouveau demandeur).
-          Une fois le transfert effectué, vous n'aurez plus accès à ces habilitations en tant que demandeur.
-          <br>
-          <br>
-          Attention, nos <a href="https://%{api}.api.gouv.fr/cgu/">CGU</a> vous engagent ! Vous ne devez pas transférer ces habilitations à un tiers non-habilité. Pour en savoir plus sur la procédure,
-          consultez <a href='https://%{api}.api.gouv.fr/faq#comment-transferer-mes-habilitations-a-une-autre-personne' target='_blank'>notre FAQ</a>.
-          <br>
-          <br>
-          Si vous souhaitez ne transférer qu'une seule de vos habilitations, nous vous invitons à contacter <a href='https://%{api}.api.gouv.fr/faq#une-autre-question'>le support</a>. 
-        email:
-          label: Adresse e-mail du futur demandeur
-          placeholder: jean.dupont@gouv.fr
-        cta: Transférer toutes mes habilitations
-        confirm: Êtes-vous sûr de vouloir transférer toutes vos habilitations ?
-      create:
-        success:
-          title: Un e-mail a été envoyé avec succès au destinataire. Assurez-vous qu'il effectue les démarches indiquées dans le mail qu'il a reçu pour que le transfert soit possible. Une fois ces démarches effectuées, une validation manuelle par nos services finalisera le transfert.
-        error:
-          title: Quelque chose s'est mal passé. Veuillez envoyer un e-mail à %{target_email}
     users:
       user:
         links:
@@ -220,9 +200,7 @@ fr:
         transfer_account:
           title: "Votre équipe évolue ? Vous quittez votre service ? Transmettez vos habilitations à une autre personne&nbsp;:"
           subtitle_if_demandeur: "Habilitations où je suis demandeur&nbsp;:"
-          description_if_demandeur: "Pour transmettre votre rôle de demandeur à une autre personne de votre organisation, utilisez la fonctionnalité suivante&nbsp;:"
-          description_if_demandeur_transfer_not_all: "Pour léguer une partie de vos habilitations uniquement, veuillez contacter <a href='https://%{api}.api.gouv.fr/faq#une-autre-question'>le support</a>."
-          cta: Transférer toutes mes habilitations
+          description_if_demandeur: Pour transmettre votre rôle de demandeur à une autre personne de votre organisation, veuillez vous rendre sur <a href="https://%{api}.v2.datapass.api.gouv.fr" target="_blank">DataPass</a> et transférer chacune de vos habilitations.
           subtitle_if_other_roles: "Habilitations où je ne suis pas demandeur&nbsp;:"
           description_if_other_roles: "Vous êtes contact métier et/ou technique d'une habilitation et souhaitez léguer ce rôle à une autre personne de votre organisation ? C'est au demandeur de l'habilitation d'effectuer une demande de modification des contacts. <a href='https://%{api}.api.gouv.fr/faq#comment-transferer-mon-compte-a-une-autre-personne'>En savoir plus</a>."
         demandeur: "Demandeur"
@@ -383,7 +361,7 @@ fr:
         links:
           to_datapass: "Datapass n°%{external_id}"
           profile: Vos informations
-        table: 
+        table:
           head:
             authorization_request: "Habilitation"
             token: Jeton principal
@@ -447,6 +425,11 @@ fr:
           Elle est propulsée par <a href='https://github.com/Redocly/redoc' target='_blank'>Redoc</a> et se base sur le fichier OpenAPI.
       current_status:
         title: "Statuts des API"
+      redoc_v3:
+        title: "Swagger 📟"
+        description: |-
+          Cette documentation technique recense les spécifications techniques des différents endpoints de l'%{api_name}.
+          Elle est propulsée par <a href='https://github.com/Redocly/redoc' target='_blank'>Redoc</a> et se base sur le fichier OpenAPI.
     endpoints:
       property:
         array:

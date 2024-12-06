@@ -46,8 +46,30 @@
             <h3 class="fr-h4 fr-card__title">
               <a href="https://status.entreprise.api.gouv.fr/"><%= t('.status_link') %></a>
             </h3>
-            <p class="fr-card__desc"><iframe src="https://status.entreprise.api.gouv.fr/embed-status/light-sm" width="180" height="61" style="border: none;" title="Statutss des API - widget directement connecté à Instatus">
-              </iframe></p>
+            <div class="fr-card__desc" id="hyperping-badge"></div>
+            <script src="https://hyperping.io/badge.js" async></script>
+            <script>
+              window.onload = function () {
+                Hyperping.init({
+                  "statuspage": "https://status.entreprise.api.gouv.fr",
+                  "border": "none",
+                  "borderColor": "#E4E6F0",
+                  "uptime": false,
+                  "dot": true,
+                  "dotSize": 10,
+                  "isNeutral": false,
+                  "dotOk": "#2BAC76",
+                  "dotIncident": "#FFAF36",
+                  "dotOutage": "#E95858",
+                  "dotMaintenance": "#0070F3",
+                  "dotNeutral": "#0070F3",
+                  "operational": "Systèmes fonctionnels",
+                  "incident": "Incident en cours",
+                  "outage": "Hors-service",
+                  "maintenance": "En maintenance"
+                });
+              }
+            </script>
           </div>
         </div>
       </div>

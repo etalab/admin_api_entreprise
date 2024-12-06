@@ -5,6 +5,7 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
   attr_accessor :uid,
     :path,
     :beta,
+    :alert,
     :novelty,
     :ping_url,
     :new_version,
@@ -20,15 +21,13 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
   attr_writer :new_endpoint_uids, :old_endpoint_uids
 
   algoliasearch_active_model do
-    attributes :title, :description, :deprecated, :provider_uids, :keywords, :use_cases, :use_cases_optional
+    attributes :title, :description, :deprecated, :provider_uids, :keywords
 
     searchableAttributes %w[
       title
       description
       provider_uids
       keywords
-      use_cases
-      use_cases_optional
     ]
 
     attributesForFaceting %w[deprecated]

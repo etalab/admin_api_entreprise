@@ -9,10 +9,11 @@
     <div class="fr-col-md-<%= layout_main_bloc %> fr-col-12">
       <p class="fr-text--lead fr-mt-md-2w">
         <%= @endpoint.description %>
-          <span class="fr-mb-0 fr-text--sm">
-            <%= icon(t("endpoint.opening.#{@endpoint.opening}.included_icon", raise: true)) rescue nil %>
-            <%= link_to t("endpoint.opening.#{@endpoint.opening}.included", raise: true), faq_index_path(anchor: 'qu-est-ce-que-les-api-incluses-par-defaut') rescue nil %>
-          </span>
+
+        <span class="fr-mb-0 fr-text--sm">
+          <%= icon(t("endpoint.opening.#{@endpoint.opening}.included_icon", raise: true)) rescue nil %>
+          <%= link_to t("endpoint.opening.#{@endpoint.opening}.included", raise: true), faq_index_path(anchor: 'qu-est-ce-que-les-api-incluses-par-defaut') rescue nil %>
+        </span>
 
         <% if @endpoint.incoming? %>
           <div class="fr-alert fr-alert--info fr-alert--sm fr-mb-2w">
@@ -58,10 +59,12 @@
           </div>
 
           <p class="fr-text--lg fr-text--bold">
-            <% @endpoint.providers.map do |provider| %>
-              <%= t("providers.#{provider.name}") %>
-            <% end.join(' & ') %>
-          <p>
+            <% provider_names = @endpoint.providers.map do |provider| %>
+              <%= provider.name %>
+            <% end %>
+
+            <%= provider_names.join(' & ') %>
+          </p>
         </div>
       </div>
     </div>
@@ -69,8 +72,21 @@
 
   <hr class="separator fr-unhidden-md fr-hidden">
 
+
   <div class="fr-grid-row">
     <div class="fr-col-md-<%= layout_main_bloc %> fr-col-12 fr-pt-2w fr-mt-md-0 fr-pr-md-2w fr-pr-0">
+      <% if @endpoint.alert.present? %>
+        <div class="fr-mt-4w fr-mb-4w">
+          <div class="fr-alert fr-alert--warning fr-mb-2w">
+            <h3 class="fr-alert__title">
+              <%= raw @endpoint.alert['title'] %>
+            </h3>
+            <p>
+              <%= markdown_to_html(@endpoint.alert['description']) %>
+            </p>
+          </div>
+        </div>
+      <% end %>
       <% if @endpoint.dummy? %>
         <%= @endpoint.open_api_definition['disclaimer'].html_safe %>
       <% elsif @endpoint.deprecated? %>

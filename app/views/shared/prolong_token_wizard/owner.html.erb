@@ -5,13 +5,13 @@
   <%= form_for @prolong_token_wizard, url: wizard_path, method: :put  do |f| %>
     <fieldset class="fr-fieldset">
       <legend class="fr-fieldset__legend--regular fr-fieldset__legend">
-      <%= f.label :owner, 
+      <%= f.label :owner,
         t('.label',
           link_to_datapass: link_to(
-            t('shared.links.to_datapass', external_id: @prolong_token_wizard.token.authorization_request.external_id).html_safe, 
-            datapass_authorization_request_url(@prolong_token_wizard.token.authorization_request), 
+            t('shared.links.to_datapass', external_id: @prolong_token_wizard.token.authorization_request.external_id).html_safe,
+            datapass_authorization_request_url(@prolong_token_wizard.token.authorization_request),
             id: :authorization_request_link,
-            class: %w(fr-link), 
+            class: %w(fr-link),
             target: '_blank')
           ).html_safe %>
       </legend>
@@ -35,16 +35,10 @@
       </div>
     </fieldset>
 
-    <div class="hidden">
-      <a
-        href="<%= transfer_account_path %>"
-        id="<%= dom_id(@prolong_token_wizard, :prolong_token_owner_not_in_charge) %>"
-        class="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w"
-        aria-controls="main-modal"
-        data-fr-opened="false"
-        data-turbo-frame="main-modal-content"
-      >
-      </a>
+    <div id="disclaimer_prolong_token_owner_not_in_charge" class="hidden fr-pt-2v">
+      <div class="fr-alert fr-alert--warning">
+        <%= t('.not_in_charge_alert.text',  api: namespace.gsub('_', '-')).html_safe %>
+      </div>
     </div>
 
     <%= render partial: 'shared/prolong_token_wizard/build/wizard_buttons', locals: { f: f } %>
@@ -55,7 +49,8 @@
  (function() {
    document.getElementById('prolong_token_wizard_owner_not_in_charge').addEventListener('click', function() {
       if (this.value == 'not_in_charge') {
-        document.getElementById('<%= dom_id(@prolong_token_wizard, :prolong_token_owner_not_in_charge) %>').click();
+        document.getElementById('disclaimer_prolong_token_owner_not_in_charge').classList.remove('hidden')
+        document.getElementById('next_prolong_token_wizard').classList.add('hidden')
       }
     });
   })();

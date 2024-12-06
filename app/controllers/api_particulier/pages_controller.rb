@@ -29,6 +29,10 @@ class APIParticulier::PagesController < APIParticulierController
     render 'shared/pages/redoc'
   end
 
+  def redoc_v3
+    render 'shared/pages/redoc_v3'
+  end
+
   def mentions
     render 'shared/pages/mentions'
   end

@@ -37,7 +37,7 @@ class AuthorizationRequest < ApplicationRecord
   scope :not_archived, -> { where.not(status: 'archived') }
   scope :archived, -> { where(status: 'archived') }
   scope :for_api, ->(api) { where(api:) }
-  scope :viewable_by_users, -> { where(status: %w[archived revoked validated]) }
+  scope :viewable_by_users, -> { where('status in (?) or validated_at is not null', %w[archived revoked validated]) }
 
   def token
     active_token || most_recent_token
@@ -76,6 +76,10 @@ class AuthorizationRequest < ApplicationRecord
   has_one :contact_technique, through: :contact_technique_authorization_request_role
   has_one :contact_metier, through: :contact_metier_authorization_request_role
 
+  def organization
+    @organization ||= Organization.new(siret)
+  end
+
   def contacts_no_demandeur
     contacts.reject { |user| user == demandeur }
   end
@@ -92,5 +96,10 @@ class AuthorizationRequest < ApplicationRecord
     token&.update!(blacklisted_at: Time.zone.now)
 
     update!(status: 'revoked')
+  end
+
+  def prolong_token_expecting_updates?
+    token&.last_prolong_token_wizard.present? &&
+      token.last_prolong_token_wizard.requires_update?
   end
 end

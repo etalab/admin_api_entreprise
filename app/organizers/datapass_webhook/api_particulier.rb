@@ -8,6 +8,8 @@ module DatapassWebhook
       }
 
       context.api = 'particulier'
+      context.authorization_request_data ||= {}
+      context.modalities = context.authorization_request_data['modalities'].presence || %w[params]
     end
 
     organize ::DatapassWebhook::FindOrCreateUser,
@@ -15,10 +17,11 @@ module DatapassWebhook
       ::DatapassWebhook::CreateOrProlongToken,
       ::DatapassWebhook::ArchiveCurrentAuthorizationRequest,
       ::DatapassWebhook::RefuseCurrentAuthorizationRequest,
-      ::DatapassWebhook::ReopenAuthorizationRequest,
       ::DatapassWebhook::RevokeCurrentToken,
       ::DatapassWebhook::UpdateMailjetContacts,
+      ::DatapassWebhook::ScheduleCreateFormulaireQFResourcesJob,
       ::DatapassWebhook::ExtractMailjetVariables,
-      ::DatapassWebhook::ScheduleAuthorizationRequestEmails
+      ::DatapassWebhook::ScheduleAuthorizationRequestEmails,
+      ::DatapassWebhook::APIParticulier::NotifyReporters
   end
 end

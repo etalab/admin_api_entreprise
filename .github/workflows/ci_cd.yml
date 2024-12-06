@@ -1,0 +1,201 @@
+env:
+  CI: true
+  COVERAGE: true
+
+name: CI - CD
+on: [push]
+jobs:
+  security:
+    name: Brakeman
+    if: "${{ github.actor != 'dependabot[bot]' }}"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2.1
+
+      - name: Brakeman
+        uses: reviewdog/action-brakeman@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
+        cache-version: 321
+
+    - name: Run RuboCop
+      run: bundle exec rubocop --parallel
+
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: admin_apientreprise
+          POSTGRES_PASSWORD: wow*verysecret
+          POSTGRES_DB: admin_apientreprise_test
+          POSTGRES_PORT: 5432
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: redis
+        ports: ["6379:6379"]
+        options: --entrypoint redis-server
+
+    steps:
+      - name: Dump Github context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          cache-version: 322
+
+      - name: Setup Nodejs
+        uses: actions/setup-node@v3
+
+      - name: Install mjml dependency
+        run: npm install mjml
+
+      - name: Install postgres client #and imagemagick
+        run: sudo apt-get install libpq-dev #imagemagick
+
+      - name: Create database users
+        env:
+          POSTGRES_USER: admin_apientreprise
+          POSTGRES_DB: admin_apientreprise_test
+          PGPASSWORD: wow*verysecret
+        run: |
+          psql -h localhost -U ${{ env.POSTGRES_USER }} -d ${{ env.POSTGRES_DB }} -f `pwd`/postgresql_setup.txt
+
+      - name: Create database
+        run: bundle exec rails db:create db:schema:load RAILS_ENV=test
+
+      - name: Run tests
+        run: bundle exec rspec
+
+      - uses: joshmfrankel/simplecov-check-action@main
+        if: "${{ github.actor != 'dependabot[bot]' }}"
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          minimum_suite_coverage: 95
+
+  merge-with-master:
+    name: Merge develop with master
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop'
+    needs:
+      - security
+      - lint
+      - tests
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Import GPG key to sign master push
+        if: github.ref == 'refs/heads/develop'
+        id: import_gpg
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.GPG_SECRET_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+
+      - name: Force push develop to master
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          git reset --hard && \
+            git push --force origin develop:master && \
+            git fetch && \
+            [[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow
+          exit 0
+
+  continuous-deployment-staging:
+    name: Continuous deployment on staging
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop'
+    needs:
+      - security
+      - lint
+      - tests
+      - merge-with-master
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        host: [watchdoge1, watchdoge2, watchdoge3, watchdoge4]
+      fail-fast: false
+    environment: staging
+    env:
+      DEPLOY_HTTPS_LOGIN: ${{ secrets.DEPLOY_HTTPS_LOGIN }}
+      DEPLOY_HTTPS_PASSWORD: ${{ secrets.DEPLOY_HTTPS_PASSWORD }}
+      DEPLOY_HTTPS_REQUEST_URL: ${{ vars.DEPLOY_HTTPS_REQUEST_URL }}
+      DEPLOY_HTTPS_RESPONSE_URL: ${{ vars.DEPLOY_HTTPS_RESPONSE_URL }}
+      DEPLOY_HOST: host_${{ matrix.host }}
+      DEPLOY_APP: admin_apientreprise_staging
+    steps:
+      - name: Download and run deploy script
+        shell: bash
+        run: |
+          git clone https://github.com/etalab/api-entreprise-integration
+          cd api-entreprise-integration
+          ./deploy-parteprise.sh
+
+  continuous-deployment-production:
+    name: Continuous deployment on production
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop'
+    needs:
+      - security
+      - lint
+      - tests
+      - merge-with-master
+      - continuous-deployment-staging
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        host: [watchdoge1, watchdoge2, watchdoge3, watchdoge4]
+        deploy_env: [production]
+      fail-fast: false
+    environment: production
+    env:
+      DEPLOY_HTTPS_LOGIN: ${{ secrets.DEPLOY_HTTPS_LOGIN }}
+      DEPLOY_HTTPS_PASSWORD: ${{ secrets.DEPLOY_HTTPS_PASSWORD }}
+      DEPLOY_HTTPS_REQUEST_URL: ${{ vars.DEPLOY_HTTPS_REQUEST_URL }}
+      DEPLOY_HTTPS_RESPONSE_URL: ${{ vars.DEPLOY_HTTPS_RESPONSE_URL }}
+      DEPLOY_HOST: host_${{ matrix.host }}
+      DEPLOY_APP: admin_apientreprise_${{ matrix.deploy_env }}
+    steps:
+      - name: Download and run deploy script
+        shell: bash
+        run: |
+          git clone https://github.com/etalab/api-entreprise-integration
+          cd api-entreprise-integration
+          ./deploy-parteprise.sh

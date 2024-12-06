@@ -6,29 +6,31 @@
   ping_url: 'https://particulier.api.gouv.fr/api/mesri_statut_etudiant_ine/ping'
   perimeter:
     entity_type_description: |+
+      Cette API permet d'accéder aux **admissions et inscriptions de 1,3 million d'étudiants** (_Nombre de septembre 2024 - statistique à jour [ici](https://statutetudiant.esr.gouv.fr/){:target="_blank"}_) sur les un peu moins de 3 millions d'étudiants scolarisés dans l'enseignement supérieur (_[Statistique Insee 2022](https://www.insee.fr/fr/statistiques/2387291#tableau-figure1){:target="_blank"}_). 
+
       **Cette API concerne :**
       - ✅ **les étudiants admis ou inscrits dans les établissements sous tutelle du ministère de l'enseignement supérieur** (_avec pour objectif, à terme, de couvrir les tutelles de tous les ministères  et les établissements privés_), ayant au minimum une admission ou inscription dans l'année en cours et quelque soit leur régime : formation initiale, apprentissage, stagiaire de la formation continue, contrat de professionnalisation...
       - ✅ **80% des étudiants en formation sanitaire**. Même si ces formations dépendent de la région, elles sont à 80% remontées par les universités dans le cadre de l’universitarisation de ces formations ;
       - ✅ **les étudiants du secondaire** (BTS, classes préparatoires,...) _à partir de la rentrée 2023_.
 
       **Sont couverts partiellement**, les étudiants des établissements :
-      - sous tutelle du ministère de l'agriculture ;
-      - sous tutelle du ministère de la culture ;
-      - privés.
+      - *️⃣ sous tutelle du ministère de l'agriculture ;
+      - *️⃣ sous tutelle du ministère de la culture ;
+      - *️⃣ privés.
 
       **Ne sont pas couverts**, les étudiants des établissements :
       - ❌ les étudiants en service civique ;
       - ❌ les étudiants en formation sociale.
 
-      ⚠️ **Tous les établissements ne délivrent pas les informations des étudiants admis**. Par conséquent si un étudiant est admis et que l'API ne vous renvoie pas d'information, il n'est pas possible de considérer de façon définitive que cet étudiant n'est pas admis.
-
-      En savoir plus sur la [différence entre le statut inscrit et admis](#faq_entry_0_api_particulier_endpoint_mesri_statut_etudiant).
-
+      {:.fr-highlight}
+      > ⚠️ **Tous les établissements ne délivrent pas les informations des étudiants admis**. Par conséquent si l'API ne vous renvoie pas d'informations concernant un particulier, il n'est pas possible de considérer de façon définitive que cet étudiant n'est pas admis.
+      >
+      > En savoir plus sur la [différence entre le statut inscrit et admis](#faq_entry_0_api_particulier_endpoint_mesri_statut_etudiant).
 
     geographical_scope_description:  |+
       Cette API délivre les informations des **✅étudiants français et étrangers**.
       
-      Par ailleurs, le référentiel national du statut étudiant couvre **✅ une partie des établissements de métropole et de Martinique, Guadeloupe, Guyane et Réunion**.
+      Par ailleurs, le référentiel national du statut étudiant couvre **✅ une partie des établissements de métropole et de Martinique, Guadeloupe, Guyane et Réunion**. [Voir une cartographie des établissements couverts](https://statutetudiant.esr.gouv.fr/pages/dataviz){:target="_blank"}
 
       Ne sont pas couverts :
       - ❌ les collectivités d’outre-mer Mayotte, Polynésie française, Saint-Barthélemy, Saint-Martin, Saint-Pierre-et-Miquelon, Wallis-et-Futuna ;
@@ -37,7 +39,6 @@
       {:.fr-highlight}
       > ℹ️ Le MESRI précise que l'ambition de cette API est bien de couvrir tous les établissements situées en France métropolitaine et d’outre-mer, y compris les collectivités d’outre-mer. Les établissements français de l'étranger ne seront pas contre pas couverts.
 
-      <iframe src="https://data.enseignementsup-recherche.gouv.fr/explore/embed/dataset/fr-esr-api-statut-etudiant/viz/?static=false&datasetcard=false&apikey=509275f034986f39f87d0ccf2a075efe6c2df21f253e505abb58af38" width="600" height="400" frameborder="0"></iframe>
 
     updating_rules_description: |+
       La mise à jour des informations est **variable selon les établissements** car tous les établissements ne procèdent pas de la même manière pour fournir les données d'admission et d’inscription :

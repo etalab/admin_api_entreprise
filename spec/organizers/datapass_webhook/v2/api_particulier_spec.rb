@@ -41,6 +41,62 @@ RSpec.describe DatapassWebhook::V2::APIParticulier, type: :interactor do
     expect(last_token.api).to eq('particulier')
   end
 
+  context 'when modalities does no include params' do
+    before do
+      datapass_webhook_params['data']['data']['modalities'] = ['formulaire_qf']
+    end
+
+    it 'does not create a token' do
+      expect {
+        subject
+      }.not_to change(Token, :count)
+    end
+  end
+
+  describe 'modalities' do
+    context 'when modalities does not include formulaire_qf' do
+      before do
+        datapass_webhook_params['data']['data']['modalities'] = ['params']
+      end
+
+      it 'does not schedule a job to create formulaire qf resources' do
+        expect {
+          subject
+        }.not_to have_enqueued_job(CreateFormulaireQFResourcesJob)
+      end
+    end
+
+    context 'when modalities include formulaire_qf' do
+      before do
+        datapass_webhook_params['data']['data']['modalities'] = ['formulaire_qf']
+      end
+
+      context 'when event is approve' do
+        before do
+          datapass_webhook_params['event'] = 'approve'
+        end
+
+        it 'schedules a job to create formulaire qf resources' do
+          expect {
+            subject
+          }.to have_enqueued_job(CreateFormulaireQFResourcesJob)
+        end
+      end
+
+      context 'when event not approve' do
+        before do
+          datapass_webhook_params['event'] = 'reject'
+        end
+
+        it 'does not schedule a job to create formulaire qf resources' do
+          expect {
+            subject
+          }.not_to have_enqueued_job(CreateFormulaireQFResourcesJob)
+        end
+      end
+    end
+  end
+
   describe 'Mailjet adding contacts' do
     it 'adds contacts to Entreprise mailjet list' do
       expect(Mailjet::Contactslist_managemanycontacts).to receive(:create).with(
@@ -70,5 +126,9 @@ RSpec.describe DatapassWebhook::V2::APIParticulier, type: :interactor do
 
       subject
     end
+  end
+
+  it 'affects authorization request data to authorization_request_data on context' do
+    expect(subject.authorization_request_data).to eq(datapass_webhook_params['data']['data'])
   end
 end

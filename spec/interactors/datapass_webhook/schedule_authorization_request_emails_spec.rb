@@ -42,8 +42,6 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
     it 'schedules emails according to configuration, to authorization request\'s demandeur' do
       subject
 
-      expect(ScheduleAuthorizationRequestEmailJob).to have_been_enqueued.exactly(:twice)
-
       expect(ScheduleAuthorizationRequestEmailJob).to have_been_enqueued.exactly(:once).with(
         authorization_request.id,
         authorization_request.status,
@@ -51,16 +49,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
         hash_including(
           to: [authorization_request.demandeur.email]
         )
-      ).at(Time.zone.now)
-
-      expect(ScheduleAuthorizationRequestEmailJob).to have_been_enqueued.exactly(:once).with(
-        authorization_request.id,
-        authorization_request.status,
-        'send_application_later',
-        hash_including(
-          to: [authorization_request.demandeur.email]
-        )
-      ).at(14.days.from_now)
+      )
     end
   end
 
@@ -102,7 +91,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
           hash_including(
             to: [authorization_request.demandeur.email]
           )
-        ).at(Time.zone.now)
+        )
       end
     end
 
@@ -127,7 +116,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
             hash_including(
               to: [authorization_request.demandeur.email]
             )
-          ).at(Time.zone.now)
+          )
 
           expect(ScheduleAuthorizationRequestEmailJob).to have_been_enqueued.exactly(:once).with(
             authorization_request.id,
@@ -137,7 +126,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
               to: [authorization_request.contact_metier.email],
               cc: [authorization_request.contact_technique.email, authorization_request.demandeur.email]
             )
-          ).at(Time.zone.now)
+          )
         end
 
         describe 'non-regression test: on an authorization_request with no contacts' do
@@ -171,7 +160,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
             hash_including(
               to: [authorization_request.demandeur.email]
             )
-          ).at(Time.zone.now)
+          )
 
           expect(ScheduleAuthorizationRequestEmailJob).to have_been_enqueued.exactly(:once).with(
             authorization_request.id,
@@ -180,7 +169,7 @@ RSpec.describe DatapassWebhook::ScheduleAuthorizationRequestEmails, type: :inter
             hash_including(
               to: [authorization_request.contact_technique.email]
             )
-          ).at(Time.zone.now)
+          )
         end
       end
     end

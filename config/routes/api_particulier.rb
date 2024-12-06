@@ -10,6 +10,7 @@ constraints(APIParticulierDomainConstraint.new) do
     get '/auth/api_gouv_particulier/callback', to: 'sessions#create_from_oauth'
     get '/auth/failure', to: 'sessions#failure'
     get '/robots.txt', to: ->(env) { [200, {}, [File.read('config/seo/robots.txt') % { app: 'particulier' }]] }
+    get '/status/apis', to: 'pages#current_status', as: :api_particulier_current_status
   end
 
   namespace :api_particulier, path: '' do
@@ -22,11 +23,13 @@ constraints(APIParticulierDomainConstraint.new) do
     get '/catalogue/*uid', as: :endpoint, to: 'endpoints#show'
 
     get '/open-api.yml', to: ->(env) { [200, {}, [APIParticulier::OpenAPIDefinition.instance.open_api_definition_content]] }, as: :openapi_definition
+    get '/open-api-v3.yml', to: ->(env) { [200, {}, [APIParticulier::OpenAPIDefinition.instance.open_api_v3_definition_content]] }, as: :openapi_v3_definition
     get '/open-api-without-deprecated-paths.yml', to: ->(env) { [200, {}, [APIParticulier::OpenAPIDefinition.instance.open_api_without_deprecated_paths_definition_content]] }, as: :openapi_without_deprecated_definition
 
     get '/faq', to: 'faq#index', as: :faq_index
     get '/developpeurs', to: 'documentation#developers', as: :developers
     get '/developpeurs/openapi', to: 'pages#redoc', as: :developers_openapi
+    get '/developpeurs/openapi-v3', to: 'pages#redoc_v3', as: :developers_openapi_v3
     get '/cas_usages', to: 'cas_usages#index'
     get '/cas_usages/:uid', to: 'cas_usages#show', as: :cas_usage
 
@@ -37,9 +40,6 @@ constraints(APIParticulierDomainConstraint.new) do
 
     get '/compte', to: 'users#profile', as: :user_profile
     get '/compte/nouveaux-jetons/telecharger', to: "new_tokens#download", as: :new_tokens_download
-
-    get '/compte/transferer', to: 'transfer_user_account#new', as: :transfer_account
-    post '/compte/transferer', to: 'transfer_user_account#create'
 
     get '/compte/demandes', to: 'authorization_requests#index', as: :authorization_requests
     get '/compte/demandes/:id', to: 'authorization_requests#show', as: :authorization_request
@@ -65,14 +65,12 @@ constraints(APIParticulierDomainConstraint.new) do
 
     get '/blog/:id', to: 'blog_posts#show', as: :blog_post
 
-    get '/apis/status', to: 'pages#current_status', as: :current_status
-
     get '/infolettre', to: 'pages#newsletter', as: :newsletter
     get '/mentions-legales', to: 'pages#mentions', as: :mentions
     get '/cgu', to: 'pages#cgu', as: :cgu
     get '/donnees_personnelles', to: 'pages#donnees_personnelles', as: :donnees_personnelles
     get '/accessibilite', to: 'pages#accessibility', as: :accessibilite
 
-
+    get '/datapass', to: 'reporters#index', as: :dashboard_reporter
   end
 end

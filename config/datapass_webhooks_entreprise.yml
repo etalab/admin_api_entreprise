@@ -1,14 +1,12 @@
 # Check https://github.com/betagouv/signup-back/tree/master/docs/webhooks.md for all events and their details
 ---
 development: &development
-  created: &created {}
+  created: {}
   updated: &updated {}
   team_member_updated: &team_member_updated {}
   send_application: &send_application
     emails:
       - template: 'send_application'
-      - template: 'send_application_later'
-        when: 'in 14 days'
 
   notify: &notify {}
   review_application: &review_application {}
@@ -31,7 +29,7 @@ development: &development
         to:
           - 'authorization_request.demandeur'
 
-  create: *created
+  create: {}
   update: *updated
   team_member_update: *team_member_updated
   submit: *send_application
@@ -42,12 +40,7 @@ development: &development
 test: *development
 
 production: &production
-  created: &created
-    emails:
-      - template: 'embarquement_brouillon_en_attente'
-        on_update: true
-        when: 'in 14 days'
-
+  created: {}
   updated: &updated {}
   team_member_updated: &team_member_updated {}
   send_application: &send_application
@@ -55,19 +48,11 @@ production: &production
       - template: 'demande_recue'
         on_update: true
 
-      - template: 'reassurance_demande_recue'
-        on_update: true
-        when: 'in 14 days'
-
   notify: &notify {}
   review_application: &review_application
     emails:
       - template: 'embarquement_modifications_demandees'
         on_update: true
-
-      - template: 'embarquement_relance_modifications_demandees'
-        on_update: true
-        when: 'in 14 days'
 
   refuse_application: &refuse_application
     emails:
@@ -76,12 +61,6 @@ production: &production
 
   approve: &approve
     emails:
-      - template: 'enquete_satisfaction'
-        when: 'in 30 days'
-        condition_on_authorization: 'not_editor_authorization_request'
-        to:
-          - 'authorization_request.demandeur'
-
       - template: 'embarquement_valide_to_editeur'
         condition_on_authorization: 'editor_authorization_request'
         to:
@@ -146,7 +125,6 @@ production: &production
         to:
           - 'authorization_request.demandeur'
 
-  create: *created
   update: *updated
   team_member_update: *team_member_updated
   submit: *send_application

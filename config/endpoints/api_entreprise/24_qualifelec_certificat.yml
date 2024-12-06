@@ -40,7 +40,7 @@
     - 'effectif'
   data:
     description: |+
-      Cette API permet d'obtenir **la liste des certificats Qualifelec valides** obtenus par l'établissement. Pour chaque certificat, l'API délivre les données suivantes :
+      Cette API permet d'obtenir **la liste des certificats Qualifelec valides** obtenus par l'établissement. Tous les types de certificats Qualifelec sont disponibles, [y compris ceux non labellisés RGE](#difference-api-rge). Pour chaque certificat, l'API délivre les données suivantes :
       - **informations relatives au certificat** : numéro, dates de validité ;
       - **informations sur la qualification obtenue** : labellisée RGE ou non, libellé, dates de validité, indices, mentions, domaines et la classification qui donne l'effectif du personnel d'execution et d'encadrement disponible pour cette qualification ;
       - **assurances décennale et de responsabilité civile** ;
@@ -64,3 +64,7 @@
     - Numéro de SIRET de l'établissement
   format:
     - Donnée structurée JSON et URL vers le certificat en PDF
+  faq:
+    - q: <a name="difference-api-rge"></a>Périmètre de cette API par rapport à l'API Certification RGE de l'Ademe
+      a: |+
+        L'[API Certification RGE](<%= endpoint_path(uid: 'ademe/certifications_rge') %>) délivre également des certificats Qualifelec. Cependant, elle ne couvre que les certifications Qualifelec labellisées RGE et ne vous permet donc pas d'accéder à la totalité des certificats Qualifelec.

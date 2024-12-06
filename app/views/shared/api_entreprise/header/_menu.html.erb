@@ -47,17 +47,19 @@
     <% end %>
   </div>
 
-  <div class="fr-notice fr-notice--info">
-    <div class="fr-container">
-      <div class="fr-notice__body">
-        <p class="fr-notice__title fr-text--regular">
-          <% if action_name == 'developers'%>
-            <%= t('.banner.tech', date: OpenBureauDate.new.next_date.strftime('%d/%m/%Y')).html_safe %>
-          <% else %>
-            <%= t('.banner.default', date: OpenBureauDate.new.next_date.strftime('%d/%m/%Y')).html_safe %>
-          <% end %>
-        </p>
+  <% if Date.today >= Date.new(2024, 8, 21) %>
+    <div class="fr-notice fr-notice--info">
+      <div class="fr-container">
+        <div class="fr-notice__body">
+          <p class="fr-notice__title fr-text--regular">
+            <% if action_name == 'developers'%>
+              <%= t('.banner.tech', date: OpenBureauDate.new.next_date.strftime('%d/%m/%Y')).html_safe %>
+            <% else %>
+              <%= t('.banner.default', date: OpenBureauDate.new.next_date.strftime('%d/%m/%Y')).html_safe %>
+            <% end %>
+          </p>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 </div>

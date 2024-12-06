@@ -7,11 +7,13 @@
     entity_type_description: |+
       Établissements du secteur de la **rénovation énergétique labellisés RGE** par l'ADEME **depuis 2014** :
       - ✅ **95% des établissements en base chez l'ADEME** sont disponibles au travers de cette API.
-      - ✅ Les certificats RGE des organismes **Certibat, CNOA, Qualibat, Qualifelec, Qualitenr** sont disponibles.
+      - ✅ Les certificats RGE des organismes **Certibat, CNOA, Qualitenr, Qualibat, Qualifelec** sont disponibles.
       - ❌ Les certificats RGE d'Afnor, Cequami, Cerqual, lne et Opqibi ne sont pas disponibles.
 
       Le label RGE (Reconnu Garant de l'Environnement) est délivré à une entreprise qui remplit certains critères lors de la réalisation de travaux d'économie d'énergie dans les logements (_isolation des murs ou de la toiture, installation d'un équipement utilisant  une énergie renouvelable, etc._). Il s'agit d'un dispositif reconnu par l'État.
       En 2021, 64 790 établissements étaient labellisés RGE selon les statistiques données par le [site de data.ademe.fr](https://data.ademe.fr/reuses/nombre-d'entreprises-rge){:target="_blank"}.
+    know_more_description: |+
+     [Différence entre le périmètre de cette API et ceux des API Qualibat ou Qualifelec](#difference-api-qualibat-qualifelec).
     entities:
       - entreprises
       - associations
@@ -140,8 +142,15 @@
         - _Qualibat_ pour des travaux liés à la performance énergétique (construction ou rénovation).
         - _Céquami_ délivre des certifications à des professionnels à même de proposer des travaux de rénovation lourde dans le cadre d'une rénovation énergétique globale du logement.
         - _Certibat_ délivre des certifications aux professionnels du bâtiment en mesure de réaliser des offres globales de rénovation énergétique
+    - q: <a name="difference-api-qualibat-qualifelec"></a>Périmètre de cette API par rapport aux API Qualibat ou Qualifelec
+      a: |+
+        L'API Certification RGE délivre des certificats Qualibat et Qualifelec. Cependant, elle ne couvre que les certifications labellisées RGE et ne vous permet donc pas d'accéder à la totalité des certificats de ces deux organismes. Si vous avez besoin de connaître l'ensemble des certifications Qualibat ou Qualifelec, vous devrez appeler les API suivantes :
+        - [API Certification Qualibat](<%= endpoint_path(uid: 'qualibat/certifications_batiment') %>)
+        - [API Certification Qualifelec](<%= endpoint_path(uid: 'qualifelec/certificats') %>)
   opening: public
   format:
     - Donnée structurée JSON et URL vers le certificat en PDF
   parameters:
     - Numéro de SIRET de l'établissement
+
+    

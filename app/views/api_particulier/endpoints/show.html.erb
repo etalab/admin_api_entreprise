@@ -70,10 +70,12 @@
           </div>
 
           <p class="fr-text--lg fr-text--bold">
-            <% @endpoint.providers.map do |provider| %>
-              <%= t("providers.#{provider.name}") %>
-            <% end.join(' & ') %>
-          <p>
+            <% provider_names = @endpoint.providers.map do |provider| %>
+              <%= provider.name %>
+            <% end %>
+
+            <%= provider_names.join(' & ') %>
+          </p>
         </div>
       </div>
     </div>
@@ -82,6 +84,18 @@
 
   <div class="fr-grid-row">
     <div class="fr-col-md-<%= layout_main_bloc %> fr-col-12 fr-pt-2w fr-mt-md-0 fr-pr-md-2w fr-pr-0">
+      <% if @endpoint.alert.present? %>
+        <div class="fr-mt-4w fr-mb-4w">
+          <div class="fr-alert fr-alert--warning fr-mb-2w">
+            <h3 class="fr-alert__title">
+              <%= raw @endpoint.alert['title'] %>
+            </h3>
+            <p>
+              <%= markdown_to_html(@endpoint.alert['description']) %>
+            </p>
+          </div>
+        </div>
+      <% end %>
       <% if @endpoint.deprecated? %>
         <div class="fr-alert fr-alert--error fr-mb-2w">
           <p class="fr-alert__title">

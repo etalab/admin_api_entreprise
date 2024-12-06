@@ -177,84 +177,62 @@ fr:
                 - [Tarification sociale et solidaire des transports](https://api.gouv.fr/guides/delivrance-titres-transport){:target="_blank"} ;
                 - [Portail famille des communes](https://api.gouv.fr/guides/portail-famille-tarification){:target="_blank"}.
 
-            - question: "Quelles sont les étapes pour utiliser l'API Particulier ?"
+            - question: "Je suis un éditeur de logiciel et je souhaite proposer l'API Particulier à mes clients"
               answer: |+
-                  #### Je suis une collectivité ou une administration :
-
-                  1. **Je consulte [les cas d’usages de l'API Particulier](<%= cas_usages_path %>)** :
-                    - Si j'ai un éditeur de logiciel, je consulte le tableau en bas du cas d'usage pour savoir si mon éditeur intègre déjà l’API Particulier.
-                    - Sinon je contacte mon éditeur et je lui transmets le lien vers la documentation technique pour m'assurer qu'il peut intégrer l'API.
-
-                    {:.fr-highlight}
-                    > **Je peux même tester l'API Particulier en préproduction.** Pour en savoir plus, consulter [cette rubrique de l'espace développeur](<%= developers_path(anchor: 'tester-api-preproduction') %>).
-
-                  2. **Je clique sur le bouton "[faire une demande d'habilitation](<%= datapass_base_url %>/api-particulier)"**, je crée mon compte DataPass ou je me connecte.
-
-                  3. **Une fois sur la première page du formulaire d'accès à l'API Particulier, je complète l'encadré "Qui implémentera l'API ?"** :
-                    - Si j'ai un éditeur, je coche "Votre éditeur de logiciel" et je le sélectionne dans la liste déroulante s'il est disponible.
-                    - Si je n'ai pas d'éditeur, je coche "Votre équipe de développeurs". Je clique sur "Suivant".
-
-                  4. **À la page suivante, rubrique "Modèles pré-remplis", je sélectionne le formulaire pré-rempli adéquat** :
-                    - Si j'ai un éditeur, je retrouve son nom et le nom de la solution dans la liste déroulante.
-                    - Si je n'ai pas d'éditeur, je laisse le mode par défaut "Demande libre".
-
-                  5. **Je complète mon formulaire** : informations sur le projet, données nécessaires, traitement des données, cadre juridique - dont délibération -, coordonnées de l'équipe dont responsable technique, délégué à la protection des données et responsable de traitement. Les informations qui vous seront demandées pour compléter le formulaire sont décrites dans [cette rubrique](<%= faq_index_path(anchor: 'quelles-informations-me-seront-demandees') %>).
-
-                  6. **Une fois ma demande instruite et validée par l'équipe API Particulier**, je reçois un e-mail m'indiquant où récupérer mon jeton. Je le transmets à mon éditeur ou à mes développeurs.
-
-                  #### Je suis un éditeur et je ne suis pas encore référencé :
-
-                  ℹ️ Si vous êtes **éditeur de logiciels, c'est à votre client public, collectivité ou administration, de faire sa demande d'habilitation auprès de l'API Particulier**.
+                  {:.fr-highlight}
+                  > ℹ️ Si vous êtes **éditeur de logiciel, c'est à votre client public, collectivité ou administration, de faire sa demande d'habilitation auprès de l'API Particulier**.
 
                   Vous pouvez nous demander de vous référencer sur un cas d'usage afin de proposer un formulaire pré-rempli qui simplifiera l'expérience de vos clients. Voici la procédure à suivre :
-                  - Je repère les données dont mes clients publics ont besoin pour un cas d'usage précis que je peux ou pourrai proposer dans ma solution logicielle ;
-                  - Je consulte la documentation technique, et j'utilise le bac à sable pour tester les appels d'API ;
-                  - J'écris à [api-particulier@api.gouv.fr](mailto:api-particulier@api.gouv.fr) pour être référencé sur le cas d'usage associé et avoir un formulaire pré-rempli à disposition de mes clients.
+                  - Répérer les données dont vos clients publics ont besoin pour un [cas d'usage](<%= cas_usages_path %>) précis qui seront proposées dans votre solution logicielle ;
+                  - Consulter l'[espace développeurs](<%= developers_path %>), et utiliser le [bac à sable](<%= developers_path(anchor: 'kit-de-mise-en-production') %>) pour tester les appels d'API ;
+                  - Écrire à [api-particulier@api.gouv.fr](mailto:api-particulier@api.gouv.fr) pour être référencé sur le cas d'usage associé et remplissez ce [questionnaire pour avoir un formulaire pré-rempli](https://form.typeform.com/to/OJ4rkf5Z){:target='_blank'} à disposition de vos clients. 
 
         - name: "Demande d’habilitation"
           entries:
-            - question: "Quelles informations me seront demandées ?"
+            - question: "Quel formulaire utiliser pour faire la demande ?"
               answer: |+
-                Voici la liste des informations à compléter lors de votre demande d’habilitation :
+                {:.fr-h6}
+                #### Vous avez un éditeur de logiciel :
 
-                - **L’identité de votre organisation**
-                  Le numéro de SIRET de votre organisation.
+                En tant qu'administration, vous souhaitez obtenir un accès à l'API Particulier qui sera intégrée par votre éditeur :
+                - **Si celui-ci a déjà intégré l'API Particulier**, il vous a sûrement déjà transmis le lien vers le formulaire pré-rempli dédié. Vous pouvez retrouver ce formulaire en sélectionnant le nom de l'éditeur depuis [Datapass](https://datapass.api.gouv.fr/api-particulier){:target="_blank"}.
+                - **Si celui-ci ne propose pas déjà l'API Particulier**, nous vous recommandons de contacter votre éditeur et de lui transmettre le [lien vers l'espace développeurs](<%= developers_path %>) pour s'assurer qu'il peut intégrer l'API. 
+
+                {:.fr-h6}
+                #### Vous n'avez pas d'éditeur de logiciel :
+
+                En tant qu'administration, vous souhaitez obtenir un accès à l'API Particulier que vous allez intégrer par vous même dans votre système d'information : 
+                - **Si vous avez un cas d'usage précis**, vous pouvez utiliser le formulaire pré-rempli associé à ce cas d'usage. Vous retrouverez le formulaire en bas de chaque fiche cas d'usage présente sur [cette page](<%= cas_usages_path %>).
+                - **Si votre service ne correpond à aucun cas d'usage défini [à cette page](<%= cas_usages_path %>)**, vous pouvez utiliser le formulaire de demande libre. ⚠️ Les demandes libres sont plus longues à traiter car elles nécessitent une instruction plus approfondie.
+            - question: "Quelles informations sont demandées ?"
+              answer: |+
+                Les informations que vous aurez à compléter lors de votre demande d'habilitation varient selon le formulaire que vous allez choisir. En effet, les champs de certains formulaires sont déjà pré-remplis. C'est par exemple le cas des formulaires associés à un éditeur de logiciel, ou encore des formulaires conçus pour un cas d'usage prédéfini.
+                Dans tous les cas, à la fin de la démarche, avant l'envoi de votre demande à nos services, une page récapitulative vous permettra de vérifier les informations qui seront transmises.
+
+                Que vous ayez à les saisir ou qu'elles soient déjà complétées, voici l'ensemble des informations qui constituent une demande d'habilitation : 
+                - **L’identité de votre organisation** : Le numéro de SIRET de l'organistation pour laquelle la demande est effectuée.
                   Toutes les organisations n’étant pas [éligibles à accéder à l'API Particulier](<%= faq_index_path(anchor: 'quelles-sont-les-conditions-d-eligibilite') %>).
-                - **L’équipe technique qui implémentera l’API**
-                  Qui sera en charge techniquement de l’API ? Il peut s’agir de développeurs en interne, externes ou d’un éditeur de logiciel (son nom vous sera demandé).
-                - **Le cas d’usage de votre demande**
-                - **Le nom et une description précise de votre service**
-                  Quel est l’objectif de votre service ? qui l’utilisera ? et à quoi serviront les données que vous nous demandez ?
-                - **La liste des données souhaitées**
+                - **L’équipe technique qui implémentera l’API** : c'est-à-dire l'organisation/le service qui sera en charge techniquement de l’API. Il peut s’agir de développeurs en interne dans votre administration, externes ou d’un éditeur de logiciel.
+                - **Le formulaire choisi** : cas d'usages, formulaires d'un éditeur ou demande libre.
+                - **Le nom du projet et une description précise de votre service** : Dans ces deux champs textes, il s'agit d'expliciter pourquoi et comment les données de l'API Particulier seront utilisées. Qui utilisera le service intégrant les données ? à quoi serviront les données démandées ? Il est possible d'ajouter une pièce jointe.
+                - **La date de mise en production prévue, et la volumétrie approximative** : Ces informations facultatives permettent de mieux appréhender les besoins et les contraintes du projet.
+                - **La liste des données souhaitées** : Les droits qui seront attribués après validation de l'habilitation correspondront aux cases cochées dans la demande d'habilitation. Pour toutes les demandes, seules les données strictement utiles à la finalité du service sont autorisées. Chaque donnée demandée devra être justifiée par le cadre juridique qui vous autorise à accéder à ces données (délibération tarifaire, décrets etc.).
+                - **Le traitement des données personnelles** : Pour indiquer qui seront les destinataires de données reçues de l’API Particulier. Le destinataire est, selon la [définition de la CNIL](https://www.cnil.fr/fr/definition/destinataire){:target="_blank"}, _"la personne habilitée à obtenir communication de données enregistrées dans un fichier ou un traitement en raison de ses fonctions."_ Il peut donc s’agir d’un agent de l'administration, d’un usager de service public ... Le temps de conservation des données en mois doit également être précisé.
+                - **Le cadre juridique** : 
+                  - **la description** : L’accès à l’API Particulier se fait sous réserve que son utilisation soit justifiée. L’accès à la donnée requiert la fourniture d’un cadre juridique précis, c’est pourquoi, il vous sera demandé de spécifier la nature et les références du texte vous autorisant à traiter les données.
+                  - **les justificatifs, une URL de la référence légilsative ou une pièce jointe** :
+                      - _Pour les administrations centrales, agences d’État, opérateurs ou services déconcentrés_, il vous faudra transmettre le **décrêt** ou l’**arrêté** justifiant votre demande.
+                      
+                      {:.fr-highlight}
+                      > ⚠️ Attention, quel que soit votre statut, le [**CRPA** (Code des relations entre le public et l’administration)](https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000031366350/2020-12-14/){:target="_blank"}, la [**loi ESSOC** (pour un État au service d’une société de confiance)](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000037307624/){:target="_blank"} ou la **loi Lemaire** (pour une République numérique) **ne sont pas suffisants** car ils indiquent un principe d’échange qui doit être complété par un cadre juridique précis pour l’utilisation envisagée.
 
-                  {:.fr-highlight}
-                  > ℹ️ Pour les identifier, vous pouvez vous aider :
-                  >   - du [catalogue de données](<%= endpoints_path %>). Il présente l’ensemble des API disponibles accompagnées d’une documentation fonctionnelle et technique.
-                  >   - des cas d’usages proposés par API Particulier. Nous y décrivons les données utiles :
-                  >          - [Aide facultatives à la scolarité](<%= cas_usage_path(uid: 'aides_scolarite')%>) ;
-                  >          - [Tarification cantine des collèges et lycées](<%= cas_usage_path(uid: 'cantines-colleges-lycees-tarification')%>) ;
-                  >          - [Aides des centres communaux d'action sociale (CCAS)](<%= cas_usage_path(uid: 'ccas')%>) ;
-                  >          - [Tarification sociale et solidaire des transports](<%= cas_usage_path(uid: 'tarification_transports')%>) ;
-                  >          - [Portail famille des communes](<%= cas_usage_path(uid: 'portail_famille')%>).
-
-                - **Le traitement des données personnelles**
-                  Qui seront les destinataires de données reçues de l’API Particulier ? Le destinataire étant, selon la [définition de la CNIL](https://www.cnil.fr/fr/definition/destinataire){:target="_blank"}, _"la personne habilitée à obtenir communication de données enregistrées dans un fichier ou un traitement en raison de ses fonctions."_
-                  Il peut s’agir d’un agent de votre administration, d’un usager de service public ...
-                  Le temps de conservation des données en mois sera également à spécifier.
-                - **Le cadre juridique**
-                  L’accès à l’API Particulier se fait sous réserve que son utilisation soit justifiée. L’accès à la donnée requiert la fourniture d’un cadre juridique précis, c’est pourquoi, il vous sera demandé de spécifier la nature et les références du texte vous autorisant à traiter les données.
-                Si vous êtes une administration centrale, une agence d’État, un opérateur, ou un service déconcentré, il vous faudra transmettre le **décrêt** ou l’**arrêté** justifiant votre demande.
-
-                  {:.fr-highlight}
-                  > ⚠️ Attention, quel que soit votre statut, le [**CRPA** (Code des relations entre le public et l’administration)](https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000031366350/2020-12-14/){:target="_blank"}, la [**loi ESSOC** (pour un État au service d’une société de confiance)](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000037307624/){:target="_blank"} ou la **loi Lemaire** (pour une République numérique) **ne sont pas suffisants** car ils indiquent un principe d’échange qui doit être complété par un cadre juridique précis pour l’utilisation envisagée.
-                - **Les coordonnées des différents contacts**
-                  L’ensemble des coordonnées renseignées seront strictement utilisées pour communiquer avec vous.
-                  - **Le responsable du traitement des données**. Le responsable de traitement est la personne physique ou morale qui, seule ou conjointement avec d’autres, détermine les finalités et les moyens du traitement des données à caractère personnel. Cette personne renseignée doit obligatoirement appartenir à l’organisation déclarée dans la demande.
-                  - **Le délégué à la protection des données**. Le DPD est la personne qui s’assure que l’organisation protège convenablement les données à caractère personnel, conformément à la législation en vigueur. C’est généralement une personne appartenant à l’organisation effectuant la demande.
+                      - _Pour les collectivités_, une délibération décrivant le service envisagé et les données nécessaires est souvent attendue. Pour en savoir plus, consultez [la question/réponse suivante](<%= faq_index_path(anchor: 'qu-est-ce-qu-une-bonne-deliberation-pour-acceder-a-api-particulier') %>).
+                - **Les coordonnées des différents contacts** :
+                  - **Le délégué à la protection des données**. Le DPD est la personne qui s’assure que l’organisation protège convenablement les données à caractère personnel, conformément à la législation en vigueur. C’est généralement une personne appartenant à l’organisation effectuant la demande, qui doit pouvoir exercer sa mission en toute indépendance et à l'abri des conflits d'intérêt. Le DPD ne peut pas être le maire d'une commune. Cette [fiche de la CNIL](https://www.cnil.fr/fr/designer-un-delegue-la-protection-des-donnees-dans-une-collectivite){:target="_blank"} détaille précisément le rôle du DPD.
 
                     <details class="fr-details">
                     <summary>
-                    Je n’ai pas de DPD, que faire ?
+                    Vous n'avez pas de DPD, que faire ?
                     </summary>
                     Si vous n’avez pas de DPD, c’est que vous n’êtes probablement pas habilité à pouvoir utiliser API Particulier. En effet, la nomination d’un DPD est obligatoire pour toute autorité publique ou tout organisme public, ainsi que pour toute entreprise effectuant un suivi régulier et systématique de données personnelles à grande échelle ou de données personnelles sensibles. Ce qui est au coeur de l’usage d’API Particulier.
                     </details>
@@ -264,26 +242,21 @@ fr:
 
                     {:.fr-highlight}
                     > ℹ️ Le contact métier et le contact technique peuvent être confondus, notamment si vous passez par un éditeur.
-                - **L’acceptation des conditions d’utilisation API Particulier**
-                  Avant tout envoi de votre demande, vous devez **[accepter nos conditions générales d’utilisation](<%= cgu_path %>)**.
+                - **Les conditions d’utilisation API Particulier**
+                  Avant tout envoi de votre demande, vous devez **[accepter nos conditions générales d’utilisation](<%= cgu_path %>)** ainsi que toutes celles qui figurent à la fin de la demande d'habilitation.
                   Nous vous invitons à les lire attentivement car les données circulant par le biais d’API Particulier sont sensibles. **Votre futur accès à l’API s’accompagne d’engagements**, notamment celui de présenter les données uniquement aux agents habilités ou à l'usager préalablement identifié, et celui de tracer l’accès de ces données.
-
+              
             - question: "Qu'est ce qu'une bonne délibération pour accéder à API Particulier ?"
               answer: |+
-                Lorsque vous demandez un accès à l'API Particulier pour mettre en place une politique tarifiaire, il est nécessaire de fournir, dans le cadre juridique, l'acte/ la délibération qui fixe les conditions tarifaires ou d'attribution. C'est ce document qui permettra d'apprécier finement le droit d'accès à chaque donnée.
+                Lorsque vous demandez un accès à l'API Particulier pour simplifier une démarche, il est parfois nécessaire de fournir, dans le cadre juridique, la délibération qui fixe les conditions tarifaires ou d'attribution. C'est ce document qui permettra d'apprécier finement le droit d'accès à chaque donnée.
 
-                ## Caractéristiques de la délibération attendue 
+                **Il n'est pas nécessaire de prendre une délibération spécifique** pour accéder à l'API. Une délibération déjà existante peut suffire si elle remplit les caractéristiques suivantes :
 
-                Vous pouvez retrouver une délibération passée qui expose le mode de fonctionnement d'une démarche. 
-                Pour que la délibération ou l'acte soient acceptés comme cadre juridique dans votre demande d'habilitation API Particulier, il faut qu'il décrivent précisémment les données utiles pour la tarification ou l'attribution d'aides.
-                - Exemple d'une "bonne" délibération : Dans le cadre d'une facturation de prestation enfance, une délibération avec les barèmes appliqués suivant le montant du quotient familial convient.
-                - Exemple d'une délibération "insuffisante" : Une délibération qui indique _"le conseil communal décide d'utiliser API Particulier pour consommer les données CAF en vue de simplifier la démarche"_ ne sera pas acceptée car elle manque de précision sur la finalité des données nécessaires et ne permet pas de vérifier le respect de la minimisation des données appelées.
+                **Caractéristiques de la délibération attendue :** 
 
-                ## Pour demander les données les plus sensibles, voici ce qui est attendu :
-
-                - Quotient familial de la CAF ou MSA : une grille tarifiaire dépendant du quotient familial ;
-                - Adresse issue de l'API Quotient familial CAF/MSA : une indication qui précise que le tarif ou l'attribution de l'aide est différent suivant que la personne habite ou non sur le territoire ;
-                - Identité des allocataires issus de l'API Quotient familial CAF/MSA  : une indication qui précise que le tarif ou l'attribution de l'aide est différent suivant le nombre d'enfants à charge.
+                Pour que la délibération soient acceptée comme cadre juridique dans votre demande d'habilitation API Particulier, il faut qu'elle décrive précisémment les données utiles pour la tarification ou l'attribution d'aides.
+                - **Exemple d'une délibération qui répond aux critères attendus** : Dans le cadre d'une facturation de prestation enfance avec une tarification qui varie selon le quotient familial, une délibération avec les barèmes appliqués suivant le montant du quotient familial convient.
+                - **Exemple d'une délibération qui ne répond pas aux critères attendus pour être habilité** : Une délibération qui indique _"le conseil communal décide d'utiliser API Particulier pour consommer les données CAF en vue de simplifier la démarche"_ ne sera pas acceptée car elle manque de précision sur la finalité des données nécessaires et ne permet pas de vérifier le respect de la minimisation des données appelées.
                 
             - question: "Je n’ai pas de nouvelles de ma demande d’habilitation"
               answer: |+
@@ -304,7 +277,7 @@ fr:
               answer: |+
                   1. Une fois la demande d'habilitation validée, un e-mail est envoyé au demandeur et au contact technique avec un lien vers leur [compte utilisateur](<%= user_profile_path %>).
 
-                  2. Une fenêtre de connexion MonComptePro s'ouvre. Le demandeur doit renseigner les identifiants utilisés lors du dépôt de la demande d'habilitation ; le contact technique, ceux indiqués dans la demande.
+                  2. Une fenêtre de connexion ProConnect s'ouvre. Le demandeur doit renseigner les identifiants utilisés lors du dépôt de la demande d'habilitation ; le contact technique, ceux indiqués dans la demande.
 
                   3. Le jeton est disponible depuis le [compte utilisateur](<%= user_profile_path %>) et peut-être copié.
 
@@ -390,7 +363,7 @@ fr:
 
                 En réalité, cette situation n’est pas censée arriver car API Particulier a mis en place une [procédure simple de prolongation de token](<%= faq_index_path(anchor: 'comment-prolonger-mon-jeton-arrivant-a-expiration') %>).
 
-        - name: "Rupture de service"
+        - name: "Rupture de service et anomalies"
           entries:
             - question: "Le service ne répond plus, que faire ?"
               answer: |+
@@ -449,6 +422,16 @@ fr:
 
                 Si l'API Particulier ne peut pas s'engager formellement sur la disponibilité des API, elle fait toutefois un travail de fond pour accompagner ses partenaires et fournisseurs de données vers une meilleure mise à disposition des données.
 
+            - question: "Je ne comprends pas la donnée retournée par l'API, comment remonter l'anomalie ?"
+              answer: |+                
+                En cas d'anomalies ou de questions sur les données renvoyées par l'API, nous avons besoin de connaître les paramètres d'appel que vous avez utilisés, et ces paramètres sont des données personnelles sensibles.
+
+                **Il est absolument impératif de nous les transmettre avec le [formulaire de transfert d'informations sécurisées (Démarches simplifiées)](https://www.demarches-simplifiees.fr/commencer/api-particulier-transfert-securise-d-informations){:target="_blank"}.**
+
+                {:.fr-highlight.fr-highlight--caution}
+                > ⚠️ Vous ne devez **jamais transmettre ces données personnelles par e-mail**. 
+              
+                Si vous n'avez pas de réponse sous 72h, n'hésitez pas à nous envoyer votre numéro de demande Démarches simplifiées à l'adresse [api-particulier@api.gouv.fr](mailto:api-particulier@api.gouv.fr).
 
         - name: "Compte utilisateur"
           entries:
@@ -456,7 +439,7 @@ fr:
               answer: |+
                 Le [compte utilisateur](<%= user_profile_path %>) est un espace accessible aux trois contacts principaux mentionnés dans la demande d'habilitation validée : le contact qui a établi la demande, le contact métier et le contact technique.
 
-                La connexion se fait par le mode d'authentification "MonComptePro" en cliquant sur le bouton bleu disponible à [cette page](<%= user_profile_path %>). Une adresse e-mail vous est alors demandée, il vous faut **utiliser l'e-mail renseigné dans la demande d'habilitation**.
+                La connexion se fait par le mode d'authentification "ProConnect" en cliquant sur le bouton bleu disponible à [cette page](<%= user_profile_path %>). Une adresse e-mail vous est alors demandée, il vous faut **utiliser l'e-mail renseigné dans la demande d'habilitation**.
                 Configurez votre mot de passe ou utilisez le mode de connexion par lien magique.
 
                 {:.fr-highlight}
@@ -487,7 +470,7 @@ fr:
                 - Rendez-vous dans votre [espace usager](<%= user_profile_path %>), cliquez sur \"Vos informations\".
                 - Cliquez sur le bouton dédié \"Transférer mes habilitations\".
                 - Une fenêtre s'ouvre, vous rappelle vos engagements et vous permet de renseigner l'adresse e-mail du futur demandeur des habilitations. Validez.
-                - Le destinataire reçoit un e-mail indiquant les démarches à suivre. Le transfert des habilitations est désormais de son côté. S'il n'a pas déjà un compte \"MonComptePro\", il devra s'en créer un, **avec l'adresse mail que vous aurez indiquée et en renseignant bien le SIRET de votre organisation commune. C'est indispensable pour que le compte soit bien appareillé**.
+                - Le destinataire reçoit un e-mail indiquant les démarches à suivre. Le transfert des habilitations est désormais de son côté. S'il n'a pas déjà un compte \"ProConnect\", il devra s'en créer un, **avec l'adresse mail que vous aurez indiquée et en renseignant bien le SIRET de votre organisation commune. C'est indispensable pour que le compte soit bien appareillé**.
                 - Une fois cette connexion faite, l'étape suivante est effectuée manuellement par le service API Particulier. Informé automatiquement de la demande, il doit réaliser une validation manuelle pour que le transfert soit effectif. Cette étape peut prendre quelques jours.
                 - Enfin, toute connexion par le destinataire à l'espace utilisateur API Particulier vaut acceptation de nos [CGU](<%= cgu_path %>) pour l'ensemble des habilitations nouvellement obtenues.
 

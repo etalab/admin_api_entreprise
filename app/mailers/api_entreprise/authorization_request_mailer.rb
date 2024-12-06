@@ -4,15 +4,10 @@ class APIEntreprise::AuthorizationRequestMailer < APIEntrepriseMailer
   include ExternalUrlHelper
 
   %w[
-    enquete_satisfaction
-    embarquement_brouillon_en_attente
-    update_embarquement_brouillon_en_attente
     embarquement_demande_refusee
     update_embarquement_demande_refusee
     embarquement_modifications_demandees
     update_embarquement_modifications_demandees
-    embarquement_relance_modifications_demandees
-    update_embarquement_relance_modifications_demandees
     embarquement_valide_to_editeur
     embarquement_valide_to_demandeur_is_tech_is_metier
     embarquement_valide_to_demandeur_seulement
@@ -23,8 +18,6 @@ class APIEntreprise::AuthorizationRequestMailer < APIEntrepriseMailer
     update_embarquement_valide_to_demandeur
     demande_recue
     update_demande_recue
-    reassurance_demande_recue
-    update_reassurance_demande_recue
   ].each do |method|
     send('define_method', method) do |args|
       @all_scopes = I18n.t('api_entreprise.tokens.token.scope')

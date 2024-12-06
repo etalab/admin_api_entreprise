@@ -7,7 +7,10 @@ class HealthcheckJob < ApplicationJob
     http.use_ssl = true if healthcheck_uri.scheme == 'https'
 
     http.head(healthcheck_uri.path)
+  # rubocop:disable Lint/SuppressedException
+  rescue Socket::ResolutionError
   end
+  # rubocop:enable Lint/SuppressedException
 
   private
 

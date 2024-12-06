@@ -1,5 +1,6 @@
 FactoryBot.define do
   sequence(:datapass_webhook_v2_id, &:to_i)
+  sequence(:datapass_webhook_v2_public_id) { SecureRandom.uuid }
 
   factory :datapass_webhook_v2, class: Hash do
     initialize_with { attributes.stringify_keys }
@@ -15,6 +16,7 @@ FactoryBot.define do
     initialize_with { attributes.stringify_keys }
 
     state { %w[approved refused].sample }
+    public_id { generate(:datapass_webhook_v2_public_id) }
     form_uid { 'api-entreprise' }
     applicant factory: :datapass_webhook_applicant_v2
     organization factory: :datapass_webhook_organization_v2
@@ -58,5 +60,9 @@ FactoryBot.define do
     contact_metier_given_name { 'Jacques' }
     contact_metier_family_name { 'Metier' }
     contact_metier_job_title { 'CMO' }
+
+    modalities do
+      %w[params]
+    end
   end
 end

@@ -11,12 +11,23 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
       create_or_update_contacts_with_roles
     end
 
+    flag_updates_as_requested if expecting_updates? && %w[submit].include?(context.event)
+
     return if context.authorization_request.save
 
     fail!('Authorization request not valid', 'error', context.authorization_request.errors.to_hash)
   end
 
   private
+
+  def flag_updates_as_requested
+    context.authorization_request.token.last_prolong_token_wizard.update!(status: 'updates_requested')
+  end
+
+  def expecting_updates?
+    context.reopening &&
+      context.authorization_request.prolong_token_expecting_updates?
+  end
 
   def set_reopening_event_flag
     context.reopening = reopening_event?
@@ -28,7 +39,7 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
   end
 
   def should_update_authorization_request?
-    !context.reopening || (context.reopening && %w[approve validate].include?(context.event))
+    !context.reopening || (context.reopening && %w[transfer approve validate].include?(context.event))
   end
 
   def create_or_update_contacts_with_roles
@@ -63,6 +74,7 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
 
   def authorization_request_attributes
     context.data['pass'].slice(
+      'public_id',
       'intitule',
       'description',
       'demarche',
@@ -71,8 +83,15 @@ class DatapassWebhook::FindOrCreateAuthorizationRequest < ApplicationInteractor
     ).merge(authorization_request_attributes_for_current_event).merge(
       'last_update' => fired_at_as_datetime,
       'previous_external_id' => context.data['pass']['copied_from_enrollment_id'],
-      'api' => context.api
+      'api' => context.api,
+      'extra_infos' => extra_infos_with_service_provider
     )
+  end
+
+  def extra_infos_with_service_provider
+    context.authorization_request.extra_infos.merge({
+      'service_provider' => Hash(context.data.dig('pass', 'service_provider'))
+    })
   end
 
   def authorization_request_attributes_for_current_event

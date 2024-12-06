@@ -1,0 +1,10 @@
+Bonjour,
+
+<%= @authorization_request.demandeur.full_name %> (<%= @authorization_request.demandeur.email %>) a soumis une nouvelle demande d'habilitation sur DataPass pour le compte de l'organisation https://annuaire-entreprises.data.gouv.fr/etablissement/<%= @authorization_request.siret %>.
+
+Vous pouvez consulter cette demande sur le lien suivant: <%= datapass_v2_public_authorization_request_url(@authorization_request) %>
+
+Vous pouvez consulter la liste des demandes relatives aux données associé aux groupes où vous êtes abonné sur le lien suivant : <%= api_particulier_dashboard_reporter_url %>
+
+Cordialement,
+L'équipe API Particulier

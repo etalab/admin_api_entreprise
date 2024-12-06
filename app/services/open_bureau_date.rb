@@ -2,36 +2,48 @@ class OpenBureauDate
   include DateAndTime::Calculations
 
   def next_date
-    return Time.zone.today if open_bureau_today?
+    date = next_theoretical_date
 
-    next_tuesday = Time.zone.today.next_occurring(:tuesday)
+    date = date.next_occurring(:tuesday).next_occurring(:tuesday) while cancelled_dates.include?(date)
 
-    if first_or_third_in_month?(next_tuesday)
-      next_tuesday
-    else
-      next_tuesday + 7
-    end
+    date
   end
 
   private
 
+  def next_theoretical_date
+    return Time.zone.today if open_bureau_today?
+
+    next_tuesday = Time.zone.today.next_occurring(:tuesday)
+
+    return next_tuesday if first_or_third_tuesday_in_month?(next_tuesday)
+
+    next_tuesday.next_occurring(:tuesday)
+  end
+
+  def cancelled_dates
+    YAML.load_file(Rails.root.join('config/cancelled_open_bureau_dates.yml')).map(&:to_date)
+  end
+
   def open_bureau_today?
     today = Time.zone.today
 
-    today.tuesday? && first_or_third_in_month?(today) && before_open_bureau_time?
+    today.tuesday? && first_or_third_tuesday_in_month?(today) && before_open_bureau_time?
   end
 
   def before_open_bureau_time?
     Time.zone.now < '11:00 am'.in_time_zone(Time.zone)
   end
 
-  def first_or_third_in_month?(tuesday)
-    first_day_month = tuesday.at_beginning_of_month
+  def first_or_third_tuesday_in_month?(date)
+    return false unless date.tuesday?
 
-    return true if first_day_month.tuesday?
+    first_of_month = date.beginning_of_month
 
-    first_tuesday_after_beginning_month = first_day_month.next_occurring(:tuesday)
+    first_tuesday = first_of_month + ((2 - first_of_month.wday) % 7)
 
-    first_tuesday_after_beginning_month == tuesday || (first_tuesday_after_beginning_month + 14) == tuesday
+    third_tuesday = first_tuesday.next_occurring(:tuesday).next_occurring(:tuesday)
+
+    date == first_tuesday || date == third_tuesday
   end
 end

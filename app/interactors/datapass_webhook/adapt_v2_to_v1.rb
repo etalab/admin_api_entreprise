@@ -1,6 +1,7 @@
 class DatapassWebhook::AdaptV2ToV1 < ApplicationInteractor
   def call
     context.event = context.event.sub('authorization_request', 'enrollment')
+    context.authorization_request_data = generic_data.dup
     context.data = build_data
   end
 
@@ -11,6 +12,7 @@ class DatapassWebhook::AdaptV2ToV1 < ApplicationInteractor
     {
       'pass' => {
         'id' => context.model_id,
+        'public_id' => context.data['public_id'],
         'intitule' => generic_data['intitule'],
         'description' => generic_data['description'],
         'demarche' => context.data['form_uid'],
@@ -20,7 +22,8 @@ class DatapassWebhook::AdaptV2ToV1 < ApplicationInteractor
         'previous_enrollment_id' => nil,
         'scopes' => generic_data['scopes'].index_with { |_scope| true },
         'team_members' => build_team_members,
-        'events' => []
+        'events' => [],
+        'service_provider' => context.data['service_provider']
       }
     }
   end

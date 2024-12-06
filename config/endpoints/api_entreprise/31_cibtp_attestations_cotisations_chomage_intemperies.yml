@@ -1,0 +1,107 @@
+---
+- uid: 'cibtp/attestations_cotisations_conges_payes_chomage_intemperies'
+  path: '/v3/cibtp/etablissements/{siret}/attestation_cotisations_conges_payes_chomage_intemperies'
+  ping_url: 'https://entreprise.api.gouv.fr/ping/cibtp/attestation_cotisations_conges_payes_chomage_intemperies'
+  position: 299
+  perimeter:
+    entity_type_description: |+
+      Cette API couvre les **✅ entreprises du bâtiment** entrant dans le champ d'application des <a class=" fr-icon-arrow-down-line fr-link--icon-right" href="#conventions-collectives">conventions collectives nationales du bâtiment</a>.
+
+      **Sont concernées par cette API, les entreprises adhérentes aux caisses suivantes** : 
+      - ✅ Caisse CIBTP Île-de-France ;
+      - ✅ Caisse CIBTP Nord-Ouest ;
+      - ✅ Caisse CIBTP Grand-Est ;
+      - ✅ Caisse CIBTP Rhône-Alpes Auvergne ;
+      - ✅ Caisse CIBTP Méditerranée ;
+      - ✅ Caisse CIBTP Centre ;
+      - ✅ Caisse CIBTP Grand-Ouest ; 
+      - ⚙️ Caisse CIBTP Sud-Ouest (à compter de janvier 2025) ;
+      - ✅ Caisse nationale des coopératives. 
+
+      **Ne sont pas concernées par cette API** :
+      - **❌ les entreprises de bâtiment adhérentes aux caisses CIBTP DROM Réunion et Antilles-Guyane**, - aucun raccordement n'est prévu car leur système d'information est différent ; 
+      - **❌ les entreprises de travaux publics adhérentes à la caisse CNETP** dont l'attestation doit être récupérée avec l'[API de la CNETP](<%= endpoint_path(uid: 'cnetp/attestations_cotisations_conges_payes_chomage_intemperies') %>).
+      
+      ***️⃣ Sont en partie concernées par cette API**, les quelques entreprises relevant à la fois du secteur du bâtiment et du secteur des travaux publics (environ 50 entreprises). Pour ces dernières, il est recommandé de faire un appel aux deux API systématiquement : cette API de la CIBTP et [celle de la CNETP](<%= endpoint_path(uid: 'cnetp/attestations_cotisations_conges_payes_chomage_intemperies') %>).
+    geographical_scope_description: |+
+      - ✅ Métropole 
+      - ❌ Outre-mer
+    updating_rules_description: |+
+      Les certificats transmis par cette API sont **mis à jour en temps réel**, directement depuis le système d’information de la CIBTP France qui interroge les SI des différentes caisses régionales et de la caisse nationale des coopératives. Le certificat délivré reflète la situation de l'unité légale, vis-à-vis de ses déclarations et du paiement de ses cotisations congés payés et intempéries, exigibles au jour de la délivrance du certificat.
+    know_more_description: |+
+      - le [site de la CIBTP](https://www.cibtp.fr){:target="_blank"} est une source d'information ;
+      - l'[article D.3141-12 du code du travail](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000020572124/){:target="_blank"} définit les entreprises sont tenues d’adhérer auprès d'une caisse de congés payés du BTP.
+    entities:
+      - entreprises
+  call_id: "SIRET"
+  provider_uids:
+    - 'cibtp'
+  keywords:
+    - 'conformité'
+    - 'conforme'
+    - 'obligations'
+    - 'cotisations'
+    - 'btp'
+    - 'bâtiment'
+    - 'travaux'
+    - 'marchés publics'
+    - 'Aides publiques'
+    - 'fraude'
+  data:
+    description: |+
+      Cette API permet d'obtenir, au format PDF, le **certificat attestant le respect des obligations relatives aux congés payés et au chomage-intempéries de l'unité légale**.
+
+      {:.fr-highlight}
+      > ⏳ Le certificat atteste de la régularité de l'unité légale **le jour de la délivrance du document**, date indiquée sur le certificat.
+
+      {:.fr-highlight}
+      > 💡 Cette API est appelable avec le SIRET d'un établissement, mais **c'est bien l'unité légale qui est certifiée par [la caisse du réseau CIBTP à laquelle l'entreprise est adhérente](#entreprise-adherente-une-seule-caisse)**. L'attestation est délivrée à l'unité légale sous réserve que l'ensemble des établissements de cette unité légale soient à jour des déclarations et du paiement de cotisations congés payés et chômage-intempéries.
+
+      {:.fr-h6 .fr-mt-4w}
+      ### Exemple d'attestation PDF&nbsp;:
+
+      <div class="fr-download">
+       <p>
+        <a href="/files/exemple-cibtp-attestations_cotisations_conges_payes_chomage_intemperies.pdf" download class="fr-download__link">
+         Télécharger un exemple d'attestation CIBTP
+         <span class="fr-download__detail">
+         PDF – 209 Ko
+         </span>
+        </a>
+       </p>
+      </div>
+
+  opening: protected
+  parameters:
+    - Numéro de SIRET de l'établissement
+  format:
+    - URL vers le certificat en PDF
+  faq:
+    - q: <a name="caisses-cibtp"></a>Composition du réseau CIBTP France
+      a: |+
+        **D'un point de vue du réseau**, CIBTP France est composée de l’ensemble des caisses Congés Intempéries du bâtiment et des travaux publics, c'est-à-dire :
+        - **2 caisses nationales** : la caisse nationale pour les entrepreneurs de travaux publics (CNETP) et la caisse nationale des Coopératives ;
+        - **8 caisses métropolitaines** pour les entreprises du Bâtiment (une par région) ;
+        - **2 caisses dans les départements et régions d’Outremer** : Antilles-Guyane et Réunion.
+
+        L'ensemble des entreprises du BTP, environ 200 000, sont affiliées à une seule de ces caisses. 
+
+        **D'un point de vue informatique**, toutes les caisses, à l'exception de la CNETP et des caisses CIBTP Outre-mer, transmettent leurs certificats à CIBTP France qui les redistribue au travers de cette API. La CNETP, qui couvre les entreprises de travaux publics, propose une API différente dans le bouquet API Entreprise, disponible [ici](<%= endpoint_path(uid: 'cnetp/attestations_cotisations_conges_payes_chomage_intemperies') %>).
+
+    - q: <a name="conventions-collectives"></a>Conventions collectives des entreprises concernées par cette API
+      a: |+
+        Cette API couvre les **entreprises exerçant une ou plusieurs activités entrant dans le champ d'application des conventions collectives nationales du Bâtiment** :
+
+        - ✅ [Convention collective nationale des ouvriers employés par les entreprises du bâtiment](https://www.legifrance.gouv.fr/conv_coll/id/KALICONT000005635221) visées par le décret du 1er mars 1962 (c’est-à-dire occupant jusqu’à 10 salariés) du 8 octobre 1990, étendue par arrêté du 12 février 1991 ;
+        - ✅ [Convention collective nationale des ouvriers employés par les entreprises du bâtiment](https://www.legifrance.gouv.fr/conv_coll/id/KALICONT000005635220) non visées par le décret du 1er mars 1962 (c’est-à-dire occupant plus de 10 salariés) du 8 octobre 1990, étendue par arrêté du 8 février 1991 ;
+        - ✅ [Convention collective nationale des employés, techniciens et agents de maîtrise du bâtiment](https://www.legifrance.gouv.fr/conv_coll/id/KALICONT000018773893) du 12 juillet 2006 ;
+        - ✅ [Convention collective des cadres du bâtiment](https://www.legifrance.gouv.fr/conv_coll/id/KALICONT000017941839) du 1er juin 2004.
+
+        Pour couvrir le périmètre des entreprises entrant dans le champ des travaux publics, veuillez appeler [l'API de la CNETP](<%= endpoint_path(uid: 'cnetp/attestations_cotisations_conges_payes_chomage_intemperies') %>).
+    - q: <a name="entreprise-adherente-une-seule-caisse"></a>Une entreprise est adhérente à une seule caisse du réseau
+      a: |+
+        Le certificat est délivré à l'unité légale par la caisse du réseau à laquelle l'entreprise est adhérente. _Par exemple, la CIBTP Île-de-France._
+
+        Pour ses cotisations congés payés et chômage-intempéries, une unité légale **ne peut être adhérente qu'à une seule caisse du réseau CIBTP**.
+
+

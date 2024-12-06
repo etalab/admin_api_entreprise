@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.1'
+gem 'rails', '~> 8.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use Puma as the app server
@@ -40,7 +40,7 @@ gem 'sitemap_generator'
 
 gem 'pastel'
 
-gem 'rails-i18n', '~> 7.0.9'
+gem 'rails-i18n'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
@@ -76,6 +76,13 @@ gem 'ransack'
 
 gem 'wicked'
 
+gem 'rest-client'
+gem 'faraday'
+gem 'faraday-gzip'
+gem 'faraday-net_http'
+gem 'faraday-retry'
+gem 'faraday-encoding'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'brakeman'
@@ -99,10 +106,10 @@ group :development do
   # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
   gem 'rack-mini-profiler', '~> 3.3'
   gem 'rubocop', require: false
-  gem 'rubocop-rails'
-  gem 'rubocop-rspec'
   gem 'rubocop-capybara'
   gem 'rubocop-factory_bot'
+  gem 'rubocop-rails'
+  gem 'rubocop-rspec'
   gem 'rubocop-rspec_rails'
 
   gem 'better_errors'
@@ -114,7 +121,7 @@ group :test do
   gem 'cuprite'
   gem 'rspec-collection_matchers'
   gem 'rspec-its'
-  gem 'rspec-rails', '6.1.3'
+  gem 'rspec-rails', '7.1.0'
   gem 'rspec-retry'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false

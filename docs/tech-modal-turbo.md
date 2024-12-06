@@ -28,9 +28,4 @@ La vue doit renvoyer des balises turbo-frame de cette manière:
 De cette manière turbo va prendre le contenu de la balise turbo-frame et
 remplacer celle de la modal par ce contenu.
 
-Pour aller plus loin:
-
-1. Il existe un exemple fonctionnel avec
-   [`TransferUserAccountController`](../app/controllers/transfer_user_account_controller.rb)
-   qui gère une modal avec erreurs (tutorial associé:
-   [lien](https://blog.skelz0r.fr/posts/turbo-form-redirect)
+Pour aller plus loin: [lien](https://blog.skelz0r.fr/posts/turbo-form-redirect)

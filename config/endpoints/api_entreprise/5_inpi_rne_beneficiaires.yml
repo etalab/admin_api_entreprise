@@ -1,8 +1,7 @@
 ---
 - uid: 'inpi/rne/beneficiaires_effectifs'
-  path: '/v3/inpi/rne/unites_legales/open_data/{siren}/beneficiaires_effectifs'
+  path: '/v3/inpi/rne/unites_legales/{siren}/beneficiaires_effectifs'
   ping_url: 'https://entreprise.api.gouv.fr/ping/inpi/rne'
-  beta: true
   position: 112
   perimeter:
     entity_type_description: |+
@@ -18,8 +17,6 @@
       Cette API restitue une partie des données, les bénéficiaires effectifs, de l'API Base RNE de l'Inpi :
       - [Informations de l'Inpi concernant le registre national des entreprises](https://www.inpi.fr/le-registre-national-des-entreprises){:target="_blank"} ;
       - [Documentation technique de l'API base RNE](https://www.inpi.fr/sites/default/files/documentation%20technique%20API%20formalit%C3%A9s_v2.3.pdf){:target="_blank"}.
-
-
     entities:
       - entreprises
   call_id: "SIREN"
@@ -43,7 +40,7 @@
   data:
     description: |+
       Cette API délivre la **liste des bénéficiaires effectifs de l'unité légale** et permet de comprendre en détail sous quelles modalités le contrôle est exercé par le bénéficiaire effectif sur l'unité légale. [En savoir plus sur les caractéristiques qui font qu'une personne physique est considérée comme bénéficiaire effectif](#faq_entry_answer_0_api_entreprise_endpoint_inpi_rne_beneficiaires_effectifs).
-  opening: public
+  opening: protected
   parameters:
     - Numéro de SIREN de l'unité légale
   format:

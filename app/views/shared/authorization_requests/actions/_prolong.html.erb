@@ -4,6 +4,8 @@
     id="<%= dom_id(authorization_request, :prolong_token_modal_link) %>"
     class="fr-btn fr-icon-arrow-right-line fr-btn--icon-right fr-mt-2w"
   >
+    <%= label %>
+  </a>
 <% else %>
   <a
     href="<%= token_prolong_path(id: authorization_request.token.id) %>"
@@ -13,6 +15,6 @@
     data-fr-opened="false"
     data-turbo-frame="main-modal-content"
   >
+    <%= label %>
+  </a>
 <% end %>
-  <%= label %>
-</a>

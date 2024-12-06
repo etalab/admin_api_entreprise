@@ -56,7 +56,8 @@ RSpec.describe AuthorizationRequest do
       [
         create(:authorization_request, :with_tokens, api: 'particulier', status: 'archived'),
         create(:authorization_request, api: 'particulier', status: 'revoked'),
-        create(:authorization_request, status: 'validated')
+        create(:authorization_request, status: 'validated'),
+        create(:authorization_request, status: 'draft', validated_at: 1.month.ago)
       ]
     end
 
@@ -108,6 +109,36 @@ RSpec.describe AuthorizationRequest do
 
     it 'doesnt returns demandeur even if also contact' do
       expect(authorization_request.contacts_no_demandeur).not_to include(authorization_request.demandeur)
+    end
+  end
+
+  describe '.prolong_token_expecting_updates' do
+    subject { authorization_request.prolong_token_expecting_updates? }
+
+    let!(:authorization_request) { create(:authorization_request) }
+
+    context 'when there is no token' do
+      it { is_expected.to be_falsey }
+    end
+
+    context 'when there is a token' do
+      let!(:token) { create(:token, authorization_request:) }
+
+      context 'when there is no last prolong token wizard' do
+        it { is_expected.to be_falsey }
+      end
+
+      context 'when the last prolong token wizard requires update' do
+        let!(:prolong_token_wizard) { create(:prolong_token_wizard, :requires_update, token:) }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context 'when the last prolong token wizard does not require update' do
+        let(:last_prolong_token_wizard) { create(:prolong_token_wizard, token:, status: 'owner') }
+
+        it { is_expected.to be_falsey }
+      end
     end
   end
 

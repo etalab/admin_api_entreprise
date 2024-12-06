@@ -106,7 +106,7 @@
   keywords: *qualibat_keywords
   data:
     description: |+
-      Cette API délivre le certificat Qualibat de l'entreprise au **format PDF** ainsi que de **la donnée structurée extraite** par l'équipe d'API Entreprise directement du PDF<sup>*</sup>, dont les certifications de l'entité et ses assurances responsabilités travaux et civile. 
+      Cette API délivre le certificat Qualibat de l'entreprise au **format PDF** ainsi que de **la donnée structurée extraite** par l'équipe d'API Entreprise directement du PDF<sup>*</sup>, dont les certifications de l'entité et ses assurances responsabilités travaux et civile. Tous les types de certificats Qualibat sont disponibles, [y compris ceux non labellisés RGE](#difference-api-rge).
 
       {:.fr-text--xs}
       <sup>*</sup>Si une des données est absente, une erreur système est ajouté dans la balise `meta`.
@@ -167,3 +167,8 @@
   format:
     - Donnée structurée JSON
   parameters: *qualibat_parameters
+  faq:
+    - q: <a name="difference-api-rge"></a>Périmètre de cette API par rapport à l'API Certification RGE de l'Ademe
+      a: |+
+        L'[API Certification RGE](<%= endpoint_path(uid: 'ademe/certifications_rge') %>) délivre également des certificats Qualibat. Cependant, elle ne couvre que les certifications Qualibat labellisées RGE et ne vous permet donc pas d'accéder à la totalité des certificats Qualibat.
+

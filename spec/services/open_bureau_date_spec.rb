@@ -47,7 +47,7 @@ RSpec.describe OpenBureauDate, type: :service do
     end
 
     describe 'non-regression tests' do
-      context 'when first tuesday is on 1st of month' do
+      context 'when first tuesday is on 1st of month, before this date' do
         before do
           Timecop.freeze(Date.new(2022, 10, 31))
         end
@@ -56,6 +56,27 @@ RSpec.describe OpenBureauDate, type: :service do
 
         it { is_expected.to eq(next_date.to_s) }
       end
+
+      context 'when first tuesday is on 1st of month, after this date' do
+        before do
+          Timecop.freeze(Date.new(2024, 10, 2))
+        end
+
+        let(:next_date) { Date.new(2024, 10, 15) }
+
+        it { is_expected.to eq(next_date.to_s) }
+      end
+    end
+
+    describe 'when it is a cancelled date' do
+      before do
+        Timecop.freeze(Date.new(2024, 11, 12))
+        allow(YAML).to receive(:load_file).and_return(['2024-11-19'])
+      end
+
+      let(:next_date) { Date.new(2024, 12, 3) }
+
+      it { is_expected.to eq(next_date.to_s) }
     end
   end
 end

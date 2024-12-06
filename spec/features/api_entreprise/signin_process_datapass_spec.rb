@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'the signin process', app: :api_entreprise do
   subject do
     visit login_path
-    click_button 'login_mon_compte_pro'
+    click_button 'login_pro_connect'
   end
 
   context 'when API Gouv authentication is successful' do
@@ -63,12 +63,6 @@ RSpec.describe 'the signin process', app: :api_entreprise do
           expect(user.oauth_api_gouv_id).to eq(unknown_api_gouv_id)
         end
 
-        it 'sends an email to DataPass to update the authorization request owner' do
-          expect { subject }
-            .to have_enqueued_mail(APIEntreprise::UserMailer, :notify_datapass_for_data_reconciliation)
-            .with(user, 'api_entreprise')
-        end
-
         it 'redirects to the user profile' do
           subject
 
@@ -78,11 +72,6 @@ RSpec.describe 'the signin process', app: :api_entreprise do
 
       context 'when the user signs in the second time (and more)' do
         let!(:user) { create(:user) }
-
-        it 'does not send any email to DataPass' do
-          expect { subject }
-            .not_to have_enqueued_mail(APIEntreprise::UserMailer, :notify_datapass_for_data_reconciliation)
-        end
 
         it 'redirects to the user profile' do
           subject
