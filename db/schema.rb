@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_10_082154) do
+ActiveRecord::Schema[8.0].define(version: 2024_09_10_082154) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
+  enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
-  enable_extension "plpgsql"
 
   create_table "access_logs", id: false, force: :cascade do |t|
     t.timestamptz "timestamp"
@@ -34,8 +34,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_10_082154) do
     t.string "siret"
     t.string "api", null: false
     t.string "demarche"
-    t.jsonb "extra_infos", default: {}
     t.uuid "public_id"
+    t.jsonb "extra_infos", default: {}
     t.index ["external_id"], name: "index_authorization_requests_on_external_id", unique: true, where: "(external_id IS NOT NULL)"
   end
 
