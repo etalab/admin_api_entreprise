@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr" data-fr-scheme="light">
+  <head>
+    <title>Espace éditeur - <%= t("api_#{namespace}.name") %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <%= render partial: 'shared/favicons' %>
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'admin', media: 'all', 'data-turbo-track': 'reload' %>
+    <%= javascript_include_tag 'admin', 'data-turbo-track': 'reload' %>
+    <%= javascript_include_tag "turbo", type: "module" %>
+    <%= render partial: 'shared/common_head_scripts' %>
+  </head>
+
+  <body>
+    <%= render partial: 'shared/editor/header' %>
+
+    <div class="fr-container fr-mb-5w fr-mt-5w">
+      <turbo-frame id="alerts">
+        <%= render partial: 'shared/alerts' %>
+      </turbo-frame>
+
+      <%= yield %>
+    </div>
+
+    <%= render partial: 'shared/modal' %>
+  </body>
+</html>

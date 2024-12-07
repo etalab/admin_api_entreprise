@@ -1,0 +1,53 @@
+<header class="fr-header">
+  <div class="fr-header__body">
+    <div class="fr-container">
+      <div class="fr-header__body-row">
+        <div class="fr-header__brand fr-enlarge-link">
+          <div class="fr-header__brand-top">
+            <div class="fr-header__logo">
+              <p class="fr-logo">
+              République
+              <br>Française
+              </p>
+            </div>
+            <div class="fr-header__navbar">
+              <!-- <button class="fr&#45;btn&#45;&#45;search fr&#45;btn" data&#45;fr&#45;opened="false" aria&#45;controls="modal&#45;866" title="Rechercher"> -->
+              <!--   Rechercher -->
+              <!-- </button> -->
+              <button class="fr-btn--menu fr-btn" data-fr-opened="false" aria-controls="modal-header-menu" aria-haspopup="menu" title="Menu" id="fr-btn-menu-mobile-1">
+                Menu
+              </button>
+            </div>
+          </div>
+
+          <div class="fr-header__service">
+            <a href="/" title="Accueil - Admin API Entreculier">
+              <p class="fr-header__service-title">
+                Espace éditeur - <%= t("api_#{namespace}.name") %>
+              </p>
+              <p class="fr-header__service-tagline">
+                pour le compte de <strong><%= current_editor.name %></strong>
+              </p>
+            </a>
+          </div>
+        </div>
+        <div class="fr-header__tools">
+          <div class="fr-header__tools-links">
+            <ul class="fr-links-group">
+              <li>
+                <a class="fr-link fr-icon-user-fill" href="<%= editor_path %>">
+                  <%= current_user.full_name %>
+                </a>
+              </li>
+              <li>
+                <a class="fr-link fr-icon-logout-box-r-fill" id="logout_button" href="<%= logout_path %>" target="_self">
+                  Se déconnecter
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

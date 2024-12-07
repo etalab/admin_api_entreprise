@@ -14,6 +14,12 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/editeur', to: redirect('/editeur/habilitations'), as: :editor
+
+  namespace :editor, path: 'editeur' do
+    resources :authorization_requests, only: %i[index], path: 'habilitations'
+  end
+
   namespace :api do
     resources :frontal, only: :index
   end
