@@ -6,6 +6,9 @@ class User < ApplicationRecord
 
   has_many :tokens, through: :authorization_requests
 
+  belongs_to :editor,
+    optional: true
+
   validates :email,
     presence: true,
     uniqueness: { case_sensitive: false },
@@ -57,6 +60,10 @@ class User < ApplicationRecord
     return if email.blank?
 
     self.email = email.downcase.strip
+  end
+
+  def editor?
+    editor.present?
   end
 
   def admin?
