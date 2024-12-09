@@ -1,7 +1,24 @@
 class Admin::UsersController < AdminController
   def index
-    @q = User.ransack(params[:q])
+    @q = User.includes(:editor).ransack(params[:q])
     @users = @q.result(distinct: true).page(params[:page])
+  end
+
+  def edit
+    @user = User.find(params[:id])
+    @editors = Editor.all
+  end
+
+  def update
+    @user = User.find(params[:id])
+
+    if @user.update(user_params)
+      success_message(title: "Utilisateur #{@user.email} a bien été modifié")
+
+      redirect_to admin_users_path
+    else
+      render :edit
+    end
   end
 
   def impersonate
@@ -16,5 +33,11 @@ class Admin::UsersController < AdminController
     stop_impersonating_user
 
     redirect_to admin_users_path
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:editor_id)
   end
 end

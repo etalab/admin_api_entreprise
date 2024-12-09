@@ -1,0 +1,48 @@
+<div class="fr-table fr-table--bordered fr-table--layout-fixed">
+  <table>
+    <caption>
+      Habilitations
+    </caption>
+    <thead>
+      <tr>
+        <%
+          [
+            'DataPass ID',
+            'Intitule',
+            'Jeton principal',
+            'Organization',
+          ].each do |attr|
+        %>
+          <th scope="col">
+            <%= attr %>
+          </th>
+        <% end %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @authorization_requests.each do |authorization_request| %>
+        <tr id="<%= dom_id(authorization_request) %>" class="authorization-request">
+          <td class="authorization_request-external_id">
+            <%= link_to("DataPass ##{authorization_request.external_id}", "#{datapass_v2_base_url(authorization_request.api)}/public/demandes/#{authorization_request.public_id}", target: '_blank')%>
+          </td>
+          <td class="authorization_request-intitule">
+            <%= authorization_request.intitule %>
+          </td>
+          <td class="authorization_request-token">
+            <% if authorization_request.token %>
+              <%= render partial: 'shared/tokens/detail_short', locals: { token: authorization_request.token.decorate } %>
+            <% end %>
+          </td>
+          <td class="authorization_request-siret">
+            <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/<%= authorization_request.siret %>" target="_blank">
+              <%= authorization_request.siret %>
+            </a>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @authorization_requests %>

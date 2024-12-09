@@ -17,11 +17,11 @@
       <tr>
         <%
           [
-            'ID',
             'Prénom',
             'Nom',
             'Email',
             'Organizations',
+            'Éditeur associé',
             'DataPass ID',
             'Actions',
           ].each do |attr|
@@ -36,9 +36,6 @@
     <tbody>
       <% @users.each do |user| %>
         <tr id="<%= dom_id(user) %>" class="user">
-          <td class="user-id">
-            <%= user.id %>
-          </td>
           <td class="user-first_name">
             <%= user.first_name %>
           </td>
@@ -62,7 +59,14 @@
             <% end %>
           </td>
 
-          <td class="user-organizations">
+          <td class="user-editor">
+            <% if user.editor %>
+              <%= user.editor.name %>
+            <% end %>
+
+            <%= link_to "Modifier l'éditeur associé", edit_admin_user_path(user), id: dom_id(user, :edit) %>
+          </td>
+          <td class="user-datapass">
             <% if user.authorization_requests.where(api: namespace).any? %>
               <ul>
                 <% user.authorization_requests.where(api: namespace).each do |authorization_request| %>
@@ -76,7 +80,7 @@
 
           <td class="user-actions">
             <% if current_user != user %>
-              <%= button_to 'Se connecter en tant que cet utilisateur', impersonate_admin_user_path(user), data: { turbo: false }, class: 'fr-btn', id: dom_id(user, :impersonate) %>
+              <%= button_to 'Se connecter en tant que cet utilisateur', impersonate_admin_user_path(user), data: { turbo: false }, class: 'fr-btn fr-btn--sm', id: dom_id(user, :impersonate) %>
             <% end %>
           </td>
         </tr>

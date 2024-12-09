@@ -10,6 +10,10 @@ FactoryBot.define do
       email { generate(:admin_email) }
     end
 
+    trait :editor do
+      editor
+    end
+
     trait :with_full_name do
       first_name { 'Jean-Marie' }
       last_name { 'Gigot' }

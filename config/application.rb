@@ -48,5 +48,11 @@ module AdminApientreprise
     config.cache_store = :redis_cache_store, config_for(:cache_redis)
 
     config.active_support.to_time_preserves_timezone = :zone
+
+    config.generators do |g|
+      g.test_framework :rspec
+      g.stylesheets false
+      g.javascripts false
+    end
   end
 end

@@ -6,6 +6,7 @@ class Seeds
     @contact_email = 'contact_technique@yopmail.com'
     @contact = create_contact
 
+    create_editor
     create_data_for_api_entreprise
     create_data_for_api_particulier
     create_data_shared
@@ -65,6 +66,19 @@ class Seeds
     )
   end
 
+  def create_editor
+    editor = Editor.create!(
+      name: 'UMAD Corp',
+      form_uids: %w[umadcorp-form-api-entreprise umadcorp-form-api-particulier]
+    )
+    create_user(
+      email: 'editeur@yopmail.com',
+      first_name: 'Edouard',
+      last_name: 'Lefevre',
+      editor: editor
+    )
+  end
+
   def create_magic_link
     MagicLink.create!(email: @user.email)
   end
@@ -81,6 +95,7 @@ class Seeds
         external_id: 102,
         status: :validated,
         first_submitted_at: 2.weeks.ago,
+        demarche: 'umadcorp-form-api-entreprise',
         siret: '12000101100010'
       }
     )
@@ -163,6 +178,7 @@ class Seeds
         intitule: 'Mairie de Bordeaux',
         external_id: 201,
         status: :validated,
+        demarche: 'umadcorp-form-api-particulier',
         first_submitted_at: 2.weeks.ago
       }
     )

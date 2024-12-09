@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_09_10_082154) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_07_111810) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pg_catalog.plpgsql"
@@ -37,6 +37,13 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_10_082154) do
     t.uuid "public_id"
     t.jsonb "extra_infos", default: {}
     t.index ["external_id"], name: "index_authorization_requests_on_external_id", unique: true, where: "(external_id IS NOT NULL)"
+  end
+
+  create_table "editors", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "form_uids", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -187,7 +194,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_10_082154) do
     t.string "first_name"
     t.string "last_name"
     t.string "phone_number"
+    t.uuid "editor_id"
     t.index ["created_at"], name: "index_users_on_created_at"
+    t.index ["editor_id"], name: "index_users_on_editor_id"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

@@ -52,19 +52,23 @@
             </div>
             <div class="fr-col-12 fr-col-sm-4 fr-p-0 center">
               <% if authorization_request.token %>
-                <%= render partial: 'shared/tokens/detail_short',
-                  locals: {
-                    token: authorization_request.token.decorate
-                  }
-                %>
+                <div id="<%= dom_id(authorization_request.token) %>" class="fr-pt-6v">
+                  <%= render partial: 'shared/tokens/detail_short',
+                    locals: {
+                      token: authorization_request.token.decorate
+                    }
+                  %>
+                </div>
               <% end %>
 
               <% authorization_request.tokens.blacklisted_later.decorate.each do |banned_token| %>
-                <%= render partial: 'shared/tokens/detail_short',
-                  locals: {
-                    token: banned_token.decorate
-                  }
-                %>
+                <div id="<%= dom_id(banned_token) %>" class="fr-pt-6v">
+                  <%= render partial: 'shared/tokens/detail_short',
+                    locals: {
+                      token: banned_token.decorate
+                    }
+                  %>
+                </div>
             <% end %>
             </div>
             <div class="fr-col-12 fr-col-sm-3 center">
