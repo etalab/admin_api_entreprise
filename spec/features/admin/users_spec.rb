@@ -42,4 +42,26 @@ RSpec.describe 'Admin: users', app: :api_entreprise do
       expect(page).to have_no_content(invalid_user.email)
     end
   end
+
+  describe 'adding an editor to a specific user' do
+    subject(:add_editor) do
+      visit admin_users_path
+
+      click_on dom_id(user, :edit)
+
+      select editor.name, from: 'user_editor_id'
+
+      click_on 'submit'
+    end
+
+    let!(:user) { create(:user, editor: nil) }
+    let!(:editor) { create(:editor) }
+
+    it 'adds the editor to the user' do
+      add_editor
+
+      expect(user.reload.editor).to eq(editor)
+      expect(page).to have_css('.fr-alert.fr-alert--success')
+    end
+  end
 end

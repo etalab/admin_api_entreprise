@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get '/admin', to: redirect('/admin/users')
 
   namespace :admin do
-    resources :users, only: %i[index] do
+    resources :users, only: %i[index edit update] do
       post :impersonate, on: :member
       post :stop_impersonating, on: :collection
     end
