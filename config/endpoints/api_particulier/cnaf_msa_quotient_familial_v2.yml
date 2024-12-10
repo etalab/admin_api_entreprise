@@ -56,27 +56,47 @@
       **Avec la [modalité d'appel FranceConnect](<%= cas_usage_path('modalite_appel_france_connect') %>)**.
 
       <p class="fr-badge fr-badge--brown-cafe-creme">Identité pivot</p>
-      **Avec les données d'identité** :
+      <section class="fr-accordion fr-mt-2v">
+        <p class="fr-accordion__title">
+        <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106"><b>Avec les données d'identité</b></button>
+        </p>
+        <div class="fr-collapse" id="accordion-106">
+        <div class="fr-mb-0">
+        <ul>
+          <li>Nom de naissance<sup>*</sup>, nom d'usage, prénoms<sup>1</sup>, sexe<sup>*</sup>, date de naissance de l'allocataire<sup>**</sup>&nbsp;;</li>
+          <li>Lieu de naissance&nbsp;:
+          <ul>
+            <li>
+            <em>Si le lieu de naissance est en France,</em> la commune de naissance est obligatoire, elle peut être saisie de deux façons différentes :
+            <ul>
+              <li class="fr-text--sm fr-mb-0">
+              Option 1 : Code COG de la commune de naissance<sup>*</sup>. <a href="#renseigner-lieu-de-naissance">En savoir plus</a>&nbsp;;
+              </li>
+              <li class="fr-text--sm fr-mb-0">
+              Option 2 : Nom de la commune de naissance<sup>*</sup> et code du département de naissance<sup>*</sup>. Pour cette option, la date de naissance est obligatoire. <a href="#renseigner-lieu-de-naissance">En savoir plus</a>.
+              </li>
+            </ul>
+            Pour chacune des deux options ci-dessus, le code COG de la France <code>99100</code><sup>*</sup> doit également être renseigné en paramètre d'appel. Vous n'avez pas besoin de le demander à l'usager, il peut être déduit de la commune de naissance.
+            </li>
+            <li class="fr-mt-2v">
+            <em>Si le lieu de naissance est à l'étranger&nbsp;:</em> code COG du pays de naissance<sup>*</sup>.
+            </li>
+          </ul>
+          </li>
+        </ul>
+        </div>
+        <span class="fr-text--xs">
+        <sup>*</sup> Obligatoire | <sup>**</sup> Obligatoire pour l'option 2 du lieu de naissance.
+        </span>
+        <span class="fr-text--xs fr-m-0">
+        <sup>1</sup> Fournir plusieurs prénoms permet de limiter les risques d'homonymie mais un seul prénom peut fonctionner. Attention, l'usager doit compléter chaque prénom dans un champ distinct.
+        </span>
+        <blockquote class="fr-highlight fr-highlight--caution">
+        ⚠️ <strong>Message API Particulier du 04.06.2024</strong> : Nous avons constaté que les appels effectués sans nom de naissance et <strong>avec le nom d'usage ne fonctionnent pas</strong> dans une très grande partie des cas. Après investigation auprès de la CNAV (opérateur de l'API source), API Particulier a donc décidé de passer le paramètre "Nom de naissance" en obligatoire.
+        </blockquote>
+        </div>
+      </section>
 
-        {:.fr-mb-0}
-        - Nom de naissance<sup>\*</sup>, nom d'usage, prénoms<sup>1</sup>, sexe<sup>\*</sup>, date de naissance de l'allocataire<sup>\**</sup>&nbsp;;
-        - Lieu de naissance&nbsp;: 
-            - *Si le lieu de naissance est en France,* la commune de naissance est obligatoire, elle peut être saisie de deux façons différentes :
-                - {:.fr-text--sm .fr-mb-0} Option 1 : Code COG de la commune de naissance<sup>\*</sup>. [En savoir plus](#renseigner-lieu-de-naissance)&nbsp;;
-                - {:.fr-text--sm .fr-mb-0} Option 2 : Nom de la commune de naissance<sup>\*</sup> et code du département de naissance<sup>\*</sup>. Pour cette option, la date de naissance est obligatoire. [En savoir plus](#renseigner-lieu-de-naissance).
-                
-              Pour chacune des deux options ci-dessus, le code COG de la France `99100`<sup>\*</sup> doit également être renseigné en paramètre d'appel. Vous n'avez pas besoin de le demander à l'usager, il peut être déduit de la commune de naissance.
-            - *Si le lieu de naissance est à l'étranger&nbsp;:* code COG du pays de naissance<sup>\*</sup>.
-
-      <span class="fr-text--xs">
-      <sup>\*</sup> Obligatoire | <sup>\**</sup> Obligatoire pour l'option 2 du lieu de naissance.
-      </span>
-      <span class="fr-text--xs fr-m-0">
-      <sup>1</sup> Fournir plusieurs prénoms permet de limiter les risques d'homonymie mais un seul prénom peut fonctionner. Attention, l'usager doit compléter chaque prénom dans un champ distinct.
-      </span>
-
-      {:.fr-highlight.fr-highlight--caution}
-      > ⚠️ **Message API Particulier du 04.06.2024** : Nous avons constaté que les appels effectués sans nom de naissance et **avec le nom d'usage ne fonctionnent pas** dans une très grande partie des cas. Après investigation auprès de la CNAV (opérateur de l'API source), API Particulier a donc décidé de passer le paramètre "Nom de naissance" en obligatoire.
   provider_uids:
     - 'cnav'
   call_id: 
