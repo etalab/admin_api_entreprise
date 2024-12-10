@@ -132,7 +132,9 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
           expect(page).to have_css('#' << dom_id(token))
         end
 
-        expect(page).to have_no_css('#' << dom_id(token_archived))
+        within('#' << dom_id(token_archived)) do
+          expect(page).to have_text('Aucun jeton actif')
+        end
 
         expect(page).to have_text('☠️ Expiré')
         expect(page).to have_text('🚫 Banni')

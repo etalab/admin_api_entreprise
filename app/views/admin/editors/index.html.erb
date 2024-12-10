@@ -1,0 +1,59 @@
+<div class="fr-table fr-table--bordered fr-table--layout-fixed">
+  <table>
+    <caption>
+      Éditeurs
+    </caption>
+    <thead>
+      <tr>
+        <%
+          [
+            'ID',
+            'Nom',
+            'Formulaires',
+            'Emails',
+          ].each do |attr|
+        %>
+          <th scope="col">
+            <%= attr %>
+          </th>
+        <% end %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @editors.each do |editor| %>
+        <tr id="<%= dom_id(editor) %>" class="editor">
+          <td class="editor-id">
+            <%= editor.id %>
+          </td>
+          <td class="editor-name">
+            <%= editor.name %>
+          </td>
+          <td class="editor-form_uids">
+            <ul>
+              <% editor.form_uids.each do |form_uid| %>
+                <% url = "#{datapass_v2_base_url(namespace)}/formulaires/#{form_uid}/demande/nouveau" %>
+                <li>
+                  <%= link_to form_uid, url, target: '_blank' %>
+                </li>
+              <% end %>
+            </ul>
+          </td>
+          <td class="editor-emails">
+            <% if editor.users %>
+              <ul>
+                <% editor.users.each do |user| %>
+                  <li>
+                    <%= user.email %>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @editors %>

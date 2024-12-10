@@ -8,10 +8,17 @@ Rails.application.routes.draw do
   get '/admin', to: redirect('/admin/users')
 
   namespace :admin do
-    resources :users, only: %i[index] do
+    resources :users, only: %i[index edit update] do
       post :impersonate, on: :member
       post :stop_impersonating, on: :collection
     end
+    resources :editors, only: %i[index]
+  end
+
+  get '/editeur', to: redirect('/editeur/habilitations'), as: :editor
+
+  namespace :editor, path: 'editeur' do
+    resources :authorization_requests, only: %i[index], path: 'habilitations'
   end
 
   namespace :api do

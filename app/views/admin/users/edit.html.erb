@@ -1,0 +1,13 @@
+<%= form_for(@user, url: [:admin, @user]) do |f| %>
+  <div class="fr-input-group">
+    <%= f.label :email, class: %w[fr-label] %>
+    <%= f.text_field :email, disabled: true, class: %w[fr-input] %>
+  </div>
+
+  <div class="fr-select-group">
+    <%= f.label :editor, class: %w[fr-label] %>
+    <%= f.collection_select :editor_id, @editors, :id, :name, { include_blank: true }, { class: %w[fr-select] } %>
+  </div>
+
+  <%= f.button :submit, class: %[fr-btn], id: 'submit' %>
+<% end %>
