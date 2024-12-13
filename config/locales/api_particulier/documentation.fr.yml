@@ -110,26 +110,7 @@ fr:
                 content: |+
                   La gestion de la volumétrie est maintenue identique à la dernière évolution de la V.2 et expliquée dans cette [documentation](<%= developers_path(anchor: 'volumétrie') %>)
 
-              - title: 5. Gestion des évolutions futures
-                anchor: 'gestion-des-évolutions-futures'
-                content: |+
-                  **🚀 Avec la V.3 :** Toutes les API pourront évoluer indépendamment les unes des autres. Les anciennes versions resteront disponibles si le fournisseur de la donnée continue de nous transmettre les informations. Le numéro de version devient donc un paramètre de l’appel et non plus une valeur fixe pour toutes les API.
-                  📩 Une infolettre annoncera systématiquement les nouvelles évolutions.
-
-                  {:.fr-highlight.fr-highlight--example}
-                  > **Avant** : L’évolution d’un endpoint exigeait la montée en version de toute l’API.
-
-                  **🤔 Pourquoi ?**
-                  - Permettre l’ajout de nouvelles informations sans forcer les fournisseurs de service à monter de version ;
-                  - Continuer de garantir la continuité des API dans le temps.
-
-                  **🧰 Comment ?**
-                  Renseigner directement le numéro de la version voulue dans l’URL, au même endroit qu’avant, par exemple :
-                  ```
-                  https://particulier.api.gouv.fr/v3/mesri/statut_etudiant/identite
-                  ```
-
-              - title: 6. Une route spécifique pour chaque modalité d'appel
+              - title: 5. Une route spécifique pour chaque modalité d'appel
                 anchor: 'une-route-specifique-pour-chaque-modalite-d-appel'
                 content: |+
                   **🚀 Avec la V.3 :** Chaque modalité d'appel d'une API a son propre endpoint
@@ -149,6 +130,22 @@ fr:
 
                   **🧰 Comment ?**
                   Utiliser [le swagger](<%= developers_openapi_path %>){:target="_blank"}.
+              
+              - title: 6. Les données des payloads, qualifiées et uniformisées d'un point de vue métier
+                anchor: 'donnee-qualifiee-et-uniformisee-metier'
+                content: |+
+                  **🚀 Avec la V.3 :** Nous avons profité de la refonte technique pour uniformiser la façon de traiter la donnée entre les API et compléter significativement les documentations. Ces évolutions concernent plusieurs aspects : 
+                  - **Normaliser et préciser les clés de certains champs qui définissent le même type d'information**. Ainsi quelques règles sont maintenant largement utilisées sur toutes les API, par exemple :
+                    - le statut (étudiant, bénéficaire d'une prestation, etc.) est désormais toujours nommé par une clé préfixée par `est_...`, comme par exemple `est_boursier` ou `est_beneficiaire` ;
+                    - les dates de début et de fin de droit auront les clés `date_debut_droit` / `date_fin_droit` ;
+                    - les clés se veulent les plus précises possibles, par exemple, dans l'API étudiant, : la clé `code_commune` en V.2. devient `code_cog_insee_commune` en V.3. pour éviter toute confusion avec le code postal. 
+                  - **Expliciter l'origine des diverses données d'identité transmises dans les payloads** et préciser si la donnée a été consolidée et comment. Par exemple : au travers d'un recoupement avec une pièce d'identité ou bien avec un répertoire ; 
+                  - Uniformiser le style des clés pour faciliter votre lecture de la documentation. Le format choisi est désormais en XXXX TODO, c'est-à-dire que les mots sont séparés par des _, par exemple `code_cog_insee_commune`.
+
+                  **🤔 Pourquoi ?**
+                  - Simplifier la compréhension et la lecture des données transmises ;
+                  - Faciliter l'intégration de l'API.
+
 
               - title: 7. Des payloads permettant de repérer plus facilement les scopes (droits d'accès)
                 anchor: 'payloads-permettant-de-reperer-les-scopes'
@@ -220,20 +217,36 @@ fr:
                   **🤔 Pourquoi ?**
                   Clarifier quelles informations sont disponibles pour chaque scope.
                   
-              - title: 8. Les données des payloads, qualifiées et uniformisées d'un point de vue métier
-                anchor: 'donnee-qualifiee-et-uniformisee-metier'
+              - title: 8. Les appels via la modalité FranceConnect ne renvoient plus les données d'identité
+                anchor: 'une-route-specifique-pour-chaque-modalite-d-appel'
                 content: |+
-                  **🚀 Avec la V.3 :** Nous avons profité de la refonte technique pour uniformiser la façon de traiter la donnée entre les API et compléter significativement les documentations. Ces évolutions concernent plusieurs aspects : 
-                  - **Normaliser et préciser les clés de certains champs qui définissent le même type d'information**. Ainsi quelques règles sont maintenant largement utilisées sur toutes les API, par exemple :
-                    - le statut (étudiant, bénéficaire d'une prestation, etc.) est désormais toujours nommé par une clé préfixée par `est_...`, comme par exemple `est_boursier` ou `est_beneficiaire` ;
-                    - les dates de début et de fin de droit auront les clés `date_debut_droit` / `date_fin_droit` ;
-                    - les clés se veulent les plus précises possibles, par exemple, dans l'API étudiant, : la clé `code_commune` en V.2. devient `code_cog_insee_commune` en V.3. pour éviter toute confusion avec le code postal. 
-                  - **Expliciter l'origine des diverses données d'identité transmises dans les payloads** et préciser si la donnée a été consolidée et comment. Par exemple : au travers d'un recoupement avec une pièce d'identité ou bien avec un répertoire ; 
-                  - Uniformiser le style des clés pour faciliter votre lecture de la documentation. Le format choisi est désormais en XXXX, c'est-à-dire que les mots sont séparés par des _, par exemple `code_cog_insee_commune`.
+                  **🚀 Avec la V.3 :** Lorsque vous utilisez les API avec FranceConnect, les données d'identité du particulier regroupées sous la clé `"identite"` ne seront plus renvoyées. 
 
                   **🤔 Pourquoi ?**
-                  - Simplifier la compréhension et la lecture des données transmises ;
-                  - Faciliter l'intégration de l'API.
+                  - C'est un impératif de FranceConnect ; 
+                  - FranceConnect est en possession de l'identité pivot de l'usager, ces données sont certifiées et parfois plus fiables que les données livrées par les API, si vous avez besoin des données d'identité, vous pouvez donc les récupérer directement via FranceConnect.
+
+                  **🧰 Comment ?**
+                  XXXXX TODO
+
+              - title: 9. Gestion des évolutions futures
+                anchor: 'gestion-des-évolutions-futures'
+                content: |+
+                  **🚀 Avec la V.3 :** Toutes les API pourront évoluer indépendamment les unes des autres. Les anciennes versions resteront disponibles si le fournisseur de la donnée continue de nous transmettre les informations. Le numéro de version devient donc un paramètre de l’appel et non plus une valeur fixe pour toutes les API.
+                  📩 Une infolettre annoncera systématiquement les nouvelles évolutions.
+
+                  {:.fr-highlight.fr-highlight--example}
+                  > **Avant** : L’évolution d’un endpoint exigeait la montée en version de toute l’API.
+
+                  **🤔 Pourquoi ?**
+                  - Permettre l’ajout de nouvelles informations sans forcer les fournisseurs de service à monter de version ;
+                  - Continuer de garantir la continuité des API dans le temps.
+
+                  **🧰 Comment ?**
+                  Renseigner directement le numéro de la version voulue dans l’URL, au même endroit qu’avant, par exemple :
+                  ```
+                  https://particulier.api.gouv.fr/v3/mesri/statut_etudiant/identite
+                  ```
       
       developers:
         title: Espace développeurs&nbsp;🛠
