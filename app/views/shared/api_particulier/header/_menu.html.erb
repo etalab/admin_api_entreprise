@@ -34,6 +34,16 @@
           </li>
         <% end %>
 
+        <% if user_signed_in? && current_user.editor? %>
+          <li class="fr-nav__item">
+            <a class="fr-nav__link center" href="<%= editor_path %>" target="_self">
+              <strong>Espace éditeurs</strong>
+              <br />
+              Gestion clients
+            </a>
+          </li>
+        <% end %>
+
         <li class="ask-access-link fr-nav__item">
           <a class="fr-nav__link center" href="https://api.gouv.fr/les-api/api-particulier/demande-acces" target="_blank">
             <%= t('.ask_access').html_safe %>
