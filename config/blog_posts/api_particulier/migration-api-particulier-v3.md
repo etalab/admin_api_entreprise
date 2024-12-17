@@ -3,10 +3,6 @@ Mercredi 8 novembre 2023 - Publication
 # Guide de migration V.2 => V.3
 ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_particulier/blog/lieu-naissance-code-cog-en-tete.png') %>)
 
-{:.fr-highlight}
-**Qu'est que le code COG ?**
-Le code COG (Code Officiel Géographique) est un code permettant de repérer notamment les communes et les territoires étrangers. Ce code est différent du code postal et peut évoluer dans le temps. C'est pourquoi, le code COG demandé pour identifier un particulier est le **code COG du pays de naissance et de la commune de naissance si le particulier est né à en France**.
-*Pour en savoir plus : [Code COG - Insee.fr](https://www.insee.fr/fr/information/2560452){:target="_blank"} et [Codification des pays et territoires étrangers - Insee.fr](https://www.insee.fr/fr/information/2028273){:target="_blank"}*.
 
 <nav class="fr-summary" role="navigation" aria-labelledby="fr-summary-title">
  <p class="fr-summary__title" id="fr-summary-title">Sommaire</p>
@@ -179,72 +175,76 @@ Utiliser [le swagger](<%= developers_openapi_path %>){:target="_blank"}.
 
 ### <a name="payloads-permettant-de-reperer-les-scopes"></a>7. Des payloads permettant de repérer plus facilement les scopes (droits d'accès)
 
-**🚀 Avec la V.3 :** Les scopes sont repérables plus facilement car ils sont incarnés par une seule clé (qui peut être une clé parente) et qui dans la mesure du possible se trouve à la racine du tableau `"data"`. Ce changement est particulièrement visible sur l'API statut étudiant boursier : 
+**🚀 Avec la V.3 :** Les scopes sont repérables plus facilement car désormais la donnée accessible pour un scope est la donnée inclue dans la clé correspondante de la payload. Concrêtement, cela signifie que les scopes sont souvent des clés parentes, regroupant plusieurs données, toutes accessibles à partir du moment où le droit a été délivré. Dans la mesure du possible, le scope se trouve à la racine du tableau `"data"`. 
+Ce changement est particulièrement visible sur l'[API statut étudiant boursier](https://particulier.api.gouv.fr/catalogue/cnous/statut_etudiant_boursier), où chaque clé à la racine du tableau est un scope. 
 
-###### Exemple avec la payload V.3. de l'API Étudiant boursier :
-Dans cette payload, les différents scopes pour lesquels vous pouvez demander une habilitation sont très visibles :  
+Dans certains cas où l'API délivre une liste d'objet, comme pour l'API statut étudiant, un scope peut contenir des sous-scopes. Le scope parent active la délivrance de la liste d'objets, les sous-scopes activent la délivrance de certaines données concernant l'objet en lui-même.
 
-```
-{
-    "data": {
-    "identite": {   ## Scope "identité"
-        "nom": "Moustaki",
-        "prenoms": ["Georges", "Claude"],
-        "date_naissance": "1992-11-29",
-        "nom_commune_naissance": "Poitiers",
-        "sexe": "M"
+###### Exemples des différentes typologies de scopes avec l'API Statut étudiant
+
+<pre><code>{
+ "data": {
+  "identite": { <span style="color: blue; font-weight: bold;">// Scope classique avec plusieurs clés</span>
+   "nom_naissance": "Moustaki",
+   "prenom": "Georges",
+   "date_naissance": "1992-11-29"
+  },
+  "admissions": [ <span style="color: blue; font-weight: bold;">// Scope parent car liste d'objets</span>
+   {
+    "date_debut": "2022-09-01", <span style="color: gray; font-weight: bold;">// Par défaut dans le scope parent</span>
+    "date_fin": "2023-08-31", <span style="color: gray; font-weight: bold;">// Par défaut dans le scope parent</span>
+    "est_inscrit": true, <span style="color: green; font-weight: bold;">// Sous-scope avec une seule clé</span>
+    "regime_formation": { <span style="color: green; font-weight: bold;">// Sous-scope avec plusieurs clés</span>
+     "libellé": "formation initiale",
+     "code": "RF1"
     },
-    "est_boursier": true, ## Scope "statut"
-    "periode_versement_bourse": { ## Scope "Période de versement"
-        "date_rentree": "2019-09-01",
-        "duree": 12
-    },
-    "etablissement_etudes": { ## Scope "Établissement et ville d'études"
-        "nom_commune": "Brest",
-        "nom_etablissement": "Carnot"
-    },
-    "echelon_bourse": "6", ## Scope "Échelon de la bourse"
-    "email": "georges@moustaki.fr", ## Scope "E-mail
-    "statut_bourse": { ## Scope "Statut définitif de la bourse"
-        "code": 0,
-        "libelle": "définitif"
+    "code_cog_insee_commune": "29085", <span style="color: green; font-weight: bold;">// Sous-scope avec une seule clé</span>
+    "etablissement_etudes": { <span style="color: green; font-weight: bold;">// Sous-scope avec plusieurs clés</span>
+     "uai": "0011402U",
+     "nom": "EGC AIN BOURG EN BRESSE EC GESTION ET COMMERCE (01000)"
     }
-    },
-    "links": {},
-    "meta": {}
+   }
+  ]
+ },
+ "links": {},
+ "meta": {}
 }
-```
+</code></pre>
+
 
 {:.fr-highlight.fr-highlight--example}
-> Avant : Les droits d'accès pouvait couvrir une ou plusieurs clés dans la payload, il n'y avait pas de règles. Dans certains cas, un scope pouvait même indiquer un périmètre de particuliers concernés.
+> Avant : Les droits d'accès pouvaient couvrir une ou plusieurs clés dans la payload, il n'y avait pas de règles. Dans certains cas, un scope pouvait même indiquer un périmètre de particuliers concernés.
 
 > ###### Exemple avec la payload V.2. de l'API Étudiant boursier :
-> ```
-> {
->   "data": {
->     "nom": "Moustaki",
->     "prenom": "Georges",
->     "prenom2": "Claude",
->     "date_naissance": "1992-11-29",
->     "lieu_naissance": "Poitiers",
->     "sexe": "M",
->     "boursier": true,
->     "echelon_bourse": "6",
->     "email": "georges@moustaki.fr",
->     "date_de_rentree": "2019-09-01",
->     "duree_versement": 12,
->     "statut": 0,
->     "statut_libelle": "définitif",
->     "ville_etudes": "Brest",
->     "etablissement": "Carnot"
->   },
->   "links": {},
->   "meta": {}
-> }
-> ```
+
+<blockquote>
+ <pre><code>{
+  "data": { <span style="color: gray; font-weight: bold;">// Scope parent 1</span>
+   "nom": "Moustaki", <span style="color: gray; font-weight: bold;">// Scope 2</span>
+   "prenom": "Georges", <span style="color: gray; font-weight: bold;">// Scope 2</span>
+   "prenom2": "Claude", <span style="color: gray; font-weight: bold;">// Scope 2</span>
+   "date_naissance": "1992-11-29", <span style="color: gray; font-weight: bold;">// Scope 2</span>
+   "lieu_naissance": "Poitiers", <span style="color: gray; font-weight: bold;">// Scope 2</span>
+   "sexe": "M", <span style="color: gray; font-weight: bold;">// Scope 2</span>
+   "boursier": true,
+   "echelon_bourse": "6", <span style="color: gray; font-weight: bold;">// Scope 3</span>
+   "email": "georges@moustaki.fr", <span style="color: gray; font-weight: bold;">// Scope 4</span>
+   "date_de_rentree": "2019-09-01",
+   "duree_versement": 12,
+   "statut": 0, <span style="color: gray; font-weight: bold;">// Scope 5</span>
+   "statut_libelle": "définitif", <span style="color: gray; font-weight: bold;">// Scope 5</span>
+   "ville_etudes": "Brest",
+   "etablissement": "Carnot"
+  },
+  "links": {},
+  "meta": {}
+ }</code></pre>
+</blockquote>
 
 **🤔 Pourquoi ?**
-Clarifier quelles informations sont disponibles pour chaque scope.
+- Clarifier quelles informations sont disponibles pour chaque scope.
+- Simplifier l'utilisation des scopes lorsque l'API transmet des listes d'objet.
+- Faciliter les demandes d'habilitation.
 
 ### <a name="refonte-des-scopes-de-certaines-api"></a>8. Refonte des scopes de certaines API
 
@@ -263,7 +263,6 @@ XXXX TODO => Mieux comprendre les scopes
 
 **🧰 Comment ?**
 - Si vous aviez déjà demandé une habilitation pour les API statut demandeur d'emploi ou élève scolarisé, les scopes `pole_emploi_identifiant` et `men_statut_identite`, qui étaient disponibles par défaut en V.2. vous ont automatiquement été attribués. Vous n'avez rien à faire.
-
 
 
 ### <a name="une-route-specifique-pour-chaque-modalite-d-appel"></a>9. Les appels via la modalité FranceConnect ne renvoient plus les données d'identité
