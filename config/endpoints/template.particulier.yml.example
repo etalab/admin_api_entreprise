@@ -1,10 +1,26 @@
 ---
+# L'UID sert à identifier cette entrée de manière unique, et est utilisé pour l'URL de la fiche métier
 - uid: 'pole_emploi/situation'
-  opening: open
-  call_id: "POLE EMPLOI"
+  # Ne peut être que public ou protected
+  opening: public
+  # Le(s) paramètre(s) utilisé pour appeller l'endpoint
+  # Utilisé dans le summary de la fiche (depuis '/catalogue')
+  # Similaire à '- parameters' mais peut être différent pour des
+  # raisons de lisibilité
+  call_id:
+    - Identité pivot
+  # Paramètres d'appel, habituellement 'Identité pivot', 'FranceConnect'
+  parameters:
+    - Identité pivot
+  # Doit correspondre au path dans le swagger
   path: '/api/v2/situations-pole-emploi'
   # Position au sein de l'index
   position: 200
+  # Facultatif: dans le cas où une nouvelle version est disponible;
+  # L'ancienne version doit avoir la clef 'old_endpoint_uids' avec la valeur de l'UID actuel (ici, 'pole_emploi/situation')
+  # Supprimer cette clef dans les autres cas de figure
+  new_endpoint_uids:
+    - 'pole_emploi/deprecated_old_version/situation'
   perimeter:
     entity_type_description: |+
       Une description exhaustive des types d'entité renvoyés par le endpoint dans la fiche détaillée. Le markdown GFM est supporté ici.
@@ -36,8 +52,6 @@
   # Ces mots clés servent à la recherche algolia sur l'index du catalogue
   keywords:
     - 'whatever'
-  parameters:
-    - Identité pivot
   use_cases:
     - Attribution des aides à la scolarité
     - Attribution des aides sociales
