@@ -1,4 +1,4 @@
-DOCKER_COMPOSE_CMD = docker-compose
+DOCKER_COMPOSE_CMD = docker compose
 RAILS_DOCKER_CMD = ${DOCKER_COMPOSE_CMD} exec -e POSTGRES_HOST=db web bundle exec rails
 
 install:
