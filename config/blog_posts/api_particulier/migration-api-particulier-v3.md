@@ -172,7 +172,7 @@ Utiliser [le swagger](<%= developers_openapi_path %>){:target="_blank"}.
 - Faciliter l'intégration de l'API.
 
 
-### <a name="refonte-des-scopes-de-certaines-api"></a>7. Refonte des scopes
+### <a name="refonte-des-scopes"></a>7. Refonte des scopes
 
 **🚀 Avec la V.3 :** Les scopes sont repérables plus facilement car désormais la donnée accessible pour un scope est la donnée inclue dans la clé correspondante de la payload. Concrêtement, cela signifie que les scopes sont souvent des clés parentes, regroupant plusieurs données, toutes accessibles à partir du moment où le droit a été délivré. Dans la mesure du possible, le scope se trouve à la racine du tableau `"data"`. 
 Ce changement est particulièrement visible sur l'[API statut étudiant boursier](https://particulier.api.gouv.fr/catalogue/cnous/statut_etudiant_boursier), où chaque clé à la racine du tableau est un scope. 
