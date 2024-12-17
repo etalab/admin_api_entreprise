@@ -20,9 +20,8 @@ Mardi 17 décembre 2024 - Publication
     <li> <a class="fr-summary__link" href="#volumétrie-indiquée-dans-le-header-et-actionnable">4. Volumétrie indiquée dans le header et actionnable</a></li>
     <li> <a class="fr-summary__link" href="#une-route-specifique-pour-chaque-modalite-d-appel">5. Une route spécifique pour chaque modalité d'appel</a></li>
     <li> <a class="fr-summary__link" href="#donnee-qualifiee-et-uniformisee-metier">6. Les données des payloads, qualifiées et uniformisées d'un point de vue métier</a></li>
-    <li> <a class="fr-summary__link" href="#payloads-permettant-de-reperer-les-scopes">7. Des payloads permettant de repérer plus facilement les scopes (droits d'accès)</a></li>
-    <li> <a class="fr-summary__link" href="#refonte-des-scopes-de-certaines-api">8. Refonte des scopes de certaines API</a></li>
-    <li> <a class="fr-summary__link" href="#une-route-specifique-pour-chaque-modalite-d-appel">9. Les appels via la modalité FranceConnect ne renvoient plus les données d'identité</a></li>
+    <li> <a class="fr-summary__link" href="#refonte-des-scopes">7. Refonte des scopes</a></li>
+    <li> <a class="fr-summary__link" href="#une-route-specifique-pour-chaque-modalite-d-appel">8. Les appels via la modalité FranceConnect ne renvoient plus les données d'identité</a></li>
     </ul>
   </li>
   <li>
@@ -33,7 +32,7 @@ Mardi 17 décembre 2024 - Publication
 
 <br/>
 
-## <a name="introduction"></a>Introduction
+<h2 class="fr-h2" style="padding: 2px; background-color : #fff9c4; display: inline-block"><a name="introduction"></a>Introduction</h2>
 
 {:.fr-text--lead}
 Ce guide **liste les changements effectués** entre la version 2 de l’API&nbsp;Particulier et la version 3, et vous livre les **éléments nécessaires pour effectuer la migration**.
@@ -50,8 +49,7 @@ Les évolutions présentées ici ont été guidées par les objectifs suivants&n
 > **Votre jeton d'accès reste identique 🔑**
 > Pour accéder à la version 3 de l'API&nbsp;Particulier, utilisez le même token qu'en V.2. En effet, tant que votre jeton est valide, il est inutile de refaire une demande d'accès car la migration vers la V.3 ne change pas les droits que vous avez déjà obtenu.
 
-
-## <a name="evolutions-generales"></a>Évolutions générales
+<h2 class="fr-h2" style="padding: 2px; margin-top: 10px; background-color : #fff9c4; display: inline-block"><a name="evolutions-generale"></a>Évolutions générales</h2>
 
 ### <a name="jeton-dacces-a-parametrer-dans-le-header"></a> 1. Jeton d'accès à paramétrer dans le header
 
@@ -135,7 +133,7 @@ La liste de tous les codes erreurs spécifiques (environ 80) est disponible dans
 
 ### <a name="volumétrie-indiquée-dans-le-header-et-actionnable"></a> 4. Volumétrie indiquée dans le header et actionnable
 
-La gestion de la volumétrie est maintenue identique à la dernière évolution de la V.2 et expliquée dans cette [documentation](<%= developers_path(anchor: 'volumétrie') %>)
+La gestion de la volumétrie est maintenue identique à la dernière évolution de la V.2 et expliquée dans cette [documentation](<%= developers_path(anchor: 'volumétrie') %>).
 
 
 ### <a name="une-route-specifique-pour-chaque-modalite-d-appel"></a> 5. Une route spécifique pour chaque modalité d'appel
@@ -174,7 +172,7 @@ Utiliser [le swagger](<%= developers_openapi_path %>){:target="_blank"}.
 - Faciliter l'intégration de l'API.
 
 
-### <a name="payloads-permettant-de-reperer-les-scopes"></a>7. Des payloads permettant de repérer plus facilement les scopes (droits d'accès)
+### <a name="refonte-des-scopes-de-certaines-api"></a>7. Refonte des scopes
 
 **🚀 Avec la V.3 :** Les scopes sont repérables plus facilement car désormais la donnée accessible pour un scope est la donnée inclue dans la clé correspondante de la payload. Concrêtement, cela signifie que les scopes sont souvent des clés parentes, regroupant plusieurs données, toutes accessibles à partir du moment où le droit a été délivré. Dans la mesure du possible, le scope se trouve à la racine du tableau `"data"`. 
 Ce changement est particulièrement visible sur l'[API statut étudiant boursier](https://particulier.api.gouv.fr/catalogue/cnous/statut_etudiant_boursier), où chaque clé à la racine du tableau est un scope. 
@@ -243,31 +241,15 @@ Dans certains cas où l'API délivre une liste d'objet, comme pour l'API statut 
 </blockquote>
 
 **🤔 Pourquoi ?**
-- Clarifier quelles informations sont disponibles pour chaque scope.
-- Simplifier l'utilisation des scopes lorsque l'API transmet des listes d'objet.
-- Faciliter les demandes d'habilitation.
-
-### <a name="refonte-des-scopes-de-certaines-api"></a>8. Refonte des scopes de certaines API
-
-**🚀 Avec la V.3 :** Certains scopes (droits d'accès) ont été modifiés : 
-- API Statut demandeur d'emploi : Le scope `pole_emploi_identifiant` a été créé. Par conséquent, l'identifiant pôle emploi n'est plus retourné par défaut par l'API.
-- API Statut élève scolarisé : Le scope `men_statut_identite` a été créé. Par conséquent, les données d'identité de l'élève (nom, prénom, sexe et date de naissance) ne sont plus retournées par défaut par l'API.
-- API Statut étudiant : Les scopes de cette API ont été largement transformés car ils étaient incompréhensibles. Les scopes `mesri_inscription_etudiant`, `mesri_inscription_autre` et  `mesri_admission` ont donc été supprimés et remplacés par un seul et même scope : `mesri_admissions`. Le scope `mesri_regime` a été créé. Par conséquent, le régime de formation de l'élève n'est plus donné par défaut.
-XXXX TODO => Mieux comprendre les scopes
-
-{:.fr-highlight.fr-highlight--example}
-> **Avant** : Dans la V.2., 
-
-**🤔 Pourquoi ?**
-- De nouveaux scopes ont été créés afin de répondre aux exigences de l'[article 4 de la loi informatique et libertés](https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000037822953/){:target="_blank"} qui stipule que seules les données strictement nécessaires à la réalisation des missions peuvent être manipulées. La création de nouveaux scopes permet une meilleure granularité
-- Certains scopes filtraient les étudiant transmis selon leur régime de formation. Ce fonctionnement n'a pas lieu d'être, rendait la compréhension des scopes très difficile, il a donc été supprimé.
+- Clarifier quelles informations sont disponibles pour chaque scope pour faciliter les demandes d'habilitation ;
+- Supprimer les scopes qui couvraient une partie du périmètre car trop complexes à comprendre ;
+- Créer de nouveaux scopes afin de répondre aux exigences de l'[article 4 de la loi informatique et libertés](https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000037822953/){:target="_blank"} qui stipule que seules les données strictement nécessaires à la réalisation des missions peuvent être manipulées. La création de nouveaux scopes permet une meilleure granularité.
 
 **🧰 Comment ?**
-- Si vous aviez déjà demandé une habilitation pour les API statut demandeur d'emploi ou élève scolarisé, les scopes `pole_emploi_identifiant` et `men_statut_identite`, qui étaient disponibles par défaut en V.2. vous ont automatiquement été attribués. Vous n'avez rien à faire.
+XXXX TODO expliciter ici s'ils doivent refaire une demande d'habilitation
 
-
-### <a name="une-route-specifique-pour-chaque-modalite-d-appel"></a>9. Les appels via la modalité FranceConnect ne renvoient plus les données d'identité
-**🚀 Avec la V.3 :** Lorsque vous utilisez les API avec FranceConnect, les données d'identité du particulier regroupées sous la clé `"identite"` ne seront plus renvoyées. 
+### <a name="une-route-specifique-pour-chaque-modalite-d-appel"></a>8. Les appels via la modalité FranceConnect ne renvoient plus les données d'identité
+**🚀 Avec la V.3 :** Lorsque vous utilisez les API avec FranceConnect, les données d'identité du particulier regroupées sous la clé (et le scope) `"identite"` ne seront plus renvoyées. 
 
 **🤔 Pourquoi ?**
 - C'est un impératif de FranceConnect ; 
@@ -276,4 +258,4 @@ XXXX TODO => Mieux comprendre les scopes
 **🧰 Comment ?**
 XXXXX TODO
 
-## <a name="table-correspondance"> Table de correspondance de chaque API
+<h2 class="fr-h2" style="padding: 2px; margin-top: 10px; background-color : #fff9c4; display: inline-block"><a name="table-correspondance"></a>Table de correspondance de chaque API</h2>
