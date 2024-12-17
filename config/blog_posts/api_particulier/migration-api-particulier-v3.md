@@ -246,7 +246,7 @@ Dans certains cas où l'API délivre une liste d'objet, comme pour l'API statut 
 - Créer de nouveaux scopes afin de répondre aux exigences de l'[article 4 de la loi informatique et libertés](https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000037822953/){:target="_blank"} qui stipule que seules les données strictement nécessaires à la réalisation des missions peuvent être manipulées. La création de nouveaux scopes permet une meilleure granularité.
 
 **🧰 Comment ?**
-XXXX TODO expliciter ici s'ils doivent refaire une demande d'habilitation
+Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous sommes assurés de transférer le plus possible vos droits dans les nouveaux scopes. Pour vérifier les changements de scopes pour chaque API, vous pouvez utiliser la table de correspondance.
 
 ### <a name="une-route-specifique-pour-chaque-modalite-d-appel"></a>8. Les appels via la modalité FranceConnect ne renvoient plus les données d'identité
 **🚀 Avec la V.3 :** Lorsque vous utilisez les API avec FranceConnect, les données d'identité du particulier regroupées sous la clé (et le scope) `"identite"` ne seront plus renvoyées. 
