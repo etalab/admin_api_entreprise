@@ -11,37 +11,43 @@ Le code COG (Code Officiel Géographique) est un code permettant de repérer not
 <nav class="fr-summary" role="navigation" aria-labelledby="fr-summary-title">
  <p class="fr-summary__title" id="fr-summary-title">Sommaire</p>
  <ol class="fr-summary__list">
+ <li>
+   <a class="fr-summary__link fr-text--lg" href="#introduction"> Introduction</a>
+  </li>
   <li>
-   <a class="fr-summary__link" href="#evolutions-generales">Évolutions générales</a>
+   <a class="fr-summary__link fr-text--lg" href="#evolutions-generales">Évolutions générales</a>
    <ul>
-    <li></li>
+    <li> <a class="fr-summary__link" href="#jeton-dacces-a-parametrer-dans-le-header">1. Jeton d'accès à paramétrer dans le header</a></li>
+    <li> <a class="fr-summary__link" href="#votre-numéro-de-siret-obligatoire-dans-le-recipient">2. Numéro de SIRET obligatoire dans le "recipient"</a></li>
+    <li> <a class="fr-summary__link" href="#codes-erreurs-specifiques-a-chaque-situation-actionnables-et-documentes">3. Codes erreurs spécifiques à chaque situation, actionnables et documentés</a></li>
+    <li> <a class="fr-summary__link" href="#volumétrie-indiquée-dans-le-header-et-actionnable">4. Volumétrie indiquée dans le header et actionnable</a></li>
+    <li> <a class="fr-summary__link" href="#une-route-specifique-pour-chaque-modalite-d-appel">5. Une route spécifique pour chaque modalité d'appel</a></li>
+    <li> <a class="fr-summary__link" href="#donnee-qualifiee-et-uniformisee-metier">6. Les données des payloads, qualifiées et uniformisées d'un point de vue métier</a></li>
+    <li> <a class="fr-summary__link" href="#payloads-permettant-de-reperer-les-scopes">7. Des payloads permettant de repérer plus facilement les scopes (droits d'accès)</a></li>
+    <li> <a class="fr-summary__link" href="#refonte-des-scopes-de-certaines-api">8. Refonte des scopes de certaines API</a></li>
+    <li> <a class="fr-summary__link" href="#une-route-specifique-pour-chaque-modalite-d-appel">9. Les appels via la modalité FranceConnect ne renvoient plus les données d'identité</a></li>
     </ul>
   </li>
   <li>
-   <a class="fr-summary__link" href="#table-correspondance">❌ Table de correspondance de chaque API</a>
-  </li>
-  <li>
-   <a class="fr-summary__link" href="#option-1">✅ Option 1 : Saisie du code COG par l'usager, accompagné d'un tutoriel</a>
-  </li>
-  <li>
-   <a class="fr-summary__link" href="#option-2">✅ Option 2 : Année et lieu de naissance saisis par l'usager, code code déduit en arrière-plan</a>
+   <a class="fr-summary__link fr-text--lg" href="#table-correspondance"> Table de correspondance de chaque API</a>
   </li>
  </ol>
 </nav>
 
 <br/>
 
-## <a name="code-cog-inconnu"></a>Introduction
+## <a name="introduction"></a>Introduction
 
-{:.fr-text--lg}
-> **Ce guide liste les changements effectués entre la version 2 de l’API&nbsp;Particulier et la version 3, et vous livre les éléments nécessaires pour effectuer la migration**.
+{:.fr-text--lead}
+Ce guide **liste les changements effectués** entre la version 2 de l’API&nbsp;Particulier et la version 3, et vous livre les **éléments nécessaires pour effectuer la migration**.
 
-Les évolutions présentées ici ont été guidées par trois objectifs&nbsp;:&nbsp;
-- assurer une meilleure sécurité de la donnée des fournisseurs ;
-- normaliser les formats pour faciliter la compréhension et l’industrialisation ;
-- clarifier la documentation et simplifier les routes des différentes modalités d'appel ;
-- clarifier, documenter les réponses et les rendre actionnables par vos logiciels ;
-- faire converger l'architecture technique de l'API Particulier avec celle de l'API Entreprise.
+{:.fr-text--lead}
+Les évolutions présentées ici ont été guidées par les objectifs suivants&nbsp;:&nbsp;
+- Assurer une meilleure sécurité de la donnée des fournisseurs ;
+- Normaliser les formats pour faciliter la compréhension et l’industrialisation ;
+- Clarifier la documentation et simplifier les routes des différentes modalités d'appel ;
+- Clarifier, documenter les réponses et les rendre actionnables par vos logiciels ;
+- Faire converger l'architecture technique de l'API Particulier avec celle de l'API Entreprise.
 
 {:.fr-highlight.fr}
 > **Votre jeton d'accès reste identique 🔑**
@@ -66,7 +72,7 @@ Utilisez un client REST API pour tester les API pendant le développement.
 Des clients sont disponibles gratuitement. API&nbsp;Particulier utilise pour ses propres tests le client Insomnia. Le plus connu sur le marché est Postman.
 Une fois le client installé, vous pouvez directement intégrer notre fichier [Swagger/OpenAPI](<%= developers_openapi_path %>){:target="_blank"} dedans.
 
-### <a name="votre-numéro-de-siret-obligatoire-dans-le-recipient"></a> 2. Votre numéro de SIRET obligatoire dans le "recipient"
+### <a name="votre-numéro-de-siret-obligatoire-dans-le-recipient"></a> 2. Numéro de SIRET obligatoire dans le "recipient"
 
  **🚀 Avec la V.3 :** Le paramètre obligatoire `recipient` de l’URL d’appel devra obligatoirement être complété par votre numéro de SIRET.
 
@@ -156,7 +162,7 @@ Désormais avec la V.3. chaque modalité d'appel a son propre endpoint, matéria
 Utiliser [le swagger](<%= developers_openapi_path %>){:target="_blank"}.
               
 
-### <a name="donnee-qualifiee-et-uniformisee-metier"></a> 6. Les données des payloads, qualifiées et uniformisées d'un point de vue métierlité d'appel
+### <a name="donnee-qualifiee-et-uniformisee-metier"></a> 6. Les données des payloads, qualifiées et uniformisées d'un point de vue métier
 
 **🚀 Avec la V.3 :** Nous avons profité de la refonte technique pour uniformiser la façon de traiter la donnée entre les API et compléter significativement les documentations. Ces évolutions concernent plusieurs aspects : 
 - **Normaliser et préciser les clés de certains champs qui définissent le même type d'information**. Ainsi quelques règles sont maintenant largement utilisées sur toutes les API, par exemple :
@@ -240,7 +246,7 @@ Dans cette payload, les différents scopes pour lesquels vous pouvez demander un
 **🤔 Pourquoi ?**
 Clarifier quelles informations sont disponibles pour chaque scope.
 
-### <a name="certains-scopes-crees-modifies-supprimes"></a>8. Certains scopes ont été créés / supprimés / modifiés
+### <a name="refonte-des-scopes-de-certaines-api"></a>8. Refonte des scopes de certaines API
 
 **🚀 Avec la V.3 :** Certains scopes (droits d'accès) ont été modifiés : 
 - API Statut demandeur d'emploi : Le scope `pole_emploi_identifiant` a été créé. Par conséquent, l'identifiant pôle emploi n'est plus retourné par défaut par l'API.
