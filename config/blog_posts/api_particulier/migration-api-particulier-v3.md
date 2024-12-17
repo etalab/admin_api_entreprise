@@ -1,7 +1,8 @@
-Mercredi 8 novembre 2023 - Publication
+Mardi 17 décembre 2024 - Publication
 
-# Guide de migration V.2 => V.3
-![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_particulier/blog/lieu-naissance-code-cog-en-tete.png') %>)
+<div style="background-color: #fff9c4; padding: 20px 10px ; border-radius: 5px; width: 100%; box-sizing: border-box;">
+  <h1 class="fr-h1" style="margin: 0; color: #333; text-align: center; ">Guide de migration V.2 ➡️ V.3</h1>
+</div>
 
 
 <nav class="fr-summary" role="navigation" aria-labelledby="fr-summary-title">
