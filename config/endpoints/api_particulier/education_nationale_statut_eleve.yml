@@ -3,9 +3,7 @@
   opening: protected
   path: '/api/v2/scolarites'
   ping_url: 'https://particulier.api.gouv.fr/api/men_scolarite/ping'
-  position: &education_nationale_position 500
-  new_endpoint_uids:
-    - 'education_nationale/statut_eleve_scolarise_v2'
+  position: 500
   perimeter:
     entity_type_description: |+
       Cette API concerne les **✅ élèves de la maternelle, du primaire, du collège et du lycée**.
@@ -48,14 +46,13 @@
   data:
     description: |+
       Cette API **indique si l'élève est scolarisé et sous quel statut** pour l'[année scolaire en cours et bientôt N+1](#faq_entry_0_api_particulier_endpoint_education_nationale_statut_eleve_scolarise). Le statut boursier ainsi que l'échelon de bourse est également précisé le cas échéant.
-  provider_uids: &education_nationale_provider_uids
+  provider_uids:
     - 'education_nationale'
-  keywords: &education_nationale_keywords
-    - 'scolarité'
+  keywords: []
   call_id:
     - Identité pivot
     - FranceConnect
-  parameters: &education_nationale_parameters
+  parameters:
     - Identité pivot
   faq:
     - q: De quelle année scolaire sont les données transmises ?
@@ -93,74 +90,3 @@
     - q: À quoi correspondent les échelons de bourse ?
       a:
         "Il existe trois échelons de bourses pour les collégiens, de 1 à 3 et six échelons pour les lycéens, de 1 à 6. Chaque échelon de bourse indique **le montant reçu par l'élève pour l'année scolaire**. Le montant de la bourse dépend d'un barème en fonction du revenu fiscal et du nombre enfants à charge du foyer."
-
-- uid: 'education_nationale/statut_eleve_scolarise_v2'
-  opening: protected
-  new_version: true
-  old_endpoint_uids:
-    - 'education_nationale/statut_eleve_scolarise'
-  path: '/api/v2/scolarites'
-  ping_url: 'https://particulier.api.gouv.fr/api/men_scolarite_v2/ping'
-  position: *education_nationale_position
-  perimeter:
-    entity_type_description: |+
-      Cette API concerne les **✅ élèves de la maternelle, du primaire, du collège et du lycée**.
-
-      Une **large majorité d'établissements** sont concernés :
-      - ✅ établissements publics ;
-      - ✅ établissements privés sous contrat ;
-      - ✅ lycées militaires dépendant du ministère des armées ;
-      - ✅ lycées maritimes dépendant du ministère de la mer ;
-      - ✅ une partie des formations à distance du CNED.
-
-
-      **Les établissements et formations suivants ne sont pas couverts par l'API** :
-      - ❌ établissements privés hors contrat ;
-      - ❌ lycées agricoles (à venir pour l'année scolaire 2026-2027) ;
-      - ❌ instruction dans la famille ;
-      - ❌ BTS et Classe préparatoire aux grandes écoles, diffusés par l'[API Statut étudiant](https://particulier.api.gouv.fr/catalogue/mesri/statut_etudiant).
-
-    geographical_scope_description:  |+
-      - ✅ France métropolitaine
-      - ✅ DROM-COM
-
-    updating_rules_description: |+
-      Cette API délivre les informations de l'[année scolaire en cours et l'année scolaire à venir seulement pour le second degré avec différentes échéances (N+1)](#faq_entry_0_api_particulier_endpoint_education_nationale_statut_eleve_scolarise).
-
-      Les données du **premier degré** (primaire) sont mises à jour en **temps réel**. Les données du **second degré** (collèges et lycées) sont mises à jour **quotidiennement toutes les nuits**.
-
-      Les informations, même si elles évoluent principalement lors de la rentrée scolaire en septembre, peuvent changer en cours d'année (déménagements, etc.).
-
-  parameters_details:
-    description: |+
-      Cette API propose une modalité d'appel :
-      <p class="fr-badge fr-badge--brown-cafe-creme">Identité pivot</p>
-      **Avec les données d'identité** : Nom<sup>\*</sup>, prénom<sup>\*</sup>, sexe<sup>\*</sup> et date de naissance de l'élève<sup>\*</sup>, ainsi que le code UAI de l'établissement<sup>\*</sup> et l'année scolaire<sup>\*</sup> souhaitées.
-      <span class="fr-text--xs">
-      <sup>\*</sup> Obligatoire.
-      </span>
-  data:
-    description: |+
-      Cette API **indique si l'élève est scolarisé et sous quel statut** pour l'[année scolaire en cours et l'année scolaire à venir seulement pour le second degré avec différentes échéances (N+1)](#faq_entry_0_api_particulier_endpoint_education_nationale_statut_eleve_scolarise).
-  provider_uids: *education_nationale_provider_uids
-  keywords: *education_nationale_keywords
-  call_id:
-    - Identité pivot
-  parameters: *education_nationale_parameters
-  faq:
-    - q: De quelle année scolaire sont les données transmises ?
-      a: |+
-        #### Année scolaire en cours :
-        Cette API permet d'appeler les informations de scolarité d'un élève de l'année scolaire en cours.
-        Il existe toutefois quelques nuances :
-        - ✅ Pour les **élèves du premier degrés**, les données de l'année scolaire en cours sont accessibles ; et spécifiquement pour le premier degré, uniquement à partir du lendemain de la rentrée ;
-        - ✅ Pour les **élèves du second degré**, les données de l'année scolaire n+1 sont accessibles fin juin pour les collégiens et fin août pour les lycéens.
-        - ⚠️ Pour les **élèves des établissements privés**, le constat de rentrée obligatoire pour ces établissements se fait fréquemment en octobre. Par conséquent, il peut arriver qu'au mois de septembre, l'API n'ait pas connaissance du statut d'un élève si celui-ci vise à être scolarisé dans l'établissement privé.
-
-        #### Bientôt l'année scolaire N+1 pour tous les degrés :
-        Dans le cadre de démarches administratives, il peut être utile de connaître le statut scolarisé en avance de phase par rapport à la rentrée. _Par exemple, connaître dès juin, le statut de l'élève pour septembre_. À ce jour l'API n'est pas en mesure de délivrer ces informations pour toutes les situations :
-        - ❌ Pour les **élèves du premier degré**, l'information n'est pas disponible. Le Ministère de l'éducation nationale travaille à obtenir cette information dès le mois de mai/juin ; le calendrier de livraison dans l'API n'est pas connu à ce jour.
-        - ✅ Pour les **élèves du second degré**, il est déjà possible d'interroger l'API sur l'année scolaire N+1 à partir du mois de juin pour les collégiens et à partir de la fin du mois d'août pour les lycéens.
-
-        {:.fr-highlight}
-        ⚠️ Les données transmises pour l'année scolaire N+1 sont et seront toujours des informations susceptibles d'évoluer car l'élève peut changer d'avis jusqu'à la rentrée.
