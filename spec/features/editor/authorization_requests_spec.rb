@@ -33,4 +33,24 @@ RSpec.describe 'Editor: authorization requests', app: :api_entreprise do
       expect(page).to have_content('Nouveau jeton à utiliser')
     end
   end
+
+  describe 'search' do
+    subject(:search) do
+      visit editor_authorization_requests_path
+
+      fill_in 'search_main_input', with: valid_authorization_request.demandeur.email
+
+      click_on 'Rechercher'
+    end
+
+    let!(:valid_authorization_request) { create(:authorization_request, :validated, :with_demandeur, api: 'entreprise', demarche: 'form1') }
+    let!(:invalid_authorization_request) { create(:authorization_request, :validated, :with_demandeur, api: 'entreprise', demarche: 'form1') }
+
+    it 'displays the valid authorization request' do
+      search
+
+      expect(page).to have_css('.authorization-request', count: 1)
+      expect(page).to have_content(valid_authorization_request.demandeur.email)
+    end
+  end
 end

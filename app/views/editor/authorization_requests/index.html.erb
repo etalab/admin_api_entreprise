@@ -1,3 +1,13 @@
+<%= search_form_for(@q, url: editor_authorization_requests_path, html: { method: :get, data: { turbo: false }, class: %w[search-box] }) do |f| %>
+  <div class="fr-input-group input">
+    <%= f.search_field :siret_or_external_id_or_intitule_or_demandeur_email_eq, placeholder: 'demandeur email, siret, datapass id..', id: 'search_main_input', class: %[fr-input] %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit 'Rechercher', class: %w[fr-btn fr-btn--primary] %>
+  </div>
+<% end %>
+
 <div class="fr-table fr-table--bordered fr-table--layout-fixed">
   <table>
     <caption>
@@ -11,6 +21,7 @@
             'Intitule',
             'Jeton principal',
             'Organization',
+            'Demandeur',
           ].each do |attr|
         %>
           <th scope="col">
@@ -38,6 +49,9 @@
             <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/<%= authorization_request.siret %>" target="_blank">
               <%= authorization_request.siret %>
             </a>
+          </td>
+          <td class="authorization_request-demandeur_email">
+            <%= authorization_request.demandeur.try(:email) %>
           </td>
         </tr>
       <% end %>

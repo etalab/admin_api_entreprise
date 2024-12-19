@@ -28,6 +28,13 @@ class AuthorizationRequest < ApplicationRecord
     %w[
       siret
       external_id
+      intitule
+    ]
+  end
+
+  def self.ransackable_associations(_)
+    %w[
+      demandeur
     ]
   end
 
