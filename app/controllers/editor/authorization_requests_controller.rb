@@ -1,10 +1,12 @@
 class Editor::AuthorizationRequestsController < EditorController
   def index
-    @authorization_requests = current_editor
+    @q = current_editor
       .authorization_requests(api: namespace)
-      .includes(:active_token)
+      .includes(:active_token, :demandeur)
       .where(
         status: 'validated'
-      ).page(params[:page])
+      ).ransack(params[:q])
+
+    @authorization_requests = @q.result(distinct: true).page(params[:page])
   end
 end
