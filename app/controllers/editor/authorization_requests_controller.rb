@@ -7,6 +7,6 @@ class Editor::AuthorizationRequestsController < EditorController
         status: 'validated'
       ).ransack(params[:q])
 
-    @authorization_requests = @q.result(distinct: true).page(params[:page])
+    @authorization_requests = @q.result(distinct: true)
   end
 end
