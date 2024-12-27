@@ -83,6 +83,8 @@ gem 'faraday-net_http'
 gem 'faraday-retry'
 gem 'faraday-encoding'
 
+gem 'csv'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'brakeman'
