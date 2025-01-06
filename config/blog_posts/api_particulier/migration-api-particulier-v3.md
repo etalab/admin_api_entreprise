@@ -56,7 +56,7 @@ Les évolutions présentées ici ont été guidées par les objectifs suivants&n
 **🚀 Avec la V.3 :** Le jeton est à paramétrer uniquement dans le header de l’appel.
 
 {:.fr-highlight.fr-highlight--example}
-> **Avant** : Le jeton JWT pouvait être un paramètre de l’URL d’appel (query parameter).
+> **Avant** : Le jeton JWT pouvait être un paramètre de l’URL d’appel.
 
 **🤔 Pourquoi ?**
 - Respecter les standards de sécurité ;
