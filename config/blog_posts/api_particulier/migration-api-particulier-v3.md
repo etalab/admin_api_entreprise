@@ -65,7 +65,7 @@ Les évolutions présentées ici ont été guidées par les objectifs suivants&n
 **🧰 Comment ?**
 Utilisez un client REST API pour tester les API pendant le développement.
 Des clients sont disponibles gratuitement. API&nbsp;Particulier utilise pour ses propres tests le client Insomnia. Le plus connu sur le marché est Postman.
-Une fois le client installé, vous pouvez directement intégrer notre fichier [Swagger/OpenAPI](<%= developers_openapi_path %>){:target="_blank"} dedans.
+Une fois le client installé, vous pouvez directement intégrer notre fichier [Swagger/OpenAPI](<%= developers_openapi_v3_path %>){:target="_blank"} dedans.
 
 ### <a name="votre-numéro-de-siret-obligatoire-dans-le-recipient"></a> 2. Numéro de SIRET obligatoire dans le "recipient"
 
