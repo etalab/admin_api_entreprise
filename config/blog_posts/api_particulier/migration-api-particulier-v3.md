@@ -128,7 +128,7 @@ Dans l’exemple ci-dessous, la clé `retry_in` permet de relancer un appel apr�
 
 **🧰 Comment ?**
 Utiliser les libellés pour comprendre l’erreur rencontrée, voire automatiser votre logiciel en fonction du code.
-La liste de tous les codes erreurs spécifiques (environ 80) est disponible dans le [Swagger](<%= developers_openapi_path %>){:target="_blank"}. La gestion des erreurs et l'explication des codes retours est détaillée dans la [documentation technique générale](<%= developers_path(anchor: 'code-https-et-gestion-des-erreurs') %>){:target="_blank"}.
+La liste de tous les codes erreurs spécifiques (environ 80) est disponible dans le [Swagger](<%= developers_openapi_v3_path %>){:target="_blank"}. La gestion des erreurs et l'explication des codes retours est détaillée dans la [documentation technique générale](<%= developers_path(anchor: 'code-https-et-gestion-des-erreurs') %>){:target="_blank"}.
 
 
 ### <a name="volumétrie-indiquée-dans-le-header-et-actionnable"></a> 4. Volumétrie indiquée dans le header et actionnable
