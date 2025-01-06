@@ -44,7 +44,7 @@ fr:
       name: 'Marchés publics'
       comments_endpoints:
         "insee/etablissements_diffusibles": "commentaire à afficher"
-        "inpi/modeles": "commentaire à afficher"
+        "inpi/rne/actes": "commentaire à afficher"
 ```
 
 ## Page/wordings FAQ
