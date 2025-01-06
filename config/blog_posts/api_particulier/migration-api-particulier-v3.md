@@ -154,7 +154,7 @@ Désormais avec la V.3. chaque modalité d'appel a son propre endpoint, matéria
 - Rendre actionnable le swagger et le fichier OpenAPI.
 
 **🧰 Comment ?**
-Utiliser [le swagger](<%= developers_openapi_path %>){:target="_blank"}.
+Utiliser [le swagger](<%= developers_openapi_v3_path %>){:target="_blank"}.
               
 
 ### <a name="donnee-qualifiee-et-uniformisee-metier"></a> 6. Les données des payloads, qualifiées et uniformisées d'un point de vue métier
