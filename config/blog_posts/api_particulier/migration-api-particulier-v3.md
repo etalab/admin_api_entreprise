@@ -69,7 +69,7 @@ Une fois le client installé, vous pouvez directement intégrer notre fichier [S
 
 ### <a name="votre-numéro-de-siret-obligatoire-dans-le-recipient"></a> 2. Numéro de SIRET obligatoire dans le "recipient"
 
- **🚀 Avec la V.3 :** Le paramètre obligatoire `recipient` de l’URL d’appel devra obligatoirement être complété par votre numéro de SIRET.
+ **🚀 Avec la V.3 :** Le paramètre `recipient` de l’URL d’appel devra obligatoirement être complété par votre numéro de SIRET.
 
 {:.fr-highlight.fr-highlight--example}
 > **Avant** : Ce paramètre obligatoire n’était pas contraint en termes de syntaxe.
