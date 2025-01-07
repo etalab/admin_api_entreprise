@@ -1,16 +1,20 @@
-DOCKER_COMPOSE_CMD = docker-compose
-RAILS_DOCKER_CMD = ${DOCKER_COMPOSE_CMD} exec -e POSTGRES_HOST=db web bundle exec rails
+ifeq ($(shell which docker-compose),)
+	DOCKER_COMPOSE = docker compose
+else
+	DOCKER_COMPOSE = docker-compose
+endif
+RAILS_DOCKER_CMD = ${DOCKER_COMPOSE} exec -e POSTGRES_HOST=db web bundle exec rails
 
 install:
 	$(MAKE) stop
-	$(DOCKER_COMPOSE_CMD) up --build -d
+	$(DOCKER_COMPOSE) up --build -d
 	$(MAKE) install_database
 
 start:
-	$(DOCKER_COMPOSE_CMD) up -d
+	$(DOCKER_COMPOSE) up -d
 
 stop:
-	$(DOCKER_COMPOSE_CMD) down
+	$(DOCKER_COMPOSE) down
 
 install_database:
 	$(RAILS_DOCKER_CMD) db:create
