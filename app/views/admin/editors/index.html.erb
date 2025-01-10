@@ -10,6 +10,7 @@
             'ID',
             'Nom',
             'Formulaires',
+            'Features',
             'Emails',
           ].each do |attr|
         %>
@@ -37,6 +38,11 @@
                   <%= link_to form_uid, url, target: '_blank' %>
                 </li>
               <% end %>
+            </ul>
+          </td>
+          <td class="editor-feature-enabled">
+            <ul>
+              <li>Copier jeton : <%= editor.copy_token? ? '✅' : '❌' %></li>
             </ul>
           </td>
           <td class="editor-emails">
