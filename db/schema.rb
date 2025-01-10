@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_07_111810) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_10_090753) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
 
-  create_table "access_logs", id: false, force: false, if_not_exists: true do |t|
+  create_table "access_logs", id: false, force: :cascade do |t|
     t.timestamptz "timestamp"
     t.uuid "token_id"
   end
@@ -44,6 +44,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_07_111810) do
     t.string "form_uids", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "copy_token", default: false, null: false
   end
 
   create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
