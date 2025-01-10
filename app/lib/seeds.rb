@@ -69,7 +69,8 @@ class Seeds
   def create_editor
     editor = Editor.create!(
       name: 'UMAD Corp',
-      form_uids: %w[umadcorp-form-api-entreprise umadcorp-form-api-particulier]
+      form_uids: %w[umadcorp-form-api-entreprise umadcorp-form-api-particulier],
+      copy_token: true
     )
     create_user(
       email: 'editeur@yopmail.com',

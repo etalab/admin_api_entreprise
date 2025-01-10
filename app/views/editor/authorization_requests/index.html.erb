@@ -44,6 +44,14 @@
             <% if authorization_request.token %>
               <%= render partial: 'shared/tokens/detail_short', locals: { token: authorization_request.token.decorate } %>
             <% end %>
+            <% if current_editor.copy_token? %>
+              <div class="copy-token" data-controller="clipboard" data-clipboard-alert-message-value="Jeton copié">
+                <%= button_tag 'Copier le jeton', class: 'fr-btn fr-btn--sm fr-icon-window-fill fr-btn--icon-right', id: dom_id(authorization_request.token, :copy_token_button), data: { action: 'click->clipboard#copy' } %>
+
+                <% hashed_value = true_user == current_user ? authorization_request.token.rehash : 'NotAValidValue' %>
+                <input id="<%= dom_id(authorization_request.token, :token_hash) %>" class="fr-input" style="position: absolute; left: -9999px" type="text" data-clipboard-target="source" readonly value="<%= hashed_value %>" />
+              </div>
+            <% end %>
           </td>
           <td class="authorization_request-siret">
             <a href="https://annuaire-entreprises.data.gouv.fr/etablissement/<%= authorization_request.siret %>" target="_blank">
