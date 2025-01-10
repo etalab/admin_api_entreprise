@@ -1,6 +1,7 @@
 RSpec.describe 'Editor: authorization requests', app: :api_entreprise do
   let(:user) { create(:user, editor:) }
-  let(:editor) { create(:editor, form_uids: %w[form1 form2]) }
+  let(:editor) { create(:editor, copy_token:, form_uids: %w[form1 form2]) }
+  let(:copy_token) { false }
 
   before do
     login_as(user)
@@ -31,6 +32,30 @@ RSpec.describe 'Editor: authorization requests', app: :api_entreprise do
       expect(page).to have_css('#' << dom_id(valid_authorization_requests[1]))
 
       expect(page).to have_content('Nouveau jeton à utiliser')
+    end
+
+    describe 'copy token behaviour' do
+      context 'when editor has no copy token' do
+        let(:copy_token) { false }
+
+        it 'does not have copy token button' do
+          visit editor_authorization_requests_path
+
+          expect(page).to have_no_css('.copy-token')
+          expect(page.html).not_to include(valid_authorization_requests.first.token.rehash)
+        end
+      end
+
+      context 'when editor can copy token' do
+        let(:copy_token) { true }
+
+        it 'has a button to copy token' do
+          visit editor_authorization_requests_path
+
+          expect(page).to have_css('.copy-token', count: 2)
+          expect(page.html).to include(valid_authorization_requests.first.token.rehash)
+        end
+      end
     end
   end
 
