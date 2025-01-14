@@ -12,6 +12,7 @@
             'Formulaires',
             'Features',
             'Emails',
+            'Actions',
           ].each do |attr|
         %>
           <th scope="col">
@@ -55,6 +56,9 @@
                 <% end %>
               </ul>
             <% end %>
+          </td>
+          <td class="editor-actions">
+            <%= link_to 'Mettre à jour', edit_admin_editor_path(editor), id: dom_id(editor, :edit), class: %w[fr-btn] %>
           </td>
         </tr>
       <% end %>
