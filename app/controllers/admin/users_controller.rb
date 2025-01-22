@@ -38,6 +38,6 @@ class Admin::UsersController < AdminController
   private
 
   def user_params
-    params.require(:user).permit(:editor_id)
+    params.expect(user: [:editor_id])
   end
 end

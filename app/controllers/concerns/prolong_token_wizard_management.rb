@@ -58,6 +58,6 @@ module ProlongTokenWizardManagement
   end
 
   def prolong_token_wizard_params
-    params.require(:prolong_token_wizard).permit(:owner, :project_purpose, :contact_metier, :contact_technique)
+    params.expect(prolong_token_wizard: %i[owner project_purpose contact_metier contact_technique])
   end
 end
