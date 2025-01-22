@@ -24,10 +24,12 @@ class Admin::EditorsController < AdminController
   private
 
   def editor_update_params
-    params.require(:editor).permit(
-      :name,
-      :form_uids,
-      :copy_token
+    params.expect(
+      editor: %i[
+        name
+        form_uids
+        copy_token
+      ]
     ).tap do |whitelisted|
       whitelisted[:form_uids] = (whitelisted[:form_uids] || '').split(',').map(&:strip)
     end
