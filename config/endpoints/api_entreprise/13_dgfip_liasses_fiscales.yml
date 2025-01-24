@@ -60,7 +60,7 @@
     - "participation"
   data:
     description: |+
-      Cette API délivre **les liasses fiscales d'une entreprise** pour l'année renseignée. Elle ne permet pas d'accéder à tous les imprimés, mais seulement aux **imprimés utiles pour les démarches des marchés publics et aides publiques [listés ici](#distinction-imprime-rectificatif-et-initial)**. 
+      Cette API délivre **les liasses fiscales d'une entreprise** pour l'année renseignée. Elle ne permet pas d'accéder à tous les imprimés, mais seulement aux **imprimés utiles pour les démarches des marchés publics et aides publiques [listés ici](#liste-imprimes)**. 
 
       Pour chaque numéro d'imprimé, les règles d'imposition applicables à l'entreprise, ainsi que le millésime, la durée de l'exercice en jours et sa date de fin, ou encore la date de dépôt de la déclaration, sont transmis.
 
@@ -69,7 +69,7 @@
         - des **données sur l'entreprise et son réseau** (filiale, société-mère, participation) dont les effectifs.
         - des **données de personnes**, nom, prénom, date et lieu de naissance, adresses postales, certaines rémunérations, etc.
 
-      Certain SIREN ne renvoient aucun imprimé, d'autres en transmettent deux. [En savoir plus](#nombre-imprimes)
+      Certains SIREN ne renvoient aucun imprimé, d'autres en transmettent deux. [En savoir plus](#nombre-imprimes).
 
   opening: protected
   format:
@@ -77,7 +77,7 @@
   parameters:
     - Numéro de SIREN de l'entreprise
   faq:
-    - q: Quels sont les imprimés renvoyés par cette API ? Pourquoi certains imprimés ne sont pas renvoyés ?
+    - q: <a name="liste-imprimes"></a>Quels sont les imprimés renvoyés par cette API ? Pourquoi certains imprimés ne sont pas renvoyés ?
       a: |+
         Cette API a été conçue et négociée dans le cadre spécifique des marchés publics et des aides publiques. Par conséquence, et en accord avec la DGFIP, seule la liste ci-dessous des imprimés est disponible:
 
