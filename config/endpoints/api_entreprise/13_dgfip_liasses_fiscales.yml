@@ -60,7 +60,7 @@
     - "participation"
   data:
     description: |+
-      Cette API délivre **les liasses fiscales d'une entreprise** pour l'année renseignée. Elle ne permet pas d'accéder à tous les imprimés, mais seulement aux **imprimés utiles pour les démarches des marchés publics et aides publiques [listés ici](#faq_entry_0_api_entreprise_endpoint_dgfip_liasses_fiscales)**. 
+      Cette API délivre **les liasses fiscales d'une entreprise** pour l'année renseignée. Elle ne permet pas d'accéder à tous les imprimés, mais seulement aux **imprimés utiles pour les démarches des marchés publics et aides publiques [listés ici](#distinction-imprime-rectificatif-et-initial)**. 
 
       Pour chaque numéro d'imprimé, les règles d'imposition applicables à l'entreprise, ainsi que le millésime, la durée de l'exercice en jours et sa date de fin, ou encore la date de dépôt de la déclaration, sont transmis.
 
@@ -68,6 +68,8 @@
         - des **informations financières, fiscales et comptables** ;
         - des **données sur l'entreprise et son réseau** (filiale, société-mère, participation) dont les effectifs.
         - des **données de personnes**, nom, prénom, date et lieu de naissance, adresses postales, certaines rémunérations, etc.
+
+      Certain SIREN ne renvoient aucun imprimé, d'autres en transmettent deux. [En savoir plus](#nombre-imprimes)
 
   opening: protected
   format:
@@ -104,7 +106,7 @@
           </p>
           <p class="fr-text--xs">Source : Document basé sur le [dictionnaire TDFC 2022 de la DGFIP](https://www.impots.gouv.fr/cahier-des-charges-edi-tdfc-0){:target="_blank"}</p>
         </div>
-    - q: Comment distinguer l'imprimé rectificatif de l'initial ?
+    - q: <a name="distinction-imprime-rectificatif-et-initial"></a>Comment distinguer l'imprimé rectificatif de l'initial ?
       a: |+
         Pour un même exercice, il y a parfois plusieurs fois le même imprimé : il s'agit de corrections qui ont été apportées par une déclaration ultérieure.
 
@@ -113,7 +115,11 @@
 
         {:.fr-highlight.fr-highlight--caution}
         > La date de déclaration ne vous permet donc pas de distinguer l'imprimé rectificatif de l'imprimé initial car les deux imprimés ont toujours la même date de déclaration. Celle-ci correspond à la date du correctif.
-    - q: Pourquoi ais-je parfois des imprimés en double ?
+    - q: <a name="nombre-imprimes"></a>Pourquoi certains SIREN ne renvoient aucun imprimé et d'autres des imprimés en double ?
       a: |+
-        Dans le cas où une société fait partie d'un groupe IS (groupe de société soumis à un régime d'intégration fiscale sur l'Impôt sur les Sociétés), l'entreprise souscrit une déclaration de résultat pour elle-même et une autre en tant que membre du groupe. Dans ce cas, les imprimés peuvent être renvoyés en double.
+        En théorie, d'un point de vue légal, la déclaration étant une obligation fiscale, chaque SIREN devrait transmettre une liasse fiscale au moins. Dans la pratique, la déclaration des liasses fiscales étant un acte déclaratif, il peut arriver que l'entreprise n'est pas fait sa déclaration. Dans ce cas un SIREN peut ne renvoyer aucune liasse fiscale.
+        
+        Certain SIREN renvoie parfois deux imprimés. Il s'agit du cas où l'entreprise est une société fille d'un groupe IS (c'est-à-dire qu'elle est rattachée à une société mère soumise à l'impôt sur les sociétés). L'entreprise souscrit alors une déclaration de résultat pour elle-même et une autre en tant que membre du groupe. Dans ce cas, l'API peut renvoyer deux imprimés ayant le même numéro : un pour chacune des deux situations.
+
+        Ce cas particulier des sociétés filles est également concerné par l'incertitude du caractère déclaratif des liasses fiscales. Par conséquent, il n'est pas possible d'affirmer que le renvoi de deux imprimés sera est systématique pour les sociétés filles. L'entreprise peut n'avoir déposé qu'une seule des liasses fiscales et en outre, une entreprise peut entrer et sortir du périmètre d'un groupe et donc sa situation peut évoluer.
 
