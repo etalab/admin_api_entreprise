@@ -129,10 +129,14 @@
     - q: Variations du quotient familial au cours du temps et dates de calcul
       a: |+
         **Le quotient familial CAF ou MSA d'un même mois peut changer**. Il est recalculé fréquemment au cours du temps par la CAF et la MSA. En effet, la situation de la personne peut évoluer : _perte d'un emploi, évolution des ressources, arrivée d'un enfant, majorité d'un enfant, modification de la législation, évolution des allocations logement etc._
-        **Cette variation apparaît notamment entre le quotient familial du mois en cours appelé en début de mois ou en fin de mois**.
+        **Cette variation apparaît notamment entre le quotient familial du mois appelé en début de mois ou en fin de mois**. **Le mois remonté par l'API est, par défaut, le mois M-1.**
 
         **Deplus, la date du calcul du quotient familial diffère** selon qu'il s'agit du quotient de la CAF ou de la MSA.
         - La CAF effectue une sauvegarde des quotients recalculés uniquement lorqu'un changement subvient du côté de l'allocataire.
+
+        **La fréquence et la date de mise à jour diffèrent également** selon qu'il s'agit du quotient de la CAF ou de la MSA.
+        - La CAF met à jour les données pour le mois M-1 le premier week-end du mois. Par exemple, pour le quotient familal du mois de janvier 2025, les données seront mises à jour le week-end du 8 février 2025 ;
+        - La MSA met à jour les données en temps réel, à chaque changement. 
 
             {:.fr-highlight.fr-highlight--example}
             > Par exemple, un appel le 28 juin 2023, du quotient du mois en cours (juin 2023) : La CAF renverra le QF qu'elle a en mémoire, par exemple calculé le 19 juin 2023.
@@ -157,12 +161,30 @@
         > C'est le cas d'un enfant ayant quitté le foyer de ses parents et ayant ouvert son propre dossier d'allocataire pour bénéficier d'une aide (par exemple les APL ou le RSA), mais qui souhaite tout de même être rattaché à la déclaration fiscale de ses parents.
         > _Cet enfant appartiendra au même foyer fiscal que ses parents au sens de l'administration fiscale, mais à une famille différente selon la CAF ou la MSA._
 
+    - q: Dans quels cas les deux parents sont-ils associés à un même compte ?
+      a: |+
+        Les deux parents sont associés à un même compte **à partir de la déclaration du dit changement par l'allocataire, sur le site caf.fr ou sur l’application “Caf -Mon Compte”**. Ce changement a lieu lorsque les parents sont mariés, pacés ou concubins. Cette déclaration induit un même domicile, exception faite du cas d'un conjoint vivant à l'étranger dont la vie maritale est tout de même enregistrée auprès de la CAF ou la MSA.
+        
+    - q: Gestion des familles séparées
+      a: |+
+        La 
 
-        **Pour chacune des personnes de cette «&nbsp;famille&nbsp;» au sens de la CAF ou de la MSA**, cette API renvoie les informations suivantes :
-        - Nom d'usage ;
-        - Prénoms ;
-        - Jour, mois et année de naissance ;
-        - Sexe.
+    - q: Les enfants majeurs sont-ils remontés par l’API ? ?
+      a: |+
+        Oui, si l'enfant est toujours à la charge des parents. Cette charge est modulée en fonction de la rémunération de l'enfant, le cas échéant. 
+
+    - q: Dans le cas d’une famille recomposée, les enfants des deux parents sont-ils remontés sur un même compte ? 
+      a: |+
+        L'enfant sera uniquement rattaché au parent qui en a la charge. Dans le cas d'une situation de résidence alternée qui induit un partage de la charge, l'enfant apparaitra sur les deux comptes uniquement si la "résidence alternée avec partage des Allocations" est déclarée à la Caisse d'allocation. 
+
+    - q: Les enfants décédés sont-ils remontés par l’API ? ?
+      a: |+
+        Les enfants décédés ne sont plus considérés à charge le mois suivant le décès et ne sont donc plus remontés par l'API.
+
+    - q: Les parents peuvent ils être rattachés à deux régimes différents ? Par exemple, un parent rattaché à la CAF et l'autre à la MSA. 
+      a: |+
+        Le rattachement des parents ne se fait que sur un seul régime. Selon la situation de l'allocataire, un organisme sera priorisé par rapport à l'autre. 
+
     - q: <a name="renseigner-lieu-de-naissance"></a> Appel avec l'identité pivot, comment renseigner le lieu de naissance ?
       a: |+
        Lorsque l'API est appelée avec l'identité pivot, pour identifier correctement le particulier, le système d'information a besoin de récupérer le lieu de naissance du particulier.
