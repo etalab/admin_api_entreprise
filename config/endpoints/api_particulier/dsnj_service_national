@@ -1,0 +1,127 @@
+--
+		- uid: 'dsnj/service_national'
+		opening: protected
+		new_version: true
+		path: '/api/v3/service-national'
+		ping_url: 'https://particulier.api.gouv.fr/api/dsnj_service_national'
+		position: 
+		perimeter:
+		entity_type_description: |+
+		**Cette API concerne les jeunes** :
+		- ✅ de nationalité Française ;
+		- ✅ âgés entre 16 et 25 ans;
+		
+
+		**Ne sont pas concernés par cette API** :
+		- ❌ les jeunes de nationalité étrangère ;
+		- ❌ Les personnes de moins de 16 et de plus de 25 ans car elles sont exemptées du service national ;
+		
+
+		
+
+		geographical_scope_description: |+
+		- ✅ France métropolitaine ;
+		- DROM COM ;
+		- les Français à l'étranger résidant dans un pays où il y a un consulat français. 
+		updating_rules_description: |+
+		Les données sont **mises à jour [ A COMPLETER]*. cette API est opérée par la Direction du Service National et de la Jeunesse (DSNJ) et est reliée au système d'information [du Ministère des Armées : A CONFIRMER].
+		
+
+		⚠️ **Les informations obtenues sont représentatives de la situation connue par le Ministère des Armées au moment de l'appel**. 
+		data:
+		description: |+
+		**Cette API délivre** :
+		- **la situation d'un jeune vis à vis du service national** [en savoir plus](#faq_entry_answer_1_api_particulier_endpoint_ministere_des_armees_service_national) ;
+		- **le numéro identifiant défense dans certains cas ;**
+		
+
+		{:.fr-highlight}
+		> Il n'y a que les jeunes entre 16 et 25 ans qui peuvent apparaître comme étant en règle ou non dans cette API, [en savoir plus](#faq_entry_answer_2_api_particulier_endpoint_dsnj_service_national).
+		
+
+		
+
+		parameters_details:
+		description: |+
+		**L'API est uniquement appelable avec les informations de l'allocataire**.
+		<br/>
+		Deux modalités d'appel sont possibles&nbsp;:
+		<p class="fr-badge fr-badge--blue-ecume">![Cette API est FranceConnectée](<%= image_path('api_particulier/cas_usages/pictos/modalite_appel_france_connect.svg') %>){:width="20px"} FranceConnect</p>
+		**Avec la [modalité d'appel FranceConnect](<%= cas_usage_path('modalite_appel_france_connect') %>)**.
+		
+
+		<p class="fr-badge fr-badge--brown-cafe-creme">Identité pivot</p>
+		<section class="fr-accordion fr-mt-2v">
+		<p class="fr-accordion__title">
+		<button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106"><b>Avec les données d'identité</b></button>
+		</p>
+		<div class="fr-collapse" id="accordion-106">
+		<div class="fr-mb-0">
+		<ul>
+		<li>Nom de naissance<sup>*</sup>, nom d'usage, prénoms<sup>1</sup>, sexe<sup>*</sup>, date de naissance de l'allocataire<sup>**</sup>&nbsp;;</li>
+		<li>Lieu de naissance&nbsp;:
+		<ul>
+		<li>
+		<em>Si le lieu de naissance est en France,</em> la commune de naissance est obligatoire, elle peut être saisie de deux façons différentes :
+		<ul>
+		<li class="fr-text--sm fr-mb-0">
+		Option 1 : Code COG de la commune de naissance<sup>*</sup>. <a href="#renseigner-lieu-de-naissance">En savoir plus</a>&nbsp;;
+		</li>
+		<li class="fr-text--sm fr-mb-0">
+		Option 2 : Nom de la commune de naissance<sup>*</sup> et code du département de naissance<sup>*</sup>. Pour cette option, la date de naissance est obligatoire. <a href="#renseigner-lieu-de-naissance">En savoir plus</a>.
+		</li>
+		</ul>
+		Pour chacune des deux options ci-dessus, le code COG de la France <code>99100</code><sup>*</sup> doit également être renseigné en paramètre d'appel. Vous n'avez pas besoin de le demander à l'usager, il peut être déduit de la commune de naissance.
+		</li>
+		<li class="fr-mt-2v">
+		<em>Si le lieu de naissance est à l'étranger&nbsp;:</em> code COG du pays de naissance<sup>*</sup>.
+		</li>
+		</ul>
+		</li>
+		</ul>
+		</div>
+		<span class="fr-text--xs">
+		<sup>*</sup> Obligatoire | <sup>**</sup> Obligatoire pour l'option 2 du lieu de naissance.
+		</span>
+		<span class="fr-text--xs fr-m-0">
+		<sup>1</sup> Fournir plusieurs prénoms permet de limiter les risques d'homonymie mais un seul prénom peut fonctionner. Attention, l'usager doit compléter chaque prénom dans un champ distinct.
+		</span>
+		<blockquote class="fr-highlight fr-highlight--caution">
+		⚠️ <strong>Message API Particulier du 04.06.2024</strong> : Nous avons constaté que les appels effectués sans nom de naissance et <strong>avec le nom d'usage ne fonctionnent pas</strong> dans une très grande partie des cas. API Particulier a donc décidé de passer le paramètre "Nom de naissance" en obligatoire.
+		</blockquote>
+		</div>
+		</section>
+		
+
+		provider_uids:
+		- 'dsnj'
+		call_id: 
+		- Identité pivot
+		- FranceConnect
+		parameters:
+		- Identité pivot
+		- FranceConnect
+		keywords:
+		- service national
+		- numero identifiant defense
+		
+
+		faq:
+		- q: Qu'est ce que le service national ?
+		a: |+
+		**Le service national est composé du rencensement et de la participation à la journée défense et citoyenneté. Un jeune qui est en règle vis à vis du service national a donc effectué son recensement dès l'âge de 16 ans et a participé à la journée défense et citoyenneté**
+		
+
+		- q: Quelles sont les personnes concernées par le service national ?
+		a: |+
+		**Les Français entre 16 et 25 ans doivent être en règle vis à vis du service national pour passer certains examens et concours.** Avant 16 ans et après 25 ans, le service national n'est pas requis. Dans ces cas là, l'API renvoie "Non concerné".
+		
+
+		- q: Pourquoi être en règle vis à vis du service national ? 
+		a: |+
+		**Un jeune entre 16 et 25 ans doit être en règle vis à vis du service national si il souhaite : 
+		- passer des examens soumis sous contrôle de l'autorité publique comme le permis de conduire ;
+		- passer des concours sous contrôle de l'autorité publique ;
+		- postuler à un un emploi de la fonction pubique qui demande d’être en règle vis à vis du service national. 
+		[Plus d'informations](https://api.gouv.fr/guides/api-service-national#pour-quelles-demarches-peut-on-utiliser-l%E2%80%99api-service-national-?)
+
