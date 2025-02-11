@@ -1,9 +1,13 @@
 ---
 # L'UID sert à identifier cette entrée de manière unique, et est utilisé pour l'URL de la fiche métier
 - uid: 'provider/resource'
-  # Ce chemin doit correspondre au path dans le fichier swagger
-  path: '/v3/provider/resource/{siren}'
+  # Path: doit correspondre au path dans le swagger
+  # Exemple pour Attestation de vigilance
+  # Voir le swagger ici https://github.com/etalab/siade/blob/272aa40577802afe59ebc5f3cded39d2c25107ae/swagger/openapi-entreprise.yaml#L85
+  # Le path est '/v3/urssaf/unites_legales/{siren}/attestation_vigilance' (copier ligne 85)
+  path: '/v3/urssaf/unites_legales/{siren}/attestation_vigilance'
   # Position au sein de l'index
+  # Ce chiffre détermine l'ordre d'affichage dans le catalogue : La fiche avec position 1 sera avant la fiche 2
   position: 501
   # la clef alert est optionnelle
   alert:
