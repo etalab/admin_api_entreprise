@@ -76,11 +76,8 @@ Une fois le client installé, vous pouvez directement intégrer notre fichier [S
 
 **🤔 Pourquoi ?**
 - Pour garantir la traçabilité de l’appel jusqu’au bénéficiaire ayant obtenu l’habilitation à appeler l’API&nbsp;Particulier et respecter nos engagements auprès des fournisseurs de données ;
-- Nous avions trop d’utilisateurs inscrivant le numéro de SIRET ou RNA de l’entreprise/association recherchée.
+- Nous avions trop d'appels avec le numéro de SIRET d'un éditeur de logiciel. Hors, pour rappel, l'éditeur n'est en aucun cas le destinataire de la donnée. C'est le numéro  de SIRET du client public qu’il s’agit de renseigner. API&nbsp;Particulier doit pouvoir tracer pour quelle entité publique l'appel a été passé.
 
-{:.fr-highlight.fr-highlight--caution}
-> **⚠️ Cas particulier**, _vous êtes un éditeur ?_
-> Ce n’est pas votre numéro de SIRET mais celui de votre client public qu’il s’agira de renseigner. API&nbsp;Particulier doit pouvoir tracer pour quelle entité publique l'appel a été passé.
 
 Pour en savoir plus sur les paramètres obligatoires d'appel, consultez les [spécifications techniques](<%= developers_path(anchor: 'renseigner-les-paramètres-dappel-et-de-traçabilité') %>).
 
@@ -159,13 +156,14 @@ Utiliser [le swagger](<%= developers_openapi_path %>){:target="_blank"}.
 
 ### <a name="donnee-qualifiee-et-uniformisee-metier"></a> 6. Les données des payloads, qualifiées et uniformisées d'un point de vue métier
 
-**🚀 Avec la V.3 :** Nous avons profité de la refonte technique pour uniformiser la façon de traiter la donnée entre les API et compléter significativement les documentations. Ces évolutions concernent plusieurs aspects : 
-- **Normaliser et préciser les clés de certains champs qui définissent le même type d'information**. Ainsi quelques règles sont maintenant largement utilisées sur toutes les API, par exemple :
-- le statut (étudiant, bénéficaire d'une prestation, etc.) est désormais toujours nommé par une clé préfixée par `est_...`, comme par exemple `est_boursier` ou `est_beneficiaire` ;
-- les dates de début et de fin de droit auront les clés `date_debut_droit` / `date_fin_droit` ;
-- les clés se veulent les plus précises possibles, par exemple, dans l'API étudiant, : la clé `code_commune` en V.2. devient `code_cog_insee_commune` en V.3. pour éviter toute confusion avec le code postal. 
-- **Expliciter l'origine des diverses données d'identité transmises dans les payloads** et préciser si la donnée a été consolidée et comment. Par exemple : au travers d'un recoupement avec une pièce d'identité ou bien avec un répertoire ; 
+**🚀 Avec la V.3 :** Nous avons profité de la refonte technique pour uniformiser la façon de traiter la donnée entre les API et compléter significativement les documentations. Ces évolutions concernent plusieurs aspects :
+- Normaliser et préciser les clés de certains champs qui définissent le même type d'information. Ainsi quelques règles sont maintenant largement utilisées sur toutes les API, par exemple :
+   - {:.fr-text--sm .fr-mb-0} le statut (étudiant, bénéficaire d'une prestation, etc.) est désormais toujours nommé par une clé préfixée par `est_...`, comme par exemple `est_boursier` ou `est_beneficiaire` ;
+   - {:.fr-text--sm .fr-mb-0} les dates de début et de fin de droit auront les clés `date_debut_droit` / `date_fin_droit` ;
+   - {:.fr-text--sm .fr-mb-0} les clés se veulent les plus précises possibles, par exemple, dans l'API étudiant, : la clé `code_commune` en V.2. devient `code_cog_insee_commune` en V.3. pour éviter toute confusion avec le code postal. 
+- Expliciter l'origine des données d'identité transmises dans les payloads et préciser si la donnée a été consolidée et comment. Par exemple : au travers d'un recoupement avec une pièce d'identité ou bien avec un répertoire ; 
 - Uniformiser le style des clés pour faciliter votre lecture de la documentation. Le format choisi est désormais en XXXX TODO, c'est-à-dire que les mots sont séparés par des _, par exemple `code_cog_insee_commune`.
+
 
 **🤔 Pourquoi ?**
 - Simplifier la compréhension et la lecture des données transmises ;
@@ -254,8 +252,5 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 **🤔 Pourquoi ?**
 - C'est un impératif de FranceConnect ; 
 - FranceConnect est en possession de l'identité pivot de l'usager, ces données sont certifiées et parfois plus fiables que les données livrées par les API, si vous avez besoin des données d'identité, vous pouvez donc les récupérer directement via FranceConnect.
-
-**🧰 Comment ?**
-XXXXX TODO
 
 <h2 class="fr-h2" style="padding: 2px; margin-top: 10px; background-color : #fff9c4; display: inline-block"><a name="table-correspondance"></a>Table de correspondance de chaque API</h2>
