@@ -65,7 +65,7 @@ Les évolutions présentées ici ont été guidées par les objectifs suivants&n
 **🧰 Comment ?**
 Utilisez un client REST API pour tester les API pendant le développement.
 Des clients sont disponibles gratuitement. API&nbsp;Particulier utilise pour ses propres tests le client Insomnia. Le plus connu sur le marché est Postman.
-Une fois le client installé, vous pouvez directement intégrer notre fichier [Swagger/OpenAPI](<%= developers_openapi_v3_path %>){:target="_blank"} dedans.
+Une fois le client installé, vous pouvez directement intégrer notre fichier [Swagger/OpenAPI](<%= developers_openapi_path %>){:target="_blank"} dedans.
 
 ### <a name="votre-numéro-de-siret-obligatoire-dans-le-recipient"></a> 2. Numéro de SIRET obligatoire dans le "recipient"
 
@@ -128,7 +128,7 @@ Dans l’exemple ci-dessous, la clé `retry_in` permet de relancer un appel apr�
 
 **🧰 Comment ?**
 Utiliser les libellés pour comprendre l’erreur rencontrée, voire automatiser votre logiciel en fonction du code.
-La liste de tous les codes erreurs spécifiques (environ 80) est disponible dans le [Swagger](<%= developers_openapi_v3_path %>){:target="_blank"}. La gestion des erreurs et l'explication des codes retours est détaillée dans la [documentation technique générale](<%= developers_path(anchor: 'code-https-et-gestion-des-erreurs') %>){:target="_blank"}.
+La liste de tous les codes erreurs spécifiques (environ 80) est disponible dans le [Swagger](<%= developers_openapi_path %>){:target="_blank"}. La gestion des erreurs et l'explication des codes retours est détaillée dans la [documentation technique générale](<%= developers_path(anchor: 'code-https-et-gestion-des-erreurs') %>){:target="_blank"}.
 
 
 ### <a name="volumétrie-indiquée-dans-le-header-et-actionnable"></a> 4. Volumétrie indiquée dans le header et actionnable
@@ -154,7 +154,7 @@ Désormais avec la V.3. chaque modalité d'appel a son propre endpoint, matéria
 - Rendre actionnable le swagger et le fichier OpenAPI.
 
 **🧰 Comment ?**
-Utiliser [le swagger](<%= developers_openapi_v3_path %>){:target="_blank"}.
+Utiliser [le swagger](<%= developers_openapi_path %>){:target="_blank"}.
               
 
 ### <a name="donnee-qualifiee-et-uniformisee-metier"></a> 6. Les données des payloads, qualifiées et uniformisées d'un point de vue métier
