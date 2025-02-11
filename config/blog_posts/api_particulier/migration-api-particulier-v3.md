@@ -1,4 +1,4 @@
-Mardi 17 décembre 2024 - Publication
+Mardi 11 février 2024 - Publication
 
 <div style="background-color: #fff9c4; padding: 20px 10px ; border-radius: 5px; width: 100%; box-sizing: border-box;">
   <h1 class="fr-h1" style="margin: 0; color: #333; text-align: center; ">Guide de migration V.2 ➡️ V.3</h1>
