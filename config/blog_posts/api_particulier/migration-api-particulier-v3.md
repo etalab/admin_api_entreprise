@@ -162,7 +162,7 @@ Utiliser [le swagger](<%= developers_openapi_path %>){:target="_blank"}.
    - {:.fr-text--sm .fr-mb-0} les dates de début et de fin de droit auront les clés `date_debut_droit` / `date_fin_droit` ;
    - {:.fr-text--sm .fr-mb-0} les clés se veulent les plus précises possibles, par exemple, dans l'API étudiant, : la clé `code_commune` en V.2. devient `code_cog_insee_commune` en V.3. pour éviter toute confusion avec le code postal. 
 - Expliciter l'origine des données d'identité transmises dans les payloads et préciser si la donnée a été consolidée et comment. Par exemple : au travers d'un recoupement avec une pièce d'identité ou bien avec un répertoire ; 
-- Uniformiser le style des clés pour faciliter votre lecture de la documentation. Le format choisi est désormais en XXXX TODO, c'est-à-dire que les mots sont séparés par des _, par exemple `code_cog_insee_commune`.
+- Uniformiser le style des clés pour faciliter votre lecture de la documentation. Le format choisi est désormais en "snake_case" , c'est-à-dire que les mots sont séparés par des _, par exemple `code_cog_insee_commune`.
 
 
 **🤔 Pourquoi ?**
@@ -254,3 +254,32 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 - FranceConnect est en possession de l'identité pivot de l'usager, ces données sont certifiées et parfois plus fiables que les données livrées par les API, si vous avez besoin des données d'identité, vous pouvez donc les récupérer directement via FranceConnect.
 
 <h2 class="fr-h2" style="padding: 2px; margin-top: 10px; background-color : #fff9c4; display: inline-block"><a name="table-correspondance"></a>Table de correspondance de chaque API</h2>
+
+### <a name="correspondance-api-quotient-familial-msa-caf"></a> API Quotient familial CAF & MSA
+
+**Synthèse de changements** : 
+- L'endpoint V.2 est divisé en deux endpoints en V.3, un pour la modalité d'appel par données d'identité, l'autre pour la modalité d'appel FranceConnect ;
+- Certaines clés sont regroupées sous une clé parente ;
+- Tous les noms de clés changent au format snake_case, avec un tiret du bas.
+- La version 1 de l'API ne sera pas migrée dans la V.3.
+
+
+**Détails des évolutions significatives des champs de la payload :**
+
+{:.fr-table}
+| **Champ V2**                      | **Champ V3 correspondant**          | **Description des changements**                                                                 |
+|-----------------------------------|-------------------------------------|-------------------------------------------------------------------------------------------------|
+| `quotientFamilial`                | `data.quotient_familial.valeur`     | **Regroupement dans une clé parente** : Le champ `quotientFamilial` en V2 correspond au champ `valeur` dans l'objet `quotient_familial` en V3. |
+| `mois`                            | `data.quotient_familial.mois`       | **Regroupement dans une clé parente** : Le champ `mois` en V2 correspond au champ `mois` dans l'objet `quotient_familial` en V3.       |
+| `annee`                           | `data.quotient_familial.annee`      | **Regroupement dans une clé parente** : Le champ `annee` en V2 correspond au champ `annee` dans l'objet `quotient_familial` en V3.      |
+| `mois`                            | `data.quotient_familial.mois`       | **Regroupement dans une clé parente** : Le champ `mois_calcul` en V2 correspond au champ `mois_calcul` dans l'objet `quotient_familial` en V3.       |
+| `annee`                           | `data.quotient_familial.annee`      | **Regroupement dans une clé parente** : Le champ `annee_calcul` en V2 correspond au champ `annee_calcul` dans l'objet `quotient_familial` en V3.      |
+| `regime`                          | `data.quotient_familial.fournisseur`     | **Regroupement dans une clé parente et renommage de clé** : Le champ `regime` en V2 correspond au champ `fournisseur` dans l'objet `quotient_familial` en V3. Même si la donnée renvoyée est identique, la clé a été renommée car l'information MSA ou CAF n'indique pas nécessairement le régime de l'allocataire mais simplement le fournisseur du quotient familial. |
+| `allocataires[].anneeDateDeNaissance` | `data.allocataires[].date_naissance` (année) | **Regroupement dans une clé parente** : Le champ `anneeDateDeNaissance` en V2 est inclus dans le champ `date_naissance` en V3.         |
+| `allocataires[].moisDateDeNaissance` | `data.allocataires[].date_naissance` (mois) | **Regroupement dans une clé parente** : Le champ `moisDateDeNaissance` en V2 est inclus dans le champ `date_naissance` en V3.         |
+| `allocataires[].jourDateDeNaissance` | `data.allocataires[].date_naissance` (jour) | **Regroupement dans une clé parente** : Le champ `jourDateDeNaissance` en V2 est inclus dans le champ `date_naissance` en V3.         |
+| `enfants[].nomUsuel`              | `data.enfants[].nom_usage`          | **Renommage de clé** : Pas de changement autre que le renommage de `nomUsuel` en `nom_usage`. Après investigation auprès du fournisseur de donnée, il s'avère que le nom renvoyé est bien le nom d'usage tel que marqué sur l'acte d'état civil. |
+| `enfants[].anneeDateDeNaissance`  | `data.enfants[].date_naissance` (année) | **Regroupement dans une clé parente** : Le champ `anneeDateDeNaissance` en V2 est inclus dans le champ `date_naissance` en V3.         |
+| `enfants[].moisDateDeNaissance`   | `data.enfants[].date_naissance` (mois) | **Regroupement dans une clé parente** : Le champ `moisDateDeNaissance` en V2 est inclus dans le champ `date_naissance` en V3.         |
+| `enfants[].jourDateDeNaissance`   | `data.enfants[].date_naissance` (jour) | **Regroupement dans une clé parente** : Le champ `jourDateDeNaissance` en V2 est inclus dans le champ `date_naissance` en V3.         |
+| `adresse.identite`                | `data.adresse.destinataire`         | **Renommage de clé** : Pas de changement autre que le renommage de `identite` en `destinataire`. |
