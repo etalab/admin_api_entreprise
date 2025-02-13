@@ -66,6 +66,7 @@ class User < ApplicationRecord
     editor.present?
   end
 
+  # rubocop:disable Metrics/AbcSize
   def admin?
     if Rails.env.production?
       Rails.application.credentials.admin_emails.include?(email)
@@ -73,9 +74,18 @@ class User < ApplicationRecord
       %w[
         api-entreprise@yopmail.com
         api-particulier@yopmail.com
-      ].include?(email)
+      ].include?(email) || email_from_ywh(email)
     else
-      email =~ /@beta.gouv.fr$/
+      email_from_beta(email)
     end
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  def email_from_ywh(email)
+    /admin@yeswehack.ninja$/.match?(email)
+  end
+
+  def email_from_beta(email)
+    /@beta.gouv.fr$/.match?(email)
   end
 end
