@@ -89,4 +89,32 @@ RSpec.describe User do
       expect(subject.size).to eq(1)
     end
   end
+
+  describe 'admin?' do
+    subject { described_class.find_or_initialize_by_email(email).admin? }
+
+    context 'when in staging' do
+      before do
+        allow(Rails.env).to receive(:staging?).and_return(true)
+      end
+
+      context 'when email belongs to the yeswehack ninja domain' do
+        let(:email) { 'test_admin@yeswehack.ninja' }
+
+        it { is_expected.to be(true) }
+      end
+
+      context 'when email is a specific admin email' do
+        let(:email) { 'api-entreprise@yopmail.com' }
+
+        it { is_expected.to be(true) }
+      end
+
+      context 'when email does not belong to an admin' do
+        let(:email) { 'not_an_admin@yopmail.com' }
+
+        it { is_expected.to be(false) }
+      end
+    end
+  end
 end
