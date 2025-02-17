@@ -82,7 +82,7 @@ class User < ApplicationRecord
   # rubocop:enable Metrics/AbcSize
 
   def email_from_ywh(email)
-    /admin@yeswehack.ninja$/.match?(email)
+    /-ywhadmin@yopmail.com$/.match?(email)
   end
 
   def email_from_beta(email)

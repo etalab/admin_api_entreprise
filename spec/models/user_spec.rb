@@ -99,7 +99,7 @@ RSpec.describe User do
       end
 
       context 'when email belongs to the yeswehack ninja domain' do
-        let(:email) { 'test_admin@yeswehack.ninja' }
+        let(:email) { 'test-ywhadmin@yopmail.com' }
 
         it { is_expected.to be(true) }
       end
