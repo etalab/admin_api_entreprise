@@ -1,9 +1,7 @@
 module AbstractAPIClass
   extend ActiveSupport::Concern
 
-  def api
-    self.class.api
-  end
+  delegate :api, to: :class
 
   class_methods do
     def api
