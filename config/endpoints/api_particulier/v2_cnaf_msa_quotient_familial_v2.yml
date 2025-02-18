@@ -37,12 +37,12 @@
   data:
     description: |+
       **Cette API délivre** :
-      - **la composition familiale** du particulier, [en savoir plus](#faq_entry_answer_2_api_particulier_endpoint_cnav_quotient_familial_v2) ;
-      - **le quotient familial CAF ou MSA** du particulier. Par défaut, le quotient familial du **mois précédent, M-1** est transmis. Le QF de l'allocataire est disponible pour les 24 mois précédents en précisant le mois et l'année dans l'appel ;
+      - **la composition familiale** du particulier, [en savoir plus](#composition-familiale) ;
+      - **le quotient familial CAF ou MSA** du particulier. Par défaut, le quotient familial du **mois précédent, M-1** est transmis. Le QF de l'allocataire est disponible pour les 24 mois précédents en précisant le mois et l'année dans l'appel, [sa valeur peut varier au cours du temps](#variation-qf) suite à un recalcul  ;
       - **l'adresse** du particulier au format de La Poste. ⚠️ Cette adresse est déclarative. Si l'usager a changé d'adresse et n'a pas actualisé son adresse auprès de la CAF ou de la MSA, l'information sera donc obsolète. 
 
       {:.fr-highlight}
-      > Le quotient familial au sens de la CNAF ou de la MSA a une définition différente du quotient familial de l'administration fiscale, [en savoir plus](#faq_entry_answer_0_api_particulier_endpoint_cnav_quotient_familial_v2).
+      > Le quotient familial au sens de la CNAF ou de la MSA a une définition différente du quotient familial de l'administration fiscale, [en savoir plus](#difference-qf-caf-dgfip).
 
       {:.fr-highlight.fr-highlight--caution}
       > **Le QF CNAF est calculé seulement pour les allocataires dont les ressources sont déclarées**. En effet, pour calculer le quotient familial, la CNAF collecte tous les mois auprès de la DGFIP les ressources de l'individu (revenus salariés et non-salariés, du capital, rentes ...). Elle récupère le bilan en fin d'année. Sans la réception de ces ressources, le QF CNAF ne peut être calculé : une erreur est renvoyée par l'API.
@@ -118,7 +118,7 @@
     - enfant
     - adresse
   faq:
-    - q: Quelle différence entre le quotient familial CAF/MSA et le QF de l'administration fiscale ?
+    - q: <a name="difference-qf-caf-dgfip"></a> Quelle différence entre le quotient familial CAF/MSA et le QF de l'administration fiscale ?
       a: |+
         Le quotient familial retourné par l'API est le quotient familial de la CAF ou de la MSA. Ce QF est différent de celui de l'administration fiscale car il prend en compte les prestations familiales. Contrairement au quotient familial DGFIP calculé au moment de la déclaration de revenu, le QF CAF/MSA est revu à chaque changement de situation familiale et/ou professionnelle.
 
@@ -126,7 +126,7 @@
 
         Source : [Caf.fr](https://caf.fr/allocataires/vies-de-famille/articles/quotient-familial-caf-impots-quelles-differences){:target="_blank"}
 
-    - q: Variations du quotient familial au cours du temps et dates de calcul
+    - q: <a name="variation-qf"></a> Le quotient familial d'une même date peut-il changer au cours du temps ?
       a: |+
         **Le quotient familial CAF ou MSA d'un même mois peut changer**. Il est recalculé fréquemment au cours du temps par la CAF et la MSA. En effet, la situation de la personne peut évoluer : _perte d'un emploi, évolution des ressources, arrivée d'un enfant, majorité d'un enfant, modification de la législation, évolution des allocations logement etc._
         **Cette variation apparaît notamment entre le quotient familial du mois appelé en début de mois ou en fin de mois**. **Le mois remonté par l'API est, par défaut, le mois M-1.**
@@ -145,7 +145,7 @@
             {:.fr-highlight.fr-highlight--example}
             > Par exemple, un appel le 28 juin 2023 du quotient familial du mois en cours (juin 2023) : la MSA recalculera le QF le 28 juin 2023.
 
-    - q: Quelle est la composition familiale renvoyée par cette API ?
+    - q: <a name="composition-familiale"></a> Quelle est la composition familiale renvoyée par cette API ?
       a: |+
         La notion de «&nbsp;composition familiale&nbsp;» peut correspondre à différentes définitions dans les administrations qui n'y comptent pas les mêmes personnes. _Par exemple, pour calculer l'impôt sur le revenu d'un foyer, le service des impôts s'intéresse à une composition familiale appelée «&nbsp;foyer fiscal&nbsp;»_, et dont la nature est différente de celle renvoyée par cette API.
 
@@ -160,31 +160,30 @@
         > C'est le cas d'un enfant ayant quitté le foyer de ses parents et ayant ouvert son propre dossier d'allocataire pour bénéficier d'une aide (par exemple les APL ou le RSA), mais qui souhaite tout de même être rattaché à la déclaration fiscale de ses parents.
         > _Cet enfant appartiendra au même foyer fiscal que ses parents au sens de l'administration fiscale, mais à une famille différente selon la CAF ou la MSA._
 
-    - q: Dans quels cas les deux parents sont-ils associés à un même compte ?
+    - q: <a name="compte-parents"></a> Dans quels cas les deux parents sont-ils associés à un même compte ? S'ils le sont, peuvent-ils être rattachés à la MSA et à la CAF en même temps ?
       a: |+
-        Les deux parents sont associés à un même compte, **lorsqu'ils sont mariés, pacsés ou concubins ET à partir de la déclaration de ce changement par l'allocataire**, sur le site caf.fr ou sur l’application «&nbsp;Caf -Mon Compte&nbsp;». Cette déclaration induit de loger au même domicile, exception faite du cas d'un conjoint vivant à l'étranger dont la vie maritale est tout de même enregistrée auprès de la CAF ou la MSA.
+        **Les deux parents sont associés à un même compte lorsqu'ils sont mariés, pacsés ou concubins ET à partir de la déclaration de ce changement par l'allocataire**, sur le site caf.fr ou sur l’application «&nbsp;Caf -Mon Compte&nbsp;». Cette déclaration induit de loger au même domicile, exception faite du cas d'un conjoint vivant à l'étranger dont la vie maritale est tout de même enregistrée auprès de la CAF ou la MSA.
 
-    - q: Les enfants majeurs sont-ils renvoyés par l’API lorsque l'appel est effectué avec l'identité du parent  ?
+        **Les parents qui sont associés à un même compte**, sont gérés par une seule caisse, la CAF ou la MSA. Le choix de la caisse de rattachement revient au couple. Toutefois, il y a quelques exceptions : 
+        - lorsqu’un couple est bénéficiaire du RSA avec un des membres du couple exploitant agricole ou aide familial, quelle que soit la situation du conjoint ou concubin, seule la MSA est compétente pour le RSA et les prestations familiales. Le couple sera donc affilié à la MSA ;
+        - Si un des deux membres du couple relève de l’Assemblée nationale ou du Sénat, il doit être enregistré en tant que responsable dossier, afin d’éviter les doubles paiements.
+
+
+    - q: Dans le cas d’une famille recomposée, les enfants des deux parents sont-ils remontés sur un même compte ? 
+      a: |+
+        L'enfant sera uniquement rattaché au parent qui en a la charge. Dans le cas d'une situation de résidence alternée qui induit un partage de la charge, l'enfant apparaitra sur les deux comptes uniquement si la "résidence alternée avec partage des allocations" est déclarée à la caisse d'allocation. 
+
+    - q: Les enfants décédés sont-ils remontés par l’API ?
+      a: |+
+        Les enfants décédés ne sont plus considérés à charge le mois suivant le décès et ne sont donc plus remontés par l'API.
+
+    - q: <a name="enfants-majeurs"></a> Les enfants majeurs sont-ils renvoyés par l’API lorsque l'appel est effectué avec l'identité du parent  ?
       a: |+
         Oui, si l'enfant est toujours à la charge des parents. Cette charge est modulée en fonction de la rémunération de l'enfant, le cas échéant. La rémunération de l'enfant nette ne doit pas être supérieure au plafond de rémunération pour enfant à charge fixé à 55% du SMIC d'après l'[article R.512-2 du code de la Sécurité Sociale](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006750602){:target="_blank"}.
         La composante âge de l'enfant doit être prise en compte puisqu'elle détermine le terme de certaines prestations. 
         Il est à noter que cette limite est variable et exclut le mois de l'atteinte de l'âge limite (d'où la précision "xx ans et 11 mois"): La limite d'âge est de 16 à 19 ans et 11 mois pour l'ensemble des prestations sauf exceptions ci dessous:
         - jusqu'à 20 ans et 11 mois pour le forfait Allocation Familiale (AF, le Complément familiale (Cf) dans l'hexagone et les aides au logement ;
         - jusqu'à 21 ans et 11 mois pour l'Allocation de logement familiale (ALF) dans les Départements et régions d'Outre-Mer.
-
-    - q: Dans le cas d’une famille recomposée, les enfants des deux parents sont-ils remontés sur un même compte ? 
-      a: |+
-        L'enfant sera uniquement rattaché au parent qui en a la charge. Dans le cas d'une situation de résidence alternée qui induit un partage de la charge, l'enfant apparaitra sur les deux comptes uniquement si la "résidence alternée avec partage des allocations" est déclarée à la caisse d'allocation. 
-
-    - q: Les enfants décédés sont-ils remontés par l’API ? ?
-      a: |+
-        Les enfants décédés ne sont plus considérés à charge le mois suivant le décès et ne sont donc plus remontés par l'API.
-
-    - q: Les parents associés à un même compte peuvent-ils être rattachés à la MSA et à la CAF en même temps ?
-      a: |+
-        Les parents qui sont associés à un même compte, sont gérés par une seule caisse, la CAF ou la MSA. Le choix de la caisse de rattachement revient au couple. Toutefois, il y a quelques exceptions : 
-        - lorsqu’un couple est bénéficiaire du RSA avec un des membres du couple exploitant agricole ou aide familial, quelle que soit la situation du conjoint ou concubin, seule la MSA est compétente pour le RSA et les prestations familiales. Le couple sera donc affilié à la MSA ;
-        - Si un des deux membres du couple relève de l’Assemblée nationale ou du Sénat, il doit être enregistré en tant que responsable dossier, afin d’éviter les doubles paiements.
 
     - q: <a name="renseigner-lieu-de-naissance"></a> Appel avec l'identité pivot, comment renseigner le lieu de naissance ?
       a: |+
