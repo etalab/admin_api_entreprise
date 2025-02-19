@@ -1,0 +1,139 @@
+---
+- uid: 'cnav/psu'
+  opening: protected
+  call_id:
+    - Identité pivot
+    - FranceConnect
+  parameters:
+    - Identité pivot
+    - FranceConnect
+  # Path: doit correspondre au path dans le swagger
+  # Exemple pour Paiements Pole Emploi en v2
+  # Voir le swagger ici : https://github.com/etalab/siade/blob/272aa40577802afe59ebc5f3cded39d2c25107ae/swagger/openapi-particulierv2.yaml#L2272
+  # Le path est '/api/v2/paiements-pole-emploi' (copier ligne 2272)
+  # Swagger Particulier v2 ici : https://github.com/etalab/siade/blob/develop/swagger/openapi-particulierv2.yaml
+  # Swagger Particulier v3 ici : https://github.com/etalab/siade/blob/develop/swagger/openapi-particulier.yaml
+  path: '/api/v2/paiements-pole-emploi'
+  # Position au sein de l'index
+  # Ce chiffre détermine l'ordre d'affichage dans le catalogue : La fiche avec position 1 sera avant la fiche 2
+  position: 200
+  perimeter:
+    entity_type_description: |+
+      **Cette API délivre les informations permettant le calcul de la prestation de service unique (PSU) des allocataires de la majorité des régimes** :
+      - ✅ le régime agricole (MSA) ;
+      - ✅ le régime général ;
+      - ✅ les titulaires de l'éducation nationale ;
+      - ✅ les retraités de la fonction publique d'État et des collectivités locales ;
+      - ✅ les régimes spéciaux suivants : artiste-auteur-compositeur, France Télécom, industries électriques et gazières, marin du commerce et pêche, mines (régime général), poste, RATP, SNCF, navigation intérieure en cas d'accord local et les pensions des autres régimes.
+
+        **Ne sont pas concernés par cette API**, les bénéficiaires des régimes suivants :
+
+      - ❌ le régime des titulaires de l'Assemblée nationale et du Sénat ;
+      - ❌ le régime de la navigation intérieure **sauf** lorsqu'un accord local est passé, et que le régime est alors pris en compte par la CAF.
+
+    geographical_scope_description:  |+
+      - ✅ France métropolitaine
+      - ✅ DROM COM
+      - ✅ Allocataires de nationalité étrangère
+    updating_rules_description: |+
+      Les données sont **mises à jour une fois par an**, cette API opérée par la CNAV (Caisse nationale d'assurance vieillesse) est reliée au système d'information de la Caisse nationale des allocations familiales (CNAF) et à celui de la mutualité sociale agricole (MSA).
+
+      ⚠️ **Les informations obtenues sont représentatives de la situation connue par la CNAF et la MSA au moment de l'appel**, il est donc possible que les données appelées pour un mois donné à un instant T, soit différent s'il est redemandé à un instant T+. [En savoir plus](faq_entry_1_api_particulier_endpoint_cnav_prestation_de_service_unique).
+  data: 
+    description: |+
+      **Cette API délivre** :
+      - **la composition familiale** du particulier, [en savoir plus](#faq_entry_answer_2_api_particulier_endpoint_cnav_prestation_de_service_unique) ;
+      - **l'adresse** du particulier au format de La Poste. ⚠️ Cette adresse est déclarative. Si l'usager a changé d'adresse et n'a pas actualisé son adresse auprès de la CAF ou de la MSA, l'information sera donc obsolète ;
+      - **les différents paramètres de calcul de la PSU, à savoir : le nombre d'enfant à charge, le nombre d’enfants en situation de handicap bénéficiaires de l’allocation d'éducation de l'enfant handicapé (AEEH), le montant et la date de calcul des ressources annuelles du foyer**. 
+      {:.fr-highlight}
+
+      {:.fr-highlight.fr-highlight--caution}
+      > **Le montant des ressources annuelles ainsi que l'année de calcul sont remontés seulement pour les allocataires dont les ressources sont déclarées**. En effet, la CNAF collecte tous les mois auprès de la DGFIP les ressources de l'individu (revenus salariés et non-salariés, du capital, rentes ...). Elle récupère le bilan en fin d'année. Sans la réception de ces ressources, le montant des ressources ne peut être transmis : A compléter.
+
+   
+    know_more_description: |+
+      [Pour en savoir plus sur la PSU et les règles d'attribution de cette aide aux établissements d'accueil du jeune enfant](https://www.caf.fr/sites/default/files/medias/631/Partenaires/PDF%20_Part/EAJE/Corps%20de%20la%20circulaire%20Psu20180205101510.pdf) 
+
+  parameters_details:
+    description: |+
+         **L'API est uniquement appelable avec les informations de l'allocataire**.
+      Il n'est pas possible d'interroger cette API avec les informations des ayants droit.
+      <br/>
+      Deux modalités d'appel sont possibles&nbsp;:
+      <p class="fr-badge fr-badge--blue-ecume">![Cette API est FranceConnectée](<%= image_path('api_particulier/cas_usages/pictos/modalite_appel_france_connect.svg') %>){:width="20px"} FranceConnect</p>
+      **Avec la [modalité d'appel FranceConnect](<%= cas_usage_path('modalite_appel_france_connect') %>)**.
+
+      <p class="fr-badge fr-badge--brown-cafe-creme">Identité pivot</p>
+      <section class="fr-accordion fr-mt-2v">
+        <p class="fr-accordion__title">
+        <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106"><b>Avec les données d'identité</b></button>
+        </p>
+        <div class="fr-collapse" id="accordion-106">
+        <div class="fr-mb-0">
+        <ul>
+          <li>Nom de naissance<sup>*</sup>, nom d'usage, prénoms<sup>1</sup>, sexe<sup>*</sup>, date de naissance de l'allocataire<sup>**</sup>&nbsp;;</li>
+          <li>Lieu de naissance&nbsp;:
+          <ul>
+            <li>
+            <em>Si le lieu de naissance est en France,</em> la commune de naissance est obligatoire, elle peut être saisie de deux façons différentes :
+            <ul>
+              <li class="fr-text--sm fr-mb-0">
+              Option 1 : Code COG de la commune de naissance<sup>*</sup>. <a href="#renseigner-lieu-de-naissance">En savoir plus</a>&nbsp;;
+              </li>
+              <li class="fr-text--sm fr-mb-0">
+              Option 2 : Nom de la commune de naissance<sup>*</sup> et code du département de naissance<sup>*</sup>. Pour cette option, la date de naissance est obligatoire. <a href="#renseigner-lieu-de-naissance">En savoir plus</a>.
+              </li>
+            </ul>
+            Pour chacune des deux options ci-dessus, le code COG de la France <code>99100</code><sup>*</sup> doit également être renseigné en paramètre d'appel. Vous n'avez pas besoin de le demander à l'usager, il peut être déduit de la commune de naissance.
+            </li>
+            <li class="fr-mt-2v">
+            <em>Si le lieu de naissance est à l'étranger&nbsp;:</em> code COG du pays de naissance<sup>*</sup>.
+            </li>
+          </ul>
+          </li>
+        </ul>
+        </div>
+        <span class="fr-text--xs">
+        <sup>*</sup> Obligatoire | <sup>**</sup> Obligatoire pour l'option 2 du lieu de naissance.
+        </span>
+        <span class="fr-text--xs fr-m-0">
+        <sup>1</sup> Fournir plusieurs prénoms permet de limiter les risques d'homonymie mais un seul prénom peut fonctionner. Attention, l'usager doit compléter chaque prénom dans un champ distinct.
+        </span>
+        <blockquote class="fr-highlight fr-highlight--caution">
+        ⚠️ <strong>Message API Particulier du 04.06.2024</strong> : Nous avons constaté que les appels effectués sans nom de naissance et <strong>avec le nom d'usage ne fonctionnent pas</strong> dans une très grande partie des cas. Après investigation auprès de la CNAV (opérateur de l'API source), API Particulier a donc décidé de passer le paramètre "Nom de naissance" en obligatoire.
+        </blockquote>
+        </div>
+      </section>
+
+  provider_uids:
+    - 'cnav'
+  call_id: 
+    - Identité pivot
+    - FranceConnect
+  parameters:
+    - Identité pivot
+    - FranceConnect
+  keywords:
+    - psu
+    - prestation de service unique
+    - aeeh
+    - ressources
+    - allocataire
+    - enfant
+    - adresse
+            
+  use_cases:
+    - Tarification des services publics municipaux
+  faq:
+    - q: "Qu'est ce que la prestation de service unique ?"
+      a: |+
+        La Prestation de service unique est une aide au fonctionnement versée par les Caf aux gestionnaires d’établissements visés par l’article R.2324-17 du code de la santé publique et bénéficiant d’une autorisation d’ouverture délivrée par l’autorité compétente soit :
+        - les établissements d’accueil collectif (crèches, haltes-garderies, multi-accueils, micro-crèches (excepté les micro-crèches Cmg Paje),
+        - les services d’accueils familiaux (crèches familiales),
+        - les établissements à gestion parentale,
+        - les jardins d’enfants.
+       Elle correspond à la prise en charge de 66 % du prix de revient horaire d’un établissement d'accueil du jeune enfant (eaje), dans la limite du prix plafond fixé par la CNAF et la MSA, déduction faite des participations familiales. 
+  api_cgu:
+    description: |+
+        Les conditions d'utilisations spécifiques à l'API
+
