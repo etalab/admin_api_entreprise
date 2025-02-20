@@ -273,6 +273,9 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
   <li>
    <a class="fr-summary__link fr-text--sm" href="#correspondance-api-statut-demandeur-emploi">API Statut demandeur d'emploi</a>
   </li>
+  <li>
+   <a class="fr-summary__link fr-text--sm" href="#correspondance-api-paiements-france-travail">API Paiements versés par France Travail</a>
+  </li>
  </ol>
 </nav>
 
@@ -406,26 +409,36 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 {:.fr-table}
 | **Champ V.2** | **Champ V.3 correspondant** | **Description des changements** |
 |--------------|----------------------------|-------------------------------|
-| `identifiant` | `identifiant` | Champ conservé et positionné au niveau racine. |
-| `civilite` | `identite.civilite` | Regroupé dans la clé parente `identite`. |
-| `nom` | `identite.nom_naissance` | Renommé en `nom_naissance` et regroupé dans la clé parente `identite`. |
-| `nomUsage` | `identite.nom_usage` | Regroupé dans la clé parente `identite`. |
-| `prenom` | `identite.prenom` | Regroupé dans la clé parente `identite`. |
-| `sexe` | `identite.sexe` | Regroupé dans la clé parente `identite`. |
-| `dateNaissance` | `identite.date_naissance` | Formaté en date et regroupé dans la clé parente `identite`. |
-| `codeCertificationCNAV` | `inscription.code_certification_cnav` | Regroupé dans la clé parente `inscription`. |
-| `codeCategorieInscription` | `inscription.categorie.code` | Repositionné dans une structure imbriquée (`categorie`) au sein de la clé parente `inscription`. |
-| `libelleCategorieInscription` | `inscription.categorie.libelle` | Repositionné dans une structure imbriquée (`categorie`) au sein de la clé parente `inscription`. |
-| `dateInscription` | `inscription.date_debut` | Renommé et regroupé dans la clé parente `inscription`. |
-| `dateCessationInscription` | `inscription.date_fin` | Renommé et regroupé dans la clé parente `inscription`. |
-| `adresse.INSEECommune` | `adresse.code_cog_insee_commune` | Renommé et regroupé dans la clé parente `adresse`. |
-| `adresse.codePostal` | `adresse.code_postal` | Regroupé dans la clé parente `adresse`. |
-| `adresse.ligneComplementAdresse` | `adresse.ligne_complement_adresse` | Regroupé dans la clé parente `adresse`. |
-| `adresse.ligneComplementDestinataire` | `adresse.ligne_complement_destinataire` | Regroupé dans la clé parente `adresse`. |
-| `adresse.ligneComplementDistribution` | `adresse.ligne_complement_distribution` | Regroupé dans la clé parente `adresse`. |
-| `adresse.ligneNom` | `adresse.ligne_nom` | Regroupé dans la clé parente `adresse`. |
-| `adresse.ligneVoie` | `adresse.ligne_voie` | Regroupé dans la clé parente `adresse`. |
-| `adresse.localite` | `adresse.localite` | Regroupé dans la clé parente `adresse`. |
-| `email` | `contact.email` | Regroupé dans la clé parente `contact`. |
-| `telephone` | `contact.telephone` | Regroupé dans la clé parente `contact`. |
-| `telephone2` | `contact.telephone2` | Regroupé dans la clé parente `contact`. |
+| `identifiant` | `identifiant` | **Déplacement du champ au niveau racine.** |
+| `civilite` | `identite.civilite` | **Regroupement dans la clé parente** `identite`. |
+| `nom` | `identite.nom_naissance` | **Renommage** en `nom_naissance` et **regroupement dans la clé parente** `identite`.|
+| `nomUsage` | `identite.nom_usage` | **Regroupement dans la clé parente** `identite`. |
+| `prenom` | `identite.prenom` | **Regroupement dans la clé parente** `identite`. |
+| `sexe` | `identite.sexe` | **Regroupement dans la clé parente** `identite`. |
+| `dateNaissance` | `identite.date_naissance` | **Formatage en date** et **regroupement dans la clé parente** `identite`. |
+| `codeCertificationCNAV` | `inscription.code_certification_cnav` | **Regroupement dans la clé parente** `inscription`. |
+| `codeCategorieInscription`<br/>`libelleCategorieInscription` | `inscription.categorie.code`<br/>`inscription.categorie.libelle` | **Regroupement dans la clé parente** `categorie` au sein de la clé `inscription`. |
+| `dateInscription` | `inscription.date_debut` | **Renommage et regroupement dans la clé parente** `inscription`. |
+| `dateCessationInscription` | `inscription.date_fin` | **Renommage et regroupement dans la clé parente** `inscription`. |
+| `adresse.INSEECommune` | `adresse.code_cog_insee_commune` | **Renommage et regroupement dans la clé parente** `adresse`. |
+| `adresse.codePostal`<br/>`adresse.ligneComplementAdresse`<br/>`adresse.ligneComplementDestinataire`<br/>`adresse.ligneComplementDistribution`<br/>`adresse.ligneNom`<br/>`adresse.ligneVoie`<br/>`adresse.localite` | `adresse.code_postal`<br/>`adresse.ligne_complement_adresse`<br/>`adresse.ligne_complement_destinataire`<br/>`adresse.ligne_complement_distribution`<br/>`adresse.ligne_nom`<br/>`adresse.ligne_voie`<br/>`adresse.localite` | **Regroupement dans la clé parente** `adresse`. |
+| `email`<br/>`telephone`<br/>`telephone2` | `contact.email`<br/>`contact.telephone`<br/>`contact.telephone2` | **Regroupement dans la clé parente** `contact`. |
+
+
+### <a name="correspondance-api-paiements-france-travail"></a> API Paiements versés par France Travail
+
+{:.fr-h6}
+#### Synthèse des changements : 
+- L'identifiant France Travail passé en paramètre d'appel n'est plus renvoyé dans la payload.
+- Tous les noms de clés changent au format snake_case, avec un tiret du bas.
+
+
+{:.fr-h6}
+#### Champs de la payload ayant significativement changé :
+
+
+{:.fr-table}
+| **Champ V.2** | **Champ V.3 correspondant** | **Description des changements** |
+|--------------|----------------------------|-------------------------------|
+| `identifiant` | | **Suppression du champ :** Inutile car il s'agissait du paramètre d'appel saisi. |
+| `date` | `date_versement` | **Renommage de la clé en `date_versement`.** |
