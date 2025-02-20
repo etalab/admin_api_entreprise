@@ -92,17 +92,16 @@ Dans l’exemple ci-dessous, la clé `retry_in` permet de relancer un appel apr�
 {
 "errors": [
     {
-    "code": "04501",
-    "title": "Analyse de la situation du compte en cours",
-    "detail": "La situation de l'entreprise requiert une
-                analyse manuelle d'un agent de l'URSSAF.
-                Une demande d'analyse vient d'être envoyée,
-                cela prend au maximum 2 jours.",
-    "meta": {
-        "provider": "ACOSS",
-        "retry_in": 172800
-    }
-    }
+      "code": "37003",
+      "title": "Entité non trouvée",
+      "detail": "Dossier allocataire inexistant. Le document ne peut être édité.",
+      "source": null,
+      "meta": 
+      {
+        "provider": "CNAV"
+      }
+   }
+]
 ]
 }
 ```
