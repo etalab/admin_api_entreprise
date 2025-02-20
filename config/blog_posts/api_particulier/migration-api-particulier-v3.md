@@ -276,6 +276,12 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
   <li>
    <a class="fr-summary__link fr-text--sm" href="#correspondance-api-paiements-france-travail">API Paiements versés par France Travail</a>
   </li>
+  <li>
+   <a class="fr-summary__link fr-text--sm" href="#correspondance-api-statut-rsa">API Statut revenu de solidarité active (RSA) </a>
+  </li>
+  <li>
+   <a class="fr-summary__link fr-text--sm" href="#correspondance-api-statut-prime-activite">API Statut prime d'activité</a>
+  </li>
  </ol>
 </nav>
 
@@ -385,8 +391,8 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 | `eleve` | `identite` | **Renommage de la clé parente** en `identite`. |
 | `code_etablissement` | `etablissement.code_uai` | **Renommage de la clé en `code_uai` et regroupement dans une clé parente `etablissement`** |
 |  | `etablissement.code_ministere_tutelle` | **🎁 Nouvelle donnée :** ajout du code du ministère de tutelle de l'établissement. |
-| `est_boursier` | | **❌ Suppression du champ.** |
-| `niveau_bourse` |  | **❌ Suppression du champ.** |
+| `est_boursier` | *(supprimé)*  | **❌ Suppression du champ.** |
+| `niveau_bourse` | *(supprimé)*   | **❌ Suppression du champ.** |
 | `status_eleve` | `statut_eleve` | **Renommage de la clé en `statut_eleve`.** |
 |  | `module_elementaire_formation` | **🎁 Nouvelle donnée :** ajout du code et du libellé du module élémentaire de formation de l'élève. |
 
@@ -436,9 +442,53 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 {:.fr-h6}
 #### Champs de la payload ayant significativement changé :
 
+{:.fr-table}
+| **Champ V.2** | **Champ V.3 correspondant** | **Description des changements** |
+|--------------|----------------------------|-------------------------------|
+| `identifiant` | *(supprimé)*  | **Suppression du champ :** Inutile car il s'agissait du paramètre d'appel saisi. |
+| `date` | `date_versement` | **Renommage de la clé en `date_versement`.** |
+
+
+
+
+### <a name="correspondance-api-statut-rsa"></a> API Statut revenu de solidarité active (RSA) 
+
+{:.fr-h6}
+#### Synthèse des changements : 
+- L'endpoint V.2 est divisé en deux endpoints en V.3, un pour la modalité d'appel par données d'identité, l'autre pour la modalité d'appel FranceConnect ;
+- Suppression de la date de fin.
+- Tous les noms de clés changent au format snake_case, avec un tiret du bas.
+
+
+{:.fr-h6}
+#### Champs de la payload ayant significativement changé :
+
+
+{:.fr-table}
+| **Champ V.2** | **Champ V.3 correspondant** | **Description des changements** |
+|--------------|--------------------------|-------------------------------|
+| `status` | `est_beneficiaire` | **Renommage de la clé** `status` en `est_beneficiaire` et **passage au format en booléen**. |
+| `majoration` | `avec_majoration` | **Renommage de la clé** `majoration` en `avec_majoration`. |
+| `dateDebut` | `date_debut_droit` | **Renommage de la clé** `dateDebut` en `date_debut_droit`. |
+| `dateFin` | *(supprimé)* | **Suppression de la clé** `dateFin`. Cette information TODO EXPLICATION. |
+
+
+
+
+### <a name="correspondance-api-statut-prime-activite"></a> API Statut prime d'activité  
+
+{:.fr-h6}
+#### Synthèse des changements : 
+- L'identifiant France Travail passé en paramètre d'appel n'est plus renvoyé dans la payload.
+- Tous les noms de clés changent au format snake_case, avec un tiret du bas.
+
+
+{:.fr-h6}
+#### Champs de la payload ayant significativement changé :
+
 
 {:.fr-table}
 | **Champ V.2** | **Champ V.3 correspondant** | **Description des changements** |
 |--------------|----------------------------|-------------------------------|
-| `identifiant` | | **Suppression du champ :** Inutile car il s'agissait du paramètre d'appel saisi. |
+| `identifiant` | / | **Suppression du champ :** Inutile car il s'agissait du paramètre d'appel saisi. |
 | `date` | `date_versement` | **Renommage de la clé en `date_versement`.** |
