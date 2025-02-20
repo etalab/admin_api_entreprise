@@ -279,7 +279,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 - L'endpoint V.2 est divisé en deux endpoints en V.3, un pour la modalité d'appel par données d'identité, l'autre pour la modalité d'appel FranceConnect ;
 - Certaines clés sont regroupées sous une clé parente ;
 - Tous les noms de clés changent au format snake_case, avec un tiret du bas.
-- La version 1 de l'API ne sera pas migrée dans la V.3.
+- Pour rappel, la version de l'api QF exploitant le numéro allocataire (version 1) ne sera pas disponible dans API Particulier V.3, et sera décommissionnée en octobre 2025 dans API Particulier V.2.
 
 {:.fr-h6}
 #### Évolutions significatives des champs de la payload :
@@ -287,16 +287,16 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 {:.fr-table}
 | **Champ V.2**                      | **Champ V.3 correspondant**          | **Description des changements**                                                                 |
 |-----------------------------------|-------------------------------------|-------------------------------------------------------------------------------------------------|
-| `quotientFamilial`                | `data.quotient_familial.valeur`     | **Regroupement dans une clé parente** `quotient_familial` et **renommage de la clé** `quotient_familial` en `valeur` en V.3. |
-| `mois`                            | `data.quotient_familial.mois`       | **Regroupement dans une clé parente** `quotient_familial` en V.3.       |
-| `annee`                           | `data.quotient_familial.annee`      | **Regroupement dans une clé parente** `quotient_familial` en V.3.     |
-| `mois`                            | `data.quotient_familial.mois`       | **Regroupement dans une clé parente** `quotient_familial` en V.3.      |
-| `annee`                           | `data.quotient_familial.annee`      | **Regroupement dans une clé parente** `quotient_familial` en V.3.     |
-| `regime`                          | `data.quotient_familial.fournisseur`     | **Regroupement dans une clé parente** `quotient_familial` et **renommage de la clé** `regime` en `fournisseur` en V.3. Même si la donnée renvoyée est identique, la clé a été renommée car l'information MSA ou CAF n'indique pas nécessairement le régime de l'allocataire mais simplement le fournisseur du quotient familial. |
-| `allocataires[].anneeDateDeNaissance`<br/>`allocataires[].moisDateDeNaissance`<br/>`allocataires[].jourDateDeNaissance`| `data.allocataires[].date_naissance` | **Fusion des trois champs (jour, mois année) dans une même clé** `date_naissance` en V.3.         |
-| `enfants[].nomUsuel`              | `data.enfants[].nom_usage`          | **Renommage de clé** : Pas de changement autre que le renommage de `nomUsuel` en `nom_usage` en V.3. Après investigation auprès du fournisseur de donnée, il s'avère que le nom renvoyé est bien le nom d'usage tel que marqué sur l'acte d'état civil. |
-| `enfants[].anneeDateDeNaissance`<br/>`enfants[].moisDateDeNaissance`<br/>`enfants[].jourDateDeNaissance`| `data.enfants[].date_naissance`| **Fusion des trois champs (jour, mois année) dans une même clé** `date_naissance` en V.3.         |
-| `adresse.identite`                | `data.adresse.destinataire`         | **Renommage de la clé** `identite` en `destinataire` en V.3. |
+| `quotientFamilial`                | `data.quotient_familial.valeur`     | **Regroupement dans une clé parente** `quotient_familial` et **renommage de la clé** `quotient_familial` en `valeur`. |
+| `mois`                            | `data.quotient_familial.mois`       | **Regroupement dans une clé parente** `quotient_familial`.       |
+| `annee`                           | `data.quotient_familial.annee`      | **Regroupement dans une clé parente** `quotient_familial`.     |
+| `mois`                            | `data.quotient_familial.mois`       | **Regroupement dans une clé parente** `quotient_familial`.      |
+| `annee`                           | `data.quotient_familial.annee`      | **Regroupement dans une clé parente** `quotient_familial`.     |
+| `regime`                          | `data.quotient_familial.fournisseur`     | **Regroupement dans une clé parente** `quotient_familial` et **renommage de la clé** `regime` en `fournisseur`. Même si la donnée renvoyée est identique, la clé a été renommée car l'information MSA ou CAF n'indique pas nécessairement le régime de l'allocataire mais simplement le fournisseur du quotient familial. |
+| `allocataires[].anneeDateDeNaissance`<br/>`allocataires[].moisDateDeNaissance`<br/>`allocataires[].jourDateDeNaissance`| `data.allocataires[].date_naissance` | **Fusion des trois champs (jour, mois année) dans une même clé** `date_naissance`.         |
+| `enfants[].nomUsuel`              | `data.enfants[].nom_usage`          | **Renommage de clé** : Pas de changement autre que le renommage de `nomUsuel` en `nom_usage`. Après investigation auprès du fournisseur de donnée, il s'avère que le nom renvoyé est bien le nom d'usage tel que marqué sur l'acte d'état civil. |
+| `enfants[].anneeDateDeNaissance`<br/>`enfants[].moisDateDeNaissance`<br/>`enfants[].jourDateDeNaissance`| `data.enfants[].date_naissance`| **Fusion des trois champs (jour, mois année) dans une même clé** `date_naissance`.         |
+| `adresse.identite`                | `data.adresse.destinataire`         | **Renommage de la clé** `identite` en `destinataire`. |
 
 ### <a name="correspondance-api-statut-etudiant"></a> API Statut étudiant
 
@@ -315,16 +315,16 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 {:.fr-table}
 | **Champ V.2**                      | **Champ V.3 correspondant**          | **Description des changements**                                                                 |
 |-----------------------------------|-------------------------------------|-------------------------------------------------------------------------------------------------|
-| `nom`                             | `data.identite.nom_naissance`      | **Regroupement dans une clé parente** `identite` et **renommage de clé** `nom` en `nom_naissance` en V.3. |
-| `prenom`                          | `data.identite.prenom`             | **Regroupement dans une clé parente**  `identite` en V.3.                                              |
-| `dateNaissance`                   | `data.identite.date_naissance`     | **Regroupement dans une clé parente**  `identite` en V.3.                                              |
-| `inscriptions[]` | `data.admissions[]` | **Renommage de clé parente** `inscriptions` en `admissions` en V.3. |
-| `inscriptions[].dateDebutInscription` | `data.admissions[].date_debut` | **Renommage de la clé** `dateDebutInscription` en `date_debut` en V.3. |
-| `inscriptions[].dateFinInscription` | `data.admissions[].date_fin`   | **Renommage de la clé** `dateFinInscription` en `date_fin` en V.3. |
-| `inscriptions[].statut`           | `data.admissions[].est_inscrit`    | **Renommage de la clé et changement de format** : Le champ `statut`, au format "string" en V2 correspond au champ `est_inscrit` en V.3, qui est un "booléen". |
-| `inscriptions[].regime`           | `data.admissions[].regime_formation.libelle` et `data.admissions[].regime_formation.code` | **Renommage de la clé** `regime` en `regime_formation` qui devient une clé parente distribuant un libellé et un code en V.3. |
-| `inscriptions[].codeCommune`       | `data.admissions[].code_cog_insee_commune` | **Renommage de la clé** `codeCommune` en `code_cog_insee_commune` en V.3. |
-| `inscriptions[].etablissement` | `data.admissions[].etablissement_etudes` | **Renommage de la clé parente** `etablissement` en `etablissement_etudes` en V.3. |
+| `nom`                             | `data.identite.nom_naissance`      | **Regroupement dans une clé parente** `identite` et **renommage de clé** `nom` en `nom_naissance`. |
+| `prenom`                          | `data.identite.prenom`             | **Regroupement dans une clé parente**  `identite`.                                              |
+| `dateNaissance`                   | `data.identite.date_naissance`     | **Regroupement dans une clé parente**  `identite`.                                              |
+| `inscriptions[]` | `data.admissions[]` | **Renommage de clé parente** `inscriptions` en `admissions`. |
+| `inscriptions[].dateDebutInscription` | `data.admissions[].date_debut` | **Renommage de la clé** `dateDebutInscription` en `date_debut`. |
+| `inscriptions[].dateFinInscription` | `data.admissions[].date_fin`   | **Renommage de la clé** `dateFinInscription` en `date_fin`. |
+| `inscriptions[].statut`           | `data.admissions[].est_inscrit`    | **Renommage de la clé et changement de format** : Le champ `statut`, au format "string" en V2 correspond au champ `est_inscrit`, qui est un "booléen". |
+| `inscriptions[].regime`           | `data.admissions[].regime_formation.libelle` et `data.admissions[].regime_formation.code` | **Renommage de la clé** `regime` en `regime_formation` qui devient une clé parente distribuant un libellé et un code. |
+| `inscriptions[].codeCommune`       | `data.admissions[].code_cog_insee_commune` | **Renommage de la clé** `codeCommune` en `code_cog_insee_commune`. |
+| `inscriptions[].etablissement` | `data.admissions[].etablissement_etudes` | **Renommage de la clé parente** `etablissement` en `etablissement_etudes`. |
 
 
 ### <a name="correspondance-api-statut-etudiant-boursier"></a> API Statut étudiant boursier
@@ -342,15 +342,15 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 {:.fr-table}
 | **Champ V.2**                      | **Champ V.3 correspondant**          | **Description des changements**                                                                 |
 |-----------------------------------|-------------------------------------|-------------------------------------------------------------------------------------------------|
-| `nom`                             | `data.identite.nom`                | **Regroupement dans une clé parente** `identite` en V.3.                                       |
-| `prenom`<br/>`prenom2`                       | `data.identite.prenoms[0]`         | **Regroupement dans une clé parente** `identite` et **fusion des deux champs `prenom` et `prenom2` dans une même clé** `prenoms` en V.3. |
-| `dateNaissance`                   | `data.identite.date_naissance`     | **Regroupement dans une clé parente** `identite` en V.3.                                       |
-| `lieuNaissance`                   | `data.identite.nom_commune_naissance` | **Regroupement dans une clé parente** `identite` et **renommage de la clé** `lieuNaissance` en `nom_commune_naissance` en V.3. |
-| `sexe`                            | `data.identite.sexe`               | **Regroupement dans une clé parente** `identite` en V.3.                                       |
-| `boursier`                        | `data.est_boursier`                 | **Renommage de la clé** `boursier` en `est_boursier` en V.3.                                               |
-| `echelonBourse`                   | `data.echelon_bourse.echelon`      | **Regroupement dans une clé parente** `echelon_bourse` en V.3 et **renommage de la clé** en conséquence.                               |
-| `dateDeRentree`                  | `data.periode_versement_bourse.date_rentree` | **Regroupement dans une clé parente** `periode_versement_bourse` et **renommage de clé** `dateDeRentree` en `date_rentree` en V.3. |
-| `dureeVersement`                  | `data.periode_versement_bourse.duree` | **Regroupement dans une clé parente** `periode_versement_bourse` et **renommage de clé** `dureeVersement` en `duree` en V.3. |
+| `nom`                             | `data.identite.nom`                | **Regroupement dans une clé parente** `identite`.                                       |
+| `prenom`<br/>`prenom2`                       | `data.identite.prenoms[0]`         | **Regroupement dans une clé parente** `identite` et **fusion des deux champs `prenom` et `prenom2` dans une même clé** `prenoms`. |
+| `dateNaissance`                   | `data.identite.date_naissance`     | **Regroupement dans une clé parente** `identite`.                                       |
+| `lieuNaissance`                   | `data.identite.nom_commune_naissance` | **Regroupement dans une clé parente** `identite` et **renommage de la clé** `lieuNaissance` en `nom_commune_naissance`. |
+| `sexe`                            | `data.identite.sexe`               | **Regroupement dans une clé parente** `identite`.                                       |
+| `boursier`                        | `data.est_boursier`                 | **Renommage de la clé** `boursier` en `est_boursier`.                                               |
+| `echelonBourse`                   | `data.echelon_bourse.echelon`      | **Regroupement dans une clé parente** `echelon_bourse` et **renommage de la clé** en conséquence.                               |
+| `dateDeRentree`                  | `data.periode_versement_bourse.date_rentree` | **Regroupement dans une clé parente** `periode_versement_bourse` et **renommage de clé** `dateDeRentree` en `date_rentree`. |
+| `dureeVersement`                  | `data.periode_versement_bourse.duree` | **Regroupement dans une clé parente** `periode_versement_bourse` et **renommage de clé** `dureeVersement` en `duree`. |
 | `statut` et `statutLibelle`               | `data.echelon_bourse .echelon_bourse_regionale_provisoire`                           | **Remplacement des clés `statut` et `statutLibelle`** par la clé `echelon_bourse_regionale_provisoire` qui est rattachée à la clé parente `echelon_bourse`. Après investigation auprès du fournisseur de la donnée, il s'est avéré que la clé statut définitif ou provisoire indiquait que l'échelon de bourse mentionné était confirmé ou non. De plus, ce champ n'est complété que pour les bourses régionales. Par conséquent la V.3 recontextualise ce champ au bon endroit dans la payload.                             |
-| `villeEtudes`                     | `data.etablissement_etudes.nom_commune` | **Regroupement dans une clé parente** `etablissement_etudes` et **renommage de clé** `villeEtudes` en `nom_commune` en V.3. |
-| `etablissement`                   | `data.etablissement_etudes.nom_etablissement` | **Regroupement dans une clé parente** `etablissement_etudes` et **renommage de clé** `etablissement` en `nom_etablissement` en V.3. |
+| `villeEtudes`                     | `data.etablissement_etudes.nom_commune` | **Regroupement dans une clé parente** `etablissement_etudes` et **renommage de clé** `villeEtudes` en `nom_commune`. |
+| `etablissement`                   | `data.etablissement_etudes.nom_etablissement` | **Regroupement dans une clé parente** `etablissement_etudes` et **renommage de clé** `etablissement` en `nom_etablissement`. |
