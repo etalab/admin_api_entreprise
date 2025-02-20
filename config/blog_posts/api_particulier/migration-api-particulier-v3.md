@@ -268,7 +268,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
    <a class="fr-summary__link fr-text--sm" href="#correspondance-api-statut-etudiant-boursier">API Statut étudiant boursier</a>
   </li>
   <li>
-   <a class="fr-summary__link fr-text--sm" href="#correspondance-api-statut-eleve-scolarise">API Statut élève scolarisé et boursier</a>
+   <a class="fr-summary__link fr-text--sm" href="#correspondance-api-statut-eleve-scolarise">API Statut élève scolarisé</a>
   </li>
   <li>
    <a class="fr-summary__link fr-text--sm" href="#correspondance-api-statut-demandeur-emploi">API Statut demandeur d'emploi</a>
@@ -288,7 +288,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 - Pour rappel, la version de l'api QF exploitant le numéro allocataire (version 1) ne sera pas disponible dans API Particulier V.3, et sera décommissionnée en octobre 2025 dans API Particulier V.2.
 
 {:.fr-h6}
-#### Évolutions significatives des champs de la payload :
+#### Champs de la payload ayant significativement changé :
 
 {:.fr-table}
 | **Champ V.2**                      | **Champ V.3 correspondant**          | **Description des changements**                                                                 |
@@ -316,7 +316,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 
 
 {:.fr-h6}
-#### Évolutions significatives des champs de la payload :
+#### Champs de la payload ayant significativement changé :
 
 {:.fr-table}
 | **Champ V.2**                      | **Champ V.3 correspondant**          | **Description des changements**                                                                 |
@@ -343,7 +343,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 
 
 {:.fr-h6}
-#### Évolutions significatives des champs de la payload :
+#### Champs de la payload ayant significativement changé :
 
 {:.fr-table}
 | **Champ V.2**                      | **Champ V.3 correspondant**          | **Description des changements**                                                                 |
@@ -358,24 +358,36 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 | `dateDeRentree`                  | `data.periode_versement_bourse.date_rentree` | **Regroupement dans une clé parente** `periode_versement_bourse` et **renommage de clé** `dateDeRentree` en `date_rentree`. |
 | `dureeVersement`                  | `data.periode_versement_bourse.duree` | **Regroupement dans une clé parente** `periode_versement_bourse` et **renommage de clé** `dureeVersement` en `duree`. |
 | `statut` et `statutLibelle`               | `data.echelon_bourse .echelon_bourse_regionale_provisoire`                           | **Remplacement des clés `statut` et `statutLibelle`** par la clé `echelon_bourse_regionale_provisoire` qui est rattachée à la clé parente `echelon_bourse`. Après investigation auprès du fournisseur de la donnée, il s'est avéré que la clé statut définitif ou provisoire indiquait que l'échelon de bourse mentionné était confirmé ou non. De plus, ce champ n'est complété que pour les bourses régionales. Par conséquent la V.3 recontextualise ce champ au bon endroit dans la payload.                             |
-| `villeEtudes`                     | `data.etablissement_etudes.nom_commune` | **Regroupement dans une clé parente** `etablissement_etudes` et **renommage de clé** `villeEtudes` en `nom_commune`. |
-| `etablissement`                   | `data.etablissement_etudes.nom_etablissement` | **Regroupement dans une clé parente** `etablissement_etudes` et **renommage de clé** `etablissement` en `nom_etablissement`. |
+| `villeEtudes`                     | `data.etablissement_etudes .nom_commune` | **Regroupement dans une clé parente** `etablissement_etudes` et **renommage de clé** `villeEtudes` en `nom_commune`. |
+| `etablissement`                   | `data.etablissement_etudes .nom_etablissement` | **Regroupement dans une clé parente** `etablissement_etudes` et **renommage de clé** `etablissement` en `nom_etablissement`. |
 
 
-### <a name="correspondance-api-statut-eleve-scolarise"></a> API Statut élève scolarisé et boursier
+### <a name="correspondance-api-statut-eleve-scolarise"></a> API Statut élève scolarisé
 
 {:.fr-h6}
 #### Synthèse des changements : 
+- Suppression des données de bourse : l'API ne renvoie plus le statut boursier le temps que le fournisseur de données la mette à nouveau à disposition ;
+- Ajout de nouvelles données : Le module élémentaire de formation, ainsi que le ministère de tutelle de l'établissement sont désormais indiqués ;
 - Certaines clés sont regroupées sous une clé parente ;
 - Tous les noms de clés changent au format snake_case, avec un tiret du bas.
 
 
 {:.fr-h6}
-#### Évolutions significatives des champs de la payload :
+#### Champs de la payload ayant significativement changé :
+
 
 {:.fr-table}
-| **Champ V.2**                      | **Champ V.3 correspondant**          | **Description des changements**                                                                 |
-|-----------------------------------|-------------------------------------|-------------------------------------------------------------------------------------------------|
+| **Champ V.2** | **Champ V.3 correspondant** | **Description des changements** |
+|--------------|--------------------------|-------------------------------|
+| `eleve` | `identite` | **Renommage de la clé parente** en `identite`. |
+| `code_etablissement` | `etablissement.code_uai` | **Renommage de la clé en `code_uai` et regroupement dans une clé parente `etablissement`** |
+|  | `etablissement.code_ministere_tutelle` | **🎁 Nouvelle donnée :** ajout du code du ministère de tutelle de l'établissement. |
+| `est_boursier` | | **❌ Suppression du champ.** |
+| `niveau_bourse` |  | **❌ Suppression du champ.** |
+| `status_eleve` | `statut_eleve` | **Renommage de la clé en `statut_eleve`.** |
+|  | `module_elementaire_formation` | **🎁 Nouvelle donnée :** ajout du code et du libellé du module élémentaire de formation de l'élève. |
+
+
 
 
 ### <a name="correspondance-api-statut-demandeur-emploi"></a> API Statut demandeur d'emploi
@@ -388,7 +400,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 
 
 {:.fr-h6}
-#### Évolutions significatives des champs de la payload :
+#### Champs de la payload ayant significativement changé :
 
 
 {:.fr-table}
