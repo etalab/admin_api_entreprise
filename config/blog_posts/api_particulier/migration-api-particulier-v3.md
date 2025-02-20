@@ -454,7 +454,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 {:.fr-table}
 | **Champ V.2** | **Champ V.3 correspondant** | **Description des changements** |
 |--------------|----------------------------|-------------------------------|
-| `identifiant` | *(supprimé)*  | **Suppression du champ :** Inutile car il s'agissait du paramètre d'appel saisi. |
+| `identifiant` | *(supprimé)*  | ****❌ Suppression du champ :** Inutile car il s'agissait du paramètre d'appel saisi. |
 | `date` | `date_versement` | **Renommage de la clé en `date_versement`.** |
 
 
