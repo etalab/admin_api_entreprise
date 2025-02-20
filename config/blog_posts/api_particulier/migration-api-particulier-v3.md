@@ -479,7 +479,8 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 
 {:.fr-h6}
 #### Synthèse des changements : 
-- L'identifiant France Travail passé en paramètre d'appel n'est plus renvoyé dans la payload.
+- L'endpoint V.2 est divisé en deux endpoints en V.3, un pour la modalité d'appel par données d'identité, l'autre pour la modalité d'appel FranceConnect ;
+- Suppression de la date de fin.
 - Tous les noms de clés changent au format snake_case, avec un tiret du bas.
 
 
@@ -489,6 +490,8 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 
 {:.fr-table}
 | **Champ V.2** | **Champ V.3 correspondant** | **Description des changements** |
-|--------------|----------------------------|-------------------------------|
-| `identifiant` | / | **Suppression du champ :** Inutile car il s'agissait du paramètre d'appel saisi. |
-| `date` | `date_versement` | **Renommage de la clé en `date_versement`.** |
+|--------------|--------------------------|-------------------------------|
+| `status` | `est_beneficiaire` | **Renommage de la clé** `status` en `est_beneficiaire` et **passage au format en booléen**. |
+| `majoration` | `avec_majoration` | **Renommage de la clé** `majoration` en `avec_majoration`. |
+| `dateDebut` | `date_debut_droit` | **Renommage de la clé** `dateDebut` en `date_debut_droit`. |
+| `dateFin` | *(supprimé)* | **Suppression de la clé** `dateFin`. Cette information TODO EXPLICATION. |
