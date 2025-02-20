@@ -267,6 +267,12 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
   <li>
    <a class="fr-summary__link fr-text--sm" href="#correspondance-api-statut-etudiant-boursier">API Statut étudiant boursier</a>
   </li>
+  <li>
+   <a class="fr-summary__link fr-text--sm" href="#correspondance-api-statut-eleve-scolarise">API Statut élève scolarisé et boursier</a>
+  </li>
+  <li>
+   <a class="fr-summary__link fr-text--sm" href="#correspondance-api-statut-demandeur-emploi">API Statut demandeur d'emploi</a>
+  </li>
  </ol>
 </nav>
 
@@ -354,3 +360,60 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 | `statut` et `statutLibelle`               | `data.echelon_bourse .echelon_bourse_regionale_provisoire`                           | **Remplacement des clés `statut` et `statutLibelle`** par la clé `echelon_bourse_regionale_provisoire` qui est rattachée à la clé parente `echelon_bourse`. Après investigation auprès du fournisseur de la donnée, il s'est avéré que la clé statut définitif ou provisoire indiquait que l'échelon de bourse mentionné était confirmé ou non. De plus, ce champ n'est complété que pour les bourses régionales. Par conséquent la V.3 recontextualise ce champ au bon endroit dans la payload.                             |
 | `villeEtudes`                     | `data.etablissement_etudes.nom_commune` | **Regroupement dans une clé parente** `etablissement_etudes` et **renommage de clé** `villeEtudes` en `nom_commune`. |
 | `etablissement`                   | `data.etablissement_etudes.nom_etablissement` | **Regroupement dans une clé parente** `etablissement_etudes` et **renommage de clé** `etablissement` en `nom_etablissement`. |
+
+
+### <a name="correspondance-api-statut-eleve-scolarise"></a> API Statut élève scolarisé et boursier
+
+{:.fr-h6}
+#### Synthèse des changements : 
+- Certaines clés sont regroupées sous une clé parente ;
+- Tous les noms de clés changent au format snake_case, avec un tiret du bas.
+
+
+{:.fr-h6}
+#### Évolutions significatives des champs de la payload :
+
+{:.fr-table}
+| **Champ V.2**                      | **Champ V.3 correspondant**          | **Description des changements**                                                                 |
+|-----------------------------------|-------------------------------------|-------------------------------------------------------------------------------------------------|
+
+
+### <a name="correspondance-api-statut-demandeur-emploi"></a> API Statut demandeur d'emploi
+
+{:.fr-h6}
+#### Synthèse des changements : 
+
+- Certaines clés sont regroupées sous une clé parente ;
+- Tous les noms de clés changent au format snake_case, avec un tiret du bas.
+
+
+{:.fr-h6}
+#### Évolutions significatives des champs de la payload :
+
+
+{:.fr-table}
+| **Champ V.2** | **Champ V.3 correspondant** | **Description des changements** |
+|--------------|----------------------------|-------------------------------|
+| `identifiant` | `identifiant` | Champ conservé et positionné au niveau racine. |
+| `civilite` | `identite.civilite` | Regroupé dans la clé parente `identite`. |
+| `nom` | `identite.nom_naissance` | Renommé en `nom_naissance` et regroupé dans la clé parente `identite`. |
+| `nomUsage` | `identite.nom_usage` | Regroupé dans la clé parente `identite`. |
+| `prenom` | `identite.prenom` | Regroupé dans la clé parente `identite`. |
+| `sexe` | `identite.sexe` | Regroupé dans la clé parente `identite`. |
+| `dateNaissance` | `identite.date_naissance` | Formaté en date et regroupé dans la clé parente `identite`. |
+| `codeCertificationCNAV` | `inscription.code_certification_cnav` | Regroupé dans la clé parente `inscription`. |
+| `codeCategorieInscription` | `inscription.categorie.code` | Repositionné dans une structure imbriquée (`categorie`) au sein de la clé parente `inscription`. |
+| `libelleCategorieInscription` | `inscription.categorie.libelle` | Repositionné dans une structure imbriquée (`categorie`) au sein de la clé parente `inscription`. |
+| `dateInscription` | `inscription.date_debut` | Renommé et regroupé dans la clé parente `inscription`. |
+| `dateCessationInscription` | `inscription.date_fin` | Renommé et regroupé dans la clé parente `inscription`. |
+| `adresse.INSEECommune` | `adresse.code_cog_insee_commune` | Renommé et regroupé dans la clé parente `adresse`. |
+| `adresse.codePostal` | `adresse.code_postal` | Regroupé dans la clé parente `adresse`. |
+| `adresse.ligneComplementAdresse` | `adresse.ligne_complement_adresse` | Regroupé dans la clé parente `adresse`. |
+| `adresse.ligneComplementDestinataire` | `adresse.ligne_complement_destinataire` | Regroupé dans la clé parente `adresse`. |
+| `adresse.ligneComplementDistribution` | `adresse.ligne_complement_distribution` | Regroupé dans la clé parente `adresse`. |
+| `adresse.ligneNom` | `adresse.ligne_nom` | Regroupé dans la clé parente `adresse`. |
+| `adresse.ligneVoie` | `adresse.ligne_voie` | Regroupé dans la clé parente `adresse`. |
+| `adresse.localite` | `adresse.localite` | Regroupé dans la clé parente `adresse`. |
+| `email` | `contact.email` | Regroupé dans la clé parente `contact`. |
+| `telephone` | `contact.telephone` | Regroupé dans la clé parente `contact`. |
+| `telephone2` | `contact.telephone2` | Regroupé dans la clé parente `contact`. |
