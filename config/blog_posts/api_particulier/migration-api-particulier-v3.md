@@ -13,16 +13,16 @@ Mardi 11 février 2024 - Publication
   </li>
   <li>
    <a class="fr-summary__link fr-text--lg" href="#evolutions-generales">Évolutions générales</a>
-   <ul>
-    <li> <a class="fr-summary__link" href="#jeton-dacces-a-parametrer-dans-le-header">1. Jeton d'accès à paramétrer dans le header</a></li>
-    <li> <a class="fr-summary__link" href="#votre-numéro-de-siret-obligatoire-dans-le-recipient">2. Numéro de SIRET obligatoire dans le "recipient"</a></li>
-    <li> <a class="fr-summary__link" href="#codes-erreurs-specifiques-a-chaque-situation-actionnables-et-documentes">3. Codes erreurs spécifiques à chaque situation, actionnables et documentés</a></li>
-    <li> <a class="fr-summary__link" href="#volumétrie-indiquée-dans-le-header-et-actionnable">4. Volumétrie indiquée dans le header et actionnable</a></li>
-    <li> <a class="fr-summary__link" href="#une-route-specifique-pour-chaque-modalite-d-appel">5. Une route spécifique pour chaque modalité d'appel</a></li>
-    <li> <a class="fr-summary__link" href="#donnee-qualifiee-et-uniformisee-metier">6. Les données des payloads, qualifiées et uniformisées d'un point de vue métier</a></li>
-    <li> <a class="fr-summary__link" href="#refonte-des-scopes">7. Refonte des scopes</a></li>
-    <li> <a class="fr-summary__link" href="#une-route-specifique-pour-chaque-modalite-d-appel">8. Les appels via la modalité FranceConnect ne renvoient plus les données d'identité</a></li>
-    </ul>
+   <ol>
+    <li> <a class="fr-summary__link fr-text--md" href="#jeton-dacces-a-parametrer-dans-le-header">Jeton d'accès à paramétrer dans le header</a></li>
+    <li> <a class="fr-summary__link fr-text--md" href="#votre-numéro-de-siret-obligatoire-dans-le-recipient">Numéro de SIRET obligatoire dans le "recipient"</a></li>
+    <li> <a class="fr-summary__link fr-text--md" href="#codes-erreurs-detailles-actionnables">Codes erreurs détaillés et actionnables</a></li>
+    <li> <a class="fr-summary__link fr-text--md" href="#volumétrie-indiquée-dans-le-header-et-actionnable">Volumétrie indiquée dans le header et actionnable</a></li>
+    <li> <a class="fr-summary__link fr-text--md" href="#une-route-specifique-pour-chaque-modalite-d-appel">Une route spécifique pour chaque modalité d'appel</a></li>
+    <li> <a class="fr-summary__link fr-text--md" href="#donnee-qualifiee-et-uniformisee-metier">Données uniformisées et documentées</a></li>
+    <li> <a class="fr-summary__link fr-text--md" href="#refonte-des-scopes">Refonte des scopes</a></li>
+    <li> <a class="fr-summary__link fr-text--md" href="#suppression-donnees-identite-via-france-connect">Suppression des données d'identité pour les appels via FranceConnect</a></li>
+    </ol>
   </li>
   <li>
    <a class="fr-summary__link fr-text--lg" href="#table-correspondance"> Table de correspondance de chaque API</a>
@@ -81,7 +81,7 @@ Une fois le client installé, vous pouvez directement intégrer notre fichier [S
 
 Pour en savoir plus sur les paramètres obligatoires d'appel, consultez les [spécifications techniques](<%= developers_path(anchor: 'renseigner-les-paramètres-dappel-et-de-traçabilité') %>).
 
-### <a name="codes-erreurs-specifiques-a-chaque-situation-actionnables-et-documentes"></a> 3. Codes erreurs spécifiques à chaque situation, actionnables et documentés
+### <a name="codes-erreurs-detailles-actionnables"></a> 3. Codes erreurs détaillés et actionnables
 
 **🚀 Avec la V.3 :** Tous les codes erreur HTTPS sont accompagnés de codes plus précis, spécifiques à chaque situation d’erreur. Une explication en toutes lettres est également donnée dans la payload. Enfin, dans certains cas, une métadonnée actionnable est disponible.
 
@@ -153,7 +153,7 @@ Désormais avec la V.3. chaque modalité d'appel a son propre endpoint, matéria
 Utiliser [le swagger](<%= developers_openapi_path %>){:target="_blank"}.
               
 
-### <a name="donnee-qualifiee-et-uniformisee-metier"></a> 6. Les données des payloads, qualifiées et uniformisées d'un point de vue métier
+### <a name="donnee-qualifiee-et-uniformisee-metier"></a> 6. Données uniformisées et documentées
 
 **🚀 Avec la V.3 :** Nous avons profité de la refonte technique pour uniformiser la façon de traiter la donnée entre les API et compléter significativement les documentations. Ces évolutions concernent plusieurs aspects :
 - Normaliser et préciser les clés de certains champs qui définissent le même type d'information. Ainsi quelques règles sont maintenant largement utilisées sur toutes les API, par exemple :
@@ -245,7 +245,7 @@ Dans certains cas où l'API délivre une liste d'objet, comme pour l'API statut 
 **🧰 Comment ?**
 Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous sommes assurés de transférer le plus possible vos droits dans les nouveaux scopes. Pour vérifier les changements de scopes pour chaque API, vous pouvez utiliser la table de correspondance.
 
-### <a name="une-route-specifique-pour-chaque-modalite-d-appel"></a>8. Les appels via la modalité FranceConnect ne renvoient plus les données d'identité
+### <a name="suppression-donnees-identite-via-france-connect"></a>8. Suppression des données d'identité pour les appels via FranceConnect
 **🚀 Avec la V.3 :** Lorsque vous utilisez les API avec FranceConnect, les données d'identité du particulier regroupées sous la clé (et le scope) `"identite"` ne seront plus renvoyées. 
 
 **🤔 Pourquoi ?**
@@ -453,7 +453,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 {:.fr-table}
 | **Champ V.2** | **Champ V.3 correspondant** | **Description des changements** |
 |--------------|----------------------------|-------------------------------|
-| `identifiant` | *(supprimé)*  | ****❌ Suppression du champ :** Inutile car il s'agissait du paramètre d'appel saisi. |
+| `identifiant` | *(supprimé)*  | **❌ Suppression du champ :** Inutile car il s'agissait du paramètre d'appel saisi. |
 | `date` | `date_versement` | **Renommage de la clé en `date_versement`.** |
 
 
