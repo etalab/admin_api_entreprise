@@ -328,6 +328,13 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 - Les scopes (droits d'accès) de cette API évoluent, TODO.
 - Certaines clés sont regroupées sous une clé parente ;
 - Tous les noms de clés changent au format snake_case, avec un tiret du bas.
+- Suite aux changements de structure de l'API, les scopes (droits d'accès) ont également été modifiés. Un nouveau droit d'accès `regime` a été créé. 
+
+{:.fr-highlight}
+> **⚠️ Il est possible que les utilisateurs de la V.2 aient besoin de demander un accès à de nouveaux droits :**
+> - Champ `regime` : cette donnée ne sera plus distribuée par défaut en V.3. 
+> - Champ `admissions[].est_inscrit` : ce booléen permettant de savoir si l'étudiant est inscrit (et pas seulement admis) sera distribué automatiquement pour les usagers de la V.2 ayant coché les droits "Statut étudiant inscrit" dans leur habilitation. 
+> **Pour accéder à de nouveaux droits**, veuillez faire une demande de modification de votre habilitation depuis votre [compte utilisateur](<%= user_profile_path %>).
 
 
 {:.fr-h6}
@@ -385,6 +392,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 - Ajout de nouvelles données : Le module élémentaire de formation, ainsi que le ministère de tutelle de l'établissement sont désormais indiqués ;
 - Certaines clés sont regroupées sous une clé parente ;
 - Tous les noms de clés changent au format snake_case, avec un tiret du bas.
+- Un nouveau scope a été créé, permettant d'accéder à la donnée `identite` autrefois par défaut incluse lorsque l'API était demandée. **Ce scope sera par défaut distribué aux utilisateurs ayant déjà un accès l'API Statut élève V.2.**
 
 
 {:.fr-h6}
@@ -412,6 +420,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 
 - Certaines clés sont regroupées sous une clé parente ;
 - Tous les noms de clés changent au format snake_case, avec un tiret du bas.
+- Un nouveau scope a été créé, permettant d'accéder à la donnée `identifiant` autrefois par défaut incluse lorsque l'API était demandée. **Ce scope sera par défaut distribué aux utilisateurs ayant déjà un accès l'API Statut demandeur d'emploi en V.2.**
 
 
 {:.fr-h6}
@@ -421,7 +430,6 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 {:.fr-table}
 | **Champ V.2** | **Champ V.3 correspondant** | **Description des changements** |
 |--------------|----------------------------|-------------------------------|
-| `identifiant` | `identifiant` | **Déplacement du champ au niveau racine.** |
 | `civilite` | `identite.civilite` | **Regroupement dans la clé parente** `identite`. |
 | `nom` | `identite.nom_naissance` | **Renommage** en `nom_naissance` et **regroupement dans la clé parente** `identite`.|
 | `nomUsage` | `identite.nom_usage` | **Regroupement dans la clé parente** `identite`. |
@@ -435,6 +443,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 | `adresse.INSEECommune` | `adresse.code_cog_insee_commune` | **Renommage et regroupement dans la clé parente** `adresse`. |
 | `adresse.codePostal`<br/>`adresse.ligneComplementAdresse`<br/>`adresse.ligneComplementDestinataire`<br/>`adresse.ligneComplementDistribution`<br/>`adresse.ligneNom`<br/>`adresse.ligneVoie`<br/>`adresse.localite` | `adresse.code_postal`<br/>`adresse.ligne_complement_adresse`<br/>`adresse.ligne_complement_destinataire`<br/>`adresse.ligne_complement_distribution`<br/>`adresse.ligne_nom`<br/>`adresse.ligne_voie`<br/>`adresse.localite` | **Regroupement dans la clé parente** `adresse`. |
 | `email`<br/>`telephone`<br/>`telephone2` | `contact.email`<br/>`contact.telephone`<br/>`contact.telephone2` | **Regroupement dans la clé parente** `contact`. |
+
 
 
 ### <a name="correspondance-api-paiements-france-travail"></a> API Paiements versés par France Travail
