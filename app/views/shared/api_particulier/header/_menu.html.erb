@@ -57,7 +57,11 @@
     <div class="fr-container">
       <div class="fr-notice__body">
         <p class="fr-notice__title fr-text--regular">
-          <%= t('.banner', date: OpenBureauDate.new.next_date.strftime('%d/%m/%Y')).html_safe %>
+          <% if action_name == 'developers'  || request.path == '/blog/migration-api-particulier-v3'%>
+            <%= t('.banner.tech', date: OpenBureauDate.new.next_date.strftime('%d/%m/%Y')).html_safe %>
+          <% else %>
+            <%= t('.banner.default', date: OpenBureauDate.new.next_date.strftime('%d/%m/%Y')).html_safe %>
+          <% end %>
         </p>
       </div>
     </div>
