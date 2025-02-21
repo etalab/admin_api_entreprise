@@ -464,7 +464,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 {:.fr-h6}
 #### Synthèse des changements : 
 - L'endpoint V.2 est divisé en deux endpoints en V.3, un pour la modalité d'appel par données d'identité, l'autre pour la modalité d'appel FranceConnect ;
-- Suppression de la date de fin.
+- Suppression de la date de fin car cette donnée était calculée et présentait le risque de ne pas être juste dans toutes les situations ;
 - Tous les noms de clés changent au format snake_case, avec un tiret du bas.
 
 
@@ -478,7 +478,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 | `status` | `est_beneficiaire` | **Renommage de la clé** `status` en `est_beneficiaire` et **passage au format en booléen**. |
 | `majoration` | `avec_majoration` | **Renommage de la clé** `majoration` en `avec_majoration`. |
 | `dateDebut` | `date_debut_droit` | **Renommage de la clé** `dateDebut` en `date_debut_droit`. |
-| `dateFin` | *(supprimé)* | **❌ Suppression de la clé** `dateFin`. Cette information TODO EXPLICATION. |
+| `dateFin` | *(supprimé)* | **❌ Suppression de la clé** `dateFin`. Cette information était calculée par API Particulier en V.2 par rapport à la date de début. Or la date de début de prestation est la date de première attribution du droit et non du renouvellement du droit donc la date de fin calculée pouvait être fausse.|
 
 
 
@@ -488,7 +488,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 {:.fr-h6}
 #### Synthèse des changements : 
 - L'endpoint V.2 est divisé en deux endpoints en V.3, un pour la modalité d'appel par données d'identité, l'autre pour la modalité d'appel FranceConnect ;
-- Suppression de la date de fin.
+- Suppression de la date de fin car cette donnée était calculée et présentait le risque de ne pas être juste dans toutes les situations ;
 - Tous les noms de clés changent au format snake_case, avec un tiret du bas.
 
 
@@ -502,7 +502,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 | `status` | `est_beneficiaire` | **Renommage de la clé** `status` en `est_beneficiaire` et **passage au format en booléen**. |
 | `majoration` | `avec_majoration` | **Renommage de la clé** `majoration` en `avec_majoration`. |
 | `dateDebut` | `date_debut_droit` | **Renommage de la clé** `dateDebut` en `date_debut_droit`. |
-| `dateFin` | *(supprimé)* | **❌ Suppression de la clé** `dateFin`. Cette information TODO EXPLICATION. |
+| `dateFin` | *(supprimé)* | **❌ Suppression de la clé** `dateFin`. Cette information était calculée par API Particulier en V.2 par rapport à la date de début. Or la date de début de prestation est la date de première attribution du droit et non du renouvellement du droit donc la date de fin calculée pouvait être fausse. |
 
 
 ### <a name="correspondance-api-statut-aah"></a> API Statut allocation adulte handicapé (AAH) 
@@ -532,7 +532,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 {:.fr-h6}
 #### Synthèse des changements : 
 - L'endpoint V.2 est divisé en deux endpoints en V.3, un pour la modalité d'appel par données d'identité, l'autre pour la modalité d'appel FranceConnect ;
-- Suppression de la date de fin.
+- Suppression de la date de fin car cette donnée était calculée et présentait le risque de ne pas être juste dans toutes les situations ;
 - Tous les noms de clés changent au format snake_case, avec un tiret du bas.
 
 
@@ -545,7 +545,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 |--------------|--------------------------|-------------------------------|
 | `status`     | `est_beneficiaire`       | **Renommage de la clé** `status` en `est_beneficiaire`. |
 | `dateDebut`  | `date_debut_droit`       | **Renommage de la clé** `dateDebut` en `date_debut_droit`. |
-| `dateFin`    | *(supprimé)*            | **❌ Suppression de la clé** `dateFin`. Cette information TODO EXPLICATION. |
+| `dateFin`    | *(supprimé)*            | **❌ Suppression de la clé** `dateFin`. Cette information était calculée par API Particulier en V.2 par rapport à la date de début. Or la date de début de prestation est la date de première attribution du droit et non du renouvellement du droit donc la date de fin calculée pouvait être fausse. |
 
 
 
@@ -556,6 +556,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 #### Synthèse des changements : 
 - L'endpoint V.2 est divisé en deux endpoints en V.3, un pour la modalité d'appel par données d'identité, l'autre pour la modalité d'appel FranceConnect ;
 - La clé `status` est divisée en deux clés distinctes pour faciliter la compréhension du statut bénéficiaire et du statut majoré ou non ; 
+- Suppression de la date de fin car cette donnée était calculée et présentait le risque de ne pas être juste dans toutes les situations ;
 - Tous les noms de clés changent au format snake_case, avec un tiret du bas.
 
 
@@ -568,4 +569,4 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 |--------------|--------------------------|-------------------------------|
 | `status`      | `est_beneficiaire` <br/> `avec_participation`       | **Division du champ `status` en deux clés booléènnes distinctes** : `est_beneficiaire` et `avec_participation`. |
 | `dateDebut`   | `date_debut_droit`       | **Renommage de la clé** `dateDebut` en `date_debut_droit`. |
-| `dateFin`     |*(supprimé)*               | **❌ Suppression de la clé** `dateFin`. |
+| `dateFin`     |*(supprimé)*               | **❌ Suppression de la clé** `dateFin`. Cette information était calculée par API Particulier en V.2 par rapport à la date de début. Or la date de début de prestation est la date de première attribution du droit et non du renouvellement du droit donc la date de fin calculée pouvait être fausse. |
