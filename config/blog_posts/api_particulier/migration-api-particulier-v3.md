@@ -249,11 +249,14 @@ Sauf pour l'API Statut étudiant dont les scopes ont beaucoup changé, nous nous
 
 
 ### <a name="suppression-donnees-identite-via-france-connect"></a>8. Suppression des données d'identité pour les appels via FranceConnect
-**🚀 Avec la V.3 :** Lorsque vous utilisez les API avec FranceConnect, les données d'identité du particulier regroupées sous la clé (et le scope) `identite` ne seront plus renvoyées. 
+**🚀 Avec la V.3 :** Lorsque vous utilisez les API avec FranceConnect, les données d'identité du particulier regroupées sous la clé (et le scope) `identite` ne seront plus renvoyées. Cela concerne l'API statut étudiant et statut étudiant boursier. L'API Quotient familial CAF et MSA continuera de transmettre les données d'identité des allocataires, y compris avec l'appel via FranceConnect.
 
 **🤔 Pourquoi ?**
 - C'est un impératif de FranceConnect ; 
-- FranceConnect est en possession de l'identité pivot de l'usager, ces données sont certifiées et parfois plus fiables que les données livrées par les API, si vous avez besoin des données d'identité, vous pouvez donc les récupérer directement via FranceConnect.
+- FranceConnect est en possession de l'identité pivot de l'usager, ces données sont certifiées et parfois plus fiables que les données livrées par les API.
+
+**🧰 Comment ?**
+Pour l'API statut étudiant et statut étudiant boursier; comme pour toutes les autres API proposant la modalité d'appel via FranceConnect, si vous avez besoin des données d'identité, vous pouvez les récupérer directement via FranceConnect.
 
 <h2 class="fr-h2" style="padding: 2px; margin-top: 10px; background-color : #fff9c4; display: inline-block"><a name="table-correspondance"></a>Table de correspondance de chaque API</h2>
 
@@ -349,7 +352,7 @@ Suite aux changements de structure de l'API, les scopes (droits d'accès) ont é
 {:.fr-table}
 | **Champ V.2**                      | **Champ V.3 correspondant**          | **Description des changements**                                                                 |
 |-----------------------------------|-------------------------------------|-------------------------------------------------------------------------------------------------|
-| `nom`                             | `data.identite.nom_naissance`      | **Regroupement dans une clé parente** `identite` et **renommage de clé** `nom` en `nom_naissance`. |
+| `nom`                             | `data.identite.nom_naissance`      | **Regroupement dans une clé parente** `identite` et **renommage de clé** `nom` en `nom_naissance`. Cette clé n'est pas disponible pour l'API appelée avec FranceConnect. Pour accéder aux données d'identité, veuillez les récupérer via FranceConnect. |
 | `prenom`                          | `data.identite.prenom`             | **Regroupement dans une clé parente**  `identite`.                                              |
 | `dateNaissance`                   | `data.identite.date_naissance`     | **Regroupement dans une clé parente**  `identite`.                                              |
 | `inscriptions[]` | `data.admissions[]` | **Renommage de clé parente** `inscriptions` en `admissions`. |
@@ -376,7 +379,7 @@ Suite aux changements de structure de l'API, les scopes (droits d'accès) ont é
 {:.fr-table}
 | **Champ V.2**                      | **Champ V.3 correspondant**          | **Description des changements**                                                                 |
 |-----------------------------------|-------------------------------------|-------------------------------------------------------------------------------------------------|
-| `nom`                             | `data.identite.nom`                | **Regroupement dans une clé parente** `identite`.                                       |
+| `nom`                             | `data.identite.nom`                | **Regroupement dans une clé parente** `identite`. Cette clé n'est pas disponible pour l'API appelée avec FranceConnect. Pour accéder aux données d'identité, veuillez les récupérer via FranceConnect.                                       |
 | `prenom`<br/>`prenom2`                       | `data.identite.prenoms[0]`         | **Regroupement dans une clé parente** `identite` et **fusion des deux champs `prenom` et `prenom2` dans une même clé** `prenoms`. |
 | `dateNaissance`                   | `data.identite.date_naissance`     | **Regroupement dans une clé parente** `identite`.                                       |
 | `lieuNaissance`                   | `data.identite.nom_commune_naissance` | **Regroupement dans une clé parente** `identite` et **renommage de la clé** `lieuNaissance` en `nom_commune_naissance`. |
