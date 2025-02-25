@@ -69,7 +69,7 @@ Les évolutions présentées visent les objectifs suivants&nbsp;:&nbsp;
 **🧰 Comment ?**
 Utilisez un client REST API pour tester les API pendant le développement.
 Des clients sont disponibles gratuitement. API&nbsp;Particulier utilise pour ses propres tests le client Insomnia. Le plus connu sur le marché est Postman.
-Une fois le client installé, vous pouvez directement intégrer notre fichier [Swagger/OpenAPI](<%= developers_openapi_path %>){:target="_blank"} dedans.
+Une fois le client installé, vous pouvez directement intégrer notre fichier [Swagger/OpenAPI](TODO_LIEN_V3){:target="_blank"} dedans.
 
 
 <h3 class="fr-mt-6w" id="votre-numero-de-siret-obligatoire-dans-le-recipient"> 2. Numéro de SIRET obligatoire dans le "recipient"</h3>
@@ -127,7 +127,7 @@ Pour en savoir plus sur les paramètres obligatoires d'appel, consultez les [sp�
 
 **🧰 Comment ?**
 Utiliser les libellés pour comprendre l’erreur rencontrée, voire automatiser votre logiciel en fonction du code.
-La liste de tous les codes erreurs spécifiques (environ 80) est disponible dans le [Swagger](<%= developers_openapi_path %>){:target="_blank"}. La gestion des erreurs et l'explication des codes retours est détaillée dans la [documentation technique générale](<%= developers_path(anchor: 'code-https-et-gestion-des-erreurs') %>){:target="_blank"}.
+La liste de tous les codes erreurs spécifiques (environ 80) est disponible dans le [Swagger](TODO_LIEN_V3){:target="_blank"}. La gestion des erreurs et l'explication des codes retours est détaillée dans la [documentation technique générale](<%= developers_path(anchor: 'code-https-et-gestion-des-erreurs') %>){:target="_blank"}.
 
 
 <h3 class="fr-mt-6w" id="volumetrie-indiquee-dans-le-header-et-actionnable"> 4. Volumétrie indiquée dans le header et actionnable</h3>
@@ -151,18 +151,18 @@ La gestion de la volumétrie est maintenue identique à la dernière évolution 
 - Rendre actionnable le swagger et le fichier OpenAPI.
 
 **🧰 Comment ?**
-Utiliser [le swagger](<%= developers_openapi_path %>){:target="_blank"}.
+Utiliser [le swagger](TODO_LIEN_V3){:target="_blank"}.
               
 
 <h3 class="fr-mt-6w" id="donnee-qualifiee-et-uniformisee-metier">6. Données uniformisées et documentées</h3>
 
-**🚀 Avec la V.3 :** Nous avons profité de la refonte technique pour uniformiser la façon de traiter la donnée entre les API et compléter significativement les documentations. Ces évolutions concernent plusieurs aspects :
+**🚀 Avec la V.3 :** Nous avons profité de la refonte technique pour uniformiser la façon de traiter les données renvoyées entre les API et compléter significativement les documentations. Ces évolutions concernent plusieurs aspects :
 - Normaliser et préciser les clés de certains champs qui définissent le même type d'information. Ainsi quelques règles sont maintenant largement utilisées sur toutes les API, par exemple :
-   - {:.fr-text--sm .fr-mb-0} le statut (étudiant, bénéficaire d'une prestation, etc.) est désormais toujours nommé par une clé préfixée par `est_...`, comme par exemple `est_boursier` ou `est_beneficiaire` ;
+   - {:.fr-text--sm .fr-mb-0} le statut (étudiant, bénéficaire d'une prestation, etc.) est désormais toujours nommé par une clé préfixée par `est_...` si c'est un booléen, comme par exemple `est_boursier` ou `est_beneficiaire` ;
    - {:.fr-text--sm .fr-mb-0} les dates de début et de fin de droit auront les clés `date_debut_droit` / `date_fin_droit` ;
    - {:.fr-text--sm .fr-mb-0} les clés se veulent les plus précises possibles, par exemple, dans l'API étudiant, : la clé `code_commune` en V.2. devient `code_cog_insee_commune` en V.3. pour éviter toute confusion avec le code postal. 
 - Expliciter l'origine des données d'identité transmises dans les payloads et préciser si la donnée a été consolidée et comment. Par exemple : au travers d'un recoupement avec une pièce d'identité ou bien avec un répertoire ; 
-- Uniformiser le style des clés pour faciliter votre lecture de la documentation. Le format choisi est désormais en "snake_case" , c'est-à-dire que les mots sont séparés par des _, par exemple `code_cog_insee_commune`.
+- Uniformiser le style des clés pour faciliter votre lecture de la documentation. Le format choisi est désormais en "snake_case" , c'est-à-dire que les mots sont séparés par des `_`, par exemple `code_cog_insee_commune`.
 
 
 **🤔 Pourquoi ?**
@@ -173,9 +173,9 @@ Utiliser [le swagger](<%= developers_openapi_path %>){:target="_blank"}.
 <h3 class="fr-mt-6w" id="refonte-des-scopes">7. Refonte des scopes</h3>
 
 **🚀 Avec la V.3 :** Les scopes sont repérables plus facilement car désormais la donnée accessible pour un scope est la donnée inclue dans la clé correspondante de la payload. Concrêtement, cela signifie que les scopes sont souvent des clés parentes, regroupant plusieurs données, toutes accessibles à partir du moment où le droit a été délivré. Dans la mesure du possible, le scope se trouve à la racine du tableau `data`. 
-Ce changement est particulièrement visible sur l'[API statut étudiant boursier](https://particulier.api.gouv.fr/catalogue/cnous/statut_etudiant_boursier), où chaque clé à la racine du tableau est un scope. 
+Ce changement est particulièrement visible sur l'[API statut étudiant boursier](TODO_LIEN_V3#tag/Statut-etudiant-boursier/paths/~1v3~1cnous~1etudiant_boursier~1identite/get){:target="_blank"}, où chaque clé à la racine du tableau est un scope. 
 
-Dans certains cas où l'API délivre une liste d'objet, comme pour l'API statut étudiant, un scope peut contenir des sous-scopes. Le scope parent active la délivrance de la liste d'objets, les sous-scopes activent la délivrance de certaines données concernant l'objet en lui-même.
+Dans certains cas où l'API délivre une liste d'objet, comme pour l'[API statut étudiant](TODO_LIEN_V3#tag/Statut-etudiant/paths/~1v3~1mesri~1statut_etudiant~1identite/get){:target="_blank"}, un scope peut contenir des sous-scopes. Le scope parent active la délivrance de la liste d'objets, les sous-scopes activent la délivrance de certaines données concernant l'objet en lui-même.
 
 ###### Exemples des différentes typologies de scopes avec l'API Statut étudiant
 
@@ -250,7 +250,7 @@ Sauf pour l'API Statut étudiant dont les scopes ont beaucoup changé, nous nous
 
 <h3 class="fr-mt-6w" id="suppression-donnees-identite-via-france-connect">8. Suppression des données d'identité pour les appels via FranceConnect</h3>
 
-**🚀 Avec la V.3 :** Lorsque vous utilisez les API avec FranceConnect, les données d'identité du particulier regroupées sous la clé (et le scope) `identite` ne seront plus renvoyées. Cela concerne l'API statut étudiant et statut étudiant boursier. L'API Quotient familial CAF et MSA continuera de transmettre les données d'identité des allocataires, y compris avec l'appel via FranceConnect.
+**🚀 Avec la V.3 :** Lorsque vous utilisez les API avec FranceConnect, les données d'identité du particulier regroupées sous la clé `identite` ne sont pas prévue dans la payload. Cela concerne l'[API statut étudiant](#correspondance-api-statut-etudiant) et l' [API statut étudiant boursier](#correspondance-api-statut-etudiant-boursier). L'[API Quotient familial CAF &  MSA](#correspondance-api-quotient-familial-msa-caf) continuera de transmettre les données d'identité des allocataires, y compris avec l'appel via FranceConnect.
 
 **🤔 Pourquoi ?**
 - C'est un impératif de FranceConnect ; 
@@ -258,6 +258,10 @@ Sauf pour l'API Statut étudiant dont les scopes ont beaucoup changé, nous nous
 
 **🧰 Comment ?**
 Pour l'API statut étudiant et statut étudiant boursier; comme pour toutes les autres API proposant la modalité d'appel via FranceConnect, si vous avez besoin des données d'identité, vous pouvez les récupérer directement via FranceConnect.
+<br/>
+<br/>
+
+[Consulter le swagger V.3](TODO_LIEN_V3){:.fr-btn .fr-btn--lg fr-btn--icon-right fr-icon-arrow-right-fill}
 
 <h2 class="fr-h2 fr-mt-4w" style="padding: 2px; margin-top: 10px; background-color : #fff9c4; display: inline-block"><a name="table-correspondance"></a>Table de correspondance de chaque API</h2>
 
@@ -309,13 +313,13 @@ Pour l'API statut étudiant et statut étudiant boursier; comme pour toutes les 
 - L'endpoint V.2 est divisé en deux endpoints en V.3, un pour la modalité d'appel par données d'identité, l'autre pour la modalité d'appel FranceConnect ;
 - Certaines clés sont regroupées sous une clé parente ;
 - Tous les noms de clés changent au format snake_case, avec un tiret du bas.
-- Pour rappel, la version de l'api QF exploitant le numéro allocataire (version 1) ne sera pas disponible dans API Particulier V.3, et sera décommissionnée en octobre 2025 dans API Particulier V.2.
+- Pour rappel, la version de l'API QF exploitant le numéro allocataire (version 1) ne sera pas disponible dans API Particulier V.3, et sera décommissionnée en octobre 2025 dans API Particulier V.2.
 
 {:.fr-h6 .fr-mt-4w}
 #### Champs de la payload ayant significativement changé :
 
 {:.fr-table}
-| **Champ V.2**                      | **Champ V.3 correspondant**          | **Description des changements**                                                                 |
+| **Champ V.2**                 | **Champ V.3 correspondant**          | **Description des changements**                                                                 |
 |-----------------------------------|-------------------------------------|-------------------------------------------------------------------------------------------------|
 | `quotientFamilial`                | `data.quotient_familial.valeur`     | **Regroupement dans une clé parente** `quotient_familial` et **renommage de la clé** `quotient_familial` en `valeur`. |
 | `mois`<br/>`annee`        | `data.quotient_familial.mois`<br/>`data.quotient_familial.annee`      | **Regroupement dans une clé parente** `quotient_familial`.       |
@@ -354,9 +358,8 @@ Suite aux changements de structure de l'API, les scopes (droits d'accès) ont é
 {:.fr-table}
 | **Champ V.2**                      | **Champ V.3 correspondant**          | **Description des changements**                                                                 |
 |-----------------------------------|-------------------------------------|-------------------------------------------------------------------------------------------------|
-| `nom`                             | `data.identite.nom_naissance`      | **Regroupement dans une clé parente** `identite` et **renommage de clé** `nom` en `nom_naissance`. Cette clé n'est pas disponible pour l'API appelée avec FranceConnect. Pour accéder aux données d'identité, veuillez les récupérer via FranceConnect. |
-| `prenom`                          | `data.identite.prenom`             | **Regroupement dans une clé parente**  `identite`.                                              |
-| `dateNaissance`                   | `data.identite.date_naissance`     | **Regroupement dans une clé parente**  `identite`.                                              |
+| `nom`                             | `data.identite.nom_naissance`      | **Regroupement dans une clé parente** `identite` et **renommage de clé** `nom` en `nom_naissance`car cette information est bien le nom de naissance tel qu'indiqué sur l'acte d'état civil. <br/> Cette clé n'est pas disponible pour l'API appelée avec FranceConnect. Pour accéder aux données d'identité, veuillez les récupérer via FranceConnect. |
+| `prenom`<br/> `dateNaissance`   | `data.identite.prenom` <br/>  `data.identite.date_naissance`     | **Regroupement dans une clé parente**  `identite`.           |
 | `inscriptions[]` | `data.admissions[]` | **Renommage de clé parente** `inscriptions` en `admissions`. |
 | `inscriptions[].dateDebutInscription` | `data.admissions[].date_debut` | **Renommage de la clé** `dateDebutInscription` en `date_debut`. |
 | `inscriptions[].dateFinInscription` | `data.admissions[].date_fin`   | **Renommage de la clé** `dateFinInscription` en `date_fin`. |
@@ -399,7 +402,7 @@ Suite aux changements de structure de l'API, les scopes (droits d'accès) ont é
 
 {:.fr-h6}
 #### Synthèse des changements : 
-- Suppression des données de bourse : l'API ne renvoie plus le statut boursier le temps que le fournisseur de données la mette à nouveau à disposition ;
+- Suppression des données de bourse : le fournisseur de données ne renvoie plus le statut boursier ;
 - Ajout de nouvelles données : Le module élémentaire de formation, ainsi que le ministère de tutelle de l'établissement sont désormais indiqués ;
 - Certaines clés sont regroupées sous une clé parente ;
 - Tous les noms de clés changent au format snake_case, avec un tiret du bas.
@@ -595,3 +598,5 @@ Un nouveau scope a été créé, permettant d'accéder à la donnée `identifian
 | `dateFin`     |*(supprimé)*               | **❌ Suppression de la clé** `dateFin`. Cette information était calculée par API Particulier en V.2 par rapport à la date de début. Or la date de début de prestation est la date de première attribution du droit et non du renouvellement du droit donc la date de fin calculée pouvait être fausse. |
 
 </div>
+
+[Consulter le swagger V.3](TODO_LIEN_V3){:.fr-btn .fr-btn--lg fr-btn--icon-right fr-icon-arrow-right-fill}
