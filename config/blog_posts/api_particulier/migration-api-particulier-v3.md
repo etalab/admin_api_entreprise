@@ -171,7 +171,7 @@ Utiliser [le swagger](<%= developers_openapi_path %>){:target="_blank"}.
 
 ### <a name="refonte-des-scopes"></a>7. Refonte des scopes
 
-**🚀 Avec la V.3 :** Les scopes sont repérables plus facilement car désormais la donnée accessible pour un scope est la donnée inclue dans la clé correspondante de la payload. Concrêtement, cela signifie que les scopes sont souvent des clés parentes, regroupant plusieurs données, toutes accessibles à partir du moment où le droit a été délivré. Dans la mesure du possible, le scope se trouve à la racine du tableau `"data"`. 
+**🚀 Avec la V.3 :** Les scopes sont repérables plus facilement car désormais la donnée accessible pour un scope est la donnée inclue dans la clé correspondante de la payload. Concrêtement, cela signifie que les scopes sont souvent des clés parentes, regroupant plusieurs données, toutes accessibles à partir du moment où le droit a été délivré. Dans la mesure du possible, le scope se trouve à la racine du tableau `data`. 
 Ce changement est particulièrement visible sur l'[API statut étudiant boursier](https://particulier.api.gouv.fr/catalogue/cnous/statut_etudiant_boursier), où chaque clé à la racine du tableau est un scope. 
 
 Dans certains cas où l'API délivre une liste d'objet, comme pour l'API statut étudiant, un scope peut contenir des sous-scopes. Le scope parent active la délivrance de la liste d'objets, les sous-scopes activent la délivrance de certaines données concernant l'objet en lui-même.
@@ -243,10 +243,13 @@ Dans certains cas où l'API délivre une liste d'objet, comme pour l'API statut 
 - Créer de nouveaux scopes afin de répondre aux exigences de l'[article 4 de la loi informatique et libertés](https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000037822953/){:target="_blank"} qui stipule que seules les données strictement nécessaires à la réalisation des missions peuvent être manipulées. La création de nouveaux scopes permet une meilleure granularité.
 
 **🧰 Comment ?**
-Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous sommes assurés de transférer le plus possible vos droits dans les nouveaux scopes. Pour vérifier les changements de scopes pour chaque API, vous pouvez utiliser la table de correspondance.
+Sauf pour l'API Statut étudiant dont les scopes ont beaucoup changé, nous nous sommes assurés de transférer vos droits vers les nouveaux scopes.
+- Si vous êtes utilisateur de l'API Statut étudiant, il vous faut faire une demande de modification de votre habilitation. Pour en savoir plus, consultez la [table de correspondance de cette API](#correspondance-api-statut-etudiant) ;
+- Certaines API proposent de nouvelles données en V.3, pour vérifier les ajouts de scopes pour chaque API, vous pouvez utiliser la [table de correspondance](#table-correspondance). Un paragraphe "scopes" est ajouté lorsqu'il y a eu des évolutions.
+
 
 ### <a name="suppression-donnees-identite-via-france-connect"></a>8. Suppression des données d'identité pour les appels via FranceConnect
-**🚀 Avec la V.3 :** Lorsque vous utilisez les API avec FranceConnect, les données d'identité du particulier regroupées sous la clé (et le scope) `"identite"` ne seront plus renvoyées. 
+**🚀 Avec la V.3 :** Lorsque vous utilisez les API avec FranceConnect, les données d'identité du particulier regroupées sous la clé (et le scope) `identite` ne seront plus renvoyées. 
 
 **🤔 Pourquoi ?**
 - C'est un impératif de FranceConnect ; 
@@ -304,7 +307,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 - Tous les noms de clés changent au format snake_case, avec un tiret du bas.
 - Pour rappel, la version de l'api QF exploitant le numéro allocataire (version 1) ne sera pas disponible dans API Particulier V.3, et sera décommissionnée en octobre 2025 dans API Particulier V.2.
 
-{:.fr-h6}
+{:.fr-h6 .fr-mt-4w}
 #### Champs de la payload ayant significativement changé :
 
 {:.fr-table}
@@ -325,19 +328,22 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 #### Synthèse des changements : 
 - L'endpoint V.2 est divisé en trois endpoints en V.3, un pour la modalité d'appel par données d'identité, l'autre pour la modalité d'appel FranceConnect, un pour l'appel par INE ;
 - Afin de faciliter la compréhension de l'API, la clé `inscriptions` a été renommée en `admissions`. En effet, c'est bien la liste des admissions qui est délivrée pour chaque étudiant. Parmi elles, l'étudiant peut être allé jusqu'à l'inscription, qui est alors indiquée par la clé `est_inscrit: true` ;
-- Les scopes (droits d'accès) de cette API évoluent, TODO.
 - Certaines clés sont regroupées sous une clé parente ;
 - Tous les noms de clés changent au format snake_case, avec un tiret du bas.
-- Suite aux changements de structure de l'API, les scopes (droits d'accès) ont également été modifiés. Un nouveau droit d'accès `regime` a été créé. 
 
-{:.fr-highlight}
-> **⚠️ Il est possible que les utilisateurs de la V.2 aient besoin de demander un accès à de nouveaux droits :**
-> - Champ `regime` : cette donnée ne sera plus distribuée par défaut en V.3. 
-> - Champ `admissions[].est_inscrit` : ce booléen permettant de savoir si l'étudiant est inscrit (et pas seulement admis) sera distribué automatiquement pour les usagers de la V.2 ayant coché les droits "Statut étudiant inscrit" dans leur habilitation. 
-> **Pour accéder à de nouveaux droits**, veuillez faire une demande de modification de votre habilitation depuis votre [compte utilisateur](<%= user_profile_path %>).
+{:.fr-h6 .fr-mt-2w}
+#### Scopes : 
+Suite aux changements de structure de l'API, les scopes (droits d'accès) ont été largement modifiés. Les scopes de la version 2 n'existent plus. Les nouveaux périmètres d'accès découpent la payload de la façon suivante :
+  - Un droit pour accéder aux données d'identité de la clé `identite` ;
+  - Un droit général disponible par défaut pour accéder à la liste des admissions de la clé parente `admissions` ;
+  - Trois sous-scopes permettant de délivrer l'accès à la donnée régime de formation `regime_formation`, à la commune d'études `code_cog_insee_commune` et à l'établissement d'études `etablissement_etudes`.
+
+{:.fr-highlight .fr-highlight--caution}
+> **⚠️ La nouvelle structure de scope impose de faire une demande de modification de l'habilitation :**
+> Si vous ête utilisateur de la V.2 Statut étudiant, rendez-vous sur votre [compte utilisateur](<%= user_profile_path %>) pour demander une modification de votre habilitation. Cette demande de modification ne supprimera pas vos accès à la V.2. Elle vous permettra seulement de dévérouiller les accès à la V.3 statut étudiant.
 
 
-{:.fr-h6}
+{:.fr-h6 .fr-mt-4w}
 #### Champs de la payload ayant significativement changé :
 
 {:.fr-table}
@@ -364,7 +370,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 - Tous les noms de clés changent au format snake_case, avec un tiret du bas.
 
 
-{:.fr-h6}
+{:.fr-h6 .fr-mt-4w}
 #### Champs de la payload ayant significativement changé :
 
 {:.fr-table}
@@ -379,7 +385,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 | `echelonBourse`                   | `data.echelon_bourse.echelon`      | **Regroupement dans une clé parente** `echelon_bourse` et **renommage de la clé** en conséquence.                               |
 | `dateDeRentree`                  | `data.periode_versement_bourse.date_rentree` | **Regroupement dans une clé parente** `periode_versement_bourse` et **renommage de clé** `dateDeRentree` en `date_rentree`. |
 | `dureeVersement`                  | `data.periode_versement_bourse.duree` | **Regroupement dans une clé parente** `periode_versement_bourse` et **renommage de clé** `dureeVersement` en `duree`. |
-| `statut` et `statutLibelle`               | `data.echelon_bourse .echelon_bourse_regionale_provisoire`                           | **Remplacement des clés `statut` et `statutLibelle`** par la clé `echelon_bourse_regionale_provisoire` qui est rattachée à la clé parente `echelon_bourse`. Après investigation auprès du fournisseur de la donnée, il s'est avéré que la clé statut définitif ou provisoire indiquait que l'échelon de bourse mentionné était confirmé ou non. De plus, ce champ n'est complété que pour les bourses régionales. Par conséquent la V.3 recontextualise ce champ au bon endroit dans la payload.                             |
+| `statut` et `statutLibelle`               | `data.echelon_bourse .echelon_bourse_regionale_provisoire`                           | **Remplacement des clés `statut` et `Libelle`** par la clé `echelon_bourse_regionale_provisoire` qui est rattachée à la clé parente `echelon_bourse`. Après investigation auprès du fournisseur de la donnée, il s'est avéré que la clé statut définitif ou provisoire indiquait que l'échelon de bourse mentionné était confirmé ou non. De plus, ce champ n'est complété que pour les bourses régionales. Par conséquent la V.3 recontextualise ce champ au bon endroit dans la payload.                             |
 | `villeEtudes`                     | `data.etablissement_etudes .nom_commune` | **Regroupement dans une clé parente** `etablissement_etudes` et **renommage de clé** `villeEtudes` en `nom_commune`. |
 | `etablissement`                   | `data.etablissement_etudes .nom_etablissement` | **Regroupement dans une clé parente** `etablissement_etudes` et **renommage de clé** `etablissement` en `nom_etablissement`. |
 
@@ -392,10 +398,14 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 - Ajout de nouvelles données : Le module élémentaire de formation, ainsi que le ministère de tutelle de l'établissement sont désormais indiqués ;
 - Certaines clés sont regroupées sous une clé parente ;
 - Tous les noms de clés changent au format snake_case, avec un tiret du bas.
+
+{:.fr-h6 .fr-mt-2w}
+#### Scopes : 
 - Un nouveau scope a été créé, permettant d'accéder à la donnée `identite` autrefois par défaut incluse lorsque l'API était demandée. **Ce scope sera par défaut distribué aux utilisateurs ayant déjà un accès l'API Statut élève V.2.**
+- Un nouveau scope a été créé pour la nouvelle donnée `module_elementaire_formation`, **pour accéder à cette novuelle donnée, veuillez faire une demande de modification de votre habilitation depuis votre [compte utilisateur](<%= user_profile_path %>)**.
 
 
-{:.fr-h6}
+{:.fr-h6 .fr-mt-4w}
 #### Champs de la payload ayant significativement changé :
 
 
@@ -417,13 +427,14 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 
 {:.fr-h6}
 #### Synthèse des changements : 
-
 - Certaines clés sont regroupées sous une clé parente ;
 - Tous les noms de clés changent au format snake_case, avec un tiret du bas.
-- Un nouveau scope a été créé, permettant d'accéder à la donnée `identifiant` autrefois par défaut incluse lorsque l'API était demandée. **Ce scope sera par défaut distribué aux utilisateurs ayant déjà un accès l'API Statut demandeur d'emploi en V.2.**
 
+{:.fr-h6 .fr-mt-2w}
+#### Scopes : 
+Un nouveau scope a été créé, permettant d'accéder à la donnée `identifiant` autrefois par défaut incluse lorsque l'API était demandée. **Ce scope sera par défaut distribué aux utilisateurs ayant déjà un accès l'API Statut demandeur d'emploi en V.2.**
 
-{:.fr-h6}
+{:.fr-h6 .fr-mt-4w}
 #### Champs de la payload ayant significativement changé :
 
 
@@ -454,7 +465,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 - Tous les noms de clés changent au format snake_case, avec un tiret du bas.
 
 
-{:.fr-h6}
+{:.fr-h6 .fr-mt-4w}
 #### Champs de la payload ayant significativement changé :
 
 {:.fr-table}
@@ -475,7 +486,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 - Tous les noms de clés changent au format snake_case, avec un tiret du bas.
 
 
-{:.fr-h6}
+{:.fr-h6 .fr-mt-4w}
 #### Champs de la payload ayant significativement changé :
 
 
@@ -499,7 +510,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 - Tous les noms de clés changent au format snake_case, avec un tiret du bas.
 
 
-{:.fr-h6}
+{:.fr-h6 .fr-mt-4w}
 #### Champs de la payload ayant significativement changé :
 
 
@@ -520,7 +531,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 - Tous les noms de clés changent au format snake_case, avec un tiret du bas.
 
 
-{:.fr-h6}
+{:.fr-h6 .fr-mt-4w}
 #### Champs de la payload ayant significativement changé :
 
 
@@ -543,7 +554,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 - Tous les noms de clés changent au format snake_case, avec un tiret du bas.
 
 
-{:.fr-h6}
+{:.fr-h6 .fr-mt-4w}
 #### Champs de la payload ayant significativement changé :
 
 
@@ -567,7 +578,7 @@ Sauf quelques cas à la marge dans le cas de la création d'un scope, nous nous 
 - Tous les noms de clés changent au format snake_case, avec un tiret du bas.
 
 
-{:.fr-h6}
+{:.fr-h6 .fr-mt-4w}
 #### Champs de la payload ayant significativement changé :
 
 
