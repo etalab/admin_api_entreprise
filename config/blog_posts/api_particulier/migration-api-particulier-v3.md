@@ -17,9 +17,9 @@ Mardi 11 février 2024 - Publication
    <a class="fr-summary__link fr-text--lg" href="#evolutions-generales">Évolutions générales</a>
    <ol>
     <li> <a class="fr-summary__link fr-text--md" href="#jeton-dacces-a-parametrer-dans-le-header">Jeton d'accès à paramétrer dans le header</a></li>
-    <li> <a class="fr-summary__link fr-text--md" href="#votre-numéro-de-siret-obligatoire-dans-le-recipient">Numéro de SIRET obligatoire dans le "recipient"</a></li>
+    <li> <a class="fr-summary__link fr-text--md" href="#votre-numero-de-siret-obligatoire-dans-le-recipient">Numéro de SIRET obligatoire dans le "recipient"</a></li>
     <li> <a class="fr-summary__link fr-text--md" href="#codes-erreurs-detailles">Codes erreurs détaillés</a></li>
-    <li> <a class="fr-summary__link fr-text--md" href="#volumétrie-indiquée-dans-le-header-et-actionnable">Volumétrie indiquée dans le header et actionnable</a></li>
+    <li> <a class="fr-summary__link fr-text--md" href="#volumetrie-indiquee-dans-le-header-et-actionnable">Volumétrie indiquée dans le header et actionnable</a></li>
     <li> <a class="fr-summary__link fr-text--md" href="#une-route-specifique-pour-chaque-modalite-d-appel">Une route spécifique pour chaque modalité d'appel</a></li>
     <li> <a class="fr-summary__link fr-text--md" href="#donnee-qualifiee-et-uniformisee-metier">Données uniformisées et documentées</a></li>
     <li> <a class="fr-summary__link fr-text--md" href="#refonte-des-scopes">Refonte des scopes</a></li>
@@ -55,7 +55,7 @@ Les évolutions présentées visent les objectifs suivants&nbsp;:&nbsp;
 <h2 class="fr-h2 fr-mt-4w" style="padding: 2px; margin-top: 10px; background-color : #fff9c4; display: inline-block"><a name="evolutions-generale"></a>Évolutions générales</h2>
 
 
-### <a name="jeton-dacces-a-parametrer-dans-le-header"></a> 1. Jeton d'accès à paramétrer dans le header
+<h3 class="fr-mt-4w" id="jeton-dacces-a-parametrer-dans-le-header"> 1. Jeton d'accès à paramétrer dans le header</h3>
 
 **🚀 Avec la V.3 :** Le jeton est à paramétrer uniquement dans le header de l’appel.
 
@@ -72,7 +72,7 @@ Des clients sont disponibles gratuitement. API&nbsp;Particulier utilise pour ses
 Une fois le client installé, vous pouvez directement intégrer notre fichier [Swagger/OpenAPI](<%= developers_openapi_path %>){:target="_blank"} dedans.
 
 
-### <a name="votre-numéro-de-siret-obligatoire-dans-le-recipient"></a> 2. Numéro de SIRET obligatoire dans le "recipient"
+<h3 class="fr-mt-6w" id="votre-numero-de-siret-obligatoire-dans-le-recipient"> 2. Numéro de SIRET obligatoire dans le "recipient"</h3>
 
  **🚀 Avec la V.3 :** Le paramètre `recipient` de l’URL d’appel devra obligatoirement être complété par votre numéro de SIRET.
 
@@ -87,7 +87,7 @@ Une fois le client installé, vous pouvez directement intégrer notre fichier [S
 Pour en savoir plus sur les paramètres obligatoires d'appel, consultez les [spécifications techniques](<%= developers_path(anchor: 'renseigner-les-paramètres-dappel-et-de-traçabilité') %>).
 
 
-### <a name="codes-erreurs-detailles"></a> 3. Codes erreurs détaillés
+<h3 class="fr-mt-6w" id="codes-erreurs-detailles"> 3. Codes erreurs détaillés</h3>
 
 **🚀 Avec la V.3 :** Tous les codes erreur HTTPS sont accompagnés de codes plus précis, spécifiques à chaque situation d’erreur. Une explication en toutes lettres est également donnée dans la payload.
 
@@ -130,12 +130,12 @@ Utiliser les libellés pour comprendre l’erreur rencontrée, voire automatiser
 La liste de tous les codes erreurs spécifiques (environ 80) est disponible dans le [Swagger](<%= developers_openapi_path %>){:target="_blank"}. La gestion des erreurs et l'explication des codes retours est détaillée dans la [documentation technique générale](<%= developers_path(anchor: 'code-https-et-gestion-des-erreurs') %>){:target="_blank"}.
 
 
-### <a name="volumétrie-indiquée-dans-le-header-et-actionnable"></a> 4. Volumétrie indiquée dans le header et actionnable
+<h3 class="fr-mt-6w" id="volumetrie-indiquee-dans-le-header-et-actionnable"> 4. Volumétrie indiquée dans le header et actionnable</h3>
 
 La gestion de la volumétrie est maintenue identique à la dernière évolution de la V.2 et expliquée dans cette [documentation](<%= developers_path(anchor: 'volumétrie') %>).
 
 
-### <a name="une-route-specifique-pour-chaque-modalite-d-appel"></a> 5. Une route spécifique pour chaque modalité d'appel
+<h3 class="fr-mt-6w" id="une-route-specifique-pour-chaque-modalite-d-appel">5. Une route spécifique pour chaque modalité d'appel</h3>
 
 **🚀 Avec la V.3 :** Désormais avec la V.3. chaque modalité d'appel a son propre endpoint, matérialisé ainsi dans l'URL d'appel :
 - `/identite`, pour les appels avec les paramètres de l'identité pivot du particulier ;
@@ -154,7 +154,7 @@ La gestion de la volumétrie est maintenue identique à la dernière évolution 
 Utiliser [le swagger](<%= developers_openapi_path %>){:target="_blank"}.
               
 
-### <a name="donnee-qualifiee-et-uniformisee-metier"></a> 6. Données uniformisées et documentées
+<h3 class="fr-mt-6w" id="donnee-qualifiee-et-uniformisee-metier">6. Données uniformisées et documentées</h3>
 
 **🚀 Avec la V.3 :** Nous avons profité de la refonte technique pour uniformiser la façon de traiter la donnée entre les API et compléter significativement les documentations. Ces évolutions concernent plusieurs aspects :
 - Normaliser et préciser les clés de certains champs qui définissent le même type d'information. Ainsi quelques règles sont maintenant largement utilisées sur toutes les API, par exemple :
@@ -170,7 +170,7 @@ Utiliser [le swagger](<%= developers_openapi_path %>){:target="_blank"}.
 - Faciliter l'intégration de l'API.
 
 
-### <a name="refonte-des-scopes"></a>7. Refonte des scopes
+<h3 class="fr-mt-6w" id="refonte-des-scopes">7. Refonte des scopes</h3>
 
 **🚀 Avec la V.3 :** Les scopes sont repérables plus facilement car désormais la donnée accessible pour un scope est la donnée inclue dans la clé correspondante de la payload. Concrêtement, cela signifie que les scopes sont souvent des clés parentes, regroupant plusieurs données, toutes accessibles à partir du moment où le droit a été délivré. Dans la mesure du possible, le scope se trouve à la racine du tableau `data`. 
 Ce changement est particulièrement visible sur l'[API statut étudiant boursier](https://particulier.api.gouv.fr/catalogue/cnous/statut_etudiant_boursier), où chaque clé à la racine du tableau est un scope. 
@@ -248,8 +248,8 @@ Sauf pour l'API Statut étudiant dont les scopes ont beaucoup changé, nous nous
 - Si vous êtes utilisateur de l'API Statut étudiant, il vous faut faire une demande de modification de votre habilitation. Pour en savoir plus, consultez la [table de correspondance de cette API](#correspondance-api-statut-etudiant) ;
 - Certaines API proposent de nouvelles données en V.3, pour vérifier les ajouts de scopes pour chaque API, vous pouvez utiliser la [table de correspondance](#table-correspondance). Un paragraphe "scopes" est ajouté lorsqu'il y a eu des évolutions.
 
+<h3 class="fr-mt-6w" id="suppression-donnees-identite-via-france-connect">8. Suppression des données d'identité pour les appels via FranceConnect</h3>
 
-### <a name="suppression-donnees-identite-via-france-connect"></a>8. Suppression des données d'identité pour les appels via FranceConnect
 **🚀 Avec la V.3 :** Lorsque vous utilisez les API avec FranceConnect, les données d'identité du particulier regroupées sous la clé (et le scope) `identite` ne seront plus renvoyées. Cela concerne l'API statut étudiant et statut étudiant boursier. L'API Quotient familial CAF et MSA continuera de transmettre les données d'identité des allocataires, y compris avec l'appel via FranceConnect.
 
 **🤔 Pourquoi ?**
