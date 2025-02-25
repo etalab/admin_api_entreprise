@@ -1,3 +1,5 @@
+<div style="background-color: #ffffff; padding: 20px 20px ; border-radius: 5px; width: 100%;">
+
 Mardi 11 février 2024 - Publication
 
 <div style="background-color: #fff9c4; padding: 20px 10px ; border-radius: 5px; width: 100%; box-sizing: border-box;">
@@ -16,7 +18,7 @@ Mardi 11 février 2024 - Publication
    <ol>
     <li> <a class="fr-summary__link fr-text--md" href="#jeton-dacces-a-parametrer-dans-le-header">Jeton d'accès à paramétrer dans le header</a></li>
     <li> <a class="fr-summary__link fr-text--md" href="#votre-numéro-de-siret-obligatoire-dans-le-recipient">Numéro de SIRET obligatoire dans le "recipient"</a></li>
-    <li> <a class="fr-summary__link fr-text--md" href="#codes-erreurs-detailles-actionnables">Codes erreurs détaillés et actionnables</a></li>
+    <li> <a class="fr-summary__link fr-text--md" href="#codes-erreurs-detailles">Codes erreurs détaillés</a></li>
     <li> <a class="fr-summary__link fr-text--md" href="#volumétrie-indiquée-dans-le-header-et-actionnable">Volumétrie indiquée dans le header et actionnable</a></li>
     <li> <a class="fr-summary__link fr-text--md" href="#une-route-specifique-pour-chaque-modalite-d-appel">Une route spécifique pour chaque modalité d'appel</a></li>
     <li> <a class="fr-summary__link fr-text--md" href="#donnee-qualifiee-et-uniformisee-metier">Données uniformisées et documentées</a></li>
@@ -32,24 +34,26 @@ Mardi 11 février 2024 - Publication
 
 <br/>
 
-<h2 class="fr-h2" style="padding: 2px; background-color : #fff9c4; display: inline-block"><a name="introduction"></a>Introduction</h2>
+<h2 class="fr-h2 fr-mt-4w" style="padding: 2px; background-color : #fff9c4; display: inline-block"><a name="introduction"></a>Introduction</h2>
 
 {:.fr-text--lead}
-Ce guide **liste les changements effectués** entre la version 2 de l’API&nbsp;Particulier et la version 3, et vous livre les **éléments nécessaires pour effectuer la migration**.
+Ce guide **liste les changements effectués** entre la version 2 de l’API&nbsp;Particulier et la version 3 et vous livre les **éléments nécessaires pour effectuer la migration**.
 
 {:.fr-text--lead}
-Les évolutions présentées ici ont été guidées par les objectifs suivants&nbsp;:&nbsp;
+Les évolutions présentées visent les objectifs suivants&nbsp;:&nbsp;
 - Assurer une meilleure sécurité de la donnée des fournisseurs ;
 - Normaliser les formats pour faciliter la compréhension et l’industrialisation ;
-- Clarifier la documentation et simplifier les routes des différentes modalités d'appel ;
+- Simplifier les routes des différentes modalités d'appel et leur utilisation ;
 - Clarifier, documenter les réponses et les rendre actionnables par vos logiciels ;
 - Faire converger l'architecture technique de l'API Particulier avec celle de l'API Entreprise.
 
 {:.fr-highlight.fr}
-> **Votre jeton d'accès reste identique 🔑**
-> Pour accéder à la version 3 de l'API&nbsp;Particulier, utilisez le même token qu'en V.2. En effet, tant que votre jeton est valide, il est inutile de refaire une demande d'accès car la migration vers la V.3 ne change pas les droits que vous avez déjà obtenu.
+> **Votre habilitation et votre jeton d'accès restent identiques 🔑**
+> Pour accéder à la version 3 de l'API&nbsp;Particulier, utilisez le même token qu'en V.2. Il est inutile d'effectuer une nouvelle demande d'habilitation car la migration vers la V.3 ne changera pas les droits que vous avez déjà obtenu.
+> En revanche, vous pourriez avoir besoin de demander une modification de votre habilitation pour certaines API dont [les scopes évoluent en V.3](#refonte-des-scopes).
 
-<h2 class="fr-h2" style="padding: 2px; margin-top: 10px; background-color : #fff9c4; display: inline-block"><a name="evolutions-generale"></a>Évolutions générales</h2>
+<h2 class="fr-h2 fr-mt-4w" style="padding: 2px; margin-top: 10px; background-color : #fff9c4; display: inline-block"><a name="evolutions-generale"></a>Évolutions générales</h2>
+
 
 ### <a name="jeton-dacces-a-parametrer-dans-le-header"></a> 1. Jeton d'accès à paramétrer dans le header
 
@@ -67,6 +71,7 @@ Utilisez un client REST API pour tester les API pendant le développement.
 Des clients sont disponibles gratuitement. API&nbsp;Particulier utilise pour ses propres tests le client Insomnia. Le plus connu sur le marché est Postman.
 Une fois le client installé, vous pouvez directement intégrer notre fichier [Swagger/OpenAPI](<%= developers_openapi_path %>){:target="_blank"} dedans.
 
+
 ### <a name="votre-numéro-de-siret-obligatoire-dans-le-recipient"></a> 2. Numéro de SIRET obligatoire dans le "recipient"
 
  **🚀 Avec la V.3 :** Le paramètre `recipient` de l’URL d’appel devra obligatoirement être complété par votre numéro de SIRET.
@@ -81,11 +86,10 @@ Une fois le client installé, vous pouvez directement intégrer notre fichier [S
 
 Pour en savoir plus sur les paramètres obligatoires d'appel, consultez les [spécifications techniques](<%= developers_path(anchor: 'renseigner-les-paramètres-dappel-et-de-traçabilité') %>).
 
-### <a name="codes-erreurs-detailles-actionnables"></a> 3. Codes erreurs détaillés et actionnables
 
-**🚀 Avec la V.3 :** Tous les codes erreur HTTPS sont accompagnés de codes plus précis, spécifiques à chaque situation d’erreur. Une explication en toutes lettres est également donnée dans la payload. Enfin, dans certains cas, une métadonnée actionnable est disponible.
+### <a name="codes-erreurs-detailles"></a> 3. Codes erreurs détaillés
 
-Dans l’exemple ci-dessous, la clé `retry_in` permet de relancer un appel après le nombre de secondes indiquées.
+**🚀 Avec la V.3 :** Tous les codes erreur HTTPS sont accompagnés de codes plus précis, spécifiques à chaque situation d’erreur. Une explication en toutes lettres est également donnée dans la payload.
 
 ###### Exemple de _payload_ d’un code HTTP 502 :
 ```
@@ -101,7 +105,6 @@ Dans l’exemple ci-dessous, la clé `retry_in` permet de relancer un appel apr�
         "provider": "CNAV"
       }
    }
-]
 ]
 }
 ```
@@ -134,9 +137,7 @@ La gestion de la volumétrie est maintenue identique à la dernière évolution 
 
 ### <a name="une-route-specifique-pour-chaque-modalite-d-appel"></a> 5. Une route spécifique pour chaque modalité d'appel
 
-**🚀 Avec la V.3 :** Chaque modalité d'appel d'une API a son propre endpoint
-
-Désormais avec la V.3. chaque modalité d'appel a son propre endpoint, matérialisé ainsi dans l'URL d'appel :
+**🚀 Avec la V.3 :** Désormais avec la V.3. chaque modalité d'appel a son propre endpoint, matérialisé ainsi dans l'URL d'appel :
 - `/identite`, pour les appels avec les paramètres de l'identité pivot du particulier ;
 - `/france_connect`, pour les appels avec FranceConnect ;
 - `/identifiant`, pour les appels avec un numéro unique spécifique à l'API.
@@ -258,7 +259,7 @@ Sauf pour l'API Statut étudiant dont les scopes ont beaucoup changé, nous nous
 **🧰 Comment ?**
 Pour l'API statut étudiant et statut étudiant boursier; comme pour toutes les autres API proposant la modalité d'appel via FranceConnect, si vous avez besoin des données d'identité, vous pouvez les récupérer directement via FranceConnect.
 
-<h2 class="fr-h2" style="padding: 2px; margin-top: 10px; background-color : #fff9c4; display: inline-block"><a name="table-correspondance"></a>Table de correspondance de chaque API</h2>
+<h2 class="fr-h2 fr-mt-4w" style="padding: 2px; margin-top: 10px; background-color : #fff9c4; display: inline-block"><a name="table-correspondance"></a>Table de correspondance de chaque API</h2>
 
 
 <nav class="fr-summary fr-mb-3w" role="navigation" aria-labelledby="fr-summary-title">
@@ -324,6 +325,7 @@ Pour l'API statut étudiant et statut étudiant boursier; comme pour toutes les 
 | `enfants[].nomUsuel`              | `data.enfants[].nom_usage`          | **Renommage de clé** : Pas de changement autre que le renommage de `nomUsuel` en `nom_usage`. Après investigation auprès du fournisseur de donnée, il s'avère que le nom renvoyé est bien le nom d'usage tel que marqué sur l'acte d'état civil. |
 | `enfants[].anneeDateDeNaissance`<br/>`enfants[].moisDateDeNaissance`<br/>`enfants[].jourDateDeNaissance`| `data.enfants[].date_naissance`| **Fusion des trois champs (jour, mois année) dans une même clé** `date_naissance`.         |
 | `adresse.identite`                | `data.adresse.destinataire`         | **Renommage de la clé** `identite` en `destinataire`. |
+
 
 ### <a name="correspondance-api-statut-etudiant"></a> API Statut étudiant
 
@@ -591,3 +593,5 @@ Un nouveau scope a été créé, permettant d'accéder à la donnée `identifian
 | `status`      | `est_beneficiaire` <br/> `avec_participation`       | **Division du champ `status` en deux clés booléènnes distinctes** : `est_beneficiaire` et `avec_participation`. |
 | `dateDebut`   | `date_debut_droit`       | **Renommage de la clé** `dateDebut` en `date_debut_droit`. |
 | `dateFin`     |*(supprimé)*               | **❌ Suppression de la clé** `dateFin`. Cette information était calculée par API Particulier en V.2 par rapport à la date de début. Or la date de début de prestation est la date de première attribution du droit et non du renouvellement du droit donc la date de fin calculée pouvait être fausse. |
+
+</div>
