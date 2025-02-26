@@ -1,0 +1,140 @@
+---
+- uid: "dgfip/liens_capitalistiques"
+  path: "/v3/dgfip/unites_legales/{siren}/liens_capitalistiques/{year}"
+  ping_url: "https://entreprise.api.gouv.fr/ping/dgfip/liasses_fiscales"
+  beta: true
+  position: 250
+  perimeter:
+    entity_type_description: |+
+      Cette API délivre les **liens capitalistiques** d’une entreprise, à savoir :
+      - la composition de son capital social et la liste de ses actionnaires, extraites du **CERFA 2059F** ;
+      - la liste de ses participations et filiales, extraites du **CERFA 2059G**.
+
+      Les données sont déclaratives et proviennent des liasses fiscales déposées auprès de la DGFIP.
+
+      **Cette API renvoie une erreur 404 si et seulement si les deux imprimés 2059F et 2059G sont absents** pour l'entreprise demandée et l'exercice concerné. L'absence totale de ces deux imprimés ne signifie pas nécessairement que l’ensemble des liasses fiscales est manquant, mais simplement que ces deux CERFA (2059F/G) n’ont pas été retrouvés pour ce SIREN sur l’exercice demandé.
+
+      <br>
+      <strong>À noter&nbsp;:</strong>
+      - Les informations sont également disponibles via l’API <em>Liasses fiscales</em>, sous forme plus exhaustive.
+      - Le nombre d’actionnaires, d’actions ou de filiales indiqué peut ne pas correspondre exactement aux éléments listés, car il s’agit de champs déclaratifs.
+      - Les données non numériques ou en pourcentage sont renvoyées « en l’état » (telles que saisies par l’entreprise), potentiellement sujettes à erreurs ou incohérences.
+      - Les entreprises étrangères indiquent parfois des Siren « fictifs » (ex. 99999999).
+
+    updating_rules_description: |+
+      Les données issues des liasses fiscales (dont 2059F/G) sont disponibles **à compter du lendemain de la date de dépôt (J+1)** et **trois jours plus tard (J+3)** si le dépôt intervient la veille d’un week-end.
+
+      La date limite de dépôt des liasses fiscales est fixée chaque année au **2e jour ouvré suivant le 1er mai** pour les entreprises qui clôturent au 31 décembre.
+
+      En cas d’exercice à cheval, la date limite de dépôt est positionnée **trois mois** après la date de clôture de l’exercice.
+
+    entities:
+      - entreprises
+
+  call_id: "SIREN"
+  provider_uids:
+    - "dgfip"
+  keywords:
+    - "actionnaire"
+    - "filiale"
+    - "capital"
+    - "participation"
+    - "liasses fiscales"
+    - "finances"
+    - "comptabilité"
+    - "déclaration"
+    - "cerfa"
+    - "bilan"
+    - "dgfip"
+    - "siren"
+
+  data:
+    description: |+
+      Cette API permet de récupérer **la composition du capital** (liste des actionnaires, pourcentage de détention, type de personne, adresses, etc.) et **la liste des participations** (filiales détenues par l’entreprise).
+
+      Les informations exposées correspondent aux **CERFA 2059F et 2059G** des liasses fiscales :
+      - **2059F&nbsp;:** Composition du capital social (actionnaires, répartition, etc.)
+      - **2059G&nbsp;:** Participations (filiales et leurs adresses)
+
+      <br>
+      <strong>Spécificités et points d’attention :</strong>
+      - Le champ <code>depose_neant</code> peut être à <code>null</code> : cela signifie que l’imprimé en question n’a pas été déposé.
+      - Les informations de naissance (jour, ville, département, pays) ne sont pas présentes dans ce endpoint mais figurent dans l’API <em>Liasses fiscales</em>.
+      - Certains intitulés d’adresses pour les personnes physiques (codes nref <code>304875</code>, <code>304876</code>, <code>304877</code>) peuvent contenir des valeurs erronées ou non formatées.
+      - Le dictionnaire officiel TDFC peut faire référence à des numéros SIRET, mais en pratique il s’agit plutôt de **numéros SIREN** déclarés par l’entreprise.
+      - Les données sont soumises à la saisie déclarative des entreprises et peuvent contenir des anomalies (ex. adresses imprécises, numéro Siren invalide pour des sociétés étrangères, etc.).
+
+      Pour plus de détails et d’informations complémentaires (notamment sur le jour de naissance, la ville, le pays, etc.), vous pouvez consulter l’API <em>Liasses fiscales</em>.
+
+      Vous pouvez télécharger les CERFA 2059F et 2059G sur le lien suivant: <a href="/files/cerfa-2059f-2059g.pdf" download class="fr-download__link">Télécharger les CERFA 2059F et 2059G</a>
+  opening: protected
+  format:
+    - Donnée structurée JSON
+
+  parameters:
+    - Numéro de SIREN de l'entreprise
+    - Année (fiscale) correspondant à l’exercice visé
+
+  faq:
+    - q: "Quelle est la liste exhaustive des codes nref utilisés par cette API ?"
+      a: |+
+        Voici la liste complète des codes *nref* référencés dans ce service.
+        <br>
+
+        **Imprimés**
+        - `2059F` : composition du capital
+        - `2059G` : participations / filiales
+
+        **Capital social (CERFA 2059F)**
+        - `304861` : pourcentage de détention (personne morale)
+        - `304871` : pourcentage de détention (personne physique)
+        - `304860` : nombre de parts (personne morale)
+        - `304870` : nombre de parts (personne physique)
+        - `306874` : civilité personne physique
+        - `304868` : nom patronymique et prénoms (personne physique)
+        - `304869` : nom marital (personne physique)
+        - `304878` : date de naissance (jour non transmis)
+        - `905900` : ville de naissance (non renvoyé ici)
+        - `905901` : département de naissance (non renvoyé ici)
+        - `905902` : pays de naissance (non renvoyé ici)
+        - `304859` : siren (personne morale)
+        - `304857` : dénomination (personne morale)
+        - `304858` : complément de dénomination (personne morale)
+        - `306875` : forme juridique (personne morale)
+        - `304862` à `304867` : adresse personne morale (numéro, voie, lieu-dit, code postal, ville, pays)
+        - `304872` à `304877` : adresse personne physique (numéro, voie, lieu-dit, code postal, ville, pays)
+        - `309326` : total des actions détenues par des personnes physiques
+        - `309325` : nombre de personnes physiques actionnaires
+        - `309324` : total des actions détenues par des personnes morales
+        - `309323` : nombre de personnes morales actionnaires
+        - `305767` : dépôt néant (CERFA 2059F)
+
+        **Participations (CERFA 2059G)**
+        - `304960` : siren de la filiale
+        - `304958` : dénomination de la filiale
+        - `304959` : complément de dénomination de la filiale
+        - `306876` : forme juridique de la filiale
+        - `304967` : pourcentage de détention de la filiale
+        - `304961` à `304966` : adresse de la filiale (numéro, voie, lieu-dit, code postal, ville, pays)
+        - `309327` : nombre total de filiales
+        - `305768` : dépôt néant (CERFA 2059G)
+
+        <br>
+        L’ensemble de ces données est également disponible via l’API **Liasses fiscales**, qui propose plus de champs (jour, lieu de naissance, etc.).
+
+    - q: "Pourquoi l'API peut renvoyer 404 alors qu'il y a d’autres liasses fiscales ?"
+      a: |+
+        Les codes d’erreur de cette API sont spécifiques aux imprimés **2059F et 2059G**. Si aucun des deux n’est disponible, l’API renvoie un code **404**. Cela ne signifie pas que **toutes** les liasses fiscales sont absentes, mais simplement que, pour le SIREN et l’exercice demandés, **les imprimés 2059F et 2059G** ne sont pas trouvés.
+
+    - q: "Pourquoi les champs liés à la naissance (jour, ville, pays) sont-ils absents ?"
+      a: |+
+        Cette API ne met à disposition **que** certaines données sur les actionnaires personnes physiques (nom, prénoms, date de naissance partielle). Les informations de naissance complètes (jour, ville, département, pays) sont disponibles dans l’API **Liasses fiscales** qui expose davantage de champs déclaratifs.
+
+    - q: "Que signifie le champ `depose_neant` à null ?"
+      a: |+
+        Lorsqu’un imprimé n’est pas présent ou non déposé, le champ <code>depose_neant</code> peut être à <code>null</code>.
+        - <code>false</code> : l’imprimé est bien déposé, et contient des données.
+        - <code>true</code> : l’imprimé est déposé à néant (vide).
+        - <code>null</code> : l’imprimé est complètement absent.
+
+
