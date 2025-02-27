@@ -641,6 +641,9 @@ Un nouveau scope a été créé, permettant d'accéder à la donnée `identifian
 | `dateDebut`   | `date_debut_droit`       | **Renommage de la clé** `dateDebut` en `date_debut_droit`. |
 | `dateFin`     |*(supprimé)*               | **❌ Suppression de la clé** `dateFin`. Cette information était calculée par API Particulier en V.2 par rapport à la date de début. Or la date de début de prestation est la date de première attribution du droit et non du renouvellement du droit donc la date de fin calculée pouvait être fausse. |
 
-</div>
+<br/>
+<br/>
 
 [Consulter le swagger V.3](<%= api_particulier_developers_openapi_v3_path %>){:.fr-btn .fr-btn--lg fr-btn--icon-right fr-icon-arrow-right-fill}
+
+</div>
