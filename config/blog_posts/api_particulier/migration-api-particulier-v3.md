@@ -261,7 +261,7 @@ Pour l'API statut étudiant et statut étudiant boursier; comme pour toutes les 
 <br/>
 <br/>
 
-[Consulter le swagger V.3](<%= api_particulier_developers_openapi_v3_path %>){:.fr-btn .fr-btn--lg fr-btn--icon-right fr-icon-arrow-right-fill}
+[Consulter le swagger V.3](<%= api_particulier_developers_openapi_v3_path %>){:target="_blank"}{:.fr-btn .fr-btn--lg fr-btn--icon-right fr-icon-arrow-right-fill}
 
 <h2 class="fr-h2 fr-mt-4w" style="padding: 2px; margin-top: 10px; background-color : #fff9c4; display: inline-block"><a name="table-correspondance"></a>Table de correspondance de chaque API</h2>
 
@@ -307,6 +307,9 @@ Pour l'API statut étudiant et statut étudiant boursier; comme pour toutes les 
 
 ### <a name="correspondance-api-quotient-familial-msa-caf"></a> API Quotient familial CAF & MSA
 
+[Swagger V.2](<%= api_particulier_developers_openapi_path %>#tag/Quotient-familial){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
+[Swagger V.3](<%= api_particulier_developers_openapi_v3_path %>#tag/Quotient-familial-CAF-and-MSA){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill}
+
 
 {:.fr-h6}
 #### Synthèse de changements : 
@@ -332,6 +335,10 @@ Pour l'API statut étudiant et statut étudiant boursier; comme pour toutes les 
 
 
 ### <a name="correspondance-api-statut-etudiant"></a> API Statut étudiant
+
+[Swagger V.2](<%= api_particulier_developers_openapi_path %>#tag/Education-et-etudes/paths/~1api~1v2~1etudiants/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
+[Swagger V.3](<%= api_particulier_developers_openapi_v3_path %>#tag/Statut-etudiant){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill}
+
 
 {:.fr-h6}
 #### Synthèse des changements : 
@@ -371,6 +378,10 @@ Suite aux changements de structure de l'API, les scopes (droits d'accès) ont é
 
 ### <a name="correspondance-api-statut-etudiant-boursier"></a> API Statut étudiant boursier
 
+[Swagger V.2](<%= api_particulier_developers_openapi_path %>#tag/Education-et-etudes/paths/~1api~1v2~1etudiants-boursiers/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
+[Swagger V.3](<%= api_particulier_developers_openapi_v3_path %>#tag/Statut-etudiant-boursier){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill}
+
+
 {:.fr-h6}
 #### Synthèse des changements : 
 - L'endpoint V.2 est divisé en trois endpoints en V.3, un pour la modalité d'appel par données d'identité, l'autre pour la modalité d'appel FranceConnect, un pour l'appel par INE ;
@@ -399,6 +410,11 @@ Suite aux changements de structure de l'API, les scopes (droits d'accès) ont é
 
 
 ### <a name="correspondance-api-statut-eleve-scolarise"></a> API Statut élève scolarisé
+
+
+[Swagger V.2](<%= api_particulier_developers_openapi_path %>#tag/Education-et-etudes/paths/~1api~1v2~1scolarites/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
+[Swagger V.3](<%= api_particulier_developers_openapi_v3_path %>#tag/Statut-eleve-scolarise){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill}
+
 
 {:.fr-h6}
 #### Synthèse des changements : 
@@ -432,6 +448,11 @@ Suite aux changements de structure de l'API, les scopes (droits d'accès) ont é
 
 
 ### <a name="correspondance-api-statut-demandeur-emploi"></a> API Statut demandeur d'emploi
+
+[Swagger V.2](<%= api_particulier_developers_openapi_path %>#tag/Demandeurs-d'emploi/paths/~1api~1v2~1situations-pole-emploi/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
+[Swagger V.3](<%= api_particulier_developers_openapi_v3_path %>#tag/Statut-demandeurs-d'emploi){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill}
+
+
 
 {:.fr-h6}
 #### Synthèse des changements : 
@@ -467,6 +488,10 @@ Un nouveau scope a été créé, permettant d'accéder à la donnée `identifian
 
 ### <a name="correspondance-api-paiements-france-travail"></a> API Paiements versés par France Travail
 
+[Swagger V.2](<%= api_particulier_developers_openapi_path %>#tag/Demandeurs-d'emploi/paths/~1api~1v2~1paiements-pole-emploi/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
+[Swagger V.3](<%= api_particulier_developers_openapi_v3_path %>#tag/Paiements-verses-par-France-Travail){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill}
+
+
 {:.fr-h6}
 #### Synthèse des changements : 
 - L'identifiant France Travail passé en paramètre d'appel n'est plus renvoyé dans la payload.
@@ -486,6 +511,9 @@ Un nouveau scope a été créé, permettant d'accéder à la donnée `identifian
 
 
 ### <a name="correspondance-api-statut-rsa"></a> API Statut revenu de solidarité active (RSA) 
+
+[Swagger V.2](<%= api_particulier_developers_openapi_path %>#tag/Prestations-sociales/paths/~1api~1v2~1revenu-solidarite-active/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
+[Swagger V.3](<%= api_particulier_developers_openapi_v3_path %>#tag/Statut-Revenu-Solidarite-Active-(RSA)){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill}
 
 {:.fr-h6}
 #### Synthèse des changements : 
@@ -511,6 +539,10 @@ Un nouveau scope a été créé, permettant d'accéder à la donnée `identifian
 
 ### <a name="correspondance-api-statut-prime-activite"></a> API Statut prime d'activité  
 
+[Swagger V.2](<%= api_particulier_developers_openapi_path %>#tag/Prestations-sociales/paths/~1api~1v2~1prime-activite/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
+[Swagger V.3](<%= api_particulier_developers_openapi_v3_path %>#tag/Statut-Prime-Activite){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill}
+
+
 {:.fr-h6}
 #### Synthèse des changements : 
 - L'endpoint V.2 est divisé en deux endpoints en V.3, un pour la modalité d'appel par données d'identité, l'autre pour la modalité d'appel FranceConnect ;
@@ -533,6 +565,12 @@ Un nouveau scope a été créé, permettant d'accéder à la donnée `identifian
 
 ### <a name="correspondance-api-statut-aah"></a> API Statut allocation adulte handicapé (AAH) 
 
+
+[Swagger V.2](<%= api_particulier_developers_openapi_path %>#tag/Prestations-sociales/paths/~1api~1v2~1allocation-adulte-handicape/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
+[Swagger V.3](<%= api_particulier_developers_openapi_v3_path %>#tag/Statut-Allocation-Adulte-Handicape-(AAH)){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill}
+
+
+
 {:.fr-h6}
 #### Synthèse des changements : 
 - L'endpoint V.2 est divisé en deux endpoints en V.3, un pour la modalité d'appel par données d'identité, l'autre pour la modalité d'appel FranceConnect ;
@@ -553,6 +591,9 @@ Un nouveau scope a été créé, permettant d'accéder à la donnée `identifian
 
 
 ### <a name="correspondance-api-statut-asf"></a> API Statut allocation de soutien familial (ASF)
+
+[Swagger V.2](<%= api_particulier_developers_openapi_path %>#tag/Prestations-sociales/paths/~1api~1v2~1allocation-soutien-familial/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
+[Swagger V.3](<%= api_particulier_developers_openapi_v3_path %>#tag/Statut-Allocation-Soutien-Familial-(ASF)){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill}
 
 
 {:.fr-h6}
@@ -576,6 +617,9 @@ Un nouveau scope a été créé, permettant d'accéder à la donnée `identifian
 
 
 ### <a name="correspondance-api-statut-c2s"></a> API Statut complémentaire santé solidaire (C2S) 
+
+[Swagger V.2](<%= api_particulier_developers_openapi_path %>#tag/Prestations-sociales/paths/~1api~1v2~1complementaire-sante-solidaire/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
+[Swagger V.3](<%= api_particulier_developers_openapi_v3_path %>#tag/Statut-Complementaire-Sante-Solidaire-(C2S)){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill}
 
 
 {:.fr-h6}
