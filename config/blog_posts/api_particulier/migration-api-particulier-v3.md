@@ -69,7 +69,7 @@ Les évolutions présentées visent les objectifs suivants&nbsp;:&nbsp;
 **🧰 Comment ?**
 Utilisez un client REST API pour tester les API pendant le développement.
 Des clients sont disponibles gratuitement. API&nbsp;Particulier utilise pour ses propres tests le client Insomnia. Le plus connu sur le marché est Postman.
-Une fois le client installé, vous pouvez directement intégrer notre fichier [Swagger/OpenAPI](TODO_LIEN_V3){:target="_blank"} dedans.
+Une fois le client installé, vous pouvez directement intégrer notre fichier [Swagger/OpenAPI](<%= api_particulier_developers_openapi_v3_path %>){:target="_blank"} dedans.
 
 
 <h3 class="fr-mt-6w" id="votre-numero-de-siret-obligatoire-dans-le-recipient"> 2. Numéro de SIRET obligatoire dans le "recipient"</h3>
@@ -127,7 +127,7 @@ Pour en savoir plus sur les paramètres obligatoires d'appel, consultez les [sp�
 
 **🧰 Comment ?**
 Utiliser les libellés pour comprendre l’erreur rencontrée, voire automatiser votre logiciel en fonction du code.
-La liste de tous les codes erreurs spécifiques (environ 80) est disponible dans le [Swagger](TODO_LIEN_V3){:target="_blank"}. La gestion des erreurs et l'explication des codes retours est détaillée dans la [documentation technique générale](<%= developers_path(anchor: 'code-https-et-gestion-des-erreurs') %>){:target="_blank"}.
+La liste de tous les codes erreurs spécifiques (environ 80) est disponible dans le [Swagger](<%= api_particulier_developers_openapi_v3_path %>){:target="_blank"}. La gestion des erreurs et l'explication des codes retours est détaillée dans la [documentation technique générale](<%= developers_path(anchor: 'code-https-et-gestion-des-erreurs') %>){:target="_blank"}.
 
 
 <h3 class="fr-mt-6w" id="volumetrie-indiquee-dans-le-header-et-actionnable"> 4. Volumétrie indiquée dans le header et actionnable</h3>
@@ -151,7 +151,7 @@ La gestion de la volumétrie est maintenue identique à la dernière évolution 
 - Rendre actionnable le swagger et le fichier OpenAPI.
 
 **🧰 Comment ?**
-Utiliser [le swagger](TODO_LIEN_V3){:target="_blank"}.
+Utiliser [le swagger](<%= api_particulier_developers_openapi_v3_path %>){:target="_blank"}.
               
 
 <h3 class="fr-mt-6w" id="donnee-qualifiee-et-uniformisee-metier">6. Données uniformisées et documentées</h3>
@@ -173,9 +173,9 @@ Utiliser [le swagger](TODO_LIEN_V3){:target="_blank"}.
 <h3 class="fr-mt-6w" id="refonte-des-scopes">7. Refonte des scopes</h3>
 
 **🚀 Avec la V.3 :** Les scopes sont repérables plus facilement car désormais la donnée accessible pour un scope est la donnée inclue dans la clé correspondante de la payload. Concrêtement, cela signifie que les scopes sont souvent des clés parentes, regroupant plusieurs données, toutes accessibles à partir du moment où le droit a été délivré. Dans la mesure du possible, le scope se trouve à la racine du tableau `data`. 
-Ce changement est particulièrement visible sur l'[API statut étudiant boursier](TODO_LIEN_V3#tag/Statut-etudiant-boursier/paths/~1v3~1cnous~1etudiant_boursier~1identite/get){:target="_blank"}, où chaque clé à la racine du tableau est un scope. 
+Ce changement est particulièrement visible sur l'[API statut étudiant boursier](<%= api_particulier_developers_openapi_v3_path %>#tag/Statut-etudiant-boursier/paths/~1v3~1cnous~1etudiant_boursier~1identite/get){:target="_blank"}, où chaque clé à la racine du tableau est un scope. 
 
-Dans certains cas où l'API délivre une liste d'objet, comme pour l'[API statut étudiant](TODO_LIEN_V3#tag/Statut-etudiant/paths/~1v3~1mesri~1statut_etudiant~1identite/get){:target="_blank"}, un scope peut contenir des sous-scopes. Le scope parent active la délivrance de la liste d'objets, les sous-scopes activent la délivrance de certaines données concernant l'objet en lui-même.
+Dans certains cas où l'API délivre une liste d'objet, comme pour l'[API statut étudiant](<%= api_particulier_developers_openapi_v3_path %>#tag/Statut-etudiant/paths/~1v3~1mesri~1statut_etudiant~1identite/get){:target="_blank"}, un scope peut contenir des sous-scopes. Le scope parent active la délivrance de la liste d'objets, les sous-scopes activent la délivrance de certaines données concernant l'objet en lui-même.
 
 ###### Exemples des différentes typologies de scopes avec l'API Statut étudiant
 
@@ -261,7 +261,7 @@ Pour l'API statut étudiant et statut étudiant boursier; comme pour toutes les 
 <br/>
 <br/>
 
-[Consulter le swagger V.3](TODO_LIEN_V3){:.fr-btn .fr-btn--lg fr-btn--icon-right fr-icon-arrow-right-fill}
+[Consulter le swagger V.3](<%= api_particulier_developers_openapi_v3_path %>){:.fr-btn .fr-btn--lg fr-btn--icon-right fr-icon-arrow-right-fill}
 
 <h2 class="fr-h2 fr-mt-4w" style="padding: 2px; margin-top: 10px; background-color : #fff9c4; display: inline-block"><a name="table-correspondance"></a>Table de correspondance de chaque API</h2>
 
@@ -599,4 +599,4 @@ Un nouveau scope a été créé, permettant d'accéder à la donnée `identifian
 
 </div>
 
-[Consulter le swagger V.3](TODO_LIEN_V3){:.fr-btn .fr-btn--lg fr-btn--icon-right fr-icon-arrow-right-fill}
+[Consulter le swagger V.3](<%= api_particulier_developers_openapi_v3_path %>){:.fr-btn .fr-btn--lg fr-btn--icon-right fr-icon-arrow-right-fill}
