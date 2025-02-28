@@ -18,7 +18,7 @@
    <ol>
     <li> <a class="fr-summary__link fr-text--md" href="#jeton-dacces-a-parametrer-dans-le-header">Jeton d'accès à paramétrer dans le header</a></li>
     <li> <a class="fr-summary__link fr-text--md" href="#votre-numero-de-siret-obligatoire-dans-le-recipient">Numéro de SIRET obligatoire dans le "recipient"</a></li>
-    <li> <a class="fr-summary__link fr-text--md" href="#codes-erreurs-detailles">Codes erreurs détaillés</a></li>
+    <li> <a class="fr-summary__link fr-text--md" href="#refonte-des-codes-erreur">Refonte des codes erreur</a></li>
     <li> <a class="fr-summary__link fr-text--md" href="#volumetrie-indiquee-dans-le-header-et-actionnable">Volumétrie indiquée dans le header et actionnable</a></li>
     <li> <a class="fr-summary__link fr-text--md" href="#une-route-specifique-pour-chaque-modalite-d-appel">Une route spécifique pour chaque modalité d'appel</a></li>
     <li> <a class="fr-summary__link fr-text--md" href="#donnee-qualifiee-et-uniformisee-metier">Données uniformisées et documentées</a></li>
@@ -87,9 +87,11 @@ Une fois le client installé, vous pouvez directement intégrer notre fichier [S
 Pour en savoir plus sur les paramètres obligatoires d'appel, consultez les [spécifications techniques](<%= developers_path(anchor: 'renseigner-les-paramètres-dappel-et-de-traçabilité') %>).
 
 
-<h3 class="fr-mt-6w" id="codes-erreurs-detailles"> 3. Codes erreurs détaillés</h3>
+<h3 class="fr-mt-6w" id="refonte-des-codes-erreur"> 3. Refonte des codes erreur</h3>
 
-**🚀 Avec la V.3 :** Tous les codes erreur HTTPS sont accompagnés de codes plus précis, spécifiques à chaque situation d’erreur. Une explication en toutes lettres est également donnée dans la payload.
+**🚀 Avec la V.3 :** 
+- Toutes les erreurs émanant du fournisseur de la donnée sont désormais regroupées dans le code 502 ; 
+- Tous les codes erreur HTTPS sont accompagnés de codes plus précis, spécifiques à chaque situation d’erreur. Une explication en toutes lettres est également donnée dans la payload.
 
 ###### Exemple de _payload_ d’un code HTTP 502 :
 ```
@@ -110,7 +112,9 @@ Pour en savoir plus sur les paramètres obligatoires d'appel, consultez les [sp�
 ```
 
 {:.fr-highlight.fr-highlight--example}
-> Avant : Seul le code HTTP standard vous était fourni. Il pouvait correspondre à de nombreuses situations.
+> Avant : 
+- Les erreurs émanant du fournisseur de la donnée pouvaient être dans différents code HTTP ce qui était confus ;
+- De plus, seul le code HTTP standard vous était fourni. Il pouvait correspondre à de nombreuses situations.
 > ###### Exemple de payload d’un code HTTP 502 :
 > ```
 > {
@@ -121,6 +125,7 @@ Pour en savoir plus sur les paramètres obligatoires d'appel, consultez les [sp�
 > ```
 
 **🤔 Pourquoi ?**
+- Pour que vous puissiez distinguer facilement si l'erreur provient du fournisseur de la donnée, de votre appel ou de l'API Particulier ;
 - Pour préciser la nature de l’erreur et vous aider à la comprendre ;
 - Pour vous permettre d’actionner automatiquement l’erreur en utilisant le code.
 
@@ -250,14 +255,15 @@ Sauf pour l'API Statut étudiant dont les scopes ont beaucoup changé, nous nous
 
 <h3 class="fr-mt-6w" id="suppression-donnees-identite-via-france-connect">8. Suppression des données d'identité pour les appels via FranceConnect</h3>
 
-**🚀 Avec la V.3 :** Lorsque vous utilisez les API avec FranceConnect, les données d'identité du particulier regroupées sous la clé `identite` ne sont pas prévue dans la payload. Cela concerne l'[API statut étudiant](#correspondance-api-statut-etudiant) et l' [API statut étudiant boursier](#correspondance-api-statut-etudiant-boursier). L'[API Quotient familial CAF &  MSA](#correspondance-api-quotient-familial-msa-caf) continuera de transmettre les données d'identité des allocataires, y compris avec l'appel via FranceConnect.
+**🚀 Avec la V.3 :** Lorsque vous utilisez les API avec FranceConnect, les données d'identité du particulier regroupées sous la clé `identite` sont retirées de la payload de réponse. Ce retrait concerne l'[API statut étudiant](#correspondance-api-statut-etudiant) et l' [API statut étudiant boursier](#correspondance-api-statut-etudiant-boursier). 
+En revanche, l'[API Quotient familial CAF &  MSA](#correspondance-api-quotient-familial-msa-caf) continuera de transmettre les données d'identité regroupées sous les clés `allocataires` et `enfants`, y compris avec l'appel via FranceConnect
 
 **🤔 Pourquoi ?**
 - C'est un impératif de FranceConnect ; 
 - FranceConnect est en possession de l'identité pivot de l'usager, ces données sont certifiées et parfois plus fiables que les données livrées par les API.
 
 **🧰 Comment ?**
-Pour l'API statut étudiant et statut étudiant boursier; comme pour toutes les autres API proposant la modalité d'appel via FranceConnect, si vous avez besoin des données d'identité, vous pouvez les récupérer directement via FranceConnect.
+Pour l'API statut étudiant et statut étudiant boursier; comme pour toutes les autres API proposant la modalité d'appel via FranceConnect, si vous avez besoin des données d'identit du particulier, vous pouvez les récupérer directement via FranceConnect.
 <br/>
 <br/>
 
