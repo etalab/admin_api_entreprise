@@ -6,20 +6,16 @@
   position: 250
   perimeter:
     entity_type_description: |+
-      Cette API délivre les **liens capitalistiques** d’une entreprise, à savoir :
-      - la composition de son capital social et la liste de ses actionnaires, extraites du **CERFA 2059F** ;
-      - la liste de ses participations et filiales, extraites du **CERFA 2059G**.
+      Cette API délivre **liens capitalistiques** des entreprises :
+      - ✅ soumises à l’impôt sur les sociétés (IS)* ;
+      - ✅ soumises à l’impôt sur les sociétés dû par le groupe (IS GROUPE)*;
+      - ✅ aux bénéfices industriels et commerciaux (BIC)* ;
+      - ✅ aux bénéfices non commerciaux (BNC)* ;
+      - ✅ aux bénéfices agricoles (BA)*.
 
-      Les données sont déclaratives et proviennent des liasses fiscales déposées auprès de la DGFIP.
+      _*selon les règles des régimes réels, normal ou simplifié._
 
-      **Cette API renvoie une erreur 404 si et seulement si les deux imprimés 2059F et 2059G sont absents** pour l'entreprise demandée et l'exercice concerné. L'absence totale de ces deux imprimés ne signifie pas nécessairement que l’ensemble des liasses fiscales est manquant, mais simplement que ces deux CERFA (2059F/G) n’ont pas été retrouvés pour ce SIREN sur l’exercice demandé.
-
-      <br>
-      <strong>À noter&nbsp;:</strong>
-      - Les informations sont également disponibles via l’API <em>Liasses fiscales</em>, sous forme plus exhaustive.
-      - Le nombre d’actionnaires, d’actions ou de filiales indiqué peut ne pas correspondre exactement aux éléments listés, car il s’agit de champs déclaratifs.
-      - Les données non numériques ou en pourcentage sont renvoyées « en l’état » (telles que saisies par l’entreprise), potentiellement sujettes à erreurs ou incohérences.
-      - Les entreprises étrangères indiquent parfois des Siren « fictifs » (ex. 99999999).
+      ❌ **Les entreprises aux régimes micro-BIC, micro-BNC et micro-BA (micro-entrepreneurs) ne sont pas concernées par cette API**. En effet, elles ne déposent pas de déclarations de résultat mais des éléments spécifiques dans la déclaration 2042C qui relève de l’impôt sur le revenu.
 
     updating_rules_description: |+
       Les données issues des liasses fiscales (dont 2059F/G) sont disponibles **à compter du lendemain de la date de dépôt (J+1)** et **trois jours plus tard (J+3)** si le dépôt intervient la veille d’un week-end.
@@ -52,21 +48,28 @@
     description: |+
       Cette API permet de récupérer **la composition du capital** (liste des actionnaires, pourcentage de détention, type de personne, adresses, etc.) et **la liste des participations** (filiales détenues par l’entreprise).
 
-      Les informations exposées correspondent aux **CERFA 2059F et 2059G** des liasses fiscales :
-      - **2059F&nbsp;:** Composition du capital social (actionnaires, répartition, etc.)
-      - **2059G&nbsp;:** Participations (filiales et leurs adresses)
+      Les données transmises sont déclaratives et proviennent de deux CERFA des liasses fiscales déposées auprès de la DGFIP :
+      - **CERFA 2059F&nbsp;:** Composition du capital social (actionnaires, répartition, etc.)
+      - **CERFA 2059G&nbsp;:** Participations (filiales et leurs adresses).
+    
+      [Liste exhaustive des codes nref renvoyés par l'API](#liste-codes-nref).
 
-      <br>
-      <strong>Spécificités et points d’attention :</strong>
-      - Le champ <code>depose_neant</code> peut être à <code>null</code> : cela signifie que l’imprimé en question n’a pas été déposé.
-      - Les informations de naissance (jour, ville, département, pays) ne sont pas présentes dans ce endpoint mais figurent dans l’API <em>Liasses fiscales</em>.
-      - Certains intitulés d’adresses pour les personnes physiques (codes nref <code>304875</code>, <code>304876</code>, <code>304877</code>) peuvent contenir des valeurs erronées ou non formatées.
-      - Le dictionnaire officiel TDFC peut faire référence à des numéros SIRET, mais en pratique il s’agit plutôt de **numéros SIREN** déclarés par l’entreprise.
-      - Les données sont soumises à la saisie déclarative des entreprises et peuvent contenir des anomalies (ex. adresses imprécises, numéro Siren invalide pour des sociétés étrangères, etc.).
 
-      Pour plus de détails et d’informations complémentaires (notamment sur le jour de naissance, la ville, le pays, etc.), vous pouvez consulter l’API <em>Liasses fiscales</em>.
+      {:.fr-highlight.fr-highlight--caution}
+      > **Des données déclaratives parfois imprécises&nbsp;:**
+      > Les données sont soumises à la saisie déclarative des entreprises et peuvent contenir des anomalies :
+      > - Des adresses parfois erronnées ou non formatées pour les personnes physiques (codes nref <code>304875</code>, <code>304876</code>, <code>304877</code>) ;
+      > - Le nombre d’actionnaires, d’actions ou de filiales indiqué peut ne pas correspondre exactement aux éléments listés (en cas d'erreur de déclaration) ;
+      > - Les données non numériques ou en pourcentage sont renvoyées «&nbsp;en l’état&nbsp;» (telles que saisies par l’entreprise), potentiellement sujettes à erreurs ou incohérences ;
+      > - Les entreprises étrangères indiquent parfois des Siren «&nbsp;fictifs&nbsp;» (ex. 99999999).
+      > - Le dictionnaire officiel TDFC peut faire référence à des numéros SIRET, mais en pratique il s’agit plutôt de **numéros SIREN** déclarés par l’entreprise.
 
-      Vous pouvez télécharger les CERFA 2059F et 2059G sur le lien suivant: <a href="/files/cerfa-2059f-2059g.pdf" download class="fr-download__link">Télécharger les CERFA 2059F et 2059G</a>
+      {:.fr-highlight}
+      > **Pour plus de données, utiliser l’[API Liasses fiscales](<%= endpoint_path(uid: 'dgfip/liasses_fiscales')%>)** : 
+      > Les [informations de naissance des personnes physiques ne sont pas présentes dans cet endpoint](#absence-donnees-naissance) mais figurent dans l’API Liasses fiscales qui propose des données plus exhaustives.
+      > L'[absence de ces deux imprimés, indiquée par un code erreur `404`](#code-erreur-404), ne signifie pas nécessairement que l’ensemble des liasses fiscales est manquant, mais simplement que ces deux CERFA (2059F/G) n’ont pas été retrouvés pour ce SIREN sur l’exercice demandé.
+
+
   opening: protected
   format:
     - Donnée structurée JSON
@@ -76,16 +79,27 @@
     - Année (fiscale) correspondant à l’exercice visé
 
   faq:
-    - q: "Quelle est la liste exhaustive des codes nref utilisés par cette API ?"
+    - q: <a name="liste-codes-nref"></a>Quelle est la liste exhaustive des codes nref utilisés par cette API ?
       a: |+
-        Voici la liste complète des codes *nref* référencés dans ce service.
-        <br>
+        Voici la liste complète des codes *nref* référencés dans ce service :
+  
 
-        **Imprimés**
+        **Imprimés :**
         - `2059F` : composition du capital
         - `2059G` : participations / filiales
 
-        **Capital social (CERFA 2059F)**
+        <div class="fr-download">
+        <p>
+          <a href="/files/cerfa-2059f-2059g.pdf" download class="fr-download__link">
+        Télécharger les CERFA 2059F et 2059G
+          <span class="fr-download__detail">
+          PDF – 213 ko | version 2025
+          </span>
+          </a>
+        </p>
+        </div>
+
+        **Capital social (CERFA 2059F) :**
         - `304861` : pourcentage de détention (personne morale)
         - `304871` : pourcentage de détention (personne physique)
         - `304860` : nombre de parts (personne morale)
@@ -109,7 +123,7 @@
         - `309323` : nombre de personnes morales actionnaires
         - `305767` : dépôt néant (CERFA 2059F)
 
-        **Participations (CERFA 2059G)**
+        **Participations (CERFA 2059G) :**
         - `304960` : siren de la filiale
         - `304958` : dénomination de la filiale
         - `304959` : complément de dénomination de la filiale
@@ -122,15 +136,15 @@
         <br>
         L’ensemble de ces données est également disponible via l’API **Liasses fiscales**, qui propose plus de champs (jour, lieu de naissance, etc.).
 
-    - q: "Pourquoi l'API peut renvoyer 404 alors qu'il y a d’autres liasses fiscales ?"
+    - q: <a name="code-erreur-404"></a>Pourquoi l'API peut renvoyer 404 alors qu'il y a d’autres liasses fiscales ?
       a: |+
         Les codes d’erreur de cette API sont spécifiques aux imprimés **2059F et 2059G**. Si aucun des deux n’est disponible, l’API renvoie un code **404**. Cela ne signifie pas que **toutes** les liasses fiscales sont absentes, mais simplement que, pour le SIREN et l’exercice demandés, **les imprimés 2059F et 2059G** ne sont pas trouvés.
 
-    - q: "Pourquoi les champs liés à la naissance (jour, ville, pays) sont-ils absents ?"
+    - q: <a name="absence-donnees-naissance"></a>Pourquoi les champs liés à la naissance (jour, ville, pays) sont-ils absents ?
       a: |+
         Cette API ne met à disposition **que** certaines données sur les actionnaires personnes physiques (nom, prénoms, date de naissance partielle). Les informations de naissance complètes (jour, ville, département, pays) sont disponibles dans l’API **Liasses fiscales** qui expose davantage de champs déclaratifs.
 
-    - q: "Que signifie le champ `depose_neant` à null ?"
+    - q: <a name="champ-depose-neant"></a>Que signifie le champ `depose_neant` à null ?
       a: |+
         Lorsqu’un imprimé n’est pas présent ou non déposé, le champ <code>depose_neant</code> peut être à <code>null</code>.
         - <code>false</code> : l’imprimé est bien déposé, et contient des données.
