@@ -68,7 +68,7 @@ Les évolutions présentées visent les objectifs suivants&nbsp;:&nbsp;
 
 **🧰 Comment ?**
 Utilisez un client REST API pour tester les API pendant le développement.
-Des clients sont disponibles gratuitement. API&nbsp;Particulier utilise pour ses propres tests le client Insomnia. Le plus connu sur le marché est Postman.
+Des clients sont disponibles gratuitement. API&nbsp;Particulier utilise pour ses propres tests les clients Insomnia ou Bruno. Le plus connu sur le marché est Postman.
 Une fois le client installé, vous pouvez directement intégrer notre fichier [Swagger/OpenAPI](<%= api_particulier_developers_openapi_v3_path %>){:target="_blank"} dedans.
 
 
@@ -177,71 +177,38 @@ Utiliser [le swagger](<%= api_particulier_developers_openapi_v3_path %>){:target
 
 <h3 class="fr-mt-6w" id="refonte-des-scopes">7. Refonte des scopes</h3>
 
-**🚀 Avec la V.3 :** Les scopes sont repérables plus facilement car désormais la donnée accessible pour un scope est la donnée inclue dans la clé correspondante de la payload. Concrêtement, cela signifie que les scopes sont souvent des clés parentes, regroupant plusieurs données, toutes accessibles à partir du moment où le droit a été délivré. Dans la mesure du possible, le scope se trouve à la racine du tableau `data`. 
-Ce changement est particulièrement visible sur l'[API statut étudiant boursier](<%= api_particulier_developers_openapi_v3_path %>#tag/Statut-etudiant-boursier){:target="_blank"}, où chaque clé à la racine du tableau est un scope. 
+<div style="background-color: #f6f6f6; padding:  10px  10px 1px 10px ; border-radius: 5px; width: 100%; box-sizing: border-box; margin-bottom: 20px;">
 
-Dans certains cas où l'API délivre une liste d'objet, comme pour l'[API statut étudiant](<%= api_particulier_developers_openapi_v3_path %>#tag/Statut-etudiant){:target="_blank"}, un scope peut contenir des sous-scopes. Le scope parent active la délivrance de la liste d'objets, les sous-scopes activent la délivrance de certaines données concernant l'objet en lui-même.
+**Qu'est-ce qu'un scope dans API Particulier ?**
+Ce qu'on appelle "scope", c'est la liste des clés d'une payload de réponse correspondant à un droit d'accès coché dans une habilitation API Particulier sur Datapass.
+_Prenons l'exemple d'un fournisseur de service ayant coché le droit d'accès "Commune d'études" dans Datapass pour l'API Statut étudiant, le "scope" correspond à la partie de la payload de réponse qui est activée en supplément, ici le champ `code_cog_insee_commune`._
+</div>
 
-###### Exemples des différentes typologies de scopes avec l'API Statut étudiant
+**🚀 Avec la V.3 :** 
+- Les scopes ont été refondus pour être plus clairs et surtout correspondre strictement à une ou plusieurs clés de la payload de réponse ; 
+- Pour la majorité des droits d'accès cochables dans une habilitation API Particulier, les clés associées à un scope sont à la racine du tableau `data`. Il existe quelques scopes délivrant des clés situées à l'intérieur d'un autre scope, comme pour l'[API statut étudiant](<%= api_particulier_developers_openapi_v3_path %>#tag/Statut-etudiant){:target="_blank"},.
+
+{:.fr-highlight}
+> **Comme en V.2, si un droit d'accès n'est pas coché, les clés du scope ne figurent pas dans la payload de réponse.** 
+> Ce qui signifie que selon les droits d'accès de votre jeton, la payload de réponse diffère. Le swagger et la documentation métier d'API Particulier prenne toujours en exemple la payload exhaustive, c'est-à-dire celle avec tous les scopes activés.
+
+###### Exemples avec une partie de l'API Statut étudiant boursier
 
 <pre><code>{
  "data": {
-  "identite": { <span style="color: blue; font-weight: bold;">// Scope classique avec plusieurs clés</span>
-   "nom_naissance": "Moustaki",
-   "prenom": "Georges",
-   "date_naissance": "1992-11-29"
+  "est_boursier": true, <span style="color: blue; font-weight: bold;">// Scope du droit d'accès "Statut boursier"</span>
+  "periode_versement_bourse": { <span style="color: blue; font-weight: bold;">// Scope du droit d'accès "Période de versement"</span>
+    "date_rentree": "2019-09-01", <span style="color: gray; font-weight: bold;">// Clé renvoyée avec le scope de la clé parente</span>
+    "duree": "12" <span style="color: gray; font-weight: bold;">// Clé renvoyée avec le scope de la clé parente</span>
   },
-  "admissions": [ <span style="color: blue; font-weight: bold;">// Scope parent car liste d'objets</span>
-   {
-    "date_debut": "2022-09-01", <span style="color: gray; font-weight: bold;">// Par défaut dans le scope parent</span>
-    "date_fin": "2023-08-31", <span style="color: gray; font-weight: bold;">// Par défaut dans le scope parent</span>
-    "est_inscrit": true, <span style="color: green; font-weight: bold;">// Sous-scope avec une seule clé</span>
-    "regime_formation": { <span style="color: green; font-weight: bold;">// Sous-scope avec plusieurs clés</span>
-     "libellé": "formation initiale",
-     "code": "RF1"
-    },
-    "code_cog_insee_commune": "29085", <span style="color: green; font-weight: bold;">// Sous-scope avec une seule clé</span>
-    "etablissement_etudes": { <span style="color: green; font-weight: bold;">// Sous-scope avec plusieurs clés</span>
-     "uai": "0011402U",
-     "nom": "EGC AIN BOURG EN BRESSE EC GESTION ET COMMERCE (01000)"
-    }
-   }
-  ]
- },
- "links": {},
- "meta": {}
+  }
+  ...
 }
 </code></pre>
 
 
 {:.fr-highlight.fr-highlight--example}
-> Avant : Les droits d'accès pouvaient couvrir une ou plusieurs clés dans la payload, il n'y avait pas de règles. Dans certains cas, un scope pouvait même indiquer un périmètre de particuliers concernés.
-
-> ###### Exemple avec la payload V.2. de l'API Étudiant boursier :
-
-<blockquote>
- <pre><code>{
-  "data": { <span style="color: gray; font-weight: bold;">// Scope parent 1</span>
-   "nom": "Moustaki", <span style="color: gray; font-weight: bold;">// Scope 2</span>
-   "prenom": "Georges", <span style="color: gray; font-weight: bold;">// Scope 2</span>
-   "prenom2": "Claude", <span style="color: gray; font-weight: bold;">// Scope 2</span>
-   "date_naissance": "1992-11-29", <span style="color: gray; font-weight: bold;">// Scope 2</span>
-   "lieu_naissance": "Poitiers", <span style="color: gray; font-weight: bold;">// Scope 2</span>
-   "sexe": "M", <span style="color: gray; font-weight: bold;">// Scope 2</span>
-   "boursier": true,
-   "echelon_bourse": "6", <span style="color: gray; font-weight: bold;">// Scope 3</span>
-   "email": "georges@moustaki.fr", <span style="color: gray; font-weight: bold;">// Scope 4</span>
-   "date_de_rentree": "2019-09-01",
-   "duree_versement": 12,
-   "statut": 0, <span style="color: gray; font-weight: bold;">// Scope 5</span>
-   "statut_libelle": "définitif", <span style="color: gray; font-weight: bold;">// Scope 5</span>
-   "ville_etudes": "Brest",
-   "etablissement": "Carnot"
-  },
-  "links": {},
-  "meta": {}
- }</code></pre>
-</blockquote>
+> Avant : Un scope pouvait indiquer un périmètre de particuliers concernés.
 
 **🤔 Pourquoi ?**
 - Clarifier quelles informations sont disponibles pour chaque scope pour faciliter les demandes d'habilitation ;
