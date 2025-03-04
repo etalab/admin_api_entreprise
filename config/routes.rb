@@ -21,6 +21,12 @@ Rails.application.routes.draw do
     resources :authorization_requests, only: %i[index], path: 'habilitations'
   end
 
+  get '/fournisseur', to: 'provider/dashboard#index', as: :provider
+
+  scope path: 'fournisseur/:provider_uid', as: :provider do
+    get '/tableau-de-bord', to: 'provider/dashboard#show', as: :dashboard
+  end
+
   namespace :api do
     resources :frontal, only: :index
   end

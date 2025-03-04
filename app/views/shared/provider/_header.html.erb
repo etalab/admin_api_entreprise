@@ -1,0 +1,73 @@
+<header role="banner" class="fr-header">
+  <div class="fr-header__body">
+    <div class="fr-container">
+      <div class="fr-header__body-row">
+        <div class="fr-header__brand fr-enlarge-link">
+          <div class="fr-header__brand-top">
+            <div class="fr-header__logo">
+              <p class="fr-logo">
+                République<br>
+                Française
+              </p>
+            </div>
+            <div class="fr-header__navbar">
+              <button class="fr-btn--menu fr-btn" data-fr-opened="false" aria-controls="modal-menu" aria-haspopup="menu" id="button-menu" title="Menu">
+                Menu
+              </button>
+            </div>
+          </div>
+          <div class="fr-header__service">
+            <a href="/" title="Accueil - <%= t("api_#{namespace}.name") %>">
+              <p class="fr-header__service-title">
+                <%= t("api_#{namespace}.name") %> - Espace Fournisseur
+              </p>
+            </a>
+            <% if current_provider %>
+              <p class="fr-header__service-tagline">
+                <%= current_provider&.name %>
+              </p>
+            <% end %>
+          </div>
+        </div>
+        <div class="fr-header__tools">
+          <div class="fr-header__tools-links">
+            <ul class="fr-links-group">
+              <li>
+                <a class="fr-link fr-icon-chat-3-line" href="mailto:support@<%= namespace %>.api.gouv.fr?subject=Proposition d'amélioration de l'espace fournisseur">
+                  Un retour ? Contactez-nous
+                </a>
+              </li>
+              <li>
+                <a class="fr-link fr-icon-user-fill" href="<%= editor_path %>">
+                  <%= current_user.full_name %>
+                </a>
+              </li>
+              <li>
+                <a class="fr-link fr-icon-logout-box-r-fill" id="logout_button" href="<%= logout_path %>" target="_self">
+                  Se déconnecter
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fr-header__menu fr-modal" id="modal-menu" aria-labelledby="button-menu">
+    <div class="fr-container">
+      <button class="fr-btn--close fr-btn" aria-controls="modal-menu" title="Fermer">
+        Fermer
+      </button>
+      <div class="fr-header__menu-links">
+      </div>
+      <nav class="fr-nav" id="header-navigation" role="navigation" aria-label="Menu principal">
+        <ul class="fr-nav__list">
+          <li class="fr-nav__item">
+            <%= link_to 'Tableaux de bord', provider_path, class: 'fr-nav__link', active: :exclusive %>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
