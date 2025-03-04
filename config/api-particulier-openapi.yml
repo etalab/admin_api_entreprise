@@ -25,6 +25,11 @@ info:
 
     Pour effectuer vos tests sur le bac à sable, référez-vous à ce dépôt github: [etalab/siade_staging_data](https://github.com/etalab/siade_staging_data/) (l'ancien système basé sur Airtable n'est plus maintenu et va être remplacé par le nouveau système). Un jeton nommé default est disponible ici: [tokens](https://github.com/etalab/siade_staging_data/tree/develop/tokens)
 
+    ### Accéder à la version 3 de l'API
+
+    L'API particulier v3 est actuellement en version beta, vous pouvez accéder à sa documentation [ici](https://particulier.api.gouv.fr/developpeurs/openapi-v3).
+
+
     ### Périmètre des données retournées
 
     **Important :** le contenu du jeu de données retourné dépend des _scopes_ ou _périmètres_ du jeton utilisé.
@@ -1570,6 +1575,13 @@ paths:
                       CNAF.
                     message: Le dossier allocataire n'a pas été trouvé auprès de la
                       CNAF.
+                Allocataire non référencé:
+                  value:
+                    error: not_found
+                    reason: L'allocataire n'est pas référencé auprès de la CNAF ni
+                      de la MSA
+                    message: L'allocataire n'est pas référencé auprès de la CNAF ni
+                      de la MSA
               schema:
                 "$ref": "#/components/schemas/Error"
         '503':
