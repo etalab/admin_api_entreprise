@@ -3,8 +3,9 @@ require 'csv'
 class TokenExport
   FILEPATH = 'config/api_particulier_legacy_tokens.yml'.freeze
 
-  def initialize(user)
+  def initialize(user, impersonated: false)
     @user = user
+    @impersonated = impersonated
   end
 
   def perform
@@ -47,8 +48,8 @@ class TokenExport
       token.intitule,
       token.authorization_request.demandeur.present? ? token.authorization_request.demandeur.email : nil,
       token.authorization_request.external_id,
-      token.rehash,
-      legacy_token(token),
+      @impersonated ? 'NotAValidToken' : token.rehash,
+      @impersonated ? 'NotAValidToken' : legacy_token(token),
       token.authorization_request.demarche
     ]
   end
