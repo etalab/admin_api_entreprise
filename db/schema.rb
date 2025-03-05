@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_10_090753) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_04_085243) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pg_catalog.plpgsql"
@@ -196,6 +196,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_10_090753) do
     t.string "last_name"
     t.string "phone_number"
     t.uuid "editor_id"
+    t.string "provider_uids", default: [], null: false, array: true
     t.index ["created_at"], name: "index_users_on_created_at"
     t.index ["editor_id"], name: "index_users_on_editor_id"
     t.index ["email"], name: "index_users_on_email", unique: true
