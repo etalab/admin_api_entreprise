@@ -18,6 +18,12 @@ class AbstractProvider
     end
   end
 
+  def routes
+    open_api_definition_singleton.routes.select do |path|
+      path.include?(uid)
+    end
+  end
+
   def users
     User.where('provider_uids @> ARRAY[?]::varchar[]', uid)
   end
@@ -28,5 +34,11 @@ class AbstractProvider
 
   def self.provider_i18n_backend
     I18n.t("#{api}.providers")
+  end
+
+  private
+
+  def open_api_definition_singleton
+    @open_api_definition_singleton ||= Kernel.const_get(self.class.name.split('::')[0])::OpenAPIDefinition.instance
   end
 end
