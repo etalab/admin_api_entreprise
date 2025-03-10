@@ -4,6 +4,10 @@ class AbstractProvider
 
   attr_accessor :uid, :name, :external_link
 
+  def self.find(uid)
+    all.find { |provider| provider.uid == uid }
+  end
+
   def self.all
     provider_i18n_backend.map { |entry| new(entry) }
   end
@@ -12,6 +16,10 @@ class AbstractProvider
     all.select do |provider|
       uids.include?(provider.uid)
     end
+  end
+
+  def users
+    User.where('provider_uids @> ARRAY[?]::varchar[]', uid)
   end
 
   def image_path

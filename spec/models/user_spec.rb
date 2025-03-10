@@ -90,6 +90,24 @@ RSpec.describe User do
     end
   end
 
+  describe '#provider?' do
+    context 'when user has provider_uids' do
+      let(:user) { build(:user, provider_uids: ['insee']) }
+
+      it 'returns true' do
+        expect(user.provider?).to be true
+      end
+    end
+
+    context 'when user has no provider_uids' do
+      let(:user) { build(:user, provider_uids: []) }
+
+      it 'returns false' do
+        expect(user.provider?).to be false
+      end
+    end
+  end
+
   describe 'admin?' do
     subject { described_class.find_or_initialize_by_email(email).admin? }
 
