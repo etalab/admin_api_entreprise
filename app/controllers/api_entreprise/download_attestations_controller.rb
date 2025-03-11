@@ -33,7 +33,7 @@ class APIEntreprise::DownloadAttestationsController < APIEntreprise::Authenticat
 
     return if true_user == current_user
 
-    raise Pundit::NotAuthorizedError, 'Not authorized'
+    raise Pundit::NotAuthorizedError, 'Non autorisé'
   end
 
   def extract_tokens
