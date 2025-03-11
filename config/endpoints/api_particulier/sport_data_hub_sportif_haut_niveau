@@ -1,0 +1,70 @@
+---
+- uid: 'sport_data_hub/sport_haut_niveau'
+  opening: protected
+  # Le(s) paramètre(s) utilisé pour appeller l'endpoint
+  # Utilisé dans le summary de la fiche (depuis '/catalogue')
+  # Similaire à '- parameters' mais peut être différent pour des
+  # raisons de lisibilité
+  call_id:
+    - Identifiant PSQS
+  parameters:
+    - Identifiant PSQS
+  # Path: doit correspondre au path dans le swagger
+  # Exemple pour Paiements Pole Emploi en v2
+  # Voir le swagger ici : https://github.com/etalab/siade/blob/272aa40577802afe59ebc5f3cded39d2c25107ae/swagger/openapi-particulierv2.yaml#L2272
+  # Le path est '/api/v2/paiements-pole-emploi' (copier ligne 2272)
+  # Swagger Particulier v2 ici : https://github.com/etalab/siade/blob/develop/swagger/openapi-particulierv2.yaml
+  # Swagger Particulier v3 ici : https://github.com/etalab/siade/blob/develop/swagger/openapi-particulier.yaml
+  path: '/api/v2/paiements-pole-emploi'
+  # Position au sein de l'index
+  # Ce chiffre détermine l'ordre d'affichage dans le catalogue : La fiche avec position 1 sera avant la fiche 2
+  position: 200
+  perimeter:
+    entity_type_description: |+
+      Cette API indique **si une personne est sportive de haut niveau (SHN) et si elle l'a déjà été**. Elle inclut les sportifs **à partir de l'âge de 12 ans**, sans limite d'âge et de toute nationalité. Elle fournit le **statut SHN actif et passif**.  
+    geographical_scope_description:  |+
+      - ✅ France métropolitaine
+      - ✅ DROM COM
+      - ✅ Sportifs de haut niveau de nationalité étrangère dont le statut a été reconnu par l'Agence nationale du sport (ANS)
+     updating_rules_description: |+
+      Les données sont mises à jour deux fois par an, selon la saison sportive :
+      - Saison hiver : du 1er janvier au 30 juin ;
+      - Saison été : du 1er juillet au 30 décembre.
+
+     ⚠️ Les informations obtenues sont représentatives de la situation connue par Sport Data Hub au moment de l’appel. Un sportif qui a concouru en novembre 2024 pour les sports d'hiver et qui est devenu sportif de haut niveau n'apparaîtra dans l'API qu'à partir de janvier 2025. Un statut demandé à un instant T peut donc être différent à un instant T+ en fonction des mises à jour.
+    know_more_description: |+
+      [Plus d'informations sur le statut sportif de haut niveau](https://www.sports.gouv.fr/le-sport-de-haut-niveau-c-est-quoi-730)
+
+  parameters_details:
+    description: |+
+      Cette API propose une modalités d'appel :
+      <p class="r-badge fr-badge--brown-cafe-creme">Identifiant PSQS</p>
+      Avec l'identifiant PSQS. Plus d'informations. 
+
+      <p class="fr-badge fr-badge--purple-glycine">Identifiant</p>
+      Avec TYPE IDENTIFIANT : Lorem ipsum
+
+      <p class="fr-badge fr-badge--blue-ecume">FranceConnect</p>
+      Avec FranceConnect.
+  data:
+    description: |+
+      Lorem ispum
+
+  # La liste des clés disponible est stockée dans la locale `provider_uids` du fichier provider_uids.fr.yml
+  provider_uids:
+    - 'insee'
+  # Ces mots clés servent à la recherche algolia sur l'index du catalogue
+  keywords:
+    - 'whatever'
+  use_cases:
+    - Attribution des aides à la scolarité
+    - Attribution des aides sociales
+    - Tarification sociale et solidaire des transports
+    - Tarification des services publics municipaux
+  faq:
+    - q: "Question ?"
+      a: |+
+        Réponse à la question. Le markdown GFM est supporté ici.
+  api_cgu:
+    description: |+
+        Les conditions d'utilisations spécifiques à l'API
