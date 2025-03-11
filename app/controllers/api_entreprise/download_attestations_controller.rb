@@ -30,6 +30,10 @@ class APIEntreprise::DownloadAttestationsController < APIEntreprise::Authenticat
 
   def authorize!
     authorize :download_attestations, :any?
+
+    return if true_user == current_user
+
+    raise Pundit::NotAuthorizedError, 'Not authorized'
   end
 
   def extract_tokens
