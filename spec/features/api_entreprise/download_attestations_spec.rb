@@ -114,4 +114,26 @@ RSpec.describe 'Download attestations', app: :api_entreprise do
       end
     end
   end
+
+  describe 'with true_user different from current_user' do
+    let(:admin) { create(:user, :admin) }
+    let(:user) { create(:user) }
+    let(:authorization_request) { create(:authorization_request, :with_demandeur, demandeur: user) }
+    let!(:token) { create(:token, authorization_request:, scopes: %w[attestations_sociales attestations_fiscales]) }
+
+    it 'prevents access to download attestations page when impersonating a user' do
+      login_as(admin)
+
+      visit admin_users_path
+
+      click_on dom_id(user, :impersonate)
+
+      expect(page).to have_content("connecté en tant que #{user.email}")
+
+      visit attestations_path
+
+      expect(page).to have_no_current_path(attestations_path)
+      expect(page).to have_content("Vous n'avez pas les droits pour accéder à cette page")
+    end
+  end
 end
