@@ -25,7 +25,6 @@ fr:
           - dgfip/chiffres_affaires
           - dgfip/attestations_fiscales
           - dgfip/v3/attestations_fiscales
-          - dgfip/liens_capitalistiques
           - urssaf/attestation_vigilance
           - urssaf/v3/attestation_vigilance
           - msa/conformites_cotisations
@@ -45,6 +44,7 @@ fr:
           - douanes/immatriculation_eori
           - banque_de_france/bilans
           - dgfip/liasses_fiscales
+          - dgfip/liens_capitalistiques
           - agence_bio/certifications_bio
           - ademe/certifications_rge
           - qualibat/v3/certifications_batiment
@@ -76,7 +76,7 @@ fr:
 
           "insee/adresse_etablissements": "💡_Ces données sont aussi distribuées par l'API \"Données établissement\"_"
 
-          "insee/successions": "<span class='fr-badge fr-badge--sm fr-badge--purple-glycine fr-badge--new'>Contrôle de conformité du titulaire</span> Le SIRET de l'établissement titulaire peut évoluer dans le temps, _par exemple lors d'un changement d'adresse_. Cette API permet de retrouver les établissements prédecesseurs et successeurs d'un établissement et précise s'il s'agit d'un changement de siège, et s'il y a continuité économique."
+          "insee/successions": "<span class='fr-badge fr-badge--sm fr-badge--orange-terre-battue fr-badge--new'>Suivi prestataires</span> Le SIRET de l'établissement titulaire peut évoluer dans le temps, _par exemple lors d'un changement d'adresse_. Cette API permet de retrouver les établissements prédecesseurs et successeurs d'un établissement et précise s'il s'agit d'un changement de siège, et s'il y a continuité économique."
 
           "djepva/associations": "<span class='fr-badge fr-badge--sm fr-badge--new'>Candidature</span> **Données utiles DC1, DC2, DC4 & DUME** : Informations d'une association (unité légale et établissement) telles que _l'identité, la forme juridique, la date de création, les activités principales, le régime, les adresses, les agréments, les représentants légaux, les effectifs salariés-bénévoles-volontaires et les adhérents._<br><br><span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> **Justificatif de capacité économique et financière** : Comptes de résultats et financement, comptes du dernier exercice clôt, budget prévisionnel et rapport du commissaire au compte de l'association."
 
@@ -109,6 +109,8 @@ fr:
           "banque_de_france/bilans": "_Donnée sensible non-nécessaire._"
 
           "dgfip/liasses_fiscales": "_Donnée sensible non-nécessaire._"
+
+          "dgfip/liens_capitalistiques": "<span class='fr-badge fr-badge--sm fr-badge--purple-glycine fr-badge--new'>Attribution du marché</span> Vérification des actionnaires et filiales de l'entreprise. Peut être nécessaire pour vérifier les liens  du titulaire dans le cas de certains marchés publics.<br/><br/>_Par exemple, si le cahier des charges précise qu'il ne sera acceptée qu'une seule offre par opérateur économique, l'accès aux liens capitalistiques peut permettre de vérifier si les candidats sont bien des personnes morales distinctes. Dans le cas où des liens étroits pourraient être constatés, l'acteur public pourrait décider, selon le type de marché, de retenir uniquement la dernière offre, ou de considérer les offres comme irrégulières._"
 
           "dgfip/attestations_fiscales": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> **Justificatif d'absence de motif d'exclusion** : vérifier la régularité fiscale en vertu de l'[article L2141-2 du Code de la commande publique](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037703593){:target='_blank'}. L'**attestation fiscale** est listée en [annexe 4](https://www.legifrance.gouv.fr/loda/id/JORFTEXT000038318472){:target='_blank'} comme certificat à délivrer."
 
@@ -382,6 +384,8 @@ fr:
             "banque_de_france/bilans": "_Donnée sensible non-nécessaire._"
 
             "dgfip/liasses_fiscales": "_Donnée sensible non-nécessaire._"
+
+            "dgfip/liens_capitalistiques": ""
 
             "dgfip/attestations_fiscales": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Vérifier la régularité fiscale de l'entreprise en récupérant l'**attestation fiscale**. <br><br>Le cas d'utilisation de cette attestation pour les aides et subventions publiques est mentionné dans le BOFIP, [alinéa 70 du BOI-DJC-ARF](https://bofip.impots.gouv.fr/bofip/8485-PGP.html/identifiant=BOI-DJC-ARF-20220209#Cas_dutilisation_23){:target='_blank'}."
 
