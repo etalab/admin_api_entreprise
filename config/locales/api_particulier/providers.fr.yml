@@ -17,6 +17,22 @@ fr:
           - prime_activite_majoration
           - revenu_solidarite_active
           - revenu_solidarite_active_majoration
+        routes_or_uid_to_match:
+          - 'api_particulier/v2/cnav/allocation_adulte_handicape'
+          - 'api_particulier/v3_and_more/cnav/allocation_adulte_handicape_with_civility'
+          - 'api_particulier/v3_and_more/cnav/allocation_adulte_handicape_with_france_connect'
+
+          - 'api_particulier/v2/cnav/allocation_soutien_familial'
+          - 'api_particulier/v3_and_more/cnav/allocation_soutien_familial_with_civility'
+          - 'api_particulier/v3_and_more/cnav/allocation_soutien_familial_with_france_connect'
+
+          - 'api_particulier/v2/cnav/quotient_familial_v2'
+          - 'api_particulier/v3_and_more/cnav/quotient_familial_with_civility'
+          - 'api_particulier/v3_and_more/cnav/quotient_familial_with_france_connect'
+
+          - 'api_particulier/v2/cnav/revenu_solidarite_active'
+          - 'api_particulier/v3_and_more/cnav/revenu_solidarite_active_with_france_connect'
+          - 'api_particulier/v3_and_more/cnav/revenu_solidarite_active_with_civility'
       - uid: 'cnaf'
         name: 'CNAF'
         scopes:
@@ -30,6 +46,10 @@ fr:
         name: 'CCMSA, CNAM, CPRPSNCF, CRPCEN, CNMSS & CNAV'
         scopes:
           - complementaire_sante_solidaire
+        routes_or_uid_to_match:
+          - 'api_particulier/v2/cnav/complementaire_sante_solidaire'
+          - 'api_particulier/v3_and_more/cnav/complementaire_sante_solidaire_with_civility'
+          - 'api_particulier/v3_and_more/cnav/complementaire_sante_solidaire_with_france_connect'
       - uid: 'mesri'
         name: 'MESRI'
         external_link: 'https://www.enseignementsup-recherche.gouv.fr/fr'
@@ -61,8 +81,14 @@ fr:
           - pole_emploi_inscription
           - pole_emploi_paiements
 
+        routes_or_uid_to_match:
+          - 'pole_emploi'
+          - 'france_travail'
+
       - uid: 'education_nationale'
         name: "Ministère de l'éducation nationale et de la jeunesse"
+        routes_or_uid_to_match:
+          - 'men'
         external_link: 'https://www.education.gouv.fr/'
         scopes:
           - men_echelon_bourse

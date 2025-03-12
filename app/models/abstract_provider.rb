@@ -6,7 +6,8 @@ class AbstractProvider
     :name,
     :external_link
 
-  attr_writer :scopes
+  attr_writer :scopes,
+    :routes_or_uid_to_match
 
   def self.find(uid)
     all.find { |provider| provider.uid == uid }
@@ -24,6 +25,10 @@ class AbstractProvider
 
   def scopes
     @scopes || []
+  end
+
+  def routes_or_uid_to_match
+    @routes_or_uid_to_match || uid
   end
 
   def routes
