@@ -2,7 +2,11 @@ class AbstractProvider
   include ActiveModel::Model
   include AbstractAPIClass
 
-  attr_accessor :uid, :name, :external_link
+  attr_accessor :uid,
+    :name,
+    :external_link
+
+  attr_writer :scopes
 
   def self.find(uid)
     all.find { |provider| provider.uid == uid }
@@ -16,6 +20,10 @@ class AbstractProvider
     all.select do |provider|
       uids.include?(provider.uid)
     end
+  end
+
+  def scopes
+    @scopes || []
   end
 
   def routes
