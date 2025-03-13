@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       post :stop_impersonating, on: :collection
     end
     resources :editors, only: %i[index edit update]
+    resources :provider_dashboards, only: %i[index show], path: 'providers'
   end
 
   get '/editeur', to: redirect('/editeur/habilitations'), as: :editor
