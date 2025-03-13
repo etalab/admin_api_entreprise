@@ -21,7 +21,7 @@ class MetabaseEmbedService
       exp: Time.now.to_i + (60 * 10)
     }
 
-    JWT.encode(payload, metabase_secrey_key)
+    JWT.encode(payload, metabase_secret_key)
   end
 
   def kind
@@ -34,7 +34,7 @@ class MetabaseEmbedService
     end
   end
 
-  def metabase_secrey_key
+  def metabase_secret_key
     Rails.application.credentials.metabase_secret_key
   end
 end
