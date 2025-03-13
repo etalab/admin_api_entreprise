@@ -8,6 +8,6 @@ class Provider::DashboardController < ProviderController
   end
 
   def show
-    @embed_url = nil
+    @stats_facade = ProviderStatsFacade.new(current_provider)
   end
 end

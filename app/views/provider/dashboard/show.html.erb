@@ -2,32 +2,22 @@
   <div class="fr-col-12">
     <div class="fr-grid-row fr-grid-row--middle fr-mb-2w">
       <div class="fr-col">
-        <h1>Tableau de bord - <%= current_provider.name %></h1>
+        <h1><%= t('.title') %></h1>
       </div>
     </div>
 
     <div class="fr-grid-row">
-      <div class="fr-col-12">
-        <% if @embed_url.present? %>
-          <div class="fr-card">
-            <div class="fr-card__body">
-              <div class="fr-card__content">
-                <iframe 
-                  src="<%= @embed_url %>" 
-                  frameborder="0" 
-                  width="100%" 
-                  height="800" 
-                  allowtransparency
-                ></iframe>
-              </div>
-            </div>
-          </div>
-        <% else %>
-          <div class="fr-alert fr-alert--info">
-            <p>Le tableau de bord n'est pas encore disponible.</p>
-          </div>
-        <% end %>
-      </div>
+      <% @stats_facade.stats_metabase_urls.each do |kind, attributes| %>
+        <div class="fr-col-12 fr-mt-2v">
+          <h2>
+            <%= t(".stats.#{kind}.title") %>
+          </h2>
+          <p>
+            <%= t(".stats.#{kind}.description") %>
+          </p>
+          <%= render partial: 'shared/metabase', locals: attributes %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
