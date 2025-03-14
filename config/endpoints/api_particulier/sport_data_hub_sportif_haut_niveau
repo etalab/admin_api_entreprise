@@ -1,5 +1,5 @@
 ---
-- uid: 'sport_data_hub/sportif_haut_niveau_et_sportif_en_listes_ministerielles'
+- uid: 'sport_data_hub/statut_sportif'
   opening: protected
   # Le(s) paramètre(s) utilisé pour appeller l'endpoint
   # Utilisé dans le summary de la fiche (depuis '/catalogue')
@@ -21,10 +21,11 @@
   position: 200
   perimeter:
     entity_type_description: |+
-      Cette API fournit le statut actif et passif des sportifs inscrits en listes ministérielles de nationalité française ou étrangère dont le statut a été reconnu par le ministère des sports : 
+      Cette API fournit le statut actif et passif des sportifs de nationalité française ou étrangère dont le statut a été reconnu par le ministère des sports : 
       ✅ **les sportifs de haut niveau** (SHN) ;
       ✅ **les sportifs inscrits en liste Espoirs** (SE) ;
       ✅ **les sportifs inscrits en liste des Collectifs Nationaux** (SCN) ;
+      ✅ **les arbitres-juges de haut niveau** (AJSHN)
       Elle couvre les sportifs **de tout âge, y compris les mineurs**.
 
     geographical_scope_description:  |+
@@ -43,8 +44,8 @@
   data:
     description: |+
       **Cette API délivre** : 
-      - le statut actuel du sportif (actif/inactif) ;
-      - la catégorie du sportif (espoir, relève, elite, senior, reconversion, collectif national, espoir) ;
+      - le statut actuel du sportif ou de l'arbitre-juge (actif/inactif) ;
+      - la catégorie du sportif (espoir, relève, elite, senior, reconversion, collectif national, espoir, arbitre-juge de haut niveau) ;
       - les informations du club (nom, localisation, affiliation) ;
       - l'historique du statut (précédents statuts, catégories, clubs etc.).
 
@@ -65,6 +66,8 @@
     - 'SCN'
     - 'Sportifs espoirs'
     - 'SE'
+    - 'Arbitres-juges de haut niveau'
+    - 'AJSHN'
     - 'PSQS'
     - 'Sportifs'
     - 'Club sportif'
