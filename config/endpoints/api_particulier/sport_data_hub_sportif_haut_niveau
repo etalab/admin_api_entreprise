@@ -1,5 +1,5 @@
 ---
-- uid: 'sport_data_hub/sport_haut_niveau'
+- uid: 'sport_data_hub/sportif_haut_niveau'
   opening: protected
   # Le(s) paramètre(s) utilisé pour appeller l'endpoint
   # Utilisé dans le summary de la fiche (depuis '/catalogue')
@@ -21,27 +21,32 @@
   position: 200
   perimeter:
     entity_type_description: |+
-      Cette API indique **si une personne est sportive de haut niveau (SHN) et si elle l'a déjà été**. Elle inclut les sportifs **à partir de l'âge de 12 ans**, sans limite d'âge et de toute nationalité. Elle fournit le **statut SHN actif et passif**.  
+      Cette API fournit le statut actif et passif des sportifs inscrits en listes ministérielles de nationalité française ou étrangère dont le statut a été reconnu par le ministère des sports : 
+      ✅ **les sportifs de haut niveau** (SHN) ;
+      ✅ **les sportifs inscrits en liste Espoirs** (SE) ;
+      ✅ **les sportifs inscrits en liste des Collectifs Nationaux** (SCN) ;
+      Elle couvre les sportifs **de tout âge, y compris les mineurs**.
+
     geographical_scope_description:  |+
       - ✅ France métropolitaine
       - ✅ DROM COM
-      - ✅ Sportifs de haut niveau de nationalité étrangère dont le statut a été reconnu par l'Agence nationale du sport (ANS)
-     updating_rules_description: |+
-      Les données sont mises à jour deux fois par an, selon la saison sportive :
-      - Saison hiver : du 1er janvier au 30 juin ;
-      - Saison été : du 1er juillet au 30 décembre.
 
-     ⚠️ Les informations obtenues sont représentatives de la situation connue par Sport Data Hub au moment de l’appel. Un sportif qui a concouru en novembre 2024 pour les sports d'hiver et qui est devenu sportif de haut niveau n'apparaîtra dans l'API qu'à partir de janvier 2025. Un statut demandé à un instant T peut donc être différent à un instant T+ en fonction des mises à jour.
+     updating_rules_description: |+
+      Les données sont mises à jour une fois par an, selon la saison sportive :
+      - Sports d’hiver : du 1er juillet de l’année N au 30 juin de l’année N+1 ;
+      - Sports d’été : du 1er janvier au 31 décembre.
+
+     ⚠️ Les informations obtenues sont représentatives de la situation connue par Sport Data Hub au moment de l’appel. Un sportif qui a concouru en novembre 2024 pour les sports d'hiver et qui est devenu sportif de haut niveau n'apparaîtra dans l'API qu'à partir de juillet 2025. Un statut demandé à un instant T peut donc être différent à un instant T+ en fonction des mises à jour.
     know_more_description: |+
       [Plus d'informations sur le statut sportif de haut niveau](https://www.sports.gouv.fr/le-sport-de-haut-niveau-c-est-quoi-730)
 
   data:
     description: |+
       **Cette API délivre** : 
-      - le statut actuel du sportif de haut niveau (actif/inactif) ;
-      - la catégorie du sportif (espoir, relève, elite, senior, etc.) ;
+      - le statut actuel du sportif (actif/inactif) ;
+      - la catégorie du sportif (espoir, relève, elite, senior, reconversion, collectif national, espoir) ;
       - les informations du club (nom, localisation, affiliation) ;
-      - l'historique du statut (précédents statuts, catégorie, clubs etc.).
+      - l'historique du statut (précédents statuts, catégories, clubs etc.).
 
   parameters_details:
     description: |+
