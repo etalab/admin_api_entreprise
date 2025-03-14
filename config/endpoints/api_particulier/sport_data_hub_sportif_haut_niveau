@@ -1,0 +1,82 @@
+---
+- uid: 'sport_data_hub/statut_sportif'
+  opening: protected
+  call_id:
+    - Identifiant PSQS
+  parameters:
+    - Identifiant PSQS
+  # Path à changer 
+  path: '/api/v2/paiements-pole-emploi'
+  position: 200
+  perimeter:
+    entity_type_description: |+
+      Cette API concerne les sportifs de nationalité française ou étrangère dont le statut, reconnu par le ministère des sports, est le suivant : 
+      - ✅ **sportif de haut niveau** (SHN) ;
+      - ✅ **sportif inscrit en liste Espoirs** (SE) ;
+      - ✅ **sportif inscrit en liste des Collectifs Nationaux** (SCN) ;
+      - ✅ **arbitre-juge de haut niveau** (AJSHN)
+      
+      Elle couvre les sportifs **de tout âge, y compris les mineurs**.
+
+      Ne sont pas concernés malgré le fait qu'ils ont un accès au PSQS :
+      - ❌ TODO
+
+    geographical_scope_description:  |+
+      - ✅ France métropolitaine
+      - ✅ DROM COM
+
+    updating_rules_description: |+
+      Les données sont **mises à jour une fois par an**, selon la saison sportive :
+      - Sports d’hiver : du 1er juillet de l’année N au 30 juin de l’année N+1 ;
+      - Sports d’été : du 1er janvier au 31 décembre.
+
+      {:.fr-highlight}
+      > ⚠️ En conséquence, un sportif qui a concouru en novembre 2024 pour les sports d'hiver et qui est devenu sportif de haut niveau n'apparaîtra dans l'API qu'à partir de juillet 2025. Un statut demandé à un instant T peut donc être différent à un instant T+ en fonction des mises à jour. Les informations obtenues sont représentatives de la situation connue par Sport Data Hub au moment de l’appel. 
+    know_more_description: |+
+      [Plus d'informations sur le statut sportif de haut niveau](https://www.sports.gouv.fr/le-sport-de-haut-niveau-c-est-quoi-730)
+
+  data:
+    description: |+
+      **Cette API délivre** : 
+      - le statut actuel du sportif ou de l'arbitre-juge (actif/inactif) ;
+      - la catégorie du sportif (espoir, relève, élite, senior, reconversion, collectif national, arbitre-juge ;
+      - les informations du club (nom, localisation, affiliation) ;
+      - l'historique du statut (précédents statuts, catégories, clubs etc.).
+  parameters_details:
+    description: |+
+      Cette API propose une modalités d'appel :
+      <p class="r-badge fr-badge--brown-cafe-creme">Identifiant PSQS</p>
+      Avec l'identifiant du portail de suivi quotidien du sportif (PSQS). [Plus d'informations](https://mdp.france.sport/identifiant-oublie). 
+
+  # La liste des clés disponible est stockée dans la locale `provider_uids` du fichier provider_uids.fr.yml
+  provider_uids:
+    - 'sport_data_hub'
+  # Ces mots clés servent à la recherche algolia sur l'index du catalogue
+  keywords:
+    - 'Sportifs de haut niveau'
+    - 'SHN'
+    - 'Sportifs des collectifs nationaux'
+    - 'SCN'
+    - 'Sportifs espoirs'
+    - 'SE'
+    - 'Arbitres-juges de haut niveau'
+    - 'AJSHN'
+    - 'PSQS'
+    - 'Sportifs'
+    - 'Club sportif'
+    - 'Elite'
+    - 'Senior'
+    - 'Releve'
+    - 'Rconversion'
+    - 'Espoir'
+    - 'Sportifs en listes ministérielles'
+  use_cases:
+    - Gestion RH secteur public
+
+  faq:
+    - q: "Question ?"
+      a: |+
+        Réponse à la question. Le markdown GFM est supporté ici.
+  api_cgu:
+    description: |+
+        Les conditions d'utilisations spécifiques à l'API
