@@ -1,23 +1,12 @@
 ---
 - uid: 'sport_data_hub/statut_sportif'
   opening: protected
-  # Le(s) paramètre(s) utilisé pour appeller l'endpoint
-  # Utilisé dans le summary de la fiche (depuis '/catalogue')
-  # Similaire à '- parameters' mais peut être différent pour des
-  # raisons de lisibilité
   call_id:
     - Identifiant PSQS
   parameters:
     - Identifiant PSQS
-  # Path: doit correspondre au path dans le swagger
-  # Exemple pour Paiements Pole Emploi en v2
-  # Voir le swagger ici : https://github.com/etalab/siade/blob/272aa40577802afe59ebc5f3cded39d2c25107ae/swagger/openapi-particulierv2.yaml#L2272
-  # Le path est '/api/v2/paiements-pole-emploi' (copier ligne 2272)
-  # Swagger Particulier v2 ici : https://github.com/etalab/siade/blob/develop/swagger/openapi-particulierv2.yaml
-  # Swagger Particulier v3 ici : https://github.com/etalab/siade/blob/develop/swagger/openapi-particulier.yaml
+  # Path à changer 
   path: '/api/v2/paiements-pole-emploi'
-  # Position au sein de l'index
-  # Ce chiffre détermine l'ordre d'affichage dans le catalogue : La fiche avec position 1 sera avant la fiche 2
   position: 200
   perimeter:
     entity_type_description: |+
@@ -32,12 +21,12 @@
       - ✅ France métropolitaine
       - ✅ DROM COM
 
-     updating_rules_description: |+
+    updating_rules_description: |+
       Les données sont mises à jour une fois par an, selon la saison sportive :
       - Sports d’hiver : du 1er juillet de l’année N au 30 juin de l’année N+1 ;
       - Sports d’été : du 1er janvier au 31 décembre.
 
-     ⚠️ Les informations obtenues sont représentatives de la situation connue par Sport Data Hub au moment de l’appel. Un sportif qui a concouru en novembre 2024 pour les sports d'hiver et qui est devenu sportif de haut niveau n'apparaîtra dans l'API qu'à partir de juillet 2025. Un statut demandé à un instant T peut donc être différent à un instant T+ en fonction des mises à jour.
+      ⚠️ Les informations obtenues sont représentatives de la situation connue par Sport Data Hub au moment de l’appel. Un sportif qui a concouru en novembre 2024 pour les sports d'hiver et qui est devenu sportif de haut niveau n'apparaîtra dans l'API qu'à partir de juillet 2025. Un statut demandé à un instant T peut donc être différent à un instant T+ en fonction des mises à jour.
     know_more_description: |+
       [Plus d'informations sur le statut sportif de haut niveau](https://www.sports.gouv.fr/le-sport-de-haut-niveau-c-est-quoi-730)
 
