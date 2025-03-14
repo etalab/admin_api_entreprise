@@ -7,6 +7,7 @@ class Admin::UsersController < AdminController
   def edit
     @user = User.find(params[:id])
     @editors = Editor.all
+    @providers = provider_klass.all
   end
 
   def update
@@ -38,6 +39,10 @@ class Admin::UsersController < AdminController
   private
 
   def user_params
-    params.expect(user: [:editor_id])
+    params.expect(user: [:editor_id, { provider_uids: [] }])
+  end
+
+  def provider_klass
+    Kernel.const_get("API#{namespace.classify}::Provider")
   end
 end

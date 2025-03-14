@@ -7,6 +7,7 @@ class Seeds
     @contact = create_contact
 
     create_editor
+    create_provider_user
     create_data_for_api_entreprise
     create_data_for_api_particulier
     create_data_shared
@@ -77,6 +78,15 @@ class Seeds
       first_name: 'Edouard',
       last_name: 'Lefevre',
       editor: editor
+    )
+  end
+
+  def create_provider_user
+    create_user(
+      email: 'user10@yopmail.com',
+      first_name: 'Michel',
+      last_name: 'Paul',
+      provider_uids: %w[insee dgfip]
     )
   end
 

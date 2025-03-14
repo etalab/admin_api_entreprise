@@ -8,6 +8,20 @@
     <%= f.label :editor, class: %w[fr-label] %>
     <%= f.collection_select :editor_id, @editors, :id, :name, { include_blank: true }, { class: %w[fr-select] } %>
   </div>
+  
+  <div class="fr-form-group">
+    <fieldset class="fr-fieldset">
+      <legend class="fr-fieldset__legend">Fournisseurs</legend>
+      <div class="fr-checkbox-group fr-fieldset__content">
+        <% @providers.each do |provider| %>
+          <div class="fr-checkbox-group">
+            <%= f.check_box :provider_uids, { multiple: true, class: 'fr-checkbox', id: "user_provider_uid_#{provider.uid}" }, provider.uid, false %>
+            <%= f.label "provider_uid_#{provider.uid}", provider.name, class: 'fr-label' %>
+          </div>
+        <% end %>
+      </div>
+    </fieldset>
+  </div>
 
   <%= f.button :submit, class: %[fr-btn], id: 'submit' %>
 <% end %>

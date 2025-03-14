@@ -4,7 +4,7 @@ class APIParticulier::ReportersController < APIParticulier::AuthenticatedUsersCo
   helper_method :groups_for_reporter
 
   def index
-    @datapasses_for_group_url = MetabaseEmbedService.new(490, { groups: groups_for_reporter.join('|') }).url
+    @datapasses_for_group_url = MetabaseEmbedService.new(resource: { question_id: 490 }, params: { groups: groups_for_reporter.join('|') }).url
   end
 
   private
