@@ -10,12 +10,16 @@
   position: 200
   perimeter:
     entity_type_description: |+
-      Cette API fournit le statut actif et passif des sportifs de nationalité française ou étrangère dont le statut a été reconnu par le ministère des sports : 
-      ✅ **les sportifs de haut niveau** (SHN) ;
-      ✅ **les sportifs inscrits en liste Espoirs** (SE) ;
-      ✅ **les sportifs inscrits en liste des Collectifs Nationaux** (SCN) ;
-      ✅ **les arbitres-juges de haut niveau** (AJSHN)
+      Cette API concerne les sportifs de nationalité française ou étrangère dont le statut, reconnu par le ministère des sports, est le suivant : 
+      - ✅ **sportif de haut niveau** (SHN) ;
+      - ✅ **sportif inscrit en liste Espoirs** (SE) ;
+      - ✅ **sportif inscrit en liste des Collectifs Nationaux** (SCN) ;
+      - ✅ **arbitre-juge de haut niveau** (AJSHN)
+      
       Elle couvre les sportifs **de tout âge, y compris les mineurs**.
+
+      Ne sont pas concernés malgré le fait qu'ils ont un accès au PSQS :
+      - ❌ TODO
 
     geographical_scope_description:  |+
       - ✅ France métropolitaine
@@ -34,15 +38,14 @@
     description: |+
       **Cette API délivre** : 
       - le statut actuel du sportif ou de l'arbitre-juge (actif/inactif) ;
-      - la catégorie du sportif (espoir, relève, elite, senior, reconversion, collectif national, espoir, arbitre-juge de haut niveau) ;
+      - la catégorie du sportif (espoir, relève, élite, senior, reconversion, collectif national, arbitre-juge ;
       - les informations du club (nom, localisation, affiliation) ;
       - l'historique du statut (précédents statuts, catégories, clubs etc.).
-
   parameters_details:
     description: |+
       Cette API propose une modalités d'appel :
       <p class="r-badge fr-badge--brown-cafe-creme">Identifiant PSQS</p>
-      Avec l'identifiant PSQS. [Plus d'informations](https://mdp.france.sport/identifiant-oublie). 
+      Avec l'identifiant du portail de suivi quotidien du sportif (PSQS). [Plus d'informations](https://mdp.france.sport/identifiant-oublie). 
 
   # La liste des clés disponible est stockée dans la locale `provider_uids` du fichier provider_uids.fr.yml
   provider_uids:
