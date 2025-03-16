@@ -14,6 +14,10 @@ FactoryBot.define do
       editor
     end
 
+    trait :provider do
+      provider_uids { ['insee'] }
+    end
+
     trait :with_full_name do
       first_name { 'Jean-Marie' }
       last_name { 'Gigot' }

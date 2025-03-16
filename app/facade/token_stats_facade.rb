@@ -12,7 +12,7 @@ class TokenStatsFacade
   end
 
   def last_requests_metabase_url
-    @last_requests_metabase_url ||= MetabaseEmbedService.new(178, { token_id:, limit: last_requests_limit }).url
+    @last_requests_metabase_url ||= MetabaseEmbedService.new(resource: { question_id: 178 }, params: { token_id:, limit: last_requests_limit }).url
   end
 
   def last_requests_limit
@@ -22,11 +22,7 @@ class TokenStatsFacade
   private
 
   def build_stats(interval)
-    MetabaseEmbedService.new(177, build_params(interval)).url
-  end
-
-  def question_id
-    177
+    MetabaseEmbedService.new(resource: { question_id: 177 }, params: build_params(interval)).url
   end
 
   def build_params(interval)

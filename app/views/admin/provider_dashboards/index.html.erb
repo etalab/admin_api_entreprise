@@ -1,0 +1,29 @@
+<div class="fr-grid-row fr-grid-row--gutters">
+  <div class="fr-col-12">
+    <h1>Tableaux de bords des fournisseurs</h1>
+
+    <div class="fr-table">
+      <table>
+        <caption>Liste des fournisseurs</caption>
+        <thead>
+          <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Scopes</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @providers.each do |provider| %>
+            <tr>
+              <td><%= provider.name %></td>
+              <td><%= provider.scopes.join(", ") %></td>
+              <td>
+                <%= link_to "Tableau de bord", admin_provider_dashboard_path(provider.uid), class: "fr-btn" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

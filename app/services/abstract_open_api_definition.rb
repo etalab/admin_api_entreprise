@@ -27,6 +27,10 @@ class AbstractOpenAPIDefinition
     @backend = YAML.safe_load(open_api_definition_content, aliases: true, permitted_classes: [Date])
   end
 
+  def routes
+    @routes ||= backend['paths'].keys
+  end
+
   def open_api_without_deprecated_paths_definition_content
     paths = backend['paths'].dup
 

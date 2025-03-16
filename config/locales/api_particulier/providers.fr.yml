@@ -4,19 +4,93 @@ fr:
       - uid: 'cnav'
         name: 'CNAF & MSA'
         external_link: 'https://www.caf.fr/'
+        scopes:
+          - cnaf_adresse
+          - cnaf_allocataires
+          - cnaf_attestation_droits
+          - cnaf_enfants
+          - cnaf_quotient_familial
+
+          - allocation_adulte_handicape
+          - allocation_soutien_familial
+          - prime_activite
+          - prime_activite_majoration
+          - revenu_solidarite_active
+          - revenu_solidarite_active_majoration
+        routes_or_uid_to_match:
+          - 'api_particulier/v2/cnav/allocation_adulte_handicape'
+          - 'api_particulier/v3_and_more/cnav/allocation_adulte_handicape_with_civility'
+          - 'api_particulier/v3_and_more/cnav/allocation_adulte_handicape_with_france_connect'
+
+          - 'api_particulier/v2/cnav/allocation_soutien_familial'
+          - 'api_particulier/v3_and_more/cnav/allocation_soutien_familial_with_civility'
+          - 'api_particulier/v3_and_more/cnav/allocation_soutien_familial_with_france_connect'
+
+          - 'api_particulier/v2/cnav/quotient_familial_v2'
+          - 'api_particulier/v3_and_more/cnav/quotient_familial_with_civility'
+          - 'api_particulier/v3_and_more/cnav/quotient_familial_with_france_connect'
+
+          - 'api_particulier/v2/cnav/revenu_solidarite_active'
+          - 'api_particulier/v3_and_more/cnav/revenu_solidarite_active_with_france_connect'
+          - 'api_particulier/v3_and_more/cnav/revenu_solidarite_active_with_civility'
       - uid: 'cnaf'
         name: 'CNAF'
+        scopes:
+          - cnaf_adresse
+          - cnaf_allocataires
+          - cnaf_attestation_droits
+          - cnaf_enfants
+          - cnaf_quotient_familial
+
       - uid: 'sphere_sociale'
         name: 'CCMSA, CNAM, CPRPSNCF, CRPCEN, CNMSS & CNAV'
+        scopes:
+          - complementaire_sante_solidaire
+        routes_or_uid_to_match:
+          - 'api_particulier/v2/cnav/complementaire_sante_solidaire'
+          - 'api_particulier/v3_and_more/cnav/complementaire_sante_solidaire_with_civility'
+          - 'api_particulier/v3_and_more/cnav/complementaire_sante_solidaire_with_france_connect'
       - uid: 'mesri'
         name: 'MESRI'
         external_link: 'https://www.enseignementsup-recherche.gouv.fr/fr'
+        scopes:
+          - mesri_admission
+          - mesri_etablissements
+          - mesri_identifiant
+          - mesri_identite
+          - mesri_inscription_autre
+          - mesri_inscription_etudiant
       - uid: 'cnous'
         name: 'CNOUS'
         external_link: 'https://www.etudiant.gouv.fr/fr'
+        scopes:
+          - cnous_echelon_bourse
+          - cnous_email
+          - cnous_identite
+          - cnous_periode_versement
+          - cnous_statut_bourse
+          - cnous_statut_boursier
+          - cnous_ville_etudes
       - uid: 'pole_emploi'
         name: 'France Travail'
         external_link: 'https://www.francetravail.fr/'
+        scopes:
+          - pole_emploi_adresse
+          - pole_emploi_contact
+          - pole_emploi_identite
+          - pole_emploi_inscription
+          - pole_emploi_paiements
+
+        routes_or_uid_to_match:
+          - 'pole_emploi'
+          - 'france_travail'
+
       - uid: 'education_nationale'
         name: "Ministère de l'éducation nationale et de la jeunesse"
+        routes_or_uid_to_match:
+          - 'men'
         external_link: 'https://www.education.gouv.fr/'
+        scopes:
+          - men_echelon_bourse
+          - men_statut_boursier
+          - men_statut_scolarite

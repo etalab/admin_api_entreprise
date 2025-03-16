@@ -66,6 +66,14 @@ class User < ApplicationRecord
     editor.present?
   end
 
+  def provider?
+    provider_uids.any?
+  end
+
+  def providers(namespace)
+    Kernel.const_get("API#{namespace.classify}::Provider").filter_by_uid(provider_uids)
+  end
+
   # rubocop:disable Metrics/AbcSize
   def admin?
     if Rails.env.production?

@@ -1,0 +1,23 @@
+<div class="fr-grid-row fr-grid-row--gutters">
+  <div class="fr-col-12">
+    <div class="fr-grid-row fr-grid-row--middle fr-mb-2w">
+      <div class="fr-col">
+        <h1><%= t('.title') %></h1>
+      </div>
+    </div>
+
+    <div class="fr-grid-row">
+      <% @stats_facade.stats_metabase_urls.each do |kind, attributes| %>
+        <div class="fr-col-12 fr-mt-2v">
+          <h2>
+            <%= t(".stats.#{kind}.title") %>
+          </h2>
+          <p>
+            <%= t(".stats.#{kind}.description") %>
+          </p>
+          <%= render partial: 'shared/metabase', locals: attributes %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

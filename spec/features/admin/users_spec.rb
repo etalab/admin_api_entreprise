@@ -64,4 +64,57 @@ RSpec.describe 'Admin: users', app: :api_entreprise do
       expect(page).to have_css('.fr-alert.fr-alert--success')
     end
   end
+
+  describe 'provider behavior' do
+    let!(:user_with_providers) { create(:user, provider_uids: %w[insee dgfip]) }
+    let!(:user_without_providers) { create(:user, provider_uids: %w[]) }
+
+    describe 'display in users list' do
+      it 'displays associated providers for each user' do
+        visit admin_users_path
+
+        within("##{dom_id(user_with_providers)}") do
+          within('.user-providers') do
+            expect(page).to have_content('INSEE')
+            expect(page).to have_content('DGFIP')
+          end
+        end
+
+        within("##{dom_id(user_without_providers)}") do
+          within('.user-providers') do
+            expect(page).to have_no_content('INSEE')
+            expect(page).to have_no_content('DGFIP')
+          end
+        end
+      end
+    end
+
+    describe 'updating user provider associations' do
+      subject(:add_provider_to_user) do
+        visit admin_users_path
+
+        click_on dom_id(user, :edit)
+
+        check 'user_provider_uid_dgfip'
+
+        click_on 'submit'
+      end
+
+      let!(:user) { create(:user, provider_uids: ['insee']) }
+
+      it 'allows adding providers to a user' do
+        add_provider_to_user
+
+        expect(page).to have_css('.fr-alert.fr-alert--success')
+        expect(user.reload.provider_uids).to contain_exactly('insee', 'dgfip')
+
+        within("##{dom_id(user)}") do
+          within('.user-providers') do
+            expect(page).to have_content('INSEE')
+            expect(page).to have_content('DGFIP')
+          end
+        end
+      end
+    end
+  end
 end

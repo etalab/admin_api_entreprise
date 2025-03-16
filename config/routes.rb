@@ -13,12 +13,19 @@ Rails.application.routes.draw do
       post :stop_impersonating, on: :collection
     end
     resources :editors, only: %i[index edit update]
+    resources :provider_dashboards, only: %i[index show], path: 'providers'
   end
 
   get '/editeur', to: redirect('/editeur/habilitations'), as: :editor
 
   namespace :editor, path: 'editeur' do
     resources :authorization_requests, only: %i[index], path: 'habilitations'
+  end
+
+  get '/fournisseur', to: 'provider/dashboard#index', as: :provider
+
+  scope path: 'fournisseur/:provider_uid', as: :provider do
+    get '/tableau-de-bord', to: 'provider/dashboard#show', as: :dashboard
   end
 
   namespace :api do

@@ -1,0 +1,15 @@
+<div class="fr-grid-row fr-grid-row--gutters">
+  <div class="fr-col-12">
+    <h1>Tableaux de bords</h1>
+
+    <ul>
+      <% @providers.each do |provider| %>
+        <li>
+          <a href="<%= provider_dashboard_path(provider_uid: provider.uid) %>" class="fr-card__link">
+            <%= provider.name %>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
