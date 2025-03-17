@@ -28,7 +28,7 @@ class AbstractProvider
   end
 
   def routes_or_uid_to_match
-    @routes_or_uid_to_match || uid
+    @routes_or_uid_to_match || [uid]
   end
 
   def routes

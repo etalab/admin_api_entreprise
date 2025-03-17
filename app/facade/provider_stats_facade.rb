@@ -35,7 +35,7 @@ class ProviderStatsFacade
         dashboard: 97
       },
       params: {
-        routes:
+        routes: routes.join(',')
       }
     ).url
   end
@@ -45,6 +45,6 @@ class ProviderStatsFacade
   end
 
   def routes
-    @provider.routes_or_uid_to_match
+    @provider.routes_or_uid_to_match || []
   end
 end
