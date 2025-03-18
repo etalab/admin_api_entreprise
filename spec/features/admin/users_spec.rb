@@ -115,6 +115,33 @@ RSpec.describe 'Admin: users', app: :api_entreprise do
           end
         end
       end
+
+      describe 'removing all providers from a user' do
+        subject(:remove_all_providers) do
+          visit admin_users_path
+
+          click_on dom_id(user, :edit)
+
+          uncheck 'user_provider_uid_insee'
+
+          click_on 'submit'
+        end
+
+        let!(:user) { create(:user, provider_uids: ['insee']) }
+
+        it 'allows removing all providers from a user' do
+          remove_all_providers
+
+          expect(page).to have_css('.fr-alert.fr-alert--success')
+          expect(user.reload.provider_uids).to be_empty
+
+          within("##{dom_id(user)}") do
+            within('.user-providers') do
+              expect(page).to have_no_content('INSEE')
+            end
+          end
+        end
+      end
     end
   end
 end
