@@ -9,6 +9,7 @@
           <tr>
             <th scope="col">Nom</th>
             <th scope="col">Scopes</th>
+            <th scope="col">Users</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
@@ -18,8 +19,19 @@
               <td><%= provider.name %></td>
               <td><%= provider.scopes.join(", ") %></td>
               <td>
-                <%= link_to "Tableau de bord", admin_provider_dashboard_path(provider.uid), class: "fr-btn" %>
-              </td>
+                <% if provider.users %>
+                  <ul>
+                    <% provider.users.each do |user| %>
+                      <li>
+                        <%= user.email %>
+                      </li>
+                    <% end %>
+                  </ul>
+                <% end %>
+
+                <td>
+                  <%= link_to "Tableau de bord", admin_provider_dashboard_path(provider.uid), class: "fr-btn" %>
+                </td>
             </tr>
           <% end %>
         </tbody>
