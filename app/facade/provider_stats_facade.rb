@@ -6,8 +6,12 @@ class ProviderStatsFacade
   def stats_metabase_urls
     @stats_metabase_urls ||= {
       main: {
-        height: '1400px',
+        height: '3200px',
         metabase_url: build_main_stats
+      },
+      users: {
+        height: '500px',
+        metabase_url: build_users_stats
       },
       habilitations: {
         height: '600px',
@@ -25,6 +29,17 @@ class ProviderStatsFacade
       },
       params: {
         scopes: scopes.join(',')
+      }
+    ).url
+  end
+
+  def build_users_stats
+    MetabaseEmbedService.new(
+      resource: {
+        question: 554
+      },
+      params: {
+        route: routes.join(',')
       }
     ).url
   end
