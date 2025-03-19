@@ -6,7 +6,7 @@ class ProviderStatsFacade
   def stats_metabase_urls
     @stats_metabase_urls ||= {
       main: {
-        height: '1400px',
+        height: '3200px',
         metabase_url: build_main_stats
       },
       users: {
