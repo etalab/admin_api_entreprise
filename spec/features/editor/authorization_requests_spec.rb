@@ -57,6 +57,30 @@ RSpec.describe 'Editor: authorization requests', app: :api_entreprise do
         end
       end
     end
+
+    describe 'csv download' do
+      let!(:authorization_request_with_external_id) do
+        create(:authorization_request, :validated, api: 'entreprise', demarche: 'form1', intitule: 'Intitule', external_id: 'test123')
+      end
+
+      it 'has a download button' do
+        visit editor_authorization_requests_path
+
+        expect(page).to have_link('Télécharger les demandes validées en CSV')
+      end
+
+      it 'includes the correct data in the csv' do
+        visit editor_authorization_requests_path(format: :csv)
+
+        csv_content = page.body
+        csv_rows = CSV.parse(csv_content, headers: true)
+
+        test_row = csv_rows.find { |row| row['datapass_id'] == 'test123' }
+
+        expect(test_row).to be_present
+        expect(test_row['intitule']).to eq('Intitule')
+      end
+    end
   end
 
   describe 'search' do
