@@ -13,7 +13,7 @@ class Admin::UsersController < AdminController
   def update
     @user = User.find(params[:id])
 
-    if @user.update(user_params)
+    if @user.update(user_update_params)
       success_message(title: "Utilisateur #{@user.email} a bien été modifié")
 
       redirect_to admin_users_path
@@ -40,6 +40,12 @@ class Admin::UsersController < AdminController
 
   def user_params
     params.expect(user: [:editor_id, { provider_uids: [] }])
+  end
+
+  def user_update_params
+    update_params = user_params
+    update_params[:provider_uids] = [] unless params[:user].key?(:provider_uids)
+    update_params
   end
 
   def provider_klass
