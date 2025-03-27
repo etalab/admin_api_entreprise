@@ -67,24 +67,4 @@ class APIEntreprise::Endpoint < AbstractEndpoint
   def implemented?
     !dummy?
   end
-
-  def extract_data_from_schema
-    properties_path = %w[properties data properties]
-    properties_path.insert(2, 'items') if collection?
-    properties_path.insert(-1, 'data') if collection?
-    properties_path.insert(-1, 'properties') if collection?
-
-    response_schema.dig(*properties_path) || {}
-  end
-
-  def extract_properties_from_schema(name)
-    properties_path = ['properties', 'data', 'properties', name]
-    properties_path.insert(2, 'items') if collection?
-
-    response_schema.dig(*properties_path).try(:[], 'properties') || {}
-  end
-
-  def extract_root_properties_from_schema(name)
-    response_schema.dig('properties', name).try(:[], 'properties') || {}
-  end
 end

@@ -370,24 +370,82 @@ paths:
                 - data
                 - links
                 - meta
-        '404':
-          description: Dossier non trouvé
+        '422':
+          description: Impossible d'identifier l'allocataire
           content:
             application/json:
               examples:
-                entite_non_trouvee_37003:
+                entite_non_traitable_00366:
                   value:
                     errors:
-                    - code: '37003'
-                      title: Entité non trouvée
-                      detail: Dossier allocataire inexistant. Le document ne peut
-                        être édité.
+                    - code: '00366'
+                      title: Entité non traitable
+                      detail: Un ou plusieurs paramètres de civilité ne sont pas correctement
+                        formatés
+                      source:
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Un ou plusieurs paramètres de civilité ne sont pas
+                    correctement formatés
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Dossier allocataire inexistant. Le document ne peut être édité.
+          content:
+            application/json:
+              examples:
+                dossier_allocataire_absent_msa_10003:
+                  value:
+                    errors:
+                    - code: '10003'
+                      title: Dossier allocataire absent MSA
+                      detail: Le dossier allocataire n'a pas été trouvé auprès de
+                        la MSA.
                       source:
                       meta:
-                        provider: CNAV
-                  summary: Entité non trouvée
-                  description: Dossier allocataire inexistant. Le document ne peut
-                    être édité.
+                        provider: MSA
+                  summary: Dossier allocataire absent MSA
+                  description: Le dossier allocataire n'a pas été trouvé auprès de
+                    la MSA.
+                dossier_allocataire_absent_cnaf_23003:
+                  value:
+                    errors:
+                    - code: '23003'
+                      title: Dossier allocataire absent CNAF
+                      detail: Le dossier allocataire n'a pas été trouvé auprès de
+                        la CNAF.
+                      source:
+                      meta:
+                        provider: CNAF
+                  summary: Dossier allocataire absent CNAF
+                  description: Le dossier allocataire n'a pas été trouvé auprès de
+                    la CNAF.
+                allocataire_non_reference_35003:
+                  value:
+                    errors:
+                    - code: '35003'
+                      title: Allocataire non référencé
+                      detail: L'allocataire n'est pas référencé auprès des caisses
+                        éligibles
+                      source:
+                      meta:
+                        provider: CNAF & MSA
+                  summary: Allocataire non référencé
+                  description: L'allocataire n'est pas référencé auprès des caisses
+                    éligibles
+                erreur_inattendue_35003:
+                  value:
+                    errors:
+                    - code: '35003'
+                      title: Erreur inattendue
+                      detail: Une erreur inattendue est survenue lors de la collecte
+                        des données
+                      source:
+                      meta:
+                        provider: CNAF & MSA
+                  summary: Erreur inattendue
+                  description: Une erreur inattendue est survenue lors de la collecte
+                    des données
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -581,24 +639,82 @@ paths:
                 - data
                 - links
                 - meta
-        '404':
-          description: Dossier non trouvé
+        '422':
+          description: Impossible d'identifier l'allocataire
           content:
             application/json:
               examples:
-                entite_non_trouvee_37003:
+                entite_non_traitable_00366:
                   value:
                     errors:
-                    - code: '37003'
-                      title: Entité non trouvée
-                      detail: Dossier allocataire inexistant. Le document ne peut
-                        être édité.
+                    - code: '00366'
+                      title: Entité non traitable
+                      detail: Un ou plusieurs paramètres de civilité ne sont pas correctement
+                        formatés
+                      source:
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Un ou plusieurs paramètres de civilité ne sont pas
+                    correctement formatés
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Dossier allocataire inexistant. Le document ne peut être édité.
+          content:
+            application/json:
+              examples:
+                dossier_allocataire_absent_msa_10003:
+                  value:
+                    errors:
+                    - code: '10003'
+                      title: Dossier allocataire absent MSA
+                      detail: Le dossier allocataire n'a pas été trouvé auprès de
+                        la MSA.
                       source:
                       meta:
-                        provider: CNAV
-                  summary: Entité non trouvée
-                  description: Dossier allocataire inexistant. Le document ne peut
-                    être édité.
+                        provider: MSA
+                  summary: Dossier allocataire absent MSA
+                  description: Le dossier allocataire n'a pas été trouvé auprès de
+                    la MSA.
+                dossier_allocataire_absent_cnaf_23003:
+                  value:
+                    errors:
+                    - code: '23003'
+                      title: Dossier allocataire absent CNAF
+                      detail: Le dossier allocataire n'a pas été trouvé auprès de
+                        la CNAF.
+                      source:
+                      meta:
+                        provider: CNAF
+                  summary: Dossier allocataire absent CNAF
+                  description: Le dossier allocataire n'a pas été trouvé auprès de
+                    la CNAF.
+                allocataire_non_reference_35003:
+                  value:
+                    errors:
+                    - code: '35003'
+                      title: Allocataire non référencé
+                      detail: L'allocataire n'est pas référencé auprès des caisses
+                        éligibles
+                      source:
+                      meta:
+                        provider: CNAF & MSA
+                  summary: Allocataire non référencé
+                  description: L'allocataire n'est pas référencé auprès des caisses
+                    éligibles
+                erreur_inattendue_35003:
+                  value:
+                    errors:
+                    - code: '35003'
+                      title: Erreur inattendue
+                      detail: Une erreur inattendue est survenue lors de la collecte
+                        des données
+                      source:
+                      meta:
+                        provider: CNAF & MSA
+                  summary: Erreur inattendue
+                  description: Une erreur inattendue est survenue lors de la collecte
+                    des données
               schema:
                 "$ref": "#/components/schemas/Error"
   "/v3/dss/allocation_soutien_familial/identite":
@@ -914,24 +1030,82 @@ paths:
                 - data
                 - links
                 - meta
-        '404':
-          description: Dossier non trouvé
+        '422':
+          description: Impossible d'identifier l'allocataire
           content:
             application/json:
               examples:
-                entite_non_trouvee_37003:
+                entite_non_traitable_00366:
                   value:
                     errors:
-                    - code: '37003'
-                      title: Entité non trouvée
-                      detail: Dossier allocataire inexistant. Le document ne peut
-                        être édité.
+                    - code: '00366'
+                      title: Entité non traitable
+                      detail: Un ou plusieurs paramètres de civilité ne sont pas correctement
+                        formatés
+                      source:
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Un ou plusieurs paramètres de civilité ne sont pas
+                    correctement formatés
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Dossier allocataire inexistant. Le document ne peut être édité.
+          content:
+            application/json:
+              examples:
+                dossier_allocataire_absent_msa_10003:
+                  value:
+                    errors:
+                    - code: '10003'
+                      title: Dossier allocataire absent MSA
+                      detail: Le dossier allocataire n'a pas été trouvé auprès de
+                        la MSA.
                       source:
                       meta:
-                        provider: CNAV
-                  summary: Entité non trouvée
-                  description: Dossier allocataire inexistant. Le document ne peut
-                    être édité.
+                        provider: MSA
+                  summary: Dossier allocataire absent MSA
+                  description: Le dossier allocataire n'a pas été trouvé auprès de
+                    la MSA.
+                dossier_allocataire_absent_cnaf_23003:
+                  value:
+                    errors:
+                    - code: '23003'
+                      title: Dossier allocataire absent CNAF
+                      detail: Le dossier allocataire n'a pas été trouvé auprès de
+                        la CNAF.
+                      source:
+                      meta:
+                        provider: CNAF
+                  summary: Dossier allocataire absent CNAF
+                  description: Le dossier allocataire n'a pas été trouvé auprès de
+                    la CNAF.
+                allocataire_non_reference_35003:
+                  value:
+                    errors:
+                    - code: '35003'
+                      title: Allocataire non référencé
+                      detail: L'allocataire n'est pas référencé auprès des caisses
+                        éligibles
+                      source:
+                      meta:
+                        provider: CNAF & MSA
+                  summary: Allocataire non référencé
+                  description: L'allocataire n'est pas référencé auprès des caisses
+                    éligibles
+                erreur_inattendue_35003:
+                  value:
+                    errors:
+                    - code: '35003'
+                      title: Erreur inattendue
+                      detail: Une erreur inattendue est survenue lors de la collecte
+                        des données
+                      source:
+                      meta:
+                        provider: CNAF & MSA
+                  summary: Erreur inattendue
+                  description: Une erreur inattendue est survenue lors de la collecte
+                    des données
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -1126,24 +1300,82 @@ paths:
                 - data
                 - links
                 - meta
-        '404':
-          description: Dossier non trouvé
+        '422':
+          description: Impossible d'identifier l'allocataire
           content:
             application/json:
               examples:
-                entite_non_trouvee_37003:
+                entite_non_traitable_00366:
                   value:
                     errors:
-                    - code: '37003'
-                      title: Entité non trouvée
-                      detail: Dossier allocataire inexistant. Le document ne peut
-                        être édité.
+                    - code: '00366'
+                      title: Entité non traitable
+                      detail: Un ou plusieurs paramètres de civilité ne sont pas correctement
+                        formatés
+                      source:
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Un ou plusieurs paramètres de civilité ne sont pas
+                    correctement formatés
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Dossier allocataire inexistant. Le document ne peut être édité.
+          content:
+            application/json:
+              examples:
+                dossier_allocataire_absent_msa_10003:
+                  value:
+                    errors:
+                    - code: '10003'
+                      title: Dossier allocataire absent MSA
+                      detail: Le dossier allocataire n'a pas été trouvé auprès de
+                        la MSA.
                       source:
                       meta:
-                        provider: CNAV
-                  summary: Entité non trouvée
-                  description: Dossier allocataire inexistant. Le document ne peut
-                    être édité.
+                        provider: MSA
+                  summary: Dossier allocataire absent MSA
+                  description: Le dossier allocataire n'a pas été trouvé auprès de
+                    la MSA.
+                dossier_allocataire_absent_cnaf_23003:
+                  value:
+                    errors:
+                    - code: '23003'
+                      title: Dossier allocataire absent CNAF
+                      detail: Le dossier allocataire n'a pas été trouvé auprès de
+                        la CNAF.
+                      source:
+                      meta:
+                        provider: CNAF
+                  summary: Dossier allocataire absent CNAF
+                  description: Le dossier allocataire n'a pas été trouvé auprès de
+                    la CNAF.
+                allocataire_non_reference_35003:
+                  value:
+                    errors:
+                    - code: '35003'
+                      title: Allocataire non référencé
+                      detail: L'allocataire n'est pas référencé auprès des caisses
+                        éligibles
+                      source:
+                      meta:
+                        provider: CNAF & MSA
+                  summary: Allocataire non référencé
+                  description: L'allocataire n'est pas référencé auprès des caisses
+                    éligibles
+                erreur_inattendue_35003:
+                  value:
+                    errors:
+                    - code: '35003'
+                      title: Erreur inattendue
+                      detail: Une erreur inattendue est survenue lors de la collecte
+                        des données
+                      source:
+                      meta:
+                        provider: CNAF & MSA
+                  summary: Erreur inattendue
+                  description: Une erreur inattendue est survenue lors de la collecte
+                    des données
               schema:
                 "$ref": "#/components/schemas/Error"
   "/v3/dss/complementaire_sante_solidaire/identite":
@@ -1480,24 +1712,69 @@ paths:
                 - data
                 - links
                 - meta
-        '404':
-          description: Dossier non trouvé
+        '422':
+          description: Impossible d'identifier l'allocataire
           content:
             application/json:
               examples:
-                entite_non_trouvee_37003:
+                entite_non_traitable_00366:
                   value:
                     errors:
-                    - code: '37003'
-                      title: Entité non trouvée
-                      detail: Dossier allocataire inexistant. Le document ne peut
-                        être édité.
+                    - code: '00366'
+                      title: Entité non traitable
+                      detail: Un ou plusieurs paramètres de civilité ne sont pas correctement
+                        formatés
+                      source:
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Un ou plusieurs paramètres de civilité ne sont pas
+                    correctement formatés
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Dossier allocataire inexistant. Le document ne peut être édité.
+          content:
+            application/json:
+              examples:
+                dossier_allocataire_absent_rncps_40003:
+                  value:
+                    errors:
+                    - code: '40003'
+                      title: Dossier allocataire absent RNCPS
+                      detail: Le dossier allocataire n'a pas été trouvé auprès du
+                        RNCPS.
                       source:
                       meta:
-                        provider: CNAV
-                  summary: Entité non trouvée
-                  description: Dossier allocataire inexistant. Le document ne peut
-                    être édité.
+                        provider: RNCPS
+                  summary: Dossier allocataire absent RNCPS
+                  description: Le dossier allocataire n'a pas été trouvé auprès du
+                    RNCPS.
+                allocataire_non_reference_40003:
+                  value:
+                    errors:
+                    - code: '40003'
+                      title: Allocataire non référencé
+                      detail: L'allocataire n'est pas référencé auprès des caisses
+                        éligibles
+                      source:
+                      meta:
+                        provider: RNCPS
+                  summary: Allocataire non référencé
+                  description: L'allocataire n'est pas référencé auprès des caisses
+                    éligibles
+                erreur_inattendue_40003:
+                  value:
+                    errors:
+                    - code: '40003'
+                      title: Erreur inattendue
+                      detail: Une erreur inattendue est survenue lors de la collecte
+                        des données
+                      source:
+                      meta:
+                        provider: RNCPS
+                  summary: Erreur inattendue
+                  description: Une erreur inattendue est survenue lors de la collecte
+                    des données
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -1713,24 +1990,69 @@ paths:
                 - data
                 - links
                 - meta
-        '404':
-          description: Dossier non trouvé
+        '422':
+          description: Impossible d'identifier l'allocataire
           content:
             application/json:
               examples:
-                entite_non_trouvee_37003:
+                entite_non_traitable_00366:
                   value:
                     errors:
-                    - code: '37003'
-                      title: Entité non trouvée
-                      detail: Dossier allocataire inexistant. Le document ne peut
-                        être édité.
+                    - code: '00366'
+                      title: Entité non traitable
+                      detail: Un ou plusieurs paramètres de civilité ne sont pas correctement
+                        formatés
+                      source:
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Un ou plusieurs paramètres de civilité ne sont pas
+                    correctement formatés
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Dossier allocataire inexistant. Le document ne peut être édité.
+          content:
+            application/json:
+              examples:
+                dossier_allocataire_absent_rncps_40003:
+                  value:
+                    errors:
+                    - code: '40003'
+                      title: Dossier allocataire absent RNCPS
+                      detail: Le dossier allocataire n'a pas été trouvé auprès du
+                        RNCPS
                       source:
                       meta:
-                        provider: CNAV
-                  summary: Entité non trouvée
-                  description: Dossier allocataire inexistant. Le document ne peut
-                    être édité.
+                        provider: RNCPS
+                  summary: Dossier allocataire absent RNCPS
+                  description: Le dossier allocataire n'a pas été trouvé auprès du
+                    RNCPS
+                allocataire_non_reference_35003:
+                  value:
+                    errors:
+                    - code: '35003'
+                      title: Allocataire non référencé
+                      detail: L'allocataire n'est pas référencé auprès des caisses
+                        éligibles
+                      source:
+                      meta:
+                        provider: CNAF & MSA
+                  summary: Allocataire non référencé
+                  description: L'allocataire n'est pas référencé auprès des caisses
+                    éligibles
+                erreur_inattendue_35003:
+                  value:
+                    errors:
+                    - code: '35003'
+                      title: Erreur inattendue
+                      detail: Une erreur inattendue est survenue lors de la collecte
+                        des données
+                      source:
+                      meta:
+                        provider: CNAF & MSA
+                  summary: Erreur inattendue
+                  description: Une erreur inattendue est survenue lors de la collecte
+                    des données
               schema:
                 "$ref": "#/components/schemas/Error"
   "/v3/dss/participation_familial_psu/identite":
@@ -2969,118 +3291,82 @@ paths:
                 - data
                 - links
                 - meta
+        '422':
+          description: Impossible d'identifier l'allocataire
+          content:
+            application/json:
+              examples:
+                entite_non_traitable_00366:
+                  value:
+                    errors:
+                    - code: '00366'
+                      title: Entité non traitable
+                      detail: Un ou plusieurs paramètres de civilité ne sont pas correctement
+                        formatés
+                      source:
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Un ou plusieurs paramètres de civilité ne sont pas
+                    correctement formatés
+              schema:
+                "$ref": "#/components/schemas/Error"
         '404':
-          description: Dossier non trouvé
+          description: Dossier allocataire inexistant. Le document ne peut être édité.
           content:
             application/json:
               examples:
-                entite_non_trouvee_37003:
+                dossier_allocataire_absent_msa_10003:
                   value:
                     errors:
-                    - code: '37003'
-                      title: Entité non trouvée
-                      detail: Dossier allocataire inexistant. Le document ne peut
-                        être édité.
+                    - code: '10003'
+                      title: Dossier allocataire absent MSA
+                      detail: Le dossier allocataire n'a pas été trouvé auprès de
+                        la MSA.
                       source:
                       meta:
-                        provider: CNAV
-                  summary: Entité non trouvée
-                  description: Dossier allocataire inexistant. Le document ne peut
-                    être édité.
-              schema:
-                "$ref": "#/components/schemas/Error"
-        '502':
-          description: Erreur du fournisseur
-          content:
-            application/json:
-              examples:
-                provider_unknown_error:
+                        provider: MSA
+                  summary: Dossier allocataire absent MSA
+                  description: Le dossier allocataire n'a pas été trouvé auprès de
+                    la MSA.
+                dossier_allocataire_absent_cnaf_23003:
                   value:
                     errors:
-                    - code: '37999'
-                      title: Erreur inconnue du fournisseur de données
-                      detail: La réponse retournée par le fournisseur de données est
-                        invalide et inconnue de notre service. L'équipe technique
-                        a été notifiée de cette erreur pour investigation.
+                    - code: '23003'
+                      title: Dossier allocataire absent CNAF
+                      detail: Le dossier allocataire n'a pas été trouvé auprès de
+                        la CNAF.
                       source:
                       meta:
-                        provider: CNAV
-                  summary: Erreur inconnue du fournisseur de données
-                  description: La réponse retournée par le fournisseur de données
-                    est invalide et inconnue de notre service. L'équipe technique
-                    a été notifiée de cette erreur pour investigation.
-              schema:
-                "$ref": "#/components/schemas/Error"
-        '504':
-          description: Erreur d'intermédiaire
-          content:
-            application/json:
-              examples:
-                timeout_error:
+                        provider: CNAF
+                  summary: Dossier allocataire absent CNAF
+                  description: Le dossier allocataire n'a pas été trouvé auprès de
+                    la CNAF.
+                allocataire_non_reference_35003:
                   value:
                     errors:
-                    - code: '37002'
-                      title: Intermédiaire hors-délai
-                      detail: Temps d’attente d’une réponse du fournisseur de données
-                        écoulé.
+                    - code: '35003'
+                      title: Allocataire non référencé
+                      detail: L'allocataire n'est pas référencé auprès des caisses
+                        éligibles
                       source:
                       meta:
-                        provider: CNAV
-                  summary: Intermédiaire hors-délai
-                  description: Temps d’attente d’une réponse du fournisseur de données
-                    écoulé.
-                provider_unavailable_error:
+                        provider: CNAF & MSA
+                  summary: Allocataire non référencé
+                  description: L'allocataire n'est pas référencé auprès des caisses
+                    éligibles
+                erreur_inattendue_35003:
                   value:
                     errors:
-                    - code: '37001'
-                      title: Service non disponible
-                      detail: Service du fournisseur de données temporairement indisponible
-                        ou en maintenance.
+                    - code: '35003'
+                      title: Erreur inattendue
+                      detail: Une erreur inattendue est survenue lors de la collecte
+                        des données
                       source:
                       meta:
-                        provider: CNAV
-                  summary: Service non disponible
-                  description: Service du fournisseur de données temporairement indisponible
-                    ou en maintenance.
-                network_error:
-                  value:
-                    errors:
-                    - code: '00501'
-                      title: Erreur réseau
-                      detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
-                        souvent d'une erreur temporaire.
-                      source:
-                      meta:
-                        retry_in: 10
-                  summary: Erreur réseau
-                  description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
-                    souvent d'une erreur temporaire.
-                dns_resolution_error:
-                  value:
-                    errors:
-                    - code: '37004'
-                      title: Erreur de résolution DNS
-                      detail: Problème de résolution DNS de l'adresse du serveur
-                      source:
-                      meta:
-                        provider: CNAV
-                  summary: Erreur de résolution DNS
-                  description: Problème de résolution DNS de l'adresse du serveur
-                provider_error:
-                  value:
-                    errors:
-                    - code: '37008'
-                      title: 'Erreur auprès du fournisseur de données : trop de requêtes'
-                      detail: 'Erreur de fournisseur de donnée : Trop de requêtes
-                        effectuées, veuillez réessayer plus tard.'
-                      source:
-                      meta:
-                        provider: CNAV
-                  summary: 'Erreur auprès du fournisseur de données : trop de requêtes'
-                  description: 'Erreur de fournisseur de donnée : Trop de requêtes
-                    effectuées, veuillez réessayer plus tard.'
+                        provider: CNAF & MSA
+                  summary: Erreur inattendue
+                  description: Une erreur inattendue est survenue lors de la collecte
+                    des données
               schema:
                 "$ref": "#/components/schemas/Error"
   "/v3/dss/prime_activite/france_connect":
@@ -3190,24 +3476,176 @@ paths:
                 - data
                 - links
                 - meta
-        '404':
-          description: Dossier non trouvé
+        '422':
+          description: Impossible d'identifier l'allocataire
           content:
             application/json:
               examples:
-                entite_non_trouvee_37003:
+                entite_non_traitable_00366:
                   value:
                     errors:
-                    - code: '37003'
-                      title: Entité non trouvée
-                      detail: Dossier allocataire inexistant. Le document ne peut
-                        être édité.
+                    - code: '00366'
+                      title: Entité non traitable
+                      detail: Un ou plusieurs paramètres de civilité ne sont pas correctement
+                        formatés
+                      source:
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Un ou plusieurs paramètres de civilité ne sont pas
+                    correctement formatés
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Dossier allocataire inexistant. Le document ne peut être édité.
+          content:
+            application/json:
+              examples:
+                dossier_allocataire_absent_msa_10003:
+                  value:
+                    errors:
+                    - code: '10003'
+                      title: Dossier allocataire absent MSA
+                      detail: Le dossier allocataire n'a pas été trouvé auprès de
+                        la MSA.
+                      source:
+                      meta:
+                        provider: MSA
+                  summary: Dossier allocataire absent MSA
+                  description: Le dossier allocataire n'a pas été trouvé auprès de
+                    la MSA.
+                dossier_allocataire_absent_cnaf_23003:
+                  value:
+                    errors:
+                    - code: '23003'
+                      title: Dossier allocataire absent CNAF
+                      detail: Le dossier allocataire n'a pas été trouvé auprès de
+                        la CNAF.
+                      source:
+                      meta:
+                        provider: CNAF
+                  summary: Dossier allocataire absent CNAF
+                  description: Le dossier allocataire n'a pas été trouvé auprès de
+                    la CNAF.
+                allocataire_non_reference_35003:
+                  value:
+                    errors:
+                    - code: '35003'
+                      title: Allocataire non référencé
+                      detail: L'allocataire n'est pas référencé auprès des caisses
+                        éligibles
+                      source:
+                      meta:
+                        provider: CNAF & MSA
+                  summary: Allocataire non référencé
+                  description: L'allocataire n'est pas référencé auprès des caisses
+                    éligibles
+                erreur_inattendue_35003:
+                  value:
+                    errors:
+                    - code: '35003'
+                      title: Erreur inattendue
+                      detail: Une erreur inattendue est survenue lors de la collecte
+                        des données
+                      source:
+                      meta:
+                        provider: CNAF & MSA
+                  summary: Erreur inattendue
+                  description: Une erreur inattendue est survenue lors de la collecte
+                    des données
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '502':
+          description: Erreur du fournisseur
+          content:
+            application/json:
+              examples:
+                provider_unknown_error:
+                  value:
+                    errors:
+                    - code: '37999'
+                      title: Erreur inconnue du fournisseur de données
+                      detail: La réponse retournée par le fournisseur de données est
+                        invalide et inconnue de notre service. L'équipe technique
+                        a été notifiée de cette erreur pour investigation.
                       source:
                       meta:
                         provider: CNAV
-                  summary: Entité non trouvée
-                  description: Dossier allocataire inexistant. Le document ne peut
-                    être édité.
+                  summary: Erreur inconnue du fournisseur de données
+                  description: La réponse retournée par le fournisseur de données
+                    est invalide et inconnue de notre service. L'équipe technique
+                    a été notifiée de cette erreur pour investigation.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '504':
+          description: Erreur d'intermédiaire
+          content:
+            application/json:
+              examples:
+                timeout_error:
+                  value:
+                    errors:
+                    - code: '37002'
+                      title: Intermédiaire hors-délai
+                      detail: Temps d’attente d’une réponse du fournisseur de données
+                        écoulé.
+                      source:
+                      meta:
+                        provider: CNAV
+                  summary: Intermédiaire hors-délai
+                  description: Temps d’attente d’une réponse du fournisseur de données
+                    écoulé.
+                provider_unavailable_error:
+                  value:
+                    errors:
+                    - code: '37001'
+                      title: Service non disponible
+                      detail: Service du fournisseur de données temporairement indisponible
+                        ou en maintenance.
+                      source:
+                      meta:
+                        provider: CNAV
+                  summary: Service non disponible
+                  description: Service du fournisseur de données temporairement indisponible
+                    ou en maintenance.
+                network_error:
+                  value:
+                    errors:
+                    - code: '00501'
+                      title: Erreur réseau
+                      detail: Problème de connexion au serveur distant. L'erreur peut
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
+                      source:
+                      meta:
+                        retry_in: 10
+                  summary: Erreur réseau
+                  description: Problème de connexion au serveur distant. L'erreur
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
+                dns_resolution_error:
+                  value:
+                    errors:
+                    - code: '37004'
+                      title: Erreur de résolution DNS
+                      detail: Problème de résolution DNS de l'adresse du serveur
+                      source:
+                      meta:
+                        provider: CNAV
+                  summary: Erreur de résolution DNS
+                  description: Problème de résolution DNS de l'adresse du serveur
+                provider_error:
+                  value:
+                    errors:
+                    - code: '37008'
+                      title: 'Erreur auprès du fournisseur de données : trop de requêtes'
+                      detail: 'Erreur de fournisseur de donnée : Trop de requêtes
+                        effectuées, veuillez réessayer plus tard.'
+                      source:
+                      meta:
+                        provider: CNAV
+                  summary: 'Erreur auprès du fournisseur de données : trop de requêtes'
+                  description: 'Erreur de fournisseur de donnée : Trop de requêtes
+                    effectuées, veuillez réessayer plus tard.'
               schema:
                 "$ref": "#/components/schemas/Error"
   "/v3/dss/quotient_familial/identite":
@@ -3792,14 +4230,27 @@ paths:
                     errors:
                     - code: '35003'
                       title: Allocataire non référencé
-                      detail: L'allocataire n'est pas référencé auprès de la CNAF
-                        ni de la MSA
+                      detail: L'allocataire n'est pas référencé auprès des caisses
+                        éligibles
                       source:
                       meta:
                         provider: CNAF & MSA
                   summary: Allocataire non référencé
-                  description: L'allocataire n'est pas référencé auprès de la CNAF
-                    ni de la MSA
+                  description: L'allocataire n'est pas référencé auprès des caisses
+                    éligibles
+                erreur_inattendue_35003:
+                  value:
+                    errors:
+                    - code: '35003'
+                      title: Erreur inattendue
+                      detail: Une erreur inattendue est survenue lors de la collecte
+                        des données
+                      source:
+                      meta:
+                        provider: CNAF & MSA
+                  summary: Erreur inattendue
+                  description: Une erreur inattendue est survenue lors de la collecte
+                    des données
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -4263,14 +4714,27 @@ paths:
                     errors:
                     - code: '35003'
                       title: Allocataire non référencé
-                      detail: L'allocataire n'est pas référencé auprès de la CNAF
-                        ni de la MSA
+                      detail: L'allocataire n'est pas référencé auprès des caisses
+                        éligibles
                       source:
                       meta:
                         provider: CNAF & MSA
                   summary: Allocataire non référencé
-                  description: L'allocataire n'est pas référencé auprès de la CNAF
-                    ni de la MSA
+                  description: L'allocataire n'est pas référencé auprès des caisses
+                    éligibles
+                erreur_inattendue_35003:
+                  value:
+                    errors:
+                    - code: '35003'
+                      title: Erreur inattendue
+                      detail: Une erreur inattendue est survenue lors de la collecte
+                        des données
+                      source:
+                      meta:
+                        provider: CNAF & MSA
+                  summary: Erreur inattendue
+                  description: Une erreur inattendue est survenue lors de la collecte
+                    des données
               schema:
                 "$ref": "#/components/schemas/Error"
   "/v3/dss/revenu_solidarite_active/identite":
@@ -4596,24 +5060,82 @@ paths:
                 - data
                 - links
                 - meta
-        '404':
-          description: Dossier non trouvé
+        '422':
+          description: Impossible d'identifier l'allocataire
           content:
             application/json:
               examples:
-                entite_non_trouvee_37003:
+                entite_non_traitable_00366:
                   value:
                     errors:
-                    - code: '37003'
-                      title: Entité non trouvée
-                      detail: Dossier allocataire inexistant. Le document ne peut
-                        être édité.
+                    - code: '00366'
+                      title: Entité non traitable
+                      detail: Un ou plusieurs paramètres de civilité ne sont pas correctement
+                        formatés
+                      source:
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Un ou plusieurs paramètres de civilité ne sont pas
+                    correctement formatés
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Dossier allocataire inexistant. Le document ne peut être édité.
+          content:
+            application/json:
+              examples:
+                dossier_allocataire_absent_msa_10003:
+                  value:
+                    errors:
+                    - code: '10003'
+                      title: Dossier allocataire absent MSA
+                      detail: Le dossier allocataire n'a pas été trouvé auprès de
+                        la MSA.
                       source:
                       meta:
-                        provider: CNAV
-                  summary: Entité non trouvée
-                  description: Dossier allocataire inexistant. Le document ne peut
-                    être édité.
+                        provider: MSA
+                  summary: Dossier allocataire absent MSA
+                  description: Le dossier allocataire n'a pas été trouvé auprès de
+                    la MSA.
+                dossier_allocataire_absent_cnaf_23003:
+                  value:
+                    errors:
+                    - code: '23003'
+                      title: Dossier allocataire absent CNAF
+                      detail: Le dossier allocataire n'a pas été trouvé auprès de
+                        la CNAF.
+                      source:
+                      meta:
+                        provider: CNAF
+                  summary: Dossier allocataire absent CNAF
+                  description: Le dossier allocataire n'a pas été trouvé auprès de
+                    la CNAF.
+                allocataire_non_reference_35003:
+                  value:
+                    errors:
+                    - code: '35003'
+                      title: Allocataire non référencé
+                      detail: L'allocataire n'est pas référencé auprès des caisses
+                        éligibles
+                      source:
+                      meta:
+                        provider: CNAF & MSA
+                  summary: Allocataire non référencé
+                  description: L'allocataire n'est pas référencé auprès des caisses
+                    éligibles
+                erreur_inattendue_35003:
+                  value:
+                    errors:
+                    - code: '35003'
+                      title: Erreur inattendue
+                      detail: Une erreur inattendue est survenue lors de la collecte
+                        des données
+                      source:
+                      meta:
+                        provider: CNAF & MSA
+                  summary: Erreur inattendue
+                  description: Une erreur inattendue est survenue lors de la collecte
+                    des données
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -4818,24 +5340,82 @@ paths:
                 - data
                 - links
                 - meta
-        '404':
-          description: Dossier non trouvé
+        '422':
+          description: Impossible d'identifier l'allocataire
           content:
             application/json:
               examples:
-                entite_non_trouvee_37003:
+                entite_non_traitable_00366:
                   value:
                     errors:
-                    - code: '37003'
-                      title: Entité non trouvée
-                      detail: Dossier allocataire inexistant. Le document ne peut
-                        être édité.
+                    - code: '00366'
+                      title: Entité non traitable
+                      detail: Un ou plusieurs paramètres de civilité ne sont pas correctement
+                        formatés
+                      source:
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Un ou plusieurs paramètres de civilité ne sont pas
+                    correctement formatés
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Dossier allocataire inexistant. Le document ne peut être édité.
+          content:
+            application/json:
+              examples:
+                dossier_allocataire_absent_msa_10003:
+                  value:
+                    errors:
+                    - code: '10003'
+                      title: Dossier allocataire absent MSA
+                      detail: Le dossier allocataire n'a pas été trouvé auprès de
+                        la MSA.
                       source:
                       meta:
-                        provider: CNAV
-                  summary: Entité non trouvée
-                  description: Dossier allocataire inexistant. Le document ne peut
-                    être édité.
+                        provider: MSA
+                  summary: Dossier allocataire absent MSA
+                  description: Le dossier allocataire n'a pas été trouvé auprès de
+                    la MSA.
+                dossier_allocataire_absent_cnaf_23003:
+                  value:
+                    errors:
+                    - code: '23003'
+                      title: Dossier allocataire absent CNAF
+                      detail: Le dossier allocataire n'a pas été trouvé auprès de
+                        la CNAF.
+                      source:
+                      meta:
+                        provider: CNAF
+                  summary: Dossier allocataire absent CNAF
+                  description: Le dossier allocataire n'a pas été trouvé auprès de
+                    la CNAF.
+                allocataire_non_reference_35003:
+                  value:
+                    errors:
+                    - code: '35003'
+                      title: Allocataire non référencé
+                      detail: L'allocataire n'est pas référencé auprès des caisses
+                        éligibles
+                      source:
+                      meta:
+                        provider: CNAF & MSA
+                  summary: Allocataire non référencé
+                  description: L'allocataire n'est pas référencé auprès des caisses
+                    éligibles
+                erreur_inattendue_35003:
+                  value:
+                    errors:
+                    - code: '35003'
+                      title: Erreur inattendue
+                      detail: Une erreur inattendue est survenue lors de la collecte
+                        des données
+                      source:
+                      meta:
+                        provider: CNAF & MSA
+                  summary: Erreur inattendue
+                  description: Une erreur inattendue est survenue lors de la collecte
+                    des données
               schema:
                 "$ref": "#/components/schemas/Error"
   "/v3/cnous/etudiant_boursier/identite":
@@ -6117,7 +6697,7 @@ paths:
                           si l'information n'est pas connue, "non_concerne" si la
                           personne n'est pas concernée par les obligations de service
                           national.
-                        example: Oui
+                        example: en_regle
                         enum:
                         - en_regle
                         - pas_en_regle
@@ -6127,7 +6707,7 @@ paths:
                         title: Commentaires
                         type: string
                         description: Commentaires sur la situation de la personne
-                        example: TODO
+                        example: Commentaire sur la situation
                     required:
                     - statut_service_national
                     - commmentaires
@@ -6350,7 +6930,7 @@ paths:
                           si l'information n'est pas connue, "non_concerne" si la
                           personne n'est pas concernée par les obligations de service
                           national.
-                        example: Oui
+                        example: en_regle
                         enum:
                         - en_regle
                         - pas_en_regle
@@ -6360,7 +6940,7 @@ paths:
                         title: Commentaires
                         type: string
                         description: Commentaires sur la situation de la personne
-                        example: TODO
+                        example: Commentaire sur la situation
                     required:
                     - statut_service_national
                     - commmentaires
