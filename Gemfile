@@ -26,6 +26,8 @@ gem 'bcrypt', '~> 3.1.20'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'uri', '1.0.3'
+
 gem 'good_job', '~> 3.99'
 
 gem 'draper'
