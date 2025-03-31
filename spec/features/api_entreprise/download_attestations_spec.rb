@@ -132,8 +132,8 @@ RSpec.describe 'Download attestations', app: :api_entreprise do
 
       visit attestations_path
 
-      expect(page).to have_no_current_path(attestations_path)
       expect(page).to have_content("Vous n'avez pas les droits pour accéder à cette page")
+      expect(page).to have_no_current_path(attestations_path)
     end
   end
 end
