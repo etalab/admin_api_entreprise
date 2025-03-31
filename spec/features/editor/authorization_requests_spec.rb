@@ -41,6 +41,7 @@ RSpec.describe 'Editor: authorization requests', app: :api_entreprise do
         it 'does not have copy token button' do
           visit editor_authorization_requests_path
 
+          expect(page).to have_css('.authorization-request', count: 2)
           expect(page).to have_no_css('.copy-token')
           expect(page.html).not_to include(valid_authorization_requests.first.token.rehash)
         end
