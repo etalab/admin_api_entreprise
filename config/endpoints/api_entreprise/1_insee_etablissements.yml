@@ -75,7 +75,7 @@
       {:.fr-highlight.fr-highlight--caution}
       > ⚠️ **Cette API délivre des informations protégées**
       > **Pour faire du pré-remplissage dans un formulaire public**, nous vous recommandons d'utiliser l'[API délivrant uniquement de la donnée publique](<%= endpoint_path(uid: 'insee/etablissements_diffusibles')%>).
-      Pour en savoir plus sur la façon d'utiliser les données des établissements "en diffusion partielle", consultez [cette rubrique](#utilisation-diffusion-partielle).
+      Pour en savoir plus sur la façon d'utiliser les données des établissements "en diffusion partielle" (environ 1 million d'entités), consultez [cette rubrique](#utilisation-diffusion-partielle).
   faq:
     - q: &insee_etablissements_faq_q1 À quoi correspondent les états administratifs ? Une unité légale peut-elle être en activité alors que tous ses établissements sont fermés ?
       a: &insee_etablissements_faq_a1 |+
@@ -101,7 +101,7 @@
       a: &insee_etablissements_faq_a2 |+
         **La diffusion partielle commerciale :**
 
-        Parmi les entités présentes dans le répertoire Sirene, certaines, très majoritairement des personnes physiques, ont explicitement demandé de ne pas figurer en diffusion totale, afin de ne pas rendre publiques leurs données d'identification et de localisation.
+        Parmi les entités présentes dans le répertoire Sirene, certaines, très majoritairement des personnes physiques, ont explicitement demandé de ne pas figurer en diffusion totale, afin de ne pas rendre publiques leurs données d'identification et de localisation. L'Insee évalue leur nombre a plus d'un million (chiffre 2025).
 
         Ce [droit d'opposition tel que décrit à l'Article 21 du RGPD](https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre3#Article21){:target="_blank"} est valable pour les personnes physiques et morales mais s'applique de façon différente : 
         - pour les personnes morale, seuls les éléments de localisation sont protégés (géolocalisation, numéro et voie de l'adresse postale - la commune reste diffusible) ; 
@@ -166,7 +166,7 @@
     description: |+
       À partir du numéro de SIRET de l'établissement, cette API délivre les **informations générales de celui-ci** et les **informations générales de l'unité légale** à laquelle l'établissement est rattaché. 
       
-      **Cette API délivre uniquement des données publiques**. Pour obtenir les données protégées des établissements en ["diffusion partielle"](#definition-diffusion-partielle), utilisez [cette API](<%= endpoint_path(uid: 'insee/etablissements') %>).
+      **Cette API délivre uniquement des données publiques**. Pour obtenir les données protégées des établissements en ["diffusion partielle"](#definition-diffusion-partielle) (environ 1 million d'entités), utilisez [cette API](<%= endpoint_path(uid: 'insee/etablissements') %>).
   faq:
     - q: *insee_etablissements_faq_q1
       a: *insee_etablissements_faq_a1
