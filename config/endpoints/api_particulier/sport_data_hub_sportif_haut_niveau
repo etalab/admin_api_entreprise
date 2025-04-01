@@ -6,20 +6,19 @@
   parameters:
     - Identifiant PSQS
   # Path à changer 
-  path: '/api/v2/paiements-pole-emploi'
+  path: '/api/v3/paiements-pole-emploi'
   position: 200
   perimeter:
     entity_type_description: |+
-      Cette API concerne les sportifs de nationalité française ou étrangère dont le statut, reconnu par le ministère des sports, est le suivant : 
-      - ✅ **sportif de haut niveau** (SHN) ;
-      - ✅ **sportif inscrit en liste Espoirs** (SE) ;
-      - ✅ **sportif inscrit en liste des Collectifs Nationaux** (SCN) ;
-      - ✅ **arbitre-juge de haut niveau** (AJSHN)
+      Cette API concerne tous les sportifs de nationalité française ou étrangère dont le statut, reconnu par le ministère des sports, est le suivant : 
+      - ✅ les **sportifs sur liste ministérielle** : **sportif de haut niveau** (SHN), **sportif inscrit en liste Espoirs** (SE), **sportif inscrit en liste des Collectifs Nationaux** (SCN) ;
+      - ✅ les **sportifs du parcours de performance fédéral** (PPF) ;
+      - ✅ les **arbitre-juge de haut niveau** (AJSHN). 
       
       Elle couvre les sportifs **de tout âge, y compris les mineurs**.
 
       Ne sont pas concernés malgré le fait qu'ils ont un accès au PSQS :
-      - ❌ TODO
+      - ❌ [en attente du FD]
 
     geographical_scope_description:  |+
       - ✅ France métropolitaine
@@ -29,9 +28,10 @@
       Les données sont **mises à jour une fois par an**, selon la saison sportive :
       - Sports d’hiver : du 1er juillet de l’année N au 30 juin de l’année N+1 ;
       - Sports d’été : du 1er janvier au 31 décembre.
+Les données sont valables un an, sur l'année scolaire en général, sauf le statut du sportif de haut niveau de la catégorie élite qui est valable 2 ans. 
 
       {:.fr-highlight}
-      > ⚠️ En conséquence, un sportif qui a concouru en novembre 2024 pour les sports d'hiver et qui est devenu sportif de haut niveau n'apparaîtra dans l'API qu'à partir de juillet 2025. Un statut demandé à un instant T peut donc être différent à un instant T+ en fonction des mises à jour. Les informations obtenues sont représentatives de la situation connue par Sport Data Hub au moment de l’appel. 
+      > ⚠️ En conséquence, un sportif qui a concouru en novembre 2024 pour les sports d'hiver et qui est devenu sportif de haut niveau à cette période n'apparaîtra dans l'API qu'à partir de juillet 2025. Un statut demandé à un instant T peut donc être différent à un instant T+ en fonction des mises à jour. Les informations obtenues sont représentatives de la situation connue par Sport Data Hub au moment de l’appel. 
     know_more_description: |+
       [Plus d'informations sur le statut sportif de haut niveau](https://www.sports.gouv.fr/le-sport-de-haut-niveau-c-est-quoi-730)
 
@@ -39,9 +39,10 @@
     description: |+
       **Cette API délivre** : 
       - le statut actuel du sportif ou de l'arbitre-juge (actif/inactif) ;
-      - la catégorie du sportif (espoir, relève, élite, senior, reconversion, collectif national, arbitre-juge ;
+      - la catégorie du sportif (espoir, relève, élite, senior, reconversion, collectif national, arbitre-juge, parcours de performance fédéral) ;
       - les informations du club (nom, localisation, affiliation) ;
-      - l'historique du statut (précédents statuts, catégories, clubs etc.).
+      - l'historique du statut (précédents statuts, catégories, clubs etc.). Les données historiques remontent à 1994 pour les listes ministerielles et à partir de 2012 pour les sportifs du PPF. Ce n'est qu'à partir de 2017 que tous les sportifs du PPF ont été intégrés. 
+
   parameters_details:
     description: |+
       Cette API propose une modalités d'appel :
@@ -70,6 +71,9 @@
     - 'Rconversion'
     - 'Espoir'
     - 'Sportifs en listes ministérielles'
+    - 'PPF'
+    - 'parcours de performance fédéral'
+
   use_cases:
     - Gestion RH secteur public
 
