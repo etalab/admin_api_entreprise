@@ -60,7 +60,7 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
   end
 
   def title
-    @title ||= open_api_definition['summary']
+    @title ||= open_api_definition['summary'].gsub(/\[.*?\]/, '').strip
   end
 
   def description
