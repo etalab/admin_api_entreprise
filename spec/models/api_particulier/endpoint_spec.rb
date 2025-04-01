@@ -16,6 +16,8 @@ RSpec.describe APIParticulier::Endpoint do
     its(:attributes) { is_expected.to be_an_instance_of(Hash) }
     its(:attributes) { is_expected.to have_key('allocataires') }
     its(:attributes) { is_expected.to have_key('adresse') }
+
+    its(:title) { is_expected.to eq('Quotient familial CAF & MSA') }
   end
 
   describe '#test_cases_external_url' do
