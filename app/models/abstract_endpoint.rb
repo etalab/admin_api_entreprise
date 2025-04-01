@@ -212,11 +212,31 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
   def tag_for_redoc
     return unless open_api_definition['tags']
 
-    open_api_definition['tags'].first.parameterize(separator: '-', preserve_case: true)
+    open_api_definition['tags'].first.gsub('&', 'and').parameterize(separator: '-', preserve_case: true)
   end
 
   def path_for_redoc
     path.gsub('/', '~1')
+  end
+
+  def extract_data_from_schema
+    properties_path = %w[properties data properties]
+    properties_path.insert(2, 'items') if collection?
+    properties_path.insert(-1, 'data') if collection?
+    properties_path.insert(-1, 'properties') if collection?
+
+    response_schema.dig(*properties_path) || {}
+  end
+
+  def extract_properties_from_schema(name)
+    properties_path = ['properties', 'data', 'properties', name]
+    properties_path.insert(2, 'items') if collection?
+
+    response_schema.dig(*properties_path).try(:[], 'properties') || {}
+  end
+
+  def extract_root_properties_from_schema(name)
+    response_schema.dig('properties', name).try(:[], 'properties') || {}
   end
 end
 # rubocop:enable Metrics/ClassLength
