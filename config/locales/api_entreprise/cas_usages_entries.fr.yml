@@ -18,7 +18,6 @@ fr:
           - ministere_interieur/rna
           - ministere_interieur/documents_associations
           - djepva/associations
-          - inpi/rne/beneficiaires_effectifs
           - inpi/rne/actes_bilans
           - fabrique_numerique_ministeres_sociaux/conventions_collectives
           - cma_france/rnm
@@ -55,6 +54,7 @@ fr:
         endpoints_forbidden: 
           - dgfip/liasses_fiscales
           - banque_de_france/bilans
+          - inpi/rne/beneficiaires_effectifs
         comments_endpoints:
           "insee/etablissements_diffusibles": "<span class='fr-badge fr-badge--sm fr-badge--new'>Candidature</span> **Données publiques utiles DC1, DC2, DC4 & DUME** : _raison sociale, forme juridique, catégorie micro/TPE/PME de l'unité légale. Tranche effectif (année N-2 ou N-3), activité principale et date de création de l'établissement et de l'unité légale. Indique aussi si l'unité légale est de l'économie sociale et solidaire (ESS)._<br><br>📝 Utilisable pour du **préremplissage de formulaire** car donnée publique."
 
@@ -86,7 +86,7 @@ fr:
 
           "ministere_interieur/documents_associations": "<span class='fr-badge fr-badge--sm fr-badge--new'>Candidature</span> Documents d'une association."
 
-          "inpi/rne/beneficiaires_effectifs": "Bénéficiaires effectifs de l'unité légale."
+          "inpi/rne/beneficiaires_effectifs": "_Donnée sensible non-nécessaire._<br/><br/>Seules les autorités listées dans le [2° de l’article L561-46 du Code monétaire et financier](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000041578272/){:target='_blank'} sont autorisées à accéder aux bénéficiaires effectifs. L’API Entreprise ne délivre des accès à cette API que pour le cas d’usage *Détection de la fraude*."
 
           "inpi/rne/actes_bilans": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> **Vérification de capacité économique et financière** : Consulter les actes pour se renseigner sur l'historique des modifications de l'unité légale et vérifier les associés. Consulter les bilans pour vérifier les capitaux propres, chiffre d'affaire et encours."
 
@@ -292,7 +292,6 @@ fr:
           - ministere_interieur/rna
           - ministere_interieur/documents_associations
           - djepva/associations
-          - inpi/rne/beneficiaires_effectifs
           - inpi/rne/actes_bilans
           - cma_france/rnm
           - dgfip/chiffres_affaires
@@ -330,7 +329,7 @@ fr:
         endpoints_forbidden: 
           - banque_de_france/bilans
           - dgfip/liasses_fiscales
-          - dgfip/liens_capitalistiques
+          - inpi/rne/beneficiaires_effectifs
         comments_endpoints:
             "insee/etablissements_diffusibles": "<span class='fr-badge fr-badge--sm fr-badge--new'>Préremplissage</span> _raison sociale, forme juridique, catégorie micro/TPE/PME de l'unité légale. Tranche effectif (année N-2 ou N-3), activité principale et date de création de l'établissement et de l'unité légale. Indique aussi si l'unité légale est de l'économie sociale et solidaire (ESS)._<br><br>📝 Utilisable pour du **préremplissage de formulaire** car donnée publique."
 
@@ -362,7 +361,7 @@ fr:
 
             "ministere_interieur/documents_associations": ""
 
-            "inpi/rne/beneficiaires_effectifs": "Bénéficiaires effectifs de l'unité légale."
+            "inpi/rne/beneficiaires_effectifs": "_Donnée sensible non-nécessaire._<br/><br/>Seules les autorités listées dans le [2° de l’article L561-46 du Code monétaire et financier](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000041578272/){:target='_blank'} sont autorisées à accéder aux bénéficiaires effectifs. L’API Entreprise ne délivre des accès à cette API que pour le cas d’usage *Détection de la fraude*."
 
             "inpi/rne/actes_bilans": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> **Vérification de capacité économique et financière** : Consulter les actes pour se renseigner sur l'historique des modifications de l'unité légale et vérifier les associés. Consulter les bilans pour vérifier les capitaux propres, chiffre d'affaire et encours."
 
@@ -606,6 +605,7 @@ fr:
           - cibtp/attestations_cotisations_conges_payes_chomage_intemperies
           - commission_europeenne/numero_tva
           - inpi/rne/actes_bilans
+          - inpi/rne/beneficiaires_effectifs
         comments_endpoints:
             "insee/etablissements_diffusibles": "<span class='fr-badge fr-badge--sm fr-badge--new'>Préremplissage</span> **Utile pré-remplissage du formulaire unique**&nbsp;: _Numéro de SIREN/SIRET, dénomination sociale, sigle de l'association, activités, adresse et date de création, économie sociale et solidaire (ESS)_."
 
@@ -880,7 +880,6 @@ fr:
           - insee/adresse_etablissements_diffusibles
           - insee/unites_legales_diffusibles
           - insee/siege_social_diffusibles
-          - inpi/rne/beneficiaires_effectifs
           - fabrique_numerique_ministeres_sociaux/conventions_collectives
           - douanes/immatriculation_eori
           - ministere_interieur/documents_associations
@@ -915,6 +914,7 @@ fr:
           - gip_mds/effectifs_annuels_unite_legale
           - gip_mds/effectifs_mensuels_etablissement
           - dgfip/liens_capitalistiques
+          - inpi/rne/beneficiaires_effectifs
         comments_endpoints:
           "insee/etablissements_diffusibles": "Préremplir les informations d'un **établissement et de son unité légale, à partir de son numéro de SIRET** : _raison sociale, forme juridique, catégorie micro/TPE/PME de l'unité légale. Tranche effectif (année N-2 ou N-3), activité principale et date de création de l'établissement et de l'unité légale. Indique aussi si l'unité légale est de l'économie sociale et solidaire (ESS)._"
 
@@ -1133,7 +1133,6 @@ fr:
           - insee/unites_legales_diffusibles
           - insee/siege_social_diffusibles
           - insee/successions
-          - inpi/rne/beneficiaires_effectifs
           - fabrique_numerique_ministeres_sociaux/conventions_collectives
           - douanes/immatriculation_eori
           - dgfip/chiffres_affaires
@@ -1156,6 +1155,7 @@ fr:
           - banque_de_france/bilans
           - dgfip/liasses_fiscales
           - dgfip/liens_capitalistiques
+          - inpi/rne/beneficiaires_effectifs
         comments_endpoints:
             "insee/etablissements_diffusibles": "<span class='fr-badge fr-badge--sm fr-badge--new'>Préremplissage</span> Préremplir les informations d'un **établissement et de son unité légale, à partir de son numéro de SIRET** : _raison sociale, forme juridique, catégorie micro/TPE/PME de l'unité légale. Tranche effectif (année N-2 ou N-3), activité principale et date de création de l'établissement et de l'unité légale. Indique aussi si l'unité légale est de l'économie sociale et solidaire (ESS)._"
 
