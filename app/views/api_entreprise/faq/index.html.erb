@@ -1,4 +1,4 @@
-<div class="fr-grid-row" <%= params[:disable_search].blank? ? 'data-controller=algolia-search-with-accordion-DISABLED' : '' %> data-algolia-search-with-accordion-index-value="APIEntreprise_FAQEntry" data-algolia-search-with-accordion-attributes-to-highlight-value='["question", "answer_markdownify"]'>
+<div class="fr-grid-row">
   <div class="fr-col-12">
     <div class="fr-grid-row fr-mb-2w">
       <div class="fr-col-12">
@@ -7,19 +7,6 @@
         </h1>
       </div>
 
-      <div class="fr-col-12 fr-hidden" data-algolia-search-with-accordion-target="searchBox">
-        <div class="fr-search-bar fr-search-bar--lg" id="faq_search_input" role="search">
-          <label class="fr-label" for="faq_search_input">
-            <%= t('.search_bar.label') %>
-          </label>
-
-          <input class="fr-input" placeholder="<%= t('.search_bar.placeholder') %>" type="search" name="faq_search_input">
-
-          <button class="fr-btn">
-            <%= t('.search_bar.button') %>
-          </button>
-        </div>
-      </div>
     </div>
 
     <div class="fr-grid-row fr-mt-2w">

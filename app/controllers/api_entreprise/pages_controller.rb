@@ -1,6 +1,4 @@
 class APIEntreprise::PagesController < APIEntrepriseController
-  helper AlgoliaQueryHelper
-
   after_action :skip_newsletter_banner!, only: %i[home newsletter]
 
   layout :page_layout

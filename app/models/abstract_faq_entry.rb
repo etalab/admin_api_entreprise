@@ -3,27 +3,15 @@
 require 'kramdown'
 require 'kramdown-parser-gfm'
 
-class AbstractFAQEntry < ApplicationAlgoliaSearchableActiveModel
+class AbstractFAQEntry
   include AbstractAPIClass
+  include ActiveModel::Model
 
   attr_accessor :question,
     :answer,
     :category,
     :position,
     :slug
-
-  algoliasearch_active_model do
-    attributes :question, :answer_markdownify, :category
-
-    searchableAttributes %w[
-      question
-      answer_markdownify
-    ]
-
-    attributesForFaceting %w[
-      category
-    ]
-  end
 
   def self.all
     I18n.t("#{api}.faq.categories").each_with_object([]) do |category, array|
