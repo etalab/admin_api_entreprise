@@ -76,7 +76,7 @@
       {:.fr-highlight.fr-highlight--caution}
       > ⚠️ **Cette API délivre des informations protégées**
       > **Pour faire du pré-remplissage dans un formulaire public**, nous vous recommandons d'utiliser l'[API délivrant uniquement de la donnée publique](<%= endpoint_path(uid: 'insee/unites_legales_diffusibles') %>).
-      Pour en savoir plus sur la façon d'utiliser les données des établissements "en diffusion partielle", consultez [cette rubrique](#utilisation-diffusion-partielle).
+      Pour en savoir plus sur la façon d'utiliser les données des établissements "en diffusion partielle" (environ 1 million d'établissements, essentiellement des entreprises individuelles), consultez [cette rubrique](#utilisation-diffusion-partielle).
   faq:
     - q: &insee_unites_legales_faq_q1 À quoi correspondent les états administratifs ? Une unité légale peut-elle être en activité alors que tous ses établissements sont fermés ?
       a: &insee_unites_legales_faq_a1 |+
@@ -116,7 +116,7 @@
       a: &insee_unites_legales_faq_a4 |+
         **La diffusion partielle commerciale :**
 
-        Parmi les entités présentes dans le répertoire Sirene, certaines, très majoritairement des personnes physiques, ont explicitement demandé de ne pas figurer en diffusion totale, afin de ne pas rendre publiques leurs données d'identification et de localisation.
+        Parmi les entités présentes dans le répertoire Sirene, certaines, très majoritairement des personnes physiques, ont explicitement demandé de ne pas figurer en diffusion totale, afin de ne pas rendre publiques leurs données d'identification et de localisation. L'Insee évalue leur nombre a plus d'un million d'établissements (chiffre 2025), essentiellement des entreprises individuelles.
 
         Ce [droit d'opposition tel que décrit à l'Article 21 du RGPD](https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre3#Article21){:target="_blank"} est valable pour les personnes physiques et morales mais s'applique de façon différente : 
         - pour les personnes morale, seuls les éléments de localisation sont protégés (géolocalisation, numéro et voie de l'adresse postale - la commune reste diffusible) ; 
@@ -170,7 +170,7 @@
 
       {:.fr-highlight}
       > 💡 **Seules des données publiques sont disponibles avec cette API**. 
-      > Pour obtenir les données protégées des établissements ["en diffusion partielle"](#definition-diffusion-partielle), veuillez utiliser [cette API](<%= endpoint_path(uid: 'insee/unites_legales') %>).
+      > Pour obtenir les données protégées des unités légales ["en diffusion partielle"](#definition-diffusion-partielle) (environ 1 million d'établissements, essentiellement des entreprises individuelles), veuillez utiliser [cette API](<%= endpoint_path(uid: 'insee/unites_legales') %>).
 
     geographical_scope_description: *insee_unites_legales_geographical_scope_description
     updating_rules_description: *insee_unites_legales_updating_rules_description
@@ -193,7 +193,7 @@
       - l'adresse des établissements, utilisez [cette API](<%= endpoint_path(uid: 'insee/adresse_etablissements_diffusibles') %>) ;
       - les informations du siège social, utilisez [cette API](<%= endpoint_path(uid: 'insee/siege_social_diffusibles') %>).
 
-      **Cette API délivre uniquement des données publiques**. Pour obtenir les données protégées des unités légales en ["diffusion partielle"](#definition-diffusion-partielle), utilisez [cette API](<%= endpoint_path(uid: 'insee/unites_legales') %>).
+      **Cette API délivre uniquement des données publiques**. Pour obtenir les données protégées des unités légales en ["diffusion partielle"](#definition-diffusion-partielle) (environ 1 million d'établissements, essentiellement des entreprises individuelles), utilisez [cette API](<%= endpoint_path(uid: 'insee/unites_legales') %>).
   faq:
     - q: *insee_unites_legales_faq_q1
       a: *insee_unites_legales_faq_a1
@@ -207,6 +207,6 @@
       a: |+
         Cette API délivre uniquement des données **publiques**. Par conséquent, vous pouvez utiliser les données disponibles dans tous vos services, qu'ils soient accessibles avec ou sans authentification.
         
-        Pour obtenir les données protégées des unités légales en "diffusion partielle", utilisez [cette API](<%= endpoint_path(uid: 'insee/unites_legales') %>).
+        Pour obtenir les données protégées des unités légales en "diffusion partielle" (environ 1 million d'établissements, essentiellement des entreprises individuelles), utilisez [cette API](<%= endpoint_path(uid: 'insee/unites_legales') %>).
     - q: *insee_unites_legales_faq_q6
       a: *insee_unites_legales_faq_a6
