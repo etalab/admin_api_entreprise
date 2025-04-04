@@ -60,7 +60,7 @@
       {:.fr-highlight.fr-highlight--caution}
       > ⚠️ **Cette API délivre des informations protégées**
       > **Pour faire du pré-remplissage dans un formulaire public**, nous vous recommandons d'utiliser l'[API délivrant uniquement de la donnée publique](<%= endpoint_path(uid: 'insee/adresse_etablissements_diffusibles') %>).
-      Pour en savoir plus sur la façon d'utiliser les données des établissements "en diffusion partielle" (environ 1 million d'entités), consultez [cette rubrique](#utilisation-diffusion-partielle).
+      Pour en savoir plus sur la façon d'utiliser les données des établissements "en diffusion partielle" (environ 1 million d'établissements), consultez [cette rubrique](#utilisation-diffusion-partielle).
   faq:
     - q: &insee_adresse_etablissement_faq_q1 Les adresses délivrées respectent-elles la norme postale ?
       a: &insee_adresse_etablissement_faq_a1 |+
@@ -70,7 +70,7 @@
       a: &insee_adresse_etablissement_faq_a2 |+
          **La diffusion partielle commerciale :**
 
-         Parmi les entités présentes dans le répertoire Sirene, certaines, très majoritairement des personnes physiques, ont explicitement demandé de ne pas figurer en diffusion totale, afin de ne pas rendre publiques leurs données d'identification et de localisation. L'Insee évalue leur nombre a plus d'un million (chiffre 2025).
+         Parmi les entités présentes dans le répertoire Sirene, certaines, très majoritairement des personnes physiques, ont explicitement demandé de ne pas figurer en diffusion totale, afin de ne pas rendre publiques leurs données d'identification et de localisation. L'Insee évalue leur nombre a plus d'un million d'établissements (chiffre 2025).
 
          Ce [droit d'opposition tel que décrit à l'Article 21 du RGPD](https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre3#Article21){:target="_blank"} est valable pour les personnes physiques et morales mais s'applique de façon différente : 
          - pour les personnes morale, seuls les éléments de localisation sont protégés (géolocalisation, numéro et voie de l'adresse postale - la commune reste diffusible) ; 
@@ -134,7 +134,7 @@
     description: |+
       Cette API délivre les informations de localisation d'un établissement, dont les éléments constitutifs de l'**adresse postale**.
 
-      **Cette API délivre uniquement des données publiques**. Pour obtenir les données protégées des établissements en ["diffusion partielle"](#definition-diffusion-partielle) (environ 1 million d'entités), utilisez [cette API](<%= endpoint_path(uid: 'insee/adresse_etablissement') %>).
+      **Cette API délivre uniquement des données publiques**. Pour obtenir les données protégées des établissements en ["diffusion partielle"](#definition-diffusion-partielle) (environ 1 million d'établissements), utilisez [cette API](<%= endpoint_path(uid: 'insee/adresse_etablissement') %>).
   faq:
     - q: *insee_adresse_etablissement_faq_q1
       a: *insee_adresse_etablissement_faq_a1
