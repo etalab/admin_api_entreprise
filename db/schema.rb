@@ -16,7 +16,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_04_085243) do
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
 
-  create_table "access_logs", id: false, force: false, if_not_exists: true do |t|
+  create_table "access_logs", id: false, force: :cascade do |t|
     t.timestamptz "timestamp"
     t.uuid "token_id"
   end
@@ -34,8 +34,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_04_085243) do
     t.string "siret"
     t.string "api", null: false
     t.string "demarche"
-    t.uuid "public_id"
     t.jsonb "extra_infos", default: {}
+    t.uuid "public_id"
     t.index ["external_id"], name: "index_authorization_requests_on_external_id", unique: true, where: "(external_id IS NOT NULL)"
   end
 
