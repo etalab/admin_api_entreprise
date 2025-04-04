@@ -60,8 +60,6 @@ gem 'sentry-ruby'
 
 gem 'kramdown-parser-gfm'
 
-gem 'algoliasearch-rails'
-
 gem 'listen'
 
 gem 'anchored'

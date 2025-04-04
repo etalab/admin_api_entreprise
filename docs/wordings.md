@@ -56,10 +56,6 @@ Pour chaque entrée, la clé `answer` est traduite du markdown au HTML (le
 markdown supporté est le [Github Flavored
 Markdown](https://github.github.com/gfm/))
 
-Par défaut la page affiche directement les résultats de Algolia, si vous voulez,
-en développement, afficher directement le texte que vous modifiez, ajouter à
-l'url `?disable_search`.
-
 Niveau éléments graphiques DSFR, une cheatsheet (des exemples sont aussi
 disponibles dans le fichier de locale):
 
