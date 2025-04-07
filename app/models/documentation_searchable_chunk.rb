@@ -1,19 +1,8 @@
-class DocumentationSearchableChunk < ApplicationAlgoliaSearchableActiveModel
+class DocumentationSearchableChunk
+  include ActiveModel::Model
+
   attr_reader :id
   attr_accessor :title, :anchor, :content, :page
-
-  algoliasearch_active_model do
-    attributes :title, :content, :page
-
-    searchableAttributes %w[
-      title
-      content
-    ]
-
-    attributesForFaceting %w[
-      page
-    ]
-  end
 
   def initialize(section, api_page_uid)
     @title = section[:title]

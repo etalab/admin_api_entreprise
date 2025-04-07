@@ -1,4 +1,4 @@
-<div id="catalogue" class="fr-mb-1v" <%= params[:disable_search].blank? ? 'data-controller=algolia-search-catalogue-DISABLED' : '' %> data-algolia-search-catalogue-index-value="APIEntreprise_Endpoint" data-algolia-search-catalogue-attributes-to-highlight-value='["title", "description"]'>
+<div id="catalogue" class="fr-mb-1v">
   <div class="banner-container">
     <div class="fr-container">
       <div class="fr-grid-row">
@@ -10,19 +10,6 @@
                   <%= t('.title') %>
                 </h1>
 
-                <div class="fr-col-12 fr-hidden" data-algolia-search-catalogue-target="searchBox">
-                  <div class="fr-search-bar fr-search-bar--lg fr-mb-8v" id="catalogue-search" role="search">
-                    <label class="fr-label" for="catalogue-search-input">
-                      <%= t('.search.label') %>
-                    </label>
-
-                    <input class="fr-input" placeholder="<%= t('.search.label') %>" type="search" id="catalogue-search-input" name="catalogue-search-input">
-
-                    <button class="fr-btn">
-                      <%= t('.search.button') %>
-                    </button>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
