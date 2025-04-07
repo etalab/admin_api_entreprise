@@ -217,7 +217,6 @@ produits pour itérer sur le site (que ce soit en terme de contenu ou fonctionne
 - [Design (CSS and stuff)](docs/design.md)
 - Technique
   - [Utilisation des modals avec Turbo](docs/tech-modal-turbo.md)
-  - [Utilisation d'Algolia](docs/tech-algolia.md)
 - Contenu
   - [Gestion des wordings (layouts, templates, FAQ)](docs/wordings.md)
   - [Ajout d'un nouvel endpoint dans le catalogue](docs/endpoint.md)

@@ -1,6 +1,7 @@
 # rubocop:disable Metrics/ClassLength
-class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
+class AbstractEndpoint
   include AbstractAPIClass
+  include ActiveModel::Model
 
   attr_accessor :uid,
     :path,
@@ -19,19 +20,6 @@ class AbstractEndpoint < ApplicationAlgoliaSearchableActiveModel
     :api_cgu
 
   attr_writer :new_endpoint_uids, :old_endpoint_uids
-
-  algoliasearch_active_model do
-    attributes :title, :description, :deprecated, :provider_uids, :keywords
-
-    searchableAttributes %w[
-      title
-      description
-      provider_uids
-      keywords
-    ]
-
-    attributesForFaceting %w[deprecated]
-  end
 
   def self.all
     endpoints_store_class.all.map do |endpoint|
