@@ -34,21 +34,25 @@
     geographical_scope_description:  |+
       - ✅ France métropolitaine
       - ✅ DROM COM
-      - ✅ Allocataires de nationalité étrangère
+      - ✅ Allocataires de nationalité étrangère résidant en France
     updating_rules_description: |+
-      Les données sont **mises à jour une fois par an, au mois de janvier**, cette API opérée par la CNAV (Caisse nationale d'assurance vieillesse) est reliée au système d'information de la Caisse nationale des allocations familiales (CNAF) et à celui de la mutualité sociale agricole (MSA).
+      Les données sont actualisées : 
+      - **une fois par an, au mois de janvier pour la base ressource** 
+      - **lorsqu'il y a un changement de situation pour les enfants à charge et le conjoint**
+      - **tous les 2, 3 ou 5 ans selon le taux d'incapacité pour le nombre d'ouverture de droit à l'allocatation d'éducation de l'enfant handicapé". 
+      Cette API opérée par la CNAV (Caisse nationale d'assurance vieillesse) est reliée au système d'information de la Caisse nationale des allocations familiales (CNAF) et à celui de la mutualité sociale agricole (MSA).
 
-      ⚠️ **Les informations obtenues sont représentatives de la situation connue par la CNAF et la MSA au moment de l'appel**, il est donc possible que les données appelées pour un mois donné à un instant T, soit différentes si elles sont redemandées à un instant T+. [En savoir plus](faq_entry_1_api_particulier_endpoint_cnav_prestation_de_service_unique).
+      ⚠️ **Les informations obtenues sont représentatives de la situation connue par la CNAF et la MSA au moment de l'appel**, il est donc possible que les données appelées pour un mois donné à un instant T, soient différentes si elles sont redemandées à un instant T+. [En savoir plus](faq_entry_1_api_particulier_endpoint_cnav_prestation_de_service_unique).
   data: 
     description: |+
       **Cette API délivre** :
-      - **la composition familiale** du particulier, [en savoir plus](#faq_entry_answer_2_api_particulier_endpoint_cnav_prestation_de_service_unique) ;
+      - **le foyer quotient familial** du particulier : **identités de l'allocataire et de son conjoint, identités des enfants au sens des prestations familiales**, [en savoir plus](#faq_entry_answer_2_api_particulier_endpoint_cnav_prestation_de_service_unique) ;
       - **l'adresse** du particulier au format de La Poste. ⚠️ Cette adresse est déclarative. Si l'usager a changé d'adresse et n'a pas actualisé son adresse auprès de la CAF ou de la MSA, l'information sera donc obsolète ;
-      - **les différents paramètres de calcul de la PSU, à savoir : le nombre d'enfants à charge, le nombre d’enfants en situation de handicap bénéficiaires de l’allocation d'éducation de l'enfant handicapé (AEEH), le montant et la date de calcul de la base prise en compte des ressources annuelles du foyer**. 
+      - **les différents paramètres de calcul de la participation familiale : le nombre d'enfants à charge au sens des prestations familiales, le nombre d’ouverture au droit à l’allocation d'éducation de l'enfant handicapé (AEEH), la base ressource prestation de service unique (PSU) : montant et la date de calcul**. 
       {:.fr-highlight}
 
       {:.fr-highlight.fr-highlight--caution}
-      > **Le montant des ressources annuelles ainsi que l'année de calcul sont remontés seulement pour les allocataires dont les ressources sont déclarées**. En effet, la CNAF et la MSA collectent auprès de la DGFIP les ressources de l'individu (revenus salariés et non-salariés, du capital, rentes ...). Elles récupèrent le bilan en fin d'année pour mettre à jour ces informations dans l'API en janvier. Sans la réception de ces ressources, l'API renverra une erreur car si il manque un paramètre de calcul de la PSU, l'API ne restitue pas les autres informations. 
+      > **Le montant de la base ressource ainsi que l'année de calcul sont remontés seulement pour les allocataires dont les ressources sont déclarées**. En effet, la CNAF et la MSA collectent auprès de la DGFIP les ressources de l'individu (revenus salariés et non-salariés, du capital, rentes ...). Elles récupèrent le bilan en fin d'année pour mettre à jour ces informations en janvier. Sans la réception de ces ressources, l'API renverra une erreur car si il manque un paramètre de calcul de la PSU, l'API ne restitue pas les autres informations. 
     know_more_description: |+
       [Pour en savoir plus sur la PSU et les règles d'attribution de cette aide aux établissements d'accueil du jeune enfant](#qu-est-ce-que-la-psu)
 
@@ -109,6 +113,10 @@
     - Identité pivot
     - FranceConnect
   keywords:
+    - participation famililale dans les établissements d'accueil du jeune enfant
+    - EAJE
+    - crèche
+    - multi accueil
     - psu
     - prestation de service unique
     - aeeh
