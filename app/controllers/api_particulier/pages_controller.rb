@@ -30,7 +30,7 @@ class APIParticulier::PagesController < APIParticulierController
   end
 
   def redoc_v2
-    render 'shared/pages/redoc'
+    render 'shared/pages/redoc_v2'
   end
 
   def redoc_v3
