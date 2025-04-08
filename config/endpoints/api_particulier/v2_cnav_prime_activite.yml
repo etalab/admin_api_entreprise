@@ -1,24 +1,30 @@
 ---
-- uid: 'cnav/complementaire_sante_solidaire'
+- uid: 'cnav/v2/prime_activite'
   opening: protected
-  old_endpoint_uids:
-    - 'cnav/v2/complementaire_sante_solidaire'
-  path: '/v3/dss/complementaire_sante_solidaire/identite'
-  position: 950
-  ping_url: 'https://particulier.api.gouv.fr/api/securite_sociale_complementaire_sante_solidaire/ping'
+  new_endpoint_uids:
+    - 'cnav/prime_activite'
+  path: '/api/v2/prime-activite'
+  swagger_version: 2
+  ping_url: 'https://particulier.api.gouv.fr/api/caf/ping'
+  position: 700
   perimeter:
     entity_type_description: |+
-      ✅ **Le périmètre de l'API est exhaustif et couvre tous les assurés** de la sphère sociale susceptibles d'être concernés par la complémentaire de santé solidaire ([C2S](#faq_entry_0_api_particulier_endpoint_cnav_complementaire_sante_solidaire)).
-    geographical_scope_description:  |+
-      - ✅ France métropolitaine
-      - ✅ Départements d'Outre-mer
-      - ✅ Assurés de nationalité étrangère
-      - ❌ Les collectivtés d'Outre-mer, ayant un autre système de sécurité sociale, ne sont pas concernées par cette API.
-    updating_rules_description: |+
-      Les données sont **mises à jour en temps réel** et issues du répertoire national commun de la protection sociale (RNCPS) opéré par la CNAV (Caisse nationale d'assurance vieillesse). Les données du répertoire sont remontées directement par les différents organismes comme la CNAM pour les assurés du régime général et la MSA pour les assurés au régime agricole.
+        ✅ Le périmètre de l’API est _a priori_ exhaustif et couvre tous les bénéficiaires de la prime d'activité (PPA).
+
+        {:.fr-highlight}
+        > Les enfants d'un allocataire de la prime d'activité ne sont pas considérés comme des bénéficiaires.
+
+        ⚙️ Vérification en cours avec le fournisseur de données pour confirmer le périmètre exact.
+    geographical_scope_description: |+
+      - ✅ France Métropolitaine
+      - ✅ Départements d’Outre-mer
+      - ❌ Les collectivités d’Outre-mer, ayant un autre système de sécurité sociale, ne sont pas concernées par cette API.
+      - ⚙️ Personne de nationalité étrangère - Vérification en cours avec le fournisseur de la donnée pour confirmer la prise en charge. D'un point de vue métier, des prestations sont bien délivrées à une personne étrangère ayant un numéro d'immatriculation en attente (NIA) mais nous ne savons pas encore si le NIA est supporté par l'API.
+    updating_rules_description:
+      Les données sont **mises à jour en temps réel** et issues du répertoire national commun de la protection sociale (RNCPS) opéré par la CNAV (Caisse nationale d’assurance vieillesse). Les données du répertoire sont remontées directement par les différents organismes comme la CNAF pour les assurés du régime général et la MSA pour les assurés au régime agricole.
   parameters_details:
     description: |+
-      Cette API propose 2 modalités d'appel :
+      Cette API propose deux modalités d'appel :
       <p class="fr-badge fr-badge--blue-ecume">![Cette API est FranceConnectée](<%= image_path('api_particulier/cas_usages/pictos/modalite_appel_france_connect.svg') %>){:width="20px"} FranceConnect</p>
       **Avec la [modalité d'appel FranceConnect](<%= cas_usage_path('modalite_appel_france_connect') %>)**.
 
@@ -47,37 +53,24 @@
       > ⚠️ **Message API Particulier du 04.06.2024** : Nous avons constaté que les appels effectués sans nom de naissance et **avec le nom d'usage ne fonctionnent pas** dans une très grande partie des cas. Après investigation auprès de la CNAV (opérateur de l'API source), API Particulier a donc décidé de passer le paramètre "Nom de naissance" en obligatoire.
   data:
     description: |+
-      Cette API **indique si le particulier est bénéficiaire de la complémentaire santé solidaire**. En précisant :
-      - si la C2S est avec ou sans participation financière ;
-      - la date d'ouverture du droit.
+      Cette API **indique si le particulier est bénéficiaire de la prime d'activité**. En précisant :
+        - la date d'ouverture du droit ;
+        - la date de fermeture du droit.
   provider_uids:
-    - 'sphere_sociale'
+    - 'cnav'
   keywords:
-    - complementaire
-    - sante
-    - solidaire
-    - C2S
-    - assuré
-    - assurance maladie
-    - mutuelle
+    - prime
+    - emploi
+    - activité
+    - ppa
+    - pa
   call_id:
     - Identité pivot
     - FranceConnect
-  parameters:
+  parameters: 
     - Identité pivot
     - FranceConnect
   faq:
-    - q: "Qu'est-ce qu'une complémentaire santé solidaire ?"
-      a: |+
-        La complémentaire santé solidaire est une **aide versée par l'assurance maladie sous conditions de ressources et de résidence**. Elle prend en charge la part des dépenses de santé qui ne sont pas remboursées par la sécurité sociale et permet d'accéder à d'autres avantages.
-
-        La complémentaire santé solidaire peut être :
-        - gratuite, indiquée par _"sans participation"_ dans cette API ;
-        - payante à partir d'un certain montant de ressources, indiquée par _"avec participation"_ dans cette API.
-
-
-        **En savoir plus sur le dispositif** : [service-public.fr](https://www.service-public.fr/particuliers/vosdroits/F10027){:target="_blank"}.
-        **En savoir plus sur les conditions d'accès** : [complementaire-sante-solidaire.gouv.fr](https://www.complementaire-sante-solidaire.gouv.fr/complementairesantesolidaire.php){:target="_blank"}.
     - q: <a name="renseigner-lieu-de-naissance"></a> Appel avec l'identité pivot, comment renseigner le lieu de naissance ?
       a: |+
        Lorsque l'API est appelée avec l'identité pivot, pour identifier correctement le particulier, le système d'information a besoin de récupérer le lieu de naissance du particulier.
@@ -94,11 +87,4 @@
 
         {:.fr-highlight}
         > **Le code COG du pays de naissance est obligatoire pour tous les appels.** Pour simplifier le parcours des usagers, évitez de demander aux particuliers nés en France de saisir leur pays de naissance, puisque vous pouvez le paramétrer directement -code COG pays France `99100`-, dès qu'un particuloer renseigne les informations de sa commune de naissance (forcément en France).
-
-  historique: |+
-    **Ce que change le passage à la V.3 d'API Particulier:**
-
-    - Suppression de la date de fin car cette donnée était calculée et présentait le risque de ne pas être juste dans toutes les situations ;
-    - Tous les changements sont décrits dans la [table de correspondance du guide migration](/blog/migration-api-particulier-v3#correspondance-api-statut-c2s){:target="_blank"}
-
 
