@@ -39,14 +39,24 @@
     - 'droit de vote'
   data:
     description: |+
-      Cette API délivre la **liste des bénéficiaires effectifs de l'unité légale** et permet de comprendre en détail sous quelles modalités le contrôle est exercé par le bénéficiaire effectif sur l'unité légale. [En savoir plus sur les caractéristiques qui font qu'une personne physique est considérée comme bénéficiaire effectif](#faq_entry_answer_0_api_entreprise_endpoint_inpi_rne_beneficiaires_effectifs).
+      Cette API délivre la **liste des bénéficiaires effectifs de l'unité légale** et permet de comprendre en détail sous quelles modalités le contrôle est exercé par le bénéficiaire effectif sur l'unité légale. [En savoir plus sur les caractéristiques qui font qu'une personne physique est considérée comme bénéficiaire effectif](#criteres-beneficiaire-effectif).
+
+      {:.fr-highlight.fr-highlight--caution}
+      > **Un accès uniquement pour le cas d'usage détection de la fraude.**
+      > Seules les autorités listées dans le [2° de l'article L561-46 du Code monétaire et financier](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000041578272/){:target="_blank"} sont autorisées à accéder aux bénéficiaires effectifs. 
+      > L'API Entreprise ne délivre des accès à cette API que pour le cas d'usage *Détection de la fraude*. 
+      
+      {:.fr-highlight}
+      > **L'API liens capitalistiques comme alternative**
+      > En cas de besoin pour les cas d'usages *Aides publiques* ou *Marchés publics*, l'[API liens capitalistiques](<%= endpoint_path(uid: 'dgfip/liens_capitalistiques')%>) constitue une bonne alternative. [Comprendre la différence entre l'API bénéficiaires effectifs et l'API liens capitalistiques](#difference-api-rbe-api-liens-capitalistiques)
+    
   opening: protected
   parameters:
     - Numéro de SIREN de l'unité légale
   format:
     - Donnée structurée JSON
   faq:
-    - q: Caractéristiques définissant un bénéficiaire effectif
+    - q: <a name="criteres-beneficiaire-effectif"></a>Caractéristiques définissant un bénéficiaire effectif
       a: |+
         Selon la [définition donnée par l'Inpi](https://www.inpi.fr/qui-sont-les-beneficiaires-effectifs-d-une-societe){:target="_blank"} :
 
@@ -102,6 +112,16 @@
         - aux personnes assujetties à la lutte contre le blanchiment des capitaux et le financement du terrorisme mentionnées à [l'article L. 561-2 du code monétaire et financier](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000042648575/).
 
         Si vous êtes éligible vous pouvez déposer une demande d'accès [auprès de l'INPI](https://www.inpi.fr/beneficiaires-effectifs).
-
-
-
+    - q: <a name="difference-api-rbe-api-liens-capitalistiques"></a>Quelle différence entre l'API bénéficiaires effectifs et l'API liens capitalistiques ?
+      a: |+
+        Contrairement à l'[API liens capitalistiques](<%= endpoint_path(uid: 'dgfip/liens_capitalistiques')%>) qui permet d'identifier des détentions en capital de personnes morales, **l'API bénéficiaires effectifs est focalisée sur les personnes physiques** dont l'implication dans l'entreprise recherchée correspond aux [critères définissant un bénéficiaire effectif](#criteres-beneficiaire-effectif). Elle permet donc d'identifier d'**autres types d'intérêts que la seule détention du capital**.
+        
+        {:.fr-table}
+        | Type de liens avec l'entreprise                                 | API Bénéficiaires effectifs | API liens capitalistiques |
+        |:-----------------------------------------------------------------|:---------------------------:|:---------------------------:|
+        | Actionnaires personnes physiques                                | ✅                         | ✅                         |
+        | Actionnaires personnes physiques avec moins de 25 % des parts | ❌                         | ✅                         |
+        | Personnes physiques ayant plus de 25% de droit de vote<br/>(🧐 _Information en cours de vérification_)        | ✅                         | ❌                         |
+        | Personnes physiques détenant un autre moyen de contrôle<br/>(🧐 _Information en cours de vérification_)                | ✅                         | ❌                         |
+        | Actionnaires personnes morales                                  | ❌                         | ✅                         |
+        | Personnes morales dont une partie du capital est détenu par l'entité appelée                                  | ❌                         | ✅                         |
