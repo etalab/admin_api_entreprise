@@ -1,11 +1,16 @@
 ---
-- uid: 'education_nationale/statut_eleve_scolarise'
+- uid: 'education_nationale/v2/statut_eleve_scolarise'
   opening: protected
-  old_endpoint_uids:
-    - 'education_nationale/v2/statut_eleve_scolarise'
-  path: '/v3/men/scolarites/identite'
+  new_endpoint_uids:
+    - 'education_nationale/statut_eleve_scolarise'
+  path: '/api/v2/scolarites'
+  swagger_version: 2
   ping_url: 'https://particulier.api.gouv.fr/api/men_scolarite/ping'
   position: 500
+  alert:
+    title: "Données de bourse indisponibles"
+    description: |+
+      Cette API ne délivre plus de données en lien avec la bourse depuis décembre 2024 : statut boursier et échelon de la bourse. La notion de bourse sera réintroduite dans l'API courant 2025.
   perimeter:
     entity_type_description: |+
       Cette API concerne les **✅ élèves de la maternelle, du primaire, du collège et du lycée**.
@@ -16,6 +21,8 @@
       - ✅ lycées militaires dépendant du ministère des armées ;
       - ✅ lycées maritimes dépendant du ministère de la mer ;
       - ✅ une partie des formations à distance du CNED.
+
+      **Concernant le statut boursier des élèves** : seules les bourses sur critères sociaux à l'échelle nationale sont couvertes par l'API. Par ailleurs, les bourses ne concernent que les collégiens et lycéens.
 
 
       **Les établissements et formations suivants ne sont pas couverts par l'API** :
@@ -32,6 +39,9 @@
       Les données du **premier degré** (primaire) sont mises à jour en **temps réel**. Les données du **second degré** (collèges et lycées) sont mises à jour **quotidiennement toutes les nuits**.
 
       Les informations, même si elles évoluent principalement lors de la rentrée scolaire en septembre, peuvent changer en cours d'année (déménagements, etc.).
+
+      {:.fr-highlight.fr-highlight--caution}
+      Attention, si un élève est indiqué "non-boursier" avant mi-octobre, il ne faut pas prendre en compte cette information. Le **statut non-boursier est véritablement fiable à partir de mi-octobre**. [En savoir plus](#faq_entry_answer_1_api_particulier_endpoint_education_nationale_statut_eleve_scolarise).
   parameters_details:
     description: |+
       Cette API propose une modalité d'appel :
@@ -42,7 +52,7 @@
       </span>
   data:
     description: |+
-      Cette API **indique si l'élève est scolarisé et sous quel statut** pour l'[année scolaire en cours et bientôt N+1](#faq_entry_0_api_particulier_endpoint_education_nationale_statut_eleve_scolarise).
+      Cette API **indique si l'élève est scolarisé et sous quel statut** pour l'[année scolaire en cours et bientôt N+1](#faq_entry_0_api_particulier_endpoint_education_nationale_statut_eleve_scolarise). Le statut boursier ainsi que l'échelon de bourse est également précisé le cas échéant.
   provider_uids:
     - 'education_nationale'
   keywords: []
@@ -60,7 +70,8 @@
         - ✅ Pour les **élèves du premier degrés**, les données de l'année scolaire en cours sont accessibles ; et spécifiquement pour le premier degré, uniquement à partir du lendemain de la rentrée ;
         - ✅ Pour les **élèves du second degré**, les données de l'année scolaire n+1 sont accessibles fin juin pour les collégiens et fin août pour les lycéens. 
         - ⚠️ Pour les **élèves des établissements privés**, le constat de rentrée obligatoire pour ces établissements se fait fréquemment en octobre. Par conséquent, il peut arriver qu'au mois de septembre, l'API n'ait pas connaissance du statut d'un élève si celui-ci vise à être scolarisé dans l'établissement privé.
-
+        - ⚠️ Le **statut boursier est un peu plus complexe** : du fait d'une purge de la base de donnée fin août, il peut arriver que les données soient indisponibles jusqu'en septembre inclus.
+        <br>
 
         #### Bientôt l'année scolaire N+1 :
         Dans le cadre de démarches administratives, il peut être utile de connaître le statut scolarisé en avance de phase par rapport à la rentrée. _Par exemple, connaître dès juin, le statut de l'élève pour septembre_. À ce jour l'API n'est pas en mesure de délivrer ces informations pour toutes les situations :
@@ -70,12 +81,19 @@
 
         {:.fr-highlight}
         ⚠️ Les données transmises pour l'année scolaire N+1 sont et seront toujours des informations susceptibles d'évoluer car l'élève peut changer d'avis jusqu'à la rentrée.
-   
-  historique: |+
-    **Ce que change le passage à la V.3 d'API Particulier:**
+    - q: Pourquoi le statut non-boursier est-il fiable seulement à partir de mi-octobre ?
+      a: |+
+        Pour cette première mouture de l'API scolarité de l'élève, le statut boursier n'est pas encore complètement fiable.
+        Au mois d'août de chaque année, la **base des élèves boursiers est entièrement purgée**. La constitution de la base des élèves boursiers est donc refaite chaque année au compte-goutte, à partir des transmissions des établissements.
 
-    - Suppression des données de bourse : le fournisseur de données ne renvoie plus le statut boursier ;
-    - Ajout de nouvelles données : Le module élémentaire de formation, ainsi que le ministère de tutelle de l’établissement sont désormais indiqués ;
-    - Les données d'identité ne sont plus renvoyées lorsque la modalité d'appel est FranceConnect ;
-    - Tous les changements sont décrits dans la [table de correspondance du guide migration](/blog/migration-api-particulier-v3#correspondance-api-statut-eleve-scolarise){:target="_blank"}
+        **Par conséquent, jusqu'à mi-octobre** :
+        - le **statut non-boursier** (`"est_boursier" : "false"`) peut représenter deux situations :
+            - l'élève n'est pas boursier ;
+            - le statut boursier est inconnu par l'API.
+        - le **statut boursier positif** (`"est_boursier" : "true"`) **est fiable.**
 
+        <br>
+        Le Ministère de l'éducation nationale est en recherche d'une meilleure alternative dont le calendrier pourrait être 2024.
+    - q: À quoi correspondent les échelons de bourse ?
+      a:
+        "Il existe trois échelons de bourses pour les collégiens, de 1 à 3 et six échelons pour les lycéens, de 1 à 6. Chaque échelon de bourse indique **le montant reçu par l'élève pour l'année scolaire**. Le montant de la bourse dépend d'un barème en fonction du revenu fiscal et du nombre enfants à charge du foyer."
