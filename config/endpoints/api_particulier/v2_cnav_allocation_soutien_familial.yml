@@ -1,17 +1,16 @@
----
-- uid: 'cnav/allocation_adulte_handicape'
-  opening: protected
-  old_endpoint_uids:
-    - 'cnav/v2/allocation_adulte_handicape'
-  path: '/v3/dss/allocation_adulte_handicape/identite'
-  ping_url: 'https://particulier.api.gouv.fr/api/caf/ping'
-  position: 800
-  perimeter:
-    entity_type_description: |+
-        ✅ Le périmètre de l’API est _a priori_ exhaustif et couvre tous les bénéficiaires de l'allocation adulte handicapé (AAH).
 
-        {:.fr-highlight}
-        > Pour les ménages en couple, il peut y avoir plusieurs attributaires, c'est-à-dire, plusieurs personnes auxquelles l'AAH est versée. Dans ce cas, quelque soit l'attributaire qui sera intérrogé, l'API indiquera qu'il est bénéficiaire.
+---
+- uid: 'cnav/v2/allocation_soutien_familial'
+  opening: protected
+  new_endpoint_uids:
+    - 'cnav/allocation_soutien_familial'
+  path: '/api/v2/allocation-soutien-familial'
+  swagger_version: 2
+  ping_url: 'https://particulier.api.gouv.fr/api/caf/ping'
+  position: 900
+  perimeter:
+    entity_type_description:
+        ✅ Le périmètre de l’API est _a priori_ exhaustif et couvre tous les bénéficiaires de l'allocation de soutien familial (ASF).
 
         ⚙️ Vérification en cours avec le fournisseur de données pour confirmer le périmètre exact.
     geographical_scope_description: |+
@@ -40,7 +39,6 @@
               Pour chacune des deux options ci-dessus, le code COG de la France `99100`<sup>\*</sup> doit également être renseigné en paramètre d'appel. Vous n'avez pas besoin de le demander à l'usager, il peut être déduit de la commune de naissance.
             - *Si le lieu de naissance est à l'étranger&nbsp;:* code COG du pays de naissance<sup>\*</sup>.
 
-
       <span class="fr-text--xs">
       <sup>\*</sup> Obligatoire | <sup>\**</sup> Obligatoire pour l'option 2 du lieu de naissance.
       </span>
@@ -48,19 +46,20 @@
       <sup>1</sup> Fournir plusieurs prénoms permet de limiter les risques d'homonymie mais un seul prénom peut fonctionner. Attention, l'usager doit compléter chaque prénom dans un champ distinct.
       </span>
 
-      
+      {:.fr-highlight.fr-highlight--caution}
+      > ⚠️ **Message API Particulier du 04.06.2024** : Nous avons constaté que les appels effectués sans nom de naissance et **avec le nom d'usage ne fonctionnent pas** dans une très grande partie des cas. Après investigation auprès de la CNAV (opérateur de l'API source), API Particulier a donc décidé de passer le paramètre "Nom de naissance" en obligatoire.
   data:
     description: |+
-      Cette API **indique si le particulier est bénéficiaire de l'allocation adulte handicapé**. En précisant :
+      Cette API **indique si le particulier est bénéficiaire de l'allocation de soutien familial**. En précisant :
         - la date d'ouverture du droit ;
         - la date de fermeture du droit.
   provider_uids:
     - 'cnav'
   keywords:
-    - handicap
     - allocation
     - aides
-    - aah
+    - famille
+    - asf
   call_id: 
     - Identité pivot
     - FranceConnect
@@ -84,12 +83,3 @@
 
         {:.fr-highlight}
         > **Le code COG du pays de naissance est obligatoire pour tous les appels.** Pour simplifier le parcours des usagers, évitez de demander aux particuliers nés en France de saisir leur pays de naissance, puisque vous pouvez le paramétrer directement -code COG pays France `99100`-, dès qu'un particuloer renseigne les informations de sa commune de naissance (forcément en France).
-  historique: |+
-    **Ce que change le passage à la V.3 d'API Particulier:**
-
-    - Le passage à la V.3 n'a pas eu d'impact sur la donnée distribuée qui reste identique ; 
-    - Tous les changements sont décrits dans la [table de correspondance du guide migration](/blog/migration-api-particulier-v3#correspondance-api-statut-aah){:target="_blank"}
-
-
-
-
