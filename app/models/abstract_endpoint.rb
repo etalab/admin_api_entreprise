@@ -4,6 +4,7 @@ class AbstractEndpoint
   include ActiveModel::Model
 
   attr_accessor :uid,
+    :swagger_version,
     :path,
     :beta,
     :alert,
@@ -23,6 +24,8 @@ class AbstractEndpoint
 
   def self.all
     endpoints_store_class.all.map do |endpoint|
+      APIParticulier::EndpointV2.new(endpoint) if api_particulier_v2?(endpoint)
+
       new(endpoint)
     end
   end
@@ -32,7 +35,13 @@ class AbstractEndpoint
 
     raise not_found(uid) if available_endpoint.blank?
 
+    return APIParticulier::EndpointV2.new(available_endpoint) if api_particulier_v2?(available_endpoint)
+
     new(available_endpoint)
+  end
+
+  def self.api_particulier_v2?(endpoint)
+    api == 'api_particulier' && endpoint['swagger_version'] == 2
   end
 
   def self.not_found(uid)
