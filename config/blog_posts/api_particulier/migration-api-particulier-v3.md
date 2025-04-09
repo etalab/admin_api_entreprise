@@ -399,7 +399,7 @@ Suite aux changements de structure de l'API, les scopes (droits d'accès) ont é
 {:.fr-h6 .fr-mt-2w}
 #### Scopes : 
 - Un nouveau scope a été créé, permettant d'accéder à la donnée `identite` autrefois par défaut incluse lorsque l'API était demandée. **Ce scope sera par défaut distribué aux utilisateurs ayant déjà un accès l'API Statut élève V.2.**
-- Un nouveau scope a été créé pour la nouvelle donnée `module_elementaire_formation`, **pour accéder à cette novuelle donnée, veuillez faire une demande de modification de votre habilitation depuis votre [compte utilisateur](<%= user_profile_path %>)**.
+- Un nouveau scope a été créé pour la nouvelle donnée `module_elementaire_formation`, **pour accéder à cette nouvelle donnée, veuillez faire une demande de modification de votre habilitation depuis votre [compte utilisateur](<%= user_profile_path %>)**.
 
 
 {:.fr-h6 .fr-mt-4w}
