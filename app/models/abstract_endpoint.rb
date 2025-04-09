@@ -139,6 +139,11 @@ class AbstractEndpoint
     @redoc_anchor ||= "tag/#{tag_for_redoc}/paths/#{path_for_redoc}/get"
   end
 
+  def tag_for_redoc
+    uid_without_prefix = @endpoint.uid.sub(/^v\d+\//, '') # retire "v2/", "v3/", etc.
+    uid_without_prefix.tr('/', '-')
+  end
+
   def example_payload
     @example_payload ||= response_schema['example'] ||
                          OpenAPISchemaToExample.new(response_schema).perform

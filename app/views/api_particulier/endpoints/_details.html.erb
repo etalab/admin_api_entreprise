@@ -58,9 +58,18 @@
     <%= t('.technical_specifications.title') %>
   </h3>
 
-  <%= link_to t('.technical_specifications.cta'), developers_openapi_path(anchor: @endpoint.redoc_anchor), data: { turbo: false }, class: %(fr-btn fr-btn--icon-right fr-icon-arrow-right-line) %>
+   <% if @endpoint.swagger_version.present? %>
+   
+    <%= link_to t('.technical_specifications.cta'), 
+    "https://particulier.api.gouv.fr/developpeurs/openapi-v2##{@endpoint.redoc_anchor}", 
+    data: { turbo: false }, 
+    class: "fr-btn fr-btn--icon-right fr-icon-arrow-right-line" %>
 
-  <a href="<%= @endpoint.test_cases_external_url %>" target="_blank" class="fr-btn fr-btn--secondary fr-mt-2w">
-    <%= t('.test_cases') %>
-  </a>
+  <% else %>
+    <%= link_to t('.technical_specifications.cta'), developers_openapi_path(anchor: @endpoint.redoc_anchor), data: { turbo: false }, class: %(fr-btn fr-btn--icon-right fr-icon-arrow-right-line) %>
+
+    <a href="<%= @endpoint.test_cases_external_url %>" target="_blank" class="fr-btn fr-btn--secondary fr-mt-2w">
+      <%= t('.test_cases') %>
+    </a>
+  <% end %>
 </div>
