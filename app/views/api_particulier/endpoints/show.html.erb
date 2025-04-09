@@ -112,7 +112,7 @@
             <ul>
               <% @endpoint.new_endpoints.each do |endpoint| %>
                 <li>
-                  <%= link_to endpoint.title, endpoint_path(uid: endpoint.uid) %>
+                  <%= link_to endpoint.uid, endpoint_path(uid: endpoint.uid) %>
                 </li>
               <% end %>
             </ul>

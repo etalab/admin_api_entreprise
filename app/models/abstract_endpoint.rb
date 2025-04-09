@@ -57,9 +57,13 @@ class AbstractEndpoint
   end
 
   def title
-    @title ||= open_api_definition['summary'].gsub(/\[.*?\]/, '').strip
+    if open_api_definition.present? && open_api_definition['summary'].present?
+      @title ||= open_api_definition['summary'].gsub(/\[.*?\]/, '').strip
+    else
+      @title ||= "Titre indisponible"
+    end
   end
-
+  
   def description
     @description ||= open_api_definition['description']
   end
