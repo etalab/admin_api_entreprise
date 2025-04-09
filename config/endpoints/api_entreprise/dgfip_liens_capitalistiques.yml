@@ -6,7 +6,7 @@
   position: 245
   perimeter:
     entity_type_description: |+
-      Cette API délivre **liens capitalistiques** des entreprises :
+      Cette API délivre les **liens capitalistiques** des entreprises :
       - ✅ soumises à l’impôt sur les sociétés (IS)* ;
       - ✅ soumises à l’impôt sur les sociétés dû par le groupe (IS GROUPE)*;
       - ✅ aux bénéfices industriels et commerciaux (BIC)* ;
@@ -46,11 +46,21 @@
 
   data:
     description: |+
-      Cette API permet de récupérer **la composition du capital** (liste des actionnaires, pourcentage de détention, type de personne, adresses, etc.) et **la liste des participations** (filiales détenues par l’entreprise).
+      Cette API permet de récupérer les données déclaratives provenant de deux cerfas des liasses fiscales : 
+      - **la liste des actionnaires (personnes physiques ou morales) détenant directement au moins 10% du capital** de l'unité légale appelée (_Cerfa 2059F_) ;
+      - **la liste des filiales et participations détenues à au moins 10% de leur capital** par l'unité légale appelée (_Cerfa 2059G_).
 
-      Les données transmises sont déclaratives et proviennent de deux CERFA des liasses fiscales déposées auprès de la DGFIP :
-      - **CERFA 2059F&nbsp;:** Composition du capital social (actionnaires, répartition, etc.)
-      - **CERFA 2059G&nbsp;:** Participations (filiales et leurs adresses).
+
+      <div class="fr-download">
+        <p>
+          <a href="/files/cerfa-2059f-2059g.pdf" download class="fr-download__link">
+        Télécharger les Cerfa 2059F et 2059G
+          <span class="fr-download__detail">
+          PDF – 213 ko | version 2025
+          </span>
+          </a>
+        </p>
+      </div>
     
       [Liste exhaustive des codes nref renvoyés par l'API](#liste-codes-nref).
 
