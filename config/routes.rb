@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   get '/admin', to: redirect('/admin/users')
 
+  get '/what', to: ->(env) { [200, { 'Content-Type' => 'text/plain' }, ['ever']] }
+
   namespace :admin do
     resources :users, only: %i[index edit update] do
       post :impersonate, on: :member
