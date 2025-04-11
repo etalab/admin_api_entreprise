@@ -1,5 +1,7 @@
 ---
-# L'UID sert à identifier cette entrée de manière unique, et est utilisé pour l'URL de la fiche métier
+# L'UID sert à identifier cette entrée de manière unique, et est utilisé pour l'URL de la fiche métier.
+# On utilise en général <provider>/<resource>
+# N'importe quelle valeur fonctionne tant qu'elle est unique
 - uid: 'pole_emploi/situation'
   # Ne peut être que public ou protected
   opening: public
@@ -18,9 +20,10 @@
   # Le path est '/api/v2/paiements-pole-emploi' (copier ligne 2272)
   # Swagger Particulier v2 ici : https://github.com/etalab/siade/blob/develop/swagger/openapi-particulierv2.yaml
   # Swagger Particulier v3 ici : https://github.com/etalab/siade/blob/develop/swagger/openapi-particulier.yaml
+  # En cas de 2 routes selon modalité Identité VS FranceConnect, mettre la route qui finit en /identite
   path: '/api/v2/paiements-pole-emploi'
   # Position au sein de l'index
-  # Ce chiffre détermine l'ordre d'affichage dans le catalogue : La fiche avec position 1 sera avant la fiche 2
+  # Ce chiffre (arbitraire) détermine l'ordre d'affichage dans le catalogue : La fiche avec position 1 sera avant la fiche 2
   position: 200
   # Facultatif: dans le cas où une nouvelle version est disponible;
   # L'ancienne version doit avoir la clef 'old_endpoint_uids' avec la valeur de l'UID actuel (ici, 'pole_emploi/situation')
