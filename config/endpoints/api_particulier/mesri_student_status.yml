@@ -64,18 +64,13 @@
   data:
     description: |+
       Cette API délivre la **liste des admissions d'un étudiant**, en précisant pour chacune d'elles : 
-      - si l'étudiant est isncrit ;
+      - si l'étudiant est inscrit, en savoir plus sur la [différence entre le statut inscrit et admis](#diff-statut-admis-inscrit) ;
       - les dates de début et de fin d'études ; 
       - le régime de formation
       - le lieu et l'établissement d'études. 
       
       {:.fr-highlight}
-      💡 L'obtention de ces informations permet d'éviter de demander un certificat étudiant.
-
-      {:.fr-highlight fr-highlight--caution"}
-      > ⚠️ **Tous les établissements ne délivrent pas les informations des étudiants admis**. Par conséquent si l'API ne vous renvoie pas d'informations concernant un particulier, il n'est pas possible de considérer de façon définitive que cet étudiant n'est pas admis.
-      >
-      > En savoir plus sur la [différence entre le statut inscrit et admis](#diff-statut-admis-inscrit).
+      💡 Ces informations sont l'équivalent d'un certificat étudiant.
   provider_uids:
     - 'mesri'
   keywords: []
@@ -107,4 +102,7 @@
     - Afin de faciliter la compréhension de l’API, la liste "Inscriptions" a été renommée en "Admissions". En effet, c’est bien la liste des admissions qui est délivrée pour chaque étudiant. Parmi elles, l’étudiant peut être allé jusqu’à l’inscription, qui est alors indiquée par le champ "Statut étudiant inscrit".
     - Tous les changements sont décrits dans la [table de correspondance du guide migration](/blog/migration-api-particulier-v3#correspondance-api-statut-etudiant){:target="_blank"}
 
-
+  api_cgu:
+    description: |+
+      {:.fr-highlight}
+      > 💡 Dans la mesure où l’API ne couvre pas l’ensemble des étudiants, il est nécessaire de prévoir dans votre service **un mécanisme alternatif permettant aux usagers de transmettre manuellement leur certificat de scolarité**.
