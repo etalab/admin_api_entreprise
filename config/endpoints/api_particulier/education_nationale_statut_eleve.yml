@@ -6,6 +6,10 @@
   path: '/v3/men/scolarites/identite'
   ping_url: 'https://particulier.api.gouv.fr/api/men_scolarite/ping'
   position: 500
+  alert:
+    title: "💡 Données de bourse bientôt disponibles"
+    description: |+
+      Le statut boursier et l'échelon de bourse de l'élève seront bientôt redistribués par le fournisseur de données. La mise en production de ces nouvelles données est attendue pour juin.
   perimeter:
     entity_type_description: |+
       Cette API concerne les **✅ élèves de la maternelle, du primaire, du collège et du lycée**.
@@ -17,6 +21,7 @@
       - ✅ lycées maritimes dépendant du ministère de la mer ;
       - ✅ une partie des formations à distance du CNED.
 
+      **Concernant le statut boursier des élèves** : seules les bourses sur critères sociaux à l'échelle nationale sont couvertes par l'API. Par ailleurs, les bourses ne concernent que les collégiens et lycéens.
 
       **Les établissements et formations suivants ne sont pas couverts par l'API** :
       - ❌ établissements privés hors contrat ;
@@ -27,11 +32,14 @@
       - ✅ France métropolitaine
       - ✅ DROM-COM
     updating_rules_description: |+
-      Cette API délivre les informations de l'[année scolaire en cours et l'année scolaire à venir seulement pour le second degré avec différentes échéances (N+1)](#faq_entry_0_api_particulier_endpoint_education_nationale_statut_eleve_scolarise).
+      Cette API délivre les informations de l'[année scolaire en cours et l'année scolaire à venir seulement pour le second degré avec différentes échéances (N+1)](#annee-scolaire-donnees).
 
       Les données du **premier degré** (primaire) sont mises à jour en **temps réel**. Les données du **second degré** (collèges et lycées) sont mises à jour **quotidiennement toutes les nuits**.
 
       Les informations, même si elles évoluent principalement lors de la rentrée scolaire en septembre, peuvent changer en cours d'année (déménagements, etc.).
+
+      {:.fr-highlight.fr-highlight--caution}
+      > Attention, si un élève est indiqué "non-boursier" avant mi-octobre, il ne faut pas prendre en compte cette information. Le **statut non-boursier est véritablement fiable à partir de mi-octobre**. [En savoir plus](#fiabilite-statut-boursier-octobre).
   parameters_details:
     description: |+
       Cette API propose une modalité d'appel :
@@ -42,7 +50,8 @@
       </span>
   data:
     description: |+
-      Cette API **indique si l'élève est scolarisé et sous quel statut** pour l'[année scolaire en cours et bientôt N+1](#faq_entry_0_api_particulier_endpoint_education_nationale_statut_eleve_scolarise).
+      Cette API **indique si l'élève est scolarisé et sous quel statut** pour l'[année scolaire en cours et bientôt N+1](#annee-scolaire-donnees).
+      Le **statut boursier ainsi que l'échelon de bourse** est également précisé le cas échéant.
   provider_uids:
     - 'education_nationale'
   keywords: []
@@ -52,7 +61,7 @@
   parameters:
     - Identité pivot
   faq:
-    - q: De quelle année scolaire sont les données transmises ?
+    - q: <a name="annee-scolaire-donnees"></a> Quelle est l'année scolaire des données transmises ?
       a: |+
         #### Année scolaire en cours :
         Cette API permet d'appeler les informations de scolarité d'un élève de l'année scolaire en cours.
@@ -70,6 +79,21 @@
 
         {:.fr-highlight}
         ⚠️ Les données transmises pour l'année scolaire N+1 sont et seront toujours des informations susceptibles d'évoluer car l'élève peut changer d'avis jusqu'à la rentrée.
+
+    - q: <a name="fiabilite-statut-boursier-octobre"></a> Pourquoi le statut non-boursier est-il fiable seulement à partir de mi-octobre ?
+      a: |+
+        Pour cette première mouture de l'API scolarité de l'élève, le statut boursier n'est pas encore complètement fiable.
+        Au mois d'août de chaque année, la **base des élèves boursiers est entièrement purgée**. La constitution de la base des élèves boursiers est donc refaite chaque année au compte-goutte, à partir des transmissions des établissements.
+        **Par conséquent, jusqu'à mi-octobre** :
+        - le **statut non-boursier** (`"est_boursier" : "false"`) peut représenter deux situations :
+            - l'élève n'est pas boursier ;
+            - le statut boursier est inconnu par l'API.
+        - le **statut boursier positif** (`"est_boursier" : "true"`) **est fiable.**
+        <br>
+        Le Ministère de l'éducation nationale est en recherche d'une meilleure alternative dont le calendrier pourrait être 2024.
+    - q: <a name="definition-echelons-bourse"></a>À quoi correspondent les échelons de bourse ?
+      a:
+        "Il existe trois échelons de bourses pour les collégiens, de 1 à 3 et six échelons pour les lycéens, de 1 à 6. Chaque échelon de bourse indique **le montant reçu par l'élève pour l'année scolaire**. Le montant de la bourse dépend d'un barème en fonction du revenu fiscal et du nombre enfants à charge du foyer."
    
   historique: |+
     **Ce que change le passage à la V.3 d'API Particulier:**
