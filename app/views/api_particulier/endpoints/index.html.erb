@@ -21,7 +21,9 @@
     <div class="fr-grid-row">
       <div class="fr-col-12">
         <div class="fr-grid-row">
-          <%= render @endpoints %>
+          <%= @endpoints.each do |endpoint| %>
+            <%= render 'api_particulier/endpoints/endpoint', endpoint: %>
+          <% end %>
         </div>
       </div>
     </div>

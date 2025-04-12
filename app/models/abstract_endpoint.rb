@@ -24,9 +24,11 @@ class AbstractEndpoint
 
   def self.all
     endpoints_store_class.all.map do |endpoint|
-      APIParticulier::EndpointV2.new(endpoint) if api_particulier_v2?(endpoint)
-
-      new(endpoint)
+      if api_particulier_v2?(endpoint)
+        APIParticulier::EndpointV2.new(endpoint) if api_particulier_v2?(endpoint)
+      else
+        new(endpoint)
+      end
     end
   end
 
@@ -57,13 +59,13 @@ class AbstractEndpoint
   end
 
   def title
-    if open_api_definition.present? && open_api_definition['summary'].present?
-      @title ||= open_api_definition['summary'].gsub(/\[.*?\]/, '').strip
-    else
-      @title ||= "Titre indisponible"
-    end
+    @title ||= if open_api_definition.present? && open_api_definition['summary'].present?
+                 open_api_definition['summary'].gsub(/\[.*?\]/, '').strip
+               else
+                 'Titre indisponible'
+               end
   end
-  
+
   def description
     @description ||= open_api_definition['description']
   end
@@ -137,11 +139,6 @@ class AbstractEndpoint
 
   def redoc_anchor
     @redoc_anchor ||= "tag/#{tag_for_redoc}/paths/#{path_for_redoc}/get"
-  end
-
-  def tag_for_redoc
-    uid_without_prefix = @endpoint.uid.sub(/^v\d+\//, '') # retire "v2/", "v3/", etc.
-    uid_without_prefix.tr('/', '-')
   end
 
   def example_payload
