@@ -16,13 +16,13 @@
     geographical_scope_description: |+
       - ✅ Tous les Français, quel que soit le lieu de résidence.  ;
     updating_rules_description: |+
-      **Les données sont mises à jour trimestriellement** car le processus de recensement en mairie est trimestriel. Par exemple, Un jeune qui a fait son recensement entre janvier et mars n'apparaîtra en règle dans l'API qu'à partir du mois d'avril au plus tôt. Dans ce cadre, nous recommandons aux administrations de laisser la possibilité l'usager de fournir un justificatif si la réponse de l'API est "Non en règle". 
+      **Les données sont mises à jour trimestriellement** car le processus de recensement en mairie est trimestriel. Par exemple, Un jeune qui a fait son recensement entre janvier et mars n'apparaîtra en règle dans l'API qu'à partir du mois d'avril au plus tôt. Dans ce cadre, nous recommandons aux administrations de laisser la possibilité l'usager de fournir un justificatif si la réponse de l'API est "Pas en règle" ou "Indeterminé". 
       
       ⚠️ **Les informations obtenues sont représentatives de la situation connue par l'administration chargée du servce national au moment de l'appel**. 
       Cette API est opérée par la direction du service national et de la jeunesse (DSNJ).
   data:
     description: |+
-      **Cette API délivre la situation d'un jeune vis à vis du service national** [en savoir plus](#faq_entry_answer_1_api_particulier_endpoint_ministere_des_armees_service_national) ;
+      **Cette API délivre la situation d'un jeune entre 16 et 15 ans vis à vis du service national** [en savoir plus](#faq_entry_answer_1_api_particulier_endpoint_ministere_des_armees_service_national) ;
 
   parameters_details:
     description: |+
@@ -68,11 +68,6 @@
       <span class="fr-text--xs fr-m-0">
       <sup>1</sup> Fournir plusieurs prénoms permet de limiter les risques d'homonymie mais un seul prénom peut fonctionner. Attention, l'usager doit compléter chaque prénom dans un champ distinct.
       </span>
-      <blockquote class="fr-highlight fr-highlight--caution">
-      ⚠️ <strong>Message API Particulier du 04.06.2024</strong> : Nous avons constaté que les appels effectués sans nom de naissance et <strong>avec le nom d'usage ne fonctionnent pas</strong> dans une très grande partie des cas. API Particulier a donc décidé de passer le paramètre "Nom de naissance" en obligatoire.
-      </blockquote>
-      </div>
-      </section>
 
   provider_uids:
     - 'dsnj'
@@ -84,23 +79,26 @@
     - FranceConnect
   keywords:
     - service national
+    - dsnj
     - jeune
     - jdc
     - Journée défense et citoyenneté
+    - recensement
 
   faq:
     - q: Qu'est-ce que le service national ?
       a: |+
-        **Le service national est composé du rencensement et de la participation à la journée défense et citoyenneté. Un jeune qui est en règle vis à vis du service national a donc effectué son recensement dès l'âge de 16 ans et a participé à la journée défense et citoyenneté**. [Plus d'informations](https://www.service-public.fr/particuliers/vosdroits/N24)
+        **Le service national est composé du rencensement, et de la participation à la journée défense et citoyenneté. Un jeune qui est en règle vis à vis du service national est donc celui qui a effectué son recensement dès l'âge de 16 ans (possibilité de régulariser jusqu'à l'âge de 25 ans) et a participé à la journée défense et citoyenneté au plus tard à l'âge de 18 ans (possibilité de régulariser jusqu'à ses 25 ans)**. [Plus d'informations](https://www.service-public.fr/particuliers/vosdroits/N24)
 
     - q: <a name="faq-pourquoi-etre-en-regle"></a> Pourquoi un jeune doit être en règle vis à vis du service national ? 
       a: |+
         **Un jeune entre 16 et 25 ans doit être en règle vis à vis du service national s'il souhaite : 
-        - passer des examens sous contrôle de l'autorité publique comme le permis de conduire ;
+        - passer des examens sous contrôle de l'autorité publique comme le permis de conduire ou le baccalauréat ;
         - passer des concours sous contrôle de l'autorité publique, pour rentrer dans un établissement public de l'enseignement supérieur par exemple ;
-        - postuler à un emploi de la fonction publique qui demande d'être en règle vis à vis du service national. 
+        - postuler à un emploi de la fonction publique ; 
+        - se présenter à des élections. 
         [Plus d'informations](https://www.data.gouv.fr/fr/dataservices/api-service-national/)
 
-    - q: Une personne qui a une dérogation de faire la journée défense et citoyenneté, pour cause médicale par exemple, est elle remontée comme étant en règle ? 
+    - q: Une personne porteur de handicap est elle remontée comme étant en règle ? 
       a: |+
-        **Un jeune exempté de la JDC apparaîtra comme étant en règle dans l'API**
+        **Un jeune porteur de handicap peut demander une exemption de participation. Si la demande est acceptée, la personne apparaîtra comme étant en règle dans l'API**
