@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe APIParticulier::Endpoint do
-  let(:uid) { 'cnav/quotient_familial_v2' }
+  let(:uid) { 'cnav/quotient_familial' }
 
   describe '.find' do
     subject { described_class.find(uid) }
