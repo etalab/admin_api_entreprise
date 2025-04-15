@@ -2,6 +2,14 @@ class APIParticulier::EndpointV2 < AbstractEndpoint
   attr_accessor :call_id,
     :opening
 
+  def self.all
+    v2_endpoints = endpoints_store_class.all.map do |endpoint|
+      new(endpoint) if api_particulier_v2?(endpoint)
+    end
+
+    v2_endpoints.compact
+  end
+
   def open_api_definition
     @open_api_definition ||= APIParticulier::OpenAPIDefinitionV2.get(path)
   end

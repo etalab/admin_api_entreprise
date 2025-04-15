@@ -53,6 +53,16 @@ RSpec.describe 'Endpoints show', app: :api_particulier do
     end
   end
 
+  describe 'each endpoint V2' do
+    APIParticulier::EndpointV2.all.each do |endpoint|
+      it "works for #{endpoint.uid} endpoint" do
+        visit endpoint_path(uid: endpoint.uid)
+
+        expect(page).to have_css("#api_particulier_endpoint_v2_#{endpoint.id}")
+      end
+    end
+  end
+
   describe 'actions' do
     describe 'click on example', :js do
       it 'opens modal with example' do

@@ -1,6 +1,6 @@
 module SpecsHelper
   def api_particulier_example_uid
-    'cnav/quotient_familial_v2'
+    'cnav/quotient_familial'
   end
 
   def api_entreprise_example_uid
