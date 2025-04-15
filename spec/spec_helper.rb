@@ -138,6 +138,11 @@ RSpec.configure do |config|
       body: Rails.root.join('config/api-particulier-openapi.yml').read
     )
 
+    stub_request(:get, 'https://particulier.api.gouv.fr/api/open-api-v2.yml').and_return(
+      status: 200,
+      body: Rails.root.join('config/api-particulier-openapi-v2.yml').read
+    )
+
     stub_request(:get, 'https://particulier.api.gouv.fr/api/open-api-v3.yml').and_return(
       status: 200,
       body: Rails.root.join('config/api-particulier-openapi-v3.yml').read
