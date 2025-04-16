@@ -23,11 +23,9 @@ class AbstractEndpoint
   attr_writer :new_endpoint_uids, :old_endpoint_uids
 
   def self.all
-    all_endpoints = endpoints_store_class.all.map do |endpoint|
-      new(endpoint) unless api_particulier_v2?(endpoint)
+    endpoints_store_class.all.map do |endpoint|
+      new(endpoint)
     end
-
-    all_endpoints.compact
   end
 
   def self.find(uid)
@@ -40,10 +38,6 @@ class AbstractEndpoint
 
   def self.not_found(uid)
     ActiveRecord::RecordNotFound.new("uid '#{uid}' does not exist in #{endpoints_store_class}", self, :uid, uid)
-  end
-
-  def self.api_particulier_v2?(endpoint)
-    api == 'api_particulier' && endpoint['swagger_version'] == 2
   end
 
   def self.endpoints_store_class
