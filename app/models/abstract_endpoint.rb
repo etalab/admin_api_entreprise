@@ -4,7 +4,6 @@ class AbstractEndpoint
   include ActiveModel::Model
 
   attr_accessor :uid,
-    :swagger_version,
     :path,
     :beta,
     :alert,

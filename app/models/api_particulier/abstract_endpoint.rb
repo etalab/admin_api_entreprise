@@ -15,6 +15,6 @@ class APIParticulier::AbstractEndpoint < AbstractEndpoint
   end
 
   def self.api_particulier_v2?(endpoint)
-    api == 'api_particulier' && endpoint['swagger_version'] == 2
+    api == 'api_particulier' && endpoint['uid'].include?('/v2/')
   end
 end
