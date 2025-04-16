@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Endpoints show', app: :api_particulier do
   let(:endpoint) { APIParticulier::Endpoint.find(uid) }
-  let(:uid) { api_particulier_example_uid }
+  let(:uid) { 'cnav/quotient_familial' }
   let(:api_status) { 200 }
 
   before do
