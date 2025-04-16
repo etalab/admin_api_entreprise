@@ -10,6 +10,10 @@ class APIParticulier::EndpointV2 < AbstractEndpoint
     v2_endpoints.compact
   end
 
+  def from_v2?
+    true
+  end
+
   def open_api_definition
     @open_api_definition ||= APIParticulier::OpenAPIDefinitionV2.get(path)
   end

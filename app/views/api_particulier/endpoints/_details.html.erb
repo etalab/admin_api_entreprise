@@ -58,8 +58,8 @@
     <%= t('.technical_specifications.title') %>
   </h3>
 
-   <% if @endpoint.swagger_version.present? %>
-   
+   <% if @endpoint.from_v2? %>
+
     <%= link_to t('.technical_specifications.cta'), 
     "https://particulier.api.gouv.fr/developpeurs/openapi-v2##{@endpoint.redoc_anchor}", 
     data: { turbo: false }, 

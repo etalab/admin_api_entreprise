@@ -90,6 +90,10 @@ class AbstractEndpoint
     novelty.present? && novelty
   end
 
+  def from_v2?
+    false
+  end
+
   def new_version?
     new_version.present? && new_version
   end
