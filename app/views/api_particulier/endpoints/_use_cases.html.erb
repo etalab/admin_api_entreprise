@@ -1,21 +1,36 @@
 <% extra_classes ||= '' %>
 
-<% if @endpoint.use_cases.any? %>
+<% if @endpoint.use_cases.any? || @endpoint.use_cases_optional.any? %>
   <div class="details <%= extra_classes %>">
     <h2 class="fr-h3" id="<%= id %>">
       <%= t('.main.title') %>
     </h2>
+    
+    <% if @endpoint.use_cases.any? %>
+      <div>
+        <%= t('.main.description') %>
+      </div>
+      <ul class="fr-tags-group fr-mt-2w">
+        <% @endpoint.use_cases.each do |use_case| %>
+          <li class="fr-mb-1w">
+            <%= link_to use_case.name, cas_usage_path(uid: use_case.uid), class: %w[fr-tag] %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
 
-    <div>
-      <%= t('.main.description') %>
-    </div>
+    <% if @endpoint.use_cases_optional.any? %>
+      <div>
+        <%= t('.optional.description') %>
+      </div>
 
-    <ul class="fr-tags-group fr-mt-2w">
-      <% @endpoint.use_cases.each do |use_case| %>
-        <li class="fr-mb-1w">
-          <%= link_to use_case.name, cas_usage_path(uid: use_case.uid), class: %w[fr-tag] %>
-        </li>
-      <% end %>
-    </ul>
+      <ul class="fr-tags-group fr-mt-2w">
+        <% @endpoint.use_cases_optional.each do |use_case| %>
+          <li class="fr-mb-1w">
+            <%= link_to use_case.name, cas_usage_path(uid: use_case.uid), class: %w[fr-tag] %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
   </div>
 <% end %>
