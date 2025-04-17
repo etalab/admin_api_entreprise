@@ -1,8 +1,8 @@
 ---
 - uid: 'cnav/prime_activite'
   opening: protected
-  new_endpoint_uids:
-    - 'cnav_msa/prime_activite'
+  old_endpoint_uids:
+    - 'cnav/v2/prime_activite'
   path: '/v3/dss/prime_activite/identite'
   ping_url: 'https://particulier.api.gouv.fr/api/caf/ping'
   position: 700
@@ -47,14 +47,9 @@
       <span class="fr-text--xs fr-m-0">
       <sup>1</sup> Fournir plusieurs prénoms permet de limiter les risques d'homonymie mais un seul prénom peut fonctionner. Attention, l'usager doit compléter chaque prénom dans un champ distinct.
       </span>
-
-      {:.fr-highlight.fr-highlight--caution}
-      > ⚠️ **Message API Particulier du 04.06.2024** : Nous avons constaté que les appels effectués sans nom de naissance et **avec le nom d'usage ne fonctionnent pas** dans une très grande partie des cas. Après investigation auprès de la CNAV (opérateur de l'API source), API Particulier a donc décidé de passer le paramètre "Nom de naissance" en obligatoire.
   data:
     description: |+
-      Cette API **indique si le particulier est bénéficiaire de la prime d'activité**. En précisant :
-        - la date d'ouverture du droit ;
-        - la date de fermeture du droit.
+      Cette API **indique si le particulier est bénéficiaire de la prime d'activité**, En précisant la date d'ouverture du droit.
   provider_uids:
     - 'cnav'
   keywords:
@@ -87,3 +82,8 @@
         {:.fr-highlight}
         > **Le code COG du pays de naissance est obligatoire pour tous les appels.** Pour simplifier le parcours des usagers, évitez de demander aux particuliers nés en France de saisir leur pays de naissance, puisque vous pouvez le paramétrer directement -code COG pays France `99100`-, dès qu'un particuloer renseigne les informations de sa commune de naissance (forcément en France).
 
+  historique: |+
+    **Ce que change le passage à la V.3 d'API Particulier:**
+
+    - Suppression de la date de fin car cette donnée était calculée et présentait le risque de ne pas être juste dans toutes les situations ;
+    - Tous les changements sont décrits dans la [table de correspondance du guide migration](/blog/migration-api-particulier-v3#correspondance-api-statut-prime-activite){:target="_blank"}

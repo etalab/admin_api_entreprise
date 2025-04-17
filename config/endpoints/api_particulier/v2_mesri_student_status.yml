@@ -1,14 +1,14 @@
 ---
-- uid: 'mesri/statut_etudiant'
+- uid: 'mesri/v2/statut_etudiant'
   opening: protected
-  old_endpoint_uids:
-    - 'mesri/v2/statut_etudiant'
-  path: '/v3/mesri/statut_etudiant/identite'
+  new_endpoint_uids: 
+    - 'mesri/statut_etudiant'
+  path: '/api/v2/etudiants'
   position: 300
   ping_url: 'https://particulier.api.gouv.fr/api/mesri_statut_etudiant_ine/ping'
   perimeter:
     entity_type_description: |+
-      Cette API permet d'accéder aux **admissions et inscriptions de 2 millions d'étudiants** (_Valeur d'avril 2025 - statistique à jour [ici](https://statutetudiant.esr.gouv.fr/){:target="_blank"}_) sur les un peu moins de 3 millions d'étudiants scolarisés dans l'enseignement supérieur (_[Statistique Insee 2023](https://www.insee.fr/fr/statistiques/8242335?sommaire=8242421){:target="_blank"}_). 
+      Cette API permet d'accéder aux **admissions et inscriptions de 1,3 million d'étudiants** (_Nombre de septembre 2024 - statistique à jour [ici](https://statutetudiant.esr.gouv.fr/){:target="_blank"}_) sur les un peu moins de 3 millions d'étudiants scolarisés dans l'enseignement supérieur (_[Statistique Insee 2022](https://www.insee.fr/fr/statistiques/2387291#tableau-figure1){:target="_blank"}_). 
 
       **Cette API concerne :**
       - ✅ **les étudiants admis ou inscrits dans les établissements sous tutelle du ministère de l'enseignement supérieur** (_avec pour objectif, à terme, de couvrir les tutelles de tous les ministères  et les établissements privés_), ayant au minimum une admission ou inscription dans l'année en cours et quelque soit leur régime : formation initiale, apprentissage, stagiaire de la formation continue, contrat de professionnalisation...
@@ -23,6 +23,11 @@
       **Ne sont pas couverts**, les étudiants des établissements :
       - ❌ les étudiants en service civique ;
       - ❌ les étudiants en formation sociale.
+
+      {:.fr-highlight}
+      > ⚠️ **Tous les établissements ne délivrent pas les informations des étudiants admis**. Par conséquent si l'API ne vous renvoie pas d'informations concernant un particulier, il n'est pas possible de considérer de façon définitive que cet étudiant n'est pas admis.
+      >
+      > En savoir plus sur la [différence entre le statut inscrit et admis](#faq_entry_0_api_particulier_endpoint_mesri_statut_etudiant).
 
     geographical_scope_description:  |+
       Cette API délivre les informations des **✅étudiants français et étrangers**.
@@ -43,7 +48,7 @@
       - Pour les **grandes universités**, le délai peut être en **temps réel** ;
       - Pour les petits établissements, le délai est probablement plus long.
 
-      Des admissions peuvent avoir lieu toute l'année, et la transmission de ces informations par les établissements se fait elle aussi tout au long de l'année.
+      Des inscriptions peuvent avoir lieu toute l'année, et la transmission de ces informations par les établissements se fait elle aussi tout au long de l'année.
   parameters_details:
     description: |+
       Cette API propose trois modalités d'appel :
@@ -63,14 +68,7 @@
       [✒️ **Aider les usagers à renseigner leur lieu de naissance par code COG** - Lire la publication du 08/11/2023](https://particulier.api.gouv.fr/blog/parametre-lieu-naissance-code-cog){:target="_blank"}
   data:
     description: |+
-      Cette API délivre la **liste des admissions d'un étudiant**, en précisant pour chacune d'elles : 
-      - si l'étudiant est inscrit, en savoir plus sur la [différence entre le statut inscrit et admis](#diff-statut-admis-inscrit)&nbsp;;
-      - les dates de début et de fin d'études ; 
-      - le régime de formation
-      - le lieu et l'établissement d'études. 
-      
-      {:.fr-highlight}
-      >💡 Ces informations sont l'équivalent d'un certificat étudiant.
+      Cette API délivre la **liste des inscriptions et admissions d'un étudiant**, en précisant les dates de début et de fin d'études, le régime de formation et le l'établisssement. L'obtention de ces informations permet d'éviter de demander un certificat étudiant.
   provider_uids:
     - 'mesri'
   keywords: []
@@ -83,7 +81,7 @@
     - INE
     - FranceConnect
   faq:
-    - q: <a name="diff-statut-admis-inscrit"></a> Quelle différence entre le statut "admis" et le statut "inscrit" ?
+    - q: Quelle différence entre le statut "admis" et le statut "inscrit" ?
       a:
         "Lorsque la candidature ou la demande de l'étudiant à rejoindre un établissement d'enseignement supérieur est accordée, le statut d'inscription est \"admis\".
 
@@ -93,16 +91,6 @@
 
         Un étudiant peut être inscrit dans différents établissements."
 
-    - q: <a name="diff-formation-initiale-continue"></a> Quelle différence entre formation initiale et formation continue ?
+    - q: Quelle différence entre formation initiale et formation continue ?
       a:
         La distinction principale entre formation initiale et formation continue est le **critère de conventionnement spécifique à la formation continue** et qui se traduit par la signature d’une convention ou d’un contrat de formation professionnelle entre la personne et l’établissement formateur tel qu’il est décrit dans les [articles L.6353-1 à L. 6353-7 du Code du travail](https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072050/LEGISCTA000006178215/#LEGISCTA000006178215) et l’[article D. 714-62 du Code de l’éducation](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000027866356/).
-  historique: |+
-    **Ce que change le passage à la V.3 d'API Particulier:**
-
-    - Afin de faciliter la compréhension de l’API, la liste "Inscriptions" a été renommée en "Admissions". En effet, c’est bien la liste des admissions qui est délivrée pour chaque étudiant. Parmi elles, l’étudiant peut être allé jusqu’à l’inscription, qui est alors indiquée par le champ "Statut étudiant inscrit".
-    - Tous les changements sont décrits dans la [table de correspondance du guide migration](/blog/migration-api-particulier-v3#correspondance-api-statut-etudiant){:target="_blank"}
-
-  api_cgu:
-    description: |+
-      {:.fr-highlight}
-      > 💡 Dans la mesure où l’API ne couvre pas l’ensemble des étudiants, il est nécessaire de prévoir dans votre service **un mécanisme alternatif permettant aux usagers de transmettre manuellement leur certificat de scolarité**.

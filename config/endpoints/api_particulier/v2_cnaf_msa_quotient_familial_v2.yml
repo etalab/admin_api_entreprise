@@ -1,8 +1,11 @@
 ---
-- uid: 'cnav/quotient_familial_v2'
+- uid: 'cnav/v2/quotient_familial_v2'
   opening: protected
-  new_version: true
-  path: '/v3/dss/quotient_familial/identite'
+  new_endpoint_uids: 
+    - 'cnav/quotient_familial'
+  old_endpoint_uids:
+    - 'cnav/v2/quotient_familial_v1'
+  path: '/api/v2/composition-familiale-v2'
   ping_url: 'https://particulier.api.gouv.fr/api/cnaf_msa_quotient_familial/ping'
   position: 200
   perimeter:
@@ -23,9 +26,9 @@
     geographical_scope_description:  |+
       - ✅ France métropolitaine
       - ✅ DROM COM
-      - ✅ Allocataires de nationalité étrangère résidant en France
+      - ✅ Allocataires de nationalité étrangère
     updating_rules_description: |+
-      Les données sont **mises à jour** : 
+      Les données sont **mises à jour** :
       - **une fois par mois, après le premier week-end du mois, pour les allocataires CAF**
       - **en temps réel lorsqu'il y a un changement de situation pour les allocataires MSA**
       Le mois remonté est le mois m-1. Par exemple, au mois de janvier, c'est le quotient familial du mois de décembre de l'année précédente qui est remonté. Il faut donc attendre le mois de février pour accéder au quotient familial du mois de janvier. Cette API opérée par la CNAV (Caisse nationale d'assurance vieillesse) est reliée au système d'information de la Caisse nationale des allocations familiales (CNAF) et à celui de la mutualité sociale agricole (MSA).
@@ -44,7 +47,7 @@
       {:.fr-highlight.fr-highlight--caution}
       > **Le QF CNAF est calculé seulement pour les allocataires dont les ressources sont déclarées**. En effet, pour calculer le quotient familial, la CNAF collecte tous les mois auprès de la DGFIP les ressources de l'individu (revenus salariés et non-salariés, du capital, rentes ...). Elle récupère le bilan en fin d'année. Sans la réception de ces ressources, le QF CNAF ne peut être calculé : une erreur est renvoyée par l'API.
       >
-      > Si le particulier n'a plus d'allocations, son QF n'est pas renvoyé. Une erreur 404 "Dossier allocataire absent" est transmise par l'API.
+      > Si le particulier n'a plus d'allocations, son QF n'est pas renvoyé. Une erreur est transmise par l'API.
 
 
   parameters_details:
@@ -114,8 +117,6 @@
     - allocataire
     - enfant
     - adresse
-    - CAF
-    - MSA
   faq:
     - q: Quelle différence entre le quotient familial CAF/MSA et le QF de l'administration fiscale ?
       a: |+
@@ -183,3 +184,6 @@
     **Ce que change cette API CNAF-MSA par rapport à l'API précédente de la CNAF :**
     - Le périmètre des particuliers concernés s'élargit avec l'**ajout des bénéficiaires de la MSA** qui sont au régime agricole.
     - **Les paramètres d'appel évoluent**. Dans l'API précédente, l'usager devait renseigner son numéro d'allocataire et son code postal. Avec cette API l'usager renseigne [ses données d'identité](#parameters_details).
+
+
+

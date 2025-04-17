@@ -43,7 +43,34 @@
           <%= markdown_to_html(@endpoint.extra_description) %>
         <% end %>
       </p>
+
+
+    <nav class="" role="navigation">
+        <ul class="">
+            <li>
+                <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#perimetre">Périmètre de l'API</a>
+            </li>
+            <li>
+                <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#parameters_details">Modalités d'appel</a>
+            </li>
+            <li>
+                <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#donnees">Données distribuées</a>
+            </li>
+            <li>
+                <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#faq">Q & R</a>
+            </li>
+             <% if @endpoint.historicized? %>
+             <li>
+                <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#cgu">Historique de version</a>
+            </li>
+            <% end %>
+            <li>
+                <a class="fr-link fr-fi-arrow-down-line fr-link--icon-right" href="#cgu">Conditions d'utilisation</a>
+            </li>
+          </ul>
+      </nav>
     </div>
+
 
     <div class="providers fr-col-md-<%= 12 - layout_main_bloc %> fr-col-12">
       <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">

@@ -1,6 +1,8 @@
 ---
 - uid: 'cnav/complementaire_sante_solidaire'
   opening: protected
+  old_endpoint_uids:
+    - 'cnav/v2/complementaire_sante_solidaire'
   path: '/v3/dss/complementaire_sante_solidaire/identite'
   position: 950
   ping_url: 'https://particulier.api.gouv.fr/api/securite_sociale_complementaire_sante_solidaire/ping'
@@ -40,15 +42,11 @@
       <span class="fr-text--xs fr-m-0">
       <sup>1</sup> Fournir plusieurs prénoms permet de limiter les risques d'homonymie mais un seul prénom peut fonctionner. Attention, l'usager doit compléter chaque prénom dans un champ distinct.
       </span>
-
-      {:.fr-highlight.fr-highlight--caution}
-      > ⚠️ **Message API Particulier du 04.06.2024** : Nous avons constaté que les appels effectués sans nom de naissance et **avec le nom d'usage ne fonctionnent pas** dans une très grande partie des cas. Après investigation auprès de la CNAV (opérateur de l'API source), API Particulier a donc décidé de passer le paramètre "Nom de naissance" en obligatoire.
   data:
     description: |+
       Cette API **indique si le particulier est bénéficiaire de la complémentaire santé solidaire**. En précisant :
       - si la C2S est avec ou sans participation financière ;
-      - la date d'ouverture du droit ;
-      - la date de fermeture du droit.
+      - la date d'ouverture du droit.
   provider_uids:
     - 'sphere_sociale'
   keywords:
@@ -93,4 +91,11 @@
 
         {:.fr-highlight}
         > **Le code COG du pays de naissance est obligatoire pour tous les appels.** Pour simplifier le parcours des usagers, évitez de demander aux particuliers nés en France de saisir leur pays de naissance, puisque vous pouvez le paramétrer directement -code COG pays France `99100`-, dès qu'un particuloer renseigne les informations de sa commune de naissance (forcément en France).
+
+  historique: |+
+    **Ce que change le passage à la V.3 d'API Particulier:**
+
+    - Suppression de la date de fin car cette donnée était calculée et présentait le risque de ne pas être juste dans toutes les situations ;
+    - Tous les changements sont décrits dans la [table de correspondance du guide migration](/blog/migration-api-particulier-v3#correspondance-api-statut-c2s){:target="_blank"}
+
 

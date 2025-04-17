@@ -1,7 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe APIParticulier::Endpoint do
-  let(:uid) { 'cnav/quotient_familial_v2' }
+  let(:uid) { 'cnav/quotient_familial' }
+
+  describe '.all' do
+    it 'contains only v3 endpoints' do
+      expect(described_class.all.map(&:uid)).to include('cnav/quotient_familial')
+      expect(described_class.all.map(&:uid)).not_to include('cnav/v2/quotient_familial_v2')
+    end
+  end
 
   describe '.find' do
     subject { described_class.find(uid) }

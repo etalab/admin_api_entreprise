@@ -1,9 +1,9 @@
 ---
-- uid: 'pole_emploi/situation'
+- uid: 'pole_emploi/v2/situation'
   opening: protected
-  old_endpoint_uids:
-    - 'pole_emploi/v2/situation'
-  path: '/v3/france_travail/statut/identifiant'
+  new_endpoint_uids: 
+    - 'pole_emploi/situation'
+  path: '/api/v2/situations-pole-emploi'
   ping_url: 'https://particulier.api.gouv.fr/api/pole_emploi_status/ping'
   position: 501
   perimeter:
@@ -80,18 +80,12 @@
         | 7          | Personnes non immédiatement disponibles à la recherche d'un autre emploi, à durée indéterminée à temps partiel, tenues d'accomplir des actes positifs de recherche d'emploi.  |  ❌  |
         | 8          | Personnes non immédiatement à la recherche d'un autre emploi, à durée déterminée, temporaire ou saisonnier, y compris de très courte durée, tenues d'accomplir des actes positifs de recherche d'emploi.  |  ❌  |
 
-
-  historique: |+
-    **Ce que change le passage à la V.3 d'API Particulier:**
-
-    Tous les changements sont décrits dans la [table de correspondance du guide migration](/blog/migration-api-particulier-v3#correspondance-api-statut-demandeur-emploi){:target="_blank"}
-
-
-- uid: 'pole_emploi/indemnites'
+- uid: 'pole_emploi/v2/indemnites'
   opening: protected
-  old_endpoint_uids:
-    - 'pole_emploi/v2/indemnites'
-  path: '/v3/france_travail/indemnites/identifiant'
+  new_endpoint_uids: 
+    - 'pole_emploi/indemnites'
+  path: '/api/v2/paiements-pole-emploi'
+  
   ping_url: 'https://particulier.api.gouv.fr/api/pole_emploi_indemnites/ping'
   position: 502
   perimeter:
@@ -171,8 +165,4 @@
         >
         > À notre connaissance, l'identifiant du compte utilisateur est configuré par l'usager au moment de la création de son espace et n'est donc présent sur aucun document ou courriel qui permettrait à un agent de vérifier l'identité. L'appel à l'API statut demandeur d'emploi est donc indispensable pour vérifier l'identité.
 
-  historique: |+
-    **Ce que change le passage à la V.3 d'API Particulier:**
 
-    - Suppression du champ "identifiant" car il s’agissait du paramètre d’appel saisi.
-    - Tous les changements sont décrits dans la [table de correspondance du guide migration](/blog/migration-api-particulier-v3#correspondance-api-paiements-france-travail){:target="_blank"}

@@ -16,6 +16,12 @@ class APIParticulier::EndpointsController < APIParticulierController
   private
 
   def extract_endpoint
-    @endpoint = APIParticulier::Endpoint.find(params[:uid])
+    @endpoint = endpoint_class.find(params[:uid])
+  end
+
+  def endpoint_class
+    return APIParticulier::EndpointV2 if params[:uid].include?('/v2/')
+
+    APIParticulier::Endpoint
   end
 end

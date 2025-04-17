@@ -428,6 +428,54 @@ fr:
                   | Paramètre                                                  |      Information à renseigner           |
                   |:----------------------------------------------------------:|-----------------------------------------|
                   |`&recipient=BénéficaireDeL'Appel`|**Le bénéficiaire de l'appel** <br><br>Ce paramètre permet la traçabilité de l'appel et doit correspondre au _SIRET de l'organisation publique habilitée à utiliser la donnée_. <br><br>Si vous êtes une collectivité ou une administration, ce paramètre doit donc être votre numéro de SIRET. Si vous êtes un éditeur, il s'agit du SIRET de l'organisation publique cliente demandant la donnée.<br><br>Une vérification est effectuée par API Particulier pour refuser tout format qui ne serait pas un numéro de SIRET.
+
+              - title: Gérer les évolutions de version
+                anchor: 'gerer-les-evolutions-de-version'
+                content: |+
+                  Il est fréquent que les API évoluent et que, par conséquent, de nouvelles versions soient publiées.
+                  La version majeure V.3 de l'API&nbsp;Particulier permet de créer facilement de nouvelles versions, tout en gardant les précédentes, rendant ainsi accessibles rapidement les évolutions qu'API Particulier obtient de ses fournisseurs.
+
+                  {:.fr-h5}
+                  #### Toute évolution implique une montée de version
+
+                  Les montés de version d'une API interviennent pour toute évolution, c'est-à-dire :
+                  - l'ajout d'un nouveau champ par le fournisseur de la donnée ;
+
+                    {:.fr-highlight.fr-highlight--example}
+                    > Exemple fictif : Ajout d'un champ "catégorie de formation" par le Cnous.
+
+                  - la transformation de la structure de l'API par le fournisseur de la donnée ;
+
+                    {:.fr-highlight.fr-highlight--example}
+                    > Par exemple : Sortie d'une évolution majeure chez le fournisseur donnée.
+
+                  - l'ajout d'une fonctionnalité par API&nbsp;Particulier
+
+                    {:.fr-highlight.fr-highlight--example}
+                    > Par exemple : Délivrance d'un nouveau champ "Certification valide" pour une API qui ne renvoyait avant que l'URL de téléchargement de l'attestation.
+
+                  Pour comprendre comment monter en version, [consultez la rubrique suivante](#changer-de-version).
+
+                  {:.fr-h5}
+                  #### Les anciennes versions maintenues tant que le fournisseur de la donnée le permet
+
+                  Depuis la V.3 de l'API&nbsp;Particulier, les anciennes versions sont maintenues par le service API Particulier tant que cela est possible.
+                  En pratique, cela signifie que :
+                  - tant que le fournisseur continue d'envoyer la strcuture de données de l'ancienne version, cette ancienne version est maintenue par l'API&nbsp;Particulier ;
+                  - si le fournisseur ne renvoie plus la même structure de donnée, API&nbsp;Particulier supprimera l'ancienne version car la maintenir reviendrait à renvoyer des champs vides.
+
+              - title: Changer de version
+                anchor: 'changer-de-version'
+                content: |+
+                  Depuis la version 3 de l'API&nbsp;Particulier, toutes les API peuvent évoluer indépendamment les unes des autres. Les anciennes versions (à partir de la V.3) restent donc toujours disponibles si le fournisseur de la donnée continue de transmettre les informations.
+                  Depuis la version 3, le numéro de version est un paramètre de l’appel et non plus une valeur fixe pour toutes les API comme en version 2.
+
+                  >_Exemple d'utilisation du paramètre d'appel de version :_
+                  > Imaginons un exemple fictif : l'API documents, cette API est disponible en v.3 et une nouvelle version est sortie, la V.4.
+                  > Pour appeler la version souhaitée, il vous faudra directement inscrire le numéro de la version dans l'URL : `https://particulier.api.gouv.fr/v3/...` pour la V.3 ou `https://particulier.api.gouv.fr/v4/...` pour la V.4.
+
+                  {:.fr-highlight}
+                  📩 Une lettre d'information annonce systématiquement les nouvelles évolutions. Vous pouvez vous abonner [ici](<%= newsletter_path %>).
               - title: Surveiller l'état des fournisseurs
                 anchor: 'surveillance-etat-fournisseurs'
                 content: |+

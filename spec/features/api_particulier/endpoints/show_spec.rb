@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Endpoints show', app: :api_particulier do
   let(:endpoint) { APIParticulier::Endpoint.find(uid) }
-  let(:uid) { api_particulier_example_uid }
+  let(:uid) { 'cnav/quotient_familial' }
   let(:api_status) { 200 }
 
   before do
@@ -49,6 +49,16 @@ RSpec.describe 'Endpoints show', app: :api_particulier do
         visit endpoint_path(uid: endpoint.uid)
 
         expect(page).to have_css("#api_particulier_endpoint_#{endpoint.id}")
+      end
+    end
+  end
+
+  describe 'each endpoint V2' do
+    APIParticulier::EndpointV2.all.each do |endpoint|
+      it "works for #{endpoint.uid} endpoint" do
+        visit endpoint_path(uid: endpoint.uid)
+
+        expect(page).to have_css("#api_particulier_endpoint_v2_#{endpoint.id}")
       end
     end
   end

@@ -1,17 +1,11 @@
-class APIParticulier::Endpoint < AbstractEndpoint
-  attr_accessor :data,
-    :call_id,
-    :opening
+class APIParticulier::Endpoint < APIParticulier::AbstractEndpoint
+  attr_accessor :data
 
-  def description
-    "#{super.split('.').first}."
-  end
+  def self.all
+    all_endpoints = endpoints_store_class.all.map do |endpoint|
+      new(endpoint) unless api_particulier_v2?(endpoint)
+    end
 
-  def maintenances
-    open_api_definition['x-maintenances']
-  end
-
-  def collection?
-    false
+    all_endpoints.compact
   end
 end

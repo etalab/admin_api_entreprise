@@ -6,11 +6,10 @@
       <%= t('.main.title') %>
     </h2>
 
-    <div>
-      <%= t('.main.description') %>
-    </div>
-
     <% if @endpoint.use_cases.any? %>
+      <div>
+        <%= t('.main.description') %>
+      </div>
       <ul class="fr-tags-group fr-mt-2w">
         <% @endpoint.use_cases.each do |use_case| %>
           <li class="fr-mb-1w">

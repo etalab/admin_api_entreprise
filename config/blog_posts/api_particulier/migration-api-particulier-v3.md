@@ -280,7 +280,7 @@ Pour l'API statut étudiant et statut étudiant boursier; comme pour toutes les 
 
 ### <a name="correspondance-api-quotient-familial-msa-caf"></a> API Quotient familial CAF & MSA
 
-[Swagger V.2](<%= api_particulier_developers_openapi_path %>#tag/Quotient-familial){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
+[Swagger V.2](https://particulier.api.gouv.fr/developpeurs/openapi-v2#tag/Quotient-familial){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
 [Swagger V.3](<%= api_particulier_developers_openapi_v3_path %>#tag/Quotient-familial-CAF-and-MSA){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill}
 
 
@@ -309,7 +309,7 @@ Pour l'API statut étudiant et statut étudiant boursier; comme pour toutes les 
 
 ### <a name="correspondance-api-statut-etudiant"></a> API Statut étudiant
 
-[Swagger V.2](<%= api_particulier_developers_openapi_path %>#tag/Education-et-etudes/paths/~1api~1v2~1etudiants/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
+[Swagger V.2](https://particulier.api.gouv.fr/developpeurs/openapi-v2#tag/Education-et-etudes/paths/~1api~1v2~1etudiants/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
 [Swagger V.3](<%= api_particulier_developers_openapi_v3_path %>#tag/Statut-etudiant){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill}
 
 
@@ -351,7 +351,7 @@ Suite aux changements de structure de l'API, les scopes (droits d'accès) ont é
 
 ### <a name="correspondance-api-statut-etudiant-boursier"></a> API Statut étudiant boursier
 
-[Swagger V.2](<%= api_particulier_developers_openapi_path %>#tag/Education-et-etudes/paths/~1api~1v2~1etudiants-boursiers/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
+[Swagger V.2](https://particulier.api.gouv.fr/developpeurs/openapi-v2#tag/Education-et-etudes/paths/~1api~1v2~1etudiants-boursiers/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
 [Swagger V.3](<%= api_particulier_developers_openapi_v3_path %>#tag/Statut-etudiant-boursier){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill}
 
 
@@ -385,7 +385,7 @@ Suite aux changements de structure de l'API, les scopes (droits d'accès) ont é
 ### <a name="correspondance-api-statut-eleve-scolarise"></a> API Statut élève scolarisé
 
 
-[Swagger V.2](<%= api_particulier_developers_openapi_path %>#tag/Education-et-etudes/paths/~1api~1v2~1scolarites/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
+[Swagger V.2](https://particulier.api.gouv.fr/developpeurs/openapi-v2#tag/Education-et-etudes/paths/~1api~1v2~1scolarites/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
 [Swagger V.3](<%= api_particulier_developers_openapi_v3_path %>#tag/Statut-eleve-scolarise){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill}
 
 
@@ -399,7 +399,7 @@ Suite aux changements de structure de l'API, les scopes (droits d'accès) ont é
 {:.fr-h6 .fr-mt-2w}
 #### Scopes : 
 - Un nouveau scope a été créé, permettant d'accéder à la donnée `identite` autrefois par défaut incluse lorsque l'API était demandée. **Ce scope sera par défaut distribué aux utilisateurs ayant déjà un accès l'API Statut élève V.2.**
-- Un nouveau scope a été créé pour la nouvelle donnée `module_elementaire_formation`, **pour accéder à cette novuelle donnée, veuillez faire une demande de modification de votre habilitation depuis votre [compte utilisateur](<%= user_profile_path %>)**.
+- Un nouveau scope a été créé pour la nouvelle donnée `module_elementaire_formation`, **pour accéder à cette nouvelle donnée, veuillez faire une demande de modification de votre habilitation depuis votre [compte utilisateur](<%= user_profile_path %>)**.
 
 
 {:.fr-h6 .fr-mt-4w}
@@ -422,7 +422,7 @@ Suite aux changements de structure de l'API, les scopes (droits d'accès) ont é
 
 ### <a name="correspondance-api-statut-demandeur-emploi"></a> API Statut demandeur d'emploi
 
-[Swagger V.2](<%= api_particulier_developers_openapi_path %>#tag/Demandeurs-d'emploi/paths/~1api~1v2~1situations-pole-emploi/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
+[Swagger V.2](https://particulier.api.gouv.fr/developpeurs/openapi-v2#tag/Demandeurs-d'emploi/paths/~1api~1v2~1situations-pole-emploi/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
 [Swagger V.3](<%= api_particulier_developers_openapi_v3_path %>#tag/Statut-demandeurs-d'emploi){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill}
 
 
@@ -461,7 +461,7 @@ Un nouveau scope a été créé, permettant d'accéder à la donnée `identifian
 
 ### <a name="correspondance-api-paiements-france-travail"></a> API Paiements versés par France Travail
 
-[Swagger V.2](<%= api_particulier_developers_openapi_path %>#tag/Demandeurs-d'emploi/paths/~1api~1v2~1paiements-pole-emploi/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
+[Swagger V.2](https://particulier.api.gouv.fr/developpeurs/openapi-v2#tag/Demandeurs-d'emploi/paths/~1api~1v2~1paiements-pole-emploi/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
 [Swagger V.3](<%= api_particulier_developers_openapi_v3_path %>#tag/Paiements-verses-par-France-Travail){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill}
 
 
@@ -485,7 +485,7 @@ Un nouveau scope a été créé, permettant d'accéder à la donnée `identifian
 
 ### <a name="correspondance-api-statut-rsa"></a> API Statut revenu de solidarité active (RSA) 
 
-[Swagger V.2](<%= api_particulier_developers_openapi_path %>#tag/Prestations-sociales/paths/~1api~1v2~1revenu-solidarite-active/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
+[Swagger V.2](https://particulier.api.gouv.fr/developpeurs/openapi-v2#tag/Prestations-sociales/paths/~1api~1v2~1revenu-solidarite-active/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
 [Swagger V.3](<%= api_particulier_developers_openapi_v3_path %>#tag/Statut-Revenu-Solidarite-Active-(RSA)){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill}
 
 {:.fr-h6}
@@ -512,7 +512,7 @@ Un nouveau scope a été créé, permettant d'accéder à la donnée `identifian
 
 ### <a name="correspondance-api-statut-prime-activite"></a> API Statut prime d'activité  
 
-[Swagger V.2](<%= api_particulier_developers_openapi_path %>#tag/Prestations-sociales/paths/~1api~1v2~1prime-activite/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
+[Swagger V.2](https://particulier.api.gouv.fr/developpeurs/openapi-v2#tag/Prestations-sociales/paths/~1api~1v2~1prime-activite/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
 [Swagger V.3](<%= api_particulier_developers_openapi_v3_path %>#tag/Statut-Prime-Activite){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill}
 
 
@@ -539,7 +539,7 @@ Un nouveau scope a été créé, permettant d'accéder à la donnée `identifian
 ### <a name="correspondance-api-statut-aah"></a> API Statut allocation adulte handicapé (AAH) 
 
 
-[Swagger V.2](<%= api_particulier_developers_openapi_path %>#tag/Prestations-sociales/paths/~1api~1v2~1allocation-adulte-handicape/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
+[Swagger V.2](https://particulier.api.gouv.fr/developpeurs/openapi-v2#tag/Prestations-sociales/paths/~1api~1v2~1allocation-adulte-handicape/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
 [Swagger V.3](<%= api_particulier_developers_openapi_v3_path %>#tag/Statut-Allocation-Adulte-Handicape-(AAH)){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill}
 
 
@@ -565,7 +565,7 @@ Un nouveau scope a été créé, permettant d'accéder à la donnée `identifian
 
 ### <a name="correspondance-api-statut-asf"></a> API Statut allocation de soutien familial (ASF)
 
-[Swagger V.2](<%= api_particulier_developers_openapi_path %>#tag/Prestations-sociales/paths/~1api~1v2~1allocation-soutien-familial/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
+[Swagger V.2](https://particulier.api.gouv.fr/developpeurs/openapi-v2#tag/Prestations-sociales/paths/~1api~1v2~1allocation-soutien-familial/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
 [Swagger V.3](<%= api_particulier_developers_openapi_v3_path %>#tag/Statut-Allocation-Soutien-Familial-(ASF)){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill}
 
 
@@ -591,7 +591,7 @@ Un nouveau scope a été créé, permettant d'accéder à la donnée `identifian
 
 ### <a name="correspondance-api-statut-c2s"></a> API Statut complémentaire santé solidaire (C2S) 
 
-[Swagger V.2](<%= api_particulier_developers_openapi_path %>#tag/Prestations-sociales/paths/~1api~1v2~1complementaire-sante-solidaire/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
+[Swagger V.2](https://particulier.api.gouv.fr/developpeurs/openapi-v2#tag/Prestations-sociales/paths/~1api~1v2~1complementaire-sante-solidaire/get){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill .fr-btn--secondary}
 [Swagger V.3](<%= api_particulier_developers_openapi_v3_path %>#tag/Statut-Complementaire-Sante-Solidaire-(C2S)){:target="_blank"}{:.fr-btn .fr-btn--md fr-btn--icon-right fr-icon-arrow-right-fill}
 
 

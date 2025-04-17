@@ -1,0 +1,188 @@
+---
+- uid: 'cnav/quotient_familial'
+  opening: protected
+  new_version: true
+  old_endpoint_uids:
+    - 'cnav/v2/quotient_familial_v2'
+  path: '/v3/dss/quotient_familial/identite'
+  ping_url: 'https://particulier.api.gouv.fr/api/cnaf_msa_quotient_familial/ping'
+  position: 200
+  perimeter:
+    entity_type_description: |+
+      **Cette API concerne les allocataires de la majorité des régimes** :
+      - ✅ le régime agricole (MSA) ;
+      - ✅ le régime général ;
+      - ✅ les titulaires de l'éducation nationale ;
+      - ✅ les retraités de la fonction publique d'État et des collectivités locales ;
+      - ✅ les régimes spéciaux suivants : artiste-auteur-compositeur, France Télécom, industries électriques et gazières, marin du commerce et pêche, mines (régime général), poste, RATP, SNCF, navigation intérieure en cas d'accord local et les pensions des autres régimes.
+
+
+      **Ne sont pas concernés par cette API**, les bénéficiaires des régimes suivants :
+
+      - ❌ le régime des titulaires de l'Assemblée nationale et du Sénat ;
+      - ❌ le régime de la navigation intérieure **sauf** lorsqu'un accord local est passé, et que le régime est alors pris en compte par la CAF.
+
+    geographical_scope_description:  |+
+      - ✅ France métropolitaine
+      - ✅ DROM COM
+      - ✅ Allocataires de nationalité étrangère résidant en France
+    updating_rules_description: |+
+      Les données sont **mises à jour** : 
+      - **une fois par mois, après le premier week-end du mois, pour les allocataires CAF**
+      - **en temps réel lorsqu'il y a un changement de situation pour les allocataires MSA**
+      Le mois remonté est le mois m-1. Par exemple, au mois de janvier, c'est le quotient familial du mois de décembre de l'année précédente qui est remonté. Il faut donc attendre le mois de février pour accéder au quotient familial du mois de janvier. Cette API opérée par la CNAV (Caisse nationale d'assurance vieillesse) est reliée au système d'information de la Caisse nationale des allocations familiales (CNAF) et à celui de la mutualité sociale agricole (MSA).
+
+      ⚠️ **Les informations obtenues sont représentatives de la situation connue par la CNAF et la MSA au moment de l'appel**, il est donc possible qu'un quotient familial appelé pour un mois donné à un instant T, soit différent s'il est redemandé à un instant T+. [En savoir plus](faq_entry_1_api_particulier_endpoint_cnav_quotient_familial_v2).
+  data:
+    description: |+
+      **Cette API délivre** :
+      - **la composition familiale** du particulier, [en savoir plus](#faq_entry_answer_2_api_particulier_endpoint_cnav_quotient_familial_v2) ;
+      - **le quotient familial CAF ou MSA** du particulier. Par défaut, le quotient familial du **mois en cours** est transmis. Le QF de l'allocataire est disponible pour les 24 mois précédents en précisant le mois et l'année dans l'appel ;
+      - **l'adresse** du particulier au format de La Poste. ⚠️ Cette adresse est déclarative. Si l'usager a changé d'adresse et n'a pas actualisé son adresse auprès de la CAF ou de la MSA, l'information sera donc obsolète. 
+
+      {:.fr-highlight}
+      > Le quotient familial au sens de la CNAF ou de la MSA a une définition différente du quotient familial de l'administration fiscale, [en savoir plus](#faq_entry_answer_0_api_particulier_endpoint_cnav_quotient_familial_v2).
+
+      {:.fr-highlight.fr-highlight--caution}
+      > **Le QF CNAF est calculé seulement pour les allocataires dont les ressources sont déclarées**. En effet, pour calculer le quotient familial, la CNAF collecte tous les mois auprès de la DGFIP les ressources de l'individu (revenus salariés et non-salariés, du capital, rentes ...). Elle récupère le bilan en fin d'année. Sans la réception de ces ressources, le QF CNAF ne peut être calculé : une erreur est renvoyée par l'API.
+      >
+      > Si le particulier n'a plus d'allocations, son QF n'est pas renvoyé. Une erreur 404 "Dossier allocataire absent" est transmise par l'API.
+
+
+  parameters_details:
+    description: |+
+      **L'API est uniquement appelable avec les informations de l'allocataire**.
+      Il n'est pas possible d'interroger cette API avec les informations des ayants droit.
+      <br/>
+      Deux modalités d'appel sont possibles&nbsp;:
+      <p class="fr-badge fr-badge--blue-ecume">![Cette API est FranceConnectée](<%= image_path('api_particulier/cas_usages/pictos/modalite_appel_france_connect.svg') %>){:width="20px"} FranceConnect</p>
+      **Avec la [modalité d'appel FranceConnect](<%= cas_usage_path('modalite_appel_france_connect') %>)**.
+
+      <p class="fr-badge fr-badge--brown-cafe-creme">Identité pivot</p>
+      <section class="fr-accordion fr-mt-2v">
+        <p class="fr-accordion__title">
+        <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106"><b>Avec les données d'identité</b></button>
+        </p>
+        <div class="fr-collapse" id="accordion-106">
+        <div class="fr-mb-0">
+        <ul>
+          <li>Nom de naissance<sup>*</sup>, nom d'usage, prénoms<sup>1</sup>, sexe<sup>*</sup>, date de naissance de l'allocataire<sup>**</sup>&nbsp;;</li>
+          <li>Lieu de naissance&nbsp;:
+          <ul>
+            <li>
+            <em>Si le lieu de naissance est en France,</em> la commune de naissance est obligatoire, elle peut être saisie de deux façons différentes :
+            <ul>
+              <li class="fr-text--sm fr-mb-0">
+              Option 1 : Code COG de la commune de naissance<sup>*</sup>. <a href="#renseigner-lieu-de-naissance">En savoir plus</a>&nbsp;;
+              </li>
+              <li class="fr-text--sm fr-mb-0">
+              Option 2 : Nom de la commune de naissance<sup>*</sup> et code du département de naissance<sup>*</sup>. Pour cette option, la date de naissance est obligatoire. <a href="#renseigner-lieu-de-naissance">En savoir plus</a>.
+              </li>
+            </ul>
+            Pour chacune des deux options ci-dessus, le code COG de la France <code>99100</code><sup>*</sup> doit également être renseigné en paramètre d'appel. Vous n'avez pas besoin de le demander à l'usager, il peut être déduit de la commune de naissance.
+            </li>
+            <li class="fr-mt-2v">
+            <em>Si le lieu de naissance est à l'étranger&nbsp;:</em> code COG du pays de naissance<sup>*</sup>.
+            </li>
+          </ul>
+          </li>
+        </ul>
+        </div>
+        <span class="fr-text--xs">
+        <sup>*</sup> Obligatoire | <sup>**</sup> Obligatoire pour l'option 2 du lieu de naissance.
+        </span>
+        <span class="fr-text--xs fr-m-0">
+        <sup>1</sup> Fournir plusieurs prénoms permet de limiter les risques d'homonymie mais un seul prénom peut fonctionner. Attention, l'usager doit compléter chaque prénom dans un champ distinct.
+        </span>
+       
+        </div>
+      </section>
+
+  provider_uids:
+    - 'cnav'
+  call_id: 
+    - Identité pivot
+    - FranceConnect
+  parameters:
+    - Identité pivot
+    - FranceConnect
+  keywords:
+    - composition
+    - quotient
+    - famille
+    - familial
+    - allocataire
+    - enfant
+    - adresse
+    - CAF
+    - MSA
+  faq:
+    - q: Quelle différence entre le quotient familial CAF/MSA et le QF de l'administration fiscale ?
+      a: |+
+        Le quotient familial retourné par l'API est le quotient familial de la CAF ou de la MSA. Ce QF est différent de celui de l'administration fiscale car il prend en compte les prestations familiales. Contrairement au quotient familial DGFIP calculé au moment de la déclaration de revenu, le QF CAF/MSA est revu à chaque changement de situation familiale et/ou professionnelle.
+
+        Calcul du QF CAF/MSA : Revenu imposable de l’année N-2 divisé par 12 + **les prestations familiales du mois de référence**, le tout divisé par le nombre de parts fiscales du foyer.
+
+        Source : [Caf.fr](https://caf.fr/allocataires/vies-de-famille/articles/quotient-familial-caf-impots-quelles-differences){:target="_blank"}
+
+    - q: Variations du quotient familial au cours du temps et dates de calcul
+      a: |+
+        **Le quotient familial CAF ou MSA d'un même mois peut changer**. Il est recalculé fréquemment au cours du temps par la CAF et la MSA. En effet, la situation de la personne peut évoluer : _perte d'un emploi, évolution des ressources, arrivée d'un enfant, majorité d'un enfant, modification de la législation, évolution des allocations logement etc._
+        **Cette variation apparaît notamment entre le quotient familial du mois en cours appelé en début de mois ou en fin de mois**.
+
+        **Deplus, la date du calcul du quotient familial diffère** selon qu'il s'agit du quotient de la CAF ou de la MSA.
+        - La CAF effectue une sauvegarde des quotients recalculés uniquement lorqu'un changement subvient du côté de l'allocataire.
+
+            {:.fr-highlight.fr-highlight--example}
+            > Par exemple, un appel le 28 juin 2023, du quotient du mois en cours (juin 2023) : La CAF renverra le QF qu'elle a en mémoire, par exemple calculé le 19 juin 2023.
+
+        - La MSA effectue un recalcul du quotient familial à chaque appel de l'API.
+
+            {:.fr-highlight.fr-highlight--example}
+            > Par exemple, un appel le 28 juin 2023 du quotient familial du mois en cours (juin 2023) : la MSA recalculera le QF le 28 juin 2023.
+
+    - q: Quelle est la composition familiale renvoyée par cette API ?
+      a: |+
+        La notion de «&nbsp;composition familiale&nbsp;» peut correspondre à différentes définitions dans les administrations qui n'y comptent pas les mêmes personnes. _Par exemple, pour calculer l'impôt sur le revenu d'un foyer, le service des impôts s'intéresse à une composition familiale appelée «&nbsp;foyer fiscal&nbsp;»_, et dont la nature est différente de celle renvoyée par cette API.
+
+        **La composition familiale renvoyée par cette API correspond à celle établie pour effectuer le calcul du quotient familial, et donc à celle déclarée par les allocataires à la CAF et à la MSA.**
+        Dans cette composition familiale, les personnes suivantes sont comprises :
+        - L'adulte allocataire de la CAF ou de la MSA ;
+        - Son ou sa conjointe le cas échéant ;
+        - le ou les enfants dont la responsabilité affective et éducative, les frais liés au logement, à la nourriture et à l'éducation, sont assumés par l'allocataire qui n'est pas obligé d'avoir un lien de parenté direct. Les enfants sont pris en compte dès la grossesse, jusqu'à 21 ans en métropole (22 dans les DROM) et sous les conditions détaillées dans [ce guide de la Caf](https://www.caf.fr/allocataires/aides-et-demarches/thematique-libre/les-enfants-charge){:target="_blank"}.
+
+        {:.fr-highlight.fr-highlight--example}
+        > **Cette notion d'enfant à charge est différente de celle retenue par l'administration fiscale** : par exemple, un enfant peut être toujours rattaché fiscalement à ses parents, mais ne plus faire partie de la composition familiale au sens de la CAF ou de la MSA.
+        > C'est le cas d'un enfant ayant quitté le foyer de ses parents et ayant ouvert son propre dossier d'allocataire pour bénéficier d'une aide (par exemple les APL ou le RSA), mais qui souhaite tout de même être rattaché à la déclaration fiscale de ses parents.
+        > _Cet enfant appartiendra au même foyer fiscal que ses parents au sens de l'administration fiscale, mais à une famille différente selon la CAF ou la MSA._
+
+
+        **Pour chacune des personnes de cette «&nbsp;famille&nbsp;» au sens de la CAF ou de la MSA**, cette API renvoie les informations suivantes :
+        - Nom d'usage ;
+        - Prénoms ;
+        - Jour, mois et année de naissance ;
+        - Sexe.
+    - q: <a name="renseigner-lieu-de-naissance"></a> Appel avec l'identité pivot, comment renseigner le lieu de naissance ?
+      a: |+
+       Lorsque l'API est appelée avec l'identité pivot, pour identifier correctement le particulier, le système d'information a besoin de récupérer le lieu de naissance du particulier.
+
+        - **Pour les particuliers nés en France**: le code COG pays `99100` est obigatoire. La commune de naissance est également obligatoire et peut-être renseignée via deux options différentes&nbsp;:
+
+            - *Option 1 : L'API est appelée avec le code COG commune lui-même*. Pour aider les usagers à renseigner leur code COG, consultez la publication suivante :
+              {:.fr-icon-arrow-right-line .fr-link--icon-right}
+              [✒️ **Aider les usagers à renseigner leur lieu de naissance par code COG** - Lire la publication du 08/11/2023](https://particulier.api.gouv.fr/blog/parametre-lieu-naissance-code-cog){:target="_blank"}
+
+            - *Option 2 : L'API est appelée avec le nom de la commune de naissance et le code du département de naissance*. La date de naissance est obligatoire car c'est elle qui permettra à l'API de faire la correspondance avec le bon code COG.
+        
+        - **Pour les particuliers nés à l'étranger**: le code COG pays est obigatoire.
+
+        {:.fr-highlight}
+        > **Le code COG du pays de naissance est obligatoire pour tous les appels.** Pour simplifier le parcours des usagers, évitez de demander aux particuliers nés en France de saisir leur pays de naissance, puisque vous pouvez le paramétrer directement -code COG pays France `99100`-, dès qu'un particuloer renseigne les informations de sa commune de naissance (forcément en France).
+
+  historique: |+
+    **Ce que change le passage à la V.3 d'API Particulier:**
+
+    - Le passage à la V.3 n'a pas eu d'impact sur la donnée distribuée qui reste identique ; 
+    - Tous les changements sont décrits dans la [table de correspondance du guide migration](/blog/migration-api-particulier-v3#correspondance-api-quotient-familial-msa-caf){:target="_blank"}
+
+

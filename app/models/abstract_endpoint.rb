@@ -48,7 +48,11 @@ class AbstractEndpoint
   end
 
   def title
-    @title ||= open_api_definition['summary'].gsub(/\[.*?\]/, '').strip
+    @title ||= if open_api_definition.present? && open_api_definition['summary'].present?
+                 open_api_definition['summary'].gsub(/\[.*?\]/, '').strip
+               else
+                 'Titre indisponible'
+               end
   end
 
   def description
@@ -77,6 +81,10 @@ class AbstractEndpoint
 
   def novelty?
     novelty.present? && novelty
+  end
+
+  def from_v2?
+    false
   end
 
   def new_version?
