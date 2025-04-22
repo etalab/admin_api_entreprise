@@ -21,20 +21,20 @@
       **Les données sont mises à jour trimestriellement** car le processus de recensement est trimestriel.  
       
       {:.fr-highlight.fr-highlight--caution}
-      > **⚠️ Un jeune en règle peut ne pas encore être reconnu comme tel par l'API en raison du délai de mise à jour**
-      > Du fait de la mise à jour trimestrielle, un jeune qui a fait son recensement par exemple en janvier et qui a effectué sa journée défense et citoyenneté n'apparaîtra en règle dans l'API qu'à partir du mois d'avril. 
-      > Dans ce cadre, nous recommandons aux administrations de laisser la possibilité à l'usager de fournir un justificatif si la réponse de l'API est "n'est pas en règle". 
+      > **⚠️ Un jeune en règle peut ne pas encore être déclaré comme tel par l'API en raison du délai de mise à jour.**
+      > Du fait de la mise à jour trimestrielle, un jeune qui a fait son recensement, par exemple, _en janvier_ et qui a effectué sa journée défense et citoyenneté n'apparaîtra en règle dans l'API qu'_à partir du mois d'avril_. 
+      > Dans ce cadre, nous recommandons aux administrations de **laisser la possibilité à l'usager de fournir un justificatif** si la réponse de l'API est `n'est pas en règle`. 
       
       Cette API est opérée par la direction du service national et de la jeunesse (DSNJ), les informations obtenues sont représentatives de la situation connue par la DSNJ au moment de l'appel. 
   data:
     description: |+
-      **Cette API délivre la situation d'un jeune vis à vis du service national** [en savoir plus](#faq_entry_answer_1_api_particulier_endpoint_ministere_des_armees_service_national) ;
+      Cette API indique : 
+      - **si un jeune entre 16 et 25 ans est en règle de ses obligations de service national**, [en savoir plus](#service-national).
+      - les commentaires laissés par XXX.
 
   parameters_details:
     description: |+
-      **L'API est uniquement appelable avec les informations de l'usager**.
-      <br/>
-      Deux modalités d'appel sont possibles&nbsp;:
+      Cette API propose deux modalités d'appel&nbsp;:
       <p class="fr-badge fr-badge--blue-ecume">![Cette API est FranceConnectée](<%= image_path('api_particulier/cas_usages/pictos/modalite_appel_france_connect.svg') %>){:width="20px"} FranceConnect</p>
       **Avec la [modalité d'appel FranceConnect](<%= cas_usage_path('modalite_appel_france_connect') %>)**.
 
@@ -95,7 +95,7 @@
     - Journée défense et citoyenneté
 
   faq:
-    - q: Qu'est-ce que le service national ?
+    - q: <a name="service-national"></a>Qu'est-ce que le service national ?
       a: |+
         **Le service national est composé du rencensement et de la participation à la journée défense et citoyenneté. Un jeune qui est en règle vis à vis du service national a donc effectué son recensement dès l'âge de 16 ans et a participé à la journée défense et citoyenneté**. [Plus d'informations](https://www.service-public.fr/particuliers/vosdroits/N24)
 
