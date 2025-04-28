@@ -11,16 +11,16 @@
 
       **Ne sont pas concernés par cette API** :
       - ❌ les jeunes de nationalité étrangère ;
-      - ❌ les personnes de moins de 16 et de plus de 25 ans car elles sont exemptées du Service national.
+      - ❌ les personnes de moins de 16 et de plus de 25 ans car elles sont exemptées du service national.
 
     geographical_scope_description: |+
       - ✅ France métropolitaine ;
       - ✅ DROM COM ;
       - ✅ les français à l'étranger résidant dans un pays où il y a un consulat français qui organise des journées défense et citoyenneté. 
     updating_rules_description: |+
-      Le statut transmis est représentatif de la situation telle que connue par la direction du Service national et de la jeunesse (DSNJ) qui opère cette API.
+      Le statut transmis est représentatif de la situation telle que connue par la direction du service national et de la jeunesse (DSNJ) qui opère cette API.
       
-      Le statut en règle vis à vis du Service national dépend de deux obligations différentes : le recensement et la participation à la journée défense et citoyenneté. [En savoir plus](#obligations-service-national).
+      Le statut en règle vis à vis du service national dépend de deux obligations différentes : le recensement et la participation à la journée défense et citoyenneté. [En savoir plus](#obligations-service-national).
 
       **La DSNJ, et donc cette API, sont informées** : 
       - **trimestriellement du recensement** d'un jeune car cette information est communiquée que tous les trois mois par les communes ;
@@ -35,7 +35,7 @@
   data:
     description: |+
       Cette API indique : 
-      - **si un jeune entre 16 et 25 ans est en règle de ses obligations de Service national**, à savoir&nbsp;: 
+      - **si un jeune entre 16 et 25 ans est en règle de ses obligations de service national**, à savoir&nbsp;: 
         - entre 16 et 18 ans, avoir réalisé son recensement ;
         - entre 18 et 25 ans, avoir réalisé son recensement et participé à la journée défense et citoyenneté. [En savoir plus sur les obligations](#obligations-service-national).
       - **les commentaires laissés par la DSNJ** notamment pour les cas particuliers, _par exemple une situation de handicap qui exempte de la journée défense et citoyenneté_.
@@ -103,15 +103,15 @@
     - Journée défense et citoyenneté
 
   faq:
-    - q: <a name="obligations-service-national"></a>Quelles sont les obligations attendues par le Service national ?
+    - q: <a name="obligations-service-national"></a>Quelles sont les obligations attendues par le service national ?
       a: |+
-        **Le Service national est composé de deux obligations** :
+        **Le service national est composé de deux obligations** :
         - le rencensement ;
         - la participation à la journée défense et citoyenneté. 
 
         **Ces obligations diffèrent selon l'âge du jeune** : 
-        - entre 16 et 18 ans, le jeune est considéré comme en règle du Service national lorsqu'il a effectué son recensement.
-        - entre 18 et 25 ans, le jeune doit avoir effectué son recensement ET participé à la journée de défense et citoyenneté pour être considéré comme en règle du Service national.
+        - entre 16 et 18 ans, le jeune est considéré comme en règle du service national lorsqu'il a effectué son recensement.
+        - entre 18 et 25 ans, le jeune doit avoir effectué son recensement ET participé à la journée de défense et citoyenneté pour être considéré comme en règle du service national.
 
         [Plus d'informations sur service-public.fr](https://www.service-public.fr/particuliers/vosdroits/N24)
 
@@ -120,7 +120,7 @@
         > **Exemple avec Thomas**
         > Thomas a 17 ans, il a effectué son recensement il y a déjà 1 an. Il est en règle.
         >
-        > Quelques mois plus tard, Thomas a 18 ans et il n'a pas encore effectué sa journée de défense et citoyenneté. Il n'est plus en règle vis à vis du Service national.
+        > Quelques mois plus tard, Thomas a 18 ans et il n'a pas encore effectué sa journée de défense et citoyenneté. Il n'est plus en règle vis à vis du service national.
         >
         > Quelques mois plus tard, Thomas a réalisé sa JDD, il est alors à nouveau en règle.
         
@@ -130,37 +130,37 @@
         
     - q: <a name="faux-negatifs-api-dsnj"></a> Pourquoi l'API peut indiquer qu'un jeune n'est pas en règle alors qu'il l'est ?
       a: |+
-        Pour qu'un jeune soit considéré comme en règle de son Service national, il doit avoir effectué son recensement dès 16 ans, et effectué sa journée défense et citoyenneté dès 18 ans. [En savoir plus sur les obligations du Service national](#obligations-service-national).
+        Pour qu'un jeune soit considéré comme en règle de son service national, il doit avoir effectué son recensement dès 16 ans, et effectué sa journée défense et citoyenneté dès 18 ans. [En savoir plus sur les obligations du service national](#obligations-service-national).
 
-        Cette API renvoie donc le statut en règle vis à vis du Service national lorsque les obligations, selon l'âge du jeune, sont remplies.
+        Cette API renvoie donc le statut en règle vis à vis du service national lorsque les obligations, selon l'âge du jeune, sont remplies.
 
         **Cependant, la DSNJ et par conséquent cette API, sont informées du recensement seulement trimestriellement**, car cette information n'est communiquée par les communes que tous les 3 mois.
 
-        **Par conséquent**, dans certains cas, notamment pour les jeunes ayant moins de 18 ans et pour lesquels le recensement est l'unique obligation vis à vis du Service national, **l'API peut parfois indiquer que le jeune n'est pas en règle, alors qu'il l'est**.
+        **Par conséquent**, dans certains cas, notamment pour les jeunes ayant moins de 18 ans et pour lesquels le recensement est l'unique obligation vis à vis du service national, **l'API peut parfois indiquer que le jeune n'est pas en règle, alors qu'il l'est**.
 
         {:.fr-highlight.fr-highlight--example}
         > **Exemple avec Thomas**
-        > Thomas a 17 ans, il a effectué son recensement en janvier. Il est en règle vis à vis du Service national.
+        > Thomas a 17 ans, il a effectué son recensement en janvier. Il est en règle vis à vis du service national.
         > Il se présente pour un concours en mars. Au moment de l'inscription, **l'API indique qu'il n'est pas en règle** _car l'information de son recensement n'a pas encore été transmise par sa commune à la DSNJ_. 
         > Heureusement, tout se passe bien parce qu'il a pu tout de même transmettre par lui-même son justificatif.
         >
         > Quelques mois plus tard, en mai, cette fois-ci, l'API renvoie bien le statut en règle.
         >
-        > Un an plus tard, Thomas a 18 ans, il vient de réaliser sa journée défense et citoyenneté. Il postule pour un emploi de la fonction publique et n'a pas besoin de transmettre son justificatif car l'API est déjà à jour et a bien indiqué qu'il était en règle du Service national. En effet, la transmission de la participation à la JDD est effectuée en temps réel vers l'API.
+        > Un an plus tard, Thomas a 18 ans, il vient de réaliser sa journée défense et citoyenneté. Il postule pour un emploi de la fonction publique et n'a pas besoin de transmettre son justificatif car l'API est déjà à jour et a bien indiqué qu'il était en règle du service national. En effet, la transmission de la participation à la JDD est effectuée en temps réel vers l'API.
 
         Les faux négatifs en raison du délai de transmission du recensement se présentent surtout pour les jeunes de moins de 18 ans. Pour les majeurs, le délai d'inscription à la JDD dépasse de toute façon régulièrement les 3 mois et implique qu'ils ne sont pas en règle durant cette période.
 
         {:.fr-highlight}
         > **💡 Toujours permettre à l'usager de transmettre un justificatif**
         > Dans tous les cas, quelles que soient les API utilisées, nous vous recommandons de toujours permettre à l'usager de pouvoir justifier par lui-même de sa situation. 
-        > Ici, permettre à l'usager de transmettre son justificatif de Service national.
+        > Ici, permettre à l'usager de transmettre son justificatif de service national.
         
-    - q: <a name="faq-pourquoi-etre-en-regle"></a> Pourquoi un jeune doit être en règle vis à vis du Service national ? 
+    - q: <a name="faq-pourquoi-etre-en-regle"></a> Pourquoi un jeune doit être en règle vis à vis du service national ? 
       a: |+
-        **Un jeune entre 16 et 25 ans doit être en règle vis à vis du Service national** s'il souhaite : 
+        **Un jeune entre 16 et 25 ans doit être en règle vis à vis du service national** s'il souhaite : 
         - passer des examens sous contrôle de l'autorité publique comme le permis de conduire ;
         - passer des concours sous contrôle de l'autorité publique, pour rentrer dans un établissement public de l'enseignement supérieur par exemple ;
-        - postuler à un emploi de la fonction publique qui demande d'être en règle vis à vis du Service national. 
+        - postuler à un emploi de la fonction publique qui demande d'être en règle vis à vis du service national. 
         [Plus d'informations](https://www.data.gouv.fr/fr/dataservices/api-service-national/)
 
     - q: Une personne qui a une dérogation de faire la journée défense et citoyenneté, pour cause médicale par exemple, est elle remontée comme étant en règle ? 
