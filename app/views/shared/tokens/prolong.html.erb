@@ -5,14 +5,19 @@
       <%= t('.title') %>
     </h3>
     <p>
-      <%= t('.description',
-          link_to_datapass: link_to(
-            t('shared.links.to_datapass', external_id: @token.authorization_request.external_id).html_safe,
-            datapass_authorization_request_url(@token.authorization_request),
-            id: :authorization_request_link,
-            class: %w(fr-link),
-            target: '_blank'),
-            remaining_time: distance_of_time_in_words(Time.zone.now, @token.end_timestamp)
+    <% 
+      now = Time.zone.now
+      translation_key = ".description.#{@token.end_timestamp > now.to_i ? 'future' : 'past'}"
+    %>
+
+    <%= t(translation_key,
+            link_to_datapass: link_to(
+              t('shared.links.to_datapass', external_id: @token.authorization_request.external_id).html_safe,
+              datapass_authorization_request_url(@token.authorization_request),
+              id: :authorization_request_link,
+              class: %w(fr-link),
+              target: '_blank'),
+            remaining_time: distance_of_time_in_words(now, @token.end_timestamp)
           ).html_safe %>
     </p>
     <p class="fr-mb-1v"><strong><%= t('.warning_description') %></strong></p>
