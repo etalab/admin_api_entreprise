@@ -29,6 +29,7 @@
 - **Database**: Follow Rails conventions, use strong_migrations for safe changes
 - **Indent Style**: 2 spaces, consistent indentation for multiline
 - **Comments**: DO NOT use comments
+- **File Endings**: Every file should end with a newline
 
 ## Access URLs
 - API Entreprise: http://entreprise.api.localtest.me:5000/
