@@ -123,7 +123,7 @@ group :test do
   gem 'cuprite'
   gem 'rspec-collection_matchers'
   gem 'rspec-its'
-  gem 'rspec-rails', '7.1.1'
+  gem 'rspec-rails', '8.0.0'
   gem 'rspec-retry'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
