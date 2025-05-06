@@ -33,7 +33,7 @@
         <% @authorization_requests.each do |authorization_request| %>
           <div id="<%= dom_id(authorization_request) %>" class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle fr-p-4v">
             <div class="fr-col-12 fr-col-sm-3 fr-p-0 center">
-            <h2 class="fr-h6 fr-mb-0"><%= authorization_request.intitule %></h2>
+              <h2 class="fr-h6 fr-mb-0"><%= authorization_request.intitule %></h2>
               <%= authorization_request_status_badge(authorization_request) %>
               <span class="fr-hint-text">
                 <%= link_to t('.links.to_datapass', external_id: authorization_request.external_id).html_safe,
@@ -77,7 +77,7 @@
               <% end %>
             </div>
             <div class="fr-col-12 fr-col-sm-2 center">
-              <%= link_to "", authorization_request_path(authorization_request), class: %w[fr-btn fr-btn--lg fr-btn--tertiary-no-outline fr-icon-arrow-right-line] %>
+              <%= link_to "Voir plus de détails", authorization_request_path(authorization_request), class: %w[fr-btn fr-btn--lg fr-btn--icon-right fr-icon-arrow-right-line] %>
             </div>
           </div>
         <% end %>
