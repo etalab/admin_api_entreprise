@@ -76,16 +76,7 @@
             <% end %>
             <ul class="fr-btns-group--right fr-btns-group--inline-sm fr-btns-group--inline-reverse fr-btns-group--icon-right">
               <li>
-                <a
-                  href="<%= token_path(id: @main_token.id) %>"
-                  id="show-token-modal-link"
-                  class="fr-btn fr-btn--secondary fr-icon-eye-fill fr-btn--icon-right fr-mt-2w"
-                  aria-controls="main-modal"
-                  data-fr-opened="false"
-                  data-turbo-frame="main-modal-content"
-                >
-                  <%= t('.modal.show.display_cta') %>
-                </a>
+                <%= render partial: "shared/tokens/reveal_token_button", locals: { token: @main_token } %>
               </li>
               <% if policy(@main_token).prolong? %>
                 <li>
