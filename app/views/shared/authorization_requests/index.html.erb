@@ -23,10 +23,10 @@
           <div class="fr-col-12 fr-col-sm-4">
             <strong><%= t('.table.head.token') %></strong>
           </div>
-          <div class="fr-col-12 fr-col-sm-3">
+          <div class="fr-col-12 fr-col-sm">
               <strong><%= t('.table.head.actions') %></strong>
           </div>
-          <div class="fr-col-12 fr-col-sm-2">
+          <div class="fr-col-12 fr-col-sm">
               <strong><%= t('.table.head.detail') %></strong>
           </div>
         </div>
@@ -71,12 +71,12 @@
                 </div>
             <% end %>
             </div>
-            <div class="fr-col-12 fr-col-sm-3">
+            <div class="fr-col-12 fr-col-sm">
               <% authorization_request_expected_actions(authorization_request, current_user).each do |action| %>
                 <%= render partial: "shared/authorization_requests/actions/#{action[:action]}", locals: { label: action[:label], authorization_request:, to_datapass_reopen: action[:to_datapass_reopen] } %>
               <% end %>
             </div>
-            <div class="fr-col-12 fr-col-sm-2">
+            <div class="fr-col-12 fr-col-sm">
               <%= link_to "Voir plus de détails", authorization_request_path(authorization_request), class: %w[fr-btn fr-btn--tertiary center] %>
             </div>
           </div>
