@@ -30,6 +30,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :frontal, only: :index
+    resources :hyperping_webhooks, only: :create
   end
 
   draw(:api_entreprise)
