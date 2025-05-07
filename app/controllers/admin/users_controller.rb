@@ -1,5 +1,6 @@
 class Admin::UsersController < AdminController
   def index
+    downcase_params if params[:q].present?
     @q = User.includes(:editor).ransack(params[:q])
     @users = @q.result(distinct: true).page(params[:page])
   end
@@ -50,5 +51,9 @@ class Admin::UsersController < AdminController
 
   def provider_klass
     Kernel.const_get("API#{namespace.classify}::Provider")
+  end
+
+  def downcase_params
+    params[:q][:email_or_authorization_requests_siret_or_authorization_requests_external_id_eq] = params[:q][:email_or_authorization_requests_siret_or_authorization_requests_external_id_eq].downcase if params[:q][:email_or_authorization_requests_siret_or_authorization_requests_external_id_eq].present?
   end
 end
