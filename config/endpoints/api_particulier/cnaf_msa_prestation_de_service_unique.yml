@@ -1,0 +1,126 @@
+---
+- uid: 'cnav/psu'
+  opening: protected
+  call_id:
+    - Identité pivot
+    - FranceConnect
+  parameters:
+    - Identité pivot
+    - FranceConnect
+  path: '/v3/dss/participation_familiale_eaje/identite'
+  position: 602
+  perimeter:
+    entity_type_description: |+
+      **Cette API délivre les informations permettant le calcul de la participation familiale pour la tarification des établissements d'accueil du jeune enfant (EAJE) des allocataires de la majorité des régimes** :
+      - ✅ le régime agricole (MSA) ;
+      - ✅ le régime général ;
+      - ✅ les titulaires de l'éducation nationale ;
+      - ✅ les retraités de la fonction publique d'État et des collectivités locales ;
+      - ✅ les régimes spéciaux suivants : artiste-auteur-compositeur, France Télécom, industries électriques et gazières, marin du commerce et pêche, mines (régime général), poste, RATP, SNCF, navigation intérieure en cas d'accord local et les pensions des autres régimes.
+
+        **Ne sont pas concernés par cette API**, les bénéficiaires des régimes suivants :
+
+      - ❌ le régime des titulaires de l'Assemblée nationale et du Sénat ;
+      - ❌ le régime de la navigation intérieure **sauf** lorsqu'un accord local est passé, et que le régime est alors pris en compte par la CAF.
+
+    geographical_scope_description:  |+
+      - ✅ France métropolitaine
+      - ✅ DROM COM
+      - ✅ Allocataires de nationalité étrangère résidant en France
+    updating_rules_description: |+
+      Les données sont actualisées : 
+      - **une fois par an, au mois de janvier, pour la base ressource** ;
+      - **lorsqu'il y a un changement de situation pour les enfants à charge et le conjoint** ;
+      - **tous les 2, 3 ou 5 ans pour le nombre d'ouverture de droit à l'allocatation d'éducation de l'enfant handicapé (selon le taux d'incapacité). 
+
+      Cette API opérée par la Caisse nationale d'assurance vieillesse (CNAV) est reliée au système d'information de la Caisse nationale des allocations familiales (CNAF) et à celui de la mutualité sociale agricole (MSA).
+
+      ⚠️ **Les informations obtenues sont représentatives de la situation connue par la CNAF et la MSA au moment de l'appel**, il est donc possible que les données appelées pour un mois donné à un instant T, soient différentes si elles sont redemandées à un instant T+. [En savoir plus](#qu-est-ce-que-la-psu).
+  data: 
+    description: |+
+      **Cette API délivre** :
+      - **la composition familiale** du particulier : identités de l'allocataire et de son conjoint, identités des enfants au sens des prestations familiales, [en savoir plus](#faq_entry_answer_2_api_particulier_endpoint_cnav_prestation_de_service_unique) ;
+      - **l'adresse** du particulier au format de La Poste. ⚠️ Cette adresse est déclarative. Si l'usager a changé d'adresse et n'a pas actualisé son adresse auprès de la CAF ou de la MSA, l'information sera donc obsolète ;
+      - **les différents paramètres de calcul de la participation familiale** : le nombre d'enfants à charge au sens des prestations familiales, le nombre d’ouverture au droit à l’allocation d'éducation de l'enfant handicapé (AEEH), la base ressource prestation de service unique (PSU) : montant et la date de calcul. 
+      {:.fr-highlight}
+
+      {:.fr-highlight.fr-highlight--caution}
+      > **Le montant de la base ressource ainsi que l'année de calcul sont remontés seulement pour les allocataires dont les ressources sont déclarées**. En effet, la CNAF et la MSA collectent auprès de la DGFIP les ressources de l'individu (revenus salariés et non-salariés, du capital, rentes ...). Elles récupèrent le bilan en fin d'année pour mettre à jour ces informations en janvier. Sans la réception de ces ressources, l'API renverra une erreur car si il manque un paramètre de calcul de la PSU, l'API ne restitue pas les autres informations. 
+    know_more_description: |+
+      [Pour en savoir plus sur la PSU et les règles d'attribution de cette aide aux établissements d'accueil du jeune enfant](#qu-est-ce-que-la-psu)
+
+  parameters_details:
+    description: |+
+      **L'API est uniquement appelable avec les informations de l'allocataire**.
+      Il n'est pas possible d'interroger cette API avec les informations des ayants droit.
+          <br/>
+      Deux modalités d'appel sont possibles&nbsp;:
+          <p class="fr-badge fr-badge--blue-ecume">![Cette API est FranceConnectée](<%= image_path('api_particulier/cas_usages/pictos/modalite_appel_france_connect.svg') %>){:width="20px"} FranceConnect</p>
+      **Avec la [modalité d'appel FranceConnect](<%= cas_usage_path('modalite_appel_france_connect') %>)**.
+
+      <p class="fr-badge fr-badge--brown-cafe-creme">Identité pivot</p>
+      <section class="fr-accordion fr-mt-2v">
+        <p class="fr-accordion__title">
+        <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106"><b>Avec les données d'identité</b></button>
+        </p>
+        <div class="fr-collapse" id="accordion-106">
+        <div class="fr-mb-0">
+        <ul>
+          <li>Nom de naissance<sup>*</sup>, nom d'usage, prénoms<sup>1</sup>, sexe<sup>*</sup>, date de naissance de l'allocataire<sup>**</sup>&nbsp;;</li>
+          <li>Lieu de naissance&nbsp;:
+          <ul>
+            <li>
+            <em>Si le lieu de naissance est en France,</em> la commune de naissance est obligatoire, elle peut être saisie de deux façons différentes :
+            <ul>
+              <li class="fr-text--sm fr-mb-0">
+              Option 1 : Code COG de la commune de naissance<sup>*</sup>. <a href="#renseigner-lieu-de-naissance">En savoir plus</a>&nbsp;;
+              </li>
+              <li class="fr-text--sm fr-mb-0">
+              Option 2 : Nom de la commune de naissance<sup>*</sup> et code du département de naissance<sup>*</sup>. Pour cette option, la date de naissance est obligatoire. <a href="#renseigner-lieu-de-naissance">En savoir plus</a>.
+              </li>
+            </ul>
+            Pour chacune des deux options ci-dessus, le code COG de la France <code>99100</code><sup>*</sup> doit également être renseigné en paramètre d'appel. Vous n'avez pas besoin de le demander à l'usager, il peut être déduit de la commune de naissance.
+            </li>
+            <li class="fr-mt-2v">
+            <em>Si le lieu de naissance est à l'étranger&nbsp;:</em> code COG du pays de naissance<sup>*</sup>.
+            </li>
+          </ul>
+          </li>
+        </ul>
+        </div>
+        <span class="fr-text--xs">
+        <sup>*</sup> Obligatoire | <sup>**</sup> Obligatoire pour l'option 2 du lieu de naissance.
+        </span>
+        <span class="fr-text--xs fr-m-0">
+        <sup>1</sup> Fournir plusieurs prénoms permet de limiter les risques d'homonymie mais un seul prénom peut fonctionner. Attention, l'usager doit compléter chaque prénom dans un champ distinct.
+        </span>
+        <blockquote class="fr-highlight fr-highlight--caution">
+
+
+  provider_uids:
+    - 'cnav'
+  keywords:
+    - participation famililale dans les établissements d'accueil du jeune enfant
+    - EAJE
+    - crèche
+    - multi accueil
+    - psu
+    - prestation de service unique
+    - aeeh
+    - ressources
+    - allocataire
+    - enfant
+    - adresse  
+  faq:
+    - q: <a name="qu-est-ce-que-la-psu"></a> Qu'est ce que la prestation de service unique (PSU) ?
+      a: |+
+        La prestation de service unique est une aide au fonctionnement versée par les Caf aux gestionnaires d’établissements visés par l’[article R.2324-17 du code de la santé publique](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000043998627){:target="_blank"} et bénéficiant d’une autorisation d’ouverture délivrée par l’autorité compétente soit :
+        - les établissements d’accueil collectif (crèches, haltes-garderies, multi-accueils, micro-crèches (excepté les micro-crèches Cmg Paje) ;
+        - les services d’accueils familiaux (crèches familiales) ;
+        - les établissements à gestion parentale ;
+        - les jardins d’enfants.
+
+        Elle correspond à la prise en charge de 66 % du prix de revient horaire d’un établissement d'accueil du jeune enfant (eaje), dans la limite du prix plafond fixé par la CNAF et la MSA, déduction faite des participations familiales. 
+       
+        [Pour en savoir plus sur la PSU et les règles d'attribution de cette aide aux établissements d'accueil du jeune enfant](https://www.caf.fr/sites/default/files/medias/631/Partenaires/PDF%20_Part/EAJE/Corps%20de%20la%20circulaire%20Psu20180205101510.pdf){:target="_blank"}
+
