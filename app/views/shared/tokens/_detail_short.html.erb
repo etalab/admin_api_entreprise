@@ -11,5 +11,7 @@
       expiration_date: friendly_date_from_timestamp(token.end_timestamp)
     ).html_safe %>
   </span>
-  <%= render partial: "shared/tokens/reveal_token_button", locals: { token: token } %>
+  <% unless local_assigns[:hide_reveal_token] %>
+    <%= render partial: "shared/tokens/reveal_token_button", locals: { token: token } %>
+  <% end %>
 <% end %>
