@@ -1,7 +1,6 @@
 class ProlongTokenWizard < ApplicationRecord
   belongs_to :token
 
-  delegate :prolong!, to: :token
   delegate :authorization_request, to: :token
 
   enum :status, {
