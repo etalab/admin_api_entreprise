@@ -43,7 +43,7 @@
           </td>
           <td class="authorization_request-token">
             <% if authorization_request.token %>
-              <%= render partial: 'shared/tokens/detail_short', locals: { token: authorization_request.token.decorate } %>
+              <%= render partial: 'shared/tokens/detail_short', locals: { token: authorization_request.token.decorate, hide_reveal_token: true } %>
             <% end %>
             <% if current_editor.copy_token? %>
               <div class="copy-token" data-controller="clipboard" data-clipboard-alert-message-value="Jeton copié">
