@@ -1,19 +1,22 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
+require_relative '../../../support/shared_examples/features/endpoints/show'
 
 RSpec.describe 'Endpoints show', app: :api_entreprise do
-  let(:endpoint) { APIEntreprise::Endpoint.find(uid) }
-  let(:uid) { api_entreprise_example_uid }
   let(:api_status) { 200 }
+  let(:uid) { 'insee/unites_legales' }
+  # API Entreprise specific tests
+  let(:endpoint) { APIEntreprise::Endpoint.find(uid) }
 
   before do
     stub_request(:get, endpoint.ping_url).to_return(status: api_status) if endpoint.ping_url
-
     visit endpoint_path(uid:)
   end
 
-  it 'displays basic information, with attributes data' do
-    expect(page).to have_content(endpoint.title)
+  it_behaves_like 'an endpoints show feature', APIEntreprise, 'insee/unites_legales', '"sigle": "DINUM"'
 
+  it 'displays attributes data' do
     expect(page).to have_css('#property_attribute_type')
 
     within('#property_attribute_type') do
@@ -23,38 +26,6 @@ RSpec.describe 'Endpoints show', app: :api_entreprise do
 
   it "displays links to cas d'usage" do
     expect(page).to have_link('Marchés publics', href: cas_usage_path(uid: 'marches_publics'))
-  end
-
-  it 'displays link to test cases' do
-    expect(page).to have_link(I18n.t('api_entreprise.endpoints.details.test_cases'), href: endpoint.test_cases_external_url)
-  end
-
-  describe 'real time status' do
-    context 'when endpoint is up' do
-      let(:api_status) { 200 }
-
-      it 'displays UP status' do
-        expect(page).to have_css('.api-status-up')
-      end
-    end
-
-    context 'when endpoint is down' do
-      let(:api_status) { 502 }
-
-      it 'displays UP status' do
-        expect(page).to have_css('.api-status-down')
-      end
-    end
-  end
-
-  describe 'each endpoint' do
-    APIEntreprise::Endpoint.all.each do |endpoint|
-      it "works for #{endpoint.uid} endpoint" do
-        visit endpoint_path(uid: endpoint.uid)
-
-        expect(page).to have_css("#api_entreprise_endpoint_#{endpoint.id}")
-      end
-    end
   end
 
   describe 'provider errors' do
@@ -84,17 +55,9 @@ RSpec.describe 'Endpoints show', app: :api_entreprise do
   end
 
   describe 'actions' do
-    describe 'click on example', :js do
-      it 'opens modal with example' do
-        click_link 'example_link'
-
-        within('#main-modal-content') do
-          expect(page).to have_content('"sigle": "DINUM"')
-        end
-      end
-
+    describe 'click on example with collection uid', :js do
       it 'open modal with custom example' do
-        visit endpoint_path(uid: api_entreprise_example_collection_uid)
+        visit endpoint_path(uid: 'infogreffe/mandataires_sociaux')
 
         click_link 'example_link'
 

@@ -1,19 +1,22 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
+require_relative '../../../support/shared_examples/features/endpoints/show'
 
 RSpec.describe 'Endpoints show', app: :api_particulier do
-  let(:endpoint) { APIParticulier::Endpoint.find(uid) }
-  let(:uid) { 'cnav/quotient_familial' }
   let(:api_status) { 200 }
+  let(:uid) { 'cnav/quotient_familial' }
+  # API Particulier specific tests
+  let(:endpoint) { APIParticulier::Endpoint.find(uid) }
 
   before do
     stub_request(:get, endpoint.ping_url).to_return(status: api_status) if endpoint.ping_url
-
     visit endpoint_path(uid:)
   end
 
-  it 'displays basic information, with attributes data' do
-    expect(page).to have_content(endpoint.title)
+  it_behaves_like 'an endpoints show feature', APIParticulier, 'cnav/quotient_familial', 'JEAN JACQUES'
 
+  it 'displays attributes data' do
     expect(page).to have_css('#property_attribute_allocataires')
   end
 
@@ -21,56 +24,12 @@ RSpec.describe 'Endpoints show', app: :api_particulier do
     expect(page).to have_content('Tarification cantine')
   end
 
-  it 'displays link to test cases' do
-    expect(page).to have_link(I18n.t('api_particulier.endpoints.details.test_cases'), href: endpoint.test_cases_external_url)
-  end
-
-  describe 'real time status' do
-    context 'when endpoint is up' do
-      let(:api_status) { 200 }
-
-      it 'displays UP status' do
-        expect(page).to have_css('.api-status-up')
-      end
-    end
-
-    context 'when endpoint is down' do
-      let(:api_status) { 502 }
-
-      it 'displays UP status' do
-        expect(page).to have_css('.api-status-down')
-      end
-    end
-  end
-
-  describe 'each endpoint' do
-    APIParticulier::Endpoint.all.each do |endpoint|
-      it "works for #{endpoint.uid} endpoint" do
-        visit endpoint_path(uid: endpoint.uid)
-
-        expect(page).to have_css("#api_particulier_endpoint_#{endpoint.id}")
-      end
-    end
-  end
-
   describe 'each endpoint V2' do
-    APIParticulier::EndpointV2.all.each do |endpoint|
-      it "works for #{endpoint.uid} endpoint" do
-        visit endpoint_path(uid: endpoint.uid)
+    APIParticulier::EndpointV2.all.each do |single_endpoint|
+      it "works for #{single_endpoint.uid} endpoint" do
+        visit endpoint_path(uid: single_endpoint.uid)
 
-        expect(page).to have_css("#api_particulier_endpoint_v2_#{endpoint.id}")
-      end
-    end
-  end
-
-  describe 'actions' do
-    describe 'click on example', :js do
-      it 'opens modal with example' do
-        click_link 'example_link'
-
-        within('#main-modal-content') do
-          expect(page).to have_content('JEAN JACQUES')
-        end
+        expect(page).to have_css("##{dom_id(single_endpoint)}")
       end
     end
   end
