@@ -1,11 +1,15 @@
-# frozen_string_literal: true
+require 'rails_helper'
 
-RSpec.shared_examples 'an authorization request mailer' do |methods_array, scope_label = nil|
+RSpec.shared_examples 'an authorization request mailer' do |options = {}|
   let(:authorization_request) { create(:authorization_request, :with_all_contacts) }
   let(:to) { 'anything@email.com' }
   let(:cc) { 'anything2@email.com' }
 
-  methods_array.each do |method|
+  # Use the email methods provided in options or use an empty array as fallback
+  # This allows API-specific email method lists
+  email_methods = options[:email_methods] || []
+
+  email_methods.each do |method|
     describe "##{method}" do
       subject(:generate_email) { described_class.send(method, { to:, cc:, authorization_request: }) }
 
@@ -19,9 +23,12 @@ RSpec.shared_examples 'an authorization request mailer' do |methods_array, scope
     end
   end
 
-  if scope_label.present?
+  # Only include the scopes test if specified in options
+  if options[:test_scopes]
+    let(:scope_label) { options[:scope_label] }
+
     describe 'scopes in mails' do
-      subject(:generate_email) { described_class.embarquement_valide_to_demandeur_is_metier_not_tech({ to:, cc:, authorization_request: }) }
+      subject(:generate_email) { described_class.send(options[:scope_test_method], { to:, cc:, authorization_request: }) }
 
       describe 'when there is no token' do
         it 'doesnt display scopes' do
