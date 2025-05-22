@@ -28,6 +28,7 @@ RSpec.describe 'datapass webhook trigger mails', type: :request do
         .to_return(status: 200, body: '', headers: {})
 
       allow(Mailjet::Contactslist_managemanycontacts).to receive(:create)
+      allow(UpdateOrganizationINSEEPayloadJob).to receive(:perform_later)
     end
 
     it { is_expected.to eq(200) }

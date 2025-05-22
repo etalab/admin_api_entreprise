@@ -10,7 +10,7 @@ RSpec.shared_examples 'datapass webhooks' do |version|
   end
 
   it 'calls UpdateOrganizationINSEEPayloadJob' do
-    expect(UpdateOrganizationINSEEPayloadJob).to receive(:perform_later).with(a_string_matching(/\A.{14}\z/))
+    expect(UpdateOrganizationINSEEPayloadJob).to receive(:perform_later).with(a_string_matching(/\A[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\z/))
 
     subject
   end
