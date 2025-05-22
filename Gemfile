@@ -121,6 +121,7 @@ end
 group :test do
   gem 'capybara', '>= 3.26'
   gem 'cuprite'
+  gem 'faker'
   gem 'rspec-collection_matchers'
   gem 'rspec-its'
   gem 'rspec-rails', '8.0.0'

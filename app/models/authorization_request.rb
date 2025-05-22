@@ -1,4 +1,9 @@
 class AuthorizationRequest < ApplicationRecord
+  belongs_to :organization,
+    primary_key: :siret,
+    optional: true,
+    dependent: nil
+
   has_many :user_authorization_request_roles, dependent: :destroy do
     def for_user(user)
       where(user:)
@@ -82,10 +87,6 @@ class AuthorizationRequest < ApplicationRecord
   has_one :demandeur, through: :demandeur_authorization_request_role
   has_one :contact_technique, through: :contact_technique_authorization_request_role
   has_one :contact_metier, through: :contact_metier_authorization_request_role
-
-  def organization
-    @organization ||= Organization.new(siret)
-  end
 
   def contacts_no_demandeur
     contacts.reject { |user| user == demandeur }

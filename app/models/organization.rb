@@ -1,9 +1,13 @@
-class Organization
-  attr_reader :siret
+class Organization < ApplicationRecord
+  has_many :authorization_requests,
+    foreign_key: :siret,
+    inverse_of: :organization,
+    dependent: nil
 
-  def initialize(siret)
-    @siret = siret
-  end
+  validates :siret,
+    presence: true,
+    uniqueness: true,
+    format: { with: /\A\d{14}\z/ }
 
   def denomination
     unite_legale_insee_payload['denominationUniteLegale']
@@ -32,6 +36,6 @@ class Organization
   end
 
   def insee_payload
-    @insee_payload ||= INSEESireneAPIClient.new.etablissement(siret:)
+    self[:insee_payload] ||= INSEESireneAPIClient.new.etablissement(siret:)
   end
 end

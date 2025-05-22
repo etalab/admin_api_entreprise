@@ -13,7 +13,7 @@ class DatapassWebhook::APIParticulier::CreateHubEESubscription < ApplicationInte
   end
 
   def editor_organization
-    @editor_organization ||= Organization.new(service_provider['siret'])
+    @editor_organization ||= Organization.find_or_create_by(siret: service_provider['siret'])
   end
 
   def editor_payload
