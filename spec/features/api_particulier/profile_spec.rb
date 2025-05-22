@@ -1,13 +1,9 @@
+require 'rails_helper'
+
 RSpec.describe 'API Particulier: profile spec', app: :api_particulier do
-  subject(:go_to_profile) { visit api_particulier_user_profile_path }
-
-  let(:user) { create(:user, :with_token) }
-
-  context 'when user is not authenticated' do
-    it 'redirects to the login' do
-      go_to_profile
-
-      expect(page).to have_current_path(api_particulier_login_path, ignore_query: true)
-    end
-  end
+  it_behaves_like 'a user profile feature',
+    user_profile_path_helper: :api_particulier_user_profile_path,
+    login_path_helper: :api_particulier_login_path,
+    with_token: true,
+    check_user_info: false
 end

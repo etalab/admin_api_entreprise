@@ -2,12 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe 'API Entreprise stats', app: :api_particulier do
-  describe 'GET API Particulier stats' do
-    before { visit api_particulier_stats_path }
-
-    it 'renders the stats page' do
-      expect(page).to have_css('iframe#stats-api-particulier')
-    end
-  end
+RSpec.describe 'API Particulier stats', app: :api_particulier do
+  it_behaves_like 'a stats feature',
+    stats_path_helper: :api_particulier_stats_path,
+    iframe_id: 'stats-api-particulier',
+    api_name: 'API Particulier'
 end

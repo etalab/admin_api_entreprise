@@ -1,8 +1,14 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
+require_relative '../../support/shared_examples/models/endpoint'
 
 RSpec.describe APIParticulier::Endpoint do
-  let(:uid) { 'cnav/quotient_familial' }
+  let(:example_uid) { 'cnav/quotient_familial' }
 
+  it_behaves_like 'an endpoint model', -> { 'cnav/quotient_familial' }, skip_first_element_check: true
+
+  # Additional API Particulier specific tests
   describe '.all' do
     it 'contains only v3 endpoints' do
       expect(described_class.all.map(&:uid)).to include('cnav/quotient_familial')
@@ -10,32 +16,14 @@ RSpec.describe APIParticulier::Endpoint do
     end
   end
 
-  describe '.find' do
-    subject { described_class.find(uid) }
+  describe '.find with specific endpoint' do
+    subject { described_class.find(example_uid) }
 
-    it { is_expected.to be_an_instance_of(described_class) }
-
-    its(:uid) { is_expected.to eq(uid) }
     its(:path) { is_expected.to eq('/v3/dss/quotient_familial/identite') }
 
-    its(:providers) { is_expected.to be_an_instance_of(Array) }
-
-    its(:attributes) { is_expected.to be_an_instance_of(Hash) }
     its(:attributes) { is_expected.to have_key('allocataires') }
     its(:attributes) { is_expected.to have_key('adresse') }
 
     its(:title) { is_expected.to eq('Quotient familial CAF & MSA') }
-  end
-
-  describe '#test_cases_external_url' do
-    subject { described_class.find(uid).test_cases_external_url }
-
-    it { is_expected.to eq('https://github.com/etalab/siade_staging_data/tree/develop/payloads/api_particulier_v3_cnav_quotient_familial_with_civility') }
-  end
-
-  describe '#redoc_anchor' do
-    subject { described_class.find(uid).redoc_anchor }
-
-    it { is_expected.to eq('tag/Quotient-familial-CAF-and-MSA/paths/~1v3~1dss~1quotient_familial~1identite/get') }
   end
 end
