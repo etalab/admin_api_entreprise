@@ -9,6 +9,12 @@ RSpec.shared_examples 'datapass webhooks' do |version|
     expect { subject }.to change(UserAuthorizationRequestRole.where(role: 'contact_technique'), :count).by(1)
   end
 
+  it 'calls UpdateOrganizationINSEEPayloadJob' do
+    expect(UpdateOrganizationINSEEPayloadJob).to receive(:perform_later).with(a_string_matching(/\A.{14}\z/))
+
+    subject
+  end
+
   it 'creates an authorization request' do
     expect { subject }.to change(AuthorizationRequest, :count).by(1)
   end

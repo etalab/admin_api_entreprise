@@ -8,7 +8,7 @@ RSpec.describe HubEEAPIClient do
   describe '#find_organization' do
     subject(:find_organization_payload) { described_class.new.find_organization(organization) }
 
-    let(:organization) { Organization.new(siret) }
+    let(:organization) { create(:organization, siret:) }
     let(:siret) { '13002526500013' }
     let(:code_commune) { '13055' }
     let(:host) { Rails.application.credentials.hubee_api_url }

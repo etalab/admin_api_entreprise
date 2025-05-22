@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_26_104012) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_22_060041) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pg_catalog.plpgsql"
@@ -34,8 +34,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_26_104012) do
     t.string "siret"
     t.string "api", null: false
     t.string "demarche"
-    t.jsonb "extra_infos", default: {}
     t.uuid "public_id"
+    t.jsonb "extra_infos", default: {}
     t.index ["external_id"], name: "index_authorization_requests_on_external_id", unique: true, where: "(external_id IS NOT NULL)"
   end
 
@@ -144,6 +144,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_26_104012) do
     t.uuid "token_id"
     t.index ["access_token"], name: "index_magic_links_on_access_token", unique: true
     t.index ["token_id"], name: "index_magic_links_on_token_id"
+  end
+
+  create_table "organizations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "siret", null: false
+    t.jsonb "insee_payload", default: {}
+    t.datetime "last_insee_payload_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["siret"], name: "index_organizations_on_siret", unique: true
+    t.check_constraint "length(siret::text) = 14", name: "siret_length_check"
   end
 
   create_table "prolong_token_wizards", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

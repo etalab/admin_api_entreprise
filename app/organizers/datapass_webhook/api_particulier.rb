@@ -14,6 +14,7 @@ module DatapassWebhook
 
     organize ::DatapassWebhook::FindOrCreateUser,
       ::DatapassWebhook::FindOrCreateAuthorizationRequest,
+      ::DatapassWebhook::FindOrCreateOrganization,
       ::DatapassWebhook::CreateOrProlongToken,
       ::DatapassWebhook::ArchiveCurrentAuthorizationRequest,
       ::DatapassWebhook::RefuseCurrentAuthorizationRequest,
