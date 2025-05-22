@@ -34,8 +34,4 @@ class Organization < ApplicationRecord
   def unite_legale_insee_payload
     etablissement_insee_payload['uniteLegale']
   end
-
-  def insee_payload
-    self[:insee_payload] ||= INSEESireneAPIClient.new.etablissement(siret:)
-  end
 end
