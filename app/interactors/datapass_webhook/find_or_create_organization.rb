@@ -11,6 +11,6 @@ class DatapassWebhook::FindOrCreateOrganization < ApplicationInteractor
   end
 
   def refresh_organization_data
-    UpdateOrganizationINSEEPayloadJob.perform_later(context.organization.siret)
+    UpdateOrganizationINSEEPayloadJob.perform_later(context.organization.id)
   end
 end
