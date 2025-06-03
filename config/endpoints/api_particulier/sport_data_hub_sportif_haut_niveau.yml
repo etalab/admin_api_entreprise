@@ -5,7 +5,6 @@
     - Identifiant PSQS
   parameters:
     - Identifiant PSQS
-  # Path à changer 
   path: '/v3/sdh/statut_sportif/identifiant'
   position: 601
   perimeter:
@@ -14,7 +13,7 @@
       - ✅ les **sportifs sur liste ministérielle** : **sportif de haut niveau** (SHN), **sportif inscrit en liste Espoirs** (SE), **sportif inscrit en liste des Collectifs Nationaux** (SCN) ;
       - ✅ les **sportifs du parcours de performance fédéral** (PPF) ;
       - ✅ les **arbitre-juge de haut niveau** (AJSHN). 
-    [Plus d'informations sur les différents statuts et catégories des sportifs reconnu par le minstère des sports](https://www.sports.gouv.fr/mises-en-listes-ministerielles-1838) 
+      [Plus d'informations sur les différents statuts et catégories des sportifs reconnu par le minstère des sports](https://www.sports.gouv.fr/mises-en-listes-ministerielles-1838)
 
       L'API couvre les sportifs **de tout âge, y compris les mineurs**.
 
@@ -26,12 +25,11 @@
       Les données sont **mises à jour une fois par an**, selon la saison sportive :
       - Sports d’hiver : du 1er juillet de l’année N au 30 juin de l’année N+1 ;
       - Sports d’été : du 1er janvier au 31 décembre.
-Les données sont valables un an, sur l'année scolaire en général, sauf le statut du sportif de haut niveau de la catégorie élite qui est valable 2 ans. 
+      Les données sont valables un an, sur l'année scolaire en général, sauf le statut du sportif de haut niveau de la catégorie élite qui est valable 2 ans.
 
       {:.fr-highlight}
       > ⚠️ En conséquence, un sportif qui a concouru en novembre 2024 pour les sports d'hiver et qui est devenu sportif de haut niveau à cette période n'apparaîtra dans l'API qu'à partir de juillet 2025. Un statut demandé à un instant T peut donc être différent à un instant T+ en fonction des mises à jour. Les informations obtenues sont représentatives de la situation connue par Sport Data Hub au moment de l’appel. 
     know_more_description: |+
-     
 
   data:
     description: |+
@@ -72,30 +70,26 @@ Les données sont valables un an, sur l'année scolaire en général, sauf le st
     - 'PPF'
     - 'parcours de performance fédéral'
 
-  use_cases:
-    - Gestion RH secteur public
-
   faq:
     - q: "A quoi correspondent les différentes catégories de sportifs ?"
       a: |+
-          Sportifs de haut niveau (SHN). Ils sont inscrits sur la Liste des Sportifs de Haut Niveau (SHN) publiée par le ministère, et sont répartis en plusieurs sous-catégories : 
-  Élite : Athlètes ayant obtenu des résultats exceptionnels au niveau international (Jeux Olympiques, Championnats du monde...).
-  Sénior : Sportifs en équipe nationale avec un potentiel pour des compétitions internationales.
-  Relève : Jeunes sportifs avec un fort potentiel pour accéder au plus haut niveau.
-  Reconversion : Anciens sportifs de haut niveau bénéficiant d’un accompagnement pour leur transition professionnelle.
+        Sportifs de haut niveau (SHN). Ils sont inscrits sur la Liste des Sportifs de Haut Niveau (SHN) publiée par le ministère, et sont répartis en plusieurs sous-catégories :
+        Élite : Athlètes ayant obtenu des résultats exceptionnels au niveau international (Jeux Olympiques, Championnats du monde...).
+        Sénior : Sportifs en équipe nationale avec un potentiel pour des compétitions internationales.
+        Relève : Jeunes sportifs avec un fort potentiel pour accéder au plus haut niveau.
+        Reconversion : |
+          Anciens sportifs de haut niveau bénéficiant d’un accompagnement pour leur transition professionnelle.
 
-         Sportifs Espoirs : Jeunes talents identifiés comme prometteurs par leur fédération, mais n’ayant pas encore atteint le niveau international.
+          Sportifs Espoirs : Jeunes talents identifiés comme prometteurs par leur fédération, mais n’ayant pas encore atteint le niveau international.
 
-         Sportifs des Collectifs Nationaux : Athlètes appartenant aux équipes nationales dans certaines disciplines spécifiques.
+          Sportifs des Collectifs Nationaux : Athlètes appartenant aux équipes nationales dans certaines disciplines spécifiques.
 
-         Sportifs du parcours de performance fédéral : Le Parcours de Performance Fédéral (PPF) est un programme structuré permettant d’identifier et d’accompagner les jeunes talents jusqu’au haut niveau. Ces jeunes ne sont pas encore sur liste ministérielle. 
+          Sportifs du parcours de performance fédéral : Le Parcours de Performance Fédéral (PPF) est un programme structuré permettant d’identifier et d’accompagner les jeunes talents jusqu’au haut niveau. Ces jeunes ne sont pas encore sur liste ministérielle.
 
-         Arbitres et juges de haut niveau : Officiels qui assurent le bon déroulement des compétitions en appliquant les règles du sport concerné. Ils peuvent être :
-  Arbitres (sports collectifs : football, basket, rugby, handball, etc.)
-  Juges (sports notés : gymnastique, patinage, natation artistique, etc.)
-  Officiels techniques (athlétisme, escrime, haltérophilie, etc.)
-
-
+          Arbitres et juges de haut niveau : Officiels qui assurent le bon déroulement des compétitions en appliquant les règles du sport concerné. Ils peuvent être :
+          Arbitres (sports collectifs : football, basket, rugby, handball, etc.)
+          Juges (sports notés : gymnastique, patinage, natation artistique, etc.)
+          Officiels techniques (athlétisme, escrime, haltérophilie, etc.)
 
   api_cgu:
     description: |+
