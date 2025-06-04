@@ -62,7 +62,7 @@ production: &production
   approve: &approve
     emails:
       - template: 'embarquement_valide_to_editeur'
-        condition_on_authorization: 'editor_authorization_request'
+        condition_on_authorization: 'editor_authorization_request?'
         to:
           - 'authorization_request.demandeur'
         cc:
@@ -71,7 +71,7 @@ production: &production
 
       - template: 'update_embarquement_valide_to_demandeur'
         only_on_update: true
-        condition_on_authorization: 'not_editor_authorization_request'
+        condition_on_authorization: 'not_editor_authorization_request?'
         to:
           - 'authorization_request.contact_metier'
         cc:
