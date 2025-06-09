@@ -51,9 +51,9 @@ fr:
           - cibtp/attestations_cotisations_conges_payes_chomage_intemperies
           - probtp/conformites_cotisations_retraite
           - fntp/carte_professionnelle_travaux_public
-        endpoints_forbidden: 
           - dgfip/liasses_fiscales
           - banque_de_france/bilans
+        endpoints_forbidden: 
           - inpi/rne/beneficiaires_effectifs
         comments_endpoints:
           "insee/etablissements_diffusibles": "<span class='fr-badge fr-badge--sm fr-badge--new'>Candidature</span> **Données publiques utiles DC1, DC2, DC4 & DUME** : _raison sociale, forme juridique, catégorie micro/TPE/PME de l'unité légale. Tranche effectif (année N-2 ou N-3), activité principale et date de création de l'établissement et de l'unité légale. Indique aussi si l'unité légale est de l'économie sociale et solidaire (ESS)._<br><br>📝 Utilisable pour du **préremplissage de formulaire** car donnée publique."
@@ -106,9 +106,9 @@ fr:
 
           "inpi/comptes_annuels_rncs": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> **Justificatif de capacité économique et financière** : Cette API permet d'accéder aux _comptes annuels_ issus de l'INPI et délivrés au format PDF. Elle peut permettre de vérifier le rapport entre actif et passif, et autres ratios financiers, demandables en vertu de l'[article 2 de l'annexe 9 du Code de la commande publique](https://www.legifrance.gouv.fr/jorf/article_jo/JORFARTI000038318581){:target='_blank'}."
 
-          "banque_de_france/bilans": "_Donnée sensible non-nécessaire._"
+          "banque_de_france/bilans": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Donnée sensible diffusée si l'instruction justifie l'accès aux indicateurs spécifiques de la banque de France."
 
-          "dgfip/liasses_fiscales": "_Donnée sensible non-nécessaire._"
+          "dgfip/liasses_fiscales": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span>Si l'[article L.232-25 du Code du commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000038611013/2022-04-11) permet aux sociétés commerciales de demander que leur compte de résultat ne soit pas rendu public ou partiellement, ce même article indique que les administrations de l'État, les collectivités territoriales, les établissements publics à caractère administratif, les organismes de sécurité sociale et les autres organismes chargés de la gestion d'un service public administratif « qui financent ou investissent, directement ou indirectement, dans les entreprises ou fournissent des prestations au bénéfice de ces personnes morales ont toutefois accès à l'intégralité des comptes. »"
 
           "dgfip/liens_capitalistiques": "<span class='fr-badge fr-badge--sm fr-badge--purple-glycine fr-badge--new'>Attribution du marché</span> Vérification **des actionnaires et filiales de l'entreprise**. Utile pour vérifier qui détient au moins 10% du capital du titulaire et aussi obtenir la liste des filiales détenues par le titulaire, également à hauteur de 10% du capital.<br/><br/>_Par exemple, si le cahier des charges précise qu'il ne sera acceptée qu'une seule offre par opérateur économique, l'accès aux liens capitalistiques peut permettre de vérifier si les candidats sont bien des personnes morales distinctes. Dans le cas où des liens étroits pourraient être constatés, l'acteur public pourrait décider, selon le type de marché, de retenir uniquement la dernière offre, ou de considérer les offres comme irrégulières._"
 
