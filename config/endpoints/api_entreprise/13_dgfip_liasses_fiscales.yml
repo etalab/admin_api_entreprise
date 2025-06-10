@@ -5,16 +5,16 @@
   position: 240
   perimeter:
     entity_type_description: |+
-      Cette API délivre les liasses fiscales des entreprises :
-      - ✅ soumises à l’impôt sur les sociétés (IS)* ;
-      - ✅ soumises à l’impôt sur les sociétés dû par le groupe (IS GROUPE)*;
-      - ✅ aux bénéfices industriels et commerciaux (BIC)* ;
-      - ✅ aux bénéfices non commerciaux (BNC)* ;
-      - ✅ aux bénéfices agricoles (BA)*.
-
-      _*selon les règles des régimes réels, normal ou simplifié._
+      Cette API délivre les liasses fiscales **des entreprises** :
+        - ✅ soumises à l’impôt sur les sociétés (IS) ;
+        - ✅ soumises à l’impôt sur les sociétés dû par le groupe (IS GROUPE) ;
+        - ✅ soumises à l'impôt sur le revenu, au régime réel ou simplifié, ayant des bénéfices industriels et commerciaux (BIC), ou non commerciaux (BNC) ou agricoles (BA)*.
 
       ❌ **Les entreprises aux régimes micro-BIC, micro-BNC et micro-BA (micro-entrepreneurs) ne sont pas concernées par cette API**. En effet, elles ne déposent pas de déclarations de résultat mais des éléments spécifiques dans la déclaration 2042C qui relève de l’impôt sur le revenu.
+      
+      **L'API délivre aussi les liasses fiscales **des associations** ✅ soumises à l'impôt sur les sociétés (IS).
+
+      ❌ En revanche, ne sont pas disponibles dans cette API, les associations qui n'ont pas de revenus imposés à l'IS, mais qui perçoivent des revenus de capitaux mobiliers, des revenus fonciers ou des bénéfices agricoles ou forestiers à déclarer avec le formulaire 2070. [En savoir plus sur le périmètre des associations concernées par l'API](#perimetre-associations).
 
     updating_rules_description: |+
       Les déclarations de résultat sont disponibles **à compter du lendemain de la date de dépôt (J+1) et trois jours plus tard (J+3)** si le dépôt intervient une veille de week-end.
@@ -79,8 +79,8 @@
   faq:
     - q: <a name="liste-imprimes"></a>Quels sont les imprimés renvoyés par cette API ? Pourquoi certains imprimés ne sont pas renvoyés ?
       a: |+
-        Cette API a été conçue et négociée dans le cadre spécifique des marchés publics et des aides publiques. Par conséquence, et en accord avec la DGFIP, seule la liste ci-dessous des imprimés est disponible:
-
+        Cette API a été conçue et négociée dans le cadre spécifique des marchés publics et des aides publiques. Par conséquence, et en accord avec la DGFIP, seule la liste ci-dessous des imprimés est disponible&nbsp;:
+        
         * De 2050 à 2057
         * 2058C
         * 2059F et G
@@ -106,6 +106,18 @@
           </p>
           <p class="fr-text--xs">Source : Document basé sur le [dictionnaire TDFC 2022 de la DGFIP](https://www.impots.gouv.fr/cahier-des-charges-edi-tdfc-0){:target="_blank"}</p>
         </div>
+    - q: <a name="perimetre-associations"></a>Quel est le périmètre des associations couvert par cette API ?
+      a: |+
+        ✅ Toutes les associations déposant une déclaration de résultats dont les imprimés sont ceux mentionnés dans [cette synthèse](#liste-imprimes), sont disponibles dans cette API.
+
+        Il s'agit des associations disposant de revenus qui proviennent d’une activité industrielle ou commerciale, et qui sont donc **imposés à l'impôt sur les sociétés (IS)**.
+
+        En effet, la forme juridique "association" n’exonère pas d'impôt sur les sociétés. Lorsque la gestion d'une association s’apparente à celle d’une exploitation commerciale ou lorsqu’elle propose au public des biens et services à des prix comparables à ceux du secteur lucratif, elle sera traitée fiscalement comme une véritable entreprise, et elle devra donc déposer, elle aussi une déclaration de résultats dans les mêmes conditions qu'une entreprise soumise à l'impôt sur les sociétés.
+
+        **En revanche, cette API ne concerne pas la totalité des associations soumises au dépôt d'une déclaration fiscale :**
+        
+        ❌ Elle ne permet pas de consulter les liasses fiscales tirées du formulaire 2070 des associations percevant des revenus de capitaux mobiliers  fonciers ou des bénéfices agricoles ou forestiers. 
+
     - q: <a name="distinction-imprime-rectificatif-et-initial"></a>Comment distinguer l'imprimé rectificatif de l'initial ?
       a: |+
         Pour un même exercice, il y a parfois plusieurs fois le même imprimé : il s'agit de corrections qui ont été apportées par une déclaration ultérieure.
