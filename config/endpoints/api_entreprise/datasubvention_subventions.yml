@@ -1,0 +1,128 @@
+---
+# L'UID sert à identifier cette entrée de manière unique, et est utilisé pour l'URL de la fiche métier
+- uid: 'data_subvention/subventions'
+  # Path: doit correspondre au path dans le swagger
+  # Exemple pour Attestation de vigilance
+  # Voir le swagger ici https://github.com/etalab/siade/blob/272aa40577802afe59ebc5f3cded39d2c25107ae/swagger/openapi-entreprise.yaml#L85
+  # Le path est '/v3/urssaf/unites_legales/{siren}/attestation_vigilance' (copier ligne 85)
+  path: '/v3/data_subvention/subventions/{siren_or_siret_or_rna}'
+  # Position au sein de l'index
+  # Ce chiffre détermine l'ordre d'affichage dans le catalogue : La fiche avec position 1 sera avant la fiche 2
+  position: 501
+  beta: true
+  # Tags - à ne mettre que lorsque l'API n'est plus en mode prochainement
+  # Le tag "prochainement" s'affiche automatiquement à partir du moment où l'API est en mode prochainement dans le swagger. Mais si un autre tag est ajouté, alors il ne s'affiche pas.
+  # Tag "Nouveauté" / "Nouvelle version" / "Version BETA"
+  novelty: true # ou new_version: true / ou beta: true
+  # la clef alert est optionnelle
+  alert:
+    title: "Titre de l'alerte"
+    description: |+
+      Message en markdown de l'alerte.
+  extra_description: |+
+    Texte directement en dessous de la description. Ce champ peut-être omis (optionnel). Le markdown GFM est supporté ici.
+  perimeter:
+    description: |+
+      Une description exhaustive du périmètre utilisée dans la fiche détaillée. Le markdown GFM est supporté ici.
+    entity_type_description: |+
+      Une description exhaustive des types d'entité renvoyés par le endpoint dans la fiche détaillée. Le markdown GFM est supporté ici.
+    geographical_scope_description:  |+
+      Une description exhaustive du scope géographique dans la fiche détaillée. Le markdown GFM est supporté ici.
+    updating_rules_description: |+
+      Les règles de mise à jour de la donnée dans al fiche détaillée. Le markdown GFM est supporté ici.
+    know_more_description: |+
+      Lien optionnel pour en savoir plus sur la donnée. Le markdown GFM est supporté ici.
+
+    # La liste des clés disponible est stockée dans le fichier endpoint.fr.yml
+    entities:
+      - entreprises
+      - associations
+  # Texte libre
+  call_id: "SIRET / RNA"
+  # La liste des clés disponible est stockée dans la locale `provider_uids` du fichier provider_uids.fr.yml
+  provider_uids:
+    - 'insee'
+  keywords:
+    - 'whatever'
+  data:
+    description: |+
+      Décrit le type / format des données délivrée par l'API. Le markdown GFM est supporté ici.
+
+      # Pour ajouter un bloc de téléchargement pour un seul document PDF
+
+      <div class="fr-downloads-group fr-downloads-group--bordered">    
+        <h4 class="fr-downloads-group__title fr-text--lg fr-mb-1v">Exemple d'attestation&nbsp;:</h4>      
+        <div class="fr-download">                
+         <p>                    
+          <a href="/files/exemple-fntp-carte-professionnelle-travaux-publics.pdf" download class="fr-download__link">
+           Télécharger un exemple de carte professionnelle FNTP                       
+           <span class="fr-download__detail">                            
+           PDF – 623 Ko                        
+           </span>                    
+          </a>                
+         </p>            
+        </div>        
+      </div>  
+
+      # Pour ajouter un bloc de téléchargement pour plusieurs documents PDF
+
+       <div class="fr-downloads-group fr-downloads-group--bordered">    
+        <h4 class="fr-downloads-group__title fr-text--lg fr-mb-1v">Exemples de documents PDF&nbsp;:</h4>  
+        <ul>        
+         <li>            
+          <div class="fr-download">                
+           <p>                    
+            <a href="/files/formulaire-unique-subventions-associations-cerfa_12156-06.pdf" download class="fr-download__link">
+             Télécharger le document lorem ipsum sit dolores amet                        
+             <span class="fr-download__detail">                            
+             PDF – 161,88 Ko                        
+             </span>                    
+            </a>                
+           </p>            
+          </div>        
+         </li>        
+         <li>            
+          <div class="fr-download">                
+           <p>                    
+            <a href="/files/formulaire-unique-subventions-associations-cerfa_12156-06.pdf" download class="fr-download__link">
+             Télécharger le document lorem ipsum sit dolores amet                        
+             <span class="fr-download__detail">                            
+             PDF – 161,88 Ko                        
+             </span>                    
+            </a>                
+           </p>            
+          </div>        
+         </li>        
+        </ul>
+      </div>        
+  # Ne peut être que public ou protected
+  opening: protected
+  # Texte libre, cette donnée est affichée sur la page du endpoint
+  use_cases_optional:
+  use_cases_forbidden:
+  use_cases:
+    - Aides publiques
+    - Marchés publics
+    - Portail GRU - Préremplissage
+    - Portail GRU - Instruction des démarches
+    - Subventions associations
+    - Détection de la fraude
+  # Texte libre, cette donnée est affichée sur la page du endpoint
+  parameters:
+    - Numéro de SIREN de la personne physique ou morale recherchée
+  format:
+    - Donnée structurée JSON
+  faq:
+    - q: "Question ?"
+      a: |+
+        Réponse à la question. Le markdown GFM est supporté ici.
+  historique: |+
+    **Ce que change cette nouvelle version de l'API par rapport à la précédente :**
+    Texte
+
+    **Ce qui ne change pas :**
+    Texte
+  api_cgu:
+    description: |+
+        Les conditions d'utilisations spécifiques à l'API
+
