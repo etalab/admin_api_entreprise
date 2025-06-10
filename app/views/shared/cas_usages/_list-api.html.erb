@@ -20,7 +20,12 @@
             <%= endpoint_status_badge(endpoint) %>
           </td>
           <td style="vertical-align:initial">
-            <%= h(endpoint.cas_usage_icon(@cas_usage).html_safe) %>
+         
+           <% if endpoint.opening == 'public' %>
+             <span style="color:#a1a1a1"><%= icon('fr-icon-checkbox-circle-fill') %></span>
+            <% else %>
+               <%= h(endpoint.cas_usage_icon(@cas_usage).html_safe) %>
+            <% end %>
           </td>
           <td style="vertical-align:initial">
             <%= icon(t("endpoint.opening.#{endpoint.opening}.icon", raise: true)) rescue nil %>
