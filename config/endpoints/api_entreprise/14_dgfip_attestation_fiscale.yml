@@ -7,7 +7,7 @@
   ping_url: &dgfip_attestation_ping_url 'https://entreprise.api.gouv.fr/ping/dgfip/attestation_fiscale'
   perimeter: &dgfip_attestation_perimeter
     entity_type_description: |+
-      Cette API délivre uniquement les attestations fiscales aux **✅ entreprises assujettis à l'impôt sur les sociétés (IS) et à la TVA.**.
+      Cette API délivre uniquement les attestations fiscales des **✅ entreprises assujettis à l'impôt sur les sociétés (IS) et à la TVA.** et des **✅ associations soumises à l'impôt sur les sociétés (IS).
 
       **L'API ne permet pas de récupérer les attestations fiscales** :
       - ❌ des entreprises qui relèvent de l'impôt sur le revenu (IR), quelque soit leur régime d'imposition, BIC, BNC ou BA. **À partir du moment où l'entreprise est imposée à l'IR, son attestation fiscale ne peut être obtenue par cette API** : les micro-entreprises sont de fait toujours exclues du périmètre de cette API ;
@@ -47,9 +47,9 @@
     - 'fraude'
   data: &dgfip_attestation_data
     description: |+
-      Cette API délivre l'attestation de régularité fiscale d'une entreprise, au format PDF. L'attestation est **délivrée ✅ si l'entreprise est en règle de ses obligations** déclaratives et de paiement d'IS et de TVA.
+      Cette API délivre l'attestation de régularité fiscale au format PDF. L'attestation est **délivrée ✅ si l'entreprise ou l'association est en règle de ses obligations** déclaratives et de paiement d'IS et de TVA.
 
-      La date de délivrance de l'attestation correspond au jour de l'appel et statue donc de la **situation de l'entreprise au dernier jour du moins M-1**. [En savoir plus sur la date de délivrance](#faq_entry_3_endpoint_dgfip_attestations_fiscales).
+      La date de délivrance de l'attestation correspond au jour de l'appel et statue donc de la **situation de l'entreprise/association au dernier jour du moins M-1**. [En savoir plus sur la date de délivrance](#faq_entry_3_endpoint_dgfip_attestations_fiscales).
 
       <section class="fr-accordion">
         <h3 class="fr-accordion__title">
@@ -57,7 +57,7 @@
         </h3>
         <div class="fr-collapse" id="accordion-1">
 
-        - **Des informations sur l'entreprise&nbsp;:**
+        - **Des informations sur l'unité légale&nbsp;:**
           - dénomination sociale de la société&nbsp;;
           - adresse de l'établissement principal&nbsp;;
           - numéro de SIREN&nbsp;;
@@ -87,14 +87,14 @@
   format:
     - URL vers l'attestation en PDF
   parameters:  &dgfip_attestation_parameters
-    - Numéro de SIREN de l'entreprise
+    - Numéro de SIREN de l'unité légale
   faq: &dgfip_attestation_faq
-    - q: L’api ne renvoie pas de pièce, cela signifie-t'il que l’entreprise n’est pas à jour ?
+    - q: L’api ne renvoie pas de pièce, cela signifie-t'il que l’entreprise/association n’est pas à jour ?
       a: |+
         Non, dans certains cas particuliers, l'API ne peut pas renvoyer l’attestation.
-        Cela ne veut pas dire que l’entreprise n’est pas à jour. Il faut se rapprocher de l’entreprise pour lui demander la pièce directement.
+        Cela ne veut pas dire que l’entreprise/association n’est pas à jour. Il faut se rapprocher de l’unité légale pour lui demander la pièce directement.
 
-        De plus, si une entreprise se voit refuser la délivrance de l’attestation pour cause de carence de ses déclarations
+        De plus, si une entreprise/association se voit refuser la délivrance de l’attestation pour cause de carence de ses déclarations
         ou de ses paiements, cette non-délivrance n’est pas définitive pour toute l’année N.
         Si ensuite elle régularise sa situation pour les années N-1 et antérieures, alors l’attestation de régularité lui sera délivrée.
 
@@ -127,9 +127,9 @@
 
     - q: Quelle est la date de délivrance de l'attestation ?
       a: |+
-        D'après le [BOFIP - Alinéa 180](https://bofip.impots.gouv.fr/bofip/8485-PGP.html/identifiant=BOI-DJC-ARF-20220209){:target="_blank"}; l'attestation de régularité fiscale peut être obtenue tout au long de l'année et apprécie la situation de l'entreprise au dernier jour du mois précédant la demande de délivrance de l'attestation.
+        D'après le [BOFIP - Alinéa 180](https://bofip.impots.gouv.fr/bofip/8485-PGP.html/identifiant=BOI-DJC-ARF-20220209){:target="_blank"}; l'attestation de régularité fiscale peut être obtenue tout au long de l'année et apprécie la situation de l'entreprise/association au dernier jour du mois précédant la demande de délivrance de l'attestation.
 
-        La date de délivrance des attestations obtenues sur API Entreprise est la date de l'appel. Par conséquent, les attestations fiscales délivrées sur l'API Entreprise indiquent que l'entreprise était à jour de ses cotisations au dernier jour du mois M-1.
+        La date de délivrance des attestations obtenues sur API Entreprise est la date de l'appel. Par conséquent, les attestations fiscales délivrées sur l'API Entreprise indiquent que l'entreprise/association était à jour de ses cotisations au dernier jour du mois M-1.
 
     - q: Pourquoi l'attestation délivrée par cette API n'est pas valable pour une entreprise filiale d'un groupe de sociétés ?
       a: |+
@@ -148,7 +148,7 @@
     **Ce que change cette nouvelle version de l'API par rapport à la précédente :**
     Ajout de nouvelles informations lorsque l'attestation est délivrée :
     - Un champ `date_delivrance_attestation`, généralement la date de l'appel de l'attestation ;
-    - Un champ `date_periode_analysee` indiquant la date butoire à laquelle la situation de l'entreprise a été analysée, ayant induit la délivrance de l'attestation.
+    - Un champ `date_periode_analysee` indiquant la date butoire à laquelle la situation de l'entreprise/association a été analysée, ayant induit la délivrance de l'attestation.
 
     **Ce qui ne change pas :**
     À part l'ajout des champs précédents, rien n'a changé. Cette montée en version n'est pas dûe à une évolution de l'API de la DGFIP, par conséquent, la version précédente est maintenue par API&nbsp;Entreprise.
