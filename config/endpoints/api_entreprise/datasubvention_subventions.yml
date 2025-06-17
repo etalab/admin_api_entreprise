@@ -1,47 +1,38 @@
 ---
-# L'UID sert à identifier cette entrée de manière unique, et est utilisé pour l'URL de la fiche métier
 - uid: 'data_subvention/subventions'
-  # Path: doit correspondre au path dans le swagger
-  # Exemple pour Attestation de vigilance
-  # Voir le swagger ici https://github.com/etalab/siade/blob/272aa40577802afe59ebc5f3cded39d2c25107ae/swagger/openapi-entreprise.yaml#L85
-  # Le path est '/v3/urssaf/unites_legales/{siren}/attestation_vigilance' (copier ligne 85)
   path: '/v3/data_subvention/subventions/{siren_or_siret_or_rna}'
-  # Position au sein de l'index
-  # Ce chiffre détermine l'ordre d'affichage dans le catalogue : La fiche avec position 1 sera avant la fiche 2
-  position: 501
+  position: 152
   beta: true
-  # Tags - à ne mettre que lorsque l'API n'est plus en mode prochainement
-  # Le tag "prochainement" s'affiche automatiquement à partir du moment où l'API est en mode prochainement dans le swagger. Mais si un autre tag est ajouté, alors il ne s'affiche pas.
-  # Tag "Nouveauté" / "Nouvelle version" / "Version BETA"
   novelty: true # ou new_version: true / ou beta: true
-  # la clef alert est optionnelle
-  alert:
-    title: "Titre de l'alerte"
-    description: |+
-      Message en markdown de l'alerte.
   extra_description: |+
-    Texte directement en dessous de la description. Ce champ peut-être omis (optionnel). Le markdown GFM est supporté ici.
+    Informations des dossiers de subventions déposés par les associations et de l'instruction avec les montants finalement accordés, avec parfois des données sur le paiement.
   perimeter:
-    description: |+
-      Une description exhaustive du périmètre utilisée dans la fiche détaillée. Le markdown GFM est supporté ici.
     entity_type_description: |+
-      Une description exhaustive des types d'entité renvoyés par le endpoint dans la fiche détaillée. Le markdown GFM est supporté ici.
-    geographical_scope_description:  |+
-      Une description exhaustive du scope géographique dans la fiche détaillée. Le markdown GFM est supporté ici.
-    updating_rules_description: |+
-      Les règles de mise à jour de la donnée dans al fiche détaillée. Le markdown GFM est supporté ici.
-    know_more_description: |+
-      Lien optionnel pour en savoir plus sur la donnée. Le markdown GFM est supporté ici.
+      Cette API concerne ✅ **les associations** ayant déposé des demandes de subventions depuis 2018 (l'historique pouvant parfois être antérieur).
 
-    # La liste des clés disponible est stockée dans le fichier endpoint.fr.yml
+    geographical_scope_description:  |+
+      - ✅ **Métropole**, y compris Alsace-Moselle. <br> Les associations qui relèvent du **régime de droit local d'Alsace-Moselle** sont couvertes par l'API dès lors qu'elles sont immatriculées au répertoire Sirene ;
+      - ✅ **DROM-COM** sauf ❌ les associations de Nouvelle-Calédonie, de la Polynésie française et de Wallis-et-Futuna qui ne sont pas immatriculées à l’INSEE, mais dans des bases locales.
+    updating_rules_description: |+
+      La date de mise à jour des données est spécifiée dans la réponse de l'API. La fréquence de mise à jour dépend du fournisseur et du type de données :
+
+      **Données des demandes de subventions** : 
+      - Les données issues du Fonds de coopération de la jeunesse et de l’éducation populaire (FONJEP) sont **mises à jour trimestriellement** ; 
+      - Les données issues du compte Asso concernant surtout les demandes de subventions Jeunesse et Sports (FDVA, Partenariat JEP) sont **mises à jour trimestriellement** aussi ; 
+      - Les données issues des demandes effectuées sur démarches-simplifiées.fr, notamment utilisé par les DRAC, la DIHAL, certaines DREETS et DDETS, sont **mises à jour en temps réel** ;
+      - Les données des subventions versées au titre du Fonds interministériel de prévention contre la délinquance et la radicalisation (CIPDR) issues de l'outil Subventia, sont **mises à jour bi-annuellement** ;
+      - La mise à jour des données des demandes de subventions Politique de la Ville, issues de Dauphin, est inconnue.
+
+      **Données de paiements :** Elles proviennent toutes du logiciel Chorus, et sont **mises à jour hebdomadairement chaque lundi**
+
+    know_more_description: |+
+      [Cet article de Data.subvention](https://datasubvention.beta.gouv.fr/article-source-de-donnees-datasubvention/#elementor-toc__heading-anchor-2) détaille les sources de données de l'API.
     entities:
-      - entreprises
       - associations
-  # Texte libre
   call_id: "SIRET / RNA"
   # La liste des clés disponible est stockée dans la locale `provider_uids` du fichier provider_uids.fr.yml
   provider_uids:
-    - 'insee'
+    - 'data_subvention'
   keywords:
     - 'whatever'
   data:
