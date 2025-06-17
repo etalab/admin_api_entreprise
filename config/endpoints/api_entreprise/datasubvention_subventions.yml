@@ -10,6 +10,13 @@
     entity_type_description: |+
       Cette API concerne ✅ **les associations** ayant déposé des demandes de subventions depuis 2018 (l'historique pouvant parfois être antérieur).
 
+      **L'API couvre une partie de plus en plus grande des demandes et versements de subventions :** 
+      - ✅ **100% des demandes de subventions auprès de l'État** et ✅ 100% des paiements versés par Chorus associés ; 
+      - ⚙️ **45% des demandes de subventions auprès des collectivités**, [périmètre détaillé disponible sur Data.subvention](https://www.canva.com/design/DAGWjlwgSCU/3LZsqnQk2D0U1itFNKu9mw/view){:target="_blank"}, ❌ les paiements ne sont pas disponibles  ; 
+      - ⚙️ **4% des demandes de subventions auprès des opérateurs et Caisses** ; ⚙️ les paiements sont uniquement disponibles pour : 
+        - les contrats aidés proposés par le fonds de coopération de la jeunesse et de l’éducation populaire (FONJEP) ;
+        - la direction régionale de l'environnement, de l'aménagement et du logement (Dreal), qui fait exception car ses demandes de subventions ne sont pas disponibles (seulement les paiements).
+
     geographical_scope_description:  |+
       - ✅ **Métropole**, y compris Alsace-Moselle. <br> Les associations qui relèvent du **régime de droit local d'Alsace-Moselle** sont couvertes par l'API dès lors qu'elles sont immatriculées au répertoire Sirene ;
       - ✅ **DROM-COM** sauf ❌ les associations de Nouvelle-Calédonie, de la Polynésie française et de Wallis-et-Futuna qui ne sont pas immatriculées à l’INSEE, mais dans des bases locales.
@@ -29,91 +36,34 @@
       [Cet article de Data.subvention](https://datasubvention.beta.gouv.fr/article-source-de-donnees-datasubvention/#elementor-toc__heading-anchor-2) détaille les sources de données de l'API.
     entities:
       - associations
-  call_id: "SIRET / RNA"
+  call_id: "SIRE / SIREN / RNA"
   # La liste des clés disponible est stockée dans la locale `provider_uids` du fichier provider_uids.fr.yml
   provider_uids:
     - 'data_subvention'
   keywords:
-    - 'whatever'
+    - 'subvention'
+    - 'chorus'
+    - 'association'
+    - 'aide'
+    - 'osiris'
+    - 'fonjep'
+    - 'subventia'
+    - 'DS'
   data:
     description: |+
-      Décrit le type / format des données délivrée par l'API. Le markdown GFM est supporté ici.
+      Cette API délivre pour chaque association appelée : 
+      - la liste de ses demandes de subventions depuis 2018, [lorsque disponibles dans l'API](#perimetre_entites_concernees), avec : 
+        - informations issues de la demande déposée : intitulé officiel de la subvention demandée, montant demandé par l'association et descriptif des projets renseignés par l'association ;
+        - informations issues de l'instruction du dossier : service instructeur, date, statut de la demande (accordé ou non), et la valeur du montant accordé le cas échéant.
+      - la liste des payements versés à l'association, avec : 
+        - date du versement ;
+        - centre financier ayant effectué le versement ;
+        - domaine et programme auxquels le versement est rattaché.
 
-      # Pour ajouter un bloc de téléchargement pour un seul document PDF
-
-      <div class="fr-downloads-group fr-downloads-group--bordered">    
-        <h4 class="fr-downloads-group__title fr-text--lg fr-mb-1v">Exemple d'attestation&nbsp;:</h4>      
-        <div class="fr-download">                
-         <p>                    
-          <a href="/files/exemple-fntp-carte-professionnelle-travaux-publics.pdf" download class="fr-download__link">
-           Télécharger un exemple de carte professionnelle FNTP                       
-           <span class="fr-download__detail">                            
-           PDF – 623 Ko                        
-           </span>                    
-          </a>                
-         </p>            
-        </div>        
-      </div>  
-
-      # Pour ajouter un bloc de téléchargement pour plusieurs documents PDF
-
-       <div class="fr-downloads-group fr-downloads-group--bordered">    
-        <h4 class="fr-downloads-group__title fr-text--lg fr-mb-1v">Exemples de documents PDF&nbsp;:</h4>  
-        <ul>        
-         <li>            
-          <div class="fr-download">                
-           <p>                    
-            <a href="/files/formulaire-unique-subventions-associations-cerfa_12156-06.pdf" download class="fr-download__link">
-             Télécharger le document lorem ipsum sit dolores amet                        
-             <span class="fr-download__detail">                            
-             PDF – 161,88 Ko                        
-             </span>                    
-            </a>                
-           </p>            
-          </div>        
-         </li>        
-         <li>            
-          <div class="fr-download">                
-           <p>                    
-            <a href="/files/formulaire-unique-subventions-associations-cerfa_12156-06.pdf" download class="fr-download__link">
-             Télécharger le document lorem ipsum sit dolores amet                        
-             <span class="fr-download__detail">                            
-             PDF – 161,88 Ko                        
-             </span>                    
-            </a>                
-           </p>            
-          </div>        
-         </li>        
-        </ul>
-      </div>        
-  # Ne peut être que public ou protected
+      Un identifiant permet de faire la jointure entre les demandes et les versements. Mais il est fréquent que des demandes n'aient pas de versement, et vice versa. 
   opening: protected
-  # Texte libre, cette donnée est affichée sur la page du endpoint
-  use_cases_optional:
-  use_cases_forbidden:
-  use_cases:
-    - Aides publiques
-    - Marchés publics
-    - Portail GRU - Préremplissage
-    - Portail GRU - Instruction des démarches
-    - Subventions associations
-    - Détection de la fraude
-  # Texte libre, cette donnée est affichée sur la page du endpoint
   parameters:
-    - Numéro de SIREN de la personne physique ou morale recherchée
+    - SIRET/SIREN/RNA de l'association
   format:
     - Donnée structurée JSON
-  faq:
-    - q: "Question ?"
-      a: |+
-        Réponse à la question. Le markdown GFM est supporté ici.
-  historique: |+
-    **Ce que change cette nouvelle version de l'API par rapport à la précédente :**
-    Texte
-
-    **Ce qui ne change pas :**
-    Texte
-  api_cgu:
-    description: |+
-        Les conditions d'utilisations spécifiques à l'API
 
