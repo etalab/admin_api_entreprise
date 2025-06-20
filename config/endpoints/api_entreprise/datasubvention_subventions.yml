@@ -8,9 +8,9 @@
     Informations des dossiers de subventions déposés par les associations et de l'instruction avec les montants finalement accordés, avec parfois des données sur le paiement.
   perimeter:
     entity_type_description: |+
-      Cette API concerne ✅ **les associations** ayant déposé des demandes de subventions depuis 2018 (l'historique pouvant parfois être antérieur).
+      Cette API concerne ✅ **les associations** ayant déposé des demandes de subventions depuis 2018 (historique pouvant parfois être antérieur).
 
-      **L'API couvre une partie de plus en plus grande des demandes et versements de subventions :** 
+      **L'API couvre une partie des demandes et versements de subventions :** 
       - ✅ **100% des demandes de subventions auprès de l'État** et ✅ 100% des paiements versés par Chorus associés ; 
       - ⚙️ **45% des demandes de subventions auprès des collectivités**, [périmètre détaillé disponible sur Data.subvention](https://www.canva.com/design/DAGWjlwgSCU/3LZsqnQk2D0U1itFNKu9mw/view){:target="_blank"}, ❌ les paiements ne sont pas disponibles  ; 
       - ⚙️ **4% des demandes de subventions auprès des opérateurs et Caisses** ; ⚙️ les paiements sont uniquement disponibles pour : 
@@ -30,13 +30,13 @@
       - Les données des subventions versées au titre du Fonds interministériel de prévention contre la délinquance et la radicalisation (CIPDR) issues de l'outil Subventia, sont **mises à jour bi-annuellement** ;
       - La mise à jour des données des demandes de subventions Politique de la Ville, issues de Dauphin, est inconnue.
 
-      **Données de paiements :** Elles proviennent toutes du logiciel Chorus, et sont **mises à jour hebdomadairement chaque lundi**
+      **Données de paiements :** Elles proviennent toutes du logiciel Chorus, et sont **mises à jour hebdomadairement chaque lundi**.
 
     know_more_description: |+
       [Cet article de Data.subvention](https://datasubvention.beta.gouv.fr/article-source-de-donnees-datasubvention/#elementor-toc__heading-anchor-2) détaille les sources de données de l'API.
     entities:
       - associations
-  call_id: "SIRE / SIREN / RNA"
+  call_id: "SIRET / SIREN / RNA"
   # La liste des clés disponible est stockée dans la locale `provider_uids` du fichier provider_uids.fr.yml
   provider_uids:
     - 'data_subvention'
@@ -51,16 +51,16 @@
     - 'DS'
   data:
     description: |+
-      Cette API délivre pour chaque association appelée : 
-      - la liste de ses demandes de subventions depuis 2018, [lorsque disponibles dans l'API](#perimetre_entites_concernees), avec : 
+      **Cette API délivre pour chaque association appelée :** 
+      - **la liste de ses demandes de subventions depuis 2018, [lorsque disponibles dans l'API](#perimetre_entites_concernees)&nbsp;:** 
         - informations issues de la demande déposée : intitulé officiel de la subvention demandée, montant demandé par l'association et descriptif des projets renseignés par l'association ;
         - informations issues de l'instruction du dossier : service instructeur, date, statut de la demande (accordé ou non), et la valeur du montant accordé le cas échéant.
-      - la liste des payements versés à l'association, avec : 
+      - **la liste des payements versés à l'association&nbsp;:**
         - date du versement ;
         - centre financier ayant effectué le versement ;
         - domaine et programme auxquels le versement est rattaché.
 
-      Un identifiant permet de faire la jointure entre les demandes et les versements. Mais il est fréquent que des demandes n'aient pas de versement, et vice versa. 
+      **Un identifiant permet de faire la jointure entre les demandes et les versements.** Mais il est fréquent que des demandes n'aient pas de versement, et vice versa. 
   opening: protected
   parameters:
     - SIRET/SIREN/RNA de l'association
