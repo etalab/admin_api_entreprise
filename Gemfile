@@ -32,7 +32,7 @@ gem 'good_job', '~> 3.99'
 
 gem 'draper'
 gem 'ip_anonymizer'
-gem 'jwt'
+gem 'jwt', '< 3.0'
 gem 'mailjet'
 gem 'mjml-rails'
 gem 'omniauth-oauth2'
