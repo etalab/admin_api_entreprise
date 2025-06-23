@@ -82,18 +82,18 @@ class User < ApplicationRecord
       %w[
         api-entreprise@yopmail.com
         api-particulier@yopmail.com
-      ].include?(email) || email_from_ywh(email)
+      ].include?(email) || email_from_ywh?(email)
     else
-      email_from_beta(email)
+      email_from_beta?(email)
     end
   end
   # rubocop:enable Metrics/AbcSize
 
-  def email_from_ywh(email)
+  def email_from_ywh?(email)
     /-ywhadmin@yopmail.com$/.match?(email)
   end
 
-  def email_from_beta(email)
+  def email_from_beta?(email)
     /@beta.gouv.fr$/.match?(email)
   end
 end
