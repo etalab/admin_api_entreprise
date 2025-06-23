@@ -124,7 +124,7 @@ group :test do
   gem 'faker'
   gem 'rspec-collection_matchers'
   gem 'rspec-its'
-  gem 'rspec-rails', '8.0.0'
+  gem 'rspec-rails', '8.0.1'
   gem 'rspec-retry'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
