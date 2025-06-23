@@ -14,7 +14,7 @@ class AuthorizationRequestConditionFacade < SimpleDelegator
         demandeur.email,
         contact_technique&.email,
         contact_metier&.email
-      ].uniq.count == 1
+      ].uniq.one?
   end
 
   def not_editor_and_user_is_contact_technique_and_not_contact_metier?
