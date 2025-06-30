@@ -1,6 +1,6 @@
 ---
 - uid: 'data_subvention/subventions'
-  path: '/v3/data_subvention/subventions/{siren_or_siret_or_rna}'
+  path: '/v3/data_subvention/associations/{siren_or_siret_or_rna}/subventions'
   position: 152
   beta: true
   novelty: true # ou new_version: true / ou beta: true
@@ -10,10 +10,10 @@
     entity_type_description: |+
       Cette API concerne ✅ **les associations** ayant déposé des demandes de subventions depuis 2018 (historique pouvant parfois être antérieur).
 
-      **L'API couvre une partie des demandes et versements de subventions :** 
-      - ✅ **100% des demandes de subventions auprès de l'État** et ✅ 100% des paiements versés par Chorus associés ; 
-      - ⚙️ **45% des demandes de subventions auprès des collectivités**, [périmètre détaillé disponible sur Data.subvention](https://www.canva.com/design/DAGWjlwgSCU/3LZsqnQk2D0U1itFNKu9mw/view){:target="_blank"}, ❌ les paiements ne sont pas disponibles  ; 
-      - ⚙️ **4% des demandes de subventions auprès des opérateurs et Caisses** ; ⚙️ les paiements sont uniquement disponibles pour : 
+      **L'API couvre une partie des demandes et versements de subventions :**
+      - ✅ **100% des demandes de subventions auprès de l'État** et ✅ 100% des paiements versés par Chorus associés ;
+      - ⚙️ **45% des demandes de subventions auprès des collectivités**, [périmètre détaillé disponible sur Data.subvention](https://www.canva.com/design/DAGWjlwgSCU/3LZsqnQk2D0U1itFNKu9mw/view){:target="_blank"}, ❌ les paiements ne sont pas disponibles  ;
+      - ⚙️ **4% des demandes de subventions auprès des opérateurs et Caisses** ; ⚙️ les paiements sont uniquement disponibles pour :
         - les contrats aidés proposés par le fonds de coopération de la jeunesse et de l’éducation populaire (FONJEP) ;
         - la direction régionale de l'environnement, de l'aménagement et du logement (Dreal), qui fait exception car ses demandes de subventions ne sont pas disponibles (seulement les paiements).
 
@@ -23,9 +23,9 @@
     updating_rules_description: |+
       La date de mise à jour des données est spécifiée dans la réponse de l'API. La fréquence de mise à jour dépend du fournisseur et du type de données :
 
-      **Données des demandes de subventions** : 
-      - Les données issues du Fonds de coopération de la jeunesse et de l’éducation populaire (FONJEP) sont **mises à jour trimestriellement** ; 
-      - Les données issues du compte Asso concernant surtout les demandes de subventions Jeunesse et Sports (FDVA, Partenariat JEP) sont **mises à jour trimestriellement** aussi ; 
+      **Données des demandes de subventions** :
+      - Les données issues du Fonds de coopération de la jeunesse et de l’éducation populaire (FONJEP) sont **mises à jour trimestriellement** ;
+      - Les données issues du compte Asso concernant surtout les demandes de subventions Jeunesse et Sports (FDVA, Partenariat JEP) sont **mises à jour trimestriellement** aussi ;
       - Les données issues des demandes effectuées sur démarches-simplifiées.fr, notamment utilisé par les DRAC, la DIHAL, certaines DREETS et DDETS, sont **mises à jour en temps réel** ;
       - Les données des subventions versées au titre du Fonds interministériel de prévention contre la délinquance et la radicalisation (CIPDR) issues de l'outil Subventia, sont **mises à jour bi-annuellement** ;
       - La mise à jour des données des demandes de subventions Politique de la Ville, issues de Dauphin, est inconnue.
@@ -51,8 +51,8 @@
     - 'DS'
   data:
     description: |+
-      **Cette API délivre pour chaque association appelée :** 
-      - **la liste de ses demandes de subventions depuis 2018, [lorsque disponibles dans l'API](#perimetre_entites_concernees)&nbsp;:** 
+      **Cette API délivre pour chaque association appelée :**
+      - **la liste de ses demandes de subventions depuis 2018, [lorsque disponibles dans l'API](#perimetre_entites_concernees)&nbsp;:**
         - informations issues de la demande déposée : intitulé officiel de la subvention demandée, montant demandé par l'association et descriptif des projets renseignés par l'association ;
         - informations issues de l'instruction du dossier : service instructeur, date, statut de la demande (accordé ou non), et la valeur du montant accordé le cas échéant.
       - **la liste des payements versés à l'association&nbsp;:**
@@ -60,7 +60,7 @@
         - centre financier ayant effectué le versement ;
         - domaine et programme auxquels le versement est rattaché.
 
-      **Un identifiant permet de faire la jointure entre les demandes et les versements.** Mais il est fréquent que des demandes n'aient pas de versement, et vice versa. 
+      **Un identifiant permet de faire la jointure entre les demandes et les versements.** Mais il est fréquent que des demandes n'aient pas de versement, et vice versa.
   opening: protected
   parameters:
     - SIRET/SIREN/RNA de l'association
