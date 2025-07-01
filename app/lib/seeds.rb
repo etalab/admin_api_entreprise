@@ -11,6 +11,7 @@ class Seeds
     create_data_for_api_entreprise
     create_data_for_api_particulier
     create_data_shared
+    create_audit_notifications
   end
 
   def flushdb
@@ -258,6 +259,34 @@ class Seeds
   def create_user_authorization_request_role(params = {})
     UserAuthorizationRequestRole.create!(params)
   end
+
+  # rubocop:disable Metrics/AbcSize
+  def create_audit_notifications
+    authorization_requests = AuthorizationRequest.where.not(siret: nil).includes(:tokens).limit(3)
+
+    authorization_requests.each_with_index do |auth_request, index|
+      next unless auth_request.tokens.any?
+
+      access_logs = AccessLog.joins(:token)
+        .where(tokens: { authorization_request: auth_request })
+        .limit(2 + index)
+
+      next if access_logs.empty?
+
+      AuditNotification.create!(
+        authorization_request_external_id: auth_request.external_id,
+        request_id_access_logs: access_logs.pluck(:request_id),
+        contact_emails: [auth_request.demandeur&.email, auth_request.contact_technique&.email].compact.uniq,
+        approximate_volume: 9001 + index,
+        reason: [
+          'Contrôle de routine - vérification des logs d\'accès',
+          'Audit sécurité - activité suspecte détectée',
+          'Investigation - paramètres incorrects dans les requêtes'
+        ][index % 3]
+      )
+    end
+  end
+  # rubocop:enable Metrics/AbcSize
 
   def load_all_models!
     Rails.root.glob('app/models/**/*.rb').each { |f| require f }
