@@ -17,7 +17,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_22_060041) do
   enable_extension "pgcrypto"
 
   create_table "access_logs", id: false, force: :cascade do |t|
-    t.timestamptz "timestamp"
+    t.timestamptz "timestamp", null: false
+    t.uuid "request_id", null: false
+    t.string "path", null: false
     t.uuid "token_id"
   end
 

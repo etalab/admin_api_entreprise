@@ -229,7 +229,12 @@ class Seeds
       3.days.ago,
       8.days.ago
     ].each do |timestamp|
-      AccessLog.create!(token:, timestamp:)
+      AccessLog.create!(
+        path: '/api/v3/what/ever',
+        request_id: SecureRandom.uuid,
+        token:,
+        timestamp:
+      )
     end
   end
 
