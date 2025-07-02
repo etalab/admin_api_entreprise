@@ -1,6 +1,8 @@
 class AuthorizationRequest < ApplicationRecord
   belongs_to :organization,
     primary_key: :siret,
+    foreign_key: :siret,
+    inverse_of: :authorization_requests,
     optional: true,
     dependent: nil
 

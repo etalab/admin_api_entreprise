@@ -21,6 +21,16 @@ RSpec.describe AuthorizationRequest do
     end
   end
 
+  describe 'organization association' do
+    subject(:authorization_request) { create(:authorization_request) }
+
+    let!(:organization) { create(:organization, siret: authorization_request.siret) }
+
+    it 'has a valid association with organization' do
+      expect(authorization_request.organization).to eq(organization)
+    end
+  end
+
   describe 'contacts associations' do
     let(:contact_technique) { create(:user, :contact_technique) }
     let(:contact_metier) { create(:user, :contact_metier) }
