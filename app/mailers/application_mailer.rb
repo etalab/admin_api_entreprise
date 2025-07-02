@@ -1,4 +1,8 @@
 class ApplicationMailer < ActionMailer::Base
+  include ExternalUrlHelper
+
+  helper_method :datapass_authorization_request_url
+
   layout 'mailer'
 
   helper :friendly_date
