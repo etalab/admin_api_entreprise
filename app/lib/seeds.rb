@@ -124,7 +124,7 @@ class Seeds
         external_id: 103,
         status: :validated,
         first_submitted_at: 1.week.ago,
-        siret: '012345678901235'
+        siret: '21670482500019'
       }
     )
   end
@@ -140,7 +140,7 @@ class Seeds
         external_id: 104,
         status: :validated,
         first_submitted_at: 1.week.ago,
-        siret: '012345678901236'
+        siret: '21750001600019'
       }
     )
   end
@@ -158,7 +158,7 @@ class Seeds
         api: 'entreprise',
         first_submitted_at: 2.years.ago,
         validated_at: 2.years.ago + 1.week,
-        siret: '012345678901237'
+        siret: '21340172201787'
       }
     )
   end
@@ -168,11 +168,12 @@ class Seeds
       user: @user,
       authorization_request: create_authorization_request(
         api: 'entreprise',
-        intitule: 'Mairie de Bruxelles',
+        intitule: 'Mairie de Bruges',
         status: :refused,
         external_id: 106,
         first_submitted_at: 2.years.ago,
-        validated_at: 2.years.ago + 1.week
+        validated_at: 2.years.ago + 1.week,
+        siret: '21330075900015'
       ),
       role: 'demandeur'
     )
@@ -239,7 +240,19 @@ class Seeds
   end
 
   def create_authorization_request(params = {})
+    find_or_create_organization(params[:siret]) if params[:siret]
     AuthorizationRequest.create!(params)
+  end
+
+  def find_or_create_organization(siret)
+    organization = Organization.find_by(siret:)
+
+    return organization if organization
+
+    Organization.create!(
+      siret:,
+      insee_payload: JSON.parse(Rails.root.join("spec/fixtures/insee/#{siret}.json").read)
+    )
   end
 
   def create_user_authorization_request_role(params = {})
