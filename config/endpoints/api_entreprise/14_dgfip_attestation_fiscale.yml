@@ -7,7 +7,7 @@
   ping_url: &dgfip_attestation_ping_url 'https://entreprise.api.gouv.fr/ping/dgfip/attestation_fiscale'
   perimeter: &dgfip_attestation_perimeter
     entity_type_description: |+
-      Cette API délivre uniquement les attestations fiscales des **✅ entreprises assujettis à l'impôt sur les sociétés (IS) et à la TVA.** et des **✅ associations soumises à l'impôt sur les sociétés (IS).
+      Cette API délivre uniquement les attestations fiscales des **✅ entreprises assujettis à l'impôt sur les sociétés (IS) et à la TVA** et des **✅ associations [soumises à l'impôt sur les sociétés](#perimetre-associations) (IS)**.
 
       **L'API ne permet pas de récupérer les attestations fiscales** :
       - ❌ des entreprises qui relèvent de l'impôt sur le revenu (IR), quelque soit leur régime d'imposition, BIC, BNC ou BA. **À partir du moment où l'entreprise est imposée à l'IR, son attestation fiscale ne peut être obtenue par cette API** : les micro-entreprises sont de fait toujours exclues du périmètre de cette API ;
@@ -144,6 +144,16 @@
         Une API dédiée sera bientôt disponible.
 
         Plus d'informations disponibles dans le [BOFIP - Dispositions juridiques communes - Attestation de régularité fiscale](https://bofip.impots.gouv.fr/bofip/8485-PGP.html/identifiant%3DBOI-DJC-ARF-20161207){:target="_blank"}.
+
+    - q: <a name="perimetre-associations"></a>Quel est le périmètre des associations couvert par cette API ?
+      a: |+
+        ✅ Toutes les associations disposant de revenus qui proviennent d’une activité industrielle ou commerciale, et qui sont donc **imposées à l'impôt sur les sociétés (IS)**, sont concernées par cette API.
+
+        En effet, la forme juridique "association" n’exonère pas d'impôt sur les sociétés. Lorsque la gestion d'une association s’apparente à celle d’une exploitation commerciale ou lorsqu’elle propose au public des biens et services à des prix comparables à ceux du secteur lucratif, elle sera traitée fiscalement comme une véritable entreprise, et elle devra donc déposer, elle aussi une déclaration de résultats dans les mêmes conditions qu'une entreprise soumise à l'impôt sur les sociétés.
+
+        **En revanche, cette API ne concerne pas la totalité des associations soumises au dépôt d'une déclaration fiscale :**
+        
+        ❌ Elle ne permet pas de consulter les attestations fiscales des associations percevant des revenus de capitaux mobiliers fonciers ou des bénéfices agricoles ou forestiers, bien qu'elles effectuent une déclaration fiscale via le formulaire 2070. 
   historique: |+
     **Ce que change cette nouvelle version de l'API par rapport à la précédente :**
     Ajout de nouvelles informations lorsque l'attestation est délivrée :
