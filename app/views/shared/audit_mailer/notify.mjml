@@ -1,4 +1,4 @@
-<%= render partial: "shared/api_entreprise/mailers/header" %>
+<%= render partial: "shared/api_#{@namespace}/mailers/header" %>
 
 <mj-section mj-class="section-main">
   <mj-column>
@@ -6,7 +6,7 @@
       <p>Bonjour,</p>
 
       <p>
-      Dans le cadre du dispositif automatisé de contrôle d'usage d'API Entreprise, nous avons détecté des appels non conformes associés à <%= link_to "votre habilitation DataPass n°#{@authorization_request.external_id} \" #{@authorization_request.intitule} ", datapass_authorization_request_url(@authorization_request) %> appartenant à l'organisation <%= @authorization_request.organization.denomination %> ( numéro SIRET <%= @authorization_request.organization.siret %>).
+      Dans le cadre du dispositif automatisé de contrôle d'usage d'API <%= @namespace.capitalize %>, nous avons détecté des appels non conformes associés à <%= link_to "votre habilitation DataPass n°#{@authorization_request.external_id} \" #{@authorization_request.intitule} ", datapass_authorization_request_url(@authorization_request) %> appartenant à l'organisation <%= @authorization_request.organization.denomination %> ( numéro SIRET <%= @authorization_request.organization.siret %>).
         <br />
         <br />
 
@@ -43,7 +43,7 @@
       <h3>📩 Besoin d'aide ?</h3>
 
       <p>
-        Si vous pensez que cette détection est erronée ou rencontrez des difficultés pour corriger le problème, répondez directement à cet e-mail ; l'équipe d'API Entreprise reviendra vers vous.
+        Si vous pensez que cette détection est erronée ou rencontrez des difficultés pour corriger le problème, répondez directement à cet e-mail ; l'équipe d'API <%= @namespace.capitalize %> reviendra vers vous.
 
       </p>
 
@@ -58,10 +58,10 @@
       <p>
         Cordialement,
         <br />
-        <b>L'équipe API Entreprise</b>
+        <b>L'équipe API <%= @namespace.capitalize %></b>
       </p>
     </mj-text>
   </mj-column>
 </mj-section>
 
-<%= render partial: "shared/api_entreprise/mailers/footer" %>
+<%= render partial: "shared/api_#{@namespace}/mailers/footer" %>

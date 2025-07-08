@@ -8,7 +8,7 @@ class Admin::AuditNotificationsController < AdminController
   end
 
   def create
-    result = Admin::AuditNotifications::Create.call(audit_notification_params: audit_notification_params)
+    result = Admin::AuditNotifications::Create.call(audit_notification_params: audit_notification_params, namespace:)
 
     if result.success?
       success_message(title: "La notification d'audit a été envoyé avec succès")
