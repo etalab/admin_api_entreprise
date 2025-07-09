@@ -39,7 +39,7 @@ class HubEEAPIClient < AbstractHubEEAPIClient # rubocop:disable Metrics/ClassLen
 
   def create_subscription(authorization_request, organization_payload, process_code, editor_payload = {})
     subscription_payload = find_or_create_inactive_subscription(authorization_request, organization_payload, process_code)
-    activate_subscription(authorization_request, subscription_payload, editor_payload)
+    activate_subscription(subscription_payload, editor_payload)
     subscription_payload
   end
 
@@ -73,8 +73,8 @@ class HubEEAPIClient < AbstractHubEEAPIClient # rubocop:disable Metrics/ClassLen
 
   private
 
-  def activate_subscription(authorization_request, subscription_payload, editor_payload = {}) # rubocop:disable Metrics/AbcSize
-    subscription_id = authorization_request.extra_infos['hubee_subscription_id']
+  def activate_subscription(subscription_payload, editor_payload = {}) # rubocop:disable Metrics/AbcSize
+    subscription_id = Hash(subscription_payload)['id']
     return if subscription_id.blank?
 
     payload = subscription_payload.with_indifferent_access.merge({
