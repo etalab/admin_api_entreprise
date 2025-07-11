@@ -1,0 +1,50 @@
+<div class="fr-grid-row">
+  <div class="fr-col-12">
+    <h1>Notifications d'audit</h1>
+
+
+    <div class="fr-mt-4w">
+      <%= link_to "Créer une notification d'audit",
+                  new_admin_audit_notification_path,
+                  class: %w[fr-btn fr-btn--primary] %>
+    </div>
+
+    <div class="fr-mt-6w">
+      <% if @audit_notifications.any? %>
+        <div class="fr-table fr-table--bordered">
+          <table>
+            <caption class="sr-only">Liste des notifications d'audit envoyées</caption>
+            <thead>
+              <tr>
+                <th scope="col">ID Demande d'habilitation</th>
+                <th scope="col">Raison</th>
+                <th scope="col">Volume approximatif</th>
+                <th scope="col">Nombre de logs</th>
+                <th scope="col">Emails contactés</th>
+                <th scope="col">Date d'envoi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @audit_notifications.each do |notification| %>
+                <tr>
+                  <td><%= notification.authorization_request_external_id %></td>
+                  <td><%= notification.reason %></td>
+                  <td><%= number_with_delimiter(notification.approximate_volume) %></td>
+                  <td><%= notification.request_id_access_logs.size %></td>
+                  <td>
+                    <%= notification.contact_emails.join(", ") %>
+                  </td>
+                  <td><%= l(notification.created_at, format: :long) %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+
+        <%= paginate @audit_notifications %>
+      <% else %>
+        <p class="fr-text--sm">Aucune notification d'audit n'a encore été envoyée.</p>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -12,6 +12,13 @@ FactoryBot.define do
       external_id { nil }
     end
 
+    trait :with_organization do
+      after(:build) do |authorization_request|
+        Organization.find_by(siret: authorization_request.siret) ||
+          create(:organization, :with_insee_payload, siret: authorization_request.siret)
+      end
+    end
+
     trait :with_multiple_tokens_one_valid do
       tokens do
         [

@@ -1,0 +1,67 @@
+<%= render partial: "shared/api_#{@namespace}/mailers/header" %>
+
+<mj-section mj-class="section-main">
+  <mj-column>
+    <mj-text>
+      <p>Bonjour,</p>
+
+      <p>
+      Dans le cadre du dispositif automatisé de contrôle d'usage d'API <%= @namespace.capitalize %>, nous avons détecté des appels non conformes associés à <%= link_to "votre habilitation DataPass n°#{@authorization_request.external_id} \" #{@authorization_request.intitule} ", datapass_authorization_request_url(@authorization_request) %> appartenant à l'organisation <%= @authorization_request.organization.denomination %> ( numéro SIRET <%= @authorization_request.organization.siret %>).
+        <br />
+        <br />
+
+        Vous recevez cet e-mail parce que vous figurez comme contact déclaratif (demandeur, contact technique ou contact métier) dans cette habilitation.
+      </p>
+
+      <h3>🔍 Détail de l'anomalie détectée</h3>
+
+      <div class="quote-block">
+        <%= @audit_notification.reason %>
+      </div>
+
+      <h3>📜 Détails des appels non conformes</h3>
+      <p>
+        Vous trouverez ci-dessous les détails des 10 derniers appels non conformes détectés (maximum 10 derniers appels)
+      </p>
+
+      <div class="code-block" style="padding-top: 0px;">
+        <% @logs.each do |log| %>
+          <div style="margin-top: 15px;">
+            <strong>ID de requête :</strong> <%= log.request_id %><br/>
+            <strong>Chemin d'accès :</strong> <%= log.path %><br/>
+            <strong>Date et heure :</strong> <%= log.timestamp.strftime("%d/%m/%Y à %H:%M:%S") %>
+          </div>
+        <% end %>
+      </div>
+
+      <% if @audit_notification.approximate_volume %>
+        <p>
+          Le volume approximatif détecté est de <b><%= @audit_notification.approximate_volume.round(-1) %> appels</b>.
+        </p>
+      <% end %>
+
+      <h3>📩 Besoin d'aide ?</h3>
+
+      <p>
+        Si vous pensez que cette détection est erronée ou rencontrez des difficultés pour corriger le problème, répondez directement à cet e-mail ; l'équipe d'API <%= @namespace.capitalize %> reviendra vers vous.
+
+      </p>
+
+      <p class="highlight">
+        <b>Pour rappel, veuillez ne jamais partager vos identifiants de connexion ou vos clés d'API par e-mail.</b>
+      </p>
+
+      <p>
+        Nous vous remercions de votre réactivité et de votre vigilance quant au respect des conditions générales d'utilisation de nos services.
+      </p>
+
+      <p>
+        Cordialement,
+        <br />
+        <b>L'équipe API <%= @namespace.capitalize %></b>
+      </p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+
+<%= render partial: "shared/api_#{@namespace}/mailers/footer" %>
