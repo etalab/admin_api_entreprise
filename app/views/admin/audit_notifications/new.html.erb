@@ -1,0 +1,112 @@
+<div class="fr-grid-row">
+  <div class="fr-col-md-8 fr-col-12">
+    <%= link_to admin_audit_notifications_path, class: "fr-link fr-fi-arrow-left-line fr-link--icon-left" do %>
+      Retour à la liste
+    <% end %>
+
+    <h1 class="fr-mt-2w">Créer une notification d'audit</h1>
+
+    <p class="fr-text--lg">
+      Cette page permet d'envoyer des emails d'audit aux utilisateurs d'API Entreprise.
+      Utilisez le formulaire ci-dessous pour créer une notification d'audit en fournissant l'identifiant externe de la demande d'habilitation et les identifiants des logs d'accès.
+    </p>
+
+    <p>
+      Pour extraire les informations nécessaires, consultez les
+      <%= link_to "questions pour extraire les informations nécessaires",
+                  "https://metabase.entreprise.api.gouv.fr/collection/73",
+                  target: "_blank",
+                  rel: "noopener",
+                  class: "fr-link" %>.
+    </p>
+
+    <%= form_with(model: [:admin, @audit_notification], local: true) do |f| %>
+      <% if @audit_notification.errors.any? %>
+        <div class="fr-alert fr-alert--error fr-mb-3w" role="alert">
+          <h3 class="fr-alert__title">Erreur</h3>
+          <p>Le formulaire contient des erreurs :</p>
+          <ul>
+            <% @audit_notification.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="fr-form-group">
+        <div class="fr-input-group">
+          <%= f.label :authorization_request_external_id,
+                      "Identifiant externe de la demande d'habilitation",
+                      class: %w[fr-label] %>
+          <span class="fr-hint-text">
+            L'identifiant externe provenant de DataPass (ex: 12345) *
+          </span>
+          <%= f.text_field :authorization_request_external_id,
+                           class: %w[fr-input],
+                           placeholder: "12345",
+                           required: true %>
+        </div>
+      </div>
+
+      <div class="fr-form-group">
+        <div class="fr-input-group">
+          <%= f.label :reason,
+                      "Raison de l'audit",
+                      class: %w[fr-label] %>
+          <span class="fr-hint-text">
+            Précisez la raison de cet audit (ex: investigation, contrôle qualité, etc.) *
+          </span>
+          <%= f.textarea :reason,
+                         class: %w[fr-input],
+                         rows: 3,
+                         placeholder: "Paramètre de sécurité non respecté",
+                         required: true %>
+        </div>
+      </div>
+
+      <div class="fr-form-group">
+        <div class="fr-input-group">
+          <%= f.label :approximate_volume,
+                      "Volume approximatif de données",
+                      class: %w[fr-label] %>
+          <span class="fr-hint-text">
+            Nombre approximatif d'enregistrements ou de requêtes concernés
+          </span>
+          <%= f.number_field :approximate_volume,
+                             class: %w[fr-input],
+                             placeholder: "1000",
+                             min: 0 %>
+        </div>
+      </div>
+
+      <div class="fr-form-group">
+        <div class="fr-input-group">
+          <%= f.label :request_id_access_logs_input,
+                      "Identifiants des logs d'accès",
+                      class: %w[fr-label] %>
+          <span class="fr-hint-text">
+            Entrez les identifiants des logs (request_id) séparés par des virgules ou des retours à la ligne *
+          </span>
+          <%= f.text_area :request_id_access_logs_input,
+                          class: %w[fr-input],
+                          rows: 10,
+                          placeholder: "550e8400-e29b-41d4-a716-446655440000\n5bc15bbb-04ee-4c96-b367-cd0019618b43\n3ebc777f-9f62-40ab-81b9-8d798bccbf11",
+                          required: true %>
+        </div>
+      </div>
+
+      <div class="fr-form-group">
+        <ul class="fr-btns-group fr-btns-group--inline-lg">
+          <li>
+            <%= f.submit "Envoyer la notification", class: %w[fr-btn] %>
+          </li>
+          <li>
+            <%= link_to "Annuler",
+                        admin_audit_notifications_path,
+                        class: %w[fr-btn fr-btn--secondary] %>
+          </li>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+</div>

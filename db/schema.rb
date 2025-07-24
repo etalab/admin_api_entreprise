@@ -10,15 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_22_060041) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_01_105448) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
 
   create_table "access_logs", id: false, force: :cascade do |t|
-    t.timestamptz "timestamp"
+    t.timestamptz "timestamp", null: false
+    t.uuid "request_id", null: false
+    t.string "path", null: false
     t.uuid "token_id"
+  end
+
+  create_table "audit_notifications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "reason", null: false
+    t.string "authorization_request_external_id", null: false
+    t.string "request_id_access_logs", default: [], null: false, array: true
+    t.string "contact_emails", default: [], null: false, array: true
+    t.integer "approximate_volume"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["authorization_request_external_id"], name: "index_audit_notifications_on_authorization_request_external_id"
+    t.index ["created_at"], name: "index_audit_notifications_on_created_at"
   end
 
   create_table "authorization_requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
