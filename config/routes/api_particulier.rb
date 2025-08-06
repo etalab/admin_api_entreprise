@@ -5,9 +5,10 @@ constraints(APIParticulierDomainConstraint.new) do
   end
 
   post '/auth/api_gouv_particulier', as: :login_api_gouv_particulier
+  post '/auth/proconnect_api_particulier', as: :login_proconnect_particulier
 
   scope module: :api_particulier do
-    get '/auth/api_gouv_particulier/callback', to: 'sessions#create_from_oauth'
+    get '/auth/:provider/callback', to: 'sessions#create_from_oauth'
     get '/auth/failure', to: 'sessions#failure'
     get '/robots.txt', to: ->(env) { [200, {}, [File.read('config/seo/robots.txt') % { app: 'particulier' }]] }
     get '/status/apis', to: 'pages#current_status', as: :api_particulier_current_status

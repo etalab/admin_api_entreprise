@@ -8,6 +8,7 @@ constraints(APIEntrepriseDomainConstraint.new) do
   end
 
   post '/auth/api_gouv_entreprise', as: :login_api_gouv_entreprise
+  post '/auth/proconnect_api_entreprise', as: :login_proconnect_entreprise
 
   scope module: :api_entreprise do
     root to: redirect('/compte/se-connecter'), as: :dashboard_root, constraints: { subdomain: 'dashboard.entreprise.api' }
@@ -15,7 +16,7 @@ constraints(APIEntrepriseDomainConstraint.new) do
 
     get '/stats', to: 'stats#index'
 
-    get '/auth/api_gouv_entreprise/callback', to: 'sessions#create_from_oauth'
+    get '/auth/:provider/callback', to: 'sessions#create_from_oauth'
     get '/auth/failure', to: 'sessions#failure'
 
     get '/compte/se-connecter', to: 'sessions#new', as: :login
