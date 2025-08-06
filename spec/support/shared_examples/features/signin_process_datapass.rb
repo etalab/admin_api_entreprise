@@ -11,15 +11,20 @@ RSpec.shared_examples 'a datapass signin process' do |options = {}|
     click_button 'login_pro_connect'
   end
 
+  before do
+    stub_request(:get, 'https://fca.integ01.dev-agentconnect.fr/api/v2/.well-known/openid-configuration')
+  end
+
   context 'when API Gouv authentication is successful' do
     before do
       OmniAuth.config.test_mode = true
+
       OmniAuth.config.mock_auth[oauth_provider_key] = OmniAuth::AuthHash.new({
         info: OmniAuth::AuthHash::InfoHash.new(
           email: user.email,
-          family_name: user.last_name,
-          given_name: user.first_name,
-          sub: user.oauth_api_gouv_id || unknown_api_gouv_id
+          last_name: user.last_name,
+          first_name: user.first_name,
+          uid: user.oauth_api_gouv_id || unknown_api_gouv_id
         )
       })
     end
