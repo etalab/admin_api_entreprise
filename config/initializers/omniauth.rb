@@ -1,7 +1,3 @@
-require_relative '../../app/lib/omni_auth/strategies/api_gouv_abstract.rb'
-require_relative '../../app/lib/omni_auth/strategies/api_gouv_entreprise.rb'
-require_relative '../../app/lib/omni_auth/strategies/api_gouv_particulier.rb'
-
 OmniAuth.config.logger = Rails.logger
 
 OmniAuth.config.on_failure = Proc.new do |env|
@@ -30,9 +26,6 @@ module OmniAuth::Strategies
 end
 
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :api_gouv_particulier, Rails.configuration.oauth_api_gouv_client_id_particulier, Rails.application.credentials.oauth_api_gouv_client_secret_particulier
-  provider :api_gouv_entreprise, Rails.configuration.oauth_api_gouv_client_id_entreprise, Rails.application.credentials.oauth_api_gouv_client_secret_entreprise
-
   %i[entreprise particulier].each do |type|
     case Rails.env
     when 'development', 'test'
