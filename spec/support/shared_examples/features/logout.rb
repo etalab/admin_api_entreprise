@@ -9,7 +9,7 @@ RSpec.shared_examples 'a logout feature' do |controller_class, profile_path_meth
   before do
     login_as(create(:user))
     # rubocop:disable RSpec/AnyInstance
-    allow_any_instance_of(controller_class).to receive(:oauth_logout_url).and_return(after_logout_path)
+    allow_any_instance_of(controller_class).to receive(:after_logout_path).and_return(after_logout_path)
     # rubocop:enable RSpec/AnyInstance
   end
 
