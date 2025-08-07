@@ -4,7 +4,7 @@ module SessionsManagement
   end
 
   def create_from_oauth
-    interactor_call = oauth_login_organizer.call(oauth_params)
+    interactor_call = User::ProconnectLogin.call(user_params:)
 
     login(interactor_call)
   end
@@ -18,7 +18,8 @@ module SessionsManagement
   def destroy
     logout_user
 
-    redirect_to oauth_logout_url, allow_other_host: true
+    redirect_to after_logout_path,
+      allow_other_host: true
   end
 
   def after_logout
@@ -28,6 +29,14 @@ module SessionsManagement
   end
 
   private
+
+  def after_logout_path
+    "/auth/proconnect_#{namespace}/logout"
+  end
+
+  def user_params
+    request.env['omniauth.auth'].info
+  end
 
   def login(interactor_call)
     if interactor_call.success?
@@ -41,31 +50,6 @@ module SessionsManagement
 
   def failure_message
     params[:message]
-  end
-
-  def oauth_email
-    auth_hash.try('info').try('email')
-  end
-
-  def oauth_params
-    {
-      oauth_api_gouv_id: auth_hash.try('info').try('sub'),
-      oauth_api_gouv_email: oauth_email,
-      oauth_api_gouv_info: auth_hash.try('info'),
-      namespace:
-    }
-  end
-
-  def auth_hash
-    request.env['omniauth.auth']
-  end
-
-  def oauth_logout_url
-    "#{Rails.application.config.oauth_api_gouv_issuer}/oauth/logout?post_logout_redirect_uri=#{after_logout_url}&client_id=#{oauth_api_gouv_client_id}"
-  end
-
-  def oauth_api_gouv_client_id
-    Rails.configuration.public_send("oauth_api_gouv_client_id_#{namespace.gsub('api_', '')}")
   end
 
   def extract_flash_kind(message)
