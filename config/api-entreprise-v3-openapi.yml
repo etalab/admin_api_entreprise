@@ -3209,6 +3209,564 @@ paths:
           curl -X GET \
             -H "Authorization: Bearer $token" \
             --url "https://entreprise.api.gouv.fr/v3/cnetp/unites_legales/130025265/attestation_cotisations_conges_payes_chomage_intemperies?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
+  "/v3/data_subvention/associations/{siren_or_siret_or_rna}/subventions":
+    get:
+      summary: Subventions des associations
+      tags:
+      - Subventions des associations
+      parameters:
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      - name: siren_or_siret_or_rna
+        in: path
+        description: Siren, Siret ou RNA de l'association dont vous souhaitez obtenir
+          les subventions.
+        example: '12345678901234'
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Listes des subventions accordées et distribuées aux associations
+      responses:
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '403':
+          description: Accès interdit
+          content:
+            application/json:
+              examples:
+                insufficient_privileges_error:
+                  value:
+                    errors:
+                    - code: '00100'
+                      title: Privilèges insuffisants
+                      detail: Votre token est valide mais vos privilèges sont insuffisants.
+                        Listez vos privilèges sur /v2/privileges
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Privilèges insuffisants
+                  description: Votre token est valide mais vos privilèges sont insuffisants.
+                    Listez vos privilèges sur /v2/privileges
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
+                  value:
+                    errors:
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
+                      source:
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '200':
+          description: Entreprise trouvée
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          x-operationId: api_entreprise_v3_data_subvention_subventions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        data:
+                          type: object
+                          properties:
+                            demande_subvention:
+                              type: object
+                              description: Informations complètes sur une demande
+                                de subvention
+                              nullable: true
+                              properties:
+                                fournisseur:
+                                  type: string
+                                  description: Système fournisseur des données (OSIRIS,
+                                    Chorus, etc.)
+                                  example: OSIRIS
+                                date_mise_a_jour_information:
+                                  type: string
+                                  format: date-time
+                                  description: Date de dernière mise à jour des informations
+                                  example: '2019-01-01T00:00:00.000Z'
+                                annee_exercice_demande:
+                                  type: number
+                                  description: Valeur de l'année
+                                  example: 2019
+                                identifiant_engagement_juridique:
+                                  type: string
+                                  description: Numéro EJ
+                                  example: 19/0003456
+                                  nullable: true
+                                jointure_demandes_et_versements:
+                                  type: string
+                                  description: Donnée permettant de faire le lien
+                                    entre une demande et un paiement
+                                  nullable: true
+                                  example: 19/0003456
+                                subvention_demandee:
+                                  type: object
+                                  description: Informations sur la subvention demandée
+                                  properties:
+                                    dispositif:
+                                      type: string
+                                      description: Nom du dispositif
+                                      example: ANS - Projets Sportifs Territoriaux
+                                    sous_dispositif:
+                                      type: string
+                                      description: Nom du sous-dispositif
+                                      example: Aides territoriales (hors emploi)
+                                    montant_demande:
+                                      type: number
+                                      description: Montant en euros
+                                      example: 2000
+                                  required:
+                                  - dispositif
+                                  - sous_dispositif
+                                  - montant_demande
+                                description_des_projets:
+                                  type: object
+                                  description: Description détaillée des projets financés
+                                  properties:
+                                    estimation_cout_total:
+                                      type: number
+                                      description: Coût en euros
+                                      example: 8500
+                                    projet:
+                                      type: array
+                                      description: Liste des projets/actions proposés
+                                      items:
+                                        type: object
+                                        description: Détails d'un projet ou action
+                                          proposée
+                                        properties:
+                                          rang:
+                                            type: number
+                                            description: Numéro d'ordre
+                                            example: 1
+                                          intitule:
+                                            type: string
+                                            description: Titre du projet
+                                            example: Développement du football féminin
+                                          objectifs:
+                                            type: string
+                                            description: Description des objectifs
+                                          objectifs_operationnels:
+                                            type: string
+                                            description: Objectifs opérationnels
+                                            example: Développement de la pratique
+                                          description:
+                                            type: string
+                                            description: Description complète
+                                          aide:
+                                            type: object
+                                            description: Description de l'aide
+                                            properties:
+                                              nature:
+                                                type: string
+                                                description: Type d'aide
+                                                example: Projets sportifs territoriaux
+                                              modalite:
+                                                type: string
+                                                description: Modalité d'aide
+                                                example: Aide au projet
+                                          modalite_ou_dispositif:
+                                            type: string
+                                            description: Modalité ou dispositif
+                                            example: Développer la pratique féminine
+                                          indicateurs:
+                                            type: string
+                                            description: Indicateurs de performance
+                                            nullable: true
+                                          cofinanceurs:
+                                            type: string
+                                            description: Co-financeurs séparés par
+                                              ';'
+                                            example: Conseil départemental du Nord;Ville
+                                              de Lille
+                                  required:
+                                  - estimation_cout_total
+                                  - projet
+                                instruction:
+                                  type: object
+                                  description: Informations sur l'instruction de la
+                                    demande
+                                  properties:
+                                    service_instructeur:
+                                      type: string
+                                      description: Code du service instructeur
+                                      example: DD59
+                                    date_commission:
+                                      type: string
+                                      format: date-time
+                                      description: Date de commission
+                                      example: '2019-06-15T00:00:00.000Z'
+                                      nullable: true
+                                    statut_demande:
+                                      type: string
+                                      description: Statut de la demande
+                                      enum:
+                                      - Accordé
+                                      - En instruction
+                                      - Refusé
+                                      - En attente
+                                      example: Accordé
+                                    montant_accorde:
+                                      type: number
+                                      description: Montant accordé
+                                      example: 1800
+                                  required:
+                                  - service_instructeur
+                                  - date_commission
+                                  - statut_demande
+                                  - montant_accorde
+                              required:
+                              - fournisseur
+                              - date_mise_a_jour_information
+                              - annee_exercice_demande
+                              - identifiant_engagement_juridique
+                              - jointure_demandes_et_versements
+                              - subvention_demandee
+                              - description_des_projets
+                              - instruction
+                            paiements:
+                              type: array
+                              description: Liste des paiements effectués
+                              items:
+                                type: object
+                                description: Informations sur un paiement effectué
+                                properties:
+                                  fournisseur:
+                                    type: string
+                                    description: Système fournisseur des données de
+                                      paiement
+                                    example: Chorus
+                                  date_mise_a_jour_information:
+                                    type: string
+                                    format: date-time
+                                    description: Date de dernière mise à jour des
+                                      informations de paiement
+                                    example: '2021-03-15T00:00:00.000Z'
+                                  jointure_demandes_et_versements:
+                                    type: string
+                                    nullable: true
+                                    description: Donnée permettant de faire le lien
+                                      entre une demande et un paiement
+                                    example: 19/0003456
+                                  montant_verse:
+                                    type: number
+                                    description: Montant versé
+                                    example: 1250
+                                  date_versement:
+                                    type: string
+                                    format: date-time
+                                    description: Date de versement
+                                    example: '2021-03-15T00:00:00.000Z'
+                                  centre_financier:
+                                    type: string
+                                    description: Nom du centre financier
+                                    example: UO Region BFC-FC
+                                  domaine_fonctionnel:
+                                    type: string
+                                    description: Domaine fonctionnel
+                                    example: sport handicap
+                                  activitee:
+                                    type: string
+                                    description: Type d'activité
+                                    example: handisport
+                                  programme:
+                                    type: object
+                                    description: Informations sur le programme budgétaire
+                                    properties:
+                                      numero_programme:
+                                        type: string
+                                        description: Numéro de programme
+                                        example: '219'
+                                      libelle_programme:
+                                        type: string
+                                        description: Nom du programme
+                                        example: Sport
+                                      numero_bop:
+                                        type: string
+                                        description: Numéro BOP
+                                        example: '219'
+                          required:
+                          - demande_subvention
+                          - paiements
+                        links:
+                          type: object
+                        meta:
+                          type: object
+                  meta:
+                    type: object
+                  links:
+                    type: object
+                required:
+                - data
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                unprocessable_entity_error_siren_or_siret_or_rna_error:
+                  value:
+                    errors:
+                    - code: '00330'
+                      title: Entité non traitable
+                      detail: Le numéro de siren ou le numéro de siret ou le numéro
+                        d'association indiqué n'est pas correctement formatté
+                      source:
+                        parameter: id
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le numéro de siren ou le numéro de siret ou le numéro
+                    d'association indiqué n'est pas correctement formatté
+                missing_mandatory_params_context_error:
+                  value:
+                    errors:
+                    - code: '00201'
+                      title: Entité non traitable
+                      detail: Le paramètre context est obligatoire
+                      source:
+                        parameter: context
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre context est obligatoire
+                missing_mandatory_params_object_error:
+                  value:
+                    errors:
+                    - code: '00202'
+                      title: Entité non traitable
+                      detail: Le paramètre object est obligatoire
+                      source:
+                        parameter: object
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre object est obligatoire
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Non trouvée
+          content:
+            application/json:
+              examples:
+                entite_non_trouvee_52003:
+                  value:
+                    errors:
+                    - code: '52003'
+                      title: Entité non trouvée
+                      detail: Le ou les paramètre(s) d'entrée n'existent pas, ne sont
+                        pas connus, ou ne comportent aucune information pour cet appel.
+                        Veuillez vérifier que votre recherche est couverte par le
+                        périmètre de l'API.
+                      source:
+                      meta:
+                        provider: DataSubvention
+                  summary: Entité non trouvée
+                  description: Le ou les paramètre(s) d'entrée n'existent pas, ne
+                    sont pas connus, ou ne comportent aucune information pour cet
+                    appel. Veuillez vérifier que votre recherche est couverte par
+                    le périmètre de l'API.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '502':
+          description: Erreur du fournisseur
+          content:
+            application/json:
+              examples:
+                provider_unknown_error:
+                  value:
+                    errors:
+                    - code: '52999'
+                      title: Erreur inconnue du fournisseur de données
+                      detail: La réponse retournée par le fournisseur de données est
+                        invalide et inconnue de notre service. L'équipe technique
+                        a été notifiée de cette erreur pour investigation.
+                      source:
+                      meta:
+                        provider: DataSubvention
+                  summary: Erreur inconnue du fournisseur de données
+                  description: La réponse retournée par le fournisseur de données
+                    est invalide et inconnue de notre service. L'équipe technique
+                    a été notifiée de cette erreur pour investigation.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '504':
+          description: Erreur d'intermédiaire
+          content:
+            application/json:
+              examples:
+                timeout_error:
+                  value:
+                    errors:
+                    - code: '52002'
+                      title: Intermédiaire hors-délai
+                      detail: Temps d’attente d’une réponse du fournisseur de données
+                        écoulé.
+                      source:
+                      meta:
+                        provider: DataSubvention
+                  summary: Intermédiaire hors-délai
+                  description: Temps d’attente d’une réponse du fournisseur de données
+                    écoulé.
+                provider_unavailable_error:
+                  value:
+                    errors:
+                    - code: '52001'
+                      title: Service non disponible
+                      detail: Service du fournisseur de données temporairement indisponible
+                        ou en maintenance.
+                      source:
+                      meta:
+                        provider: DataSubvention
+                  summary: Service non disponible
+                  description: Service du fournisseur de données temporairement indisponible
+                    ou en maintenance.
+                network_error:
+                  value:
+                    errors:
+                    - code: '00501'
+                      title: Erreur réseau
+                      detail: Problème de connexion au serveur distant. L'erreur peut
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
+                      source:
+                      meta:
+                        retry_in: 10
+                  summary: Erreur réseau
+                  description: Problème de connexion au serveur distant. L'erreur
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
+                dns_resolution_error:
+                  value:
+                    errors:
+                    - code: '52004'
+                      title: Erreur de résolution DNS
+                      detail: Problème de résolution DNS de l'adresse du serveur
+                      source:
+                      meta:
+                        provider: DataSubvention
+                  summary: Erreur de résolution DNS
+                  description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/data_subvention/associations/13002526500013/subventions?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/douanes/etablissements/{siret_or_eori}/immatriculations_eori":
     get:
       summary: Immatriculation EORI

@@ -14,4 +14,8 @@ class APIParticulierMailer < ApplicationMailer
   def extract_host
     ActionMailer::Base.default_url_options[:host] = valid_host('api_particulier')
   end
+
+  def namespace
+    'particulier'
+  end
 end

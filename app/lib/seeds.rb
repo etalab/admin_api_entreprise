@@ -11,6 +11,7 @@ class Seeds
     create_data_for_api_entreprise
     create_data_for_api_particulier
     create_data_shared
+    create_audit_notifications
   end
 
   def flushdb
@@ -124,7 +125,7 @@ class Seeds
         external_id: 103,
         status: :validated,
         first_submitted_at: 1.week.ago,
-        siret: '012345678901235'
+        siret: '21670482500019'
       }
     )
   end
@@ -140,7 +141,7 @@ class Seeds
         external_id: 104,
         status: :validated,
         first_submitted_at: 1.week.ago,
-        siret: '012345678901236'
+        siret: '21750001600019'
       }
     )
   end
@@ -158,7 +159,7 @@ class Seeds
         api: 'entreprise',
         first_submitted_at: 2.years.ago,
         validated_at: 2.years.ago + 1.week,
-        siret: '012345678901237'
+        siret: '21340172201787'
       }
     )
   end
@@ -168,11 +169,12 @@ class Seeds
       user: @user,
       authorization_request: create_authorization_request(
         api: 'entreprise',
-        intitule: 'Mairie de Bruxelles',
+        intitule: 'Mairie de Bruges',
         status: :refused,
         external_id: 106,
         first_submitted_at: 2.years.ago,
-        validated_at: 2.years.ago + 1.week
+        validated_at: 2.years.ago + 1.week,
+        siret: '21330075900015'
       ),
       role: 'demandeur'
     )
@@ -229,17 +231,62 @@ class Seeds
       3.days.ago,
       8.days.ago
     ].each do |timestamp|
-      AccessLog.create!(token:, timestamp:)
+      AccessLog.create!(
+        path: '/api/v3/what/ever',
+        request_id: SecureRandom.uuid,
+        token:,
+        timestamp:
+      )
     end
   end
 
   def create_authorization_request(params = {})
+    find_or_create_organization(params[:siret]) if params[:siret]
     AuthorizationRequest.create!(params)
+  end
+
+  def find_or_create_organization(siret)
+    organization = Organization.find_by(siret:)
+
+    return organization if organization
+
+    Organization.create!(
+      siret:,
+      insee_payload: JSON.parse(Rails.root.join("spec/fixtures/insee/#{siret}.json").read)
+    )
   end
 
   def create_user_authorization_request_role(params = {})
     UserAuthorizationRequestRole.create!(params)
   end
+
+  # rubocop:disable Metrics/AbcSize
+  def create_audit_notifications
+    authorization_requests = AuthorizationRequest.where.not(siret: nil).includes(:tokens).limit(3)
+
+    authorization_requests.each_with_index do |auth_request, index|
+      next unless auth_request.tokens.any?
+
+      access_logs = AccessLog.joins(:token)
+        .where(tokens: { authorization_request: auth_request })
+        .limit(2 + index)
+
+      next if access_logs.empty?
+
+      AuditNotification.create!(
+        authorization_request_external_id: auth_request.external_id,
+        request_id_access_logs: access_logs.pluck(:request_id),
+        contact_emails: [auth_request.demandeur&.email, auth_request.contact_technique&.email].compact.uniq,
+        approximate_volume: 9001 + index,
+        reason: [
+          'Contrôle de routine - vérification des logs d\'accès',
+          'Audit sécurité - activité suspecte détectée',
+          'Investigation - paramètres incorrects dans les requêtes'
+        ][index % 3]
+      )
+    end
+  end
+  # rubocop:enable Metrics/AbcSize
 
   def load_all_models!
     Rails.root.glob('app/models/**/*.rb').each { |f| require f }
