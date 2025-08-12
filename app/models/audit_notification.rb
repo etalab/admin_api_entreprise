@@ -11,7 +11,11 @@ class AuditNotification < ApplicationRecord
   validate :validate_access_logs_belong_to_authorization_request
 
   def authorization_request
-    @authorization_request ||= AuthorizationRequest.find_by(external_id: authorization_request_external_id)
+    if instance_variable_defined?(:@authorization_request)
+      @authorization_request
+    else
+      @authorization_request = AuthorizationRequest.find_by(external_id: authorization_request_external_id)
+    end
   end
 
   def access_logs

@@ -27,7 +27,11 @@ class ScheduleExpirationNoticeEmailJob < ApplicationJob
   end
 
   def token
-    @token ||= Token.find_by(id: @token_id)
+    if instance_variable_defined?(:@token)
+      @token
+    else
+      @token = Token.find_by(id: @token_id)
+    end
   end
 
   def template
