@@ -13,21 +13,27 @@
   alert:
     title: "Extrait d'immatriculation véhicule"
     description: |+
-      Les données exposées par cette API proviennent du Système d’immatriculation des véhicules (SIV). 
+      Les données exposées par cette API proviennent du Système d’immatriculation des véhicules (SIV). Ce fichier national est placé sous la responsabilité du Ministère de l'intérieur.  Elle est à destination exclusive des collectivités dans la cadre de la tarification du stationnement résidentiel. Cette API n'est pas à vocation de contrôle de doit à postériori de l'obtention d'un droit de stationnement. 
   perimeter:
     entity_type_description: |+
       Cette API concerne les véhicules de particuliers immatriculés en France, que le particulier soit :
       ✅ propriétaire d'un véhicule particulier ;
       ✅ Co-titulaire d'un véhicule particulier.
       ✅ locataire d'un véhicule en location longue durée (LLD, LCB, LCL) ou autre mode de location ;
+      Ne sont pas concernés : 
+      ❌ les véhicules d'entreprise ou de fonction 
     geographical_scope_description:  |+
-      L'API renvoie tous les extraits d'immatriculation des véhicules avec une carte grise produite en France depuis [à compléter] via le site de l'Agence nationale. Que la voiture circule : 
+      L'API renvoie tous les extraits d'immatriculation des véhicules produits en France depuis [à compléter] :  
       ✅ en France métropolitaine ;
-      ✅ dans les DROM-COM ;
+      ✅ dans les DROM ;
+      Ne sont pas renvoyés les extraits d'immatriculation des véhicules produits dans les :
+      ❌ COM  
+      Les collectivités d'Outre-Mer disposent de leurs propres systèmes ou adaptations du SIV. 
     updating_rules_description: |+
-      Les données sont issues du fichier des immatriculations des véhicules produit par le Ministère de l'intérieur. Elles sont mises à jour :
+      Les données sont issues du système d'immatriculation des véhicules. Elles sont mises à jour :
       ✅  En temps réel lors de la requête (données à jour à l'instant T) ;
       ✅  En cas de changements (déménagement, nouveau véhicule etc.), la nouvelle donnée est disponible dès son enregistrement dans le SIV.
+          L'API est connectée directement au SIV et dispose donc de la donnée la plus à jour possible.
       ⚠️  Les données transmises reflètent la situation connue au moment de l'appel. Une interrogation faite à un instant T peut donc différer d’une interrogation à T+1 en cas de changements.
     know_more_description: |+
       Lien optionnel pour en savoir plus sur la donnée. Le markdown GFM est supporté ici.
@@ -55,6 +61,8 @@
          les caractéristiques techniques du véhicule (marque, modèle, type, cylindrée, carburant) ,
          son taux d’émission de CO₂, masse maximale, catégorie (VP, M1, etc.),
          sa norme environnementale (ex. Euro 6).
+    know_more_description: |+
+      [Informations présentes sur la carte grise qui sont dans le SIV](https://www.eplaque.fr/carte-grise/lire-une-carte-grise)
 
   # La liste des clés disponible est stockée dans la locale `provider_uids` du fichier provider_uids.fr.yml
   provider_uids:
