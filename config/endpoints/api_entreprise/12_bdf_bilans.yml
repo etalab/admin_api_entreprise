@@ -5,10 +5,21 @@
   position: 220
   perimeter:
     entity_type_description: |+
-      Cette API concerne uniquement les entreprises réalisant un **chiffre d’affaire supérieur à 750 000 euros** et ayant **_a minima_ trois bilans**
-       Même si la Banque de France connaît un ou deux bilans de l'entreprise, ces derniers ne seront pas transmis.
+      Cette API concerne **✅ les entreprises et associations pour lesquelles la Banque de France a effectué une cotation**. 
+
+      **Pour les entreprises** : 
+      - ✅ il s'agit uniquement des entreprises réalisant un chiffre d’affaire supérieur à 1 250 000 euros et ayant _a minima_ trois bilans ;
+      - ❌ les entreprises ayant moins de trois bilans ne sont pas concernées (même si la Banque de France peut connaître les deux premiers bilans) ;
+      - ❌ les entreprises réalisant un chiffre d'affaire inférieur au seuil de cotation. Ce seuil est [passé de 750 000 euros à 1 250 000 euros en janvier 2025](https://www.banque-france.fr/fr/a-votre-service/entreprises/rehaussement-du-seuil-de-cotation#:~:text=Dans%20ce%20contexte%2C%20la%20Banque,vigueur%20le%2012%20janvier%202025){:target="_blank"}.
+
+      **Pour les associations (une fraction minime, environ 2000):**
+      Les associations côtées par la Banque de France et donc disponibles dans l'API ne sont pas déterminées sur la base de critères restrictifs précis, mais il s'agit globalement des associations : 
+        - ✅ ayant une activité à dimention économique significative ;
+        - ❌ n'exerçant pas une mission de service public, c'est-à-dire que sont écartées les associations dont l'activité revêt un caractère d’intérêt général et dont la gestion n'est pas autonome ;
+        - ❌ n'appartenant pas aux catégories juridiques suivantes : 9210, _association non déclarée_ ; 9224, _associations soumises au régime des sociétés de participation et n’ayant pas de personnalité morale_ ; 9240, _congrégations_.
     entities:
       - entreprises
+      - associations
   call_id: "SIRET"
   provider_uids:
     - 'bdf'
@@ -47,3 +58,4 @@
     - Donnée structurée JSON
   parameters:
     - Numéro de SIRET de l'établissement.
+ 
