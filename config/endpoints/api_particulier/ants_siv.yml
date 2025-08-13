@@ -13,7 +13,7 @@
   alert:
     title: "Extrait d'immatriculation véhicule"
     description: |+
-      Les données exposées par cette API proviennent du Système d’immatriculation des véhicules (SIV). Ce fichier national est placé sous la responsabilité du Ministère de l'intérieur.  Elle est à destination exclusive des collectivités dans la cadre de la tarification du stationnement résidentiel. Cette API n'est pas à vocation de contrôle de doit à postériori de l'obtention d'un droit de stationnement. 
+      Les données exposées par cette API proviennent du Système d’immatriculation des véhicules (SIV) pour les véhicules immatriculées après 2009 et du Fichier national des immatriculations (FNI) pour les véhicules immatriculées avant 2009. Ces fichiers sont placés sous la responsabilité du Ministère de l'intérieur.  Cette API est à destination exclusive des collectivités dans la cadre de la tarification du stationnement résidentiel. Elle n'est pas à vocation de contrôle de doit à postériori de l'obtention d'un droit de stationnement. 
   perimeter:
     entity_type_description: |+
       Cette API concerne les véhicules de particuliers immatriculés en France, que le particulier soit :
@@ -28,12 +28,12 @@
       ✅ dans les DROM ;
       Ne sont pas renvoyés les extraits d'immatriculation des véhicules produits dans les :
       ❌ COM  
-      Les collectivités d'Outre-Mer disposent de leurs propres systèmes ou adaptations du SIV. 
+      Les collectivités d'Outre-Mer disposent de leurs propres systèmes ou adaptations du SIV/FNI. 
     updating_rules_description: |+
-      Les données sont issues du système d'immatriculation des véhicules. Elles sont mises à jour :
+      Les données sont mises à jour :
       ✅  En temps réel lors de la requête (données à jour à l'instant T) ;
-      ✅  En cas de changements (déménagement, nouveau véhicule etc.), la nouvelle donnée est disponible dès son enregistrement dans le SIV.
-          L'API est connectée directement au SIV et dispose donc de la donnée la plus à jour possible.
+      ✅  En cas de changements (déménagement, nouveau véhicule etc.). La nouvelle donnée est disponible dès son enregistrement dans le SIV.
+          L'API est connectée directement au SIV/FNI et dispose donc de la donnée la plus à jour possible.
       ⚠️  Les données transmises reflètent la situation connue au moment de l'appel. Une interrogation faite à un instant T peut donc différer d’une interrogation à T+1 en cas de changements.
     know_more_description: |+
       Lien optionnel pour en savoir plus sur la donnée. Le markdown GFM est supporté ici.
