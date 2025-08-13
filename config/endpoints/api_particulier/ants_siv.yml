@@ -1,0 +1,74 @@
+---
+- uid: 'ants/extrait_immatriculation_vehicule'
+  opening: public
+  call_id:
+    - FranceConnect et Identifiant de l'immatriculation du véhicule
+  parameters:
+    - FranceConnect et Identifiant de l'immatriculation du véhicule
+  path: '/api/v3/ants/extrait_immatriculation_vehicule/france_connect'
+  ping_url: 'https://particulier.api.gouv.fr/api/v3/ants/extrait_immatriculation_vehicule/ping'
+  # Position au sein de l'index
+  # Ce chiffre (arbitraire) détermine l'ordre d'affichage dans le catalogue : La fiche avec position 1 sera avant la fiche 2
+  position: 603
+  alert:
+    title: "Extrait d'immatriculation véhicule"
+    description: |+
+      Les données exposées par cette API proviennent du Système d’immatriculation des véhicules (SIV). 
+  perimeter:
+    entity_type_description: |+
+      Cette API concerne les véhicules de particuliers immatriculés en France, que le particulier soit :
+      ✅ propriétaire d'un véhicule particulier ;
+      ✅ Co-titulaire d'un véhicule particulier.
+      ✅ locataire d'un véhicule en location longue durée (LLD, LCB, LCL) ou autre mode de location ;
+    geographical_scope_description:  |+
+      L'API renvoie tous les extraits d'immatriculation des véhicules avec une carte grise produite en France depuis [à compléter] via le site de l'Agence nationale. Que la voiture circule : 
+      ✅ en France métropolitaine ;
+      ✅ dans les DROM-COM ;
+    updating_rules_description: |+
+      Les données sont issues du fichier des immatriculations des véhicules produit par le Ministère de l'intérieur. Elles sont mises à jour :
+      ✅  En temps réel lors de la requête (données à jour à l'instant T) ;
+      ✅  En cas de changements (déménagement, nouveau véhicule etc.), la nouvelle donnée est disponible dès son enregistrement dans le SIV.
+      ⚠️  Les données transmises reflètent la situation connue au moment de l'appel. Une interrogation faite à un instant T peut donc différer d’une interrogation à T+1 en cas de changements.
+    know_more_description: |+
+      Lien optionnel pour en savoir plus sur la donnée. Le markdown GFM est supporté ici.
+
+  parameters_details:
+    description: |+
+      Cette API est appelable uniquement avec le couple : [FranceConnect et identifiant d'immatriculation du véhicule (exemple : AA-123-BB)]
+      <p class="r-badge fr-badge--brown-cafe-creme">Identité pivot</p>
+      Avec les données d'identité : Lorem ipsum
+
+      <p class="fr-badge fr-badge--purple-glycine">Identifiant</p>
+      Avec TYPE IDENTIFIANT : Lorem ipsum
+
+      <p class="fr-badge fr-badge--blue-ecume">FranceConnect</p>
+      Avec FranceConnect.
+  data:
+    description: |+
+      Cette API délivre des données fiables et à jour de l'extrait d'immatriculation d'un véhicule concernant :
+      - l’identité du particulier (nom, prénom) ;
+      - son adresse postale (au format La Poste); 
+      - son véhicule :
+         son immatriculation,
+         son statut d’usage (propriétaire ou locataire : LLD, LOA),
+         sa date de première immatriculation,
+         les caractéristiques techniques du véhicule (marque, modèle, type, cylindrée, carburant) ,
+         son taux d’émission de CO₂, masse maximale, catégorie (VP, M1, etc.),
+         sa norme environnementale (ex. Euro 6).
+
+  # La liste des clés disponible est stockée dans la locale `provider_uids` du fichier provider_uids.fr.yml
+  provider_uids:
+    - 'ants'
+  keywords:
+    - 'immatriculation'
+    - 'siv'
+    - 'carte grise'
+    - 'stationnement résidentiel'
+  faq:
+    - q: "Question ?"
+      a: |+
+        Réponse à la question. Le markdown GFM est supporté ici.
+  api_cgu:
+    description: |+
+        Les conditions d'utilisations spécifiques à l'API
+
