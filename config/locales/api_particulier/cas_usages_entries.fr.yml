@@ -1175,7 +1175,7 @@ fr:
             - [CGU FranceConnect](https://franceconnect.gouv.fr/cgu){:target="_blank"}
             - [CGU Hubee](https://www.hubee.numerique.gouv.fr/cgu){:target="_blank"}
 
-stationnement-residentiel:
+      stationnement-residentiel:
         user_types:
           - communes
         name: 'Stationnement résidentiel'
@@ -1206,12 +1206,10 @@ stationnement-residentiel:
             "sport_data_hub/statut_sportif" : ""
             "ants/extrait_immatriculation_vehicule" : "Permet de récupérer toutes les informations présentes sur la carte grise d'un véhicule"
         introduction:
-          title: Simplifiiez les démarches des résidents en calculant la tarification pour l’abonnement et le droit au stationnement résidentiel à un tarif préférentiel.
+          title: Simplifiez les démarches des résidents en calculant la tarification pour l’abonnement et le droit au stationnement résidentiel à un tarif préférentiel.
           content: |
             {:.fr-text--lead}
-            Communes, API Particulier permet de traiter automatiquement les demandes d’abonnement pour le stationnement résidentiel.
-
-            :warning:Ce traitement automatique ne peut se faire que si l’usager [s’identifie sur le portail usager (ou pour la démarche stationnement résidentiel) via FranceConnect.](https://particulier.api.gouv.fr/cas_usages/modalite_appel_france_connect#3-fonctionnement-api-franceconnectees) 
+            Communes, API Particulier permet de traiter automatiquement les demandes d’abonnement pour le stationnement résidentiel, via FranceConnect.
 
             <span class="fr-accordion__title">
                 <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106"><span class="fr-icon-questionnaire-fill fr-mr-1w" aria-hidden="true"></span>Comment fonctionne la tarification résidentielle ?</button>
@@ -1256,6 +1254,10 @@ stationnement-residentiel:
                      > A venir : les données sur : 
                         > * la carte mobilité inclusion (CMI)
                         > * l’adresse fiscale
+
+              {:.fr-highlight.fr-highlight--caution}
+              > Ce traitement automatique ne peut se faire que si l’usager [s’identifie sur le portail usager (ou pour la démarche stationnement résidentiel) via FranceConnect.](https://particulier.api.gouv.fr/cas_usages/modalite_appel_france_connect#3-fonctionnement-api-franceconnectees) 
+
               - ⏰ **Vous automatisez l’instruction car vos agents instructeurs n’ont plus à vérifier les pièces justificatives fournies, les informations obtenues de l’API Particulier étant certifiées 🔎";
 
               - 🎢 **Vous augmentez le pourcentage des démarches finalisées** car vous faîtes gagner du temps à l'usager ;
@@ -1271,7 +1273,6 @@ stationnement-residentiel:
           title: Exemples d'applications
           anchor: 'use_case_examples'
           content: |+
-
             ### Un résident de Paris souhaite bénéficier de l’abonnement stationnement résidentiel.** Il est propriétaire d’un véhicule 4 roues, inférieur à 3,5 tonnes de catégorie M1. Il se connecte depuis son compte “[Mon Paris](https://v70-auth.paris.fr/auth/realms/paris/protocol/openid-connect/auth?client_id=moncompte&response_type=code&redirect_uri=https%3A%2F%2Fmoncompte.paris.fr%2Fmoncompte%2Fservlet%2Fplugins%2Foauth2%2Fcallback%3Fdata_client%3DauthData&scope=openid&state=13b549627bfd1&nonce=2158d3f8c051d)”, connecté à l’API Particulier&nbsp;:
              
              1. **Étape 1&nbsp;:** Le parent se connecte à son espace personnel sur le site de la commune. Il clique sur la démarche dédiée à la demande d’abonnement résidentiel, il s’identifie via FranceConnect :
