@@ -696,9 +696,10 @@ fr:
         endpoints:
           - ants/extrait_immatriculation_vehicule
         endpoints_optional:
+         - mesri/statut_etudiant
+         - cnav/quotient_familial
         endpoints_forbidden:
           - cnous/statut_etudiant_boursier
-          - mesri/statut_etudiant
           - pole_emploi/situation
           - pole_emploi/indemnites
           - cnav/prime_activite
@@ -708,10 +709,10 @@ fr:
           - cnav/allocation_soutien_familial
           - sport_data_hub/statut_sportif
         comments_endpoints:
-            "cnav/quotient_familial" : ""
+            "cnav/quotient_familial" : "Indique le quotient familial d'un usager"
             "cnous/statut_etudiant_boursier" : ""
             "education_nationale/statut_eleve_scolarise" : ""
-            "mesri/statut_etudiant" : ""
+            "mesri/statut_etudiant" : "Indique si un étudiant est inscrit dans un établissement"
             "pole_emploi/situation" : ""
             "pole_emploi/indemnites" : ""
             "cnav/prime_activite" : ""
@@ -758,7 +759,7 @@ fr:
                   </ul>
                 </li>
               </ul>
-              <p>La demande d’abonnement est dématérialisée, avec un droit par personne, et la demande se fait en ligne ou par courrier avec plusieurs justificatifs à fournir (si la commune ne passe pas par API Particulier).</p>
+              <p>La demande d’abonnement est dématérialisée, avec un droit par personne. Elle se fait en ligne avec plusieurs justificatifs à fournir (si la commune ne passe pas par API Particulier). Lorsqu'elle n'est pas dématérialisée, la demande se fait par courrier avec des justificatifs papier à envoyer. </p>
               <p>
               <b>Pour en savoir plus</b>, consulter cette page de <a href="https://www.service-public.fr/particuliers/vosdroits/F33963">Service-Public.fr</a>.
               </p>
@@ -797,16 +798,18 @@ fr:
           anchor: 'use_case_examples'
           content: |+
             {:.fr-h5}
-            ### Un résident de Paris souhaite bénéficier de l’abonnement stationnement résidentiel
+            ### Un résident de Paris qui est étudiant souhaite bénéficier de l’abonnement stationnement résidentiel
             
             Il est propriétaire d’un véhicule 4 roues, inférieur à 3,5 tonnes de catégorie M1 :
              
-             1. **Étape 1&nbsp;:** Le particulier se connecte depuis son compte “[Mon Paris](https://v70-auth.paris.fr/auth/realms/paris/protocol/openid-connect/auth?client_id=moncompte&response_type=code&redirect_uri=https%3A%2F%2Fmoncompte.paris.fr%2Fmoncompte%2Fservlet%2Fplugins%2Foauth2%2Fcallback%3Fdata_client%3DauthData&scope=openid&state=13b549627bfd1&nonce=2158d3f8c051d)”, connecté à l’API Particulier. Il clique sur la démarche dédiée à la demande d’abonnement résidentiel, et s’identifie via FranceConnect.
+             1. **Étape 1&nbsp;:** Le particulier se connecte depuis son compte “[Mon Paris](https://v70-auth.paris.fr/auth/realms/paris/protocol/openid-connect/auth?client_id=moncompte&response_type=code&redirect_uri=https%3A%2F%2Fmoncompte.paris.fr%2Fmoncompte%2Fservlet%2Fplugins%2Foauth2%2Fcallback%3Fdata_client%3DauthData&scope=openid&state=13b549627bfd1&nonce=2158d3f8c051d)”, connecté à l’API Particulier. Il clique sur la démarche dédiée à la demande d’abonnement résidentiel, choisit l'option "Etudiant", et s’identifie via FranceConnect.
 
               {:.fr-highlight.fr-highlight--example}
-              > ⚙️ **En arrière-plan** : Un appel à l’API Extrait SIV pour stationnement résidentiel du bouquet API Particulier est effectué et permet de récupérer les données en lien avec le véhicule : nom et prénom du propriétaire ou locataire, adresse postale et caractéristiques du véhicule (marque, catégorie du véhicule, genre national, type de carburant, taux d’émission de co2, classe environnementale.
+              > ⚙️ **En arrière-plan** : Un appel à l’API Extrait immatriculation véhicule et à l'API Statut étudiant du bouquet API Particulier est effectué et permet de récupérer les données en lien : 
+                    - le véhicule : nom et prénom du propriétaire ou locataire, adresse postale et caractéristiques du véhicule (marque, catégorie du véhicule, genre national, type de carburant, taux d’émission de co2, classe environnementale ;
+                    - le statut étudiant : inscription, année scolaire.
 
-            2. **Étape 2 :** L’abonnement résidentiel est automatiquement attribué selon la catégorie du véhicule. Le résident n’a plus qu’à terminer sa démarche.
+            2. **Étape 2 :** L’abonnement résidentiel avec tarif spécifique pour les étudiants est automatiquement attribué selon la catégorie du véhicule. Le résident n’a plus qu’à terminer sa démarche.
 
 
         list_api:
@@ -837,7 +840,6 @@ fr:
         endpoints_optional:
           - mesri/statut_etudiant
         endpoints_forbidden:
-          - cnav/quotient_familial
           - cnous/statut_etudiant_boursier
           - education_nationale/statut_eleve_scolarise
           - pole_emploi/situation
