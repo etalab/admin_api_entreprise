@@ -1,0 +1,52 @@
+---
+- uid: 'inpi/rne/attestation_immatriculation'
+  path: '/v3/inpi/rne/unites_legales/{siren}/extrait_rne'
+  position: 102
+  beta: true
+  perimeter:
+    entity_type_description: |+
+      **✅ Toutes les entreprises inscrites au répertoire national des entreprises (RNE)**, y compris les entreprises en [diffusion partielle](#definition-diffusion-partielle).
+
+      Ce nouveau répertoire remplace le registre du commerce et des sociétés (RCS) ; le répertoire des métiers (RM) et le registre des actifs agricoles (RAA). Toute entreprise exerçant une activité de nature commerciale, artisanale, agricole ou indépendante y est enregistrée.
+    geographical_scope_description:  |+
+      - ✅ France hexagonale et Corse
+      - ✅ DROM COM 
+      - ❌ Polynésie française, Nouvelle-Calédonie et Wallis et Futuna
+    updating_rules_description: |+
+      Les données sont mises à jour quotidiennement.
+    know_more_description: |+
+      [Informations de l'Inpi concernant le registre national des entreprises](https://www.inpi.fr/le-registre-national-des-entreprises){:target="_blank"}
+    entities:
+      - entreprises
+  call_id: "SIREN"
+  provider_uids:
+    - 'inpi'
+  keywords:
+    - 'whatever'
+  data:
+    description: |+
+      Cette API permet d'accéder: 
+      - **au lien de téléchargement vers l'attestation d'immatriculation au registre national des entreprises** au format PDF sur le site [data.inpi.fr](https://data.inpi.fr/){:target="_blank"} ;
+      - **aux données structurées figurant dans cette attestation** et issues de l'[API base RNE](https://data.inpi.fr/content/editorial/Acces_API_Entreprises){:target="_blank"}. La sélection des données disponibles en JSON a été effectuée par l'équipe API Entreprise pour correspondre aux données figurant dans l'attestation d'immatriculation RNE au format PDF.
+
+  opening: protected
+  parameters:
+    - Numéro de SIREN de la personne physique ou morale recherchée
+  format:
+    - Donnée structurée JSON et URL vers l'extrait RNE en PDF
+  faq:
+    - q: <a name="definition-diffusion-partielle"></a>Qu'est-ce qu'une entreprise "en diffusion partielle" ?
+      a: |+
+        **La diffusion partielle commerciale :**
+
+        Parmi les entreprises présentes dans le RNE, certaines, très majoritairement des personnes physiques, ont demandé auprès du répertoire Sirene de ne pas figurer en diffusion totale , afin de ne pas rendre publiques leurs données d'identification et de localisation. L'Insee évalue leur nombre a plus d'un million d'établissements (chiffre 2025), essentiellement des entreprises individuelles.
+
+        Ce [droit d'opposition tel que décrit à l'Article 21 du RGPD](https://www.cnil.fr/fr/reglement-europeen-protection-donnees/chapitre3#Article21){:target="_blank"} est valable pour les personnes physiques et morales mais s'applique de façon différente : 
+        - pour les personnes morale, seuls les éléments de localisation sont protégés (géolocalisation, numéro et voie de l'adresse postale - la commune reste diffusible) ; 
+        - pour les personnes physiques, les éléments de localisation précédents sont protégés, ainsi que les éléments d'identification (nom, prénom, pseudonyme).
+
+        **Ces données protégées sont alors uniquement accessibles à des organismes habilités et à des administrations.** Elles sont disponibles dans l'API RNE et donc dans l'API Entreprise.
+  api_cgu:
+    description: |+
+        Cette API délivre de la donnée protégée car elle contient les données des entreprises ayant demandé un [statut "diffusion partielle" auprès du répertoire Sirene](#definition-diffusion-partielle). Par conséquent, l'utilisation des données de cette API est uniquement réservée aux agents habilités ou aux usagers dont l'authentification a pu être effectuée.
+
