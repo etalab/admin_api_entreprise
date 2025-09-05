@@ -2,9 +2,6 @@
 - uid: 'inpi/rne/extrait'
   path: '/v3/inpi/rne/unites_legales/{siren}/extrait_rne'
   position: 102
-  # Tags - à ne mettre que lorsque l'API n'est plus en mode prochainement
-  # Le tag "prochainement" s'affiche automatiquement à partir du moment où l'API est en mode prochainement dans le swagger. Mais si un autre tag est ajouté, alors il ne s'affiche pas.
-  # Tag "Nouveauté" / "Nouvelle version" / "Version BETA"
   beta: true
   perimeter:
     entity_type_description: |+
@@ -21,9 +18,7 @@
       [Informations de l'Inpi concernant le registre national des entreprises](https://www.inpi.fr/le-registre-national-des-entreprises){:target="_blank"}
     entities:
       - entreprises
-  # Texte libre
   call_id: "SIREN"
-  # La liste des clés disponible est stockée dans la locale `provider_uids` du fichier provider_uids.fr.yml
   provider_uids:
     - 'inpi'
   keywords:
@@ -51,7 +46,6 @@
         - pour les personnes physiques, les éléments de localisation précédents sont protégés, ainsi que les éléments d'identification (nom, prénom, pseudonyme).
 
         **Ces données protégées sont alors uniquement accessibles à des organismes habilités et à des administrations.** Elles sont disponibles dans l'API RNE et donc dans l'API Entreprise.
-
   api_cgu:
     description: |+
         Cette API délivre de la donnée protégée car elle contient les données des entreprises ayant demandé un statut "diffusion partielle" auprès du répertoire Sirene. Par conséquent, l'utilisation des données de cette API est uniquement réservée aux agents habilités ou aux usagers dont l'authentification a pu être effectuée.
