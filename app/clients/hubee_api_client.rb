@@ -110,7 +110,9 @@ class HubEEAPIClient < AbstractHubEEAPIClient # rubocop:disable Metrics/ClassLen
         email: authorization_request.demandeur.email,
         status: 'Inactif',
         localAdministrator: {
-          email: authorization_request.demandeur.email
+          email: authorization_request.demandeur.email,
+          firstName: authorization_request.demandeur.first_name,
+          lastName: authorization_request.demandeur.last_name,
         },
         validateDateTime: DateTime.now.iso8601,
         updateDateTime: DateTime.now.iso8601
