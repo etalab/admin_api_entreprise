@@ -323,7 +323,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siren_error:
+                unprocessable_content_error_siren_error:
                   value:
                     errors:
                     - code: '00301'
@@ -974,7 +974,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siren_error:
+                unprocessable_content_error_siren_error:
                   value:
                     errors:
                     - code: '00301'
@@ -985,7 +985,7 @@ paths:
                       meta: {}
                   summary: Entité non traitable
                   description: Le numéro de siren n'est pas correctement formatté
-                unprocessable_entity_error_limit_error:
+                unprocessable_content_error_limit_error:
                   value:
                     errors:
                     - code: '00313'
@@ -1647,7 +1647,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siren_error:
+                unprocessable_content_error_siren_error:
                   value:
                     errors:
                     - code: '00301'
@@ -2279,7 +2279,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siret_error:
+                unprocessable_content_error_siret_error:
                   value:
                     errors:
                     - code: '00302'
@@ -2627,7 +2627,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siret_error:
+                unprocessable_content_error_siret_error:
                   value:
                     errors:
                     - code: '00302'
@@ -2982,7 +2982,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siren_error:
+                unprocessable_content_error_siren_error:
                   value:
                     errors:
                     - code: '00301'
@@ -3373,137 +3373,180 @@ paths:
                           type: object
                           properties:
                             demande_subvention:
+                              title: Liste des demandes de subventions de l'association
+                                et leur informations.
                               type: object
-                              description: Informations complètes sur une demande
-                                de subvention
                               nullable: true
                               properties:
                                 fournisseur:
-                                  type: string
-                                  description: Système fournisseur des données (OSIRIS,
+                                  title: Fournisseur distribuant la donnée à Data
+                                    Subvention
+                                  description: Origine de la donnée transmise (OSIRIS,
                                     Chorus, etc.)
+                                  type: string
                                   example: OSIRIS
                                 date_mise_a_jour_information:
+                                  title: Date de dernière mise à jour
+                                  description: Date de dernière mise à jour des informations.
+                                    La fréquence d'actualisation des données varie
+                                    selon le fournisseur, elle est décrite dans la
+                                    fiche métier de l'API.
                                   type: string
                                   format: date-time
-                                  description: Date de dernière mise à jour des informations
                                   example: '2019-01-01T00:00:00.000Z'
                                 annee_exercice_demande:
+                                  title: Année de la demande de subvention
+                                  description: Année durant laquelle la subvention
+                                    a été demandée par l'association.
                                   type: number
-                                  description: Valeur de l'année
                                   example: 2019
                                 identifiant_engagement_juridique:
+                                  title: Numéro EJ
+                                  description: Numéro d'engagement juridique (EJ)
+                                    associé à la demande. Cet identifiant est présent
+                                    pour toutes les demandes de subventions, sauf
+                                    celles issues du FONJEP.
                                   type: string
-                                  description: Numéro EJ
-                                  example: 19/0003456
                                   nullable: true
+                                  example: 19/0003456
                                 jointure_demandes_et_versements:
+                                  title: Identifiant de jointure entre demande et
+                                    versement
+                                  description: Identifiant créé par DataSubvention
+                                    pour faire le lien entre une demande figurant
+                                    dans cette liste et un paiement figurant dans
+                                    la liste suivante. Pour toutes les demandes de
+                                    subventions, sauf celle issues du FONJEP, cet
+                                    identifiant est identique au numéro EJ. Pour les
+                                    demandes issues du FONJEP, ce numéro correspond
+                                    au code poste.
                                   type: string
-                                  description: Donnée permettant de faire le lien
-                                    entre une demande et un paiement
                                   nullable: true
                                   example: 19/0003456
                                 subvention_demandee:
+                                  title: Informations sur la subvention demandée
                                   type: object
-                                  description: Informations sur la subvention demandée
                                   properties:
                                     dispositif:
+                                      title: Nom du dispositif
                                       type: string
-                                      description: Nom du dispositif
                                       example: ANS - Projets Sportifs Territoriaux
                                     sous_dispositif:
+                                      title: Nom du sous-dispositif
                                       type: string
-                                      description: Nom du sous-dispositif
                                       example: Aides territoriales (hors emploi)
                                     montant_demande:
+                                      title: Montant de subvention demandé
+                                      description: Montant en euros de subvention
+                                        demandé par l'association.
                                       type: number
-                                      description: Montant en euros
                                       example: 2000
                                   required:
                                   - dispositif
                                   - sous_dispositif
                                   - montant_demande
                                 description_des_projets:
+                                  title: Éléments déclaratifs des projets
+                                  description: Description détaillée par l'association
+                                    des projets qui visent à être financés par l'association.
                                   type: object
-                                  description: Description détaillée des projets financés
                                   properties:
                                     estimation_cout_total:
+                                      title: Estimation du coût total du projet
+                                      description: Lorsqu'il est renseigné, ce montant
+                                        indique le coût global du ou des projets évalué
+                                        par le déclarant afin d'informer l'instructeur
+                                        de l'ampleur du projet.
                                       type: number
-                                      description: Coût en euros
                                       example: 8500
                                     projet:
+                                      title: Liste des projets et actions proposés
                                       type: array
-                                      description: Liste des projets/actions proposés
                                       items:
+                                        title: Détails d'un projet ou action proposée
                                         type: object
-                                        description: Détails d'un projet ou action
-                                          proposée
                                         properties:
                                           rang:
+                                            title: Rang du projet
+                                            description: Numéro d'ordre du projet
+                                              par rapport aux autres projets.
                                             type: number
-                                            description: Numéro d'ordre
                                             example: 1
                                           intitule:
+                                            title: Titre du projet
                                             type: string
-                                            description: Titre du projet
                                             example: Développement du football féminin
                                           objectifs:
+                                            title: Objectif du projet
+                                            description: Description de l'objectif
+                                              du projet
                                             type: string
-                                            description: Description des objectifs
+                                            example: Notre objectif est de  continuer
+                                              à faire connaitre [...]
                                           objectifs_operationnels:
+                                            title: Objectifs opérationnels
                                             type: string
-                                            description: Objectifs opérationnels
                                             example: Développement de la pratique
                                           description:
+                                            title: Description détaillée du projet
                                             type: string
-                                            description: Description complète
+                                            example: Depuis plusieurs années nous
+                                              intervenons auprès [...]
                                           aide:
+                                            title: Description de l'aide
+                                            description: TODO
                                             type: object
-                                            description: Description de l'aide
                                             properties:
                                               nature:
+                                                title: Type d'aide
                                                 type: string
-                                                description: Type d'aide
                                                 example: Projets sportifs territoriaux
                                               modalite:
+                                                title: Modalité d'aide
                                                 type: string
-                                                description: Modalité d'aide
                                                 example: Aide au projet
                                           modalite_ou_dispositif:
+                                            title: Modalité ou dispositif
                                             type: string
-                                            description: Modalité ou dispositif
                                             example: Développer la pratique féminine
                                           indicateurs:
+                                            title: Indicateurs de performance
                                             type: string
-                                            description: Indicateurs de performance
                                             nullable: true
                                           cofinanceurs:
-                                            type: string
+                                            title: Co-financeurs
                                             description: Co-financeurs séparés par
                                               ';'
+                                            type: string
                                             example: Conseil départemental du Nord;Ville
-                                              de Lille
+                                              de Lille;Fédération française d'aviron
+                                              - Hauts-de-France
                                   required:
                                   - estimation_cout_total
                                   - projet
                                 instruction:
+                                  title: Informations et résultats de l'instruction
+                                    de la demande
                                   type: object
-                                  description: Informations sur l'instruction de la
-                                    demande
                                   properties:
                                     service_instructeur:
+                                      title: Code du service instructeur
+                                      description: TODO
                                       type: string
-                                      description: Code du service instructeur
                                       example: DD59
                                     date_commission:
+                                      title: Date de commission
+                                      description: Date à laquelle la commission d'instruction
+                                        a eu lieu.
                                       type: string
                                       format: date-time
-                                      description: Date de commission
-                                      example: '2019-06-15T00:00:00.000Z'
                                       nullable: true
+                                      example: '2019-06-15T00:00:00.000Z'
                                     statut_demande:
+                                      title: Statut de la demande
+                                      description: Statut de la demande accordé par
+                                        le service instructeur.
                                       type: string
-                                      description: Statut de la demande
                                       enum:
                                       - Accordé
                                       - En instruction
@@ -3511,8 +3554,10 @@ paths:
                                       - En attente
                                       example: Accordé
                                     montant_accorde:
+                                      title: Montant accordé à l'association
+                                      description: Montant en euros de la subvention
+                                        accordée à l'association.
                                       type: number
-                                      description: Montant accordé
                                       example: 1800
                                   required:
                                   - service_instructeur
@@ -3529,66 +3574,101 @@ paths:
                               - description_des_projets
                               - instruction
                             paiements:
+                              title: Liste des paiements effectués
                               type: array
-                              description: Liste des paiements effectués
                               items:
+                                title: Informations du paiement effectué
                                 type: object
-                                description: Informations sur un paiement effectué
                                 properties:
                                   fournisseur:
+                                    title: Fournisseur distribuant la donnée à Data
+                                      Subvention
+                                    description: Origine de la donnée transmise, il
+                                      s'agit toujours de Chorus.
                                     type: string
-                                    description: Système fournisseur des données de
-                                      paiement
                                     example: Chorus
                                   date_mise_a_jour_information:
+                                    title: Date de dernière mise à jour
+                                    description: Date de dernière mise à jour des
+                                      informations. Les données de Chorus sont mises
+                                      à jour tous les lundis.
                                     type: string
                                     format: date-time
-                                    description: Date de dernière mise à jour des
-                                      informations de paiement
                                     example: '2021-03-15T00:00:00.000Z'
                                   jointure_demandes_et_versements:
+                                    title: Identifiant de jointure entre demande et
+                                      versement
+                                    description: Identifiant créé par DataSubvention
+                                      pour faire le lien entre un paiement figurant
+                                      dans cette liste et une demande figurant dans
+                                      la liste précédente.
                                     type: string
                                     nullable: true
-                                    description: Donnée permettant de faire le lien
-                                      entre une demande et un paiement
                                     example: 19/0003456
                                   montant_verse:
+                                    title: Montant versé
+                                    description: Montant en euros qui a été versé
+                                      à l'association.
                                     type: number
-                                    description: Montant versé
                                     example: 1250
                                   date_versement:
+                                    title: Date de versement
+                                    description: Date du versement à l'association.
                                     type: string
                                     format: date-time
-                                    description: Date de versement
                                     example: '2021-03-15T00:00:00.000Z'
                                   centre_financier:
+                                    title: Nom du centre financier
+                                    description: Centre ayant effectué le versement
+                                      de la subvention. Il ne s'agit pas forcément
+                                      de celui qui donne la subvention.
                                     type: string
-                                    description: Nom du centre financier
                                     example: UO Region BFC-FC
                                   domaine_fonctionnel:
+                                    title: Domaine fonctionnel
                                     type: string
-                                    description: Domaine fonctionnel
                                     example: sport handicap
                                   activitee:
+                                    title: Type d'activité
                                     type: string
-                                    description: Type d'activité
                                     example: handisport
+                                  numero_bop:
+                                    title: Numéro BOP
+                                    description: Numéro du budget opérationnel de
+                                      programme (BOP) qui détermine la catégorie du
+                                      poste de dépense de l'État.
+                                    type: string
+                                    example: '219'
                                   programme:
+                                    title: Programme budgétaire
+                                    description: Libellé et numéro du programme budgétaire
+                                      auquel est rattaché le versement. Ces informations
+                                      sont tirées du fournisseur Data Bretagne à partir
+                                      du numéro BOP du versement.
                                     type: object
-                                    description: Informations sur le programme budgétaire
                                     properties:
-                                      numero_programme:
+                                      numero:
+                                        title: Numéro de programme
                                         type: string
-                                        description: Numéro de programme
                                         example: '219'
-                                      libelle_programme:
+                                      libelle:
+                                        title: Nom du programme
                                         type: string
-                                        description: Nom du programme
                                         example: Sport
-                                      numero_bop:
+                                      fournisseur:
+                                        title: Fournisseur distribuant la donnée à
+                                          Data Subvention
+                                        description: Origine de la donnée transmise,
+                                          il s'agit toujours de Data Bretagne.
                                         type: string
-                                        description: Numéro BOP
-                                        example: '219'
+                                        example: OSIRIS
+                                      date_mise_a_jour_information:
+                                        title: Date de dernière mise à jour
+                                        description: Date de dernière mise à jour
+                                          des informations.
+                                        type: string
+                                        format: date-time
+                                        example: '2019-01-01T00:00:00.000Z'
                           required:
                           - demande_subvention
                           - paiements
@@ -3607,7 +3687,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siren_or_siret_or_rna_error:
+                unprocessable_content_error_siren_or_siret_or_rna_error:
                   value:
                     errors:
                     - code: '00330'
@@ -3990,7 +4070,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siret_or_eori_error:
+                unprocessable_content_error_siret_or_eori_error:
                   value:
                     errors:
                     - code: '00304'
@@ -4411,7 +4491,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siren_error:
+                unprocessable_content_error_siren_error:
                   value:
                     errors:
                     - code: '00301'
@@ -4892,7 +4972,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siren_error:
+                unprocessable_content_error_siren_error:
                   value:
                     errors:
                     - code: '00301'
@@ -5358,7 +5438,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siret_error:
+                unprocessable_content_error_siret_error:
                   value:
                     errors:
                     - code: '00302'
@@ -5965,7 +6045,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siren_error:
+                unprocessable_content_error_siren_error:
                   value:
                     errors:
                     - code: '00301'
@@ -6739,7 +6819,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siren_error:
+                unprocessable_content_error_siren_error:
                   value:
                     errors:
                     - code: '00301'
@@ -8526,7 +8606,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siren_or_rna_error:
+                unprocessable_content_error_siren_or_rna_error:
                   value:
                     errors:
                     - code: '00333'
@@ -9938,7 +10018,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siren_or_rna_error:
+                unprocessable_content_error_siren_or_rna_error:
                   value:
                     errors:
                     - code: '00333'
@@ -10282,7 +10362,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siren_error:
+                unprocessable_content_error_siren_error:
                   value:
                     errors:
                     - code: '00301'
@@ -10692,7 +10772,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siret_error:
+                unprocessable_content_error_siret_error:
                   value:
                     errors:
                     - code: '00302'
@@ -11035,7 +11115,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siren_error:
+                unprocessable_content_error_siren_error:
                   value:
                     errors:
                     - code: '00301'
@@ -11509,7 +11589,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siren_error:
+                unprocessable_content_error_siren_error:
                   value:
                     errors:
                     - code: '00301'
@@ -11956,7 +12036,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siret_error:
+                unprocessable_content_error_siret_error:
                   value:
                     errors:
                     - code: '00302'
@@ -12764,7 +12844,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siren_error:
+                unprocessable_content_error_siren_error:
                   value:
                     errors:
                     - code: '00301'
@@ -13296,7 +13376,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siren_error:
+                unprocessable_content_error_siren_error:
                   value:
                     errors:
                     - code: '00301'
@@ -13715,6 +13795,7 @@ paths:
                               example: '2023-08-08'
                             date_cloture:
                               title: Date de clôture du bilan
+                              nullable: true
                               type: string
                               format: date
                               example: '2023-08-08'
@@ -13759,7 +13840,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siren_error:
+                unprocessable_content_error_siren_error:
                   value:
                     errors:
                     - code: '00301'
@@ -14863,7 +14944,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siren_error:
+                unprocessable_content_error_siren_error:
                   value:
                     errors:
                     - code: '00301'
@@ -14997,6 +15078,837 @@ paths:
           curl -X GET \
             -H "Authorization: Bearer $token" \
             --url "https://entreprise.api.gouv.fr/v3/inpi/rne/unites_legales/130025265/beneficiaires_effectifs?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
+  "/v3/inpi/rne/unites_legales/{siren}/extrait_rne":
+    get:
+      summary: Attestation d'immatriculation RNE
+      tags:
+      - Informations générales
+      parameters:
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: context
+        in: query
+        description: |-
+          "**Cadre de la requête**
+
+          Par exemple : aides publiques, marchés publics ou gestion d’un référentiel tiers utilisé pour tel type d’application."
+        example: Context de test
+        required: true
+        schema:
+          type: string
+      - name: object
+        in: query
+        description: |-
+          "**La raison de l’appel ou l’identifiant de la procédure.**
+
+          L’identifiant peut être interne à votre organisation ou bien un numéro de marché publique, un nom de procédure ; l’essentiel est que celui-ci vous permette de tracer et de retrouver les informations relatives à l’appel. En effet, vous devez pouvoir justifier de la raison d’un appel auprès du fournisseur de données. Description courte ( < 50 caractères )."
+        example: marché numéro 127
+        required: true
+        schema:
+          type: string
+      - name: Cache-Control
+        in: header
+        description: Si cette valeur est fixée à "no-cache", le système de cache est
+          alors ignoré et la donnée est directement récupérée depuis le fournisseur
+          de données.
+        schema:
+          type: string
+      - name: siren
+        in: path
+        description: Siren de l'entreprise
+        examples:
+          siren_octo_technology:
+            value: '418166096'
+            summary: SIREN Octo Technology
+          siren_non_diffusible:
+            value: '005572466'
+            summary: SIREN entreprise non diffusible
+          siren_artisant:
+            value: '301123626'
+            summary: SIREN entreprise artisanale
+          siren_fntp:
+            value: '339379984'
+            summary: SIREN pour FNTP
+          siren_cnetp:
+            value: '542036207'
+            summary: SIREN pour CNETP
+          siren_opqibi:
+            value: '515228211'
+            summary: SIREN pour OPQIBI
+          siren_entrepreneur_individuel:
+            value: '389839937'
+            summary: SIREN d'un entrepeneur individuel (cessé)
+          siren_marques_brevets_modeles:
+            value: '542065479'
+            summary: SIREN d'une entreprise ayant des marques, brevets et modèles
+              (INPI)
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Données figurant sur l'attestation d'immatriculation au registre
+        national des entreprises et lien vers le document au format PDF.
+      responses:
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '403':
+          description: Accès interdit
+          content:
+            application/json:
+              examples:
+                insufficient_privileges_error:
+                  value:
+                    errors:
+                    - code: '00100'
+                      title: Privilèges insuffisants
+                      detail: Votre token est valide mais vos privilèges sont insuffisants.
+                        Listez vos privilèges sur /v2/privileges
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Privilèges insuffisants
+                  description: Votre token est valide mais vos privilèges sont insuffisants.
+                    Listez vos privilèges sur /v2/privileges
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
+                  value:
+                    errors:
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
+                      source:
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '200':
+          description: Extrait RNE trouvés
+          headers:
+            X-Response-Cached:
+              schema:
+                type: boolean
+                example: true
+                enum:
+                - true
+                - false
+                default: false
+              description: Indique si la réponse a été caché.
+            X-Cache-Expires-in:
+              schema:
+                type: number
+                nullable: true
+                example: 9001
+              description: Secondes avant que le cache n'expire. Si le cache est vide,
+                ce header est vide (mais présent). Le cache est valide jusqu'à 3 heures
+                du matin.
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          x-operationId: api_entreprise_v3_inpi_rne_extrait_rne
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      document_url:
+                        type: string
+                        description: URL de téléchargement de l'attestation d'immatriculation
+                          au registre national des entreprises (.pdf)
+                        example: https://data.inpi.fr/export/companies?format=pdf&ids=["123456789"]
+                      identite_entreprise:
+                        title: Identité de l'entreprise
+                        type: object
+                        properties:
+                          denomination:
+                            title: Dénomination
+                            type: string
+                            nullable: true
+                            description: Dénomination sociale de l'entreprise
+                            example: TECH SOLUTIONS FRANCE
+                          nom:
+                            title: Nom
+                            type: string
+                            nullable: true
+                            description: Nom de famille de l'entrepreneur (pour les
+                              entreprises individuelles uniquement)
+                            example: MARTIN
+                          prenoms:
+                            title: Prénom(s)
+                            type: array
+                            nullable: true
+                            description: Liste des prénoms de l'entrepreneur (pour
+                              les entreprises individuelles uniquement)
+                            items:
+                              type: string
+                            example:
+                            - JEAN
+                            - PIERRE
+                            - HENRI
+                          siren:
+                            title: SIREN (Siège)
+                            type: string
+                            description: Numéro SIREN de l'entreprise
+                            pattern: "^\\d{9}$"
+                            example: '123456789'
+                          date_immatriculation_rne:
+                            title: Date d'immatriculation au RNE
+                            type: string
+                            format: date
+                            description: Date d'immatriculation au RNE
+                            example: '2018-03-15'
+                          date_debut_activite:
+                            title: Date d'activité
+                            type: string
+                            nullable: true
+                            format: date
+                            description: Date de début d'activité
+                            example: '2018-04-01'
+                          detail_cessation:
+                            type: string
+                            format: boolean
+                            description: Indique la raison de cessation d'activité.
+                              Systématiquement à null, l'API ne fournit pas cette
+                              information.
+                            example:
+                            nullable: true
+                          dissolution:
+                            type: object
+                            properties:
+                              date:
+                                type: string
+                                format: date
+                                description: Date de dissolution de l'entreprise
+                                example: '2023-05-20'
+                                nullable: true
+                              poursuite_activite:
+                                type: boolean
+                                description: Indique si l'entreprise poursuit son
+                                  activité après dissolution
+                                example: false
+                                nullable: true
+                              avec_liquidation:
+                                type: boolean
+                                description: Indique si la dissolution est suivie
+                                  d'une liquidation. Systématiquement à null, l'API
+                                  ne fournit pas cette information.
+                                example: true
+                                nullable: true
+                            required:
+                            - date
+                            - poursuite_activite
+                            - avec_liquidation
+                          date_fin_personne:
+                            title: Date de fin de la personne morale
+                            type: string
+                            format: date
+                            description: Date de fin de la personne morale
+                            example: '2117-03-14'
+                            nullable: true
+                          date_cloture_exercice:
+                            title: Date de clôture
+                            type: string
+                            description: Date de clôture de l'exercice (format DD-MM)
+                            pattern: "^\\d{2}-\\d{2}$"
+                            example: 30-06
+                            nullable: true
+                          date_premiere_cloture_exercice:
+                            title: Date de première clôture d'exercice
+                            type: string
+                            format: date
+                            example: '2023-11-01'
+                            nullable: true
+                          nature_entreprise:
+                            title: Nature de l'activité principale
+                            type: string
+                            description: Nature de l'entreprise
+                            enum:
+                            - COMMERCIALE
+                            - ARTISANALE
+                            - AGRICOLE
+                            - LIBERALE
+                            example: COMMERCIALE
+                          forme_juridique:
+                            title: Forme juridique
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                                description: Code de la forme juridique
+                                example: '5710'
+                              libelle:
+                                type: string
+                                description: Libellé de la forme juridique
+                                example: SAS, société par actions simplifiée
+                            required:
+                            - code
+                            - libelle
+                          associe_unique:
+                            title: Associé unique
+                            type: boolean
+                            description: Indique si l'entreprise a un associé unique
+                            example: false
+                          activite_principales_objet_social:
+                            title: Activités principales de l'objet social
+                            type: string
+                            description: Objet social de l'activités principales de
+                              l'entreprise
+                            example: Développement, édition et commercialisation de
+                              logiciels informatiques
+                            nullable: true
+                          code_APE:
+                            title: Code APE
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                                description: Code APE/NAF de l'entreprise
+                                pattern: "^\\d{4}[A-Z]$"
+                                example: 6201Z
+                              libelle:
+                                type: string
+                                description: Libellé de l'activité principale associé
+                                  au code
+                                example: Programmation informatique
+                            required:
+                            - code
+                            - libelle
+                          code_APRM:
+                            title: Code APRM
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                                description: Code APRM (Activité Principale Réglementée
+                                  du Métier).
+                                pattern: "^\\d{4}[A-Z]{2}$"
+                                example: 6202A
+                                nullable: true
+                              libelle:
+                                type: string
+                                description: Libellé de l'activité APRM associé au
+                                  code.
+                                example: Conseil en systèmes et logiciels informatiques
+                                nullable: true
+                            required:
+                            - code
+                            - libelle
+                          capital_social:
+                            title: Capital social
+                            type: object
+                            properties:
+                              montant:
+                                type: number
+                                format: double
+                                nullable: true
+                                description: Montant du capital social
+                                example: 50000.0
+                              devise:
+                                type: string
+                                description: Devise du capital social
+                                example: EUR
+                            required:
+                            - montant
+                            - devise
+                          adresse_siege_social:
+                            title: Adresse du siège
+                            type: object
+                            properties:
+                              voie:
+                                type: string
+                                description: Numéro et voie
+                                example: 42 RUE DE L'INNOVATION
+                              code_postal:
+                                type: string
+                                description: Code postal
+                                pattern: "^\\d{5}$"
+                                example: '69003'
+                              commune:
+                                type: string
+                                description: Commune
+                                example: LYON 3E ARRONDISSEMENT
+                              pays:
+                                type: string
+                                description: Pays
+                                example: FRANCE
+                              complement:
+                                type: string
+                                description: Complément d'adresse
+                                nullable: true
+                                example: Bâtiment B - 2ème étage
+                            required:
+                            - voie
+                            - code_postal
+                            - commune
+                            - pays
+                            - complement
+                        required:
+                        - denomination
+                        - nom
+                        - prenoms
+                        - siren
+                        - date_immatriculation_rne
+                        - date_debut_activite
+                        - detail_cessation
+                        - dissolution
+                        - date_fin_personne
+                        - date_cloture_exercice
+                        - date_premiere_cloture_exercice
+                        - nature_entreprise
+                        - forme_juridique
+                        - associe_unique
+                        - activite_principales_objet_social
+                        - code_APE
+                        - code_APRM
+                        - capital_social
+                        - adresse_siege_social
+                      dirigeants_et_associes:
+                        title: Gestion et Direction
+                        type: array
+                        description: Liste des dirigeants actifs de l'entreprise
+                        items:
+                          type: object
+                          properties:
+                            qualite:
+                              title: Qualité
+                              type: string
+                              description: Fonction dans l'entreprise
+                              example: Président
+                            nom:
+                              title: Nom
+                              type: string
+                              description: Nom de famille
+                              example: MARTIN
+                            prenom:
+                              title: Prénom(s)
+                              type: string
+                              description: Prénom
+                              example: SOPHIE
+                            date_naissance:
+                              title: Date de naissance (mm/aaaa)
+                              type: string
+                              description: Date de naissance (format MM-YYYY)
+                              pattern: "^\\d{2}-\\d{4}$"
+                              example: 07-1985
+                            commune_residence:
+                              title: Commune de résidence
+                              type: string
+                              description: Commune de résidence
+                              example: Lyon
+                      etablissements:
+                        title: Établissements
+                        type: array
+                        description: Liste des établissements actifs
+                        items:
+                          type: object
+                          properties:
+                            type_etablissement:
+                              title: Type d'établissement
+                              type: string
+                              description: Type d'établissement
+                              enum:
+                              - Siège et principal
+                              - Siège
+                              - Secondaire
+                              example: Siège et principal
+                            date_debut_activite:
+                              title: Date début activité
+                              type: string
+                              format: date
+                              description: Date de début d'activité
+                              example: '2018-04-01'
+                            siret:
+                              title: Siret
+                              type: string
+                              description: Numéro SIRET de l'établissement
+                              pattern: "^\\d{14}$"
+                              example: '12345678900001'
+                            code_APE:
+                              title: Code APE
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                  description: Code APE/NAF de l'établissement
+                                  pattern: "^\\d{4}[A-Z]$"
+                                  example: 6201Z
+                                libelle:
+                                  type: string
+                                  description: Libellé de l'activité principale associé
+                                    au code
+                                  example: Programmation informatique
+                            code_APRM:
+                              title: Code APRM
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                  description: Code APRM (Activité Principale Réglementée
+                                    du Métier)
+                                  pattern: "^\\d{4}[A-Z]{2}$"
+                                  example: 6202A
+                                  nullable: true
+                                libelle:
+                                  type: string
+                                  description: Libellé de l'activité APRM associé
+                                    au code
+                                  example: Conseil en systèmes et logiciels informatiques
+                                  nullable: true
+                            nature_etablissement:
+                              title: Nature de l'établissement
+                              type: string
+                              description: Nature de l'établissement
+                              example: COMMERCIALE
+                            activite_principale:
+                              title: Activité principale
+                              type: string
+                              description: Description de l'activité
+                              example: Programmation informatique, développement de
+                                logiciels
+                            autre_activite:
+                              type: string
+                              description: Concaténation des autres activités non
+                                principales
+                              example: Conseil en systèmes informatiques, maintenance
+                                de logiciels
+                              nullable: true
+                            adresse:
+                              title: Adresse
+                              type: object
+                              properties:
+                                voie:
+                                  type: string
+                                  description: Numéro et voie
+                                  example: 42 RUE DE L'INNOVATION
+                                code_postal:
+                                  type: string
+                                  description: Code postal
+                                  pattern: "^\\d{5}$"
+                                  example: '69003'
+                                commune:
+                                  type: string
+                                  description: Commune
+                                  example: LYON 3E ARRONDISSEMENT
+                                pays:
+                                  type: string
+                                  description: Pays
+                                  example: FRANCE
+                                complement:
+                                  type: string
+                                  nullable: true
+                                  description: Complément d'adresse
+                                  example: Bâtiment B - 2ème étage
+                            statut:
+                              title: Statut de l'établissement
+                              type: string
+                              enum:
+                              - actif
+                              - fermé
+                              example: actif
+                      diffusion_commerciale:
+                        title: Autorisation d'utilisation des données à des fins commerciales
+                          (statut indiqué par l'Inpi)
+                        type: boolean
+                        description: Si le champ est à true, l'utilisation des données
+                          à des fins commerciales est permise.
+                        example: true
+                      diffusion_insee:
+                        title: Autorisation de diffusion du répertoire Sirene de l'Insee
+                        type: boolean
+                        description: Indique le statut de diffusion demandée par l'entreprise
+                          à l'Insee vis à vis du répertoire Sirene. Si le champ est
+                          à true, la diffusion est autorisée car le statut de l'entreprise
+                          est en diffusion totale. Si le champ est à false, la diffusion
+                          n'est pas autorisée pour la totalité des données car le
+                          statut de l'entreprise est en diffusion partielle.
+                        example: true
+                      etablissements_fermes_total:
+                        title: Nombre d'établissements fermés
+                        type: integer
+                        minimum: 0
+                        example: 1
+                      observations:
+                        title: Observations
+                        type: array
+                        description: Observations RCS/RNM
+                        items:
+                          type: object
+                          properties:
+                            fournisseur:
+                              type: string
+                              description: Fournisseur de l'observation
+                              enum:
+                              - rcs
+                              - rnm
+                              example: rcs
+                            numero:
+                              type: string
+                              description: Numéro de l'observation
+                              example: 2023-05-20-001
+                            date:
+                              type: string
+                              format: date
+                              description: Date de l'observation
+                              example: '2023-05-20'
+                            texte:
+                              type: string
+                              description: Texte de l'observation
+                              example: Augmentation de capital de 50000 à 75000 EUR
+                    required:
+                    - document_url
+                    - identite_entreprise
+                    - dirigeants_et_associes
+                    - etablissements
+                    - diffusion_commerciale
+                    - diffusion_insee
+                    - etablissements_fermes_total
+                    - observations
+                    additionalProperties: false
+                  links:
+                    type: object
+                  meta:
+                    type: object
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          description: Extrait RNE non trouvés
+          content:
+            application/json:
+              examples:
+                entite_non_trouvee_34003:
+                  value:
+                    errors:
+                    - code: '34003'
+                      title: Entité non trouvée
+                      detail: Le ou les paramètre(s) d'entrée n'existent pas, ne sont
+                        pas connus, ou ne comportent aucune information pour cet appel.
+                        Veuillez vérifier que votre recherche est couverte par le
+                        périmètre de l'API.
+                      source:
+                      meta:
+                        provider: INPI - RNE
+                  summary: Entité non trouvée
+                  description: Le ou les paramètre(s) d'entrée n'existent pas, ne
+                    sont pas connus, ou ne comportent aucune information pour cet
+                    appel. Veuillez vérifier que votre recherche est couverte par
+                    le périmètre de l'API.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                unprocessable_content_error_siren_error:
+                  value:
+                    errors:
+                    - code: '00301'
+                      title: Entité non traitable
+                      detail: Le numéro de siren n'est pas correctement formatté
+                      source:
+                        parameter: siren
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le numéro de siren n'est pas correctement formatté
+                missing_mandatory_params_context_error:
+                  value:
+                    errors:
+                    - code: '00201'
+                      title: Entité non traitable
+                      detail: Le paramètre context est obligatoire
+                      source:
+                        parameter: context
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre context est obligatoire
+                missing_mandatory_params_object_error:
+                  value:
+                    errors:
+                    - code: '00202'
+                      title: Entité non traitable
+                      detail: Le paramètre object est obligatoire
+                      source:
+                        parameter: object
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre object est obligatoire
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '502':
+          description: Erreur du fournisseur
+          content:
+            application/json:
+              examples:
+                provider_unknown_error:
+                  value:
+                    errors:
+                    - code: '34999'
+                      title: Erreur inconnue du fournisseur de données
+                      detail: La réponse retournée par le fournisseur de données est
+                        invalide et inconnue de notre service. L'équipe technique
+                        a été notifiée de cette erreur pour investigation.
+                      source:
+                      meta:
+                        provider: INPI - RNE
+                  summary: Erreur inconnue du fournisseur de données
+                  description: La réponse retournée par le fournisseur de données
+                    est invalide et inconnue de notre service. L'équipe technique
+                    a été notifiée de cette erreur pour investigation.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '504':
+          description: Erreur d'intermédiaire
+          content:
+            application/json:
+              examples:
+                timeout_error:
+                  value:
+                    errors:
+                    - code: '34002'
+                      title: Intermédiaire hors-délai
+                      detail: Temps d’attente d’une réponse du fournisseur de données
+                        écoulé.
+                      source:
+                      meta:
+                        provider: INPI - RNE
+                  summary: Intermédiaire hors-délai
+                  description: Temps d’attente d’une réponse du fournisseur de données
+                    écoulé.
+                provider_unavailable_error:
+                  value:
+                    errors:
+                    - code: '34001'
+                      title: Service non disponible
+                      detail: Service du fournisseur de données temporairement indisponible
+                        ou en maintenance.
+                      source:
+                      meta:
+                        provider: INPI - RNE
+                  summary: Service non disponible
+                  description: Service du fournisseur de données temporairement indisponible
+                    ou en maintenance.
+                network_error:
+                  value:
+                    errors:
+                    - code: '00501'
+                      title: Erreur réseau
+                      detail: Problème de connexion au serveur distant. L'erreur peut
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
+                      source:
+                      meta:
+                        retry_in: 10
+                  summary: Erreur réseau
+                  description: Problème de connexion au serveur distant. L'erreur
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
+                dns_resolution_error:
+                  value:
+                    errors:
+                    - code: '34004'
+                      title: Erreur de résolution DNS
+                      detail: Problème de résolution DNS de l'adresse du serveur
+                      source:
+                      meta:
+                        provider: INPI - RNE
+                  summary: Erreur de résolution DNS
+                  description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-codeSamples:
+      - lang: cURL
+        label: Ligne de commande
+        source: |-
+          curl -X GET \
+            -H "Authorization: Bearer $token" \
+            --url "https://entreprise.api.gouv.fr/v3/inpi/rne/unites_legales/130025265/extrait_rne?context=Test+de+l%27API&object=Test+de+l%27API&recipient=10000001700010"
   "/v3/insee/sirene/etablissements/{siret}/adresse":
     get:
       summary: Adresse établissement
@@ -15454,7 +16366,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siret_error:
+                unprocessable_content_error_siret_error:
                   value:
                     errors:
                     - code: '00302'
@@ -16099,7 +17011,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siret_error:
+                unprocessable_content_error_siret_error:
                   value:
                     errors:
                     - code: '00302'
@@ -17448,7 +18360,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siret_error:
+                unprocessable_content_error_siret_error:
                   value:
                     errors:
                     - code: '00302'
@@ -18851,7 +19763,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siret_error:
+                unprocessable_content_error_siret_error:
                   value:
                     errors:
                     - code: '00302'
@@ -20246,7 +21158,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siren_error:
+                unprocessable_content_error_siren_error:
                   value:
                     errors:
                     - code: '00301'
@@ -21594,7 +22506,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siren_error:
+                unprocessable_content_error_siren_error:
                   value:
                     errors:
                     - code: '00301'
@@ -22041,7 +22953,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siret_error:
+                unprocessable_content_error_siret_error:
                   value:
                     errors:
                     - code: '00302'
@@ -22852,7 +23764,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siren_error:
+                unprocessable_content_error_siren_error:
                   value:
                     errors:
                     - code: '00301'
@@ -23711,7 +24623,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siren_error:
+                unprocessable_content_error_siren_error:
                   value:
                     errors:
                     - code: '00301'
@@ -24134,7 +25046,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siret_or_rna_error:
+                unprocessable_content_error_siret_or_rna_error:
                   value:
                     errors:
                     - code: '00303'
@@ -24688,7 +25600,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siret_or_rna_error:
+                unprocessable_content_error_siret_or_rna_error:
                   value:
                     errors:
                     - code: '00303'
@@ -25061,7 +25973,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siret_error:
+                unprocessable_content_error_siret_error:
                   value:
                     errors:
                     - code: '00302'
@@ -25510,7 +26422,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siren_error:
+                unprocessable_content_error_siren_error:
                   value:
                     errors:
                     - code: '00301'
@@ -25881,7 +26793,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siret_error:
+                unprocessable_content_error_siret_error:
                   value:
                     errors:
                     - code: '00302'
@@ -26285,7 +27197,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siret_error:
+                unprocessable_content_error_siret_error:
                   value:
                     errors:
                     - code: '00302'
@@ -26657,7 +27569,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siret_error:
+                unprocessable_content_error_siret_error:
                   value:
                     errors:
                     - code: '00302'
@@ -27216,7 +28128,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siret_error:
+                unprocessable_content_error_siret_error:
                   value:
                     errors:
                     - code: '00302'
@@ -27873,7 +28785,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siret_error:
+                unprocessable_content_error_siret_error:
                   value:
                     errors:
                     - code: '00302'
@@ -28271,7 +29183,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siren_error:
+                unprocessable_content_error_siren_error:
                   value:
                     errors:
                     - code: '00301'
@@ -28734,7 +29646,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_siren_error:
+                unprocessable_content_error_siren_error:
                   value:
                     errors:
                     - code: '00301'
