@@ -26,7 +26,7 @@ RSpec.describe DatapassWebhook::APIParticulier::CreateHubEESubscription, type: :
 
         before do
           allow(INSEEAPIAuthentication).to receive(:new).and_return(insee_api_authentication)
-          stub_request(:get, "https://api.insee.fr/entreprises/sirene/V3.11/siret/#{editor_siret}").to_return(
+          stub_request(:get, "https://api.insee.fr/api-sirene/prive/3.11/siret/#{editor_siret}").to_return(
             status: 200,
             headers: { 'Content-Type' => 'application/json' },
             body: insee_payload.to_json
