@@ -46,7 +46,8 @@ module AdminApientreprise
     config.assets.version = 'v3'
 
     config.cache_store = :redis_cache_store, config_for(:cache_redis).merge(
-      namespace: "admin_api_entreprise_cache_#{Rails.env}_#{Time.now.to_i}"
+      namespace: "admin_api_entreprise_cache_#{Rails.env}_#{Time.now.to_i}",
+      expires_in: (7 * 24 * 60 * 60)
     )
 
     config.active_support.to_time_preserves_timezone = :zone
