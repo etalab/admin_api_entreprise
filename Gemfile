@@ -93,3 +93,5 @@ group :test do
   gem 'super_diff'
   gem 'webmock'
 end
+
+gem "reactionview", "~> 0.1.2"
