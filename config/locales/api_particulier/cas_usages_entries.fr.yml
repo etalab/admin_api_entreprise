@@ -739,7 +739,7 @@ fr:
             <div class="fr-collapse" id="accordion-106">
               <p>Les communes ont la possibilité de proposer un droit de stationnement à tarif préférentiel « résident ». Cela permet aux habitants de la commune (généralement dans une zone payante) de stationner leur véhicule à un tarif réduit, souvent sous forme d’un abonnement mensuel, trimestriel ou annuel, dans leur secteur de résidence.
               <br/>
-              Le stationnement résidentiel permet aux résidents de stationner dans des zones résidentielles à un tarif très réduit mais ne garantit pas une place réservée. Sa validité est contrôlée à partir de l'immatriculation du véhicule.
+              Le stationnement résidentiel permet aux résidents de stationner dans la commune à un tarif réduit mais ne garantit pas une place réservée.
               <br/>
               <br/>
               La tarification d’un abonnement de stationnement résidentiel pour les résidents d’une commune varie selon les municipalités.
@@ -750,7 +750,7 @@ fr:
                 <li><b>Pour pouvoir souscrire à un abonnement résidentiel, l’usager doit :</b>
                   <ul>
                     <li>être domicilié dans la commune ;</li>
-                    <li>être propriétaire d’un véhicule avec une carte grise à l’adresse du domicile ou être locataire d’un véhicule avec un contrat au nom du résident.</li>
+                    <li>être propriétaire d’un véhicule avec une carte grise à l’adresse du domicile ou être locataire (longue durée) d’un véhicule.</li>
                   </ul>
                 </li>
 
@@ -759,13 +759,13 @@ fr:
                     <li>Forfait mensuel, trimestriel ou annuel ou un tarif dégressif selon la durée stationnement ;</li>                   
                     <li> Nombre de véhicules par foyer : Le premier véhicule bénéficie du tarif résident le plus avantageux ; le second véhicule peut être plus cher, voire non éligible. Il peut également y avoir un droit de stationnement par personne, peu importe le nombre de véhicules.</li>
                     <li>Délimitation par zone géographique : Les résidents d’une zone ne peuvent stationner à tarif réduit que dans leur propre secteur ;</li>
-                    <li>Revenus ou statut social : Certaines villes appliquent des tarifs sociaux (réduction pour faibles revenus, personnes âgées, étudiants etc.) ;</li>
+                    <li>Revenus ou statut social : certaines villes appliquent des tarifs sociaux (réduction pour faibles revenus, personnes âgées, étudiants etc.) ;</li>
                     <li>Type de véhicule : Pour les véhicules électriques ou hybrides, le tarif est parfois réduit voire gratuit. Pour les véhicules polluants, le tarif est parfois majoré, voire le véhicule est exclu.
                     </li>
                   </ul>
                 </li>
               </ul>
-              <p>Lorsqu'elle n'est pas simplifiée, la demande d’abonnement se fait en ligne ou par courrier avec un droit par personne et plusieurs justificatifs à fournir (carte d'identité, carte grise du véhicule, justificatif de situation comme le certificat de scolarité etc.).
+              <p>Lorsqu'elle n'est pas simplifiée, la demande d’abonnement se fait en ligne ou par courrier avec un droit par personne et plusieurs justificatifs à fournir (carte d'identité, carte grise du véhicule, justificatif de situation comme le certificat de scolarité, etc.).
               <b>Pour en savoir plus</b>, consulter cette page de <a href="https://www.service-public.fr/particuliers/vosdroits/F33963">Service-Public.fr</a>.
               </p>
             </div>
@@ -778,10 +778,10 @@ fr:
              Communes, en intégrant l’API Extrait SIV pour stationnement résidentiel et d'autres API du bouquet API Particulier dans votre système d’information :
 
               - 😃 **Pour instruire les demandes d’abonnement résidentiel, il n’est plus nécessaire de collecter** : 
-                - ✅ la carte grise, 
-                - ✅ l’identité de l’usager et son adresse de postale, 
-                - ✅ ainsi que son quotient familial et son statut étudiant, demandeur d'emploi et/ou bénéficiaire d'une prestation sociale (RSA, AAH, Prime d'activité, etc) si votre tarification est sur critères sociaux.
-                - ⚙️ Et bientôt la carte mobilité inclusion (CMI) et l’adresse fiscale
+                - ✅ la carte grise,
+                - ✅ l’identité de l’usager,
+                - ✅ ainsi que le quotient familial et le statut étudiant, demandeur d'emploi et/ou bénéficiaire d'une prestation sociale (RSA, AAH, Prime d'activité, etc) si votre tarification est sur critères sociaux.
+              
 
               - ⏰ **Vous automatisez l’instruction car vos agents instructeurs n’ont plus à vérifier les pièces justificatives fournies**, les informations obtenues de l’API Particulier étant certifiées 🔎 ;
 
@@ -810,11 +810,11 @@ fr:
              1. **Étape 1&nbsp;:** Le particulier se connecte depuis son compte “[Mon Paris](https://v70-auth.paris.fr/auth/realms/paris/protocol/openid-connect/auth?client_id=moncompte&response_type=code&redirect_uri=https%3A%2F%2Fmoncompte.paris.fr%2Fmoncompte%2Fservlet%2Fplugins%2Foauth2%2Fcallback%3Fdata_client%3DauthData&scope=openid&state=13b549627bfd1&nonce=2158d3f8c051d)”, connecté à l’API Particulier. Il clique sur la démarche dédiée à la demande d’abonnement résidentiel, choisit l'option "Etudiant", et s’identifie via FranceConnect.
 
               {:.fr-highlight.fr-highlight--example}
-              > ⚙️ **En arrière-plan** : Un appel à l’API Extrait immatriculation véhicule et à l'API Statut étudiant du bouquet API Particulier est effectué et permet de récupérer les données en lien : 
+              > ⚙️ **En arrière-plan** : Un appel à l’API Extrait immatriculation véhicule et à l'API impôt particulier (hors API particulier)est effectué et permet de récupérer les données en lien : 
                     - le véhicule : nom et prénom du propriétaire ou locataire, adresse postale et caractéristiques du véhicule (marque, catégorie du véhicule, genre national, type de carburant, taux d’émission de co2, classe environnementale ;
-                    - le statut étudiant : inscription, année scolaire.
+                    - l'adresse fiscale 
 
-            2. **Étape 2 :** L’abonnement résidentiel avec tarif spécifique pour les étudiants est automatiquement attribué selon la catégorie du véhicule. Le résident n’a plus qu’à terminer sa démarche.
+            2. **Étape 2 :** L’abonnement résidentiel est automatiquement attribué selon la catégorie du véhicule. Le résident reçois sa carte à son domicile.
 
 
         list_api:
