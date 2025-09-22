@@ -25,7 +25,9 @@ module HubEEAPIMocks
       'processCode' => process_code,
       'email' => authorization_request.demandeur.email,
       'localAdministrator' => {
-        'email' => authorization_request.demandeur.email
+        'email' => authorization_request.demandeur.email,
+        'firstName' => authorization_request.demandeur.first_name,
+        'lastName' => authorization_request.demandeur.last_name,
       },
       'status' => 'Actif',
       'subscriber' => {
