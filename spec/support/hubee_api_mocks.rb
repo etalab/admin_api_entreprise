@@ -27,7 +27,7 @@ module HubEEAPIMocks
       'localAdministrator' => {
         'email' => authorization_request.demandeur.email,
         'firstName' => authorization_request.demandeur.first_name,
-        'lastName' => authorization_request.demandeur.last_name,
+        'lastName' => authorization_request.demandeur.last_name
       },
       'status' => 'Actif',
       'subscriber' => {
