@@ -58,6 +58,484 @@ info:
     url: https://github.com/betagouv/api-particulier/blob/master/LICENSE
 tags: []
 paths:
+  "/v3/ants/extrait_immatriculation_vehicule/france_connect":
+    get:
+      summary: "[FranceConnect] Extrait d'immatriculation véhicule"
+      tags:
+      - Prochainement
+      parameters:
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: immatriculation
+        in: query
+        description: Identifiant de l'immatriculation du véhicule
+        example: AA-123-BB
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Extrait d'immatriculation du véhicule avec l'identité du demandeur
+        du dossier
+      responses:
+        '403':
+          description: Accès interdit
+          content:
+            application/json:
+              examples:
+                insufficient_privileges_error:
+                  value:
+                    errors:
+                    - code: '00100'
+                      title: Privilèges insuffisants
+                      detail: Votre token est valide mais vos privilèges sont insuffisants.
+                        Listez vos privilèges sur /api/introspect
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Privilèges insuffisants
+                  description: Votre token est valide mais vos privilèges sont insuffisants.
+                    Listez vos privilèges sur /api/introspect
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '200':
+          description: Identité trouvée
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          x-operationId: api_particulier_v3_ants_extrait_immatriculation_vehicule_with_france_connect
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      identite_particulier:
+                        title: Identité
+                        type: object
+                        description: Identité du demandeur du dossier d'immatriculation
+                        properties:
+                          nom:
+                            title: Nom
+                            type: string
+                            description: Le nom du demandeur du dossier d'immatriculation
+                            example: MARTIN
+                          prenom:
+                            title: Prénom
+                            type: string
+                            description: Le prénom du demandeur du dossier d'immatriculation
+                              (si personne physique)
+                            example: JEAN
+                        required:
+                        - nom
+                        - prenom
+                      adresse_particulier:
+                        title: Adresse
+                        type: object
+                        description: L'adresse du demandeur dans l'État membre d'immatriculation
+                        properties:
+                          complement_information:
+                            title: Complément information de l'adresse
+                            type: string
+                            nullable: true
+                            description: Complément d'adresse
+                            example:
+                          num_voie:
+                            title: Numéro de voie
+                            type: string
+                            nullable: true
+                            description: Numéro de voie
+                            example: '15'
+                          type_voie:
+                            title: Type de voie
+                            type: string
+                            nullable: true
+                            description: Type de voie
+                            example: RUE
+                          libelle_voie:
+                            title: Libellé de voie
+                            type: string
+                            nullable: true
+                            description: Libellé de voie
+                            example: DE LA REPUBLIQUE
+                          code_postal_ville:
+                            title: Code postal
+                            type: string
+                            description: Code postal de la ville
+                            example: '75001'
+                          libelle_commune:
+                            title: Libellé de commune
+                            type: string
+                            description: Libellé de commune
+                            example: PARIS
+                          lieu_dit:
+                            title: Lieu-dit
+                            type: string
+                            nullable: true
+                            description: Lieu-dit ou quartier
+                            example:
+                          etage_escalier_appartement:
+                            title: Étage, escalier ou appartement
+                            type: string
+                            nullable: true
+                            description: Étage, escalier ou numéro d'appartement
+                            example: ESCALIER 2
+                          extension:
+                            title: Extension de l'adresse
+                            type: string
+                            nullable: true
+                            description: Extension de l'adresse, si applicable (Bis,
+                              Ter, etc.)
+                            example: B
+                        required:
+                        - complement_information
+                        - num_voie
+                        - type_voie
+                        - libelle_voie
+                        - code_postal_ville
+                        - libelle_commune
+                        - lieu_dit
+                        - etage_escalier_appartement
+                        - extension
+                      statut_rattachement:
+                        title: Statut de rattachement au véhicule
+                        type: string
+                        description: Le statut du demandeur du dossier d'immatriculation.
+                          Si le véhicule est en location longue durée (LLD, LCB, LCL),
+                          alors il s'agit du locataire. Dans les autres cas, c'est
+                          'titulaire' ou 'cotitulaire'
+                        enum:
+                        - locataire
+                        - titulaire
+                        - cotitulaire
+                        example: titulaire
+                      donnees_immatriculation_vehicule:
+                        title: Données d'immatriculation du véhicule
+                        type: object
+                        description: Informations relatives à l'immatriculation du
+                          véhicule
+                        required:
+                        - numero_immatriculation
+                        - date_premiere_immatriculation
+                        - statut_location
+                        properties:
+                          numero_immatriculation:
+                            title: Numéro d'immatriculation
+                            type: string
+                            description: Le numéro d'immatriculation du véhicule
+                            example: AA-123-BB
+                          date_premiere_immatriculation:
+                            title: Date de première immatriculation
+                            type: string
+                            description: La date de la première immatriculation du
+                              véhicule
+                            example: '2024-01-15'
+                          statut_location:
+                            title: Statut de location
+                            type: object
+                            description: Le statut de location du véhicule, si applicable.
+                              Les codes LLD, LCB, LCL correspondent à une location
+                              longue durée
+                            required:
+                            - code
+                            - label
+                            properties:
+                              code:
+                                title: Code du statut de location
+                                type: string
+                                description: Le code du statut de location selon la
+                                  nomenclature officielle
+                                example: LLD
+                                nullable: true
+                              label:
+                                title: Label du statut de location
+                                type: string
+                                description: Le label descriptif du statut de location
+                                example: Location Longue Durée
+                                nullable: true
+                      caracteristiques_techniques_vehicule:
+                        title: Extrait des caractéristiques techniques du véhicule
+                        type: object
+                        description: Informations techniques et caractéristiques du
+                          véhicule
+                        required:
+                        - marque
+                        - type_variante_version
+                        - denomination_commerciale
+                        - masse_charge_maximale
+                        - categorie_vehicule
+                        - genre_national
+                        - cylindree
+                        - type_carburant
+                        - taux_co2
+                        - classe_environnementale
+                        properties:
+                          marque:
+                            title: Marque du véhicule
+                            type: string
+                            description: La marque du véhicule
+                            example: PEUGEOT
+                          type_variante_version:
+                            title: Type Variante Version
+                            type: string
+                            description: Les Type Variante Version (TVV) du véhicule
+                            example: ABCDEF-G1H234
+                          denomination_commerciale:
+                            title: Dénomination commerciale
+                            type: string
+                            description: La dénomination commerciale du véhicule
+                            example: '308'
+                          masse_charge_maximale:
+                            title: Masse en charge maximale
+                            type: number
+                            description: La masse en charge maximale admissible du
+                              véhicule en service dans l'État membre d'immatriculation
+                            example: 1850
+                          categorie_vehicule:
+                            title: Catégorie du véhicule
+                            type: object
+                            description: La catégorie du véhicule (CE)
+                            required:
+                            - code
+                            - label
+                            properties:
+                              code:
+                                title: Code de la catégorie du véhicule
+                                type: string
+                                description: Le code de la catégorie du véhicule selon
+                                  la classification européenne
+                                enum:
+                                - M1
+                                - M2
+                                - M3
+                                - N1
+                                - N2
+                                - N3
+                                - O1
+                                - O2
+                                - O3
+                                - O4
+                                - L1e
+                                - L2e
+                                - L3e
+                                - L4e
+                                - L5e
+                                - L6e
+                                - L7e
+                                example: M1
+                              label:
+                                title: Label de la catégorie du véhicule
+                                type: string
+                                description: Le label de la catégorie du véhicule
+                                example: Véhicule de transport de personnes comportant
+                                  au maximum 8 places assises outre le siège du conducteur
+                          genre_national:
+                            title: Genre national
+                            type: object
+                            description: Le genre national du véhicule
+                            required:
+                            - code
+                            - label
+                            properties:
+                              code:
+                                title: Code du genre national
+                                type: string
+                                description: Le code du genre national selon la classification
+                                  française
+                                enum:
+                                - VP
+                                - CTTE
+                                - VASP
+                                - TCP
+                                - TRR
+                                - CAM
+                                - REM
+                                - RESP
+                                - SRAT
+                                - SREM
+                                - CL
+                                - CYCL
+                                - MTL
+                                - MTT1
+                                - MTT2
+                                - MOTO
+                                - MAGA
+                                - QM
+                                - TRA
+                                example: VP
+                              label:
+                                title: Label du genre national
+                                type: string
+                                description: Le label du genre national
+                                example: Véhicule Particulier
+                          cylindree:
+                            title: Cylindrée
+                            type: number
+                            description: La cylindrée (en cm3)
+                            example: 1600
+                          type_carburant:
+                            title: Type de carburant
+                            type: object
+                            description: Le type de carburant ou la source d'énergie
+                            required:
+                            - code
+                            - label
+                            properties:
+                              code:
+                                title: Code du type de carburant
+                                type: string
+                                description: Le code du type de carburant selon la
+                                  nomenclature officielle
+                                enum:
+                                - AC
+                                - EE
+                                - EG
+                                - EH
+                                - EL
+                                - EM
+                                - EN
+                                - EP
+                                - EQ
+                                - ER
+                                - ES
+                                - ET
+                                - FE
+                                - FG
+                                - FH
+                                - FL
+                                - FN
+                                - GA
+                                - GF
+                                - GG
+                                - GH
+                                - GL
+                                - GM
+                                - GN
+                                - GO
+                                - GP
+                                - GQ
+                                - GZ
+                                - H2
+                                - HE
+                                - HH
+                                - HY
+                                - NE
+                                - NH
+                                - PE
+                                - PH
+                                - PL
+                                example: ES
+                              label:
+                                title: Label du type de carburant
+                                type: string
+                                description: Le label du type de carburant
+                                example: Essence
+                          taux_co2:
+                            title: Taux de CO2
+                            type: number
+                            description: Le taux de CO2 (en g/km)
+                            example: 120
+                          classe_environnementale:
+                            title: Classe environnementale
+                            type: object
+                            description: 'L''indication de la classe environnementale
+                              de réception CE : mention de la version applicable en
+                              vertu de la directive 70/220/CEE ou de la directive
+                              88/77/CEE'
+                            required:
+                            - code
+                            - label
+                            properties:
+                              code:
+                                title: Code de la classe environnementale
+                                type: string
+                                description: Le code de la classe environnementale
+                                  selon les normes européennes
+                                enum:
+                                - Euro 1
+                                - Euro 2
+                                - Euro 3
+                                - Euro 4
+                                - Euro 5
+                                - Euro 5a
+                                - Euro 5b
+                                - Euro 6
+                                - Euro 6b
+                                - Euro 6c
+                                - Euro 6d-TEMP
+                                - Euro 6d
+                                - Euro 6e
+                                - Euro VI
+                                example: Euro 6
+                              label:
+                                title: Label de la classe environnementale
+                                type: string
+                                description: Le label de la classe environnementale
+                                example: Norme européenne d'émission Euro 6
+                    required:
+                    - identite_particulier
+                    - adresse_particulier
+                    - statut_rattachement
+                    - donnees_immatriculation_vehicule
+                    - caracteristiques_techniques_vehicule
+                    additionalProperties: false
+                  links:
+                    type: object
+                  meta:
+                    type: object
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          description: Non trouvée
+          content:
+            application/json:
+              examples:
+                entite_non_trouvee_42003:
+                  value:
+                    errors:
+                    - code: '42003'
+                      title: Entité non trouvée
+                      detail: Le ou les paramètre(s) d'entrée n'existent pas, ne sont
+                        pas connus, ou ne comportent aucune information pour cet appel.
+                        Veuillez vérifier que votre recherche est couverte par le
+                        périmètre de l'API.
+                      source:
+                      meta:
+                        provider: ANTS
+                  summary: Entité non trouvée
+                  description: Le ou les paramètre(s) d'entrée n'existent pas, ne
+                    sont pas connus, ou ne comportent aucune information pour cet
+                    appel. Veuillez vérifier que votre recherche est couverte par
+                    le périmètre de l'API.
+              schema:
+                "$ref": "#/components/schemas/Error"
   "/v3/dss/allocation_adulte_handicape/identite":
     get:
       summary: "[Identité] Statut allocation adulte handicapé (AAH)"
@@ -6923,7 +7401,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_sexe_etat_civil_error:
+                unprocessable_content_error_sexe_etat_civil_error:
                   value:
                     errors:
                     - code: '00427'
@@ -9956,7 +10434,7 @@ paths:
           content:
             application/json:
               examples:
-                unprocessable_entity_error_identifiant_error:
+                unprocessable_content_error_identifiant_error:
                   value:
                     errors:
                     - code: '00380'
