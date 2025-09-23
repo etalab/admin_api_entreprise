@@ -689,6 +689,153 @@ fr:
 
         request_access:
           link_datapass: "<%= datapass_base_url %>/api-particulier?demarche=tarification_transports"
+      stationnement-residentiel:
+        user_types:
+          - communes
+        name: 'Stationnement résidentiel'
+        endpoints:
+          - ants/extrait_immatriculation_vehicule
+        endpoints_optional:
+         - mesri/statut_etudiant
+         - cnav/quotient_familial
+        endpoints_forbidden:
+          - cnous/statut_etudiant_boursier
+          - pole_emploi/situation
+          - pole_emploi/indemnites
+          - cnav/prime_activite
+          - cnav/revenu_solidarite_active
+          - cnav/complementaire_sante_solidaire
+          - cnav/allocation_adulte_handicape
+          - cnav/allocation_soutien_familial
+          - sport_data_hub/statut_sportif
+          - dsnj/service_national
+          - education_nationale/statut_eleve_scolarise
+          - cnav/psu
+        comments_endpoints:
+            "ants/extrait_immatriculation_vehicule" : "Permet de récupérer toutes les informations présentes sur la carte grise d'un véhicule"
+            "cnav/quotient_familial" : "Indique le quotient familial d'un usager"
+            "cnous/statut_etudiant_boursier" : ""
+            "education_nationale/statut_eleve_scolarise" : ""
+            "mesri/statut_etudiant" : "Indique si un étudiant est inscrit dans un établissement"
+            "pole_emploi/situation" : ""
+            "pole_emploi/indemnites" : ""
+            "cnav/prime_activite" : ""
+            "cnav/revenu_solidarite_active" : ""
+            "cnav/complementaire_sante_solidaire" : ""
+            "cnav/allocation_adulte_handicape" : ""
+            "sport_data_hub/statut_sportif" : ""
+            "dsnj/service_national" : ""
+            "education_nationale/statut_eleve_scolarise" : ""
+            "cnav/psu" : ""
+        introduction:
+          title: Simplifiez les démarches des résidents en calculant la tarification pour l’abonnement et le droit au stationnement résidentiel à un tarif préférentiel.
+          content: |
+            {:.fr-text--lead}
+            Communes, avec API Particulier, traitez automatiquement les demandes d’abonnement pour le stationnement résidentiel réalisées via FranceConnect.
+
+            <span class="fr-accordion__title">
+                <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106"><span class="fr-icon-questionnaire-fill fr-mr-1w" aria-hidden="true"></span>Comment fonctionne la tarification résidentielle ?</button>
+            </span>
+            <div class="fr-collapse" id="accordion-106">
+              <p>Les communes ont la possibilité de proposer un droit de stationnement à tarif préférentiel « résident ». Cela permet aux habitants de la commune (généralement dans une zone payante) de stationner leur véhicule à un tarif réduit, souvent sous forme d’un abonnement mensuel, trimestriel ou annuel, dans leur secteur de résidence.
+              <br/>
+              Le stationnement résidentiel permet aux résidents de stationner dans la commune à un tarif réduit mais ne garantit pas une place réservée.
+              <br/>
+              <br/>
+              La tarification d’un abonnement de stationnement résidentiel pour les résidents d’une commune varie selon les municipalités.
+              <br/>
+              <b>Le fonctionnement repose généralement sur les principes suivants :</b> 
+              </p>
+              <ul>
+                <li><b>Pour pouvoir souscrire à un abonnement résidentiel, l’usager doit :</b>
+                  <ul>
+                    <li>être domicilié dans la commune ;</li>
+                    <li>être propriétaire d’un véhicule avec une carte grise à l’adresse du domicile ou être locataire (longue durée) d’un véhicule.</li>
+                  </ul>
+                </li>
+
+                <li><b>La tarification peut dépendre de plusieurs critères :</b>
+                  <ul>
+                    <li>Forfait mensuel, trimestriel ou annuel ou un tarif dégressif selon la durée stationnement ;</li>                   
+                    <li> Nombre de véhicules par foyer : Le premier véhicule bénéficie du tarif résident le plus avantageux ; le second véhicule peut être plus cher, voire non éligible. Il peut également y avoir un droit de stationnement par personne, peu importe le nombre de véhicules.</li>
+                    <li>Délimitation par zone géographique : Les résidents d’une zone ne peuvent stationner à tarif réduit que dans leur propre secteur ;</li>
+                    <li>Revenus ou statut social : certaines villes appliquent des tarifs sociaux (réduction pour faibles revenus, personnes âgées, étudiants etc.) ;</li>
+                    <li>Type de véhicule : Pour les véhicules électriques ou hybrides, le tarif est parfois réduit voire gratuit. Pour les véhicules polluants, le tarif est parfois majoré, voire le véhicule est exclu.
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <p>Lorsqu'elle n'est pas simplifiée, la demande d’abonnement se fait en ligne ou par courrier avec un droit par personne et plusieurs justificatifs à fournir (carte d'identité, carte grise du véhicule, justificatif de situation comme le certificat de scolarité, etc.).
+              <b>Pour en savoir plus</b>, consulter cette page de <a href="https://www.service-public.fr/particuliers/vosdroits/F33963">Service-Public.fr</a>.
+              </p>
+            </div>
+        role:
+          title: Une simplification des démarches
+          anchor: 'simplification-des-demarches'
+          content: |+
+             {:.fr-text--lg}
+
+             Communes, en intégrant l’API Extrait SIV pour stationnement résidentiel et d'autres API du bouquet API Particulier dans votre système d’information :
+
+              - 😃 **Pour instruire les demandes d’abonnement résidentiel, il n’est plus nécessaire de collecter** : 
+                - ✅ la carte grise,
+                - ✅ l’identité de l’usager,
+                - ✅ ainsi que le quotient familial et le statut étudiant, demandeur d'emploi et/ou bénéficiaire d'une prestation sociale (RSA, AAH, Prime d'activité, etc) si votre tarification est sur critères sociaux.
+              
+
+              - ⏰ **Vous automatisez l’instruction car vos agents instructeurs n’ont plus à vérifier les pièces justificatives fournies**, les informations obtenues de l’API Particulier étant certifiées 🔎 ;
+
+              - 🎢 **Vous augmentez le pourcentage des démarches finalisées** car vous faîtes gagner du temps à l'usager ;
+
+              - 🎯 **Enfin, vous participez à la simplification des démarches pour les citoyens** en mettant en oeuvre le [«&nbsp;Dites-le-nous une fois&nbsp;»](https://www.numerique.gouv.fr/services/guichet-dites-le-nous-une-fois/){:target="_blank"}, en application de l'[article L113-12 du Code des relations entre le public et l’administration](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037313155){:target="_blank"}.
+
+
+              {:.fr-highlight.fr-highlight--caution}
+              > **La simplification complète de ce cas d'usage n'est possible que si l’usager utilise FranceConnect** car l'API Extrait SIV pour stationnement résidentiel n'est disponible qu'avec [cette modalité d'appel](https://particulier.api.gouv.fr/cas_usages/modalite_appel_france_connect#3-fonctionnement-api-franceconnectees). Sans FranceConnect, de nombreuses API restent toutefois disponibles, mais vous n'aurez pas accès à l'extrait d'immatriculation du véhicule.
+
+              {:.fr-highlight}
+              > **Votre tarification sociale est également calculée à partir du revenu fiscal de référence ?**
+              > L'API Particulier ne propose pas cette donnée. Vous pouvez demander l'accès à l'[API Impôt Particulier](https://api.gouv.fr/les-api/impot-particulier){:target="_blank"} pour récupérer le revenu fiscal de référence de la famille.
+
+
+        use_case_examples:
+          title: Exemples d'applications
+          anchor: 'use_case_examples'
+          content: |+
+            {:.fr-h5}
+            ### Un résident de Paris qui est étudiant souhaite bénéficier de l’abonnement stationnement résidentiel
+            
+            Il est propriétaire d’un véhicule 4 roues, inférieur à 3,5 tonnes de catégorie M1 :
+             
+             1. **Étape 1&nbsp;:** Le particulier se connecte depuis son compte “[Mon Paris](https://v70-auth.paris.fr/auth/realms/paris/protocol/openid-connect/auth?client_id=moncompte&response_type=code&redirect_uri=https%3A%2F%2Fmoncompte.paris.fr%2Fmoncompte%2Fservlet%2Fplugins%2Foauth2%2Fcallback%3Fdata_client%3DauthData&scope=openid&state=13b549627bfd1&nonce=2158d3f8c051d)”, connecté à l’API Particulier. Il clique sur la démarche dédiée à la demande d’abonnement résidentiel, choisit l'option "Etudiant", et s’identifie via FranceConnect.
+
+              {:.fr-highlight.fr-highlight--example}
+              > ⚙️ **En arrière-plan** : Un appel à l’API Extrait immatriculation véhicule et à l'API impôt particulier (hors API particulier)est effectué et permet de récupérer les données en lien : 
+                    - le véhicule : nom et prénom du propriétaire ou locataire, adresse postale et caractéristiques du véhicule (marque, catégorie du véhicule, genre national, type de carburant, taux d’émission de co2, classe environnementale ;
+                    - l'adresse fiscale 
+
+            2. **Étape 2 :** L’abonnement résidentiel est automatiquement attribué selon la catégorie du véhicule. Le résident reçois sa carte à son domicile.
+
+
+        list_api:
+          content: |+
+            Les API **<span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> indispensables seront précochées** par défaut dans le formulaire d'accès.
+            Les API **️<span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span> utiles** seront à cocher par vos soins si votre cas d'usage le justifie.
+            Les API **<span style="color:#d64d00" class="fr-icon-close-circle-line" aria-hidden="true"></span> injustifiées** ne peuvent être demandées pour ce cas d'usage.
+
+            {:.fr-highlight.fr-highlight--caution}
+            Lors de votre demande d'habilitation, **vous vous engagez à ne demander que les données strictement nécessaires** à la réalisation de la démarche administrative. Consulter [nos conditions générales d'utilisation](<%= cgu_path %>){:target="_blank"}.
+        legal_context:
+          content: |+
+            L'utilisation des données est encadrée légalement. Vous devez formuler une demande auprès de l'API Particulier en justifiant du cadre légal de l'utilisation des données :
+
+            - **Cadre légal général** : [Article L114-8 du Code des relations entre le public et l'administration](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000045213315){:target="_blank"} fixe le cadre général qui oblige l’administration à échanger des données lors d’une démarche d’un usager ;
+            - **Cadre légal spécifique aux communes :** [Article L2333-87 du Code général des collectivités territoriales](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000049919622) (CGCT)], [Article L2333-87-3 du Code général des collectivités territoriales](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000049919622#:~:text=%2DLe%20forfait%20de%20post%2Dstationnement,est%20affect%C3%A9%20%C3%A0%20l'Etat) (CGCT)
+            - **Délibération** : Une délibération est nécessaire lors de votre demande d'habilitation pour justifier de l'utilisation des données demandées pour la tarification. [En savoir plus sur la délibération attendue pour être habilité](<%= faq_index_path(anchor: 'qu-est-ce-qu-une-bonne-deliberation-pour-acceder-a-api-particulier') %>).
+        request_access:
+          link_datapass: "Lien à venir"
+
+
 
       gestion_rh_secteur_public:
         user_types:
@@ -698,7 +845,6 @@ fr:
         endpoints_optional:
           - mesri/statut_etudiant
         endpoints_forbidden:
-          - cnav/quotient_familial
           - cnous/statut_etudiant_boursier
           - education_nationale/statut_eleve_scolarise
           - pole_emploi/situation
@@ -1191,6 +1337,4 @@ fr:
             - [CGU API Particulier](<%= cgu_path %>){:target="_blank"}
             - [CGU FranceConnect](https://franceconnect.gouv.fr/cgu){:target="_blank"}
             - [CGU Hubee](https://www.hubee.numerique.gouv.fr/cgu){:target="_blank"}
-
-
 
