@@ -4,7 +4,7 @@ module AuthorizationRequestHelper
   end
 
   def authorization_request_expected_actions(authorization_request, user)
-    return [] unless authorization_request.status == 'validated'
+    return [] if authorization_request.status != 'validated' || authorization_request.token.nil?
 
     expected_actions = []
     expected_actions << authorization_request_show_action(authorization_request)
