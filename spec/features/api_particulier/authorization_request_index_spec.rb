@@ -117,12 +117,18 @@ RSpec.describe 'displays authorization requests', app: :api_particulier do
       let!(:prolong_wizard) { create(:prolong_token_wizard, :requires_update, token: token_active, status:) }
       let!(:status) { 'owner' }
 
+      let!(:approved_authorization_request_without_token) do
+        user_authorization_request_role = create(:user_authorization_request_role, authorization_request: create(:authorization_request, :validated, api: :particulier), user: authenticated_user, role: 'contact_technique')
+        user_authorization_request_role.authorization_request.tokens.delete_all
+        user_authorization_request_role.authorization_request
+      end
+
       it 'displays the page' do
         go_to_authorization_requests_index
 
         expect(page).to have_current_path(api_particulier_authorization_requests_path, ignore_query: true)
 
-        expect(page).to have_content('Habilitations API Particulier (4)')
+        expect(page).to have_content('Habilitations API Particulier (5)')
 
         authorization_requests.each do |ar|
           expect(page).to have_css('#' << dom_id(ar))
