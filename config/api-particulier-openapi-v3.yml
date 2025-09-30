@@ -139,6 +139,9 @@ paths:
                         title: Identité
                         type: object
                         description: Identité du demandeur du dossier d'immatriculation
+                          tel que renseignée dans l'État membre d'immatriculation.
+                          Ces données ne proviennent pas de FranceConnect et sont
+                          fournies à des fins de vérification de l'identité du demandeur
                         properties:
                           nom:
                             title: Nom
@@ -151,9 +154,46 @@ paths:
                             description: Le prénom du demandeur du dossier d'immatriculation
                               (si personne physique)
                             example: JEAN
+                          sexe_etat_civil:
+                            title: Sexe état civil
+                            type: string
+                            description: Le sexe à l'état civil du demandeur
+                            enum:
+                            - M
+                            - F
+                            example: M
+                          annee_date_naissance:
+                            title: Année de naissance
+                            type: integer
+                            description: L'année de naissance du demandeur
+                            example: 1990
+                          mois_date_naissance:
+                            title: Mois de naissance
+                            type: integer
+                            description: Le mois de naissance du demandeur
+                            minimum: 1
+                            maximum: 12
+                            example: 3
+                          jour_date_naissance:
+                            title: Jour de naissance
+                            type: integer
+                            description: Le jour de naissance du demandeur
+                            minimum: 1
+                            maximum: 31
+                            example: 15
+                          code_departement_naissance:
+                            title: Code département de naissance
+                            type: string
+                            description: Le code du département de naissance du demandeur
+                            example: '75'
                         required:
                         - nom
                         - prenom
+                        - sexe_etat_civil
+                        - annee_date_naissance
+                        - mois_date_naissance
+                        - jour_date_naissance
+                        - code_departement_naissance
                       adresse_particulier:
                         title: Adresse
                         type: object
@@ -212,6 +252,12 @@ paths:
                             description: Extension de l'adresse, si applicable (Bis,
                               Ter, etc.)
                             example: B
+                          pays:
+                            title: Pays
+                            type: string
+                            nullable: true
+                            description: Libellé du pays
+                            example: FRANCE
                         required:
                         - complement_information
                         - num_voie
@@ -222,6 +268,7 @@ paths:
                         - lieu_dit
                         - etage_escalier_appartement
                         - extension
+                        - pays
                       statut_rattachement:
                         title: Statut de rattachement au véhicule
                         type: string
@@ -513,7 +560,8 @@ paths:
                 - links
                 - meta
         '404':
-          description: Non trouvée
+          description: Immatriculation non trouvée ou identité non trouvée pour cette
+            immatriculation
           content:
             application/json:
               examples:
