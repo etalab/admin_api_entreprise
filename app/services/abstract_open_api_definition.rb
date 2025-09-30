@@ -49,7 +49,7 @@ class AbstractOpenAPIDefinition
   # rubocop:disable Security/Open
   def open_api_remote_url_definition_content(url)
     if load_local?
-      local_path.read
+      local_path(url).read
     else
       Rails.cache.fetch(url, expires_in: 1.hour) do
         URI.open(url).read
@@ -57,13 +57,13 @@ class AbstractOpenAPIDefinition
     end
   rescue StandardError, OpenURI::HTTPError => e
     Sentry.capture_exception(e)
-    local_path.read
+    local_path(url).read
   end
   # rubocop:enable Security/Open
 
   protected
 
-  def local_path
+  def local_path(url)
     fail NotImplementedError
   end
 

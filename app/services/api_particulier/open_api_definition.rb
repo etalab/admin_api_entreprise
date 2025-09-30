@@ -13,8 +13,12 @@ class APIParticulier::OpenAPIDefinition < AbstractOpenAPIDefinition
 
   protected
 
-  def local_path
-    Rails.root.join('config/api-particulier-openapi.yml')
+  def local_path(url)
+    if url.include?('v3')
+      Rails.root.join('config/api-particulier-openapi-v3.yml')
+    else
+      Rails.root.join('config/api-particulier-openapi.yml')
+    end
   end
 
   def remote_url(version = nil)
