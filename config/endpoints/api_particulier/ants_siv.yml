@@ -8,17 +8,25 @@
   path: '/v3/ants/extrait_immatriculation_vehicule/france_connect'
   ping_url: 'https://particulier.api.gouv.fr/api/v3/ants/extrait_immatriculation_vehicule/ping'
   position: 603
+  extra_description: |+
+      **⚠️ Cette API est à destination exclusive des collectivités dans la cadre de la tarification du stationnement résidentiel**. Elle ne peut être utilisée pour contrôler _a posteriori_ le droit de stationnement.
+  alert:
+    title: "La délivrance d'habilitation pour cette API ne commencera qu'à compter du 1er trimestre 2026"
+    description: |+
+      Le déploiement massif de cette API est prévu uniquement à partir du premier trimestre 2026 car le volume d'appels disponible actuellement est trop limité. Par conséquent, les demandes d’accès à cette API ne pourront pas être traitées avant cette date. 
+      **Nous vous tiendrons informés de ce déploiement via notre infolettre** qui contiendra également le lien spécifique pour effectuer la demande d’habilitation. **Si vous n’êtes pas encore inscrit à notre infolettre, nous vous invitons à vous inscrire sur [ce lien](https://particulier.api.gouv.fr/infolettre)**.
+
   perimeter:
     entity_type_description: |+
-      Les données exposées par cette API proviennent du Système d’immatriculation des véhicules (SIV) pour les véhicules immatriculées après 2009 et du Fichier national des immatriculations (FNI) pour les véhicules immatriculées avant 2009. Ces fichiers sont placés sous la responsabilité du Ministère de l'intérieur.  Cette API est à destination exclusive des collectivités dans la cadre de la tarification du stationnement résidentiel. Elle n'est pas à vocation de contrôle de droit à postériori de l'obtention d'un droit de stationnement.
+      **Cette API concerne les véhicules de particuliers immatriculés en France**, que le particulier soit&nbsp;:&nbsp;
+      - ✅ propriétaire d'un véhicule particulier ;
+      - ✅ Co-titulaire d'un véhicule particulier ;
+      - ✅ locataire d'un véhicule en location longue durée (LLD, LCB, LCL) ou autre mode de location.
 
-      ⚠️L’API SIV est actuellement en version restreinte, avec un nombre limité d’appels. Dans ce contexte, le déploiement massif de cette API sera prévu à partir du premier trimestre 2026. Par conséquent, les demandes d’accès à cette API ne pourront pas être traitées avant cete date. Nous vous tiendrons informés de ce déploiement via notre infolettre, qui contiendra également le lien spécifique pour effectuer la demande d’habilitation. Si vous n’êtes pas encore inscrit à notre infolettre, nous vous invitons à vous inscrire sur [ce lien](https://particulier.api.gouv.fr/infolettre).
-      Cette API concerne les véhicules de particuliers immatriculés en France, que le particulier soit&nbsp;:&nbsp;
-      ✅ propriétaire d'un véhicule particulier ;
-      ✅ Co-titulaire d'un véhicule particulier.
-      ✅ locataire d'un véhicule en location longue durée (LLD, LCB, LCL) ou autre mode de location&nbsp;;
       **Ne sont pas concernés :**
-      ❌ les véhicules d'entreprise ou de fonction
+      ❌ les véhicules d'entreprise ou de fonction.
+
+
     geographical_scope_description:  |+
       L'API renvoie tous les extraits d'immatriculation des véhicules produits en France depuis :
       ✅ en France métropolitaine ;
@@ -26,12 +34,19 @@
       **Ne sont pas renvoyés les extraits d'immatriculation des véhicules produits dans les&nbsp;:**
       ❌ COM  
       Les collectivités d'Outre-Mer disposent de leurs propres systèmes ou adaptations du SIV/FNI. 
+
+ 
+
     updating_rules_description: |+
-      Les données sont mises à jour :
-      ✅  En temps réel lors de la requête (données à jour à l'instant T) ;
-      ✅  En cas de changements (déménagement, nouveau véhicule etc.). La nouvelle donnée est disponible dès son enregistrement dans le SIV.
-          L'API est connectée directement au SIV/FNI et dispose donc de la donnée la plus à jour possible.
-      ⚠️  Les données transmises reflètent la situation connue au moment de l'appel. Une interrogation faite à un instant T peut donc différer d’une interrogation à T+1 en cas de changements.
+      Les données sont **mises à jour en temps réel et reflètent la situation telle que connue dans le SIV**. 
+      
+      En cas de changements (déménagement, nouveau véhicule...), la donnée est disponible dans l'API dès que celle-ci est enregistrée dans le SIV. Cela signifie que la situation obtenue par l'API à un instant T peut différer de la situation de l'usager si ses informations n'ont pas encore été enregistrées dans le SIV.
+      
+      {:.fr-highlight}
+      > **L'API est connectée directement au SIV/FNI et dispose donc de la donnée la plus à jour possible.**
+      > Les données exposées par cette API proviennent du Système d’immatriculation des véhicules (SIV) pour les véhicules immatriculées après 2009 et du Fichier national des immatriculations (FNI) pour les véhicules immatriculées avant 2009. Ces fichiers sont placés sous la responsabilité du Ministère de l'intérieur. 
+
+
 
   parameters_details:
     description: |+
