@@ -18,7 +18,7 @@
       - ✅ les retraités de la fonction publique d'État et des collectivités locales ;
       - ✅ les régimes spéciaux suivants : artiste-auteur-compositeur, France Télécom, industries électriques et gazières, marin du commerce et pêche, mines (régime général), poste, RATP, SNCF, navigation intérieure en cas d'accord local et les pensions des autres régimes.
 
-        **Ne sont pas concernés par cette API**, les bénéficiaires des régimes suivants :
+      **Ne sont pas concernés par cette API**, les bénéficiaires des régimes suivants :
 
       - ❌ le régime des titulaires de l'Assemblée nationale et du Sénat ;
       - ❌ le régime de la navigation intérieure **sauf** lorsqu'un accord local est passé, et que le régime est alors pris en compte par la CAF.
@@ -29,9 +29,9 @@
       - ✅ Allocataires de nationalité étrangère résidant en France
     updating_rules_description: |+
       Les données sont actualisées : 
-      - **une fois par an, au mois de janvier, pour la base ressource** ;
+      - **une fois par an, au mois de janvier,** pour la base ressource ;
       - **lorsqu'il y a un changement de situation pour les enfants à charge et le conjoint** ;
-      - **tous les 2, 3 ou 5 ans pour le nombre d'ouverture de droit à l'allocatation d'éducation de l'enfant handicapé (selon le taux d'incapacité). 
+      - **tous les 2, 3 ou 5 ans** pour le nombre d'ouverture de droit à l'allocatation d'éducation de l'enfant handicapé (selon le taux d'incapacité). 
 
       Cette API opérée par la Caisse nationale d'assurance vieillesse (CNAV) est reliée au système d'information de la Caisse nationale des allocations familiales (CNAF) et à celui de la mutualité sociale agricole (MSA).
 
@@ -42,9 +42,9 @@
       - **la composition familiale** du particulier : identités de l'allocataire et de son conjoint, identités des enfants au sens des prestations familiales, [en savoir plus](#faq_entry_answer_2_api_particulier_endpoint_cnav_prestation_de_service_unique) ;
       - **l'adresse** du particulier au format de La Poste. ⚠️ Cette adresse est déclarative. Si l'usager a changé d'adresse et n'a pas actualisé son adresse auprès de la CAF ou de la MSA, l'information sera donc obsolète ;
       - **les différents paramètres de calcul de la participation familiale** : le nombre d'enfants à charge au sens des prestations familiales, le nombre d’ouverture au droit à l’allocation d'éducation de l'enfant handicapé (AEEH), la base ressource prestation de service unique (PSU) : montant et la date de calcul. 
-      {:.fr-highlight}
 
-      {:.fr-highlight.fr-highlight--caution}
+
+      {:.fr-highlight .fr-highlight.fr-highlight--caution}
       > **Le montant de la base ressource ainsi que l'année de calcul sont remontés seulement pour les allocataires dont les ressources sont déclarées**. En effet, la CNAF et la MSA collectent auprès de la DGFIP les ressources de l'individu (revenus salariés et non-salariés, du capital, rentes ...). Elles récupèrent le bilan en fin d'année pour mettre à jour ces informations en janvier. Sans la réception de ces ressources, l'API renverra une erreur car si il manque un paramètre de calcul de la PSU, l'API ne restitue pas les autres informations. 
     know_more_description: |+
       [Pour en savoir plus sur la PSU et les règles d'attribution de cette aide aux établissements d'accueil du jeune enfant](#qu-est-ce-que-la-psu)
@@ -53,9 +53,10 @@
     description: |+
       **L'API est uniquement appelable avec les informations de l'allocataire**.
       Il n'est pas possible d'interroger cette API avec les informations des ayants droit.
-          <br/>
+
       Deux modalités d'appel sont possibles&nbsp;:
-          <p class="fr-badge fr-badge--blue-ecume">![Cette API est FranceConnectée](<%= image_path('api_particulier/cas_usages/pictos/modalite_appel_france_connect.svg') %>){:width="20px"} FranceConnect</p>
+
+      <p class="fr-badge fr-badge--blue-ecume">![Cette API est FranceConnectée](<%= image_path('api_particulier/cas_usages/pictos/modalite_appel_france_connect.svg') %>){:width="20px"} FranceConnect</p>
       **Avec la [modalité d'appel FranceConnect](<%= cas_usage_path('modalite_appel_france_connect') %>)**.
 
       <p class="fr-badge fr-badge--brown-cafe-creme">Identité pivot</p>
