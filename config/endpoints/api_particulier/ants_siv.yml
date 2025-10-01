@@ -20,7 +20,7 @@
     entity_type_description: |+
       **Cette API concerne les véhicules de particuliers immatriculés en France**, que le particulier soit&nbsp;:&nbsp;
       - ✅ propriétaire d'un véhicule particulier ;
-      - ✅ Co-titulaire d'un véhicule particulier ;
+      - ✅ co-titulaire d'un véhicule particulier ;
       - ✅ locataire d'un véhicule en location longue durée (LLD, LCB, LCL) ou autre mode de location.
 
       **Ne sont pas concernés :**
@@ -28,12 +28,11 @@
 
 
     geographical_scope_description:  |+
-      L'API renvoie tous les extraits d'immatriculation des véhicules produits en France depuis :
-      ✅ en France métropolitaine ;
-      ✅ dans les DROM ;
-      **Ne sont pas renvoyés les extraits d'immatriculation des véhicules produits dans les&nbsp;:**
-      ❌ COM  
-      Les collectivités d'Outre-Mer disposent de leurs propres systèmes ou adaptations du SIV/FNI. 
+      **Sont concernés tous les extraits d'immatriculation des véhicules produits depuis** :
+      - ✅ la France métropolitaine ;
+      - ✅ les DROM.
+
+      **❌ Ne sont pas renvoyés les extraits d'immatriculation des véhicules produits dans les collectivités d'Outre-Mer**. Elles disposent de leurs propres systèmes ou adaptations du SIV/FNI. 
 
  
 
@@ -56,16 +55,11 @@
  
   data:
     description: |+
-      Cette API délivre des données fiables et à jour de l'extrait d'immatriculation d'un véhicule concernant :
-      - l’identité du particulier (nom, prénom) ;
-      - son adresse postale (au format La Poste); 
-      - son véhicule :
-         - son immatriculation,
-         - son statut d’usage (propriétaire ou locataire : LLD, LOA),
-         - sa date de première immatriculation,
-         - les caractéristiques techniques du véhicule (marque, modèle, type, cylindrée, carburant) ,
-         - son taux d’émission de CO₂, masse maximale, catégorie (VP, M1, etc.),
-         - sa norme environnementale (ex. Euro 6).
+      Cette API délivre :
+      - **le nom, prénom et l'adresse postale du particulier demandeur** du dossier d'immatriculation ;
+      - **le statut de rattachement de cette personne au véhicule** : titulaire, cotitulaire ou locataire ; 
+      - **les données d'immatriculation du véhicule** dont numéro d'immatriculation et  date de première immatriculation ;
+      - **les caractéristiques et informations techniques du véhicule**.
     know_more_description: |+
       [Informations présentes sur la carte grise qui sont dans le SIV](https://www.eplaque.fr/carte-grise/lire-une-carte-grise)
 
