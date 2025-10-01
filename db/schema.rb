@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_01_105448) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_30_175106) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pg_catalog.plpgsql"
@@ -195,6 +195,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_01_105448) do
     t.jsonb "extra_info", default: {}
     t.jsonb "scopes", default: [], null: false
     t.datetime "blacklisted_at"
+    t.boolean "mcp", default: false, null: false
     t.index ["created_at"], name: "index_tokens_on_created_at"
     t.index ["exp"], name: "index_tokens_on_exp"
     t.index ["iat"], name: "index_tokens_on_iat"
