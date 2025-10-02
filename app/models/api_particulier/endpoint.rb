@@ -1,6 +1,6 @@
 class APIParticulier::Endpoint < APIParticulier::AbstractEndpoint
   attr_accessor :data,
-  :extra_description
+    :extra_description
 
   def self.all
     all_endpoints = endpoints_store_class.all.map do |endpoint|

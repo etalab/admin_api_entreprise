@@ -1,4 +1,6 @@
 class APIParticulier::EndpointV2 < APIParticulier::AbstractEndpoint
+  attr_accessor :extra_description
+
   def self.all
     v2_endpoints = endpoints_store_class.all.map do |endpoint|
       new(endpoint) if api_particulier_v2?(endpoint)
