@@ -10,14 +10,18 @@
   position: 603
   extra_description: |+
       **⚠️ Cette API est à destination exclusive des collectivités dans la cadre de la tarification du stationnement résidentiel**. Elle ne peut être utilisée pour contrôler _a posteriori_ le droit de stationnement.
+      **La mise en œuvre de cette API ne peut se faire que si l’usager [s’identifie sur votre service en ligne (ou pour la démarche stationnement résidentiel) via FranceConnect.](https://particulier.api.gouv.fr/cas_usages/modalite_appel_france_connect#3-fonctionnement-api-franceconnectees) Il est donc nécessaire de faire une demande de raccordement à FranceConnect préalablement à votre demande d'accès à l'API SIV.**
   alert:
-    title: "La délivrance d'habilitation pour cette API ne commencera qu'à compter du 1er trimestre 2026"
+    title: "La délivrance d'habilitation pour cette API ne commencera qu'à compter de 2026"
     description: |+
-      Le déploiement progressif de cette API est prévu uniquement à partir du premier trimestre 2026 car le volume d'appels disponible actuellement est trop limité. Par conséquent, les demandes d’accès à cette API seront validées mais vous ne pourrez pas accéder directement aux données. Nous vous tiendrons informés par mail de la date à partir de laquelle vos accès seront ouverts."
-    
+      L’API SIV est déployée progressivement pour garantir la qualité du service. Par conséquent, vous ne pourrez pas accéder aux données directement après la validation de votre demande comme pour les autres données. Vous serez notifiés par mail de la date à partir de laquelle vous pourrez y accéder.
 
   perimeter:
     entity_type_description: |+
+      Véhicules concernés : 
+      - ✅ Véhicules immatriculés avant 2009 dont le format des plaques d'immatriculation est de type "123 ABC 12" ;
+      - ✅ Véhicules immatriculés après 2009 dont le format des plaques d'immatriculation est de type "AB-123-AB".
+
       **Cette API concerne les véhicules de particuliers immatriculés en France**, que le particulier soit&nbsp;:&nbsp;
       - ✅ propriétaire d'un véhicule particulier ;
       - ✅ co-titulaire d'un véhicule particulier ;
@@ -42,8 +46,8 @@
       En cas de changements (déménagement, nouveau véhicule...), la donnée est disponible dans l'API dès que celle-ci est enregistrée dans le SIV. Cela signifie que la situation obtenue par l'API à un instant T peut différer de la situation de l'usager si ses informations n'ont pas encore été enregistrées dans le SIV.
       
       {:.fr-highlight}
-      > **L'API est connectée directement au SIV/FNI et dispose donc de la donnée la plus à jour possible.**
-      > Les données exposées par cette API proviennent du Système d’immatriculation des véhicules (SIV) pour les véhicules immatriculées après 2009 et du Fichier national des immatriculations (FNI) pour les véhicules immatriculées avant 2009. Ces fichiers sont placés sous la responsabilité du Ministère de l'intérieur. 
+      > **L'API est connectée directement au SIV et dispose donc de la donnée la plus à jour possible.**
+      > Les données exposées par cette API proviennent du Système d’immatriculation des véhicules (SIV). Ce système d'information est placés sous la responsabilité du Ministère de l’intérieur. **Cette API est à destination exclusive des collectivités dans la cadre de la tarification du stationnement résidentiel**. Elle n’a pas à vocation à être utilisée dans le cadre des contrôles à postériori d’un droit de stationnement (forfait de post-stationnement).
 
 
   parameters_details:
