@@ -17,34 +17,26 @@
 
   perimeter:
     entity_type_description: |+
-      ✅ **Cette API concerne les véhicules de particuliers immatriculés en France**, c'est-à-dire dont la plaque d'immatriculation est de type `123 ABC 12` avant 2009 ou `AB-123-AB` après 2009.
+      **Cette API concerne les particuliers effectuant la démarche pour un véhicule dont ils sont&nbsp;:&nbsp;**
+      - ✅ propriétaire ;
+      - ✅ co-titulaire ;
+      - ✅ locataire en location longue durée (LLD, LCB, LCL).
 
-      **Que le particulier effectuant la démarche soit&nbsp;:&nbsp;**
-      - ✅ propriétaire d'un véhicule particulier ;
-      - ✅ co-titulaire d'un véhicule particulier ;
-      - ✅ locataire d'un véhicule en location longue durée (LLD, LCB, LCL).
-
-      **Ne sont pas concernés :**
-      ❌ les véhicules d'entreprise ou de fonction.
-
+      ❌ **Elle ne concerne pas** les particuliers effectuant la démarche pour un véhicule d'entreprise ou de fonction.
 
     geographical_scope_description:  |+
-      **Sont concernés tous les extraits d'immatriculation des véhicules produits depuis** :
-      - ✅ la France métropolitaine ;
-      - ✅ les DROM.
+      ✅ **Cette API concerne les véhicules immatriculés en France métropolitaine et dans les DROM**. C'est-à-dire dont la plaque d'immatriculation est de type `123 ABC 12` avant 2009 ou `AB-123-AB` après 2009.
 
-      **❌ Ne sont pas renvoyés les extraits d'immatriculation des véhicules produits dans les collectivités d'Outre-Mer**. Elles disposent de leurs propres systèmes ou adaptations du SIV/FNI. 
-
- 
+      ❌ **Elle ne couvre pas les véhicules immatriculés dans les collectivités d'Outre-Mer** car elles disposent de leurs propres systèmes d'immatriculation. 
 
     updating_rules_description: |+
-      Les données sont **mises à jour en temps réel et reflètent la situation telle que connue dans le SIV**. 
+      Les données sont **mises à jour en temps réel et reflètent la situation telle que connue dans le système d'immatriculation des véhicules (SIV)**. 
       
       En cas de changements (déménagement, nouveau véhicule...), la donnée est disponible dans l'API dès que celle-ci est enregistrée dans le SIV. Cela signifie que la situation obtenue par l'API à un instant T peut différer de la situation de l'usager si ses informations n'ont pas encore été enregistrées dans le SIV.
       
       {:.fr-highlight}
       > **L'API est connectée directement au SIV et dispose donc de la donnée la plus à jour possible.**
-      > Les données exposées par cette API proviennent du Système d’immatriculation des véhicules (SIV) placés sous la responsabilité du Ministère de l’intérieur.
+      > Les données exposées par cette API proviennent du SIV placé sous la responsabilité du Ministère de l’intérieur.
 
 
   parameters_details:
