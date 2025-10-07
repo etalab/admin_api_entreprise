@@ -24,6 +24,7 @@
             'Éditeur associé',
             'FDs associés',
             'DataPass ID',
+            'Tokens',
             'Actions',
           ].each do |attr|
         %>
@@ -88,6 +89,10 @@
                 <% end %>
               </ul>
             <% end %>
+          </td>
+
+          <td class="user-tokens">
+            <%= link_to 'Voir les tokens', admin_user_tokens_path(user), id: dom_id(user, :tokens) %>
           </td>
 
           <td class="user-actions">

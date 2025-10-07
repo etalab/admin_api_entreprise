@@ -1,0 +1,70 @@
+<div class="fr-table fr-table--bordered fr-table--layout-fixed">
+  <table>
+    <caption>
+      Tokens de l'utilisateur <%= @user.email %>
+    </caption>
+    <thead>
+      <tr>
+        <%
+          [
+            'Date de création',
+            'Intitulé',
+            'DataPass',
+            'Token (obfusqué)',
+            'Statut',
+            'Actions',
+          ].each do |attr|
+        %>
+          <th scope="col">
+            <%= attr %>
+          </th>
+        <% end %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @tokens.each do |token| %>
+        <tr id="<%= dom_id(token) %>" class="token">
+          <td class="token-created-at">
+            <%= token.created_at.strftime('%d/%m/%Y') %>
+          </td>
+          <td class="token-intitule">
+            <%= token.authorization_request.intitule %>
+          </td>
+          <td class="token-datapass">
+            <% if token.authorization_request.external_id %>
+              <a href="<%= datapass_base_url %>/api-<%= token.authorization_request.api %>/<%= token.authorization_request.external_id %>" target="_blank">DataPass #<%= token.authorization_request.external_id %></a>
+            <% end %>
+          </td>
+          <td class="token-rehash">
+            <% rehash = token.rehash %>
+            <%= rehash[0..10] %>...<%= rehash[-30..] %>
+          </td>
+          <td class="token-status">
+            <% if token.active? && !token.blacklisted_later?%>
+              <span class="fr-badge fr-badge--success">Actif</span>
+            <% elsif token.blacklisted_later? %>
+              <span class="fr-badge fr-badge--warning">Banni à partir du <%= token.blacklisted_at.to_date %></span>
+            <% else %>
+              <span class="fr-badge fr-badge--error">Inactif</span>
+            <% end %>
+          </td>
+          <td class="token-actions">
+            <% if token.active? && !token.blacklisted_later? %>
+              <%= button_to 'Bannir',
+                  ban_admin_user_token_path(@user, token),
+                  data: {
+                    turbo: false,
+                    confirm: 'Êtes-vous sûr de vouloir bannir ce token ? Cette action ne peut pas être annulée. Un nouveau token sera généré pour l\'utilisateur, le token sera banni dans 30 jours, le demandeur et le responsable technique sont notifiés par email.'
+                  },
+                  class: 'fr-btn fr-btn--sm fr-btn--secondary',
+                  id: dom_id(token, :ban) %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= link_to 'Retour aux utilisateurs', admin_users_path, class: 'fr-btn fr-btn--secondary' %>

@@ -11,6 +11,9 @@ Rails.application.routes.draw do
     resources :users, only: %i[index edit update] do
       post :impersonate, on: :member
       post :stop_impersonating, on: :collection
+      resources :tokens, only: %i[index] do
+        post :ban, on: :member
+      end
     end
     resources :editors, only: %i[index edit update]
     resources :provider_dashboards, only: %i[index show], path: 'providers'
