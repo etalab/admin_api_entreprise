@@ -16,6 +16,15 @@ class APIEntreprise::TokenMailerPreview < ActionMailer::Preview
     APIEntreprise::TokenMailer.magic_link(magic_link_record, host)
   end
 
+  def banned
+    APIEntreprise::TokenMailer.banned(
+      token: new_token,
+      old_token: banned_token,
+      email: 'example@fake.com',
+      comment: 'Token was compromised due to suspicious activity'
+    )
+  end
+
   private
 
   def to
@@ -26,6 +35,16 @@ class APIEntreprise::TokenMailerPreview < ActionMailer::Preview
 
   def token
     AuthorizationRequest.with_tokens_for('entreprise').first.token
+  end
+
+  def new_token
+    Token.active_for('entreprise').first || token
+  end
+
+  def banned_token
+    old_token = token.dup
+    old_token.blacklisted_at = 1.month.from_now
+    old_token
   end
 
   def magic_link_record

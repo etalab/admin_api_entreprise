@@ -36,4 +36,18 @@ module TokenMailersCommons
 
     mail(to:, subject:)
   end
+
+  def banned(args)
+    @token = args[:token]
+    @old_token = args[:old_token]
+    @authorization_request = @old_token.authorization_request
+    @comment = args[:comment]
+    @intitule = @authorization_request.intitule
+    @blacklisted_at = Time.at(@old_token.blacklisted_at).in_time_zone.strftime('%d/%m/%Y')
+
+    to = args[:email]
+    subject = t('.subject')
+
+    mail(to:, subject:)
+  end
 end
