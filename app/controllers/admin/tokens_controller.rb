@@ -6,7 +6,7 @@ class Admin::TokensController < AdminController
 
   def ban
     @token = Token.find(params[:id])
-    result = Admin::Tokens::Ban.call(token: @token, comment: params[:comment], namespace:)
+    result = Admin::Tokens::Ban.call(token: @token, comment: params[:comment], namespace:, admin: current_user)
 
     if result.success?
       success_message(title: 'Le token a été banni avec succès')
