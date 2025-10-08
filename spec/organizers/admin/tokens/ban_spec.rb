@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Admin::Tokens::Ban, type: :organizer do
   describe '.call' do
-    subject { described_class.call(token:, comment:, namespace: 'entreprise') }
+    subject { described_class.call(token:, admin:, comment:, namespace: 'entreprise') }
 
+    let(:admin) { create(:user, :admin) }
     let(:authorization_request) { create(:authorization_request, :with_demandeur, :with_contact_technique, api: 'entreprise') }
     let!(:token) { create(:token, authorization_request:) }
     let(:comment) { nil }
@@ -28,6 +29,20 @@ RSpec.describe Admin::Tokens::Ban, type: :organizer do
 
       it 'sends emails to demandeur and contact technique' do
         expect { subject }.to have_enqueued_job(ActionMailer::MailDeliveryJob).at_least(2).times
+      end
+
+      it 'tracks the ban event' do
+        expect(MonitoringService.instance).to receive(:track).with(
+          'Ban token by admin',
+          level: 'info',
+          context: hash_including(
+            admin_id: admin.id,
+            token_id: token.id,
+            datapass_id: token.authorization_request.external_id
+          )
+        )
+
+        subject
       end
 
       context 'when comment is provided' do
