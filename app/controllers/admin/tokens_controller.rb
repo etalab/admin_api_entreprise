@@ -1,7 +1,7 @@
 class Admin::TokensController < AdminController
   def index
     @user = User.find(params[:user_id])
-    @tokens = @user.tokens.joins(:authorization_request).where(authorization_requests: { api: namespace }).order(created_at: :desc)
+    @tokens = @user.tokens.where(authorization_requests: { api: 'entreprise' }).uniq
   end
 
   def ban
