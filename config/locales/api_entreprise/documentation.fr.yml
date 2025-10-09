@@ -408,6 +408,19 @@ fr:
 
                   2. **Ajoutez des routes de pings pour automatiser la surveillance** des API par vous-même. Plutôt que de consulter ponctuellement notre page de statuts, vous pouvez vous branchez directement à nos routes afin d'avoir un suivi encore plus précis. Pour en savoir plus, consulter la rubrique [surveiller l'état des fournisseurs](<%= developers_path(anchor: 'surveillance-etat-fournisseurs') %>).
 
+              - title: Informations à transmettre en cas de problème
+                anchor: 'informations-à-transmettre-en-cas-de-problème'
+                content: |+
+                  Chaque réponse de l'API est accompagnée d'un header `X-Request-ID` qui est un identifiant unique de la requête. Ce header est très important car il nous permet de tracer votre appel dans nos systèmes.
+                  Pour nous aider à diagnostiquer un problème, merci de nous transmettre&nbsp;:
+                  - Le header 'X-Request-ID' de la réponse
+                  - l'URL complète de votre requête
+                  - le code HTTP renvoyé par l'API
+                  - Toute information complémentaire qui vous semble utile (heure de l'appel, payload renvoyée, etc.)
+
+                  {:.fr-highlight}
+                  > 💡Pour des soucis de traçabilité, nous vous recommandons de bien logger le header `X-Request-ID` de chaque appel que vous faites à l'API.
+
           - anchor: 'prolongation-du-jwt'
             title: Prolongation de la durée de vie du JWT&nbsp;🔑
             content: >-

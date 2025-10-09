@@ -620,6 +620,19 @@ fr:
                   3. Si vous rencontrez un problème et avez besoin d'échanger avec nous en transmettant des données sensibles, utilisez le [formulaire de transfert d'informations sécurisées (Démarches simplifiées)](https://www.demarches-simplifiees.fr/commencer/api-particulier-transfert-securise-d-informations){:target="_blank"}. 
                   Si vous n'avez pas de réponse sous 72h, n'hésitez pas à nous envoyer votre numéro de demande Démarches simplifiées à l'adresse [api-particulier@api.gouv.fr](mailto:api-particulier@api.gouv.fr).
 
+              - title: Informations à transmettre en cas de problème
+                anchor: 'informations-à-transmettre-en-cas-de-problème'
+                content: |+
+                  Chaque réponse de l'API est accompagnée d'un header `X-Request-ID` qui est un identifiant unique de la requête. Ce header est très important car il nous permet de tracer votre appel dans nos systèmes.
+                  Pour nous aider à diagnostiquer un problème, merci de nous transmettre&nbsp;:
+                  - Le header 'X-Request-ID' de la réponse
+                  - l'URL complète de votre requête
+                  - le code HTTP renvoyé par l'API
+                  - Toute information complémentaire qui vous semble utile (heure de l'appel, payload renvoyée, etc.)
+
+                  {:.fr-highlight}
+                  > 💡Pour des soucis de traçabilité, nous vous recommandons de bien logger le header `X-Request-ID` de chaque appel que vous faites à l'API.
+
           - anchor: 'gestion-du-cache'
             title: Gestion du cache
             subsections:
