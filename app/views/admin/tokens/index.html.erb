@@ -7,6 +7,7 @@
       <tr>
         <%
           [
+            'ID',
             'Date de création',
             'Intitulé',
             'DataPass',
@@ -25,6 +26,9 @@
     <tbody>
       <% @tokens.each do |token| %>
         <tr id="<%= dom_id(token) %>" class="token">
+          <td class="token-id">
+            <%= token.id %>
+          </td>
           <td class="token-created-at">
             <%= token.created_at.strftime('%d/%m/%Y') %>
           </td>
