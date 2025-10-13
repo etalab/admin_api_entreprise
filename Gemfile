@@ -46,7 +46,7 @@ gem 'sentry-ruby'
 gem 'sitemap_generator'
 gem 'strong_migrations'
 gem 'turbo-rails'
-gem 'uri', '1.0.3'
+gem 'uri', '1.0.4'
 gem 'wicked'
 
 group :development, :test do
