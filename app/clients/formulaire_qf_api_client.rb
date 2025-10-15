@@ -13,6 +13,21 @@ class FormulaireQFAPIClient
     http_connection.post("#{host}/api/collectivites", params.to_json)
   end
 
+  def find_collectivity(organization:)
+    code_cog = organization.code_commune_etablissement
+    response = http_connection.get("#{host}/api/collectivites/#{code_cog}")
+    JSON.parse(response.body)
+  rescue Faraday::ResourceNotFound
+    nil
+  end
+
+  def collectivities
+    response = http_connection.get("#{host}/api/collectivites")
+    JSON.parse(response.body)
+  rescue Faraday::ResourceNotFound
+    nil
+  end
+
   private
 
   def host
