@@ -38,8 +38,8 @@ class Token < ApplicationRecord
     exp < Time.zone.now.to_i
   end
 
-  def used?
-    !access_logs.limit(1).empty?
+  def new?
+    iat > 7.days.ago.to_i
   end
 
   def active?

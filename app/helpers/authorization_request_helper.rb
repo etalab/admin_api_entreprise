@@ -54,7 +54,7 @@ module AuthorizationRequestHelper
         action: 'show',
         label: I18n.t('shared.authorization_requests.index.modal.show.display_cta_replace')
       }
-    elsif !authorization_request.token.used? && authorization_request.token.active?
+    elsif authorization_request.token.new? && authorization_request.token.active?
       {
         action: 'show',
         label: I18n.t('shared.authorization_requests.index.modal.show.display_cta_new_token')

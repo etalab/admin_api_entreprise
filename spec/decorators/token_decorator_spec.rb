@@ -60,15 +60,14 @@ RSpec.describe TokenDecorator do
       it { is_expected.to eq('revoked') }
     end
 
-    context 'when now_token' do
+    context 'when new token from now' do
       let(:token) { create(:token) }
 
       it { is_expected.to eq('new_token') }
     end
 
-    context 'when active' do
-      let!(:access_log) { create(:access_log, token:) }
-      let(:token) { create(:token) }
+    context 'when token from 7 days ago' do
+      let(:token) { create(:token, iat: 8.days.ago.to_i) }
 
       it { is_expected.to eq('active') }
     end

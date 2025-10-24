@@ -123,7 +123,7 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
             expect(page).to have_content(friendly_format_from_timestamp(authorization_request.created_at))
 
             expect(page).to have_content('Jeton principal :')
-            expect(page).to have_content('Actif')
+            expect(page).to have_content('Nouveau jeton à utiliser')
             expect(page).to have_content('4 appels les 7 derniers jours')
             expect(page).to have_content(distance_of_time_in_words(Time.zone.now, token.exp))
 

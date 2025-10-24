@@ -18,7 +18,7 @@ class TokenDecorator < ApplicationDecorator
     return 'expired' if expired?
     return 'revoked' if blacklisted?
     return 'revoked_later' if blacklisted_later?
-    return 'new_token' unless used?
+    return 'new_token' if new?
 
     'active'
   end
