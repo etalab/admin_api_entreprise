@@ -205,4 +205,45 @@ RSpec.describe Token do
       end
     end
   end
+
+  describe '#used?' do
+    context 'when used flag is true' do
+      let(:token) { create(:token, used: true) }
+
+      it 'returns true' do
+        expect(token).to be_used
+      end
+    end
+
+    context 'when used flag is false but has access logs' do
+      let(:token) { create(:token, used: false) }
+
+      before do
+        create(:access_log, token:)
+      end
+
+      it 'returns true' do
+        expect(token).to be_used
+      end
+
+      it 'marks the token as used' do
+        token.used?
+        expect(token.used).to be true
+      end
+    end
+
+    context 'when used flag is false and has no access logs' do
+      let(:token) { create(:token, used: false) }
+
+      it 'returns false' do
+        expect(token).not_to be_used
+      end
+
+      it 'does not update the token' do
+        token.used?
+
+        expect(token.used).to be false
+      end
+    end
+  end
 end

@@ -39,7 +39,11 @@ class Token < ApplicationRecord
   end
 
   def used?
-    !access_logs.limit(1).empty?
+    return true if used
+
+    result = !access_logs.where(timestamp: 30.days.ago..).limit(1).empty? || !access_logs.limit(1).empty?
+    update(used: true) if result
+    result
   end
 
   def active?
