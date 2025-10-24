@@ -4,26 +4,33 @@ class Editor::AuthorizationRequestsController < EditorController
   include ExternalUrlHelper
 
   def index
-    @q = current_editor
-      .authorization_requests(api: namespace)
-      .includes(:active_token, :demandeur)
-      .where(
-        status: 'validated'
-      ).ransack(params[:q])
-
-    @authorization_requests = @q.result(distinct: true)
+    @q = build_search_query
 
     respond_to do |format|
-      format.html
-      format.csv do
-        send_data generate_csv(@authorization_requests),
-          filename: "habilitations_#{Time.zone.today}.csv",
-          type: 'text/csv'
-      end
+      format.html { @authorization_requests = @q.result(distinct: true).page(params[:page]) }
+      format.csv { send_csv_data }
     end
   end
 
   private
+
+  def build_search_query
+    current_editor
+      .authorization_requests(api: namespace)
+      .includes(:active_token, :demandeur)
+      .where(status: 'validated')
+      .ransack(params[:q])
+  end
+
+  def send_csv_data
+    send_data generate_csv(@q.result(distinct: true)),
+      filename: csv_filename,
+      type: 'text/csv'
+  end
+
+  def csv_filename
+    "habilitations_#{Time.zone.today}.csv"
+  end
 
   def generate_csv(authorization_requests)
     CSV.generate(headers: true) do |csv|
