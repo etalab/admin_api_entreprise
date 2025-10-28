@@ -16,7 +16,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.2.1
+          ruby-version: 3.4.7
 
       - name: Brakeman
         uses: reviewdog/action-brakeman@v2
@@ -33,7 +33,7 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         bundler-cache: true
-        cache-version: 321
+        cache-version: 347
 
     - name: Run RuboCop
       run: bundle exec rubocop --parallel
