@@ -28018,12 +28018,14 @@ paths:
                         example: 86400
                       date_emission:
                         title: Date d'émission du document
-                        type: date
+                        type: string
+                        format: date
                         nullable: true
                         example: '2023-01-01'
                       date_fin_validite:
                         title: Date de fin de validité du document
-                        type: date
+                        type: string
+                        format: date
                         nullable: true
                         example: '2024-02-02'
                       entity:
@@ -28102,7 +28104,8 @@ paths:
                                   - false
                                 date_attribution:
                                   title: Date d'attribution
-                                  type: date
+                                  type: string
+                                  format: date
                                   example: '2022-03-03'
                         required:
                         - assurance_responsabilite_travaux
@@ -29581,7 +29584,8 @@ paths:
                         - description
                       date_debut_validite:
                         title: Date de début de validité
-                        type: date
+                        type: string
+                        format: date
                         nullable: true
                         description: "Cette date est présente en fin de document dans
                           le paragraphe « Attestation de l'union de recouvrement ».
@@ -29590,7 +29594,8 @@ paths:
                         example: '2022-12-03'
                       date_fin_validite:
                         title: Date de fin de validité
-                        type: date
+                        type: string
+                        format: date
                         nullable: true
                         description: "Cette date est obtenue à l'aide de la date de
                           début de validité. \n \n La règle de calcul est la suivante:

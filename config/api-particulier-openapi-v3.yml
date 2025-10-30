@@ -62,7 +62,7 @@ paths:
     get:
       summary: "[FranceConnect] Extrait d'immatriculation véhicule"
       tags:
-      - Prochainement
+      - Extrait d'immatriculation véhicule
       parameters:
       - name: recipient
         in: query
@@ -76,7 +76,7 @@ paths:
           type: string
       - name: immatriculation
         in: query
-        description: Identifiant de l'immatriculation du véhicule
+        description: Identifiant de l'immatriculation du véhicule.
         example: AA-123-BB
         required: true
         schema:
@@ -84,7 +84,7 @@ paths:
       security:
       - jwt_bearer_token: []
       description: Extrait d'immatriculation du véhicule avec l'identité du demandeur
-        du dossier
+        du dossier.
       responses:
         '403':
           description: Accès interdit
@@ -138,26 +138,25 @@ paths:
                       identite_particulier:
                         title: Identité
                         type: object
-                        description: Identité du demandeur du dossier d'immatriculation
-                          tel que renseignée dans l'État membre d'immatriculation.
+                        description: Identité du demandeur du dossier d'immatriculation.
                           Ces données ne proviennent pas de FranceConnect et sont
-                          fournies à des fins de vérification de l'identité du demandeur
+                          fournies à des fins de vérification de l'identité du demandeur.
                         properties:
                           nom:
                             title: Nom
                             type: string
-                            description: Le nom du demandeur du dossier d'immatriculation
+                            description: Le nom du demandeur du dossier d'immatriculation.
                             example: MARTIN
                           prenom:
                             title: Prénom
                             type: string
                             description: Le prénom du demandeur du dossier d'immatriculation
-                              (si personne physique)
+                              (si personne physique).
                             example: JEAN
                           sexe_etat_civil:
                             title: Sexe état civil
                             type: string
-                            description: Le sexe à l'état civil du demandeur
+                            description: Le sexe à l'état civil du demandeur.
                             enum:
                             - M
                             - F
@@ -165,26 +164,29 @@ paths:
                           annee_date_naissance:
                             title: Année de naissance
                             type: integer
-                            description: L'année de naissance du demandeur
+                            description: L'année de naissance du demandeur.
                             example: 1990
+                            nullable: true
                           mois_date_naissance:
                             title: Mois de naissance
                             type: integer
-                            description: Le mois de naissance du demandeur
+                            description: Le mois de naissance du demandeur.
                             minimum: 1
                             maximum: 12
                             example: 3
+                            nullable: true
                           jour_date_naissance:
                             title: Jour de naissance
                             type: integer
-                            description: Le jour de naissance du demandeur
+                            description: Le jour de naissance du demandeur.
                             minimum: 1
                             maximum: 31
                             example: 15
+                            nullable: true
                           code_departement_naissance:
                             title: Code département de naissance
                             type: string
-                            description: Le code du département de naissance du demandeur
+                            description: Le code du département de naissance du demandeur.
                             example: '75'
                         required:
                         - nom
@@ -197,31 +199,31 @@ paths:
                       adresse_particulier:
                         title: Adresse
                         type: object
-                        description: L'adresse du demandeur dans l'État membre d'immatriculation
+                        description: L'adresse du demandeur.
                         properties:
                           complement_information:
                             title: Complément information de l'adresse
                             type: string
                             nullable: true
-                            description: Complément d'adresse
+                            description: Complément d'adresse.
                             example:
                           num_voie:
                             title: Numéro de voie
                             type: string
                             nullable: true
-                            description: Numéro de voie
+                            description: Numéro de voie.
                             example: '15'
                           type_voie:
                             title: Type de voie
                             type: string
                             nullable: true
-                            description: Type de voie
+                            description: Type de voie.
                             example: RUE
                           libelle_voie:
                             title: Libellé de voie
                             type: string
                             nullable: true
-                            description: Libellé de voie
+                            description: Libellé de voie.
                             example: DE LA REPUBLIQUE
                           code_postal_ville:
                             title: Code postal
@@ -231,7 +233,7 @@ paths:
                           libelle_commune:
                             title: Libellé de commune
                             type: string
-                            description: Libellé de commune
+                            description: Libellé de commune.
                             example: PARIS
                           lieu_dit:
                             title: Lieu-dit
@@ -243,14 +245,14 @@ paths:
                             title: Étage, escalier ou appartement
                             type: string
                             nullable: true
-                            description: Étage, escalier ou numéro d'appartement
+                            description: Étage, escalier ou numéro d'appartement.
                             example: ESCALIER 2
                           extension:
                             title: Extension de l'adresse
                             type: string
                             nullable: true
                             description: Extension de l'adresse, si applicable (Bis,
-                              Ter, etc.)
+                              Ter, etc.).
                             example: B
                           pays:
                             title: Pays
@@ -275,7 +277,7 @@ paths:
                         description: Le statut du demandeur du dossier d'immatriculation.
                           Si le véhicule est en location longue durée (LLD, LCB, LCL),
                           alors il s'agit du locataire. Dans les autres cas, c'est
-                          'titulaire' ou 'cotitulaire'
+                          'titulaire' ou 'cotitulaire'.
                         enum:
                         - locataire
                         - titulaire
@@ -294,20 +296,20 @@ paths:
                           numero_immatriculation:
                             title: Numéro d'immatriculation
                             type: string
-                            description: Le numéro d'immatriculation du véhicule
+                            description: Le numéro d'immatriculation du véhicule.
                             example: AA-123-BB
                           date_premiere_immatriculation:
                             title: Date de première immatriculation
                             type: string
                             description: La date de la première immatriculation du
-                              véhicule
+                              véhicule.
                             example: '2024-01-15'
                           statut_location:
                             title: Statut de location
                             type: object
                             description: Le statut de location du véhicule, si applicable.
                               Les codes LLD, LCB, LCL correspondent à une location
-                              longue durée
+                              longue durée.
                             required:
                             - code
                             - label
@@ -316,20 +318,21 @@ paths:
                                 title: Code du statut de location
                                 type: string
                                 description: Le code du statut de location selon la
-                                  nomenclature officielle
+                                  nomenclature officielle.
                                 example: LLD
                                 nullable: true
                               label:
                                 title: Label du statut de location
                                 type: string
-                                description: Le label descriptif du statut de location
+                                description: Le label descriptif du statut de location.
                                 example: Location Longue Durée
                                 nullable: true
                       caracteristiques_techniques_vehicule:
-                        title: Extrait des caractéristiques techniques du véhicule
-                        type: object
-                        description: Informations techniques et caractéristiques du
+                        title: Informations et des caractéristiques techniques du
                           véhicule
+                        type: object
+                        description: Extrait des informations techniques et caractéristiques
+                          du véhicule.
                         required:
                         - marque
                         - type_variante_version
@@ -345,23 +348,23 @@ paths:
                           marque:
                             title: Marque du véhicule
                             type: string
-                            description: La marque du véhicule
+                            description: La marque du véhicule.
                             example: PEUGEOT
                           type_variante_version:
                             title: Type Variante Version
                             type: string
-                            description: Les Type Variante Version (TVV) du véhicule
+                            description: Les Type Variante Version (TVV) du véhicule.
                             example: ABCDEF-G1H234
                           denomination_commerciale:
                             title: Dénomination commerciale
                             type: string
-                            description: La dénomination commerciale du véhicule
+                            description: La dénomination commerciale du véhicule.
                             example: '308'
                           masse_charge_maximale:
                             title: Masse en charge maximale
                             type: number
                             description: La masse en charge maximale admissible du
-                              véhicule en service dans l'État membre d'immatriculation
+                              véhicule en service.
                             example: 1850
                           categorie_vehicule:
                             title: Catégorie du véhicule
@@ -375,7 +378,7 @@ paths:
                                 title: Code de la catégorie du véhicule
                                 type: string
                                 description: Le code de la catégorie du véhicule selon
-                                  la classification européenne
+                                  la classification européenne.
                                 enum:
                                 - M1
                                 - M2
@@ -400,11 +403,11 @@ paths:
                                 type: string
                                 description: Le label de la catégorie du véhicule
                                 example: Véhicule de transport de personnes comportant
-                                  au maximum 8 places assises outre le siège du conducteur
+                                  au maximum 8 places assises outre le siège du conducteur.
                           genre_national:
                             title: Genre national
                             type: object
-                            description: Le genre national du véhicule
+                            description: Le genre national du véhicule.
                             required:
                             - code
                             - label
@@ -413,7 +416,7 @@ paths:
                                 title: Code du genre national
                                 type: string
                                 description: Le code du genre national selon la classification
-                                  française
+                                  française.
                                 enum:
                                 - VP
                                 - CTTE
@@ -438,7 +441,7 @@ paths:
                               label:
                                 title: Label du genre national
                                 type: string
-                                description: Le label du genre national
+                                description: Le label du genre national.
                                 example: Véhicule Particulier
                           cylindree:
                             title: Cylindrée
@@ -448,7 +451,7 @@ paths:
                           type_carburant:
                             title: Type de carburant
                             type: object
-                            description: Le type de carburant ou la source d'énergie
+                            description: Le type de carburant ou la source d'énergie.
                             required:
                             - code
                             - label
@@ -457,7 +460,7 @@ paths:
                                 title: Code du type de carburant
                                 type: string
                                 description: Le code du type de carburant selon la
-                                  nomenclature officielle
+                                  nomenclature officielle.
                                 enum:
                                 - AC
                                 - EE
@@ -500,12 +503,12 @@ paths:
                               label:
                                 title: Label du type de carburant
                                 type: string
-                                description: Le label du type de carburant
+                                description: Le label du type de carburant.
                                 example: Essence
                           taux_co2:
                             title: Taux de CO2
                             type: number
-                            description: Le taux de CO2 (en g/km)
+                            description: Le taux de CO2 (en g/km).
                             example: 120
                           classe_environnementale:
                             title: Classe environnementale
@@ -513,7 +516,7 @@ paths:
                             description: 'L''indication de la classe environnementale
                               de réception CE : mention de la version applicable en
                               vertu de la directive 70/220/CEE ou de la directive
-                              88/77/CEE'
+                              88/77/CEE.'
                             required:
                             - code
                             - label
@@ -522,7 +525,7 @@ paths:
                                 title: Code de la classe environnementale
                                 type: string
                                 description: Le code de la classe environnementale
-                                  selon les normes européennes
+                                  selon les normes européennes.
                                 enum:
                                 - Euro 1
                                 - Euro 2
@@ -542,7 +545,7 @@ paths:
                               label:
                                 title: Label de la classe environnementale
                                 type: string
-                                description: Le label de la classe environnementale
+                                description: Le label de la classe environnementale.
                                 example: Norme européenne d'émission Euro 6
                     required:
                     - identite_particulier
@@ -10015,7 +10018,7 @@ paths:
     get:
       summary: "[Identifiant] API Statut sportif de haut niveau et sur liste ministérielle"
       tags:
-      - Prochainement
+      - Statut Sportif
       parameters:
       - name: recipient
         in: query
