@@ -14,4 +14,17 @@ module SpecsHelper
   def siren_valid
     siret_valid.first(9)
   end
+
+  def stub_hyperping_request_operational(api)
+    stub_request(:get, "https://api-#{api}.hyperping.app/api/config?hostname=api-#{api}.hyperping.app").and_return(
+      status: 200,
+      body: {
+        globals: {
+          topLevelStatus: {
+            status: 'up'
+          }
+        }
+      }.to_json
+    )
+  end
 end

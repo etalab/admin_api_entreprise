@@ -148,21 +148,4 @@ RSpec.configure do |config|
       body: Rails.root.join('config/api-particulier-openapi-v3.yml').read
     )
   end
-
-  %w[api_entreprise api_particulier].each do |app|
-    config.before(:each, app:, type: :feature) do
-      api = app.split('_').last
-
-      stub_request(:get, "https://api-#{api}.hyperping.app/api/config?hostname=api-#{api}.hyperping.app").and_return(
-        status: 200,
-        body: {
-          globals: {
-            topLevelStatus: {
-              status: 'up'
-            }
-          }
-        }.to_json
-      )
-    end
-  end
 end

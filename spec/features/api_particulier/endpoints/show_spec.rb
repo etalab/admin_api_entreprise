@@ -10,6 +10,7 @@ RSpec.describe 'Endpoints show', app: :api_particulier do
   let(:endpoint) { APIParticulier::Endpoint.find(uid) }
 
   before do
+    stub_hyperping_request_operational('particulier')
     stub_request(:get, endpoint.ping_url).to_return(status: api_status) if endpoint.ping_url
     visit endpoint_path(uid:)
   end
