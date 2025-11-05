@@ -4,6 +4,7 @@
 
 ### Testing
 - Run all tests: `bundle exec rspec`
+- By default, do not test with LOAD_LOCAL_OPEN_API_DEFINITIONS=true
 - Run single test file: `bundle exec rspec spec/path/to/file_spec.rb`
 - Run specific test line: `bundle exec rspec spec/path/to/file_spec.rb:LINE_NUMBER`
 - Run feature tests: `bundle exec rspec spec/features/`
