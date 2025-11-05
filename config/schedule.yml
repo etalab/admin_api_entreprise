@@ -3,16 +3,19 @@ development:
     cron: '0 1 * * *'
     class: 'TokenExpirationNoticeJob'
 
-production: &deployed
+shared_jobs: &shared_jobs
   token_expiration_notice:
     cron: '0 */4 * * *'
     class: 'TokenExpirationNoticeJob'
   healthcheck:
     cron: '*/5 * * * *'
     class: 'HealthcheckJob'
+
+production:
+  <<: *shared_jobs
   monitor_alert:
     cron: '0 9 * * *'
     class: 'MonitorAlertJob'
 
-staging: *deployed
-sandbox: *deployed
+staging: *shared_jobs
+sandbox: *shared_jobs
