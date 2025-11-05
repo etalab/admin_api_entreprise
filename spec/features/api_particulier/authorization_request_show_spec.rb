@@ -3,6 +3,10 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
     visit api_particulier_authorization_request_path(id: authorization_request.id)
   end
 
+  before do
+    stub_hyperping_request_operational('particulier')
+  end
+
   let!(:authenticated_user) { create(:user, :demandeur, :contact_technique, :contact_metier) }
   let!(:non_authenticated_user) { create(:user, :demandeur) }
   let!(:authorization_request) do
