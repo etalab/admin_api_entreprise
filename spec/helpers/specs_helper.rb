@@ -27,4 +27,11 @@ module SpecsHelper
       }.to_json
     )
   end
+
+  def stub_hyperping_request_monitor_down(api)
+    stub_request(:get, "https://api-#{api}.hyperping.app/api/config?hostname=api-#{api}.hyperping.app").and_return(
+      status: 200,
+      body: Rails.root.join('spec/support/hyperping_status_page_one_down.json').read
+    )
+  end
 end
