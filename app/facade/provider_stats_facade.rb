@@ -47,12 +47,20 @@ class ProviderStatsFacade
   def build_main_stats
     MetabaseEmbedService.new(
       resource: {
-        dashboard: 97
+        dashboard: main_stats_dashboard_id
       },
       params: {
         routes: routes.join(',')
       }
     ).url
+  end
+
+  def main_stats_dashboard_id
+    if @provider.uid == 'cnav'
+      102
+    else
+      97
+    end
   end
 
   def scopes
