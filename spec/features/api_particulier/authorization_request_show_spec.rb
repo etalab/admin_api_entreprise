@@ -27,11 +27,12 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
     create(:token, authorization_request:, exp:, blacklisted_at:, scopes:)
   end
 
-  let!(:old_tokens) do
+  let!(:other_tokens) do
     [
       create(:token, authorization_request:, exp: 1.day.ago, blacklisted_at: 1.day.from_now, scopes:),
       create(:token, authorization_request:, exp: 1.day.from_now, blacklisted_at: 1.day.ago, scopes:),
-      create(:token, authorization_request:, exp: 1.day.ago, blacklisted_at: 1.day.ago, scopes:)
+      create(:token, authorization_request:, exp: 1.day.ago, blacklisted_at: 1.day.ago, scopes:),
+      create(:token, authorization_request:, exp: 2.days.from_now, blacklisted_at: nil, scopes:)
     ]
   end
 
@@ -131,7 +132,6 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
 
             expect(page).to have_content('Banni')
             expect(page).to have_content(distance_of_time_in_words(Time.zone.now, banned_token.blacklisted_at))
-            expect(page).to have_content('0 appel les 7 derniers jours')
           end
 
           describe 'when the user is demandeur' do
@@ -154,9 +154,9 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
             end
 
             it 'displays the show token modal button' do
-              expect(page).to have_css('#show-token-modal-link')
+              expect(page).to have_css('#' << dom_id(token, :show))
 
-              click_link 'show-token-modal-link'
+              click_link dom_id(token, :show)
 
               expect(page).to have_content('Utiliser le jeton')
               expect(page).to have_content("Jeton d'accès")
@@ -218,9 +218,9 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
             end
 
             it 'displays the show modal button' do
-              expect(page).to have_css('#show-token-modal-link')
+              expect(page).to have_css('#' << dom_id(token, :show))
 
-              click_link 'show-token-modal-link'
+              click_link dom_id(token, :show)
 
               expect(page).to have_content('Utiliser le jeton')
               expect(page).to have_content("Jeton d'accès")
@@ -256,11 +256,11 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
               expect(page).to have_css('#contact_technique_its_me')
             end
 
-            it 'displays old tokens accordion' do
-              expect(page).to have_css('#old_tokens_accordion_button')
+            it 'displays others tokens accordion' do
+              expect(page).to have_css('#other_tokens_accordion_button')
 
-              old_tokens.each do |old_token|
-                expect(page).to have_css('#' << dom_id(old_token))
+              other_tokens.each do |other_token|
+                expect(page).to have_css('#' << dom_id(other_token))
               end
 
               expect(page).to have_no_css('#' << dom_id(token))
@@ -291,9 +291,9 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
             end
 
             it 'displays the show modal button' do
-              expect(page).to have_css('#show-token-modal-link')
+              expect(page).to have_css('#' << dom_id(token, :show))
 
-              click_link 'show-token-modal-link'
+              click_link dom_id(token, :show)
 
               expect(page).to have_content('Utiliser le jeton')
               expect(page).to have_content('demandeur')

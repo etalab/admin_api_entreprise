@@ -53,7 +53,6 @@
               </li>
             </ul>
             </div>
-
           </div>
         </section>
 
@@ -67,13 +66,6 @@
                 token: @main_token,
               }
             %>
-            <% @banned_tokens.each do |banned_token| %>
-              <%= render partial: 'shared/tokens/detail',
-                locals: {
-                  token: banned_token,
-                }
-              %>
-            <% end %>
             <ul class="fr-btns-group--right fr-btns-group--inline-sm fr-btns-group--inline-reverse fr-btns-group--icon-right">
               <li>
                 <%= render partial: "shared/tokens/reveal_token_button", locals: { token: @main_token } %>
@@ -120,10 +112,10 @@
           </div>
         </section>
 
-        <section id="habilitation_old_tokens_infos" class="fr-accordion fr-mb-8v">
+        <section id="habilitation_other_tokens_infos" class="fr-accordion fr-mb-8v">
           <h2 class="fr-h5 fr-accordion__title">
-            <button id="old_tokens_accordion_button" class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106">
-              <%= t('.old_tokens.title') %>
+            <button id="other_tokens_accordion_button" class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106">
+              <%= t('.other_tokens.title') %>
             </button>
           </h2>
           <div class="fr-collapse" id="accordion-106"/>
@@ -131,19 +123,25 @@
             <table>
               <thead>
                   <tr>
-                    <th scope="col"><%= t('.old_tokens.table.identifier')%></th>
-                    <th scope="col"><%= t('.old_tokens.table.created_at')%></th>
-                    <th scope="col"><%= t('.old_tokens.table.exp')%></th>
-                    <th scope="col"><%= t('.old_tokens.table.total_calls')%></th>
+                    <th scope="col"><%= t('.other_tokens.table.identifier')%></th>
+                    <th scope="col"><%= t('.other_tokens.table.status')%></th>
+                    <th scope="col"><%= t('.other_tokens.table.created_at')%></th>
+                    <th scope="col"><%= t('.other_tokens.table.exp')%></th>
+                    <th scope="col"><%= t('.other_tokens.table.see_more')%></th>
                   </tr>
               </thead>
               <tbody>
-                <% @inactive_tokens.each do |token| %>
+                <% @other_tokens.each do |token| %>
                   <tr id="<%= dom_id(token) %>" >
                     <td><%= token.id %></td>
+                    <td><%= t("shared.tokens.show.status.label.#{token.status}") %></td>
                     <td><%= friendly_date_from_timestamp(token.created_at) %></td>
                     <td><%= friendly_date_from_timestamp(token.exp) %></td>
-                    <td><%= @access_logs_counts[token] %></td>
+                    <td>
+                      <% if token.active? %>
+                        <%= render partial: "shared/tokens/reveal_token_button", locals: { token: token } %>
+                      <% end %>
+                    </td>
                   </tr>
                 <% end %>
               </tbody>
