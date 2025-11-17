@@ -1,7 +1,6 @@
 class ProviderController < ApplicationController
   include AuthenticatedUserManagement
 
-  before_action :user_is_provider?
   helper_method :current_provider
 
   layout 'provider'
@@ -14,6 +13,10 @@ class ProviderController < ApplicationController
 
   def user_is_provider?
     redirect_to_root unless current_user.provider_uids.any?
+  end
+
+  def user_is_current_provider?
+    redirect_to_root unless current_provider&.uid && current_user.provider_uids.include?(current_provider.uid)
   end
 
   def provider_klass
