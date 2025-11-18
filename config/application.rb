@@ -50,8 +50,6 @@ module AdminApientreprise
       expires_in: (7 * 24 * 60 * 60)
     )
 
-    config.active_support.to_time_preserves_timezone = :zone
-
     config.generators do |g|
       g.test_framework :rspec
       g.stylesheets false
