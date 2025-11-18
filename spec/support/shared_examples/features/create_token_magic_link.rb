@@ -1,15 +1,6 @@
 require 'rails_helper'
 
 RSpec.shared_examples 'a token magic link creation feature' do |options = {}|
-  # Extract required options
-  mailer_class = options[:mailer_class]
-  token_transfer_path_helper = options[:token_transfer_path_helper] || :token_transfer_path
-  token_create_magic_link_path_helper = options[:token_create_magic_link_path_helper] || :token_create_magic_link_path
-  login_path_helper = options[:login_path_helper] || :login_path
-  authorization_requests_path_helper = options[:authorization_requests_path_helper] || :authorization_requests_path
-  authorization_request_path_helper = options[:authorization_request_path_helper] || :authorization_request_path
-  api = options[:api]
-
   subject do
     visit send(token_transfer_path_helper, token)
     within("##{dom_id(token, :magic_link)}") do
@@ -17,6 +8,14 @@ RSpec.shared_examples 'a token magic link creation feature' do |options = {}|
       click_button
     end
   end
+
+  let(:mailer_class) { options[:mailer_class] }
+  let(:token_transfer_path_helper) { options[:token_transfer_path_helper] || :token_transfer_path }
+  let(:token_create_magic_link_path_helper) { options[:token_create_magic_link_path_helper] || :token_create_magic_link_path }
+  let(:login_path_helper) { options[:login_path_helper] || :login_path }
+  let(:authorization_requests_path_helper) { options[:authorization_requests_path_helper] || :authorization_requests_path }
+  let(:authorization_request_path_helper) { options[:authorization_request_path_helper] || :authorization_request_path }
+  let(:api) { options[:api] }
 
   let(:user) { create(:user) }
   let(:authorization_request) do

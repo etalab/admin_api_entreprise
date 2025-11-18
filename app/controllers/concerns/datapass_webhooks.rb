@@ -36,7 +36,7 @@ module DatapassWebhooks
     if result.success?
       handle_success(result)
     else
-      render json: {}, status: :unprocessable_entity
+      render json: {}, status: :unprocessable_content
     end
   end
 

@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 RSpec.shared_examples 'an authenticated users controller' do |options = {}|
-  # Extract required options
-  login_path_helper = options[:login_path_helper] || :login_path
+  let(:login_path_helper) { options[:login_path_helper] || :login_path }
 
   controller do
     def index

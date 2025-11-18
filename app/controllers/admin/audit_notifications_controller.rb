@@ -15,7 +15,7 @@ class Admin::AuditNotificationsController < AdminController
       redirect_to admin_audit_notifications_path
     else
       @audit_notification = result.audit_notification || AuditNotification.new(audit_notification_params)
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 

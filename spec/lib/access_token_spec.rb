@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe AccessToken do
   describe 'token encoding' do
-    payload = { data: 'test', more_data: 'verytest' }
-    token = described_class.create payload
+    let(:payload) { { data: 'test', more_data: 'verytest' } }
+    let(:token) { described_class.create payload }
 
     it 'returns a token from a hash payload' do
       expect(token).to be_a String
