@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.shared_examples 'a token magic link creation feature' do |options = {}|
+  mailer_class = options[:mailer_class] # rubocop:disable RSpec/LeakyLocalVariable
+
   subject do
     visit send(token_transfer_path_helper, token)
     within("##{dom_id(token, :magic_link)}") do
@@ -9,7 +11,6 @@ RSpec.shared_examples 'a token magic link creation feature' do |options = {}|
     end
   end
 
-  let(:mailer_class) { options[:mailer_class] }
   let(:token_transfer_path_helper) { options[:token_transfer_path_helper] || :token_transfer_path }
   let(:token_create_magic_link_path_helper) { options[:token_create_magic_link_path_helper] || :token_create_magic_link_path }
   let(:login_path_helper) { options[:login_path_helper] || :login_path }

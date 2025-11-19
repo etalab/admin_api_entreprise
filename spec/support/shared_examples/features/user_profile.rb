@@ -1,11 +1,12 @@
 require 'rails_helper'
 
 RSpec.shared_examples 'a user profile feature' do |options = {}|
+  check_user_info = options[:check_user_info].nil? || options[:check_user_info]
+
   subject(:go_to_profile) { visit send(user_profile_path_helper) }
 
   let(:user_profile_path_helper) { options[:user_profile_path_helper] || :user_profile_path }
   let(:login_path_helper) { options[:login_path_helper] || :login_path }
-  let(:check_user_info) { options[:check_user_info].nil? || options[:check_user_info] }
 
   let(:user) do
     if options[:with_token]
