@@ -17,7 +17,7 @@ class Admin::EditorsController < AdminController
     else
       error_message(title: 'Erreur lors de la mise à jour de l\'éditeur')
 
-      render 'edit', status: :unprocessable_entity
+      render 'edit', status: :unprocessable_content
     end
   end
 

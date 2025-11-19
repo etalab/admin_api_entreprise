@@ -1,15 +1,14 @@
 require 'rails_helper'
 
 RSpec.shared_examples 'a datapass signin process' do |options = {}|
-  # Extract required options
-  oauth_provider_key = options[:oauth_provider_key]
-  login_path_helper = options[:login_path_helper] || :login_path
-  authorization_requests_path_helper = options[:authorization_requests_path_helper] || :authorization_requests_path
-
   subject do
     visit send(login_path_helper)
     click_button 'login_pro_connect'
   end
+
+  let(:oauth_provider_key) { options[:oauth_provider_key] }
+  let(:login_path_helper) { options[:login_path_helper] || :login_path }
+  let(:authorization_requests_path_helper) { options[:authorization_requests_path_helper] || :authorization_requests_path }
 
   before do
     stub_request(:get, 'https://fca.integ01.dev-agentconnect.fr/api/v2/.well-known/openid-configuration')

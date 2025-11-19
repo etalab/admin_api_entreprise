@@ -66,21 +66,17 @@ RSpec.shared_examples 'static pages feature' do |options = {}|
 
   # Additional custom pages
   options[:additional_pages]&.each do |page_config|
-    path_helper = page_config[:path_helper]
-    path = page_config[:path]
-    content = page_config[:content]
-
     describe page_config[:name] do
       it 'does not raise error' do
         expect {
-          if path_helper
-            visit send(path_helper)
+          if page_config[:path_helper]
+            visit send(page_config[:path_helper])
           else
-            visit path
+            visit page_config[:path]
           end
         }.not_to raise_error
 
-        expect(page).to have_content(content) if content
+        expect(page).to have_content(page_config[:content]) if page_config[:content]
       end
     end
   end
