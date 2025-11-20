@@ -19,6 +19,7 @@ class INSEEAPIAuthentication < AbstractINSEEAPIClient
   def http_connection
     super do |conn|
       conn.request :retry, retry_options
+      conn.headers['Content-Type'] = 'application/x-www-form-urlencoded'
     end
   end
 
