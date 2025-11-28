@@ -16,7 +16,7 @@ constraints(APIEntrepriseDomainConstraint.new) do
 
     get '/stats', to: 'stats#index'
 
-    get '/auth/:provider/callback', to: 'sessions#create_from_oauth'
+    get '/auth/:provider/callback', to: 'sessions#create_from_oauth', constraints: { provider: /proconnect_api_entreprise|proconnect_api_particulier/ }
     get '/auth/failure', to: 'sessions#failure'
 
     get '/compte/se-connecter', to: 'sessions#new', as: :login
