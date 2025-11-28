@@ -35,7 +35,7 @@ module SessionsManagement
   end
 
   def user_params
-    request.env['omniauth.auth'].info
+    request.env['omniauth.auth'].info.slice('email', 'last_name', 'first_name', 'uid')
   end
 
   def login(interactor_call)
