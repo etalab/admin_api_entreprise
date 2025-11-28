@@ -8,7 +8,7 @@ constraints(APIParticulierDomainConstraint.new) do
   post '/auth/proconnect_api_particulier', as: :login_proconnect_particulier
 
   scope module: :api_particulier do
-    get '/auth/:provider/callback', to: 'sessions#create_from_oauth'
+    get '/auth/:provider/callback', to: 'sessions#create_from_oauth', constraints: { provider: /proconnect_api_entreprise|proconnect_api_particulier/ }
     get '/auth/failure', to: 'sessions#failure'
     get '/robots.txt', to: ->(env) { [200, {}, [File.read('config/seo/robots.txt') % { app: 'particulier' }]] }
     get '/status/apis', to: 'pages#current_status', as: :api_particulier_current_status

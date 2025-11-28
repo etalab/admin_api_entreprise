@@ -1,9 +1,16 @@
 module SessionsManagement
+  ALLOWED_OAUTH_PROVIDERS = %w[
+    proconnect_api_entreprise
+    proconnect_api_particulier
+  ].freeze
+
   def new
     redirect_current_user_to_homepage if user_signed_in?
   end
 
   def create_from_oauth
+    validate_oauth_callback!
+
     interactor_call = User::ProconnectLogin.call(user_params:)
 
     login(interactor_call)
@@ -32,6 +39,40 @@ module SessionsManagement
 
   def after_logout_path
     "/auth/proconnect_#{namespace}/logout"
+  end
+
+  def validate_oauth_callback!
+    unless ALLOWED_OAUTH_PROVIDERS.include?(params[:provider])
+      track_invalid_provider_attempt
+      redirect_to(login_path) and return
+    end
+
+    return if request.env['omniauth.auth']
+
+    track_missing_omniauth_data
+    redirect_to(login_path) and return
+  end
+
+  def track_invalid_provider_attempt
+    MonitoringService.instance.track(
+      'OAuth security: Invalid provider attempt',
+      level: 'info',
+      context: {
+        provider: params[:provider],
+        ip: request.remote_ip
+      }
+    )
+  end
+
+  def track_missing_omniauth_data
+    MonitoringService.instance.track(
+      'OAuth security: Missing OmniAuth data',
+      level: 'info',
+      context: {
+        provider: params[:provider],
+        ip: request.remote_ip
+      }
+    )
   end
 
   def user_params
