@@ -1,16 +1,20 @@
 module SessionsManagement
+  extend ActiveSupport::Concern
+
   ALLOWED_OAUTH_PROVIDERS = %w[
     proconnect_api_entreprise
     proconnect_api_particulier
   ].freeze
+
+  included do
+    before_action :validate_oauth_callback!, only: [:create_from_oauth]
+  end
 
   def new
     redirect_current_user_to_homepage if user_signed_in?
   end
 
   def create_from_oauth
-    validate_oauth_callback!
-
     interactor_call = User::ProconnectLogin.call(user_params:)
 
     login(interactor_call)
