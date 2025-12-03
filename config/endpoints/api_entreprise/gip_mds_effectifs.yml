@@ -41,12 +41,12 @@
     - 'handicap'
   data:
     description: |+
-      Cette API délivre, pour l'année demandée :
+      Cette API délivre, pour l'année demandée, jusqu'à 5 années en arrière :
       - **l'effectif moyen annuel (EMA)** de l'unité légale : Cet effectif décompte le nombre de salariés étant en contrat actif avec l'entreprise, [hors exceptions](#definition-ema) ;
       - **les effectifs liés à l'obligation d'emploi des travailleurs handicapés**, utilisés par l'URSSAF pour calculer le montant de la contribution due par l'employeur en cas d'effectif insuffisant :
-        - **EMA BOETH** : l'effectif annuel des bénéficiaires de l'obligation d’emploi des travailleurs handicapés. Cet effectif décompte le nombre de salariés de l'entreprise qui sont bénéficiaires de cette obligation. Les personnes bénéficiaires peuvent l'être en raison de [situations diverses](#situations-boeth). Pour le calcul de cet effectitf, toute personne employée par l'entreprise est prise en compte, y compris les stagiaires et les PMSMP (personnes accueillies pour des périodes de mise en situation en milieu professionnel) ;
-        - **EMA ECAP** : l'effectif annuel des emplois exigeant des conditions d’aptitudes particulières. Cet effectif décompte le nombre de salariés occupant un emploi qui, de par ses exigences en matière d'aptitude, rend difficile un recrutement de travailleurs handicapés. Cet effectif est utilisé par l'URSSAF pour le calcul d'une réduction de la contribution.
-        - **EMA OETH** ou effectif d'assujettissement OETH : Cet effectif décompte le nombre de salariés en contrat actif avec l'entreprise pour déterminer si l'entreprise est concernée par l'obligation. Il est différent de l'effectif moyen. [En savoir plus](#effectif-assujettissement-oeth).
+        - **EMA <abbr title="bénéficiaires de l'obligation d’emploi des travailleurs handicapés">BOETH</abbr>** : l'effectif annuel des bénéficiaires de l'obligation d’emploi des travailleurs handicapés. Cet effectif décompte le nombre de salariés de l'entreprise qui sont bénéficiaires de cette obligation, en incluant autant les employés que les stagiaires et <abbr title="personnes accueillies pour des périodes de mise en situation en milieu professionnel">PMSMP</abbr>. Les personnes bénéficiaires peuvent l'être en raison de [situations diverses](#situations-boeth).
+        - **EMA <abbr title="emplois exigeant des conditions d’aptitudes particulières">ECAP</abbr>** : l'effectif annuel des emplois exigeant des conditions d’aptitudes particulières. Cet effectif décompte le nombre de salariés occupant un emploi qui, de par ses exigences en matière d'aptitude, rend difficile un recrutement de travailleurs handicapés. Cet effectif est utilisé par l'URSSAF pour le calcul d'une réduction de la contribution.
+        - **EMA <abbr title="obligation d'emploi des travailleurs handicapés">OETH</abbr>** ou effectif d'assujettissement OETH : Cet effectif décompte le nombre de salariés en contrat actif avec l'entreprise pour déterminer si l'entreprise est concernée par l'obligation. Il est différent de l'effectif moyen. [En savoir plus](#effectif-assujettissement-oeth).
       
       {:.fr-highlight}
       > Les effectifs moyens annuels de l'unité légale sont construits à partir des effectifs moyens mensuels (EMM) de tous les établissements de l'unité.
@@ -174,12 +174,12 @@
   keywords: *gip_mds_effectifs_keywords
   data:
     description: |+
-      Cette API délivre, pour le mois demandé :
+      Cette API délivre, pour le mois demandé, jusqu'à 5 années en arrière :
       - **l'effectif moyen mensuel (EMM)** de l'établissement : Cet effectif décompte le nombre de salariés étant en contrat actif avec l'établissement, [hors exceptions](#definition-emm) ;
       - **les effectifs liés à l'obligation d'emploi des travailleurs handicapés**, utilisés par l'URSSAF pour calculer le montant de la contribution due par l'employeur en cas d'effectif insuffisant :
-        - **EMM BOETH** : l'effectif mensuel des bénéficiaires de l'obligation d’emploi des travailleurs handicapés. Cet effectif décompte le nombre de salariés de l'établissement (salariés, stagiaires et PMSMP) qui sont bénéficiaires de cette obligation. Les personnes bénéficiaires peuvent l'être en raison de [situations diverses](#situations-boeth). Pour le calcul de cet effectitf, toute personne employée par l'entreprise est prise en compte, y compris les stagiaires et les PMSMP (personnes accueillies pour des périodes de mise en situation en milieu professionnel) ;
-        - **EMM ECAP** : l'effectif mensuel des emplois exigeant des conditions d’aptitudes particulières. Cet effectif décompte le nombre de salariés occupant un emploi qui, de par ses exigences en matière d'aptitude, rend difficile un recrutement de travailleurs handicapés. Il est utilisé par l'URSSAF pour le calcul d'une réduction de la contribution.
-        - **EMM OETH** ou effectif d'assujettissement OETH : Cet effectif décompte le nombre de salariés en contrat actif avec l'établissement pour déterminer si l'établissement est concerné par l'obligation. Il est différent de l'effectif moyen. [En savoir plus](#effectif-assujettissement-oeth).
+        - **EMM <abbr title="bénéficiaires de l'obligation d’emploi des travailleurs handicapés">BOETH</abbr>** : l'effectif mensuel des bénéficiaires de l'obligation d’emploi des travailleurs handicapés. Cet effectif décompte le nombre de salariés de l'établissement qui sont bénéficiaires de cette obligation, en incluant autant les employés que les stagiaires et <abbr title="personnes accueillies pour des périodes de mise en situation en milieu professionnel">PMSMP</abbr>. Les personnes bénéficiaires peuvent l'être en raison de [situations diverses](#situations-boeth).
+        - **EMM <abbr title="emplois exigeant des conditions d’aptitudes particulières">ECAP</abbr>** : l'effectif mensuel des emplois exigeant des conditions d’aptitudes particulières. Cet effectif décompte le nombre de salariés occupant un emploi qui, de par ses exigences en matière d'aptitude, rend difficile un recrutement de travailleurs handicapés. Il est utilisé par l'URSSAF pour le calcul d'une réduction de la contribution.
+        - **EMM <abbr title="obligation d'emploi des travailleurs handicapés">OETH</abbr>** ou effectif d'assujettissement OETH : Cet effectif décompte le nombre de salariés en contrat actif avec l'établissement pour déterminer si l'établissement est concerné par l'obligation. Il est différent de l'effectif moyen. [En savoir plus](#effectif-assujettissement-oeth).
       
       {:.fr-highlight}
       > Les effectifs moyens mensuels de l'unité légale sont utilisés pour construire les effectifs moyens annuels (EMA) de l'entreprise.
