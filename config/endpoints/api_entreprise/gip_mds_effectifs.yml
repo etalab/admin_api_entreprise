@@ -6,7 +6,7 @@
   position: 152
   perimeter:
     entity_type_description: |+
-      Cette API permet d’accéder aux effectifs annuels de **✅ toutes les unités légales du régime général et du régime agricole** ayant des salariés, dont les associations ayant un SIREN.
+      Cette API permet d’accéder aux effectifs annuels de **✅ toutes les unités légales du régime général et du régime agricole ayant des salariés**, dont les associations ayant un SIREN.
       
       **Ne sont pas couverts par l'API :**
       - ❌ Les régimes spéciaux ;
@@ -36,7 +36,7 @@
     - 'BOETH'
     - 'OETH'
     - 'travailleurs handicapés'
-    - 'obligation d'emploi'
+    - 'obligation emploi'
     - 'ECAP'
     - 'handicap'
   data:
@@ -44,14 +44,13 @@
       Cette API délivre, pour l'année demandée :
       - **l'effectif moyen annuel (EMA)** de l'unité légale : Cet effectif décompte le nombre de salariés étant en contrat actif avec l'entreprise, [hors exceptions](#definition-ema) ;
       - **les effectifs liés à l'obligation d'emploi des travailleurs handicapés**, utilisés par l'URSSAF pour calculer le montant de la contribution due par l'employeur en cas d'effectif insuffisant :
-        - **EMA BOETH** : l'effectif annuel des bénéficiaires de l'obligation d’emploi des travailleurs handicapés. Cet effectif décompte le nombre de salariés de l'entreprise qui sont bénéficiaires de cette obligation. Les personnes bénéficiaires peuvent l'être en raison de [situations diverses](#situations-boeth). Pour le calcul de cet effectitf, toute personne employée par l'entreprise est prise en compte, y compris les stagiaires et les PMSMP (personnes accueillies pour des périodes de mise en situation en milieu
-professionnel) ;
+        - **EMA BOETH** : l'effectif annuel des bénéficiaires de l'obligation d’emploi des travailleurs handicapés. Cet effectif décompte le nombre de salariés de l'entreprise qui sont bénéficiaires de cette obligation. Les personnes bénéficiaires peuvent l'être en raison de [situations diverses](#situations-boeth). Pour le calcul de cet effectitf, toute personne employée par l'entreprise est prise en compte, y compris les stagiaires et les PMSMP (personnes accueillies pour des périodes de mise en situation en milieu professionnel) ;
         - **EMA ECAP** : l'effectif annuel des emplois exigeant des conditions d’aptitudes particulières. Cet effectif décompte le nombre de salariés occupant un emploi qui, de par ses exigences en matière d'aptitude, rend difficile un recrutement de travailleurs handicapés. Cet effectif est utilisé par l'URSSAF pour le calcul d'une réduction de la contribution.
-        - **EMA OETH ou effectif d'assujettissement OETH** : Cet effectif décompte le nombre de salariés en contrat actif avec l'entreprise pour déterminer si l'entreprise est concernée par l'obligation. Il est différent de l'effectif moyen. [En savoir plus](#effectif-assujettissement-oeth).
+        - **EMA OETH** ou effectif d'assujettissement OETH : Cet effectif décompte le nombre de salariés en contrat actif avec l'entreprise pour déterminer si l'entreprise est concernée par l'obligation. Il est différent de l'effectif moyen. [En savoir plus](#effectif-assujettissement-oeth).
       
-      
-      Les effectifs moyens annuels de l'unité légale sont construits à partir des effectifs moyens mensuels (EMM) de tous les établissements de l'unité.
-      Les données transmises sont issues du **répertoire commun des déclarants (RCD)** qui récupère les effectifs du régime général auprès de l'URSSAF et les données du régime agricole auprès de la MSA.
+      {:.fr-highlight}
+      > Les effectifs moyens annuels de l'unité légale sont construits à partir des effectifs moyens mensuels (EMM) de tous les établissements de l'unité.
+      > Les données transmises sont issues du **répertoire commun des déclarants (RCD)** qui récupère les effectifs du régime général auprès de l'URSSAF et les données du régime agricole auprès de la MSA.
 
       La profondeur de l'historique des effectifs disponible est de **5 ans**.
   opening: protected
@@ -112,10 +111,11 @@ professionnel) ;
           Le [bulletin officiel de la Sécurité sociale](https://boss.gouv.fr/portail/accueil/regles-dassujettissement/effectif.html#titre-chapitre-2---modalites-dapprecia-section-2---effectif-moyen-annue){:target="_blank"} présente les formules de calcul illustrées par des exemples types.
       - q: <a name="categories-sans-effectif"></a>Liste des catégories d'unités légales qui n'ont pas d'effectif
         a: &gip_mds_effectifs_a2 |+
-          - Les établissements fermés n'ont pas d'effectifs ;
-          - Les auto-entrepreneurs non plus ;
-          - Les entreprises indiquées par l'Insee comme "unité non-employeuse" non plus, même si de rares erreurs sont parfois observées ;
-          - Certaines administrations et collectivités territoriales n'ont pas de salariés, car elles n'ont que des fonctionnaires qui ne sont pas au régime général (et donc ne sont pas couverts par cette API). Celles qui embauchent des contractuels (en CDD ou CDI) ont un effectif qui ne couvre que cette catégorie de personnel.
+          Les unités légales suivantes n'ont pas d'effectif : 
+          - Les unités légales et établissements fermés ;
+          - Les auto-entrepreneurs ;
+          - Les entreprises indiquées par l'Insee comme "unité non-employeuse" même si de rares erreurs sont parfois observées ;
+          - Certaines administrations et collectivités territoriales car elles n'ont que des fonctionnaires qui ne sont pas au régime général (et donc ne sont pas couverts par cette API). Celles qui embauchent des contractuels (en CDD ou CDI) ont un effectif qui ne couvre que cette catégorie de personnel.
       - q: <a name="situations-boeth"></a>Qui est bénéficiaire de l'OETH ?
         a: &gip_mds_effectifs_a3 |+
           Le statut "bénéficiaire de l'obligation d'emploi des travailleurs handicapés" couvre des siutations différentes: 
@@ -153,7 +153,7 @@ professionnel) ;
   position: 153
   perimeter:
     entity_type_description: |+
-      Cette API permet d’accéder aux effectifs mensuels de **✅ tous les établissements du régime général et du régime agricole** ayant des salariés, dont les associations ayant un SIREN.
+      Cette API permet d’accéder aux effectifs mensuels de **✅ tous les établissements du régime général et du régime agricole ayant des salariés**, dont les associations ayant un SIREN.
       
       **Ne sont pas couverts par l'API :**
       - ❌ Les régimes spéciaux ;
@@ -177,13 +177,13 @@ professionnel) ;
       Cette API délivre, pour le mois demandé :
       - **l'effectif moyen mensuel (EMM)** de l'établissement : Cet effectif décompte le nombre de salariés étant en contrat actif avec l'établissement, [hors exceptions](#definition-emm) ;
       - **les effectifs liés à l'obligation d'emploi des travailleurs handicapés**, utilisés par l'URSSAF pour calculer le montant de la contribution due par l'employeur en cas d'effectif insuffisant :
-        - **EMM BOETH** : l'effectif mensuel des bénéficiaires de l'obligation d’emploi des travailleurs handicapés. Cet effectif décompte le nombre de salariés de l'établissement (salariés, stagiaires et PMSMP) qui sont bénéficiaires de cette obligation. Les personnes bénéficiaires peuvent l'être en raison de [situations diverses](#situations-boeth). Pour le calcul de cet effectitf, toute personne employée par l'entreprise est prise en compte, y compris les stagiaires et les PMSMP (personnes accueillies pour des périodes de mise en situation en milieu
-professionnel) ;
+        - **EMM BOETH** : l'effectif mensuel des bénéficiaires de l'obligation d’emploi des travailleurs handicapés. Cet effectif décompte le nombre de salariés de l'établissement (salariés, stagiaires et PMSMP) qui sont bénéficiaires de cette obligation. Les personnes bénéficiaires peuvent l'être en raison de [situations diverses](#situations-boeth). Pour le calcul de cet effectitf, toute personne employée par l'entreprise est prise en compte, y compris les stagiaires et les PMSMP (personnes accueillies pour des périodes de mise en situation en milieu professionnel) ;
         - **EMM ECAP** : l'effectif mensuel des emplois exigeant des conditions d’aptitudes particulières. Cet effectif décompte le nombre de salariés occupant un emploi qui, de par ses exigences en matière d'aptitude, rend difficile un recrutement de travailleurs handicapés. Il est utilisé par l'URSSAF pour le calcul d'une réduction de la contribution.
-        - **EMM OETH ou effectif d'assujettissement OETH** : Cet effectif décompte le nombre de salariés en contrat actif avec l'établissement pour déterminer si l'établissement est concerné par l'obligation. Il est différent de l'effectif moyen. [En savoir plus](#effectif-assujettissement-oeth).
+        - **EMM OETH** ou effectif d'assujettissement OETH : Cet effectif décompte le nombre de salariés en contrat actif avec l'établissement pour déterminer si l'établissement est concerné par l'obligation. Il est différent de l'effectif moyen. [En savoir plus](#effectif-assujettissement-oeth).
       
-      Les effectifs moyens mensuels de l'unité légale sont utilisés pour construire les effectifs moyens annuels (EMA) de l'entreprise.
-      Les données transmises sont issues du **répertoire commun des déclarants (RCD)** qui récupère les effectifs du régime général auprès de l'URSSAF et les données du régime agricole auprès de la MSA.
+      {:.fr-highlight}
+      > Les effectifs moyens mensuels de l'unité légale sont utilisés pour construire les effectifs moyens annuels (EMA) de l'entreprise.
+      > Les données transmises sont issues du **répertoire commun des déclarants (RCD)** qui récupère les effectifs du régime général auprès de l'URSSAF et les données du régime agricole auprès de la MSA.
 
       La profondeur de l'historique des effectifs mensuels disponible est de **5 ans**. [En savoir plus sur les options d'appel de l'historique](#options-appel-historique).
   opening: protected
