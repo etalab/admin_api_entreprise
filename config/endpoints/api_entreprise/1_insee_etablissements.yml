@@ -3,6 +3,32 @@
   position: 105
   path: '/v3/insee/sirene/etablissements/{siret}'
   ping_url: 'https://entreprise.api.gouv.fr/ping/insee/sirene'
+  alert: &insee_naf_2025_alert
+    title: "Nouvelle version de cette API à partir du 1er janvier 2026<br/>pour intégrer la NAF 2025"
+    description: |+
+      L'Insee va déployer une nouvelle nomenclature d'activités françaises, la NAF&nbsp;2025, qui remplacera la NAF Rév.2 actuellement utilisée. 
+
+      **L'API Entreprise mettra à disposition une nouvelle version de cette API**, à compter du 1er janvier 2026, qui intègrera la nomenclature NAF 2025 pour les attributs de l'activité principale.
+      **La version actuelle de cette API continuera de fonctionner** avec la nomenclature NAF Rév.2.
+      <br/>
+
+      {:.fr-icon-arrow-right-line .fr-link--icon-right}
+      [En savoir plus sur la nomenclature NAF 2025 sur le site de l'Insee](https://www.insee.fr/fr/information/8181066){:target="_blank"}
+  historique: &insee_naf_2025_historique |+
+    **Évolution de la nomenclature NAF au 1er janvier 2026 :**
+
+    L'Insee introduit une nouvelle nomenclature d'activités française, la NAF 2025, qui viendra remplacer progressivement la NAF Rév.2 à partir du 1er janvier 2026.
+
+    **Ce qui change :**
+    - Une nouvelle version de cette API sera disponible avec les codes NAF 2025
+    - La structure des codes d'activité évolue pour mieux refléter l'économie actuelle
+
+    **Ce qui ne change pas :**
+    - Cette version de l'API continue de fonctionner normalement avec la nomenclature NAF Rév.2
+    - Les codes NAF actuels restent disponibles via cette version de l'API
+
+    {:.fr-icon-arrow-right-line .fr-link--icon-right}
+    [En savoir plus sur la nomenclature NAF 2025](https://www.insee.fr/fr/information/8181066){:target="_blank"}
   perimeter:
     entity_type_description: |+
       **Cette API concerne les établissements inscrits au répertoire Sirene** :
@@ -134,6 +160,8 @@
   position: 100
   ping_url: 'https://entreprise.api.gouv.fr/ping/insee/sirene'
   path: '/v3/insee/sirene/etablissements/diffusibles/{siret}'
+  alert: *insee_naf_2025_alert
+  historique: *insee_naf_2025_historique
   perimeter:
     entity_type_description: |+
       **Cette API concerne les établissements inscrits au répertoire Sirene** :
