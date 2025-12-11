@@ -22,7 +22,7 @@ class TokenStatsFacade
   private
 
   def build_stats(interval)
-    MetabaseEmbedService.new(resource: { question: 633 }, params: build_params(interval)).url
+    MetabaseEmbedService.new(resource: { question: 177 }, params: build_params(interval)).url
   end
 
   def build_params(interval)
