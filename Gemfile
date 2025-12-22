@@ -50,7 +50,7 @@ gem 'turbo-rails'
 gem 'uri', '1.1.1'
 gem 'wicked'
 
-gem 'connection_pool', '2.5.5'
+gem 'connection_pool', '3.0.2'
 
 group :development, :test do
   gem 'awesome_print'
