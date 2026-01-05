@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'anchored'
-gem 'bcrypt', '~> 3.1.20'
+gem 'bcrypt', '~> 3.1.21'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'chronic'
 gem 'csv'
@@ -50,7 +50,7 @@ gem 'turbo-rails'
 gem 'uri', '1.1.1'
 gem 'wicked'
 
-gem 'connection_pool', '< 3.0'
+gem 'connection_pool', '< 4.0'
 
 group :development, :test do
   gem 'awesome_print'
