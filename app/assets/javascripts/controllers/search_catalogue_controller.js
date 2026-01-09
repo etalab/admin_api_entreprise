@@ -2,7 +2,7 @@ document.addEventListener("turbo:load", function () {
   window.Stimulus.register(
     "search-catalogue",
     class extends window.StimulusController {
-      static targets = ["input", "card", "noResults", "title", "description"];
+      static targets = ["input", "card", "noResults", "title", "description", "matchingKeywords"];
 
       connect() {
         const params = new URLSearchParams(window.location.search);
@@ -14,18 +14,38 @@ document.addEventListener("turbo:load", function () {
       }
 
       filter() {
-        const query = this._normalize(this.inputTarget.value);
-        this._updateUrl(this.inputTarget.value);
+        const rawQuery = this.inputTarget.value;
+        const query = this._normalize(rawQuery);
+        this._updateUrl(rawQuery);
+
+        if (query.length < 3) {
+          this.cardTargets.forEach((card, index) => {
+            card.style.display = "";
+            this._updateHighlight(index, "");
+            this._updateMatchingKeywords(index, "", []);
+          });
+          if (this.hasNoResultsTarget) {
+            this.noResultsTarget.style.display = "none";
+          }
+          return;
+        }
+
         let visibleCount = 0;
 
         this.cardTargets.forEach((card, index) => {
           const searchableText = this._normalize(card.dataset.searchable);
-          const isVisible = query === "" || searchableText.includes(query);
+          const keywords = JSON.parse(card.dataset.keywords || "[]");
+          const matchingKeywords = this._findMatchingKeywords(query, keywords);
+
+          const matchesText = searchableText.includes(query);
+          const matchesKeywords = matchingKeywords.length > 0;
+          const isVisible = matchesText || matchesKeywords;
 
           card.style.display = isVisible ? "" : "none";
           if (isVisible) visibleCount++;
 
           this._updateHighlight(index, query);
+          this._updateMatchingKeywords(index, query, matchingKeywords);
         });
 
         if (this.hasNoResultsTarget) {
@@ -38,6 +58,53 @@ document.addEventListener("turbo:load", function () {
           .toLowerCase()
           .normalize("NFD")
           .replace(/[\u0300-\u036f]/g, "");
+      }
+
+      _findMatchingKeywords(query, keywords) {
+        if (!query || keywords.length === 0) return [];
+
+        const queryWords = query.split(/\s+/).filter(w => w.length > 0);
+        if (queryWords.length === 0) return [];
+
+        const matchedKeywords = [];
+        const unmatchedWords = [];
+
+        for (const word of queryWords) {
+          const matchingKeyword = keywords.find(keyword => {
+            const normalizedKeyword = this._normalize(keyword);
+            return normalizedKeyword.includes(word);
+          });
+
+          if (matchingKeyword) {
+            if (!matchedKeywords.includes(matchingKeyword)) {
+              matchedKeywords.push(matchingKeyword);
+            }
+          } else {
+            unmatchedWords.push(word);
+          }
+        }
+
+        if (unmatchedWords.length > 0) return [];
+
+        return matchedKeywords;
+      }
+
+      _updateMatchingKeywords(cardIndex, query, matchingKeywords) {
+        const element = this.matchingKeywordsTargets[cardIndex];
+        if (!element) return;
+
+        if (query === "" || matchingKeywords.length === 0) {
+          element.style.display = "none";
+          element.innerHTML = "";
+          return;
+        }
+
+        const tags = matchingKeywords.map(keyword => {
+          return '<li><p class="fr-tag fr-tag--sm">' + keyword + '</p></li>';
+        }).join("");
+
+        element.innerHTML = '<u>Mots clés correspondants</u> :<ul class="fr-tags-group fr-tags-group--sm fr-mt-1v fr-mb-0">' + tags + '</ul>';
+        element.style.display = "";
       }
 
       _updateHighlight(cardIndex, query) {
@@ -61,15 +128,12 @@ document.addEventListener("turbo:load", function () {
         }
 
         const original = element.dataset.originalText;
-        const normalizedOriginal = this._normalize(original);
         const normalizedQuery = query;
 
         let result = "";
         let i = 0;
 
         while (i < original.length) {
-          const normalizedChar = this._normalize(original.charAt(i));
-          let matchLength = 0;
           let j = 0;
 
           while (
