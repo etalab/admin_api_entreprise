@@ -6,7 +6,11 @@
   path: '/v4/insee/sirene/etablissements/{siret}'
   ping_url: &insee_etablissements_ping_url 'https://entreprise.api.gouv.fr/ping/insee/sirene'
   historique: &insee_v4_etablissements_historique |+
+    **Ce que change cette nouvelle version de l'API par rapport à la précédente :**
     Cette version utilise la nomenclature **NAF Rév.2025** pour l'activité principale. L'ancienne nomenclature NAF Rév.2 reste disponible dans la clé `activite_principale_naf_rev2`.
+    
+    **Ce qui ne change pas :**
+    Tout le reste est identique.
   perimeter: &insee_etablissements_perimeter
     entity_type_description: &insee_etablissements_entity_type_description |+
       **Cette API concerne les établissements inscrits au répertoire Sirene** :
@@ -141,7 +145,11 @@
   ping_url: *insee_etablissements_ping_url
   path: '/v4/insee/sirene/etablissements/diffusibles/{siret}'
   historique: &insee_v4_etablissements_diffusibles_historique |+
+    **Ce que change cette nouvelle version de l'API par rapport à la précédente :**
     Cette version utilise la nomenclature **NAF Rév.2025** pour l'activité principale. L'ancienne nomenclature NAF Rév.2 reste disponible dans la clé `activite_principale_naf_rev2`.
+    
+    **Ce qui ne change pas :**
+    Tout le reste est identique.
   perimeter:
     entity_type_description: |+
       **Cette API concerne les établissements inscrits au répertoire Sirene** :
