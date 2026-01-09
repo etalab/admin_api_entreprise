@@ -558,6 +558,47 @@ paths:
                     type: object
                   meta:
                     type: object
+                    properties:
+                      identity_matching:
+                        title: Résultats de la vérification d'identité
+                        type: object
+                        description: Résultats de la comparaison entre l'identité
+                          FranceConnect et l'identité du demandeur d'immatriculation.
+                          A noter que la validation demande exclusivement une correspondance
+                          sur le nom de famille et le prénom. La correspondance sur
+                          la date de naissance n'est pas prise en compte dans cette
+                          validation mais est fournie à titre informatif.
+                        properties:
+                          family_name:
+                            title: Nom de famille correspond
+                            type: number
+                            format: float
+                            description: Indique si le nom de famille correspond entre
+                              FranceConnect et l'identité ANTS.
+                            example: 1.0
+                          given_name:
+                            title: Prénom correspond
+                            type: number
+                            format: float
+                            description: Indique si le prénom correspond entre FranceConnect
+                              et l'identité ANTS.
+                            example: 1.0
+                          birth_date:
+                            title: Date de naissance correspond
+                            type: number
+                            format: float
+                            description: Indique si la date de naissance correspond
+                              entre FranceConnect et l'identité ANTS.
+                            example: 0.0
+                          overall_match:
+                            title: Correspondance globale
+                            type: boolean
+                            description: Indique si l'identité correspond globalement
+                              (nom de famille et prénom).
+                            example: true
+                    required:
+                    - identity_matching
+                    additionalProperties: false
                 required:
                 - data
                 - links
@@ -2948,8 +2989,11 @@ paths:
                             code_cog_insee_commune_naissance:
                               title: COG de la commune de naissance
                               type: string
+                              nullable: true
                               description: Code officiel géographique (COG) de la
-                                commune de naissance
+                                commune de naissance. Ce champ peut être null, notamment
+                                pour les co-allocataires (il n'est généralement renvoyé
+                                que pour l'allocataire principal demandé).
                               example: '75113'
                       enfants:
                         type: array
@@ -2994,9 +3038,12 @@ paths:
                             code_cog_insee_commune_naissance:
                               title: COG de la commune de naissance
                               type: string
+                              nullable: true
                               description: Code officiel géographique (COG) de la
-                                commune de naissance
-                              example: '75113'
+                                commune de naissance. Ce champ peut être null pour
+                                les enfants (il n'est généralement renvoyé que pour
+                                l'allocataire principal demandé).
+                              example:
                       adresse:
                         title: Adresse de la famille
                         type: object
@@ -3063,7 +3110,7 @@ paths:
                             description: Nombre d'enfants à charge des allocataires
                             type: integer
                             example: 2
-                          nombre_enfants_beneficiaire_AEEH:
+                          nombre_enfants_beneficiaire_aeeh:
                             title: Nombre d'enfants beneficiaire de l'AEEH
                             description: Nombre d'enfants beneficiaire de l'AEEH
                             type: integer
@@ -3096,7 +3143,7 @@ paths:
                             - annee_calcul
                         required:
                         - nombre_enfants_a_charge
-                        - nombre_enfants_beneficiaire_AEEH
+                        - nombre_enfants_beneficiaire_aeeh
                         - base_ressources_annuelles
                     required:
                     - allocataires
@@ -3346,8 +3393,11 @@ paths:
                             code_cog_insee_commune_naissance:
                               title: COG de la commune de naissance
                               type: string
+                              nullable: true
                               description: Code officiel géographique (COG) de la
-                                commune de naissance
+                                commune de naissance. Ce champ peut être null, notamment
+                                pour les co-allocataires (il n'est généralement renvoyé
+                                que pour l'allocataire principal demandé).
                               example: '75113'
                       enfants:
                         type: array
@@ -3392,9 +3442,12 @@ paths:
                             code_cog_insee_commune_naissance:
                               title: COG de la commune de naissance
                               type: string
+                              nullable: true
                               description: Code officiel géographique (COG) de la
-                                commune de naissance
-                              example: '75113'
+                                commune de naissance. Ce champ peut être null pour
+                                les enfants (il n'est généralement renvoyé que pour
+                                l'allocataire principal demandé).
+                              example:
                       adresse:
                         title: Adresse de la famille
                         type: object
@@ -3461,7 +3514,7 @@ paths:
                             description: Nombre d'enfants à charge des allocataires
                             type: integer
                             example: 2
-                          nombre_enfants_beneficiaire_AEEH:
+                          nombre_enfants_beneficiaire_aeeh:
                             title: Nombre d'enfants beneficiaire de l'AEEH
                             description: Nombre d'enfants beneficiaire de l'AEEH
                             type: integer
@@ -3494,7 +3547,7 @@ paths:
                             - annee_calcul
                         required:
                         - nombre_enfants_a_charge
-                        - nombre_enfants_beneficiaire_AEEH
+                        - nombre_enfants_beneficiaire_aeeh
                         - base_ressources_annuelles
                     required:
                     - allocataires
@@ -8547,7 +8600,7 @@ paths:
         description: |
           Code d'unité administrative immatriculée (code UAI) de l'établissement où est scolarisé l'élève. Ce code unique inscrit au répertoire national des établissements est composé de 7 chiffres et d'une lettre ; les trois premiers chiffres correspondent au numéro de département de l'établissement.
 
-          Pour retrouver facilement le code UAI d'un établissement à partir d'informations plus facilement connues des usagers (commune, code postal, etc.), vous pouvez utiliser l'[API "Annuaire de l'éducation nationale"](https://www.data.gouv.fr/dataservices/annuaire-de-leducation-nationale/).
+          Pour retrouver facilement le code UAI d'un établissement à partir d'informations plus facilement connues des usagers (commune, code postal, etc.), vous pouvez utiliser l'[API "Annuaire de l'éducation nationale"](https://api.gouv.fr/les-api/api-annuaire-education).
 
           ⚠️ L'établissement 0861288H (CNED Direction générale) n'existe pas dans l'API annuaire de l'éducation nationale, il faudra donc compléter la liste des établissements avec une ligne CNED à laquelle sera associée le code UAI qui sera en passé en entrée.
         example: 0210015C
@@ -8728,7 +8781,7 @@ paths:
                             description: |
                               Code d'unité administrative immatriculée (code UAI) de l'établissement où est scolarisé l'élève. Ce code unique inscrit au répertoire national des établissements est composé de 7 chiffres et d'une lettre ; les trois premiers chiffres correspondent au numéro de département de l'établissement.
 
-                              Pour retrouver le nom de l'établissement, vous pouvez utiliser l'[API "Annuaire de l'éducation nationale"](https://www.data.gouv.fr/dataservices/annuaire-de-leducation-nationale/) ou le site https://annuaire-education.fr.
+                              Pour retrouver le nom de l'établissement, vous pouvez utiliser l'[API "Annuaire de l'éducation nationale"](https://api.gouv.fr/les-api/api-annuaire-education) ou le site https://annuaire-education.fr.
                             type: string
                             pattern: "^\\d{7}\\w$"
                             example: 0210015C
@@ -9252,7 +9305,7 @@ paths:
                                 d'enseignement supérieur dans lequel l'étudiant est
                                 admis. \n\nPour retrouver d'autres informations sur
                                 l'établissement, vous pouvez utiliser l'[API \"Annuaire
-                                de l'éducation nationale\"](https://www.data.gouv.fr/dataservices/annuaire-de-leducation-nationale/)
+                                de l'éducation nationale\"](https://api.gouv.fr/les-api/api-annuaire-education)
                                 ou le site https://annuaire-education.fr.\n"
                               type: object
                               properties:
@@ -9570,7 +9623,7 @@ paths:
                                 d'enseignement supérieur dans lequel l'étudiant est
                                 admis. \n\nPour retrouver d'autres informations sur
                                 l'établissement, vous pouvez utiliser l'[API \"Annuaire
-                                de l'éducation nationale\"](https://www.data.gouv.fr/dataservices/annuaire-de-leducation-nationale/)
+                                de l'éducation nationale\"](https://api.gouv.fr/les-api/api-annuaire-education)
                                 ou le site https://annuaire-education.fr.\n"
                               type: object
                               properties:
@@ -9844,7 +9897,7 @@ paths:
                                 d'enseignement supérieur dans lequel l'étudiant est
                                 admis. \n\nPour retrouver d'autres informations sur
                                 l'établissement, vous pouvez utiliser l'[API \"Annuaire
-                                de l'éducation nationale\"](https://www.data.gouv.fr/dataservices/annuaire-de-leducation-nationale/)
+                                de l'éducation nationale\"](https://api.gouv.fr/les-api/api-annuaire-education)
                                 ou le site https://annuaire-education.fr.\n"
                               type: object
                               properties:
