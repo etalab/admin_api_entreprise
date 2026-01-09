@@ -36,7 +36,7 @@ RSpec.describe APIEntreprise::Endpoint do
 
     let(:uid) { 'insee/unites_legales' }
 
-    its(:path) { is_expected.to eq('/v3/insee/sirene/unites_legales/{siren}') }
+    its(:path) { is_expected.to eq('/v4/insee/sirene/unites_legales/{siren}') }
 
     its(:perimeter) { is_expected.to be_present }
     its(:opening) { is_expected.to be_present }
