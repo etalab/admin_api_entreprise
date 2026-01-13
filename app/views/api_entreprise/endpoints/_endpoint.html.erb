@@ -1,4 +1,4 @@
-<div class="fr-col-xs-12 fr-col-sm-6 fr-col-lg-4 fr-p-2v" id="<%= dom_id(endpoint) %>">
+<div class="fr-col-xs-12 fr-col-sm-6 fr-col-lg-4 fr-p-2v" id="<%= dom_id(endpoint) %>" data-search-catalogue-target="card" data-searchable="<%= [endpoint.title, endpoint.description, endpoint.providers.map(&:name).join(' ')].join(' ') %>" data-keywords="<%= (endpoint.keywords || []).to_json %>">
   <article class="endpoint-card fr-grid-card">
     <header>
       <div>
@@ -6,7 +6,7 @@
       </div>
       <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--start">
         <div class="fr-col-8">
-          <h3 class="fr-h5">
+          <h3 class="fr-h5" data-search-catalogue-target="title">
             <%= endpoint.title %>
           </h3>
         </div>
@@ -20,9 +20,11 @@
     </header>
 
     <section class="body">
-      <div class="description fr-text--sm fr-mb-0">
+      <div class="description fr-text--sm fr-mb-0" data-search-catalogue-target="description">
         <%= endpoint.description %>
       </div>
+
+      <div class="fr-text--sm fr-mt-1v" data-search-catalogue-target="matchingKeywords" style="display: none;"></div>
 
       <% if endpoint.perimeter['entities'].present? %>
         <ul class="list-unstyled fr-pl-0 fr-mt-2w">

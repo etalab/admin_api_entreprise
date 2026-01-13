@@ -1,4 +1,4 @@
-<div id="catalogue" class="fr-mb-1v">
+<div id="catalogue" class="fr-mb-1v" data-controller="search-catalogue">
   <div class="banner-container">
     <div class="fr-container">
       <div class="fr-grid-row">
@@ -9,6 +9,23 @@
                 <h1>
                   <%= t('.title') %>
                 </h1>
+
+                <div class="fr-search-bar fr-search-bar--lg fr-mt-4v" role="search">
+                  <label class="fr-label" for="catalogue-search-input">
+                    <%= t('.search.label') %>
+                  </label>
+                  <input
+                    class="fr-input"
+                    placeholder="<%= t('.search.placeholder') %>"
+                    type="search"
+                    id="catalogue-search-input"
+                    data-search-catalogue-target="input"
+                    data-action="input->search-catalogue#filter"
+                  >
+                  <button class="fr-btn" title="<%= t('.search.button') %>" type="button">
+                    <%= t('.search.button') %>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -22,6 +39,10 @@
       <div class="fr-col-12">
         <div class="fr-grid-row">
           <%= render @endpoints %>
+        </div>
+
+        <div class="fr-alert fr-alert--info fr-mt-4v" data-search-catalogue-target="noResults" style="display: none;">
+          <p><%= t('.search.no_results') %></p>
         </div>
       </div>
     </div>
