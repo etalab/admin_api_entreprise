@@ -2,6 +2,273 @@
 fr:
   api_entreprise:
     cas_usages_entries:
+
+      socle_de_base:
+        name: 'Socle de base DLNUF'
+        user_types:
+          - accessible à toute administration
+        endpoints:
+          - insee/etablissements_diffusibles
+          - infogreffe/rcs/extrait
+          - ministere_interieur/rna
+          - cma_france/rnm
+          - djepva/associations_open_data
+          - insee/adresse_etablissements_diffusibles
+          - insee/unites_legales_diffusibles
+          - insee/siege_social_diffusibles
+          - fabrique_numerique_ministeres_sociaux/conventions_collectives
+          - douanes/immatriculation_eori
+          - ministere_interieur/documents_associations
+          - fntp/carte_professionnelle_travaux_public
+          - agence_bio/certifications_bio
+          - ademe/certifications_rge
+          - qualibat/v3/certifications_batiment
+          - qualibat/certifications_batiment
+          - opqibi/qualifications_ingenierie
+          - qualifelec/certificats
+          - commission_europeenne/numero_tva
+          - inpi/rne/actes_bilans
+          - inpi/rne/attestation_immatriculation
+          - insee/etablissements
+          - insee/adresse_etablissements
+          - insee/siege_social
+          - insee/unites_legales
+          - djepva/associations
+          - data_subvention/subventions
+        endpoints_forbidden:
+          - infogreffe/mandataires_sociaux
+          - dgfip/chiffres_affaires
+          - banque_de_france/bilans
+          - dgfip/liasses_fiscales
+          - dgfip/attestations_fiscales
+          - dgfip/v3/attestations_fiscales
+          - urssaf/attestation_vigilance
+          - urssaf/v3/attestation_vigilance
+          - msa/conformites_cotisations
+          - probtp/conformites_cotisations_retraite
+          - cnetp/attestations_cotisations_conges_payes_chomage_intemperies
+          - cibtp/attestations_cotisations_conges_payes_chomage_intemperies
+          - carif_oref/certifications_qualiopi_france_competences
+          - gip_mds/effectifs_annuels_unite_legale
+          - gip_mds/effectifs_mensuels_etablissement
+          - dgfip/liens_capitalistiques
+          - inpi/rne/beneficiaires_effectifs
+
+        comments_endpoints:
+          "insee/etablissements_diffusibles": "Préremplir ou récupérer les informations d'un **établissement et de son unité légale, à partir de son numéro de SIRET** : _raison sociale, forme juridique, catégorie micro/TPE/PME de l'unité légale. Tranche effectif (année N-2 ou N-3), activité principale et date de création de l'établissement et de l'unité légale. Indique aussi si l'unité légale est de l'économie sociale et solidaire (ESS)._"
+
+          "insee/etablissements": "Mêmes données que l'API ci-dessus ⬆️ avec en plus les informations protégées des établissements \"en diffusion partielle\".<br><br>🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
+
+          "infogreffe/mandataires_sociaux": "_L'accès à cette donnée requiert un cas d'usage spécifique._"
+
+          "infogreffe/rcs/extrait": "Préremplir presque toutes les informations contenues dans un **Kbis**, telles que _le nom commercial et la dénomination de l'unité légale._<br>💡 _Depuis le 23 novembre 2021, l'extrait K-bis ne peut plus être demandé à l'entreprise. [Consulter le décrêt](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000043523039){:target='_blank'}_."
+
+          "insee/unites_legales_diffusibles": "💡_Ces données sont aussi distribuées par l'API \"Données établissement en open data\"_."
+
+          "insee/unites_legales": "💡_Ces données sont aussi distribuées par l'API \"Données établissement\"_."
+
+          "insee/siege_social_diffusibles": "À&nbsp;partir du Siren de l'unité légale, récupérer les informations du siège social."
+
+          "insee/siege_social": "Mêmes données que l'API ci-dessus ⬆️ avec en plus les informations protégées des sièges sociaux \"en diffusion partielle\"..<br><br>🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
+
+          "insee/adresse_etablissements_diffusibles": "💡_Ces données sont aussi distribuées par l'API \"Données établissement en open data\"._"
+
+          "insee/adresse_etablissements": "💡_Ces données sont aussi distribuées par l'API \"Données établissement\"._"
+
+          "insee/successions": "Le SIRET d'un établissement peut évoluer dans le temps, _par exemple lors d'un changement d'adresse_. Cette API permet de retrouver les établissements prédecesseurs et successeurs d'un établissement et précise s'il s'agit d'un changement de siège, et s'il y a continuité économique."
+
+          "djepva/associations": "**Informations d'une association** (unité légale et établissement) telles que _l'identité, la forme juridique, la date de création, les activités principales, le régime, les adresses, les agréments, les représentants légaux, les effectifs salariés-bénévoles-volontaires et les adhérents._<br><br>**Informations financières** : Comptes de résultats et financement, comptes du dernier exercice clôt, budget prévisionnel et rapport du commissaire au compte de l'association.<br><br>🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
+
+          "djepva/associations_open_data": "**Informations d'une association** (unité légale et établissement) **en open data** et qui peuvent donc être utilisées pour pré-remplir la démarche, sans pré-authentification de l'usager."
+
+          "data_subvention/subventions": "Connaître les subventions accordées à une association.<br><br>🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
+
+          "inpi/rne/beneficiaires_effectifs": "_L'accès à cette donnée requiert un cas d'usage spécifique._"
+
+          "inpi/rne/actes_bilans": "Consulter les actes pour se renseigner sur l'historique des modifications de l'unité légale et vérifier les associés. Consulter les bilans pour vérifier les capitaux propres, chiffre d'affaire et encours."
+
+          "commission_europeenne/numero_tva": "Préremplir le numéro de TVA certifié.<br/><br/>Permettre à l'instructeur de vérifier la validité du numéro de TVA.<br/><br/>Cette API ne fonctionne que pour les entreprises ayant un Siren et un numéro de TVA au format français."
+
+          "gip_mds/effectifs_annuels_unite_legale" : "_L'accès à cette donnée requiert un cas d'usage spécifique._"
+
+          "gip_mds/effectifs_mensuels_etablissement" : "_L'accès à cette donnée requiert un cas d'usage spécifique._"
+
+          "douanes/immatriculation_eori": "Préremplir à partir du SIRET le numéro EORI d'une entreprise ayant réalisé son immatriculation en France. <br/><br/>Permettre à l'instructeur de vérifier la validité du numéro EORI."
+
+          "dgfip/chiffres_affaires": "_L'accès à cette donnée requiert un cas d'usage spécifique._"
+
+          "banque_de_france/bilans": "_L'accès à cette donnée requiert un cas d'usage spécifique._"
+
+          "dgfip/liasses_fiscales": "_L'accès à cette donnée requiert un cas d'usage spécifique._"
+
+          "dgfip/liens_capitalistiques": "_L'accès à cette donnée requiert un cas d'usage spécifique._"
+
+          "dgfip/attestations_fiscales": "_L'accès à cette donnée requiert un cas d'usage spécifique._"
+
+          "urssaf/attestation_vigilance": "_L'accès à cette donnée requiert un cas d'usage spécifique._"
+
+          "msa/conformites_cotisations": "_L'accès à cette donnée requiert un cas d'usage spécifique._"
+
+          "probtp/conformites_cotisations_retraite": "_L'accès à cette donnée requiert un cas d'usage spécifique._"
+
+          "fntp/carte_professionnelle_travaux_public": "Récupérer la **carte professionnelle** de la fédération nationale des travaux publics, indiquant que l'entreprise est à jour de ses cotisations congés payés, et donnant vue sur ses qualifications professionnelles."
+
+          "cnetp/attestations_cotisations_conges_payes_chomage_intemperies": "_L'accès à cette donnée requiert un cas d'usage spécifique._"
+
+          "cibtp/attestations_cotisations_conges_payes_chomage_intemperies": "_L'accès à cette donnée requiert un cas d'usage spécifique._"
+
+          "agence_bio/certifications_bio": "Préremplir les **certifications en BIO** d'une entreprise."
+
+          "ademe/certifications_rge": "Préremplir les **qualifications Reconnu Garant de l'Environnement** et donner accès au certificat PDF."
+
+          "qualibat/certifications_batiment": "Donner accès au **certificat Qualibat** en PDF."
+
+          "qualifelec/certificats": "Préremplir les **qualifications Qualifelec** de l'entreprise et donner accès au **certificat en PDF."
+
+          "opqibi/qualifications_ingenierie": "Préremplir les **qualifications OPQIB** et donner accès au certificat PDF."
+
+          "carif_oref/certifications_qualiopi_france_competences": "Préremplir les **certifications Qualiopi et habilitations France Compétences** de l'établissement.<br><br>🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
+          
+          "inpi/rne/attestation_immatriculation": "Données figurant sur l'attestation d'immatriculation au registre national des entreprises (RNE) et lien vers le document au format PDF.<br><br>🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
+        introduction:
+          title: Intégrez dès maintenant le socle de base des données entreprises et associations !
+          content: |
+            {:.fr-text--lead}
+            Administrations ou assimilé, API Entreprise vous permet d'accéder aux données de base des entreprises et associations utiles pour simplifier leurs démarches dans le cadre du principe du « Dites-le nous une fois ». À partir de leur identifiant RNA ou du numéro de SIRET, vous pouvez récupérer ces informations et simplifier leur expérience sur vos services.
+        role:
+          title: Une simplification des démarches
+          anchor: 'simplification-des-demarches'
+          content: |+
+            {:.fr-text--lg}
+            Administrations et collectivités, en intégrant la brique API Entreprise dans votre site ou portail usager :
+
+            - 🗄 **Vous accédez facilement aux données de base** utiles pour mettre en oeuvre le «&nbsp;Dites-le-nous une fois&nbsp;» pour la plupart des démarches : 
+              - Données publiques : données des répertoires Sirene, RNE et RNA ; actes et bilans de l'Inpi ; numéros TVA et EORI ; certifications Bio, RGE, OPQIBI, Qualifelec, Qualibat et carte professionnelle de travaux public de la FNTP. 
+              - Données protégées 🔐 : données des unités en diffusion partielle des répertoire RNE et RNA ; montant des subventions et documents administratifs complémentaires (DAC) des associations.
+
+            - ⏰ **Vous accélérez le traitement des démarches** car vos agents instructeurs n'ont pas de vérifications supplémentaires à réaliser, **les informations obtenues de l'API Entreprise étant certifiées 🔎** ;
+
+            - 🎢 **Vous augmentez le pourcentage des démarches finalisées** car vous faîtes gagner du temps à l'usager ;
+
+            - 🎯 **Enfin, vous participez activement à la simplification des démarches pour les citoyens**, en mettant en place le [«&nbsp;Dites-le-nous une fois&nbsp;»](https://www.numerique.gouv.fr/services/guichet-dites-le-nous-une-fois/){:target="_blank"} : vous ne demandez plus à une entreprise/association une information qu'elle a déjà donnée ou que l'administration connaît déjà. <br>Vous vous mettez ainsi **en conformité avec la législation** et l'[Article L113-12 du Code des relations entre le public et l'administration](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037313155){:target="_blank"}.
+        use_case_examples:
+          title: Exemples d'applications
+          anchor: 'use_case_examples'
+          content: |+
+            {:.fr-h4}
+            ### Une entreprise ou une association effectue une démarche en ligne auprès de votre service connecté à API Entreprise&nbsp;:
+
+            1. **Elle renseigne son identifiant** (Siret ou RNA) :
+
+               {:.fr-highlight.fr-highlight--example}
+               ⚙️ **En arrière-plan** : Un appel à l'API Entreprise est effectué.
+
+               ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/cas_usages/pictos/use_case_examples/portail-gru-use_case_example_1a.png') %>){:width="600px"}
+
+
+            2. **Les informations administratives en open data la concernant sont pré-remplies automatiquement**. Elle les corrige si besoin et poursuit sa démarche :
+
+               {:.fr-highlight.fr-highlight--example}
+               ⚙️ **En arrière-plan** : À partir du format structuré (.json) transmis par l'API Entreprise, vous choisissez la façon d'afficher l'information sur votre site.
+               ⚠️ Si votre démarche ne permet pas d'authentifier l'usager, seule de la donnée ouverte peut être pré-remplie. Les données protégées ne doivent jamais être accessibles sans authentification au préalable.
+
+               ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/cas_usages/pictos/use_case_examples/portail-gru-use_case_example_1b.png') %>){:width="600px"}
+
+            {:.fr-h4}
+            ### Un exemple avec Laurent, mandataire d'une association :
+
+            <span class='fr-badge fr-badge--sm fr-badge--new'>Données publiques uniquement</span>
+
+            {:.fr-text--regular.fr-text--alt.fr-text--lg}
+            _Laurent a besoin d'inscrire son association dans le ficher associatif municipal_ pour réserver une salle à la maison des associations. Laurent se rend sur le portail informatique de sa commune, il sélectionne la démarche "J'inscris ma structure dans le fichier associatif municipal". En début de formulaire, il renseigne son numéro RNA. Le formulaire est automatiquement pré-rempli des informations de l'association : _la forme juridique, la date de création, les activités, le statut d'utilité publique, l'adresse ou encore la tranche de l'effectif_... Tout a déjà été rempli. Laurent vérifie qu'il n'y a pas d'erreur, et envoie sa demande.
+
+            {:.fr-text--regular.fr-text--alt.fr-text--lg}
+            La demande est traitée de façon automatique car toutes les données nécessaires proviennent de l'API Entreprise et sont certifiées. Quelques secondes après l'envoi de sa demande, Laurent reçoit un e-mail lui confirmant que son association est inscrite au registre, et qu'il a désormais accès à l'outil de réservation de salle.
+
+            {:.fr-h4}
+            ### Un exemple avec Camille, agricultrice et Nicolas, agent territorial :
+
+            <span class='fr-badge fr-badge--sm fr-badge--new'>Données publiques & protégées 🔐 </span>
+
+            {:.fr-text--regular.fr-text--alt.fr-text--lg}
+            _Camille a besoin d'un emplacement sur le marché de sa ville pour vendre sa production_. Elle s'est rendue sur le portail informatique de la commune, a sélectionné la démarche, entré son numéro de Siret. Toutes les informations publiques de son entreprise ont été automatiquement pré-remplies, elle peut les modifier si elle repère une erreur.
+
+            {:.fr-text--regular.fr-text--alt.fr-text--lg}
+            À l'étape suivante, Camille n'aura à fournir qu'un seul justificatif sur les cinq requis. En effet, le portail de sa commune lui fait savoir que les quatre autres documents ont déjà été récupérés auprès des administrations compétentes. Camille n'aura pas besoin de chercher ces documents dans ses dossiers ou de se rendre sur différents sites pour les retrouver. En ce qui concerne le document manquant, Camille n'est pas bloquée dans sa démarche, elle peut l'ajouter dans le formulaire. Elle envoie sa demande.
+
+            {:.fr-text--regular.fr-text--alt.fr-text--lg}
+            _Nicolas est agent dans la commune de Camille et chargé d'instruire les demandes des entreprises et associations_. Depuis son espace instructeur, il est habilité à traiter les démarches à et manipuler des informations protégées.
+            Nicolas vient de recevoir la démarche de Camille. Depuis la fiche entreprise de l'usagère, il voit d'un coup d’œil que l'ensemble des données et documents nécessaires pour la démarche sont présents. Il n'a pas besoin de vérifier l'existence du numéro de Siret de Camille, ni de vérifier l'absence de faute de frappe dans l'adresse postale. En plus, sur les cinq documents transmis, quatre proviennent de l'API Entreprise, ils sont certifiés.
+            Nicolas vérifie donc l'unique document transmis par Camille. Tout est en ordre, il valide la demande d'emplacement de marché.
+        list_api:
+          content: |+
+            {:.fr-text--xl}
+            Ce tableau dresse la liste des API accessibles pour ce cadre juridique via ce [formulaire d'habilitation](#request-access). Toute administration ou assimilé est autorisée à accéder à ces API pour mettre en oeuvre le principe du « Dites-le nous une fois ».
+
+            Les API **<span style="color:#a1a1a1" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> délivrant de l'open data seront précochéees** par défaut dans le formulaire d'accès.
+            Les API **<span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> indispensables seront précochées** par défaut dans le formulaire d'accès.
+            Les API **<span style="color:#d64d00" class="fr-icon-close-circle-line" aria-hidden="true"></span> injustifiées** ne peuvent être demandées pour ce cas d'usage.
+
+            {:.fr-highlight.fr-highlight--caution}
+            ⚠️ **Vous devrez veiller à respecter les conditions d'utilisation des données** : Les données protégées doivent uniquement être utilisées par un agent habilité ou après authentification de l'usager. Elles ne doivent pas être diffusées en ligne ou à des tiers non-autorisés.
+
+            {:.fr-highlight}
+            > **💡 Votre service concerne les marchés publics ? la délivrance d'aides ou de subventions ?**
+            > Des cas d'usages spécifiques existent et permettent d'accéder au socle de données de base ainsi qu'à d'autres données protégées : [marchés publics](<%= cas_usage_path(uid: 'marches_publics') %>), [aides et subventions publiques](<%= cas_usage_path(uid: 'aides_publiques') %>) ou [subventions des associations](<%= cas_usage_path(uid: 'subventions_associations') %>).
+
+        users:
+          title: Ils utilisent l’API Entreprise
+          anchor: 'users'
+          content: |+
+            {:.fr-h5}
+            ### Des communes et intercommunalités
+
+            Le [portail en ligne de la ville de Chambéry](https://simplici.chambery.fr/){:target="_blank"} : une plateforme de démarches à destination des entreprises et des associations.
+
+            La communauté de communes de Vaison Ventoux dématérialise la demande d'une [carte permettant aux professionnels d’accéder aux déchetteries de son territoire](http://www.vaison-ventoux.fr/cadre-de-vie-solidarite/dechets/l-acces-a-la-carte-de-dechetterie-pour-les-professionnels.htm). Le formulaire accessible sous connexion sécurisée FranceConnect, est directement pré-rempli des informations disponibles par API Entreprise.
+
+
+            {:.fr-h5}
+            ### Des régions
+
+            Le [portail GRU de la Région Réunion](https://demarches.cr-reunion.fr/){:target="_blank"} : une plateforme en ligne qui propose également la délivrance d'aides et subventions publiques.
+
+            {:.fr-highlight.fr-highlight--example.fr-text--regular.fr-text--alt.fr-text--lg}
+            "_L'accès à l'API entreprise nous permet de faire des contrôles lors de la création de la demande par l'usager (contrôle existence SIREN/SIRET, récupération adresse, ...) et nous permet d'afficher à nos agents des aides à l'instruction (différences entres données fournies par l'usager et les données remontées par l'API: code NAF, dénomination, taille de l'entreprise, ...)._"
+
+            {:.fr-h5}
+            ### Parfois au travers d’un éditeur de logiciel :
+
+            {:.fr-table}
+            | Éditeurs ayant intégré l'API Entreprise                                             |                                          Solution                                                                            |                     Cas d'usage                       |
+            | ----------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------:|
+            | **Démarches Simplifiées** <br> Service opéré par l'État (DINUM)                                               | [demarches-simplifiees.fr](www.demarches-simplifiees.fr/){:target="_blank"}                 |        Application en ligne de création de formulaire, prête à l'emploi, et mise à disposition de l'ensemble des organismes publics.      |
+            | **Efalia** <br> Entreprise privée                                                   | [efalia.com](https://www.efalia.com/) <br> [Solution 6Tzen](https://www.6tzen.fr/){:target="_blank"}                 |                   Portail gestion relation usager       |
+            | **Entr’ouvert** <br> Coopérative                                                    | [entrouvert.com](https://www.entrouvert.com) <br> [Publik](https://publik.entrouvert.com/){:target="_blank"}                 |                   Portail de démarches en ligne       |
+            | **Lanteas** <br> Entreprise privée                                                    |    [OpenGRU](https://lanteas.com/gestion-relation-usager-open-gru-crm/){:target="_blank"}                     |                  Portail gestion relation usager      |
+
+            _Vous êtes un éditeur proposant une solution de portail de gestion relation usager et ne figurez pas sur cette liste ?_ Veuillez nous contacter à cette adresse e-mail : [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr).
+        legal_context:
+          content: |+
+            {:.fr-text--lg}
+            ### L'accès au socle de base, possible pour toute administration ou assimilé 
+
+            L'accès aux données de base des entreprises et associations de l'API Entreprise, [listées ci-dessus](#list-api), utilisables par toute administration ou assimilé, pour satisfaire le principe du « Dites-le nous une fois », est encadré par [article L114-8 du Code des relations entre le public et l'administration](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000045213315){:target="_blank"}.
+
+            Pour accéder au socle de base, veuillez compléter [ce formulaire](#request-access).
+
+            {:.fr-text--lg}
+            ### Engagements en termes d'exploitation des données 
+
+            Les données accessibles via le socle de base de l'API Entreprise ont des conditions d'exploitation différentes, certaines sont publiques, d'autres protégées.
+
+            {:.fr-highlight.fr-highlight--caution}
+            > ⚠️ Les données protégées doivent uniquement être utilisées par un agent habilité ou après authentification de l'usager. Elles ne doivent pas être diffusées en ligne ou à des tiers non-autorisés.
+        request_access:
+          link_datapass: "<%= datapass_base_url %>/api-entreprise/nouveau?use_case=socle_de_base"
+          content: "**💡 Votre service concerne les marchés publics ? la délivrance d'aides ou de subventions ?**
+            Des cas d'usages spécifiques existent et permettent d'accéder au socle de données de base ainsi qu'à d'autres données protégées : [marchés publics](<%= cas_usage_path(uid: 'marches_publics') %>), [aides et subventions publiques](<%= cas_usage_path(uid: 'aides_publiques') %>) ou [subventions des associations](<%= cas_usage_path(uid: 'subventions_associations') %>)"
+
       marches_publics:
         name: 'Marchés publics'
         user_types:
@@ -19,6 +286,7 @@ fr:
           - ministere_interieur/documents_associations
           - djepva/associations
           - inpi/rne/actes_bilans
+          - inpi/rne/attestation_immatriculation
           - fabrique_numerique_ministeres_sociaux/conventions_collectives
           - cma_france/rnm
           - dgfip/chiffres_affaires
@@ -153,13 +421,13 @@ fr:
             {:.fr-text--lg}
             Administrations et collectivités, en intégrant la brique API Entreprise dans votre profil acheteur :
 
-            - 🗄 Vous **accédez facilement aux données publiques et protégées 🔐** de l'Insee, d'Infogreffe, de la DGFIP, de l'Urssaf... ;
+            - 🗄 **Vous accédez facilement aux données publiques et protégées 🔐** de l'Insee, d'Infogreffe, de la DGFIP, de l'Urssaf... ;
 
-            - ⏰ Vous **accélérez le traitement des démarches** car vos agents instructeurs n'ont pas de vérifications supplémentaires à réaliser, **les informations obtenues de l'API Entreprise étant certifiées 🔎** ;
+            - ⏰ **BVous accélérez le traitement des démarches** car vos agents instructeurs n'ont pas de vérifications supplémentaires à réaliser, **les informations obtenues de l'API Entreprise étant certifiées 🔎** ;
 
-            - 🔄 Vous **suivez facilement vos prestataires**, car la mise à jour des documents, _telle que l'attestation de vigilance_, peut être automatisée ;
+            - 🔄 **Vous suivez facilement vos prestataires**, car la mise à jour des documents, _telle que l'attestation de vigilance_, peut être automatisée ;
 
-            - 🎯 Enfin, vous **participez activement à la simplification des démarches de candidatures aux marchés publics pour les citoyens** en mettant en place le [«&nbsp;Dites-le-nous une fois&nbsp;»](https://www.numerique.gouv.fr/services/guichet-dites-le-nous-une-fois/){:target="_blank"} : vous ne demandez plus à une entreprise/association une information qu'elle a déjà donnée ou que l'administration connaît déjà. <br />Vous vous mettez ainsi **en conformité avec la législation** et, plus particulièrement l'[Article L113-12 du Code des relations entre le public et l'administration](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037313155){:target="_blank"}.
+            - 🎯 **Enfin, vous participez activement à la simplification des démarches de candidatures aux marchés publics pour les citoyens** en mettant en place le [«&nbsp;Dites-le-nous une fois&nbsp;»](https://www.numerique.gouv.fr/services/guichet-dites-le-nous-une-fois/){:target="_blank"} : vous ne demandez plus à une entreprise/association une information qu'elle a déjà donnée ou que l'administration connaît déjà. <br />Vous vous mettez ainsi **en conformité avec la législation** et, plus particulièrement l'[Article L113-12 du Code des relations entre le public et l'administration](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037313155){:target="_blank"}.
 
         use_case_examples:
           title: Exemples d'applications
@@ -297,6 +565,7 @@ fr:
           - ministere_interieur/documents_associations
           - djepva/associations
           - inpi/rne/actes_bilans
+          - inpi/rne/attestation_immatriculation
           - cma_france/rnm
           - dgfip/chiffres_affaires
           - dgfip/attestations_fiscales
@@ -431,13 +700,13 @@ fr:
             {:.fr-text--lg}
             Administrations et collectivités, en intégrant la brique API Entreprise dans votre portail d'aides et votre système d'information&nbsp;:
 
-            - 🗄 Vous **accédez facilement aux données publiques et protégées 🔐** de l'Insee, d'Infogreffe, de la DGFIP, de l'Urssaf... ;
+            - 🗄 **Vous accédez facilement aux données publiques et protégées 🔐** de l'Insee, d'Infogreffe, de la DGFIP, de l'Urssaf... ;
 
-            - ⏰ Vous **accélérez le traitement des demandes d'aides des associations et des entreprises** car vos agents instructeurs n'ont pas de vérifications supplémentaires à réaliser, **les informations obtenues de l'API Entreprise étant certifiées 🔎** ;
+            - ⏰ **Vous accélérez le traitement des demandes d'aides des associations et des entreprises** car vos agents instructeurs n'ont pas de vérifications supplémentaires à réaliser, **les informations obtenues de l'API Entreprise étant certifiées 🔎** ;
 
-            - 🎢 Vous **augmentez le pourcentage des démarches finalisées** car vous faîtes gagner du temps à l'usager ;
+            - 🎢 **Vous augmentez le pourcentage des démarches finalisées** car vous faîtes gagner du temps à l'usager ;
 
-            - 🎯 Enfin, vous **participez activement à la simplification des demandes d'aides** en mettant en place le [«&nbsp;Dites-le-nous une fois&nbsp;»](https://www.numerique.gouv.fr/services/guichet-dites-le-nous-une-fois/){:target="_blank"} : vous ne demandez plus à à une entreprise/association une information qu'elle a déjà donnée ou que l'administration connaît déjà. <br />Vous vous mettez ainsi **en conformité avec la législation** et, plus particulièrement l'[Article L113-12 du Code des relations entre le public et l'administration](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037313155){:target="_blank"}.
+            - 🎯 **Enfin, vous participez activement à la simplification des demandes d'aides** en mettant en place le [«&nbsp;Dites-le-nous une fois&nbsp;»](https://www.numerique.gouv.fr/services/guichet-dites-le-nous-une-fois/){:target="_blank"} : vous ne demandez plus à à une entreprise/association une information qu'elle a déjà donnée ou que l'administration connaît déjà. <br />Vous vous mettez ainsi **en conformité avec la législation** et, plus particulièrement l'[Article L113-12 du Code des relations entre le public et l'administration](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037313155){:target="_blank"}.
         use_case_examples:
           title: null
           anchor: null
@@ -585,6 +854,7 @@ fr:
           - banque_de_france/bilans
           - dgfip/liens_capitalistiques
           - data_subvention/subventions
+          - inpi/rne/attestation_immatriculation
         endpoints_optional:
           - insee/adresse_etablissements
           - insee/adresse_etablissements_diffusibles
@@ -744,11 +1014,11 @@ fr:
             {:.fr-text--lg}
             Administrations et collectivités, en intégrant la brique API Entreprise dans votre portail d'aides et votre système d'information&nbsp;:
 
-            - 🗄 Vous **accédez facilement aux données publiques et protégées 🔐** du ministère de l'Intérieur sur les associations, données déjà mises à disposition par les associations dans [Le compte Asso](https://lecompteasso.associations.gouv.fr){:target="_blank"}. Vous avez également un accès privilégié à d'autres informations telles que les données du répertoire Sirene, ou de l'Agence Bio ;
+            - 🗄 **Vous accédez facilement aux données publiques et protégées 🔐** du ministère de l'Intérieur sur les associations, données déjà mises à disposition par les associations dans [Le compte Asso](https://lecompteasso.associations.gouv.fr){:target="_blank"}. Vous avez également un accès privilégié à d'autres informations telles que les données du répertoire Sirene, ou de l'Agence Bio ;
 
-            - 🎢 Vous **augmentez le pourcentage des démarches finalisées** car vous faîtes gagner du temps à l'usager lors de sa saisie du [formulaire unique de demande de subventions - Cerfa n° 12156*06](https://www.service-public.fr/particuliers/vosdroits/R1271){:target="_blank"} ;
+            - 🎢 **Vous augmentez le pourcentage des démarches finalisées** car vous faîtes gagner du temps à l'usager lors de sa saisie du [formulaire unique de demande de subventions - Cerfa n° 12156*06](https://www.service-public.fr/particuliers/vosdroits/R1271){:target="_blank"} ;
 
-            - 🎯 Enfin, vous **participez activement à la simplification des demandes de subventions**, en mettant en place le [«&nbsp;Dites-le-nous une fois&nbsp;»](https://www.numerique.gouv.fr/services/guichet-dites-le-nous-une-fois/){:target="_blank"} : vous ne demandez plus à une association une information qu'elle a déjà donnée.<br />Vous vous mettez ainsi **en conformité avec la législation** et, plus particulièrement l'[Article L113-12 du Code des relations entre le public et l'administration](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037313155){:target="_blank"}.
+            - 🎯 **Enfin, vous participez activement à la simplification des demandes de subventions**, en mettant en place le [«&nbsp;Dites-le-nous une fois&nbsp;»](https://www.numerique.gouv.fr/services/guichet-dites-le-nous-une-fois/){:target="_blank"} : vous ne demandez plus à une association une information qu'elle a déjà donnée.<br />Vous vous mettez ainsi **en conformité avec la législation** et, plus particulièrement l'[Article L113-12 du Code des relations entre le public et l'administration](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037313155){:target="_blank"}.
 
             Votre service propose d'autres types d'aides ? concerne aussi les entreprises ? Consultez la fiche pratique du [cas d'usage des aides publiques](<%= cas_usage_path(uid: 'aides_publiques') %>).
         use_case_examples:
@@ -814,6 +1084,7 @@ fr:
           - gip_mds/effectifs_annuels_unite_legale
           - gip_mds/effectifs_mensuels_etablissement
           - data_subvention/subventions
+          - inpi/rne/attestation_immatriculation
         endpoints_optional:
           - insee/etablissements_diffusibles
           - insee/adresse_etablissements
@@ -847,11 +1118,11 @@ fr:
             {:.fr-text--lg}
             Administrations et collectivités, en intégrant la brique API Entreprise dans votre système d'information :
 
-            - 🗄 Vous **obtenez et exploitez plus facilement les informations sociales, économiques et financières** issues de l'Insee, d'Infogreffe, de la DGFIP, de l'Urssaf... ;
+            - 🗄 **Vous obtenez et exploitez plus facilement les informations sociales, économiques et financières** issues de l'Insee, d'Infogreffe, de la DGFIP, de l'Urssaf... ;
 
-            - ⏰ Vous **accélérez la constitution du dossier d’enquête et le travail des enquêteurs**, en récupérant directement les éléments nécessaires et en évitant les vérifications supplémentaires car **les informations obtenues de l'API Entreprise sont certifiées 🔎** ;
+            - ⏰ **Vous accélérez la constitution du dossier d’enquête et le travail des enquêteurs**, en récupérant directement les éléments nécessaires et en évitant les vérifications supplémentaires car **les informations obtenues de l'API Entreprise sont certifiées 🔎** ;
 
-            - 🎯 Vous **ciblez plus précisemment les entités à contrôler**, dans le respect des procédures contradictoires.
+            - 🎯 **Vous ciblez plus précisemment les entités à contrôler**, dans le respect des procédures contradictoires.
         use_case_examples:
           title: null
           anchor: null
@@ -882,511 +1153,6 @@ fr:
         request_access:
           link_datapass: "<%= datapass_base_url %>/api-entreprise?demarche=detection_fraude"
 
-      portail_gru:
-        name: 'Portail GRU - Préremplissage'
-        user_types:
-          - administrations
-          - collectivités
-        endpoints:
-          - insee/etablissements_diffusibles
-          - infogreffe/rcs/extrait
-          - ministere_interieur/rna
-          - cma_france/rnm
-          - djepva/associations_open_data
-        endpoints_optional:
-          - insee/adresse_etablissements_diffusibles
-          - insee/unites_legales_diffusibles
-          - insee/siege_social_diffusibles
-          - fabrique_numerique_ministeres_sociaux/conventions_collectives
-          - douanes/immatriculation_eori
-          - ministere_interieur/documents_associations
-          - fntp/carte_professionnelle_travaux_public
-          - agence_bio/certifications_bio
-          - ademe/certifications_rge
-          - qualibat/v3/certifications_batiment
-          - qualibat/certifications_batiment
-          - opqibi/qualifications_ingenierie
-          - qualifelec/certificats
-          - commission_europeenne/numero_tva
-          - inpi/rne/actes_bilans
-        endpoints_forbidden:
-          - insee/etablissements
-          - infogreffe/mandataires_sociaux
-          - insee/adresse_etablissements
-          - insee/siege_social
-          - insee/unites_legales
-          - djepva/associations
-          - dgfip/chiffres_affaires
-          - banque_de_france/bilans
-          - dgfip/liasses_fiscales
-          - dgfip/attestations_fiscales
-          - dgfip/v3/attestations_fiscales
-          - urssaf/attestation_vigilance
-          - urssaf/v3/attestation_vigilance
-          - msa/conformites_cotisations
-          - probtp/conformites_cotisations_retraite
-          - cnetp/attestations_cotisations_conges_payes_chomage_intemperies
-          - cibtp/attestations_cotisations_conges_payes_chomage_intemperies
-          - carif_oref/certifications_qualiopi_france_competences
-          - gip_mds/effectifs_annuels_unite_legale
-          - gip_mds/effectifs_mensuels_etablissement
-          - dgfip/liens_capitalistiques
-          - inpi/rne/beneficiaires_effectifs
-          - data_subvention/subventions
-        comments_endpoints:
-          "insee/etablissements_diffusibles": "Préremplir les informations d'un **établissement et de son unité légale, à partir de son numéro de SIRET** : _raison sociale, forme juridique, catégorie micro/TPE/PME de l'unité légale. Tranche effectif (année N-2 ou N-3), activité principale et date de création de l'établissement et de l'unité légale. Indique aussi si l'unité légale est de l'économie sociale et solidaire (ESS)._"
-
-          "insee/etablissements": "_Inutilisable pour du préremplissage car donnée protégée_ 🔐."
-
-          "infogreffe/mandataires_sociaux": "_Inutilisable pour du préremplissage car donnée protégée_ 🔐."
-
-          "infogreffe/rcs/extrait": "Préremplir presque toutes les informations contenues dans un **Kbis**, telles que _le nom commercial et la dénomination de l'unité légale._<br>💡 _Depuis le 23 novembre 2021, l'extrait K-bis ne peut plus être demandé à l'entreprise. [Consulter le décrêt](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000043523039){:target='_blank'}_"
-
-          "insee/unites_legales_diffusibles": "💡_Ces données sont aussi distribuées par l'API \"Données établissement en open data\"_."
-
-          "insee/unites_legales": "_Inutilisable pour du préremplissage car donnée protégée_ 🔐."
-
-          "insee/siege_social_diffusibles": "À&nbsp;partir du Siren de l'unité légale, pré-remplissez les informations du **siège social**."
-
-          "insee/siege_social": "_Inutilisable pour du préremplissage car donnée protégée_ 🔐."
-
-          "insee/adresse_etablissements_diffusibles": "💡_Ces données sont aussi distribuées par l'API \"Données établissement en open data\"_"
-
-          "insee/adresse_etablissements": "_Inutilisable pour du préremplissage car donnée protégée_ 🔐."
-
-          "djepva/associations": "_Inutilisable pour du préremplissage car donnée protégée_ 🔐."
-
-          "djepva/associations_open_data": "Préremplir les informations générales d'une association : _identité et statuts, effectifs, activité, agréments, etc._"
-
-          "data_subvention/subventions": "_Inutilisable pour du préremplissage car donnée protégée_ 🔐."
-
-          "ministere_interieur/rna": "Préremplir les informations d'une **association** telles que _le nom, l'objet, l'adresse du siège et la date de création._"
-
-          "ministere_interieur/documents_associations": "Donner accès aux documents d'une association."
-
-          "inpi/rne/beneficiaires_effectifs": "_Inutilisable pour du préremplissage car donnée protégée_ 🔐."
-
-          "inpi/rne/actes_bilans": "Actes et bilans en PDF de l'unité légale."
-
-          "commission_europeenne/numero_tva": "Préremplir le numéro de TVA certifié uniquement pour les entreprises ayant un Siren et un numéro de TVA au format français."
-
-          "fabrique_numerique_ministeres_sociaux/conventions_collectives": "Pré-lister les **conventions collectives** avec un lien vers Légifrance."
-
-          "cma_france/rnm": "Préremplir les informations d'identité d'une **entreprise artisanale, à partir de son SIREN** : _Dénomination sociale, forme juridique, effectif salarié, date d'immatriculation au RNM, adresse_ d'une entreprise artisanale."
-
-          "gip_mds/effectifs_annuels_unite_legale" : "_Inutilisable pour du préremplissage car donnée protégée_ 🔐."
-
-          "gip_mds/effectifs_mensuels_etablissement" : "_Inutilisable pour du préremplissage car donnée protégée_ 🔐."
-
-          "douanes/immatriculation_eori": "Préremplir à partir du SIRET le numéro EORI d'une entreprise ayant réalisé son immatriculation en France."
-
-          "dgfip/chiffres_affaires": "_Inutilisable pour du préremplissage car donnée protégée_ 🔐."
-
-          "inpi/comptes_annuels_rncs": "_Inutilisable pour du préremplissage car donnée protégée_ 🔐."
-
-          "banque_de_france/bilans": "_Inutilisable pour du préremplissage car donnée protégée_ 🔐."
-
-          "dgfip/liasses_fiscales": "_Inutilisable pour du préremplissage car donnée protégée_ 🔐."
-
-          "dgfip/liens_capitalistiques": "_Inutilisable pour du préremplissage car donnée protégée_ 🔐."
-
-          "dgfip/attestations_fiscales": "_Inutilisable pour du préremplissage car donnée protégée_ 🔐."
-
-          "urssaf/attestation_vigilance": "_Inutilisable pour du préremplissage car donnée protégée_ 🔐."
-
-          "msa/conformites_cotisations": "_Inutilisable pour du préremplissage car donnée protégée_ 🔐."
-
-          "probtp/conformites_cotisations_retraite": "_Inutilisable pour du préremplissage car donnée protégée_ 🔐."
-
-          "fntp/carte_professionnelle_travaux_public": "Donner accès à la **carte professionnelle** de la fédération nationale des travaux publics, indiquant que l'entreprise est à jour de ses cotisations congés payés, et donnant vue sur ses qualifications professionnelles."
-
-          "cnetp/attestations_cotisations_conges_payes_chomage_intemperies": "_Inutilisable pour du préremplissage car donnée protégée_ 🔐."
-
-          "cibtp/attestations_cotisations_conges_payes_chomage_intemperies": "_Inutilisable pour du préremplissage car donnée protégée_ 🔐."
-
-          "agence_bio/certifications_bio": "Préremplir les **certifications en BIO** d'une entreprise."
-
-          "ademe/certifications_rge": "Préremplir les **qualifications Reconnu Garant de l'Environnement** et donner accès au certificat PDF."
-
-          "qualibat/certifications_batiment": "Donner accès au **certificat Qualibat** en PDF"
-
-          "qualifelec/certificats": "Préremplir les **qualifications Qualifelec_** de l'entreprise et donner accès au **certificat en PDF*."
-
-          "opqibi/qualifications_ingenierie": "Préremplir les **qualifications OPQIBI** et donner accès au certificat PDF."
-
-          "carif_oref/certifications_qualiopi_france_competences": "_Inutilisable pour du préremplissage car donnée protégée_ 🔐."
-        introduction:
-          title: Pré-remplissez les démarches de votre portail de gestion relation usager !
-          content: |
-            {:.fr-text--lead}
-            Administrations et collectivités, API Entreprise propose l’accès direct aux données ouvertes des entreprises & associations. À partir de l'identifiant RNA ou du numéro de SIRET, vous personnalisez l'expérience en ligne en pré-remplissant automatiquement les champs.
-        role:
-          title: Une simplification des démarches
-          anchor: 'simplification-des-demarches'
-          content: |+
-            {:.fr-text--lg}
-            Administrations et collectivités, en intégrant la brique API Entreprise dans votre site ou portail usager :
-
-            - 🗄 Vous **accédez facilement aux données publiques et protégées 🔐** de l'Insee, d'Infogreffe, de la DGFIP, de l'Urssaf... ;
-
-            - ⏰ Vous **accélérez le traitement des démarches** car vos agents instructeurs n'ont pas de vérifications supplémentaires à réaliser, **les informations obtenues de l'API Entreprise étant certifiées 🔎** ;
-
-            - 🎢 Vous **augmentez le pourcentage des démarches finalisées** car vous faîtes gagner du temps à l'usager ;
-
-            - 🎯 Enfin, vous **participez activement à la simplification des démarches pour les citoyens**, en mettant en place le [«&nbsp;Dites-le-nous une fois&nbsp;»](https://www.numerique.gouv.fr/services/guichet-dites-le-nous-une-fois/){:target="_blank"} : vous ne demandez plus à une entreprise/association une information qu'elle a déjà donnée ou que l'administration connaît déjà. <br>Vous vous mettez ainsi **en conformité avec la législation** et l'[Article L113-12 du Code des relations entre le public et l'administration](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037313155){:target="_blank"}.
-        use_case_examples:
-          title: Exemples d'applications
-          anchor: 'use_case_examples'
-          content: |+
-            {:.fr-h4}
-            ### Une entreprise ou une association effectue une démarche sur votre portail GRU connecté à API Entreprise&nbsp;:
-
-            1. **Elle renseigne son identifiant** (Siret ou RNA) :
-
-               {:.fr-highlight.fr-highlight--example}
-               ⚙️ **En arrière-plan** : Un appel à l'API Entreprise est effectué.
-
-               ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/cas_usages/pictos/use_case_examples/portail-gru-use_case_example_1a.png') %>){:width="600px"}
-
-
-            2. **Les informations administratives la concernant sont pré-remplies automatiquement**. Elle les corrige si besoin et poursuit sa démarche :
-
-               {:.fr-highlight.fr-highlight--example}
-               ⚙️ **En arrière-plan** : À partir du format structuré (.json) transmis par l'API Entreprise, vous choisissez la façon d'afficher l'information sur votre site.
-               ⚠️ Seule de la donnée ouverte peut être pré-remplie. Les données protégées ne doivent jamais être accessibles depuis le site public de votre portail.
-
-               ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/cas_usages/pictos/use_case_examples/portail-gru-use_case_example_1b.png') %>){:width="600px"}
-
-            {:.fr-h4}
-            ### Un exemple avec Laurent, mandataire d'une association :
-
-            {:.fr-text--regular.fr-text--alt.fr-text--lg}
-            _Laurent a besoin d'inscrire son association dans le ficher associatif municipal_ pour réserver une salle à la maison des associations. Laurent se rend sur le portail informatique de sa commune, il sélectionne la démarche "J'inscris ma structure dans le fichier associatif municipal". En début de formulaire, il renseigne son numéro RNA. Le formulaire est automatiquement pré-rempli des informations de l'association : _la forme juridique, la date de création, les activités, le statut d'utilité publique, l'adresse ou encore la tranche de l'effectif_... Tout a déjà été rempli. Laurent vérifie qu'il n'y a pas d'erreur, et envoie sa demande.
-
-            {:.fr-text--regular.fr-text--alt.fr-text--lg}
-            La demande est traitée de façon automatique car toutes les données nécessaires proviennent de l'API Entreprise et sont certifiées. Quelques secondes après l'envoi de sa demande, Laurent reçoit un e-mail lui confirmant que son association est inscrite au registre, et qu'il a désormais accès à l'outil de réservation de salle.
-
-
-        list_api:
-          content: |+
-            {:.fr-text--xl}
-            Ce tableau dresse la liste des API utiles pour ce cas d'usage. Utilisez-le pour compléter votre [demande d'habilitation](#request-access). **Seules les données publiques sont accessibles** car il n'est pas possible de s'assurer de l'identité de l'usager.
-
-            Les API **<span style="color:#a1a1a1" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> délivrant de l'open data seront précochéees** par défaut dans le formulaire d'accès.
-            Les API **<span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> indispensables seront précochées** par défaut dans le formulaire d'accès.
-            Les API **️<span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span> utiles** seront à cocher par vos soins si votre cas d'usage le justifie.
-            Les API **<span style="color:#d64d00" class="fr-icon-close-circle-line" aria-hidden="true"></span> injustifiées** ne peuvent être demandées pour ce cas d'usage.
-
-
-            {:.fr-highlight}
-            **Si vous souhaitez accéder à des données protégées pour aider vos agents à instruire les démarches du portail** ou des dossiers d'aides & subventions, il vous faudra faire une demande complémentaire.<br>En savoir plus sur le [cas d'usage portail GRU - Instruction des démarches](<%= cas_usage_path(uid: 'portail_gru_instruction') %>) et le [cas d'usage aides et subventions publiques](<%= cas_usage_path(uid: 'aides_publiques') %>).
-
-        users:
-          title: Ils utilisent l’API Entreprise
-          anchor: 'users'
-          content: |+
-            {:.fr-h5}
-            ### Des communes et intercommunalités
-
-            Le [portail en ligne de la ville de Chambéry](https://simplici.chambery.fr/){:target="_blank"} : une plateforme de démarches à destination des entreprises et des associations.
-
-            La communauté de communes de Vaison Ventoux dématérialise la demande d'une [carte permettant aux professionnels d’accéder aux déchetteries de son territoire](http://www.vaison-ventoux.fr/cadre-de-vie-solidarite/dechets/l-acces-a-la-carte-de-dechetterie-pour-les-professionnels.htm). Le formulaire accessible sous connexion sécurisée FranceConnect, est directement pré-rempli des informations disponibles par API Entreprise.
-
-
-            {:.fr-h5}
-            ### Des régions
-
-            Le [portail GRU de la Région Réunion](https://demarches.cr-reunion.fr/){:target="_blank"} : une plateforme en ligne qui propose également la délivrance d'aides et subventions publiques.
-
-            {:.fr-highlight.fr-highlight--example.fr-text--regular.fr-text--alt.fr-text--lg}
-            "_L'accès à l'API entreprise nous permet de faire des contrôles lors de la création de la demande par l'usager (contrôle existence SIREN/SIRET, récupération adresse, ...) et nous permet d'afficher à nos agents des aides à l'instruction (différences entres données fournies par l'usager et les données remontées par l'API: code NAF, dénomination, taille de l'entreprise, ...)._"
-
-            {:.fr-h5}
-            ### Parfois au travers d’un éditeur de logiciel :
-
-            {:.fr-table}
-            | Éditeurs ayant intégré l'API Entreprise                                             |                                          Solution                                                                            |                     Cas d'usage                       |
-            | ----------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------:|
-            | **Démarches Simplifiées** <br> Service opéré par l'État (DINUM)                                               | [demarches-simplifiees.fr](www.demarches-simplifiees.fr/){:target="_blank"}                 |        Application en ligne de création de formulaire, prête à l'emploi, et mise à disposition de l'ensemble des organismes publics.      |
-            | **Efalia** <br> Entreprise privée                                                   | [efalia.com](https://www.efalia.com/) <br> [Solution 6Tzen](https://www.6tzen.fr/){:target="_blank"}                 |                   Portail gestion relation usager       |
-            | **Entr’ouvert** <br> Coopérative                                                    | [entrouvert.com](https://www.entrouvert.com) <br> [Publik](https://publik.entrouvert.com/){:target="_blank"}                 |                   Portail de démarches en ligne       |
-            | **Lanteas** <br> Entreprise privée                                                    |    [OpenGRU](https://lanteas.com/gestion-relation-usager-open-gru-crm/){:target="_blank"}                     |                  Portail gestion relation usager      |
-
-
-            _Vous êtes un éditeur proposant une solution de portail de gestion relation usager et ne figurez pas sur cette liste ?_ Veuillez nous contacter à cette adresse e-mail : [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr).
-        legal_context:
-          content: |+
-            L'utilisation des données est encadrée légalement. Vous devez formuler une demande auprès de l'API Particulier en justifiant du cadre légal de l'utilisation des données :
-
-            - **Cadre légal général** : [Article L114-8 du Code des relations entre le public et l'administration](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000045213315){:target="_blank"} ;
-            - **Cadre légal spécifique** : le cadre légal général n'est pas suffisant pour vous habiliter. Il est nécessaire de fournir le contexte spécifique de votre administration qui permettra de justifier les données demandées.
-        request_access:
-          link_datapass: "<%= datapass_base_url %>/api-entreprise/?demarche=portail_gru"
-          content: "**Si vous souhaitez accéder à des données protégées pour aider vos agents à instruire les démarches du portail** ou des dossiers d'aides & subventions, il vous faudra faire des demandes d'habilitation différentes car celle-ci ne vous donne accès qu'à de la donnée publique.
-
-            Afin d'accéder aux formulaires spécifiques, consultez la fiche pratique du [cas d'usage portail GRU - Instruction des démarches](<%= cas_usage_path(uid: 'portail_gru_instruction') %>) et du [cas d'usage aides et subventions publiques](<%= cas_usage_path(uid: 'aide_publiques') %>)."
-
-      portail_gru_instruction:
-        name: 'Portail GRU - Instruction des démarches'
-        user_types:
-          - administrations
-          - collectivités
-        endpoints:
-          - insee/etablissements
-          - insee/etablissements_diffusibles
-          - infogreffe/rcs/extrait
-          - ministere_interieur/rna
-          - ministere_interieur/documents_associations
-          - djepva/associations
-          - cma_france/rnm
-          - dgfip/attestations_fiscales
-          - dgfip/v3/attestations_fiscales
-          - urssaf/attestation_vigilance
-          - urssaf/v3/attestation_vigilance
-          - msa/conformites_cotisations
-          - inpi/rne/actes_bilans
-        endpoints_optional:
-          - infogreffe/mandataires_sociaux
-          - insee/adresse_etablissements
-          - insee/adresse_etablissements_diffusibles
-          - insee/siege_social
-          - insee/unites_legales
-          - insee/unites_legales_diffusibles
-          - insee/siege_social_diffusibles
-          - insee/successions
-          - fabrique_numerique_ministeres_sociaux/conventions_collectives
-          - douanes/immatriculation_eori
-          - dgfip/chiffres_affaires
-          - probtp/conformites_cotisations_retraite
-          - fntp/carte_professionnelle_travaux_public
-          - cnetp/attestations_cotisations_conges_payes_chomage_intemperies
-          - cibtp/attestations_cotisations_conges_payes_chomage_intemperies
-          - agence_bio/certifications_bio
-          - ademe/certifications_rge
-          - qualibat/v3/certifications_batiment
-          - qualibat/certifications_batiment
-          - opqibi/qualifications_ingenierie
-          - qualifelec/certificats
-          - djepva/associations_open_data
-          - commission_europeenne/numero_tva
-          - carif_oref/certifications_qualiopi_france_competences
-          - gip_mds/effectifs_annuels_unite_legale
-          - gip_mds/effectifs_mensuels_etablissement
-          - banque_de_france/bilans
-          - dgfip/liasses_fiscales
-          - dgfip/liens_capitalistiques
-          - data_subvention/subventions
-        endpoints_forbidden:
-          - inpi/rne/beneficiaires_effectifs
-        comments_endpoints:
-            "insee/etablissements_diffusibles": "<span class='fr-badge fr-badge--sm fr-badge--new'>Préremplissage</span> Préremplir les informations d'un **établissement et de son unité légale, à partir de son numéro de SIRET** : _raison sociale, forme juridique, catégorie micro/TPE/PME de l'unité légale. Tranche effectif (année N-2 ou N-3), activité principale et date de création de l'établissement et de l'unité légale. Indique aussi si l'unité légale est de l'économie sociale et solidaire (ESS)._"
-
-            "insee/etablissements": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Mêmes données que l'API ci-dessus ⬆️ avec en plus les informations protégées des établissements \"en diffusion partielle\".<br><br>🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
-
-            "infogreffe/mandataires_sociaux": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Identité précise des mandataires sociaux : _nom, prénom, date de naissance dont le jour, la commun et le pays de naissance_. Donnée sensible : usage à justifier.<br><br>💡 Le mandataires sociaux sont aussi disponibles avec l'API Extrait RCS d'Infogreffe (nom, prénom et mois de naissance uniquement).<br><br>🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
-
-            "infogreffe/rcs/extrait": "<span class='fr-badge fr-badge--sm fr-badge--new'>Préremplissage</span> <span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Préremplir presque toutes les informations contenues dans un **Kbis**, telles que _le nom commercial et la dénomination de l'unité légale._<br>💡 _Depuis le 23 novembre 2021, l'extrait K-bis ne peut plus être demandé à l'entreprise. [Consulter le décrêt](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000043523039){:target='_blank'}_."
-
-            "insee/unites_legales_diffusibles": "💡_Ces données sont aussi distribuées par l'API \"Données établissement en open data\"_."
-
-            "insee/unites_legales": "💡_Ces données sont aussi distribuées par l'API \"Données établissement\"_."
-
-            "insee/siege_social_diffusibles": "<span class='fr-badge fr-badge--sm fr-badge--new'>Préremplissage</span> À&nbsp;partir du Siren de l'unité légale, récupérez les informations du siège social."
-
-            "insee/siege_social": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Mêmes données que l'API ci-dessus ⬆️ avec en plus les informations protégées des sièges sociaux \"en diffusion partielle\"..<br><br>🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
-
-            "insee/adresse_etablissements_diffusibles": "💡_Ces données sont aussi distribuées par l'API \"Données établissement en open data\"_"
-
-            "insee/adresse_etablissements": "💡_Ces données sont aussi distribuées par l'API \"Données établissement\"_"
-
-            "insee/successions": "<span class='fr-badge fr-badge--sm fr-badge--purple-glycine fr-badge--new'>Suivi</span> Le SIRET d'un établissement peut évoluer dans le temps, _par exemple lors d'un changement d'adresse_. Cette API permet de retrouver les établissements prédecesseurs et successeurs d'un établissement et précise s'il s'agit d'un changement de siège, et s'il y a continuité économique."
-
-            "ministere_interieur/rna": "<span class='fr-badge fr-badge--sm fr-badge--new'>Préremplissage</span> <span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Préremplir les informations d'une **association** telles que _le nom, l'objet, l'adresse du siège et la date de création._"
-
-            "djepva/associations": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> **Informations d'une association** (unité légale et établissement) telles que _l'identité, la forme juridique, la date de création, les activités principales, le régime, les adresses, les agréments, les représentants légaux, les effectifs salariés-bénévoles-volontaires et les adhérents._<br><br>**Informations financières** : Comptes de résultats et financement, comptes du dernier exercice clôt, budget prévisionnel et rapport du commissaire au compte de l'association.<br><br>🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
-
-            "djepva/associations_open_data": "<span class='fr-badge fr-badge--sm fr-badge--new'>Préremplissage</span> **Informations d'une association** (unité légale et établissement) **en open data** et qui peuvent donc être utilisées pour pré-remplir la démarche, sans pré-authentification de l'usager."
-
-            "data_subvention/subventions": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Connaître les subventions accordées à une association.<br><br>🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
-
-            "ministere_interieur/documents_associations": "<span class='fr-badge fr-badge--sm fr-badge--new'>Préremplissage</span> <span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Donner accès aux documents d'une association."
-
-            "inpi/rne/beneficiaires_effectifs": "_Donnée sensible non-nécessaire._<br/><br/>Seules les autorités listées dans le [2° de l’article L561-46 du Code monétaire et financier](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000041578272/){:target='_blank'} sont autorisées à accéder aux bénéficiaires effectifs. L’API Entreprise ne délivre des accès à cette API que pour le cas d’usage *Détection de la fraude*."
-
-            "inpi/rne/actes_bilans": "<span class='fr-badge fr-badge--sm fr-badge--new'>Préremplissage</span> <span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> **Vérification de capacité économique et financière** : Consulter les actes pour se renseigner sur l'historique des modifications de l'unité légale et vérifier les associés. Consulter les bilans pour vérifier les capitaux propres, chiffre d'affaire et encours."
-
-            "commission_europeenne/numero_tva": "<span class='fr-badge fr-badge--sm fr-badge--new'>Préremplissage</span> Préremplir le numéro de TVA certifié.<br/><br/><span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Permettre à l'instructeur de vérifier la validité du numéro de TVA.<br/><br/>Cette API ne fonctionne que pour les entreprises ayant un Siren et un numéro de TVA au format français."
-
-            "fabrique_numerique_ministeres_sociaux/conventions_collectives": "<span class='fr-badge fr-badge--sm fr-badge--new'>Préremplissage</span> <span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Pré-lister les **conventions collectives** avec un lien vers Légifrance."
-
-            "cma_france/rnm": "<span class='fr-badge fr-badge--sm fr-badge--new'>Préremplissage</span> <span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Préremplir les informations d'identité d'une **entreprise artisanale, à partir de son SIREN** : _Dénomination sociale, forme juridique, effectif salarié, date d'immatriculation au RNM, adresse_ d'une entreprise artisanale."
-
-            "gip_mds/effectifs_annuels_unite_legale" : "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Donner accès à l'instructeur à l'**effectif précis annuel de l'unité légale** _sous réserve d'en justifier l'usage_.<br/><br/>💡La tranche de l'effectif salarié (année N-2 ou N-3) est appelable avec l'API \"Données établissements - Insee\", et l'effectif d'une entreprise artisanale avec l'API \"Données du RNM - CMA\".<br><br>🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
-
-            "gip_mds/effectifs_mensuels_etablissement" : "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Donner accès à l'instructeur à l'**effectif précis mensuel de l'établissement** _sous réserve d'en justifier l'usage_.<br/><br/>💡La tranche de l'effectif salarié (année N-2 ou N-3) est appelable avec l'API \"Données établissements - Insee\", et l'effectif d'une entreprise artisanale avec l'API \"Données du RNM - CMA\".<br><br>🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
-
-            "douanes/immatriculation_eori": "<span class='fr-badge fr-badge--sm fr-badge--new'>Préremplissage</span>  Préremplir à partir du SIRET le numéro EORI d'une entreprise ayant réalisé son immatriculation en France. <br/><br/><span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Permettre à l'instructeur de vérifier la validité du numéro EORI."
-
-            "dgfip/chiffres_affaires": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Donner accès à l'instructeur aux **trois derniers chiffres d'affaires**.<br><br>🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
-
-            "inpi/comptes_annuels_rncs": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Donner accès à l'instructeur aux **comptes annuels**."
-
-            "banque_de_france/bilans": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Donnée sensible diffusée si le cas d'usage justifie l'accès aux indicateurs spécifiques de la banque de France.<br><br>🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
-
-            "dgfip/liasses_fiscales": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span>Si l'[article L.232-25 du Code du commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000038611013/2022-04-11) permet aux sociétés commerciales de demander que leur compte de résultat ne soit pas rendu public ou partiellement, ce même article indique que les administrations de l'État, les collectivités territoriales, les établissements publics à caractère administratif, les organismes de sécurité sociale et les autres organismes chargés de la gestion d'un service public administratif « qui financent ou investissent, directement ou indirectement, dans les entreprises ou fournissent des prestations au bénéfice de ces personnes morales ont toutefois accès à l'intégralité des comptes. »<br><br>🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
-
-            "dgfip/liens_capitalistiques": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Vérification des **actionnaires et filiales de l'entreprise ou de l'association'**. Utile pour vérifier qui détient au moins 10% du capital du titulaire et aussi obtenir la liste des filiales détenues par le titulaire, également à hauteur de 10% du capital.<br/><br/> _Par exemple, peut-être utile pour s'assurer que les règles de cumul et de plafonds des aides par entreprise sont bien respectées et ne sont pas camouflées par un montage de plusieurs entreprises différentes._<br><br>🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
-
-            "dgfip/attestations_fiscales": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Donner accès à l'instructeur à l'**attestation fiscale**.<br><br>🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
-
-            "urssaf/attestation_vigilance": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Donner accès à l'instructeur à l'**attestation sociale**.<br><br>🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
-
-            "msa/conformites_cotisations": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Indiquer à l'instructeur si une entreprise du régime agricole a bien versé ses **cotisations auprès de la MSA**.<br><br>🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
-
-            "probtp/conformites_cotisations_retraite": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Indiquer à l'instructeur si une entreprise du BTP est à bien a bien versé ses **cotisations retraites**.<br><br>🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
-
-            "fntp/carte_professionnelle_travaux_public": "<span class='fr-badge fr-badge--sm fr-badge--new'>Préremplissage</span> <span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Donner accès à la **carte professionnelle** de la fédération nationale des travaux publics, indiquant que l'entreprise est à jour de ses cotisations congés payés, et donnant vue sur ses qualifications professionnelles."
-
-            "cnetp/attestations_cotisations_conges_payes_chomage_intemperies": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Donner accès à l'instructeur à l'**attestation congés payés CNETP** qui concerne les entreprises de travaux publics.<br><br>🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
-
-            "cibtp/attestations_cotisations_conges_payes_chomage_intemperies": "<span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Donner accès à l'instructeur à l'**attestation congés payés CIBTP** qui concerne les entreprises du bâtiment.<br><br>🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
-
-            "agence_bio/certifications_bio": "<span class='fr-badge fr-badge--sm fr-badge--new'>Préremplissage</span> <span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Préremplir les **certifications en BIO** d'une entreprise."
-
-            "ademe/certifications_rge": "<span class='fr-badge fr-badge--sm fr-badge--new'>Préremplissage</span> <span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Préremplir les **qualifications Reconnu Garant de l'Environnement** et donner accès au certificat PDF."
-
-            "qualibat/certifications_batiment": "<span class='fr-badge fr-badge--sm fr-badge--new'>Préremplissage</span> <span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Donner accès au **certificat Qualibat** en PDF"
-
-            "qualifelec/certificats": "<span class='fr-badge fr-badge--sm fr-badge--new'>Préremplissage</span> <span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span>Préremplir les **qualifications Qualifelec_** de l'entreprise et donner accès au **certificat en PDF*."
-
-            "opqibi/qualifications_ingenierie": "<span class='fr-badge fr-badge--sm fr-badge--new'>Préremplissage</span> <span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Préremplir les **qualifications OPQIB** et donner accès au certificat PDF."
-
-            "carif_oref/certifications_qualiopi_france_competences": "<span class='fr-badge fr-badge--sm fr-badge--new'>Préremplissage</span> <span class='fr-badge fr-badge--sm fr-badge--green-archipel fr-badge--new'>Instruction</span> Préremplir les **certifications Qualiopi et habilitations France Compétences** de l'établissement.<br><br>🔐 Uniquement utilisable en **backoffice par l'instructeur** car donnée protégée."
-        introduction:
-          title: Accédez directement aux justificatifs pour instruire les démarches de votre portail GRU !
-          content: |
-            {:.fr-text--lead}
-            Administrations et collectivités, API Entreprise propose un accès direct aux documents des entreprises & associations. Depuis leur logiciel, vos agents habilités récupèrent les données et documents administratifs nécessaires à l'instruction des démarches proposées sur votre portail relation usager.
-
-
-            _Si votre portail est uniquement dédié aux demandes d'aides & subventions_, nous vous recommandons le [cas d'usage aides publiques](<%= cas_usage_path(uid: 'aides_publiques') %>).
-        role:
-          title: Une simplification des démarches
-          anchor: 'simplification-des-demarches'
-          content: |+
-            {:.fr-text--lg}
-            Administrations et collectivités, en intégrant la brique API Entreprise dans votre portail GRU et votre système d'information :
-
-            - 🗄 Vous **accédez facilement aux données publiques et protégées 🔐** de l'Insee, d'Infogreffe, de la DGFIP, de l'Urssaf... ;
-
-            - ⏰ Vous **accélérez le traitement des démarches sur votre portail** car vos agents instructeurs n'ont pas de vérifications supplémentaires à réaliser, **les informations obtenues de l'API Entreprise étant certifiées 🔎** ;
-
-            - 🎢 Vous **augmentez le pourcentage des démarches finalisées** car vous faîtes gagner du temps à l'usager ;
-
-            - 🎯 Enfin, vous **participez activement à la simplification des démarches pour les citoyens**, en mettant en place le [«&nbsp;Dites-le-nous une fois&nbsp;»](https://www.numerique.gouv.fr/services/guichet-dites-le-nous-une-fois/){:target="_blank"} : vous ne demandez plus à une entreprise/association une information qu'elle a déjà donnée ou que l'administration connaît déjà. <br />Vous vous mettez ainsi **en conformité avec la législation** et, plus particulièrement l'[Article L113-12 du Code des relations entre le public et l'administration](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037313155){:target="_blank"}.
-
-        use_case_examples:
-          title: Exemples d'applications
-          anchor: 'use_case_examples'
-          content: |+
-            {:.fr-h4}
-            ### Une entreprise ou une association effectue une démarche sur votre portail GRU connecté à API Entreprise&nbsp;:
-
-
-            1. **Elle renseigne son identifiant** (Siret ou RNA) :
-
-               {:.fr-highlight.fr-highlight--example}
-               ⚙️ **En arrière-plan** : Un appel à l'API Entreprise est effectué.
-
-               ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/cas_usages/pictos/use_case_examples/portail-gru-use_case_example_1a.png') %>){:width="600px"}
-
-            2. **Les informations administratives la concernant sont pré-remplies automatiquement**. Elle les corrige si besoin et poursuit sa démarche :
-
-               {:.fr-highlight.fr-highlight--example}
-               ⚙️ **En arrière-plan** : À partir du format structuré (.json) transmis par l'API Entreprise, vous choisissez la façon d'afficher l'information sur votre site.
-               ⚠️ Seule de la donnée ouverte peut être pré-remplie. Les données protégées ne doivent jamais être accessibles depuis le site public de votre portail.
-
-               ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/cas_usages/pictos/use_case_examples/portail-gru-use_case_example_1b.png') %>){:width="600px"}
-
-            3. **Avant d'envoyer sa demande, une liste des justificatifs nécessaires pour valider la démarche est présentée**. Les documents déjà disponibles par API Entreprise n'ont pas besoin d'être téléchargés :
-
-               {:.fr-highlight.fr-highlight--example}
-               💡 Quand la donnée est indisponible dans API Entreprise, permettez le dépôt des documents manquants pour simplifier le parcours de vos usagers.
-
-               ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/cas_usages/pictos/use_case_examples/portail-gru-use_case_example_1c.png') %>){:width="600px"}
-
-
-            4. **La demande est réceptionnée par l'instructeur, toutes les informations et justificatifs sont regroupés dans un même espace**. L'instructeur n'a pas à vérifier l'exactitude des données car elles sont certifiées.
-               ![Image de présentation de l'article sur le numéro de TVA intracommunautaire](<%= image_path('api_entreprise/cas_usages/pictos/use_case_examples/portail-gru-use_case_example_1d.png') %>){:width="600px"}
-
-
-            Le cas d'usage [Portail GRU - Préremplissage](<%= cas_usage_path(uid: 'portail_gru') %>) est suffisant si vous avez seulement besoin des étapes 1 et 2.
-
-            {:.fr-h4}
-            ### Un exemple avec Camille, agricultrice et Nicolas, agent territorial :
-
-            {:.fr-text--regular.fr-text--alt.fr-text--lg}
-            _Camille a besoin d'un emplacement sur le marché de sa ville pour vendre sa production_. Elle s'est rendue sur le portail informatique de la commune, a sélectionné la démarche, entré son numéro de Siret. Toutes les informations publiques de son entreprise ont été automatiquement pré-remplies, elle peut les modifier si elle repère une erreur.
-
-            {:.fr-text--regular.fr-text--alt.fr-text--lg}
-            À l'étape suivante, Camille n'aura à fournir qu'un seul justificatif sur les cinq requis. En effet, le portail de sa commune lui fait savoir que les quatre autres documents ont déjà été récupérés auprès des administrations compétentes. Camille n'aura pas besoin de chercher ces documents dans ses dossiers ou de se rendre sur différents sites pour les retrouver. En ce qui concerne le document manquant, Camille n'est pas bloquée dans sa démarche, elle peut l'ajouter dans le formulaire. Elle envoie sa demande.
-
-            {:.fr-text--regular.fr-text--alt.fr-text--lg}
-            _Nicolas est agent dans la commune de Camille et chargé d'instruire les demandes des entreprises et associations_. Depuis son espace instructeur, il est habilité à traiter les démarches à et manipuler des informations protégées.
-            Nicolas vient de recevoir la démarche de Camille. Depuis la fiche entreprise de l'usagère, il voit d'un coup d’œil que l'ensemble des données et documents nécessaires pour la démarche sont présents. Il n'a pas besoin de vérifier l'existence du numéro de Siret de Camille, ni de vérifier l'absence de faute de frappe dans l'adresse postale. En plus, sur les cinq documents transmis, quatre proviennent de l'API Entreprise, ils sont certifiés.
-            Nicolas vérifie donc l'unique document transmis par Camille. Tout est en ordre, il valide la demande d'emplacement de marché.
-        list_api:
-          content: |+
-            {:.fr-text--xl}
-            Ce tableau dresse la liste des API utiles pour ce cas d'usage. Utilisez-le pour compléter votre [demande d'habilitation](#request-access).
-
-            Les API **<span style="color:#a1a1a1" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> délivrant de l'open data seront précochéees** par défaut dans le formulaire d'accès.
-            Les API **<span style="color:#1f8d49" class="fr-icon-checkbox-circle-fill" aria-hidden="true"></span> indispensables seront précochées** par défaut dans le formulaire d'accès.
-            Les API **️<span style="color:#1f8d49" class="fr-icon-checkbox-circle-line" aria-hidden="true"></span> utiles** seront à cocher par vos soins si votre cas d'usage le justifie.
-            Les API **<span style="color:#d64d00" class="fr-icon-close-circle-line" aria-hidden="true"></span> injustifiées** ne peuvent être demandées pour ce cas d'usage.
-
-
-            {:.fr-highlight.fr-highlight--caution}
-            Lors de votre demande d'habilitation, **vous vous engagez à ne demander que les données strictement nécessaires** à la réalisation de la démarche administrative. Consulter [nos conditions générales d'utilisation](<%= cgu_path %>){:target="_blank"}.
-
-        users:
-          title: Ils utilisent l’API Entreprise
-          anchor: 'users'
-          content: |+
-            {:.fr-h5}
-            ### Des communes et intercommunalités
-
-            Le [portail en ligne de la ville de Chambéry](https://simplici.chambery.fr/){:target="_blank"} : une plateforme de démarches à destination des entreprises et des associations.
-
-            {:.fr-h5}
-            ### Des régions
-
-            Le [portail GRU de la Région Réunion](https://demarches.cr-reunion.fr/){:target="_blank"} : une plateforme en ligne qui propose également la délivrance d'aides et subventions publiques.
-
-            {:.fr-highlight.fr-highlight--example.fr-text--regular.fr-text--alt.fr-text--lg}
-            "_L'accès à l'API entreprise nous permet de faire des contrôles lors de la création de la demande par l'usager (contrôle existence SIREN/SIRET, récupération adresse, ...) et nous permet d'afficher à nos agents des aides à l'instruction (différences entres données fournies par l'usager et les données remontées par l'API: code NAF, dénomination, taille de l'entreprise, ...)._"
-
-            {:.fr-h5}
-            ### Parfois au travers d’un éditeur de logiciel :
-
-            {:.fr-table}
-            | Éditeurs ayant intégré l'API Entreprise                                             |                                          Solution                                                                            |                     Cas d'usage                       |
-            | ----------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------:|
-            | **Efalia** <br> Entreprise privée                                                   | [efalia.com](https://www.efalia.com/) <br> [Solution 6Tzen](https://www.6tzen.fr/){:target="_blank"}                 |                   Portail gestion relation usager       |
-            | **Entr’ouvert** <br> Coopérative                                                    | [entrouvert.com](https://www.entrouvert.com) <br> [Publik](https://publik.entrouvert.com/){:target="_blank"}                 |                   Portail de démarches en ligne       |
-            | **Lanteas** <br> Entreprise privée                                                    |    [OpenGRU](https://lanteas.com/gestion-relation-usager-open-gru-crm/){:target="_blank"}                     |                  Portail gestion relation usager      |
-
-
-            _Vous êtes un éditeur proposant une solution de portail de gestion relation usager et ne figurez pas sur cette liste ?_ Veuillez nous contacter à cette adresse e-mail : [support@entreprise.api.gouv.fr](mailto:support@entreprise.api.gouv.fr).
-        legal_context:
-          content: |+
-            L'utilisation des données est encadrée légalement. Vous devez formuler une demande auprès de l'API Particulier en justifiant du cadre légal de l'utilisation des données :
-
-            - **Cadre légal général** : [Article L114-8 du Code des relations entre le public et l'administration](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000045213315){:target="_blank"} ;
-            - **Cadre légal spécifique** : le cadre légal général n'est pas suffisant pour vous habiliter. Il est nécessaire de fournir le contexte spécifique de votre administration qui permettra de justifier les données demandées.
-        request_access:
-          link_datapass: "<%= datapass_base_url %>/api-entreprise/?demarche=portail_gru_instruction"
-          content: null
       editeur:
         name: 'Accès spécifique éditeurs de logiciels'
         user_types:
@@ -1534,13 +1300,13 @@ fr:
             | **Atline Services** <br> Entreprise privée                                          |                            [marchés-securises.fr](https://www.marches-securises.fr/entreprise/?){:target="_blank"}           |                   [Marchés publics](<%= cas_usage_path(uid: 'marches_publics') %>)<br>_Dépôt et instruction des candidatures_<br> et _Contrôle de conformité du titulaire du marché_  |
             | **AWS** <br> Entreprise privée,<br>_filiale du groupe Achat solutions_              |                       [AWS-achat](https://www.marches-publics.info){:target="_blank"}                                        |                   [Marchés publics](<%= cas_usage_path(uid: 'marches_publics') %>)<br>_Dépôt et instruction des candidatures_<br> et _Contrôle de conformité du titulaire du marché_  |
             | **Axyus** <br> Entreprise privée                                                    |                             [Axyus](https://www.axyus.com/){:target="_blank"}                                                |                   [Aides & subventions publiques](<%= cas_usage_path(uid: 'aides_publiques') %>)                                                                                      |
-            | **Démarches Simplifiées** <br> Service opéré par l'État (DINUM)                                               | [demarches-simplifiees.fr](www.demarches-simplifiees.fr/){:target="_blank"} <br> Application en ligne de création de formulaire, prête à l'emploi, et mise à disposition de l'ensemble des organismes publics.                |   [Portail GRU - Instruction des démarches](<%= cas_usage_path(uid: 'portail_gru_instruction') %>) <br> [Portail GRU - Préremplissage](<%= cas_usage_path(uid: 'portail_gru') %>)      |
+            | **Démarches Simplifiées** <br> Service opéré par l'État (DINUM)                                               | [demarches-simplifiees.fr](www.demarches-simplifiees.fr/){:target="_blank"} <br> Application en ligne de création de formulaire, prête à l'emploi, et mise à disposition de l'ensemble des organismes publics.                |   [Socle de base DLNUF](<%= cas_usage_path(uid: 'socle_de_base') %>)     |
             | **Dematis** <br> Entreprise privée                                                  |                 [e-marchespublics.com](https://www.e-marchespublics.com/){:target="_blank"}                                  |                   [Marchés publics](<%= cas_usage_path(uid: 'marches_publics') %>)<br>_Dépôt et instruction des candidatures_                                                         |
             | **E-attestations** <br> entreprise privée                                            |                     [E-attestations](https://www.e-attestations.com/){:target="_blank"}                                      |                   [Marchés publics](<%= cas_usage_path(uid: 'marches_publics') %>)<br>_Contrôle de conformité du titulaire du marché_                                                 |
-            | **Efalia** <br> Entreprise privée                                                   | [efalia.com](https://www.efalia.com/) <br> [Solution 6Tzen](https://www.6tzen.fr/){:target="_blank"}                 |                   [Portail GRU - Instruction des démarches](<%= cas_usage_path(uid: 'portail_gru_instruction') %>) <br> [Portail GRU - Préremplissage](<%= cas_usage_path(uid: 'portail_gru') %>)     |
-            | **Entr’ouvert** <br> coopérative                                                    | [entrouvert.com](https://www.entrouvert.com) <br> [Publik](https://publik.entrouvert.com/){:target="_blank"}                 |     [Portail GRU - Instruction des démarches](<%= cas_usage_path(uid: 'portail_gru_instruction') %>) <br> [Portail GRU - Préremplissage](<%= cas_usage_path(uid: 'portail_gru') %>)                   |
+            | **Efalia** <br> Entreprise privée                                                   | [efalia.com](https://www.efalia.com/) <br> [Solution 6Tzen](https://www.6tzen.fr/){:target="_blank"}                 |                   [Socle de base DLNUF](<%= cas_usage_path(uid: 'socle_de_base') %>)    |
+            | **Entr’ouvert** <br> coopérative                                                    | [entrouvert.com](https://www.entrouvert.com) <br> [Publik](https://publik.entrouvert.com/){:target="_blank"}                 |    [Socle de base DLNUF](<%= cas_usage_path(uid: 'socle_de_base') %>)                |
             | **Klekoon** <br> Entreprise privée                                                  |                          [klekoon.com](https://www.klekoon.com/){:target="_blank"}                                           |                   [Marchés publics](<%= cas_usage_path(uid: 'marches_publics') %>)<br>_Dépôt et instruction des candidatures_                                                         |
-            | **Lanteas** <br> Entreprise privée                                                    |   [OpenSub](https://lanteas.com/opensub-solution-innovante-de-gestion-des-subventions/){:target="_blank"} <br> [OpenGRU](https://lanteas.com/gestion-relation-usager-open-gru-crm/){:target="_blank"}                     |                  [Aides & subventions publiques](<%= cas_usage_path(uid: 'aides_publiques') %>) <br> [Portail GRU - Instruction des démarches](<%= cas_usage_path(uid: 'portail_gru_instruction') %>) <br> [Portail GRU - Préremplissage](<%= cas_usage_path(uid: 'portail_gru') %>)  |
+            | **Lanteas** <br> Entreprise privée                                                    |   [OpenSub](https://lanteas.com/opensub-solution-innovante-de-gestion-des-subventions/){:target="_blank"} <br> [OpenGRU](https://lanteas.com/gestion-relation-usager-open-gru-crm/){:target="_blank"}                     |                  [Aides & subventions publiques](<%= cas_usage_path(uid: 'aides_publiques') %>) <br>[Socle de base DLNUF](<%= cas_usage_path(uid: 'socle_de_base') %>) |
             | **Maximilien** <br> Groupement d’intérêt public                                     |                          [Maximilien](https://www.maximilien.fr/){:target="_blank"}                                          |                   [Marchés publics](<%= cas_usage_path(uid: 'marches_publics') %>)<br>_Dépôt et instruction des candidatures_<br> et _Contrôle de conformité du titulaire du marché_  |
             | **Megalis Bretagne** <br> Syndicat mixte                                            |      [Salle des marchés publics - Mégalis Bretagne](https://www.megalis.bretagne.bzh){:target="_blank"}                      |                   [Marchés publics](<%= cas_usage_path(uid: 'marches_publics') %>)<br>_Dépôt et instruction des candidatures_                                                         |
             | **MGDIS** <br> Entreprise privée                                                    |    [Portail des aides](https://www.mgdis.fr/nos-solutions/pilotage-des-aides-versees/){:target="_blank"}                     |                   [Aides & subventions publiques](<%= cas_usage_path(uid: 'aides_publiques') %>)                                                                                 |
