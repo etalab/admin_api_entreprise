@@ -1,4 +1,6 @@
-document.addEventListener("turbo:load", function () {
+function registerSearchCatalogueController() {
+  if (window.Stimulus.router.modulesByIdentifier.has('search-catalogue')) return;
+
   window.Stimulus.register(
     "search-catalogue",
     class extends window.StimulusController {
@@ -258,4 +260,7 @@ document.addEventListener("turbo:load", function () {
       }
     }
   );
-});
+}
+
+document.addEventListener("turbo:load", registerSearchCatalogueController);
+document.addEventListener("DOMContentLoaded", registerSearchCatalogueController);
