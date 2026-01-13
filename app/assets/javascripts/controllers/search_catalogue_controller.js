@@ -147,8 +147,10 @@ document.addEventListener("turbo:load", function () {
           return;
         }
 
+        const queryWords = query.split(/\s+/).filter(w => w.length > 0);
         const tags = matchingAttributeKeys.map(attrKey => {
-          return '<li><p class="fr-tag fr-tag--sm">' + attrKey.display + '</p></li>';
+          const highlightedDisplay = this._highlightWords(attrKey.display, queryWords);
+          return '<li><p class="fr-tag fr-tag--sm">' + highlightedDisplay + '</p></li>';
         }).join("");
 
         element.innerHTML = '<u>Données correspondantes</u> :<ul style="list-style: none;" class="fr-pl-0">' + tags + '</ul>';
@@ -175,33 +177,69 @@ document.addEventListener("turbo:load", function () {
           element.dataset.originalText = element.textContent;
         }
 
-        const original = element.dataset.originalText;
-        const normalizedQuery = query;
+        element.innerHTML = this._highlightString(element.dataset.originalText, query);
+      }
 
+      _highlightString(text, query) {
         let result = "";
         let i = 0;
 
-        while (i < original.length) {
+        while (i < text.length) {
           let j = 0;
 
           while (
-            j < normalizedQuery.length &&
-            i + j < original.length &&
-            this._normalize(original.charAt(i + j)) === normalizedQuery.charAt(j)
+            j < query.length &&
+            i + j < text.length &&
+            this._normalize(text.charAt(i + j)) === query.charAt(j)
           ) {
             j++;
           }
 
-          if (j === normalizedQuery.length && j > 0) {
-            result += '<span class="search-highlight">' + original.substring(i, i + j) + "</span>";
+          if (j === query.length && j > 0) {
+            result += '<span class="search-highlight">' + text.substring(i, i + j) + "</span>";
             i += j;
           } else {
-            result += original.charAt(i);
+            result += text.charAt(i);
             i++;
           }
         }
 
-        element.innerHTML = result;
+        return result;
+      }
+
+      _highlightWords(text, words) {
+        let result = "";
+        let i = 0;
+
+        while (i < text.length) {
+          let matched = false;
+
+          for (const word of words) {
+            let j = 0;
+
+            while (
+              j < word.length &&
+              i + j < text.length &&
+              this._normalize(text.charAt(i + j)) === word.charAt(j)
+            ) {
+              j++;
+            }
+
+            if (j === word.length && j > 0) {
+              result += '<span class="search-highlight">' + text.substring(i, i + j) + "</span>";
+              i += j;
+              matched = true;
+              break;
+            }
+          }
+
+          if (!matched) {
+            result += text.charAt(i);
+            i++;
+          }
+        }
+
+        return result;
       }
 
       _clearHighlight(element) {
