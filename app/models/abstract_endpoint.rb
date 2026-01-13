@@ -126,6 +126,10 @@ class AbstractEndpoint
     old_endpoints.any?
   end
 
+  def implemented?
+    true
+  end
+
   def attributes
     @attributes ||= extract_data_from_schema
   end

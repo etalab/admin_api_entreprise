@@ -2,7 +2,7 @@ document.addEventListener("turbo:load", function () {
   window.Stimulus.register(
     "search-catalogue",
     class extends window.StimulusController {
-      static targets = ["input", "card", "noResults", "title", "description", "matchingKeywords"];
+      static targets = ["input", "card", "noResults", "title", "description", "matchingKeywords", "matchingAttributeKeys"];
 
       connect() {
         const params = new URLSearchParams(window.location.search);
@@ -23,6 +23,7 @@ document.addEventListener("turbo:load", function () {
             card.style.display = "";
             this._updateHighlight(index, "");
             this._updateMatchingKeywords(index, "", []);
+            this._updateMatchingAttributeKeys(index, "", []);
           });
           if (this.hasNoResultsTarget) {
             this.noResultsTarget.style.display = "none";
@@ -35,17 +36,21 @@ document.addEventListener("turbo:load", function () {
         this.cardTargets.forEach((card, index) => {
           const searchableText = this._normalize(card.dataset.searchable);
           const keywords = JSON.parse(card.dataset.keywords || "[]");
+          const attributeKeys = JSON.parse(card.dataset.attributeKeys || "[]");
           const matchingKeywords = this._findMatchingKeywords(query, keywords);
+          const matchingAttributeKeys = this._findMatchingAttributeKeys(query, attributeKeys);
 
           const matchesText = searchableText.includes(query);
           const matchesKeywords = matchingKeywords.length > 0;
-          const isVisible = matchesText || matchesKeywords;
+          const matchesAttributeKeys = matchingAttributeKeys.length > 0;
+          const isVisible = matchesText || matchesKeywords || matchesAttributeKeys;
 
           card.style.display = isVisible ? "" : "none";
           if (isVisible) visibleCount++;
 
           this._updateHighlight(index, query);
           this._updateMatchingKeywords(index, query, matchingKeywords);
+          this._updateMatchingAttributeKeys(index, query, matchingAttributeKeys);
         });
 
         if (this.hasNoResultsTarget) {
@@ -104,6 +109,49 @@ document.addEventListener("turbo:load", function () {
         }).join("");
 
         element.innerHTML = '<u>Mots clés correspondants</u> :<ul class="fr-tags-group fr-tags-group--sm fr-mt-1v fr-mb-0">' + tags + '</ul>';
+        element.style.display = "";
+      }
+
+      _findMatchingAttributeKeys(query, attributeKeys) {
+        if (!query || attributeKeys.length === 0) return [];
+
+        const queryWords = query.split(/\s+/).filter(w => w.length > 0);
+        if (queryWords.length === 0) return [];
+
+        const matchedKeys = [];
+
+        for (const attrKey of attributeKeys) {
+          const normalizedKey = this._normalize(attrKey.key);
+          const normalizedDisplay = this._normalize(attrKey.display);
+
+          for (const word of queryWords) {
+            if (normalizedKey.includes(word) || normalizedDisplay.includes(word)) {
+              if (!matchedKeys.find(k => k.key === attrKey.key)) {
+                matchedKeys.push(attrKey);
+              }
+              break;
+            }
+          }
+        }
+
+        return matchedKeys;
+      }
+
+      _updateMatchingAttributeKeys(cardIndex, query, matchingAttributeKeys) {
+        const element = this.matchingAttributeKeysTargets[cardIndex];
+        if (!element) return;
+
+        if (query === "" || matchingAttributeKeys.length === 0) {
+          element.style.display = "none";
+          element.innerHTML = "";
+          return;
+        }
+
+        const tags = matchingAttributeKeys.map(attrKey => {
+          return '<li><p class="fr-tag fr-tag--sm">' + attrKey.display + '</p></li>';
+        }).join("");
+
+        element.innerHTML = '<u>Clés correspondantes</u> :<ul class="fr-tags-group fr-tags-group--sm fr-mt-1v fr-mb-0">' + tags + '</ul>';
         element.style.display = "";
       }
 
