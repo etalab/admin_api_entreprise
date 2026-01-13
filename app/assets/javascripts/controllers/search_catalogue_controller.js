@@ -151,7 +151,7 @@ document.addEventListener("turbo:load", function () {
           return '<li><p class="fr-tag fr-tag--sm">' + attrKey.display + '</p></li>';
         }).join("");
 
-        element.innerHTML = '<u>Clés correspondantes</u> :<ul class="fr-tags-group fr-tags-group--sm fr-mt-1v fr-mb-0">' + tags + '</ul>';
+        element.innerHTML = '<u>Clés correspondantes</u> :<ul style="list-style: none;" class="fr-pl-0">' + tags + '</ul>';
         element.style.display = "";
       }
 
