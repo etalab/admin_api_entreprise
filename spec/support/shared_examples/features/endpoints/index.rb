@@ -8,6 +8,25 @@ RSpec.shared_examples 'an endpoints index feature' do |api_module|
     endpoints.first
   end
 
+  def search_catalogue(query)
+    page.execute_script("document.querySelector('#catalogue-search-input').value = '#{query}'")
+    page.execute_script("document.querySelector('#catalogue-search-input').dispatchEvent(new Event('input', { bubbles: true }))")
+  end
+
+  it 'highlights search matches on title, data keys, and shows matching tags', :js do
+    title_word = sample_endpoint.title.split.find { |w| w.length > 3 }&.downcase || 'test'
+    visit "#{endpoints_path}?s=#{title_word}"
+
+    expect(page).to have_css('[data-search-catalogue-target="title"] .search-highlight')
+
+    search_catalogue('code')
+    expect(page).to have_css('[data-search-catalogue-target="matchingAttributeKeys"] .search-highlight')
+
+    keyword = endpoints_class.all.flat_map(&:keywords).compact.first
+    search_catalogue(keyword)
+    expect(page).to have_css('[data-search-catalogue-target="matchingKeywords"] .fr-tag')
+  end
+
   it 'displays endpoints with basic info and link to show' do
     visit endpoints_path
 

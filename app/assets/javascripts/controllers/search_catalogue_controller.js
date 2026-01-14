@@ -1,8 +1,10 @@
-document.addEventListener("turbo:load", function () {
+function registerSearchCatalogueController() {
+  if (window.Stimulus.router.modulesByIdentifier.has('search-catalogue')) return;
+
   window.Stimulus.register(
     "search-catalogue",
     class extends window.StimulusController {
-      static targets = ["input", "card", "noResults", "title", "description", "matchingKeywords"];
+      static targets = ["input", "card", "noResults", "title", "description", "matchingKeywords", "matchingAttributeKeys"];
 
       connect() {
         const params = new URLSearchParams(window.location.search);
@@ -23,6 +25,7 @@ document.addEventListener("turbo:load", function () {
             card.style.display = "";
             this._updateHighlight(index, "");
             this._updateMatchingKeywords(index, "", []);
+            this._updateMatchingAttributeKeys(index, "", []);
           });
           if (this.hasNoResultsTarget) {
             this.noResultsTarget.style.display = "none";
@@ -35,17 +38,21 @@ document.addEventListener("turbo:load", function () {
         this.cardTargets.forEach((card, index) => {
           const searchableText = this._normalize(card.dataset.searchable);
           const keywords = JSON.parse(card.dataset.keywords || "[]");
+          const attributeKeys = JSON.parse(card.dataset.attributeKeys || "[]");
           const matchingKeywords = this._findMatchingKeywords(query, keywords);
+          const matchingAttributeKeys = this._findMatchingAttributeKeys(query, attributeKeys);
 
           const matchesText = searchableText.includes(query);
           const matchesKeywords = matchingKeywords.length > 0;
-          const isVisible = matchesText || matchesKeywords;
+          const matchesAttributeKeys = matchingAttributeKeys.length > 0;
+          const isVisible = matchesText || matchesKeywords || matchesAttributeKeys;
 
           card.style.display = isVisible ? "" : "none";
           if (isVisible) visibleCount++;
 
           this._updateHighlight(index, query);
           this._updateMatchingKeywords(index, query, matchingKeywords);
+          this._updateMatchingAttributeKeys(index, query, matchingAttributeKeys);
         });
 
         if (this.hasNoResultsTarget) {
@@ -107,6 +114,51 @@ document.addEventListener("turbo:load", function () {
         element.style.display = "";
       }
 
+      _findMatchingAttributeKeys(query, attributeKeys) {
+        if (!query || attributeKeys.length === 0) return [];
+
+        const queryWords = query.split(/\s+/).filter(w => w.length > 0);
+        if (queryWords.length === 0) return [];
+
+        const matchedKeys = [];
+
+        for (const attrKey of attributeKeys) {
+          const normalizedKey = this._normalize(attrKey.key);
+          const normalizedDisplay = this._normalize(attrKey.display);
+
+          for (const word of queryWords) {
+            if (normalizedKey.includes(word) || normalizedDisplay.includes(word)) {
+              if (!matchedKeys.find(k => k.key === attrKey.key)) {
+                matchedKeys.push(attrKey);
+              }
+              break;
+            }
+          }
+        }
+
+        return matchedKeys;
+      }
+
+      _updateMatchingAttributeKeys(cardIndex, query, matchingAttributeKeys) {
+        const element = this.matchingAttributeKeysTargets[cardIndex];
+        if (!element) return;
+
+        if (query === "" || matchingAttributeKeys.length === 0) {
+          element.style.display = "none";
+          element.innerHTML = "";
+          return;
+        }
+
+        const queryWords = query.split(/\s+/).filter(w => w.length > 0);
+        const tags = matchingAttributeKeys.map(attrKey => {
+          const highlightedDisplay = this._highlightWords(attrKey.display, queryWords);
+          return '<li><p class="fr-tag fr-tag--sm">' + highlightedDisplay + '</p></li>';
+        }).join("");
+
+        element.innerHTML = '<u>Données correspondantes</u> :<ul style="list-style: none;" class="fr-pl-0">' + tags + '</ul>';
+        element.style.display = "";
+      }
+
       _updateHighlight(cardIndex, query) {
         const title = this.titleTargets[cardIndex];
         const description = this.descriptionTargets[cardIndex];
@@ -127,33 +179,69 @@ document.addEventListener("turbo:load", function () {
           element.dataset.originalText = element.textContent;
         }
 
-        const original = element.dataset.originalText;
-        const normalizedQuery = query;
+        element.innerHTML = this._highlightString(element.dataset.originalText, query);
+      }
 
+      _highlightString(text, query) {
         let result = "";
         let i = 0;
 
-        while (i < original.length) {
+        while (i < text.length) {
           let j = 0;
 
           while (
-            j < normalizedQuery.length &&
-            i + j < original.length &&
-            this._normalize(original.charAt(i + j)) === normalizedQuery.charAt(j)
+            j < query.length &&
+            i + j < text.length &&
+            this._normalize(text.charAt(i + j)) === query.charAt(j)
           ) {
             j++;
           }
 
-          if (j === normalizedQuery.length && j > 0) {
-            result += '<span class="search-highlight">' + original.substring(i, i + j) + "</span>";
+          if (j === query.length && j > 0) {
+            result += '<span class="search-highlight">' + text.substring(i, i + j) + "</span>";
             i += j;
           } else {
-            result += original.charAt(i);
+            result += text.charAt(i);
             i++;
           }
         }
 
-        element.innerHTML = result;
+        return result;
+      }
+
+      _highlightWords(text, words) {
+        let result = "";
+        let i = 0;
+
+        while (i < text.length) {
+          let matched = false;
+
+          for (const word of words) {
+            let j = 0;
+
+            while (
+              j < word.length &&
+              i + j < text.length &&
+              this._normalize(text.charAt(i + j)) === word.charAt(j)
+            ) {
+              j++;
+            }
+
+            if (j === word.length && j > 0) {
+              result += '<span class="search-highlight">' + text.substring(i, i + j) + "</span>";
+              i += j;
+              matched = true;
+              break;
+            }
+          }
+
+          if (!matched) {
+            result += text.charAt(i);
+            i++;
+          }
+        }
+
+        return result;
       }
 
       _clearHighlight(element) {
@@ -172,4 +260,7 @@ document.addEventListener("turbo:load", function () {
       }
     }
   );
-});
+}
+
+document.addEventListener("turbo:load", registerSearchCatalogueController);
+document.addEventListener("DOMContentLoaded", registerSearchCatalogueController);
