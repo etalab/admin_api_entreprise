@@ -39,11 +39,11 @@ RSpec.describe 'Admin: tokens', app: :api_entreprise do
       end
     end
 
-    it 'shows ban button for active tokens' do
+    it 'shows ban link for active tokens' do
       view_tokens
 
       within("##{dom_id(token)}") do
-        expect(page).to have_button('Bannir')
+        expect(page).to have_link('Bannir')
       end
     end
 
@@ -55,16 +55,19 @@ RSpec.describe 'Admin: tokens', app: :api_entreprise do
 
         within("##{dom_id(token)}") do
           expect(page).to have_content('Inactif')
-          expect(page).to have_no_button('Bannir')
+          expect(page).to have_no_link('Bannir')
         end
       end
     end
   end
 
-  describe 'banning a token' do
+  describe 'banning a token', :js do
     subject(:ban_token) do
       visit admin_user_tokens_path(user)
       click_on dom_id(token, :ban)
+      within('#main-modal-content') do
+        click_button 'Bannir le token'
+      end
     end
 
     it 'bans the token and creates a new one', :aggregate_failures do
@@ -76,6 +79,33 @@ RSpec.describe 'Admin: tokens', app: :api_entreprise do
 
     it 'sends email to demandeur and contact technique' do
       expect { ban_token }.to have_enqueued_job(ActionMailer::MailDeliveryJob).at_least(2).times
+    end
+
+    it 'allows setting a custom blacklist date' do
+      visit admin_user_tokens_path(user)
+      click_on dom_id(token, :ban)
+
+      custom_date = 7.days.from_now
+      within('#main-modal-content') do
+        fill_in 'blacklisted_at', with: custom_date.strftime('%Y-%m-%dT%H:%M')
+        click_button 'Bannir le token'
+      end
+
+      expect(token.reload.blacklisted_at).to be_within(1.minute).of(custom_date)
+    end
+
+    it 'does not generate new token when unchecked' do
+      visit admin_user_tokens_path(user)
+      click_on dom_id(token, :ban)
+
+      within('#main-modal-content') do
+        checkbox = find_by_id('generate_new_token', visible: :all)
+        checkbox.execute_script('this.click()')
+        click_button 'Bannir le token'
+      end
+
+      expect(page).to have_css('.fr-alert.fr-alert--success')
+      expect(user.tokens.count).to eq(1)
     end
   end
 end
