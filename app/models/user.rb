@@ -14,7 +14,7 @@ class User < ApplicationRecord
     uniqueness: { case_sensitive: false },
     format: { with: /#{EMAIL_FORMAT_REGEX}/ }
 
-  before_create :sanitize_email
+  before_save :sanitize_email
 
   scope :added_since_yesterday, -> { where('created_at > ?', 1.day.ago) }
 
@@ -25,7 +25,7 @@ class User < ApplicationRecord
   def self.insensitive_find_by_email(email)
     return if email.blank?
 
-    where('email ilike (?)', email.strip).limit(1).first
+    find_by(email: email.downcase.strip)
   end
 
   def self.ransackable_attributes(_)
