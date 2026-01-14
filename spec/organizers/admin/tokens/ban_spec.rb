@@ -54,6 +54,44 @@ RSpec.describe Admin::Tokens::Ban, type: :organizer do
           expect { subject }.to have_enqueued_job(ActionMailer::MailDeliveryJob).at_least(2).times
         end
       end
+
+      context 'when blacklisted_at is provided' do
+        subject { described_class.call(token:, admin:, comment:, blacklisted_at:, namespace: 'entreprise') }
+
+        let(:blacklisted_at) { 7.days.from_now }
+
+        it { is_expected.to be_a_success }
+
+        it 'blacklists the token at the specified date' do
+          subject
+          expect(token.reload.blacklisted_at).to be_within(1.second).of(blacklisted_at)
+        end
+      end
+
+      context 'when generate_new_token is false' do
+        subject { described_class.call(token:, admin:, comment:, generate_new_token: false, namespace: 'entreprise') }
+
+        it { is_expected.to be_a_success }
+
+        it 'does not create a new token' do
+          expect { subject }.not_to change(Token, :count)
+        end
+
+        it 'blacklists the original token' do
+          subject
+          expect(token.reload.blacklisted_at).to be_within(1.minute).of(1.month.from_now)
+        end
+
+        it 'sends email without new token' do
+          allow(APIEntreprise::TokenMailer).to receive(:with).and_call_original
+
+          subject
+
+          expect(APIEntreprise::TokenMailer).to have_received(:with).with(
+            hash_including(token: nil)
+          ).at_least(:once)
+        end
+      end
     end
 
     context 'when token is already blacklisted' do

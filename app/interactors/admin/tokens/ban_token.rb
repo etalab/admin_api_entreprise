@@ -5,19 +5,26 @@ class Admin::Tokens::BanToken < ApplicationInteractor
     elsif token.blacklisted?
       fail!('Token already blacklisted', :warning)
     else
-      copy_token
+      ban_token
     end
   end
 
   private
 
-  def copy_token
+  def ban_token
+    context.new_token = create_new_token if generate_new_token?
+    token.update(blacklisted_at: context.blacklisted_at || 1.month.from_now)
+  end
+
+  def create_new_token
     copy = token.dup
     copy.iat = Time.zone.now.to_i
     copy.save
+    copy
+  end
 
-    token.update(blacklisted_at: 1.month.from_now)
-    context.new_token = copy
+  def generate_new_token?
+    context.generate_new_token != false
   end
 
   def token

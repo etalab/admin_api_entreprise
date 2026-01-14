@@ -103,5 +103,22 @@ RSpec.shared_examples 'a token mailer' do |api_name, prolong_path_method|
         expect(subject.html_part.decoded).to include('Token was compromised')
       end
     end
+
+    context 'with new token' do
+      let(:comment) { nil }
+
+      it 'includes new token generated message' do
+        expect(subject.html_part.decoded).to include('Un nouveau token a été automatiquement généré')
+      end
+    end
+
+    context 'without new token' do
+      let(:new_token) { nil }
+      let(:comment) { nil }
+
+      it 'does not include new token generated message' do
+        expect(subject.html_part.decoded).not_to include('Un nouveau token a été automatiquement généré')
+      end
+    end
   end
 end
