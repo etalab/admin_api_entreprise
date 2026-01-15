@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       post :impersonate, on: :member
       post :stop_impersonating, on: :collection
       resources :tokens, only: %i[index] do
-        post :ban, on: :member
+        resource :ban, only: %i[new create], controller: 'tokens/bans'
       end
     end
     resources :editors, only: %i[index edit update]

@@ -12,19 +12,20 @@
       <p>Bonjour,</p>
       <p>
         Votre token d'accès concernant la demande <b>"<%= @intitule %>"</b> a été banni par un administrateur.
+        L'ancien token sera définitivement banni le <%= @blacklisted_at %>.
       </p>
-      <p>
-        <b>Un nouveau token a été automatiquement généré pour vous.</b> L'ancien token sera définitivement banni le <%= @blacklisted_at %>.
-      </p>
+      <% if @token.present? %>
+        <p>
+          <b>Un nouveau token a été automatiquement généré pour vous.</b>
+          Veuillez mettre à jour votre application avec le nouveau token dès que possible.
+        </p>
+      <% end %>
       <% if @comment.present? %>
         <p>
           <b>Commentaire de l'administrateur :</b><br />
           <%= @comment %>
         </p>
       <% end %>
-      <p>
-        Veuillez mettre à jour votre application avec le nouveau token dès que possible.
-      </p>
       <p>
         <b>L'équipe API Entreprise</b>
       </p>

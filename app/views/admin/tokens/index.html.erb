@@ -55,14 +55,15 @@
           </td>
           <td class="token-actions">
             <% if token.active? && !token.blacklisted_later? %>
-              <%= button_to 'Bannir',
-                  ban_admin_user_token_path(@user, token),
+              <%= link_to 'Bannir',
+                  new_admin_user_token_ban_path(@user, token),
                   data: {
-                    turbo: false,
-                    confirm: 'Êtes-vous sûr de vouloir bannir ce token ? Cette action ne peut pas être annulée. Un nouveau token sera généré pour l\'utilisateur, le token sera banni dans 30 jours, le demandeur et le responsable technique sont notifiés par email.'
+                    turbo_frame: 'main-modal-content',
+                    fr_opened: false
                   },
                   class: 'fr-btn fr-btn--sm fr-btn--secondary',
-                  id: dom_id(token, :ban) %>
+                  id: dom_id(token, :ban),
+                  aria: { controls: 'main-modal' } %>
             <% end %>
           </td>
         </tr>
