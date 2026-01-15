@@ -32,7 +32,7 @@ class Admin::Tokens::BansController < AdminController
   end
 
   def parse_blacklisted_at
-    params[:blacklisted_at].present? ? Time.zone.parse(params[:blacklisted_at]) : nil
+    params[:blacklisted_at].present? ? Time.zone.parse(params[:blacklisted_at]) : Time.zone.now
   end
 
   def ban_success
