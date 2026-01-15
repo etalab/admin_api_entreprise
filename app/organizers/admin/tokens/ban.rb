@@ -1,5 +1,6 @@
 class Admin::Tokens::Ban < ApplicationOrganizer
   organize Admin::Tokens::BanToken,
+    Admin::Tokens::RegenerateToken,
     Admin::Tokens::SendBanEmail
 
   after do
