@@ -5,8 +5,8 @@
       Bannir le token
     </h1>
     <p>
-      Cette action ne peut pas être annulée. Un nouveau token sera généré pour l'utilisateur,
-      le demandeur et le responsable technique seront notifiés par email.
+      Cette action ne peut pas être annulée.
+      Le demandeur et le responsable technique seront notifiés par email.
     </p>
 
     <%= form_with url: admin_user_token_ban_path(@user, @token), method: :post, id: dom_id(@token, :ban_form), data: { controller: 'datetime-now' } do |form| %>
