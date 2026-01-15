@@ -16,7 +16,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_14_112301) do
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
 
-  create_table "access_logs", id: false, force: :cascade do |t|
+  create_table "access_logs", id: false, force: false, if_not_exists: true do |t|
     t.string "path", null: false
     t.uuid "request_id", null: false
     t.timestamptz "timestamp", null: false
