@@ -1,0 +1,53 @@
+<div class="fr-container fr-my-6w">
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <div class="fr-col-12 fr-col-md-8">
+      <h1 class="fr-h2 fr-mb-2w">
+        Autoriser <%= @pre_auth.client.application.name %> à utiliser vos jetons API Entreprise
+      </h1>
+      <p class="fr-text--lead fr-mb-4w">
+        Après connexion via ProConnect, vous choisissez les jetons à partager. Ils seront transmis à l'éditeur pour faire des appels API en votre nom.
+      </p>
+
+      <%= form_tag oauth_authorization_path, method: :post, data: { turbo: false } do %>
+        <%= hidden_field_tag :client_id, @pre_auth.client.uid %>
+        <%= hidden_field_tag :redirect_uri, @pre_auth.redirect_uri %>
+        <%= hidden_field_tag :state, @pre_auth.state %>
+        <%= hidden_field_tag :response_type, @pre_auth.response_type %>
+        <%= hidden_field_tag :scope, @pre_auth.scope %>
+
+        <div class="fr-form-group">
+          <fieldset class="fr-fieldset fr-fieldset--inline">
+            <legend class="fr-fieldset__legend fr-text--lg">Sélectionnez les jetons à transférer</legend>
+            <% if @available_tokens.any? %>
+              <% @available_tokens.each do |token| %>
+                <div class="fr-checkbox-group fr-mb-2w">
+                  <%= check_box_tag 'token_ids[]', token.id, true, id: dom_id(token, :share) %>
+                  <%= label_tag dom_id(token, :share), class: 'fr-label' do %>
+                    <strong><%= token.authorization_request&.intitule || 'Jeton' %></strong>
+                    <br />
+                    <span class="fr-text--sm">
+                      SIRET: <%= token.authorization_request&.siret || 'N/A' %> — Scopes: <%= token.scopes.join(', ') %>
+                    </span>
+                  <% end %>
+                </div>
+              <% end %>
+            <% else %>
+              <p class="fr-alert fr-alert--warning fr-alert--sm">
+                Aucun jeton actif n'est disponible sur votre compte. Retournez au tableau de bord pour en générer un.
+              </p>
+            <% end %>
+          </fieldset>
+        </div>
+
+        <div class="fr-btns-group fr-btns-group--inline-lg fr-btns-group--right fr-btns-group--inline-reverse">
+          <button type="submit" name="authorize" class="fr-btn fr-icon-checkbox-circle-fill fr-btn--icon-left" <%= 'disabled' if @available_tokens.empty? %>>
+            Autoriser
+          </button>
+          <button type="submit" name="deny" class="fr-btn fr-btn--secondary">
+            Refuser
+          </button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -50,6 +50,7 @@ class Seeds
 
   def create_data_shared
     create_magic_link
+    create_dummy_doorkeeper_application
   end
 
   def create_main_user
@@ -93,6 +94,20 @@ class Seeds
 
   def create_magic_link
     MagicLink.create!(email: @user.email)
+  end
+
+  def create_dummy_doorkeeper_application
+    Doorkeeper::Application.find_or_create_by!(uid: 'dummy-ds-client-id') do |app|
+      app.name = 'Dummy DS'
+      app.secret = 'dummy-ds-client-secret'
+      app.redirect_uri = [
+        'http://ds.api.localtest.me:5678/auth/api_entreprise/callback',
+        'http://localhost:5678/auth/api_entreprise/callback',
+        'http://127.0.0.1:5678/auth/api_entreprise/callback'
+      ].join("\n")
+      app.scopes = ''
+      app.confidential = true
+    end
   end
 
   def create_api_entreprise_token_valid

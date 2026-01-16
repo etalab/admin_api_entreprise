@@ -7,7 +7,8 @@ module UserSessionsHelper
 
   def sign_in_and_redirect(user)
     session[:current_user_id] = user.id
-    redirect_current_user_to_homepage
+    return_to = session.delete(:user_return_to)
+    redirect_to(return_to || authorization_requests_path, allow_other_host: false)
   end
 
   def redirect_current_user_to_homepage
