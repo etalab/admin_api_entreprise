@@ -123,6 +123,14 @@ http://entreprise.api.localtest.me:5000/
 http://particulier.api.localtest.me:5000/
 ```
 
+## OAuth2 de démonstration (Doorkeeper + dummy DS)
+
+- `bundle install` puis `bin/rails db:migrate` pour ajouter les tables Doorkeeper.
+- `rails db:seed:replant` crée une application OAuth `Dummy DS` (`dummy-ds-client-id` / `dummy-ds-client-secret`) avec redirect URI `http://ds.api.localtest.me:5678/auth/api_entreprise/callback`.
+- Lancer le serveur Rails (`./bin/local.sh`) pour exposer `/oauth/authorize` et `/oauth/token` sur `http://entreprise.api.localtest.me:5000`.
+- Depuis `dummy_app/`, `bundle install` puis `bundle exec rackup -p 5678 -o 0.0.0.0`, puis ouvrir `http://ds.api.localtest.me:5678/settings` et cliquer sur "Connecter API Entreprise".
+- La réponse `/oauth/token` renvoie un champ `api_tokens` contenant les jetons API Entreprise sélectionnés côté consentement.
+
 ### Avec Docker
 
 Pour lancer le server:

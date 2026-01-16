@@ -1,4 +1,11 @@
 constraints(APIEntrepriseDomainConstraint.new) do
+  use_doorkeeper do
+    controllers authorizations: 'oauth/authorizations', tokens: 'oauth/tokens'
+  end
+
+  get '/oauth/me', to: 'oauth/me#show'
+  get '/oauth/login', to: 'oauth/sessions#new', as: :oauth_login
+
   namespace :api do
     post '/datapass/api_entreprise/webhook' => 'datapass_webhooks#api_entreprise'
     post '/datapass/api_particulier/webhook' => 'datapass_webhooks#api_particulier'

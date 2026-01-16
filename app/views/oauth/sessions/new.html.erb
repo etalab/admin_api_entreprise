@@ -1,0 +1,31 @@
+<div class="fr-container fr-my-6w">
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <div class="fr-col-12 fr-col-md-8">
+      <h1 class="fr-h2 fr-mb-2w">
+        <%= @client_name %> souhaite accéder à vos accès API Entreprise
+      </h1>
+      <p class="fr-text--lead fr-mb-4w">
+        Connectez-vous via ProConnect pour sélectionner les informations que vous souhaitez partager.
+      </p>
+
+      <div class="fr-callout fr-mb-4w">
+        <p class="fr-callout__text">
+          En vous connectant, vous pourrez autoriser <strong><%= @client_name %></strong>
+          à récupérer des données protégées d'entreprises via API Entreprise, en votre nom.
+        </p>
+      </div>
+
+      <div class="fr-connect-group">
+        <%= form_with url: login_proconnect_entreprise_path, method: :post, data: { turbo: false }, local: true do %>
+          <button type="submit" class="fr-connect fr-connect-proconnect fr-m-auto">
+            <span class="fr-connect__login">S'identifier avec</span>
+            <span class="fr-connect__brand">ProConnect</span>
+          </button>
+          <p>
+            <%= link_to "Qu'est-ce que ProConnect ?", "https://www.proconnect.gouv.fr/", target: '_blank', rel: 'noopener', title: "Qu'est-ce que ProConnect ? - Nouvelle fenêtre" %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
