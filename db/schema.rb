@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_14_112301) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_20_121000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
 
-  create_table "access_logs", id: false, force: false, if_not_exists: true do |t|
+  create_table "access_logs", id: false, force: :cascade do |t|
     t.string "path", null: false
     t.uuid "request_id", null: false
     t.timestamptz "timestamp", null: false
@@ -160,6 +160,53 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_14_112301) do
     t.index ["token_id"], name: "index_magic_links_on_token_id"
   end
 
+  create_table "oauth_access_grants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "application_id", null: false
+    t.string "code_challenge"
+    t.string "code_challenge_method"
+    t.datetime "created_at", null: false
+    t.integer "expires_in", null: false
+    t.text "redirect_uri", null: false
+    t.uuid "resource_owner_id", null: false
+    t.datetime "revoked_at"
+    t.string "scopes", default: "", null: false
+    t.string "state"
+    t.string "token", null: false
+    t.jsonb "token_ids", default: [], null: false
+    t.index ["application_id"], name: "index_oauth_access_grants_on_application_id"
+    t.index ["resource_owner_id"], name: "index_oauth_access_grants_on_resource_owner_id"
+    t.index ["token"], name: "index_oauth_access_grants_on_token", unique: true
+  end
+
+  create_table "oauth_access_tokens", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "application_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "expires_in"
+    t.string "previous_refresh_token", default: "", null: false
+    t.string "refresh_token"
+    t.uuid "resource_owner_id"
+    t.datetime "revoked_at"
+    t.string "scopes"
+    t.string "token", null: false
+    t.jsonb "token_ids", default: [], null: false
+    t.index ["application_id"], name: "index_oauth_access_tokens_on_application_id"
+    t.index ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true
+    t.index ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id"
+    t.index ["token"], name: "index_oauth_access_tokens_on_token", unique: true
+  end
+
+  create_table "oauth_applications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.boolean "confidential", default: true, null: false
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.text "redirect_uri", null: false
+    t.string "scopes", default: "", null: false
+    t.string "secret", null: false
+    t.string "uid", null: false
+    t.datetime "updated_at", null: false
+    t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
+  end
+
   create_table "organizations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.jsonb "insee_payload", default: {}
@@ -229,6 +276,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_14_112301) do
   end
 
   add_foreign_key "magic_links", "tokens"
+  add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
+  add_foreign_key "oauth_access_grants", "users", column: "resource_owner_id"
+  add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
+  add_foreign_key "oauth_access_tokens", "users", column: "resource_owner_id"
   add_foreign_key "prolong_token_wizards", "tokens"
   add_foreign_key "user_authorization_request_roles", "authorization_requests"
   add_foreign_key "user_authorization_request_roles", "users"
