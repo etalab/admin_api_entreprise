@@ -64,6 +64,6 @@ class EntrepriseWithAttestationsFacade
   end
 
   def siade_client
-    @siade_client ||= Siade.new(token: @token)
+    @siade_client ||= Siade::AttestationDownloader.new(token: @token)
   end
 end

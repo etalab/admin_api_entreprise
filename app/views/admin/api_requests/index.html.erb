@@ -1,0 +1,28 @@
+<div class="fr-grid-row">
+  <div class="fr-col-12">
+    <h1>Requêtes API</h1>
+
+    <%= form_with url: admin_api_requests_path, method: :post, data: { turbo: false }, class: "fr-mt-4w" do |f| %>
+      <div class="fr-select-group">
+        <%= f.label :api, "API", class: "fr-label" %>
+        <%= f.select :api, options_for_select(@apis, @selected_api), {}, class: "fr-select", id: "api", onchange: "this.form.action='#{admin_api_requests_path}'; this.form.method='get'; this.form.submit();" %>
+      </div>
+
+      <turbo-frame id="endpoint-select">
+        <%= render 'endpoint_select' %>
+      </turbo-frame>
+
+      <turbo-frame id="params-fields" class="fr-mt-4w">
+        <%= render 'params_fields' %>
+      </turbo-frame>
+
+      <div class="fr-mt-4w">
+        <%= f.submit "Envoyer la requête", class: "fr-btn fr-btn--primary" %>
+      </div>
+    <% end %>
+
+    <turbo-frame id="result" class="fr-mt-6w">
+      <%= render 'result' %>
+    </turbo-frame>
+  </div>
+</div>

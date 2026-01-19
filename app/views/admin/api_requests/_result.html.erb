@@ -1,0 +1,9 @@
+<% if @result %>
+  <h2 class="fr-text--lg">
+    Réponse
+    <span class="fr-badge fr-badge--<%= @result[:status] == 200 ? 'success' : 'error' %>">
+      <%= @result[:status] %>
+    </span>
+  </h2>
+  <pre class="fr-p-2w" style="background: #f5f5fe; overflow-x: auto; max-height: 500px;"><code><%= JSON.pretty_generate(JSON.parse(@result[:body])) rescue @result[:body] %></code></pre>
+<% end %>

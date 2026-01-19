@@ -1,0 +1,9 @@
+<div class="fr-select-group fr-mt-2w">
+  <%= label_tag :endpoint_uid, "Endpoint", class: "fr-label" %>
+  <%= select_tag :endpoint_uid,
+      grouped_options_for_select(endpoints_grouped_by_tag(@endpoints), @selected_endpoint),
+      include_blank: "Sélectionner un endpoint",
+      class: "fr-select",
+      id: "endpoint_uid",
+      onchange: "this.form.action='#{admin_api_requests_path}'; this.form.method='get'; this.form.submit();" %>
+</div>
