@@ -10,8 +10,4 @@ class AdminController < ApplicationController
   def user_is_admin?
     redirect_to_root unless true_user.admin?
   end
-
-  def namespace
-    request.host.split('.').first
-  end
 end

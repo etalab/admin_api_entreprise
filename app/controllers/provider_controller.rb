@@ -22,8 +22,4 @@ class ProviderController < ApplicationController
   def provider_klass
     Kernel.const_get("API#{namespace.classify}::Provider")
   end
-
-  def namespace
-    request.host.split('.').first
-  end
 end
