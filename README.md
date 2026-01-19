@@ -102,6 +102,7 @@ de données de fixtures (disponible
 Les comptes suivants sont disponibles :
 
 - user@yopmail.com / user@yopmail.com -> utilisateur normal
+- api-entreprise@yopmail.com / api-entreprise@yopmail.com -> Admin
 
 #### Bypass de connexion (development, staging, sandbox)
 
