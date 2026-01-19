@@ -17,8 +17,4 @@ class EditorController < ApplicationController
   def user_is_editor?
     redirect_to_root unless current_user.editor?
   end
-
-  def namespace
-    request.host.split('.').first
-  end
 end

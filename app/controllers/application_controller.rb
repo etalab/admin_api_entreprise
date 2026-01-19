@@ -51,6 +51,14 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def namespace
+    host_segments = request.host.split('.')
+    return 'particulier' if host_segments.include?('particulier')
+    return 'entreprise' if host_segments.include?('entreprise')
+
+    raise "Unknown namespace for host: #{request.host}"
+  end
+
   def flash_message(kind, title:, description:, id:)
     flash[kind] ||= {}
     flash[kind]['title'] = title
