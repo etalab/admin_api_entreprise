@@ -6,7 +6,7 @@
 
 ## Requirements
 
-- ruby 3.4.7
+- ruby 4.0.1
 - redis-server >= 6
 - postgresql >= 9
 - Node.js >= 6 pour mjml
