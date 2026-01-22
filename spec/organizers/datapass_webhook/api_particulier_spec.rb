@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require_relative '../../support/shared_examples/organizers/datapass_webhook/base_spec'
 
 RSpec.describe DatapassWebhook::APIParticulier, type: :interactor do
   it_behaves_like 'a datapass webhook organizer', 'particulier', :mj_list_id_particulier! do

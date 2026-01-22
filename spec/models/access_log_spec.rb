@@ -27,7 +27,7 @@ RSpec.describe AccessLog do
 
     it 'fetches only access logs since the given timestamp' do
       expect(subject.count).to eq(3)
-      expect(subject.first.token_id).to eq(token.id)
+      expect(subject.order(:timestamp).first.token_id).to eq(token.id)
     end
   end
 end
