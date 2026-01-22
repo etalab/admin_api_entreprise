@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_14_112301) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_22_100003) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pg_catalog.plpgsql"
@@ -45,12 +45,25 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_14_112301) do
     t.datetime "first_submitted_at", precision: nil
     t.string "intitule"
     t.datetime "last_update", precision: nil
+    t.uuid "oauth_application_id"
     t.string "previous_external_id"
     t.uuid "public_id"
     t.string "siret"
     t.string "status"
     t.datetime "validated_at", precision: nil
     t.index ["external_id"], name: "index_authorization_requests_on_external_id", unique: true, where: "(external_id IS NOT NULL)"
+    t.index ["oauth_application_id"], name: "index_authorization_requests_on_oauth_application_id"
+  end
+
+  create_table "editor_delegations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "authorization_request_id", null: false
+    t.datetime "created_at", null: false
+    t.uuid "editor_id", null: false
+    t.datetime "revoked_at"
+    t.datetime "updated_at", null: false
+    t.index ["authorization_request_id"], name: "index_editor_delegations_on_authorization_request_id"
+    t.index ["editor_id", "authorization_request_id"], name: "index_active_editor_delegations_unique", unique: true, where: "(revoked_at IS NULL)"
+    t.index ["editor_id"], name: "index_editor_delegations_on_editor_id"
   end
 
   create_table "editors", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -58,7 +71,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_14_112301) do
     t.datetime "created_at", null: false
     t.string "form_uids", default: [], array: true
     t.string "name", null: false
+    t.uuid "oauth_application_id"
     t.datetime "updated_at", null: false
+    t.index ["oauth_application_id"], name: "index_editors_on_oauth_application_id"
   end
 
   create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -160,6 +175,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_14_112301) do
     t.index ["token_id"], name: "index_magic_links_on_token_id"
   end
 
+  create_table "oauth_applications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.uuid "owner_id"
+    t.string "owner_type"
+    t.string "scopes", default: "", null: false
+    t.string "secret", null: false
+    t.string "uid", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_type", "owner_id"], name: "index_oauth_applications_on_owner_type_and_owner_id"
+    t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
+  end
+
   create_table "organizations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.jsonb "insee_payload", default: {}
@@ -228,6 +256,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_14_112301) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "editor_delegations", "authorization_requests"
+  add_foreign_key "editor_delegations", "editors"
   add_foreign_key "magic_links", "tokens"
   add_foreign_key "prolong_token_wizards", "tokens"
   add_foreign_key "user_authorization_request_roles", "authorization_requests"

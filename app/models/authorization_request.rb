@@ -6,6 +6,10 @@ class AuthorizationRequest < ApplicationRecord
     optional: true,
     dependent: nil
 
+  belongs_to :oauth_application, optional: true
+
+  has_many :editor_delegations, dependent: :destroy
+
   has_many :user_authorization_request_roles, dependent: :destroy do
     def for_user(user)
       where(user:)
@@ -104,7 +108,6 @@ class AuthorizationRequest < ApplicationRecord
 
   def revoke!
     token&.update!(blacklisted_at: Time.zone.now)
-
     update!(status: 'revoked')
   end
 
@@ -112,4 +115,12 @@ class AuthorizationRequest < ApplicationRecord
     token&.last_prolong_token_wizard.present? &&
       token.last_prolong_token_wizard.requires_update?
   end
+
+  def generate_oauth_credentials!
+    return oauth_application if oauth_application.present?
+
+    OAuthApplication.create!(name: "OAuth - #{intitule || external_id}", owner: self).tap { update!(oauth_application: it) }
+  end
+
+  def oauth_scopes = token&.scopes || []
 end

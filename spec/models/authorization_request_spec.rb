@@ -176,4 +176,41 @@ RSpec.describe AuthorizationRequest do
       it { is_expected.to include(*archived_authorization_request) }
     end
   end
+
+  describe '#generate_oauth_credentials!' do
+    subject(:authorization_request) { create(:authorization_request, intitule: 'Test Intitule') }
+
+    it 'creates an oauth_application' do
+      expect { authorization_request.generate_oauth_credentials! }
+        .to change(OAuthApplication, :count).by(1)
+    end
+
+    it 'associates the oauth_application with the authorization_request' do
+      oauth_app = authorization_request.generate_oauth_credentials!
+
+      expect(authorization_request.reload.oauth_application).to eq(oauth_app)
+      expect(oauth_app.owner).to eq(authorization_request)
+    end
+
+    it 'returns existing oauth_application if already present' do
+      existing_app = authorization_request.generate_oauth_credentials!
+
+      expect(authorization_request.generate_oauth_credentials!).to eq(existing_app)
+      expect(OAuthApplication.count).to eq(1)
+    end
+  end
+
+  describe '#oauth_scopes' do
+    let(:authorization_request) { create(:authorization_request) }
+
+    it 'returns empty array when no token' do
+      expect(authorization_request.oauth_scopes).to eq([])
+    end
+
+    it 'returns token scopes when token exists' do
+      create(:token, authorization_request:, scopes: %w[entreprises etablissements])
+
+      expect(authorization_request.oauth_scopes).to eq(%w[entreprises etablissements])
+    end
+  end
 end
