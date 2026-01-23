@@ -1,10 +1,12 @@
-module SessionsManagement
+module SessionsManagement # rubocop:disable Metrics/ModuleLength
   extend ActiveSupport::Concern
 
   ALLOWED_OAUTH_PROVIDERS = %w[
     proconnect_api_entreprise
     proconnect_api_particulier
   ].freeze
+
+  MON_COMPTE_PRO_IDP_ID = '71144ab3-ee1a-4401-b7b3-79b44f7daeeb'.freeze
 
   included do
     before_action :validate_oauth_callback!, only: [:create_from_oauth]
@@ -15,6 +17,8 @@ module SessionsManagement
   end
 
   def create_from_oauth
+    return redirect_to_mfa_reauthentication if requires_mfa_reauthentication?
+
     interactor_call = User::ProconnectLogin.call(user_params:)
 
     login(interactor_call)
@@ -104,5 +108,32 @@ module SessionsManagement
     else
       'error_message'
     end
+  end
+
+  def redirect_to_mfa_reauthentication
+    type = namespace.delete_prefix('api_')
+    uri = OmniAuth::Strategies::Proconnect.authorization_uri_with_mfa(
+      type,
+      session: session,
+      login_hint: raw_info['email']
+    )
+    redirect_to uri, allow_other_host: true
+  end
+
+  def requires_mfa_reauthentication?
+    raw_info['idp_id'] == MON_COMPTE_PRO_IDP_ID &&
+      id_token_amr.exclude?('mfa')
+  end
+
+  def id_token_amr
+    id_token = session['omniauth.pc.id_token']
+    return [] unless id_token
+
+    claims = JSON::JWT.decode(id_token, :skip_verification)
+    Array(claims['amr'])
+  end
+
+  def raw_info
+    request.env.dig('omniauth.auth', 'extra', 'raw_info') || {}
   end
 end

@@ -147,6 +147,14 @@ RSpec.configure do |config|
       status: 200,
       body: Rails.root.join('config/api-particulier-openapi-v3.yml').read
     )
+
+    stub_request(:get, %r{/.well-known/openid-configuration}).and_return(
+      status: 200,
+      body: { authorization_endpoint: 'https://proconnect.test/authorize' }.to_json
+    )
+
+    OmniAuth::Strategies::Proconnect.instance_variable_set(:@discovered_configuration, nil)
+    OmniAuth::Strategies::Proconnect.instance_variable_set(:@authorization_endpoint, nil)
   end
 
   %w[api_entreprise api_particulier].each do |app|
