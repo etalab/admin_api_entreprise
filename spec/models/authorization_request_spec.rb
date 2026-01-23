@@ -203,12 +203,12 @@ RSpec.describe AuthorizationRequest do
   describe '#oauth_scopes' do
     let(:authorization_request) { create(:authorization_request) }
 
-    it 'returns empty array when no token' do
+    it 'returns empty array when no scopes' do
       expect(authorization_request.oauth_scopes).to eq([])
     end
 
-    it 'returns token scopes when token exists' do
-      create(:token, authorization_request:, scopes: %w[entreprises etablissements])
+    it 'returns scopes from authorization_request' do
+      authorization_request.update!(scopes: %w[entreprises etablissements])
 
       expect(authorization_request.oauth_scopes).to eq(%w[entreprises etablissements])
     end

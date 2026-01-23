@@ -122,5 +122,5 @@ class AuthorizationRequest < ApplicationRecord
     OAuthApplication.create!(name: "OAuth - #{intitule || external_id}", owner: self).tap { update!(oauth_application: it) }
   end
 
-  def oauth_scopes = token&.scopes || []
+  def oauth_scopes = scopes
 end

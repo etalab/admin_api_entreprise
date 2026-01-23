@@ -26,11 +26,9 @@ RSpec.describe DatapassWebhook::ExtractMailjetVariables, type: :interactor do
     expect(subject.mailjet_variables['token_scopes']).to be_nil
   end
 
-  context 'when authorization request has a token' do
-    let!(:token) { create(:token, authorization_request:) }
-
+  context 'when authorization request has scopes' do
     before do
-      token.update!(scopes: %w[entreprises liasse_fiscale])
+      authorization_request.update!(scopes: %w[entreprises liasse_fiscale])
     end
 
     it 'sets token_scopes with these values' do

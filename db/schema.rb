@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_22_100003) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_23_100001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
 
-  create_table "access_logs", id: false, force: false, if_not_exists: true do |t|
+  create_table "access_logs", id: false, force: :cascade do |t|
     t.string "path", null: false
     t.uuid "request_id", null: false
     t.timestamptz "timestamp", null: false
@@ -48,11 +48,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_22_100003) do
     t.uuid "oauth_application_id"
     t.string "previous_external_id"
     t.uuid "public_id"
+    t.jsonb "scopes", default: [], null: false
     t.string "siret"
     t.string "status"
     t.datetime "validated_at", precision: nil
     t.index ["external_id"], name: "index_authorization_requests_on_external_id", unique: true, where: "(external_id IS NOT NULL)"
     t.index ["oauth_application_id"], name: "index_authorization_requests_on_oauth_application_id"
+    t.index ["scopes"], name: "index_authorization_requests_on_scopes", using: :gin
   end
 
   create_table "editor_delegations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
