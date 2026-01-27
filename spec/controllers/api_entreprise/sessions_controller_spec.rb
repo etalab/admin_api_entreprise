@@ -163,4 +163,63 @@ RSpec.describe APIEntreprise::SessionsController do
       end
     end
   end
+
+  describe 'GET #dev_login' do
+    context 'when in development environment' do
+      before do
+        allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('development'))
+      end
+
+      context 'when user exists' do
+        let!(:user) { create(:user, email: 'test@example.com') }
+
+        it 'signs in the user and redirects to authorization_requests_path' do
+          get :dev_login, params: { email: 'test@example.com' }
+
+          expect(session[:current_user_id]).to eq(user.id)
+          expect(response).to redirect_to(authorization_requests_path)
+        end
+
+        it 'handles case-insensitive emails' do
+          get :dev_login, params: { email: 'TEST@EXAMPLE.COM' }
+
+          expect(session[:current_user_id]).to eq(user.id)
+        end
+      end
+
+      context 'when user does not exist' do
+        it 'redirects to root with error message' do
+          get :dev_login, params: { email: 'nonexistent@example.com' }
+
+          expect(session[:current_user_id]).to be_nil
+          expect(response).to redirect_to(root_path)
+          expect(flash[:error]['title']).to eq('Compte introuvable')
+        end
+      end
+
+      context 'when email is not provided' do
+        it 'redirects to root with error message' do
+          get :dev_login
+
+          expect(session[:current_user_id]).to be_nil
+          expect(response).to redirect_to(root_path)
+        end
+      end
+    end
+
+    context 'when in non-development environment' do
+      before do
+        allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('production'))
+      end
+
+      it 'redirects to root without signing in' do
+        create(:user, email: 'test@example.com')
+
+        get :dev_login, params: { email: 'test@example.com' }
+
+        expect(session[:current_user_id]).to be_nil
+        expect(response).to redirect_to(root_path)
+      end
+    end
+  end
 end

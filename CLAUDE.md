@@ -18,6 +18,12 @@
 - Start server with local OpenAPI: `LOAD_LOCAL_OPEN_API_DEFINITIONS=true ./bin/local.sh`
 - Run with Docker: `make start`
 
+## Workflow
+
+After each iteration:
+1. Run `bundle exec rubocop` and fix any offenses
+2. Run relevant tests with `bundle exec rspec spec/path/to/file_spec.rb`
+
 ## Code Style Guidelines
 
 - **Ruby Style**: Follow RuboCop configuration in `.rubocop.yml`
@@ -34,3 +40,8 @@
 ## Access URLs
 - API Entreprise: http://entreprise.api.localtest.me:5000/
 - API Particulier: http://particulier.api.localtest.me:5000/
+
+## Local Login (dev only)
+Bypass ProConnect via: `/compte/dev-login?email=user@yopmail.com`
+
+Available test emails: `user@yopmail.com`, `contact_technique@yopmail.com`, `editeur@yopmail.com`, `user10@yopmail.com`
