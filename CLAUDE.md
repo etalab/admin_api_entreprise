@@ -34,3 +34,8 @@
 ## Access URLs
 - API Entreprise: http://entreprise.api.localtest.me:5000/
 - API Particulier: http://particulier.api.localtest.me:5000/
+
+## Local Login (dev only)
+Bypass ProConnect via: `/compte/dev-login?email=user@yopmail.com`
+
+Available test emails: `user@yopmail.com`, `contact_technique@yopmail.com`, `editeur@yopmail.com`, `user10@yopmail.com`

@@ -43,6 +43,22 @@ module SessionsManagement # rubocop:disable Metrics/ModuleLength
     redirect_to root_path
   end
 
+  def dev_login
+    unless Rails.env.development?
+      redirect_to root_path
+      return
+    end
+
+    user = User.find_by(email: params[:email]&.downcase)
+
+    if user
+      sign_in_and_redirect(user)
+    else
+      error_message(title: 'Compte introuvable')
+      redirect_to root_path
+    end
+  end
+
   private
 
   def after_logout_path

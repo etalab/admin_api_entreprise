@@ -103,6 +103,17 @@ Les comptes suivants sont disponibles :
 
 - user@yopmail.com / user@yopmail.com -> utilisateur normal
 
+#### Bypass de connexion (développement uniquement)
+
+Pour contourner ProConnect en local (utile si le 2FA bloque la connexion), une route de bypass est disponible :
+
+```
+http://entreprise.api.localtest.me:5000/compte/dev-login?email=user@yopmail.com
+http://particulier.api.localtest.me:5000/compte/dev-login?email=user@yopmail.com
+```
+
+Emails disponibles dans les seeds : `user@yopmail.com`, `contact_technique@yopmail.com`, `editeur@yopmail.com`, `user10@yopmail.com`
+
 ### Sans Docker
 
 Pour lancer le server:

@@ -21,6 +21,7 @@ constraints(APIEntrepriseDomainConstraint.new) do
 
     get '/compte/se-connecter', to: 'sessions#new', as: :login
     get '/compte/se-connecter/lien-magique', to: 'sessions#create_from_magic_link', as: :login_magic_link
+    get '/compte/dev-login', to: 'sessions#dev_login', as: :dev_login
     get '/compte/deconnexion', to: 'sessions#destroy', as: :logout
     get '/compte/apres-deconnexion', to: 'sessions#after_logout', as: :after_logout
 
