@@ -6,6 +6,8 @@ module SessionsManagement # rubocop:disable Metrics/ModuleLength
     proconnect_api_particulier
   ].freeze
 
+  BYPASS_LOGIN_ENVIRONMENTS = %w[development staging sandbox].freeze
+
   MON_COMPTE_PRO_IDP_ID = '71144ab3-ee1a-4401-b7b3-79b44f7daeeb'.freeze
 
   included do
@@ -44,7 +46,7 @@ module SessionsManagement # rubocop:disable Metrics/ModuleLength
   end
 
   def dev_login
-    unless Rails.env.development?
+    unless BYPASS_LOGIN_ENVIRONMENTS.include?(Rails.env.to_s)
       redirect_to root_path
       return
     end

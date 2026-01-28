@@ -103,13 +103,22 @@ Les comptes suivants sont disponibles :
 
 - user@yopmail.com / user@yopmail.com -> utilisateur normal
 
-#### Bypass de connexion (développement uniquement)
+#### Bypass de connexion (development, staging, sandbox)
 
-Pour contourner ProConnect en local (utile si le 2FA bloque la connexion), une route de bypass est disponible :
+Pour contourner ProConnect (utile si le 2FA bloque la connexion), une route de bypass est disponible en environnements non-production :
 
 ```
+# Development
 http://entreprise.api.localtest.me:5000/compte/dev-login?email=user@yopmail.com
 http://particulier.api.localtest.me:5000/compte/dev-login?email=user@yopmail.com
+
+# Staging
+https://staging.entreprise.api.gouv.fr/compte/dev-login?email=user@yopmail.com
+https://staging.particulier.api.gouv.fr/compte/dev-login?email=user@yopmail.com
+
+# Sandbox
+https://sandbox.entreprise.api.gouv.fr/compte/dev-login?email=user@yopmail.com
+https://sandbox.particulier.api.gouv.fr/compte/dev-login?email=user@yopmail.com
 ```
 
 Emails disponibles dans les seeds : `user@yopmail.com`, `contact_technique@yopmail.com`, `editeur@yopmail.com`, `user10@yopmail.com`
