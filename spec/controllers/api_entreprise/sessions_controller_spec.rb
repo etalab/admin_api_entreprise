@@ -165,11 +165,7 @@ RSpec.describe APIEntreprise::SessionsController do
   end
 
   describe 'GET #dev_login' do
-    context 'when in development environment' do
-      before do
-        allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('development'))
-      end
-
+    shared_examples 'allows bypass login' do
       context 'when user exists' do
         let!(:user) { create(:user, email: 'test@example.com') }
 
@@ -207,7 +203,17 @@ RSpec.describe APIEntreprise::SessionsController do
       end
     end
 
-    context 'when in non-development environment' do
+    %w[development staging sandbox].each do |env|
+      context "when in #{env} environment" do
+        before do
+          allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new(env))
+        end
+
+        it_behaves_like 'allows bypass login'
+      end
+    end
+
+    context 'when in production environment' do
       before do
         allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('production'))
       end
