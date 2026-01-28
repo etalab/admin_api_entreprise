@@ -18,6 +18,8 @@
             </p>
         <% end %>
       </div>
+
+      <%= render 'shared/sessions/bypass_login_info' if SessionsManagement::BYPASS_LOGIN_ENVIRONMENTS.include?(Rails.env) %>
     </div>
   </div>
 
