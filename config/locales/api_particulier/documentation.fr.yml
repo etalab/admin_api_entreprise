@@ -130,16 +130,16 @@ fr:
 
                   **🧰 Comment ?**
                   Utiliser [le swagger](<%= developers_openapi_path %>){:target="_blank"}.
-              
+
               - title: 6. Les données des payloads, qualifiées et uniformisées d'un point de vue métier
                 anchor: 'donnee-qualifiee-et-uniformisee-metier'
                 content: |+
-                  **🚀 Avec la V.3 :** Nous avons profité de la refonte technique pour uniformiser la façon de traiter la donnée entre les API et compléter significativement les documentations. Ces évolutions concernent plusieurs aspects : 
+                  **🚀 Avec la V.3 :** Nous avons profité de la refonte technique pour uniformiser la façon de traiter la donnée entre les API et compléter significativement les documentations. Ces évolutions concernent plusieurs aspects :
                   - **Normaliser et préciser les clés de certains champs qui définissent le même type d'information**. Ainsi quelques règles sont maintenant largement utilisées sur toutes les API, par exemple :
                     - le statut (étudiant, bénéficaire d'une prestation, etc.) est désormais toujours nommé par une clé préfixée par `est_...`, comme par exemple `est_boursier` ou `est_beneficiaire` ;
                     - les dates de début et de fin de droit auront les clés `date_debut_droit` / `date_fin_droit` ;
-                    - les clés se veulent les plus précises possibles, par exemple, dans l'API étudiant, : la clé `code_commune` en V.2. devient `code_cog_insee_commune` en V.3. pour éviter toute confusion avec le code postal. 
-                  - **Expliciter l'origine des diverses données d'identité transmises dans les payloads** et préciser si la donnée a été consolidée et comment. Par exemple : au travers d'un recoupement avec une pièce d'identité ou bien avec un répertoire ; 
+                    - les clés se veulent les plus précises possibles, par exemple, dans l'API étudiant, : la clé `code_commune` en V.2. devient `code_cog_insee_commune` en V.3. pour éviter toute confusion avec le code postal.
+                  - **Expliciter l'origine des diverses données d'identité transmises dans les payloads** et préciser si la donnée a été consolidée et comment. Par exemple : au travers d'un recoupement avec une pièce d'identité ou bien avec un répertoire ;
                   - Uniformiser le style des clés pour faciliter votre lecture de la documentation. Le format choisi est désormais en XXXX TODO, c'est-à-dire que les mots sont séparés par des _, par exemple `code_cog_insee_commune`.
 
                   **🤔 Pourquoi ?**
@@ -150,10 +150,10 @@ fr:
               - title: 7. Des payloads permettant de repérer plus facilement les scopes (droits d'accès)
                 anchor: 'payloads-permettant-de-reperer-les-scopes'
                 content: |+
-                  **🚀 Avec la V.3 :** Les scopes sont repérables plus facilement car ils sont incarnés par une seule clé (qui peut être une clé parente) et qui dans la mesure du possible se trouve à la racine du tableau `"data"`. Ce changement est particulièrement visible sur l'API statut étudiant boursier : 
+                  **🚀 Avec la V.3 :** Les scopes sont repérables plus facilement car ils sont incarnés par une seule clé (qui peut être une clé parente) et qui dans la mesure du possible se trouve à la racine du tableau `"data"`. Ce changement est particulièrement visible sur l'API statut étudiant boursier :
 
                   ###### Exemple avec la payload V.3. de l'API Étudiant boursier :
-                  Dans cette payload, les différents scopes pour lesquels vous pouvez demander une habilitation sont très visibles :  
+                  Dans cette payload, les différents scopes pour lesquels vous pouvez demander une habilitation sont très visibles :
 
                   ```
                     {
@@ -216,18 +216,18 @@ fr:
 
                   **🤔 Pourquoi ?**
                   Clarifier quelles informations sont disponibles pour chaque scope.
-              
+
               - title: 8. Certains scopes ont été créés / supprimés / modifiés
                 anchor: 'certains-scopes-crees-modifies-supprimes'
                 content: |+
-                  **🚀 Avec la V.3 :** Certains scopes (droits d'accès) ont été modifiés : 
+                  **🚀 Avec la V.3 :** Certains scopes (droits d'accès) ont été modifiés :
                   - API Statut demandeur d'emploi : Le scope `pole_emploi_identifiant` a été créé. Par conséquent, l'identifiant pôle emploi n'est plus retourné par défaut par l'API.
                   - API Statut élève scolarisé : Le scope `men_statut_identite` a été créé. Par conséquent, les données d'identité de l'élève (nom, prénom, sexe et date de naissance) ne sont plus retournées par défaut par l'API.
                   - API Statut étudiant : Les scopes de cette API ont été largement transformés car ils étaient incompréhensibles. Les scopes `mesri_inscription_etudiant`, `mesri_inscription_autre` et  `mesri_admission` ont donc été supprimés et remplacés par un seul et même scope : `mesri_admissions`. Le scope `mesri_regime` a été créé. Par conséquent, le régime de formation de l'élève n'est plus donné par défaut.
                   XXXX TODO => Mieux comprendre les scopes
 
                   {:.fr-highlight.fr-highlight--example}
-                  > **Avant** : Dans la V.2., 
+                  > **Avant** : Dans la V.2.,
 
                   **🤔 Pourquoi ?**
                   - De nouveaux scopes ont été créés afin de répondre aux exigences de l'[article 4 de la loi informatique et libertés](https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000037822953/){:target="_blank"} qui stipule que seules les données strictement nécessaires à la réalisation des missions peuvent être manipulées. La création de nouveaux scopes permet une meilleure granularité
@@ -240,10 +240,10 @@ fr:
               - title: 8. Les appels via la modalité FranceConnect ne renvoient plus les données d'identité
                 anchor: 'une-route-specifique-pour-chaque-modalite-d-appel'
                 content: |+
-                  **🚀 Avec la V.3 :** Lorsque vous utilisez les API avec FranceConnect, les données d'identité du particulier regroupées sous la clé `"identite"` ne seront plus renvoyées. 
+                  **🚀 Avec la V.3 :** Lorsque vous utilisez les API avec FranceConnect, les données d'identité du particulier regroupées sous la clé `"identite"` ne seront plus renvoyées.
 
                   **🤔 Pourquoi ?**
-                  - C'est un impératif de FranceConnect ; 
+                  - C'est un impératif de FranceConnect ;
                   - FranceConnect est en possession de l'identité pivot de l'usager, ces données sont certifiées et parfois plus fiables que les données livrées par les API, si vous avez besoin des données d'identité, vous pouvez donc les récupérer directement via FranceConnect.
 
                   **🧰 Comment ?**
@@ -267,7 +267,7 @@ fr:
                   ```
                   https://particulier.api.gouv.fr/v3/mesri/statut_etudiant/identite
                   ```
-      
+
       developers:
         title: Espace développeurs&nbsp;🛠
         sections:
@@ -399,6 +399,7 @@ fr:
                   |`401` | **Non autorisé** – Votre token est invalide ou manquant.|
                   |`403` | **Interdit** – Le serveur a compris votre requête mais refuse de l’exécuter car votre jeton ne vous donne pas accès à cette ressource.|
                   |`404` | **Non trouvé** – La ressource demandée n'a pas été trouvée. |
+                  |`409` | **Conflit** – Une requête associée à votre jeton est déjà en cours de traitement pour ces paramètres. Veuillez attendre la fin du traitement avant d'effectuer une nouvelle requête.|
 
 
                   ###### En cas d’échec, si l’erreur provient d’API&nbsp;Particulier ou bien des fournisseurs de données, le code HTTP commence par 5 :
@@ -420,7 +421,7 @@ fr:
 
 
                   {:.fr-highlight.fr-highlight--caution}
-                  > ⚠️ **Ces paramètres sont obligatoires pour les API FranceConnectées. les appels ne comportant pas ces paramètres sont rejetés, et un code erreur vous est renvoyé. Ces paramètres sont optionnels pour les API non FranceConnectées. Le caractère requis de ce champ est précisé dans le [swagger](https://particulier.api.gouv.fr/developpeurs/openapi#section/Bienvenue-sur-la-documentation-interactive-d'API-Particulier.).**. 
+                  > ⚠️ **Ces paramètres sont obligatoires pour les API FranceConnectées. les appels ne comportant pas ces paramètres sont rejetés, et un code erreur vous est renvoyé. Ces paramètres sont optionnels pour les API non FranceConnectées. Le caractère requis de ce champ est précisé dans le [swagger](https://particulier.api.gouv.fr/developpeurs/openapi#section/Bienvenue-sur-la-documentation-interactive-d'API-Particulier.).**.
 
                   Pour chaque endpoint, nous précisons dans le [swagger, rubrique "Query parameters"](<%= developers_openapi_path %>){:target="_blank"} les paramètres obligatoires spécifiques, ci-dessous une explication détaillée des éléments à fournir pour chaque paramètre de traçabilité :
 
@@ -545,8 +546,8 @@ fr:
                 anchor: 'tester-api-preproduction'
                 content: |+
                   {:.fr-text--lg}
-                  L'API&nbsp;Particulier propose un environnement de test ou bac à sable pour vous permettre de tester le branchement de l'API avec votre système d'informations. 
-                   
+                  L'API&nbsp;Particulier propose un environnement de test ou bac à sable pour vous permettre de tester le branchement de l'API avec votre système d'informations.
+
                   {:.fr-highlight}
                   > 💡 L'environnement de test est une fonctionnalité à destination des usagers techniques. Si vous êtes un profil métier, veuillez vous référer aux fiches métier de chaque API disponibles depuis le [catalogue](<%= endpoints_path %>).
 
@@ -556,7 +557,7 @@ fr:
                   - **Une URL :** L''environnement de staging est appelable avec `https://staging.particulier.api.gouv.fr`.
 
                   - **Les jetons d'accès** : Pour être fidèle au fonctionnement de l'API en production, cet environnement de test nécessite aussi un jeton d'accès, mais celui-ci, contrairement aux [jetons de production](#récupérer-le-jeton-jwt), est public car la donnée renvoyée en bac à sable est fictive. Un jeton ayant tous les droits est accessible [ici](https://github.com/etalab/siade_staging_data/blob/develop/tokens/default){:target="_blank"}. Pour générer un jeton spécifique, veuillez vous référer à ce [tutoriel](https://github.com/etalab/siade_staging_data/tree/develop/tokens){:target="_blank"}.
-                  
+
                   - **Les paramètres d'appel** : Chaque cas de test documente les paramètres d'appel nécessaires. Vous pouvez aussi tester l'API avec la [modalité d'appel FranceConnect](<%= cas_usages_path(uid:'modalite_appel_france_connect') %>) en utilisant de faux jetons FranceConnect fournis dans le staging.
 
                   - **Les données fictives de réponse :** Les données retournées par cet environnement de test sont totalement fictives et disponibles depuis [ce dépôt](https://github.com/etalab/siade_staging_data/tree/develop/payloads){:target="_blank"}.
@@ -564,7 +565,7 @@ fr:
                   - **Pour rappel, le fichier OpenAPI est disponible depuis le [swagger](<%= developers_openapi_path %>)**, avec le bouton "Download" situé en début de page.
 
                   **Pour en savoir plus, veuillez consulter le [README du dépôt Github](https://github.com/etalab/siade_staging_data){:target="_blank"}.**
-                  
+
 
               - title: Récupérer le jeton JWT&nbsp;🔑
                 anchor: 'récupérer-le-jeton-jwt'
@@ -617,7 +618,7 @@ fr:
 
                   2. **Ajoutez des routes de pings pour automatiser la surveillance** des API par vous-même. Plutôt que de consulter ponctuellement notre page de statuts, vous pouvez vous branchez directement à nos routes afin d'avoir un suivi encore plus précis. Pour en savoir plus, consulter la rubrique [surveiller l'état des fournisseurs](<%= developers_path(anchor: 'surveillance-etat-fournisseurs') %>) ;
 
-                  3. Si vous rencontrez un problème et avez besoin d'échanger avec nous en transmettant des données sensibles, utilisez le [formulaire de transfert d'informations sécurisées (Démarches simplifiées)](https://www.demarches-simplifiees.fr/commencer/api-particulier-transfert-securise-d-informations){:target="_blank"}. 
+                  3. Si vous rencontrez un problème et avez besoin d'échanger avec nous en transmettant des données sensibles, utilisez le [formulaire de transfert d'informations sécurisées (Démarches simplifiées)](https://www.demarches-simplifiees.fr/commencer/api-particulier-transfert-securise-d-informations){:target="_blank"}.
                   Si vous n'avez pas de réponse sous 72h, n'hésitez pas à nous envoyer votre numéro de demande Démarches simplifiées à l'adresse [api-particulier@api.gouv.fr](mailto:api-particulier@api.gouv.fr).
 
               - title: Informations à transmettre en cas de problème
@@ -639,7 +640,7 @@ fr:
               - title: Fonctionnement du cache
                 anchor: 'fonctionnement-du-cache'
                 content: |+
-                  L'implémentation du cache suit les normes standard sur l'ensemble des apis via l'utilisation headers spécifiques : 
+                  L'implémentation du cache suit les normes standard sur l'ensemble des apis via l'utilisation headers spécifiques :
 
                   1. Dans toutes les réponses de nos APIs, l'entête vous transmet des informations sur le cache&nbsp;:
 
