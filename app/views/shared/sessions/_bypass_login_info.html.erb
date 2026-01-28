@@ -1,0 +1,15 @@
+<div class="fr-alert fr-alert--info fr-alert--sm fr-mt-3w" style="text-align: left;">
+  <p class="fr-alert__title">Connexion rapide</p>
+  <p>Vous êtes en environnement de test, vous pouvez vous connecter rapidement en cliquant sur l'un des comptes prédéfinis ci-dessous :</p>
+  <% if Rails.env.staging? %>
+    <div class="fr-btns-group fr-btns-group--sm fr-btns-group--inline fr-mb-0">
+      <%= link_to 'user@yopmail.com', dev_login_path(email: 'user@yopmail.com'), class: 'fr-btn fr-btn--secondary', data: { turbo_prefetch: false } %>
+    </div>
+  <% else %>
+    <div class="fr-btns-group fr-btns-group--sm fr-btns-group--inline fr-mb-0">
+      <%= link_to 'Utilisateur de base (demandeur)', dev_login_path(email: 'user@yopmail.com'), class: 'fr-btn fr-btn--secondary', data: { turbo_prefetch: false } %>
+      <%= link_to 'Contact technique', dev_login_path(email: 'contact_technique@yopmail.com'), class: 'fr-btn fr-btn--secondary', data: { turbo_prefetch: false } %>
+      <%= link_to 'Éditeur', dev_login_path(email: 'editeur@yopmail.com'), class: 'fr-btn fr-btn--secondary', data: { turbo_prefetch: false } %>
+    </div>
+  <% end %>
+</div>
