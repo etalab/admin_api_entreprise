@@ -1,0 +1,70 @@
+<div class="fr-container fr-my-6w">
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <div class="fr-col-12 fr-col-md-8">
+      <h1 class="fr-h2 fr-mb-2w">
+        Autoriser <%= @pre_auth.client.application.name %> à utiliser vos accès API Entreprise
+      </h1>
+      <p class="fr-text--lead fr-mb-4w">
+        Sélectionnez les demandes DataPass pour lesquelles vous autorisez l'éditeur à récupérer des données protégées d'entreprises.
+      </p>
+
+      <% if @available_tokens.any? %>
+        <%= form_tag oauth_authorization_path, method: :post, id: 'authorize-form', data: { turbo: false } do %>
+          <%= hidden_field_tag :client_id, @pre_auth.client.uid %>
+          <%= hidden_field_tag :redirect_uri, @pre_auth.redirect_uri %>
+          <%= hidden_field_tag :state, @pre_auth.state %>
+          <%= hidden_field_tag :response_type, @pre_auth.response_type %>
+          <%= hidden_field_tag :scope, @pre_auth.scope %>
+
+          <fieldset class="fr-fieldset" aria-labelledby="demandes-legend">
+            <legend class="fr-fieldset__legend--regular fr-fieldset__legend" id="demandes-legend">
+              Vos demandes DataPass
+            </legend>
+            <% @available_tokens.each do |token| %>
+              <% authorization_request = token.authorization_request %>
+              <div class="fr-fieldset__element">
+                <div class="fr-checkbox-group">
+                  <%= check_box_tag 'token_ids[]', token.id, true, id: dom_id(token, :share) %>
+                  <%= label_tag dom_id(token, :share), class: 'fr-label' do %>
+                    D<%= authorization_request&.external_id %> — <%= authorization_request&.intitule %>
+                    <% if authorization_request %>
+                      <span class="fr-hint-text">
+                        <%= link_to 'Voir sur DataPass', datapass_authorization_request_url(authorization_request), target: '_blank', rel: 'noopener' %>
+                      </span>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </fieldset>
+        <% end %>
+
+        <div class="fr-mt-4w" style="display: flex; gap: 1rem; justify-content: flex-end; flex-wrap: wrap;">
+          <button type="submit" form="authorize-form" class="fr-btn">Autoriser</button>
+          <%= form_tag oauth_authorization_path, method: :delete, id: 'deny-form', data: { turbo: false }, style: 'margin: 0;' do %>
+            <%= hidden_field_tag :client_id, @pre_auth.client.uid %>
+            <%= hidden_field_tag :redirect_uri, @pre_auth.redirect_uri %>
+            <%= hidden_field_tag :state, @pre_auth.state %>
+            <%= hidden_field_tag :response_type, @pre_auth.response_type %>
+            <%= hidden_field_tag :scope, @pre_auth.scope %>
+          <% end %>
+          <button type="submit" form="deny-form" class="fr-btn fr-btn--secondary">Refuser</button>
+        </div>
+      <% else %>
+        <div class="fr-alert fr-alert--warning fr-alert--sm">
+          <p>Aucune demande DataPass active n'est disponible sur votre compte.</p>
+        </div>
+        <%= form_tag oauth_authorization_path, method: :delete, data: { turbo: false } do %>
+          <%= hidden_field_tag :client_id, @pre_auth.client.uid %>
+          <%= hidden_field_tag :redirect_uri, @pre_auth.redirect_uri %>
+          <%= hidden_field_tag :state, @pre_auth.state %>
+          <%= hidden_field_tag :response_type, @pre_auth.response_type %>
+          <%= hidden_field_tag :scope, @pre_auth.scope %>
+          <div class="fr-btns-group fr-mt-4w">
+            <button type="submit" class="fr-btn fr-btn--secondary">Retour</button>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

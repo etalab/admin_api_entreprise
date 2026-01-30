@@ -8,11 +8,11 @@ module ScopeHelper
     scopes_tree
   end
 
-  private
-
   def humanize_scope(scope, api)
     I18n.t("api_#{api}.tokens.token.scope.#{scope}.label", default: scope.humanize)
   end
+
+  private
 
   def build_scopes_parts(scopes_tree, splitted_scope) # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
     if splitted_scope.size > 2

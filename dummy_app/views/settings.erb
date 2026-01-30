@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Dummy DS - Settings</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 40px; }
+      .card { border: 1px solid #ddd; padding: 20px; border-radius: 8px; max-width: 900px; }
+      .tokens { margin-top: 20px; }
+      .token { padding: 15px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 6px; background: #f9f9f9; }
+      .cta { display: inline-block; padding: 10px 18px; border-radius: 6px; background: #0053b3; color: #fff; text-decoration: none; }
+      .secondary { background: #eee; color: #222; }
+      .jwt { font-family: monospace; font-size: 11px; word-break: break-all; background: #222; color: #0f0; padding: 10px; border-radius: 4px; margin-top: 8px; }
+      label { font-weight: bold; color: #555; }
+      code { background: #eee; padding: 2px 6px; border-radius: 3px; font-size: 12px; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Paramètres DS</h1>
+      <p>Connectez votre compte API Entreprise pour accéder aux données d'entreprise protégées.</p>
+
+      <% if connected? %>
+        <p><strong>Connecté</strong> — l'accès OAuth est stocké en session.</p>
+        <div class="token" style="margin: 15px 0;">
+          <div><label>OAuth Token ID:</label> <code><%= oauth_token_info['id'] || 'n/a' %></code></div>
+          <div><label>Access Token:</label> <code><%= session[:access_token]&.slice(0, 20) %>...</code></div>
+          <div><label>Token Type:</label> <%= session[:token_type] || 'Bearer' %></div>
+          <div><label>Scope:</label> <%= oauth_token_info['scopes']&.join(', ') || session[:scope] || 'public' %></div>
+          <div><label>Expires:</label> <%= session[:expires_at] ? Time.at(session[:expires_at]).strftime('%Y-%m-%d %H:%M:%S') : 'n/a' %></div>
+          <div><label>Refresh Token:</label> <%= session[:refresh_token] ? 'Oui' : 'Non' %></div>
+        </div>
+        <p>
+          <a class="cta" href="/reconnect">Reconnecter</a>
+          <a class="cta secondary" href="/logout">Déconnecter</a>
+        </p>
+      <% else %>
+        <p><a class="cta" href="/auth/api_entreprise">Connecter API Entreprise</a></p>
+      <% end %>
+
+      <div class="tokens">
+        <h2>Jetons API récupérés</h2>
+        <% if api_tokens.any? %>
+          <% api_tokens.each do |t| %>
+            <div class="token">
+              <div><label>Intitulé:</label> <%= t['intitule'] || t['id'] %></div>
+              <div><label>SIRET:</label> <%= t['siret'] || 'n/a' %></div>
+              <div><label>Scopes:</label> <%= Array(t['scopes']).first(3).join(', ') %><%= '...' if Array(t['scopes']).size > 3 %></div>
+              <div><label>Token JWT:</label></div>
+              <div class="jwt"><%= t['token'] %></div>
+            </div>
+          <% end %>
+        <% else %>
+          <p>Aucun jeton récupéré.</p>
+        <% end %>
+      </div>
+    </div>
+  </body>
+ </html>
