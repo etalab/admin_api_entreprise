@@ -7,10 +7,11 @@ class DatapassWebhook::CreateOrProlongToken < ApplicationInteractor
     return if %w[approve validate].exclude?(context.event)
     return if context.modalities.exclude?('params')
 
+    affect_scopes_to_authorization_request
     token = create_or_prolong_token
 
     if token.persisted?
-      affect_scopes(token)
+      copy_scopes_to_token(token)
       context.token_id = token.id
     else
       context.fail!(message: 'Fail to create token')
@@ -44,8 +45,12 @@ class DatapassWebhook::CreateOrProlongToken < ApplicationInteractor
     )
   end
 
-  def affect_scopes(token)
-    token.update!(scopes:)
+  def affect_scopes_to_authorization_request
+    authorization_request.update!(scopes:)
+  end
+
+  def copy_scopes_to_token(token)
+    token.update!(scopes: authorization_request.scopes)
   end
 
   def token_already_exists?

@@ -7,6 +7,7 @@ FactoryBot.define do
     api { 'entreprise' }
     siret { '13002526500013' }
     public_id { SecureRandom.uuid }
+    scopes { [] }
 
     trait :without_external_id do
       external_id { nil }
@@ -31,6 +32,8 @@ FactoryBot.define do
     end
 
     trait :with_tokens do
+      scopes { ['entreprises'] }
+
       tokens do
         [
           build(:token)

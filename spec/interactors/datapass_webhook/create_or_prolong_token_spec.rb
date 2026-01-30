@@ -54,6 +54,7 @@ RSpec.describe DatapassWebhook::CreateOrProlongToken, type: :interactor do
       expect(token.exp).to eq(18.months.from_now.to_i)
       expect(token.iat).to eq(Time.zone.now.to_i)
       expect(token.scopes.sort).to eq(%w[associations entreprises])
+      expect(authorization_request.reload.scopes.sort).to eq(%w[associations entreprises])
     end
 
     context 'when there is some scopes starting with open_data_' do

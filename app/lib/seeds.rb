@@ -12,6 +12,7 @@ class Seeds
     create_data_for_api_particulier
     create_data_shared
     create_audit_notifications
+    create_oauth2_test_data
   end
 
   def flushdb
@@ -29,6 +30,38 @@ class Seeds
 
   def create_scopes(api)
     YAML.load_file(Rails.root.join("config/data/scopes/#{api}.yml"))
+  end
+
+  def create_oauth2_test_data
+    ar = create_authorization_request(
+      external_id: '9001',
+      intitule: 'Test OAuth2 Authorization Request',
+      status: 'validated',
+      api: 'entreprise',
+      siret: '13002526500013',
+      scopes: %w[unites_legales_etablissements_insee associations_djepva],
+      validated_at: Time.current,
+      first_submitted_at: Time.current
+    )
+
+    Token.create!(
+      authorization_request: ar,
+      iat: Time.current.to_i,
+      exp: 18.months.from_now.to_i,
+      version: '1.0',
+      scopes: ar.scopes
+    )
+
+    editor = Editor.find_by!(name: 'UMAD Corp')
+    oauth_app = OAuthApplication.create!(
+      name: "OAuth - #{editor.name}",
+      owner: editor,
+      uid: 'oauth-test-client-id',
+      secret: 'oauth-test-client-secret'
+    )
+    editor.update!(oauth_application: oauth_app)
+
+    EditorDelegation.create!(editor:, authorization_request: ar)
   end
 
   private
