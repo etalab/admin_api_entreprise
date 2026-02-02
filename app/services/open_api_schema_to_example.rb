@@ -17,7 +17,8 @@ class OpenAPISchemaToExample
         self.class.new(value).perform
       end
     when 'string'
-      extract_value(schema, 'lorem')
+      default = schema['format'] == 'date' ? Time.zone.today.to_s : 'lorem'
+      extract_value(schema, default)
     when 'integer', 'number'
       extract_value(schema, rand(50))
     when 'boolean'
