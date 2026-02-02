@@ -2,30 +2,35 @@
 - uid: 'cnous/statut_etudiant_boursier'
   opening: protected
   old_endpoint_uids:
-    - 'cnous/v2/statut_etudiant_boursier'
-  path: '/v3/cnous/etudiant_boursier/identite'
+    - 'cnous/statut_etudiant_boursier_v3'
+  path: '/v4/cnous/etudiant_boursier/identite'
   position: 400
-  ping_url: 'https://particulier.api.gouv.fr/api/cnous_etudiant_boursier_ine/ping'
-  perimeter:
+  ping_url: &cnous_ping_url 'https://particulier.api.gouv.fr/api/cnous_etudiant_boursier_ine/ping'
+  historique: |+
+    **Ce que change le passage à la V.4 :**
+
+    - Ajout des champs `est_radie` et `date_radiation` indiquant si l'étudiant a été radié du CNOUS
+    - Les endpoints V.3 restent disponibles mais sont dépréciés
+  perimeter: &cnous_perimeter
     entity_type_description: |+
       Cette API délivre **uniquement les bourses "obligatoires"** et ne concerne pas les bourses d'ordre facultatif.
 
       L'API délivre les données sur :
-      - ✅ **des boursiers d’État sur critères sociaux (gérés par les Crous)** ;
+      - ✅ **des boursiers d'État sur critères sociaux (gérés par les Crous)** ;
       - ✅ **des boursiers sur critères sociaux des filières sanitaires et sociales** pour les régions adhérentes.
 
     geographical_scope_description:  |+
       **L'API couvre :**
-      - ✅ **pour les bourses d'État** : la France hexagonale, la Corse, les DROM (sauf Mayotte), la Polynésie française et la Nouvelle-Calédonie ; 
+      - ✅ **pour les bourses d'État** : la France hexagonale, la Corse, les DROM (sauf Mayotte), la Polynésie française et la Nouvelle-Calédonie ;
       - ✅ **pour les bourses des filières sanitaires et sociales** : les régions Auvergne-Rhône-Alpe, Bourgogne-Franche-Comté, Bretagne, Grand Est, Ile-de-France, Normandie et Occitanie. _D'autres régions devraient être couvertes à l'avenir._
 
       **Ne sont pas couverts par cette API :**
       - ❌ les données des étudiants ayant des bourses étrangères.
     updating_rules_description: |+
-      Les données sont **mises à jour tout au long de l'année**. Une bascule d'année s'effectue à la fin de l'année scolaire, les données concernant la rentrée suivante sont alors disponibles (et remplacent l'année en cours) à partir du mois de : 
+      Les données sont **mises à jour tout au long de l'année**. Une bascule d'année s'effectue à la fin de l'année scolaire, les données concernant la rentrée suivante sont alors disponibles (et remplacent l'année en cours) à partir du mois de :
       - mai pour les bourses régionales ;
-      - juillet pour les bourses nationales. La base contient environ 85% des boursiers en octobre et est considérée comme complète en fin novembre. 
-  parameters_details:
+      - juillet pour les bourses nationales. La base contient environ 85% des boursiers en octobre et est considérée comme complète en fin novembre.
+  parameters_details: &cnous_parameters_details
     description: |+
       Cette API propose trois modalités d'appel :
       <p class="fr-badge fr-badge--blue-ecume">![Cette API est FranceConnectée](<%= image_path('api_particulier/cas_usages/pictos/modalite_appel_france_connect.svg') %>){:width="20px"} FranceConnect</p>
@@ -41,21 +46,23 @@
       </span>
   data:
     description: |+
-      Cette API **indique si un étudiant est boursier et permet de connaître le montant de la bourse** perçue grâce à l'échelon et la durée de versement. 
+      Cette API **indique si un étudiant est boursier et permet de connaître le montant de la bourse** perçue grâce à l'échelon et la durée de versement.
 
       _Uniquement pour les bourses sur critères sociaux des filières sanitaires et sociales, en région,_ il est indiqué si l'échelon de bourse est définitif ou provisoire.
-  provider_uids:
+
+      Cette version indique également si l'étudiant a été **radié** du CNOUS, avec la date de radiation le cas échéant.
+  provider_uids: &cnous_provider_uids
     - 'cnous'
-  keywords: []
-  call_id:
+  keywords: &cnous_keywords []
+  call_id: &cnous_call_id
     - Identité pivot
     - INE
     - FranceConnect
-  parameters:
+  parameters: &cnous_parameters
     - Identité pivot
     - INE
     - FranceConnect
-  faq:
+  faq: &cnous_faq
     - q: À quoi correspondent les échelons de bourse ?
       a:
         "Il existe huit échelons de bourses d'étudiant, de 0bis à 7. Chaque échelon de bourse indique **le montant reçu par l'étudiant pour l'année scolaire**.
@@ -63,10 +70,29 @@
         Pour chaque échelon, il y a deux montants possibles, le premier correspond au montant versé pour 10 mois ; le second, plus élevé, équivaut à 12 mois. Il est versé aux étudiants bénéficiant du maintien de la bourse pendant les grandes vacances universitaires. Les taux sont fixés par arrêté, la page dédiée sur [Service-public.fr](https://www.service-public.fr/particuliers/vosdroits/F12214) détaille les montants et vous permettra de retrouver l'arrêté de l'année en cours.
 
         Cette API vous permet de connaître le montant exact perçu par l'étudiant car elle délivre l'échelon de la bourse et la durée de versement en mois."
+
+- uid: 'cnous/statut_etudiant_boursier_v3'
+  opening: protected
+  old_endpoint_uids:
+    - 'cnous/v2/statut_etudiant_boursier'
+  path: '/v3/cnous/etudiant_boursier/identite'
+  position: 401
+  ping_url: *cnous_ping_url
+  perimeter: *cnous_perimeter
+  parameters_details: *cnous_parameters_details
+  data:
+    description: |+
+      Cette API **indique si un étudiant est boursier et permet de connaître le montant de la bourse** perçue grâce à l'échelon et la durée de versement.
+
+      _Uniquement pour les bourses sur critères sociaux des filières sanitaires et sociales, en région,_ il est indiqué si l'échelon de bourse est définitif ou provisoire.
+  provider_uids: *cnous_provider_uids
+  keywords: *cnous_keywords
+  call_id: *cnous_call_id
+  parameters: *cnous_parameters
+  faq: *cnous_faq
   historique: |+
     **Ce que change le passage à la V.3 d'API Particulier:**
 
     - Le passage à la V.3 n'a pas eu d'impact sur la donnée distribuée qui reste identique ;
     - Les données d'identité ne sont plus renvoyées lorsque la modalité d'appel est FranceConnect ;
     - Tous les changements sont décrits dans la [table de correspondance du guide migration](/blog/migration-api-particulier-v3#correspondance-api-statut-etudiant-boursier){:target="_blank"}
-
