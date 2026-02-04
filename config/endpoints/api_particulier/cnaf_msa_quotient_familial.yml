@@ -29,14 +29,14 @@
       Les données sont **mises à jour** :
       - **une fois par mois, après le premier week-end du mois, pour les allocataires CAF**
       - **en temps réel lorsqu'il y a un changement de situation pour les allocataires MSA**
-      Le mois remonté est le mois m-1. Par exemple, au mois de janvier, c'est le quotient familial du mois de décembre de l'année précédente qui est remonté. Il faut donc attendre le mois de février pour accéder au quotient familial du mois de janvier. Cette API opérée par la CNAV (Caisse nationale d'assurance vieillesse) est reliée au système d'information de la Caisse nationale des allocations familiales (CNAF) et à celui de la mutualité sociale agricole (MSA).
+      Le mois remonté est **le mois en cours (M)**. Le calcul du quotient familial du mois M est basé sur les ressources du mois M-1. Par conséquent, **pour obtenir la mise à jour annuelle des ressources de janvier, les appels doivent être effectués en février** (c'est en février que le calcul intègre les ressources de janvier). Cette API opérée par la CNAV (Caisse nationale d'assurance vieillesse) est reliée au système d'information de la Caisse nationale des allocations familiales (CNAF) et à celui de la mutualité sociale agricole (MSA).
 
       ⚠️ **Les informations obtenues sont représentatives de la situation connue par la CNAF et la MSA au moment de l'appel**, il est donc possible qu'un quotient familial appelé pour un mois donné à un instant T, soit différent s'il est redemandé à un instant T+. [En savoir plus](faq_entry_1_api_particulier_endpoint_cnav_quotient_familial_v2).
   data:
     description: |+
       **Cette API délivre** :
       - **la composition familiale** du particulier, [en savoir plus](#composition-familiale) ;
-      - **le quotient familial CAF ou MSA** du particulier. Par défaut, le quotient familial du **mois précédent, M-1** est transmis. Le QF de l'allocataire est disponible pour les 24 mois précédents en précisant le mois et l'année dans l'appel, [sa valeur peut varier au cours du temps](#variation-qf) suite à un recalcul  ;
+      - **le quotient familial CAF ou MSA** du particulier. Par défaut, le quotient familial du **mois en cours (M)** est transmis. Le QF de l'allocataire est disponible pour les 24 mois précédents en précisant le mois et l'année dans l'appel, [sa valeur peut varier au cours du temps](#variation-qf) suite à un recalcul  ;
       - **l'adresse** du particulier au format de La Poste. ⚠️ Cette adresse est déclarative. Si l'usager a changé d'adresse et n'a pas actualisé son adresse auprès de la CAF ou de la MSA, l'information sera donc obsolète.
 
       {:.fr-highlight}
@@ -127,12 +127,11 @@
     - q: <a name="variation-qf"></a> Le quotient familial d'une même date peut-il changer au cours du temps ?
       a: |+
         **Le quotient familial CAF ou MSA d'un même mois peut changer**. Il est recalculé fréquemment au cours du temps par la CAF et la MSA. En effet, la situation de la personne peut évoluer : _perte d'un emploi, évolution des ressources, arrivée d'un enfant, majorité d'un enfant, modification de la législation, évolution des allocations logement etc._
-        **Cette variation apparaît notamment entre le quotient familial du mois appelé en début de mois ou en fin de mois**. **Le mois remonté par l'API est, par défaut, le mois M-1.**
+        **Cette variation apparaît notamment entre le quotient familial du mois appelé en début de mois ou en fin de mois**. **Le mois remonté par l'API est, par défaut, le mois en cours (M)**. Le calcul du QF M est basé sur les ressources du mois M-1.
 
         **De plus, la date du calcul du quotient familial diffère** selon qu'il s'agit du quotient de la CAF ou de la MSA. La fréquence et la date de mise à jour sont également différentes :
         - La MSA met à jour les données en temps réel, à chaque changement ;
-        - La CAF effectue une sauvegarde des quotients recalculés uniquement lorsqu'un changement subvient du côté de l'allocataire. De plus, elle met à jour les données pour le mois M-1 le premier week-end du mois. Par exemple, pour le quotient familial du mois de janvier 2025, les données seront mises à jour le week-end du 8 février 2025.
-        - La MSA met à jour les données en temps réel, à chaque changement.
+        - La CAF effectue une sauvegarde des quotients recalculés uniquement lorsqu'un changement subvient du côté de l'allocataire. De plus, elle met à jour les données après le premier week-end du mois. Par exemple, le QF de février 2025 (basé sur les ressources de janvier 2025) sera disponible après le week-end du 8 février 2025.
 
             {:.fr-highlight.fr-highlight--example}
             > Par exemple, un appel le 28 juin 2023 du quotient familial du mois en cours (juin 2023) : la MSA recalculera le QF le 28 juin 2023.
