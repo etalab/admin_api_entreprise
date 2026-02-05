@@ -27,6 +27,10 @@ class AuthorizationRequest < ApplicationRecord
     foreign_key: 'authorization_request_model_id',
     dependent: :destroy
 
+  has_one :security_settings,
+    class_name: 'AuthorizationRequestSecuritySettings',
+    dependent: :destroy
+
   validates :external_id, uniqueness: true, allow_blank: true
 
   validates :api, inclusion: { in: %w[entreprise particulier] }
