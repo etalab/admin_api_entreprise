@@ -8,6 +8,8 @@ class Seeds
 
     create_editor
     create_provider_user
+    create_api_entreprise_admin
+    create_api_particulier_admin
     create_data_for_api_entreprise
     create_data_for_api_particulier
     create_data_shared
@@ -88,6 +90,22 @@ class Seeds
       first_name: 'Michel',
       last_name: 'Paul',
       provider_uids: %w[insee dgfip]
+    )
+  end
+
+  def create_api_entreprise_admin
+    create_user(
+      email: 'api-entreprise@yopmail.com',
+      first_name: 'Admin',
+      last_name: 'API Entreprise'
+    )
+  end
+
+  def create_api_particulier_admin
+    create_user(
+      email: 'api-particulier@yopmail.com',
+      first_name: 'Admin',
+      last_name: 'API Particulier'
     )
   end
 
