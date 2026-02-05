@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resources :editors, only: %i[index edit update]
     resources :provider_dashboards, only: %i[index show], path: 'providers'
     resources :audit_notifications, only: %i[index new create]
+    resources :api_requests, only: %i[index create]
   end
 
   get '/editeur', to: redirect('/editeur/habilitations'), as: :editor

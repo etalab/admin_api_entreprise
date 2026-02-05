@@ -1,0 +1,41 @@
+<div class="fr-input-group" data-controller="array-field">
+  <%= label_tag param.name, class: "fr-label" do %>
+    <%= param.label %>
+    <% unless param.required %>
+      <span class="fr-hint-text">(optionnel)</span>
+    <% end %>
+  <% end %>
+
+  <div data-array-field-target="container">
+    <% values = Array(params[param.input_name]).presence || [''] %>
+    <% values.each do |value| %>
+      <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle fr-mb-1w" data-array-field-item>
+        <div class="fr-col">
+          <%= text_field_tag "#{param.input_name}[]", value, class: "fr-input" %>
+        </div>
+        <div class="fr-col-auto">
+          <button type="button" class="fr-btn fr-btn--tertiary-no-outline fr-btn--sm" data-action="array-field#remove" aria-label="Supprimer">
+            &times;
+          </button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <template data-array-field-target="template">
+    <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle fr-mb-1w" data-array-field-item>
+      <div class="fr-col">
+        <%= text_field_tag "#{param.input_name}[]", '', class: "fr-input" %>
+      </div>
+      <div class="fr-col-auto">
+        <button type="button" class="fr-btn fr-btn--tertiary-no-outline fr-btn--sm" data-action="array-field#remove" aria-label="Supprimer">
+          &times;
+        </button>
+      </div>
+    </div>
+  </template>
+
+  <button type="button" class="fr-btn fr-btn--tertiary fr-btn--sm fr-mt-1w" data-action="array-field#add">
+    + Ajouter une valeur
+  </button>
+</div>

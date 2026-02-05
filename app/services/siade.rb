@@ -1,73 +1,39 @@
 class Siade
-  def initialize(token:)
-    @token = token
+  API_BASE_URLS = {
+    'api_entreprise' => APIEntreprise::BASE_URL,
+    'api_particulier' => APIParticulier::BASE_URL
+  }.freeze
+
+  protected
+
+  def domain(api = 'api_entreprise')
+    ENV.fetch('SIADE_BASE_URL', nil) || API_BASE_URLS.fetch(api)
   end
 
-  def entreprises(siren:)
-    siade_result("v3/insee/sirene/unites_legales/#{siren}")
+  def build_url(endpoint)
+    uri = URI([domain, endpoint].join('/'))
+    uri.query = URI.encode_www_form(query_params)
+    uri.to_s
   end
 
-  def attestations_sociales(siren:)
-    siade_result("v4/urssaf/unites_legales/#{siren}/attestation_vigilance")
+  def query_params
+    { context:, recipient:, object: }
   end
 
-  def attestations_fiscales(siren:)
-    siade_result("v4/dgfip/unites_legales/#{siren}/attestation_fiscale")
-  end
-
-  private
-
-  def siade_result(endpoint)
-    result = siade_request(endpoint)
-
-    JSON.parse(result).try(:[], 'data')
-  end
-
-  def siade_request(endpoint)
-    siade_uri = URI([domain, endpoint].join('/'))
-
-    siade_uri.query = URI.encode_www_form(siade_params)
-
-    RestClient.get(siade_uri.to_s, siade_headers)
-  rescue RestClient::Exception => e
-    raise SiadeClientError.new(e.http_code, extract_error_msg(e))
-  end
-
-  def siade_params
-    {
-      context:,
-      recipient:,
-      object:
-    }
-  end
-
-  def siade_headers
-    {
-      Authorization: "Bearer #{@token.rehash}"
-    }
-  end
-
-  def domain
-    Rails.application.credentials.siade_url
-  end
-
-  def context
-    'Admin API Entreprise'
-  end
-
-  def recipient
-    @token.siret || siret_dinum
+  def headers
+    { Authorization: "Bearer #{authorization_token}" }
   end
 
   def siret_dinum
     '13002526500013'
   end
 
-  def object
-    'Admin API Entreprise request from Attestations Downloader'
+  def request(endpoint)
+    RestClient.get(build_url(endpoint), headers)
   end
 
-  def extract_error_msg(error)
-    JSON.parse(error.http_body)['errors'].first['detail']
-  end
+  def authorization_token = raise(NotImplementedError)
+  def context = raise(NotImplementedError)
+  def recipient = raise(NotImplementedError)
+  def object = raise(NotImplementedError)
 end

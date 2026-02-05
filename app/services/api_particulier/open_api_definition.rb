@@ -32,12 +32,6 @@ class APIParticulier::OpenAPIDefinition < AbstractOpenAPIDefinition
   end
 
   def base_url
-    if Rails.env.sandbox?
-      'https://sandbox.particulier.api.gouv.fr/api/'
-    elsif Rails.env.staging? || Rails.env.development?
-      'https://staging.particulier.api.gouv.fr/api/'
-    else
-      'https://particulier.api.gouv.fr/api/'
-    end
+    "#{APIParticulier::BASE_URL}/api/"
   end
 end
