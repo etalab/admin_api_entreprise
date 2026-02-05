@@ -1,18 +1,16 @@
-<% if @selected_endpoint.present? %>
-  <% endpoint = @endpoints.find { |e| e.uid == @selected_endpoint } %>
-  <% if endpoint %>
-    <h2 class="fr-text--lg">Paramètres</h2>
-    <% all_params(endpoint).each do |param| %>
-      <% param_key = param[:name].delete_suffix('[]') %>
-      <% param_value = Array(params[param_key]).join(' ') if params[param_key].present? %>
+<% if @facade.selected_endpoint.present? %>
+  <h2 class="fr-text--lg">Paramètres</h2>
+  <% @facade.parameters.each do |param| %>
+    <% if param.array? %>
+      <%= render 'array_field', param: param %>
+    <% else %>
+      <% param_value = params[param.input_name] if params[param.input_name].present? %>
       <div class="fr-input-group">
-        <%= label_tag param[:name], class: "fr-label" do %>
-          <%= humanize_param_name(param[:name]) %>
-          <% unless param[:required] %>
-            <span class="fr-hint-text">(optionnel)</span>
-          <% end %>
+        <%= label_tag param.name, param.label, class: "fr-label" %>
+        <% unless param.required %>
+          <span class="fr-hint-text">(optionnel)</span>
         <% end %>
-        <%= text_field_tag param_key, param_value, class: "fr-input", required: param[:required] %>
+        <%= text_field_tag param.input_name, param_value, class: "fr-input", required: param.required %>
       </div>
     <% end %>
   <% end %>

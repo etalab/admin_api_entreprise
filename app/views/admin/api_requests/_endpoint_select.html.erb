@@ -1,7 +1,7 @@
-<div class="fr-select-group fr-mt-2w">
+<div class="fr-select-group">
   <%= label_tag :endpoint_uid, "Endpoint", class: "fr-label" %>
   <%= select_tag :endpoint_uid,
-      grouped_options_for_select(endpoints_grouped_by_tag(@endpoints), @selected_endpoint),
+      grouped_options_for_select(@facade.endpoints_grouped_by_tag, @facade.selected_endpoint_uid),
       include_blank: "Sélectionner un endpoint",
       class: "fr-select",
       id: "endpoint_uid",

@@ -1,9 +1,18 @@
 <% if @result %>
+  <h2 class="fr-text--lg">Paramètres envoyés</h2>
+  <pre class="fr-p-2w fr-mb-4w" style="background: #f5f5fe; overflow-x: auto; white-space: pre;"><code><%= JSON.pretty_generate(@result[:request_params]) %></code></pre>
+
   <h2 class="fr-text--lg">
     Réponse
     <span class="fr-badge fr-badge--<%= @result[:status] == 200 ? 'success' : 'error' %>">
       <%= @result[:status] %>
     </span>
   </h2>
-  <pre class="fr-p-2w" style="background: #f5f5fe; overflow-x: auto; max-height: 500px;"><code><%= JSON.pretty_generate(JSON.parse(@result[:body])) rescue @result[:body] %></code></pre>
+  <pre class="fr-p-2w" style="background: #f5f5fe; overflow-x: auto; white-space: pre; max-height: 60vh;"><code><%= JSON.pretty_generate(JSON.parse(@result[:body])) rescue @result[:body] %></code></pre>
+<% else %>
+  <div class="fr-callout">
+    <p class="fr-callout__text">
+      Sélectionnez un endpoint et remplissez les paramètres pour effectuer une requête.
+    </p>
+  </div>
 <% end %>
