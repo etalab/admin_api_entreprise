@@ -26,18 +26,22 @@
       - ✅ DROM COM
       - ✅ Allocataires de nationalité étrangère résidant en France
     updating_rules_description: |+
-      Les données sont **mises à jour** : 
-      - **une fois par mois, après le premier week-end du mois, pour les allocataires CAF**
-      - **en temps réel lorsqu'il y a un changement de situation pour les allocataires MSA**
-      Le mois remonté est le mois m-1. Par exemple, au mois de janvier, c'est le quotient familial du mois de décembre de l'année précédente qui est remonté. Il faut donc attendre le mois de février pour accéder au quotient familial du mois de janvier. Cette API opérée par la CNAV (Caisse nationale d'assurance vieillesse) est reliée au système d'information de la Caisse nationale des allocations familiales (CNAF) et à celui de la mutualité sociale agricole (MSA).
+      Cette API, opérée par la caisse nationale d'assurance vieillesse (CNAV), est reliée au système d'information de la Caisse nationale des allocations familiales (CNAF) et à celui de la mutualité sociale agricole (MSA).
 
-      ⚠️ **Les informations obtenues sont représentatives de la situation connue par la CNAF et la MSA au moment de l'appel**, il est donc possible qu'un quotient familial appelé pour un mois donné à un instant T, soit différent s'il est redemandé à un instant T+. [En savoir plus](faq_entry_1_api_particulier_endpoint_cnav_quotient_familial_v2).
+      **Les données sont mises à jour** :
+      - une fois par mois, après le premier week-end du mois, pour les allocataires CAF ;
+      - en temps réel lorsqu'il y a un changement de situation pour les allocataires MSA.
+      
+      **Le mois remonté est le mois en cours (M)**. Le calcul du quotient familial du mois M est basé sur les ressources du mois M-1. 
+
+      {:.fr-highlight}
+      > 💡 Pour les collectivités effectuant une mise à jour annuelle des ressources en janvier, les appels doivent donc être effectués en février car c'est en février que le calcul intègre les ressources de janvier. 
   data:
     description: |+
       **Cette API délivre** :
       - **la composition familiale** du particulier, [en savoir plus](#composition-familiale) ;
-      - **le quotient familial CAF ou MSA** du particulier. Par défaut, le quotient familial du **mois précédent, M-1** est transmis. Le QF de l'allocataire est disponible pour les 24 mois précédents en précisant le mois et l'année dans l'appel, [sa valeur peut varier au cours du temps](#variation-qf) suite à un recalcul  ;
-      - **l'adresse** du particulier au format de La Poste. ⚠️ Cette adresse est déclarative. Si l'usager a changé d'adresse et n'a pas actualisé son adresse auprès de la CAF ou de la MSA, l'information sera donc obsolète. 
+      - **le quotient familial CAF ou MSA** du particulier. Par défaut, le quotient familial du **mois en cours (M)** est transmis. Le QF de l'allocataire est disponible pour les 24 mois précédents en précisant le mois et l'année dans l'appel. [Sa valeur peut varier au cours du temps](#variation-qf) suite à un recalcul  ;
+      - **l'adresse** du particulier au format de La Poste. ⚠️ Cette adresse est déclarative. Si l'usager a changé d'adresse et n'a pas actualisé son adresse auprès de la CAF ou de la MSA, l'information sera donc obsolète.
 
       {:.fr-highlight}
       > Le quotient familial au sens de la CNAF ou de la MSA a une définition différente du quotient familial de l'administration fiscale, [en savoir plus](#difference-qf-caf-dgfip).
@@ -93,13 +97,13 @@
         <span class="fr-text--xs fr-m-0">
         <sup>1</sup> Fournir plusieurs prénoms permet de limiter les risques d'homonymie mais un seul prénom peut fonctionner. Attention, l'usager doit compléter chaque prénom dans un champ distinct.
         </span>
-       
+
         </div>
       </section>
 
   provider_uids:
     - 'cnav'
-  call_id: 
+  call_id:
     - Identité pivot
     - FranceConnect
   parameters:
@@ -127,12 +131,11 @@
     - q: <a name="variation-qf"></a> Le quotient familial d'une même date peut-il changer au cours du temps ?
       a: |+
         **Le quotient familial CAF ou MSA d'un même mois peut changer**. Il est recalculé fréquemment au cours du temps par la CAF et la MSA. En effet, la situation de la personne peut évoluer : _perte d'un emploi, évolution des ressources, arrivée d'un enfant, majorité d'un enfant, modification de la législation, évolution des allocations logement etc._
-        **Cette variation apparaît notamment entre le quotient familial du mois appelé en début de mois ou en fin de mois**. **Le mois remonté par l'API est, par défaut, le mois M-1.**
+        **Cette variation apparaît notamment entre le quotient familial du mois appelé en début de mois ou en fin de mois**. **Le mois remonté par l'API est, par défaut, le mois en cours (M)**. Le calcul du QF M est basé sur les ressources du mois M-1.
 
-        **De plus, la date du calcul du quotient familial diffère** selon qu'il s'agit du quotient de la CAF ou de la MSA. La fréquence et la date de mise à jour sont également différentes : 
+        **De plus, la date du calcul du quotient familial diffère** selon qu'il s'agit du quotient de la CAF ou de la MSA. La fréquence et la date de mise à jour sont également différentes :
         - La MSA met à jour les données en temps réel, à chaque changement ;
-        - La CAF effectue une sauvegarde des quotients recalculés uniquement lorsqu'un changement subvient du côté de l'allocataire. De plus, elle met à jour les données pour le mois M-1 le premier week-end du mois. Par exemple, pour le quotient familial du mois de janvier 2025, les données seront mises à jour le week-end du 8 février 2025.
-        - La MSA met à jour les données en temps réel, à chaque changement. 
+        - La CAF effectue une sauvegarde des quotients recalculés uniquement lorsqu'un changement subvient du côté de l'allocataire. De plus, elle met à jour les données après le premier week-end du mois. Par exemple, le QF de février 2025 (basé sur les ressources de janvier 2025) sera disponible après le week-end du 8 février 2025.
 
             {:.fr-highlight.fr-highlight--example}
             > Par exemple, un appel le 28 juin 2023 du quotient familial du mois en cours (juin 2023) : la MSA recalculera le QF le 28 juin 2023.
@@ -155,34 +158,34 @@
     - q: <a name="compte-parents"></a> Dans quels cas les deux parents sont-ils associés à un même compte ? S'ils le sont, peuvent-ils être rattachés à la MSA et à la CAF en même temps ?
       a: |+
         **Les deux parents sont associés à un même compte lorsqu'ils sont mariés, pacsés ou concubins ET à partir de la déclaration de ce changement par l'allocataire**, sur le site caf.fr ou sur l’application «&nbsp;Caf -Mon Compte&nbsp;». Cette déclaration induit de loger au même domicile, exception faite du cas d'un conjoint vivant à l'étranger dont la vie maritale est tout de même enregistrée auprès de la CAF ou la MSA.
-        **Les parents qui sont associés à un même compte**, sont gérés par une seule caisse, la CAF ou la MSA. Le choix de la caisse de rattachement revient au couple. Toutefois, il y a quelques exceptions : 
+        **Les parents qui sont associés à un même compte**, sont gérés par une seule caisse, la CAF ou la MSA. Le choix de la caisse de rattachement revient au couple. Toutefois, il y a quelques exceptions :
         - lorsqu’un couple est bénéficiaire du RSA avec un des membres du couple exploitant agricole ou aide familial, quelle que soit la situation du conjoint ou concubin, seule la MSA est compétente pour le RSA et les prestations familiales. Le couple sera donc affilié à la MSA ;
         - Si un des deux membres du couple relève de l’Assemblée nationale ou du Sénat, il doit être enregistré en tant que responsable dossier, afin d’éviter les doubles paiements.
     - q: Dans le cas d’une famille recomposée, les enfants des deux parents sont-ils remontés sur un même compte ?
       a: |+
-        L'enfant sera uniquement rattaché au parent qui en a la charge. Dans le cas d'une situation de résidence alternée qui induit un partage de la charge, l'enfant apparaitra sur les deux comptes uniquement si la "résidence alternée avec partage des allocations" est déclarée à la caisse d'allocation. 
+        L'enfant sera uniquement rattaché au parent qui en a la charge. Dans le cas d'une situation de résidence alternée qui induit un partage de la charge, l'enfant apparaitra sur les deux comptes uniquement si la "résidence alternée avec partage des allocations" est déclarée à la caisse d'allocation.
     - q: Les enfants décédés sont-ils remontés par l’API ?
       a: |+
         Les enfants décédés ne sont plus considérés à charge le mois suivant le décès et ne sont donc plus remontés par l'API.
     - q: <a name="enfants-majeurs"></a> Les enfants majeurs sont-ils renvoyés par l’API lorsque l'appel est effectué avec l'identité du parent  ?
       a: |+
-        **Oui, si l'enfant majeur respecte trois conditions :** 
+        **Oui, si l'enfant majeur respecte trois conditions :**
         - être toujours à la charge de ses parents ;
         - qu'il respecte la limite d'âge ;
         - si l'enfant a une rémunération, que celle-ci ne dépasse pas un certain plafond.
-        
+
         **Condition d'être à la charge des parents :**
         Un enfant est considéré à charge d'un allocataire lorsque la responsabilité affective et éducative, les frais liés au logement, à la nourriture et à l’éducation, sont assumés par l’allocataire qui n’est pas obligé d’avoir un lien de parenté direct. Cette notion est différente de retenue par l'administration fiscale, [pour en savoir plus consulter le dernier paragraphe la question dédiée](#composition-familiale).
 
         **Condition d'âge :**
-        La composante âge de l'enfant doit être prise en compte puisqu'elle détermine le terme de certaines prestations. 
+        La composante âge de l'enfant doit être prise en compte puisqu'elle détermine le terme de certaines prestations.
         Il est à noter que cette limite est variable et exclut le mois de l'atteinte de l'âge limite: La limite d'âge est de 16 à 19 ans et 11 mois pour l'ensemble des prestations sauf exceptions ci dessous:
         - jusqu'à 20 ans et 11 mois pour le forfait allocations familiales (AF), le complément familial (CF) dans l'hexagone et les aides au logement ;
         - jusqu'à 21 ans et 11 mois pour l'allocation de logement familiale (ALF) dans les départements et régions d'Outre-Mer.
 
         **Condition de plafond de rémunération :**
         La rémunération de l'enfant nette ne doit pas être supérieure au plafond de rémunération pour enfant à charge fixé à 55% du SMIC d'après l'[article R.512-2 du code de la Sécurité sociale](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006750602){:target="_blank"}.
-        _Voici les plafonds de rémunération pour que l'enfant soit considéré à charge, entre 2021 et 2024 :_ 
+        _Voici les plafonds de rémunération pour que l'enfant soit considéré à charge, entre 2021 et 2024 :_
         ![Tableau décrivant les plafonds de rémunération de l'enfant majeur entre 2021 et 2024](<%= image_path('api_particulier/api-qf_plafond-remuneration-enfant-majeur.png') %>)
 
     - q: <a name="renseigner-lieu-de-naissance"></a> Appel avec l'identité pivot, comment renseigner le lieu de naissance ?
@@ -196,7 +199,7 @@
               [✒️ **Aider les usagers à renseigner leur lieu de naissance par code COG** - Lire la publication du 08/11/2023](https://particulier.api.gouv.fr/blog/parametre-lieu-naissance-code-cog){:target="_blank"}
 
             - *Option 2 : L'API est appelée avec le nom de la commune de naissance et le code du département de naissance*. La date de naissance est obligatoire car c'est elle qui permettra à l'API de faire la correspondance avec le bon code COG.
-        
+
         - **Pour les particuliers nés à l'étranger**: le code COG pays est obigatoire.
 
         {:.fr-highlight}
@@ -205,7 +208,7 @@
   historique: |+
     **Ce que change le passage à la V.3 d'API Particulier:**
 
-    - Le passage à la V.3 n'a pas eu d'impact sur la donnée distribuée qui reste identique ; 
+    - Le passage à la V.3 n'a pas eu d'impact sur la donnée distribuée qui reste identique ;
     - Tous les changements sont décrits dans la [table de correspondance du guide migration](/blog/migration-api-particulier-v3#correspondance-api-quotient-familial-msa-caf){:target="_blank"}
 
 
