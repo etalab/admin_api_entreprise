@@ -26,17 +26,21 @@
       - ✅ DROM COM
       - ✅ Allocataires de nationalité étrangère résidant en France
     updating_rules_description: |+
-      Les données sont **mises à jour** :
-      - **une fois par mois, après le premier week-end du mois, pour les allocataires CAF**
-      - **en temps réel lorsqu'il y a un changement de situation pour les allocataires MSA**
-      Le mois remonté est **le mois en cours (M)**. Le calcul du quotient familial du mois M est basé sur les ressources du mois M-1. Par conséquent, **pour obtenir la mise à jour annuelle des ressources de janvier, les appels doivent être effectués en février** (c'est en février que le calcul intègre les ressources de janvier). Cette API opérée par la CNAV (Caisse nationale d'assurance vieillesse) est reliée au système d'information de la Caisse nationale des allocations familiales (CNAF) et à celui de la mutualité sociale agricole (MSA).
+      Cette API, opérée par la caisse nationale d'assurance vieillesse (CNAV), est reliée au système d'information de la Caisse nationale des allocations familiales (CNAF) et à celui de la mutualité sociale agricole (MSA).
 
-      ⚠️ **Les informations obtenues sont représentatives de la situation connue par la CNAF et la MSA au moment de l'appel**, il est donc possible qu'un quotient familial appelé pour un mois donné à un instant T, soit différent s'il est redemandé à un instant T+. [En savoir plus](faq_entry_1_api_particulier_endpoint_cnav_quotient_familial_v2).
+      **Les données sont mises à jour** :
+      - une fois par mois, après le premier week-end du mois, pour les allocataires CAF ;
+      - en temps réel lorsqu'il y a un changement de situation pour les allocataires MSA.
+      
+      **Le mois remonté est le mois en cours (M)**. Le calcul du quotient familial du mois M est basé sur les ressources du mois M-1. 
+
+      {:.fr-highlight}
+      > 💡 Pour les collectivités effectuant une mise à jour annuelle des ressources en janvier, les appels doivent donc être effectués en février car c'est en février que le calcul intègre les ressources de janvier. 
   data:
     description: |+
       **Cette API délivre** :
       - **la composition familiale** du particulier, [en savoir plus](#composition-familiale) ;
-      - **le quotient familial CAF ou MSA** du particulier. Par défaut, le quotient familial du **mois en cours (M)** est transmis. Le QF de l'allocataire est disponible pour les 24 mois précédents en précisant le mois et l'année dans l'appel, [sa valeur peut varier au cours du temps](#variation-qf) suite à un recalcul  ;
+      - **le quotient familial CAF ou MSA** du particulier. Par défaut, le quotient familial du **mois en cours (M)** est transmis. Le QF de l'allocataire est disponible pour les 24 mois précédents en précisant le mois et l'année dans l'appel. [Sa valeur peut varier au cours du temps](#variation-qf) suite à un recalcul  ;
       - **l'adresse** du particulier au format de La Poste. ⚠️ Cette adresse est déclarative. Si l'usager a changé d'adresse et n'a pas actualisé son adresse auprès de la CAF ou de la MSA, l'information sera donc obsolète.
 
       {:.fr-highlight}
