@@ -47,7 +47,7 @@ RSpec.shared_examples 'a token magic link creation feature' do |options = {}|
         describe 'with javascript actived', :js do
           it 'from authorization_request page, displays modal on click' do
             visit send(authorization_request_path_helper, authorization_request)
-            click_link 'show-token-modal-link'
+            click_link dom_id(token, :show)
             click_link dom_id(token, :transfer_modal_button)
             expect(page).to have_button(I18n.t('shared.transfer_tokens.new.modal.transfer.cta'))
           end
