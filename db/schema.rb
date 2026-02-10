@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_14_112301) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_05_164936) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pg_catalog.plpgsql"
@@ -33,6 +33,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_14_112301) do
     t.datetime "updated_at", null: false
     t.index ["authorization_request_external_id"], name: "index_audit_notifications_on_authorization_request_external_id"
     t.index ["created_at"], name: "index_audit_notifications_on_created_at"
+  end
+
+  create_table "authorization_request_security_settings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "authorization_request_id", null: false
+    t.integer "rate_limit_per_minute"
+    t.jsonb "allowed_ips", default: []
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["authorization_request_id"], name: "idx_on_authorization_request_id_89fed8c5c4", unique: true
   end
 
   create_table "authorization_requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -228,6 +237,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_14_112301) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "authorization_request_security_settings", "authorization_requests"
   add_foreign_key "magic_links", "tokens"
   add_foreign_key "prolong_token_wizards", "tokens"
   add_foreign_key "user_authorization_request_roles", "authorization_requests"
