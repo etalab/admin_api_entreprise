@@ -9,10 +9,10 @@ RSpec.describe EntrepriseWithAttestationsFacade do
 
   let(:token) { create(:token) }
   let(:siren) { '123456789' }
-  let(:siade_double) { instance_double(Siade) }
+  let(:siade_double) { instance_double(Siade::AttestationDownloader) }
 
   before do
-    allow(Siade).to receive(:new).and_return(siade_double)
+    allow(Siade::AttestationDownloader).to receive(:new).and_return(siade_double)
 
     allow(siade_double).to receive(:attestations_sociales).and_raise(SiadeClientError.new('403', 'Forbidden'))
     allow(siade_double).to receive(:attestations_fiscales).and_raise(SiadeClientError.new('403', 'Forbidden'))

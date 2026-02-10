@@ -1,0 +1,25 @@
+<div class="fr-grid-row">
+  <div class="fr-col-12">
+    <h1>Requêtes API</h1>
+  </div>
+</div>
+
+<div class="fr-grid-row fr-grid-row--gutters fr-mt-4w">
+  <div class="fr-col-4">
+    <%= form_with url: admin_api_requests_path, method: :post, data: { turbo: false } do |f| %>
+      <%= render 'endpoint_select' %>
+
+      <div class="fr-mt-4w">
+        <%= render 'params_fields' %>
+      </div>
+
+      <div class="fr-mt-4w">
+        <%= f.submit "Envoyer la requête", class: "fr-btn fr-btn--primary" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="fr-col-8">
+    <%= render 'result' %>
+  </div>
+</div>

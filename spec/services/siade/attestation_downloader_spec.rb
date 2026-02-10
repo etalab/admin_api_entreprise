@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Siade, type: :service do
+RSpec.describe Siade::AttestationDownloader, type: :service do
   let(:payload_error) { { errors: [{ detail: 'error' }] }.to_json }
 
   let(:payload_entreprise) do
@@ -25,7 +25,7 @@ RSpec.describe Siade, type: :service do
 
   let(:authorization_request) { create(:authorization_request, siret: siret_valid) }
   let(:token) { create(:token, authorization_request:) }
-  let(:siade_url) { Rails.application.credentials.siade_url }
+  let(:siade_entreprise_url) { APIEntreprise::BASE_URL }
   let(:siade_params) do
     {
       context: 'Admin API Entreprise',
@@ -43,7 +43,7 @@ RSpec.describe Siade, type: :service do
   describe '#entreprise' do
     subject { described_class.new(token:).entreprises(siren:) }
 
-    let(:endpoint_url) { "#{siade_url}/v3/insee/sirene/unites_legales/#{siren}" }
+    let(:endpoint_url) { "#{siade_entreprise_url}/v3/insee/sirene/unites_legales/#{siren}" }
 
     context 'when it is a OK response' do
       before do
@@ -75,7 +75,7 @@ RSpec.describe Siade, type: :service do
   describe '#attestations_sociales' do
     subject { described_class.new(token:).attestations_sociales(siren:) }
 
-    let(:endpoint_url) { "#{siade_url}/v4/urssaf/unites_legales/#{siren}/attestation_vigilance" }
+    let(:endpoint_url) { "#{siade_entreprise_url}/v4/urssaf/unites_legales/#{siren}/attestation_vigilance" }
 
     context 'when it is a OK response' do
       before do
@@ -107,7 +107,7 @@ RSpec.describe Siade, type: :service do
   describe '#attestations_fiscales' do
     subject { described_class.new(token:).attestations_fiscales(siren:) }
 
-    let(:endpoint_url) { "#{siade_url}/v4/dgfip/unites_legales/#{siren}/attestation_fiscale" }
+    let(:endpoint_url) { "#{siade_entreprise_url}/v4/dgfip/unites_legales/#{siren}/attestation_fiscale" }
 
     context 'when it is a OK response' do
       before do

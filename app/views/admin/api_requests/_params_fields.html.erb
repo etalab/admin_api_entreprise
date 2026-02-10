@@ -1,0 +1,17 @@
+<% if @facade.selected_endpoint.present? %>
+  <h2 class="fr-text--lg">Paramètres</h2>
+  <% @facade.parameters.each do |param| %>
+    <% if param.array? %>
+      <%= render 'array_field', param: param %>
+    <% else %>
+      <% param_value = params[param.input_name] if params[param.input_name].present? %>
+      <div class="fr-input-group">
+        <%= label_tag param.name, param.label, class: "fr-label" %>
+        <% unless param.required %>
+          <span class="fr-hint-text">(optionnel)</span>
+        <% end %>
+        <%= text_field_tag param.input_name, param_value, class: "fr-input", required: param.required %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
