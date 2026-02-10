@@ -14,7 +14,7 @@
       </div>
 
       <div class="fr-mt-4w">
-        <%= f.submit "Envoyer la requête", class: "fr-btn fr-btn--primary" %>
+        <%= f.submit "Envoyer la requête", class: "fr-btn fr-btn--primary", disabled: @facade.selected_endpoint.blank? %>
       </div>
     <% end %>
   </div>

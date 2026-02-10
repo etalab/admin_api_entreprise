@@ -27,6 +27,7 @@ RSpec.describe 'Admin: API requests' do
         expect(page).to have_no_select('api')
         expect(page).to have_field('Contexte', with: 'Débugging')
         expect(page).to have_no_field('object')
+        expect(page).to have_button('Envoyer la requête', disabled: true)
       end
     end
 
@@ -43,6 +44,7 @@ RSpec.describe 'Admin: API requests' do
         visit admin_api_requests_path(endpoint_uid: '/v3/insee/sirene/unites_legales/{siren}')
 
         expect(page).to have_field('siren')
+        expect(page).to have_button('Envoyer la requête', disabled: false)
         fill_in 'context', with: custom_context
         fill_in 'siren', with: '130025265'
         click_on 'Envoyer la requête'
