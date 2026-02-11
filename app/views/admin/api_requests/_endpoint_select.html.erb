@@ -7,3 +7,8 @@
       id: "endpoint_uid",
       onchange: "this.form.action='#{admin_api_requests_path}'; this.form.method='get'; this.form.submit();" %>
 </div>
+
+<div class="fr-input-group fr-mt-2w">
+  <%= label_tag :context, "Contexte", class: "fr-label" %>
+  <%= text_field_tag :context, @context_value, class: "fr-input" %>
+</div>

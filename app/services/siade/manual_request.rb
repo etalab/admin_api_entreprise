@@ -22,14 +22,24 @@ class Siade::ManualRequest < Siade
   end
 
   def query_params
-    user_query_params = @params.reject { |key, _| @path_param_names.include?(key.to_s) }
+    user_query_params = @params.reject do |key, _|
+      @path_param_names.include?(key.to_s) || fixed_query_param?(key)
+    end
     super.merge(user_query_params)
   end
 
   def domain = super(@api)
 
   def authorization_token = AdminAPIToken.for(@api)
-  def context = 'Admin'
+  def context = fetch_param('context') || 'Admin'
   def recipient = siret_dinum
-  def object = 'Debug requête'
+  def object = fetch_param('object') || 'Debug requête'
+
+  def fixed_query_param?(key)
+    %w[recipient context object].include?(key.to_s)
+  end
+
+  def fetch_param(name)
+    @params[name].presence || @params[name.to_sym].presence
+  end
 end

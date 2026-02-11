@@ -164,10 +164,15 @@ RSpec.describe APIRequestFacade do
     end
 
     it 'calls Siade::ManualRequest with transformed params' do
-      result = facade.execute_request('siren' => '130025265')
+      result = facade.execute_request(
+        'siren' => '130025265',
+        'context' => 'Débugging',
+        'object' => 'user_1'
+      )
 
       expect(result[:status]).to eq(200)
       expect(JSON.parse(result[:body])['data']['siren']).to eq('130025265')
+      expect(result[:request_params]).to eq('siren' => '130025265')
     end
 
     it 'returns nil when no endpoint selected' do

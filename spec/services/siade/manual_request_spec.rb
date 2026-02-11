@@ -89,5 +89,47 @@ RSpec.describe Siade::ManualRequest, type: :service do
         expect(subject).to eq({ body: response_body, status: 200 })
       end
     end
+
+    context 'with custom context and object' do
+      let(:endpoint_path) { '/v3/dss/quotient_familial/identite' }
+      let(:params) { { 'context' => 'Admin custom trace', 'object' => 'user_42' } }
+      let(:endpoint_url) { "#{siade_entreprise_url}/v3/dss/quotient_familial/identite" }
+      let(:response_body) { { data: {} }.to_json }
+      let(:expected_query_params) do
+        {
+          context: 'Admin custom trace',
+          recipient: '13002526500013',
+          object: 'user_42'
+        }
+      end
+
+      before do
+        stub_request(:get, endpoint_url)
+          .with(query: expected_query_params, headers: siade_headers)
+          .to_return(status: 200, body: response_body)
+      end
+
+      it 'overrides default metadata query params' do
+        expect(subject).to eq({ body: response_body, status: 200 })
+      end
+    end
+
+    context 'with blank context and object' do
+      let(:endpoint_path) { '/v3/dss/quotient_familial/identite' }
+      let(:params) { { 'context' => '', 'object' => '', 'nom' => 'Dupont' } }
+      let(:endpoint_url) { "#{siade_entreprise_url}/v3/dss/quotient_familial/identite" }
+      let(:response_body) { { data: {} }.to_json }
+      let(:expected_query_params) { siade_params.merge('nom' => 'Dupont') }
+
+      before do
+        stub_request(:get, endpoint_url)
+          .with(query: expected_query_params, headers: siade_headers)
+          .to_return(status: 200, body: response_body)
+      end
+
+      it 'falls back to default metadata query params' do
+        expect(subject).to eq({ body: response_body, status: 200 })
+      end
+    end
   end
 end

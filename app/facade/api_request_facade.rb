@@ -48,7 +48,7 @@ class APIRequestFacade
       api: api_identifier
     ).call
 
-    result.merge(request_params: transformed_params)
+    result.merge(request_params: filtered_request_params(transformed_params))
   end
 
   private
@@ -111,5 +111,9 @@ class APIRequestFacade
     @array_param_names ||= (selected_endpoint.open_api_definition&.dig('parameters') || [])
       .select { |p| p['name'].end_with?('[]') }
       .map { |p| p['name'].delete_suffix('[]') }
+  end
+
+  def filtered_request_params(params)
+    params.reject { |key, _| FIXED_PARAMS.include?(key.to_s) }
   end
 end
