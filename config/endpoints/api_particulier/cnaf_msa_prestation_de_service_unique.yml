@@ -9,6 +9,15 @@
     - FranceConnect
   path: '/v3/dss/participation_familiale_eaje/identite'
   position: 602
+  alert:
+    title: "Allocataires MSA : Incohérence sur l’année de calcul des ressources"
+    description: |+
+      Pour les allocataires MSA, l’année indiquée pour les ressources est actuellement incorrecte : l’API affiche l’année en cours au lieu de l'année N-2.
+      ✅ Le montant des ressources est correct : il correspond bien aux ressources de l’année N-2.
+      ➡️ Il s’agit donc d’un problème d’affichage de l’année, sans impact sur le montant.
+      - Cette anomalie ne concerne que les allocataires MSA ;
+      - Elle est en cours de correction par la MSA.    
+
   perimeter:
     entity_type_description: |+
       **Cette API délivre les informations permettant le calcul de la participation familiale pour la tarification des établissements d'accueil du jeune enfant (EAJE) des allocataires de la majorité des régimes** :
