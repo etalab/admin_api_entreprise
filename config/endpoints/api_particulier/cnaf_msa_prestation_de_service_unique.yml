@@ -1,6 +1,7 @@
 ---
 - uid: 'cnav/psu'
   opening: protected
+  beta: true
   call_id:
     - Identité pivot
     - FranceConnect
@@ -28,24 +29,24 @@
       - ✅ DROM COM
       - ✅ Allocataires de nationalité étrangère résidant en France
     updating_rules_description: |+
-      Les données sont actualisées : 
+      Les données sont actualisées :
       - **une fois par an, au mois de janvier,** pour la base ressource ;
       - **lorsqu'il y a un changement de situation pour les enfants à charge et le conjoint** ;
-      - **tous les 2, 3 ou 5 ans** pour le nombre d'ouverture de droit à l'allocatation d'éducation de l'enfant handicapé (selon le taux d'incapacité). 
+      - **tous les 2, 3 ou 5 ans** pour le nombre d'ouverture de droit à l'allocatation d'éducation de l'enfant handicapé (selon le taux d'incapacité).
 
       Cette API opérée par la Caisse nationale d'assurance vieillesse (CNAV) est reliée au système d'information de la Caisse nationale des allocations familiales (CNAF) et à celui de la mutualité sociale agricole (MSA).
 
       ⚠️ **Les informations obtenues sont représentatives de la situation connue par la CNAF et la MSA au moment de l'appel**, il est donc possible que les données appelées pour un mois donné à un instant T, soient différentes si elles sont redemandées à un instant T+. [En savoir plus](#qu-est-ce-que-la-psu).
-  data: 
+  data:
     description: |+
       **Cette API délivre** :
       - **la composition familiale** du particulier : identités de l'allocataire et de son conjoint, identités des enfants au sens des prestations familiales, [en savoir plus](#faq_entry_answer_2_api_particulier_endpoint_cnav_prestation_de_service_unique) ;
       - **l'adresse** du particulier au format de La Poste. ⚠️ Cette adresse est déclarative. Si l'usager a changé d'adresse et n'a pas actualisé son adresse auprès de la CAF ou de la MSA, l'information sera donc obsolète ;
-      - **les différents paramètres de calcul de la participation familiale** : le nombre d'enfants à charge au sens des prestations familiales, le nombre d’ouverture au droit à l’allocation d'éducation de l'enfant handicapé (AEEH), la base ressource prestation de service unique (PSU) : montant et la date de calcul. 
+      - **les différents paramètres de calcul de la participation familiale** : le nombre d'enfants à charge au sens des prestations familiales, le nombre d’ouverture au droit à l’allocation d'éducation de l'enfant handicapé (AEEH), la base ressource prestation de service unique (PSU) : montant et la date de calcul.
 
 
       {:.fr-highlight .fr-highlight.fr-highlight--caution}
-      > **Le montant de la base ressource ainsi que l'année de calcul sont remontés seulement pour les allocataires dont les ressources sont déclarées**. En effet, la CNAF et la MSA collectent auprès de la DGFIP les ressources de l'individu (revenus salariés et non-salariés, du capital, rentes ...). Elles récupèrent le bilan en fin d'année pour mettre à jour ces informations en janvier. Sans la réception de ces ressources, l'API renverra une erreur car si il manque un paramètre de calcul de la PSU, l'API ne restitue pas les autres informations. 
+      > **Le montant de la base ressource ainsi que l'année de calcul sont remontés seulement pour les allocataires dont les ressources sont déclarées**. En effet, la CNAF et la MSA collectent auprès de la DGFIP les ressources de l'individu (revenus salariés et non-salariés, du capital, rentes ...). Elles récupèrent le bilan en fin d'année pour mettre à jour ces informations en janvier. Sans la réception de ces ressources, l'API renverra une erreur car si il manque un paramètre de calcul de la PSU, l'API ne restitue pas les autres informations.
     know_more_description: |+
       [Pour en savoir plus sur la PSU et les règles d'attribution de cette aide aux établissements d'accueil du jeune enfant](#qu-est-ce-que-la-psu)
 
@@ -111,7 +112,7 @@
     - ressources
     - allocataire
     - enfant
-    - adresse  
+    - adresse
   faq:
     - q: <a name="qu-est-ce-que-la-psu"></a> Qu'est ce que la prestation de service unique (PSU) ?
       a: |+
@@ -121,7 +122,7 @@
         - les établissements à gestion parentale ;
         - les jardins d’enfants.
 
-        Elle correspond à la prise en charge de 66 % du prix de revient horaire d’un établissement d'accueil du jeune enfant (eaje), dans la limite du prix plafond fixé par la CNAF et la MSA, déduction faite des participations familiales. 
-       
+        Elle correspond à la prise en charge de 66 % du prix de revient horaire d’un établissement d'accueil du jeune enfant (eaje), dans la limite du prix plafond fixé par la CNAF et la MSA, déduction faite des participations familiales.
+
         [Pour en savoir plus sur la PSU et les règles d'attribution de cette aide aux établissements d'accueil du jeune enfant](https://www.caf.fr/sites/default/files/medias/631/Partenaires/PDF%20_Part/EAJE/Corps%20de%20la%20circulaire%20Psu20180205101510.pdf){:target="_blank"}
 
