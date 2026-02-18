@@ -75,6 +75,104 @@ paths:
                   description: 'Votre jeton est sur liste noire, celui-ci a certainement
                     été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
                     jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+        '403':
+          description: Accès interdit
+          content:
+            application/json:
+              examples:
+                insufficient_privileges_error:
+                  value:
+                    errors:
+                    - code: '00100'
+                      title: Privilèges insuffisants
+                      detail: Votre token est valide mais vos privilèges sont insuffisants.
+                        Listez vos privilèges sur /v2/privileges
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Privilèges insuffisants
+                  description: Votre token est valide mais vos privilèges sont insuffisants.
+                    Listez vos privilèges sur /v2/privileges
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                missing_mandatory_params_context_error:
+                  value:
+                    errors:
+                    - code: '00201'
+                      title: Entité non traitable
+                      detail: Le paramètre context est obligatoire
+                      source:
+                        parameter: context
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre context est obligatoire
+                missing_mandatory_params_object_error:
+                  value:
+                    errors:
+                    - code: '00202'
+                      title: Entité non traitable
+                      detail: Le paramètre object est obligatoire
+                      source:
+                        parameter: object
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre object est obligatoire
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
+                  value:
+                    errors:
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
+                      source:
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -588,6 +686,27 @@ paths:
                   description: Problème de résolution DNS de l'adresse du serveur
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -1029,6 +1148,17 @@ paths:
                       meta: {}
                   summary: Entité non traitable
                   description: Le paramètre recipient est obligatoire
+                unprocessable_content_error_siret_error:
+                  value:
+                    errors:
+                    - code: '00302'
+                      title: Entité non traitable
+                      detail: Le numéro de siret n'est pas correctement formatté
+                      source:
+                        parameter: siret
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le numéro de siret n'est pas correctement formatté
               schema:
                 "$ref": "#/components/schemas/Error"
         '404':
@@ -1134,6 +1264,27 @@ paths:
                         provider: ADEME
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
       x-codeSamples:
@@ -1798,6 +1949,27 @@ paths:
                   description: Problème de résolution DNS de l'adresse du serveur
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-maintenances:
         from_hour: '22:04'
         to_hour: '22:08'
@@ -2430,6 +2602,27 @@ paths:
                   description: Problème de résolution DNS de l'adresse du serveur
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -2789,6 +2982,27 @@ paths:
                         provider: CIBTP
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
       x-codeSamples:
@@ -3197,6 +3411,27 @@ paths:
                         provider: CNETP
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
       x-maintenances:
@@ -3840,6 +4075,27 @@ paths:
                   description: Problème de résolution DNS de l'adresse du serveur
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -4221,6 +4477,44 @@ paths:
                         provider: DGDDI
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
+                  value:
+                    errors:
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
+                      source:
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
               schema:
                 "$ref": "#/components/schemas/Error"
       x-codeSamples:
@@ -4682,6 +4976,27 @@ paths:
                         provider: DGFIP - Adélie
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
       x-maintenances:
@@ -5165,6 +5480,27 @@ paths:
                   description: Problème de résolution DNS de l'adresse du serveur
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-maintenances:
         from_hour: '01:00'
         to_hour: '02:00'
@@ -5563,6 +5899,27 @@ paths:
                         provider: DGFIP - Adélie
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
       x-maintenances:
@@ -6089,6 +6446,16 @@ paths:
                       meta: {}
                   summary: Entité non traitable
                   description: Le paramètre recipient est obligatoire
+                unprocessable_content_error_year_error:
+                  value:
+                    errors:
+                    - code: '00307'
+                      title: Entité non traitable
+                      detail: L'année n'est pas correctement formatée
+                      source:
+                      meta: {}
+                  summary: Entité non traitable
+                  description: L'année n'est pas correctement formatée
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -6187,6 +6554,27 @@ paths:
                         provider: DGFIP - Adélie
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
       x-maintenances:
@@ -6863,6 +7251,16 @@ paths:
                       meta: {}
                   summary: Entité non traitable
                   description: Le paramètre recipient est obligatoire
+                unprocessable_content_error_year_error:
+                  value:
+                    errors:
+                    - code: '00307'
+                      title: Entité non traitable
+                      detail: L'année n'est pas correctement formatée
+                      source:
+                      meta: {}
+                  summary: Entité non traitable
+                  description: L'année n'est pas correctement formatée
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -6944,6 +7342,27 @@ paths:
                         provider: DGFIP - Adélie
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
       x-maintenances:
@@ -7152,8 +7571,7 @@ paths:
                           de la lettre W suivie de 9 chiffres. \n \n Cas particulier
                           : Si l'association relève du droit local d'Alsace-Moselle,
                           elle n'est pas immatriculée au RNA et ne possède donc pas
-                          de numéro RNA. Dans ce cas, le champ est vide. \n \n En
-                          savoir plus : https://associations.gouv.fr/le-no-siren-de-l-insee.html"
+                          de numéro RNA. Dans ce cas, le champ est vide."
                         example: W751080001
                         nullable: true
                       ancien_id:
@@ -7165,10 +7583,10 @@ paths:
                       siren:
                         type: string
                         title: Numéro SIREN
-                        description: "Numéro identifiant des associations inscrites
-                          au répertoire Sirene. Cet enregistrement n'est pas obligatoire
-                          : pour les associations qui n'ont pas de numéro SIREN, le
-                          champ est vide. \n \n En savoir plus : https://associations.gouv.fr/le-no-siren-de-l-insee.html"
+                        description: 'Numéro identifiant des associations inscrites
+                          au répertoire Sirene. Cet enregistrement n''est pas obligatoire
+                          : pour les associations qui n''ont pas de numéro SIREN,
+                          le champ est vide.'
                         example: '751080001'
                         nullable: true
                       nom:
@@ -8759,6 +9177,27 @@ paths:
                     a été notifiée de cette erreur pour investigation.
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -8939,8 +9378,7 @@ paths:
                           de la lettre W suivie de 9 chiffres. \n \n Cas particulier
                           : Si l'association relève du droit local d'Alsace-Moselle,
                           elle n'est pas immatriculée au RNA et ne possède donc pas
-                          de numéro RNA. Dans ce cas, le champ est vide. \n \n En
-                          savoir plus : https://associations.gouv.fr/le-no-siren-de-l-insee.html"
+                          de numéro RNA. Dans ce cas, le champ est vide."
                         example: W751080001
                         nullable: true
                       ancien_id:
@@ -8952,10 +9390,10 @@ paths:
                       siren:
                         type: string
                         title: Numéro SIREN
-                        description: "Numéro identifiant des associations inscrites
-                          au répertoire Sirene. Cet enregistrement n'est pas obligatoire
-                          : pour les associations qui n'ont pas de numéro SIREN, le
-                          champ est vide. \n \n En savoir plus : https://associations.gouv.fr/le-no-siren-de-l-insee.html"
+                        description: 'Numéro identifiant des associations inscrites
+                          au répertoire Sirene. Cet enregistrement n''est pas obligatoire
+                          : pour les associations qui n''ont pas de numéro SIREN,
+                          le champ est vide.'
                         example: '751080001'
                         nullable: true
                       nom:
@@ -10171,6 +10609,27 @@ paths:
                     a été notifiée de cette erreur pour investigation.
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -10487,6 +10946,47 @@ paths:
                         provider: Commission Européenne
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '403':
+          description: Accès interdit
+          content:
+            application/json:
+              examples:
+                insufficient_privileges_error:
+                  value:
+                    errors:
+                    - code: '00100'
+                      title: Privilèges insuffisants
+                      detail: Votre token est valide mais vos privilèges sont insuffisants.
+                        Listez vos privilèges sur /v2/privileges
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Privilèges insuffisants
+                  description: Votre token est valide mais vos privilèges sont insuffisants.
+                    Listez vos privilèges sur /v2/privileges
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
       x-codeSamples:
@@ -10923,6 +11423,27 @@ paths:
                   description: Problème de résolution DNS de l'adresse du serveur
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -11332,6 +11853,27 @@ paths:
                   description: Problème de résolution DNS de l'adresse du serveur
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -11446,9 +11988,9 @@ paths:
       security:
       - jwt_bearer_token: []
       description: Effectifs annuels des régimes général et agricole d'une unité légale,
-        issus du répertoire commun des déclarants (RCD), dont l'effectif moyen (EMA)
-        ou les effectifs liés à l'obligation d'emploi des travailleurs handicapés
-        (EMA BOETH, EMA OETH, EMA ECAP).
+        issus de l'Urssaf et de la MSA depuis le répertoire commun des déclarants
+        opéré par le GIP-MDS. Inclut l'effectif moyen et les effectifs liés à l'obligation
+        d'emploi des travailleurs handicapés.
       responses:
         '401':
           description: Non autorisé
@@ -11698,6 +12240,16 @@ paths:
                       meta: {}
                   summary: Entité non traitable
                   description: Le paramètre recipient est obligatoire
+                unprocessable_content_error_year_error:
+                  value:
+                    errors:
+                    - code: '00307'
+                      title: Entité non traitable
+                      detail: L'année n'est pas correctement formatée
+                      source:
+                      meta: {}
+                  summary: Entité non traitable
+                  description: L'année n'est pas correctement formatée
               schema:
                 "$ref": "#/components/schemas/Error"
         '404':
@@ -11803,6 +12355,27 @@ paths:
                         provider: GIP-MDS
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
       x-codeSamples:
@@ -11953,9 +12526,9 @@ paths:
       security:
       - jwt_bearer_token: []
       description: Effectifs mensuels des régimes général et agricole d'un établissement,
-        issus du répertoire commun des déclarants (RCD), dont l'effectif moyen (EMM)
-        ou les effectifs liés à l'obligation d'emploi travailleurs handicapés (EMM
-        BOETH, EMM OETH, EMM ECAP).
+        issus de l'Urssaf et de la MSA depuis le répertoire commun des déclarants
+        opéré par le GIP-MDS. Inclut l'effectif moyen et les effectifs liés à l'obligation
+        d'emploi travailleurs handicapés.
       responses:
         '401':
           description: Non autorisé
@@ -12222,6 +12795,27 @@ paths:
                       meta: {}
                   summary: Entité non traitable
                   description: Le paramètre recipient est obligatoire
+                unprocessable_content_error_month_error:
+                  value:
+                    errors:
+                    - code: '00305'
+                      title: Entité non traitable
+                      detail: Le format du mois n'est pas valide
+                      source:
+                        parameter: month
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le format du mois n'est pas valide
+                unprocessable_content_error_year_error:
+                  value:
+                    errors:
+                    - code: '00307'
+                      title: Entité non traitable
+                      detail: L'année n'est pas correctement formatée
+                      source:
+                      meta: {}
+                  summary: Entité non traitable
+                  description: L'année n'est pas correctement formatée
               schema:
                 "$ref": "#/components/schemas/Error"
         '404':
@@ -12327,6 +12921,27 @@ paths:
                         provider: GIP-MDS
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
       x-codeSamples:
@@ -13137,6 +13752,27 @@ paths:
                   description: Problème de résolution DNS de l'adresse du serveur
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -13669,6 +14305,27 @@ paths:
                   description: Problème de résolution DNS de l'adresse du serveur
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -14131,6 +14788,27 @@ paths:
                         provider: INPI - RNE
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
       x-codeSamples:
@@ -15213,6 +15891,27 @@ paths:
                   description: Problème de résolution DNS de l'adresse du serveur
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -16045,6 +16744,27 @@ paths:
                   description: Problème de résolution DNS de l'adresse du serveur
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -16658,6 +17378,27 @@ paths:
                         provider: INSEE
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
       x-codeSamples:
@@ -17305,6 +18046,27 @@ paths:
                   description: Problème de résolution DNS de l'adresse du serveur
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -17382,6 +18144,7 @@ paths:
         required: true
         schema:
           type: string
+      deprecated: true
       security:
       - jwt_bearer_token: []
       description: Informations générales concernant un établissement inscrit au répertoire
@@ -18658,6 +19421,27 @@ paths:
                         provider: INSEE
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
       x-codeSamples:
@@ -20073,6 +20857,27 @@ paths:
                   description: Problème de résolution DNS de l'adresse du serveur
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -21469,6 +22274,27 @@ paths:
                         provider: INSEE
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
       x-codeSamples:
@@ -22926,6 +23752,27 @@ paths:
                   description: Problème de résolution DNS de l'adresse du serveur
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -24320,6 +25167,27 @@ paths:
                         provider: INSEE
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
       x-codeSamples:
@@ -25775,6 +26643,27 @@ paths:
                   description: Problème de résolution DNS de l'adresse du serveur
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -27122,6 +28011,27 @@ paths:
                         provider: INSEE
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
       x-codeSamples:
@@ -28530,6 +29440,27 @@ paths:
                   description: Problème de résolution DNS de l'adresse du serveur
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -28953,6 +29884,27 @@ paths:
                   description: Problème de résolution DNS de l'adresse du serveur
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -29028,6 +29980,7 @@ paths:
         required: true
         schema:
           type: string
+      deprecated: true
       security:
       - jwt_bearer_token: []
       description: Informations de référence d'une unité légale (entreprise, association
@@ -29792,6 +30745,27 @@ paths:
           description: Indisponible pour des raisons légales
           content:
             application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
       x-codeSamples:
@@ -30664,6 +31638,27 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -31522,6 +32517,27 @@ paths:
           description: Indisponible pour des raisons légales
           content:
             application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
       x-codeSamples:
@@ -32412,6 +33428,27 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -32895,6 +33932,27 @@ paths:
                         provider: MI
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
       x-codeSamples:
@@ -33385,6 +34443,27 @@ paths:
                     a été notifiée de cette erreur pour investigation.
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -33754,6 +34833,27 @@ paths:
                         provider: MSA
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
       x-maintenances:
@@ -34205,6 +35305,27 @@ paths:
                   description: Problème de résolution DNS de l'adresse du serveur
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -34642,6 +35763,27 @@ paths:
                   description: Problème de résolution DNS de l'adresse du serveur
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -34978,6 +36120,27 @@ paths:
                         provider: ProBTP
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
       x-codeSamples:
@@ -35416,6 +36579,27 @@ paths:
                         provider: Qualibat
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
       x-codeSamples:
@@ -35978,6 +37162,27 @@ paths:
                         provider: Qualibat
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
       x-codeSamples:
@@ -36588,6 +37793,27 @@ paths:
                   description: Problème de résolution DNS de l'adresse du serveur
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
       x-codeSamples:
       - lang: cURL
         label: Ligne de commande
@@ -36967,6 +38193,27 @@ paths:
                         provider: RNM
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
       x-codeSamples:
@@ -37529,6 +38776,27 @@ paths:
                         provider: ACOSS
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
       x-codeSamples:
