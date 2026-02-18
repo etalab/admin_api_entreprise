@@ -628,6 +628,106 @@ paths:
                     le périmètre de l'API.
               schema:
                 "$ref": "#/components/schemas/Error"
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
+                  value:
+                    errors:
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
+                      source:
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
+              schema:
+                "$ref": "#/components/schemas/Error"
   "/v3/dss/allocation_adulte_handicape/identite":
     get:
       summary: "[Identité] Statut allocation adulte handicapé (AAH)"
@@ -956,6 +1056,17 @@ paths:
                   summary: Entité non traitable
                   description: Un ou plusieurs paramètres de civilité ne sont pas
                     correctement formatés
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
               schema:
                 "$ref": "#/components/schemas/Error"
         '404':
@@ -1111,6 +1222,27 @@ paths:
                     effectuées, veuillez réessayer plus tard.'
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
   "/v3/dss/allocation_adulte_handicape/france_connect":
     get:
       summary: "[FranceConnect] Statut allocation adulte handicapé (AAH)"
@@ -1231,6 +1363,17 @@ paths:
                   summary: Entité non traitable
                   description: Un ou plusieurs paramètres de civilité ne sont pas
                     correctement formatés
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
               schema:
                 "$ref": "#/components/schemas/Error"
         '404':
@@ -1290,6 +1433,88 @@ paths:
                   summary: Erreur inattendue
                   description: Une erreur inattendue est survenue lors de la collecte
                     des données
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
+                  value:
+                    errors:
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
+                      source:
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
               schema:
                 "$ref": "#/components/schemas/Error"
   "/v3/dss/allocation_soutien_familial/identite":
@@ -1622,6 +1847,17 @@ paths:
                   summary: Entité non traitable
                   description: Un ou plusieurs paramètres de civilité ne sont pas
                     correctement formatés
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
               schema:
                 "$ref": "#/components/schemas/Error"
         '404':
@@ -1777,6 +2013,27 @@ paths:
                     effectuées, veuillez réessayer plus tard.'
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
   "/v3/dss/allocation_soutien_familial/france_connect":
     get:
       summary: "[FranceConnect] Statut allocation de soutien familial (ASF)"
@@ -1899,6 +2156,17 @@ paths:
                   summary: Entité non traitable
                   description: Un ou plusieurs paramètres de civilité ne sont pas
                     correctement formatés
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
               schema:
                 "$ref": "#/components/schemas/Error"
         '404':
@@ -1958,6 +2226,88 @@ paths:
                   summary: Erreur inattendue
                   description: Une erreur inattendue est survenue lors de la collecte
                     des données
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
+                  value:
+                    errors:
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
+                      source:
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
               schema:
                 "$ref": "#/components/schemas/Error"
   "/v3/dss/complementaire_sante_solidaire/identite":
@@ -2311,6 +2661,17 @@ paths:
                   summary: Entité non traitable
                   description: Un ou plusieurs paramètres de civilité ne sont pas
                     correctement formatés
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
               schema:
                 "$ref": "#/components/schemas/Error"
         '404':
@@ -2451,6 +2812,27 @@ paths:
                   summary: 'Erreur auprès du fournisseur de données : trop de requêtes'
                   description: 'Erreur de fournisseur de donnée : Trop de requêtes
                     effectuées, veuillez réessayer plus tard.'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
   "/v3/dss/complementaire_sante_solidaire/france_connect":
@@ -2596,6 +2978,17 @@ paths:
                   summary: Entité non traitable
                   description: Un ou plusieurs paramètres de civilité ne sont pas
                     correctement formatés
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
               schema:
                 "$ref": "#/components/schemas/Error"
         '404':
@@ -2644,11 +3037,93 @@ paths:
                     des données
               schema:
                 "$ref": "#/components/schemas/Error"
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
+                  value:
+                    errors:
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
+                      source:
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
+              schema:
+                "$ref": "#/components/schemas/Error"
   "/v3/dss/participation_familiale_eaje/identite":
     get:
       summary: "[Identité] Participation familiale EAJE"
       tags:
-      - Prochainement
+      - Participation familiale EAJE
       parameters:
       - name: recipient
         in: query
@@ -3273,11 +3748,50 @@ paths:
                     effectuées, veuillez réessayer plus tard.'
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
   "/v3/dss/participation_familiale_eaje/france_connect":
     get:
       summary: "[FranceConnect] Participation familiale EAJE"
       tags:
-      - Prochainement
+      - Participation familiale EAJE
       parameters:
       - name: recipient
         in: query
@@ -3579,6 +4093,106 @@ paths:
                         provider: CNAV
                   summary: Entité non trouvée
                   description: Dossier allocataire inexistant.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
+                  value:
+                    errors:
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
+                      source:
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
               schema:
                 "$ref": "#/components/schemas/Error"
   "/v3/dss/prime_activite/identite":
@@ -3920,6 +4534,17 @@ paths:
                   summary: Entité non traitable
                   description: Un ou plusieurs paramètres de civilité ne sont pas
                     correctement formatés
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
               schema:
                 "$ref": "#/components/schemas/Error"
         '404':
@@ -4073,6 +4698,27 @@ paths:
                   summary: 'Erreur auprès du fournisseur de données : trop de requêtes'
                   description: 'Erreur de fournisseur de donnée : Trop de requêtes
                     effectuées, veuillez réessayer plus tard.'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
   "/v3/dss/prime_activite/france_connect":
@@ -4206,6 +4852,17 @@ paths:
                   summary: Entité non traitable
                   description: Un ou plusieurs paramètres de civilité ne sont pas
                     correctement formatés
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
               schema:
                 "$ref": "#/components/schemas/Error"
         '404':
@@ -4359,6 +5016,88 @@ paths:
                   summary: 'Erreur auprès du fournisseur de données : trop de requêtes'
                   description: 'Erreur de fournisseur de donnée : Trop de requêtes
                     effectuées, veuillez réessayer plus tard.'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
+                  value:
+                    errors:
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
+                      source:
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
               schema:
                 "$ref": "#/components/schemas/Error"
   "/v3/dss/quotient_familial/identite":
@@ -4922,6 +5661,17 @@ paths:
                   summary: Entité non traitable
                   description: Un ou plusieurs paramètres de civilité ne sont pas
                     correctement formatés
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
               schema:
                 "$ref": "#/components/schemas/Error"
         '404':
@@ -5075,6 +5825,27 @@ paths:
                   summary: 'Erreur auprès du fournisseur de données : trop de requêtes'
                   description: 'Erreur de fournisseur de donnée : Trop de requêtes
                     effectuées, veuillez réessayer plus tard.'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
   "/v3/dss/quotient_familial/france_connect":
@@ -5430,6 +6201,17 @@ paths:
                   summary: Entité non traitable
                   description: Un ou plusieurs paramètres de civilité ne sont pas
                     correctement formatés
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
               schema:
                 "$ref": "#/components/schemas/Error"
         '404':
@@ -5489,6 +6271,88 @@ paths:
                   summary: Erreur inattendue
                   description: Une erreur inattendue est survenue lors de la collecte
                     des données
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
+                  value:
+                    errors:
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
+                      source:
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
               schema:
                 "$ref": "#/components/schemas/Error"
   "/v3/dss/revenu_solidarite_active/identite":
@@ -5830,6 +6694,17 @@ paths:
                   summary: Entité non traitable
                   description: Un ou plusieurs paramètres de civilité ne sont pas
                     correctement formatés
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
               schema:
                 "$ref": "#/components/schemas/Error"
         '404':
@@ -5985,6 +6860,27 @@ paths:
                     effectuées, veuillez réessayer plus tard.'
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
   "/v3/dss/revenu_solidarite_active/france_connect":
     get:
       summary: "[FranceConnect] Statut revenu de solidarité active (RSA)"
@@ -6116,6 +7012,17 @@ paths:
                   summary: Entité non traitable
                   description: Un ou plusieurs paramètres de civilité ne sont pas
                     correctement formatés
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
               schema:
                 "$ref": "#/components/schemas/Error"
         '404':
@@ -6177,11 +7084,94 @@ paths:
                     des données
               schema:
                 "$ref": "#/components/schemas/Error"
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
+                  value:
+                    errors:
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
+                      source:
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
+              schema:
+                "$ref": "#/components/schemas/Error"
   "/v3/cnous/etudiant_boursier/identite":
     get:
       summary: "[Identité] Statut étudiant boursier"
       tags:
       - Statut étudiant boursier
+      deprecated: true
       parameters:
       - name: recipient
         in: query
@@ -6402,11 +7392,6 @@ paths:
                   data:
                     type: object
                     properties:
-                      est_boursier:
-                        title: Est boursier
-                        type: boolean
-                        description: Indique que l'étudiant est boursier.
-                        example: true
                       periode_versement_bourse:
                         title: Période de versement de la bourse
                         description: Informations relatives à la période de versement
@@ -6490,6 +7475,11 @@ paths:
                         type: string
                         description: Adresse e-mail de l'étudiant boursier.
                         example: georges@moustaki.fr
+                      est_boursier:
+                        title: Est boursier
+                        type: boolean
+                        description: Indique que l'étudiant est boursier.
+                        example: true
                       identite:
                         title: Données d'identité
                         type: object
@@ -6543,11 +7533,11 @@ paths:
                         - nom_commune_naissance
                         - sexe
                     required:
-                    - est_boursier
                     - periode_versement_bourse
                     - etablissement_etudes
                     - echelon_bourse
                     - email
+                    - est_boursier
                     - identite
                     additionalProperties: false
                   links:
@@ -6576,6 +7566,36 @@ paths:
                   summary: Entité non trouvée
                   description: Aucun étudiant boursier n'a pu être trouvé avec les
                     critères de recherche fournis.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Paramètres invalides
+          content:
+            application/json:
+              examples:
+                entite_non_traitable_00366:
+                  value:
+                    errors:
+                    - code: '00366'
+                      title: Entité non traitable
+                      detail: Un ou plusieurs paramètres de civilité ne sont pas correctement
+                        formatés
+                      source:
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Un ou plusieurs paramètres de civilité ne sont pas
+                    correctement formatés
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -6659,11 +7679,33 @@ paths:
                   description: Problème de résolution DNS de l'adresse du serveur
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
   "/v3/cnous/etudiant_boursier/france_connect":
     get:
       summary: "[FranceConnect] Statut étudiant boursier"
       tags:
       - Statut étudiant boursier
+      deprecated: true
       parameters:
       - name: recipient
         in: query
@@ -6710,11 +7752,6 @@ paths:
                   data:
                     type: object
                     properties:
-                      est_boursier:
-                        title: Est boursier
-                        type: boolean
-                        description: Indique que l'étudiant est boursier.
-                        example: true
                       periode_versement_bourse:
                         title: Période de versement de la bourse
                         description: Informations relatives à la période de versement
@@ -6798,12 +7835,17 @@ paths:
                         type: string
                         description: Adresse e-mail de l'étudiant boursier.
                         example: georges@moustaki.fr
+                      est_boursier:
+                        title: Est boursier
+                        type: boolean
+                        description: Indique que l'étudiant est boursier.
+                        example: true
                     required:
-                    - est_boursier
                     - periode_versement_bourse
                     - etablissement_etudes
                     - echelon_bourse
                     - email
+                    - est_boursier
                     additionalProperties: false
                   links:
                     type: object
@@ -6831,11 +7873,124 @@ paths:
                   description: Aucun étudiant boursier n'a pu être trouvé.
               schema:
                 "$ref": "#/components/schemas/Error"
+        '422':
+          description: Paramètres invalides
+          content:
+            application/json:
+              examples:
+                entite_non_traitable_00366:
+                  value:
+                    errors:
+                    - code: '00366'
+                      title: Entité non traitable
+                      detail: Un ou plusieurs paramètres de civilité ne sont pas correctement
+                        formatés
+                      source:
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Un ou plusieurs paramètres de civilité ne sont pas
+                    correctement formatés
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
+                  value:
+                    errors:
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
+                      source:
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
+              schema:
+                "$ref": "#/components/schemas/Error"
   "/v3/cnous/etudiant_boursier/ine":
     get:
       summary: "[INE] Statut étudiant boursier"
       tags:
       - Statut étudiant boursier
+      deprecated: true
       parameters:
       - name: recipient
         in: query
@@ -6955,11 +8110,487 @@ paths:
                   data:
                     type: object
                     properties:
+                      periode_versement_bourse:
+                        title: Période de versement de la bourse
+                        description: Informations relatives à la période de versement
+                          de la bourse de l'étudiant.
+                        type: object
+                        properties:
+                          date_rentree:
+                            title: Date de rentrée
+                            type: string
+                            format: date
+                            description: Date de rentrée scolaire ou universitaire
+                              de l'étudiant, correspondant au début de la période
+                              de versement de la bourse.
+                            example: '2019-09-01'
+                          duree:
+                            title: Durée de versement
+                            type: number
+                            description: Nombre de mois de versement de la bourse
+                              à l'étudiant.
+                            example: 12
+                        required:
+                        - date_rentree
+                        - duree
+                      etablissement_etudes:
+                        title: Établissement d'études de l'étudiant
+                        description: Contient le détail des informations concernant
+                          l'établissement dans lequel l'étudiant fait ses études.
+                        type: object
+                        properties:
+                          nom_commune:
+                            title: Commune d'études
+                            type: string
+                            description: Libellé de la commune d'études de l'étudiant
+                            example: Brest
+                          nom_etablissement:
+                            title: Établissement d'études
+                            type: string
+                            description: Nom de l'établissement d'études de l'étudiant.
+                            example: Carnot
+                        required:
+                        - nom_commune
+                        - nom_etablissement
+                      echelon_bourse:
+                        title: Informations concernant l'échelon de la bourse
+                        description: Informations relatives à l'échelon de la bourse.
+                        type: object
+                        properties:
+                          echelon:
+                            title: Échelon de la bourse
+                            type: string
+                            description: "Ce champ indique l'échelon de la bourse
+                              de l'étudiant. Il existe 8 échelons de bourse, de 0bis
+                              à 7, correspondant aux montants reçus par l'étudiant
+                              pour l'année scolaire. \n\n Pour en savoir plus, consulter
+                              la FAQ : https://particulier.api.gouv.fr/catalogue/cnous/statut_etudiant_boursier#faq_entry_answer_0_api_particulier_endpoint_cnous_statut_etudiant_boursier."
+                            example: '6'
+                            enum:
+                            - 0bis
+                            - '1'
+                            - '2'
+                            - '3'
+                            - '4'
+                            - '5'
+                            - '6'
+                            - '7'
+                          echelon_bourse_regionale_provisoire:
+                            title: Statut provisoire (bourses régionales uniquement)
+                            description: Ce champ indique que l'échelon de la bourse
+                              indiqué est provisoire. Ce statut provisoire n'est indiqué
+                              que pour les boursiers bénéficiaires d'une bourse régionale.
+                            type: boolean
+                            example: true
+                            enum:
+                            - true
+                            - false
+                        required:
+                        - echelon
+                        - echelon_bourse_regionale_provisoire
+                      email:
+                        title: E-mail
+                        type: string
+                        description: Adresse e-mail de l'étudiant boursier.
+                        example: georges@moustaki.fr
                       est_boursier:
                         title: Est boursier
                         type: boolean
                         description: Indique que l'étudiant est boursier.
                         example: true
+                      identite:
+                        title: Données d'identité
+                        type: object
+                        description: "Données d'identité de l'étudiant boursier. Ces
+                          informations d'identité sont saisies manuellement par les
+                          étudiants. \n\n - Dans le cas des étudiants avec bourse
+                          nationale, les informations sont vérifiées par un agent
+                          via la pièce d'identité fournie (sauf le lieu de naissance)
+                          ; \n\n - Dans le cas des étudiants avec bourse régionale,
+                          les informations ne sont pas revérifiées avant d'être remontées
+                          au Cnous, mais si l'étudiant est déjà connu du Cnous, c'est
+                          l'identité vérifiée du Cnous qui sera retenue."
+                        properties:
+                          nom:
+                            title: Nom de naissance
+                            type: string
+                            description: Nom de naissance de l'étudiant boursier.
+                            example: Moustaki
+                          prenoms:
+                            type: array
+                            minItems: 1
+                            items:
+                              type: string
+                            example:
+                            - PIERRE
+                            - RICHARD
+                          date_naissance:
+                            title: Date de naissance
+                            type: string
+                            format: date
+                            description: Date de naissance de l'étudiant boursier.
+                            example: '1992-11-29'
+                          nom_commune_naissance:
+                            title: Commune de naissance
+                            type: string
+                            description: Libellé de la commune de naissance de l'étudiant
+                              boursier.
+                            example: Poitiers
+                          sexe:
+                            title: Sexe
+                            type: string
+                            description: Sexe de l'étudiant boursier.
+                            example: M
+                            enum:
+                            - M
+                            - F
+                        required:
+                        - nom
+                        - prenoms
+                        - date_naissance
+                        - nom_commune_naissance
+                        - sexe
+                    required:
+                    - periode_versement_bourse
+                    - etablissement_etudes
+                    - echelon_bourse
+                    - email
+                    - est_boursier
+                    - identite
+                    additionalProperties: false
+                  links:
+                    type: object
+                  meta:
+                    type: object
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          description: Étudiant non identifié
+          content:
+            application/json:
+              examples:
+                entite_non_trouvee_26003:
+                  value:
+                    errors:
+                    - code: '26003'
+                      title: Entité non trouvée
+                      detail: Aucun étudiant boursier n'a pu être trouvé avec les
+                        critères de recherche fournis. Veuillez vérifier que l'identifiant
+                        correspond au périmètre couvert par l'API.
+                      source:
+                      meta:
+                        provider: CNOUS
+                  summary: Entité non trouvée
+                  description: Aucun étudiant boursier n'a pu être trouvé avec les
+                    critères de recherche fournis. Veuillez vérifier que l'identifiant
+                    correspond au périmètre couvert par l'API.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Paramètres invalides
+          content:
+            application/json:
+              examples:
+                entite_non_traitable_00360:
+                  value:
+                    errors:
+                    - code: '00360'
+                      title: Entité non traitable
+                      detail: Le numéro d'INE n'est pas correctement formatté
+                      source:
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le numéro d'INE n'est pas correctement formatté
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '502':
+          description: Erreur du fournisseur
+          content:
+            application/json:
+              examples:
+                provider_unknown_error:
+                  value:
+                    errors:
+                    - code: '26999'
+                      title: Erreur inconnue du fournisseur de données
+                      detail: La réponse retournée par le fournisseur de données est
+                        invalide et inconnue de notre service. L'équipe technique
+                        a été notifiée de cette erreur pour investigation.
+                      source:
+                      meta:
+                        provider: CNOUS
+                  summary: Erreur inconnue du fournisseur de données
+                  description: La réponse retournée par le fournisseur de données
+                    est invalide et inconnue de notre service. L'équipe technique
+                    a été notifiée de cette erreur pour investigation.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '504':
+          description: Erreur d'intermédiaire
+          content:
+            application/json:
+              examples:
+                timeout_error:
+                  value:
+                    errors:
+                    - code: '26002'
+                      title: Intermédiaire hors-délai
+                      detail: Temps d’attente d’une réponse du fournisseur de données
+                        écoulé.
+                      source:
+                      meta:
+                        provider: CNOUS
+                  summary: Intermédiaire hors-délai
+                  description: Temps d’attente d’une réponse du fournisseur de données
+                    écoulé.
+                provider_unavailable_error:
+                  value:
+                    errors:
+                    - code: '26001'
+                      title: Service non disponible
+                      detail: Service du fournisseur de données temporairement indisponible
+                        ou en maintenance.
+                      source:
+                      meta:
+                        provider: CNOUS
+                  summary: Service non disponible
+                  description: Service du fournisseur de données temporairement indisponible
+                    ou en maintenance.
+                network_error:
+                  value:
+                    errors:
+                    - code: '00501'
+                      title: Erreur réseau
+                      detail: Problème de connexion au serveur distant. L'erreur peut
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
+                      source:
+                      meta:
+                        retry_in: 10
+                  summary: Erreur réseau
+                  description: Problème de connexion au serveur distant. L'erreur
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
+                dns_resolution_error:
+                  value:
+                    errors:
+                    - code: '26004'
+                      title: Erreur de résolution DNS
+                      detail: Problème de résolution DNS de l'adresse du serveur
+                      source:
+                      meta:
+                        provider: CNOUS
+                  summary: Erreur de résolution DNS
+                  description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+  "/v4/cnous/etudiant_boursier/identite":
+    get:
+      summary: "[Identité] Statut étudiant boursier"
+      tags:
+      - Statut étudiant boursier
+      parameters:
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: nomNaissance
+        in: query
+        description: "**Nom de naissance, également appelé nom de famille**. \n\nLe
+          nom de naissance est indiqué sur l'acte de naissance, de mariage, sur le
+          livret de famille, etc. Le nom de famille/naissance figure toujours sur
+          la pièce d'identité en premier, avant le nom d'usage si le particulier en
+          a un. \n\nEn cas de changement de nom de naissance, une mention avec le
+          nouveau nom de famille est inscrite sur l'acte de naissance. Pour appeler
+          l'API, le nom de naissance/famille nécessaire est bien le nom de famille
+          modifié."
+        example: DURANT
+        required: true
+        schema:
+          type: string
+      - name: prenoms[]
+        in: query
+        schema:
+          type: array
+          minItems: 1
+          maxItems: 3
+          items:
+            type: string
+          example:
+          - PIERRE
+          - RICHARD
+        description: "**Liste des prénoms**. \n\nFournir plusieurs prénoms maximise
+          les chances que l'API retrouve le particulier car cela permet de limiter
+          le risque d’homonymie."
+        required: true
+      - name: anneeDateNaissance
+        in: query
+        description: "**Année de naissance**. \n\nPour un particulier né en France,
+          dans le cadre d'un appel à l'API avec l'utilisation du paramètre 'nomCommuneNaissance',
+          ce paramètre est obligatoire (ainsi que le paramètre 'codeCogInseeDepartementNaissance')
+          afin de retrouver le code COG de la commune de naissance."
+        example: 1990
+        required: true
+        schema:
+          type: integer
+      - name: moisDateNaissance
+        in: query
+        description: "**Mois de naissance**."
+        example: 1
+        required: true
+        schema:
+          type: integer
+      - name: jourDateNaissance
+        in: query
+        description: "**Jour de naissance**."
+        example: 1
+        required: true
+        schema:
+          type: integer
+      - name: sexeEtatCivil
+        in: query
+        schema:
+          type: string
+          enum:
+          - M
+          - F
+        description: "**Sexe de la personne tel qu'indiqué sur les actes d'état civil**,
+          comme par exemple l'acte de naissance ou de mariage. \n\nDans la majorité
+          des cas, il s'agit également de la mention indiquée sur la pièce d'identité
+          et le passeport. Cette mention peut être masculin ('M') ou féminin ('F').
+          \nDans le cas d'un particulier ayant demandé une modification de sa mention
+          de sexe à l'état civil, le changement est indiqué en marge de l'acte de
+          naissance une fois la décision rendue. Le changement intervient sur les
+          titres d'identité seulement si le particulier en demande le renouvellement."
+        example: M
+        required: false
+      - name: codeCogInseeCommuneNaissance
+        in: query
+        schema:
+          type: string
+          minLength: 5
+          maxLength: 5
+          example: '08480'
+        description: "**Code Insee à 5 chiffres de la commune de naissance**. \n\nPour
+          retrouver un particulier né en France, il est nécessaire d'indiquer sa commune
+          de naissance. Ce paramètre est une des deux options disponibles pour renseigner
+          la commune de naissance. En l'absence de l'utilisation de la seconde option
+          (triplet 'nomCommuneNaissance', 'anneeDateNaissance', 'codeInseeDepartementNaissance').\n\nNe
+          pas remplir si la personne est née à l'étranger."
+        required: false
+      - name: nomCommuneNaissance
+        in: query
+        schema:
+          type: string
+          minLength: 1
+          example: Gennevilliers
+        description: "**Nom en toute lettre de la commune de naissance**. \n\nPour
+          retrouver un particulier né en France, il est nécessaire d'indiquer sa commune
+          de naissance. Ce paramètre est une des deux options disponibles pour renseigner
+          la commune de naissance. En l'absence de l'utilisation du 'codeCogInseeCommuneNaissance',
+          ce paramètre est obligatoire si la personne est née en France ; il doit
+          être obligatoirement accompagné des paramètres 'codeCogInseeDepartementNaissance'
+          et 'anneeDateNaissance'.\n\nNe pas remplir si la personne est née à l'étranger."
+        required: false
+      - name: codeCogInseeDepartementNaissance
+        in: query
+        schema:
+          type: string
+          minLength: 2
+          maxLength: 3
+          example: '92'
+        description: "**Code INSEE du département de naissance**. \n\nPour retrouver
+          un particulier né en France, il est nécessaire d'indiquer sa commune de
+          naissance. Ce paramètre fait partie d'une des deux options disponibles pour
+          renseigner la commune de naissance. Lorsque le paramètre 'nomCommuneNaissance'
+          est utilisé, ce paramètre est obligatoire si la personne est née en France
+          et permet de retrouver le code COG avec le paramètre 'anneeDateNaissance'.\n\nNe
+          pas remplir si la personne est née à l'étranger."
+        required: false
+      security:
+      - jwt_bearer_token: []
+      description: Statut et échelon boursier d'un étudiant, délivrés par le Cnous.
+      responses:
+        '200':
+          description: Étudiant identifié
+          x-operationId: api_particulier_v4_cnous_etudiant_boursier_with_civility
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      statut_boursier:
+                        title: Statut boursier
+                        description: Informations relatives au statut boursier de
+                          l'étudiant, incluant la radiation éventuelle.
+                        type: object
+                        properties:
+                          est_boursier:
+                            title: Est boursier
+                            type: boolean
+                            description: Indique que l'étudiant est boursier.
+                            example: true
+                          est_radie:
+                            title: Est radié
+                            type: boolean
+                            description: Indique si l'étudiant a été radié. Si true,
+                              le champ date_radiation contient la date de radiation.
+                            example: false
+                          date_radiation:
+                            title: Date de radiation
+                            type: string
+                            format: date
+                            nullable: true
+                            description: Date de radiation. Renseignée uniquement
+                              si est_radie est true.
+                            example:
+                        required:
+                        - est_boursier
+                        - est_radie
+                        - date_radiation
                       periode_versement_bourse:
                         title: Période de versement de la bourse
                         description: Informations relatives à la période de versement
@@ -7096,7 +8727,7 @@ paths:
                         - nom_commune_naissance
                         - sexe
                     required:
-                    - est_boursier
+                    - statut_boursier
                     - periode_versement_bourse
                     - etablissement_etudes
                     - echelon_bourse
@@ -7111,107 +8742,745 @@ paths:
                 - data
                 - links
                 - meta
-        '404':
-          description: Étudiant non identifié
+        '401':
+          description: Non autorisé
           content:
             application/json:
               examples:
-                entite_non_trouvee_26003:
+                invalid_token_error:
                   value:
                     errors:
-                    - code: '26003'
-                      title: Entité non trouvée
-                      detail: Aucun étudiant boursier n'a pu être trouvé avec les
-                        critères de recherche fournis. Veuillez vérifier que l'identifiant
-                        correspond au périmètre couvert par l'API.
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
                       source:
-                      meta:
-                        provider: CNOUS
-                  summary: Entité non trouvée
-                  description: Aucun étudiant boursier n'a pu être trouvé avec les
-                    critères de recherche fournis. Veuillez vérifier que l'identifiant
-                    correspond au périmètre couvert par l'API.
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
               schema:
                 "$ref": "#/components/schemas/Error"
-        '502':
-          description: Erreur du fournisseur
+        '403':
+          description: Accès interdit
           content:
             application/json:
               examples:
-                provider_unknown_error:
+                insufficient_privileges_error:
                   value:
                     errors:
-                    - code: '26999'
-                      title: Erreur inconnue du fournisseur de données
-                      detail: La réponse retournée par le fournisseur de données est
-                        invalide et inconnue de notre service. L'équipe technique
-                        a été notifiée de cette erreur pour investigation.
+                    - code: '00100'
+                      title: Privilèges insuffisants
+                      detail: Votre token est valide mais vos privilèges sont insuffisants.
+                        Listez vos privilèges sur /api/introspect
                       source:
-                      meta:
-                        provider: CNOUS
-                  summary: Erreur inconnue du fournisseur de données
-                  description: La réponse retournée par le fournisseur de données
-                    est invalide et inconnue de notre service. L'équipe technique
-                    a été notifiée de cette erreur pour investigation.
+                        parameter: token
+                      meta: {}
+                  summary: Privilèges insuffisants
+                  description: Votre token est valide mais vos privilèges sont insuffisants.
+                    Listez vos privilèges sur /api/introspect
               schema:
                 "$ref": "#/components/schemas/Error"
-        '504':
-          description: Erreur d'intermédiaire
+        '409':
+          description: Conflit
           content:
             application/json:
               examples:
-                timeout_error:
+                conflict_error:
                   value:
                     errors:
-                    - code: '26002'
-                      title: Intermédiaire hors-délai
-                      detail: Temps d’attente d’une réponse du fournisseur de données
-                        écoulé.
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
                       source:
-                      meta:
-                        provider: CNOUS
-                  summary: Intermédiaire hors-délai
-                  description: Temps d’attente d’une réponse du fournisseur de données
-                    écoulé.
-                provider_unavailable_error:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                missing_mandatory_params_recipient_error:
                   value:
                     errors:
-                    - code: '26001'
-                      title: Service non disponible
-                      detail: Service du fournisseur de données temporairement indisponible
-                        ou en maintenance.
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
                       source:
-                      meta:
-                        provider: CNOUS
-                  summary: Service non disponible
-                  description: Service du fournisseur de données temporairement indisponible
-                    ou en maintenance.
-                network_error:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
                   value:
                     errors:
-                    - code: '00501'
-                      title: Erreur réseau
-                      detail: Problème de connexion au serveur distant. L'erreur peut
-                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
-                        souvent d'une erreur temporaire.
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
                       source:
-                      meta:
-                        retry_in: 10
-                  summary: Erreur réseau
-                  description: Problème de connexion au serveur distant. L'erreur
-                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
-                    souvent d'une erreur temporaire.
-                dns_resolution_error:
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
+              schema:
+                "$ref": "#/components/schemas/Error"
+  "/v4/cnous/etudiant_boursier/france_connect":
+    get:
+      summary: "[FranceConnect] Statut étudiant boursier"
+      tags:
+      - Statut étudiant boursier
+      parameters:
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Statut et échelon boursier d'un étudiant, délivrés par le Cnous.
+      responses:
+        '200':
+          description: Étudiant identifié
+          x-operationId: api_particulier_v4_cnous_etudiant_boursier_with_france_connect
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      statut_boursier:
+                        title: Statut boursier
+                        description: Informations relatives au statut boursier de
+                          l'étudiant, incluant la radiation éventuelle.
+                        type: object
+                        properties:
+                          est_boursier:
+                            title: Est boursier
+                            type: boolean
+                            description: Indique que l'étudiant est boursier.
+                            example: true
+                          est_radie:
+                            title: Est radié
+                            type: boolean
+                            description: Indique si l'étudiant a été radié. Si true,
+                              le champ date_radiation contient la date de radiation.
+                            example: false
+                          date_radiation:
+                            title: Date de radiation
+                            type: string
+                            format: date
+                            nullable: true
+                            description: Date de radiation. Renseignée uniquement
+                              si est_radie est true.
+                            example:
+                        required:
+                        - est_boursier
+                        - est_radie
+                        - date_radiation
+                      periode_versement_bourse:
+                        title: Période de versement de la bourse
+                        description: Informations relatives à la période de versement
+                          de la bourse de l'étudiant.
+                        type: object
+                        properties:
+                          date_rentree:
+                            title: Date de rentrée
+                            type: string
+                            format: date
+                            description: Date de rentrée scolaire ou universitaire
+                              de l'étudiant, correspondant au début de la période
+                              de versement de la bourse.
+                            example: '2019-09-01'
+                          duree:
+                            title: Durée de versement
+                            type: number
+                            description: Nombre de mois de versement de la bourse
+                              à l'étudiant.
+                            example: 12
+                        required:
+                        - date_rentree
+                        - duree
+                      etablissement_etudes:
+                        title: Établissement d'études de l'étudiant
+                        description: Contient le détail des informations concernant
+                          l'établissement dans lequel l'étudiant fait ses études.
+                        type: object
+                        properties:
+                          nom_commune:
+                            title: Commune d'études
+                            type: string
+                            description: Libellé de la commune d'études de l'étudiant
+                            example: Brest
+                          nom_etablissement:
+                            title: Établissement d'études
+                            type: string
+                            description: Nom de l'établissement d'études de l'étudiant.
+                            example: Carnot
+                        required:
+                        - nom_commune
+                        - nom_etablissement
+                      echelon_bourse:
+                        title: Informations concernant l'échelon de la bourse
+                        description: Informations relatives à l'échelon de la bourse.
+                        type: object
+                        properties:
+                          echelon:
+                            title: Échelon de la bourse
+                            type: string
+                            description: "Ce champ indique l'échelon de la bourse
+                              de l'étudiant. Il existe 8 échelons de bourse, de 0bis
+                              à 7, correspondant aux montants reçus par l'étudiant
+                              pour l'année scolaire. \n\n Pour en savoir plus, consulter
+                              la FAQ : https://particulier.api.gouv.fr/catalogue/cnous/statut_etudiant_boursier#faq_entry_answer_0_api_particulier_endpoint_cnous_statut_etudiant_boursier."
+                            example: '6'
+                            enum:
+                            - 0bis
+                            - '1'
+                            - '2'
+                            - '3'
+                            - '4'
+                            - '5'
+                            - '6'
+                            - '7'
+                          echelon_bourse_regionale_provisoire:
+                            title: Statut provisoire (bourses régionales uniquement)
+                            description: Ce champ indique que l'échelon de la bourse
+                              indiqué est provisoire. Ce statut provisoire n'est indiqué
+                              que pour les boursiers bénéficiaires d'une bourse régionale.
+                            type: boolean
+                            example: true
+                            enum:
+                            - true
+                            - false
+                        required:
+                        - echelon
+                        - echelon_bourse_regionale_provisoire
+                      email:
+                        title: E-mail
+                        type: string
+                        description: Adresse e-mail de l'étudiant boursier.
+                        example: georges@moustaki.fr
+                    required:
+                    - statut_boursier
+                    - periode_versement_bourse
+                    - etablissement_etudes
+                    - echelon_bourse
+                    - email
+                    additionalProperties: false
+                  links:
+                    type: object
+                  meta:
+                    type: object
+                required:
+                - data
+                - links
+                - meta
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
                   value:
                     errors:
-                    - code: '26004'
-                      title: Erreur de résolution DNS
-                      detail: Problème de résolution DNS de l'adresse du serveur
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
                       source:
-                      meta:
-                        provider: CNOUS
-                  summary: Erreur de résolution DNS
-                  description: Problème de résolution DNS de l'adresse du serveur
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '403':
+          description: Accès interdit
+          content:
+            application/json:
+              examples:
+                insufficient_privileges_error:
+                  value:
+                    errors:
+                    - code: '00100'
+                      title: Privilèges insuffisants
+                      detail: Votre token est valide mais vos privilèges sont insuffisants.
+                        Listez vos privilèges sur /api/introspect
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Privilèges insuffisants
+                  description: Votre token est valide mais vos privilèges sont insuffisants.
+                    Listez vos privilèges sur /api/introspect
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
+                  value:
+                    errors:
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
+                      source:
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
+              schema:
+                "$ref": "#/components/schemas/Error"
+  "/v4/cnous/etudiant_boursier/ine":
+    get:
+      summary: "[INE] Statut étudiant boursier"
+      tags:
+      - Statut étudiant boursier
+      parameters:
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: ine
+        in: query
+        description: Identifiant National Étudiant (INE). Cet identifiant est unique
+          à chaque étudiant sur le territoire français. Il est composé de 11 caractères,
+          10 chiffres et 1 lettre, et depuis la rentrée 2018, 9 chiffres et 2 lettres.
+          Les étudiants peuvent retrouver leur numéro INE sur leur carte étudiant
+          et leur certificat de scolarité.
+        example: 1234567890G
+        schema:
+          type: string
+          pattern: "^[0-9a-zA-Z]{11}$"
+        required: true
+      security:
+      - jwt_bearer_token: []
+      description: Statut et échelon boursier d'un étudiant, délivrés par le Cnous.
+      responses:
+        '200':
+          description: Étudiant identifié
+          x-operationId: api_particulier_v4_cnous_etudiant_boursier_with_ine
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      statut_boursier:
+                        title: Statut boursier
+                        description: Informations relatives au statut boursier de
+                          l'étudiant, incluant la radiation éventuelle.
+                        type: object
+                        properties:
+                          est_boursier:
+                            title: Est boursier
+                            type: boolean
+                            description: Indique que l'étudiant est boursier.
+                            example: true
+                          est_radie:
+                            title: Est radié
+                            type: boolean
+                            description: Indique si l'étudiant a été radié. Si true,
+                              le champ date_radiation contient la date de radiation.
+                            example: false
+                          date_radiation:
+                            title: Date de radiation
+                            type: string
+                            format: date
+                            nullable: true
+                            description: Date de radiation. Renseignée uniquement
+                              si est_radie est true.
+                            example:
+                        required:
+                        - est_boursier
+                        - est_radie
+                        - date_radiation
+                      periode_versement_bourse:
+                        title: Période de versement de la bourse
+                        description: Informations relatives à la période de versement
+                          de la bourse de l'étudiant.
+                        type: object
+                        properties:
+                          date_rentree:
+                            title: Date de rentrée
+                            type: string
+                            format: date
+                            description: Date de rentrée scolaire ou universitaire
+                              de l'étudiant, correspondant au début de la période
+                              de versement de la bourse.
+                            example: '2019-09-01'
+                          duree:
+                            title: Durée de versement
+                            type: number
+                            description: Nombre de mois de versement de la bourse
+                              à l'étudiant.
+                            example: 12
+                        required:
+                        - date_rentree
+                        - duree
+                      etablissement_etudes:
+                        title: Établissement d'études de l'étudiant
+                        description: Contient le détail des informations concernant
+                          l'établissement dans lequel l'étudiant fait ses études.
+                        type: object
+                        properties:
+                          nom_commune:
+                            title: Commune d'études
+                            type: string
+                            description: Libellé de la commune d'études de l'étudiant
+                            example: Brest
+                          nom_etablissement:
+                            title: Établissement d'études
+                            type: string
+                            description: Nom de l'établissement d'études de l'étudiant.
+                            example: Carnot
+                        required:
+                        - nom_commune
+                        - nom_etablissement
+                      echelon_bourse:
+                        title: Informations concernant l'échelon de la bourse
+                        description: Informations relatives à l'échelon de la bourse.
+                        type: object
+                        properties:
+                          echelon:
+                            title: Échelon de la bourse
+                            type: string
+                            description: "Ce champ indique l'échelon de la bourse
+                              de l'étudiant. Il existe 8 échelons de bourse, de 0bis
+                              à 7, correspondant aux montants reçus par l'étudiant
+                              pour l'année scolaire. \n\n Pour en savoir plus, consulter
+                              la FAQ : https://particulier.api.gouv.fr/catalogue/cnous/statut_etudiant_boursier#faq_entry_answer_0_api_particulier_endpoint_cnous_statut_etudiant_boursier."
+                            example: '6'
+                            enum:
+                            - 0bis
+                            - '1'
+                            - '2'
+                            - '3'
+                            - '4'
+                            - '5'
+                            - '6'
+                            - '7'
+                          echelon_bourse_regionale_provisoire:
+                            title: Statut provisoire (bourses régionales uniquement)
+                            description: Ce champ indique que l'échelon de la bourse
+                              indiqué est provisoire. Ce statut provisoire n'est indiqué
+                              que pour les boursiers bénéficiaires d'une bourse régionale.
+                            type: boolean
+                            example: true
+                            enum:
+                            - true
+                            - false
+                        required:
+                        - echelon
+                        - echelon_bourse_regionale_provisoire
+                      email:
+                        title: E-mail
+                        type: string
+                        description: Adresse e-mail de l'étudiant boursier.
+                        example: georges@moustaki.fr
+                      identite:
+                        title: Données d'identité
+                        type: object
+                        description: "Données d'identité de l'étudiant boursier. Ces
+                          informations d'identité sont saisies manuellement par les
+                          étudiants. \n\n - Dans le cas des étudiants avec bourse
+                          nationale, les informations sont vérifiées par un agent
+                          via la pièce d'identité fournie (sauf le lieu de naissance)
+                          ; \n\n - Dans le cas des étudiants avec bourse régionale,
+                          les informations ne sont pas revérifiées avant d'être remontées
+                          au Cnous, mais si l'étudiant est déjà connu du Cnous, c'est
+                          l'identité vérifiée du Cnous qui sera retenue."
+                        properties:
+                          nom:
+                            title: Nom de naissance
+                            type: string
+                            description: Nom de naissance de l'étudiant boursier.
+                            example: Moustaki
+                          prenoms:
+                            type: array
+                            minItems: 1
+                            items:
+                              type: string
+                            example:
+                            - PIERRE
+                            - RICHARD
+                          date_naissance:
+                            title: Date de naissance
+                            type: string
+                            format: date
+                            description: Date de naissance de l'étudiant boursier.
+                            example: '1992-11-29'
+                          nom_commune_naissance:
+                            title: Commune de naissance
+                            type: string
+                            description: Libellé de la commune de naissance de l'étudiant
+                              boursier.
+                            example: Poitiers
+                          sexe:
+                            title: Sexe
+                            type: string
+                            description: Sexe de l'étudiant boursier.
+                            example: M
+                            enum:
+                            - M
+                            - F
+                        required:
+                        - nom
+                        - prenoms
+                        - date_naissance
+                        - nom_commune_naissance
+                        - sexe
+                    required:
+                    - statut_boursier
+                    - periode_versement_bourse
+                    - etablissement_etudes
+                    - echelon_bourse
+                    - email
+                    - identite
+                    additionalProperties: false
+                  links:
+                    type: object
+                  meta:
+                    type: object
+                required:
+                - data
+                - links
+                - meta
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '403':
+          description: Accès interdit
+          content:
+            application/json:
+              examples:
+                insufficient_privileges_error:
+                  value:
+                    errors:
+                    - code: '00100'
+                      title: Privilèges insuffisants
+                      detail: Votre token est valide mais vos privilèges sont insuffisants.
+                        Listez vos privilèges sur /api/introspect
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Privilèges insuffisants
+                  description: Votre token est valide mais vos privilèges sont insuffisants.
+                    Listez vos privilèges sur /api/introspect
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
+                  value:
+                    errors:
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
+                      source:
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
               schema:
                 "$ref": "#/components/schemas/Error"
   "/v3/dsnj/service_national/identite":
@@ -7609,6 +9878,27 @@ paths:
                   description: Problème de résolution DNS de l'adresse du serveur
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
   "/v3/dsnj/service_national/france_connect":
     get:
       summary: "[FranceConnect] API Service national"
@@ -7735,6 +10025,106 @@ paths:
                     sont pas connus, ou ne comportent aucune information pour cet
                     appel. Veuillez vérifier que votre recherche est couverte par
                     le périmètre de l'API.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
+                  value:
+                    errors:
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
+                      source:
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
               schema:
                 "$ref": "#/components/schemas/Error"
   "/v3/france_travail/indemnites/identifiant":
@@ -8033,6 +10423,45 @@ paths:
                         provider: France Travail
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
               schema:
                 "$ref": "#/components/schemas/Error"
   "/v3/france_travail/statut/identifiant":
@@ -8505,6 +10934,938 @@ paths:
                       source:
                       meta:
                         provider: France Travail
+                  summary: Erreur de résolution DNS
+                  description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+  "/v3/gip_mds/service_civique/identite":
+    get:
+      summary: "[Identité] Statut service civique"
+      tags:
+      - Statut service civique
+      parameters:
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: nomNaissance
+        in: query
+        description: "**Nom de naissance, également appelé nom de famille**. \n\nLe
+          nom de naissance est indiqué sur l'acte de naissance, de mariage, sur le
+          livret de famille, etc. Le nom de famille/naissance figure toujours sur
+          la pièce d'identité en premier, avant le nom d'usage si le particulier en
+          a un. \n\nEn cas de changement de nom de naissance, une mention avec le
+          nouveau nom de famille est inscrite sur l'acte de naissance. Pour appeler
+          l'API, le nom de naissance/famille nécessaire est bien le nom de famille
+          modifié."
+        example: DURANT
+        required: true
+        schema:
+          type: string
+      - name: prenoms[]
+        in: query
+        schema:
+          type: array
+          minItems: 1
+          maxItems: 3
+          items:
+            type: string
+          example:
+          - PIERRE
+          - RICHARD
+        description: "**Liste des prénoms**. \n\nFournir plusieurs prénoms maximise
+          les chances que l'API retrouve le particulier car cela permet de limiter
+          le risque d’homonymie."
+        required: true
+      - name: anneeDateNaissance
+        in: query
+        description: "**Année de naissance**. \n\nPour un particulier né en France,
+          dans le cadre d'un appel à l'API avec l'utilisation du paramètre 'nomCommuneNaissance',
+          ce paramètre est obligatoire (ainsi que le paramètre 'codeCogInseeDepartementNaissance')
+          afin de retrouver le code COG de la commune de naissance."
+        example: 1990
+        required: true
+        schema:
+          type: integer
+      - name: moisDateNaissance
+        in: query
+        description: "**Mois de naissance**."
+        example: 1
+        required: true
+        schema:
+          type: integer
+      - name: jourDateNaissance
+        in: query
+        description: "**Jour de naissance**."
+        example: 1
+        required: true
+        schema:
+          type: integer
+      security:
+      - jwt_bearer_token: []
+      description: Informations relatives au contrat de service civique d'un particulier,
+        issues des déclarations sociales nominatives (DSN) transmises au GIP-MDS.
+        Permet de vérifier si une personne est ou a été engagée dans un service civique
+        et d'obtenir les détails du contrat.
+      responses:
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '403':
+          description: Accès interdit
+          content:
+            application/json:
+              examples:
+                insufficient_privileges_error:
+                  value:
+                    errors:
+                    - code: '00100'
+                      title: Privilèges insuffisants
+                      detail: Votre token est valide mais vos privilèges sont insuffisants.
+                        Listez vos privilèges sur /api/introspect
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Privilèges insuffisants
+                  description: Votre token est valide mais vos privilèges sont insuffisants.
+                    Listez vos privilèges sur /api/introspect
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
+                  value:
+                    errors:
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
+                      source:
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '200':
+          description: Identité trouvée
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          x-operationId: api_particulier_v3_gip_mds_service_civique_with_civility
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      statut_actuel:
+                        title: Statut actuel
+                        description: Informations sur le contrat de service civique
+                          en cours. Accessible avec le scope 'service_civique_actuel'.
+                        type: object
+                        properties:
+                          contrat_trouve:
+                            title: Contrat en cours trouvé
+                            description: Indique si le particulier est actuellement
+                              en service civique. Un contrat est considéré en cours
+                              en absence de date de fin, ou lorsque le motif de rupture
+                              transmis par le GIP-MDS est 99 (contrat non rompu) ou
+                              100 (fin de contrat non encore déclarée).
+                            type: boolean
+                            example: true
+                          organisme_accueil:
+                            title: Organisme d'accueil
+                            description: Informations sur l'administration ou l'association
+                              qui accueille le volontaire en service civique.
+                            type: object
+                            properties:
+                              siret:
+                                title: SIRET de l'organisme d'accueil
+                                description: Numéro SIRET de l'administration ou de
+                                  l'association qui accueille le volontaire en service
+                                  civique. Null si aucun contrat en cours.
+                                type: string
+                                example: '13002526500013'
+                                nullable: true
+                              raison_sociale:
+                                title: Raison sociale de l'organisme d'accueil
+                                description: Nom officiel de l'administration ou de
+                                  l'association qui accueille le volontaire en service
+                                  civique. Null si aucun contrat en cours.
+                                type: string
+                                example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
+                                nullable: true
+                            required:
+                            - siret
+                            - raison_sociale
+                          date_debut_contrat:
+                            title: Date de début du contrat
+                            description: Premier jour du contrat de service civique,
+                              au format ISO 8601 (AAAA-MM-JJ). Null si aucun contrat
+                              en cours.
+                            type: string
+                            format: date
+                            example: '2024-01-15'
+                            nullable: true
+                          date_fin_contrat:
+                            title: Date de fin du contrat
+                            description: Date de fin prévue du contrat de service
+                              civique, au format ISO 8601 (AAAA-MM-JJ). Null si aucun
+                              contrat en cours ou si la date de fin n'est pas encore
+                              définie.
+                            type: string
+                            format: date
+                            example: '2024-07-14'
+                            nullable: true
+                        required:
+                        - contrat_trouve
+                        - organisme_accueil
+                        - date_debut_contrat
+                        - date_fin_contrat
+                      statut_passe:
+                        title: Statut passé
+                        description: Informations sur le contrat de service civique
+                          terminé. Accessible avec le scope 'service_civique_passe'.
+                        type: object
+                        properties:
+                          contrat_trouve:
+                            title: Contrat passé trouvé
+                            description: Indique si le particulier a effectué un service
+                              civique par le passé (contrat terminé).
+                            type: boolean
+                            example: true
+                          organisme_accueil:
+                            title: Organisme d'accueil
+                            description: Informations sur l'administration ou l'association
+                              qui a accueilli le volontaire en service civique.
+                            type: object
+                            properties:
+                              siret:
+                                title: SIRET de l'organisme d'accueil
+                                description: Numéro SIRET de l'administration ou de
+                                  l'association qui a accueilli le volontaire en service
+                                  civique. Null si aucun contrat passé.
+                                type: string
+                                example: '13002526500013'
+                                nullable: true
+                              raison_sociale:
+                                title: Raison sociale de l'organisme d'accueil
+                                description: Nom officiel de l'administration ou de
+                                  l'association qui a accueilli le volontaire en service
+                                  civique. Null si aucun contrat passé.
+                                type: string
+                                example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
+                                nullable: true
+                            required:
+                            - siret
+                            - raison_sociale
+                          date_debut_contrat:
+                            title: Date de début du contrat
+                            description: Premier jour du contrat de service civique,
+                              au format ISO 8601 (AAAA-MM-JJ). Null si aucun contrat
+                              passé.
+                            type: string
+                            format: date
+                            example: '2024-01-15'
+                            nullable: true
+                          date_fin_contrat:
+                            title: Date de fin du contrat
+                            description: Dernier jour du contrat de service civique,
+                              au format ISO 8601 (AAAA-MM-JJ). Null si aucun contrat
+                              passé.
+                            type: string
+                            format: date
+                            example: '2024-07-14'
+                            nullable: true
+                        required:
+                        - contrat_trouve
+                        - organisme_accueil
+                        - date_debut_contrat
+                        - date_fin_contrat
+                    required:
+                    - statut_actuel
+                    - statut_passe
+                    additionalProperties: false
+                  links:
+                    type: object
+                  meta:
+                    type: object
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          description: Non trouvée
+          content:
+            application/json:
+              examples:
+                entite_non_trouvee_31003:
+                  value:
+                    errors:
+                    - code: '31003'
+                      title: Entité non trouvée
+                      detail: Le ou les paramètre(s) d'entrée n'existent pas, ne sont
+                        pas connus, ou ne comportent aucune information pour cet appel.
+                        Veuillez vérifier que votre recherche est couverte par le
+                        périmètre de l'API.
+                      source:
+                      meta:
+                        provider: GIP-MDS
+                  summary: Entité non trouvée
+                  description: Le ou les paramètre(s) d'entrée n'existent pas, ne
+                    sont pas connus, ou ne comportent aucune information pour cet
+                    appel. Veuillez vérifier que votre recherche est couverte par
+                    le périmètre de l'API.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Entité non traitable
+          content:
+            application/json:
+              examples:
+                entite_non_traitable_00391:
+                  value:
+                    errors:
+                    - code: '00391'
+                      title: Entité non traitable
+                      detail: Les paramètres d'identité correspondent à plusieurs
+                        personnes. Nous ne pouvons pas fournir les informations de
+                        service civique pour cet individu.
+                      source:
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Les paramètres d'identité correspondent à plusieurs
+                    personnes. Nous ne pouvons pas fournir les informations de service
+                    civique pour cet individu.
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '502':
+          description: Erreur du fournisseur
+          content:
+            application/json:
+              examples:
+                provider_unknown_error:
+                  value:
+                    errors:
+                    - code: '31999'
+                      title: Erreur inconnue du fournisseur de données
+                      detail: La réponse retournée par le fournisseur de données est
+                        invalide et inconnue de notre service. L'équipe technique
+                        a été notifiée de cette erreur pour investigation.
+                      source:
+                      meta:
+                        provider: GIP-MDS
+                  summary: Erreur inconnue du fournisseur de données
+                  description: La réponse retournée par le fournisseur de données
+                    est invalide et inconnue de notre service. L'équipe technique
+                    a été notifiée de cette erreur pour investigation.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '504':
+          description: Erreur d'intermédiaire
+          content:
+            application/json:
+              examples:
+                timeout_error:
+                  value:
+                    errors:
+                    - code: '31002'
+                      title: Intermédiaire hors-délai
+                      detail: Temps d’attente d’une réponse du fournisseur de données
+                        écoulé.
+                      source:
+                      meta:
+                        provider: GIP-MDS
+                  summary: Intermédiaire hors-délai
+                  description: Temps d’attente d’une réponse du fournisseur de données
+                    écoulé.
+                provider_unavailable_error:
+                  value:
+                    errors:
+                    - code: '31001'
+                      title: Service non disponible
+                      detail: Service du fournisseur de données temporairement indisponible
+                        ou en maintenance.
+                      source:
+                      meta:
+                        provider: GIP-MDS
+                  summary: Service non disponible
+                  description: Service du fournisseur de données temporairement indisponible
+                    ou en maintenance.
+                network_error:
+                  value:
+                    errors:
+                    - code: '00501'
+                      title: Erreur réseau
+                      detail: Problème de connexion au serveur distant. L'erreur peut
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
+                      source:
+                      meta:
+                        retry_in: 10
+                  summary: Erreur réseau
+                  description: Problème de connexion au serveur distant. L'erreur
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
+                dns_resolution_error:
+                  value:
+                    errors:
+                    - code: '31004'
+                      title: Erreur de résolution DNS
+                      detail: Problème de résolution DNS de l'adresse du serveur
+                      source:
+                      meta:
+                        provider: GIP-MDS
+                  summary: Erreur de résolution DNS
+                  description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+  "/v3/gip_mds/service_civique/france_connect":
+    get:
+      summary: "[FranceConnect] Statut service civique"
+      tags:
+      - Statut service civique
+      parameters:
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: Informations relatives au contrat de service civique d'un particulier,
+        issues des déclarations sociales nominatives (DSN) transmises au GIP-MDS.
+        Permet de vérifier si une personne est ou a été engagée dans un service civique
+        et d'obtenir les détails du contrat.
+      responses:
+        '403':
+          description: Accès interdit
+          content:
+            application/json:
+              examples:
+                insufficient_privileges_error:
+                  value:
+                    errors:
+                    - code: '00100'
+                      title: Privilèges insuffisants
+                      detail: Votre token est valide mais vos privilèges sont insuffisants.
+                        Listez vos privilèges sur /api/introspect
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Privilèges insuffisants
+                  description: Votre token est valide mais vos privilèges sont insuffisants.
+                    Listez vos privilèges sur /api/introspect
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '200':
+          description: Identité trouvée
+          headers:
+            RateLimit-Limit:
+              schema:
+                type: integer
+              description: La limite concernant l’endpoint appelé, soit le nombre
+                de requête/minute.
+              example: 50
+            RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Le nombre d’appels restants durant la période courante
+                d’une minute.
+              example: 47
+            RateLimit-Reset:
+              schema:
+                type: integer
+              description: La fin de la période courante (en format timestamp)
+              example: 1637223155
+          x-operationId: api_particulier_v3_gip_mds_service_civique_with_france_connect
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      statut_actuel:
+                        title: Statut actuel
+                        description: Informations sur le contrat de service civique
+                          en cours. Accessible avec le scope 'service_civique_actuel'.
+                        type: object
+                        properties:
+                          contrat_trouve:
+                            title: Contrat en cours trouvé
+                            description: Indique si le particulier est actuellement
+                              en service civique. Un contrat est considéré en cours
+                              en absence de date de fin, ou lorsque le motif de rupture
+                              transmis par le GIP-MDS est 99 (contrat non rompu) ou
+                              100 (fin de contrat non encore déclarée).
+                            type: boolean
+                            example: true
+                          organisme_accueil:
+                            title: Organisme d'accueil
+                            description: Informations sur l'administration ou l'association
+                              qui accueille le volontaire en service civique.
+                            type: object
+                            properties:
+                              siret:
+                                title: SIRET de l'organisme d'accueil
+                                description: Numéro SIRET de l'administration ou de
+                                  l'association qui accueille le volontaire en service
+                                  civique. Null si aucun contrat en cours.
+                                type: string
+                                example: '13002526500013'
+                                nullable: true
+                              raison_sociale:
+                                title: Raison sociale de l'organisme d'accueil
+                                description: Nom officiel de l'administration ou de
+                                  l'association qui accueille le volontaire en service
+                                  civique. Null si aucun contrat en cours.
+                                type: string
+                                example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
+                                nullable: true
+                            required:
+                            - siret
+                            - raison_sociale
+                          date_debut_contrat:
+                            title: Date de début du contrat
+                            description: Premier jour du contrat de service civique,
+                              au format ISO 8601 (AAAA-MM-JJ). Null si aucun contrat
+                              en cours.
+                            type: string
+                            format: date
+                            example: '2024-01-15'
+                            nullable: true
+                          date_fin_contrat:
+                            title: Date de fin du contrat
+                            description: Date de fin prévue du contrat de service
+                              civique, au format ISO 8601 (AAAA-MM-JJ). Null si aucun
+                              contrat en cours ou si la date de fin n'est pas encore
+                              définie.
+                            type: string
+                            format: date
+                            example: '2024-07-14'
+                            nullable: true
+                        required:
+                        - contrat_trouve
+                        - organisme_accueil
+                        - date_debut_contrat
+                        - date_fin_contrat
+                      statut_passe:
+                        title: Statut passé
+                        description: Informations sur le contrat de service civique
+                          terminé. Accessible avec le scope 'service_civique_passe'.
+                        type: object
+                        properties:
+                          contrat_trouve:
+                            title: Contrat passé trouvé
+                            description: Indique si le particulier a effectué un service
+                              civique par le passé (contrat terminé).
+                            type: boolean
+                            example: true
+                          organisme_accueil:
+                            title: Organisme d'accueil
+                            description: Informations sur l'administration ou l'association
+                              qui a accueilli le volontaire en service civique.
+                            type: object
+                            properties:
+                              siret:
+                                title: SIRET de l'organisme d'accueil
+                                description: Numéro SIRET de l'administration ou de
+                                  l'association qui a accueilli le volontaire en service
+                                  civique. Null si aucun contrat passé.
+                                type: string
+                                example: '13002526500013'
+                                nullable: true
+                              raison_sociale:
+                                title: Raison sociale de l'organisme d'accueil
+                                description: Nom officiel de l'administration ou de
+                                  l'association qui a accueilli le volontaire en service
+                                  civique. Null si aucun contrat passé.
+                                type: string
+                                example: DIRECTION INTERMINISTERIELLE DU NUMERIQUE
+                                nullable: true
+                            required:
+                            - siret
+                            - raison_sociale
+                          date_debut_contrat:
+                            title: Date de début du contrat
+                            description: Premier jour du contrat de service civique,
+                              au format ISO 8601 (AAAA-MM-JJ). Null si aucun contrat
+                              passé.
+                            type: string
+                            format: date
+                            example: '2024-01-15'
+                            nullable: true
+                          date_fin_contrat:
+                            title: Date de fin du contrat
+                            description: Dernier jour du contrat de service civique,
+                              au format ISO 8601 (AAAA-MM-JJ). Null si aucun contrat
+                              passé.
+                            type: string
+                            format: date
+                            example: '2024-07-14'
+                            nullable: true
+                        required:
+                        - contrat_trouve
+                        - organisme_accueil
+                        - date_debut_contrat
+                        - date_fin_contrat
+                    required:
+                    - statut_actuel
+                    - statut_passe
+                    additionalProperties: false
+                  links:
+                    type: object
+                  meta:
+                    type: object
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          description: Non trouvée
+          content:
+            application/json:
+              examples:
+                entite_non_trouvee_31003:
+                  value:
+                    errors:
+                    - code: '31003'
+                      title: Entité non trouvée
+                      detail: Le ou les paramètre(s) d'entrée n'existent pas, ne sont
+                        pas connus, ou ne comportent aucune information pour cet appel.
+                        Veuillez vérifier que votre recherche est couverte par le
+                        périmètre de l'API.
+                      source:
+                      meta:
+                        provider: GIP-MDS
+                  summary: Entité non trouvée
+                  description: Le ou les paramètre(s) d'entrée n'existent pas, ne
+                    sont pas connus, ou ne comportent aucune information pour cet
+                    appel. Veuillez vérifier que votre recherche est couverte par
+                    le périmètre de l'API.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
+                  value:
+                    errors:
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
+                      source:
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '502':
+          description: Erreur du fournisseur
+          content:
+            application/json:
+              examples:
+                provider_unknown_error:
+                  value:
+                    errors:
+                    - code: '31999'
+                      title: Erreur inconnue du fournisseur de données
+                      detail: La réponse retournée par le fournisseur de données est
+                        invalide et inconnue de notre service. L'équipe technique
+                        a été notifiée de cette erreur pour investigation.
+                      source:
+                      meta:
+                        provider: GIP-MDS
+                  summary: Erreur inconnue du fournisseur de données
+                  description: La réponse retournée par le fournisseur de données
+                    est invalide et inconnue de notre service. L'équipe technique
+                    a été notifiée de cette erreur pour investigation.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '504':
+          description: Erreur d'intermédiaire
+          content:
+            application/json:
+              examples:
+                timeout_error:
+                  value:
+                    errors:
+                    - code: '31002'
+                      title: Intermédiaire hors-délai
+                      detail: Temps d’attente d’une réponse du fournisseur de données
+                        écoulé.
+                      source:
+                      meta:
+                        provider: GIP-MDS
+                  summary: Intermédiaire hors-délai
+                  description: Temps d’attente d’une réponse du fournisseur de données
+                    écoulé.
+                provider_unavailable_error:
+                  value:
+                    errors:
+                    - code: '31001'
+                      title: Service non disponible
+                      detail: Service du fournisseur de données temporairement indisponible
+                        ou en maintenance.
+                      source:
+                      meta:
+                        provider: GIP-MDS
+                  summary: Service non disponible
+                  description: Service du fournisseur de données temporairement indisponible
+                    ou en maintenance.
+                network_error:
+                  value:
+                    errors:
+                    - code: '00501'
+                      title: Erreur réseau
+                      detail: Problème de connexion au serveur distant. L'erreur peut
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
+                      source:
+                      meta:
+                        retry_in: 10
+                  summary: Erreur réseau
+                  description: Problème de connexion au serveur distant. L'erreur
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
+                dns_resolution_error:
+                  value:
+                    errors:
+                    - code: '31004'
+                      title: Erreur de résolution DNS
+                      detail: Problème de résolution DNS de l'adresse du serveur
+                      source:
+                      meta:
+                        provider: GIP-MDS
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
               schema:
@@ -8982,6 +12343,45 @@ paths:
                         provider: MEN
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
               schema:
                 "$ref": "#/components/schemas/Error"
   "/v3/mesri/statut_etudiant/identite":
@@ -9475,6 +12875,45 @@ paths:
                   description: Problème de résolution DNS de l'adresse du serveur
               schema:
                 "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
   "/v3/mesri/statut_etudiant/france_connect":
     get:
       summary: "[FranceConnect] Statut étudiant"
@@ -9674,6 +13113,106 @@ paths:
                         provider: MESRI
                   summary: Entité non trouvée
                   description: Aucun étudiant n'a pu être trouvé.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
+                  value:
+                    errors:
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
+                      source:
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
               schema:
                 "$ref": "#/components/schemas/Error"
   "/v3/mesri/statut_etudiant/ine":
@@ -10065,6 +13604,45 @@ paths:
                         provider: MESRI
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
               schema:
                 "$ref": "#/components/schemas/Error"
   "/v3/sdh/statut_sportif/identifiant":
@@ -10640,6 +14218,27 @@ paths:
                         provider: SDH
                   summary: Erreur de résolution DNS
                   description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
 servers:
