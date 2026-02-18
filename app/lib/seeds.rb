@@ -38,7 +38,11 @@ class Seeds
   def create_data_for_api_entreprise
     @scopes_entreprise = create_scopes('entreprise')
 
-    create_api_entreprise_token_valid
+    token = create_api_entreprise_token_valid
+
+    another_token = token.dup
+    another_token.save!
+
     create_api_entreprise_token_blacklisted
     create_api_entreprise_token_expired
     create_api_entreprise_authorization_refused
@@ -237,6 +241,8 @@ class Seeds
     )
 
     create_access_logs_for_token(token) unless AccessLog.new.readonly?
+
+    token
   end
   # rubocop:enable Metrics/ParameterLists
 
