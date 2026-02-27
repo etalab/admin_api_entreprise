@@ -1,0 +1,166 @@
+---
+- uid: 'cnav/aeeh'
+  opening: protected
+  path: '/v3/dss//identite'
+  ping_url: 
+  position: 
+  perimeter:
+    entity_type_description: |+
+      **L’API couvre l’ensemble des foyers bénéficiaires de l’Allocation d’Éducation de l’Enfant Handicapé (AEEH)** :
+      - ✅ le régime agricole (MSA) ;
+      - ✅ le régime général (CAF) ;
+      - ✅ les titulaires de l'éducation nationale ;
+      - ✅ les retraités de la fonction publique d'État et des collectivités locales ;
+      - ✅ les régimes spéciaux suivants : artiste-auteur-compositeur, France Télécom, industries électriques et gazières, marin du commerce et pêche, mines (régime général), poste, RATP, SNCF, navigation intérieure en cas d'accord local et les pensions des autres régimes.
+
+
+      **Ne sont pas concernés par cette API**, les bénéficiaires des régimes suivants :
+
+      - ❌ le régime des titulaires de l'Assemblée nationale et du Sénat ;
+      - ❌ le régime de la navigation intérieure **sauf** lorsqu'un accord local est passé, et que le régime est alors pris en compte par la CAF.
+
+    geographical_scope_description:  |+
+      - ✅ France métropolitaine
+      - ✅ DROM COM
+      - ✅ Allocataires de nationalité étrangère résidant en France
+    updating_rules_description: |+
+      Cette API, opérée par la caisse nationale d'assurance vieillesse (CNAV), est reliée au système d'information de la Caisse nationale des allocations familiales (CNAF) et à celui de la mutualité sociale agricole (MSA).
+
+      **Les données sont mises à jour** :
+       
+
+  data:
+    description: |+
+      **Cette API délivre, à partir de l'identité d'un allocataire ou d'un ouvrant-droit** [en savoir plus](#allocataire-ouvrantdroit) :
+      - **le statut** du particulier, à savoir s’il est **allocataire**, **ouvrant-droit** ou **non bénéficiaire** ;
+      - **le détail des prestations AEEH** versées à l’assuré :
+         - **la date d’ouverture du droit** ;
+         - **l’organisme de rattachement**.
+
+
+  parameters_details:
+    description: |+
+      **L'API est appelable avec les informations de l'allocataire ou de l'ouvrant-doit.**.
+      <br/>
+      Deux modalités d'appel sont possibles&nbsp;:
+      <p class="fr-badge fr-badge--blue-ecume">![Cette API est FranceConnectée](<%= image_path('api_particulier/cas_usages/pictos/modalite_appel_france_connect.svg') %>){:width="20px"} FranceConnect</p>
+      **Avec la [modalité d'appel FranceConnect](<%= cas_usage_path('modalite_appel_france_connect') %>)**.
+
+      {:.fr-highlight}
+          > L'ouvrant-doit ne peut utiliser FranceConnect qu'à partir de 16 ans.
+
+      <p class="fr-badge fr-badge--brown-cafe-creme">Identité pivot</p>
+      <section class="fr-accordion fr-mt-2v">
+        <p class="fr-accordion__title">
+        <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106"><b>Avec les données d'identité</b></button>
+        </p>
+        <div class="fr-collapse" id="accordion-106">
+        <div class="fr-mb-0">
+        <ul>
+          <li>Nom de naissance<sup>*</sup>, nom d'usage, prénoms<sup>1</sup>, sexe<sup>*</sup>, date de naissance de l'allocataire<sup>**</sup>&nbsp;;</li>
+          <li>Lieu de naissance&nbsp;:
+          <ul>
+            <li>
+            <em>Si le lieu de naissance est en France,</em> la commune de naissance est obligatoire, elle peut être saisie de deux façons différentes :
+            <ul>
+              <li class="fr-text--sm fr-mb-0">
+              Option 1 : Code COG de la commune de naissance<sup>*</sup>. <a href="#renseigner-lieu-de-naissance">En savoir plus</a>&nbsp;;
+              </li>
+              <li class="fr-text--sm fr-mb-0">
+              Option 2 : Nom de la commune de naissance<sup>*</sup> et code du département de naissance<sup>*</sup>. Pour cette option, la date de naissance est obligatoire. <a href="#renseigner-lieu-de-naissance">En savoir plus</a>.
+              </li>
+            </ul>
+            Pour chacune des deux options ci-dessus, le code COG de la France <code>99100</code><sup>*</sup> doit également être renseigné en paramètre d'appel. Vous n'avez pas besoin de le demander à l'usager, il peut être déduit de la commune de naissance.
+            </li>
+            <li class="fr-mt-2v">
+            <em>Si le lieu de naissance est à l'étranger&nbsp;:</em> code COG du pays de naissance<sup>*</sup>.
+            </li>
+          </ul>
+          </li>
+        </ul>
+        </div>
+        <span class="fr-text--xs">
+        <sup>*</sup> Obligatoire | <sup>**</sup> Obligatoire pour l'option 2 du lieu de naissance.
+        </span>
+        <span class="fr-text--xs fr-m-0">
+        <sup>1</sup> Fournir plusieurs prénoms permet de limiter les risques d'homonymie mais un seul prénom peut fonctionner. Attention, l'usager doit compléter chaque prénom dans un champ distinct.
+        </span>
+
+        </div>
+      </section>
+
+  provider_uids:
+    - 'cnav'
+  call_id:
+    - Identité pivot
+    - FranceConnect
+  parameters:
+    - Identité pivot
+    - FranceConnect
+  keywords:
+    - aeeh
+    - allocation d'éducation de l'enfant handicapé
+    - handicap
+    - prestation
+    - CAF
+    - MSA
+  faq:
+    - q: <a name="conditions-aeeh"></a> Quels sont les critères d'éligibilité pour bénéficier de l'AEEH ?
+      a: |+
+        Pour bénéficier de l’AEEH, l’enfant doit remplir les conditions suivantes :
+         - avoir moins de 20 ans ;
+         - résider en France de façon stable et permanente ;
+         - être à la charge du demandeur ;
+         - présenter un taux d’incapacité d’au moins 80 %, ou compris entre 50 % et 79 % si l’enfant bénéficie d’un accompagnement, d’un dispositif de scolarisation adapté, ou de soins/rééducations préconisés par la CDAPH ;
+         - ne pas percevoir de revenus professionnels supérieurs à 55 % du Smic mensuel brut ;
+         - ne pas être accueilli en internat avec prise en charge intégrale des frais de séjour par l’Assurance maladie, l’État ou le département, sauf pour les périodes de retour au foyer.
+        Cette allocation n’est pas soumise à condition de ressources des parents
+    - q: <a name="allocataire-ouvrantdroit"></a> Quelle différence entre l'allocataire et l'ouvrant droit ?
+      a: |+
+        Pour l’AEEH, **l’ouvrant-droit est l’enfant au titre duquel le droit est ouvert.L’allocataire est la personne qui perçoit la prestation**, généralement le parent ou représentant légal.
+        
+    - q: <a name="composition-familiale"></a> Quelle est la composition familiale renvoyée par cette API ?
+      a: |+
+        La notion de «&nbsp;composition familiale&nbsp;» peut correspondre à différentes définitions dans les administrations qui n'y comptent pas les mêmes personnes. _Par exemple, pour calculer l'impôt sur le revenu d'un foyer, le service des impôts s'intéresse à une composition familiale appelée «&nbsp;foyer fiscal&nbsp;»_, et dont la nature est différente de celle renvoyée par cette API.
+
+        **La composition familiale renvoyée par cette API correspond à celle établie pour ouvrir le droit à la prestation allocation d'éducation à l'enfant handicapé, et donc à celle déclarée par les allocataires à la CAF et à la MSA.**
+        Dans cette composition familiale, les personnes suivantes sont comprises :
+        - L'adulte allocataire de la CAF ou de la MSA ;
+        - Son ou sa conjointe le cas échéant ;
+        - le ou les enfants dont la responsabilité affective et éducative, les frais liés au logement, à la nourriture et à l'éducation, sont assumés par l'allocataire qui n'est pas obligé d'avoir un lien de parenté direct. Les enfants sont pris en compte dès la grossesse, jusqu'à 21 ans en métropole (22 dans les DROM) et sous les conditions détaillées dans [ce guide de la Caf](https://www.caf.fr/allocataires/aides-et-demarches/thematique-libre/les-enfants-charge){:target="_blank"}.
+
+        {:.fr-highlight.fr-highlight--example}
+        > **Cette notion d'enfant à charge est différente de celle retenue par l'administration fiscale** : par exemple, un enfant peut être toujours rattaché fiscalement à ses parents, mais ne plus faire partie de la composition familiale au sens de la CAF ou de la MSA.
+        > C'est le cas d'un enfant ayant quitté le foyer de ses parents et ayant ouvert son propre dossier d'allocataire pour bénéficier d'une aide (par exemple les APL ou le RSA), mais qui souhaite tout de même être rattaché à la déclaration fiscale de ses parents.
+        > _Cet enfant appartiendra au même foyer fiscal que ses parents au sens de l'administration fiscale, mais à une famille différente selon la CAF ou la MSA._
+
+    - q: <a name="compte-parents"></a> Dans quels cas les deux parents sont-ils associés à un même compte ? S'ils le sont, peuvent-ils être rattachés à la MSA et à la CAF en même temps ?
+      a: |+
+        **Les deux parents sont associés à un même compte lorsqu'ils sont mariés, pacsés ou concubins ET à partir de la déclaration de ce changement par l'allocataire**, sur le site caf.fr ou sur l’application «&nbsp;Caf -Mon Compte&nbsp;». Cette déclaration induit de loger au même domicile, exception faite du cas d'un conjoint vivant à l'étranger dont la vie maritale est tout de même enregistrée auprès de la CAF ou la MSA.
+        **Les parents qui sont associés à un même compte**, sont gérés par une seule caisse, la CAF ou la MSA. Le choix de la caisse de rattachement revient au couple. Toutefois, il y a quelques exceptions :
+        - lorsqu’un couple est bénéficiaire du RSA avec un des membres du couple exploitant agricole ou aide familial, quelle que soit la situation du conjoint ou concubin, seule la MSA est compétente pour le RSA et les prestations familiales. Le couple sera donc affilié à la MSA ;
+        - Si un des deux membres du couple relève de l’Assemblée nationale ou du Sénat, il doit être enregistré en tant que responsable dossier, afin d’éviter les doubles paiements.
+    - q: Dans le cas d’une famille recomposée, les enfants des deux parents sont-ils remontés sur un même compte ?
+      a: |+
+        L'enfant sera uniquement rattaché au parent qui en a la charge. Dans le cas d'une situation de résidence alternée qui induit un partage de la charge, l'enfant apparaitra sur les deux comptes uniquement si la "résidence alternée avec partage des allocations" est déclarée à la caisse d'allocation.
+    - q: Les enfants décédés sont-ils remontés par l’API ?
+      a: |+
+        Les enfants décédés ne sont plus considérés à charge le mois suivant le décès et ne sont donc plus remontés par l'API.
+    
+    - q: <a name="renseigner-lieu-de-naissance"></a> Appel avec l'identité pivot, comment renseigner le lieu de naissance ?
+      a: |+
+       Lorsque l'API est appelée avec l'identité pivot, pour identifier correctement le particulier, le système d'information a besoin de récupérer le lieu de naissance du particulier.
+
+        - **Pour les particuliers nés en France**: le code COG pays `99100` est obigatoire. La commune de naissance est également obligatoire et peut-être renseignée via deux options différentes&nbsp;:
+
+            - *Option 1 : L'API est appelée avec le code COG commune lui-même*. Pour aider les usagers à renseigner leur code COG, consultez la publication suivante :
+              {:.fr-icon-arrow-right-line .fr-link--icon-right}
+              [✒️ **Aider les usagers à renseigner leur lieu de naissance par code COG** - Lire la publication du 08/11/2023](https://particulier.api.gouv.fr/blog/parametre-lieu-naissance-code-cog){:target="_blank"}
+
+            - *Option 2 : L'API est appelée avec le nom de la commune de naissance et le code du département de naissance*. La date de naissance est obligatoire car c'est elle qui permettra à l'API de faire la correspondance avec le bon code COG.
+
+        - **Pour les particuliers nés à l'étranger**: le code COG pays est obigatoire.
+
+        {:.fr-highlight}
+        > **Le code COG du pays de naissance est obligatoire pour tous les appels.** Pour simplifier le parcours des usagers, évitez de demander aux particuliers nés en France de saisir leur pays de naissance, puisque vous pouvez le paramétrer directement -code COG pays France `99100`-, dès qu'un particuloer renseigne les informations de sa commune de naissance (forcément en France).
+
