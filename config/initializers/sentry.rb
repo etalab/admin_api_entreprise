@@ -7,4 +7,6 @@ Sentry.init do |config|
   config.enabled_environments = %w[production staging]
 
   config.traces_sample_rate = 1.0
+
+  config.excluded_exceptions += ['ActionView::MissingTemplate']
 end
