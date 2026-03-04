@@ -11965,7 +11965,7 @@ paths:
 
           ⚠️ L'établissement 0861288H (CNED Direction générale) n'existe pas dans l'API annuaire de l'éducation nationale, il faudra donc compléter la liste des établissements avec une ligne CNED à laquelle sera associée le code UAI qui sera en passé en entrée.
         example: 0210015C
-        required: true
+        required: false
         schema:
           type: string
       - name: anneeScolaire
@@ -11977,6 +11977,37 @@ paths:
         required: true
         schema:
           type: string
+      - name: degreEtablissement
+        in: query
+        description: 'Degré de l''établissement scolaire : 1D pour le premier degré
+          (écoles maternelles et élémentaires) ou 2D pour le second degré (collèges
+          et lycées).'
+        example: 2D
+        required: false
+        schema:
+          type: string
+      - name: codesBcnDepartements[]
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        description: |
+          Liste des codes BCN des départements du périmètre de recherche. Exactement un type de périmètre doit être fourni.
+
+          Référentiel : [N_DEPARTEMENT](https://bcn.depp.education.fr/bcn/workspace/viewTable/n/N_DEPARTEMENT)
+        required: false
+      - name: codesBcnRegions[]
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        description: |
+          Liste des codes BCN des régions académiques du périmètre de recherche. Exactement un type de périmètre doit être fourni.
+
+          Référentiel : [N_REGION_ACADEMIQUE](https://bcn.depp.education.fr/bcn/workspace/viewTable/n/N_REGION_ACADEMIQUE)
+        required: false
       security:
       - jwt_bearer_token: []
       description: Statut scolarisé d'un élève du primaire, collège ou lycée et statut
@@ -12064,7 +12095,7 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
         '200':
-          description: Scolarité trouvée
+          description: Scolarite trouvee par perimetre
           x-operationId: api_particulier_v3_men_scolarites_with_civility
           content:
             application/json:
@@ -12245,7 +12276,7 @@ paths:
                 - links
                 - meta
         '404':
-          description: Non trouvée
+          description: Non trouvee par perimetre
           content:
             application/json:
               examples:
@@ -12254,14 +12285,44 @@ paths:
                     errors:
                     - code: '30003'
                       title: Entité non trouvée
-                      detail: Aucun élève n'a pu être trouvé avec les critères de
-                        recherche fournis.
+                      detail: Aucun eleve n'a pu etre trouve avec les criteres de
+                        recherche fournis
                       source:
                       meta:
                         provider: MEN
                   summary: Entité non trouvée
-                  description: Aucun élève n'a pu être trouvé avec les critères de
-                    recherche fournis.
+                  description: Aucun eleve n'a pu etre trouve avec les criteres de
+                    recherche fournis
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Paramètre(s) invalide(s)
+          content:
+            application/json:
+              examples:
+                unprocessable_content_error_code_etablissement_et_perimetre_error:
+                  value:
+                    errors:
+                    - code: '00419'
+                      title: Entité non traitable
+                      detail: Les paramètres codeEtablissement et périmètre (codesBcnRegions/codesBcnDepartements)
+                        sont mutuellement exclusifs
+                      source:
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Les paramètres codeEtablissement et périmètre (codesBcnRegions/codesBcnDepartements)
+                    sont mutuellement exclusifs
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
               schema:
                 "$ref": "#/components/schemas/Error"
         '502':
@@ -12366,11 +12427,448 @@ paths:
                     traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
+  "/v4/men/scolarites/identite":
+    get:
+      summary: Statut élève scolarisé et boursier
+      tags:
+      - Statut élève scolarisé
+      parameters:
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: nomNaissance
+        in: query
+        description: "**Nom de naissance, également appelé nom de famille**. \n\nLe
+          nom de naissance est indiqué sur l'acte de naissance, de mariage, sur le
+          livret de famille, etc. Le nom de famille/naissance figure toujours sur
+          la pièce d'identité en premier, avant le nom d'usage si le particulier en
+          a un. \n\nEn cas de changement de nom de naissance, une mention avec le
+          nouveau nom de famille est inscrite sur l'acte de naissance. Pour appeler
+          l'API, le nom de naissance/famille nécessaire est bien le nom de famille
+          modifié."
+        example: DURANT
+        required: true
+        schema:
+          type: string
+      - name: prenoms[]
+        in: query
+        schema:
+          type: array
+          minItems: 1
+          maxItems: 3
+          items:
+            type: string
+          example:
+          - PIERRE
+          - RICHARD
+        description: "**Liste des prénoms**. \n\nFournir plusieurs prénoms maximise
+          les chances que l'API retrouve le particulier car cela permet de limiter
+          le risque d’homonymie."
+        required: true
+      - name: sexeEtatCivil
+        in: query
+        schema:
+          type: string
+          enum:
+          - M
+          - F
+        description: "**Sexe de la personne tel qu'indiqué sur les actes d'état civil**,
+          comme par exemple l'acte de naissance ou de mariage. \n\nDans la majorité
+          des cas, il s'agit également de la mention indiquée sur la pièce d'identité
+          et le passeport. Cette mention peut être masculin ('M') ou féminin ('F').
+          \nDans le cas d'un particulier ayant demandé une modification de sa mention
+          de sexe à l'état civil, le changement est indiqué en marge de l'acte de
+          naissance une fois la décision rendue. Le changement intervient sur les
+          titres d'identité seulement si le particulier en demande le renouvellement."
+        example: M
+        required: true
+      - name: anneeDateNaissance
+        in: query
+        description: "**Année de naissance**. \n\nPour un particulier né en France,
+          dans le cadre d'un appel à l'API avec l'utilisation du paramètre 'nomCommuneNaissance',
+          ce paramètre est obligatoire (ainsi que le paramètre 'codeCogInseeDepartementNaissance')
+          afin de retrouver le code COG de la commune de naissance."
+        example: 1990
+        required: true
+        schema:
+          type: integer
+      - name: moisDateNaissance
+        in: query
+        description: "**Mois de naissance**."
+        example: 1
+        required: true
+        schema:
+          type: integer
+      - name: jourDateNaissance
+        in: query
+        description: "**Jour de naissance**."
+        example: 1
+        required: true
+        schema:
+          type: integer
+      - name: codeEtablissement
+        in: query
+        description: |
+          Code d'unité administrative immatriculée (code UAI) de l'établissement où est scolarisé l'élève. Ce code unique inscrit au répertoire national des établissements est composé de 7 chiffres et d'une lettre ; les trois premiers chiffres correspondent au numéro de département de l'établissement.
+
+          Pour retrouver facilement le code UAI d'un établissement à partir d'informations plus facilement connues des usagers (commune, code postal, etc.), vous pouvez utiliser l'[API "Annuaire de l'éducation nationale"](https://api.gouv.fr/les-api/api-annuaire-education).
+
+          ⚠️ L'établissement 0861288H (CNED Direction générale) n'existe pas dans l'API annuaire de l'éducation nationale, il faudra donc compléter la liste des établissements avec une ligne CNED à laquelle sera associée le code UAI qui sera en passé en entrée.
+        example: 0210015C
+        required: false
+        schema:
+          type: string
+      - name: anneeScolaire
+        in: query
+        description: 'Année scolaire recherchée au format AAAA-AAAA ou AAAA. Les informations
+          connues par l''API concerne surtout l''année en cours et parfois l''année
+          scolaire à venir. Pour en savoir plus consulter la fiche métier : https://particulier.api.gouv.fr/catalogue/education_nationale/statut_eleve_scolarise#faq_entry_answer_0_api_particulier_endpoint_education_nationale_statut_eleve_scolarise.'
+        example: 2022-2023
+        required: true
+        schema:
+          type: string
+      - name: degreEtablissement
+        in: query
+        description: 'Degré de l''établissement scolaire : 1D pour le premier degré
+          (écoles maternelles et élémentaires) ou 2D pour le second degré (collèges
+          et lycées).'
+        example: 2D
+        required: false
+        schema:
+          type: string
+      - name: codesBcnDepartements[]
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        description: |
+          Liste des codes BCN des départements du périmètre de recherche. Exactement un type de périmètre doit être fourni.
+
+          Référentiel : [N_DEPARTEMENT](https://bcn.depp.education.fr/bcn/workspace/viewTable/n/N_DEPARTEMENT)
+        required: false
+      - name: codesBcnRegions[]
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        description: |
+          Liste des codes BCN des régions académiques du périmètre de recherche. Exactement un type de périmètre doit être fourni.
+
+          Référentiel : [N_REGION_ACADEMIQUE](https://bcn.depp.education.fr/bcn/workspace/viewTable/n/N_REGION_ACADEMIQUE)
+        required: false
+      security:
+      - jwt_bearer_token: []
+      description: Statut scolarisé d'un élève du primaire, collège ou lycée et statut
+        boursier.
+      responses:
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '403':
+          description: Accès interdit
+          content:
+            application/json:
+              examples:
+                insufficient_privileges_error:
+                  value:
+                    errors:
+                    - code: '00100'
+                      title: Privilèges insuffisants
+                      detail: Votre token est valide mais vos privilèges sont insuffisants.
+                        Listez vos privilèges sur /api/introspect
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Privilèges insuffisants
+                  description: Votre token est valide mais vos privilèges sont insuffisants.
+                    Listez vos privilèges sur /api/introspect
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
+                  value:
+                    errors:
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
+                      source:
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '200':
+          description: Scolarite trouvee par perimetre
+          x-operationId: api_particulier_v4_men_scolarites_with_civility
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      identite:
+                        title: Données d'identité de l'élève
+                        description: Les informations d'identité retournées ici sont
+                          issues de la base de données des établissemets scolaires
+                          (API SIGNE) où les élèves sont inscrits et proviennent des
+                          pièces d'identité que les parents doivent fournir à l'établissement
+                          pour inscrire leur enfant.
+                        type: object
+                        properties:
+                          nom:
+                            title: Nom
+                            description: Nom de l'élève.
+                            type: string
+                            example: Martin
+                          prenom:
+                            title: Prénom
+                            description: Prénom de l'élève.
+                            type: string
+                            example: Justine
+                          sexe:
+                            title: Sexe
+                            description: Sexe de l'élève, masculin ou féminin.
+                            type: string
+                            example: F
+                            enum:
+                            - M
+                            - F
+                          date_naissance:
+                            title: Date de naissance
+                            description: Date de naissance de l'élève au format AAAA-MM-JJ
+                            type: string
+                            example: '2000-01-20'
+                        required:
+                        - nom
+                        - prenom
+                        - sexe
+                        - date_naissance
+                      module_elementaire_formation:
+                        title: Module élémentaire de formation (MEF)
+                        description: Libellé et code du module élémentaire de formation
+                          (MEF)
+                        type: object
+                        properties:
+                          code_mef_stat:
+                            title: Code MEF
+                            description: Code Mef Stat 11, selon la BCN
+                            type: string
+                            example: '211324099991'
+                            nullable: true
+                          libelle:
+                            title: Libéllé long, selon la BCN
+                            description: Libellé long, selon la BCN
+                            type: string
+                            example: 1CAP1 STAFFEUR ORNEMANISTE
+                            nullable: true
+                        required:
+                        - code_mef_stat
+                        - libelle
+                      etablissement:
+                        title: Établissement d'études
+                        description: Les informations relatives à l'établissement
+                        type: object
+                        properties:
+                          code_uai:
+                            title: Code UAI de l'établissement
+                            description: |
+                              Code d'unité administrative immatriculée (code UAI) de l'établissement où est scolarisé l'élève. Ce code unique inscrit au répertoire national des établissements est composé de 7 chiffres et d'une lettre ; les trois premiers chiffres correspondent au numéro de département de l'établissement.
+
+                              Pour retrouver le nom de l'établissement, vous pouvez utiliser l'[API "Annuaire de l'éducation nationale"](https://api.gouv.fr/les-api/api-annuaire-education) ou le site https://annuaire-education.fr.
+                            type: string
+                            pattern: "^\\d{7}\\w$"
+                            example: 0210015C
+                          code_ministere_tutelle:
+                            title: Code de l'établissement auprès du ministère de
+                              tutelle
+                            description: Code ministère de tutelle principale composé
+                              de 2 chiffres, selon la BCN
+                            type: string
+                            example: '06'
+                            nullable: true
+                        required:
+                        - code_uai
+                        - code_ministere_tutelle
+                      annee_scolaire:
+                        title: Année scolaire
+                        description: Année scolaire de l'élève au format AAAA-AAAA.
+                        type: string
+                        pattern: "^\\d{4}$|^\\d{4}-\\d{4}$"
+                        example: 2022-2023
+                      est_scolarise:
+                        title: Est scolarisé
+                        description: Indique si l'élève est scolarisé dans un établissement.
+                        type: boolean
+                        example: true
+                      statut_eleve:
+                        title: Statut de l'élève
+                        description: |
+                          Indique le statut sous lequel l'élève est scolarisé dans l'établissement. Les valeurs sont susceptibles d'évoluer :
+
+                          - ST : Scolaire, il s'agit du statut de base renvoyé pour près de 95% des élèves.
+                          - AP : Apprenti
+                          - CQ : Contrat de qualification
+                          - FC : Formation continue
+                          - ED : Enseignement à distance
+                          - IN : Candidat individuel
+                          - FQ : Stagiaire de la formation Professionnelle
+                          - SC : Scolaire ou formation initiale
+                          - CP : Contrat de professionnalisation.
+                          - NC : Non connu ou non communiqué.
+                        type: object
+                        properties:
+                          code:
+                            title: Code
+                            description: Code du statut sous lequel l'élève est scolarisé
+                              dans l'établissement.
+                            type: string
+                            example: ST
+                          libelle:
+                            title: Libellé
+                            description: Libellé du statut sous lequel l'élève est
+                              scolarisé dans l'établissement.
+                            type: string
+                            example: SCOLAIRE
+                        required:
+                        - code
+                        - libelle
+                      est_boursier:
+                        description: |
+                          Indique si l'élève est boursier dans l'établissement. Les bourses concernent uniquement les élèves des collèges et lycées.
+
+                          ⚠️ Si le statut boursier est à "false" avant mi-octobre, cela ne signifie pas forcément que l'élève n'est pas boursier. Il peut s'agir d'un faux négatif lié à une absence de l'information en base. Pour en savoir plus consulter la fiche métier : https://particulier.api.gouv.fr/catalogue/education_nationale/statut_eleve_scolarise#faq_entry_answer_1_api_particulier_endpoint_education_nationale_statut_eleve_scolarise.
+
+                          Ce champs prend la valeur null lorsque l'on ne sait pas si l'élève est boursier ou non
+                        type: boolean
+                        example: true
+                        nullable: false
+                      echelon_bourse:
+                        description: |
+                          Indique l'échelon de la bourse de l'élève. Est à "null" quand "est_boursier" est "false". Les bourses concernent uniquement les élèves des collèges et lycées.
+
+                          Il existe trois échelons de bourses pour les collégiens (1 à 3) et six échelons pour les lycéens (1 à 6), correspondant aux montants reçus par l'élève pour l'année scolaire. Pour en savoir plus, consulter la FAQ : https://particulier.api.gouv.fr/catalogue/education_nationale/statut_eleve_scolarise#faq_entry_answer_2_api_particulier_endpoint_education_nationale_statut_eleve_scolarise"
+                        type: integer
+                        example: 1
+                        nullable: true
+                        enum:
+                        -
+                        - 1
+                        - 2
+                        - 3
+                        - 4
+                        - 5
+                        - 6
+                    required:
+                    - identite
+                    - module_elementaire_formation
+                    - etablissement
+                    - annee_scolaire
+                    - est_scolarise
+                    - statut_eleve
+                    - est_boursier
+                    - echelon_bourse
+                    additionalProperties: false
+                  links:
+                    type: object
+                  meta:
+                    type: object
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          description: Non trouvee par perimetre
+          content:
+            application/json:
+              examples:
+                entite_non_trouvee_30003:
+                  value:
+                    errors:
+                    - code: '30003'
+                      title: Entité non trouvée
+                      detail: Aucun eleve n'a pu etre trouve avec les criteres de
+                        recherche fournis
+                      source:
+                      meta:
+                        provider: MEN
+                  summary: Entité non trouvée
+                  description: Aucun eleve n'a pu etre trouve avec les criteres de
+                    recherche fournis
+              schema:
+                "$ref": "#/components/schemas/Error"
         '422':
           description: Paramètre(s) invalide(s)
           content:
             application/json:
               examples:
+                unprocessable_content_error_code_etablissement_et_perimetre_error:
+                  value:
+                    errors:
+                    - code: '00419'
+                      title: Entité non traitable
+                      detail: Les paramètres codeEtablissement et périmètre (codesBcnRegions/codesBcnDepartements)
+                        sont mutuellement exclusifs
+                      source:
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Les paramètres codeEtablissement et périmètre (codesBcnRegions/codesBcnDepartements)
+                    sont mutuellement exclusifs
                 missing_mandatory_params_recipient_error:
                   value:
                     errors:
@@ -12382,6 +12880,108 @@ paths:
                       meta: {}
                   summary: Entité non traitable
                   description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '502':
+          description: Erreur du fournisseur
+          content:
+            application/json:
+              examples:
+                provider_unknown_error:
+                  value:
+                    errors:
+                    - code: '30999'
+                      title: Erreur inconnue du fournisseur de données
+                      detail: La réponse retournée par le fournisseur de données est
+                        invalide et inconnue de notre service. L'équipe technique
+                        a été notifiée de cette erreur pour investigation.
+                      source:
+                      meta:
+                        provider: MEN
+                  summary: Erreur inconnue du fournisseur de données
+                  description: La réponse retournée par le fournisseur de données
+                    est invalide et inconnue de notre service. L'équipe technique
+                    a été notifiée de cette erreur pour investigation.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '504':
+          description: Erreur d'intermédiaire
+          content:
+            application/json:
+              examples:
+                timeout_error:
+                  value:
+                    errors:
+                    - code: '30002'
+                      title: Intermédiaire hors-délai
+                      detail: Temps d’attente d’une réponse du fournisseur de données
+                        écoulé.
+                      source:
+                      meta:
+                        provider: MEN
+                  summary: Intermédiaire hors-délai
+                  description: Temps d’attente d’une réponse du fournisseur de données
+                    écoulé.
+                provider_unavailable_error:
+                  value:
+                    errors:
+                    - code: '30001'
+                      title: Service non disponible
+                      detail: Service du fournisseur de données temporairement indisponible
+                        ou en maintenance.
+                      source:
+                      meta:
+                        provider: MEN
+                  summary: Service non disponible
+                  description: Service du fournisseur de données temporairement indisponible
+                    ou en maintenance.
+                network_error:
+                  value:
+                    errors:
+                    - code: '00501'
+                      title: Erreur réseau
+                      detail: Problème de connexion au serveur distant. L'erreur peut
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
+                      source:
+                      meta:
+                        retry_in: 10
+                  summary: Erreur réseau
+                  description: Problème de connexion au serveur distant. L'erreur
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
+                dns_resolution_error:
+                  value:
+                    errors:
+                    - code: '30004'
+                      title: Erreur de résolution DNS
+                      detail: Problème de résolution DNS de l'adresse du serveur
+                      source:
+                      meta:
+                        provider: MEN
+                  summary: Erreur de résolution DNS
+                  description: Problème de résolution DNS de l'adresse du serveur
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
               schema:
                 "$ref": "#/components/schemas/Error"
   "/v3/mesri/statut_etudiant/identite":
