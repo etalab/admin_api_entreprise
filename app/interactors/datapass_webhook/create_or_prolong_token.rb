@@ -45,7 +45,9 @@ class DatapassWebhook::CreateOrProlongToken < ApplicationInteractor
   end
 
   def affect_scopes(token)
-    token.update!(scopes:)
+    computed_scopes = scopes
+    token.update!(scopes: computed_scopes)
+    authorization_request.update!(scopes: computed_scopes)
   end
 
   def token_already_exists?

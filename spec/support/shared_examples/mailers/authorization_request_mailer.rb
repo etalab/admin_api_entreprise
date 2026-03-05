@@ -38,7 +38,7 @@ RSpec.shared_examples 'an authorization request mailer' do |options = {}|
       end
 
       describe 'when there is a token' do
-        let(:authorization_request) { create(:authorization_request, :with_all_contacts, :with_tokens) }
+        let(:authorization_request) { create(:authorization_request, :with_all_contacts, :with_tokens, scopes: ['entreprises']) }
 
         it 'display scopes' do
           expect(subject.html_part.decoded).to include('Cette habilitation donne accès aux API suivantes')

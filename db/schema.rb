@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_05_164936) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_05_000001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
   enable_extension "pg_catalog.plpgsql"
@@ -56,10 +56,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_05_164936) do
     t.datetime "last_update", precision: nil
     t.string "previous_external_id"
     t.uuid "public_id"
+    t.jsonb "scopes", default: [], null: false
     t.string "siret"
     t.string "status"
     t.datetime "validated_at", precision: nil
     t.index ["external_id"], name: "index_authorization_requests_on_external_id", unique: true, where: "(external_id IS NOT NULL)"
+    t.index ["scopes"], name: "index_authorization_requests_on_scopes", using: :gin
   end
 
   create_table "editors", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

@@ -31,6 +31,7 @@ RSpec.describe DatapassWebhook::ExtractMailjetVariables, type: :interactor do
 
     before do
       token.update!(scopes: %w[entreprises liasse_fiscale])
+      authorization_request.update!(scopes: %w[entreprises liasse_fiscale])
     end
 
     it 'sets token_scopes with these values' do

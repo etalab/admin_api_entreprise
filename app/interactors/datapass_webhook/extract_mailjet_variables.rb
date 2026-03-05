@@ -48,7 +48,7 @@ class DatapassWebhook::ExtractMailjetVariables < ApplicationInteractor
   end
 
   def token_roles
-    @token_roles ||= authorization_request.token.scopes
+    @token_roles ||= authorization_request.scopes
   end
 
   def events_from_instructor

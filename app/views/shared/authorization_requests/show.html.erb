@@ -16,7 +16,7 @@
           <div class="fr-mb-2v">
             <div class="fr-container fr-p-4v" style="background-color: var(--custom-lightest-blue-light)">
               <div class="fr-grid-row fr-grid-row--gutters fr-mb-3w">
-                <% build_scopes(@authorization_request.token.scopes, namespace == 'api_entreprise' ? 'entreprise' : 'particulier').each_pair do |key, values| %>
+                <% build_scopes(@authorization_request.scopes, namespace == 'api_entreprise' ? 'entreprise' : 'particulier').each_pair do |key, values| %>
                   <div class="fr-col">
                     <div class="fr-card">
                       <div class="fr-card__body">

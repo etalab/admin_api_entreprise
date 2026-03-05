@@ -240,6 +240,8 @@ class Seeds
         )
     )
 
+    authorization_request.update!(scopes:)
+
     create_access_logs_for_token(token) unless AccessLog.new.readonly?
 
     token

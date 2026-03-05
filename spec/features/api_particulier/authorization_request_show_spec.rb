@@ -102,7 +102,8 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
             :with_demandeur,
             demandeur: authenticated_user,
             api: 'particulier',
-            status:
+            status:,
+            scopes:
           )
         end
 
@@ -205,7 +206,8 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
                 demandeur: non_authenticated_user,
                 contact_technique: authenticated_user,
                 api: 'particulier',
-                status:
+                status:,
+                scopes:
               )
             end
 
@@ -278,7 +280,8 @@ RSpec.describe 'displays show of authorization request', app: :api_particulier d
                 contact_metier: authenticated_user,
                 contact_technique: non_authenticated_user,
                 api: 'particulier',
-                status:
+                status:,
+                scopes:
               )
             end
 
