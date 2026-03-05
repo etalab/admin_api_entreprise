@@ -23,5 +23,12 @@
         <%= t('.contacts') %>
       </a >
     </li>
+    <% if @active_delegations.any? || @available_editors.any? %>
+      <li class="fr-summary__item">
+        <a class="fr-summary__link" id="habilitation_delegations_link" href="#habilitation_delegations" target="_self">
+          <%= t('.delegations') %>
+        </a>
+      </li>
+    <% end %>
   </ol>
 </nav>

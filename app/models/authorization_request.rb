@@ -31,6 +31,15 @@ class AuthorizationRequest < ApplicationRecord
     class_name: 'AuthorizationRequestSecuritySettings',
     dependent: :destroy
 
+  has_many :editor_delegations,
+    dependent: :destroy
+  has_many :editors,
+    through: :editor_delegations
+
+  def available_editors_for_delegation
+    Editor.delegable.where.not(id: editor_delegations.active.select(:editor_id))
+  end
+
   validates :external_id, uniqueness: true, allow_blank: true
 
   validates :api, inclusion: { in: %w[entreprise particulier] }

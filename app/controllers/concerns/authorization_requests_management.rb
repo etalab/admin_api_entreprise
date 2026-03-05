@@ -5,6 +5,7 @@ module AuthorizationRequestsManagement
     @authorization_request = extract_authorization_request
     @main_token = @authorization_request.token.decorate
     @other_tokens = @authorization_request.tokens.where.not(id: @main_token.id).decorate
+    load_delegations_data
 
     render 'shared/authorization_requests/show'
   rescue ActiveRecord::RecordNotFound
@@ -27,6 +28,11 @@ module AuthorizationRequestsManagement
   end
 
   private
+
+  def load_delegations_data
+    @active_delegations = @authorization_request.editor_delegations.active.includes(:editor)
+    @available_editors = @authorization_request.available_editors_for_delegation
+  end
 
   def extract_authorization_request
     current_user

@@ -176,4 +176,34 @@ RSpec.describe AuthorizationRequest do
       it { is_expected.to include(*archived_authorization_request) }
     end
   end
+
+  describe '#available_editors_for_delegation' do
+    subject { authorization_request.available_editors_for_delegation }
+
+    let(:authorization_request) { create(:authorization_request) }
+    let!(:delegable_editor) { create(:editor, :delegable) }
+    let!(:non_delegable_editor) { create(:editor) }
+
+    context 'without any delegation' do
+      it 'returns all delegable editors' do
+        expect(subject).to contain_exactly(delegable_editor)
+      end
+    end
+
+    context 'with an active delegation' do
+      before { create(:editor_delegation, editor: delegable_editor, authorization_request:) }
+
+      it 'excludes the already delegated editor' do
+        expect(subject).to be_empty
+      end
+    end
+
+    context 'with a revoked delegation' do
+      before { create(:editor_delegation, editor: delegable_editor, authorization_request:, revoked_at: 1.day.ago) }
+
+      it 'includes the editor again' do
+        expect(subject).to contain_exactly(delegable_editor)
+      end
+    end
+  end
 end

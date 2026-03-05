@@ -47,6 +47,9 @@ constraints(APIParticulierDomainConstraint.new) do
     get '/compte/demandes', to: 'authorization_requests#index', as: :authorization_requests
     get '/compte/demandes/:id', to: 'authorization_requests#show', as: :authorization_request
 
+    post '/compte/demandes/:authorization_request_id/delegations', to: 'delegations#create', as: :authorization_request_delegations
+    delete '/compte/demandes/:authorization_request_id/delegations/:id', to: 'delegations#destroy', as: :authorization_request_delegation
+
     get '/compte/jetons/:id/prolonger', to: 'tokens#prolong', as: :token_prolong
     get '/compte/jetons/:id/partager', to: 'transfer_tokens#new', as: :token_transfer
     get '/compte/jetons/:id', to: 'tokens#show', as: :token
