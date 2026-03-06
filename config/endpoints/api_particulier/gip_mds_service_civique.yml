@@ -1,0 +1,177 @@
+---
+- uid: 'mds/service_civique'
+  opening: protected
+  novelty: true
+  path: ''
+  ping_url: ''
+  position: 
+  perimeter:
+    entity_type_description: |+
+      Cette API concerne tous les jeunes, quelle que soit leur nationalité, ayant signé un contrat agréé par l'Agence service civique :
+      - ✅ actuellement engagés dans une mission de service civique et donc âgés de 16 à 25 ans, ou jusqu’à 30 ans pour les jeunes en situation de handicap ;
+      - ✅ ayant effectué une mission de service civique lors des cinq dernières années.
+      Tous les contrats enregistrés par les structures agréées par l’Agence du service civique, qu’elles soient publiques ou associatives, sont inclus dans le périmètre.
+
+      **Ne sont pas concernés par cette API :**
+       - ❌ les jeunes ayant effectué une mission de service civique il y a plus de 5 ans ;
+       - ❌ les volontariats d’autres dispositifs (volontariat associatif, SNU, VSI, etc.).
+
+    geographical_scope_description: |+
+      - ✅ France métropolitaine ;
+      - ✅ Départements et Régions d’Outre-mer (DROM) ;
+      - ✅ Collectivités d’Outre-mer (COM) [à confirmer] ;
+      - ✅ les missions à l’étranger sous tutelle française [à confirmer].
+
+    updating_rules_description: |+
+      Les données proviennent des déclarations DSN (déclaration sociale nominative) réalisées par les employeurs chaque mois. L'API est opérée par le GIP MDS (modernisation des déclarations sociales). Elles sont :
+      - **mises à jour mensuelle au plus le 21 du mois** suivant la validation, modification ou clôture d’un contrat (m+1). Les données remontées au mois m correspondent donc à l'état du contrat au mois m-1 ;
+
+
+      ⚠️ **Les DSN étant déclarées le mois suivant le mois travaillé, si un jeune contractualise un contrat de service civique le mois M, l’API sera en mesure de remonter l’information à partir du mois M+1.**
+
+      L’API Service Civique ne remonte donc **que le statut du dernier mois clôturé** (M-1).\
+      Nous recommandons donc **de laisser la possibilité au jeune de téléverser un justificatif** si l'API remonte [mettre ici réponse de l'API si pas de contrat]
+      
+
+  data:
+    description: |+
+      Cette API permet de savoir si une personne :
+      - est actuellement engagée dans un contrat de service civique,
+      - a été engagée dans une mission de service civique lors des 5 dernières années.
+      Elle précise les date de début et de fin du contrat. La date de fin de contrat est prévisionnelle en cas de contrat en cours.
+
+
+  parameters_details:
+    description: |+
+      Cette API propose deux modalités d'appel&nbsp;:
+      <p class="fr-badge fr-badge--blue-ecume">![Cette API est FranceConnectée](<%= image_path('api_particulier/cas_usages/pictos/modalite_appel_france_connect.svg') %>){:width="20px"} FranceConnect</p>
+      **Avec la [modalité d'appel FranceConnect](<%= cas_usage_path('modalite_appel_france_connect') %>)**.
+
+      <p class="fr-badge fr-badge--brown-cafe-creme">Identité pivot</p>
+      <section class="fr-accordion fr-mt-2v">
+      <p class="fr-accordion__title">
+      <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-106"><b>Avec les données d'identité</b></button>
+      </p>
+      <div class="fr-collapse" id="accordion-106">
+      <div class="fr-mb-0">
+      <ul>
+      <li>Nom de naissance<sup>*</sup>, nom d'usage, prénoms<sup>*</sup>, sexe<sup>*</sup>, date de naissance de l'allocataire<sup>**</sup>&nbsp;;</li>
+      <li>Lieu de naissance&nbsp;:
+      <ul>
+      <li>
+      <em>Si le lieu de naissance est en France,</em> la commune de naissance est obligatoire, elle peut être saisie de deux façons différentes :
+      <ul>
+      <li class="fr-text--sm fr-mb-0">
+      Option 1 : Code COG de la commune de naissance<sup>*</sup>. <a href="#renseigner-lieu-de-naissance">En savoir plus</a>&nbsp;;
+      </li>
+      <li class="fr-text--sm fr-mb-0">
+      Option 2 : Nom de la commune de naissance<sup>*</sup> et code du département de naissance<sup>*</sup>. Pour cette option, la date de naissance est obligatoire. <a href="#renseigner-lieu-de-naissance">En savoir plus</a>.
+      </li>
+      </ul>
+      Pour chacune des deux options ci-dessus, le code COG de la France <code>99100</code><sup>*</sup> doit également être renseigné en paramètre d'appel. Vous n'avez pas besoin de le demander à l'usager, il peut être déduit de la commune de naissance.
+      </li>
+      <li class="fr-mt-2v">
+      <em>Si le lieu de naissance est à l'étranger&nbsp;:</em> code COG du pays de naissance<sup>*</sup>.
+      </li>
+      </ul>
+      </li>
+      </ul>
+      </div>
+      <span class="fr-text--xs">
+      <sup>*</sup> Obligatoire | <sup>**</sup> Obligatoire pour l'option 2 du lieu de naissance.
+      </span>
+      <span class="fr-text--xs fr-m-0">
+      <sup>1</sup> Fournir plusieurs prénoms permet de limiter les risques d'homonymie mais un seul prénom peut fonctionner. Attention, l'usager doit compléter chaque prénom dans un champ distinct.
+      </span>
+      <blockquote class="fr-highlight fr-highlight--caution">
+      ⚠️ <strong>Message API Particulier du 04.06.2024</strong> : Nous avons constaté que les appels effectués sans nom de naissance et <strong>avec le nom d'usage ne fonctionnent pas</strong> dans une très grande partie des cas. API Particulier a donc décidé de passer le paramètre "Nom de naissance" en obligatoire.
+      </blockquote>
+      </div>
+      </section>
+
+      ##### Comment interroger l'API
+
+      - Si l’appel vers l'API est réalisé sans renseigner les paramètres d’appel « date début période » et « date fin période », alors l'API retourne les contrats en cours au moment de l’appel ;
+      - Si ces deux paramètres sont renseignés, alors l'API retourne les contrats ayant au moins 1 jour d’activité sur la période demandée ;
+      - Si seule la date de début a été renseignée, alors l'API retourne les contrats ayant au moins 1 jour d’activité à partir de cette date, même si le contrat a démarré avant la date renseignée ;
+      - Si seule la date de fin a été renseignée, alors l'API retourne les contrats ayant au moins 1 jour d’activité avant cette date, même si le contrat se termine après avant la date renseignée.
+
+
+  provider_uids:
+    - 'gip_mds'
+  call_id: 
+    - Identité pivot
+    - FranceConnect
+  parameters:
+    - Identité pivot
+    - FranceConnect
+  keywords:
+    - service civique
+    - jeune
+    - engagement
+    - contrat
+
+  faq:
+    - q: <a name="obligations-service-national"></a>Quelles sont les obligations attendues par le Service national ?
+      a: |+
+        **Le Service national est composé de deux obligations** :
+        - le rencensement ;
+        - la participation à la journée défense et citoyenneté. 
+
+        **Ces obligations diffèrent selon l'âge du jeune** : 
+        - entre 16 et 18 ans, le jeune est considéré comme en règle du Service national lorsqu'il a effectué son recensement.
+        - entre 18 et 25 ans, le jeune doit avoir effectué son recensement ET participé à la journée de défense et citoyenneté pour être considéré comme en règle du Service national.
+
+        [Plus d'informations sur service-public.fr](https://www.service-public.fr/particuliers/vosdroits/N24)
+
+
+        {:.fr-highlight.fr-highlight--example}
+        > **Exemple avec Thomas**
+        > Thomas a 17 ans, il a effectué son recensement il y a déjà 1 an. Il est en règle.
+        >
+        > Quelques mois plus tard, Thomas a 18 ans et il n'a pas encore effectué sa journée de défense et citoyenneté. Il n'est plus en règle vis à vis du Service national.
+        >
+        > Quelques mois plus tard, Thomas a réalisé sa JDD, il est alors à nouveau en règle.
+        
+
+        {:.fr-highlight.fr-highlight--caution}
+        > **Le statut renvoyé par l'API n'est pas toujours représentatif de la situation réelle du jeune** en raison du délai de mise à jour du recensement.[En savoir plus](#faux-negatifs-api-dsnj).
+        
+    - q: <a name="faux-negatifs-api-dsnj"></a> Pourquoi l'API peut indiquer qu'un jeune n'est pas en règle alors qu'il l'est ?
+      a: |+
+        Pour qu'un jeune soit considéré comme en règle de son Service national, il doit avoir effectué son recensement dès 16 ans, et effectué sa journée défense et citoyenneté dès 18 ans. [En savoir plus sur les obligations du Service national](#obligations-service-national).
+
+        Cette API renvoie donc le statut en règle vis à vis du Service national lorsque les obligations, selon l'âge du jeune, sont remplies.
+
+        **Cependant, la DSNJ et par conséquent cette API, sont informées du recensement seulement trimestriellement**, car cette information n'est communiquée par les communes que tous les 3 mois.
+
+        **Par conséquent**, dans certains cas, notamment pour les jeunes ayant moins de 18 ans et pour lesquels le recensement est l'unique obligation vis à vis du Service national, **l'API peut parfois indiquer que le jeune n'est pas en règle, alors qu'il l'est**.
+
+        {:.fr-highlight.fr-highlight--example}
+        > **Exemple avec Thomas**
+        > Thomas a 17 ans, il a effectué son recensement en janvier. Il est en règle vis à vis du Service national.
+        > Il se présente pour un concours en mars. Au moment de l'inscription, **l'API indique qu'il n'est pas en règle** _car l'information de son recensement n'a pas encore été transmise par sa commune à la DSNJ_. 
+        > Heureusement, tout se passe bien parce qu'il a pu tout de même transmettre par lui-même son justificatif.
+        >
+        > Quelques mois plus tard, en mai, cette fois-ci, l'API renvoie bien le statut en règle.
+        >
+        > Un an plus tard, Thomas a 18 ans, il vient de réaliser sa journée défense et citoyenneté. Il postule pour un emploi de la fonction publique et n'a pas besoin de transmettre son justificatif car l'API est déjà à jour et a bien indiqué qu'il était en règle du Service national. En effet, la transmission de la participation à la JDD est effectuée en temps réel vers l'API.
+
+        Les faux négatifs en raison du délai de transmission du recensement se présentent surtout pour les jeunes de moins de 18 ans. Pour les majeurs, le délai d'inscription à la JDD dépasse de toute façon régulièrement les 3 mois et implique qu'ils ne sont pas en règle durant cette période.
+
+        {:.fr-highlight}
+        > **💡 Toujours permettre à l'usager de transmettre un justificatif**
+        > Dans tous les cas, quelles que soient les API utilisées, nous vous recommandons de toujours permettre à l'usager de pouvoir justifier par lui-même de sa situation. 
+        > Ici, permettre à l'usager de transmettre son justificatif de Service national.
+        
+    - q: <a name="faq-pourquoi-etre-en-regle"></a> Pourquoi un jeune doit être en règle vis à vis du Service national ? 
+      a: |+
+        **Un jeune entre 16 et 25 ans doit être en règle vis à vis du Service national** s'il souhaite : 
+        - passer des examens sous contrôle de l'autorité publique comme le permis de conduire ;
+        - passer des concours sous contrôle de l'autorité publique, pour rentrer dans un établissement public de l'enseignement supérieur par exemple ;
+        - postuler à un emploi de la fonction publique qui demande d'être en règle vis à vis du Service national. 
+        [Plus d'informations](https://www.data.gouv.fr/fr/dataservices/api-service-national/)
+
+    - q: Une personne qui a une dérogation de faire la journée défense et citoyenneté, pour cause médicale par exemple, est elle remontée comme étant en règle ? 
+      a: |+
+        **Un jeune exempté de la JDC apparaîtra comme étant en règle dans l'API**.
