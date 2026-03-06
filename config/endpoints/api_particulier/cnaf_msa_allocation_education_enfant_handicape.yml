@@ -1,7 +1,7 @@
 ---
 - uid: 'cnav/aeeh'
   opening: protected
-  path: '/v3/dss//identite'
+  path: '/v3/dss/allocation_enfant_handicape/identite'
   ping_url: https://particulier.api.gouv.fr/api/cnav_allocation_enfant_handicape/ping
   position: 501
   perimeter:
@@ -26,8 +26,8 @@
       Cette API, opérée par la caisse nationale d'assurance vieillesse (CNAV), est reliée au système d'information de la Caisse nationale des allocations familiales (CNAF) et à celui de la mutualité sociale agricole (MSA).
 
       **Les données sont mises à jour** :
-      - Pour les allocataires CAF, lorsqu’une nouvelle décision AEEH est enregistrée dans le système d’information de la CAF, les données sont mises à jour immédiatement. 
-       
+      - Pour les allocataires CAF, lorsqu’une nouvelle décision AEEH est enregistrée dans le système d’information de la CAF, les données sont mises à jour immédiatement.
+
 
   data:
     description: |+
@@ -129,7 +129,7 @@
     - q: Dans le cas d’une famille recomposée, les enfants des deux parents sont-ils remontés sur un même compte ?
       a: |+
         L'enfant sera uniquement rattaché au parent qui en a la charge. Dans le cas d'une situation de résidence alternée, l'allocation apparaîtra uniquement sur le compte du parent qui bénéficie de toutes les prestations ou, si aucun des deux n'était allocataire avant la séparation, au premier qui en fait la demande. Les conditions pour bénéficier d'un complément AEEH doivent être remplies par l'allocataire qui a la charge de l'enfant. 
-    
+
     - q: <a name="renseigner-lieu-de-naissance"></a> Appel avec l'identité pivot, comment renseigner le lieu de naissance ?
       a: |+
        Lorsque l'API est appelée avec l'identité pivot, pour identifier correctement le particulier, le système d'information a besoin de récupérer le lieu de naissance du particulier.
