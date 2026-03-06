@@ -6,5 +6,9 @@ FactoryBot.define do
         'umad-editor'
       ]
     end
+
+    trait :delegable do
+      delegations_enabled { true }
+    end
   end
 end

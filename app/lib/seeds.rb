@@ -13,6 +13,7 @@ class Seeds
     create_data_for_api_entreprise
     create_data_for_api_particulier
     create_data_shared
+    create_editor_delegations
     create_audit_notifications
   end
 
@@ -75,16 +76,22 @@ class Seeds
   end
 
   def create_editor
-    editor = Editor.create!(
+    @editor = Editor.create!(
       name: 'UMAD Corp',
       form_uids: %w[umadcorp-form-api-entreprise umadcorp-form-api-particulier],
-      copy_token: true
+      copy_token: true,
+      delegations_enabled: true
     )
     create_user(
       email: 'editeur@yopmail.com',
       first_name: 'Edouard',
       last_name: 'Lefevre',
-      editor: editor
+      editor: @editor
+    )
+
+    Editor.create!(
+      name: 'Basic Editor',
+      form_uids: %w[basic-editor-form]
     )
   end
 
@@ -111,6 +118,11 @@ class Seeds
       first_name: 'Admin',
       last_name: 'API Particulier'
     )
+  end
+
+  def create_editor_delegations
+    ar = AuthorizationRequest.find_by(demarche: 'umadcorp-form-api-entreprise')
+    EditorDelegation.create!(editor: @editor, authorization_request: ar) if ar
   end
 
   def create_magic_link

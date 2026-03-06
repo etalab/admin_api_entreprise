@@ -14,6 +14,13 @@ fr:
   time: *datetime_format
 
   concerns:
+    delegations_management:
+      create:
+        success:
+          title: Délégation ajoutée
+      destroy:
+        success:
+          title: Délégation révoquée
     sessions_management:
       login:
         error:
@@ -378,6 +385,7 @@ fr:
         active_tokens: Jetons
         attestations: Attestation sociales et fiscales
         contacts: Contacts
+        delegations: Délégations
       status:
         color:
           refused: pink-tuile
@@ -425,6 +433,17 @@ fr:
           contact_metier:
             title: "Contact metier&nbsp;:"
           its_me: "✋ C'est moi !"
+        delegations:
+          title: "Délégations&nbsp;:"
+          description: "Vous pouvez déléguer votre habilitation à un éditeur de logiciel. Celui-ci pourra alors interagir avec l'API au travers de votre demande en utilisant ses propres accès."
+          editor: Éditeur
+          status: Statut
+          actions: Actions
+          status_active: Actif
+          revoke: Révoquer
+          add_label: Ajouter une délégation
+          select_prompt: Sélectionner un éditeur
+          add_submit: Ajouter
     pages:
       redoc:
         title: "Swagger 📟"
@@ -463,6 +482,18 @@ fr:
       description: "Restez informés des dernières API disponibles, des nouvelles fonctionnalités et évolutions techniques, ou encore des opérations de maintenance et incidents."
       button: "S'abonner"
 
+  editor:
+    delegations:
+      index:
+        title: Délégations
+        table:
+          datapass_id: DataPass ID
+          intitule: Intitulé
+          organization: Organisation
+          demandeur: Demandeur
+          status: Statut
+        status_active: Actif
+        status_revoked: Révoqué
   provider:
     dashboard:
       show:

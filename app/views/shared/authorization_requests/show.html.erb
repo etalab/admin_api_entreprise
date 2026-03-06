@@ -263,6 +263,62 @@
             </div>
           </div>
         </section>
+
+        <% if @active_delegations.any? || @available_editors.any? %>
+          <section id="habilitation_delegations" class="fr-pb-8v">
+            <h2 class="fr-h3 fr-mb-2v">
+              <%= t('.delegations.title').html_safe %>
+            </h2>
+            <p class="fr-mb-2w">
+              <%= t('.delegations.description') %>
+            </p>
+
+            <% if @active_delegations.any? %>
+              <div class="fr-table fr-table--bordered fr-table--layout-fixed">
+                <div class="fr-table__wrapper">
+                  <div class="fr-table__container">
+                    <div class="fr-table__content">
+                      <table>
+                        <caption class="fr-sr-only"><%= t('.delegations.title').html_safe %></caption>
+                        <thead>
+                          <tr>
+                            <th scope="col"><%= t('.delegations.editor') %></th>
+                            <th scope="col"><%= t('.delegations.status') %></th>
+                            <th scope="col"><%= t('.delegations.actions') %></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% @active_delegations.each do |delegation| %>
+                            <tr id="<%= dom_id(delegation) %>" class="delegation">
+                              <td><%= delegation.editor.name %></td>
+                              <td>
+                                <p class="fr-badge fr-badge--green-emeraude"><%= t('.delegations.status_active') %></p>
+                              </td>
+                              <td>
+                                <%= button_to t('.delegations.revoke'), authorization_request_delegation_path(@authorization_request, delegation), method: :delete, class: 'fr-btn fr-btn--secondary' %>
+                              </td>
+                            </tr>
+                          <% end %>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+
+            <% if @available_editors.any? %>
+              <%= form_with url: authorization_request_delegations_path(@authorization_request), method: :post, class: 'fr-mt-2w' do |f| %>
+                <div class="fr-select-group">
+                  <%= f.label :editor_id, t('.delegations.add_label'), class: 'fr-label' %>
+                  <%= f.select :editor_id, @available_editors.map { |e| [e.name, e.id] }, { prompt: t('.delegations.select_prompt') }, class: 'fr-select' %>
+                </div>
+                <%= f.submit t('.delegations.add_submit'), class: 'fr-btn fr-mt-1w' %>
+              <% end %>
+            <% end %>
+          </section>
+        <% end %>
+
       </article>
     </div>
   </div>

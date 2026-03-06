@@ -39,5 +39,15 @@ RSpec.describe 'Admin: editors', app: :api_entreprise do
 
       expect(page).to have_css('.fr-alert.fr-alert--success')
     end
+
+    it 'allows toggling delegations_enabled' do
+      visit edit_admin_editor_path(editor)
+
+      check 'editor_delegations_enabled'
+      click_on 'Sauvegarder'
+
+      expect(editor.reload.delegations_enabled).to be true
+      expect(page).to have_css('.fr-alert.fr-alert--success')
+    end
   end
 end

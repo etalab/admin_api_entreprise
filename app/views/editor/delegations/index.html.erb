@@ -1,0 +1,50 @@
+<div class="fr-table fr-table--bordered fr-table--layout-fixed">
+  <div class="fr-table__wrapper">
+    <div class="fr-table__container">
+      <div class="fr-table__content">
+        <table>
+          <caption>
+            <%= t('.title') %>
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col"><%= t('.table.datapass_id') %></th>
+              <th scope="col"><%= t('.table.intitule') %></th>
+              <th scope="col"><%= t('.table.organization') %></th>
+              <th scope="col"><%= t('.table.demandeur') %></th>
+              <th scope="col"><%= t('.table.status') %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @delegations.each do |delegation| %>
+              <% ar = delegation.authorization_request %>
+              <tr id="<%= dom_id(delegation) %>" class="delegation">
+                <td>
+                  <%= link_to "DataPass ##{ar.external_id}", "#{datapass_v2_base_url(ar.api)}/public/demandes/#{ar.public_id}", target: '_blank' %>
+                </td>
+                <td><%= ar.intitule %></td>
+                <td>
+                  <% if ar.organization %>
+                    <%= ar.organization.denomination %> (<%= ar.siret %>)
+                  <% elsif ar.siret.present? %>
+                    <%= ar.siret %>
+                  <% end %>
+                </td>
+                <td><%= ar.demandeur&.email %></td>
+                <td>
+                  <% if delegation.revoked_at.present? %>
+                    <p class="fr-badge fr-badge--pink-tuile"><%= t('.status_revoked') %></p>
+                  <% else %>
+                    <p class="fr-badge fr-badge--green-emeraude"><%= t('.status_active') %></p>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= paginate @delegations %>
