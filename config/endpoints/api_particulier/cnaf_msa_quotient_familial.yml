@@ -38,13 +38,16 @@
       > 💡 Pour les collectivités effectuant une mise à jour annuelle des ressources en janvier, les appels doivent donc être effectués en février car c'est en février que le calcul intègre les ressources de janvier. 
   data:
     description: |+
-      **Cette API délivre** :
-      - **la composition familiale** du particulier, [en savoir plus](#composition-familiale) ;
-      - **le quotient familial CAF ou MSA** du particulier. Par défaut, le quotient familial du **mois en cours (M)** est transmis. Le QF de l'allocataire est disponible pour les 24 mois précédents en précisant le mois et l'année dans l'appel. [Sa valeur peut varier au cours du temps](#variation-qf) suite à un recalcul  ;
-      - **l'adresse** du particulier au format de La Poste. ⚠️ Cette adresse est déclarative. Si l'usager a changé d'adresse et n'a pas actualisé son adresse auprès de la CAF ou de la MSA, l'information sera donc obsolète.
+      **Cette API délivre les données suivantes du mois en cours** :
+      - **la [composition familiale](#composition-familiale)** du particulier : données d'identité de l'allocataire, du conjoint et des enfants ;
+      - **le quotient familial CAF ou MSA** du particulier.
+      - **l'adresse** du particulier au format de La Poste. ⚠️ _Cette adresse est déclarative. Si l'usager a changé d'adresse et n'a pas actualisé son adresse auprès de la CAF ou de la MSA, l'information sera donc obsolète._
 
-      {:.fr-highlight}
-      > Le quotient familial au sens de la CNAF ou de la MSA a une définition différente du quotient familial de l'administration fiscale, [en savoir plus](#difference-qf-caf-dgfip).
+      **Pour les allocataires CAF, un historique du QF :** 
+      _Spécifiquement pour les allocataires CAF_, le quotient familial des 24 mois précédents est disponible en précisant le mois et l'année dans l'appel. [La valeur du QF peut varier au cours du temps](#variation-qf) suite à un recalcul. ⚠️ _Il n'y a pas d'historique de la composition familiale. La liste des membres de la famille **est toujours** celle du mois en cours._
+
+      **Définition du quotient familial transmis:**
+      Le quotient familial au sens de la CNAF ou de la MSA a une définition différente du quotient familial de l'administration fiscale, [en savoir plus](#difference-qf-caf-dgfip).
 
       {:.fr-highlight.fr-highlight--caution}
       > **Le QF CNAF est calculé seulement pour les allocataires dont les ressources sont déclarées**. En effet, pour calculer le quotient familial, la CNAF collecte tous les mois auprès de la DGFIP les ressources de l'individu (revenus salariés et non-salariés, du capital, rentes ...). Elle récupère le bilan en fin d'année. Sans la réception de ces ressources, le QF CNAF ne peut être calculé : une erreur est renvoyée par l'API.
