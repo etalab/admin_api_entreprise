@@ -13,7 +13,6 @@
       - ✅ les retraités de la fonction publique d'État et des collectivités locales ;
       - ✅ les régimes spéciaux suivants : artiste-auteur-compositeur, France Télécom, industries électriques et gazières, marin du commerce et pêche, mines (régime général), poste, RATP, SNCF, navigation intérieure en cas d'accord local et les pensions des autres régimes.
 
-
       **Ne sont pas concernés par cette API**, les bénéficiaires des régimes suivants :
 
       - ❌ le régime des titulaires de l'Assemblée nationale et du Sénat ;
@@ -22,11 +21,12 @@
     geographical_scope_description:  |+
       - ✅ France métropolitaine
       - ✅ DROM COM
-      - ✅ Allocataires de nationalité étrangère résidant en France
+      - ✅ Allocataires de nationalité étrangère résidant en France, dont ceux disposant d’un numéro d’immatriculation en attente (NIA)
     updating_rules_description: |+
       Cette API, opérée par la caisse nationale d'assurance vieillesse (CNAV), est reliée au système d'information de la Caisse nationale des allocations familiales (CNAF) et à celui de la mutualité sociale agricole (MSA).
 
       **Les données sont mises à jour** :
+      - Pour les allocataires CAF, lorsqu’une nouvelle décision AEEH est enregistrée dans le système d’information de la CAF, les données sont mises à jour immédiatement. 
        
 
   data:
@@ -118,21 +118,6 @@
     - q: <a name="allocataire-ouvrantdroit"></a> Quelle différence entre l'allocataire et l'ouvrant droit ?
       a: |+
         Pour l’AEEH, **l’ouvrant-droit est l’enfant au titre duquel le droit est ouvert.L’allocataire est la personne qui perçoit la prestation**, généralement le parent ou représentant légal.
-        
-    - q: <a name="composition-familiale"></a> Quelle est la composition familiale renvoyée par cette API ?
-      a: |+
-        La notion de «&nbsp;composition familiale&nbsp;» peut correspondre à différentes définitions dans les administrations qui n'y comptent pas les mêmes personnes. _Par exemple, pour calculer l'impôt sur le revenu d'un foyer, le service des impôts s'intéresse à une composition familiale appelée «&nbsp;foyer fiscal&nbsp;»_, et dont la nature est différente de celle renvoyée par cette API.
-
-        **La composition familiale renvoyée par cette API correspond à celle établie pour ouvrir le droit à la prestation allocation d'éducation à l'enfant handicapé, et donc à celle déclarée par les allocataires à la CAF et à la MSA.**
-        Dans cette composition familiale, les personnes suivantes sont comprises :
-        - L'adulte allocataire de la CAF ou de la MSA ;
-        - Son ou sa conjointe le cas échéant ;
-        - le ou les enfants dont la responsabilité affective et éducative, les frais liés au logement, à la nourriture et à l'éducation, sont assumés par l'allocataire qui n'est pas obligé d'avoir un lien de parenté direct. Les enfants sont pris en compte dès la grossesse, jusqu'à 21 ans en métropole (22 dans les DROM) et sous les conditions détaillées dans [ce guide de la Caf](https://www.caf.fr/allocataires/aides-et-demarches/thematique-libre/les-enfants-charge){:target="_blank"}.
-
-        {:.fr-highlight.fr-highlight--example}
-        > **Cette notion d'enfant à charge est différente de celle retenue par l'administration fiscale** : par exemple, un enfant peut être toujours rattaché fiscalement à ses parents, mais ne plus faire partie de la composition familiale au sens de la CAF ou de la MSA.
-        > C'est le cas d'un enfant ayant quitté le foyer de ses parents et ayant ouvert son propre dossier d'allocataire pour bénéficier d'une aide (par exemple les APL ou le RSA), mais qui souhaite tout de même être rattaché à la déclaration fiscale de ses parents.
-        > _Cet enfant appartiendra au même foyer fiscal que ses parents au sens de l'administration fiscale, mais à une famille différente selon la CAF ou la MSA._
 
     - q: <a name="compte-parents"></a> Dans quels cas les deux parents sont-ils associés à un même compte ? S'ils le sont, peuvent-ils être rattachés à la MSA et à la CAF en même temps ?
       a: |+
@@ -140,12 +125,10 @@
         **Les parents qui sont associés à un même compte**, sont gérés par une seule caisse, la CAF ou la MSA. Le choix de la caisse de rattachement revient au couple. Toutefois, il y a quelques exceptions :
         - lorsqu’un couple est bénéficiaire du RSA avec un des membres du couple exploitant agricole ou aide familial, quelle que soit la situation du conjoint ou concubin, seule la MSA est compétente pour le RSA et les prestations familiales. Le couple sera donc affilié à la MSA ;
         - Si un des deux membres du couple relève de l’Assemblée nationale ou du Sénat, il doit être enregistré en tant que responsable dossier, afin d’éviter les doubles paiements.
+
     - q: Dans le cas d’une famille recomposée, les enfants des deux parents sont-ils remontés sur un même compte ?
       a: |+
-        L'enfant sera uniquement rattaché au parent qui en a la charge. Dans le cas d'une situation de résidence alternée qui induit un partage de la charge, l'enfant apparaitra sur les deux comptes uniquement si la "résidence alternée avec partage des allocations" est déclarée à la caisse d'allocation.
-    - q: Les enfants décédés sont-ils remontés par l’API ?
-      a: |+
-        Les enfants décédés ne sont plus considérés à charge le mois suivant le décès et ne sont donc plus remontés par l'API.
+        L'enfant sera uniquement rattaché au parent qui en a la charge. Dans le cas d'une situation de résidence alternée, l'allocation apparaîtra uniquement sur le compte du parent qui bénéficie de toutes les prestations ou, si aucun des deux n'était allocataire avant la séparation, au premier qui en fait la demande. Les conditions pour bénéficier d'un complément AEEH doivent être remplies par l'allocataire qui a la charge de l'enfant. 
     
     - q: <a name="renseigner-lieu-de-naissance"></a> Appel avec l'identité pivot, comment renseigner le lieu de naissance ?
       a: |+
