@@ -29,6 +29,7 @@ class Admin::EditorsController < AdminController
         name
         form_uids
         copy_token
+        delegations_enabled
       ]
     ).tap do |whitelisted|
       whitelisted[:form_uids] = (whitelisted[:form_uids] || '').split(',').map(&:strip)

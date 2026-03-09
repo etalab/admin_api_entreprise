@@ -29,6 +29,9 @@ constraints(APIEntrepriseDomainConstraint.new) do
     get '/compte/demandes/:id', to: 'authorization_requests#show', as: :authorization_request
     get '/compte/demandes', to: 'authorization_requests#index', as: :authorization_requests
 
+    post '/compte/demandes/:authorization_request_id/delegations', to: 'delegations#create', as: :authorization_request_delegations
+    delete '/compte/demandes/:authorization_request_id/delegations/:id', to: 'delegations#destroy', as: :authorization_request_delegation
+
     get '/compte/telecharcher-documents', to: 'download_attestations#new', as: :attestations
     post '/compte/telecharcher-documents', to: 'download_attestations#create', as: :search_attestations
 

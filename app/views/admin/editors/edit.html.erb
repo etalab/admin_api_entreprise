@@ -14,5 +14,10 @@
     <%= f.label :copy_token, "Peut copier les jetons de ses clients ?", class: %w[fr-label] %>
   </div>
 
+  <div class="fr-checkbox-group">
+    <%= f.check_box :delegations_enabled, class: %[fr-checkbox] %>
+    <%= f.label :delegations_enabled, "Délégations activées ?", class: %w[fr-label] %>
+  </div>
+
   <%= f.submit 'Sauvegarder', class: %w[fr-btn] %>
 <% end %>

@@ -35,6 +35,18 @@
           <div class="fr-header__tools-links">
             <ul class="fr-links-group">
               <li>
+                <a class="fr-link fr-icon-file-text-line" href="<%= editor_authorization_requests_path %>"<%= ' aria-current="page"'.html_safe if request.path.start_with?('/editeur/habilitations') %>>
+                  Habilitations
+                </a>
+              </li>
+              <% if current_editor.delegations_enabled? %>
+                <li>
+                  <a class="fr-link fr-icon-team-line" href="<%= editor_delegations_path %>"<%= ' aria-current="page"'.html_safe if request.path.start_with?('/editeur/delegations') %>>
+                    Délégations
+                  </a>
+                </li>
+              <% end %>
+              <li>
                 <a class="fr-link fr-icon-chat-3-line" href="mailto:support@<%= namespace %>.api.gouv.fr?subject=Proposition d'amélioration de l'espace éditeur">
                   Un retour ? Contactez-nous
                 </a>

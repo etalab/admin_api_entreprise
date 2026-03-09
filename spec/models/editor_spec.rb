@@ -3,6 +3,19 @@ RSpec.describe Editor do
     expect(build(:editor)).to be_valid
   end
 
+  describe 'associations' do
+    it { is_expected.to have_many(:editor_delegations).dependent(:destroy) }
+  end
+
+  describe '.delegable' do
+    let!(:delegable_editor) { create(:editor, :delegable) }
+    let!(:non_delegable_editor) { create(:editor) }
+
+    it 'returns only editors with delegations_enabled' do
+      expect(described_class.delegable).to contain_exactly(delegable_editor)
+    end
+  end
+
   describe 'authorization_requests association' do
     subject { editor.authorization_requests(api:) }
 
