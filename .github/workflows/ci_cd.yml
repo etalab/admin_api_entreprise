@@ -122,7 +122,7 @@ jobs:
       - name: Import GPG key to sign master push
         if: github.ref == 'refs/heads/develop'
         id: import_gpg
-        uses: crazy-max/ghaction-import-gpg@v6
+        uses: crazy-max/ghaction-import-gpg@v7
         with:
           gpg_private_key: ${{ secrets.GPG_SECRET_KEY }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
