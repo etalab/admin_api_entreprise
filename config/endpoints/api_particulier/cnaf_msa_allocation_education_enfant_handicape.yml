@@ -6,7 +6,7 @@
   position: 501
   perimeter:
     entity_type_description: |+
-      **L’API couvre l’ensemble des foyers bénéficiaires de l’Allocation d’Éducation de l’Enfant Handicapé (AEEH)** :
+      **L’API couvre l’ensemble des foyers bénéficiaires de l’allocation d’éducation de l’enfant handicapé (AEEH)** :
       - ✅ le régime agricole (MSA) ;
       - ✅ le régime général (CAF) ;
       - ✅ les titulaires de l'éducation nationale ;
@@ -23,31 +23,29 @@
       - ✅ DROM COM
       - ✅ Allocataires de nationalité étrangère résidant en France, dont ceux disposant d’un numéro d’immatriculation en attente (NIA)
     updating_rules_description: |+
-      Cette API, opérée par la caisse nationale d'assurance vieillesse (CNAV), est reliée au système d'information de la Caisse nationale des allocations familiales (CNAF) et à celui de la mutualité sociale agricole (MSA).
+      Cette API, opérée par la caisse nationale d'assurance vieillesse (CNAV), est reliée au système d'information de la caisse nationale des allocations familiales (CNAF) et à celui de la mutualité sociale agricole (MSA).
 
       **Les données sont mises à jour** :
-      - Pour les allocataires CAF, lorsqu’une nouvelle décision AEEH est enregistrée dans le système d’information de la CAF, les données sont mises à jour immédiatement.
+      - **en temps réel** pour les allocataires CAF : toute nouvelle décision AEEH enregistrée dans le système d’information de la CAF est disponible immédiatement dans l'API.
 
 
   data:
     description: |+
-      **Cette API délivre, à partir de l'identité d'un allocataire ou d'un ouvrant-droit** [en savoir plus](#allocataire-ouvrantdroit) :
-      - **le statut** du particulier, à savoir s’il est **allocataire**, **ouvrant-droit** ou **non bénéficiaire** ;
+      Cette API délivre à partir de l'identité d'un allocataire ou d'un [ouvrant-droit](#allocataire-ouvrantdroit) :
+      - **le statut AEEH** du particulier, à savoir s’il est **allocataire**, **ouvrant-droit** ou **non bénéficiaire** ;
       - **le détail des prestations AEEH** versées à l’assuré :
-         - **la date d’ouverture du droit** ;
-         - **l’organisme de rattachement**.
+         - la date d’ouverture du droit ;
+         - l’organisme de rattachement.
 
 
   parameters_details:
     description: |+
-      **L'API est appelable avec les informations de l'allocataire ou de l'ouvrant-doit.**.
-      <br/>
-      Deux modalités d'appel sont possibles&nbsp;:
+      Deux modalités d'appel, à partir des informations de l'allocataire ou de l'[ouvrant-droit](#allocataire-ouvrantdroit), sont possibles&nbsp;:
       <p class="fr-badge fr-badge--blue-ecume">![Cette API est FranceConnectée](<%= image_path('api_particulier/cas_usages/pictos/modalite_appel_france_connect.svg') %>){:width="20px"} FranceConnect</p>
-      **Avec la [modalité d'appel FranceConnect](<%= cas_usage_path('modalite_appel_france_connect') %>)**.
+      **Avec la [modalité d'appel FranceConnect](<%= cas_usage_path('modalite_appel_france_connect') %>)***.
 
-      {:.fr-highlight}
-          > L'ouvrant-doit ne peut utiliser FranceConnect qu'à partir de 16 ans.
+      {:.fr-text--xs}
+      *La modalité d'appel FranceConnect n'est utilisable qu'à partir de 16 ans pour un ouvrant-droit.
 
       <p class="fr-badge fr-badge--brown-cafe-creme">Identité pivot</p>
       <section class="fr-accordion fr-mt-2v">
@@ -89,6 +87,8 @@
         </div>
       </section>
 
+
+
   provider_uids:
     - 'cnav'
   call_id:
@@ -114,10 +114,13 @@
          - présenter un taux d’incapacité d’au moins 80 %, ou compris entre 50 % et 79 % si l’enfant bénéficie d’un accompagnement, d’un dispositif de scolarisation adapté, ou de soins/rééducations préconisés par la CDAPH ;
          - ne pas percevoir de revenus professionnels supérieurs à 55 % du Smic mensuel brut ;
          - ne pas être accueilli en internat avec prise en charge intégrale des frais de séjour par l’Assurance maladie, l’État ou le département, sauf pour les périodes de retour au foyer.
-        Cette allocation n’est pas soumise à condition de ressources des parents
+
+        Cette allocation n’est pas soumise à condition de ressources des parents.
     - q: <a name="allocataire-ouvrantdroit"></a> Quelle différence entre l'allocataire et l'ouvrant droit ?
       a: |+
-        Pour l’AEEH, **l’ouvrant-droit est l’enfant au titre duquel le droit est ouvert.L’allocataire est la personne qui perçoit la prestation**, généralement le parent ou représentant légal.
+        Pour l’AEEH : 
+        - l’ouvrant-droit est l’enfant au titre duquel le droit est ouvert ;
+        - l’allocataire est la personne qui perçoit la prestation, généralement le parent ou représentant légal.
 
     - q: <a name="compte-parents"></a> Dans quels cas les deux parents sont-ils associés à un même compte ? S'ils le sont, peuvent-ils être rattachés à la MSA et à la CAF en même temps ?
       a: |+
