@@ -9,6 +9,10 @@ FactoryBot.define do
     scopes { [] }
     public_id { SecureRandom.uuid }
 
+    after(:build) do |ar|
+      ar.validated_at ||= Time.zone.now if ar.status == 'validated'
+    end
+
     trait :without_external_id do
       external_id { nil }
     end
