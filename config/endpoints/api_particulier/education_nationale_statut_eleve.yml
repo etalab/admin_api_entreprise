@@ -1,16 +1,26 @@
 ---
 - uid: 'education_nationale/statut_eleve_scolarise'
   opening: protected
+  new_version: true
   old_endpoint_uids:
-    - 'education_nationale/v2/statut_eleve_scolarise'
-  path: '/v3/men/scolarites/identite'
-  ping_url: 'https://particulier.api.gouv.fr/api/men_scolarite/ping'
+    - 'education_nationale/statut_eleve_scolarise_v3'
+  path: '/v4/men/scolarites/identite'
+  ping_url: &men_scolarite_ping_url 'https://particulier.api.gouv.fr/api/men_scolarite/ping'
   position: 500
-  alert:
+  alert: &men_scolarite_alert
     title: "💡 Données de bourse bientôt disponibles"
     description: |+
       Le statut boursier et l'échelon de bourse de l'élève seront bientôt redistribués par le fournisseur de données. La mise en production de ces nouvelles données est attendue pour juin.
-  perimeter:
+  historique: |+
+    **Ce que change le passage à la V.4 par rapport à la V.3 :**
+
+    - Ajout de nouvelles modalités de périmètre géographique : en plus du code UAI de l'établissement, il est désormais possible d'interroger l'API avec un code région ou un code département.
+
+    **Ce qui ne change pas :**
+
+    - Les données renvoyées restent identiques.
+    - La modalité d'appel par code UAI de l'établissement reste disponible.
+  perimeter: &men_scolarite_perimeter
     entity_type_description: |+
       Cette API concerne les **✅ élèves de la maternelle, du primaire, du collège et du lycée**.
 
@@ -28,10 +38,10 @@
       - ❌ lycées agricoles (à venir pour l'année scolaire 2026-2027) ;
       - ❌ instruction dans la famille ;
       - ❌ BTS et Classe préparatoire aux grandes écoles, diffusés par l'[API Statut étudiant](https://particulier.api.gouv.fr/catalogue/mesri/statut_etudiant).
-    geographical_scope_description:  |+
+    geographical_scope_description: &men_scolarite_geo |+
       - ✅ France métropolitaine
       - ✅ DROM-COM
-    updating_rules_description: |+
+    updating_rules_description: &men_scolarite_updating |+
       Cette API délivre les informations de l'[année scolaire en cours et l'année scolaire à venir seulement pour le second degré avec différentes échéances (N+1)](#annee-scolaire-donnees).
 
       Les données du **premier degré** (primaire) sont mises à jour en **temps réel**. Les données du **second degré** (collèges et lycées) sont mises à jour **quotidiennement toutes les nuits**.
@@ -44,30 +54,35 @@
     description: |+
       Cette API propose une modalité d'appel :
       <p class="fr-badge fr-badge--brown-cafe-creme">Identité pivot</p>
-      **Avec les données d'identité** : Nom<sup>\*</sup>, prénom<sup>\*</sup>, sexe<sup>\*</sup> et date de naissance de l'élève<sup>\*</sup>, ainsi que le code UAI de l'établissement<sup>\*</sup> et l'année scolaire<sup>\*</sup> souhaitées.
+      **Avec les données d'identité** : Nom<sup>\*</sup>, prénom<sup>\*</sup>, sexe<sup>\*</sup> et date de naissance de l'élève<sup>\*</sup>, l'année scolaire<sup>\*</sup> souhaitée, ainsi qu'un périmètre géographique<sup>\*\*</sup> :
+      - soit le code UAI de l'établissement ;
+      - soit le code région ;
+      - soit le code département.
+
       <span class="fr-text--xs">
       <sup>\*</sup> Obligatoire.
+      <sup>\*\*</sup> Un seul des trois paramètres de périmètre géographique doit être renseigné.
       </span>
-  data:
+  data: &men_scolarite_data
     description: |+
       Cette API **indique si l'élève est scolarisé et sous quel statut** pour l'[année scolaire en cours et bientôt N+1](#annee-scolaire-donnees).
       Le **statut boursier ainsi que l'échelon de bourse** est également précisé le cas échéant.
-  provider_uids:
+  provider_uids: &men_scolarite_provider_uids
     - 'education_nationale'
-  keywords: []
-  call_id:
+  keywords: &men_scolarite_keywords []
+  call_id: &men_scolarite_call_id
     - Identité pivot
     - FranceConnect
-  parameters:
+  parameters: &men_scolarite_parameters
     - Identité pivot
-  faq:
+  faq: &men_scolarite_faq
     - q: <a name="annee-scolaire-donnees"></a> Quelle est l'année scolaire des données transmises ?
       a: |+
         #### Année scolaire en cours :
         Cette API permet d'appeler les informations de scolarité d'un élève de l'année scolaire en cours.
         Il existe toutefois quelques nuances :
         - ✅ Pour les **élèves du premier degrés**, les données de l'année scolaire en cours sont accessibles ; et spécifiquement pour le premier degré, uniquement à partir du lendemain de la rentrée ;
-        - ✅ Pour les **élèves du second degré**, les données de l'année scolaire n+1 sont accessibles fin juin pour les collégiens et fin août pour les lycéens. 
+        - ✅ Pour les **élèves du second degré**, les données de l'année scolaire n+1 sont accessibles fin juin pour les collégiens et fin août pour les lycéens.
         - ⚠️ Pour les **élèves des établissements privés**, le constat de rentrée obligatoire pour ces établissements se fait fréquemment en octobre. Par conséquent, il peut arriver qu'au mois de septembre, l'API n'ait pas connaissance du statut d'un élève si celui-ci vise à être scolarisé dans l'établissement privé.
 
 
@@ -94,11 +109,35 @@
     - q: <a name="definition-echelons-bourse"></a>À quoi correspondent les échelons de bourse ?
       a:
         "Il existe trois échelons de bourses pour les collégiens, de 1 à 3 et six échelons pour les lycéens, de 1 à 6. Chaque échelon de bourse indique **le montant reçu par l'élève pour l'année scolaire**. Le montant de la bourse dépend d'un barème en fonction du revenu fiscal et du nombre enfants à charge du foyer."
-   
+
+- uid: 'education_nationale/statut_eleve_scolarise_v3'
+  opening: protected
+  new_endpoint_uids:
+    - 'education_nationale/statut_eleve_scolarise'
+  old_endpoint_uids:
+    - 'education_nationale/v2/statut_eleve_scolarise'
+  path: '/v3/men/scolarites/identite'
+  ping_url: *men_scolarite_ping_url
+  position: 501
+  alert: *men_scolarite_alert
+  perimeter: *men_scolarite_perimeter
+  parameters_details:
+    description: |+
+      Cette API propose une modalité d'appel :
+      <p class="fr-badge fr-badge--brown-cafe-creme">Identité pivot</p>
+      **Avec les données d'identité** : Nom<sup>\*</sup>, prénom<sup>\*</sup>, sexe<sup>\*</sup> et date de naissance de l'élève<sup>\*</sup>, ainsi que le code UAI de l'établissement<sup>\*</sup> et l'année scolaire<sup>\*</sup> souhaitées.
+      <span class="fr-text--xs">
+      <sup>\*</sup> Obligatoire.
+      </span>
+  data: *men_scolarite_data
+  provider_uids: *men_scolarite_provider_uids
+  keywords: *men_scolarite_keywords
+  call_id: *men_scolarite_call_id
+  parameters: *men_scolarite_parameters
+  faq: *men_scolarite_faq
   historique: |+
     **Ce que change le passage à la V.3 d'API Particulier:**
 
-    - Ajout de nouvelles données : Le module élémentaire de formation, ainsi que le ministère de tutelle de l’établissement sont désormais indiqués ;
+    - Ajout de nouvelles données : Le module élémentaire de formation, ainsi que le ministère de tutelle de l'établissement sont désormais indiqués ;
     - Les données d'identité ne sont plus renvoyées lorsque la modalité d'appel est FranceConnect ;
     - Tous les changements sont décrits dans la [table de correspondance du guide migration](/blog/migration-api-particulier-v3#correspondance-api-statut-eleve-scolarise){:target="_blank"}
-
