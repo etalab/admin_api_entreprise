@@ -108,4 +108,118 @@ RSpec.describe 'Admin: tokens', app: :api_entreprise do
       expect(user.tokens.count).to eq(1)
     end
   end
+
+  describe 'creating a token', :js do
+    before do
+      authorization_request.update!(status: 'validated', validated_at: Time.zone.now)
+    end
+
+    it 'creates a new token for the selected authorization request' do
+      visit admin_user_tokens_path(user)
+      click_on 'create-token'
+
+      within('#main-modal-content') do
+        select "#{authorization_request.intitule} (DataPass ##{authorization_request.external_id})", from: 'authorization_request_id'
+        click_button 'Créer le jeton'
+      end
+
+      expect(page).to have_css('.fr-alert.fr-alert--success')
+      expect(page).to have_current_path(admin_user_tokens_path(user))
+      expect(user.tokens.count).to eq(2)
+    end
+
+    it 'creates a token with the authorization request scopes' do
+      authorization_request.update!(scopes: %w[unites_legales associations])
+
+      visit admin_user_tokens_path(user)
+      click_on 'create-token'
+
+      within('#main-modal-content') do
+        click_button 'Créer le jeton'
+      end
+
+      expect(page).to have_css('.fr-alert.fr-alert--success')
+      new_token = user.tokens.order(:created_at).last
+      expect(new_token.scopes).to eq(%w[unites_legales associations])
+    end
+
+    it 'creates a token with a custom expiration date' do
+      custom_date = 6.months.from_now.to_date
+
+      visit admin_user_tokens_path(user)
+      click_on 'create-token'
+
+      within('#main-modal-content') do
+        fill_in 'exp', with: custom_date.strftime('%Y-%m-%d')
+        click_button 'Créer le jeton'
+      end
+
+      expect(page).to have_css('.fr-alert.fr-alert--success')
+      new_token = user.tokens.order(:created_at).last
+      expect(Time.zone.at(new_token.exp).to_date).to eq(custom_date)
+    end
+
+    it 'shows the create token button' do
+      visit admin_user_tokens_path(user)
+
+      expect(page).to have_link('Créer un nouveau jeton')
+    end
+
+    it 'displays the scopes of the selected authorization request' do
+      authorization_request.update!(scopes: %w[unites_legales associations])
+
+      visit admin_user_tokens_path(user)
+      click_on 'create-token'
+
+      within('#main-modal-content') do
+        expect(page).to have_content('unites_legales, associations')
+      end
+    end
+
+    it 'rejects a past expiration date' do
+      past_date = 1.day.ago.to_date.strftime('%Y-%m-%d')
+
+      visit admin_user_tokens_path(user)
+      click_on 'create-token'
+
+      within('#main-modal-content') do
+        find_by_id('exp').execute_script("this.removeAttribute('min'); this.value = '#{past_date}'")
+        click_button 'Créer le jeton'
+      end
+
+      expect(page).to have_css('.fr-alert.fr-alert--error')
+      expect(user.tokens.count).to eq(1)
+    end
+
+    it 'allows dismissing the success alert' do
+      visit admin_user_tokens_path(user)
+      click_on 'create-token'
+
+      within('#main-modal-content') do
+        click_button 'Créer le jeton'
+      end
+
+      expect(page).to have_css('.fr-alert.fr-alert--success')
+      find('.fr-alert.fr-alert--success .fr-btn--close').click
+      expect(page).to have_no_css('.fr-alert.fr-alert--success')
+    end
+
+    it 'only lists validated authorization requests in the select' do
+      revoked_ar = create(:authorization_request, :with_demandeur, demandeur: user, api: 'entreprise', status: 'revoked', intitule: 'Revoked AR')
+      archived_ar = create(:authorization_request, :with_demandeur, demandeur: user, api: 'entreprise', status: 'archived', intitule: 'Archived AR')
+      draft_ar = create(:authorization_request, :with_demandeur, demandeur: user, api: 'entreprise', status: 'draft', intitule: 'Draft AR')
+
+      visit admin_user_tokens_path(user)
+      click_on 'create-token'
+
+      within('#main-modal-content') do
+        expect(page).to have_select('authorization_request_id', with_options: [
+          "#{authorization_request.intitule} (DataPass ##{authorization_request.external_id})"
+        ])
+        expect(page).to have_no_content(revoked_ar.intitule)
+        expect(page).to have_no_content(archived_ar.intitule)
+        expect(page).to have_no_content(draft_ar.intitule)
+      end
+    end
+  end
 end

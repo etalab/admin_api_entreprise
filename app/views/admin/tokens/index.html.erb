@@ -72,4 +72,15 @@
   </table>
 </div>
 
-<%= link_to 'Retour aux utilisateurs', admin_users_path, class: 'fr-btn fr-btn--secondary' %>
+<div class="fr-btns-group fr-btns-group--inline">
+  <%= link_to 'Retour aux utilisateurs', admin_users_path, class: 'fr-btn fr-btn--secondary' %>
+  <%= link_to 'Créer un nouveau jeton',
+      new_admin_user_token_path(@user),
+      data: {
+        turbo_frame: 'main-modal-content',
+        fr_opened: false
+      },
+      class: 'fr-btn',
+      id: 'create-token',
+      aria: { controls: 'main-modal' } %>
+</div>
