@@ -10,6 +10,10 @@ class APIParticulier::EndpointsController < APIParticulierController
 
   def show; end
 
+  def status
+    render 'shared/endpoints/status', layout: false
+  end
+
   def example
     render 'shared/endpoints/example'
   end

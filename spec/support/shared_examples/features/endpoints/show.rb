@@ -19,7 +19,7 @@ RSpec.shared_examples 'an endpoints show feature' do |api_module, default_uid, e
     expect(page).to have_link(I18n.t("#{api_module.name.underscore}.endpoints.details.test_cases").to_s, href: endpoint.test_cases_external_url)
   end
 
-  describe 'real time status' do
+  describe 'real time status', :js do
     context 'when endpoint is up' do
       let(:api_status) { 200 }
 
