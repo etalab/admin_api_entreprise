@@ -123,7 +123,7 @@ class AbstractEndpoint
   end
 
   def historicized?
-    old_endpoints.any?
+    historique.present? || old_endpoints.any?
   end
 
   def implemented?
