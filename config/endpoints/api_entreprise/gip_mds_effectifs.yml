@@ -3,6 +3,15 @@
   path: '/v3/gip_mds/unites_legales/{siren}/effectifs_annuels/{year}'
   ping_url: 'https://entreprise.api.gouv.fr/ping/gip_mds/effectifs'
   new_version: true
+  historique: |+
+    **Ce que change cette nouvelle version de l'API par rapport à la précédente :**
+    L'ajout de nouvelles natures d'effectifs accessibles via le paramètre `nature_effectif` :
+    - **BOETH** : effectif annuel des bénéficiaires de l'obligation d'emploi des travailleurs handicapés ;
+    - **ECAP** : effectif annuel des emplois exigeant des conditions d'aptitudes particulières ;
+    - **OETH** : effectif d'assujettissement à l'obligation d'emploi des travailleurs handicapés.
+
+    **Ce qui ne change pas :**
+    L'effectif moyen annuel (EMA) reste accessible par défaut, sans préciser de nature.
   position: 152
   perimeter:
     entity_type_description: |+
@@ -150,6 +159,15 @@
   path: '/v3/gip_mds/etablissements/{siret}/effectifs_mensuels/{month}/annee/{year}'
   ping_url: 'https://entreprise.api.gouv.fr/ping/gip_mds/effectifs'
   new_version: true
+  historique: |+
+    **Ce que change cette nouvelle version de l'API par rapport à la précédente :**
+    L'ajout de nouvelles natures d'effectifs accessibles via le paramètre `nature_effectif` :
+    - **BOETH** : effectif mensuel des bénéficiaires de l'obligation d'emploi des travailleurs handicapés ;
+    - **ECAP** : effectif mensuel des emplois exigeant des conditions d'aptitudes particulières ;
+    - **OETH** : effectif d'assujettissement à l'obligation d'emploi des travailleurs handicapés.
+
+    **Ce qui ne change pas :**
+    L'effectif moyen mensuel (EMM) reste accessible par défaut, sans préciser de nature.
   position: 153
   perimeter:
     entity_type_description: |+
