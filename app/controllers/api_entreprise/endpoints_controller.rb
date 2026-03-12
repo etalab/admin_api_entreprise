@@ -10,6 +10,10 @@ class APIEntreprise::EndpointsController < APIEntrepriseController
 
   def show; end
 
+  def status
+    render 'shared/endpoints/status', layout: false
+  end
+
   def example
     if @endpoint.dummy?
       redirect_to endpoint_path(uid: @endpoint.uid)

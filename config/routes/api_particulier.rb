@@ -21,6 +21,7 @@ constraints(APIParticulierDomainConstraint.new) do
 
     get '/catalogue', as: :endpoints, to: 'endpoints#index'
     get '/catalogue/*uid/exemple', as: :endpoint_example, to: 'endpoints#example'
+    get '/catalogue/*uid/status', as: :endpoint_status, to: 'endpoints#status'
     get '/catalogue/*uid', as: :endpoint, to: 'endpoints#show'
 
     get '/open-api.yml', to: ->(env) { [200, {}, [APIParticulier::OpenAPIDefinition.instance.open_api_definition_content]] }, as: :openapi_definition

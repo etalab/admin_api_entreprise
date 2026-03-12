@@ -28,11 +28,9 @@
   <h3 class="fr-h6 fr-pt-2w fr-mb-1v">
     <%= t('.availability.title') %>
   </h3>
-  <% if @endpoint.ping_url %>
-    <div class="fr-pb-1w">
-      <%= t('.availability.real_time') %> : <a href="<%= @endpoint.ping_url %>" target="_blank"><span class="api-status api-status-<%= @endpoint.api_status %>"></span></a>
-    </div>
-  <% end %>
+  <turbo-frame id="endpoint_status" src="<%= endpoint_status_path(uid: @endpoint.uid) %>">
+    <div class="fr-pb-1w" style="color: grey;">Loading...</div>
+  </turbo-frame>
   <a class="fr-link" title="API Entreprise Status Page" href="https://status.entreprise.api.gouv.fr" target="_blank">
     <%= t('.availability.link') %>
   </a>
