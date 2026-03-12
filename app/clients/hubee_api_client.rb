@@ -1,5 +1,5 @@
 # :nocov:
-class HubEEAPIClient < AbstractHubEEAPIClient # rubocop:disable Metrics/ClassLength
+class HubEEAPIClient < AbstractHubEEAPIClient
   class NotFound < StandardError; end
   class AlreadyExists < StandardError; end
 

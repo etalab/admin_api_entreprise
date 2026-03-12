@@ -63,6 +63,7 @@ class AuthorizationRequest < ApplicationRecord
 
   scope :not_archived, -> { where.not(status: 'archived') }
   scope :archived, -> { where(status: 'archived') }
+  scope :eligible_for_token_creation, -> { where.not(validated_at: nil).where.not(status: %w[archived revoked]) }
   scope :for_api, ->(api) { where(api:) }
   scope :viewable_by_users, -> { where('status in (?) or validated_at is not null', %w[archived revoked validated]) }
 

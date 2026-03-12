@@ -140,6 +140,7 @@ class Seeds
         intitule: 'Mairie de Lyon 2',
         external_id: 102,
         status: :validated,
+        validated_at: 2.weeks.ago,
         first_submitted_at: 2.weeks.ago,
         demarche: 'umadcorp-form-api-entreprise',
         siret: '12000101100010'
@@ -158,6 +159,7 @@ class Seeds
         intitule: 'Mairie de Strasbourg',
         external_id: 103,
         status: :validated,
+        validated_at: 1.week.ago,
         first_submitted_at: 1.week.ago,
         siret: '21670482500019'
       }
@@ -174,6 +176,7 @@ class Seeds
         intitule: 'Mairie de Paris',
         external_id: 104,
         status: :validated,
+        validated_at: 1.week.ago,
         first_submitted_at: 1.week.ago,
         siret: '21750001600019'
       }
@@ -225,6 +228,7 @@ class Seeds
         intitule: 'Mairie de Bordeaux',
         external_id: 201,
         status: :validated,
+        validated_at: 2.weeks.ago,
         demarche: 'umadcorp-form-api-particulier',
         first_submitted_at: 2.weeks.ago
       }

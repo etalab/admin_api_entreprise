@@ -1,0 +1,41 @@
+<turbo-frame id="main-modal-content">
+  <div class="fr-modal__content">
+    <h1 class="fr-modal__title">
+      <span class="fr-icon-add-circle-line fr-icon--lg" aria-hidden="true"></span>
+      Créer un nouveau jeton
+    </h1>
+
+    <%= form_with url: admin_user_tokens_path(@user), method: :post, id: 'create-token-form' do |form| %>
+      <div class="fr-select-group" data-controller="scopes-display">
+        <%= form.label :authorization_request_id, 'Demande', class: 'fr-label' %>
+        <select class="fr-select" name="authorization_request_id" id="authorization_request_id" data-scopes-display-target="select" data-action="change->scopes-display#update">
+          <% @authorization_requests.each do |ar| %>
+            <option value="<%= ar.id %>" data-scopes="<%= ar.scopes.join(', ') %>"><%= ar.intitule %> (DataPass #<%= ar.external_id %>)</option>
+          <% end %>
+        </select>
+
+        <div class="fr-alert fr-alert--info fr-alert--sm fr-mb-4w fr-mt-2w">
+          <p>Le jeton créé aura les scopes suivants : <strong data-scopes-display-target="scopesList"><%= @authorization_requests.first&.scopes&.join(', ') %></strong></p>
+        </div>
+      </div>
+
+      <div class="fr-input-group">
+        <%= form.label :exp, class: 'fr-label' do %>
+          Date d'expiration
+          <span class="fr-hint-text">Maximum 18 mois à partir d'aujourd'hui</span>
+        <% end %>
+        <input type="date" class="fr-input" name="exp" id="exp" value="<%= @default_expiration %>" min="<%= Date.tomorrow %>" max="<%= @default_expiration %>">
+      </div>
+    <% end %>
+  </div>
+
+  <div class="fr-modal__footer">
+    <ul class="fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-lg fr-btns-group--icon-left">
+      <li>
+        <button type="submit" form="create-token-form" class="fr-btn" data-turbo="false" aria-controls="main-modal">
+          Créer le jeton
+        </button>
+      </li>
+    </ul>
+  </div>
+</turbo-frame>
