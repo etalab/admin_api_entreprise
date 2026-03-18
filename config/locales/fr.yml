@@ -311,20 +311,23 @@ fr:
       detail_short:
         no_token:
           title: Aucun jeton actif
-          description: Cette demande ayant été %{status}, aucun jeton ne peut être demandé
+          description: Cette demande %{status}, aucun jeton ne peut être demandé
           status:
-            revoked: revoquée
-            archived: archivée
-            submitted: soumise
+            draft: étant en brouillon
+            revoked: ayant été revoquée
+            archived: ayant été archivée
+            submitted: ayant été soumise
         expiration_date: "Expire le : <strong>%{expiration_date}</strong>"
         status:
           color:
+            draft: ''
             revoked: pink-tuile
             revoked_later: pink-tuile
             expired: no-specific-color
             active: green-emeraude
             new_token: green-emeraude
           label:
+            draft: ''
             revoked: 🚫 Banni
             revoked_later: 🚫 Banni
             expired: ☠️  Expiré

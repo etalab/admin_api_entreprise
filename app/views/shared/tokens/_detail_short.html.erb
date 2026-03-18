@@ -3,9 +3,11 @@
   <br />
   <%= t(".no_token.description", status: t(".no_token.status.#{token.authorization_request.status}")) %>
 <% else %>
-  <p class="fr-badge fr-badge--<%= t(".status.color.#{token.status}") %>">
-    <%= t(".status.label.#{token.status}") %>
-  </p>
+  <% unless t(".status.label.#{token.status}").blank? %>
+    <p class="fr-badge fr-badge--<%= t(".status.color.#{token.status}") %>">
+      <%= t(".status.label.#{token.status}") %>
+    </p>
+  <% end %>
   <span class="fr-mb-1v fr-text--sm">
     | <%= t(".expiration_date",
       expiration_date: friendly_date_from_timestamp(token.end_timestamp)
