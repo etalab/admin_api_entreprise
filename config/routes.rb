@@ -15,7 +15,9 @@ Rails.application.routes.draw do
         resource :ban, only: %i[new create], controller: 'tokens/bans'
       end
     end
-    resources :editors, only: %i[index edit update]
+    resources :editors, only: %i[index edit update] do
+      resources :editor_tokens, only: %i[create]
+    end
     resources :provider_dashboards, only: %i[index show], path: 'providers'
     resources :audit_notifications, only: %i[index new create]
     resources :api_requests, only: %i[index create]

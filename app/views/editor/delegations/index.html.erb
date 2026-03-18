@@ -1,3 +1,51 @@
+<% if @editor_tokens.any? %>
+  <div class="fr-table fr-table--bordered fr-mb-4w">
+    <div class="fr-table__wrapper">
+      <div class="fr-table__container">
+        <div class="fr-table__content">
+          <table>
+            <caption><%= t('.editor_tokens_title') %></caption>
+            <thead>
+              <tr>
+                <th scope="col"><%= t('.editor_tokens_table.token') %></th>
+                <th scope="col"><%= t('.editor_tokens_table.status') %></th>
+                <th scope="col"><%= t('.editor_tokens_table.expiration') %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @editor_tokens.each do |editor_token| %>
+                <tr data-controller="clipboard">
+                  <td>
+                    <div class="copy-token">
+                      <input class="fr-input" type="text" readonly
+                             data-clipboard-target="source"
+                             value="<%= editor_token.rehash %>"
+                             style="position: absolute; left: -9999px" />
+                      <button class="fr-btn fr-btn--sm fr-icon-clipboard-fill fr-btn--icon-right"
+                              type="button"
+                              data-action="click->clipboard#copy">
+                        <%= t('.editor_tokens_table.copy') %>
+                      </button>
+                    </div>
+                  </td>
+                  <td>
+                    <% if editor_token.active? %>
+                      <p class="fr-badge fr-badge--green-emeraude"><%= t('.status_active') %></p>
+                    <% else %>
+                      <p class="fr-badge fr-badge--pink-tuile"><%= t('.editor_tokens_table.inactive') %></p>
+                    <% end %>
+                  </td>
+                  <td><%= friendly_date_from_timestamp(editor_token.exp) %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
 <div class="fr-table fr-table--bordered fr-table--layout-fixed">
   <div class="fr-table__wrapper">
     <div class="fr-table__container">

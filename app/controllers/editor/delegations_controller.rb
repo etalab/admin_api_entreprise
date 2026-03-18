@@ -2,6 +2,7 @@ class Editor::DelegationsController < EditorController
   before_action :ensure_delegations_enabled
 
   def index
+    @editor_tokens = current_editor.editor_tokens.order(created_at: :desc)
     @delegations = current_editor
       .editor_delegations
       .includes(authorization_request: %i[organization demandeur])

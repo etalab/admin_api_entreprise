@@ -5,6 +5,7 @@ RSpec.describe Editor do
 
   describe 'associations' do
     it { is_expected.to have_many(:editor_delegations).dependent(:destroy) }
+    it { is_expected.to have_many(:editor_tokens).dependent(:destroy) }
   end
 
   describe '.delegable' do
