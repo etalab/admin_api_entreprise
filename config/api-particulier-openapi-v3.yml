@@ -1517,6 +1517,826 @@ paths:
                   description: Vous avez effectué trop de requêtes
               schema:
                 "$ref": "#/components/schemas/Error"
+  "/v3/dss/allocation_enfant_handicape/identite":
+    get:
+      summary: "[Identité] Statut allocation d'éducation de l'enfant handicapé (AEEH)"
+      tags:
+      - Statut Allocation d'Éducation de l'Enfant Handicapé (AEEH)
+      parameters:
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: Cache-Control
+        in: header
+        description: Si cette valeur est fixée à "no-cache", le système de cache est
+          alors ignoré et la donnée est directement récupérée depuis le fournisseur
+          de données.
+        schema:
+          type: string
+      - name: nomNaissance
+        in: query
+        description: "**Nom de naissance, également appelé nom de famille**. \n\nLe
+          nom de naissance est indiqué sur l'acte de naissance, de mariage, sur le
+          livret de famille, etc. Le nom de famille/naissance figure toujours sur
+          la pièce d'identité en premier, avant le nom d'usage si le particulier en
+          a un. \n\nEn cas de changement de nom de naissance, une mention avec le
+          nouveau nom de famille est inscrite sur l'acte de naissance. Pour appeler
+          l'API, le nom de naissance/famille nécessaire est bien le nom de famille
+          modifié."
+        example: DURANT
+        required: true
+        schema:
+          type: string
+      - name: nomUsage
+        in: query
+        description: "**Nom d'usage**. \n\nSi le particulier a un nom d'usage, c'est
+          le nom qu'il utilise généralement au quotidien. Le nom d'usage est facultatif
+          et peut changer au cours de la vie. Il correspond au nom de famille/naissance
+          d'un parent, d'un époux ou d'une épouse, seul ou accolé au nom de famille/naissance.
+          Par exemple, le nom d'usage ne peut pas être le nom de famille/naissance
+          d'un concubin ou d'un partenaire de pacs. \n\nSi le particulier en a fait
+          la demande, le nom d'usage peut être inscrit derrière le nom de naissance
+          sur la carte d'identité ou le passeport ; il peut également être celui utilisé
+          par l'administration sur les courriers. Le nom d'usage ne remplace pas le
+          nom de famille/naissance qui reste le seul mentionné. \nDans nos APIs, le
+          nom d'usage n'est jamais identique au nom de famille.\n\nPour en savoir
+          plus : https://www.service-public.fr/particuliers/vosdroits/F868."
+        example: DUPONT DURANT
+        required: false
+        schema:
+          type: string
+      - name: prenoms[]
+        in: query
+        schema:
+          type: array
+          minItems: 1
+          maxItems: 3
+          items:
+            type: string
+          example:
+          - PIERRE
+          - RICHARD
+        description: "**Liste des prénoms**. \n\nFournir plusieurs prénoms maximise
+          les chances que l'API retrouve le particulier car cela permet de limiter
+          le risque d’homonymie."
+        required: true
+      - name: anneeDateNaissance
+        in: query
+        description: "**Année de naissance**. \n\nPour un particulier né en France,
+          dans le cadre d'un appel à l'API avec l'utilisation du paramètre 'nomCommuneNaissance',
+          ce paramètre est obligatoire (ainsi que le paramètre 'codeCogInseeDepartementNaissance')
+          afin de retrouver le code COG de la commune de naissance."
+        example: 1990
+        required: false
+        schema:
+          type: integer
+      - name: moisDateNaissance
+        in: query
+        description: "**Mois de naissance**. \n\nCette valeur est ignorée si le paramètre
+          'anneeDateNaissance' est vide."
+        example: 1
+        required: false
+        schema:
+          type: integer
+      - name: jourDateNaissance
+        in: query
+        description: "**Jour de naissance**. \n\nCette valeur est ignorée si le paramètre
+          'moisDateNaissance' ou le paramètre 'anneeDateNaissance' est vide.\""
+        example: 1
+        required: false
+        schema:
+          type: integer
+      - name: sexeEtatCivil
+        in: query
+        schema:
+          type: string
+          enum:
+          - M
+          - F
+        description: "**Sexe de la personne tel qu'indiqué sur les actes d'état civil**,
+          comme par exemple l'acte de naissance ou de mariage. \n\nDans la majorité
+          des cas, il s'agit également de la mention indiquée sur la pièce d'identité
+          et le passeport. Cette mention peut être masculin ('M') ou féminin ('F').
+          \nDans le cas d'un particulier ayant demandé une modification de sa mention
+          de sexe à l'état civil, le changement est indiqué en marge de l'acte de
+          naissance une fois la décision rendue. Le changement intervient sur les
+          titres d'identité seulement si le particulier en demande le renouvellement."
+        example: M
+        required: true
+      - name: codeCogInseePaysNaissance
+        in: query
+        schema:
+          type: string
+          minLength: 5
+          maxLength: 5
+          example: '99100'
+        description: |-
+          **Code Insee à 5 chiffres du pays de naissance**.
+
+          - Code Insee France = 99100 ;
+          - Liste de tous les codes Insee des pays étrangers depuis 1943 : https://explore.data.gouv.fr/fr/datasets/58c984b088ee386cdb1261f3/#/resources/150889d3-ffda-4ea5-8709-6ee67415294f.
+        required: true
+      - name: codeCogInseeCommuneNaissance
+        in: query
+        schema:
+          type: string
+          minLength: 5
+          maxLength: 5
+          example: '08480'
+        description: "**Code Insee à 5 chiffres de la commune de naissance**. \n\nPour
+          retrouver un particulier né en France, il est nécessaire d'indiquer sa commune
+          de naissance. Ce paramètre est une des deux options disponibles pour renseigner
+          la commune de naissance. En l'absence de l'utilisation de la seconde option
+          (triplet 'nomCommuneNaissance', 'anneeDateNaissance', 'codeInseeDepartementNaissance'),
+          ce paramètre est obligatoire si la personne est née en France.\n\nNe pas
+          remplir si la personne est née à l'étranger."
+        required: false
+      - name: nomCommuneNaissance
+        in: query
+        schema:
+          type: string
+          minLength: 1
+          example: Gennevilliers
+        description: "**Nom en toute lettre de la commune de naissance**. \n\nPour
+          retrouver un particulier né en France, il est nécessaire d'indiquer sa commune
+          de naissance. Ce paramètre est une des deux options disponibles pour renseigner
+          la commune de naissance. En l'absence de l'utilisation du 'codeCogInseeCommuneNaissance',
+          ce paramètre est obligatoire si la personne est née en France ; il doit
+          être obligatoirement accompagné des paramètres 'codeCogInseeDepartementNaissance'
+          et 'anneeDateNaissance'.\n\nNe pas remplir si la personne est née à l'étranger."
+        required: false
+      - name: codeCogInseeDepartementNaissance
+        in: query
+        schema:
+          type: string
+          minLength: 2
+          maxLength: 3
+          example: '92'
+        description: "**Code INSEE du département de naissance**. \n\nPour retrouver
+          un particulier né en France, il est nécessaire d'indiquer sa commune de
+          naissance. Ce paramètre fait partie d'une des deux options disponibles pour
+          renseigner la commune de naissance. Lorsque le paramètre 'nomCommuneNaissance'
+          est utilisé, ce paramètre est obligatoire si la personne est née en France
+          et permet de retrouver le code COG avec le paramètre 'anneeDateNaissance'.\n\nNe
+          pas remplir si la personne est née à l'étranger."
+        required: false
+      security:
+      - jwt_bearer_token: []
+      description: "Statut bénéficiaire de l'allocation d'éducation de l'enfant handicapé
+        (AEEH). \n\n Retourne également des informations sur les prestations et les
+        dates d'ouverture des droits. \n L'indicateur précise si le particulier est
+        allocataire, ouvrant droit ou non bénéficiaire de l'AEEH."
+      responses:
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://entreprise.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '403':
+          description: Accès interdit
+          content:
+            application/json:
+              examples:
+                insufficient_privileges_error:
+                  value:
+                    errors:
+                    - code: '00100'
+                      title: Privilèges insuffisants
+                      detail: Votre token est valide mais vos privilèges sont insuffisants.
+                        Listez vos privilèges sur /api/introspect
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Privilèges insuffisants
+                  description: Votre token est valide mais vos privilèges sont insuffisants.
+                    Listez vos privilèges sur /api/introspect
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
+                  value:
+                    errors:
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
+                      source:
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '200':
+          description: Allocation Enfant Handicapé active trouvée
+          headers:
+            X-Response-Cached:
+              schema:
+                type: boolean
+                example: true
+                enum:
+                - true
+                - false
+                default: false
+              description: Indique si la réponse a été caché.
+            X-Cache-Expires-in:
+              schema:
+                type: number
+                nullable: true
+                example: 9001
+              description: Secondes avant que le cache n'expire. Si le cache est vide,
+                ce header est vide (mais présent). La durée du cache est de 1 heure.
+          x-operationId: api_particulier_v3_cnav_allocation_enfant_handicape_with_civility
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      status:
+                        title: Statut bénéficiaire de l'allocation d'éducation de
+                          l'enfant handicapé (AEEH)
+                        type: string
+                        description: "Indique si le particulier est bénéficiaire de
+                          l'allocation d'éducation de l'enfant handicapé au moment
+                          de l'appel. \n \n - Si le statut est 'allocataire', cela
+                          signifie que le particulier est l'allocataire de l'AEEH
+                          (qualité bénéficiaire 105). Cela concerne généralement le
+                          parent ou le tuteur légal de l'enfant handicapé. \n - Si
+                          le statut est 'ouvrant_droit', cela signifie que le particulier
+                          est ouvrant droit de l'AEEH (qualité bénéficiaire 205).
+                          Cela concerne généralement l'enfant handicapé lui-même.
+                          \n - Si le statut est 'non_beneficiaire', cela signifie
+                          que le particulier n'est pas concerné par l'AEEH."
+                        enum:
+                        - allocataire
+                        - ouvrant_droit
+                        - non_beneficiaire
+                      date_debut_droit:
+                        title: Date d'ouverture du droit à l'AEEH
+                        type: string
+                        nullable: true
+                        description: "Date de début de droit à l'allocation enfant
+                          handicapé du particulier bénéficiaire. \n Ce champs est
+                          null dans le cas où le particulier n'est pas bénéficiaire
+                          de l'AEEH."
+                        example: '1992-11-29'
+                    required:
+                    - status
+                    - date_debut_droit
+                    additionalProperties: false
+                  links:
+                    type: object
+                  meta:
+                    type: object
+                required:
+                - data
+                - links
+                - meta
+        '422':
+          description: Impossible d'identifier l'allocataire
+          content:
+            application/json:
+              examples:
+                entite_non_traitable_00366:
+                  value:
+                    errors:
+                    - code: '00366'
+                      title: Entité non traitable
+                      detail: Un ou plusieurs paramètres de civilité ne sont pas correctement
+                        formatés
+                      source:
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Un ou plusieurs paramètres de civilité ne sont pas
+                    correctement formatés
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Dossier allocataire inexistant. Le document ne peut être édité.
+          content:
+            application/json:
+              examples:
+                dossier_allocataire_absent_msa_10003:
+                  value:
+                    errors:
+                    - code: '10003'
+                      title: Dossier allocataire absent MSA
+                      detail: Le dossier allocataire n'a pas été trouvé auprès de
+                        la MSA.
+                      source:
+                      meta:
+                        provider: MSA
+                  summary: Dossier allocataire absent MSA
+                  description: Le dossier allocataire n'a pas été trouvé auprès de
+                    la MSA.
+                dossier_allocataire_absent_cnaf_23003:
+                  value:
+                    errors:
+                    - code: '23003'
+                      title: Dossier allocataire absent CNAF
+                      detail: Le dossier allocataire n'a pas été trouvé auprès de
+                        la CNAF.
+                      source:
+                      meta:
+                        provider: CNAF
+                  summary: Dossier allocataire absent CNAF
+                  description: Le dossier allocataire n'a pas été trouvé auprès de
+                    la CNAF.
+                allocataire_non_reference_35003:
+                  value:
+                    errors:
+                    - code: '35003'
+                      title: Allocataire non référencé
+                      detail: L'allocataire n'est pas référencé auprès des caisses
+                        éligibles
+                      source:
+                      meta:
+                        provider: CNAF & MSA
+                  summary: Allocataire non référencé
+                  description: L'allocataire n'est pas référencé auprès des caisses
+                    éligibles
+                erreur_inattendue_35003:
+                  value:
+                    errors:
+                    - code: '35003'
+                      title: Erreur inattendue
+                      detail: Une erreur inattendue est survenue lors de la collecte
+                        des données
+                      source:
+                      meta:
+                        provider: CNAF & MSA
+                  summary: Erreur inattendue
+                  description: Une erreur inattendue est survenue lors de la collecte
+                    des données
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '502':
+          description: Erreur du fournisseur
+          content:
+            application/json:
+              examples:
+                provider_unknown_error:
+                  value:
+                    errors:
+                    - code: '37999'
+                      title: Erreur inconnue du fournisseur de données
+                      detail: La réponse retournée par le fournisseur de données est
+                        invalide et inconnue de notre service. L'équipe technique
+                        a été notifiée de cette erreur pour investigation.
+                      source:
+                      meta:
+                        provider: CNAV
+                  summary: Erreur inconnue du fournisseur de données
+                  description: La réponse retournée par le fournisseur de données
+                    est invalide et inconnue de notre service. L'équipe technique
+                    a été notifiée de cette erreur pour investigation.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '504':
+          description: Erreur d'intermédiaire
+          content:
+            application/json:
+              examples:
+                timeout_error:
+                  value:
+                    errors:
+                    - code: '37002'
+                      title: Intermédiaire hors-délai
+                      detail: Temps d’attente d’une réponse du fournisseur de données
+                        écoulé.
+                      source:
+                      meta:
+                        provider: CNAV
+                  summary: Intermédiaire hors-délai
+                  description: Temps d’attente d’une réponse du fournisseur de données
+                    écoulé.
+                provider_unavailable_error:
+                  value:
+                    errors:
+                    - code: '37001'
+                      title: Service non disponible
+                      detail: Service du fournisseur de données temporairement indisponible
+                        ou en maintenance.
+                      source:
+                      meta:
+                        provider: CNAV
+                  summary: Service non disponible
+                  description: Service du fournisseur de données temporairement indisponible
+                    ou en maintenance.
+                network_error:
+                  value:
+                    errors:
+                    - code: '00501'
+                      title: Erreur réseau
+                      detail: Problème de connexion au serveur distant. L'erreur peut
+                        venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                        souvent d'une erreur temporaire.
+                      source:
+                      meta:
+                        retry_in: 10
+                  summary: Erreur réseau
+                  description: Problème de connexion au serveur distant. L'erreur
+                    peut venir soit du fournisseur, soit de API Entreprise. Il s'agit
+                    souvent d'une erreur temporaire.
+                dns_resolution_error:
+                  value:
+                    errors:
+                    - code: '37004'
+                      title: Erreur de résolution DNS
+                      detail: Problème de résolution DNS de l'adresse du serveur
+                      source:
+                      meta:
+                        provider: CNAV
+                  summary: Erreur de résolution DNS
+                  description: Problème de résolution DNS de l'adresse du serveur
+                provider_error:
+                  value:
+                    errors:
+                    - code: '37008'
+                      title: 'Erreur auprès du fournisseur de données : trop de requêtes'
+                      detail: 'Erreur de fournisseur de donnée : Trop de requêtes
+                        effectuées, veuillez réessayer plus tard.'
+                      source:
+                      meta:
+                        provider: CNAV
+                  summary: 'Erreur auprès du fournisseur de données : trop de requêtes'
+                  description: 'Erreur de fournisseur de donnée : Trop de requêtes
+                    effectuées, veuillez réessayer plus tard.'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+  "/v3/dss/allocation_enfant_handicape/france_connect":
+    get:
+      summary: "[FranceConnect] Statut allocation d'éducation de l'enfant handicapé
+        (AEEH)"
+      tags:
+      - Statut Allocation d'Éducation de l'Enfant Handicapé (AEEH)
+      parameters:
+      - name: recipient
+        in: query
+        description: |-
+          "**Bénéficiaire de l’appel**
+
+          SIRET de l’administration destinatrice des données."
+        example: '13002526500013'
+        required: true
+        schema:
+          type: string
+      - name: Cache-Control
+        in: header
+        description: Si cette valeur est fixée à "no-cache", le système de cache est
+          alors ignoré et la donnée est directement récupérée depuis le fournisseur
+          de données.
+        schema:
+          type: string
+      security:
+      - jwt_bearer_token: []
+      description: "Statut bénéficiaire de l'allocation d'éducation de l'enfant handicapé
+        (AEEH). \n\n Retourne également des informations sur les prestations et les
+        dates d'ouverture des droits. \n L'indicateur précise si le particulier est
+        allocataire, ouvrant droit ou non bénéficiaire de l'AEEH."
+      responses:
+        '403':
+          description: Accès interdit
+          content:
+            application/json:
+              examples:
+                insufficient_privileges_error:
+                  value:
+                    errors:
+                    - code: '00100'
+                      title: Privilèges insuffisants
+                      detail: Votre token est valide mais vos privilèges sont insuffisants.
+                        Listez vos privilèges sur /api/introspect
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Privilèges insuffisants
+                  description: Votre token est valide mais vos privilèges sont insuffisants.
+                    Listez vos privilèges sur /api/introspect
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '200':
+          description: Dossier trouvé
+          headers:
+            X-Response-Cached:
+              schema:
+                type: boolean
+                example: true
+                enum:
+                - true
+                - false
+                default: false
+              description: Indique si la réponse a été caché.
+            X-Cache-Expires-in:
+              schema:
+                type: number
+                nullable: true
+                example: 9001
+              description: Secondes avant que le cache n'expire. Si le cache est vide,
+                ce header est vide (mais présent). La durée du cache est de 1 heure.
+          x-operationId: api_particulier_v3_cnav_allocation_enfant_handicape_with_france_connect
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      status:
+                        title: Statut bénéficiaire de l'allocation d'éducation de
+                          l'enfant handicapé (AEEH)
+                        type: string
+                        description: "Indique si le particulier est bénéficiaire de
+                          l'allocation d'éducation de l'enfant handicapé au moment
+                          de l'appel. \n \n - Si le statut est 'allocataire', cela
+                          signifie que le particulier est l'allocataire de l'AEEH
+                          (qualité bénéficiaire 105). Cela concerne généralement le
+                          parent ou le tuteur légal de l'enfant handicapé. \n - Si
+                          le statut est 'ouvrant_droit', cela signifie que le particulier
+                          est ouvrant droit de l'AEEH (qualité bénéficiaire 205).
+                          Cela concerne généralement l'enfant handicapé lui-même.
+                          \n - Si le statut est 'non_beneficiaire', cela signifie
+                          que le particulier n'est pas concerné par l'AEEH."
+                        enum:
+                        - allocataire
+                        - ouvrant_droit
+                        - non_beneficiaire
+                      date_debut_droit:
+                        title: Date d'ouverture du droit à l'AEEH
+                        type: string
+                        nullable: true
+                        description: "Date de début de droit à l'allocation enfant
+                          handicapé du particulier bénéficiaire. \n Ce champs est
+                          null dans le cas où le particulier n'est pas bénéficiaire
+                          de l'AEEH."
+                        example: '1992-11-29'
+                    required:
+                    - status
+                    - date_debut_droit
+                    additionalProperties: false
+                  links:
+                    type: object
+                  meta:
+                    type: object
+                required:
+                - data
+                - links
+                - meta
+        '422':
+          description: Impossible d'identifier l'allocataire
+          content:
+            application/json:
+              examples:
+                entite_non_traitable_00366:
+                  value:
+                    errors:
+                    - code: '00366'
+                      title: Entité non traitable
+                      detail: Un ou plusieurs paramètres de civilité ne sont pas correctement
+                        formatés
+                      source:
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Un ou plusieurs paramètres de civilité ne sont pas
+                    correctement formatés
+                missing_mandatory_params_recipient_error:
+                  value:
+                    errors:
+                    - code: '00203'
+                      title: Entité non traitable
+                      detail: Le paramètre recipient est obligatoire
+                      source:
+                        parameter: recipient
+                      meta: {}
+                  summary: Entité non traitable
+                  description: Le paramètre recipient est obligatoire
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Dossier allocataire inexistant. Le document ne peut être édité.
+          content:
+            application/json:
+              examples:
+                dossier_allocataire_absent_msa_10003:
+                  value:
+                    errors:
+                    - code: '10003'
+                      title: Dossier allocataire absent MSA
+                      detail: Le dossier allocataire n'a pas été trouvé auprès de
+                        la MSA.
+                      source:
+                      meta:
+                        provider: MSA
+                  summary: Dossier allocataire absent MSA
+                  description: Le dossier allocataire n'a pas été trouvé auprès de
+                    la MSA.
+                dossier_allocataire_absent_cnaf_23003:
+                  value:
+                    errors:
+                    - code: '23003'
+                      title: Dossier allocataire absent CNAF
+                      detail: Le dossier allocataire n'a pas été trouvé auprès de
+                        la CNAF.
+                      source:
+                      meta:
+                        provider: CNAF
+                  summary: Dossier allocataire absent CNAF
+                  description: Le dossier allocataire n'a pas été trouvé auprès de
+                    la CNAF.
+                allocataire_non_reference_35003:
+                  value:
+                    errors:
+                    - code: '35003'
+                      title: Allocataire non référencé
+                      detail: L'allocataire n'est pas référencé auprès des caisses
+                        éligibles
+                      source:
+                      meta:
+                        provider: CNAF & MSA
+                  summary: Allocataire non référencé
+                  description: L'allocataire n'est pas référencé auprès des caisses
+                    éligibles
+                erreur_inattendue_35003:
+                  value:
+                    errors:
+                    - code: '35003'
+                      title: Erreur inattendue
+                      detail: Une erreur inattendue est survenue lors de la collecte
+                        des données
+                      source:
+                      meta:
+                        provider: CNAF & MSA
+                  summary: Erreur inattendue
+                  description: Une erreur inattendue est survenue lors de la collecte
+                    des données
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '401':
+          description: Non autorisé
+          content:
+            application/json:
+              examples:
+                invalid_token_error:
+                  value:
+                    errors:
+                    - code: '00101'
+                      title: Interdit
+                      detail: Votre token n'est pas valide ou n'est pas renseigné
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Interdit
+                  description: Votre token n'est pas valide ou n'est pas renseigné
+                expired_token_error:
+                  value:
+                    errors:
+                    - code: '00103'
+                      title: Jeton expiré
+                      detail: Votre token est expiré. Vous devez refaire une demande
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton expiré
+                  description: Votre token est expiré. Vous devez refaire une demande
+                blacklisted_token_error:
+                  value:
+                    errors:
+                    - code: '00105'
+                      title: Jeton sur liste noire
+                      detail: 'Votre jeton est sur liste noire, celui-ci a certainement
+                        été divulgué sur un canal non-sécurisé. Vous pouvez trouver
+                        un jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+                      source:
+                        parameter: token
+                      meta: {}
+                  summary: Jeton sur liste noire
+                  description: 'Votre jeton est sur liste noire, celui-ci a certainement
+                    été divulgué sur un canal non-sécurisé. Vous pouvez trouver un
+                    jeton valide sur votre espace personnel: https://particulier.api.gouv.fr/compte'
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '409':
+          description: Conflit
+          content:
+            application/json:
+              examples:
+                conflict_error:
+                  value:
+                    errors:
+                    - code: '00015'
+                      title: Conflit
+                      detail: Une requête associé à votre jeton est déjà en cours
+                        de traitement pour ces paramètres. Veuillez attendre la fin
+                        du traitement avant d'effectuer une nouvelle requête.
+                      source:
+                      meta: {}
+                  summary: Conflit
+                  description: Une requête associé à votre jeton est déjà en cours
+                    de traitement pour ces paramètres. Veuillez attendre la fin du
+                    traitement avant d'effectuer une nouvelle requête.
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '429':
+          description: Trop de requêtes
+          content:
+            application/json:
+              examples:
+                too_many_requests_error:
+                  value:
+                    errors:
+                    - code: '00429'
+                      title: Trop de requêtes
+                      detail: Vous avez effectué trop de requêtes
+                      source:
+                      meta: {}
+                  summary: Trop de requêtes
+                  description: Vous avez effectué trop de requêtes
+              schema:
+                "$ref": "#/components/schemas/Error"
   "/v3/dss/allocation_soutien_familial/identite":
     get:
       summary: "[Identité] Statut allocation de soutien familial (ASF)"
@@ -5410,7 +6230,9 @@ paths:
                         description: Liste des données d'identité de l'allocataire
                           appelé et de celles du conjoint le cas échéant. La provenance
                           de ces données n'est pas sourcée précisément et diffère
-                          selon la CAF ou la MSA.
+                          selon la CAF ou la MSA. Les membres de la famille listés
+                          sont toujours ceux du mois en cours, y compris en cas d'appel
+                          sur une date antérieure.
                         items:
                           type: object
                           properties:
@@ -5451,7 +6273,9 @@ paths:
                         description: Liste des données d'identité des enfants composant
                           la famille, le cas échéant. La provenance de ces données
                           n'est pas sourcée précisément et diffère selon la CAF ou
-                          la MSA.
+                          la MSA. Les membres de la famille listés sont toujours ceux
+                          du mois en cours, y compris en cas d'appel sur une date
+                          antérieure.
                         items:
                           type: object
                           properties:
@@ -5950,7 +6774,9 @@ paths:
                         description: Liste des données d'identité de l'allocataire
                           appelé et de celles du conjoint le cas échéant. La provenance
                           de ces données n'est pas sourcée précisément et diffère
-                          selon la CAF ou la MSA.
+                          selon la CAF ou la MSA. Les membres de la famille listés
+                          sont toujours ceux du mois en cours, y compris en cas d'appel
+                          sur une date antérieure.
                         items:
                           type: object
                           properties:
@@ -5991,7 +6817,9 @@ paths:
                         description: Liste des données d'identité des enfants composant
                           la famille, le cas échéant. La provenance de ces données
                           n'est pas sourcée précisément et diffère selon la CAF ou
-                          la MSA.
+                          la MSA. Les membres de la famille listés sont toujours ceux
+                          du mois en cours, y compris en cas d'appel sur une date
+                          antérieure.
                         items:
                           type: object
                           properties:
