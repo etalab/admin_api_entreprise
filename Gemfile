@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'anchored'
-gem 'bcrypt', '~> 3.1.20'
+gem 'bcrypt', '~> 3.1.22'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'chronic'
 gem 'csv'
