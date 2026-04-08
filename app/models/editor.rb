@@ -3,6 +3,8 @@ class Editor < ApplicationRecord
     dependent: :nullify
   has_many :editor_delegations,
     dependent: :destroy
+  has_many :editor_tokens,
+    dependent: :destroy
 
   validates :name, presence: true
 
